@@ -12,7 +12,7 @@ import kpn.server.repository.BlacklistRepository
 import org.springframework.stereotype.Component
 
 @Component
-class RouteChangeAnalyzer(
+class BaseRouteChangeAnalyzer(
   analysisContext: AnalysisContext,
   blacklistRepository: BlacklistRepository,
   elementIdAnalyzer: ElementIdAnalyzer

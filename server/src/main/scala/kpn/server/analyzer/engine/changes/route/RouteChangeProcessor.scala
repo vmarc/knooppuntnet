@@ -13,14 +13,12 @@ import kpn.core.doc.RouteDoc
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.history.RouteTagDiffAnalyzer
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzer
 import kpn.server.overpass.OverpassRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
@@ -30,11 +28,9 @@ import scala.concurrent.ExecutionContext
 @Component
 class RouteChangeProcessor(
   analysisContext: AnalysisContext,
-  changeAnalyzer: RouteChangeAnalyzer,
+  changeAnalyzer: BaseRouteChangeAnalyzer,
   overpassRepository: OverpassRepository,
-  baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
   routeMainAnalyzer: RouteMainAnalyzer,
-  tileChangeAnalyzer: RouteTileChangeAnalyzer,
   routeRepository: RouteRepository,
   implicit val analysisExecutionContext: ExecutionContext
 ) extends ChangeProcessor {

@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
+import kpn.core.doc.BaseRouteDoc
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.tiles.domain.ZoomLevelRouteTileSegments
 import org.springframework.stereotype.Component
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Component
 @Component
 class RouteTileChangeAnalyzerImpl extends RouteTileChangeAnalyzer {
 
-  def impactedTiles(before: BaseRouteAnalysisContext, after: BaseRouteAnalysisContext): Seq[String] = {
+  def impactedTiles(before: BaseRouteDoc, after: BaseRouteDoc): Seq[String] = {
     Seq.empty // TODO redesign, re-implement
     //    if (tileRelatedRoutePropertiesChanged(before, after)) {
     //      // all tiles before and after are impacted

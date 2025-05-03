@@ -10,7 +10,7 @@ import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import org.springframework.stereotype.Component
 
 @Component
-class MainChangeProcessor(
+class ChangeProcessorPipeline(
   baseNodeChangeProcessor: BaseNodeChangeProcessor,
   baseNetworkChangeProcessor: BaseNetworkChangeProcessor,
   baseRouteChangeProcessor: BaseRouteChangeProcessor,
@@ -21,7 +21,7 @@ class MainChangeProcessor(
   changeSaver: ChangeSaver
 ) extends ChangeProcessor {
 
-  private val processors: Seq[ChangeProcessor] = Seq(
+  private val pipeline: Seq[ChangeProcessor] = Seq(
     baseNodeChangeProcessor,
     baseNetworkChangeProcessor,
     baseRouteChangeProcessor,
@@ -31,13 +31,13 @@ class MainChangeProcessor(
   )
 
   def process(context: ChangeSetContext): ChangeSetContext = {
-    val processedContext = executeProcessingChain(context)
+    val processedContext = processPipeline(context)
     saveChanges(processedContext)
     processedContext
   }
 
-  private def executeProcessingChain(initialContext: ChangeSetContext): ChangeSetContext = {
-    processors.foldLeft(initialContext) { (currentContext, processor) =>
+  private def processPipeline(initialContext: ChangeSetContext): ChangeSetContext = {
+    pipeline.foldLeft(initialContext) { (currentContext, processor) =>
       processor.process(currentContext)
     }
   }

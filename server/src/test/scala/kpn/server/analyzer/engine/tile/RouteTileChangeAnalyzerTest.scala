@@ -118,7 +118,6 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
   }
 
   private def impactedTiles(before: RouteDetailAnalysis, after: RouteDetailAnalysis): Seq[String] = {
-    pendingRedesignPrio1()
     val tileChangeAnalyzer = new RouteTileChangeAnalyzerImpl()
     // TODO redesign - tileChangeAnalyzer.impactedTiles(before, after)
     Seq.empty

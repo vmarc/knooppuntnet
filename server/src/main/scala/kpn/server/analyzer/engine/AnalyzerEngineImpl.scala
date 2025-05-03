@@ -7,8 +7,8 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
+import kpn.server.analyzer.engine.changes.ChangeProcessorPipeline
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.changes.MainChangeProcessor
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.poi.PoiChangeAnalyzer
@@ -32,7 +32,7 @@ class AnalyzerEngineImpl(
   osmChangeRepository: OsmChangeRepository,
   analysisDataInitializer: AnalysisDataInitializer,
   mainFullAnalyzer: MainFullAnalyzer,
-  mainChangeProcessor: MainChangeProcessor,
+  changeProcessorPipeline: ChangeProcessorPipeline,
   analysisRepository: AnalysisRepository,
   taskRepository: TaskRepository,
   tileUpdater: TileUpdater,
@@ -124,11 +124,12 @@ class AnalyzerEngineImpl(
         changeSet,
         elementIds
       )
-      val contextAfter = mainChangeProcessor.process(context)
+      val contextAfter = changeProcessorPipeline.process(context)
       val hasChanges = contextAfter.changes.nonEmpty
       replicationContext.copy(
         changeSetElementCount = replicationContext.changeSetElementCount + elementIds.size,
         hasChanges = replicationContext.hasChanges || hasChanges,
+        tiles = (replicationContext.tiles ++ contextAfter.impactedTiles).distinct.sorted,
       )
     }
   }

@@ -22,7 +22,7 @@ import kpn.server.repository.BlacklistRepositoryMock
 import java.util.concurrent.Executors
 import scala.concurrent.ExecutionContext
 
-class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseRouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("'Create' route") {
     val setup = new Setup()
@@ -164,7 +164,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
         changeSet,
         elementIds
       )
-      new RouteChangeAnalyzer(analysisContext, blacklistRepository, elementIdAnalyzer).analyze(context)
+      new BaseRouteChangeAnalyzer(analysisContext, blacklistRepository, elementIdAnalyzer).analyze(context)
     }
   }
 }

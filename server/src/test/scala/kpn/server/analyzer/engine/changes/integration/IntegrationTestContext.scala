@@ -35,9 +35,9 @@ import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteBoundsAnaly
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
+import kpn.server.analyzer.engine.changes.ChangeProcessorPipeline
 import kpn.server.analyzer.engine.changes.ChangeSaver
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
-import kpn.server.analyzer.engine.changes.MainChangeProcessor
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.BaseNetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzer
@@ -45,8 +45,11 @@ import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.node.base.BaseNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.node.base.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.node.main.NodeChangeProcessor
+import kpn.server.analyzer.engine.changes.route.BaseRouteChangeAnalyzer
+import kpn.server.analyzer.engine.changes.route.BaseRouteChangeCreateProcessor
+import kpn.server.analyzer.engine.changes.route.BaseRouteChangeDeleteProcessor
 import kpn.server.analyzer.engine.changes.route.BaseRouteChangeProcessor
-import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
+import kpn.server.analyzer.engine.changes.route.BaseRouteChangeUpdateProcessor
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
@@ -150,7 +153,7 @@ class IntegrationTestContext(
 
   private val routeChangeProcessor: RouteChangeProcessor = {
 
-    val routeChangeAnalyzer = new RouteChangeAnalyzer(
+    val routeChangeAnalyzer = new BaseRouteChangeAnalyzer(
       analysisContext,
       blacklistRepository,
       elementIdAnalyzer
@@ -160,9 +163,7 @@ class IntegrationTestContext(
       analysisContext,
       routeChangeAnalyzer,
       overpassRepository,
-      baseRouteMainAnalyzer,
       routeMainAnalyzer,
-      routeTileChangeAnalyzer,
       routeRepository,
       analysisExecutionContext
     )
@@ -265,7 +266,7 @@ class IntegrationTestContext(
   private val orphanRouteUpdater = new OrphanRouteUpdater(database)
   private val statisticsUpdater = new StatisticsUpdater(database)
 
-  val mainChangeProcessor: MainChangeProcessor = {
+  val changeProcessorPipeline: ChangeProcessorPipeline = {
 
     val changeSaver = new ChangeSaver(
       changeSetRepository,
@@ -308,25 +309,41 @@ class IntegrationTestContext(
     )
 
     val baseRouteChangeProcessor = {
-      val routeChangeAnalyzer = new RouteChangeAnalyzer(
+      val routeChangeAnalyzer = new BaseRouteChangeAnalyzer(
         analysisContext,
         blacklistRepository,
         elementIdAnalyzer
       )
 
-      new BaseRouteChangeProcessor(
+      val baseRouteChangeCreateProcessor = new BaseRouteChangeCreateProcessor(
         analysisContext,
-        routeChangeAnalyzer,
         baseRouteMainAnalyzer,
-        routeMainAnalyzer,
+        routeRepository,
+        rawDataRepository
+      )
+
+      val baseRouteChangeUpdateProcessor = new BaseRouteChangeUpdateProcessor(
+        analysisContext,
+        baseRouteMainAnalyzer,
         routeTileChangeAnalyzer,
         routeRepository,
-        rawDataRepository,
+        rawDataRepository
+      )
 
+      val baseRouteChangeDeleteProcessor = new BaseRouteChangeDeleteProcessor(
+        analysisContext,
+        routeRepository
+      )
+
+      new BaseRouteChangeProcessor(
+        routeChangeAnalyzer,
+        baseRouteChangeCreateProcessor,
+        baseRouteChangeUpdateProcessor,
+        baseRouteChangeDeleteProcessor,
       )
     }
 
-    new MainChangeProcessor(
+    new ChangeProcessorPipeline(
       baseNodeChangeProcessor,
       baseNetworkChangeProcessor,
       baseRouteChangeProcessor,

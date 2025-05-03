@@ -10,3 +10,4 @@ class NodeRouteReferencesAnalyzer(nodeRepository: NodeRepository) extends NodeAn
     context.copy(_routeReferences = Some(routReferences))
   }
 }
+
