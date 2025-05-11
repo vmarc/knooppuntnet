@@ -107,4 +107,24 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
       routeRepository.filterKnownBaseRoutes(Set(10, 20, 30)) should equal(Set(10, 20))
     }
   }
+
+  test("delete route tiles") {
+
+    withDatabase { database =>
+
+      val routeRepository = new RouteRepositoryImpl(database)
+
+      routeRepository.saveRouteTile(newRouteTileDoc("tile-1", 11))
+      routeRepository.saveRouteTile(newRouteTileDoc("tile-2", 11))
+
+      assertEqual(
+        routeRepository.routeTiles(11).map(_._id),
+        Seq("tile-1", "tile-2")
+      )
+
+      routeRepository.deleteRouteTiles(11)
+
+      routeRepository.routeTiles(11) shouldBe empty
+    }
+  }
 }

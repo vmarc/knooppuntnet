@@ -33,6 +33,10 @@ trait RouteRepository {
 
   def saveRouteTile(routeTile: RouteTileDoc): Unit
 
+  def routeTiles(routeId: Long): Seq[RouteTileDoc]
+
+  def deleteRouteTiles(routeId: Long): Unit
+
   def bulkSaveRoutes(routes: Seq[RouteDoc]): Unit
 
   def findRouteById(routeId: Long): Option[RouteDoc]

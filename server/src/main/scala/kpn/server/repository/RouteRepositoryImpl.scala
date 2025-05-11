@@ -30,11 +30,16 @@ import kpn.database.actions.routes.MongoQueryRouteTileNames
 import kpn.database.actions.routes.MongoQueryRoutes
 import kpn.database.actions.routes.MongoQuerySubRouteData
 import kpn.database.base.Database
+import kpn.database.base.StringId
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.sync.Transaction
+import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Projections.include
 import org.springframework.stereotype.Component
 
 @Component
@@ -69,6 +74,36 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
 
   override def saveRouteTile(routeTileDoc: RouteTileDoc): Unit = {
     database.routeTiles.save(routeTileDoc, log)
+  }
+
+  override def routeTiles(routeId: Long): Seq[RouteTileDoc] = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        filter(
+          equal("routeId", routeId),
+        )
+      )
+      val docs = database.routeTiles.aggregate[RouteTileDoc](pipeline, log)
+      (s"find tile docs route $routeId", docs)
+    }
+  }
+
+  override def deleteRouteTiles(routeId: Long): Unit = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        filter(
+          equal("routeId", routeId),
+        ),
+        project(
+          include("_id")
+        )
+      )
+      val tileDocIds = database.routeTiles.aggregate[StringId](pipeline, log)
+      tileDocIds.foreach { tileDocId =>
+        database.routeTiles.deleteByStringId(tileDocId._id, log)
+      }
+      (s"delete tile docs route $routeId", ())
+    }
   }
 
   override def bulkSaveRoutes(routeDocs: Seq[RouteDoc]): Unit = {

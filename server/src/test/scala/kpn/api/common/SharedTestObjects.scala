@@ -84,6 +84,7 @@ import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.test.OverpassData
 import kpn.database.actions.statistics.ChangeSetCount2
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -513,6 +514,26 @@ trait SharedTestObjects extends MockFactory {
       hierarchy,
       bounds,
       subRouteIds
+    )
+  }
+
+  def newRouteTileDoc(
+    _id: String,
+    routeId: Long,
+  ): RouteTileDoc = {
+    RouteTileDoc(
+      _id,
+      routeId,
+      routeName = "",
+      routeTypes = Seq.empty,
+      z = 0,
+      x = 0,
+      y = 0,
+      layer = "",
+      scope = None,
+      survey = None,
+      error = None,
+      segments = Seq.empty
     )
   }
 
