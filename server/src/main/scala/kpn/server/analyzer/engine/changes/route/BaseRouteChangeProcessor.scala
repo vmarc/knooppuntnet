@@ -18,13 +18,42 @@ class BaseRouteChangeProcessor(
   def process(changeSetContext: ChangeSetContext): ChangeSetContext = {
     log.debugElapsed {
       val routeElementChanges = analyzer.analyze(changeSetContext)
-      val changeSetContext1 = createProcessor.process(changeSetContext, routeElementChanges.creates)
-      val changeSetContext2 = updateProcessor.process(changeSetContext1, routeElementChanges.updates)
-      val changeSetContext3 = deleteProcessor.process(changeSetContext2, routeElementChanges.deletes)
+      val context = processChanges(
+        changeSetContext,
+        Seq(
+          (routeElementChanges.creates, createProcessor.process),
+          (routeElementChanges.updates, updateProcessor.process),
+          (routeElementChanges.deletes, deleteProcessor.process)
+        )
+      )
       (
-        s"${routeElementChanges.elementIds.size} base routes",
-        changeSetContext3
+        s"${routeElementChanges.size} base routes",
+        context.copy(
+          baseRouteCreatedIds = routeElementChanges.creates,
+          baseRouteUpdatedIds = routeElementChanges.updates,
+          baseRouteDeletedIds = routeElementChanges.deletes,
+        )
       )
     }
   }
+
+  private def processChanges(
+    initialContext: ChangeSetContext,
+    changes: Seq[(Seq[Long], BaseRouteChangeSubProcessor)]
+  ): ChangeSetContext = {
+    changes.foldLeft(initialContext) { case (context, (routeIds, processor)) =>
+      processRouteChanges(context, routeIds, processor)
+    }
+  }
+
+  private def processRouteChanges(
+    initialContext: ChangeSetContext,
+    routeIds: Seq[Long],
+    processor: BaseRouteChangeSubProcessor
+  ): ChangeSetContext = {
+    routeIds.foldLeft(initialContext) { (context, routeId) =>
+      processor.process(context, routeId)
+    }
+  }
 }
+

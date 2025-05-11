@@ -22,41 +22,26 @@ class BaseRouteChangeUpdateProcessor(
   routeTileChangeAnalyzer: RouteTileChangeAnalyzer,
   routeRepository: RouteRepository,
   rawDataRepository: RawDataRepository,
-) {
+) extends BaseRouteChangeSubProcessor {
 
   private val log = Log(classOf[BaseRouteChangeUpdateProcessor])
 
-  def process(changeSetContext: ChangeSetContext, routeIds: Seq[Long]): ChangeSetContext = {
-    val impacts = routeIds.flatMap { routeId =>
-      processRoute(changeSetContext, routeId)
-    }
-
-    changeSetContext.copy(
-      baseRouteUpdatedIds = routeIds,
-    ).withImpact(
-      tiles = impacts.flatMap(_.impactedTiles),
-      nodeIds = impacts.flatMap(_.impactedNodeIds),
-      routeIds = routeIds,
-    )
-  }
-
-  private def processRoute(changeSetContext: ChangeSetContext, routeId: Long): Option[ChangeImpact] = {
+  def process(changeSetContext: ChangeSetContext, routeId: Long): ChangeSetContext = {
     rawDataRepository.route(changeSetContext.changeSet.timestampAfter, routeId) match {
       case None =>
         // TODO report?
-        None
+        changeSetContext
       case Some(rawRouteDoc) =>
         val beforeOption = routeRepository.findBaseRouteById(routeId)
         analyzeBaseRoute(rawRouteDoc.relation, rawRouteDoc.structure) match {
-          case None => None
+          case None => changeSetContext
           case Some(baseRouteDoc) =>
             beforeOption match {
               case None =>
-                Some(
-                  ChangeImpact(
-                    impactedNodeIds = baseRouteDoc.nodes.nodeIds,
-                    impactedTiles = baseRouteDoc.tiles
-                  )
+                changeSetContext.withImpact(
+                  nodeIds = baseRouteDoc.nodes.nodeIds,
+                  tiles = baseRouteDoc.tiles,
+                  routeIds = Seq(routeId)
                 )
 
               case Some(before) =>
@@ -66,11 +51,10 @@ class BaseRouteChangeUpdateProcessor(
                 val removedNodeIds = beforeNodeIds -- afterNodeIds
                 val impactedNodeIds = (addedNodeIds ++ removedNodeIds).toSeq.sorted
                 val impactedTiles = routeTileChangeAnalyzer.impactedTiles(before, baseRouteDoc)
-                Some(
-                  ChangeImpact(
-                    impactedNodeIds = (addedNodeIds ++ removedNodeIds).toSeq.sorted,
-                    impactedTiles = impactedTiles
-                  )
+                changeSetContext.withImpact(
+                  nodeIds = (addedNodeIds ++ removedNodeIds).toSeq.sorted,
+                  tiles = impactedTiles,
+                  routeIds = Seq(routeId)
                 )
             }
         }

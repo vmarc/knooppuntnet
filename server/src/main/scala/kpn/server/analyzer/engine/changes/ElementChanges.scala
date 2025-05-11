@@ -8,11 +8,11 @@ case class ElementChanges(
   deletes: Seq[Long] = Seq.empty
 ) {
 
+  def size: Int = creates.size + updates.size + deletes.size
+
   def isEmpty: Boolean = creates.isEmpty && updates.isEmpty && deletes.isEmpty
 
   def nonEmpty: Boolean = creates.nonEmpty || updates.nonEmpty || deletes.nonEmpty
-
-  def actionCount: Int = creates.size + updates.size + deletes.size
 
   def elementIds: Seq[Long] = (creates ++ updates ++ deletes).distinct.sorted
 

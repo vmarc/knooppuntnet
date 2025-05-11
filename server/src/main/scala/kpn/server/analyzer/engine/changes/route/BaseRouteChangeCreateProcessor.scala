@@ -16,55 +16,39 @@ class BaseRouteChangeCreateProcessor(
   baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
   routeRepository: RouteRepository,
   rawDataRepository: RawDataRepository,
-) {
+) extends BaseRouteChangeSubProcessor {
 
   private val log = Log(classOf[BaseRouteChangeCreateProcessor])
 
-  def process(changeSetContext: ChangeSetContext, routeIds: Seq[Long]): ChangeSetContext = {
-    val impacts = routeIds.flatMap { routeId =>
-      processRoute(changeSetContext, routeId)
-    }
-
-    changeSetContext.copy(
-      baseRouteCreatedIds = routeIds,
-    ).withImpact(
-      tiles = impacts.flatMap(_.impactedTiles),
-      nodeIds = impacts.flatMap(_.impactedNodeIds),
-      routeIds = routeIds,
-    )
-  }
-
-  private def processRoute(changeSetContext: ChangeSetContext, routeId: Long): Option[ChangeImpact] = {
+  def process(changeSetContext: ChangeSetContext, routeId: Long): ChangeSetContext = {
     rawDataRepository.route(changeSetContext.changeSet.timestampAfter, routeId) match {
       case None =>
         // TODO redesign report?
         println("route not found")
-        None
+        changeSetContext
       case Some(rawRouteDoc) =>
         val baseRouteAnalysisContext = baseRouteMainAnalyzer.analyze(rawRouteDoc.relation, rawRouteDoc.structure)
         if (!baseRouteAnalysisContext.abort) {
           analysisContext.watched.routes.add(routeId, baseRouteAnalysisContext.elementIds)
           val baseRouteDoc = new BaseRouteDocBuilder(baseRouteAnalysisContext).build()
           routeRepository.saveBaseRoute(baseRouteDoc)
-          Some(
-            ChangeImpact(
-              baseRouteDoc.nodes.nodeIds,
-              baseRouteDoc.tiles
-            )
+          changeSetContext.withImpact(
+            tiles = baseRouteDoc.tiles,
+            nodeIds = baseRouteDoc.nodes.nodeIds,
+            routeIds = Seq(routeId),
           )
         }
         else {
           if (baseRouteAnalysisContext.facts.contains(Fact.LostRouteTags)) {
             val baseRouteDoc = new BaseRouteDocBuilder(baseRouteAnalysisContext).build() // TODO redesign - this is not going to work because info is incomplete???
-            Some(
-              ChangeImpact(
-                baseRouteDoc.nodes.nodeIds,
-                baseRouteDoc.tiles
-              )
+            changeSetContext.withImpact(
+              tiles = baseRouteDoc.tiles,
+              nodeIds = baseRouteDoc.nodes.nodeIds,
+              routeIds = Seq(routeId),
             )
           }
           else {
-            None
+            changeSetContext
           }
         }
     }

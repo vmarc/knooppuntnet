@@ -10,35 +10,24 @@ import org.springframework.stereotype.Component
 class BaseRouteChangeDeleteProcessor(
   analysisContext: AnalysisContext,
   routeRepository: RouteRepository,
-) {
+) extends BaseRouteChangeSubProcessor {
 
   private val log = Log(classOf[BaseRouteChangeDeleteProcessor])
 
-  def process(changeSetContext: ChangeSetContext, routeIds: Seq[Long]): ChangeSetContext = {
-    val impacts = routeIds.flatMap(processRoute)
-    changeSetContext.copy(
-      baseRouteDeletedIds = routeIds
-    ).withImpact(
-      tiles = impacts.flatMap(_.impactedTiles),
-      nodeIds = impacts.flatMap(_.impactedNodeIds),
-      routeIds = routeIds,
-    )
-  }
-
-  private def processRoute(routeId: Long): Option[ChangeImpact] = {
+  def process(changeSetContext: ChangeSetContext, routeId: Long): ChangeSetContext = {
     analysisContext.watched.routes.delete(routeId)
     routeRepository.findBaseRouteById(routeId) match {
       case Some(baseRouteDoc) =>
+        // TODO redesign - remove tile docs
         routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
-        Some(
-          ChangeImpact(
-            baseRouteDoc.nodes.nodeIds,
-            baseRouteDoc.tiles
-          )
+        changeSetContext.withImpact(
+          tiles = baseRouteDoc.tiles,
+          nodeIds = baseRouteDoc.nodes.nodeIds,
+          routeIds = Seq(routeId)
         )
       case None =>
         // TODO report?
-        None
+        changeSetContext
     }
   }
 }
