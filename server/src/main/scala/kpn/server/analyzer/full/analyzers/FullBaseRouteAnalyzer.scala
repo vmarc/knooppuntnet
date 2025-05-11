@@ -19,6 +19,7 @@ class FullBaseRouteAnalyzer(
   rawDataRepository: RawDataRepository,
   routeRepository: RouteRepository,
   baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
+  baseRouteDocBuilder: BaseRouteDocBuilder,
 ) extends FullAnalyzer {
 
   private val ThreadPoolSize = 10
@@ -94,7 +95,7 @@ class FullBaseRouteAnalyzer(
   }
 
   private def saveRouteData(context: BaseRouteAnalysisContext): Unit = {
-    val baseRouteDoc = new BaseRouteDocBuilder(context).build()
+    val baseRouteDoc = baseRouteDocBuilder.build(context)
     routeRepository.saveBaseRoute(baseRouteDoc)
     saveTileData(context)
   }

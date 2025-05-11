@@ -22,6 +22,7 @@ class BaseRouteChangeUpdateProcessor(
   routeTileChangeAnalyzer: RouteTileChangeAnalyzer,
   routeRepository: RouteRepository,
   rawDataRepository: RawDataRepository,
+  baseRouteDocBuilder: BaseRouteDocBuilder,
 ) extends BaseRouteChangeSubProcessor {
 
   private val log = Log(classOf[BaseRouteChangeUpdateProcessor])
@@ -79,7 +80,7 @@ class BaseRouteChangeUpdateProcessor(
       }
     }
     else {
-      val baseRouteDoc = new BaseRouteDocBuilder(context).build()
+      val baseRouteDoc = baseRouteDocBuilder.build(context)
       analysisContext.watched.routes.add(relation.id, context.elementIds)
       routeRepository.saveBaseRoute(baseRouteDoc)
       context.tileDatas.foreach { tileData =>

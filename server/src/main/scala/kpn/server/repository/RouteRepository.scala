@@ -31,7 +31,7 @@ trait RouteRepository {
 
   def saveRoute(route: RouteDoc): Unit
 
-  def saveRouteTile(routeTile: RouteTileDoc): Unit
+  def saveRouteTile(routeTileDoc: RouteTileDoc): Unit
 
   def routeTiles(routeId: Long): Seq[RouteTileDoc]
 

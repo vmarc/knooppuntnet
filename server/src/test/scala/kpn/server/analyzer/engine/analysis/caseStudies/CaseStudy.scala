@@ -40,7 +40,7 @@ object CaseStudy extends MockFactory {
   }
 
   def baseRouteDoc(name: String): BaseRouteDoc = {
-    new BaseRouteDocBuilder(analyze(name)).build()
+    new BaseRouteDocBuilder().build(analyze(name))
   }
 
   def load(filename: String): Relation = {

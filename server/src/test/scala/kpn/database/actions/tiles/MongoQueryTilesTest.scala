@@ -1,12 +1,12 @@
 package kpn.database.actions.tiles
 
-import kpn.core.TestObjects
+import kpn.api.common.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 
-class MongoQueryTilesTest extends UnitTest with TestObjects {
+class MongoQueryTilesTest extends UnitTest with SharedTestObjects {
 
   test("nodeIds") {
 

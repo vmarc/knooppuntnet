@@ -1,16 +1,15 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.RouteType
+import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
-import kpn.core.TestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
 import kpn.server.analyzer.engine.tiles.domain.TileDataRouteSegment
 import kpn.server.analyzer.engine.tiles.domain.ZoomLevelRouteTileSegments
-import org.scalamock.scalatest.MockFactory
 
-class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObjects {
+class RouteTileChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("no tiles when no change with impact") {
     val before = buildRouteAnalysis()

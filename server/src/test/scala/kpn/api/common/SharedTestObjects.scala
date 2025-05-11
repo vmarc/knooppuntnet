@@ -84,7 +84,11 @@ import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.test.OverpassData
 import kpn.database.actions.statistics.ChangeSetCount2
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
+import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -1551,6 +1555,48 @@ trait SharedTestObjects extends MockFactory {
       isOnewayLoopBackwardPart,
       isOnewayHead,
       isOnewayTail,
+    )
+  }
+
+  def newChangeSetContext(): ChangeSetContext = {
+    ChangeSetContext(
+      ReplicationId(1),
+      newChangeSet(),
+      ElementIds()
+    )
+  }
+
+  def newRouteTileData(
+    z: Long = 0,
+    x: Long = 0,
+    y: Long = 0,
+    layer: String = "",
+    scope: Option[RouteScope] = None,
+    survey: Option[String] = None,
+    error: Option[String] = None,
+    segments: Seq[RouteTileSegment] = Seq.empty
+  ): RouteTileData = {
+    RouteTileData(
+      z: Long,
+      x: Long,
+      y: Long,
+      layer: String,
+      scope: Option[RouteScope],
+      survey: Option[String],
+      error: Option[String],
+      segments: Seq[RouteTileSegment]
+    )
+  }
+
+  def newRouteNodeAnalysis(
+    id: Long = 0,
+    name: String = "",
+  ): RouteNodeAnalysis = {
+    RouteNodeAnalysis(
+      node = newNode(id),
+      name = name,
+      alternateName = "",
+      isInWay = false,
     )
   }
 }

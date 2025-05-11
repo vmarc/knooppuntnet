@@ -26,6 +26,7 @@ import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.PostProcessor
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
+import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzerMock
@@ -266,6 +267,8 @@ class IntegrationTestContext(
   private val orphanRouteUpdater = new OrphanRouteUpdater(database)
   private val statisticsUpdater = new StatisticsUpdater(database)
 
+  private val baseRouteDocBuilder = new BaseRouteDocBuilder()
+
   val changeProcessorPipeline: ChangeProcessorPipeline = {
 
     val changeSaver = new ChangeSaver(
@@ -317,9 +320,10 @@ class IntegrationTestContext(
 
       val baseRouteChangeCreateProcessor = new BaseRouteChangeCreateProcessor(
         analysisContext,
-        baseRouteMainAnalyzer,
+        rawDataRepository,
         routeRepository,
-        rawDataRepository
+        baseRouteMainAnalyzer,
+        baseRouteDocBuilder
       )
 
       val baseRouteChangeUpdateProcessor = new BaseRouteChangeUpdateProcessor(
@@ -327,7 +331,8 @@ class IntegrationTestContext(
         baseRouteMainAnalyzer,
         routeTileChangeAnalyzer,
         routeRepository,
-        rawDataRepository
+        rawDataRepository,
+        baseRouteDocBuilder
       )
 
       val baseRouteChangeDeleteProcessor = new BaseRouteChangeDeleteProcessor(
@@ -376,6 +381,7 @@ class IntegrationTestContext(
       rawDataRepository,
       routeRepository,
       baseRouteMainAnalyzer,
+      baseRouteDocBuilder
     )
 
     val fullAnalysisPipeline = new FullAnalysisPipeline(

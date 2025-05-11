@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.changes.route
 
-import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.route.RouteNodes
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.util.Log
+import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -13,28 +13,35 @@ import kpn.server.repository.RouteRepository
 
 class BaseRouteChangeDeleteProcessorTest extends UnitTest with SharedTestObjects {
 
-  test("delete route") {
-
-    // setup
+  private class Setup extends SharedTestObjects {
+    val log: MockLog = Log.mock
     val analysisContext = new AnalysisContext()
     analysisContext.watched.routes.add(11, ElementIds(nodeIds = Set(1001, 1002)))
-
-    val routeRepository = stub[RouteRepository]
-    (routeRepository.findBaseRouteById _).when(11).returns(Some(buildBaseRouteDoc()))
-
+    val routeRepository: RouteRepository = stub[RouteRepository]
     val processor = new BaseRouteChangeDeleteProcessor(
       analysisContext,
       routeRepository,
     )
 
+    def process(): ChangeSetContext = {
+      processor.loggedProcess(newChangeSetContext(), 11, log)
+    }
+  }
+
+  test("delete route") {
+
+    // setup
+    val setup = new Setup()
+    (setup.routeRepository.findBaseRouteById _).when(11).returns(Some(buildBaseRouteDoc()))
+
     // execute
-    val updatedChangeSetContext = processor.process(buildChangeSetContext(), 11)
+    val updatedChangeSetContext = setup.process()
 
     // verify
-    analysisContext.watched.routes.size should equal(0)
+    setup.analysisContext.watched.routes.size should equal(0)
 
-    (routeRepository.deleteRouteTiles _).verify(11).once()
-    (routeRepository.saveBaseRoute _).verify(
+    (setup.routeRepository.deleteRouteTiles _).verify(11).once()
+    (setup.routeRepository.saveBaseRoute _).verify(
       where { (doc: BaseRouteDoc) =>
         doc.labels shouldBe empty
         true
@@ -49,37 +56,22 @@ class BaseRouteChangeDeleteProcessorTest extends UnitTest with SharedTestObjects
   test("log warning if route to be deleted is not found") {
 
     // setup
-    val analysisContext = new AnalysisContext()
-    analysisContext.watched.routes.add(11, ElementIds(nodeIds = Set(1001, 1002)))
-
-    val routeRepository = stub[RouteRepository]
-
-    (routeRepository.findBaseRouteById _).when(11).returns(None)
-
-    val processor = new BaseRouteChangeDeleteProcessor(
-      analysisContext,
-      routeRepository,
-    )
-
-    val log = Log.mock
+    val setup = new Setup()
+    (setup.routeRepository.findBaseRouteById _).when(11).returns(None)
 
     // execute
-    val updatedChangeSetContext = processor.loggedProcess(buildChangeSetContext(), 11, log)
+    val updatedChangeSetContext = setup.process()
 
     // verify
-    analysisContext.watched.routes.size should equal(0)
-
-    (routeRepository.saveBaseRoute _).verify(*).never()
-
-    (routeRepository.deleteRouteTiles _).verify(11).once()
-
+    setup.analysisContext.watched.routes.size should equal(0)
+    (setup.routeRepository.saveBaseRoute _).verify(*).never()
+    (setup.routeRepository.deleteRouteTiles _).verify(11).once()
     assertEqual(
-      log.messages,
+      setup.log.messages,
       Seq(
         "WARN route 11 not found"
       )
     )
-
     assertEqual(updatedChangeSetContext.impactedRouteIds, Seq(11))
   }
 
@@ -91,14 +83,6 @@ class BaseRouteChangeDeleteProcessorTest extends UnitTest with SharedTestObjects
         startNode = Some(newRouteNode(1001, "01")),
         endNode = Some(newRouteNode(1002, "02")),
       )
-    )
-  }
-
-  private def buildChangeSetContext(): ChangeSetContext = {
-    ChangeSetContext(
-      ReplicationId(1),
-      newChangeSet(),
-      ElementIds()
     )
   }
 }

@@ -27,6 +27,7 @@ import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.PostProcessor
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
+import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzerImpl
@@ -211,6 +212,8 @@ class InitialAnalysisConfiguration(options: InitialAnalysisToolOptions) {
     executor
   }
 
+  private val baseRouteDocBuilder = new BaseRouteDocBuilder()
+
   private val fullBaseNodeAnalyzer = new FullBaseNodeAnalyzer(
     rawDataRepository,
     nodeRepository,
@@ -220,7 +223,8 @@ class InitialAnalysisConfiguration(options: InitialAnalysisToolOptions) {
   private val fullBaseRouteAnalyzer = new FullBaseRouteAnalyzer(
     rawDataRepository,
     routeRepository,
-    baseRouteMainAnalyzer
+    baseRouteMainAnalyzer,
+    baseRouteDocBuilder
   )
 
   private val fullBaseNetworkAnalyzer = new FullBaseNetworkAnalyzer(

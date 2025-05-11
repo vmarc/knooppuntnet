@@ -70,6 +70,10 @@ case class BaseRouteAnalysisContext(
   abort: Boolean = false
 ) {
 
+  def routeId: Long = {
+    relation.id
+  }
+
   def scopedRouteType: ScopedRouteType = {
     scopedRouteTypeOption.getOrElse {
       throw new IllegalArgumentException("trying to use scopedRouteType before definition")

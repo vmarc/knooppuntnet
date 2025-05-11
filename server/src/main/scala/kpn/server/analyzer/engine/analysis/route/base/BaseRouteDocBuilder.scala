@@ -11,10 +11,12 @@ import kpn.api.custom.Timestamp
 import kpn.core.analysis.Facts
 import kpn.core.doc.BaseRouteDoc
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
+import org.springframework.stereotype.Component
 
-class BaseRouteDocBuilder(context: BaseRouteAnalysisContext) {
+@Component
+class BaseRouteDocBuilder() {
 
-  def build(): BaseRouteDoc = {
+  def build(context: BaseRouteAnalysisContext): BaseRouteDoc = {
 
     val title: String = context.routeNameAnalysis.name match {
       case Some(routeName) => routeName
