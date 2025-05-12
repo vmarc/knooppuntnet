@@ -20,36 +20,42 @@ class BaseRouteChangeDeleter(
   }
 
   def loggedDelete(changeSetContext: ChangeSetContext, routeId: Long, log: Log): ChangeSetContext = {
-    stopWatching(routeId)
-    val context1 = deleteRouteTileDocs(changeSetContext, routeId)
-    val context2 = deleteBaseRouteDoc(context1, routeId, log)
-    context2.withImpact(routeIds = Seq(routeId))
+    new Deleter(log, routeId).delete(changeSetContext)
   }
 
-  private def deleteBaseRouteDoc(changeSetContext: ChangeSetContext, routeId: Long, log: Log): ChangeSetContext = {
-    routeRepository.findBaseRouteById(routeId) match {
-      case Some(baseRouteDoc) =>
-        deactivateBaseRouteDoc(changeSetContext, baseRouteDoc)
-      case None =>
-        log.warn(s"route $routeId not found")
-        changeSetContext
+  private class Deleter(log: Log, routeId: Long) {
+
+    def delete(changeSetContext: ChangeSetContext): ChangeSetContext = {
+      unwatchRoute()
+      val context1 = deleteRouteTileDocs(changeSetContext)
+      val context2 = deleteBaseRouteDoc(context1)
+      context2.withImpact(routeIds = Seq(routeId))
     }
-  }
 
-  private def deactivateBaseRouteDoc(changeSetContext: ChangeSetContext, baseRouteDoc: BaseRouteDoc): ChangeSetContext = {
-    routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
-    changeSetContext.withImpact(
-      nodeIds = baseRouteDoc.nodes.nodeIds
-    )
-  }
+    private def unwatchRoute(): Unit = {
+      analysisContext.watched.routes.delete(routeId)
+    }
 
-  private def stopWatching(routeId: Long): Unit = {
-    analysisContext.watched.routes.delete(routeId)
-  }
+    private def deleteRouteTileDocs(changeSetContext: ChangeSetContext): ChangeSetContext = {
+      val tileIds = routeRepository.routeTileIds(routeId)
+      tileIds.foreach(routeRepository.deleteRouteTile)
+      changeSetContext.withImpact(tileIds = tileIds)
+    }
 
-  private def deleteRouteTileDocs(changeSetContext: ChangeSetContext, routeId: Long): ChangeSetContext = {
-    val tileIds = routeRepository.routeTileIds(routeId)
-    tileIds.foreach(routeRepository.deleteRouteTile)
-    changeSetContext.withImpact(tileIds = tileIds)
+    private def deleteBaseRouteDoc(changeSetContext: ChangeSetContext): ChangeSetContext = {
+      routeRepository.findBaseRouteById(routeId) match {
+        case Some(baseRouteDoc) => deactivateBaseRouteDoc(changeSetContext, baseRouteDoc)
+        case None =>
+          log.warn(s"route $routeId not found")
+          changeSetContext
+      }
+    }
+
+    private def deactivateBaseRouteDoc(changeSetContext: ChangeSetContext, baseRouteDoc: BaseRouteDoc): ChangeSetContext = {
+      routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
+      changeSetContext.withImpact(
+        nodeIds = baseRouteDoc.nodes.nodeIds
+      )
+    }
   }
 }
