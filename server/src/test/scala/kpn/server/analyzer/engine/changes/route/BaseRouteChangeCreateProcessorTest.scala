@@ -22,7 +22,7 @@ import kpn.server.repository.RouteRepository
 
 class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects {
 
-  class Setup {
+  private class Setup {
     val log: MockLog = Log.mock
     val analysisContext = new AnalysisContext()
     val routeRepository: RouteRepository = stub[RouteRepository]
@@ -38,7 +38,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
     )
 
     def process(): ChangeSetContext = {
-      processor.loggedProcess(newChangeSetContext(), 11, log)
+      processor.loggedProcess(log, newChangeSetContext(), 11)
     }
   }
 
@@ -119,7 +119,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
 
     updatedChangeSetContext.impactedTileIds shouldBe empty
     updatedChangeSetContext.impactedNodeIds shouldBe empty
-    updatedChangeSetContext.impactedRouteIds shouldBe empty
+    updatedChangeSetContext.impactedRouteIds.shouldEqual(Seq(11))
 
     (setup.baseRouteDocBuilder.build _).verify(*).never()
     (setup.routeRepository.saveBaseRoute _).verify(*).never()

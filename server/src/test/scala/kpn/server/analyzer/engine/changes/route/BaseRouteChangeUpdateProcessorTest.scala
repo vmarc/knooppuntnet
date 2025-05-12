@@ -14,26 +14,25 @@ import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
-import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzer
-import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzerImpl
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
 
 class BaseRouteChangeUpdateProcessorTest extends UnitTest with SharedTestObjects {
 
-  class Setup {
+  private class Setup {
     val log: MockLog = Log.mock
     val analysisContext = new AnalysisContext()
     val routeRepository: RouteRepository = stub[RouteRepository]
     val baseRouteMainAnalyzer: BaseRouteMainAnalyzer = stub[BaseRouteMainAnalyzer]
     val rawDataRepository: RawDataRepository = stub[RawDataRepository]
     val baseRouteDocBuilder: BaseRouteDocBuilder = stub[BaseRouteDocBuilder]
-    val routeTileChangeAnalyzer: RouteTileChangeAnalyzer = new RouteTileChangeAnalyzerImpl()
-    val baseRouteDeleter: BaseRouteChangeDeleter = stub[BaseRouteChangeDeleter]
+    val routeTileChangeAnalyzer: BaseRouteChangeUpdateTileProcessor = (changeSetContext: ChangeSetContext, _) => {
+      changeSetContext.withImpact(tileIds = Seq("updated-tile"))
+    }
+    val baseRouteDeleter: BaseRouteChangeDeleterMock = new BaseRouteChangeDeleterMock()
     private val processor = new BaseRouteChangeUpdateProcessor(
       analysisContext,
       rawDataRepository,
@@ -45,7 +44,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with SharedTestObjects
     )
 
     def process(): ChangeSetContext = {
-      processor.loggedProcess(newChangeSetContext(), 11, log)
+      processor.loggedProcess(log, newChangeSetContext(), 11)
     }
   }
 
@@ -72,12 +71,6 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with SharedTestObjects
     val afterBaseRouteDoc = newBaseRouteDoc(newRouteSummary(11, name = "after"))
     (setup.baseRouteDocBuilder.build _).when(*).returns(afterBaseRouteDoc).once()
 
-    val beforeTileDocs = Seq(
-      newRouteTileDoc("tile-before-1", 11),
-      newRouteTileDoc("tile-before-2", 11),
-    )
-    (setup.routeRepository.routeTiles _).when(*).returns(beforeTileDocs).once()
-
     // execute
     val updatedChangeSetContext = setup.process()
 
@@ -91,11 +84,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with SharedTestObjects
       where((doc: BaseRouteDoc) => doc._id == 11 && doc.summary.name == "after")
     ).once()
 
-    assertRouteTileDocSaved(setup, "1-1-1-11")
-    assertRouteTileDocSaved(setup, "2-2-2-11")
-
-    assertEqual(updatedChangeSetContext.impactedTileIds, Seq("1-1-1-11", "2-2-2-11", "tile-before-1", "tile-before-2"))
-
+    assertEqual(updatedChangeSetContext.impactedTileIds, Seq("updated-tile"))
     assertEqual(updatedChangeSetContext.impactedNodeIds, Seq(1001, 1002))
     assertEqual(updatedChangeSetContext.impactedRouteIds, Seq(11))
   }
@@ -137,11 +126,10 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with SharedTestObjects
 
     updatedChangeSetContext.impactedTileIds shouldBe empty
     updatedChangeSetContext.impactedNodeIds shouldBe empty
-    updatedChangeSetContext.impactedRouteIds shouldBe empty
+    updatedChangeSetContext.impactedRouteIds.shouldEqual(Seq(11))
 
     (setup.baseRouteDocBuilder.build _).verify(*).never()
     (setup.routeRepository.saveBaseRoute _).verify(*).never()
-    (setup.routeRepository.saveRouteTile _).verify(*).never()
   }
 
   test("route analysis is aborted with LostRouteTags") {
@@ -167,12 +155,40 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with SharedTestObjects
       where((doc: BaseRouteDoc) => doc._id == 11)
     ).once()
 
-    assertRouteTileDocSaved(setup, "1-1-1-11")
-    assertRouteTileDocSaved(setup, "2-2-2-11")
-
     assertEqual(updatedChangeSetContext.impactedTileIds, Seq("1-1-1-11", "2-2-2-11"))
     assertEqual(updatedChangeSetContext.impactedNodeIds, Seq(1001, 1002))
     assertEqual(updatedChangeSetContext.impactedRouteIds, Seq(11))
+  }
+
+  test("route looses required tag(s)") {
+
+    // setup
+    val setup = new Setup()
+
+    val rawRouteDoc = buildRawRouteDoc()
+    (setup.rawDataRepository.route _).when(*, 11).returns(Some(rawRouteDoc)).once()
+
+    val beforeBaseRouteDoc = newBaseRouteDoc(
+      newRouteSummary(11, name = "before"),
+      nodes = RouteNodes(
+        startNode = Some(newRouteNode(1001, "01")),
+        endNode = Some(newRouteNode(1002, "02")),
+      )
+    )
+    (setup.routeRepository.findBaseRouteById _).when(*).returns(Some(beforeBaseRouteDoc)).once()
+
+    val analysisResult = buildAnalysisResult(rawRouteDoc).copy(abort = true, facts = Seq(Fact.RouteTagMissing))
+    (setup.baseRouteMainAnalyzer.analyze _).when(*, *, *).returns(analysisResult).once()
+
+    // execute
+    val updatedChangeSetContext = setup.process()
+
+    // verify
+    setup.analysisContext.watched.routes.contains(11) shouldBe false
+
+    setup.baseRouteDeleter.deletedRouteIds.shouldEqual(Seq(11))
+
+    (setup.routeRepository.saveBaseRoute _).verify(*).never()
   }
 
   private def buildRawRouteDoc(): RawRouteDoc = {
@@ -220,11 +236,5 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with SharedTestObjects
       rawRouteDoc.structure,
       abort = true,
     )
-  }
-
-  private def assertRouteTileDocSaved(setup: Setup, tileId: String): Unit = {
-    (setup.routeRepository.saveRouteTile _).verify(
-      where((routeTileDoc: RouteTileDoc) => routeTileDoc._id == tileId)
-    ).once()
   }
 }

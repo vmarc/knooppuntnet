@@ -18,13 +18,13 @@ class BaseRouteChangeDeleterTest extends UnitTest with SharedTestObjects {
     val analysisContext = new AnalysisContext()
     analysisContext.watched.routes.add(11, ElementIds(nodeIds = Set(1001, 1002)))
     val routeRepository: RouteRepository = stub[RouteRepository]
-    val deleter = new BaseRouteChangeDeleter(
+    val deleter = new BaseRouteChangeDeleterImpl(
       analysisContext,
       routeRepository,
     )
 
     def delete(): ChangeSetContext = {
-      deleter.loggedDelete(newChangeSetContext(), 11, log)
+      deleter.loggedDelete(log, newChangeSetContext(), 11)
     }
   }
 
