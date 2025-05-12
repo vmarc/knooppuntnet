@@ -129,7 +129,7 @@ class AnalyzerEngineImpl(
       replicationContext.copy(
         changeSetElementCount = replicationContext.changeSetElementCount + elementIds.size,
         hasChanges = replicationContext.hasChanges || hasChanges,
-        tiles = (replicationContext.tiles ++ contextAfter.impactedTiles).distinct.sorted,
+        tiles = (replicationContext.tiles ++ contextAfter.impactedTileIds).distinct.sorted,
       )
     }
   }

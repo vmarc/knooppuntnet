@@ -108,6 +108,22 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
     }
   }
 
+  test("find route tile ids") {
+
+    withDatabase { database =>
+
+      val routeRepository = new RouteRepositoryImpl(database)
+
+      routeRepository.saveRouteTile(newRouteTileDoc("tile-1", 11))
+      routeRepository.saveRouteTile(newRouteTileDoc("tile-2", 11))
+
+      assertEqual(
+        routeRepository.routeTileIds(11),
+        Seq("tile-1", "tile-2")
+      )
+    }
+  }
+
   test("delete route tiles") {
 
     withDatabase { database =>

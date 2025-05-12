@@ -39,6 +39,7 @@ import kpn.server.sync.Transaction
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 import org.springframework.stereotype.Component
 
@@ -88,6 +89,23 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     }
   }
 
+  override def routeTileIds(routeId: Long): Seq[String] = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        filter(
+          equal("routeId", routeId),
+        ),
+        project(
+          fields(
+            include("_id")
+          )
+        )
+      )
+      val ids = database.routeTiles.aggregate[StringId](pipeline, log).map(_._id)
+      (s"found ${ids.size} tile doc ids for route $routeId", ids)
+    }
+  }
+
   override def deleteRouteTiles(routeId: Long): Unit = {
     log.debugElapsed {
       val pipeline = Seq(
@@ -103,6 +121,13 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
         database.routeTiles.deleteByStringId(tileDocId._id, log)
       }
       (s"delete tile docs route $routeId", ())
+    }
+  }
+
+  override def deleteRouteTile(tileId: String): Unit = {
+    log.debugElapsed {
+      database.routeTiles.deleteByStringId(tileId, log)
+      (s"delete route tile doc $tileId", ())
     }
   }
 

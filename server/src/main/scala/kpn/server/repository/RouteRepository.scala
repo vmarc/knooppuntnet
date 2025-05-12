@@ -35,7 +35,11 @@ trait RouteRepository {
 
   def routeTiles(routeId: Long): Seq[RouteTileDoc]
 
+  def routeTileIds(routeId: Long): Seq[String]
+
   def deleteRouteTiles(routeId: Long): Unit
+
+  def deleteRouteTile(tileId: String): Unit
 
   def bulkSaveRoutes(routes: Seq[RouteDoc]): Unit
 

@@ -49,7 +49,7 @@ class BaseRouteChangeCreateProcessor(
   private def processRouteAnalysisResult(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
     updateRouteData(context)
     changeSetContext.withImpact(
-      tiles = context.tiles,
+      tileIds = context.tiles,
       nodeIds = context.routeNodesAnalysis.nodeIds,
       routeIds = Seq(context.routeId),
     )
@@ -59,7 +59,7 @@ class BaseRouteChangeCreateProcessor(
     if (context.facts.contains(Fact.LostRouteTags)) {
       val baseRouteDoc = baseRouteDocBuilder.build(context)
       changeSetContext.withImpact(
-        tiles = baseRouteDoc.tiles,
+        tileIds = baseRouteDoc.tiles,
         nodeIds = baseRouteDoc.nodes.nodeIds,
         routeIds = Seq(baseRouteDoc._id),
       )

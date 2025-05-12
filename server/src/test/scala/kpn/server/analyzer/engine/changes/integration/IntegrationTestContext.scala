@@ -49,6 +49,7 @@ import kpn.server.analyzer.engine.changes.node.main.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.route.BaseRouteChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.BaseRouteChangeCreateProcessor
 import kpn.server.analyzer.engine.changes.route.BaseRouteChangeDeleteProcessor
+import kpn.server.analyzer.engine.changes.route.BaseRouteChangeDeleter
 import kpn.server.analyzer.engine.changes.route.BaseRouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.BaseRouteChangeUpdateProcessor
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
@@ -326,18 +327,23 @@ class IntegrationTestContext(
         baseRouteDocBuilder
       )
 
+      val baseRouteDeleter = new BaseRouteChangeDeleter(
+        analysisContext,
+        routeRepository,
+      )
+
       val baseRouteChangeUpdateProcessor = new BaseRouteChangeUpdateProcessor(
         analysisContext,
-        baseRouteMainAnalyzer,
-        routeTileChangeAnalyzer,
-        routeRepository,
         rawDataRepository,
-        baseRouteDocBuilder
+        routeRepository,
+        baseRouteMainAnalyzer,
+        baseRouteDocBuilder,
+        routeTileChangeAnalyzer,
+        baseRouteDeleter
       )
 
       val baseRouteChangeDeleteProcessor = new BaseRouteChangeDeleteProcessor(
-        analysisContext,
-        routeRepository
+        baseRouteDeleter
       )
 
       new BaseRouteChangeProcessor(

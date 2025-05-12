@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.route
 import kpn.api.common.Fact
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.route.RouteNodes
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RawRouteDoc
 import kpn.core.util.Log
@@ -17,10 +18,12 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzer
+import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzerImpl
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
 
-class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects {
+class BaseRouteChangeUpdateProcessorTest extends UnitTest with SharedTestObjects {
 
   class Setup {
     val log: MockLog = Log.mock
@@ -29,12 +32,16 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
     val baseRouteMainAnalyzer: BaseRouteMainAnalyzer = stub[BaseRouteMainAnalyzer]
     val rawDataRepository: RawDataRepository = stub[RawDataRepository]
     val baseRouteDocBuilder: BaseRouteDocBuilder = stub[BaseRouteDocBuilder]
-    private val processor = new BaseRouteChangeCreateProcessor(
+    val routeTileChangeAnalyzer: RouteTileChangeAnalyzer = new RouteTileChangeAnalyzerImpl()
+    val baseRouteDeleter: BaseRouteChangeDeleter = stub[BaseRouteChangeDeleter]
+    private val processor = new BaseRouteChangeUpdateProcessor(
       analysisContext,
       rawDataRepository,
       routeRepository,
       baseRouteMainAnalyzer,
-      baseRouteDocBuilder
+      baseRouteDocBuilder,
+      routeTileChangeAnalyzer,
+      baseRouteDeleter
     )
 
     def process(): ChangeSetContext = {
@@ -42,7 +49,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
     }
   }
 
-  test("create route") {
+  test("update route") {
 
     // setup
     val setup = new Setup()
@@ -50,11 +57,26 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
     val rawRouteDoc = buildRawRouteDoc()
     (setup.rawDataRepository.route _).when(*, 11).returns(Some(rawRouteDoc)).once()
 
-    val analysisResult = buildAnalysisResult(rawRouteDoc)
-    val baseRouteDoc = newBaseRouteDoc(newRouteSummary(11))
+    val beforeBaseRouteDoc = newBaseRouteDoc(
+      newRouteSummary(11, name = "before"),
+      nodes = RouteNodes(
+        startNode = Some(newRouteNode(1001, "01")),
+        endNode = Some(newRouteNode(1002, "02")),
+      )
+    )
+    (setup.routeRepository.findBaseRouteById _).when(*).returns(Some(beforeBaseRouteDoc)).once()
 
+    val analysisResult = buildAnalysisResult(rawRouteDoc)
     (setup.baseRouteMainAnalyzer.analyze _).when(*, *, *).returns(analysisResult).once()
-    (setup.baseRouteDocBuilder.build _).when(*).returns(baseRouteDoc).once()
+
+    val afterBaseRouteDoc = newBaseRouteDoc(newRouteSummary(11, name = "after"))
+    (setup.baseRouteDocBuilder.build _).when(*).returns(afterBaseRouteDoc).once()
+
+    val beforeTileDocs = Seq(
+      newRouteTileDoc("tile-before-1", 11),
+      newRouteTileDoc("tile-before-2", 11),
+    )
+    (setup.routeRepository.routeTiles _).when(*).returns(beforeTileDocs).once()
 
     // execute
     val updatedChangeSetContext = setup.process()
@@ -66,18 +88,14 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
     )
 
     (setup.routeRepository.saveBaseRoute _).verify(
-      where((doc: BaseRouteDoc) => doc._id == 11)
+      where((doc: BaseRouteDoc) => doc._id == 11 && doc.summary.name == "after")
     ).once()
 
-    (setup.routeRepository.saveRouteTile _).verify(
-      where((routeTileDoc: RouteTileDoc) => routeTileDoc._id == "1-1-1-11")
-    ).once()
+    assertRouteTileDocSaved(setup, "1-1-1-11")
+    assertRouteTileDocSaved(setup, "2-2-2-11")
 
-    (setup.routeRepository.saveRouteTile _).verify(
-      where((routeTileDoc: RouteTileDoc) => routeTileDoc._id == "2-2-2-11")
-    ).once()
+    assertEqual(updatedChangeSetContext.impactedTileIds, Seq("1-1-1-11", "2-2-2-11", "tile-before-1", "tile-before-2"))
 
-    assertEqual(updatedChangeSetContext.impactedTileIds, Seq("1-1-1-11", "2-2-2-11"))
     assertEqual(updatedChangeSetContext.impactedNodeIds, Seq(1001, 1002))
     assertEqual(updatedChangeSetContext.impactedRouteIds, Seq(11))
   }
@@ -149,13 +167,8 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
       where((doc: BaseRouteDoc) => doc._id == 11)
     ).once()
 
-    (setup.routeRepository.saveRouteTile _).verify(
-      where((routeTileDoc: RouteTileDoc) => routeTileDoc._id == "1-1-1-11")
-    ).once()
-
-    (setup.routeRepository.saveRouteTile _).verify(
-      where((routeTileDoc: RouteTileDoc) => routeTileDoc._id == "2-2-2-11")
-    ).once()
+    assertRouteTileDocSaved(setup, "1-1-1-11")
+    assertRouteTileDocSaved(setup, "2-2-2-11")
 
     assertEqual(updatedChangeSetContext.impactedTileIds, Seq("1-1-1-11", "2-2-2-11"))
     assertEqual(updatedChangeSetContext.impactedNodeIds, Seq(1001, 1002))
@@ -207,5 +220,11 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
       rawRouteDoc.structure,
       abort = true,
     )
+  }
+
+  private def assertRouteTileDocSaved(setup: Setup, tileId: String): Unit = {
+    (setup.routeRepository.saveRouteTile _).verify(
+      where((routeTileDoc: RouteTileDoc) => routeTileDoc._id == tileId)
+    ).once()
   }
 }
