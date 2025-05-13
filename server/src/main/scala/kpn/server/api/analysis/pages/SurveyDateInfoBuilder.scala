@@ -3,6 +3,7 @@ package kpn.server.api.analysis.pages
 import kpn.api.common.SurveyDateInfo
 import kpn.api.custom.Day
 
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -15,65 +16,22 @@ object SurveyDateInfoBuilder {
   }
 
   def dateInfoAt(local: ZonedDateTime): SurveyDateInfo = {
-
-    val now: Day = Day(
-      local.getYear,
-      local.getMonthValue,
-      Some(local.getDayOfMonth)
-    )
-
-    val lastWeekStart: Day = {
-      val x = local.toLocalDate.atStartOfDay().minusWeeks(1L)
-      Day(
-        x.getYear,
-        x.getMonthValue,
-        Some(x.getDayOfMonth)
-      )
-    }
-
-    val lastMonthStart: Day = {
-      val x = local.toLocalDate.atStartOfDay().minusMonths(1L)
-      Day(
-        x.getYear,
-        x.getMonthValue,
-        Some(x.getDayOfMonth)
-      )
-    }
-
-    val lastHalfYearStart: Day = {
-      val x = local.toLocalDate.atStartOfDay().minusMonths(6L)
-      Day(
-        x.getYear,
-        x.getMonthValue,
-        Some(x.getDayOfMonth)
-      )
-    }
-
-    val lastYearStart: Day = {
-      val x = local.toLocalDate.atStartOfDay().minusYears(1L)
-      Day(
-        x.getYear,
-        x.getMonthValue,
-        Some(x.getDayOfMonth)
-      )
-    }
-
-    val lastTwoYearsStart: Day = {
-      val x = local.toLocalDate.atStartOfDay().minusYears(2L)
-      Day(
-        x.getYear,
-        x.getMonthValue,
-        Some(x.getDayOfMonth)
-      )
-    }
-
+    val startOfDay = local.toLocalDate.atStartOfDay()
     SurveyDateInfo(
-      now,
-      lastWeekStart,
-      lastMonthStart,
-      lastHalfYearStart,
-      lastYearStart,
-      lastTwoYearsStart
+      now = timeToDay(startOfDay),
+      lastWeekStart = timeToDay(startOfDay.minusWeeks(1)),
+      lastMonthStart = timeToDay(startOfDay.minusMonths(1)),
+      lastHalfYearStart = timeToDay(startOfDay.minusMonths(6)),
+      lastYearStart = timeToDay(startOfDay.minusYears(1)),
+      lastTwoYearsStart = timeToDay(startOfDay.minusYears(2))
+    )
+  }
+
+  private def timeToDay(time: LocalDateTime) = {
+    Day(
+      time.getYear,
+      time.getMonthValue,
+      Some(time.getDayOfMonth)
     )
   }
 }
