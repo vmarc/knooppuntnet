@@ -6,6 +6,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkAnalysisContext
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkAnalyzer
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkNameAnalyzer
+import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkTagAnalyzer
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkTypeAnalyzer
 import org.springframework.stereotype.Component
 
@@ -18,6 +19,7 @@ class BaseNetworkMainAnalyzer {
     Log.context(f"network=${relation.id}%07d") {
       val context = BaseNetworkAnalysisContext(relation)
       val analyzers: List[BaseNetworkAnalyzer] = List(
+        BaseNetworkTagAnalyzer,
         BaseNetworkTypeAnalyzer,
         BaseNetworkNameAnalyzer,
       )

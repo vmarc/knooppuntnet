@@ -40,56 +40,44 @@ class BaseNetworkChangeProcessor(
   }
 
   private def process(initialContext: ChangeSetContext, networkIds: Seq[Long]): ChangeSetContext = {
-    val rawRelations: Map[Long, RawRelation] = rawDataRepository.networks(initialContext.timestampAfter, networkIds).map(rawRelation => rawRelation.id -> rawRelation).toMap
-    val existingBaseNetworks: Map[Long, BaseNetworkDoc] = networkIds.flatMap(networkRepository.findBaseNetworkById).map(baseNetworkDoc => baseNetworkDoc._id -> baseNetworkDoc).toMap
-
-    var context = initialContext
-    networkIds.foreach { networkId =>
-      existingBaseNetworks.get(networkId) match {
-        case None =>
-          rawRelations.get(networkId) match {
-            case None =>
-            // nothing to do
-
-            case Some(rawRelation) =>
-              context = processCreate(context, rawRelation, networkId)
-          }
-
-        case Some(beforeNetworkDoc) =>
-          rawRelations.get(networkId) match {
-            case None =>
-              context = processDelete(context, beforeNetworkDoc, networkId)
-
-            case Some(rawRelation) =>
-              context = processUpdate(context, beforeNetworkDoc, rawRelation, networkId)
-          }
-      }
+    val rawRelationMap = buildRawRelationMap(initialContext, networkIds)
+    val baseNetworkDocMap = buildBaseNetworkDocMap(networkIds)
+    networkIds.foldLeft(initialContext) { (context, networkId) =>
+      val beforeBaseNetworkDocOption = baseNetworkDocMap.get(networkId)
+      val rawRelation = rawRelationMap.get(networkId)
+      processNetwork(context, beforeBaseNetworkDocOption, rawRelation, networkId)
     }
+  }
 
-    //    val createBaseNetworkIds = rawRelations.keys.toSet -- existingBaseNetworks.keys.toSet
-    //    val udpateBaseNetworkIds = rawRelations.keys.toSet -- createBaseNetworkIds
-    //    val deleteBaseNetworkIds = existingBaseNetworks.keys.toSet -- createBaseNetworkIds -- udpateBaseNetworkIds
-    //
-    //    val createRelations = rawRelations.values.toSeq.filter(rawRelation => createBaseNetworkIds.contains(rawRelation.id))
-    //    val updateRelations = rawRelations.values.toSeq.filter(rawRelation => udpateBaseNetworkIds.contains(rawRelation.id))
-    //
-    //    var updatedContext = context
-    //
-    //    val createdIds = createRelations.flatMap(rawRelation => analyzeBaseNetwork(context, rawRelation))
-    //    val updatedIds = updateRelations.flatMap(rawRelation => analyzeBaseNetwork(context, rawRelation))
-    //
-    //    val notUpdatedNetworkIds = udpateBaseNetworkIds -- updatedIds.toSet
-    //
-    //    val allDeletedIds = (deleteBaseNetworkIds ++ notUpdatedNetworkIds).toSeq.sorted
-    //
-    //    allDeletedIds.foreach { networkId =>
-    //      updatedContext = existingBaseNetworks.get(networkId) match {
-    //        case None => updatedContext
-    //        case Some(doc) =>
-    //          processDelete(updatedContext, doc, networkId)
-    //      }
-    //    }
-    context
+  private def processNetwork(context: ChangeSetContext, beforeBaseNetworkDocOption: Option[BaseNetworkDoc], rawRelationOption: Option[RawRelation], networkId: Long): ChangeSetContext = {
+    beforeBaseNetworkDocOption match {
+      case None =>
+        rawRelationOption match {
+          case None =>
+            // nothing to do
+            context
+
+          case Some(rawRelation) =>
+            processCreate(context, rawRelation, networkId)
+        }
+
+      case Some(beforeNetworkDoc) =>
+        rawRelationOption match {
+          case None =>
+            processDelete(context, beforeNetworkDoc, networkId)
+
+          case Some(rawRelation) =>
+            processUpdate(context, beforeNetworkDoc, rawRelation, networkId)
+        }
+    }
+  }
+
+  private def buildBaseNetworkDocMap(networkIds: Seq[Long]): Map[Long, BaseNetworkDoc] = {
+    networkIds.flatMap(networkRepository.findBaseNetworkById).map(baseNetworkDoc => baseNetworkDoc._id -> baseNetworkDoc).toMap
+  }
+
+  private def buildRawRelationMap(initialContext: ChangeSetContext, networkIds: Seq[Long]): Map[Long, RawRelation] = {
+    rawDataRepository.networks(initialContext.timestampAfter, networkIds).map(rawRelation => rawRelation.id -> rawRelation).toMap
   }
 
   private def processCreate(context: ChangeSetContext, rawRelation: RawRelation, networkId: Long): ChangeSetContext = {
