@@ -30,7 +30,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
         ),
         Tags.from(
           "network:type" -> "node_network",
-          "type" -> "network",
+          "type" -> "network", // <-- this will be changed
           "network" -> "rwn",
           "name" -> "01-02",
         ),
@@ -46,7 +46,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
         ),
         Tags.from(
           "network:type" -> "node_network",
-          "type" -> "route",
+          "type" -> "route", // <-- this is the change
           "route" -> "hiking",
           "network" -> "rwn",
           "name" -> "01-02",
@@ -60,8 +60,6 @@ class NetworkDeleteTest04 extends IntegrationTest {
       watched.routes.ids shouldNot contain(1)
 
       process(ChangeAction.Modify, dataAfter.data.relations(1).toRaw)
-
-      pendingRedesignPrio0()
 
       watched.networks.ids shouldNot contain(1)
       watched.routes.ids should contain(1)
@@ -79,10 +77,12 @@ class NetworkDeleteTest04 extends IntegrationTest {
   private def assertBaseNetwork(): Unit = {
     assertEqual(
       findBaseNetworkById(1),
-      newNetwork(
+      newBaseNetworkDoc(
         1L,
         active = false,
+        name = Some("01-02"),
         version = 1,
+        changeSetId = 1,
         tags = Tags.from(
           "network:type" -> "node_network",
           "type" -> "network",

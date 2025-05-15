@@ -65,27 +65,27 @@ class Issue148_NetworkToRoute extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(11774118L))
 
-      val baseNetwork = database.baseNetworks.findById(11774118L).get
+      val baseNetwork = findBaseNetworkById(11774118L)
       baseNetwork.active should equal(false)
       baseNetwork.version should equal(1)
 
-      val network = database.networks.findById(11774118L).get
+      val network = findNetworkById(11774118L)
       network.active should equal(false)
       network.summary.name should equal("no-name")
 
-      val route = database.routes.findById(11774118L).get
+      val route = findRouteById(11774118L)
       route.labels should contain(Label.active)
       route.summary.name should equal("72-84")
       route.version should equal(2)
 
-      val orphanRoute = database.orphanRoutes.findById(11774118L).get
+      val orphanRoute = findOrphanRouteById(11774118L)
       orphanRoute.name should equal("72-84")
 
-      val networkChange = database.networkChanges.findByStringId("123:1:11774118").get
+      val networkChange = findNetworkChangeById("123:1:11774118")
       networkChange.changeType should equal(ChangeType.Delete)
       networkChange.networkName should equal("no-name")
 
-      val routeChange = database.routeChanges.findByStringId("123:1:11774118").get
+      val routeChange = findRouteChangeById("123:1:11774118")
       routeChange.changeType should equal(ChangeType.Create)
       routeChange.name should equal("72-84")
     }

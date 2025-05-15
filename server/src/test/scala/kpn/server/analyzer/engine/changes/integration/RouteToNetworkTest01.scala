@@ -35,31 +35,26 @@ class RouteToNetworkTest01 extends IntegrationTest {
 
       database.orphanRoutes.findById(1) should equal(None)
 
-      val route = database.routes.findById(1).get
+      val route = findRouteById(1)
       route.labels shouldNot contain(Label.active)
       route.summary.name should equal("01-02")
       route.version should equal(1)
 
-      val baseNetwork = database.baseNetworks.findById(1).get
+      val baseNetwork = findBaseNetworkById(1)
       baseNetwork.active should equal(true)
       baseNetwork.version should equal(2)
 
-      val network = database.networks.findById(1).get
+      val network = findNetworkById(1)
       network.active should equal(true)
       network.summary.name should equal("01-02")
 
-      val routeChange = database.routeChanges.findByStringId("123:1:1").get
-      pendingRedesignPrio0()
-      routeChange.changeType should equal(ChangeType.Delete)
+      val routeChange = findRouteChangeById("123:1:1")
+      routeChange.changeType should equal(ChangeType.Update)
       routeChange.name should equal("01-02")
 
-      val networkChange = database.networkChanges.findByStringId("123:1:1").get
+      val networkChange = findNetworkChangeById("123:1:1")
       networkChange.changeType should equal(ChangeType.Create)
       networkChange.networkName should equal("01-02")
-
-      val networkInfoChange = database.networkChanges.findByStringId("123:1:1").get
-      networkInfoChange.changeType should equal(ChangeType.Create)
-      networkInfoChange.networkName should equal("01-02")
     }
   }
 }
