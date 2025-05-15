@@ -26,11 +26,8 @@ class MongoQueryRouteChanges(database: Database) {
 
     val filterElements = Seq(
       Some(equal("key.elementId", routeId)),
-      if (parameters.impact) {
-        Some(equal("impact", true))
-      }
-      else {
-        None
+      Option.when(parameters.impact) {
+        equal("impact", true)
       },
       parameters.year.map(year => equal("key.time.year", year.toInt)),
       parameters.month.map(month => equal("key.time.month", month.toInt)),

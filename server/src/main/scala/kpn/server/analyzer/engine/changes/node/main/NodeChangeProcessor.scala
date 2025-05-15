@@ -107,15 +107,10 @@ class NodeChangeProcessor(
       nodeDoc.names.map(_.routeType).flatMap(routeType => Subset.of(country, routeType))
     }
 
-    val factDiffs = if (nodeDoc.facts.nonEmpty) {
-      Some(
-        FactDiffs(
-          introduced = nodeDoc.facts
-        )
+    val factDiffs = Option.when(nodeDoc.facts.nonEmpty) {
+      FactDiffs(
+        introduced = nodeDoc.facts
       )
-    }
-    else {
-      None
     }
 
     Some(
@@ -185,12 +180,9 @@ class NodeChangeProcessor(
   }
 
   private def lostNodeTag(routeType: RouteType, nodeDocBefore: NodeDoc, nodeDocAfter: NodeDoc, fact: Fact): Option[Fact] = {
-    if (TagInterpreter.isNetworkNode(nodeDocBefore, routeType) &&
+    Option.when(TagInterpreter.isNetworkNode(nodeDocBefore, routeType) &&
       !TagInterpreter.isNetworkNode(nodeDocAfter, routeType)) {
-      Some(fact)
-    }
-    else {
-      None
+      fact
     }
   }
 

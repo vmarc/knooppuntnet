@@ -41,11 +41,8 @@ class MongoQueryRouteBounds(database: Database) {
         )
       )
       val boundsResults = database.baseRoutes.aggregate[BoundsResult](pipeline, log)
-      val bounds = if (boundsResults.nonEmpty) {
-        Some(Util.mergeBounds(boundsResults.map(_.bounds)))
-      }
-      else {
-        None
+      val bounds = Option.when(boundsResults.nonEmpty) {
+        Util.mergeBounds(boundsResults.map(_.bounds))
       }
       (s"bounds ${boundsResults.size} routes", bounds)
     }

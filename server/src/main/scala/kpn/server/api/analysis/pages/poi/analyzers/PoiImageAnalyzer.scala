@@ -36,11 +36,8 @@ class PoiImageAnalyzer(context: PoiAnalysisContext) {
           val id = context.poi.elementId.toString
           val dir = s"images/${id.charAt(id.length - 2)}/${id.charAt(id.length - 1)}"
           val cachedFileName = s"$dir/${context.poi.elementType}-$id.jpg"
-          if (new File(Dirs.root, cachedFileName).exists()) {
-            Some(cachedFileName)
-          }
-          else {
-            None
+          Option.when(new File(Dirs.root, cachedFileName).exists()) {
+            cachedFileName
           }
         }
 

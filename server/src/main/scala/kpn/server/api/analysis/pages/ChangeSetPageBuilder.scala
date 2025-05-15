@@ -135,20 +135,15 @@ class ChangeSetPageBuilder(
       val added = subsetOrphanRouteChanges.filter(_.changeType == ChangeType.Create).map(toChangeSetElementRef)
       val updated = subsetOrphanRouteChanges.filter(_.changeType == ChangeType.Update).map(toChangeSetElementRef)
 
-      if (removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
-        Some(
-          ChangeSetSubsetElementRefs(
-            subset,
-            ChangeSetElementRefs(
-              removed,
-              added,
-              updated
-            )
+      Option.when(removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
+        ChangeSetSubsetElementRefs(
+          subset,
+          ChangeSetElementRefs(
+            removed,
+            added,
+            updated
           )
         )
-      }
-      else {
-        None
       }
     }
   }
@@ -167,20 +162,15 @@ class ChangeSetPageBuilder(
       val added = subsetOrphanNodeChanges.filter(_.changeType == ChangeType.Create).map(toChangeSetElementRef)
       val updated = subsetOrphanNodeChanges.filter(_.changeType == ChangeType.Update).map(toChangeSetElementRef)
 
-      if (removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
-        Some(
-          ChangeSetSubsetElementRefs(
-            subset,
-            ChangeSetElementRefs(
-              removed,
-              added,
-              updated
-            )
+      Option.when(removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
+        ChangeSetSubsetElementRefs(
+          subset,
+          ChangeSetElementRefs(
+            removed,
+            added,
+            updated
           )
         )
-      }
-      else {
-        None
       }
     }
   }

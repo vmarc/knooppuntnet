@@ -26,11 +26,8 @@ class MongoQuerySubsetChanges(database: Database) {
     val filterElements = Seq(
       Some(equal("subsets.country", subset.country.entryName)),
       Some(equal("subsets.routeType", subset.routeType.entryName)),
-      if (parameters.impact) {
-        Some(equal("impact", true))
-      }
-      else {
-        None
+      Option.when(parameters.impact) {
+        equal("impact", true)
       },
       parameters.year.map(year => equal("key.time.year", year.toInt)),
       parameters.month.map(month => equal("key.time.month", month.toInt)),

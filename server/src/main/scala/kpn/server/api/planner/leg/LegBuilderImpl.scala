@@ -45,11 +45,8 @@ class LegBuilderImpl(
       case Some(graph) =>
         val legEnds = LegEnd.fromPlanString(planString, encoded)
         val planLegDetails = legEndsToPlanLegs(routeType, graph, legEnds, Seq.empty, proposed)
-        if (planLegDetails.nonEmpty) {
-          Some(planLegDetails)
-        }
-        else {
-          None
+        Option.when(planLegDetails.nonEmpty) {
+          planLegDetails
         }
 
       case None =>
@@ -163,11 +160,8 @@ class LegBuilderImpl(
         }
       }
 
-      if (alternatives.flatten.nonEmpty) {
-        Some(alternatives.flatten.minBy(_.meters))
-      }
-      else {
-        None
+      Option.when(alternatives.flatten.nonEmpty) {
+        alternatives.flatten.minBy(_.meters)
       }
     }
   }

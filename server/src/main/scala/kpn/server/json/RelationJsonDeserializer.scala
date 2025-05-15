@@ -73,11 +73,8 @@ class RelationJsonDeserializer extends JsonDeserializer[Relation] {
     }
     else {
       val text = roleNode.asText("")
-      if (text.nonEmpty) {
-        Some(text)
-      }
-      else {
-        None
+      Option.when(text.nonEmpty) {
+        text
       }
     }
   }

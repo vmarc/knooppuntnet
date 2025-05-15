@@ -713,11 +713,8 @@ class MonitorRouteUpdateExecutor(
             )
           }
 
-          val currentRelation = if (context.update.referenceNow.contains(true)) {
-            Some(subRelation)
-          }
-          else {
-            None
+          val currentRelation = Option.when(context.update.referenceNow.contains(true)) {
+            subRelation
           }
 
           analyzeReference(ref, currentRelation) match {

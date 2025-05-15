@@ -2,10 +2,10 @@ package kpn.server.config
 
 import com.nimbusds.jose.crypto.MACVerifier
 import com.nimbusds.jwt.SignedJWT
-import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpFilter
+import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import kpn.core.util.Log
 import org.apache.commons.codec.binary.Base64.decodeBase64
@@ -53,11 +53,8 @@ class AuthenticationCookieFilter(cryptoKey: String) extends HttpFilter {
         if (signatureVerification) {
           val claims = signedJWT.getJWTClaimsSet.getClaims
           val userValue = claims.get(AuthenticationConfiguration.userKey)
-          if (userValue != null) {
-            Some(userValue.toString)
-          }
-          else {
-            None
+          Option.when(userValue != null) {
+            userValue.toString
           }
         }
         else {

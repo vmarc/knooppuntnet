@@ -10,11 +10,8 @@ class NodeDataDiffAnalyzer(before: NodeData, after: NodeData) {
   def analysis: Option[NodeDataUpdate] = {
     val tagDiffs = analyzeTagDiffs
     val nodeMoved = analyzeNodeMoved
-    if (before != after || tagDiffs.isDefined || nodeMoved.isDefined) {
-      Some(NodeDataUpdate(before, after, tagDiffs, nodeMoved))
-    }
-    else {
-      None
+    Option.when(before != after || tagDiffs.isDefined || nodeMoved.isDefined) {
+      NodeDataUpdate(before, after, tagDiffs, nodeMoved)
     }
   }
 

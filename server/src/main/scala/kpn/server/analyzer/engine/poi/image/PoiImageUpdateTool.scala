@@ -48,11 +48,8 @@ class PoiImageUpdateTool(database: Database) {
         val poiLink = poiLinks.head
         database.poiStates.save(update(poiLink))
         val remaining = poiLinks.tail
-        if (remaining.nonEmpty) {
-          Some((host, remaining))
-        }
-        else {
-          None
+        Option.when(remaining.nonEmpty) {
+          (host, remaining)
         }
       }
     }

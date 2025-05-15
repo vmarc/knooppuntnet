@@ -498,13 +498,10 @@ class StructureElementAnalyzer(routeNodeAnalysis: RouteNodes, wayMembers: Seq[Wa
   }
 
   private def finalizeCurrentElement(): Option[StructureElement] = {
-    if (currentElementFragments.nonEmpty) {
+    Option.when(currentElementFragments.nonEmpty) {
       val element = addElement(currentElementFragments.toSeq)
       currentElementFragments.clear()
-      Some(element)
-    }
-    else {
-      None
+      element
     }
   }
 

@@ -19,11 +19,8 @@ class BaseRouteSegmentAnalyzer2(context: BaseRouteAnalysisContext) {
     val segments = buildSegments
     val segmentElements = buildSegmentElements
     val paths = buildPaths
-    val bounds = if (segments.nonEmpty) {
-      Some(Util.mergeBounds(segments.map(_.bounds)))
-    }
-    else {
-      None
+    val bounds = Option.when(segments.nonEmpty) {
+      Util.mergeBounds(segments.map(_.bounds))
     }
     context.copy(
       _segments = Some(segments),

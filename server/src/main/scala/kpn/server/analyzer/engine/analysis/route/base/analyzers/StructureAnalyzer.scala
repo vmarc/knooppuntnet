@@ -170,18 +170,13 @@ class StructureAnalyzer(context: BaseRouteAnalysisContext, traceEnabled: Boolean
           reversed = true
         )
         val elements = findNextBackwardPath(Seq(element), remainingElements, mainStartNode.node.id)
-        if (elements.nonEmpty) {
-          Some(
-            domain.StructurePath(
-              pathIds.next(),
-              mainEndNode.node.id,
-              mainStartNode.node.id,
-              elements
-            )
+        Option.when(elements.nonEmpty) {
+          domain.StructurePath(
+            pathIds.next(),
+            mainEndNode.node.id,
+            mainStartNode.node.id,
+            elements
           )
-        }
-        else {
-          None
         }
       }
     }
@@ -197,18 +192,13 @@ class StructureAnalyzer(context: BaseRouteAnalysisContext, traceEnabled: Boolean
       )
       val remainingElements = context.analysisSegments.flatMap(_.elements).drop(index + 1)
       val elements = nodeNetworkFindNextForwardPath(Seq(element), remainingElements, mainEndNode.node.id)
-      if (elements.nonEmpty) {
-        Some(
-          domain.StructurePath(
-            pathIds.next(),
-            mainStartNode.node.id,
-            mainEndNode.node.id,
-            elements
-          )
+      Option.when(elements.nonEmpty) {
+        domain.StructurePath(
+          pathIds.next(),
+          mainStartNode.node.id,
+          mainEndNode.node.id,
+          elements
         )
-      }
-      else {
-        None
       }
     }
   }
@@ -239,18 +229,13 @@ class StructureAnalyzer(context: BaseRouteAnalysisContext, traceEnabled: Boolean
         }
         else {
           val elements = findNonNodeNetworkRouteForwardPath(Seq.empty, context.analysisSegments.flatMap(_.elements))
-          if (elements.nonEmpty) {
-            Some(
-              StructurePath(
-                pathIds.next(),
-                elements.head.startNodeId,
-                elements.last.endNodeId,
-                elements
-              )
+          Option.when(elements.nonEmpty) {
+            StructurePath(
+              pathIds.next(),
+              elements.head.startNodeId,
+              elements.last.endNodeId,
+              elements
             )
-          }
-          else {
-            None
           }
         }
       }
@@ -367,11 +352,8 @@ class StructureAnalyzer(context: BaseRouteAnalysisContext, traceEnabled: Boolean
     val index = elements.indexWhere { element =>
       element.nodeIds.head == startNodeId
     }
-    if (index >= 0) {
-      Some(index)
-    }
-    else {
-      None
+    Option.when(index >= 0) {
+      index
     }
   }
 
@@ -415,11 +397,8 @@ class StructureAnalyzer(context: BaseRouteAnalysisContext, traceEnabled: Boolean
         false
       }
     }
-    if (index >= 0) {
-      Some(index)
-    }
-    else {
-      None
+    Option.when(index >= 0) {
+      index
     }
   }
 

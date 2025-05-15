@@ -19,19 +19,14 @@ class NetworkNodeMemberMissingAnalyzer(context: NetworkAnalysisContext) {
       }
     }
 
-    if (missingNodeDetails.nonEmpty) {
-      Some(
-        NetworkFact(
-          Fact.NodeMemberMissing,
-          Some("node"),
-          None,
-          Some(missingNodeDetails.map(_.toRef)),
-          None
-        )
+    Option.when(missingNodeDetails.nonEmpty) {
+      NetworkFact(
+        Fact.NodeMemberMissing,
+        Some("node"),
+        None,
+        Some(missingNodeDetails.map(_.toRef)),
+        None
       )
-    }
-    else {
-      None
     }
   }
 }

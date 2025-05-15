@@ -106,17 +106,11 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
     zoomLevelTiles.flatMap { tile =>
       val segments = tileSegments.flatMap { tileSegment =>
         tileSegmentToGeometry(tile, tileSegment).flatMap { geometry =>
-          val segmentId = if (tile.z > 6) {
-            Some(tileSegment.segmentId)
+          val segmentId = Option.when(tile.z > 6) {
+            tileSegment.segmentId
           }
-          else {
-            None
-          }
-          val segmentElementId = if (tile.detailed) {
-            Some(tileSegment.segmentElementId)
-          }
-          else {
-            None
+          val segmentElementId = Option.when(tile.detailed) {
+            tileSegment.segmentElementId
           }
           Some(
             RouteTileSegment(

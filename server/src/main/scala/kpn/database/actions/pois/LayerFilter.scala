@@ -6,15 +6,10 @@ import org.mongodb.scala.bson.conversions.Bson
 object LayerFilter {
 
   def of(layers: Seq[String]): Option[Bson] = {
-    if (layers.nonEmpty) {
+    Option.when(layers.nonEmpty) {
       val quotedLayers = layers.map(l => s"\"$l\"").mkString(",")
       val elemMatch = s"""{"layers": {"$$elemMatch": { "$$in": [$quotedLayers]}}}}"""
-      Some(
-        BsonDocument(elemMatch),
-      )
-    }
-    else {
-      None
+      BsonDocument(elemMatch)
     }
   }
 }

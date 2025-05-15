@@ -6,11 +6,8 @@ object CurrentUser {
 
   def name: Option[String] = {
     val authentication = SecurityContextHolder.getContext.getAuthentication
-    if (authentication != null) {
-      Some(authentication.getName)
-    }
-    else {
-      None
+    Option.when(authentication != null) {
+      authentication.getName
     }
   }
 }

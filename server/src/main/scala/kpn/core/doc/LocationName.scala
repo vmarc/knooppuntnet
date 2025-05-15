@@ -10,16 +10,11 @@ object LocationNames {
     Language.values.flatMap { language =>
       val lang = language.toString.toLowerCase
       Tags.values(tags, s"name:$lang").flatMap { value =>
-        if (value != name) {
-          Some(
-            LocationName(
-              language,
-              value
-            )
+        Option.when(value != name) {
+          LocationName(
+            language,
+            value
           )
-        }
-        else {
-          None
         }
       }
     }

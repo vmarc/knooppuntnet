@@ -30,14 +30,11 @@ abstract class LocationAnalyzerAbstract extends LocationAnalyzer {
     val c = latLons.toSeq.flatMap { latLon =>
       countries(latLon)
     }
-    if (c.nonEmpty) {
+    Option.when(c.nonEmpty) {
       val countryCounts: Map[Country, Int] = c.groupBy(identity).map(e => e._1 -> e._2.size)
       val maxCountryCount = countryCounts.values.max
       val countriesWithMaxCount = countryCounts.filter(_._2 == maxCountryCount).keys
-      Some(countriesWithMaxCount.minBy(_.entryName))
-    }
-    else {
-      None
+      countriesWithMaxCount.minBy(_.entryName)
     }
   }
 }

@@ -34,12 +34,9 @@ class LocationGeometryExplorationTool {
       val dir = s"${Dirs.root}/locations/${country.entryName}/geometries"
       new File(dir).listFiles().flatMap { file =>
         val geoJson = FileUtils.readFileToString(file, "UTF-8")
-        if (geoJson.contains("EPSG:0")) {
+        Option.when(geoJson.contains("EPSG:0")) {
           val geometryType = geoJson.takeWhile(_ != ',').drop("""{"type":"""".length).dropRight(1)
-          Some(s"${file.getName} -> $geometryType")
-        }
-        else {
-          None
+          s"${file.getName} -> $geometryType"
         }
       }
     }

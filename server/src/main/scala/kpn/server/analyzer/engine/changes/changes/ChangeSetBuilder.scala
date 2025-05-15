@@ -12,11 +12,8 @@ object ChangeSetBuilder {
     osmChange.allChangeSetIds.flatMap { changeSetId =>
       val actions = osmChange.actions.flatMap { action =>
         val elements = action.elements.filter(_.changeSetId == changeSetId)
-        if (elements.nonEmpty) {
-          Some(Change(action.action, elements))
-        }
-        else {
-          None
+        Option.when(elements.nonEmpty) {
+          Change(action.action, elements)
         }
       }
       if (actions.nonEmpty) {
@@ -51,5 +48,4 @@ object ChangeSetBuilder {
     val relationIds = elements.filter(_.isRelation).map(_.id).toSet
     ElementIds(nodeIds, wayIds, relationIds)
   }
-
 }

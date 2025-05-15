@@ -81,13 +81,10 @@ class TagDiffAnalyzer(before: Tagable, after: Tagable, mainTagKeys: Seq[String] 
 
     val tagDiffMap = tagDiffs.map(detail => detail.key -> detail).toMap
 
-    if (tagDiffs.exists(_.action != TagDiffType.same)) {
+    Option.when(tagDiffs.exists(_.action != TagDiffType.same)) {
       val mainDiffs = mainTagKeys.filter(key => tagDiffMap.contains(key)).map(key => tagDiffMap(key))
       val extraDiffs = tagDiffs.filterNot(detail => mainTagKeys.contains(detail.key)).sortBy(_.sortKey)
-      Some(TagDiffs(mainDiffs, extraDiffs))
-    }
-    else {
-      None
+      TagDiffs(mainDiffs, extraDiffs)
     }
   }
 }

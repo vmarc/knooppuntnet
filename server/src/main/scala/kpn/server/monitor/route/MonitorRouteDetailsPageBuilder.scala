@@ -87,13 +87,8 @@ class MonitorRouteDetailsPageBuilder(
           }
           toRow(route, 2, relationLevel2) +: rowsLevel3
         }
-        if (rowsLevel2.nonEmpty) {
-          Some(
-            toRow(route, 1, relationLevel1) +: rowsLevel2
-          )
-        }
-        else {
-          None
+        Option.when(rowsLevel2.nonEmpty) {
+          toRow(route, 1, relationLevel1) +: rowsLevel2
         }
     }
   }

@@ -25,11 +25,8 @@ object BaseNodeNameAnalyzer extends BaseNodeAnalyzer {
         val longNameOption = determineScopedLongName(tagable, scopedRouteType) match {
           case None => None
           case Some(longName) =>
-            if (longName.name != name.name) {
-              Some(longName.name)
-            }
-            else {
-              None
+            Option.when(longName.name != name.name) {
+              longName.name
             }
         }
         NodeName(

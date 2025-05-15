@@ -2,10 +2,10 @@ package kpn.database.actions.changes
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.changes.filter.ChangesParameters
+import kpn.core.util.Log
 import kpn.database.actions.changes.MongoQueryChangeSetSummaries.log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.core.util.Log
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
@@ -53,11 +53,8 @@ class MongoQueryChangeSetSummaries(database: Database) {
     )
 
     val filterElements = Seq(
-      if (parameters.impact) {
-        Some(equal("impact", true))
-      }
-      else {
-        None
+      Option.when(parameters.impact) {
+        equal("impact", true)
       },
       parameters.year.map(year => equal("key.time.year", year.toInt)),
       parameters.month.map(month => equal("key.time.month", month.toInt)),

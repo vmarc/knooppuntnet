@@ -27,16 +27,11 @@ class NetworkUpdateAnalyzer(
       after.summary.name
     )
 
-    val networkDataUpdate = if (networkDataBefore != networkDataAfter) {
-      Some(
-        NetworkDataUpdate(
-          Some(networkDataBefore),
-          Some(networkDataAfter)
-        )
+    val networkDataUpdate = Option.when(networkDataBefore != networkDataAfter) {
+      NetworkDataUpdate(
+        Some(networkDataBefore),
+        Some(networkDataAfter)
       )
-    }
-    else {
-      None
     }
 
     val diffs = NetworkInfoDiffs(

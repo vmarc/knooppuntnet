@@ -90,11 +90,8 @@ class TileUpdaterImpl(
           routeRepository.routeTileInfosById(routeId) match {
             case Some(routeTileInfo) =>
               val tileDataRoute = TileDataRouteBuilder.fromRouteInfo(routeTileInfo)
-              if (tileDataRoute.segments.nonEmpty) {
-                Some(tileDataRoute)
-              }
-              else {
-                None
+              Option.when(tileDataRoute.segments.nonEmpty) {
+                tileDataRoute
               }
             case None =>
               log.error(s"Unexpected data integrity problem: route $routeId for tile ${routeType.entryName}-${tile.name} not found in database")

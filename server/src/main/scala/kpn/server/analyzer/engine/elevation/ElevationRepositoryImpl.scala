@@ -45,11 +45,8 @@ class ElevationRepositoryImpl extends ElevationRepository {
   private def loadTileBuffer(tilename: String) = {
     val filename = s"${Dirs.root}/tiles/hgt/$tilename.hgt.gz"
     val f = new File(filename)
-    if (f.exists) {
-      Some(hgtFileToBuffer(filename))
-    }
-    else {
-      None
+    Option.when(f.exists) {
+      hgtFileToBuffer(filename)
     }
   }
 

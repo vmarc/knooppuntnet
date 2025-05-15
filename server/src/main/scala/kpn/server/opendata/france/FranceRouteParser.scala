@@ -20,16 +20,13 @@ class FranceRouteParser {
     networkRows.flatMap { row =>
       val fid = row.getValue("fid")
       val geometry = row.getGeometry.getGeometry
-      if (geometry != null && geometry.getGeometryType == GeometryType.LINESTRING) {
+      Option.when(geometry != null && geometry.getGeometryType == GeometryType.LINESTRING) {
         val lineString = geometry.asInstanceOf[LineString]
         val points = lineString.getPoints.asScala.toSeq
         val coordinates = points.map { point =>
           FranceUtil.lambertToLatLon(point.getX, point.getY)
         }
-        Some(OpenDataRoute(fid.toString, virtual = false, coordinates))
-      }
-      else {
-        None
+        OpenDataRoute(fid.toString, virtual = false, coordinates)
       }
     }
   }

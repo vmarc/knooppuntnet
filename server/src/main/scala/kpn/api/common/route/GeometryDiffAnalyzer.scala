@@ -11,11 +11,8 @@ class GeometryDiffAnalyzer {
     val before = (beforeSegments -- afterSegments).toSeq
     val after = (afterSegments -- beforeSegments).toSeq
 
-    if (before.nonEmpty || after.nonEmpty) {
-      Some(GeometryDiff(common, before, after))
-    }
-    else {
-      None
+    Option.when(before.nonEmpty || after.nonEmpty) {
+      GeometryDiff(common, before, after)
     }
   }
 

@@ -33,22 +33,17 @@ class WayDiffAnalyzer(wayBefore: Way, wayAfter: Way) {
 
     val tagDiffs = new TagDiffAnalyzer(wayBefore, wayAfter).diffs
 
-    if (wayBefore.toRaw != wayAfter.toRaw || removedNodeIds.nonEmpty || addedNodeIds.nonEmpty || updatedNodeIds.nonEmpty || tagDiffs.isDefined || directionReversed) {
-      Some(
-        WayUpdate(
-          wayAfter.id,
-          wayBefore.toMeta,
-          wayAfter.toMeta,
-          removedNodeIds.map(nodeId => nodeMapBefore(nodeId)),
-          addedNodeIds.map(nodeId => nodeMapAfter(nodeId)),
-          updatedNodeIds.map(nodeId => NodeUpdate(nodeMapBefore(nodeId), nodeMapAfter(nodeId), None, None)),
-          directionReversed,
-          tagDiffs
-        )
+    Option.when(wayBefore.toRaw != wayAfter.toRaw || removedNodeIds.nonEmpty || addedNodeIds.nonEmpty || updatedNodeIds.nonEmpty || tagDiffs.isDefined || directionReversed) {
+      WayUpdate(
+        wayAfter.id,
+        wayBefore.toMeta,
+        wayAfter.toMeta,
+        removedNodeIds.map(nodeId => nodeMapBefore(nodeId)),
+        addedNodeIds.map(nodeId => nodeMapAfter(nodeId)),
+        updatedNodeIds.map(nodeId => NodeUpdate(nodeMapBefore(nodeId), nodeMapAfter(nodeId), None, None)),
+        directionReversed,
+        tagDiffs
       )
-    }
-    else {
-      None
     }
   }
 

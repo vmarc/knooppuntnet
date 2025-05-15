@@ -100,19 +100,14 @@ class NetworkFactAnalyzer(context: NetworkAnalysisContext, nodeMemberMissingAnal
   private def integrityFailedFacts(context: NetworkAnalysisContext): Seq[NetworkFact] = {
     val checks = context.nodeDocs.flatMap { nodeDoc =>
       nodeDoc.nodeIntegrityDetail(context.scopedRouteType).flatMap { nodeIntegrityDetail =>
-        if (nodeIntegrityDetail.failed) {
+        Option.when(nodeIntegrityDetail.failed) {
           val nodeName = nodeDoc.name(context.scopedRouteType)
-          Some(
-            Check(
-              nodeDoc._id,
-              nodeName,
-              nodeIntegrityDetail.expectedRouteCount,
-              nodeIntegrityDetail.routeRefs.size
-            )
+          Check(
+            nodeDoc._id,
+            nodeName,
+            nodeIntegrityDetail.expectedRouteCount,
+            nodeIntegrityDetail.routeRefs.size
           )
-        }
-        else {
-          None
         }
       }
     }

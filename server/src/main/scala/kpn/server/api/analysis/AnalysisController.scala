@@ -255,11 +255,8 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable changeSetId: Long,
     @PathVariable replicationNumber: Int
   ): ApiResponse[ChangeSetPage] = {
-    val replicationId = if (replicationNumber > 0) {
-      Some(ReplicationId(replicationNumber))
-    }
-    else {
-      None
+    val replicationId = Option.when(replicationNumber > 0) {
+      ReplicationId(replicationNumber)
     }
     analysisFacade.changeSet(toLanguage(language), changeSetId, replicationId)
   }

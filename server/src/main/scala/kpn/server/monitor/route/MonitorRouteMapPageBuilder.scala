@@ -247,11 +247,8 @@ class MonitorRouteMapPageBuilder(
         0
       }
       val current = subRelations(index)
-      val previous = if (index > 0) {
-        Some(subRelations(index - 1))
-      }
-      else {
-        None
+      val previous = Option.when(index > 0) {
+        subRelations(index - 1)
       }
       val next = if (index < subRelations.size - 1) {
         Some(subRelations(index + 1))

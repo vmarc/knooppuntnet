@@ -18,11 +18,8 @@ class Parser(full: Boolean = true) {
   def parse(xml: scala.xml.Node): RawData = {
     val timestamp = {
       val string = ((xml \\ "meta") \ "@osm_base").text
-      if (string.nonEmpty) {
-        Some(TimestampUtil.parseIso(string))
-      }
-      else {
-        None
+      Option.when(string.nonEmpty) {
+        TimestampUtil.parseIso(string)
       }
     }
     val nodes = nodesIn(xml)

@@ -12,13 +12,10 @@ class NetworkCenterAnalyzer(context: NetworkAnalysisContext) {
 
   def analyze: NetworkAnalysisContext = {
     val center = if (context.network.active) {
-      if (context.nodeDetails.isEmpty) {
-        None
-      }
-      else {
+      Option.when(context.nodeDetails.nonEmpty) {
         val lattitude = context.nodeDetails.map(_.lat).sum / context.nodeDetails.size
         val longititude = context.nodeDetails.map(_.lon).sum / context.nodeDetails.size
-        Some(LatLonImpl(lattitude.toString, longititude.toString))
+        LatLonImpl(lattitude.toString, longititude.toString)
       }
     }
     else {

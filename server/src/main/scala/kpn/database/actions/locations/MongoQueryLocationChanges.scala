@@ -203,11 +203,8 @@ class MongoQueryLocationChanges(database: Database) {
             Some(
               LocationQuery.changesLocationFilter("locations", subset)
             ),
-            if (parameters.impact) {
-              Some(equal("impact", true))
-            }
-            else {
-              None
+            Option.when(parameters.impact) {
+              equal("impact", true)
             },
             parameters.year.map(year => equal("key.time.year", year.toInt)),
             parameters.month.map(month => equal("key.time.month", month.toInt)),
@@ -225,16 +222,11 @@ class MongoQueryLocationChanges(database: Database) {
             Some(
               LocationQuery.changesLocationFilter("locationChanges.locationNames", subset)
             ),
-            if (parameters.impact) {
-              Some(
-                or(
-                  equal("locationChanges.happy", true),
-                  equal("locationChanges.investigate", true),
-                )
+            Option.when(parameters.impact) {
+              or(
+                equal("locationChanges.happy", true),
+                equal("locationChanges.investigate", true),
               )
-            }
-            else {
-              None
             }
           ).flatten: _*
         )

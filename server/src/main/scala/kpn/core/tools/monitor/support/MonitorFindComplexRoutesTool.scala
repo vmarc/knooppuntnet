@@ -70,11 +70,8 @@ class MonitorFindComplexRoutesTool(database: Database) {
   private def complexRoute(group: MonitorGroup, route: MonitorRoute): Option[ComplexRoute] = {
     route.relation.flatMap { rootRelation =>
       val relations = complexSubRelations(rootRelation)
-      if (relations.nonEmpty) {
-        Some(ComplexRoute(group.name, route.name, relations))
-      }
-      else {
-        None
+      Option.when(relations.nonEmpty) {
+        ComplexRoute(group.name, route.name, relations)
       }
     }
   }

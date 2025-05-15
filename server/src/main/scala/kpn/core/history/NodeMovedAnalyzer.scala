@@ -7,14 +7,11 @@ import kpn.core.util.Haversine
 
 class NodeMovedAnalyzer(before: Node, after: Node) {
   def analysis: Option[NodeMoved] = {
-    if (before.latitude != after.latitude || before.longitude != after.longitude) {
+    Option.when(before.latitude != after.latitude || before.longitude != after.longitude) {
       val latLonBefore = LatLonImpl(before.latitude, before.longitude)
       val latLonAfter = LatLonImpl(after.latitude, after.longitude)
       val distance = Haversine.meters(Seq(before, after))
-      Some(NodeMoved(latLonBefore, latLonAfter, distance))
-    }
-    else {
-      None
+      NodeMoved(latLonBefore, latLonAfter, distance)
     }
   }
 }

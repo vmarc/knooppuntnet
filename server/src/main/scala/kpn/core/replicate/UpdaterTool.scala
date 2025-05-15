@@ -3,14 +3,14 @@ package kpn.core.replicate
 import kpn.api.common.ReplicationId
 import kpn.api.common.status.ActionTimestamp
 import kpn.api.custom.Timestamp
-import kpn.database.base.MetricsDatabaseImpl
 import kpn.core.metrics.UpdateAction
-import kpn.database.util.Mongo.client
-import kpn.database.util.Mongo.codecRegistry
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.Log
+import kpn.database.base.MetricsDatabaseImpl
+import kpn.database.util.Mongo.client
+import kpn.database.util.Mongo.codecRegistry
 import kpn.server.analyzer.engine.changes.MinuteDiffReader
 import kpn.server.analyzer.engine.changes.ReplicationStateReader
 import kpn.server.repository.MetricsRepository
@@ -88,7 +88,7 @@ class UpdaterTool(
   replicationStateRepository: ReplicationStateRepository
 ) {
 
-  import kpn.core.replicate.UpdaterTool._
+  import kpn.core.replicate.UpdaterTool.*
 
   private val oper = new Oper()
 
@@ -181,11 +181,8 @@ class UpdaterTool(
   private def sleep(replicationId: ReplicationId): Option[ReplicationId] = {
     if (oper.isActive) {
       sleep(WAIT)
-      if (oper.isActive) {
-        Some(replicationId)
-      }
-      else {
-        None
+      Option.when(oper.isActive) {
+        replicationId
       }
     }
     else {

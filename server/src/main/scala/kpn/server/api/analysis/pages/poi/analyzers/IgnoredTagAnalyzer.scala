@@ -22,12 +22,9 @@ class IgnoredTagAnalyzer(context: PoiAnalysisContext) {
 
   def analyze: PoiAnalysisContext = {
     val ignoredTagKeys = IgnoredTagAnalyzer.ignoredTagDefinitions.flatMap { ignoredTag =>
-      if (context.poi.layers.head == ignoredTag.layer &&
+      Option.when(context.poi.layers.head == ignoredTag.layer &&
         context.poi.hasTag(ignoredTag.key, ignoredTag.value)) {
-        Some(ignoredTag.key)
-      }
-      else {
-        None
+        ignoredTag.key
       }
     }
     if (ignoredTagKeys.nonEmpty) {

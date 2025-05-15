@@ -91,7 +91,7 @@ class LocationBuilderFrance(dir: String) {
           Log.context(logContext ++ Seq(s"$index/${locationIds.size}", locationId.toString)) {
             val locationData = new FranceIntermunicipalityReader(intermunicipalitiesDir, locationId, intermunicipalityType).read()
             log.info(locationData.name)
-            if (context.country.contains(locationData.geometry)) {
+            Option.when(context.country.contains(locationData.geometry)) {
               val parentDepartments = context.departments.filter { department =>
                 department.geometry.overlap(locationData.geometry) > 0.05
               }
@@ -99,14 +99,9 @@ class LocationBuilderFrance(dir: String) {
                 throw new RuntimeException("department not found")
               }
               val parents = parentDepartments.map(department => LocationPath(Seq("fr", department.id)))
-              Some(
-                locationData.copy(
-                  paths = parents
-                )
+              locationData.copy(
+                paths = parents
               )
-            }
-            else {
-              None
             }
           }
         }

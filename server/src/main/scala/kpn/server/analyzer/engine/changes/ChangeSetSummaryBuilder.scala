@@ -96,20 +96,15 @@ class ChangeSetSummaryBuilder {
       val added = toRouteChangeRefs(orphanRouteChanges, subset, ChangeType.Create)
       val updated = toRouteChangeRefs(orphanRouteChanges, subset, ChangeType.Update)
 
-      if (removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
-        Some(
-          ChangeSetSubsetElementRefs(
-            subset,
-            ChangeSetElementRefs(
-              removed,
-              added,
-              updated
-            )
+      Option.when(removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
+        ChangeSetSubsetElementRefs(
+          subset,
+          ChangeSetElementRefs(
+            removed,
+            added,
+            updated
           )
         )
-      }
-      else {
-        None
       }
     }
   }
@@ -139,20 +134,15 @@ class ChangeSetSummaryBuilder {
         val added = toNodeChangeRefs(orphanNodeChanges, subset, ChangeType.Create)
         val updated = toNodeChangeRefs(orphanNodeChanges, subset, ChangeType.Update)
 
-        if (removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
-          Some(
-            ChangeSetSubsetElementRefs(
-              subset,
-              ChangeSetElementRefs(
-                removed,
-                added,
-                updated
-              )
+        Option.when(removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
+          ChangeSetSubsetElementRefs(
+            subset,
+            ChangeSetElementRefs(
+              removed,
+              added,
+              updated
             )
           )
-        }
-        else {
-          None
         }
     }
   }
@@ -176,13 +166,8 @@ class ChangeSetSummaryBuilder {
       val routeChanges = context.changes.routeChanges.filter(_.subsets.map(_.routeType).contains(routeType))
       val locations = {
         val nodeLocations = nodeChanges.flatMap { nodeChange =>
-          if (nodeChange.locations.nonEmpty) {
-            Some(
-              Location(nodeChange.locations)
-            )
-          }
-          else {
-            None
+          Option.when(nodeChange.locations.nonEmpty) {
+            Location(nodeChange.locations)
           }
         }
         val routeLocations = routeChanges.flatMap(_.locationAnalysis.candidates.map(_.location))

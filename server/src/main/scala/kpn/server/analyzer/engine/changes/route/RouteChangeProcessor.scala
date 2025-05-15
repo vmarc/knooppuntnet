@@ -158,15 +158,10 @@ class RouteChangeProcessor(
   private def processCreate(context: ChangeSetContext, routeDocAfter: RouteDoc, routeId: Long): Option[RouteChangeContext] = {
 
     routeRepository.saveRoute(routeDocAfter)
-    val factDiffs = if (routeDocAfter.facts.nonEmpty) {
-      Some(
-        FactDiffs(
-          introduced = routeDocAfter.facts
-        )
+    val factDiffs = Option.when(routeDocAfter.facts.nonEmpty) {
+      FactDiffs(
+        introduced = routeDocAfter.facts
       )
-    }
-    else {
-      None
     }
 
     val impactedNodeIds: Seq[Long] = routeDocAfter.nodes.nodeIds

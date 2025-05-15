@@ -14,16 +14,13 @@ case class OsmChange(actions: Seq[Change]) {
 
   // this logic assumes there is at least 1 action with at least 1 element
   def timestampFrom: Option[Timestamp] = {
-    if(actions.nonEmpty) {
-      Some(actions.flatMap(_.elements.map(_.timestamp)).min)
-    }
-    else {
-      None
+    Option.when(actions.nonEmpty) {
+      actions.flatMap(_.elements.map(_.timestamp)).min
     }
   }
 
   def timestampUntil: Option[Timestamp] = {
-    if(actions.nonEmpty) {
+    if (actions.nonEmpty) {
       Some(actions.flatMap(_.elements.map(_.timestamp)).max)
     }
     else {

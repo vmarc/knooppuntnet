@@ -33,11 +33,8 @@ case class NodeInfo(
 
   def routeTypeLongName(routeType: RouteType): Option[String] = {
     val longNames = names.filter(_.routeType == routeType).flatMap(_.longName)
-    if (longNames.nonEmpty) {
-      Some(longNames.mkString(" / "))
-    }
-    else {
-      None
+    Option.when(longNames.nonEmpty) {
+      longNames.mkString(" / ")
     }
   }
 

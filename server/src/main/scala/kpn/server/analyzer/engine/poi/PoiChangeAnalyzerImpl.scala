@@ -71,13 +71,8 @@ class PoiChangeAnalyzerImpl(
         None
       }
       else {
-        if (matchingPoiDefinitions.nonEmpty) {
-          Some(
-            PoiChangeAnalysis(element, matchingPoiDefinitions)
-          )
-        }
-        else {
-          None
+        Option.when(matchingPoiDefinitions.nonEmpty) {
+          PoiChangeAnalysis(element, matchingPoiDefinitions)
         }
       }
     }

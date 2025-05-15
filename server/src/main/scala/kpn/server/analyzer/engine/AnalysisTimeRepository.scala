@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine
 
-import java.io.File
-
 import org.apache.commons.io.FileUtils
+
+import java.io.File
 
 /**
  * Stores the timestamp when the most recent full analysis was performed.
@@ -18,11 +18,8 @@ class AnalysisTimeRepositoryImpl(filename: String) extends AnalysisTimeRepositor
 
   def get: Option[String] = {
     val file = new File(filename)
-    if (file.exists) {
-      Some(FileUtils.readFileToString(file, "UTF-8"))
-    }
-    else {
-      None
+    Option.when(file.exists) {
+      FileUtils.readFileToString(file, "UTF-8")
     }
   }
 

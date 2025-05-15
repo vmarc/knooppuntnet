@@ -24,11 +24,8 @@ object NetworkInfoUpdateNodeDiffsAnalyzer {
       else {
         before.nodes.find(node => node.id == nodeId).flatMap { nodeBefore =>
           after.nodes.find(node => node.id == nodeId).flatMap { nodeAfter =>
-            if (!nodeBefore.isSameAs(nodeAfter)) {
-              Some(Ref(nodeId, nodeAfter.name))
-            }
-            else {
-              None
+            Option.when(!nodeBefore.isSameAs(nodeAfter)) {
+              Ref(nodeId, nodeAfter.name)
             }
           }
         }

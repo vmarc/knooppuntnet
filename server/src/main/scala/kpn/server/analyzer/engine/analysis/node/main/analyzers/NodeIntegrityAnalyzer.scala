@@ -48,11 +48,8 @@ class NodeIntegrityAnalyzer(context: NodeAnalysisContext) {
       }
     }
 
-    val integrity = if (nodeIntegrityDetails.nonEmpty) {
-      Some(NodeIntegrity(nodeIntegrityDetails))
-    }
-    else {
-      None
+    val integrity = Option.when(nodeIntegrityDetails.nonEmpty) {
+      NodeIntegrity(nodeIntegrityDetails)
     }
 
     val facts = if (unexpectedExpectedRouteRelationsTag) {

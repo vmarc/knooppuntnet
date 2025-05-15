@@ -97,11 +97,8 @@ class SyncTool(sourceDatabase: Database, targetDatabase: Database) {
           targetMap.get(routeId) match {
             case None => Some(routeId)
             case Some(targetStamp) =>
-              if (sourceStamp != targetStamp) {
-                Some(routeId)
-              }
-              else {
-                None
+              Option.when(sourceStamp != targetStamp) {
+                routeId
               }
           }
       }

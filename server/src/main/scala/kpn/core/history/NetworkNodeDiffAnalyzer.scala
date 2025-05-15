@@ -24,11 +24,8 @@ class NetworkNodeDiffAnalyzer(routeType: RouteType, before: NetworkNodeInfo, aft
   private val afterNode = after.networkNode.node
 
   private def connection: Option[Boolean] = {
-    if (before.connection != after.connection) {
-      Some(after.connection)
-    }
-    else {
-      None
+    Option.when(before.connection != after.connection) {
+      after.connection
     }
   }
 
@@ -42,11 +39,8 @@ class NetworkNodeDiffAnalyzer(routeType: RouteType, before: NetworkNodeInfo, aft
   }
 
   private def definedInNetworkRelation: Option[Boolean] = {
-    if (before.definedInRelation != after.definedInRelation) {
-      Some(after.definedInRelation)
-    }
-    else {
-      None
+    Option.when(before.definedInRelation != after.definedInRelation) {
+      after.definedInRelation
     }
   }
 
@@ -54,7 +48,7 @@ class NetworkNodeDiffAnalyzer(routeType: RouteType, before: NetworkNodeInfo, aft
     val beforeRouteIds = before.referencedInRoutes.map(_.id).toSet
     val afterRouteIds = after.referencedInRoutes.map(_.id).toSet
 
-    if (beforeRouteIds != afterRouteIds) {
+    Option.when(beforeRouteIds != afterRouteIds) {
       val removedIds = beforeRouteIds -- afterRouteIds
       val addedIds = afterRouteIds -- beforeRouteIds
       val remainingIds = afterRouteIds intersect beforeRouteIds
@@ -63,10 +57,7 @@ class NetworkNodeDiffAnalyzer(routeType: RouteType, before: NetworkNodeInfo, aft
       val addedRouteRefs = routeRefs(after.referencedInRoutes, addedIds)
       val remainingRouteRefs = routeRefs(after.referencedInRoutes, remainingIds)
 
-      Some(NodeRouteReferenceDiffs(removedRouteRefs, addedRouteRefs, remainingRouteRefs))
-    }
-    else {
-      None
+      NodeRouteReferenceDiffs(removedRouteRefs, addedRouteRefs, remainingRouteRefs)
     }
   }
 
@@ -79,11 +70,8 @@ class NetworkNodeDiffAnalyzer(routeType: RouteType, before: NetworkNodeInfo, aft
   }
 
   private def nodeIntegrityCheckDiff: Option[NodeIntegrityCheckDiff] = {
-    if (before.integrityCheck != after.integrityCheck) {
-      Some(NodeIntegrityCheckDiff(before.integrityCheck, after.integrityCheck))
-    }
-    else {
-      None
+    Option.when(before.integrityCheck != after.integrityCheck) {
+      NodeIntegrityCheckDiff(before.integrityCheck, after.integrityCheck)
     }
   }
 }

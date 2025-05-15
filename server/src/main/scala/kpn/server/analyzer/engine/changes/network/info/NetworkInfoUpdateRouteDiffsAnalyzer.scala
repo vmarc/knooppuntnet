@@ -38,11 +38,8 @@ object NetworkInfoUpdateRouteDiffsAnalyzer {
       else {
         before.routes.find(route => route.id == routeId).flatMap { routeBefore =>
           after.routes.find(route => route.id == routeId).flatMap { routeAfter =>
-            if (!routeBefore.isSameAs(routeAfter)) {
-              Some(Ref(routeId, routeAfter.name))
-            }
-            else {
-              None
+            Option.when(!routeBefore.isSameAs(routeAfter)) {
+              Ref(routeId, routeAfter.name)
             }
           }
         }
