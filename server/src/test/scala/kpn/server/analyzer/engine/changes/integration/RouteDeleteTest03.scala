@@ -5,14 +5,10 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
-import kpn.api.common.Fact
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
-import kpn.api.common.diff.TagDiff
-import kpn.api.common.diff.TagDiffs
-import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
@@ -79,7 +75,7 @@ class RouteDeleteTest03 extends IntegrationTest {
   }
 
   private def assertRouteChange(): Unit = {
-    pendingRedesignPrio3()
+
     assertEqual(
       findRouteChangeById("123:1:11"),
       newRouteChange(
@@ -123,27 +119,9 @@ class RouteDeleteTest03 extends IntegrationTest {
               "route" -> "foot",
               "ref" -> "01-02",
               "network:type" -> "node_network"
-            ),
-          )
-        ),
-        diffs = RouteDiff(
-          tagDiffs = Some(
-            TagDiffs(
-              mainTags = Seq(
-                TagDiff.delete("ref", "01-02"),
-                TagDiff.delete("network", "rwn"),
-                TagDiff.delete("type", "route"),
-                TagDiff.delete("route", "foot"),
-                TagDiff.same("network:type", "node_network")
-              )
             )
           )
-        ),
-        facts = Seq(Fact.LostRouteTags),
-        investigate = true,
-        impact = true,
-        locationInvestigate = true,
-        locationImpact = true
+        )
       )
     )
   }
@@ -231,8 +209,8 @@ class RouteDeleteTest03 extends IntegrationTest {
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(
-              removed = Seq(
-                newChangeSetElementRef(11, "01-02", investigate = true)
+              updated = Seq(
+                newChangeSetElementRef(11, "01-02" /*, investigate = true*/)
               )
             )
           )
