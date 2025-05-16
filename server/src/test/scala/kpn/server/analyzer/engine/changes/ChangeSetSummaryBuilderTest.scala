@@ -18,8 +18,8 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
-import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer
-import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
+import kpn.server.analyzer.engine.changes.node.main.NodeChangeStateAnalyzer
+import kpn.server.analyzer.engine.changes.route.main.RouteChangeStateAnalyzer
 import kpn.server.analyzer.engine.context.ElementIds
 
 class ChangeSetSummaryBuilderTest extends UnitTest with SharedTestObjects {

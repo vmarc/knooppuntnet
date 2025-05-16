@@ -13,8 +13,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer
-import kpn.server.analyzer.engine.changes.node.base.NodeChangeAnalyzer
+import kpn.server.analyzer.engine.changes.node.base.BaseNodeChangeAnalyzer
 import kpn.server.analyzer.engine.tile.NodeTileChangeAnalyzer
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NodeRepository
@@ -23,7 +22,7 @@ import org.springframework.stereotype.Component
 @Component
 class NodeChangeProcessor(
   bulkNodeAnalyzer: BulkNodeAnalyzer,
-  nodeChangeAnalyzer: NodeChangeAnalyzer,
+  nodeChangeAnalyzer: BaseNodeChangeAnalyzer,
   nodeRepository: NodeRepository,
   networkRepository: NetworkRepository,
   tileChangeAnalyzer: NodeTileChangeAnalyzer

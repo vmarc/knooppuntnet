@@ -11,16 +11,16 @@ import org.springframework.stereotype.Component
 @Component
 class BaseNodeChangeProcessor(
   analysisContext: AnalysisContext,
-  nodeChangeAnalyzer: NodeChangeAnalyzer,
-  nodeRepository: NodeRepository,
-  baseNodeBulkAnalyzer: BaseNodeBulkAnalyzer
+  baseNodeChangeAnalyzer: BaseNodeChangeAnalyzer,
+  baseNodeBulkAnalyzer: BaseNodeBulkAnalyzer,
+  nodeRepository: NodeRepository
 ) extends ChangeProcessor {
 
   private val log = Log(classOf[BaseNodeChangeProcessor])
 
   def process(context: ChangeSetContext): ChangeSetContext = {
     log.debugElapsed {
-      val nodeElementChanges = nodeChangeAnalyzer.analyze(context.changeSet)
+      val nodeElementChanges = baseNodeChangeAnalyzer.analyze(context.changeSet)
       val nodeIds = nodeElementChanges.elementIds
       val baseNodeDocsBefore = nodeRepository.baseNodesWithIds(nodeIds)
 
@@ -54,7 +54,7 @@ class BaseNodeChangeProcessor(
             baseNodeDocsAfter.find(_._id == nodeId) match {
               case None => false
               case Some(after) =>
-                NodeChangeFactAnalyzer.facts(before, after).nonEmpty
+                BaseNodeChangeFactAnalyzer.facts(before, after).nonEmpty
             }
         }
       }

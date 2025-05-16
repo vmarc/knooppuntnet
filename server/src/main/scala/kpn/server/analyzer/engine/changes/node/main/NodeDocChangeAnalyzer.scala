@@ -13,7 +13,7 @@ import kpn.core.doc.NodeDoc
 import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.core.util.Haversine
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer.analyzed
+import kpn.server.analyzer.engine.changes.node.main.NodeChangeStateAnalyzer.analyzed
 import kpn.server.analyzer.engine.tile.NodeTileChangeAnalyzer
 
 class NodeDocChangeAnalyzer(
