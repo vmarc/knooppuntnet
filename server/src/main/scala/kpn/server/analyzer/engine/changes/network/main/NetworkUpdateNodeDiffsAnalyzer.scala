@@ -5,7 +5,7 @@ import kpn.api.common.diff.RefDiffs
 import kpn.core.doc.NetworkDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 
-object NetworkInfoUpdateNodeDiffsAnalyzer {
+object NetworkUpdateNodeDiffsAnalyzer {
 
   def analyze(context: ChangeSetContext, before: NetworkDoc, after: NetworkDoc): RefDiffs = {
     val nodeIdsBefore = before.nodes.map(_.id).toSet

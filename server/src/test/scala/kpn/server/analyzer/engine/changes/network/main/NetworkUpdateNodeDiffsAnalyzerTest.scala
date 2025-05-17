@@ -10,16 +10,16 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.context.ElementIds
 
-class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestObjects {
+class NetworkUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObjects {
 
-  test("removed route") {
+  test("removed network node") {
 
     val before = newNetworkDoc(
       1,
-      routes = Seq(
-        newNetworkRouteDetail(
-          11,
-          "01-02"
+      nodes = Seq(
+        newNetworkInfoNodeDetail(
+          1001,
+          "01"
         )
       )
     )
@@ -32,13 +32,13 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
       analyze(before, after),
       RefDiffs(
         removed = Seq(
-          Ref(11, "01-02")
+          Ref(1001, "01")
         )
       )
     )
   }
 
-  test("added route") {
+  test("added network node") {
 
     val before = newNetworkDoc(
       1
@@ -46,10 +46,10 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
 
     val after = newNetworkDoc(
       1,
-      routes = Seq(
-        newNetworkRouteDetail(
-          11,
-          "01-02"
+      nodes = Seq(
+        newNetworkInfoNodeDetail(
+          1001,
+          "01"
         )
       )
     )
@@ -58,30 +58,30 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
       analyze(before, after),
       RefDiffs(
         added = Seq(
-          Ref(11, "01-02")
+          Ref(1001, "01")
         )
       )
     )
   }
 
-  test("updated route") {
+  test("updated network node") {
 
     val before = newNetworkDoc(
       1,
-      routes = Seq(
-        newNetworkRouteDetail(
-          11,
-          "01-02"
+      nodes = Seq(
+        newNetworkInfoNodeDetail(
+          1001,
+          "01"
         )
       )
     )
 
     val after = newNetworkDoc(
       1,
-      routes = Seq(
-        newNetworkRouteDetail(
-          11,
-          "01-03"
+      nodes = Seq(
+        newNetworkInfoNodeDetail(
+          1001,
+          "02"
         )
       )
     )
@@ -90,43 +90,43 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
       analyze(before, after),
       RefDiffs(
         updated = Seq(
-          Ref(11, "01-03")
+          Ref(1001, "02")
         )
       )
     )
   }
 
-  test("updated route - other than in NetworkInfoRouteDetail") {
+  test("updated network node - other than in NetworkInfoNodeDetail") {
 
     val context = ChangeSetContext(
       ReplicationId(1),
       newChangeSet(),
       ElementIds(),
       changes = ChangeSetChanges(
-        routeChanges = Seq(
-          newRouteChange(
-            key = newChangeKey(elementId = 11L),
-            name = "01-02"
+        nodeChanges = Seq(
+          newNodeChange(
+            key = newChangeKey(elementId = 1001L),
+            name = Some("01")
           )
         )
       )
     )
 
-    val networkInfoDoc = newNetworkDoc(
+    val networkDoc = newNetworkDoc(
       1,
-      routes = Seq(
-        newNetworkRouteDetail(
-          11,
-          "01-02"
+      nodes = Seq(
+        newNetworkInfoNodeDetail(
+          1001,
+          "01"
         )
       )
     )
 
     assertEqual(
-      analyze(context, networkInfoDoc, networkInfoDoc),
+      analyze(context, networkDoc, networkDoc),
       RefDiffs(
         updated = Seq(
-          Ref(11, "01-02")
+          Ref(1001, "01")
         )
       )
     )
@@ -142,6 +142,6 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
   }
 
   private def analyze(context: ChangeSetContext, before: NetworkDoc, after: NetworkDoc): RefDiffs = {
-    NetworkInfoUpdateRouteDiffsAnalyzer.analyze(context, before, after)
+    NetworkUpdateNodeDiffsAnalyzer.analyze(context, before, after)
   }
 }

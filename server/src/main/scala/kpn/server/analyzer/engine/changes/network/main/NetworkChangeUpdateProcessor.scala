@@ -34,8 +34,8 @@ class NetworkChangeUpdateProcessor(
     }
 
     val diffs = NetworkInfoDiffs(
-      nodeDiffs = NetworkInfoUpdateNodeDiffsAnalyzer.analyze(context, before, after),
-      routeDiffs = NetworkInfoUpdateRouteDiffsAnalyzer.analyze(context, before, after),
+      nodeDiffs = NetworkUpdateNodeDiffsAnalyzer.analyze(context, before, after),
+      routeDiffs = NetworkUpdateRouteDiffsAnalyzer.analyze(context, before, after),
       extraNodeDiffs = IdDiffsAnalyzer.analyze(before.extraNodeIds, after.extraNodeIds),
       extraWayDiffs = IdDiffsAnalyzer.analyze(before.extraWayIds, after.extraWayIds),
       extraRelationDiffs = IdDiffsAnalyzer.analyze(before.extraRelationIds, after.extraRelationIds)
