@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.route.base
 
+import kpn.api.common.ChangeType
 import kpn.api.common.Fact
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
@@ -80,6 +81,17 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
     assertEqual(updatedChangeSetContext.impactedTileIds, Seq("1-1-1-11", "2-2-2-11"))
     assertEqual(updatedChangeSetContext.impactedNodeIds, Seq(1001, 1002))
     assertEqual(updatedChangeSetContext.impactedRouteIds, Seq(11))
+
+    assertEqual(
+      updatedChangeSetContext.changes.baseRouteChanges,
+      Seq(
+        newBaseRouteChange(
+          _id = "123:1:11",
+          elementId = 11,
+          changeType = ChangeType.Create,
+        )
+      )
+    )
   }
 
   test("log warning if route not found in overpass database") {

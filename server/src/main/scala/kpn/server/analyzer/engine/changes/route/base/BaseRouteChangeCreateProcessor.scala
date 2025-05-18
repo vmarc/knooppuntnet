@@ -1,6 +1,8 @@
 package kpn.server.analyzer.engine.changes.route.base
 
+import kpn.api.common.ChangeType
 import kpn.api.common.Fact
+import kpn.api.common.changes.details.BaseRouteChange
 import kpn.core.doc.RawRouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
@@ -56,10 +58,30 @@ class BaseRouteChangeCreateProcessor(
     }
 
     private def processRouteAnalysisResult(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
+      val changeSetContext1 = processRouteChange(changeSetContext, context)
       updateRouteData(context)
-      changeSetContext.withImpact(
+      changeSetContext1.withImpact(
         tileIds = context.tiles,
         nodeIds = context.routeNodesAnalysis.nodeIds,
+      )
+    }
+
+    private def processRouteChange(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
+
+      val key = changeSetContext.buildChangeKey(routeId)
+      val change = BaseRouteChange(
+        _id = key.toId,
+        key = key,
+        changeType = ChangeType.Create,
+        removedWays = Seq.empty,
+        addedWays = context.relation.wayMembers.map(_.way.toRaw),
+        updatedWays = Seq.empty,
+      )
+
+      changeSetContext.copy(
+        changes = changeSetContext.changes.copy(
+          baseRouteChanges = changeSetContext.changes.baseRouteChanges :+ change,
+        )
       )
     }
 

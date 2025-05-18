@@ -2,6 +2,7 @@ package kpn.api.common
 
 import kpn.api.base.ObjectId
 import kpn.api.common.changes.ChangeSet
+import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
@@ -338,6 +339,24 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
+  def newBaseRouteChange(
+    _id: String,
+    elementId: Long = 0,
+    changeType: ChangeType = ChangeType.Update,
+    removedWays: Seq[RawWay] = Seq.empty,
+    addedWays: Seq[RawWay] = Seq.empty,
+    updatedWays: Seq[WayUpdate] = Seq.empty,
+  ): BaseRouteChange = {
+    BaseRouteChange(
+      _id,
+      newChangeKey(elementId = elementId),
+      changeType,
+      removedWays,
+      addedWays,
+      updatedWays,
+    )
+  }
+
   def newRouteData(
     relationId: Long = 0,
     meta: MetaData = MetaData(0, defaultTimestamp, 0),
@@ -470,6 +489,7 @@ trait SharedTestObjects extends MockFactory {
     segments: Seq[BaseRouteSegment] = Seq.empty,
     segmentElements: Seq[BaseRouteSegmentElement] = Seq.empty,
     paths: Seq[BaseRoutePath] = Seq.empty,
+    relation: Option[Relation] = None,
     hierarchy: Option[RouteRelation] = None,
     bounds: Option[Bounds] = None,
     subRouteIds: Seq[Long] = Seq.empty
@@ -515,6 +535,7 @@ trait SharedTestObjects extends MockFactory {
       segments,
       segmentElements,
       paths,
+      relation,
       hierarchy,
       bounds,
       subRouteIds
@@ -992,6 +1013,7 @@ trait SharedTestObjects extends MockFactory {
     segments: Seq[BaseRouteSegment] = Seq.empty,
     segmentElements: Seq[BaseRouteSegmentElement] = Seq.empty,
     paths: Seq[BaseRoutePath] = Seq.empty,
+    relation: Option[Relation] = None,
     hierarchy: Option[RouteRelation] = None,
     bounds: Option[Bounds] = None,
     subRouteIds: Seq[Long] = Seq.empty
@@ -1021,6 +1043,7 @@ trait SharedTestObjects extends MockFactory {
       segments,
       segmentElements,
       paths,
+      relation,
       hierarchy,
       bounds,
       subRouteIds

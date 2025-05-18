@@ -3,6 +3,7 @@ package kpn.server.repository
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
+import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -18,6 +19,8 @@ trait ChangeSetRepository {
   def saveNetworkChange(networkChange: NetworkChange): Unit
 
   def saveRouteChange(routeChange: RouteChange): Unit
+
+  def saveBaseRouteChange(baseRouteChange: BaseRouteChange): Unit
 
   def saveNodeChange(nodeChange: NodeChange): Unit
 

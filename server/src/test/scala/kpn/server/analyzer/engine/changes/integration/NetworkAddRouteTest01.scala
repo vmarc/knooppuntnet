@@ -79,6 +79,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
 
       assertNetworkDoc()
       assertNetworkChange()
+      assertBaseRouteChange()
       assertRouteChange()
       assertNodeChange1001()
       assertNodeChange1002()
@@ -186,6 +187,29 @@ class NetworkAddRouteTest01 extends IntegrationTest {
         ),
         happy = true,
         impact = true,
+      )
+    )
+  }
+
+  private def assertBaseRouteChange(): Unit = {
+    assertEqual(
+      findBaseRouteChangeById("123:1:11"),
+      newBaseRouteChange(
+        _id = "123:1:11",
+        elementId = 11,
+        changeType = ChangeType.Create,
+        addedWays = Seq(
+          newRawWay(
+            id = 101,
+            nodeIds = Vector(
+              1001,
+              1002
+            ),
+            tags = Tags.from(
+              "highway" -> "unclassified"
+            )
+          )
+        )
       )
     )
   }

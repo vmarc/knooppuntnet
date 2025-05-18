@@ -11,6 +11,7 @@ import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Day
+import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.context.ElementIds
 
@@ -39,6 +40,7 @@ case class BaseRouteDoc(
   segments: Seq[BaseRouteSegment],
   segmentElements: Seq[BaseRouteSegmentElement],
   paths: Seq[BaseRoutePath],
+  relation: Option[Relation],
   hierarchy: Option[RouteRelation],
   bounds: Option[Bounds],
   subRouteIds: Seq[Long]

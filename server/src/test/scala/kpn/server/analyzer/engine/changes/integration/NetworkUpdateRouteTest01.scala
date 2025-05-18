@@ -14,6 +14,7 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
+import kpn.api.common.data.WayMember
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
@@ -27,6 +28,7 @@ import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.RouteStructureWay
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Subset
+import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.BaseRouteSegment
@@ -191,6 +193,33 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             name = "backward",
             elementIds = Seq(1),
           ),
+        ),
+        relation = Some(
+          newRelation(
+            11,
+            members = Seq(
+              WayMember(
+                newWay(
+                  101,
+                  nodes = Vector(
+                    newNodeWithName(1001, "01"),
+                    newNodeWithName(1002, "02"),
+                  ),
+                  tags = Tags.from(
+                    "highway" -> "unclassified"
+                  )
+                ),
+                None
+              ),
+            ),
+            tags = Tags.from(
+              "network" -> "rwn",
+              "type" -> "route",
+              "route" -> "foot",
+              "ref" -> "01-02",
+              "network:type" -> "node_network"
+            )
+          )
         ),
         bounds = Some(Bounds())
       )
