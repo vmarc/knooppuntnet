@@ -22,7 +22,7 @@ trait OverpassRepository {
 
   def relationTopLevel(timestamp: Timestamp, relationId: Long): Option[Relation]
 
-  def relationHierarchy(timestamp: Timestamp, relationId: Long): Option[RouteRelation]
+  def subRelationTree(timestamp: Timestamp, relationId: Long): Option[RouteRelation]
 
   def routeIds(timestamp: Timestamp, typeValue: String): Seq[Long]
 }

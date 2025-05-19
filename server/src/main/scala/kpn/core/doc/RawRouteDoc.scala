@@ -6,5 +6,5 @@ import kpn.api.custom.Relation
 case class RawRouteDoc(
   _id: Long,
   relation: Relation,
-  structure: Option[RouteRelation]
+  subRelationTree: Option[RouteRelation]
 ) extends WithId

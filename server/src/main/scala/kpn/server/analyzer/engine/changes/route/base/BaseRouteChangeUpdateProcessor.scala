@@ -50,7 +50,7 @@ class BaseRouteChangeUpdateProcessor(
 
     private def processRoute(changeSetContext: ChangeSetContext, rawRouteDoc: RawRouteDoc): ChangeSetContext = {
       val beforeOption = routeRepository.findBaseRouteById(routeId)
-      val context = baseRouteMainAnalyzer.analyze(rawRouteDoc.relation, rawRouteDoc.structure /* TODO rename to rawRouteDoc.hierarchy ??? */)
+      val context = baseRouteMainAnalyzer.analyze(rawRouteDoc.relation, rawRouteDoc.subRelationTree)
       if (context.abort) {
         handleAbortedRouteAnalysis(changeSetContext, context)
       }

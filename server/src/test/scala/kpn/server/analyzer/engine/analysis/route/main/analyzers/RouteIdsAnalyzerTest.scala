@@ -6,7 +6,7 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
 class RouteIdsAnalyzerTest extends UnitTest with SharedTestObjects {
 
-  test("route id when there is no hierarchy") {
+  test("route id when there is no subRelationTree") {
     val baseRouteDoc = newBaseRouteDoc(newRouteSummary(11L))
     assertEqual(
       RouteIdsAnalyzer.analyze(RouteAnalysisContext(baseRouteDoc)).routeIds,
@@ -14,10 +14,10 @@ class RouteIdsAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  test("route ids from hierarchy") {
+  test("route ids from subRelationTree") {
     val baseRouteDoc = newBaseRouteDoc(
       newRouteSummary(11L),
-      hierarchy = Some(
+      subRelationTree = Some(
         newRouteRelation(
           1,
           relations = Seq(

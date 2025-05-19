@@ -52,7 +52,7 @@ class RawDataRepositoryImpl(
   override def route(timestamp: Timestamp, routeId: Long): Option[RawRouteDoc] = {
     overpassRepository.relationTopLevel(timestamp, routeId).map { relation =>
       val structure = if (relation.relationIdMembers.nonEmpty) {
-        overpassRepository.relationHierarchy(timestamp, routeId)
+        overpassRepository.subRelationTree(timestamp, routeId)
       }
       else {
         None

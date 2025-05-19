@@ -28,7 +28,7 @@ import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
 
 case class BaseRouteAnalysisContext(
   relation: Relation,
-  hierarchy: Option[RouteRelation],
+  subRelationTree: Option[RouteRelation],
   // analysis results start here...
   active: Boolean = true,
   superRoute: Boolean = false,

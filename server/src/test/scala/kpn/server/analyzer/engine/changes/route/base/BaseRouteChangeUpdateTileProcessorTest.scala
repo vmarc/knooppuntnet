@@ -40,7 +40,7 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with SharedTestObj
 
     private val context = BaseRouteAnalysisContext(
       relation = newRelation(id = 11),
-      hierarchy = None,
+      subRelationTree = None,
       _routeTypes = Some(Seq(RouteType.hiking)),
       _routeNameAnalysis = Some(RouteNameAnalysis(name = Some("01-02"))),
     )

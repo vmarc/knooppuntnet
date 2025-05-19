@@ -186,7 +186,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
   private def buildAnalysisResult(rawRouteDoc: RawRouteDoc): BaseRouteAnalysisContext = {
     BaseRouteAnalysisContext(
       rawRouteDoc.relation,
-      rawRouteDoc.structure,
+      rawRouteDoc.subRelationTree,
       _routeTypes = Some(
         Seq(RouteType.hiking)
       ),
@@ -216,7 +216,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
   private def buildAbortedAnalysisResult(rawRouteDoc: RawRouteDoc): BaseRouteAnalysisContext = {
     BaseRouteAnalysisContext(
       rawRouteDoc.relation,
-      rawRouteDoc.structure,
+      rawRouteDoc.subRelationTree,
       abort = true,
     )
   }

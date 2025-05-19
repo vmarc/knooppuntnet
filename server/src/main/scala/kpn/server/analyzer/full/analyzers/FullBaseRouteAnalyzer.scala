@@ -75,7 +75,7 @@ class FullBaseRouteAnalyzer(
       try {
         rawDataRepository.route(timestamp, routeId) match {
           case Some(rawRouteDoc) =>
-            analyzeBaseRoute(rawRouteDoc.relation, rawRouteDoc.structure)
+            analyzeBaseRoute(rawRouteDoc.relation, rawRouteDoc.subRelationTree)
           case None =>
             log.error(s"route $routeId not found in route-relations")
         }
@@ -87,8 +87,8 @@ class FullBaseRouteAnalyzer(
     }
   }
 
-  private def analyzeBaseRoute(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
-    val context = baseRouteMainAnalyzer.analyze(relation, hierarchy)
+  private def analyzeBaseRoute(relation: Relation, subRelationTree: Option[RouteRelation]): Unit = {
+    val context = baseRouteMainAnalyzer.analyze(relation, subRelationTree)
     if (!context.abort) {
       saveRouteData(context)
     }

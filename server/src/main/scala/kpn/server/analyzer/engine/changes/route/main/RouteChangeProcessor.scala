@@ -240,7 +240,7 @@ class RouteChangeProcessor(
     //    val lostRouteTags = TagInterpreter.isRouteRelation(relationBefore) &&
     //      !TagInterpreter.isRouteRelation(relationAfter)
 
-    //    baseRouteMainAnalyzer.analyze(relationBefore, None /* TODO redesign - hierarchy */) match {
+    //    baseRouteMainAnalyzer.analyze(relationBefore, None /* TODO redesign - subRelationTree */) match {
     //      case None => None
     //      case Some(contextBefore) =>
     //        val baseRouteDocBefore = new BaseRouteDocBuilder(contextBefore).build()
@@ -248,7 +248,7 @@ class RouteChangeProcessor(
     //          processLostRouteTags(context, contextBefore, baseRouteDocBefore, relationAfter, routeId)
     //        }
     //        else {
-    //          baseRouteMainAnalyzer.analyze(relationAfter, None /* TODO redesign - hierarchy */) match {
+    //          baseRouteMainAnalyzer.analyze(relationAfter, None /* TODO redesign - subRelationTree */) match {
     //            case None => None
     //            case Some(contextAfter) =>
     //              val baseRouteDocAfter = new BaseRouteDocBuilder(contextAfter).build()

@@ -41,7 +41,7 @@ case class BaseRouteDoc(
   segmentElements: Seq[BaseRouteSegmentElement],
   paths: Seq[BaseRoutePath],
   relation: Option[Relation],
-  hierarchy: Option[RouteRelation],
+  subRelationTree: Option[RouteRelation],
   bounds: Option[Bounds],
   subRouteIds: Seq[Long]
 ) extends WithId {

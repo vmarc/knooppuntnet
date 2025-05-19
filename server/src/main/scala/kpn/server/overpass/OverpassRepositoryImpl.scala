@@ -92,7 +92,7 @@ class OverpassRepositoryImpl(
     new BaseRelationBuilder(rawData, log).build(relationId)
   }
 
-  override def relationHierarchy(timestamp: Timestamp, relationId: Long): Option[RouteRelation] = {
+  override def subRelationTree(timestamp: Timestamp, relationId: Long): Option[RouteRelation] = {
     val xmlString = overpassQueryExecutor.executeQuery(Some(timestamp), QueryRelationStructure(relationId))
     val filteredXmlString = xmlString.linesIterator.filter { line =>
       !(line.contains("<node id") || line.contains("<way id") || line.contains("<member type=\"node\"") || line.contains("<member type=\"way\""))

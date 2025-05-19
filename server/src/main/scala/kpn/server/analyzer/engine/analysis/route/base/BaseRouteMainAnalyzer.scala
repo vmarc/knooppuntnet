@@ -57,13 +57,13 @@ class BaseRouteMainAnalyzer(
 
   def analyze(
     relation: Relation,
-    hierarchy: Option[RouteRelation],
+    subRelationTree: Option[RouteRelation],
     traceEnabled: Boolean = false
   ): BaseRouteAnalysisContext = {
 
     Log.context(f"route=${relation.id}%07d") {
 
-      val context = BaseRouteAnalysisContext(relation, hierarchy, traceEnabled = traceEnabled)
+      val context = BaseRouteAnalysisContext(relation, subRelationTree, traceEnabled = traceEnabled)
 
       val analyzers: List[BaseRouteAnalyzer] = List(
         BaseRouteTagAnalyzer,

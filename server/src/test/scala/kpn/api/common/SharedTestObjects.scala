@@ -490,7 +490,7 @@ trait SharedTestObjects extends MockFactory {
     segmentElements: Seq[BaseRouteSegmentElement] = Seq.empty,
     paths: Seq[BaseRoutePath] = Seq.empty,
     relation: Option[Relation] = None,
-    hierarchy: Option[RouteRelation] = None,
+    subRelationTree: Option[RouteRelation] = None,
     bounds: Option[Bounds] = None,
     subRouteIds: Seq[Long] = Seq.empty
   ): BaseRouteDoc = {
@@ -536,7 +536,7 @@ trait SharedTestObjects extends MockFactory {
       segmentElements,
       paths,
       relation,
-      hierarchy,
+      subRelationTree,
       bounds,
       subRouteIds
     )
@@ -1014,7 +1014,7 @@ trait SharedTestObjects extends MockFactory {
     segmentElements: Seq[BaseRouteSegmentElement] = Seq.empty,
     paths: Seq[BaseRoutePath] = Seq.empty,
     relation: Option[Relation] = None,
-    hierarchy: Option[RouteRelation] = None,
+    subRelationTree: Option[RouteRelation] = None,
     bounds: Option[Bounds] = None,
     subRouteIds: Seq[Long] = Seq.empty
   ): BaseRouteDoc = {
@@ -1044,7 +1044,7 @@ trait SharedTestObjects extends MockFactory {
       segmentElements,
       paths,
       relation,
-      hierarchy,
+      subRelationTree,
       bounds,
       subRouteIds
     )

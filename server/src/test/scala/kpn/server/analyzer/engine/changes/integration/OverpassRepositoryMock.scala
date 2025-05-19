@@ -126,7 +126,7 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
     }
   }
 
-  override def relationHierarchy(timestamp: Timestamp, relationId: Long): Option[RouteRelation] = {
+  override def subRelationTree(timestamp: Timestamp, relationId: Long): Option[RouteRelation] = {
     if (timestamp == timestampBeforeValue) {
       beforeData.relations.get(relationId).map { relation =>
         RouteRelation.from(relation, None)

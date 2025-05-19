@@ -91,7 +91,7 @@ class BaseRouteDocBuilder() {
       context.segmentElements,
       context.paths,
       Some(context.relation),
-      context.hierarchy,
+      context.subRelationTree,
       context.bounds,
       subRelationIds
     )

@@ -48,7 +48,7 @@ class BaseRouteChangeCreateProcessor(
     }
 
     private def processRoute(changeSetContext: ChangeSetContext, rawRouteDoc: RawRouteDoc): ChangeSetContext = {
-      val context = baseRouteMainAnalyzer.analyze(rawRouteDoc.relation, rawRouteDoc.structure)
+      val context = baseRouteMainAnalyzer.analyze(rawRouteDoc.relation, rawRouteDoc.subRelationTree)
       if (context.abort) {
         handleAbortedRouteAnalysis(changeSetContext, context)
       }
