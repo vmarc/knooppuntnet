@@ -7,9 +7,9 @@ import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
 
-class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseRouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'ref' tag") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "01-02"))
@@ -253,7 +253,6 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("route name missing") {
-    pendingRedesign()
     val context = analyze(Seq.empty)
     context._routeNameAnalysis should equal(Some(RouteNameAnalysis()))
     assertEqual(context.facts.toSet, Set(RouteNameMissing))
@@ -319,14 +318,18 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("route name based on single node in ways and/or relation") {
-    val routeNodeInfos: Map[Long, RouteNodeInfo] = Map(
-      1001L -> RouteNodeInfo(
-        newNode(1001),
-        "01",
-        None
+    val routeNodesAnalysis = RouteNodesAnalysis(
+      startNode = Some(
+        newRouteNodeAnalysis(1001, "01")
       )
+
+      //        1001L -> RouteNodeInfo(
+      //        newNode(1001),
+      //        "01",
+      //        None
+      //      )
     )
-    val routeNameAnalysis = analyzeRouteName(Seq.empty, routeNodeInfos)
+    val routeNameAnalysis = analyzeRouteName(Seq.empty, routeNodesAnalysis)
     assertEqual(
       routeNameAnalysis,
       RouteNameAnalysis(
@@ -339,14 +342,14 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("route name based on single node (with dash in name) in ways and/or relation") {
-    val routeNodeInfos: Map[Long, RouteNodeInfo] = Map(
-      1001L -> RouteNodeInfo(
-        newNode(1001),
-        "node-name",
-        None
+
+    val routeNodesAnalysis = RouteNodesAnalysis(
+      startNode = Some(
+        newRouteNodeAnalysis(1001, "node-name")
       )
     )
-    val routeNameAnalysis = analyzeRouteName(Seq.empty, routeNodeInfos)
+
+    val routeNameAnalysis = analyzeRouteName(Seq.empty, routeNodesAnalysis)
     assertEqual(
       routeNameAnalysis,
       RouteNameAnalysis(
@@ -359,19 +362,17 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("route name based on two nodes in ways and/or relation") {
-    val routeNodeInfos: Map[Long, RouteNodeInfo] = Map(
-      1001L -> RouteNodeInfo(
-        newNode(1001),
-        "01",
-        None
+
+    val routeNodesAnalysis = RouteNodesAnalysis(
+      startNode = Some(
+        newRouteNodeAnalysis(1001, "01")
       ),
-      1002L -> RouteNodeInfo(
-        newNode(1002),
-        "02",
-        None
+      endNode = Some(
+        newRouteNodeAnalysis(1002, "02")
       )
     )
-    val routeNameAnalysis = analyzeRouteName(Seq.empty, routeNodeInfos)
+
+    val routeNameAnalysis = analyzeRouteName(Seq.empty, routeNodesAnalysis)
     assertEqual(
       routeNameAnalysis,
       RouteNameAnalysis(
@@ -383,12 +384,12 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  private def analyzeRouteName(tags: Seq[Tag], routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty): RouteNameAnalysis = {
-    val newContext = analyze(tags, routeNodeInfos)
+  private def analyzeRouteName(tags: Seq[Tag], routeNodesAnalysis: RouteNodesAnalysis = RouteNodesAnalysis()): RouteNameAnalysis = {
+    val newContext = analyze(tags, routeNodesAnalysis)
     newContext.routeNameAnalysis
   }
 
-  private def analyze(tags: Seq[Tag], routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty): BaseRouteAnalysisContext = {
+  private def analyze(tags: Seq[Tag], routeNodesAnalysis: RouteNodesAnalysis = RouteNodesAnalysis()): BaseRouteAnalysisContext = {
 
     val standardRouteTags = Tags.from(
       "network" -> "rwn",
@@ -405,7 +406,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
       relation,
       None,
       nodeNetwork = true,
-      routeNodeInfos = routeNodeInfos
+      _routeNodesAnalysis = Some(routeNodesAnalysis)
     )
 
     BaseRouteNameAnalyzer.analyze(context)

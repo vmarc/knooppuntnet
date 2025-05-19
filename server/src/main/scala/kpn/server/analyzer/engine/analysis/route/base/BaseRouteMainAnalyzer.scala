@@ -76,7 +76,6 @@ class BaseRouteMainAnalyzer(
         BaseRouteFixmeTodoAnalyzer,
         BaseRouteUnexpectedNodeAnalyzer,
         BaseRouteUnexpectedRelationAnalyzer, // TODO redesign - move to pass 2?
-        BaseRouteNameAnalyzer,
 
         //OldRouteNodeAnalyzer,
         // TODO RouteNameFromNodesAnalyzer,
@@ -84,6 +83,7 @@ class BaseRouteMainAnalyzer(
 
         BaseRouteLinkAnalyzer,
         BaseRouteNodesAnalyzer,
+        BaseRouteNameAnalyzer,
         BaseRouteExpectedNameAnalyzer,
         BaseRouteSegmentAnalyzer,
         BaseRouteOneWayAnalyzer,

@@ -9,7 +9,7 @@ import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
-class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseRouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route tag missing") {
     val context = analyze(

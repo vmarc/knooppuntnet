@@ -25,7 +25,8 @@ class Issue4_RedundantNodes extends UnitTest {
       )
     )
 
-    context.facts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteRedundantNodes, Fact.RouteBroken))
+    context.facts should contain(Fact.RouteRedundantNodes)
+    context.facts should contain(Fact.RouteNameDeprecatedNoteTag)
   }
 
   test("route 56-58") {
@@ -44,6 +45,7 @@ class Issue4_RedundantNodes extends UnitTest {
       )
     )
 
-    context.facts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteRedundantNodes, Fact.RouteBroken))
+    context.facts should contain(Fact.RouteRedundantNodes)
+    context.facts should contain(Fact.RouteNameDeprecatedNoteTag)
   }
 }

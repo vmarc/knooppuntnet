@@ -279,37 +279,34 @@ class BaseRouteNameAnalyzer(context: BaseRouteAnalysisContext) {
   }
 
   private def routeNameFromNodesInWays(): Option[RouteNameAnalysis] = {
-    val nodeNames = context.routeNodeInfos.values.map(_.name).toSeq.distinct
-    if (nodeNames.sizeIs == 1) {
-      val startNodeName = nodeNames.head
-      val endNodeName = startNodeName
-      val routeName = s"$startNodeName-$endNodeName"
-      val normalizedRouteName = normalizeRouteName(routeName, startNodeName, endNodeName)
-      Some(
-        RouteNameAnalysis(
-          name = Some(normalizedRouteName),
-          startNodeName = Some(startNodeName),
-          endNodeName = Some(endNodeName),
-          derivedFromNodes = true
+    (context.routeNodesAnalysis.startNode, context.routeNodesAnalysis.endNode) match {
+      case (Some(startNode), Some(endNode)) =>
+        val startNodeName = startNode.name
+        val endNodeName = endNode.name
+        val routeName = s"$startNodeName-$endNodeName"
+        val normalizedRouteName = normalizeRouteName(routeName, startNodeName, endNodeName)
+        Some(
+          RouteNameAnalysis(
+            name = Some(normalizedRouteName),
+            startNodeName = Some(startNodeName),
+            endNodeName = Some(endNodeName),
+            derivedFromNodes = true
+          )
         )
-      )
-    }
-    else if (nodeNames.sizeIs == 2) {
-      val startNodeName = nodeNames.head
-      val endNodeName = nodeNames(1)
-      val routeName = s"$startNodeName-$endNodeName"
-      val normalizedRouteName = normalizeRouteName(routeName, startNodeName, endNodeName)
-      Some(
-        RouteNameAnalysis(
-          name = Some(normalizedRouteName),
-          startNodeName = Some(startNodeName),
-          endNodeName = Some(endNodeName),
-          derivedFromNodes = true
+      case (Some(startNode), None) =>
+        val startNodeName = startNode.name
+        val routeName = s"$startNodeName-$startNodeName"
+        val normalizedRouteName = normalizeRouteName(routeName, startNodeName, startNodeName)
+        Some(
+          RouteNameAnalysis(
+            name = Some(normalizedRouteName),
+            startNodeName = Some(startNodeName),
+            endNodeName = Some(startNodeName),
+            derivedFromNodes = true
+          )
         )
-      )
-    }
-    else {
-      None
+
+      case _ => None
     }
   }
 
