@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.route.base
 import kpn.api.common.ChangeType
 import kpn.api.common.Fact
 import kpn.api.common.changes.details.BaseRouteChange
+import kpn.api.common.diff.WayDiffs
 import kpn.core.doc.RawRouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
@@ -68,14 +69,16 @@ class BaseRouteChangeCreateProcessor(
 
     private def processRouteChange(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
 
+      val wayDiffs = WayDiffs(
+        added = context.relation.ways.map(_.toRaw),
+      )
+
       val key = changeSetContext.buildChangeKey(routeId)
       val change = BaseRouteChange(
         _id = key.toId,
         key = key,
         changeType = ChangeType.Create,
-        removedWays = Seq.empty,
-        addedWays = context.relation.wayMembers.map(_.way.toRaw),
-        updatedWays = Seq.empty,
+        wayDiffs
       )
 
       changeSetContext.copy(

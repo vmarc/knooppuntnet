@@ -10,6 +10,7 @@ import kpn.api.common.data.Node
 import kpn.api.common.diff.NodeUpdate
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.WayInfo
 import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.common.FactDiffs
@@ -57,9 +58,11 @@ object RouteChangesPageExample {
         before = None, // TODO CHANGE provide some value
         after = None, // TODO CHANGE provide some value
 
-        removedWays = removedWays(),
-        addedWays = addedWays(),
-        updatedWays = updatedWays(),
+        wayDiffs = WayDiffsInfo(
+          removed = removedWays(),
+          added = addedWays(),
+          updated = updatedWays(),
+        ),
         diffs = routeDiff(),
         nodes = Seq.empty,
         Seq.empty,

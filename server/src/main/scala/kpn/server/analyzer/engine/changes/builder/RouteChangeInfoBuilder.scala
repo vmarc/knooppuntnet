@@ -5,7 +5,7 @@ import kpn.api.common.ElementChangeType
 import kpn.api.common.LatLon
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.RouteChange
-import kpn.api.common.diff.WayInfo
+import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.route.GeometryDiffAnalyzer
 import kpn.api.common.route.RouteChangeInfo
 import kpn.api.common.route.RouteNodeChange
@@ -98,9 +98,7 @@ class RouteChangeInfoBuilder {
         comment,
         routeChange.before.map(_.meta),
         routeChange.after.map(_.meta),
-        routeChange.removedWays.map(WayInfo.from),
-        routeChange.addedWays.map(WayInfo.from),
-        routeChange.updatedWays,
+        WayDiffsInfo.from(routeChange.wayDiffs),
         routeChange.diffs,
         after.networkNodes,
         nodeChanges,
@@ -143,9 +141,7 @@ class RouteChangeInfoBuilder {
         comment,
         routeChange.before.map(_.meta),
         routeChange.after.map(_.meta),
-        routeChange.removedWays.map(WayInfo.from),
-        routeChange.addedWays.map(WayInfo.from),
-        routeChange.updatedWays,
+        WayDiffsInfo.from(routeChange.wayDiffs),
         routeChange.diffs,
         routeData.networkNodes,
         nodeChanges,
@@ -188,9 +184,7 @@ class RouteChangeInfoBuilder {
         comment,
         routeChange.before.map(_.meta),
         routeChange.after.map(_.meta),
-        routeChange.removedWays.map(WayInfo.from),
-        routeChange.addedWays.map(WayInfo.from),
-        routeChange.updatedWays,
+        WayDiffsInfo.from(routeChange.wayDiffs),
         routeChange.diffs,
         routeData.networkNodes,
         nodeChanges,

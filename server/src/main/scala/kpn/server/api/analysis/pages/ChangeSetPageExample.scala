@@ -24,6 +24,7 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.common.diff.route.RouteDiff
@@ -593,16 +594,7 @@ object ChangeSetPageExample {
             changeSetId = 1
           )
         ),
-        removedWays = Seq(
-          // WayInfo()
-        ),
-        addedWays = Seq(
-          // WayInfo()
-        ),
-        updatedWays = Seq(
-          // WayInfo()
-        ),
-
+        wayDiffs = WayDiffsInfo.empty,
         diffs = RouteDiff(),
         nodes = Seq(
           // RawNode()

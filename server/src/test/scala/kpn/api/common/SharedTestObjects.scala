@@ -27,7 +27,7 @@ import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.TagDiffs
-import kpn.api.common.diff.WayUpdate
+import kpn.api.common.diff.WayDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.network.NodeRouteReferenceDiffs
 import kpn.api.common.diff.node.NodeMoved
@@ -303,9 +303,7 @@ trait SharedTestObjects extends MockFactory {
     removedFromNetwork: Seq[Ref] = Seq.empty,
     before: Option[RouteData] = None,
     after: Option[RouteData] = None,
-    removedWays: Seq[RawWay] = Seq.empty,
-    addedWays: Seq[RawWay] = Seq.empty,
-    updatedWays: Seq[WayUpdate] = Seq.empty,
+    wayDiffs: WayDiffs = WayDiffs.empty,
     diffs: RouteDiff = RouteDiff(),
     facts: Seq[Fact] = Seq.empty,
     happy: Boolean = false,
@@ -325,9 +323,7 @@ trait SharedTestObjects extends MockFactory {
       removedFromNetwork,
       before,
       after,
-      removedWays,
-      addedWays,
-      updatedWays,
+      wayDiffs,
       diffs,
       facts,
       happy,
@@ -343,17 +339,13 @@ trait SharedTestObjects extends MockFactory {
     _id: String,
     elementId: Long = 0,
     changeType: ChangeType = ChangeType.Update,
-    removedWays: Seq[RawWay] = Seq.empty,
-    addedWays: Seq[RawWay] = Seq.empty,
-    updatedWays: Seq[WayUpdate] = Seq.empty,
+    wayDiffs: WayDiffs = WayDiffs.empty,
   ): BaseRouteChange = {
     BaseRouteChange(
       _id,
       newChangeKey(elementId = elementId),
       changeType,
-      removedWays,
-      addedWays,
-      updatedWays,
+      wayDiffs
     )
   }
 

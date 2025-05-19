@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.route.base
 import kpn.api.common.ChangeType
 import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.data.raw.RawWay
+import kpn.api.common.diff.WayDiffs
 import kpn.api.common.diff.WayUpdate
 import kpn.api.custom.Relation
 import kpn.core.history.WayDiffAnalyzer
@@ -19,28 +20,38 @@ class BaseRouteChangeUpdateWayProcessorImpl extends BaseRouteChangeUpdateWayProc
     after: Relation,
   ): ChangeSetContext = {
 
-    val wayIdsBefore = before.ways.map(_.id).toSet
-    val wayIdsAfter = after.ways.map(_.id).toSet
-    val wayIdsCommon = wayIdsBefore intersect wayIdsAfter
-
-    val removedWays = toWays(before, wayIdsBefore -- wayIdsAfter)
-    val addedWays = toWays(after, wayIdsAfter -- wayIdsBefore)
-    val updatedWays = analyzeUpdatedWays(before, after, wayIdsCommon)
-
-    if (removedWays.nonEmpty || addedWays.nonEmpty || updatedWays.nonEmpty) {
-      updateChangeSetContext(changeSetContext, after, removedWays, addedWays, updatedWays)
+    val wayDiffs = analyzeWayDiffs(before, after)
+    if (wayDiffs.nonEmpty) {
+      updateChangeSetContext(changeSetContext, after, wayDiffs)
     }
     else {
       changeSetContext
     }
   }
 
+  private def analyzeWayDiffs(before: Relation, after: Relation): WayDiffs = {
+
+    val wayIdsBefore = before.ways.map(_.id).toSet
+    val wayIdsAfter = after.ways.map(_.id).toSet
+    val wayIdsCommon = wayIdsBefore intersect wayIdsAfter
+
+    val removed = toWays(before, wayIdsBefore -- wayIdsAfter)
+    val added = toWays(after, wayIdsAfter -- wayIdsBefore)
+    val updated = analyzeUpdatedWays(before, after, wayIdsCommon)
+
+    WayDiffs(
+      removed,
+      added,
+      updated
+    )
+  }
+
   private def analyzeUpdatedWays(
     before: Relation,
     after: Relation,
-    wayIdsCommon: Set[Long]
+    wayIds: Set[Long]
   ): Seq[WayUpdate] = {
-    wayIdsCommon.toSeq.sorted.flatMap { wayId =>
+    wayIds.toSeq.sorted.flatMap { wayId =>
       val wayBeforeOption = before.ways.find(_.id == wayId)
       val wayAfterOption = after.ways.find(_.id == wayId)
       (wayBeforeOption, wayAfterOption) match {
@@ -52,15 +63,13 @@ class BaseRouteChangeUpdateWayProcessorImpl extends BaseRouteChangeUpdateWayProc
     }
   }
 
-  private def updateChangeSetContext(changeSetContext: ChangeSetContext, after: Relation, removedWays: Seq[RawWay], addedWays: Seq[RawWay], updatedWays: Seq[WayUpdate]) = {
+  private def updateChangeSetContext(changeSetContext: ChangeSetContext, after: Relation, wayDiffs: WayDiffs) = {
     val key = changeSetContext.buildChangeKey(after.id)
     val change = BaseRouteChange(
       _id = key.toId,
       key = key,
       changeType = ChangeType.Update,
-      removedWays,
-      addedWays,
-      updatedWays,
+      wayDiffs
     )
     changeSetContext.copy(
       changes = changeSetContext.changes.copy(

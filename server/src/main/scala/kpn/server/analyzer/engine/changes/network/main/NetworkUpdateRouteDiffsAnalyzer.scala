@@ -94,12 +94,6 @@ object NetworkUpdateRouteDiffsAnalyzer {
   }
 
   private def waysChanged(baseRouteChangeOption: Option[BaseRouteChange]): Boolean = {
-    baseRouteChangeOption match {
-      case Some(baseRouteChange) =>
-        baseRouteChange.removedWays.nonEmpty ||
-          baseRouteChange.addedWays.nonEmpty ||
-          baseRouteChange.updatedWays.nonEmpty
-      case None => false
-    }
+    baseRouteChangeOption.exists(_.wayDiffs.nonEmpty)
   }
 }

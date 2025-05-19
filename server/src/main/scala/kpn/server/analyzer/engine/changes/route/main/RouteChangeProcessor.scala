@@ -4,6 +4,7 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Fact
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.diff.RouteData
+import kpn.api.common.diff.WayDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Relation
@@ -171,9 +172,10 @@ class RouteChangeProcessor(
     val impactedNetworkIds = addedToNetwork.map(_.id)
 
     val baseRouteChangeOption = context.changes.baseRouteChanges.find(_.routeId == routeId)
-    val removedWays = baseRouteChangeOption.toSeq.flatMap(_.removedWays)
-    val addedWays = baseRouteChangeOption.toSeq.flatMap(_.addedWays)
-    val updatedWays = baseRouteChangeOption.toSeq.flatMap(_.updatedWays)
+    val wayDiffs = baseRouteChangeOption match {
+      case Some(baseRouteChange) => baseRouteChange.wayDiffs
+      case None => WayDiffs.empty
+    }
 
     Some(
       RouteChangeContext(
@@ -188,9 +190,7 @@ class RouteChangeProcessor(
             removedFromNetwork = Seq.empty,
             before = None,
             after = Some(RouteData.from(routeDocAfter)),
-            removedWays = removedWays,
-            addedWays = addedWays,
-            updatedWays = updatedWays,
+            wayDiffs,
             diffs = RouteDiff(
               factDiffs = factDiffs
             ),
@@ -227,9 +227,7 @@ class RouteChangeProcessor(
             removedFromNetwork = removedFromNetwork,
             before = Some(RouteData.from(routeDoc)),
             after = None,
-            removedWays = Seq.empty,
-            addedWays = Seq.empty,
-            updatedWays = Seq.empty,
+            wayDiffs = WayDiffs.empty,
             diffs = RouteDiff(),
             facts = Seq(Fact.Deleted),
           )
@@ -301,9 +299,7 @@ class RouteChangeProcessor(
             removedFromNetwork = removedFromNetwork,
             before = Some(routeUpdate.before),
             after = Some(routeUpdate.after),
-            removedWays = routeUpdate.removedWays,
-            addedWays = routeUpdate.addedWays,
-            updatedWays = routeUpdate.updatedWays,
+            wayDiffs = routeUpdate.wayDiffs,
             diffs = routeUpdate.diffs,
             facts = routeUpdate.facts,
           )
@@ -366,9 +362,7 @@ class RouteChangeProcessor(
             removedFromNetwork = removedFromNetwork,
             before = Some(RouteData.from(beforeContext)),
             after = None,
-            removedWays = Seq.empty,
-            addedWays = Seq.empty,
-            updatedWays = Seq.empty,
+            wayDiffs = WayDiffs.empty,
             diffs = RouteDiff(
               tagDiffs = tagDiffs
             ),

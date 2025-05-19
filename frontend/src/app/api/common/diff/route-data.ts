@@ -2,7 +2,6 @@
 
 import { Country } from '@api/common/country';
 import { MetaData } from '@api/common/data/meta-data';
-import { Way } from '@api/common/data/way';
 import { Fact } from '@api/common/fact';
 import { RouteLocationAnalysis } from '@api/common/route-location-analysis';
 import { RouteType } from '@api/common/route-type';
@@ -16,7 +15,6 @@ export interface RouteData {
   readonly routeTypes: RouteType[];
   readonly name: string;
   readonly networkNodes: RouteNode[];
-  readonly ways: Way[];
   readonly facts: Fact[];
   readonly meters: number;
   readonly locationAnalysis: RouteLocationAnalysis;

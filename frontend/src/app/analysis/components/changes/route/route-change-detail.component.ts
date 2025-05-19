@@ -26,15 +26,15 @@ import { RouteDiffComponent } from './route-diff.component';
       </div>
     }
 
-    @for (removedWayInfo of routeChangeInfo().removedWays; track $index) {
+    @for (removedWayInfo of routeChangeInfo().wayDiffs.removed; track $index) {
       <kpn-route-change-way-removed [wayInfo]="removedWayInfo" />
     }
 
-    @for (addedWayInfo of routeChangeInfo().addedWays; track $index) {
+    @for (addedWayInfo of routeChangeInfo().wayDiffs.added; track $index) {
       <kpn-route-change-way-added [routeChangeInfo]="routeChangeInfo()" [wayInfo]="addedWayInfo" />
     }
 
-    @for (wayUpdate of routeChangeInfo().updatedWays; track $index) {
+    @for (wayUpdate of routeChangeInfo().wayDiffs.updated; track $index) {
       <kpn-route-change-way-updated [wayUpdate]="wayUpdate" />
     }
   `,

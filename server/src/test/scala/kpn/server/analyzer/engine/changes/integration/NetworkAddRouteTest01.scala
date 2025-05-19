@@ -19,6 +19,7 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
+import kpn.api.common.diff.WayDiffs
 import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -214,15 +215,17 @@ class NetworkAddRouteTest01 extends IntegrationTest {
         addedToNetwork = Seq(Ref(1, "network")),
         before = None,
         after = Some(routeData),
-        addedWays = Seq(
-          newRawWay(
-            id = 101,
-            nodeIds = Vector(
-              1001,
-              1002
-            ),
-            tags = Tags.from(
-              "highway" -> "unclassified"
+        wayDiffs = WayDiffs(
+          added = Seq(
+            newRawWay(
+              id = 101,
+              nodeIds = Vector(
+                1001,
+                1002
+              ),
+              tags = Tags.from(
+                "highway" -> "unclassified"
+              )
             )
           )
         ),

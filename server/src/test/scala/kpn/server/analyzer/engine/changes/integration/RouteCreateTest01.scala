@@ -12,6 +12,7 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
+import kpn.api.common.diff.WayDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
@@ -166,15 +167,17 @@ class RouteCreateTest01 extends IntegrationTest {
             )
           )
         ),
-        addedWays = Seq(
-          newRawWay(
-            id = 101,
-            nodeIds = Vector(
-              1001,
-              1002
-            ),
-            tags = Tags.from(
-              "highway" -> "unclassified"
+        wayDiffs = WayDiffs(
+          added = Seq(
+            newRawWay(
+              id = 101,
+              nodeIds = Vector(
+                1001,
+                1002
+              ),
+              tags = Tags.from(
+                "highway" -> "unclassified"
+              )
             )
           )
         ),

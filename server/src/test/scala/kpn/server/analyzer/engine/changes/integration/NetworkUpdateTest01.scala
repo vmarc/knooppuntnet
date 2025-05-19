@@ -14,6 +14,7 @@ import kpn.api.common.diff.NodeUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.WayDiffs
 import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
@@ -124,19 +125,21 @@ class NetworkUpdateTest01 extends IntegrationTest {
             tags = newRouteTags("01-03")
           )
         ),
-        updatedWays = Seq(
-          WayUpdate(
-            101,
-            MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
-            MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
-            Seq.empty,
-            Seq.empty,
-            Seq(
-              NodeUpdate(
-                newNodeWithName(1002, "02"),
-                newNodeWithName(1002, "03"),
-                None,
-                None
+        wayDiffs = WayDiffs(
+          updated = Seq(
+            WayUpdate(
+              101,
+              MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
+              MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
+              Seq.empty,
+              Seq.empty,
+              Seq(
+                NodeUpdate(
+                  newNodeWithName(1002, "02"),
+                  newNodeWithName(1002, "03"),
+                  None,
+                  None
+                )
               )
             )
           )

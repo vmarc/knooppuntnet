@@ -5,6 +5,7 @@ import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.WayDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
@@ -29,12 +30,15 @@ class RouteDiffAnalyzer(before: RouteData, after: RouteData, baseRouteChangeOpti
       Seq.empty
     }
 
+    val wayDiffs = baseRouteChangeOption match {
+      case Some(baseRouteChange) => baseRouteChange.wayDiffs
+      case None => WayDiffs.empty
+    }
+
     RouteUpdate(
       before,
       after,
-      baseRouteChangeOption.toSeq.flatMap(_.removedWays),
-      baseRouteChangeOption.toSeq.flatMap(_.addedWays),
-      baseRouteChangeOption.toSeq.flatMap(_.updatedWays),
+      wayDiffs,
       diffs,
       facts
     )

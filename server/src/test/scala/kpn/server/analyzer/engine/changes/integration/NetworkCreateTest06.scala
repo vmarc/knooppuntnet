@@ -17,6 +17,7 @@ import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
+import kpn.api.common.diff.WayDiffs
 import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -157,12 +158,14 @@ class NetworkCreateTest06 extends IntegrationTest {
             ),
           )
         ),
-        addedWays = Seq(
-          newRawWay(
-            101,
-            nodeIds = Vector(1001, 1002),
-            tags = Tags.from(
-              "highway" -> "unclassified"
+        wayDiffs = WayDiffs(
+          added = Seq(
+            newRawWay(
+              101,
+              nodeIds = Vector(1001, 1002),
+              tags = Tags.from(
+                "highway" -> "unclassified"
+              )
             )
           )
         ),
