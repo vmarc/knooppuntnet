@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import kpn.api.common.SharedTestObjects
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.Haversine
 import kpn.core.util.UnitTest
 

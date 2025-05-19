@@ -14,6 +14,7 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
+import kpn.core.test.Timestamps
 
 class NetworkDeleteNodeTest08 extends IntegrationTest {
 
@@ -91,8 +92,8 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
           routeType = RouteType.hiking,
         ),
         newNetworkDetail(
-          lastUpdated = defaultTimestamp,
-          relationLastUpdated = defaultTimestamp,
+          lastUpdated = Timestamps.default,
+          relationLastUpdated = Timestamps.default,
           tags = newNetworkTags("network1")
         )
       )

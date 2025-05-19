@@ -17,7 +17,6 @@ import kpn.core.overpass.QueryNodes
 import kpn.core.overpass.QueryRelationStructure
 import kpn.core.overpass.QueryRelationTopLevel
 import kpn.core.overpass.QueryRelations
-import kpn.core.overpass.QueryRouteIds
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
 import org.xml.sax.SAXParseException
@@ -34,11 +33,6 @@ class OverpassRepositoryImpl(
   override def nodeIds(timestamp: Timestamp): Seq[Long] = {
     val query = QueryNodeIds()
     ids(timestamp, "node", query).distinct.sorted
-  }
-
-  override def oldRouteIds(timestamp: Timestamp): Seq[Long] = {
-    val overpassQuery = QueryRouteIds()
-    ids(timestamp, "relation", overpassQuery)
   }
 
   override def networkIds(timestamp: Timestamp): Seq[Long] = {

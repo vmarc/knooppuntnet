@@ -2,8 +2,8 @@ package kpn.api.common.changes.details
 
 import kpn.api.common.Country
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Subset
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class RouteChangeTest extends UnitTest with SharedTestObjects {

@@ -23,6 +23,7 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
+import kpn.core.test.Timestamps
 
 class NetworkCreateTest07 extends IntegrationTest {
 
@@ -140,7 +141,7 @@ class NetworkCreateTest07 extends IntegrationTest {
         before = Some(
           newRouteData(
             relationId = 11,
-            meta = MetaData(0, defaultTimestamp, 1),
+            meta = MetaData(0, Timestamps.default, 1),
             countries = Seq(Country.nl),
             routeTypes = Seq(RouteType.hiking),
             name = "01-02",
@@ -160,7 +161,7 @@ class NetworkCreateTest07 extends IntegrationTest {
         after = Some(
           newRouteData(
             relationId = 11,
-            meta = MetaData(0, defaultTimestamp, 1),
+            meta = MetaData(0, Timestamps.default, 1),
             countries = Seq(Country.nl),
             routeTypes = Seq(RouteType.hiking),
             name = "01-02",

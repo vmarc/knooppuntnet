@@ -1,11 +1,10 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
-import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.core.test.Timestamps
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.OsmChangeParser
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
@@ -16,20 +15,24 @@ class Issue184_NodeDeletion extends IntegrationTest {
 
   test("simulate node create/modify/delete") {
 
-    pendingRedesign()
-
     testIntegration(OverpassData.empty, OverpassData.empty) {
 
       processCreate()
       watched.nodes.ids.toSeq should equal(Seq(8813846463L))
 
+      findNodeById(8813846463L).active shouldBe true
+
       processModify()
       watched.nodes.ids.toSeq should equal(Seq(8813846463L))
+
+      findNodeById(8813846463L).active shouldBe true
 
       processDelete()
       watched.nodes.ids.toSeq should equal(Seq.empty)
 
-      var saveIndex = 0
+      findNodeById(8813846463L).active shouldBe false
+
+      //      var saveIndex = 0
       //      (tc.nodeRepository.save _).verify(
       //        where { nodeDoc: NodeDoc =>
       //          saveIndex = saveIndex + 1
@@ -51,14 +54,9 @@ class Issue184_NodeDeletion extends IntegrationTest {
   }
 
   private def processCreate(): Unit = {
-    val changeSet = buildChangeSet(xmlCreate(), Timestamp(2021, 6, 8, 7, 15, 58))
-    val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
-    val context = ChangeSetContext(
-      ReplicationId(1),
-      changeSet,
-      elementIds
-    )
-    // tc.changeProcessor.process(context)
+    // TODO redesign - context.overpassRepository set data at timestamp
+    val changeSet = buildChangeSet(xmlCreate(), Timestamps.before /*(2021, 6, 8, 7, 15, 58)*/)
+    processChangeSet(1, changeSet)
   }
 
   private def processModify(): Unit = {
@@ -73,9 +71,7 @@ class Issue184_NodeDeletion extends IntegrationTest {
       ).data
 
     val changeSet = buildChangeSet(xmlModify(), Timestamp(2021, 6, 8, 7, 16, 57))
-    val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
-    val context = ChangeSetContext(ReplicationId(2), changeSet, elementIds)
-    // tc.changeProcessor.process(context)
+    processChangeSet(2, changeSet)
   }
 
   private def processDelete(): Unit = {
@@ -91,9 +87,7 @@ class Issue184_NodeDeletion extends IntegrationTest {
       ).data
 
     val changeSet = buildChangeSet(xmlDelete(), Timestamp(2021, 6, 8, 18, 45, 43))
-    val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
-    val context = ChangeSetContext(ReplicationId(3), changeSet, elementIds)
-    // tc.changeProcessor.process(context)
+    processChangeSet(3, changeSet)
   }
 
   private def buildChangeSet(xmlString: String, timestamp: Timestamp): ChangeSet = {

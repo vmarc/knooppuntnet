@@ -3,10 +3,10 @@ package kpn.server.analyzer.engine.tiles
 import kpn.api.common.NodeName
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
 import kpn.core.doc.NodeDoc
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode

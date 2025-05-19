@@ -1,7 +1,7 @@
 package kpn.core.common
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Timestamp
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class TimestampLocalTest extends UnitTest with SharedTestObjects {

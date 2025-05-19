@@ -1,7 +1,6 @@
 package kpn.database.actions.locations
 
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.changes.filter.ServerFilterOption
 import kpn.api.common.location.LocationRouteInfo
@@ -9,7 +8,9 @@ import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.Day
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
@@ -111,7 +112,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             20L,
             "aaa",
             200,
-            defaultTimestamp,
+            Timestamps.default,
             None,
             None,
             broken = true,
@@ -122,7 +123,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             10L,
             "bbb",
             100,
-            defaultTimestamp,
+            Timestamps.default,
             Some(Day(2020, 8)),
             Some("red:white:red_lower"),
             broken = false,
@@ -133,7 +134,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             30L,
             "ccc",
             300,
-            defaultTimestamp,
+            Timestamps.default,
             None,
             None,
             broken = true,

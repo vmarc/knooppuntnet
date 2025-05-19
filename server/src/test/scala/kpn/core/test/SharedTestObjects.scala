@@ -1,6 +1,27 @@
-package kpn.api.common
+package kpn.core.test
 
 import kpn.api.base.ObjectId
+import kpn.api.common.Bounds
+import kpn.api.common.ChangeSetElementRef
+import kpn.api.common.ChangeSetElementRefs
+import kpn.api.common.ChangeSetNetwork
+import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.ChangeType
+import kpn.api.common.Country
+import kpn.api.common.Fact
+import kpn.api.common.LatLonImpl
+import kpn.api.common.LocationChanges
+import kpn.api.common.NetworkChanges
+import kpn.api.common.NetworkFact
+import kpn.api.common.NodeName
+import kpn.api.common.ReplicationId
+import kpn.api.common.RouteLocationAnalysis
+import kpn.api.common.RouteMemberInfo
+import kpn.api.common.RouteScope
+import kpn.api.common.RouteSummary
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.ChangeKey
@@ -83,7 +104,6 @@ import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
-import kpn.core.test.OverpassData
 import kpn.database.actions.statistics.ChangeSetCount2
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
@@ -102,19 +122,12 @@ import org.scalamock.scalatest.MockFactory
 
 trait SharedTestObjects extends MockFactory {
 
-  val defaultTimestamp: Timestamp = Timestamp(2015, 8, 11, 0, 0, 0)
-
-  val timestampBeforeValue: Timestamp = Timestamp(2015, 8, 11, 0, 0, 1)
-  val timestampFromValue: Timestamp = Timestamp(2015, 8, 11, 0, 0, 2)
-  val timestampUntilValue: Timestamp = Timestamp(2015, 8, 11, 0, 0, 3)
-  val timestampAfterValue: Timestamp = Timestamp(2015, 8, 11, 0, 0, 4)
-
   def newRawNode(
     id: Long = 1,
     latitude: String = "0",
     longitude: String = "0",
     version: Long = 0,
-    timestamp: Timestamp = defaultTimestamp,
+    timestamp: Timestamp = Timestamps.default,
     changeSetId: Long = 0,
     tags: Seq[Tag] = Seq.empty
   ): RawNode = {
@@ -138,7 +151,7 @@ trait SharedTestObjects extends MockFactory {
     changeSetId: Long = 0,
     latitude: String = "0",
     longitude: String = "0",
-    lastUpdated: Timestamp = defaultTimestamp,
+    lastUpdated: Timestamp = Timestamps.default,
     tags: Seq[Tag] = Seq.empty,
     lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty,
@@ -187,7 +200,7 @@ trait SharedTestObjects extends MockFactory {
   def newRawWay(
     id: Long,
     version: Int = 0,
-    timestamp: Timestamp = defaultTimestamp,
+    timestamp: Timestamp = Timestamps.default,
     changeSetId: Long = 0,
     nodeIds: Vector[Long] = Vector.empty,
     tags: Seq[Tag] = Seq.empty
@@ -205,7 +218,7 @@ trait SharedTestObjects extends MockFactory {
   def newRelation(
     id: Long = 0,
     version: Long = 0,
-    timestamp: Timestamp = defaultTimestamp,
+    timestamp: Timestamp = Timestamps.default,
     changeSetId: Long = 1,
     members: Seq[Member] = Seq.empty,
     tags: Seq[Tag] = Seq.empty
@@ -223,7 +236,7 @@ trait SharedTestObjects extends MockFactory {
   def newRawRelation(
     id: Long = 0,
     version: Long = 0,
-    timestamp: Timestamp = defaultTimestamp,
+    timestamp: Timestamp = Timestamps.default,
     changeSetId: Long = 1,
     members: Seq[RawMember] = Seq.empty,
     tags: Seq[Tag] = Seq.empty
@@ -270,7 +283,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newChangeKey(
     replicationNumber: Int = 1,
-    timestamp: Timestamp = defaultTimestamp,
+    timestamp: Timestamp = Timestamps.default,
     changeSetId: Long = 123,
     elementId: Long = 0
   ): ChangeKey = {
@@ -284,7 +297,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newMetaData(
     version: Long = 0,
-    timestamp: Timestamp = defaultTimestamp,
+    timestamp: Timestamp = Timestamps.default,
     changeSetId: Long = 0
   ): MetaData = {
     MetaData(
@@ -351,7 +364,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newRouteData(
     relationId: Long = 0,
-    meta: MetaData = MetaData(0, defaultTimestamp, 0),
+    meta: MetaData = MetaData(0, Timestamps.default, 0),
     countries: Seq[Country] = Seq.empty,
     routeTypes: Seq[RouteType] = Seq.empty,
     name: String = "",
@@ -380,7 +393,7 @@ trait SharedTestObjects extends MockFactory {
     latitude: String = "0",
     longitude: String = "0",
     version: Int = 0,
-    timestamp: Timestamp = defaultTimestamp,
+    timestamp: Timestamp = Timestamps.default,
     changeSetId: Long = 0,
     tags: Seq[Tag] = Seq.empty
   ): Node = {
@@ -398,7 +411,7 @@ trait SharedTestObjects extends MockFactory {
   def newWay(
     id: Long,
     version: Int = 0,
-    timestamp: Timestamp = defaultTimestamp,
+    timestamp: Timestamp = Timestamps.default,
     changeSetId: Long = 0,
     nodes: Vector[Node] = Vector.empty,
     tags: Seq[Tag] = Seq.empty,
@@ -417,7 +430,7 @@ trait SharedTestObjects extends MockFactory {
     changeSetId: Long = 0,
     latitude: String = "0",
     longitude: String = "0",
-    lastUpdated: Timestamp = defaultTimestamp,
+    lastUpdated: Timestamp = Timestamps.default,
     lastSurvey: Option[Day] = None,
     tags: Seq[Tag] = Seq.empty,
     facts: Seq[Fact] = Seq.empty,
@@ -461,8 +474,8 @@ trait SharedTestObjects extends MockFactory {
     name: String = "",
     meters: Int = 0,
     wayCount: Int = 0,
-    lastUpdated: Timestamp = defaultTimestamp,
-    relationLastUpdated: Timestamp = defaultTimestamp,
+    lastUpdated: Timestamp = Timestamps.default,
+    relationLastUpdated: Timestamp = Timestamps.default,
     lastSurvey: Option[Day] = None,
     unexpectedNodeIds: Seq[Long] = Seq.empty,
     unexpectedRelationIds: Seq[Long] = Seq.empty,
@@ -559,7 +572,7 @@ trait SharedTestObjects extends MockFactory {
     routeScope: RouteScope = RouteScope.regional,
     name: Option[String] = None,
     version: Long = 0,
-    timestamp: Timestamp = defaultTimestamp,
+    timestamp: Timestamp = Timestamps.default,
     changeSetId: Long = 0,
     members: Seq[RawMember] = Seq.empty,
     tags: Seq[Tag] = Seq.empty,
@@ -593,8 +606,8 @@ trait SharedTestObjects extends MockFactory {
     integrity: Integrity = newIntegrity(),
     inaccessibleRouteCount: Int = 0,
     connectionCount: Int = 0,
-    lastUpdated: Timestamp = defaultTimestamp,
-    relationLastUpdated: Timestamp = defaultTimestamp,
+    lastUpdated: Timestamp = Timestamps.default,
+    relationLastUpdated: Timestamp = Timestamps.default,
     center: Option[LatLonImpl] = None
   ): NetworkAttributes = {
     NetworkAttributes(
@@ -671,7 +684,7 @@ trait SharedTestObjects extends MockFactory {
     broken: Boolean = false,
     inaccessible: Boolean = false,
     wayCount: Int = 0,
-    timestamp: Timestamp = defaultTimestamp,
+    timestamp: Timestamp = Timestamps.default,
     tags: Seq[Tag] = Seq.empty
   ): RouteSummary = {
     RouteSummary(
@@ -710,11 +723,11 @@ trait SharedTestObjects extends MockFactory {
 
   def newChangeSet(
     id: Long = 123,
-    timestamp: Timestamp = defaultTimestamp,
-    timestampFrom: Timestamp = timestampFromValue,
-    timestampUntil: Timestamp = timestampUntilValue,
-    timestampBefore: Timestamp = timestampBeforeValue,
-    timestampAfter: Timestamp = timestampAfterValue,
+    timestamp: Timestamp = Timestamps.default,
+    timestampFrom: Timestamp = Timestamps.from,
+    timestampUntil: Timestamp = Timestamps.until,
+    timestampBefore: Timestamp = Timestamps.before,
+    timestampAfter: Timestamp = Timestamps.after,
     changes: Seq[Change] = Seq.empty
   ): ChangeSet = {
     ChangeSet(
@@ -842,8 +855,8 @@ trait SharedTestObjects extends MockFactory {
   def newChangeSetSummary(
     key: ChangeKey = newChangeKey(),
     subsets: Seq[Subset] = Seq.empty,
-    timestampFrom: Timestamp = timestampFromValue,
-    timestampUntil: Timestamp = timestampUntilValue,
+    timestampFrom: Timestamp = Timestamps.from,
+    timestampUntil: Timestamp = Timestamps.until,
     networkChanges: NetworkChanges = NetworkChanges(),
     orphanRouteChanges: Seq[ChangeSetSubsetElementRefs] = Seq.empty,
     orphanNodeChanges: Seq[ChangeSetSubsetElementRefs] = Seq.empty,
@@ -931,7 +944,7 @@ trait SharedTestObjects extends MockFactory {
     proposed: Boolean = false,
     version: Int = 0,
     changeSetId: Long = 1,
-    lastUpdated: Timestamp = defaultTimestamp,
+    lastUpdated: Timestamp = Timestamps.default,
     lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty,
     unexpectedNodeIds: Seq[Long] = Seq.empty,
@@ -985,7 +998,7 @@ trait SharedTestObjects extends MockFactory {
     proposed: Boolean = false,
     version: Int = 0,
     changeSetId: Long = 1,
-    lastUpdated: Timestamp = defaultTimestamp,
+    lastUpdated: Timestamp = Timestamps.default,
     lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty,
     unexpectedNodeIds: Seq[Long] = Seq.empty,
@@ -1245,7 +1258,7 @@ trait SharedTestObjects extends MockFactory {
   def newMonitorRouteState(
     routeId: ObjectId,
     relationId: Long,
-    timestamp: Timestamp = defaultTimestamp,
+    timestamp: Timestamp = Timestamps.default,
     wayCount: Long = 0,
     startNodeId: Option[Long] = None,
     endNodeId: Option[Long] = None,
@@ -1291,7 +1304,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newNetworkData(
     version: Int = 1,
-    timestamp: Timestamp = defaultTimestamp,
+    timestamp: Timestamp = Timestamps.default,
     changeSetId: Long = 1,
     name: String
   ): NetworkData = {
@@ -1303,7 +1316,7 @@ trait SharedTestObjects extends MockFactory {
     active: Boolean = true,
     version: Long = 0,
     changeSetId: Long = 1,
-    relationLastUpdated: Timestamp = defaultTimestamp,
+    relationLastUpdated: Timestamp = Timestamps.default,
     nodeMembers: Seq[NetworkNodeMember] = Seq.empty,
     wayMembers: Seq[NetworkWayMember] = Seq.empty,
     relationMembers: Seq[NetworkRelationMember] = Seq.empty,
@@ -1382,7 +1395,7 @@ trait SharedTestObjects extends MockFactory {
     roleConnection: Boolean = false,
     definedInRelation: Boolean = false,
     proposed: Boolean = false,
-    timestamp: Timestamp = defaultTimestamp,
+    timestamp: Timestamp = Timestamps.default,
     lastSurvey: Option[Day] = None,
     expectedRouteCount: Option[Long] = None,
     facts: Seq[Fact] = Seq.empty
@@ -1412,7 +1425,7 @@ trait SharedTestObjects extends MockFactory {
     investigate: Boolean = false,
     accessible: Boolean = true,
     roleConnection: Boolean = false,
-    lastUpdated: Timestamp = defaultTimestamp,
+    lastUpdated: Timestamp = Timestamps.default,
     lastSurvey: Option[Day] = None,
     proposed: Boolean = false,
     facts: Seq[Fact] = Seq.empty,
@@ -1441,8 +1454,8 @@ trait SharedTestObjects extends MockFactory {
     meters: Long = 0,
     version: Long = 0,
     changeSetId: Long = 1,
-    lastUpdated: Timestamp = defaultTimestamp,
-    relationLastUpdated: Timestamp = defaultTimestamp,
+    lastUpdated: Timestamp = Timestamps.default,
+    relationLastUpdated: Timestamp = Timestamps.default,
     lastSurvey: Option[Day] = None,
     tags: Seq[Tag] = Seq.empty,
     brokenRouteCount: Long = 0,
@@ -1477,7 +1490,7 @@ trait SharedTestObjects extends MockFactory {
     name: String = "",
     longName: Option[String] = None,
     proposed: Boolean = false,
-    lastUpdated: Timestamp = defaultTimestamp,
+    lastUpdated: Timestamp = Timestamps.default,
     lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty
   ): OrphanNodeDoc = {
@@ -1504,7 +1517,7 @@ trait SharedTestObjects extends MockFactory {
     meters: Long = 0,
     facts: Seq[Fact] = Seq.empty,
     lastSurvey: Option[Day] = None,
-    lastUpdated: Timestamp = defaultTimestamp
+    lastUpdated: Timestamp = Timestamps.default
   ): OrphanRouteDoc = {
     OrphanRouteDoc(
       _id,

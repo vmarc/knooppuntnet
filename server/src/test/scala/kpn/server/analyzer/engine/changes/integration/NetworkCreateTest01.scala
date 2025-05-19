@@ -23,6 +23,7 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.test.OverpassData
+import kpn.core.test.Timestamps
 
 class NetworkCreateTest01 extends IntegrationTest {
 
@@ -101,7 +102,7 @@ class NetworkCreateTest01 extends IntegrationTest {
         name = Some("network-name"),
         version = 0,
         changeSetId = 1,
-        timestamp = defaultTimestamp,
+        timestamp = Timestamps.default,
         members = Seq(
           RawMember(MemberType.Node, 1001, None),
           RawMember(MemberType.Node, 1002, None),
@@ -222,7 +223,7 @@ class NetworkCreateTest01 extends IntegrationTest {
             None,
             Some(
               NetworkData(
-                MetaData(0, defaultTimestamp, 1),
+                MetaData(0, Timestamps.default, 1),
                 "network-name"
               )
             )

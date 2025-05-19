@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.Fact
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 

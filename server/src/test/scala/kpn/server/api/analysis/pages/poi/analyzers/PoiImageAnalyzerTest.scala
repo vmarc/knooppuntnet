@@ -1,8 +1,8 @@
 package kpn.server.api.analysis.pages.poi.analyzers
 
 import kpn.api.common.PoiAnalysis
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.api.analysis.pages.poi.PoiAnalysisContext
 

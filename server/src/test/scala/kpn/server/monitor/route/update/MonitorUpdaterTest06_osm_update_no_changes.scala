@@ -1,11 +1,11 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest

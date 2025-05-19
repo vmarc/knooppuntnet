@@ -8,7 +8,6 @@ import kpn.api.common.Country
 import kpn.api.common.NetworkChanges
 import kpn.api.common.ReplicationId
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeSetData
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.NetworkChange
@@ -20,6 +19,7 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 

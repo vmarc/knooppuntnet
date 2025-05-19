@@ -3,11 +3,11 @@ package kpn.database.actions.subsets
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.doc.OrphanRouteDoc
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 

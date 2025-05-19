@@ -1,10 +1,10 @@
 package kpn.server.monitor.repository
 
 import kpn.api.common.Bounds
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.custom.Timestamp
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRouteChange

@@ -1,9 +1,9 @@
 package kpn.database.actions.routes
 
 import kpn.api.common.Country
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 

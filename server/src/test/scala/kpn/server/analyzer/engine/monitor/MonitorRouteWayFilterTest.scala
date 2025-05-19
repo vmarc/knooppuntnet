@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.monitor
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class MonitorRouteWayFilterTest extends UnitTest with SharedTestObjects {

@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.changes.changes
 
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.MemberType
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 

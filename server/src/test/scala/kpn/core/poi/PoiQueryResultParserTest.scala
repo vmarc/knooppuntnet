@@ -1,7 +1,7 @@
 package kpn.core.poi
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 import scala.xml.XML

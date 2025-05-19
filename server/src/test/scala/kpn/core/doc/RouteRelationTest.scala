@@ -1,6 +1,6 @@
 package kpn.core.doc
 
-import kpn.api.common.SharedTestObjects
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class RouteRelationTest extends UnitTest with SharedTestObjects {

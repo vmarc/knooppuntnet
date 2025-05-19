@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
@@ -11,6 +10,7 @@ import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
+import kpn.core.test.SharedTestObjects
 
 import scala.collection.mutable.ListBuffer
 

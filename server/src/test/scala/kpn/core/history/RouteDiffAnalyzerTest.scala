@@ -1,13 +1,13 @@
 package kpn.core.history
 
 import kpn.api.common.Fact
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteNameDiff
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 import org.scalamock.scalatest.MockFactory

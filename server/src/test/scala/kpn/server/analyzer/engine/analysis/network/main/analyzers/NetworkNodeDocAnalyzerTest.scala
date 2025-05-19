@@ -1,10 +1,11 @@
 package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.ScopedRouteType
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
 
 class NetworkNodeDocAnalyzerTest extends UnitTest with SharedTestObjects {
@@ -23,7 +24,7 @@ class NetworkNodeDocAnalyzerTest extends UnitTest with SharedTestObjects {
 
       val context = NetworkAnalysisContext(
         network,
-        defaultTimestamp,
+        Timestamps.default,
         _scopedRouteTypeOption = Some(Some(ScopedRouteType.rwn)),
         _routeDetails = Some(
           Seq(

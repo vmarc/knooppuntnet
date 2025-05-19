@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.common.Fact.RouteNameMissing
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
 

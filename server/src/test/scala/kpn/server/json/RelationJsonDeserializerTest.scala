@@ -1,11 +1,11 @@
 package kpn.server.json
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.RelationMember
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.api.custom.Tag
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class RelationJsonDeserializerTest extends UnitTest with SharedTestObjects {

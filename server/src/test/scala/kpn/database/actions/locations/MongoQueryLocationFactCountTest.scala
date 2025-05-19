@@ -3,8 +3,8 @@ package kpn.database.actions.locations
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.core.doc.Label
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationSubset

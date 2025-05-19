@@ -20,6 +20,7 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
+import kpn.core.test.Timestamps
 
 class NetworkDeleteNodeTest05 extends IntegrationTest {
 
@@ -142,8 +143,8 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
           routeType = RouteType.hiking,
         ),
         newNetworkDetail(
-          lastUpdated = defaultTimestamp,
-          relationLastUpdated = defaultTimestamp,
+          lastUpdated = Timestamps.default,
+          relationLastUpdated = Timestamps.default,
           tags = newNetworkTags("network")
         )
       )

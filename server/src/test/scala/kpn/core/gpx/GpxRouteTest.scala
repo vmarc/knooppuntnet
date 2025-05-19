@@ -1,7 +1,7 @@
 package kpn.core.gpx
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class GpxRouteTest extends UnitTest with SharedTestObjects {

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.common.SharedTestObjects
 import kpn.core.doc.NodeDoc
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 

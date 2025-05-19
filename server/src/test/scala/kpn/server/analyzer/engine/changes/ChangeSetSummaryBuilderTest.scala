@@ -11,11 +11,11 @@ import kpn.api.common.LocationChanges
 import kpn.api.common.NetworkChanges
 import kpn.api.common.ReplicationId
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.node.main.NodeChangeStateAnalyzer

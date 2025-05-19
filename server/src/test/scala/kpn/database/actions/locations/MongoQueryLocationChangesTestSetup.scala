@@ -3,11 +3,11 @@ package kpn.database.actions.locations
 import kpn.api.common.LocationChangeSet
 import kpn.api.common.LocationChanges
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
+import kpn.core.test.SharedTestObjects
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 

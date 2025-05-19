@@ -1,6 +1,6 @@
 package kpn.database.actions.nodes
 
-import kpn.api.common.SharedTestObjects
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class MongoQueryNodeChangeCountTest extends UnitTest with SharedTestObjects {

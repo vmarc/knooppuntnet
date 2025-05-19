@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.Country
 import kpn.api.common.LatLon
-import kpn.api.common.SharedTestObjects
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 object LocationAnalyzerTest {

@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
-import kpn.api.common.SharedTestObjects
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class NetworkDocAnalyzerTest extends UnitTest with SharedTestObjects {

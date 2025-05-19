@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.node.base
 
 import kpn.api.common.Fact
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class BaseNodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {

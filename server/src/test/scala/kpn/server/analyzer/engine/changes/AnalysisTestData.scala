@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.changes
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction.Create
 import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.data.MemberType
 import kpn.api.custom.Change
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestData
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext

@@ -3,9 +3,9 @@ package kpn.server.analyzer.engine.analysis.node.base.analyzers
 import kpn.api.common.NodeName
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {

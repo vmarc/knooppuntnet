@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.api.common.SharedTestObjects
 import kpn.core.data.Data
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class WayAnalyzerTest extends UnitTest with SharedTestObjects {

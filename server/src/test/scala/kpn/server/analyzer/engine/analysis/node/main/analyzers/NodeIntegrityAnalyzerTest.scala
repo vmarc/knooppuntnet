@@ -3,12 +3,12 @@ package kpn.server.analyzer.engine.analysis.node.main.analyzers
 import kpn.api.common.Fact
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {

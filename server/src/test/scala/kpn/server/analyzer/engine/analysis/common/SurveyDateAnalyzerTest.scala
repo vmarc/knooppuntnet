@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.common
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 import scala.util.Failure

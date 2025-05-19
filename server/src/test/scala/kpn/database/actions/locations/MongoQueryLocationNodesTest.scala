@@ -4,13 +4,14 @@ import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.RouteType
 import kpn.api.common.RouteType.hiking
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.SurveyParameter
 import kpn.api.custom.Day
 import kpn.core.doc.Label
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 
@@ -60,7 +61,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
             "-",
             "0",
             "0",
-            defaultTimestamp,
+            Timestamps.default,
             None,
             Seq.empty,
             "-",
@@ -73,7 +74,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
             "-",
             "0",
             "0",
-            defaultTimestamp,
+            Timestamps.default,
             None,
             Seq.empty,
             "-",
@@ -176,7 +177,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
             "-",
             "0",
             "0",
-            defaultTimestamp,
+            Timestamps.default,
             Some(Day(2020, 8)),
             Seq.empty,
             "-",
@@ -316,7 +317,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
             "-",
             "0",
             "0",
-            defaultTimestamp,
+            Timestamps.default,
             None,
             Seq(Fact.NodeInvalidSurveyDate),
             "-",

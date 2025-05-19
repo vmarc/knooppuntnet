@@ -11,8 +11,8 @@ import kpn.api.common.Fact.RouteWithoutWays
 import kpn.api.common.RouteType
 import kpn.api.common.RouteType.cycling
 import kpn.api.common.RouteType.hiking
-import kpn.api.common.SharedTestObjects
 import kpn.core.doc.Label
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.database.base.Database

@@ -2,8 +2,8 @@ package kpn.database.actions.locations
 
 import kpn.api.common.LocationChangeSet
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.filter.ChangesParameters
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 

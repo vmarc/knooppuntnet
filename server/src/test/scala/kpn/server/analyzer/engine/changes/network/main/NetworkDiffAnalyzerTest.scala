@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.network.main
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.IdDiffs
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class NetworkDiffAnalyzerTest extends UnitTest with SharedTestObjects {

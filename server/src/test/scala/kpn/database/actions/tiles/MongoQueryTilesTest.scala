@@ -1,6 +1,6 @@
 package kpn.database.actions.tiles
 
-import kpn.api.common.SharedTestObjects
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRepositoryImpl

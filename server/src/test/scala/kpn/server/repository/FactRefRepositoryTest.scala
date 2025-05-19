@@ -2,11 +2,11 @@ package kpn.server.repository
 
 import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.subset.SubsetFactRefs
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.database.base.Database

@@ -16,6 +16,7 @@ import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
+import kpn.core.test.Timestamps
 
 class NetworkUpdateNodeTest04 extends IntegrationTest {
 
@@ -117,13 +118,13 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
           NetworkDataUpdate(
             Some(
               NetworkData(
-                MetaData(1, defaultTimestamp, 1),
+                MetaData(1, Timestamps.default, 1),
                 "name"
               )
             ),
             Some(
               NetworkData(
-                MetaData(2, defaultTimestamp, 1),
+                MetaData(2, Timestamps.default, 1),
                 "name"
               )
             )

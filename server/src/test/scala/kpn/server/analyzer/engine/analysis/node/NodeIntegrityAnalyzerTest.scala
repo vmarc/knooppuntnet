@@ -2,13 +2,13 @@ package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.Country
 import kpn.api.common.NodeIntegrityCheck
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.route.RouteNode
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalysis
 

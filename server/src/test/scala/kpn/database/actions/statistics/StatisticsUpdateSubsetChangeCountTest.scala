@@ -4,11 +4,11 @@ import kpn.api.common.Country.de
 import kpn.api.common.Country.nl
 import kpn.api.common.RouteType.cycling
 import kpn.api.common.RouteType.hiking
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Subset
 import kpn.api.custom.Subset.deHiking
 import kpn.api.custom.Subset.nlBicycle
 import kpn.api.custom.Subset.nlHiking
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.database.base.Database

@@ -1,7 +1,7 @@
 package kpn.database.actions.locations
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.SurveyDateInfo
+import kpn.core.test.SharedTestObjects
 import kpn.database.base.Database
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 

@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.changes.route.base
 
-import kpn.api.common.SharedTestObjects
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 

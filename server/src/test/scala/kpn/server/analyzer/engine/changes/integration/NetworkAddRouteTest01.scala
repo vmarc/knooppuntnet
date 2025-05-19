@@ -24,6 +24,7 @@ import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
+import kpn.core.test.Timestamps
 
 class NetworkAddRouteTest01 extends IntegrationTest {
 
@@ -159,13 +160,13 @@ class NetworkAddRouteTest01 extends IntegrationTest {
           NetworkDataUpdate(
             Some(
               NetworkData(
-                MetaData(1, defaultTimestamp, 1),
+                MetaData(1, Timestamps.default, 1),
                 "network"
               )
             ),
             Some(
               NetworkData(
-                MetaData(2, defaultTimestamp, 1),
+                MetaData(2, Timestamps.default, 1),
                 "network"
               )
             )

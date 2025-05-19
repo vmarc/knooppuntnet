@@ -5,10 +5,10 @@ import kpn.api.common.Fact
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
 import kpn.api.custom.ScopedRouteType
 import kpn.core.doc.Label
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 

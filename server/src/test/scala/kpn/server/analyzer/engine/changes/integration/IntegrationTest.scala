@@ -2,8 +2,8 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction
+import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -20,7 +20,9 @@ import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.test.OverpassData
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
@@ -66,7 +68,7 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
     withDatabase(keepDatabaseAfterTest) { database =>
       contextOption = Some(new IntegrationTestContext(database, dataBefore, dataAfter, locationAnalyzer))
       try {
-        context.mainFullAnalyzer.analyze(timestampBeforeValue, None)
+        context.mainFullAnalyzer.analyze(Timestamps.before, None)
         context.analysisDataInitializer.load()
         f
       }
@@ -95,9 +97,13 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
 
   def process(changes: Seq[Change]): Unit = {
     val changeSet = newChangeSet(changes = changes)
+    processChangeSet(1, changeSet)
+  }
+
+  def processChangeSet(replicationNumber: Long, changeSet: ChangeSet): Unit = {
     val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
     val changeSetContext = ChangeSetContext(
-      ReplicationId(1),
+      ReplicationId(replicationNumber),
       changeSet,
       elementIds
     )

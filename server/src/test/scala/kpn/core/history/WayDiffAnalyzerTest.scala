@@ -1,6 +1,5 @@
 package kpn.core.history
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Way
 import kpn.api.common.diff.NodeUpdate
 import kpn.api.common.diff.TagDiff
@@ -8,6 +7,7 @@ import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayUpdate
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {

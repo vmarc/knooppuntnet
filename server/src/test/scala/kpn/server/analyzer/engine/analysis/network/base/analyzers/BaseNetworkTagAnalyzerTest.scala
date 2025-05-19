@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.network.base.analyzers
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class BaseNetworkTagAnalyzerTest extends UnitTest with SharedTestObjects {

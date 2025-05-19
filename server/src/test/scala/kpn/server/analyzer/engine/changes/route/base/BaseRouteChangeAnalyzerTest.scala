@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.changes.route.base
 
 import kpn.api.common.ReplicationId
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction.Create
 import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Change
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges

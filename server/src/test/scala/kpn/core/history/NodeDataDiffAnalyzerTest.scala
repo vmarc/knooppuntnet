@@ -1,7 +1,6 @@
 package kpn.core.history
 
 import kpn.api.common.LatLonImpl
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.diff.NodeData
 import kpn.api.common.diff.NodeDataUpdate
 import kpn.api.common.diff.TagDiff
@@ -10,6 +9,7 @@ import kpn.api.common.diff.node.NodeMoved
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class NodeDataDiffAnalyzerTest extends UnitTest with SharedTestObjects {

@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.node.base.analyzers
 
 import kpn.api.common.Fact
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class BaseNodeSurveyAnalyzerTest extends UnitTest with SharedTestObjects {

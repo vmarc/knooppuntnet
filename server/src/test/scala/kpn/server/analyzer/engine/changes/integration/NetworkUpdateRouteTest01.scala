@@ -35,6 +35,7 @@ import kpn.core.doc.BaseRouteSegment
 import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
+import kpn.core.test.Timestamps
 import kpn.server.analyzer.engine.context.ElementIds
 
 class NetworkUpdateRouteTest01 extends IntegrationTest {
@@ -371,13 +372,13 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           NetworkDataUpdate(
             Some(
               NetworkData(
-                MetaData(1, defaultTimestamp, 1),
+                MetaData(1, Timestamps.default, 1),
                 name = "name"
               )
             ),
             Some(
               NetworkData(
-                MetaData(2, defaultTimestamp, 1),
+                MetaData(2, Timestamps.default, 1),
                 name = "name"
               )
             ),

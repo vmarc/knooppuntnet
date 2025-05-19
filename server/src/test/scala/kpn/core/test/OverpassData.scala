@@ -1,6 +1,5 @@
 package kpn.core.test
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
@@ -51,7 +50,7 @@ case class OverpassData(
     latitude: String = "0",
     longitude: String = "0",
     version: Long = 0,
-    timestamp: Timestamp = defaultTimestamp
+    timestamp: Timestamp = Timestamps.default
   ): OverpassData = {
     val n = newRawNode(
       id,
@@ -83,7 +82,7 @@ case class OverpassData(
   }
 
   def rawData: RawData = {
-    RawData(Some(defaultTimestamp), nodes, ways, relations)
+    RawData(Some(Timestamps.default), nodes, ways, relations)
   }
 
   def rawNodeWithId(nodeId: Long): RawNode = {
@@ -97,7 +96,7 @@ case class OverpassData(
       throw new IllegalArgumentException(s"No way with id $nodeId in test data")
     )
   }
-  
+
   def rawRelationWithId(relationId: Long): RawRelation = {
     relations.find(_.id == relationId).getOrElse(
       throw new IllegalArgumentException(s"No relation with id $relationId in test data")

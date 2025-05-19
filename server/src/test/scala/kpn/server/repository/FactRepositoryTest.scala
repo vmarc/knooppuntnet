@@ -5,10 +5,10 @@ import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.subset.NetworkFactRefs
 import kpn.api.custom.Subset
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 

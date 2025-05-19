@@ -1,13 +1,13 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.Bounds
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteSubRelation
 import kpn.api.custom.Timestamp
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.Log
 import kpn.core.util.UnitTest

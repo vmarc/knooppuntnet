@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
@@ -10,6 +9,8 @@ import kpn.api.common.network.Integrity
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.ScopedRouteType
+import kpn.core.test.SharedTestObjects
+import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
 
 class NetworkIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
@@ -89,7 +90,7 @@ class NetworkIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val context = NetworkAnalysisContext(
       network,
-      defaultTimestamp,
+      Timestamps.default,
       _scopedRouteTypeOption = Some(Some(ScopedRouteType.rwn)),
       _nodeDocs = Some(Seq(node1, node2, node3, node4))
     )

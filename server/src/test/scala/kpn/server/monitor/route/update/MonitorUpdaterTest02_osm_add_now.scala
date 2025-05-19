@@ -1,7 +1,6 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
@@ -13,6 +12,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest

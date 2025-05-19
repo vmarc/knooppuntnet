@@ -1,9 +1,9 @@
 package kpn.database.actions.subsets
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
+import kpn.core.test.SharedTestObjects
 import kpn.database.base.Database
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest

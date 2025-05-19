@@ -1,7 +1,7 @@
 package kpn.core.planner.graph
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.TrackPathKey
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class NodeNetworkGraphTest extends UnitTest with SharedTestObjects {

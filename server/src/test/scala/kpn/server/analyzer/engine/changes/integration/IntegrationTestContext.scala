@@ -102,7 +102,7 @@ class IntegrationTestContext(
 
   val analysisContext = new AnalysisContext()
 
-  private val overpassRepository = new OverpassRepositoryMock(before, after)
+  val overpassRepository = new OverpassRepositoryMock(before, after)
   private implicit val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
 
   private val changeSetRepository = new ChangeSetRepositoryImpl(database)

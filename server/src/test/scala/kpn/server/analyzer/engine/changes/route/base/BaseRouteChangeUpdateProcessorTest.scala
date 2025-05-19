@@ -2,11 +2,11 @@ package kpn.server.analyzer.engine.changes.route.base
 
 import kpn.api.common.Fact
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Relation
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RawRouteDoc
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.Log
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest

@@ -4,9 +4,9 @@ import kpn.api.common.RouteType
 import kpn.api.common.RouteType.cycling
 import kpn.api.common.RouteType.hiking
 import kpn.api.common.RouteType.horseRiding
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Way
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class SurfaceAnalyzerTest extends UnitTest with SharedTestObjects {

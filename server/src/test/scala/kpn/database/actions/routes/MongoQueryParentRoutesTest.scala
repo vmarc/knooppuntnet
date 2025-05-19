@@ -1,7 +1,7 @@
 package kpn.database.actions.routes
 
-import kpn.api.common.SharedTestObjects
 import kpn.core.doc.ParentRouteData
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 

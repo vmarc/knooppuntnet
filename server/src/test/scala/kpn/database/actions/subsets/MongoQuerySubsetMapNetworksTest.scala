@@ -4,9 +4,9 @@ import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.subset.SubsetMapNetwork
 import kpn.api.custom.Subset
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.database.base.Database

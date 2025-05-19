@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.node.base.analyzers
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawNode
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
 

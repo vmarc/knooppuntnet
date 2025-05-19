@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.LatLonImpl
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Timestamp
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class NetworkCenterAnalyzerTest extends UnitTest with SharedTestObjects {

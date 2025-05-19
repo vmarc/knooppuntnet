@@ -1,6 +1,5 @@
 package kpn.core.data
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
@@ -8,6 +7,7 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.Log
 import kpn.core.util.UnitTest
 

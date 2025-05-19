@@ -10,8 +10,6 @@ trait OverpassRepository {
 
   def nodeIds(timestamp: Timestamp): Seq[Long]
 
-  def oldRouteIds(timestamp: Timestamp): Seq[Long]
-
   def networkIds(timestamp: Timestamp): Seq[Long]
 
   def nodes(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode]

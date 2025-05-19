@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.RouteLocationAnalysis
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy.load
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext

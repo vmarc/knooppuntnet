@@ -4,10 +4,11 @@ import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
 import kpn.core.doc.OrphanNodeDoc
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.test.Timestamps
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 
@@ -68,7 +69,7 @@ class OrphanNodeUpdater_UpdateTest extends UnitTest with SharedTestObjects {
             name = "02",
             longName = None,
             proposed = true,
-            lastUpdated = defaultTimestamp,
+            lastUpdated = Timestamps.default,
             lastSurvey = Some(Day(2020, 8, None)),
             facts = Seq(Fact.IntegrityCheckFailed)
           ),
@@ -80,7 +81,7 @@ class OrphanNodeUpdater_UpdateTest extends UnitTest with SharedTestObjects {
             name = "01",
             longName = Some("one"),
             proposed = false,
-            lastUpdated = defaultTimestamp,
+            lastUpdated = Timestamps.default,
             lastSurvey = Some(Day(2020, 8, None)),
             facts = Seq(Fact.IntegrityCheckFailed)
           )

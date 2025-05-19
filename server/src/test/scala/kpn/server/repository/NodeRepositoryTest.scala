@@ -1,7 +1,7 @@
 package kpn.server.repository
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 

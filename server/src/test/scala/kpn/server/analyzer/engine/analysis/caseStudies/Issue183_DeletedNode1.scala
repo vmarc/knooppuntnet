@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.RouteData
 import kpn.core.history.RouteDiffAnalyzer
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import org.scalamock.scalatest.MockFactory
 

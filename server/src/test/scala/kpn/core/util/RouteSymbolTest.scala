@@ -1,7 +1,7 @@
 package kpn.core.util
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tags
+import kpn.core.test.SharedTestObjects
 
 class RouteSymbolTest extends UnitTest with SharedTestObjects {
 

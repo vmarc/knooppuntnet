@@ -1,6 +1,5 @@
 package kpn.core.test
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
@@ -88,7 +87,7 @@ class TestData extends SharedTestObjects {
   }
 
   def rawData: RawData = {
-    RawData(Some(defaultTimestamp), nodes.toSeq, ways.toSeq, relations.toSeq)
+    RawData(Some(Timestamps.default), nodes.toSeq, ways.toSeq, relations.toSeq)
   }
 
   def data: Data = {

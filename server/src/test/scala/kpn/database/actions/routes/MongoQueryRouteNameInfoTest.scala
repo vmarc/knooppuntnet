@@ -1,10 +1,10 @@
 package kpn.database.actions.routes
 
 import kpn.api.common.RouteType.hiking
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.route.RouteNameInfo
 import kpn.core.doc.Label
 import kpn.core.doc.RouteDoc
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 

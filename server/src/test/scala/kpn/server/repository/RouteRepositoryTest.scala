@@ -2,10 +2,10 @@ package kpn.server.repository
 
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
+import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 

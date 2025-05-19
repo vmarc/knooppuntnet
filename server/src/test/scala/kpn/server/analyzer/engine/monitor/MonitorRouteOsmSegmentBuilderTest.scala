@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.Bounds
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteSegmentInfo
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement

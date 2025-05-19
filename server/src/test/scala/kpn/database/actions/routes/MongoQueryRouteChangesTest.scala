@@ -1,6 +1,6 @@
 package kpn.database.actions.routes
 
-import kpn.api.common.SharedTestObjects
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
 class MongoQueryRouteChangesTest extends UnitTest with SharedTestObjects {

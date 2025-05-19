@@ -1,6 +1,6 @@
 package kpn.server.monitor
 
-import kpn.api.common.SharedTestObjects
+import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRoute
 
