@@ -4,9 +4,13 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
-import kpn.core.doc.BaseRouteDoc
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
+import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy.load
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLinkAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteNodesAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteSegmentAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTypeAnalyzer
 
 class RouteLocatorTest extends UnitTest with SharedTestObjects {
 
@@ -16,20 +20,14 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
   private val rucphen = Location(Seq("nl", "nl-1-nb", "nl-2-840"))
   private val woensdrecht = Location(Seq("nl", "nl-1-nb", "nl-2-873"))
 
-  test("way based locator") {
-
-    pendingRedesignPrio2()
-
-    val locator = new RouteLocatorImpl(LocationAnalyzerTest.locationAnalyzer)
-
-    // route 24-81
+  test("route 24-81 way based locator") {
     assertEqual(
-      route("28184").locationAnalysis,
+      analyze(28184),
       RouteLocationAnalysis(
         Some(essen),
         Seq(
-          LocationCandidate(essen, 68),
-          LocationCandidate(roosendaal, 30),
+          LocationCandidate(essen, 65),
+          LocationCandidate(roosendaal, 33),
           LocationCandidate(woensdrecht, 2)
         ),
         Seq(
@@ -43,16 +41,17 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
         )
       )
     )
+  }
 
-    // route 55-95
+  test("route 55-95 way based locator") {
     assertEqual(
-      route("19227").locationAnalysis,
+      analyze(19227),
       RouteLocationAnalysis(
         Some(rucphen),
         Seq(
-          LocationCandidate(rucphen, 61),
-          LocationCandidate(roosendaal, 23),
-          LocationCandidate(essen, 16)
+          LocationCandidate(rucphen, 62),
+          LocationCandidate(roosendaal, 20),
+          LocationCandidate(essen, 18)
         ),
         Seq(
           "be",
@@ -65,15 +64,16 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
         )
       )
     )
+  }
 
-    // route 80-89
+  test("route 80-89 way based locator") {
     assertEqual(
-      route("28182").locationAnalysis,
+      analyze(28182),
       RouteLocationAnalysis(
         Some(kalmthout),
         Seq(
-          LocationCandidate(kalmthout, 85),
-          LocationCandidate(essen, 15)
+          LocationCandidate(kalmthout, 82),
+          LocationCandidate(essen, 18)
         ),
         Seq(
           "be",
@@ -85,7 +85,20 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  private def route(routeId: String): BaseRouteDoc = {
-    CaseStudy.baseRouteDoc(routeId)
+  private def analyze(routeId: Long): RouteLocationAnalysis = {
+
+    val filename = s"/case-studies/$routeId.xml"
+    val routeRelation = load(filename)
+
+    val context1 = BaseRouteAnalysisContext(routeRelation, None)
+    val context2 = BaseRouteTypeAnalyzer.analyze(context1)
+    val context3 = BaseRouteNodesAnalyzer.analyze(context2)
+    val context4 = BaseRouteLinkAnalyzer.analyze(context3)
+    val baseRouteSegmentAnalyzer = new BaseRouteSegmentAnalyzer(context4)
+
+    val segments = baseRouteSegmentAnalyzer.analyze()
+
+    val locator = new RouteLocatorImpl(LocationAnalyzerTest.locationAnalyzer)
+    locator.locate(segments)
   }
 }
