@@ -1,11 +1,10 @@
 package kpn.core.history
 
 import kpn.api.common.Fact
+import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.common.Ref
-import kpn.api.common.data.raw.RawWay
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.TagDiffs
-import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
@@ -14,13 +13,13 @@ import kpn.api.common.route.RouteNode
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.diff.RouteUpdate
 
-class RouteDiffAnalyzer(before: RouteData, after: RouteData) {
+class RouteDiffAnalyzer(before: RouteData, after: RouteData, baseRouteChangeOption: Option[BaseRouteChange]) {
 
   private val log = Log(classOf[RouteDiffAnalyzer])
 
   def analysis: RouteUpdate = {
 
-    val diffs = findDiffs
+    val diffs = analyzeDiffs()
 
     val facts = if ((after.facts.contains(Fact.RouteTagMissing) && !before.facts.contains(Fact.RouteTagMissing)) ||
       (after.facts.contains(Fact.RouteTagInvalid) && !before.facts.contains(Fact.RouteTagInvalid))) {
@@ -33,92 +32,26 @@ class RouteDiffAnalyzer(before: RouteData, after: RouteData) {
     RouteUpdate(
       before,
       after,
-      removedWays,
-      addedWays,
-      updatedWays,
+      baseRouteChangeOption.toSeq.flatMap(_.removedWays),
+      baseRouteChangeOption.toSeq.flatMap(_.addedWays),
+      baseRouteChangeOption.toSeq.flatMap(_.updatedWays),
       diffs,
       facts
     )
   }
 
-  private def removedWays: Seq[RawWay] = {
-    (wayIdsBefore -- wayIdsAfter).toSeq.flatMap { wayId =>
-      before.ways.find(_.id == wayId) match {
-        case Some(way) => Some(
-          RawWay(
-            way.id,
-            way.version,
-            way.timestamp,
-            way.changeSetId,
-            way.nodes.map(_.id),
-            way.tags
-          )
-        )
-        case None =>
-          //noinspection SideEffectsInMonadicTransformation
-          log.warn(s"inconsistant data: could not find removed way $wayId in before data")
-          None
-      }
-    }
-  }
-
-  private def addedWays: Seq[RawWay] = {
-    (wayIdsAfter -- wayIdsBefore).toSeq.flatMap { wayId =>
-      after.ways.find(_.id == wayId) match {
-        case Some(way) => Some(
-          RawWay(
-            way.id,
-            way.version,
-            way.timestamp,
-            way.changeSetId,
-            way.nodes.map(_.id),
-            way.tags
-          )
-        )
-        case None =>
-          //noinspection SideEffectsInMonadicTransformation
-          log.warn(s"inconsistant data: could not find added way $wayId in after data")
-          None
-      }
-    }
-  }
-
-  private def updatedWays: Seq[WayUpdate] = {
-
-    wayIdsCommon.toSeq.sorted.flatMap { wayId =>
-
-      val wayBeforeOption = before.ways.find(_.id == wayId)
-      val wayAfterOption = after.ways.find(_.id == wayId)
-
-      if (wayBeforeOption.isEmpty) {
-        //noinspection SideEffectsInMonadicTransformation
-        log.warn(s"inconsistant data: could not find way $wayId in before data")
-        None
-      } else if (wayAfterOption.isEmpty) {
-        //noinspection SideEffectsInMonadicTransformation
-        log.warn(s"inconsistant data: could not find way $wayId in after data")
-        None
-      }
-      else {
-        val wayBefore = wayBeforeOption.get
-        val wayAfter = wayAfterOption.get
-        new WayDiffAnalyzer(wayBefore, wayAfter).analysis
-      }
-    }
-  }
-
-  private def findDiffs: RouteDiff = {
+  private def analyzeDiffs(): RouteDiff = {
     RouteDiff(
-      nameDiff,
+      analyzeNameDiff(),
       None, // role differences can only be seen in the context of a network
-      factDiffs,
-      nodeDiffs,
+      analyzeFactDiffs(),
+      analyzeNodeDiffs(),
       memberOrderChanged,
-      tagDiffs
+      tagDiffs()
     )
   }
 
-  private def factDiffs: Option[FactDiffs] = {
+  private def analyzeFactDiffs(): Option[FactDiffs] = {
 
     val beforeFacts = before.facts.toSet
     val afterFacts = after.facts.toSet
@@ -136,7 +69,7 @@ class RouteDiffAnalyzer(before: RouteData, after: RouteData) {
     }
   }
 
-  private def nameDiff: Option[RouteNameDiff] = {
+  private def analyzeNameDiff(): Option[RouteNameDiff] = {
 
     val nameBefore = before.name
     val nameAfter = after.name
@@ -149,7 +82,7 @@ class RouteDiffAnalyzer(before: RouteData, after: RouteData) {
     }
   }
 
-  private def nodeDiffs: Seq[RouteNodeDiff] = {
+  private def analyzeNodeDiffs(): Seq[RouteNodeDiff] = {
     Seq(
       nodeChanged("node", before.networkNodes, after.networkNodes),
       //  nodeChanged("endNodes", before.nodes.endNode.toSeq, after.nodes.endNode.toSeq),
@@ -174,7 +107,7 @@ class RouteDiffAnalyzer(before: RouteData, after: RouteData) {
     false // TODO redesign - add members to RouteData
   }
 
-  private def tagDiffs: Option[TagDiffs] = {
+  private def tagDiffs(): Option[TagDiffs] = {
     new RouteTagDiffAnalyzer(before, after).diffs
   }
 
@@ -196,10 +129,4 @@ class RouteDiffAnalyzer(before: RouteData, after: RouteData) {
       Some(RouteNodeDiff(title, addedNodeRefs, removedNodeRefs))
     }
   }
-
-  private def wayIdsBefore: Set[Long] = before.ways.map(_.id).toSet
-
-  private def wayIdsAfter: Set[Long] = after.ways.map(_.id).toSet
-
-  private def wayIdsCommon: Set[Long] = wayIdsBefore intersect wayIdsAfter
 }

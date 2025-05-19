@@ -26,7 +26,7 @@ class Issue183_DeletedNode1 extends UnitTest with MockFactory with SharedTestObj
     deletedNodeAfter.node.id should equal(replacementNodeId)
     deletedNodeAfter.name should equal("59")
 
-    val routeUpdate = new RouteDiffAnalyzer(RouteData.from(contextBefore), RouteData.from(contextAfter)).analysis
+    val routeUpdate = new RouteDiffAnalyzer(RouteData.from(contextBefore), RouteData.from(contextAfter), None).analysis
 
     val addedNode = routeUpdate.diffs.nodeDiffs.head.added.head
     val removedNode = routeUpdate.diffs.nodeDiffs.head.removed.head

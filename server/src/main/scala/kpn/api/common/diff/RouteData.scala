@@ -7,7 +7,6 @@ import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.Tagable
-import kpn.api.common.data.Way
 import kpn.api.common.route.RouteNode
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag
@@ -29,7 +28,6 @@ object RouteData {
       routeTypes = routeDoc.summary.routeTypes,
       name = routeDoc.summary.name,
       networkNodes = routeDoc.nodes.nodes,
-      ways = Seq.empty, // TODO all ways  in relation tree
       facts = routeDoc.facts,
       meters = routeDoc.summary.meters,
       locationAnalysis = routeDoc.locationAnalysis,
@@ -45,7 +43,6 @@ object RouteData {
       context.routeTypes,
       context.routeNameAnalysis.name.getOrElse("no-name"),
       context.routeNodesAnalysis.nodes.map(_.toRouteNode),
-      context.relation.wayMembers.map(_.way), // all ways  in relation tree
       context.facts,
       context.structure.nodeNetworkPaths.map(_.meters).sum,
       context.locationAnalysis,
@@ -61,7 +58,6 @@ case class RouteData(
   routeTypes: Seq[RouteType],
   name: String,
   networkNodes: Seq[RouteNode],
-  ways: Seq[Way], // all ways  in relation tree
   facts: Seq[Fact],
   meters: Long,
   locationAnalysis: RouteLocationAnalysis,

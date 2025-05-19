@@ -4,7 +4,6 @@ import kpn.api.base.WithStringId
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.PoiState
 import kpn.api.common.changes.ChangeSetInfo
-import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -78,10 +77,6 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def baseRoutes: DatabaseCollection[BaseRouteDoc] = {
     new DatabaseCollectionImpl(database.getCollection[BaseRouteDoc]("base-routes"))
-  }
-
-  override def baseRouteChanges: DatabaseCollection[BaseRouteChange] = {
-    new DatabaseCollectionImpl(database.getCollection[BaseRouteChange]("base-route-changes"))
   }
 
   override def routeTiles: DatabaseCollection[RouteTileDoc] = {

@@ -43,7 +43,6 @@ class RouteUpdateTest03 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
       val routeChange = findRouteChangeById("123:1:11")
-      pendingRedesignPrio2() // TODO redesign - make way information available in routeData or not???
       assertEqual(
         routeChange.addedWays,
         Seq(

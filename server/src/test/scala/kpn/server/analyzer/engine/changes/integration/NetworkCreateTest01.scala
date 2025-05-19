@@ -275,7 +275,6 @@ class NetworkCreateTest01 extends IntegrationTest {
               newRouteNode(1001, "01"),
               newRouteNode(1002, "02")
             ),
-            ways = Seq.empty,
             tags = Tags.from(
               "network" -> "rwn",
               "type" -> "route",
@@ -300,7 +299,6 @@ class NetworkCreateTest01 extends IntegrationTest {
               newRouteNode(1001, "01"),
               newRouteNode(1002, "02")
             ),
-            ways = Seq.empty,
             tags = Tags.from(
               "network" -> "rwn",
               "type" -> "route",

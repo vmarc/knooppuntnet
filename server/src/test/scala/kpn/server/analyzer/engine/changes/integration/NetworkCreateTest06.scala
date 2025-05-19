@@ -157,6 +157,15 @@ class NetworkCreateTest06 extends IntegrationTest {
             ),
           )
         ),
+        addedWays = Seq(
+          newRawWay(
+            101,
+            nodeIds = Vector(1001, 1002),
+            tags = Tags.from(
+              "highway" -> "unclassified"
+            )
+          )
+        ),
         happy = true,
         impact = true,
         locationHappy = true,

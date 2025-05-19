@@ -70,7 +70,6 @@ class NetworkDeleteTest04 extends IntegrationTest {
 
       assertNetworkChange()
       assertChangeSetSummary()
-      assertBaseRouteChange()
       assertRouteChange()
     }
   }
@@ -182,17 +181,6 @@ class NetworkDeleteTest04 extends IntegrationTest {
     networkChange.networkName should equal("01-02")
     assert(!networkChange.happy)
     assert(networkChange.investigate)
-  }
-
-  private def assertBaseRouteChange(): Unit = {
-    assertEqual(
-      findBaseRouteChangeById("123:1:1"),
-      newBaseRouteChange(
-        _id = "123:1:1",
-        elementId = 1,
-        changeType = ChangeType.Create,
-      )
-    )
   }
 
   private def assertRouteChange(): Unit = {

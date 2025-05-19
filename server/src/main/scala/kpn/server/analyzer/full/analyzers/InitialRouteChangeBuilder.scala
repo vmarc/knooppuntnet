@@ -29,7 +29,6 @@ class InitialRouteChangeBuilder(
       routeDoc.summary.routeTypes,
       routeDoc.summary.name: String,
       routeDoc.nodes.nodes,
-      Seq.empty, // TODO redesign - ways ???
       routeDoc.facts,
       routeDoc.summary.meters,
       routeDoc.locationAnalysis,

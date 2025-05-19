@@ -4,7 +4,6 @@ import kpn.api.base.WithStringId
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.PoiState
 import kpn.api.common.changes.ChangeSetInfo
-import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -58,8 +57,6 @@ trait Database {
   def routes: DatabaseCollection[RouteDoc]
 
   def baseRoutes: DatabaseCollection[BaseRouteDoc]
-
-  def baseRouteChanges: DatabaseCollection[BaseRouteChange]
 
   def routeTiles: DatabaseCollection[RouteTileDoc]
 

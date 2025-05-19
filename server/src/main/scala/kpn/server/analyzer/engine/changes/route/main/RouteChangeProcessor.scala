@@ -170,6 +170,11 @@ class RouteChangeProcessor(
     val addedToNetwork = routeDocAfter.networkReferences.map(_.toRef)
     val impactedNetworkIds = addedToNetwork.map(_.id)
 
+    val baseRouteChangeOption = context.changes.baseRouteChanges.find(_.routeId == routeId)
+    val removedWays = baseRouteChangeOption.toSeq.flatMap(_.removedWays)
+    val addedWays = baseRouteChangeOption.toSeq.flatMap(_.addedWays)
+    val updatedWays = baseRouteChangeOption.toSeq.flatMap(_.updatedWays)
+
     Some(
       RouteChangeContext(
         RouteChangeStateAnalyzer.analyzed(
@@ -183,9 +188,9 @@ class RouteChangeProcessor(
             removedFromNetwork = Seq.empty,
             before = None,
             after = Some(RouteData.from(routeDocAfter)),
-            removedWays = Seq.empty,
-            addedWays = Seq.empty,
-            updatedWays = Seq.empty,
+            removedWays = removedWays,
+            addedWays = addedWays,
+            updatedWays = updatedWays,
             diffs = RouteDiff(
               factDiffs = factDiffs
             ),
@@ -255,7 +260,9 @@ class RouteChangeProcessor(
 
     //              val impactedTiles = tileChangeAnalyzer.impactedTiles(contextBefore, contextAfter)
 
-    val routeUpdate = new RouteDiffAnalyzer(RouteData.from(before), RouteData.from(after)).analysis
+    val baseRouteChangeOption = context.changes.baseRouteChanges.find(_.routeId == routeId)
+
+    val routeUpdate = new RouteDiffAnalyzer(RouteData.from(before), RouteData.from(after), baseRouteChangeOption).analysis
 
     //    if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
     //      analysisContext.watched.routes.delete(routeUpdate.id)

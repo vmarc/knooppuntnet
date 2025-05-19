@@ -85,9 +85,6 @@ class Issue148_NetworkToRoute extends IntegrationTest {
       networkChange.changeType should equal(ChangeType.Delete)
       networkChange.networkName should equal("no-name")
 
-      val baseRouteChange = findBaseRouteChangeById("123:1:11774118")
-      baseRouteChange.changeType should equal(ChangeType.Create)
-
       val routeChange = findRouteChangeById("123:1:11774118")
       routeChange.changeType should equal(ChangeType.Create)
       routeChange.name should equal("72-84")

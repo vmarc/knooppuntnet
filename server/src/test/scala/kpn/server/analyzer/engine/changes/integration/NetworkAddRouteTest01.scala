@@ -79,7 +79,6 @@ class NetworkAddRouteTest01 extends IntegrationTest {
 
       assertNetworkDoc()
       assertNetworkChange()
-      assertBaseRouteChange()
       assertRouteChange()
       assertNodeChange1001()
       assertNodeChange1002()
@@ -191,29 +190,6 @@ class NetworkAddRouteTest01 extends IntegrationTest {
     )
   }
 
-  private def assertBaseRouteChange(): Unit = {
-    assertEqual(
-      findBaseRouteChangeById("123:1:11"),
-      newBaseRouteChange(
-        _id = "123:1:11",
-        elementId = 11,
-        changeType = ChangeType.Create,
-        addedWays = Seq(
-          newRawWay(
-            id = 101,
-            nodeIds = Vector(
-              1001,
-              1002
-            ),
-            tags = Tags.from(
-              "highway" -> "unclassified"
-            )
-          )
-        )
-      )
-    )
-  }
-
   private def assertRouteChange(): Unit = {
 
     val routeData = newRouteData(
@@ -238,6 +214,18 @@ class NetworkAddRouteTest01 extends IntegrationTest {
         addedToNetwork = Seq(Ref(1, "network")),
         before = None,
         after = Some(routeData),
+        addedWays = Seq(
+          newRawWay(
+            id = 101,
+            nodeIds = Vector(
+              1001,
+              1002
+            ),
+            tags = Tags.from(
+              "highway" -> "unclassified"
+            )
+          )
+        ),
         happy = true,
         impact = true,
         locationHappy = true,

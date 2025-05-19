@@ -3,7 +3,6 @@ package kpn.server.repository
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
-import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -46,10 +45,6 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
     database.routeChanges.save(routeChange, log)
   }
 
-  override def saveBaseRouteChange(baseRouteChange: BaseRouteChange): Unit = {
-    database.baseRouteChanges.save(baseRouteChange, log)
-  }
-
   override def saveNodeChange(nodeChange: NodeChange): Unit = {
     database.nodeChanges.save(nodeChange, log)
   }
@@ -65,7 +60,7 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
   override def nodeChangesFilter(nodeId: Long, year: Option[Long], month: Option[Long], day: Option[Long]): Seq[ChangesFilterOption] = {
     val yearInt = year match {
       case None => Time.now.year
-      case Some(year) => year.toInt
+      case Some(yearValue) => yearValue.toInt
     }
     val changeSetCounts = new MongoQueryNodeChangeCounts(database).execute(nodeId, yearInt, month.map(_.toInt))
     changeSetCounts.toFilterOptions(year, month, day)
@@ -78,7 +73,7 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
   override def routeChangesFilter(routeId: Long, year: Option[Long], month: Option[Long], day: Option[Long]): Seq[ChangesFilterOption] = {
     val yearInt = year match {
       case None => Time.now.year
-      case Some(year) => year.toInt
+      case Some(yearValue) => yearValue.toInt
     }
     val changeSetCounts = new MongoQueryRouteChangeCounts(database).execute(routeId, yearInt, month.map(_.toInt))
     changeSetCounts.toFilterOptions(year, month, day)
@@ -91,7 +86,7 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
   override def networkChangesFilter(networkId: Long, yearOption: Option[String], monthOption: Option[String], dayOption: Option[String]): ChangesFilter = {
     val year = yearOption match {
       case None => Time.now.year
-      case Some(year) => year.toInt
+      case Some(yearValue) => yearValue.toInt
     }
     val changeSetCounts = new MongoQueryNetworkChangeCounts(database).execute(networkId, year, monthOption.map(_.toInt))
     ChangesFilter.from(changeSetCounts, Some(year.toString), monthOption, dayOption)
@@ -110,7 +105,7 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
 
     val yearInt = year match {
       case None => Time.now.year
-      case Some(year) => year.toInt
+      case Some(yearValue) => yearValue.toInt
     }
     val changeSetCounts = new MongoQueryChangeSetCounts(database).execute(subset, yearInt, month.map(_.toInt))
     changeSetCounts.toFilterOptions(year, month, day)

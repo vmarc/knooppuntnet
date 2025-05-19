@@ -5,6 +5,7 @@ import kpn.api.common.data.Member
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.RelationIdMember
 import kpn.api.common.data.RelationMember
+import kpn.api.common.data.Way
 import kpn.api.common.data.WayMember
 import kpn.api.common.data.raw.RawRelation
 
@@ -49,6 +50,10 @@ case class Relation(
 
   def relationMember(id: Long): RelationMember = {
     relationMembers.find(m => m.relation.id == id).get
+  }
+
+  def ways: Seq[Way] = {
+    wayMembers.map(_.way)
   }
 
   def toRaw: RawRelation = {

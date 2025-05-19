@@ -14,5 +14,5 @@ case class BaseRouteChange(
   updatedWays: Seq[WayUpdate],
 ) extends WithStringId {
 
-  def id: Long = key.elementId
+  def routeId: Long = key.elementId
 }

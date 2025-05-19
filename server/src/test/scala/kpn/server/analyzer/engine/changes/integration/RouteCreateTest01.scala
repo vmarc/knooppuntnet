@@ -54,7 +54,6 @@ class RouteCreateTest01 extends IntegrationTest {
       assertOrphanRoute()
       assertNode1001()
       assertNode1002()
-      assertBaseRouteChange()
       assertRouteChange()
       assertNodeChange1001()
       assertNodeChange1002()
@@ -140,29 +139,6 @@ class RouteCreateTest01 extends IntegrationTest {
     )
   }
 
-  private def assertBaseRouteChange(): Unit = {
-    assertEqual(
-      findBaseRouteChangeById("123:1:11"),
-      newBaseRouteChange(
-        _id = "123:1:11",
-        elementId = 11,
-        changeType = ChangeType.Create,
-        addedWays = Seq(
-          newRawWay(
-            id = 101,
-            nodeIds = Vector(
-              1001,
-              1002
-            ),
-            tags = Tags.from(
-              "highway" -> "unclassified"
-            )
-          )
-        )
-      )
-    )
-  }
-
   private def assertRouteChange(): Unit = {
     assertEqual(
       findRouteChangeById("123:1:11"),
@@ -187,6 +163,18 @@ class RouteCreateTest01 extends IntegrationTest {
               "route" -> "foot",
               "ref" -> "01-02",
               "network:type" -> "node_network"
+            )
+          )
+        ),
+        addedWays = Seq(
+          newRawWay(
+            id = 101,
+            nodeIds = Vector(
+              1001,
+              1002
+            ),
+            tags = Tags.from(
+              "highway" -> "unclassified"
             )
           )
         ),

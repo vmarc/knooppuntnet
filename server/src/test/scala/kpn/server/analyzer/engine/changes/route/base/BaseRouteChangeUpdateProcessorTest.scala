@@ -4,6 +4,7 @@ import kpn.api.common.Fact
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.route.RouteNodes
+import kpn.api.custom.Relation
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RawRouteDoc
 import kpn.core.util.Log
@@ -29,16 +30,21 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with SharedTestObjects
     val baseRouteMainAnalyzer: BaseRouteMainAnalyzer = stub[BaseRouteMainAnalyzer]
     val rawDataRepository: RawDataRepository = stub[RawDataRepository]
     val baseRouteDocBuilder: BaseRouteDocBuilder = stub[BaseRouteDocBuilder]
+    val baseRouteChangeUpdateWayProcessor: BaseRouteChangeUpdateWayProcessor = (changeSetContext: ChangeSetContext, before: Relation, after: Relation) => {
+      changeSetContext
+    }
     val routeTileChangeAnalyzer: BaseRouteChangeUpdateTileProcessor = (changeSetContext: ChangeSetContext, _) => {
       changeSetContext.withImpact(tileIds = Seq("updated-tile"))
     }
     val baseRouteDeleter: BaseRouteChangeDeleterMock = new BaseRouteChangeDeleterMock()
+
     private val processor = new BaseRouteChangeUpdateProcessor(
       analysisContext,
       rawDataRepository,
       routeRepository,
       baseRouteMainAnalyzer,
       baseRouteDocBuilder,
+      baseRouteChangeUpdateWayProcessor,
       routeTileChangeAnalyzer,
       baseRouteDeleter
     )
@@ -175,7 +181,6 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with SharedTestObjects
         endNode = Some(newRouteNode(1002, "02")),
       )
     )
-    (setup.routeRepository.findBaseRouteById _).when(*).returns(Some(beforeBaseRouteDoc)).once()
 
     val analysisResult = buildAnalysisResult(rawRouteDoc).copy(abort = true, facts = Seq(Fact.RouteTagMissing))
     (setup.baseRouteMainAnalyzer.analyze _).when(*, *, *).returns(analysisResult).once()

@@ -20,6 +20,7 @@ class BaseRouteChangeUpdateProcessor(
   routeRepository: RouteRepository,
   baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
   baseRouteDocBuilder: BaseRouteDocBuilder,
+  baseRouteChangeUpdateWayProcessor: BaseRouteChangeUpdateWayProcessor,
   baseRouteChangeUpdateTileProcessor: BaseRouteChangeUpdateTileProcessor,
   baseRouteDeleter: BaseRouteChangeDeleter,
 ) extends BaseRouteChangeSubProcessor {
@@ -49,13 +50,13 @@ class BaseRouteChangeUpdateProcessor(
     }
 
     private def processRoute(changeSetContext: ChangeSetContext, rawRouteDoc: RawRouteDoc): ChangeSetContext = {
-      val beforeOption = routeRepository.findBaseRouteById(routeId)
       val context = baseRouteMainAnalyzer.analyze(rawRouteDoc.relation, rawRouteDoc.subRelationTree)
       if (context.abort) {
         handleAbortedRouteAnalysis(changeSetContext, context)
       }
       else {
-        processRouteUpdate(changeSetContext, rawRouteDoc, beforeOption, context)
+        val beforeOption = routeRepository.findBaseRouteById(routeId)
+        processRouteUpdate(changeSetContext, beforeOption, context)
       }
     }
 
@@ -70,7 +71,6 @@ class BaseRouteChangeUpdateProcessor(
 
     private def processRouteUpdate(
       changeSetContext: ChangeSetContext,
-      rawRouteDoc: RawRouteDoc,
       beforeOption: Option[BaseRouteDoc],
       context: BaseRouteAnalysisContext
     ): ChangeSetContext = {
@@ -80,16 +80,33 @@ class BaseRouteChangeUpdateProcessor(
       val baseRouteDoc = baseRouteDocBuilder.build(context)
       routeRepository.saveBaseRoute(baseRouteDoc)
 
-      val updatedChangeSetContext = baseRouteChangeUpdateTileProcessor.process(changeSetContext, context)
+      val updatedChangeSetContext1 = baseRouteChangeUpdateTileProcessor.process(changeSetContext, context)
+      val updatedChangeSetContext2 = processWayUpdates(updatedChangeSetContext1, beforeOption, baseRouteDoc)
 
       val beforeNodeIds = beforeOption.toSeq.flatMap(_.nodes.nodeIds).toSet
       val afterNodeIds = baseRouteDoc.nodes.nodeIds.toSet
       val addedNodeIds = afterNodeIds -- beforeNodeIds
       val removedNodeIds = beforeNodeIds -- afterNodeIds
       val impactedNodeIds = (addedNodeIds ++ removedNodeIds).toSeq.sorted
-      updatedChangeSetContext.withImpact(
+      updatedChangeSetContext2.withImpact(
         nodeIds = (addedNodeIds ++ removedNodeIds).toSeq.sorted,
       )
+    }
+  }
+
+  private def processWayUpdates(
+    changeSetContext: ChangeSetContext,
+    beforeOption: Option[BaseRouteDoc],
+    afterBaseRouteDoc: BaseRouteDoc
+  ): ChangeSetContext = {
+
+    val beforeRelationOption = beforeOption.flatMap(_.relation)
+    val afterRelationOption = afterBaseRouteDoc.relation
+
+    (beforeRelationOption, afterRelationOption) match {
+      case (Some(before), Some(after)) =>
+        baseRouteChangeUpdateWayProcessor.process(changeSetContext, before, after)
+      case _ => changeSetContext
     }
   }
 }

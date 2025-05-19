@@ -28,7 +28,7 @@ case class Network(
 
   val bounds: Bounds = {
 
-    val allNodes: Seq[Node] = nodes.map(_.networkNode.node) ++ routes.flatMap(_.data.ways).flatMap(_.nodes)
+    val allNodes: Seq[Node] = nodes.map(_.networkNode.node) // TODO redesign including route bounds: ++ routes.flatMap(_.data.ways).flatMap(_.nodes)
 
     val minLat = if (allNodes.isEmpty) 0 else allNodes.map(_.lat).min
     val maxLat = if (allNodes.isEmpty) 0 else allNodes.map(_.lat).max

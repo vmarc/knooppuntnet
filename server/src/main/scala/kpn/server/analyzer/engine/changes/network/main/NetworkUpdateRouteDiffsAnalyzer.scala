@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.network.main
 
+import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.RefDiffs
@@ -41,7 +42,10 @@ object NetworkUpdateRouteDiffsAnalyzer {
     commonIds: Set[Long],
     networkId: Long
   ): Seq[Ref] = {
-    val relevantChanges = context.changes.routeChanges.filter(change => isRelevant(change, networkId))
+    val relevantChanges = context.changes.routeChanges.filter { change =>
+      val baseRouteChangeOption = context.changes.baseRouteChanges.find(_.routeId == change.id)
+      isRelevant(change, baseRouteChangeOption, networkId)
+    }
     commonIds.toSeq.sorted.flatMap { routeId =>
       if (relevantChanges.exists(_.id == routeId)) {
         findRouteRef(after, routeId)
@@ -70,12 +74,12 @@ object NetworkUpdateRouteDiffsAnalyzer {
       .sortBy(_.id)
   }
 
-  private def isRelevant(routeChange: RouteChange, networkId: Long): Boolean = {
+  private def isRelevant(routeChange: RouteChange, baseRouteChange: Option[BaseRouteChange], networkId: Long): Boolean = {
     val diffsChanged = routeChange.diffs.nonEmpty
     val factsChanged = routeChange.facts.nonEmpty
     networkChanged(routeChange, networkId) ||
       routeChanged(routeChange) ||
-      waysChanged(routeChange) ||
+      waysChanged(baseRouteChange) ||
       diffsChanged ||
       factsChanged
   }
@@ -89,9 +93,13 @@ object NetworkUpdateRouteDiffsAnalyzer {
     routeChange.before != routeChange.after
   }
 
-  private def waysChanged(routeChange: RouteChange): Boolean = {
-    routeChange.removedWays.nonEmpty ||
-      routeChange.addedWays.nonEmpty ||
-      routeChange.updatedWays.nonEmpty
+  private def waysChanged(baseRouteChangeOption: Option[BaseRouteChange]): Boolean = {
+    baseRouteChangeOption match {
+      case Some(baseRouteChange) =>
+        baseRouteChange.removedWays.nonEmpty ||
+          baseRouteChange.addedWays.nonEmpty ||
+          baseRouteChange.updatedWays.nonEmpty
+      case None => false
+    }
   }
 }
