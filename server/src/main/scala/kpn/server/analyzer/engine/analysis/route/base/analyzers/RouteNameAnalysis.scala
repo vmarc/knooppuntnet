@@ -9,10 +9,6 @@ case class RouteNameAnalysis(
   derivedFromDeprecatedNoteTag: Boolean = false
 ) {
 
-  def isStartNodeNameSameAsEndNodeName: Boolean = {
-    startNodeName.isDefined && endNodeName.isDefined && startNodeName == endNodeName
-  }
-
   def hasStandardNodeNames: Boolean = {
     startNodeName match {
       case None => false

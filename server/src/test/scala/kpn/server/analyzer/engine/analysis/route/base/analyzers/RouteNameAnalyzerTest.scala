@@ -384,7 +384,6 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   private def analyzeRouteName(tags: Seq[Tag], routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty): RouteNameAnalysis = {
-    pendingRedesignPrio2()
     val newContext = analyze(tags, routeNodeInfos)
     newContext.routeNameAnalysis
   }
@@ -405,6 +404,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     val context = BaseRouteAnalysisContext(
       relation,
       None,
+      nodeNetwork = true,
       routeNodeInfos = routeNodeInfos
     )
 
