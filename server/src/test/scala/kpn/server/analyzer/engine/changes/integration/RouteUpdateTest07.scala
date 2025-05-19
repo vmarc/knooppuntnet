@@ -10,7 +10,7 @@ class RouteUpdateTest07 extends IntegrationTest {
 
   test("fact diff") {
 
-    pendingRedesignPrio2() // TODO redesign - need better analysis to determine whether a subrelation is a route or not
+    // pendingRedesignPrio2() // TODO redesign - need better analysis to determine whether a subrelation is a route or not
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")

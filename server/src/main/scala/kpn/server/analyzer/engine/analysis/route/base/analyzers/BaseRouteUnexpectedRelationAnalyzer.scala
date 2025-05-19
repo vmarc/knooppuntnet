@@ -18,6 +18,6 @@ class BaseRouteUnexpectedRelationAnalyzer(context: BaseRouteAnalysisContext) {
   }
 
   private def findUnexpectedRelationIds: Seq[Long] = {
-    context.relation.relationMembers.map(_.relation.id)
+    context.relation.relationIdMembers.map(_.relationId)
   }
 }

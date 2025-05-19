@@ -1,13 +1,11 @@
 package kpn.core.analysis
 
-import kpn.api.common.Bounds
 import kpn.api.common.Country
 import kpn.api.common.Fact.RouteInaccessible
 import kpn.api.common.NetworkFacts
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
-import kpn.api.common.data.Node
 import kpn.api.common.network.NetworkShape
 import kpn.api.custom.Relation
 import kpn.api.custom.Subset
@@ -25,19 +23,6 @@ case class Network(
   shape: Option[NetworkShape],
   facts: NetworkFacts
 ) {
-
-  val bounds: Bounds = {
-
-    val allNodes: Seq[Node] = nodes.map(_.networkNode.node) // TODO redesign including route bounds: ++ routes.flatMap(_.data.ways).flatMap(_.nodes)
-
-    val minLat = if (allNodes.isEmpty) 0 else allNodes.map(_.lat).min
-    val maxLat = if (allNodes.isEmpty) 0 else allNodes.map(_.lat).max
-
-    val minLon = if (allNodes.isEmpty) 0 else allNodes.map(_.lon).min
-    val maxLon = if (allNodes.isEmpty) 0 else allNodes.map(_.lon).max
-
-    Bounds(minLat, minLon, maxLat, maxLon)
-  }
 
   def id: Long = relation.id
 
