@@ -1,120 +1,111 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
+import kpn.api.common.SharedTestObjects
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
 
-class RouteNameFromNodesAnalyzerTest extends UnitTest {
+class RouteNameFromNodesAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("derive route name from node names") {
-    pendingRedesign()
-    val context = BaseRouteAnalysisContext(
-      null,
-      None,
-      // TODO redesign
-      //      nodeNetwork = true,
-      //      _routeNameAnalysis = Some(RouteNameAnalysis()),
-      //      _oldRouteNodeAnalysis = Some(
-      //        OldRouteNodeAnalysis(
-      //          startNodes = Seq(
-      //            OldRouteNode(name = "01")
-      //          ),
-      //          endNodes = Seq(
-      //            OldRouteNode(name = "02")
-      //          )
-      //        )
-      //      )
-    )
-    val newContext = BaseRouteNameFromNodesAnalyzer.analyze(context)
-    newContext.routeNameAnalysis.name should equal(Some("01-02"))
-  }
-
-  test("derive route name from non-digit node names (use separator with spaces)") {
-    pendingRedesign()
     val context = BaseRouteAnalysisContext(
       null,
       None,
       nodeNetwork = true,
       _routeNameAnalysis = Some(RouteNameAnalysis()),
-      // TODO redesign
-      //      _oldRouteNodeAnalysis = Some(
-      //        OldRouteNodeAnalysis(
-      //          startNodes = Seq(
-      //            OldRouteNode(name = "a")
-      //          ),
-      //          endNodes = Seq(
-      //            OldRouteNode(name = "b")
-      //          )
-      //        )
-      //      )
+      _routeNodesAnalysis = Some(
+        RouteNodesAnalysis(
+          startNode = Some(newRouteNodeAnalysis(1001, "01")),
+          endNode = Some(newRouteNodeAnalysis(1002, "02")),
+        )
+      ),
     )
     val newContext = BaseRouteNameFromNodesAnalyzer.analyze(context)
-    newContext.routeNameAnalysis.name should equal(Some("a - b"))
+    assertEqual(
+      newContext.routeNameAnalysis,
+      RouteNameAnalysis(
+        name = Some("01-02"),
+        derivedFromNodes = true
+      )
+    )
+  }
+
+  test("derive route name from non-digit node names (use separator with spaces)") {
+    val context = BaseRouteAnalysisContext(
+      null,
+      None,
+      nodeNetwork = true,
+      _routeNameAnalysis = Some(RouteNameAnalysis()),
+      _routeNodesAnalysis = Some(
+        RouteNodesAnalysis(
+          startNode = Some(newRouteNodeAnalysis(1001, "a")),
+          endNode = Some(newRouteNodeAnalysis(1002, "b")),
+        )
+      )
+    )
+    val newContext = BaseRouteNameFromNodesAnalyzer.analyze(context)
+    assertEqual(
+      newContext.routeNameAnalysis,
+      RouteNameAnalysis(
+        name = Some("a - b"),
+        derivedFromNodes = true
+      )
+    )
   }
 
   test("do not derive route name from node names if route name already known") {
-    pendingRedesign()
     val context = BaseRouteAnalysisContext(
       null,
       None,
       _routeNameAnalysis = Some(
         RouteNameAnalysis(name = Some("route-name"))
       ),
-
-      //      _oldRouteNodeAnalysis = Some(
-      //        OldRouteNodeAnalysis(
-      //          startNodes = Seq(
-      //            OldRouteNode(name = "01")
-      //          ),
-      //          endNodes = Seq(
-      //            OldRouteNode(name = "02")
-      //          )
-      //        )
-      //      )
+      _routeNodesAnalysis = Some(
+        RouteNodesAnalysis(
+          startNode = Some(newRouteNodeAnalysis(1001, "01")),
+          endNode = Some(newRouteNodeAnalysis(1002, "02")),
+        )
+      )
     )
     val newContext = BaseRouteNameFromNodesAnalyzer.analyze(context)
-    newContext.routeNameAnalysis.name should equal(Some("route-name"))
+    assertEqual(
+      newContext.routeNameAnalysis,
+      RouteNameAnalysis(
+        name = Some("route-name"),
+      )
+    )
   }
 
   test("do not derive route name from node names if start node name unknown") {
-    pendingRedesign()
     val context = BaseRouteAnalysisContext(
       null,
       None,
       _routeNameAnalysis = Some(
         RouteNameAnalysis()
       ),
-      //      _oldRouteNodeAnalysis = Some(
-      //        OldRouteNodeAnalysis(
-      //          startNodes = Seq(
-      //            OldRouteNode()
-      //          ),
-      //          endNodes = Seq(
-      //            OldRouteNode(name = "02")
-      //          )
-      //        )
-      //      )
+      _routeNodesAnalysis = Some(
+        RouteNodesAnalysis(
+          startNode = None,
+          endNode = Some(newRouteNodeAnalysis(1002, "02")),
+        )
+      )
     )
     val newContext = BaseRouteNameFromNodesAnalyzer.analyze(context)
     newContext.routeNameAnalysis.name should equal(None)
   }
 
   test("do not derive route name from node names if end node name unknown") {
-    pendingRedesign()
     val context = BaseRouteAnalysisContext(
       null,
       None,
       _routeNameAnalysis = Some(
         RouteNameAnalysis()
       ),
-      //      _oldRouteNodeAnalysis = Some(
-      //        OldRouteNodeAnalysis(
-      //          startNodes = Seq(
-      //            OldRouteNode(name = "01")
-      //          ),
-      //          endNodes = Seq(
-      //            OldRouteNode()
-      //          )
-      //        )
-      //      )
+      _routeNodesAnalysis = Some(
+        RouteNodesAnalysis(
+          startNode = Some(newRouteNodeAnalysis(1001, "01")),
+          endNode = None,
+        )
+      )
     )
     val newContext = BaseRouteNameFromNodesAnalyzer.analyze(context)
     newContext.routeNameAnalysis.name should equal(None)

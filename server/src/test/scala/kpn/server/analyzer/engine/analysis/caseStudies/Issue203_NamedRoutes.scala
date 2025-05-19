@@ -6,28 +6,16 @@ import kpn.core.util.UnitTest
 class Issue203_NamedRoutes extends UnitTest {
 
   test("Carrefour des Planches - Croix des Clos") {
-    pendingRedesign()
     val context = CaseStudy.analyze("13305500")
-    context.facts should equal(
-      Seq(
-        Fact.RouteRedundantNodes,
-        Fact.RouteNotForward,
-        Fact.RouteNotBackward,
-        Fact.RouteNotContinious,
-        Fact.RouteBroken
-      )
-    )
+    context.facts shouldNot contain(Fact.RouteRedundantNodes)
+    context.facts should contain(Fact.RouteNodeNameMismatch)
+    context.expectedName should contain("Cr-Carrefour des Planches")
   }
 
   test("Le Villard - Le Villard") {
-    pendingRedesign()
     val context = CaseStudy.analyze("12219285")
-    context.facts should equal(
-      Seq(
-        Fact.RouteRedundantNodes,
-        Fact.RouteUnusedSegments,
-        Fact.RouteBroken
-      )
-    )
+    context.facts shouldNot contain(Fact.RouteRedundantNodes)
+    context.facts should contain(Fact.RouteNodeNameMismatch)
+    context.expectedName should contain("Le Villard - o")
   }
 }

@@ -19,25 +19,32 @@ class BaseRouteNameFromNodesAnalyzer(context: BaseRouteAnalysisContext) {
   private val routeNodeAnalysis = context.routeNodesAnalysis
 
   def analyze: BaseRouteAnalysisContext = {
-    if (context.routeNameAnalysis.name.isDefined) {
+    if (isRouteNameAlreadyDefined) {
       context // we already have a route name, no need to try to derive from node names
     }
     else {
-      routeNodeAnalysis.startNode.map(_.name) match {
-        case None => context // start node name not known, cannot derive route name
-        case Some(startNodeName) =>
-          routeNodeAnalysis.endNode.map(_.name) match {
-            case None => context // end node name not known, cannot derive route name
-            case Some(endNodeName) =>
-              if (startNodeName.nonEmpty && endNodeName.nonEmpty) {
-                routeNameFromNodeNames(startNodeName, endNodeName)
-              }
-              else {
-                context
-              }
-          }
-      }
+      deriveRouteNameFromNodeNames
     }
+  }
+
+  private def deriveRouteNameFromNodeNames = {
+    getNodeNames match {
+      case (Some(startNodeName), Some(endNodeName)) =>
+        routeNameFromNodeNames(startNodeName, endNodeName)
+      case _ =>
+        // cannot derive route name when either start or end node name is not known
+        context
+    }
+  }
+
+  private def getNodeNames: (Option[String], Option[String]) = {
+    val startNodeNameOption = context.routeNodesAnalysis.startNode.map(_.name)
+    val endNodeNameOption = context.routeNodesAnalysis.endNode.map(_.name)
+    (startNodeNameOption, endNodeNameOption)
+  }
+
+  private def isRouteNameAlreadyDefined: Boolean = {
+    context.routeNameAnalysis.name.isDefined
   }
 
   private def routeNameFromNodeNames(startNodeName: String, endNodeName: String): BaseRouteAnalysisContext = {
