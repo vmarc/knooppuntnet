@@ -78,6 +78,7 @@ object ChangeSetPageExample {
       _id = key.toId,
       key = key,
       subsets = Subset.all,
+      locations = Seq.empty,
       timestampFrom = Timestamp(2015, 1, 2),
       timestampUntil = Timestamp(2015, 1, 2),
       networkChanges = NetworkChanges(), // TODO this is not used by the application; can be left out???
@@ -393,7 +394,6 @@ object ChangeSetPageExample {
       ),
       subsetAnalyses = Seq.empty,
       locationChanges = Seq.empty,
-      locations = Seq.empty,
       happy = true,
       investigate = true,
       impact = true

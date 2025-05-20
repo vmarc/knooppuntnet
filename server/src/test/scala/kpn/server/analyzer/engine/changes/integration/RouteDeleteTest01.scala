@@ -79,9 +79,11 @@ class RouteDeleteTest01 extends IntegrationTest {
         1001,
         labels = Seq(
           Label.active,
-          Label.routeType(RouteType.hiking)
+          Label.routeType(RouteType.hiking),
+          Label.location("nl")
         ),
         country = Some(Country.nl),
+        locations = Seq("nl"),
         name = Some("01"),
         names = Seq(
           NodeName(
@@ -104,9 +106,11 @@ class RouteDeleteTest01 extends IntegrationTest {
         1002,
         labels = Seq(
           Label.active,
-          Label.routeType(RouteType.hiking)
+          Label.routeType(RouteType.hiking),
+          Label.location("nl")
         ),
         country = Some(Country.nl),
+        locations = Seq("nl"),
         name = Some("02"),
         names = Seq(
           NodeName(
@@ -165,6 +169,7 @@ class RouteDeleteTest01 extends IntegrationTest {
         newChangeKey(elementId = 1001),
         ChangeType.Update,
         Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         name = Some("01"),
         before = Some(
           newMetaData()
@@ -190,6 +195,7 @@ class RouteDeleteTest01 extends IntegrationTest {
         newChangeKey(elementId = 1002),
         ChangeType.Update,
         Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         name = Some("02"),
         before = Some(
           newMetaData()
@@ -237,6 +243,7 @@ class RouteDeleteTest01 extends IntegrationTest {
       findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         orphanRouteChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
@@ -258,6 +265,19 @@ class RouteDeleteTest01 extends IntegrationTest {
         ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01", investigate = true),
+                newChangeSetElementRef(1002, "02", investigate = true),
+              ),
+            ),
+            investigate = true
+          )
         ),
         investigate = true
       )

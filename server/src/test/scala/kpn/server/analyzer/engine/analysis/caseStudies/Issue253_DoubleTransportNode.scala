@@ -29,7 +29,7 @@ import java.time.ZonedDateTime
 class Issue253_DoubleTransportNode extends IntegrationTest {
 
   test("orphan node list, location node list") {
-    pendingRedesign()
+
     val data = OverpassData().node(
       620168928L,
       Tags.from(
@@ -43,19 +43,18 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         "rwn_ref" -> "o",
         "tourism" -> "information",
       ),
-      latitude = "45.1703505",
-      longitude = "6.4883568",
       version = 5,
       timestamp = Timestamp(2021, 11, 6, 21, 23, 13)
     )
 
     simulate(data, data) {
+
       assertEqual(
-        new MongoQuerySubsetOrphanNodes(context.database).execute(Subset.frHiking),
+        new MongoQuerySubsetOrphanNodes(context.database).execute(Subset.nlHiking),
         Seq(
           OrphanNodeDoc(
-            _id = "fr:hiking:620168928",
-            country = Country.fr,
+            _id = "nl:hiking:620168928",
+            country = Country.nl,
             routeType = RouteType.hiking,
             nodeId = 620168928L,
             name = "Teumelet",
@@ -68,7 +67,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         )
       )
 
-      val subset = LocationSubset("", hiking, Seq("fr"))
+      val subset = LocationSubset("", hiking, Seq("nl"))
       val surveyDateInfo: SurveyDateInfo = {
         val local = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Europe/Brussels"))
         SurveyDateInfoBuilder.dateInfoAt(local)
@@ -82,8 +81,8 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
             id = 620168928L,
             name = "Teumelet / o",
             longName = "-",
-            latitude = "45.1703505",
-            longitude = "6.4883568",
+            latitude = "0",
+            longitude = "0",
             lastUpdated = Timestamp(2021, 11, 6, 21, 23, 13),
             lastSurvey = None,
             facts = Seq.empty,
@@ -94,45 +93,35 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
       )
 
       assertEqual(
-        database.nodes.findById(620168928L),
-        Some(
-          newNodeDoc(
-            id = 620168928L,
-            labels = Seq(
-              Label.active,
-              Label.routeType(RouteType.hiking),
-              Label.location("fr"),
-              Label.location("fr-1-73"),
-              Label.location("fr-2-247300452"),
-              Label.location("fr-3-73307")
-            ),
-            country = Some(Country.fr),
-            name = Some("Teumelet / o"),
-            names = Seq(
-              newNodeName(RouteType.hiking, RouteScope.local, "Teumelet"),
-              newNodeName(RouteType.hiking, RouteScope.regional, "o")
-            ),
-            version = 5,
-            latitude = "45.1703505",
-            longitude = "6.4883568",
-            lastUpdated = Timestamp(2021, 11, 6, 21, 23, 13),
-            tags = Tags.from(
-              "hiking" -> "yes",
-              "information" -> "guidepost",
-              "lwn_name" -> "Teumelet",
-              "name" -> "Teumelet",
-              "network:type" -> "node_network",
-              "operator" -> "Communauté de Communes Maurienne Galibier",
-              "ref" -> "o",
-              "rwn_ref" -> "o",
-              "tourism" -> "information"
-            ),
-            locations = Seq(
-              "fr",
-              "fr-1-73",
-              "fr-2-247300452",
-              "fr-3-73307"
-            )
+        findNodeById(620168928L),
+        newNodeDoc(
+          id = 620168928L,
+          labels = Seq(
+            Label.active,
+            Label.routeType(RouteType.hiking),
+            Label.location("nl")
+          ),
+          country = Some(Country.nl),
+          name = Some("Teumelet / o"),
+          names = Seq(
+            newNodeName(RouteType.hiking, RouteScope.local, "Teumelet"),
+            newNodeName(RouteType.hiking, RouteScope.regional, "o")
+          ),
+          version = 5,
+          lastUpdated = Timestamp(2021, 11, 6, 21, 23, 13),
+          tags = Tags.from(
+            "hiking" -> "yes",
+            "information" -> "guidepost",
+            "lwn_name" -> "Teumelet",
+            "name" -> "Teumelet",
+            "network:type" -> "node_network",
+            "operator" -> "Communauté de Communes Maurienne Galibier",
+            "ref" -> "o",
+            "rwn_ref" -> "o",
+            "tourism" -> "information"
+          ),
+          locations = Seq(
+            "nl"
           )
         )
       )
@@ -140,7 +129,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
   }
 
   test("step1: node that is both regional and local") {
-    pendingRedesign()
+
     val context = analyze(
       Tags.from(
         "hiking" -> "yes",
@@ -154,7 +143,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         "tourism" -> "information",
       )
     )
-    context.name should equal("Teumelet / o")
+    context.name should equal(Some("Teumelet / o"))
     assertEqual(
       context.names,
       Seq(
@@ -177,7 +166,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
   }
 
   test("step2: node only local, regional tag removed, changeset 113461712 004/790/397") {
-    pendingRedesign()
+
     val context = analyze(
       Tags.from(
         "hiking" -> "yes",
@@ -191,7 +180,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         "tourism" -> "information",
       )
     )
-    context.name should equal("Teumelet")
+    context.name should equal(Some("Teumelet"))
     assertEqual(
       context.names,
       Seq(
@@ -207,7 +196,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
   }
 
   test("step3: lost network node tags, changeset 113584885 004/794/696") {
-    pendingRedesign()
+
     val context = analyze(
       Tags.from(
         "hiking" -> "yes",
@@ -217,7 +206,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         "tourism" -> "information",
       )
     )
-    context.name should equal("")
+    context.name should equal(None)
     context.names should equal(Seq.empty)
   }
 

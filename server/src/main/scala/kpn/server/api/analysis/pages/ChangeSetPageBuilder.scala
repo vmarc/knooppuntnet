@@ -86,8 +86,8 @@ class ChangeSetPageBuilder(
     val locations = changeSetData.summary.locations.map(loc => locationService.name(language, loc))
 
     val summary = changeSetData.summary.copy(
-      locationChanges = locationChanges,
-      locations = locations
+      locations = locations,
+      locationChanges = locationChanges
     )
 
     ChangeSetDetail(

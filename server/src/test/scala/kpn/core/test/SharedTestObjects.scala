@@ -855,6 +855,7 @@ trait SharedTestObjects extends MockFactory {
   def newChangeSetSummary(
     key: ChangeKey = newChangeKey(),
     subsets: Seq[Subset] = Seq.empty,
+    locations: Seq[String] = Seq.empty,
     timestampFrom: Timestamp = Timestamps.from,
     timestampUntil: Timestamp = Timestamps.until,
     networkChanges: NetworkChanges = NetworkChanges(),
@@ -862,7 +863,6 @@ trait SharedTestObjects extends MockFactory {
     orphanNodeChanges: Seq[ChangeSetSubsetElementRefs] = Seq.empty,
     subsetAnalyses: Seq[ChangeSetSubsetAnalysis] = Seq.empty,
     locationChanges: Seq[LocationChanges] = Seq.empty,
-    locations: Seq[String] = Seq.empty,
     happy: Boolean = false,
     investigate: Boolean = false
   ): ChangeSetSummary = {
@@ -870,6 +870,7 @@ trait SharedTestObjects extends MockFactory {
       key.toShortId,
       key,
       subsets,
+      locations,
       timestampFrom,
       timestampUntil,
       networkChanges,
@@ -877,7 +878,6 @@ trait SharedTestObjects extends MockFactory {
       orphanNodeChanges,
       subsetAnalyses,
       locationChanges,
-      locations,
       happy,
       investigate,
       happy || investigate

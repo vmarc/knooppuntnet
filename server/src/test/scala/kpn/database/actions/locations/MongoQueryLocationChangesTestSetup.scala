@@ -86,12 +86,12 @@ class MongoQueryLocationChangesTestSetup(database: Database) extends SharedTestO
       subsets = Seq(
         Subset.beHiking,
       ),
+      locations = locations,
       timestampFrom = timestamp,
       timestampUntil = timestamp,
       locationChanges = locationChanges,
-      locations = locations,
       happy = locationChanges.exists(_.happy),
-      investigate = locationChanges.exists(_.investigate),
+      investigate = locationChanges.exists(_.investigate)
     )
     database.changes.save(changeSetSummary)
   }

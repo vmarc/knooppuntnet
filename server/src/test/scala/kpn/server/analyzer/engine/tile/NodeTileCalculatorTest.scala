@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.LatLon
-import kpn.api.common.LatLonImpl
+import kpn.core.test.Locations
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.TestTile
 import kpn.server.analyzer.engine.tiles.TileTestSetup
@@ -14,8 +14,7 @@ class NodeTileCalculatorTest extends UnitTest {
 
   test("test") {
 
-    val essen = LatLonImpl("51.46774", "4.46839")
-    assertTile(essen, Seq(t.t22))
+    assertTile(Locations.essen, Seq(t.t22))
 
     // TODO redesign tiles - uncomment
     //    val delta = 0.0005

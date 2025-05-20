@@ -70,6 +70,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
           "network:type" -> "node_network"
         ),
         country = Some(Country.nl),
+        locations = Seq("nl"),
         tiles = Seq(
           "hiking-9-256-256",
           "hiking-10-512-512",
@@ -107,9 +108,11 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
         1001,
         labels = Seq(
           Label.active,
-          Label.routeType(RouteType.hiking)
+          Label.routeType(RouteType.hiking),
+          Label.location("nl")
         ),
         country = Some(Country.nl),
+        locations = Seq("nl"),
         name = Some("01"),
         names = Seq(
           newNodeName(name = "01")
@@ -172,6 +175,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Update,
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         name = Some("01"),
         before = Some(
           newMetaData()
@@ -193,6 +197,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
       findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         networkChanges = NetworkChanges(
           deletes = Seq(
             newChangeSetNetwork(
@@ -211,6 +216,17 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
         ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01"),
+              ),
+            )
+          )
         ),
         investigate = true
       )

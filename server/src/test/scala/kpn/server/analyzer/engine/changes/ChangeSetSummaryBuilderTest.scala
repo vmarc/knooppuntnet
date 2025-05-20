@@ -132,10 +132,12 @@ class ChangeSetSummaryBuilderTest extends UnitTest with SharedTestObjects {
         _id = newChangeKey().toShortId,
         key = newChangeKey(),
         subsets = Seq(Subset.nlHiking),
-        timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
-        timestampUntil = Timestamp(2015, 8, 11, 0, 0, 3),
-        networkChanges = NetworkChanges(),
-        orphanRouteChanges = Seq(
+        locations = Seq(
+          "North Brabant",
+          "Roosendaal",
+          "nl"
+        ),
+        timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2), timestampUntil = Timestamp(2015, 8, 11, 0, 0, 3), networkChanges = NetworkChanges(), orphanRouteChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(
@@ -234,11 +236,6 @@ class ChangeSetSummaryBuilderTest extends UnitTest with SharedTestObjects {
             investigate = true
           )
         ),
-        locations = Seq(
-          "North Brabant",
-          "Roosendaal",
-          "nl"
-        ),
         happy = true,
         investigate = true,
         impact = true
@@ -307,6 +304,14 @@ class ChangeSetSummaryBuilderTest extends UnitTest with SharedTestObjects {
           Subset.beBicycle,
           Subset.beHiking,
           Subset.nlHiking
+        ),
+        locations = Seq(
+          "Antwerp",
+          "Essen",
+          "North Brabant",
+          "Roosendaal",
+          "be",
+          "nl"
         ),
         timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
         timestampUntil = Timestamp(2015, 8, 11, 0, 0, 3),
@@ -384,14 +389,6 @@ class ChangeSetSummaryBuilderTest extends UnitTest with SharedTestObjects {
             happy = false,
             investigate = false
           )
-        ),
-        locations = Seq(
-          "Antwerp",
-          "Essen",
-          "North Brabant",
-          "Roosendaal",
-          "be",
-          "nl"
         ),
         happy = false,
         investigate = false,

@@ -13,6 +13,7 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
+import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 import kpn.core.test.Timestamps
 
@@ -60,6 +61,7 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
         1001,
         active = false,
         country = Some(Country.nl),
+        locations = Seq("nl"),
       )
     )
   }
@@ -69,8 +71,11 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
       findNodeById(1001),
       newNodeDoc(
         1001,
-        labels = Seq.empty,
+        labels = Seq(
+          Label.location("nl")
+        ),
         country = Some(Country.nl),
+        locations = Seq("nl"),
       )
     )
   }
@@ -132,6 +137,7 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Delete,
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         name = Some("01"),
         before = Some(
           newMetaData()
@@ -153,6 +159,7 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
       findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         networkChanges = NetworkChanges(
           deletes = Seq(
             newChangeSetNetwork(
@@ -171,6 +178,18 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
         ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              removed = Seq(
+                newChangeSetElementRef(1001, "01", investigate = true),
+              )
+            ),
+            investigate = true
+          ),
         ),
         investigate = true
       )

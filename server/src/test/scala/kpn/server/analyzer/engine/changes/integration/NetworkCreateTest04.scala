@@ -112,6 +112,7 @@ class NetworkCreateTest04 extends IntegrationTest {
       findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         networkChanges = NetworkChanges(
           creates = Seq(
             newChangeSetNetwork(
@@ -137,6 +138,19 @@ class NetworkCreateTest04 extends IntegrationTest {
         ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true, investigate = true)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              added = Seq(
+                newChangeSetElementRef(1001, "01", happy = true),
+                newChangeSetElementRef(1002, "02", happy = true),
+              )
+            ),
+            happy = true,
+          )
         ),
         happy = true,
         investigate = true

@@ -48,7 +48,8 @@ class OrphanNodeCreateTest02 extends IntegrationTest {
         1001,
         labels = Seq(
           Label.active,
-          Label.routeType(RouteType.hiking)
+          Label.routeType(RouteType.hiking),
+          Label.location("nl")
         ),
         country = Some(Country.nl),
         name = Some("01"),
@@ -64,7 +65,8 @@ class OrphanNodeCreateTest02 extends IntegrationTest {
         tags = Tags.from(
           "proposed:rwn_ref" -> "01",
           "network:type" -> "node_network"
-        )
+        ),
+        locations = Seq("nl"),
       )
     )
   }
@@ -76,6 +78,7 @@ class OrphanNodeCreateTest02 extends IntegrationTest {
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Create,
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         name = Some("01"),
         after = Some(
           newMetaData(version = 1)
@@ -100,6 +103,7 @@ class OrphanNodeCreateTest02 extends IntegrationTest {
       findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         orphanNodeChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
@@ -110,6 +114,18 @@ class OrphanNodeCreateTest02 extends IntegrationTest {
         ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              added = Seq(
+                newChangeSetElementRef(1001, "01", happy = true),
+              ),
+            ),
+            happy = true
+          )
         ),
         happy = true
       )

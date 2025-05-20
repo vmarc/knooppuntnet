@@ -98,7 +98,8 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
         1002,
         labels = Seq(
           Label.active,
-          Label.routeType(RouteType.cycling)
+          Label.routeType(RouteType.cycling),
+          Label.location("nl")
         ),
         country = Some(Country.nl),
         name = Some("03"),
@@ -114,7 +115,8 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
         tags = Tags.from(
           "network:type" -> "node_network",
           "rcn_ref" -> "03",
-        )
+        ),
+        locations = Seq("nl"),
       )
     )
   }
@@ -162,6 +164,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
           Subset.nlHiking,
           Subset.nlBicycle
         ),
+        locations = Seq("nl"),
         name = Some("03"),
         before = Some(
           newMetaData()
@@ -200,6 +203,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
         subsets = Seq(
           Subset.nlHiking
         ),
+        locations = Seq("nl"),
         networkChanges = NetworkChanges(
           updates = Seq(
             newChangeSetNetwork(
@@ -218,6 +222,28 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
         ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1002, "03", investigate = true),
+              )
+            ),
+            investigate = true
+          ),
+          newLocationChanges(
+            routeType = RouteType.cycling,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1002, "03", investigate = true),
+              )
+            ),
+            investigate = true
+          )
         ),
         investigate = true
       )

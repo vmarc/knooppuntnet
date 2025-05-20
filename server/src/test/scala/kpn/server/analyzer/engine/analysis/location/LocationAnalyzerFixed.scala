@@ -20,7 +20,7 @@ class LocationAnalyzerFixed extends LocationAnalyzer {
   }
 
   override def findLocations(latitude: String, longitude: String): Seq[String] = {
-    Seq.empty
+    Seq("nl")
   }
 
   override def locateGeometries(geometries: Seq[Geometry]): Seq[LocationSelector] = {

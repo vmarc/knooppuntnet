@@ -14,6 +14,7 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Change
 import kpn.api.custom.Subset
+import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class NetworkUpdateRouteTest03 extends IntegrationTest {
@@ -110,8 +111,11 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
       findNodeById(1003),
       newNodeDoc(
         1003,
-        labels = Seq.empty,
+        labels = Seq(
+          Label.location("nl")
+        ),
         country = Some(Country.nl),
+        locations = Seq("nl"),
       )
     )
   }
@@ -185,6 +189,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         name = Some("02"),
         before = Some(
           newMetaData()
@@ -208,6 +213,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         key = newChangeKey(elementId = 1003),
         changeType = ChangeType.Delete,
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         name = Some("03"),
         before = Some(
           newMetaData()
@@ -228,6 +234,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
       findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         networkChanges = NetworkChanges(
           updates = Seq(
             newChangeSetNetwork(
@@ -248,6 +255,21 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              removed = Seq(
+                newChangeSetElementRef(1003, "03", investigate = true),
+              ),
+              updated = Seq(
+                newChangeSetElementRef(1002, "02", investigate = true),
+              )
+            ),
+            investigate = true
+          )
         ),
         investigate = true
       )

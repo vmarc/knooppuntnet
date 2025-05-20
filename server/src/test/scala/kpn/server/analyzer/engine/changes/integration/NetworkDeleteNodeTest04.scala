@@ -14,6 +14,7 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Change
 import kpn.api.custom.Subset
+import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 import kpn.core.test.Timestamps
 
@@ -66,6 +67,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
         1001,
         active = false,
         country = Some(Country.nl),
+        locations = Seq("nl"),
         version = 2, // <--
       )
     )
@@ -89,8 +91,12 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
       findNodeById(1001),
       newNodeDoc(
         1001,
-        labels = Seq.empty, // not active
+        labels = Seq(
+          Label.location("nl")
+          // not active
+        ),
         country = Some(Country.nl),
+        locations = Seq("nl"),
         version = 2, // <--
       )
     )
@@ -148,6 +154,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Delete,
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         name = Some("01"),
         before = Some(
           newMetaData(version = 1)
@@ -170,6 +177,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
       findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         networkChanges = NetworkChanges(
           deletes = Seq(
             newChangeSetNetwork(
@@ -188,6 +196,18 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
         ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              removed = Seq(
+                newChangeSetElementRef(1001, "01", investigate = true),
+              )
+            ),
+            investigate = true
+          )
         ),
         investigate = true
       )

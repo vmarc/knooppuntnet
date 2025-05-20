@@ -129,6 +129,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
       newChangeSetSummary(
         key = ChangeKey(1, Timestamp(2015, 8, 11, 0, 0, 0), 123, 0),
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
         timestampUntil = Timestamp(2015, 8, 11, 0, 0, 3),
         networkChanges = NetworkChanges(
@@ -164,6 +165,18 @@ class NetworkDeleteTest04 extends IntegrationTest {
             Subset.nlHiking,
             happy = true,
             investigate = true
+          )
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01", happy = true)
+              )
+            ),
+            happy = true
           )
         ),
         happy = true,

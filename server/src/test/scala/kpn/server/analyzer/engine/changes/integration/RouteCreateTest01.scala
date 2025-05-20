@@ -95,9 +95,11 @@ class RouteCreateTest01 extends IntegrationTest {
         1001,
         labels = Seq(
           Label.active,
-          Label.routeType(RouteType.hiking)
+          Label.routeType(RouteType.hiking),
+          Label.location("nl")
         ),
         country = Some(Country.nl),
+        locations = Seq("nl"),
         name = Some("01"),
         names = Seq(
           newNodeName(
@@ -121,9 +123,11 @@ class RouteCreateTest01 extends IntegrationTest {
         1002,
         labels = Seq(
           Label.active,
-          Label.routeType(RouteType.hiking)
+          Label.routeType(RouteType.hiking),
+          Label.location("nl")
         ),
         country = Some(Country.nl),
+        locations = Seq("nl"),
         name = Some("02"),
         names = Seq(
           newNodeName(
@@ -196,6 +200,7 @@ class RouteCreateTest01 extends IntegrationTest {
         newChangeKey(elementId = 1001),
         ChangeType.Create,
         Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         name = Some("01"),
         before = None,
         after = Some(
@@ -228,6 +233,7 @@ class RouteCreateTest01 extends IntegrationTest {
         newChangeKey(elementId = 1002),
         ChangeType.Create,
         Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         name = Some("02"),
         before = None,
         after = Some(
@@ -258,6 +264,7 @@ class RouteCreateTest01 extends IntegrationTest {
       findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         orphanRouteChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
@@ -279,6 +286,19 @@ class RouteCreateTest01 extends IntegrationTest {
         ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              added = Seq(
+                newChangeSetElementRef(1001, "01", happy = true),
+                newChangeSetElementRef(1002, "02", happy = true),
+              ),
+            ),
+            happy = true
+          )
         ),
         happy = true
       )

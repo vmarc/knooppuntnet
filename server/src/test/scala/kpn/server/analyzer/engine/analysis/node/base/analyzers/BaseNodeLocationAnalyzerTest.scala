@@ -1,6 +1,8 @@
 package kpn.server.analyzer.engine.analysis.node.base.analyzers
 
+import kpn.api.common.LatLon
 import kpn.api.common.data.raw.RawNode
+import kpn.core.test.Locations
 import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
@@ -8,7 +10,7 @@ import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
 class BaseNodeLocationAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("node locations - Essen") {
-    val essen = newRawNode(latitude = "51.46774", longitude = "4.46839")
+    val essen = buildNode(Locations.essen)
     analyze(essen) should equal(
       Seq(
         "be",
@@ -19,7 +21,7 @@ class BaseNodeLocationAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("node locations - Baarle Nassau") {
-    val baarleNassau = newRawNode(latitude = "51.43948683099483", longitude = "4.931525588035583")
+    val baarleNassau = buildNode(Locations.baarleNassau)
     analyze(baarleNassau) should equal(
       Seq(
         "nl",
@@ -30,7 +32,7 @@ class BaseNodeLocationAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("node locations - Baarle Hertog") {
-    val baarleHertog = newRawNode(latitude = "51.43581846832453", longitude = "4.926767349243164")
+    val baarleHertog = buildNode(Locations.baarleHertog)
     analyze(baarleHertog) should equal(
       Seq(
         "be",
@@ -38,6 +40,10 @@ class BaseNodeLocationAnalyzerTest extends UnitTest with SharedTestObjects {
         "be-2-13002" // Baarle-Hertog
       )
     )
+  }
+
+  private def buildNode(latLon: LatLon): RawNode = {
+    newRawNode(latitude = latLon.latitude, longitude = latLon.longitude)
   }
 
   private def analyze(rawNode: RawNode): Seq[String] = {

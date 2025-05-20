@@ -6,8 +6,10 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.custom.Subset
+import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class OrphanNodeDeleteTest01 extends IntegrationTest {
@@ -36,8 +38,11 @@ class OrphanNodeDeleteTest01 extends IntegrationTest {
       findNodeById(1001),
       newNodeDoc(
         1001,
-        labels = Seq.empty,
+        labels = Seq(
+          Label.location("nl")
+        ),
         country = Some(Country.nl),
+        locations = Seq("nl"),
         version = 1
       )
     )
@@ -50,6 +55,7 @@ class OrphanNodeDeleteTest01 extends IntegrationTest {
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Delete,
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         name = Some("01"),
         before = Some(
           newMetaData(version = 1)
@@ -68,6 +74,7 @@ class OrphanNodeDeleteTest01 extends IntegrationTest {
       findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         orphanNodeChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
@@ -80,6 +87,18 @@ class OrphanNodeDeleteTest01 extends IntegrationTest {
         ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              removed = Seq(
+                newChangeSetElementRef(1001, "01", investigate = true),
+              )
+            ),
+            investigate = true
+          )
         ),
         investigate = true
       )

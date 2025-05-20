@@ -18,6 +18,7 @@ import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class NetworkDeleteTest01 extends IntegrationTest {
@@ -68,6 +69,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
         1001L,
         active = false,
         country = Some(Country.nl),
+        locations = Seq("nl"),
       )
     )
   }
@@ -117,8 +119,11 @@ class NetworkDeleteTest01 extends IntegrationTest {
       findNodeById(1001L),
       newNodeDoc(
         1001L,
-        labels = Seq.empty,
+        labels = Seq(
+          Label.location("nl")
+        ),
         country = Some(Country.nl),
+        locations = Seq("nl"),
       )
     )
   }
@@ -129,6 +134,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
       newChangeSetSummary(
         key = ChangeKey(1, Timestamp(2015, 8, 11, 0, 0, 0), 123, 0),
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
         timestampUntil = Timestamp(2015, 8, 11, 0, 0, 3),
         networkChanges = NetworkChanges(
@@ -154,6 +160,18 @@ class NetworkDeleteTest01 extends IntegrationTest {
             Subset.nlHiking,
             investigate = true
           )
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              removed = Seq(
+                newChangeSetElementRef(1001, "01", investigate = true),
+              )
+            ),
+            investigate = true
+          ),
         ),
         investigate = true
       )
@@ -189,6 +207,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Delete,
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         name = Some("01"),
         before = Some(newMetaData()),
         removedFromNetwork = Seq(Ref(1, "network1")),

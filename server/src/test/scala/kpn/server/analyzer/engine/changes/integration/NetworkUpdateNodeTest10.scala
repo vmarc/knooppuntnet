@@ -89,6 +89,7 @@ class NetworkUpdateNodeTest10 extends IntegrationTest {
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Update,
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         name = Some("01"),
         before = Some(
           newMetaData()
@@ -108,6 +109,7 @@ class NetworkUpdateNodeTest10 extends IntegrationTest {
       findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
         networkChanges = NetworkChanges(
           updates = Seq(
             newChangeSetNetwork(
@@ -123,6 +125,17 @@ class NetworkUpdateNodeTest10 extends IntegrationTest {
         ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01"),
+              )
+            )
+          )
         )
       )
     )

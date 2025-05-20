@@ -44,6 +44,7 @@ object ChangeSetSummary {
       key.toShortId,
       key,
       subsets,
+      locations,
       timestampFrom,
       timestampUntil,
       networkChanges,
@@ -51,7 +52,6 @@ object ChangeSetSummary {
       orphanNodeChanges,
       subsetAnalyses,
       locationChanges,
-      locations,
       happy,
       investigate,
       happy || investigate
@@ -63,17 +63,14 @@ case class ChangeSetSummary(
   _id: String,
   key: ChangeKey,
   subsets: Seq[Subset],
+  locations: Seq[String],
   timestampFrom: Timestamp,
   timestampUntil: Timestamp,
-  // network oriented analysis results:
   networkChanges: NetworkChanges,
   orphanRouteChanges: Seq[ChangeSetSubsetElementRefs],
   orphanNodeChanges: Seq[ChangeSetSubsetElementRefs],
   subsetAnalyses: Seq[ChangeSetSubsetAnalysis],
-  // location oriented analysis results:
   locationChanges: Seq[LocationChanges],
-  locations: Seq[String],
-  // overall analysis results
   happy: Boolean,
   investigate: Boolean,
   impact: Boolean

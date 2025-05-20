@@ -91,6 +91,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
           "rcn_ref" -> "02"
         ),
         country = Some(Country.nl),
+        locations = Seq("nl"),
         tiles = Seq(
           "cycling-9-256-256",
           "cycling-10-512-512",
@@ -115,7 +116,8 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         1001,
         labels = Seq(
           Label.active,
-          Label.routeType(RouteType.cycling)
+          Label.routeType(RouteType.cycling),
+          Label.location("nl")
         ),
         country = Some(Country.nl),
         name = Some("02"),
@@ -126,7 +128,8 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         tags = Tags.from(
           "network:type" -> "node_network",
           "rcn_ref" -> "02"
-        )
+        ),
+        locations = Seq("nl"),
       )
     )
   }
@@ -186,6 +189,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
           Subset.nlHiking,
           Subset.nlBicycle
         ),
+        locations = Seq("nl"),
         name = Some("02"),
         before = Some(
           newMetaData(version = 1)
@@ -223,6 +227,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         subsets = Seq(
           Subset.nlHiking
         ),
+        locations = Seq("nl"),
         networkChanges = NetworkChanges(
           deletes = Seq(
             newChangeSetNetwork(
@@ -241,6 +246,28 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "02", investigate = true),
+              )
+            ),
+            investigate = true
+          ),
+          newLocationChanges(
+            routeType = RouteType.cycling,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "02", investigate = true),
+              )
+            ),
+            investigate = true
+          )
         ),
         investigate = true
       )
