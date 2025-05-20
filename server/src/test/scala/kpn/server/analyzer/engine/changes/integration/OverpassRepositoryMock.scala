@@ -9,47 +9,69 @@ import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.data.Data
 import kpn.core.doc.RouteRelation
-import kpn.core.test.Timestamps
 import kpn.server.overpass.OverpassRepository
 
-class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends OverpassRepository {
+import scala.collection.mutable
 
-  private val dataMap: Map[Timestamp, Data] = Map(
-    Timestamps.before -> beforeData,
-    Timestamps.after -> afterData
-  )
+class OverpassRepositoryMock extends OverpassRepository {
+
+  private val dataMap: mutable.Map[Timestamp, Data] = mutable.Map.empty
+
+  def setData(timestamp: Timestamp, data: Data): Unit = {
+    dataMap.put(timestamp, data)
+  }
 
   override def nodeIds(timestamp: Timestamp): Seq[Long] = {
-    dataAt(timestamp).nodes.values.filter(isNetworkNode).map(_.id).toSeq.sorted
+    dataAt(timestamp).nodes.values
+      .filter(isNetworkNode)
+      .map(_.id)
+      .toSeq
+      .sorted
   }
 
   override def routeIds(timestamp: Timestamp, typeValue: String): Seq[Long] = {
-    dataAt(timestamp).relations.values.filter(r => isRouteRelation(r, typeValue)).map(_.id).toSeq.sorted
+    dataAt(timestamp).relations.values
+      .filter(r => isRouteRelation(r, typeValue))
+      .map(_.id)
+      .toSeq
+      .sorted
   }
 
   override def networkIds(timestamp: Timestamp): Seq[Long] = {
-    dataAt(timestamp).relations.values.filter(isNetworkRelation).map(_.id).toSeq.sorted
+    dataAt(timestamp).relations.values
+      .filter(isNetworkRelation)
+      .map(_.id)
+      .toSeq
+      .sorted
   }
 
   override def nodes(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode] = {
     val data = dataAt(timestamp)
-    nodeIds.flatMap(data.nodes.get).map(_.toRaw).sortBy(_.id)
+    nodeIds
+      .flatMap(data.nodes.get)
+      .map(_.toRaw)
+      .sortBy(_.id)
   }
 
   override def relations(timestamp: Timestamp, relationIds: Seq[Long]): Seq[RawRelation] = {
     val data = dataAt(timestamp)
-    relationIds.flatMap(data.relations.get).map(_.toRaw).sortBy(_.id)
+    relationIds
+      .flatMap(data.relations.get)
+      .map(_.toRaw)
+      .sortBy(_.id)
   }
 
   override def fullRelations(timestamp: Timestamp, relationIds: Seq[Long]): Seq[Relation] = {
     val data = dataAt(timestamp)
-    relationIds.flatMap(data.relations.get).sortBy(_.id)
+    relationIds
+      .flatMap(data.relations.get)
+      .sortBy(_.id)
   }
 
   override def relationTopLevel(timestamp: Timestamp, relationId: Long): Option[Relation] = {
     dataAt(timestamp).relations.get(relationId).map { relation =>
       relation.copy(
-        members = relation.members.toSeq.map {
+        members = relation.members.map {
           case m: RelationMember => RelationIdMember(m.relation.id, m.role)
           case member => member
         }
@@ -73,17 +95,6 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
   private def isNetworkNode(node: Node): Boolean = {
     // matches the conditions in QueryNodeIds()
     node.hasTag("network:type", "node_network")
-  }
-
-  private def oldRouteRelationIdsIn(data: Data): Seq[Long] = {
-    data.relations.values.filter(oldIsRouteRelation).map(_.id).toSeq.sorted
-  }
-
-  private def oldIsRouteRelation(relation: Relation): Boolean = {
-    // matches the conditions in QueryRouteIds()
-    relation.hasTag("network:type", "node_network") &&
-      relation.hasTag("type", "route") &&
-      relation.hasTag("network")
   }
 
   private def isRouteRelation(relation: Relation, typeValue: String): Boolean = {

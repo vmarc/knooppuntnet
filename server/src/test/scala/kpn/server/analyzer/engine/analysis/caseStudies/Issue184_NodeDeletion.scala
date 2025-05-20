@@ -4,7 +4,6 @@ import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
-import kpn.core.test.Timestamps
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.OsmChangeParser
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
@@ -13,9 +12,30 @@ import scala.xml.XML
 
 class Issue184_NodeDeletion extends IntegrationTest {
 
+  private val afterCreate = OverpassData()
+    .node(
+      id = 8813846463L,
+      tags = Tags.from(
+        "network:type" -> "node_network",
+        "rwn_ref" -> "o"
+      )
+    ).data
+
+  private val afterUpdate = OverpassData()
+    .node(
+      id = 8813846463L,
+      tags = Tags.from(
+        "expected_rwn_route_relations" -> "3",
+        "network:type" -> "node_network",
+        "rwn_ref" -> "11"
+      )
+    ).data
+
   test("simulate node create/modify/delete") {
 
     testIntegration(OverpassData.empty, OverpassData.empty) {
+
+      watched.nodes.ids.toSeq should equal(Seq.empty)
 
       processCreate()
       watched.nodes.ids.toSeq should equal(Seq(8813846463L))
@@ -31,62 +51,27 @@ class Issue184_NodeDeletion extends IntegrationTest {
       watched.nodes.ids.toSeq should equal(Seq.empty)
 
       findNodeById(8813846463L).active shouldBe false
-
-      //      var saveIndex = 0
-      //      (tc.nodeRepository.save _).verify(
-      //        where { nodeDoc: NodeDoc =>
-      //          saveIndex = saveIndex + 1
-      //          if (saveIndex == 1) {
-      //            nodeDoc.active
-      //          }
-      //          else if (saveIndex == 2) {
-      //            nodeDoc.active
-      //          }
-      //          else if (saveIndex == 3) {
-      //            !nodeDoc.active
-      //          }
-      //          else {
-      //            false
-      //          }
-      //        }
-      //      ).repeat(3)
     }
   }
 
   private def processCreate(): Unit = {
-    // TODO redesign - context.overpassRepository set data at timestamp
-    val changeSet = buildChangeSet(xmlCreate(), Timestamps.before /*(2021, 6, 8, 7, 15, 58)*/)
+    val timestamp = Timestamp(2021, 6, 8, 7, 15, 52)
+    context.overpassRepository.setData(timestamp, afterCreate)
+    val changeSet = buildChangeSet(xmlCreate(), timestamp)
     processChangeSet(1, changeSet)
   }
 
   private def processModify(): Unit = {
-
-    val nodeBeforeModify = OverpassData()
-      .node(
-        id = 8813846463L,
-        tags = Tags.from(
-          "network:type" -> "node_network",
-          "rwn_ref" -> "o"
-        )
-      ).data
-
-    val changeSet = buildChangeSet(xmlModify(), Timestamp(2021, 6, 8, 7, 16, 57))
+    val timestamp = Timestamp(2021, 6, 8, 7, 16, 26)
+    context.overpassRepository.setData(timestamp, afterUpdate)
+    val changeSet = buildChangeSet(xmlModify(), timestamp)
     processChangeSet(2, changeSet)
   }
 
   private def processDelete(): Unit = {
-
-    val nodeBeforeDelete = OverpassData()
-      .node(
-        id = 8813846463L,
-        tags = Tags.from(
-          "expected_rwn_route_relations" -> "3",
-          "network:type" -> "node_network",
-          "rwn_ref" -> "11"
-        )
-      ).data
-
-    val changeSet = buildChangeSet(xmlDelete(), Timestamp(2021, 6, 8, 18, 45, 43))
+    val timestamp = Timestamp(2021, 6, 8, 18, 46, 38)
+    context.overpassRepository.setData(timestamp, afterUpdate)
+    val changeSet = buildChangeSet(xmlDelete(), timestamp)
     processChangeSet(3, changeSet)
   }
 

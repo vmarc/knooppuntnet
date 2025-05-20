@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.core.data.Data
 import kpn.core.test.OverpassData
+import kpn.core.test.Timestamps
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
@@ -102,7 +103,10 @@ class IntegrationTestContext(
 
   val analysisContext = new AnalysisContext()
 
-  val overpassRepository = new OverpassRepositoryMock(before, after)
+  val overpassRepository = new OverpassRepositoryMock
+  overpassRepository.setData(Timestamps.before, before)
+  overpassRepository.setData(Timestamps.after, after)
+
   private implicit val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
 
   private val changeSetRepository = new ChangeSetRepositoryImpl(database)
