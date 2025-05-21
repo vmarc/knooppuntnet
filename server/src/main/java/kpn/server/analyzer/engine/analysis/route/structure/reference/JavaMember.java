@@ -2,11 +2,11 @@ package kpn.server.analyzer.engine.analysis.route.structure.reference;
 
 import java.util.Objects;
 
-public class Member {
+public class JavaMember {
 
     private final String role;
 
-    private final Element member;
+    private final JavaElement member;
 
     public String getRole() {
         return role;
@@ -17,34 +17,34 @@ public class Member {
     }
 
     public boolean isRelation() {
-        return member instanceof Relation;
+        return member instanceof JavaRelation;
     }
 
     public boolean isWay() {
-        return member instanceof Way;
+        return member instanceof JavaWay;
     }
 
     public boolean isNode() {
-        return member instanceof Node;
+        return member instanceof JavaNode;
     }
 
-    public Relation getRelation() {
-        return (Relation) member;
+    public JavaRelation getRelation() {
+        return (JavaRelation) member;
     }
 
-    public Way getWay() {
-        return (Way) member;
+    public JavaWay getWay() {
+        return (JavaWay) member;
     }
 
-    public Node getNode() {
-        return (Node) member;
+    public JavaNode getNode() {
+        return (JavaNode) member;
     }
 
-    public Element getMember() {
+    public JavaElement getMember() {
         return member;
     }
 
-    public Member(String role, Element member) {
+    public JavaMember(String role, JavaElement member) {
         this.role = role;
         this.member = member;
     }
@@ -60,7 +60,7 @@ public class Member {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        Member that = (Member) obj;
+        JavaMember that = (JavaMember) obj;
         return Objects.equals(role, that.role) &&
                 Objects.equals(member, that.member);
     }

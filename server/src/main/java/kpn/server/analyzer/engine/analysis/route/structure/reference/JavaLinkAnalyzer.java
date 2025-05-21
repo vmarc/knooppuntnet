@@ -1,21 +1,20 @@
 package kpn.server.analyzer.engine.analysis.route.structure.reference;
 
-import kpn.server.analyzer.engine.analysis.route.structure.reference.ReferenceLink.Direction;
+import kpn.server.analyzer.engine.analysis.route.structure.reference.JavaLink.Direction;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
-import static kpn.server.analyzer.engine.analysis.route.structure.reference.ReferenceLink.Direction.*;
+import static kpn.server.analyzer.engine.analysis.route.structure.reference.JavaLink.Direction.*;
 
 // equivalent of Josm WayConnectionTypeCalculator
-public class ReferenceLinkAnalyzer {
+public class JavaLinkAnalyzer {
 
     private final boolean traceEnabled;
-    private final Relation relation;
-    private final List<Member> members;
-    private final List<ReferenceLink> links;
+    private final List<JavaMember> members;
+    private final List<JavaLink> links;
     private static final int UNCONNECTED = Integer.MIN_VALUE;
     private int lastForwardWayMemberIndex;
     private int lastBackwardWayMemberIndex;
@@ -23,19 +22,22 @@ public class ReferenceLinkAnalyzer {
     private int firstGroupIdx;
     private int logIndent;
 
-    public ReferenceLinkAnalyzer(final Relation relation, final List<Member> members, final boolean traceEnabled) {
+    public static List<JavaLink> analyze(final List<JavaMember> members, final boolean traceEnabled) {
+        return new JavaLinkAnalyzer(members, traceEnabled).analyze();
+    }
+
+    public JavaLinkAnalyzer(final List<JavaMember> members, final boolean traceEnabled) {
         this.traceEnabled = traceEnabled;
-        this.relation = relation;
         this.members = members;
         this.links = new ArrayList<>(Collections.nCopies(members.size(), null));
     }
 
-    public List<ReferenceLink> analyze() {
+    public List<JavaLink> analyze() {
         firstGroupIdx = 0;
         lastForwardWayMemberIndex = UNCONNECTED;
         lastBackwardWayMemberIndex = UNCONNECTED;
         onewayBeginning = false;
-        ReferenceLink previousLink = null;
+        JavaLink previousLink = null;
         for (int memberIndex = 0; memberIndex < members.size(); memberIndex++) {
             previousLink = processMember(previousLink, memberIndex);
         }
@@ -43,18 +45,18 @@ public class ReferenceLinkAnalyzer {
         return links;
     }
 
-    private ReferenceLink processMember(
-            final ReferenceLink previousLink,
+    private JavaLink processMember(
+            final JavaLink previousLink,
             final int memberIndex
     ) {
-        final Member member = members.get(memberIndex);
+        final JavaMember member = members.get(memberIndex);
         String memberInfo = "";
         if (member.isWay()) {
             memberInfo = member.getWay().toString();
         }
         logFunctionStart("processMember(memberIndex=%d) role=\"%s\", %s", memberIndex, member.getRole(), memberInfo);
         try {
-            final ReferenceLink link = processNextMember(previousLink, memberIndex, member);
+            final JavaLink link = processNextMember(previousLink, memberIndex, member);
             if (!link.linkedToPreviousMember) {
                 log("not linked to previous member");
                 if (memberIndex > 0) {
@@ -69,18 +71,18 @@ public class ReferenceLinkAnalyzer {
         }
     }
 
-    private static boolean isNotWayMember(final Member m) {
+    private static boolean isNotWayMember(final JavaMember m) {
         return !m.isWay() || m.getWay() == null;
     }
 
-    private ReferenceLink processNextMember(
-            final ReferenceLink previousLink,
+    private JavaLink processNextMember(
+            final JavaLink previousLink,
             final int currentMemberIndex,
-            final Member currentMember
+            final JavaMember currentMember
     ) {
         logFunctionStart("processNextMember(currentMemberIndex=%d)", currentMemberIndex);
         try {
-            final ReferenceLink link = new ReferenceLink(false);
+            final JavaLink link = new JavaLink(false);
 
             // MV the value of linkedToPreviousMember is not necessarily correct after following statement
             //      will be true if there is a previous member even if there is no connection with that member!
@@ -132,7 +134,7 @@ public class ReferenceLinkAnalyzer {
         }
     }
 
-    private void handleOneway(final ReferenceLink previousLink, final int memberIndex, final ReferenceLink link) {
+    private void handleOneway(final JavaLink previousLink, final int memberIndex, final JavaLink link) {
         logFunctionStart("handleOneway(memberIndex=%d)", memberIndex);
         try {
             if (previousLink != null && previousLink.isOnewayTail) {
@@ -178,7 +180,7 @@ public class ReferenceLinkAnalyzer {
         }
     }
 
-    private Direction determineFirstDirection(final int memberIndex, final Member member, final boolean reversed) {
+    private Direction determineFirstDirection(final int memberIndex, final JavaMember member, final boolean reversed) {
         logFunctionStart("determineFirstDirection(memberIndex=%d, reversed=%s) there is no previous member to determine direction from", memberIndex, "" + reversed);
         try {
             Direction roundaboutDirection = Utils.determineRoundabout(member);
@@ -223,7 +225,7 @@ public class ReferenceLinkAnalyzer {
         }
     }
 
-    private void processOnewayMember(final Member member, final int memberIndex, final ReferenceLink link) {
+    private void processOnewayMember(final JavaMember member, final int memberIndex, final JavaLink link) {
         logFunctionStart("processOnewayMember(memberIndex=%d)", memberIndex);
         try {
             Direction dirFW;
@@ -278,7 +280,7 @@ public class ReferenceLinkAnalyzer {
                 // the most recent head (since the current backward way does
                 // no longer start there).
                 if (dirFW == NONE && dirBW == NONE && Utils.isUnidirectional(member) && !link.isOnewayHead) {
-                    ReferenceLink prevHead = null;
+                    JavaLink prevHead = null;
                     for (int j = memberIndex - 1; j >= 0; --j) { // go back to find the last onewayHead
                         if (links.get(j).isOnewayHead) {
                             prevHead = links.get(j);
@@ -422,10 +424,10 @@ public class ReferenceLinkAnalyzer {
                 return NONE;
             }
 
-            final Member member1 = members.get(memberIndex1);
-            final Member member2 = members.get(memberIndex2);
-            Way way1 = null;
-            Way way2 = null;
+            final JavaMember member1 = members.get(memberIndex1);
+            final JavaMember member2 = members.get(memberIndex2);
+            JavaWay way1 = null;
+            JavaWay way2 = null;
 
             if (member1.isWay()) {
                 way1 = member1.getWay();
@@ -439,7 +441,7 @@ public class ReferenceLinkAnalyzer {
                 return NONE;
             }
 
-            final List<Node> connectionCandidateNodes1 = new ArrayList<>();
+            final List<JavaNode> connectionCandidateNodes1 = new ArrayList<>();
             switch (referenceDirection) {
                 case FORWARD:
                     connectionCandidateNodes1.add(way1.lastNode());
@@ -457,9 +459,9 @@ public class ReferenceLinkAnalyzer {
             final String nodeIdsString = connectionCandidateNodes1.stream().map(node -> node.getId().toString()).collect(joining(","));
             log("connectionCandidateNodes1: [%s]", nodeIdsString);
 
-            for (Node node1 : connectionCandidateNodes1) {
+            for (JavaNode node1 : connectionCandidateNodes1) {
                 if (Utils.determineRoundabout(members.get(memberIndex2)) != NONE) {
-                    for (Node node2 : way2.getNodes()) {
+                    for (JavaNode node2 : way2.getNodes()) {
                         if (node1 == node2) {
                             Direction dir = Utils.determineRoundabout(members.get(memberIndex2));
                             log("result: direction=%s, connecting node %d", dir, node2.getId());
@@ -503,11 +505,11 @@ public class ReferenceLinkAnalyzer {
         }
     }
 
-    private static boolean isConnected(final Way way1, final Way way2) {
+    private static boolean isConnected(final JavaWay way1, final JavaWay way2) {
         return way1 != null && way2 != null && (way1.isFirstLastNode(way2.firstNode()) || way1.isFirstLastNode(way2.lastNode()));
     }
 
-    public Node onewayStartNode(Member member) {
+    public JavaNode onewayStartNode(JavaMember member) {
         if (!member.isWay()) {
             return null;
         }
@@ -517,7 +519,7 @@ public class ReferenceLinkAnalyzer {
         return member.getWay().firstNode();
     }
 
-    public Node onewayEndNode(Member member) {
+    public JavaNode onewayEndNode(JavaMember member) {
         if (!member.isWay()) {
             return null;
         }

@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Way extends Element {
+public class JavaWay extends JavaElement {
 
     private final Long id;
-    private final List<Node> nodes;
+    private final List<JavaNode> nodes;
 
-    public Way(final Long id, final Map<String, String> tags, final List<Node> nodes) {
+    public JavaWay(final Long id, final Map<String, String> tags, final List<JavaNode> nodes) {
         super(tags);
         this.id = id;
         this.nodes = nodes;
@@ -19,7 +19,7 @@ public class Way extends Element {
         return id;
     }
 
-    public List<Node> getNodes() {
+    public List<JavaNode> getNodes() {
         return nodes;
     }
 
@@ -27,7 +27,7 @@ public class Way extends Element {
         return nodes.size();
     }
 
-    public Node getNode(final int index) {
+    public JavaNode getNode(final int index) {
         return nodes.get(index);
     }
 
@@ -36,25 +36,25 @@ public class Way extends Element {
         return 0;
     }
 
-    public Node firstNode(final boolean respectOneway) {
+    public JavaNode firstNode(final boolean respectOneway) {
         return !respectOneway || isOneway() != -1 ? firstNode() : lastNode();
     }
 
-    public Node lastNode(final boolean respectOneway) {
+    public JavaNode lastNode(final boolean respectOneway) {
         return !respectOneway || isOneway() != -1 ? lastNode() : firstNode();
     }
 
-    public Node lastNode() {
+    public JavaNode lastNode() {
         if (nodes.isEmpty()) return null;
         return nodes.get(nodes.size() - 1);
     }
 
-    public Node firstNode() {
+    public JavaNode firstNode() {
         if (nodes.isEmpty()) return null;
         return nodes.get(0);
     }
 
-    public boolean isFirstLastNode(final Node n) {
+    public boolean isFirstLastNode(final JavaNode n) {
         if (nodes.isEmpty()) return false;
         return n == nodes.get(0) || n == nodes.get(nodes.size() - 1);
     }

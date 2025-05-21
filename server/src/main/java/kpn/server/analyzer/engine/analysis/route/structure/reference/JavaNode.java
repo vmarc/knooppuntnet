@@ -2,11 +2,11 @@ package kpn.server.analyzer.engine.analysis.route.structure.reference;
 
 import java.util.HashMap;
 
-public class Node extends Element {
+public class JavaNode extends JavaElement {
 
     private final Long id;
 
-    public Node(Long id) {
+    public JavaNode(Long id) {
         super(new HashMap<>());
         this.id = id;
     }

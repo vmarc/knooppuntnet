@@ -3,16 +3,16 @@ package kpn.server.analyzer.engine.analysis.route.structure.reference;
 import java.util.HashMap;
 import java.util.List;
 
-public class Relation extends Element {
+public class JavaRelation extends JavaElement {
 
-    private final List<Member> members;
+    private final List<JavaMember> members;
 
-    public Relation(final List<Member> members) {
+    public JavaRelation(final List<JavaMember> members) {
         super(new HashMap<>());
         this.members = members;
     }
 
-    public List<Member> getMembers() {
+    public List<JavaMember> getMembers() {
         return members;
     }
 }

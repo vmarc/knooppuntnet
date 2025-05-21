@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class Element {
+public abstract class JavaElement {
 
     private Map<String, String> tags = new HashMap<>();
 
-    public Element(final Map<String, String> tags) {
+    public JavaElement(final Map<String, String> tags) {
         this.tags = tags;
     }
 
