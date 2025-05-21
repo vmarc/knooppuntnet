@@ -2,15 +2,10 @@ package kpn.server.analyzer.engine.analysis.route.base
 
 import kpn.api.common.Fact
 import kpn.api.common.Fact.RouteBroken
-import kpn.api.common.route.WayDirection
 import kpn.api.custom.Relation
-import kpn.api.custom.Tag
 import kpn.core.analysis.Facts
-import kpn.core.analysis.RouteMember
-import kpn.core.analysis.RouteMemberWay
 import kpn.core.doc.RouteRelation
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteContextAnalyzer
@@ -128,23 +123,6 @@ class BaseRouteMainAnalyzer(
     else {
       val newContext = analyzers.head.analyze(context)
       doAnalyze(analyzers.tail, newContext)
-    }
-  }
-}
-
-object RouteAnalyzerFunctions {
-
-  def oneWay(member: RouteMember): WayDirection = {
-    member match {
-      case routeMemberWay: RouteMemberWay => new OneWayAnalyzer(routeMemberWay.way).direction
-      case _ => WayDirection.Both
-    }
-  }
-
-  def oneWayTags(member: RouteMember): Seq[Tag] = {
-    member match {
-      case routeMemberWay: RouteMemberWay => OneWayAnalyzer.oneWayTags(routeMemberWay.way)
-      case _ => Seq.empty
     }
   }
 }
