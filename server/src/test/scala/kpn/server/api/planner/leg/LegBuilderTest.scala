@@ -27,7 +27,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
   val data = new GraphTestData()
 
   test("node1 to node4") {
-    pendingRedesign()
+    pendingRedesignRoutePlanning()
     val source = LegEnd.node(data.node1.id)
     val sink = LegEnd.node(data.node4.id)
     val params = LegBuildParams(RouteType.hiking.entryName, source, sink, proposed = false)
@@ -49,7 +49,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
   }
 
   test("node1 to route3") {
-    pendingRedesign()
+    pendingRedesignRoutePlanning()
 
     val source = LegEnd.node(data.node1.id)
     val sink = LegEnd.route(data.legEndRoute3)
@@ -72,7 +72,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
   }
 
   test("route1 to route3") {
-    pendingRedesign()
+    pendingRedesignRoutePlanning()
 
     val source = LegEnd.route(data.legEndRoute1)
     val sink = LegEnd.route(data.legEndRoute3)
@@ -95,7 +95,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
   }
 
   test("route4 to route3") {
-    pendingRedesign()
+    pendingRedesignRoutePlanning()
 
     val source = LegEnd.route(data.legEndRoute4)
     val sink = LegEnd.route(data.legEndRoute3)
@@ -117,7 +117,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
   }
 
   test("node1 to route1") {
-    pendingRedesign()
+    pendingRedesignRoutePlanning()
 
     val source = LegEnd.node(data.node1.id)
     val sink = LegEnd.route(data.legEndRoute1)
@@ -138,7 +138,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
   }
 
   test("node1 to route4") {
-    pendingRedesign()
+    pendingRedesignRoutePlanning()
 
     val source = LegEnd.node(data.node1.id)
     val sink = LegEnd.route(data.legEndRoute4)
@@ -159,7 +159,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
   }
 
   test("load node1 > node2") {
-    pendingRedesign()
+    pendingRedesignRoutePlanning()
     assertEqual(
       legBuilder().plan(RouteType.hiking, "1001-1002", encoded = false, proposed = false),
       Some(
@@ -203,7 +203,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
   }
 
   test("load node1 > node3 > unknown-node") {
-    pendingRedesign()
+    pendingRedesignRoutePlanning()
     legBuilder().plan(RouteType.hiking, "1001-1003-9999", encoded = false, proposed = false) should equal(None)
   }
 

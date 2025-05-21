@@ -1,101 +1,29 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import kpn.api.common.data.raw.RawData
-import kpn.api.custom.Relation
-import kpn.core.data.DataBuilder
-import kpn.core.loadOld.Parser
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
-import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzerMock
-import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
-import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
-
-import scala.xml.InputSource
-import scala.xml.XML
 
 class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
 
-  test("analysis") {
-    pendingRedesign()
-    val locationAnalyzer = new LocationAnalyzerFixed()
-    val tileCalculator = new TileCalculatorImpl()
-    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
-    val routeTileAnalyzer = new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
-    val routeRepository = stub[RouteRepository]
-    val routeCountryAnalyzer = new BaseRouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
-    val routeLocationAnalyzer = new BaseRouteLocationAnalyzerMock()
-    val routeAnalyzer = new BaseRouteMainAnalyzer(
-      routeCountryAnalyzer,
-      routeLocationAnalyzer,
-      routeTileAnalyzer
+  test("route that consists of a single roundabout with 9 ways connecting 8 nodes with the same name") {
+
+    val context = CaseStudy.analyze("11512870")
+
+    context.routeNameAnalysis.name should equal(Some("45-45"))
+
+    context.routeNodesAnalysis.startNode.map(_.alternateName) should equal(Some("45.a"))
+    context.routeNodesAnalysis.startTentacleNodes.map(_.alternateName) should equal(
+      Seq(
+        "45.b",
+        "45.c",
+        "45.d",
+        "45.e",
+        "45.f",
+        "45.g",
+        "45.h"
+      )
     )
-    val relation = readRoute()
-    val context = routeAnalyzer.analyze(relation, None)
 
     context.facts shouldBe empty
-    context.structure.otherPaths shouldBe empty
-
-    pendingRedesign()
-    //    context.routeMap.freeNodes.map(_.id).toSet should equal(
-    //      Set(
-    //        1015045148L,
-    //        302102477L,
-    //        301008714L,
-    //        301008719L,
-    //        301008718L,
-    //        2509722539L,
-    //        2509722616L,
-    //        302941691L,
-    //      )
-    //    )
-    //
-    //    context.routeMap.freePaths.map(path => path.startNodeId -> path.endNodeId).toSet should equal(
-    //      Set(
-    //        1015045148L -> 302941691L,
-    //        302941691L -> 1015045148L,
-    //        1015045148L -> 302102477L,
-    //        302102477L -> 1015045148L,
-    //        302941691L -> 2509722616L,
-    //        2509722616L -> 302941691L,
-    //        2509722616L -> 2509722539L,
-    //        2509722539L -> 2509722616L,
-    //        2509722539L -> 301008719L,
-    //        301008719L -> 2509722539L,
-    //        301008719L -> 301008718L,
-    //        301008718L -> 301008719L,
-    //        301008718L -> 301008714L,
-    //        301008714L -> 301008718L,
-    //        301008714L -> 302102477L,
-    //        302102477L -> 301008714L
-    //      )
-    //    )
-  }
-
-  private def readRoute(): Relation = {
-    val rawData1 = readData(11512870L)
-    val rawData2 = readData(11512871L)
-    val rawData = RawData.merge(rawData1, rawData2)
-    val data = new DataBuilder(rawData).data
-
-    val routeRelation1 = data.relations(11512870L)
-    val routeRelation2 = data.relations(11512871L)
-
-    val routeRelation = routeRelation1.copy(
-      members = routeRelation1.members ++ routeRelation2.members
-    )
-
-    routeRelation
-  }
-
-  private def readData(routeId: Long): RawData = {
-    val stream = getClass.getResourceAsStream(s"/case-studies/$routeId.xml")
-    val inputSource = new InputSource(stream)
-    val xml = XML.load(inputSource)
-    new Parser(full = false).parse(xml)
   }
 }

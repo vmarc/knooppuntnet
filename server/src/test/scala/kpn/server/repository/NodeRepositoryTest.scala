@@ -101,34 +101,4 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       nodeRepository.filterKnown(Set(101, 102, 103)) should equal(Set(101, 102))
     }
   }
-
-  test("nodeNetworkReferences") {
-
-    withDatabase { database =>
-
-      pendingRedesign()
-
-      //  new NetworkRepositoryImpl(database).oldSaveNetworkInfo(
-      //    newNetworkInfo(
-      //      newNetworkAttributes(
-      //        2,
-      //        name = "network-2"
-      //      ),
-      //      nodeRefs = Seq(1001)
-      //    )
-      //  )
-      //
-      //  val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
-      //  nodeRepository.nodeNetworkReferences(1001)should equal(
-      //    Seq(
-      //      Reference(
-      //        routeType.hiking,
-      //        RouteScope.regional,
-      //        2,
-      //        "network-2"
-      //      )
-      //    )
-      //  )
-    }
-  }
 }
