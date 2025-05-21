@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
@@ -7,7 +8,7 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNodesAnalysisFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 
-class RouteNodesAnalyzerTest extends UnitTest {
+class BaseRouteNodesAnalyzerTest extends UnitTest {
 
   test("no nodes") {
 
@@ -63,7 +64,7 @@ class RouteNodesAnalyzerTest extends UnitTest {
   }
 
   test("numeric compare") {
-    pendingRedesign() // this logic is not needed anymore in the new design?
+    // pendingRedesign() // this logic is not needed anymore in the new design?
 
     val d = new RouteTestData("unknown") {
       node(1, "100")
@@ -228,7 +229,7 @@ class RouteNodesAnalyzerTest extends UnitTest {
   }
 
   test("start and end node with the same name, but only one node in ways") {
-    pendingRedesign()
+    // pendingRedesign()
 
     val d = new RouteTestData("01-01") {
       node(1, "01")
@@ -252,7 +253,7 @@ class RouteNodesAnalyzerTest extends UnitTest {
   }
 
   test("node name with leading zero in route name and without leading zero in way") {
-    pendingRedesign()
+    // pendingRedesign()
 
     val d = new RouteTestData("01-02") {
       node(1, "1")
@@ -276,7 +277,7 @@ class RouteNodesAnalyzerTest extends UnitTest {
   }
 
   test("start node in route relation, but not in ways") {
-    pendingRedesign()
+    // pendingRedesign()
 
     val d = new RouteTestData("01-02") {
       node(1, "01")
@@ -451,7 +452,7 @@ class RouteNodesAnalyzerTest extends UnitTest {
   }
 
   test("extra 'proposed' nodes in regular route are ignored") {
-    pendingRedesign()
+    // pendingRedesign()
     val d = new RouteTestData("01-02") {
       node(1, "01")
       node(2, "02")
@@ -489,7 +490,7 @@ class RouteNodesAnalyzerTest extends UnitTest {
   }
 
   test("extra regular nodes in proposed route") {
-    pendingRedesign()
+    //pendingRedesign()
     val d = new RouteTestData("01-02", routeTags = Tags.from("state" -> "proposed")) {
       rawNode(
         newRawNode(
@@ -560,6 +561,7 @@ class RouteNodesAnalyzerTest extends UnitTest {
           None,
           nodeNetwork = true,
           _routeTypes = Some(Seq(RouteType.hiking)),
+          _scopes = Some(Seq(RouteScope.regional)),
           scopedRouteTypeOption = Some(ScopedRouteType.rwn),
           proposed = proposed,
         )

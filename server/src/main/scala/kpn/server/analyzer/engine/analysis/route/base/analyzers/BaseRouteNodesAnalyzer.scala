@@ -8,8 +8,7 @@ import kpn.api.common.data.NodeMember
 import kpn.api.common.data.WayMember
 import kpn.api.common.route.LinkDirection
 import kpn.api.custom.Relation
-import kpn.api.custom.ScopedRouteType
-import kpn.server.analyzer.engine.analysis.node.NodeUtil
+import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
 
@@ -28,8 +27,6 @@ object BaseRouteNodesAnalyzer extends BaseRouteAnalyzer {
 
 class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
 
-  private val facts = ListBuffer[Fact]()
-
   def analyze: BaseRouteAnalysisContext = {
 
     if (context.routeTypes.sizeIs > 1) {
@@ -38,59 +35,64 @@ class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
     }
     else if (context.routeTypes.sizeIs == 1) {
       val routeType = context.routeTypes.head
-      analyzeRouteWithSinglerouteType(routeType)
+      val routeScope = context.scopes.head
+      analyzeRouteWithSingleRouteType(routeType, routeScope)
     }
     else {
       context
     }
   }
 
-  private def analyzeRouteWithSinglerouteType(routeType: RouteType): BaseRouteAnalysisContext = {
-    val nodeDatas = findRouteNodes(routeType)
-    val nodeAnalysis = if (nodeDatas.isEmpty) {
-      facts += Fact.RouteWithoutNodes
-      RouteNodesAnalysis()
+  private def analyzeRouteWithSingleRouteType(routeType: RouteType, routeScope: RouteScope): BaseRouteAnalysisContext = {
+    val nodeDatas = findRouteNodes(routeType, routeScope)
+    if (nodeDatas.isEmpty) {
+      context.copy(
+        _routeNodesAnalysis = Some(RouteNodesAnalysis())
+      ).withFacts(Fact.RouteWithoutNodes)
     }
     else {
-      if (nodeDatas.isEmpty) {
-        RouteNodesAnalysis()
-      }
-      else {
-        val wayRouteNodeDatas = nodeDatas.filter(_.isInWay)
-        val startNodeName = determineStartNodeName(nodeDatas, wayRouteNodeDatas)
-        val endNodeNameOption: Option[String] = determineEndNodeName(startNodeName, nodeDatas, wayRouteNodeDatas)
-
-        val startNodes = withSuffixes(nodeDatas.filter(_.name == startNodeName).reverse)
-        val endNodes = withSuffixes(nodeDatas.filter(n => endNodeNameOption.contains(n.name)))
-        val nodeIds = startNodes.map(_.node.id) ++ endNodes.map(_.node.id)
-        val redundantNodes = nodeDatas.filterNot(n => nodeIds.contains(n.node.id) || n.name == "*")
-
-        val nodes = RouteNodesAnalysis(
-          startNode = startNodes.headOption,
-          endNode = endNodes.headOption,
-          startTentacleNodes = startNodes.drop(1),
-          endTentacleNodes = endNodes.drop(1),
-          redundantNodes = redundantNodes
-        )
-
-        if (nodes.startNode.nonEmpty && !nodes.startNode.exists(_.isInWay)) {
-          facts += Fact.RouteNodeMissingInWays
-        }
-        else if (nodes.endNode.nonEmpty && !nodes.endNode.exists(_.isInWay)) {
-          facts += Fact.RouteNodeMissingInWays
-        }
-
-        if (nodes.redundantNodes.nonEmpty) {
-          facts += Fact.RouteRedundantNodes
-        }
-
-        nodes
-      }
+      analyzeRouteWithSingleRouteTypeNodes(routeType, nodeDatas)
     }
+  }
+
+  private def analyzeRouteWithSingleRouteTypeNodes(routeType: RouteType, nodeDatas: Seq[RouteNodeAnalysis]): BaseRouteAnalysisContext = {
+    val wayRouteNodeDatas = nodeDatas.filter(_.isInWay)
+    val startNodeName = determineStartNodeName(nodeDatas, wayRouteNodeDatas)
+    val endNodeNameOption: Option[String] = determineEndNodeName(startNodeName, nodeDatas, wayRouteNodeDatas)
+
+    val startNodes = withSuffixes(nodeDatas.filter(_.name == startNodeName).reverse)
+    val endNodes = withSuffixes(nodeDatas.filter(n => endNodeNameOption.contains(n.name)))
+    val nodeIds = startNodes.map(_.node.id) ++ endNodes.map(_.node.id)
+    val redundantNodes = nodeDatas.filterNot(n => nodeIds.contains(n.node.id) || n.name == "*")
+
+    val routeNodeAnalysis = RouteNodesAnalysis(
+      startNode = startNodes.headOption,
+      endNode = endNodes.headOption,
+      startTentacleNodes = startNodes.drop(1),
+      endTentacleNodes = endNodes.drop(1),
+      redundantNodes = redundantNodes
+    )
+
+    val facts: ListBuffer[Fact] = analyzeFacts(routeNodeAnalysis)
 
     context.copy(
-      _routeNodesAnalysis = Some(nodeAnalysis)
+      _routeNodesAnalysis = Some(routeNodeAnalysis)
     ).withFacts(facts.toSeq: _*)
+  }
+
+  private def analyzeFacts(routeNodeAnalysis: RouteNodesAnalysis) = {
+    val facts = ListBuffer[Fact]()
+    if (routeNodeAnalysis.startNode.nonEmpty && !routeNodeAnalysis.startNode.exists(_.isInWay)) {
+      facts += Fact.RouteNodeMissingInWays
+    }
+    else if (routeNodeAnalysis.endNode.nonEmpty && !routeNodeAnalysis.endNode.exists(_.isInWay)) {
+      facts += Fact.RouteNodeMissingInWays
+    }
+
+    if (routeNodeAnalysis.redundantNodes.nonEmpty) {
+      facts += Fact.RouteRedundantNodes
+    }
+    facts
   }
 
   private def determineStartNodeName(nodeDatas: Seq[RouteNodeAnalysis], wayNodeDatas: Seq[RouteNodeAnalysis]): String = {
@@ -123,7 +125,7 @@ class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
     }
   }
 
-  private def findRouteNodes(routeType: RouteType): Seq[RouteNodeAnalysis] = {
+  private def findRouteNodes(routeType: RouteType, routeScope: RouteScope): Seq[RouteNodeAnalysis] = {
     val nodeDatas = ListBuffer[RouteNodeAnalysis]()
 
     context.links.routeLinkWays.foreach { link =>
@@ -134,7 +136,7 @@ class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
         link.way.nodes.distinct
       }
       nodes.foreach { node =>
-        wayNodeData(routeType, node) match {
+        wayNodeData(routeType, routeScope, node) match {
           case None => // not a node network node
           case Some(nodeData) =>
             if (!nodeDatas.filter(_.isInWay).map(_.node.id).contains(nodeData.node.id)) {
@@ -149,7 +151,7 @@ class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
         // we prefer the position of the node in the ways over the position in the route relation
       }
       else {
-        standaloneNodeData(routeType, link.node) match {
+        standaloneNodeData(routeType, routeScope, link.node) match {
           case None => // not a node network node
           case Some(nodeData) =>
             if (!nodeDatas.filterNot(_.isInWay).map(_.node.id).contains(nodeData.node.id)) {
@@ -181,8 +183,8 @@ class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
     }
   }
 
-  private def wayNodeData(routeType: RouteType, node: Node): Option[RouteNodeAnalysis] = {
-    nodeName(routeType, node).map { name =>
+  private def wayNodeData(routeType: RouteType, routeScope: RouteScope, node: Node): Option[RouteNodeAnalysis] = {
+    nodeName(routeType, routeScope, node).map { name =>
       RouteNodeAnalysis(
         node,
         name,
@@ -192,8 +194,8 @@ class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
     }
   }
 
-  private def standaloneNodeData(routeType: RouteType, node: Node): Option[RouteNodeAnalysis] = {
-    nodeName(routeType, node).map { name =>
+  private def standaloneNodeData(routeType: RouteType, routeScope: RouteScope, node: Node): Option[RouteNodeAnalysis] = {
+    nodeName(routeType, routeScope, node).map { name =>
       RouteNodeAnalysis(
         node,
         name,
@@ -203,33 +205,10 @@ class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
     }
   }
 
-  private def nodeName(routeType: RouteType, node: Node): Option[String] = {
-    if (node.hasTag("network:type", "node_network")) {
-      val scopedRouteTypes = RouteScope.all.map(scope => ScopedRouteType(routeType, scope))
-      val nameTagKeys1 = scopedRouteTypes.map(_.nodeRefTagKey)
-      val nameTagKeys2 = scopedRouteTypes.map(_.proposedNodeRefTagKey)
-      val longNameTagKeys1 = scopedRouteTypes.flatMap { scopedRouteType =>
-        val prefix = scopedRouteType.key
-        Seq(
-          s"${prefix}_name",
-          s"$prefix:name",
-          s"name:${prefix}_ref"
-        )
-      }
-      val longNameTagKeys2 = scopedRouteTypes.flatMap { scopedRouteType =>
-        val prefix = scopedRouteType.key
-        Seq(
-          s"proposed:${prefix}_name",
-          s"proposed:$prefix:name",
-          s"proposed:name:${prefix}_ref"
-        )
-      }
-      val keys: Seq[String] = nameTagKeys1 ++ nameTagKeys2 ++ longNameTagKeys1 ++ longNameTagKeys2 :+ "name"
-      keys.find(key => node.hasTag(key)).flatMap(key => node.tagValue(key)).map(NodeUtil.normalize)
-    }
-    else {
-      None
-    }
+  private def nodeName(routeType: RouteType, routeScope: RouteScope, node: Node): Option[String] = {
+    NodeNameAnalyzer.analyze(node)
+      .find(nodeName => nodeName.routeType == routeType && nodeName.routeScope == routeScope)
+      .map(_.name)
   }
 
   private def withSuffixes(nodeDatas: Seq[RouteNodeAnalysis]): Seq[RouteNodeAnalysis] = {

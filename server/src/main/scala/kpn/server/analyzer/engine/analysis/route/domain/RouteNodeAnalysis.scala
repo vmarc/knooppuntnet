@@ -7,9 +7,6 @@ case class RouteNodeAnalysis(
   node: Node,
   name: String,
   alternateName: String,
-  //  longName: Option[String] = None,
-  //  definedInRelation: Boolean = false,
-  //  definedInWay: Boolean = false,
   isInWay: Boolean,
 ) {
   def toRouteNode: RouteNode = {
