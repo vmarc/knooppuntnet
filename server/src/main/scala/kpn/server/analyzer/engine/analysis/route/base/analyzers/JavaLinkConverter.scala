@@ -51,7 +51,7 @@ object JavaLinkConverter {
 
   private def toScalaLink(link: JavaLink): Link = {
     Link(
-      JavaDirectionConverter.toScala(link.direction),
+      JavaDirectionConverter.toScalaDirection(link.direction),
       link.linkedToPreviousMember,
       link.linkedToNextMember,
       link.isLoop,

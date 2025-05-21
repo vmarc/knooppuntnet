@@ -34,7 +34,14 @@ class StructureAnalyzer(context: BaseRouteAnalysisContext, traceEnabled: Boolean
         case None => None
         case Some(mainStartNode) =>
           context.routeNodesAnalysis.endNode match {
-            case None => None
+            case None =>
+              if (segmentsIsLoop()) {
+                analyzeLoop()
+              }
+              else {
+                None
+              }
+
             case Some(mainEndNode) =>
               doAnalyzeNodeNetworkRoute(
                 mainStartNode,
@@ -44,6 +51,19 @@ class StructureAnalyzer(context: BaseRouteAnalysisContext, traceEnabled: Boolean
       }
       structureOption.getOrElse(otherElementsStructure())
     }
+  }
+
+  private def segmentsIsLoop(): Boolean = {
+    val startNodeOption = context.analysisSegments.headOption.map(_.elements.head.nodeIds.head)
+    val endNodeOption = context.analysisSegments.lastOption.map(_.elements.last.nodeIds.last)
+    (startNodeOption, endNodeOption) match {
+      case (Some(startNode), Some(endNode)) => startNode == endNode
+      case _ => false
+    }
+  }
+
+  private def analyzeLoop(): Option[Structure] = {
+    None
   }
 
   private def doAnalyzeNodeNetworkRoute(

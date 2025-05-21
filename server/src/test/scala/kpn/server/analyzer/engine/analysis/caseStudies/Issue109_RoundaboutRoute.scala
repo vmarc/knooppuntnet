@@ -23,7 +23,7 @@ class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
         "45.h"
       )
     )
-
+    pendingRedesignLoop()
     context.facts shouldBe empty
   }
 }
