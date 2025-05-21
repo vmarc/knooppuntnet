@@ -468,46 +468,44 @@ class MonitorRouteUpdateExecutor(
                 context.reporter.stepActive(mrr.relationId.toString)
                 val updateSingleRelationRoute = index == 0 && processList.sizeIs == 1
 
-                monitorRouteRelationRepository.loadTopLevel(None, mrr.relationId) match {
-                  case None => None
-                  case Some(relation) =>
+                monitorRouteRelationRepository.loadTopLevel(None, mrr.relationId).map { relation =>
 
-                    val wayMembers = MonitorFilter.filterWayMembers(relation.wayMembers)
-                    if (wayMembers.nonEmpty) {
-                      val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
-                      val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds))
+                  val wayMembers = MonitorFilter.filterWayMembers(relation.wayMembers)
+                  if (wayMembers.nonEmpty) {
+                    val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
+                    val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds))
 
-                      val id = if (context.isActionUpdate || context.isActionGpxUpload) {
-                        context.oldStateIds.find(_.relationId == mrr.relationId) match {
-                          case Some(oldStateId) => oldStateId._id
-                          case None => ObjectId()
-                        }
+                    val id = if (context.isActionUpdate || context.isActionGpxUpload) {
+                      context.oldStateIds.find(_.relationId == mrr.relationId) match {
+                        case Some(oldStateId) => oldStateId._id
+                        case None => ObjectId()
                       }
-                      else {
-                        ObjectId()
-                      }
-
-                      val state = MonitorRouteState(
-                        id,
-                        routeId = context.routeId,
-                        relationId = mrr.relationId,
-                        timestamp = Time.now,
-                        wayCount = wayMembers.size,
-                        startNodeId = osmSegmentAnalysis.startNodeId,
-                        endNodeId = osmSegmentAnalysis.endNodeId,
-                        osmDistance = osmSegmentAnalysis.osmDistance,
-                        bounds = bounds,
-                        osmSegments = osmSegmentAnalysis.routeSegments.map(_.segment),
-                        matchesGeometry = None,
-                        deviations = Seq.empty,
-                        happy = false,
-                      )
-
-                      monitorRouteRepository.saveRouteState(state)
-                      context = context.copy(
-                        stateChanged = true
-                      )
                     }
+                    else {
+                      ObjectId()
+                    }
+
+                    val state = MonitorRouteState(
+                      id,
+                      routeId = context.routeId,
+                      relationId = mrr.relationId,
+                      timestamp = Time.now,
+                      wayCount = wayMembers.size,
+                      startNodeId = osmSegmentAnalysis.startNodeId,
+                      endNodeId = osmSegmentAnalysis.endNodeId,
+                      osmDistance = osmSegmentAnalysis.osmDistance,
+                      bounds = bounds,
+                      osmSegments = osmSegmentAnalysis.routeSegments.map(_.segment),
+                      matchesGeometry = None,
+                      deviations = Seq.empty,
+                      happy = false,
+                    )
+
+                    monitorRouteRepository.saveRouteState(state)
+                    context = context.copy(
+                      stateChanged = true
+                    )
+                  }
                 }
               }
             }
@@ -656,14 +654,10 @@ class MonitorRouteUpdateExecutor(
         context = context.copy(
           stateChanged = true
         )
-        None
 
       case Some(subRelation) =>
         val wayMembers = MonitorFilter.filterWayMembers(subRelation.wayMembers)
-        if (wayMembers.isEmpty) {
-          None
-        }
-        else {
+        if (wayMembers.nonEmpty) {
           val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
           val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
 
@@ -675,7 +669,7 @@ class MonitorRouteUpdateExecutor(
 
           val id = if (context.isActionUpdate || context.isActionGpxUpload) {
             monitorRouteRepository.routeRelationReferenceId(context.routeId, Some(subRelation.id)) match {
-              case Some(id) => id
+              case Some(referenceId) => referenceId
               case None => ObjectId()
             }
           }
@@ -1237,69 +1231,67 @@ class MonitorRouteUpdateExecutor(
       else {
         monitorRouteRelationRepository.loadTopLevel(None, relationId)
       }
-      relationOption match {
-        case None => None
-        case Some(relation) =>
-          if (context.isReferenceTypeGpx) {
-            updateSubRelationOsmInfo(relation)
-          }
+      relationOption.flatMap { relation =>
+        if (context.isReferenceTypeGpx) {
+          updateSubRelationOsmInfo(relation)
+        }
 
-          val allWayMembers = if (context.isReferenceTypeGpx) {
-            collectAllWayMembers(relation)
+        val allWayMembers = if (context.isReferenceTypeGpx) {
+          collectAllWayMembers(relation)
+        }
+        else {
+          relation.wayMembers
+        }
+        val wayMembers = MonitorFilter.filterWayMembers(allWayMembers)
+        val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
+        val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(wayMembers.map(_.way), reference.referenceGeoJson)
+        val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds) ++ deviationAnalysis.deviations.map(_.bounds))
+        val routeAnalysis = MonitorRouteAnalysis(
+          relation,
+          wayMembers.size,
+          osmSegmentAnalysis.startNodeId,
+          osmSegmentAnalysis.endNodeId,
+          osmSegmentAnalysis.osmDistance,
+          deviationAnalysis.referenceDistance,
+          bounds,
+          osmSegmentAnalysis.routeSegments.map(_.segment),
+          Some(deviationAnalysis.referenceGeometry),
+          deviationAnalysis.matchesGeometry,
+          deviationAnalysis.deviations,
+          relations = Seq.empty
+        )
+
+        val happy = routeAnalysis.gpxDistance > 0 &&
+          routeAnalysis.deviations.isEmpty &&
+          routeAnalysis.osmSegments.sizeIs == 1
+
+        val id = if (context.isActionAnalyze || context.isActionUpdate || context.isActionGpxUpload) {
+          context.oldStateIds.find(_.relationId == relationId) match {
+            case Some(oldStateId) => oldStateId._id
+            case None => ObjectId()
           }
-          else {
-            relation.wayMembers
-          }
-          val wayMembers = MonitorFilter.filterWayMembers(allWayMembers)
-          val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
-          val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(wayMembers.map(_.way), reference.referenceGeoJson)
-          val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds) ++ deviationAnalysis.deviations.map(_.bounds))
-          val routeAnalysis = MonitorRouteAnalysis(
-            relation,
-            wayMembers.size,
-            osmSegmentAnalysis.startNodeId,
-            osmSegmentAnalysis.endNodeId,
-            osmSegmentAnalysis.osmDistance,
-            deviationAnalysis.referenceDistance,
-            bounds,
-            osmSegmentAnalysis.routeSegments.map(_.segment),
-            Some(deviationAnalysis.referenceGeometry),
-            deviationAnalysis.matchesGeometry,
-            deviationAnalysis.deviations,
-            relations = Seq.empty
+        }
+        else {
+          ObjectId()
+        }
+
+        Some(
+          MonitorRouteState(
+            id,
+            context.routeId,
+            relationId,
+            Time.now,
+            routeAnalysis.wayCount,
+            routeAnalysis.startNodeId,
+            routeAnalysis.endNodeId,
+            routeAnalysis.osmDistance,
+            routeAnalysis.bounds,
+            routeAnalysis.osmSegments,
+            routeAnalysis.matchesGeometry,
+            routeAnalysis.deviations,
+            happy,
           )
-
-          val happy = routeAnalysis.gpxDistance > 0 &&
-            routeAnalysis.deviations.isEmpty &&
-            routeAnalysis.osmSegments.sizeIs == 1
-
-          val id = if (context.isActionAnalyze || context.isActionUpdate || context.isActionGpxUpload) {
-            context.oldStateIds.find(_.relationId == relationId) match {
-              case Some(oldStateId) => oldStateId._id
-              case None => ObjectId()
-            }
-          }
-          else {
-            ObjectId()
-          }
-
-          Some(
-            MonitorRouteState(
-              id,
-              context.routeId,
-              relationId,
-              Time.now,
-              routeAnalysis.wayCount,
-              routeAnalysis.startNodeId,
-              routeAnalysis.endNodeId,
-              routeAnalysis.osmDistance,
-              routeAnalysis.bounds,
-              routeAnalysis.osmSegments,
-              routeAnalysis.matchesGeometry,
-              routeAnalysis.deviations,
-              happy,
-            )
-          )
+        )
       }
     }
   }

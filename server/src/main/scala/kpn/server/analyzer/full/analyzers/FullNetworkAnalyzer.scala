@@ -55,18 +55,14 @@ class FullNetworkAnalyzer(
         Log.context(s"$index/$networkCount $networkId") {
           log.infoElapsed {
             log.info(s"analyzing network $networkId")
-            val id = networkRepository.findBaseNetworkById(networkId) match {
-              case None => None
-              case Some(baseNetworkDoc) =>
-                networkMainAnalyzer.analyze(baseNetworkDoc, context.timestamp) match {
-                  case None => None
-                  case Some(networkDoc) =>
-                    networkRepository.save(networkDoc)
-                    context.initialAnalysisChangeSetContext.foreach { changeSetContext =>
-                      initialNetworkChangeBuilder.saveNetworkChange(changeSetContext, networkDoc)
-                    }
-                    Some(networkId)
+            val id = networkRepository.findBaseNetworkById(networkId).flatMap { baseNetworkDoc =>
+              networkMainAnalyzer.analyze(baseNetworkDoc, context.timestamp).map { networkDoc =>
+                networkRepository.save(networkDoc)
+                context.initialAnalysisChangeSetContext.foreach { changeSetContext =>
+                  initialNetworkChangeBuilder.saveNetworkChange(changeSetContext, networkDoc)
                 }
+                networkId
+              }
             }
             (s"Analyzed network $networkId", id)
           }

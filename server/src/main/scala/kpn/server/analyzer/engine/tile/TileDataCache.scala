@@ -7,17 +7,12 @@ class TileDataCache[T] {
   def clear(): Unit = cache.clear()
 
   def getOrElseUpdate(key: Long, valueFunction: => Option[T]): Option[T] = {
-    if (cache.contains(key)) {
-      Some(cache(key))
-    }
-    else {
-      valueFunction match {
-        case None => None
-        case Some(value) =>
-          cache.put(key, value)
-          Some(value)
+    cache.get(key) match {
+      case some@Some(_) => some
+      case None => valueFunction.map { value =>
+        cache.put(key, value)
+        value
       }
     }
   }
-
 }

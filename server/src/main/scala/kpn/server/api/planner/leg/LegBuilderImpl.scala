@@ -134,29 +134,25 @@ class LegBuilderImpl(
       val sinks = params.sink.vertices
 
       val alternatives = for (source <- sources; sink <- sinks) yield {
-        graph.findPath(source, sink, params.proposed) match {
-          case Some(graphPath) =>
-            val planRoutes = graphPathToPlanRoutes(graphPath)
-            val sourceLegEnd = LegEnd.fromString(source)
+        graph.findPath(source, sink, params.proposed).map { graphPath =>
+          val planRoutes = graphPathToPlanRoutes(graphPath)
+          val sourceLegEnd = LegEnd.fromString(source)
 
-            val sinkLegEndSelection = LegEnd.fromString(sink)
+          val sinkLegEndSelection = LegEnd.fromString(sink)
 
-            val sinkLegEnd: LegEnd = sinkLegEndSelection.route match {
-              case Some(legEndRoute) =>
-                val allTrackPathKeys = params.sink.route.get.trackPathKeys
-                val selectedTrackPathKey = legEndRoute.trackPathKeys.head
-                LegEnd.route(allTrackPathKeys, Some(selectedTrackPathKey))
-              case _ => sinkLegEndSelection
-            }
+          val sinkLegEnd: LegEnd = sinkLegEndSelection.route match {
+            case Some(legEndRoute) =>
+              val allTrackPathKeys = params.sink.route.get.trackPathKeys
+              val selectedTrackPathKey = legEndRoute.trackPathKeys.head
+              LegEnd.route(allTrackPathKeys, Some(selectedTrackPathKey))
+            case _ => sinkLegEndSelection
+          }
 
-            Some(
-              PlanLegDetail(
-                sourceLegEnd,
-                sinkLegEnd,
-                planRoutes
-              )
-            )
-          case None => None
+          PlanLegDetail(
+            sourceLegEnd,
+            sinkLegEnd,
+            planRoutes
+          )
         }
       }
 
@@ -201,17 +197,15 @@ class LegBuilderImpl(
             graphPathSegment.pathKey.pathId - 100
           }
           val colour = route.summary.tagValue("colour")
-          route.paths.find(_.id == pathId) match {
-            case None => None
-            case Some(baseRoutePath) =>
-              trackPathToPlanRoute(route, baseRoutePath, colour).map { planRoute =>
-                if (graphPathSegment.pathKey.pathId > 100) {
-                  planRoute.reverse
-                }
-                else {
-                  planRoute
-                }
+          route.paths.find(_.id == pathId).flatMap { baseRoutePath =>
+            trackPathToPlanRoute(route, baseRoutePath, colour).map { planRoute =>
+              if (graphPathSegment.pathKey.pathId > 100) {
+                planRoute.reverse
               }
+              else {
+                planRoute
+              }
+            }
           }
 
         case None =>

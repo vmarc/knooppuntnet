@@ -30,24 +30,22 @@ class StructureAnalyzer(context: BaseRouteAnalysisContext, traceEnabled: Boolean
       otherElementsStructure()
     }
     else {
-      val structureOption = context.routeNodesAnalysis.startNode match {
-        case None => None
-        case Some(mainStartNode) =>
-          context.routeNodesAnalysis.endNode match {
-            case None =>
-              if (segmentsIsLoop()) {
-                analyzeLoop()
-              }
-              else {
-                None
-              }
+      val structureOption = context.routeNodesAnalysis.startNode.flatMap { mainStartNode =>
+        context.routeNodesAnalysis.endNode match {
+          case None =>
+            if (segmentsIsLoop()) {
+              analyzeLoop()
+            }
+            else {
+              None
+            }
 
-            case Some(mainEndNode) =>
-              doAnalyzeNodeNetworkRoute(
-                mainStartNode,
-                mainEndNode
-              )
-          }
+          case Some(mainEndNode) =>
+            doAnalyzeNodeNetworkRoute(
+              mainStartNode,
+              mainEndNode
+            )
+        }
       }
       structureOption.getOrElse(otherElementsStructure())
     }
@@ -131,22 +129,18 @@ class StructureAnalyzer(context: BaseRouteAnalysisContext, traceEnabled: Boolean
     context.routeNodesAnalysis.endTentacleNodes.flatMap { toNode =>
       val usedElementIds = forwardPath.toSeq.flatMap(_.elementIds) ++ backwardPath.toSeq.flatMap(_.elementIds) ++ startTentaclePaths.flatMap(_.elementIds)
       val remainingElements = context.analysisSegments.flatMap(_.elements).filterNot(element => usedElementIds.contains(element.id))
-      remainingElements.find(_.toNodeId == toNode.node.id) match {
-        case None => None
-        case Some(firstElement) =>
-          Some(
-            StructurePath(
-              pathIds.next(),
-              firstElement.fromNodeId,
-              firstElement.toNodeId,
-              Seq(
-                StructurePathElement(
-                  firstElement,
-                  reversed = false
-                )
-              )
+      remainingElements.find(_.toNodeId == toNode.node.id).map { firstElement =>
+        StructurePath(
+          pathIds.next(),
+          firstElement.fromNodeId,
+          firstElement.toNodeId,
+          Seq(
+            StructurePathElement(
+              firstElement,
+              reversed = false
             )
           )
+        )
       }
     }
   }
@@ -156,22 +150,18 @@ class StructureAnalyzer(context: BaseRouteAnalysisContext, traceEnabled: Boolean
     val usedElementIds = forwardPath.toSeq.flatMap(_.elementIds) ++ backwardPath.toSeq.flatMap(_.elementIds)
     val remainingElements = context.analysisSegments.flatMap(_.elements).filterNot(element => usedElementIds.contains(element.id))
     context.routeNodesAnalysis.startTentacleNodes.flatMap { fromNode =>
-      remainingElements.find(_.nodeIds.head == fromNode.node.id) match {
-        case None => None
-        case Some(firstElement) =>
-          Some(
-            StructurePath(
-              pathIds.next(),
-              firstElement.fromNodeId,
-              firstElement.toNodeId,
-              Seq(
-                StructurePathElement(
-                  firstElement,
-                  reversed = false
-                )
-              )
+      remainingElements.find(_.nodeIds.head == fromNode.node.id).map { firstElement =>
+        StructurePath(
+          pathIds.next(),
+          firstElement.fromNodeId,
+          firstElement.toNodeId,
+          Seq(
+            StructurePathElement(
+              firstElement,
+              reversed = false
             )
           )
+        )
       }
     }
   }

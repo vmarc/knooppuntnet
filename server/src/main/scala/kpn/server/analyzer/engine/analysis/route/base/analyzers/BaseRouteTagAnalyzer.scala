@@ -29,15 +29,11 @@ class BaseRouteTagAnalyzer(context: BaseRouteAnalysisContext) {
           val superRoute = context.relation.hasTag("type", "superroute")
           val nodeNetwork = context.relation.hasTag("network:type", "node_network")
           val facts = ListBuffer[Fact]()
-          val scopedRouteTypeOption = context.relation.tagValue("network") match {
-            case None => None
-            case Some(key) =>
-              ScopedRouteType.withKey(key) match {
-                case None => None
-                case Some(scopedRouteType) =>
-                  facts.addAll(assertTagValueMatchesrouteType(scopedRouteType.routeType, routeTagValue))
-                  Some(scopedRouteType)
-              }
+          val scopedRouteTypeOption = context.relation.tagValue("network").flatMap { key =>
+            ScopedRouteType.withKey(key).flatMap { scopedRouteType =>
+              facts.addAll(assertTagValueMatchesrouteType(scopedRouteType.routeType, routeTagValue))
+              Some(scopedRouteType)
+            }
           }
           context.copy(
             superRoute = superRoute,

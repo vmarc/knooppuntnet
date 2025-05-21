@@ -44,10 +44,8 @@ class NetworkChangeProcessor(
         if (baseNetworkDoc.active) {
           networkRepository.findById(networkId) match {
             case None =>
-              networkMainAnalyzer.analyze(baseNetworkDoc, context.timestampAfter) match {
-                case None => None
-                case Some(networkDoc) =>
-                  createNetwork(context, networkDoc, networkId)
+              networkMainAnalyzer.analyze(baseNetworkDoc, context.timestampAfter).flatMap { networkDoc =>
+                createNetwork(context, networkDoc, networkId)
               }
             case Some(before) =>
               networkMainAnalyzer.analyze(baseNetworkDoc, context.timestampAfter) match {

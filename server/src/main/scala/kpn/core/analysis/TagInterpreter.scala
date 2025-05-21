@@ -109,15 +109,13 @@ object TagInterpreter {
   }
 
   def expectedRouteRelationCount(scopedRouteType: ScopedRouteType, tagable: Tagable): Option[Long] = {
-    tagable.tagValue(scopedRouteType.expectedRouteRelationsTag) match {
-      case None => None
-      case Some(value) =>
-        if (!value.forall(_.isDigit)) {
-          Some(0)
-        }
-        else {
-          Some(value.toLong)
-        }
+    tagable.tagValue(scopedRouteType.expectedRouteRelationsTag).map { value =>
+      if (!value.forall(_.isDigit)) {
+        0
+      }
+      else {
+        value.toLong
+      }
     }
   }
 

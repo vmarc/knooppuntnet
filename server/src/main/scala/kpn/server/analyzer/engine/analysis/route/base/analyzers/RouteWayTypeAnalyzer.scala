@@ -68,9 +68,8 @@ class RouteWayTypeAnalyzer {
       case Some(value) =>
         Some(value)
       case None =>
-        prefixes.find(prefix => way.hasTag(s"$prefix:highway")) match {
-          case Some(prefix) => way.tagValue(s"$prefix:highway").map(value => s"$prefix $value")
-          case None => None
+        prefixes.find(prefix => way.hasTag(s"$prefix:highway")).flatMap { prefix =>
+          way.tagValue(s"$prefix:highway").map(value => s"$prefix $value")
         }
     }
   }

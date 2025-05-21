@@ -200,13 +200,8 @@ class UpdaterTool(
   }
 
   private def minuteDiff(replicationId: ReplicationId): Option[MinuteDiff] = {
-    new ReplicationStateReader(options.replicateDir).readTimestamp(replicationId) match {
-      case Some(timestamp) =>
-        new MinuteDiffReader(options.replicateDir).read(replicationId) match {
-          case Some(xml) => Some(MinuteDiff(replicationId, timestamp, xml))
-          case None => None
-        }
-      case None => None
+    new ReplicationStateReader(options.replicateDir).readTimestamp(replicationId).flatMap { timestamp =>
+      new MinuteDiffReader(options.replicateDir).read(replicationId).map(xml => MinuteDiff(replicationId, timestamp, xml))
     }
   }
 }

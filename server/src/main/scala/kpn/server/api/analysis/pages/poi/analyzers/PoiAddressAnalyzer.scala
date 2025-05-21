@@ -18,13 +18,11 @@ class PoiAddressAnalyzer(context: PoiAnalysisContext) {
     val street = context.poi.tagValue("addr:street")
     val housenumber = context.poi.tagValue("addr:housenumber")
 
-    val addressLine1: Option[String] = street match {
-      case Some(s) =>
-        housenumber match {
-          case Some(n) => Some(s"$s $n")
-          case None => street
-        }
-      case None => None
+    val addressLine1: Option[String] = street.flatMap { s =>
+      housenumber match {
+        case Some(n) => Some(s"$s $n")
+        case None => street
+      }
     }
 
     val addressLine2: Option[String] = postcode match {

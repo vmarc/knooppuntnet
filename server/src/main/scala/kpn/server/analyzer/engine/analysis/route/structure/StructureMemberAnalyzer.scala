@@ -93,9 +93,6 @@ class StructureMemberAnalyzer {
   }
 
   private def alternativeRole(member: Member): Option[String] = {
-    member.role match {
-      case Some(role) => Some(role).filter(roles.contains)
-      case None => None
-    }
+    member.role.filter(roles.contains)
   }
 }

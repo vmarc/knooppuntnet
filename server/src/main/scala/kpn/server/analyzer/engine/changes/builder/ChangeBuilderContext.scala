@@ -14,13 +14,8 @@ case class ChangeBuilderContext(
 ) {
 
   def networkRef: Option[Ref] = {
-    networkAfter match {
-      case Some(network) => Some(network.toRef)
-      case None =>
-        networkBefore match {
-          case Some(network) => Some(network.toRef)
-          case None => None
-        }
-    }
+    networkAfter
+      .map(_.toRef)
+      .orElse(networkBefore.map(_.toRef))
   }
 }

@@ -18,33 +18,31 @@ class NodeIntegrityAnalyzer(context: NodeAnalysisContext) {
     var unexpectedExpectedRouteRelationsTag: Boolean = false
 
     val nodeIntegrityDetails = ScopedRouteType.all.flatMap { scopedRouteType =>
-      context.node.tagValue(scopedRouteType.expectedRouteRelationsTag) match {
-        case None => None
-        case Some(expectedRouteRelationsValue) =>
-          if (expectedRouteRelationsValue.forall(Character.isDigit)) {
-            if (context.routeTypes.contains(scopedRouteType.routeType)) {
-              val expectedRouteCount = expectedRouteRelationsValue.toInt
-              val routeRefs = context.routeReferences.filter(rr =>
-                rr.routeType == scopedRouteType.routeType &&
-                  rr.routeScope == scopedRouteType.routeScope
-              ).map(_.toRef)
-              Some(
-                NodeIntegrityDetail(
-                  scopedRouteType.routeType,
-                  scopedRouteType.routeScope,
-                  expectedRouteCount,
-                  routeRefs
-                )
+      context.node.tagValue(scopedRouteType.expectedRouteRelationsTag).flatMap { expectedRouteRelationsValue =>
+        if (expectedRouteRelationsValue.forall(Character.isDigit)) {
+          if (context.routeTypes.contains(scopedRouteType.routeType)) {
+            val expectedRouteCount = expectedRouteRelationsValue.toInt
+            val routeRefs = context.routeReferences.filter(rr =>
+              rr.routeType == scopedRouteType.routeType &&
+                rr.routeScope == scopedRouteType.routeScope
+            ).map(_.toRef)
+            Some(
+              NodeIntegrityDetail(
+                scopedRouteType.routeType,
+                scopedRouteType.routeScope,
+                expectedRouteCount,
+                routeRefs
               )
-            }
-            else {
-              unexpectedExpectedRouteRelationsTag = true
-              None
-            }
+            )
           }
           else {
+            unexpectedExpectedRouteRelationsTag = true
             None
           }
+        }
+        else {
+          None
+        }
       }
     }
 

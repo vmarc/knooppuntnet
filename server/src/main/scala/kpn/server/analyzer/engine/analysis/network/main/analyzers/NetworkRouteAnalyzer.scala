@@ -28,10 +28,9 @@ class NetworkRouteAnalyzer(database: Database) extends NetworkAnalyzer {
     val meters = routeDetails.map(_.length).sum
     val km = Math.round(meters.toDouble / 1000)
     val enrichedRouteDetails = routeDetails.map { networkRouteDetail =>
-      val role = context.network.members.find(member => member.memberType == MemberType.Relation && member.ref == networkRouteDetail.id).flatMap(_.role) match {
-        case Some(r) => Some(r)
-        case None => None
-      }
+      val role = context.network.members
+        .find(member => member.memberType == MemberType.Relation && member.ref == networkRouteDetail.id)
+        .flatMap(_.role)
       val investigate = networkRouteDetail.facts.contains(Fact.RouteBroken)
       val accessible = !networkRouteDetail.facts.contains(Fact.RouteInaccessible)
       val roleConnection = role.contains("connection")
