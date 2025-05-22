@@ -23,6 +23,5 @@ export interface NodeInfo {
   readonly tags: Tag[];
   readonly facts: Fact[];
   readonly locations: LocationInfo[];
-  readonly tiles: string[];
   readonly integrity?: NodeIntegrity;
 }

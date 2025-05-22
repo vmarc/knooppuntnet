@@ -15,7 +15,7 @@ case class NodeAnalysisContext(
   _integrity: Option[Option[NodeIntegrity]] = None,
   _labels: Option[Seq[String]] = None,
   _routeReferences: Option[Seq[Reference]] = None,
-  _networkReferences: Option[Seq[Reference]] = None,
+  _networkRelationReferences: Option[Seq[Reference]] = None,
   abort: Boolean = false
 ) {
 
@@ -29,5 +29,5 @@ case class NodeAnalysisContext(
 
   def routeReferences: Seq[Reference] = _routeReferences.getOrElse(throw new PreconditionMissingException)
 
-  def networkReferences: Seq[Reference] = _networkReferences.getOrElse(throw new PreconditionMissingException)
+  def networkRelationReferences: Seq[Reference] = _networkRelationReferences.getOrElse(throw new PreconditionMissingException)
 }

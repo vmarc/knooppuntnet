@@ -66,7 +66,7 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
       assertEqual(
         findNodeById(1002),
         node1002.copy( // no longer part of the network
-          networkReferences = Seq.empty
+          networkRelationReferences = Seq.empty
         )
       )
 

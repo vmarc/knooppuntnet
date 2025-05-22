@@ -213,7 +213,7 @@ class NodeChangeProcessor(
           addedToRoute = Seq.empty,
           removedFromRoute = nodeDoc.routeReferences.map(_.toRef),
           addedToNetwork = Seq.empty,
-          removedFromNetwork = nodeDoc.networkReferences.map(_.toRef),
+          removedFromNetwork = nodeDoc.networkRelationReferences.map(_.toRef),
           factDiffs = None,
           facts = Seq(Fact.Deleted),
           initialTags = None,

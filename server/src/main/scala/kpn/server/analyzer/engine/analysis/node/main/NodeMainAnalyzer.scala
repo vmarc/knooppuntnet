@@ -54,7 +54,7 @@ class NodeMainAnalyzer(
           locations = context.node.locations,
           integrity = context.integrity,
           routeReferences = context.routeReferences,
-          networkReferences = context.networkReferences,
+          networkRelationReferences = context.networkRelationReferences,
           Some(ObjectId())
         )
       )

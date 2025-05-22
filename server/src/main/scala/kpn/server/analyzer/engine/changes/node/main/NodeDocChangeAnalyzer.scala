@@ -27,9 +27,9 @@ class NodeDocChangeAnalyzer(
 
   def analyze(): Option[NodeChange] = {
 
-    val roleConnectionChanges = before.networkReferences.map(_.id).intersect(after.networkReferences.map(_.id)).flatMap { networkId =>
-      val networkReferenceBefore = before.networkReferences.find(_.id == networkId)
-      val networkReferenceAfter = after.networkReferences.find(_.id == networkId)
+    val roleConnectionChanges = before.networkRelationReferences.map(_.id).intersect(after.networkRelationReferences.map(_.id)).flatMap { networkId =>
+      val networkReferenceBefore = before.networkRelationReferences.find(_.id == networkId)
+      val networkReferenceAfter = after.networkRelationReferences.find(_.id == networkId)
       val connectionBefore = networkReferenceBefore.flatMap(_.role).contains("connection")
       val connectionAfter = networkReferenceAfter.flatMap(_.role).contains("connection")
       if (connectionBefore != connectionAfter) {
@@ -40,13 +40,13 @@ class NodeDocChangeAnalyzer(
       }
     }
 
-    val beforeNetworkIds = before.networkReferences.map(_.id).toSet
-    val afterNetworkIds = after.networkReferences.map(_.id).toSet
+    val beforeNetworkIds = before.networkRelationReferences.map(_.id).toSet
+    val afterNetworkIds = after.networkRelationReferences.map(_.id).toSet
     val addedNetworkIds = (afterNetworkIds -- beforeNetworkIds).toSeq.sorted
     val removedNetworkIds = (beforeNetworkIds -- afterNetworkIds).toSeq.sorted
 
-    val addedToNetwork = after.networkReferences.filter(r => addedNetworkIds.contains(r.id)).map(_.toRef)
-    val removedFromNetwork = before.networkReferences.filter(r => removedNetworkIds.contains(r.id)).map(_.toRef)
+    val addedToNetwork = after.networkRelationReferences.filter(r => addedNetworkIds.contains(r.id)).map(_.toRef)
+    val removedFromNetwork = before.networkRelationReferences.filter(r => removedNetworkIds.contains(r.id)).map(_.toRef)
 
     val beforeRouteIds = before.routeReferences.map(_.id).toSet
     val afterRouteIds = after.routeReferences.map(_.id).toSet

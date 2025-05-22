@@ -83,11 +83,11 @@ class NodeDetailsPageBuilder(
   private def calculateMixedRouteScopes(nodeDoc: NodeDoc): Boolean = {
     val allScopes = nodeDoc.names.map(_.routeScope) ++
       nodeDoc.routeReferences.map(_.routeScope) ++
-      nodeDoc.networkReferences.map(_.routeScope)
+      nodeDoc.networkRelationReferences.map(_.routeScope)
     allScopes.distinct.sizeIs > 1
   }
 
   private def isOrphanNode(nodeDoc: NodeDoc): Boolean = {
-    nodeDoc.networkReferences.isEmpty && nodeDoc.routeReferences.isEmpty
+    nodeDoc.networkRelationReferences.isEmpty && nodeDoc.routeReferences.isEmpty
   }
 }
