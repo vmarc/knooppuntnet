@@ -33,6 +33,8 @@ class BaseNetworkMainAnalyzer {
       None
     }
     else if (analyzers.isEmpty) {
+      val nodeIds = context.relation.nodeMembers.map(_.ref).sorted
+      val relationIds = context.relation.relationMembers.map(_.ref).sorted
       Some(
         BaseNetworkDoc(
           _id = context.relation.id,
@@ -45,7 +47,8 @@ class BaseNetworkMainAnalyzer {
           changeSetId = context.relation.changeSetId,
           members = context.relation.members,
           tags = context.relation.tags,
-          nodeIds = context.relation.nodeMembers.map(_.ref).sorted
+          nodeIds = nodeIds,
+          relationIds = relationIds,
         )
       )
     }

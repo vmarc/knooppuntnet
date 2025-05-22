@@ -5,6 +5,7 @@ import kpn.core.doc.SubRouteData
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQuerySubRouteData.log
 import kpn.database.base.Database
+import kpn.database.base.Types.MongoPipeline
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
@@ -20,25 +21,29 @@ object MongoQuerySubRouteData {
 class MongoQuerySubRouteData(database: Database) {
 
   def execute(routeId: Long): Option[SubRouteData] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("_id", routeId),
-            equal("labels", Label.active)
-          )
-        ),
-        project(
-          fields(
-            include("_id"),
-            computed("name", "$summary.name"),
-            include("members"),
-            computed("distance", "$summary.meters"),
-          )
-        )
-      )
+    log.infoElapsed {
+      val pipeline = buildPipeline(routeId)
       val routes = database.baseRoutes.optionAggregate[SubRouteData](pipeline, log)
       (s"${routes.size} routes", routes)
     }
+  }
+
+  private def buildPipeline(routeId: Long): MongoPipeline = {
+    Seq(
+      filter(
+        and(
+          equal("_id", routeId),
+          equal("labels", Label.active)
+        )
+      ),
+      project(
+        fields(
+          include("_id"),
+          computed("name", "$summary.name"),
+          include("members"),
+          computed("distance", "$summary.meters"),
+        )
+      )
+    )
   }
 }

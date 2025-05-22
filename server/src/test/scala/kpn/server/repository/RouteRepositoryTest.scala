@@ -36,6 +36,9 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
           name = Some("network-name"),
           members = Seq(
             RawMember(MemberType.Relation, 10, Some("role")),
+          ),
+          relationIds = Seq(
+            10
           )
         )
       )

@@ -20,4 +20,5 @@ case class BaseNetworkDoc(
   members: Seq[RawMember],
   tags: Seq[Tag],
   nodeIds: Seq[Long],
+  relationIds: Seq[Long],
 ) extends WithId with Tagable

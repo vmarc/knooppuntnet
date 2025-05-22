@@ -117,6 +117,9 @@ class NetworkCreateTest01 extends IntegrationTest {
         nodeIds = Seq(
           1001,
           1002
+        ),
+        relationIds = Seq(
+          11
         )
       )
     )

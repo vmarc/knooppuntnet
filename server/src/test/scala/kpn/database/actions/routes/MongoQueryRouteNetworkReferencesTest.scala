@@ -64,7 +64,8 @@ class MongoQueryRouteNetworkReferencesTest extends UnitTest with SharedTestObjec
       routeScope = regional,
       members = routeIds.map(routeId =>
         RawMember(MemberType.Relation, routeId, None)
-      )
+      ),
+      relationIds = routeIds
     )
   }
 }
