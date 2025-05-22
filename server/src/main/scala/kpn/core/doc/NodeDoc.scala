@@ -34,7 +34,7 @@ case class NodeDoc(
   locations: Seq[String],
   integrity: Option[NodeIntegrity] = None,
   routeReferences: Seq[Reference],
-  networkReferences: Seq[Reference],
+  networkReferences: Seq[Reference], // networks with this node as a member (does not include nodes reference in network routes only)
   stamp: Option[ObjectId],
 ) extends Tagable with LatLon with WithId {
 

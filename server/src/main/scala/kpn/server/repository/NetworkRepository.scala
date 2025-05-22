@@ -26,6 +26,8 @@ trait NetworkRepository {
 
   def findBaseNetworkById(networkId: Long): Option[BaseNetworkDoc]
 
+  def nodeBaseNetworkReferences(nodeId: Long): Seq[Reference]
+
   def nodeNetworkReferences(nodeId: Long): Seq[Reference]
 
   def routeNetworkReferences(routeId: Long): Seq[Reference]

@@ -12,6 +12,7 @@ export interface ChangeSetSummary {
   readonly _id: string;
   readonly key: ChangeKey;
   readonly subsets: Subset[];
+  readonly locations: string[];
   readonly timestampFrom: Timestamp;
   readonly timestampUntil: Timestamp;
   readonly networkChanges: NetworkChanges;
@@ -19,7 +20,6 @@ export interface ChangeSetSummary {
   readonly orphanNodeChanges: ChangeSetSubsetElementRefs[];
   readonly subsetAnalyses: ChangeSetSubsetAnalysis[];
   readonly locationChanges: LocationChanges[];
-  readonly locations: string[];
   readonly happy: boolean;
   readonly investigate: boolean;
   readonly impact: boolean;

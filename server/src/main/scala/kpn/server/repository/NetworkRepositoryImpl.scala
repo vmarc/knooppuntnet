@@ -6,6 +6,7 @@ import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
 import kpn.database.actions.networks.MongoQueryBaseNetworkIds
 import kpn.database.actions.networks.MongoQueryNetworkIds
+import kpn.database.actions.nodes.MongoQueryNodeBaseNetworkReferences
 import kpn.database.actions.nodes.MongoQueryNodeNetworkReferences
 import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.database.base.Database
@@ -57,8 +58,12 @@ class NetworkRepositoryImpl(database: Database) extends NetworkRepository {
     database.baseNetworks.findById(networkId, log)
   }
 
-  override def nodeNetworkReferences(routeId: Long): Seq[Reference] = {
-    new MongoQueryNodeNetworkReferences(database).execute(routeId)
+  override def nodeBaseNetworkReferences(nodeId: Long): Seq[Reference] = {
+    new MongoQueryNodeBaseNetworkReferences(database).execute(nodeId)
+  }
+
+  override def nodeNetworkReferences(nodeId: Long): Seq[Reference] = {
+    new MongoQueryNodeNetworkReferences(database).execute(nodeId)
   }
 
   override def routeNetworkReferences(routeId: Long): Seq[Reference] = {

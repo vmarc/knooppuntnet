@@ -5,8 +5,6 @@ import kpn.api.common.RouteScope.regional
 import kpn.api.common.RouteType
 import kpn.api.common.RouteType.hiking
 import kpn.api.common.common.Reference
-import kpn.api.common.data.MemberType
-import kpn.api.common.data.raw.RawMember
 import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -16,26 +14,32 @@ class MongoQueryNodeNetworkReferencesTest extends UnitTest with SharedTestObject
   test("execute") {
     withDatabase { database =>
 
-      database.baseNetworks.save(
-        newBaseNetworkDoc(
+      database.networks.save(
+        newNetworkDoc(
           1L,
-          name = Some("network-1"),
-          routeType = RouteType.hiking,
-          routeScope = RouteScope.regional,
-          members = Seq(
-            RawMember(MemberType.Node, 1001L, Some("connection")),
-            RawMember(MemberType.Node, 1002L, None),
+          summary = newNetworkSummary(
+            name = "network-1",
+            routeType = RouteType.hiking,
+            routeScope = RouteScope.regional,
+          ),
+          nodes = Seq(
+            newNetworkInfoNodeDetail(1001),
+            newNetworkInfoNodeDetail(1002),
           )
         )
       )
-      database.baseNetworks.save(
-        newBaseNetworkDoc(2L,
-          name = Some("network-2"),
-          routeType = RouteType.hiking,
-          routeScope = RouteScope.regional,
-          members = Seq(
-            RawMember(MemberType.Node, 1001L, None),
-            RawMember(MemberType.Node, 1003L, None),
+      database.networks.save(
+        newNetworkDoc(
+          2L,
+          summary = newNetworkSummary(
+            name = "network-2",
+            routeType = RouteType.hiking,
+            routeScope = RouteScope.regional,
+          ),
+          nodes = Seq(
+            newNetworkInfoNodeDetail(1001),
+            newNetworkInfoNodeDetail(1002),
+            newNetworkInfoNodeDetail(1003),
           )
         )
       )
@@ -43,7 +47,7 @@ class MongoQueryNodeNetworkReferencesTest extends UnitTest with SharedTestObject
       val query = new MongoQueryNodeNetworkReferences(database)
       query.execute(1001L) should equal(
         Seq(
-          Reference(hiking, regional, 1L, "network-1", Some("connection")),
+          Reference(hiking, regional, 1L, "network-1", None),
           Reference(hiking, regional, 2L, "network-2", None)
         )
       )
@@ -53,24 +57,30 @@ class MongoQueryNodeNetworkReferencesTest extends UnitTest with SharedTestObject
   test("non-active networks are not included") {
     withDatabase { database =>
 
-      database.baseNetworks.save(
-        newBaseNetworkDoc(
+      database.networks.save(
+        newNetworkDoc(
           1L,
-          name = Some("network-1"),
-          members = Seq(
-            RawMember(MemberType.Node, 1001L, None),
-            RawMember(MemberType.Node, 1002L, None),
+          summary = newNetworkSummary(
+            name = "network-1",
+            routeType = RouteType.hiking,
+            routeScope = RouteScope.regional,
+          ),
+          nodes = Seq(
+            newNetworkInfoNodeDetail(1001)
           )
         )
       )
-      database.baseNetworks.save(
-        newBaseNetworkDoc(
+      database.networks.save(
+        newNetworkDoc(
           2L,
           active = false,
-          name = Some("network-2"),
-          members = Seq(
-            RawMember(MemberType.Node, 1001L, None),
-            RawMember(MemberType.Node, 1003L, None),
+          summary = newNetworkSummary(
+            name = "network-2",
+            routeType = RouteType.hiking,
+            routeScope = RouteScope.regional,
+          ),
+          nodes = Seq(
+            newNetworkInfoNodeDetail(1001)
           )
         )
       )

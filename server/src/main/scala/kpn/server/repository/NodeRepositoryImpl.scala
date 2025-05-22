@@ -3,11 +3,11 @@ package kpn.server.repository
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.core.doc.BaseNodeDoc
-import kpn.core.doc.Label
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.database.actions.nodes.MongoQueryBaseNodeIds
 import kpn.database.actions.nodes.MongoQueryKnownNodeIds
+import kpn.database.actions.nodes.MongoQueryNodeBaseRouteReferences
 import kpn.database.actions.nodes.MongoQueryNodeIds
 import kpn.database.actions.nodes.MongoQueryNodeTileInfo
 import kpn.database.actions.nodes.MongoQueryNodeTilenames
@@ -15,18 +15,6 @@ import kpn.database.actions.nodes.OldMongoQueryNodeTileInfo
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
-import org.mongodb.scala.bson.conversions.Bson
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 import org.springframework.stereotype.Component
 
 @Component
@@ -83,7 +71,7 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
   }
 
   override def nodeRouteReferences(nodeId: Long): Seq[Reference] = {
-    database.baseRoutes.aggregate[Reference](routeReferencesPipeline(nodeId))
+    new MongoQueryNodeBaseRouteReferences(database).execute(nodeId)
   }
 
   override def filterKnown(nodeIds: Set[Long]): Set[Long] = {
@@ -104,28 +92,5 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
 
   override def nodeTileInfoById(nodeId: Long): Option[NodeTileInfo] = {
     new OldMongoQueryNodeTileInfo(database).findById(nodeId)
-  }
-
-  private def routeReferencesPipeline(nodeId: Long): Seq[Bson] = {
-    Seq(
-      filter(
-        and(
-          equal("labels", Label.active),
-          equal("nodeRefs", nodeId)
-        )
-      ),
-      unwind("$summary.routeTypes"),
-      unwind("$summary.scopes"),
-      project(
-        fields(
-          excludeId(),
-          computed("routeType", "$summary.routeTypes"),
-          computed("routeScope", "$summary.scopes"),
-          computed("id", "$summary.id"),
-          computed("name", "$summary.name")
-        )
-      ),
-      sort(orderBy(ascending("routeType", "routeScope", "routeName")))
-    )
   }
 }

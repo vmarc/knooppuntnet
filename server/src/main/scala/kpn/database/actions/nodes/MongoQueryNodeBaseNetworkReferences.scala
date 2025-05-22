@@ -6,21 +6,23 @@ import kpn.database.base.Database
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Projections.include
 
-object MongoQueryNodeNetworkReferences {
+object MongoQueryNodeBaseNetworkReferences {
   private val log = Log(classOf[MongoQueryNodeBaseNetworkReferences])
 }
 
-class MongoQueryNodeNetworkReferences(database: Database) {
+class MongoQueryNodeBaseNetworkReferences(database: Database) {
 
-  def execute(nodeId: Long, log: Log = MongoQueryNodeNetworkReferences.log): Seq[Reference] = {
-    log.debugElapsed {
-      val references = database.networks.aggregate[Reference](pipeline(nodeId), log)
+  def execute(nodeId: Long, log: Log = MongoQueryNodeBaseNetworkReferences.log): Seq[Reference] = {
+    log.infoElapsed {
+      val references = database.baseNetworks.aggregate[Reference](pipeline(nodeId), log)
       (s"node network references: ${references.size}", references)
     }
   }
@@ -30,16 +32,25 @@ class MongoQueryNodeNetworkReferences(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("nodes.id", nodeId),
+          equal("members.memberType", "node"),
+          equal("members.ref", nodeId),
+        )
+      ),
+      unwind("$members"),
+      filter(
+        and(
+          equal("members.memberType", "node"),
+          equal("members.ref", nodeId),
         )
       ),
       project(
         fields(
           excludeId(),
-          computed("routeType", "$summary.routeType"),
-          computed("routeScope", "$summary.routeScope"),
+          include("routeType"),
+          include("routeScope"),
           computed("id", "$_id"),
-          computed("name", "$summary.name"),
+          include("name"),
+          computed("role", "$members.role"),
         )
       )
     )

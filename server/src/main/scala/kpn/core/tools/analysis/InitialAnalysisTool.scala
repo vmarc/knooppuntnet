@@ -20,49 +20,59 @@ object InitialAnalysisTool {
   private val log = Log(classOf[InitialAnalysisTool])
 
   def main(args: Array[String]): Unit = {
+    val exitCode = executeAnalysis(args)
+    System.exit(exitCode)
+  }
 
-    val exit = InitialAnalysisToolOptions.parse(args) match {
-      case Some(options) =>
+  private def executeAnalysis(args: Array[String]): Int = {
+    InitialAnalysisToolOptions.parse(args) match {
+      case Some(options) => runAnalysis(options)
+      case None => -1
+    }
+  }
 
-        log.info("Start")
-        val configuration = new InitialAnalysisConfiguration(options)
-        try {
-
-          val timestamp: Timestamp = Timestamp.analysisStart
-          val changeSetContext: ChangeSetContext = ChangeSetContext(
-            ReplicationId(1),
-            ChangeSet(
-              0,
-              timestamp,
-              timestamp,
-              timestamp,
-              timestamp,
-              timestamp,
-              Seq.empty
-            ),
-            ElementIds()
-          )
-
-          new InitialAnalysisTool(
-            configuration.mainFullAnalyzer,
-            configuration.analysisRepository,
-            changeSetContext
-          ).analyze()
-        }
-        finally {
-          configuration.shutdown()
-          log.info(s"Done")
-          ()
-        }
-
-        0
-
-      case None =>
-        // arguments are bad, error message will have been displayed
+  private def runAnalysis(options: InitialAnalysisToolOptions): Int = {
+    val configuration = new InitialAnalysisConfiguration(options)
+    try {
+      runAnalysisTool(configuration)
+      0
+    }
+    catch {
+      case exception: Throwable =>
+        log.error(s"Failed: ${exception.getMessage}")
         -1
     }
+    finally {
+      configuration.shutdown()
+    }
+  }
 
-    System.exit(exit)
+  private def runAnalysisTool(configuration: InitialAnalysisConfiguration): Unit = {
+    log.info("Start")
+    val changeSetContext = buildInitialContext()
+    new InitialAnalysisTool(
+      configuration.mainFullAnalyzer,
+      configuration.analysisRepository,
+      changeSetContext
+    ).analyze()
+    log.info(s"Done")
+  }
+
+  private def buildInitialContext(): ChangeSetContext = {
+    val timestamp = Timestamp.analysisStart
+    ChangeSetContext(
+      ReplicationId(1),
+      ChangeSet(
+        0,
+        timestamp,
+        timestamp,
+        timestamp,
+        timestamp,
+        timestamp,
+        Seq.empty
+      ),
+      ElementIds()
+    )
   }
 }
 

@@ -1,6 +1,5 @@
 // this file is generated, please do not modify
 
-import { Reference } from '@api/common/common/reference';
 import { NodeIntegrity } from '@api/common/node/node-integrity';
 import { Day } from '@api/custom/day';
 import { Tag } from '@api/custom/tag';
@@ -26,5 +25,4 @@ export interface NodeInfo {
   readonly locations: LocationInfo[];
   readonly tiles: string[];
   readonly integrity?: NodeIntegrity;
-  readonly routeReferences: Reference[];
 }

@@ -1,6 +1,5 @@
 package kpn.api.common
 
-import kpn.api.common.common.Reference
 import kpn.api.common.data.Tagable
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.custom.Day
@@ -23,9 +22,7 @@ case class NodeInfo(
   tags: Seq[Tag],
   facts: Seq[Fact],
   locations: Seq[LocationInfo],
-  tiles: Seq[String],
   integrity: Option[NodeIntegrity],
-  routeReferences: Seq[Reference]
 ) extends Tagable with LatLon {
   def routeTypeName(routeType: RouteType): String = {
     names.filter(_.routeType == routeType).map(_.name).mkString(" / ")

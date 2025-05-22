@@ -22,11 +22,12 @@ class MongoQueryNodeRouteReferences(database: Database) {
 
   def execute(nodeIds: Seq[Long]): Seq[NodeRouteRef] = {
     log.debugElapsed {
+
       val pipeline = Seq(
         filter(
           and(
             equal("labels", Label.active),
-            in("nodeRefs", nodeIds: _*), // TODO redesign - use route members instead?
+            in("nodeRefs", nodeIds: _*),
           )
         ),
         unwind("$nodeRefs"),

@@ -47,9 +47,7 @@ object NodeDetailsPageExample {
         LocationInfo("North Brabant", "TODO"),
         LocationInfo("Roosendaal", "TODO")
       ),
-      tiles = Seq.empty,
       integrity = None, // TODO MONGO move setup from nodeDetailsPage method to here
-      routeReferences = Seq.empty // TODO MONGO move setup from nodeDetailsPage method to here
     )
   }
   val page: NodeDetailsPage = {

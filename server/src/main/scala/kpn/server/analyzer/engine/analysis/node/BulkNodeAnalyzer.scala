@@ -19,7 +19,7 @@ class BulkNodeAnalyzer(
 
   def analyze(nodeIds: Seq[Long]): Seq[NodeDoc] = {
     Log.context("nodes") {
-      log.info(s"Analyzing ${nodeIds.size} base nodes")
+      log.info(s"Analyzing ${nodeIds.size} nodes")
       log.infoElapsed {
         val nodeDocs = analyzeNodes(nodeIds)
         nodeRepository.bulkSave(nodeDocs: _*)
@@ -30,13 +30,17 @@ class BulkNodeAnalyzer(
 
   private def analyzeNodes(nodeIds: Seq[Long]) = {
     nodeIds.sliding(BatchSize, BatchSize).toSeq.flatMap { batchNodeIds =>
+      log.info(s"Analyzing batch $BatchSize nodes")
       val baseNodeDocs = nodeRepository.baseNodesWithIds(batchNodeIds)
       baseNodeDocs.flatMap { baseNodeDoc =>
-        nodeMainAnalyzer.analyze(baseNodeDoc) match {
-          case Some(nodeDoc) => Some(nodeDoc)
-          case None =>
-            log.error(s"Could not analyze node ${baseNodeDoc._id}")
-            None
+        Log.context(s"${baseNodeDoc._id}") {
+          log.info(s"Analyzing node ${baseNodeDoc._id}")
+          nodeMainAnalyzer.analyze(baseNodeDoc) match {
+            case Some(nodeDoc) => Some(nodeDoc)
+            case None =>
+              log.error(s"Could not analyze node ${baseNodeDoc._id}")
+              None
+          }
         }
       }
     }

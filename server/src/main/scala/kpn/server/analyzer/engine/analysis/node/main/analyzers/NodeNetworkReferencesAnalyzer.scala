@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 @Component
 class NodeNetworkReferencesAnalyzer(networkRepository: NetworkRepository) extends NodeAnalyzer {
   override def analyze(context: NodeAnalysisContext): NodeAnalysisContext = {
-    val networkReferences = networkRepository.nodeNetworkReferences(context.node._id)
+    val networkReferences = networkRepository.nodeBaseNetworkReferences(context.node._id)
     context.copy(_networkReferences = Some(networkReferences))
   }
 }
