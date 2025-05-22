@@ -79,309 +79,307 @@ class CreateIndexesTool(database: Database) {
 
   private def indexConfiguration(database: Database): Seq[Index] = {
     Seq(
-      /*
-                  equal("active", true),
-            equal("members.memberType", "node"),
-            equal("members.ref", nodeId),
-
-       */
-      Index(
+      Index( // support MongoQueryNodeBaseNetworkReferences
         database.baseNetworks,
         "network-node-references",
-        "members.memberType",
-        "members.ref"
+        "active",
+        "nodeIds"
+      ),
+      Index( // support MongoQueryRouteNetworkReferences
+        database.baseNetworks,
+        "network-route-references",
+        "active",
+        "routeIds"
+      ),
+      Index(
+        database.networks,
+        "network-name",
+        "active",
+        "attributes.name"
+      ),
+      Index(
+        database.networks,
+        "network-node-references",
+        "active",
+        "nodeRefs"
+      ),
+      Index(
+        database.networks,
+        "subset-networks",
+        "attributes.country",
+        "attributes.routeType",
+        "active"
+      ),
+      Index(
+        database.nodes,
+        "labels",
+        "labels"
+      ),
+      Index(
+        database.nodes,
+        "tiles",
+        "tiles"
+      ),
+      Index(
+        database.routes,
+        "labels",
+        "labels",
+        "_id"
+      ),
+      Index(
+        database.routes,
+        "location-routes-page",
+        "labels",
+        "summary.name",
+        "summary.id"
+      ),
+      Index(
+        database.routes,
+        "tiles",
+        "tiles"
       ),
 
+      Index(
+        database.baseRoutes,
+        "route-node-references",
+        "nodeRefs"
+      ),
 
-      //      Index(
-      //        database.networks,
-      //        "network-name",
-      //        "active",
-      //        "attributes.name"
-      //      ),
-      //      Index(
-      //        database.networks,
-      //        "network-node-references",
-      //        "active",
-      //        "nodeRefs"
-      //      ),
-      //      Index(
-      //        database.networks,
-      //        "subset-networks",
-      //        "attributes.country",
-      //        "attributes.routeType",
-      //        "active"
-      //      ),
-      //      Index(
-      //        database.nodes,
-      //        "labels",
-      //        "labels"
-      //      ),
-      //      Index(
-      //        database.nodes,
-      //        "tiles",
-      //        "tiles"
-      //      ),
-      //      Index(
-      //        database.routes,
-      //        "labels",
-      //        "labels",
-      //        "_id"
-      //      ),
-      //      Index(
-      //        database.routes,
-      //        "location-routes-page",
-      //        "labels",
-      //        "summary.name",
-      //        "summary.id"
-      //      ),
-      //      Index(
-      //        database.routes,
-      //        "tiles",
-      //        "tiles"
-      //      ),
-
-      //      Index(
-      //        database.baseRoutes,
-      //        "route-node-references",
-      //        "nodeRefs"
-      //      ),
-
-      //      Index(
-      //        database.routes,
-      //        "route-edges",
-      //        "summary.routeType",
-      //        "proposed",
-      //        "_id",
-      //        "edges.pathId",
-      //        "edges.sourceNodeId",
-      //        "edges.sinkNodeId",
-      //        "edges.meters"
-      //      ),
-      //      Index(
-      //        database.networkChanges,
-      //        "time",
-      //        "key.time"
-      //      ),
-      //      Index(
-      //        database.networkChanges,
-      //        "impact",
-      //        "impact"
-      //      ),
-      //      Index(
-      //        database.networkChanges,
-      //        "changeSetId",
-      //        "key.replicationNumber",
-      //        "key.changeSetId"
-      //      ),
-      //      Index( // This index will not be needed anymore if we only have queries based on time instead of timestamp
-      //        database.networkChanges,
-      //        "impact-timestamp",
-      //        Indexes.compoundIndex(
-      //          Indexes.ascending(
-      //            "networkId",
-      //            "impact",
-      //          ),
-      //          Indexes.descending(
-      //            "key.timestamp"
-      //          )
-      //        )
-      //      ),
-      //      Index(
-      //        database.networkChanges,
-      //        "impact-time",
-      //        Indexes.compoundIndex(
-      //          Indexes.ascending(
-      //            "networkId",
-      //            "impact",
-      //          ),
-      //          Indexes.descending(
-      //            "key.time"
-      //          )
-      //        )
-      //      ),
-      //      Index(
-      //        database.networkChanges,
-      //        "networkId-time-impact",
-      //        Indexes.descending(
-      //          "networkId",
-      //          "key.time.year",
-      //          "key.time.month",
-      //          "key.time.day",
-      //          "impact"
-      //        )
-      //      ),
-      //      Index(
-      //        database.routeChanges,
-      //        "time",
-      //        "key.time"
-      //      ),
-      //      Index(
-      //        database.routeChanges,
-      //        "impact",
-      //        "impact"
-      //      ),
-      //      Index(
-      //        database.routeChanges,
-      //        "changeSetId",
-      //        "key.replicationNumber",
-      //        "key.changeSetId"
-      //      ),
-      //      Index(
-      //        database.nodeChanges,
-      //        "time",
-      //        "key.time"
-      //      ),
-      //      Index(
-      //        database.nodeChanges,
-      //        "impact",
-      //        "impact"
-      //      ),
-      //      Index(
-      //        database.nodeChanges,
-      //        "changeSetId",
-      //        "key.replicationNumber",
-      //        "key.changeSetId"
-      //      ),
-      //      Index(
-      //        database.changes,
-      //        "changes-impact-time",
-      //        Indexes.compoundIndex(
-      //          Indexes.ascending(
-      //            "impact",
-      //          ),
-      //          Indexes.descending(
-      //            "key.time"
-      //          )
-      //        )
-      //      ),
-      //      Index(
-      //        database.changes,
-      //        "changes-time",
-      //        Indexes.descending(
-      //          "key.time"
-      //        )
-      //      ),
-      //      Index(
-      //        database.changes,
-      //        "changes-subset-time",
-      //        Indexes.compoundIndex(
-      //          Indexes.ascending(
-      //            "subsets.country",
-      //            "subsets.routeType",
-      //          ),
-      //          Indexes.descending(
-      //            "key.time"
-      //          )
-      //        )
-      //      ),
-      //      Index(
-      //        database.changes,
-      //        "changes-subset-impact-time",
-      //        Indexes.compoundIndex(
-      //          Indexes.ascending(
-      //            "impact",
-      //            "subsets.country",
-      //            "subsets.routeType",
-      //          ),
-      //          Indexes.descending(
-      //            "key.time"
-      //          )
-      //        )
-      //      ),
-      //      Index(
-      //        database.changes,
-      //        "changeSetId",
-      //        "key.replicationNumber",
-      //        "key.changeSetId"
-      //      ),
-      //      Index(
-      //        database.changes,
-      //        "changes-location",
-      //        Indexes.compoundIndex(
-      //          Indexes.ascending(
-      //            "locations",
-      //            "impact",
-      //          ),
-      //          Indexes.descending(
-      //            "key.time"
-      //          )
-      //        )
-      //      ),
-      //      Index(
-      //        database.routeChanges,
-      //        "routeId-time-impact",
-      //        Indexes.descending(
-      //          "key.elementId",
-      //          "key.time.year",
-      //          "key.time.month",
-      //          "key.time.day",
-      //          "impact"
-      //        )
-      //      ),
-      //      Index(
-      //        database.nodeChanges,
-      //        "nodeId-time-impact",
-      //        Indexes.descending(
-      //          "key.elementId",
-      //          "key.time.year",
-      //          "key.time.month",
-      //          "key.time.day",
-      //          "impact"
-      //        )
-      //      ),
-      //      Index(
-      //        database.pois,
-      //        "type-id",
-      //        "elementType",
-      //        "elementId"
-      //      ),
-      //      Index(
-      //        database.pois,
-      //        "tiles",
-      //        "tiles"
-      //      ),
-      //      Index(
-      //        database.pois,
-      //        "location.names",
-      //        "layers"
-      //      ),
-      //      Index(
-      //        database.monitorRoutes,
-      //        "groupId-id",
-      //        Indexes.compoundIndex(
-      //          Indexes.ascending(
-      //            "groupId",
-      //          ),
-      //          Indexes.ascending(
-      //            "_id"
-      //          )
-      //        )
-      //      ),
-      //      Index(
-      //        database.monitorRouteStates,
-      //        "routeId-timestamp",
-      //        Indexes.compoundIndex(
-      //          Indexes.ascending(
-      //            "routeId",
-      //          ),
-      //          Indexes.descending(
-      //            "timestamp"
-      //          )
-      //        )
-      //      ),
-      //      Index(
-      //        database.monitorRouteReferences,
-      //        "routeId-created",
-      //        Indexes.compoundIndex(
-      //          Indexes.ascending(
-      //            "routeId",
-      //          ),
-      //          Indexes.descending(
-      //            "created"
-      //          )
-      //        )
-      //      )
+      Index(
+        database.routes,
+        "route-edges",
+        "summary.routeType",
+        "proposed",
+        "_id",
+        "edges.pathId",
+        "edges.sourceNodeId",
+        "edges.sinkNodeId",
+        "edges.meters"
+      ),
+      Index(
+        database.networkChanges,
+        "time",
+        "key.time"
+      ),
+      Index(
+        database.networkChanges,
+        "impact",
+        "impact"
+      ),
+      Index(
+        database.networkChanges,
+        "changeSetId",
+        "key.replicationNumber",
+        "key.changeSetId"
+      ),
+      Index( // This index will not be needed anymore if we only have queries based on time instead of timestamp
+        database.networkChanges,
+        "impact-timestamp",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "networkId",
+            "impact",
+          ),
+          Indexes.descending(
+            "key.timestamp"
+          )
+        )
+      ),
+      Index(
+        database.networkChanges,
+        "impact-time",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "networkId",
+            "impact",
+          ),
+          Indexes.descending(
+            "key.time"
+          )
+        )
+      ),
+      Index(
+        database.networkChanges,
+        "networkId-time-impact",
+        Indexes.descending(
+          "networkId",
+          "key.time.year",
+          "key.time.month",
+          "key.time.day",
+          "impact"
+        )
+      ),
+      Index(
+        database.routeChanges,
+        "time",
+        "key.time"
+      ),
+      Index(
+        database.routeChanges,
+        "impact",
+        "impact"
+      ),
+      Index(
+        database.routeChanges,
+        "changeSetId",
+        "key.replicationNumber",
+        "key.changeSetId"
+      ),
+      Index(
+        database.nodeChanges,
+        "time",
+        "key.time"
+      ),
+      Index(
+        database.nodeChanges,
+        "impact",
+        "impact"
+      ),
+      Index(
+        database.nodeChanges,
+        "changeSetId",
+        "key.replicationNumber",
+        "key.changeSetId"
+      ),
+      Index(
+        database.changes,
+        "changes-impact-time",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "impact",
+          ),
+          Indexes.descending(
+            "key.time"
+          )
+        )
+      ),
+      Index(
+        database.changes,
+        "changes-time",
+        Indexes.descending(
+          "key.time"
+        )
+      ),
+      Index(
+        database.changes,
+        "changes-subset-time",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "subsets.country",
+            "subsets.routeType",
+          ),
+          Indexes.descending(
+            "key.time"
+          )
+        )
+      ),
+      Index(
+        database.changes,
+        "changes-subset-impact-time",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "impact",
+            "subsets.country",
+            "subsets.routeType",
+          ),
+          Indexes.descending(
+            "key.time"
+          )
+        )
+      ),
+      Index(
+        database.changes,
+        "changeSetId",
+        "key.replicationNumber",
+        "key.changeSetId"
+      ),
+      Index(
+        database.changes,
+        "changes-location",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "locations",
+            "impact",
+          ),
+          Indexes.descending(
+            "key.time"
+          )
+        )
+      ),
+      Index(
+        database.routeChanges,
+        "routeId-time-impact",
+        Indexes.descending(
+          "key.elementId",
+          "key.time.year",
+          "key.time.month",
+          "key.time.day",
+          "impact"
+        )
+      ),
+      Index(
+        database.nodeChanges,
+        "nodeId-time-impact",
+        Indexes.descending(
+          "key.elementId",
+          "key.time.year",
+          "key.time.month",
+          "key.time.day",
+          "impact"
+        )
+      ),
+      Index(
+        database.pois,
+        "type-id",
+        "elementType",
+        "elementId"
+      ),
+      Index(
+        database.pois,
+        "tiles",
+        "tiles"
+      ),
+      Index(
+        database.pois,
+        "location.names",
+        "layers"
+      ),
+      Index(
+        database.monitorRoutes,
+        "groupId-id",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "groupId",
+          ),
+          Indexes.ascending(
+            "_id"
+          )
+        )
+      ),
+      Index(
+        database.monitorRouteStates,
+        "routeId-timestamp",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "routeId",
+          ),
+          Indexes.descending(
+            "timestamp"
+          )
+        )
+      ),
+      Index(
+        database.monitorRouteReferences,
+        "routeId-created",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "routeId",
+          ),
+          Indexes.descending(
+            "created"
+          )
+        )
+      )
     )
   }
 }

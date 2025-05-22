@@ -25,6 +25,10 @@ class MongoQueryNodeBaseNetworkReferencesTest extends UnitTest with SharedTestOb
           members = Seq(
             RawMember(MemberType.Node, 1001L, Some("connection")),
             RawMember(MemberType.Node, 1002L, None),
+          ),
+          nodeIds = Seq(
+            1001,
+            1002
           )
         )
       )
@@ -36,6 +40,10 @@ class MongoQueryNodeBaseNetworkReferencesTest extends UnitTest with SharedTestOb
           members = Seq(
             RawMember(MemberType.Node, 1001L, None),
             RawMember(MemberType.Node, 1003L, None),
+          ),
+          nodeIds = Seq(
+            1001,
+            1003
           )
         )
       )
@@ -60,6 +68,10 @@ class MongoQueryNodeBaseNetworkReferencesTest extends UnitTest with SharedTestOb
           members = Seq(
             RawMember(MemberType.Node, 1001L, None),
             RawMember(MemberType.Node, 1002L, None),
+          ),
+          nodeIds = Seq(
+            1001,
+            1002
           )
         )
       )
@@ -71,6 +83,10 @@ class MongoQueryNodeBaseNetworkReferencesTest extends UnitTest with SharedTestOb
           members = Seq(
             RawMember(MemberType.Node, 1001L, None),
             RawMember(MemberType.Node, 1003L, None),
+          ),
+          nodeIds = Seq(
+            1001,
+            1003
           )
         )
       )

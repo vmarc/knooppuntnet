@@ -37,7 +37,7 @@ class FullRouteAnalyzer(
   }
 
   private def collectBaseRouteIds(): Seq[Long] = {
-    log.info(s"Collecting base route ids")
+    log.info(s"Collecting route ids in base routes")
     log.infoElapsed {
       val ids = routeRepository.activeBaseRouteIds()
       (s"${ids.size} base route ids", ids)

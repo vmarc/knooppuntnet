@@ -81,7 +81,10 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
         active = false, // <--- !!!
         name = Some("network"),
         changeSetId = 1,
-        tags = newNetworkTags("network")
+        tags = newNetworkTags("network"),
+        nodeIds = Seq(
+          1001
+        )
       )
     )
   }

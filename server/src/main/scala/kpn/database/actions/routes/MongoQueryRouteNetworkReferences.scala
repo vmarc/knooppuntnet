@@ -22,7 +22,7 @@ object MongoQueryRouteNetworkReferences {
 class MongoQueryRouteNetworkReferences(database: Database) {
 
   def execute(routeId: Long, log: Log = MongoQueryRouteNetworkReferences.log): Seq[Reference] = {
-    log.debugElapsed {
+    log.infoElapsed {
       val pipeline = Seq(
         filter(
           and(

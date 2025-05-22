@@ -32,8 +32,7 @@ class MongoQueryNodeBaseNetworkReferences(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("members.memberType", "node"),
-          equal("members.ref", nodeId),
+          equal("nodeIds", nodeId),
         )
       ),
       unwind("$members"),

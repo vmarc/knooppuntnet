@@ -97,6 +97,9 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
           "network" -> "rwn",
           "name" -> "network-name"
         ),
+        nodeIds = Seq(
+          1001
+        )
       )
     )
   }
