@@ -71,6 +71,7 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
       findNodeById(1001),
       newNodeDoc(
         1001,
+        active = false,
         labels = Seq(
           Label.location("nl")
         ),

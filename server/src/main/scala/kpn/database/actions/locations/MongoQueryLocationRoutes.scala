@@ -272,7 +272,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
 
   private def mainFilters(subset: LocationSubset): MongoPipeline = {
     Seq(
-      equal("labels", Label.active),
+      equal("active", true),
       equal("labels", Label.routeType(subset.routeType)),
       LocationQuery.locationFilter("labels", subset),
     )

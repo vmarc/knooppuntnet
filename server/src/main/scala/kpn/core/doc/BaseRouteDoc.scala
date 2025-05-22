@@ -17,6 +17,7 @@ import kpn.server.analyzer.engine.context.ElementIds
 
 case class BaseRouteDoc(
   _id: Long, // routeId
+  active: Boolean,
   labels: Seq[String],
   summary: RouteSummary,
   proposed: Boolean,
@@ -52,11 +53,8 @@ case class BaseRouteDoc(
 
   def deactivated: BaseRouteDoc = {
     copy(
-      labels = labels.filterNot(label =>
-        label == Label.active || label.startsWith("fact")
-      )
+      active = false,
+      labels = labels.filterNot(_.startsWith("fact"))
     )
   }
-
-  def isActive: Boolean = labels.contains(Label.active)
 }

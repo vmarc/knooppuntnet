@@ -1,7 +1,6 @@
 package kpn.database.actions.nodes
 
 import kpn.api.common.common.Reference
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.actions.nodes.MongoQueryNodeBaseRouteReferences.log
 import kpn.database.base.Database
@@ -35,7 +34,7 @@ class MongoQueryNodeBaseRouteReferences(database: Database) {
     Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           equal("nodeRefs", nodeId),
         )
       ),

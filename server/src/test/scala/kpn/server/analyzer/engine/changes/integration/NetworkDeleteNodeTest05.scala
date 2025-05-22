@@ -115,7 +115,6 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
       newNodeDoc(
         1001,
         labels = Seq(
-          Label.active,
           Label.routeType(RouteType.cycling),
           Label.location("nl")
         ),

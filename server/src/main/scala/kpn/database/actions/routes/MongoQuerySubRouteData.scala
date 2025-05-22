@@ -1,6 +1,5 @@
 package kpn.database.actions.routes
 
-import kpn.core.doc.Label
 import kpn.core.doc.SubRouteData
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQuerySubRouteData.log
@@ -33,7 +32,7 @@ class MongoQuerySubRouteData(database: Database) {
       filter(
         and(
           equal("_id", routeId),
-          equal("labels", Label.active)
+          equal("active", true),
         )
       ),
       project(

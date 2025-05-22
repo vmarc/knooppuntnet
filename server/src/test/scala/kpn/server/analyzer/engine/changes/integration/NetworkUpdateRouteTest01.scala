@@ -116,7 +116,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           tags = newRouteTags("01-02")
         ),
         labels = Seq(
-          Label.active,
           Label.country(Country.nl),
           Label.routeType(RouteType.hiking),
           Label.scope(RouteScope.regional),
@@ -241,7 +240,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           tags = newRouteTags("01-02")
         ),
         labels = Seq(
-          Label.active,
           Label.country(Country.nl),
           Label.routeType(RouteType.hiking),
           Label.scope(RouteScope.regional),

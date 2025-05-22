@@ -39,6 +39,7 @@ class NodeMainAnalyzer(
       Some(
         NodeDoc(
           _id = context.node._id,
+          active = context.active,
           labels = context.labels,
           country = context.node.country,
           name = context.node.name,

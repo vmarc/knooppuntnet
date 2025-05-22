@@ -326,7 +326,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
 
   private def subsetFilter(subset: LocationSubset): MongoPipeline = {
     Seq(
-      equal("labels", Label.active),
+      equal("active", true),
       equal("labels", Label.routeType(subset.routeType)),
       LocationQuery.locationFilter("labels", subset),
     )

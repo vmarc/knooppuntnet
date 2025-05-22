@@ -48,6 +48,7 @@ class RouteMainAnalyzer(
       Some(
         RouteDoc(
           context.route._id, // routeId
+          context.route.active,
           context.route.labels,
           summary,
           context.route.proposed,

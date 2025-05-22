@@ -1,7 +1,6 @@
 package kpn.database.actions.routes
 
 import kpn.api.common.Bounds
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.core.util.Util
 import kpn.database.base.Database
@@ -28,7 +27,7 @@ class MongoQueryRouteBounds(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", Label.active),
+            equal("active", true),
             in("_id", routeIds: _*),
             exists("bounds")
           )

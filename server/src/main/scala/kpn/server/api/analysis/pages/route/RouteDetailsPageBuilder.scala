@@ -4,7 +4,6 @@ import kpn.api.common.Language
 import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteDetailsPageData
-import kpn.core.doc.Label
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.ChangeSetRepository
@@ -43,7 +42,7 @@ class RouteDetailsPageBuilder(
       // TODO add routeIds, parent routes (reverse subRelationTree), add children
       val data = RouteDetailsPageData(
         routeDoc._id,
-        routeDoc.labels.contains(Label.active),
+        routeDoc.active,
         routeDoc.summary,
         routeDoc.proposed,
         routeDoc.version,

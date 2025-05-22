@@ -47,7 +47,6 @@ class OrphanNodeCreateTest02 extends IntegrationTest {
       newNodeDoc(
         1001,
         labels = Seq(
-          Label.active,
           Label.routeType(RouteType.hiking),
           Label.location("nl")
         ),

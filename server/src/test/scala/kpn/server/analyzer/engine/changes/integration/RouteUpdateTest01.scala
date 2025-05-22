@@ -58,7 +58,7 @@ class RouteUpdateTest01 extends IntegrationTest {
   private def assertRoute(): Unit = {
     val routeDoc = findRouteById(11)
     routeDoc.id should equal(11)
-    assert(routeDoc.isActive)
+    assert(routeDoc.active)
   }
 
   private def assertRouteChange(): Unit = {

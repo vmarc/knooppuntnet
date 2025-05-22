@@ -4,7 +4,6 @@ import kpn.api.common.ChangeType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
-import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class RouteToNetworkTest01 extends IntegrationTest {
@@ -36,7 +35,7 @@ class RouteToNetworkTest01 extends IntegrationTest {
       database.orphanRoutes.findById(1) should equal(None)
 
       val route = findRouteById(1)
-      route.labels shouldNot contain(Label.active)
+      route.active should equal(false)
       route.summary.name should equal("01-02")
       route.version should equal(1)
 

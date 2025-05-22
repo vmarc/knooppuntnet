@@ -44,7 +44,7 @@ class MongoQueryLocationFactCount(database: Database) {
     val nodeFactsPipeline = Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           equal("labels", Label.routeType(subset.routeType)),
           LocationQuery.locationFilter("labels", subset),
           equal("labels", Label.facts)
@@ -70,7 +70,7 @@ class MongoQueryLocationFactCount(database: Database) {
     val nodePipeline2 = Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           equal("labels", Label.routeType(subset.routeType)),
           LocationQuery.locationFilter("labels", subset),
         )
@@ -92,7 +92,7 @@ class MongoQueryLocationFactCount(database: Database) {
     val routeFactPipeline = Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           equal("labels", Label.routeType(subset.routeType)),
           LocationQuery.locationFilter("labels", subset),
           equal("labels", Label.facts)

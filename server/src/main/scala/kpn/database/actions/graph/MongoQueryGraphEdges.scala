@@ -2,7 +2,6 @@ package kpn.database.actions.graph
 
 import kpn.api.common.RouteType
 import kpn.api.common.common.TrackPathKey
-import kpn.core.doc.Label
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.util.Log
 import kpn.database.actions.graph.MongoQueryGraphEdges.log
@@ -49,7 +48,7 @@ class MongoQueryGraphEdges(database: Database) {
   def execute(): Seq[GraphEdges] = {
 
     val pipeline = Seq(
-      filter(equal("labels", Label.active)),
+      filter(equal("active", true)),
       unwind("$edges"),
       unwind("$summary.routeTypes"),
       project(

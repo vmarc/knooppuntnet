@@ -1,6 +1,5 @@
 package kpn.database.actions.nodes
 
-import kpn.core.doc.Label
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.database.actions.nodes.MongoQueryNodes.log
@@ -30,7 +29,7 @@ class MongoQueryNodes(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", Label.active),
+            equal("active", true),
             in("_id", nodeIds: _*)
           ),
         )
@@ -45,7 +44,7 @@ class MongoQueryNodes(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", Label.active),
+            equal("active", true),
             in("_id", nodeIds: _*)
           )
         ),

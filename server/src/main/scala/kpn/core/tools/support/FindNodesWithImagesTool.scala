@@ -1,6 +1,5 @@
 package kpn.core.tools.support
 
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.StringId
@@ -42,7 +41,7 @@ class FindNodesWithImagesTool(database: Database) {
 
     val pipeline = Seq(
       filter(
-        equal("labels", Label.active),
+        equal("active", true),
       ),
       unwind("$tags.tags"),
       project(
@@ -69,7 +68,7 @@ class FindNodesWithImagesTool(database: Database) {
   private def findNodeTagKeys(): Seq[String] = {
     val pipeline = Seq(
       filter(
-        equal("labels", Label.active),
+        equal("active", true),
       ),
       unwind("$tags.tags"),
       project(

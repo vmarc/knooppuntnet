@@ -1,7 +1,6 @@
 package kpn.database.actions.routes
 
 import kpn.api.common.search.ConditionGroup
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
 import org.mongodb.scala.model.Aggregates.filter
@@ -27,7 +26,7 @@ class MongoQueryRoutes(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", Label.active),
+            equal("active", true),
             SearchQueryBuilder.buildFilter(group)
           )
         ),

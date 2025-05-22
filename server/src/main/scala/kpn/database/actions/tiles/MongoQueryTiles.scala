@@ -1,6 +1,5 @@
 package kpn.database.actions.tiles
 
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.actions.tiles.MongoQueryTiles.log
 import kpn.database.base.Database
@@ -54,7 +53,7 @@ class MongoQueryTiles(database: Database) {
     Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           equal("tiles", tileName)
         )
       ),

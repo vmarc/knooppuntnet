@@ -1,6 +1,5 @@
 package kpn.database.actions.nodes
 
-import kpn.core.doc.Label
 import kpn.core.doc.NodeRouteRef
 import kpn.core.util.Log
 import kpn.database.actions.nodes.MongoQueryNodeRouteReferences.log
@@ -26,7 +25,7 @@ class MongoQueryNodeRouteReferences(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", Label.active),
+            equal("active", true),
             in("nodeRefs", nodeIds: _*),
           )
         ),

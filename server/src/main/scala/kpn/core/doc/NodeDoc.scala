@@ -19,6 +19,7 @@ import kpn.api.custom.Timestamp
 
 case class NodeDoc(
   _id: Long,
+  active: Boolean,
   labels: Seq[String],
   country: Option[Country],
   name: Option[String],
@@ -38,15 +39,9 @@ case class NodeDoc(
   stamp: Option[ObjectId],
 ) extends Tagable with LatLon with WithId {
 
-  def active: Boolean = {
-    labels.contains(Label.active)
-  }
-
   def deactivated: NodeDoc = {
     copy(
-      labels = labels.filterNot(label =>
-        label == Label.active || label.startsWith("fact")
-      )
+      active = false
     )
   }
 
@@ -72,6 +67,7 @@ case class NodeDoc(
 
   def isSameAs(other: NodeDoc): Boolean = {
     _id == other._id &&
+      active == other.active &&
       labels == other.labels &&
       country == other.country &&
       name == other.name &&

@@ -122,6 +122,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
       findNodeById(1001L),
       newNodeDoc(
         1001L,
+        active = false,
         labels = Seq(
           Label.location("nl")
         ),

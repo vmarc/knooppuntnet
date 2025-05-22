@@ -23,8 +23,7 @@ class NodeLabelsAnalyzer(context: NodeAnalysisContext) {
 
   private def buildBasicLabels(): Seq[String] = {
     Seq(
-      if (context.active) Some(Label.active) else None,
-      if (context.orphan) Some("orphan") else None,
+      if (context.orphan) Some(Label.orphan) else None,
       if (context.node.lastSurvey.isDefined) Some(Label.survey) else None,
       if (context.facts.nonEmpty) Some(Label.facts) else None,
     ).flatten

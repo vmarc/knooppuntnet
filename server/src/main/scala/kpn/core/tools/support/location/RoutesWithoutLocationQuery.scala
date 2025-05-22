@@ -1,6 +1,5 @@
 package kpn.core.tools.support.location
 
-import kpn.core.doc.Label
 import kpn.database.base.Database
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
@@ -16,7 +15,7 @@ class RoutesWithoutLocationQuery(database: Database) {
     val pipeline = Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           size("analysis.locationAnalysis.locationNames", 0),
         )
       ),

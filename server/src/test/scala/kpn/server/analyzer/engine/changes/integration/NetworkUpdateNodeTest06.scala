@@ -97,7 +97,6 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
       newNodeDoc(
         1002,
         labels = Seq(
-          Label.active,
           Label.routeType(RouteType.cycling),
           Label.location("nl")
         ),

@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.post
 
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Id
@@ -19,7 +18,7 @@ class OrphanRouteUpdater_AllRouteIds(database: Database, log: Log) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", Label.active),
+            equal("active", true),
             exists("summary.countries.0")
           )
         ),

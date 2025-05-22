@@ -7,9 +7,9 @@ import kpn.api.common.RouteType
 
 object Label {
 
-  val active: String = "active"
   val survey: String = "survey"
   val facts: String = "facts"
+  val orphan: String = "orphan"
 
   def routeType(routeType: RouteType): String = s"network-type-${routeType.entryName}"
 

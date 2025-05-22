@@ -19,7 +19,6 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
     assertEqual(
       BaseRouteLabelsAnalyzer.analyze(context).labels,
       Seq(
-        Label.active,
         "broken",
         Label.fact(Fact.RouteBroken),
         Label.facts,
@@ -30,12 +29,6 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
         Label.survey,
       )
     )
-  }
-
-  test("active false") {
-    val context = buildContext().copy(active = false)
-    val labels = BaseRouteLabelsAnalyzer.analyze(context).labels
-    labels shouldNot contain(Label.active)
   }
 
   test("no survey") {
@@ -64,7 +57,6 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
     assertEqual(
       BaseRouteLabelsAnalyzer.analyze(context).labels,
       Seq(
-        Label.active,
         "broken",
         Label.fact(Fact.RouteBroken),
         Label.facts,

@@ -6,7 +6,6 @@ import kpn.api.common.Country.nl
 import kpn.api.common.RouteType
 import kpn.api.common.RouteType.cycling
 import kpn.api.common.RouteType.hiking
-import kpn.core.doc.Label
 import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -49,7 +48,7 @@ class StatisticsUpdateSubsetNodeCountTest extends UnitTest with SharedTestObject
     database.nodes.save(
       newNodeDoc(
         nodeId,
-        labels = if (active) Seq(Label.active) else Seq.empty,
+        active = active,
         country = Some(country),
         names = Seq(
           newNodeName(

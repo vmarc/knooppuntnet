@@ -1,7 +1,9 @@
 package kpn.database.actions.locations
 
+import kpn.api.common.RouteType
 import kpn.api.common.SurveyDateInfo
 import kpn.api.custom.Day
+import kpn.core.doc.Label
 import kpn.core.test.SharedTestObjects
 import kpn.database.base.Database
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
@@ -21,10 +23,9 @@ class MongoQueryLocationRoutesTestSetup(database: Database) extends SharedTestOb
       newRouteDoc(
         newRouteSummary(routeId),
         labels = Seq(
-          "active",
-          "network-type-hiking",
-          "location-be",
-          "survey",
+          Label.routeType(RouteType.hiking),
+          Label.location("be"),
+          Label.survey,
         ),
         lastSurvey = lastSurvey
       )
@@ -36,9 +37,8 @@ class MongoQueryLocationRoutesTestSetup(database: Database) extends SharedTestOb
       newRouteDoc(
         newRouteSummary(routeId),
         labels = Seq(
-          "active",
-          "network-type-hiking",
-          "location-be",
+          Label.routeType(RouteType.hiking),
+          Label.location("be"),
         ),
         proposed = proposed
       )

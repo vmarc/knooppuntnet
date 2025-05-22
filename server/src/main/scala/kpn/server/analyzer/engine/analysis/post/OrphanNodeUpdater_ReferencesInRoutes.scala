@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.post
 
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Id
@@ -17,7 +16,7 @@ class OrphanNodeUpdater_ReferencesInRoutes(database: Database, log: Log) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
-          equal("labels", Label.active)
+          equal("active", true),
         ),
         unwind("$nodeRefs"),
         project(

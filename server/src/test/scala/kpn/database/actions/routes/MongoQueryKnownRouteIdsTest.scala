@@ -19,7 +19,7 @@ class MongoQueryKnownRouteIdsTest extends UnitTest with SharedTestObjects {
       database.baseRoutes.save(
         newBaseRouteDoc(
           newRouteSummary(12L),
-          labels = Seq.empty // non-active routes are not included
+          active = false // non-active routes are not included
         )
       )
 

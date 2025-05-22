@@ -34,7 +34,7 @@ class FindCircularRoutesTool(database: Database) {
       routeRepository.findRouteById(routeId) match {
         case None =>
         case Some(routeDoc) =>
-          if (routeDoc.isActive) {
+          if (routeDoc.active) {
             // TODO redesign
             //    if (routeDoc.analysis.map.freeNodes.size > 2) {
             //      if (routeDoc.analysis.map.freeNodes.map(_.name).distinct.size == 1) {

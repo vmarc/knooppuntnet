@@ -40,7 +40,7 @@ class OldMongoQueryNodeTileInfo(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", Label.active),
+            equal("active", true),
             equal("labels", Label.routeType(routeType))
           )
         ),
@@ -57,7 +57,7 @@ class OldMongoQueryNodeTileInfo(database: Database) {
         filter(
           and(
             equal("_id", nodeId),
-            equal("labels", Label.active)
+            equal("active", true),
           )
         ),
         projectNodeTileInfo

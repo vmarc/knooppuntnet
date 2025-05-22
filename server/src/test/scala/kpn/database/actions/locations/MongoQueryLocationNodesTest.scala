@@ -24,7 +24,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            Label.active,
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
           ),
@@ -38,7 +37,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1002L,
           labels = Seq(
-            Label.active,
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
           ),
@@ -94,7 +92,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            Label.active,
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName),
           ),
@@ -108,10 +105,10 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       database.nodes.save(
         newNodeDoc(
           1002L,
+          active = false,
           labels = Seq(
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
-            // not active
           ),
           names = Seq(
             newNodeName(name = "02")
@@ -136,7 +133,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            Label.active,
             Label.survey,
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
@@ -152,7 +148,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1002L,
           labels = Seq(
-            Label.active,
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
           ),
@@ -196,7 +191,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            Label.active,
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
           ),
@@ -210,7 +204,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1002L,
           labels = Seq(
-            Label.active,
             Label.routeType(RouteType.hiking),
             Label.location(Country.nl.entryName)
           ),
@@ -236,7 +229,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            Label.active,
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
           ),
@@ -250,7 +242,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1002L,
           labels = Seq(
-            Label.active,
             Label.routeType(RouteType.cycling),
             Label.location(Country.be.entryName)
           ),
@@ -276,7 +267,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            Label.active,
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
           ),
@@ -290,7 +280,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1007L,
           labels = Seq(
-            Label.active,
             Label.facts,
             Label.fact(Fact.NodeInvalidSurveyDate),
             Label.routeType(RouteType.hiking),
@@ -341,7 +330,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
           newNodeDoc(
             nodeId,
             labels = Seq(
-              Label.active,
               Label.routeType(RouteType.hiking),
               Label.location(Country.be.entryName)
             ),

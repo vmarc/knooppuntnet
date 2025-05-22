@@ -31,7 +31,7 @@ class MongoQueryLocations(database: Database) {
     val pipeline = Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           equal("labels", Label.routeType(subset.routeType)),
           LocationQuery.locationFilter("labels", subset),
         )
@@ -155,7 +155,7 @@ class MongoQueryLocations(database: Database) {
     Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           equal("labels", Label.routeType(subset.routeType)),
           equal("labels", Label.location(subset.country.entryName)),
         )

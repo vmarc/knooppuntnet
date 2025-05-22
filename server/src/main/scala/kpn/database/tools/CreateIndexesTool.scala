@@ -57,24 +57,27 @@ class CreateIndexesTool(database: Database) {
 
   private def createIndex(index: Index): Unit = {
     Log.context(s"collection: '${index.collection.name}', index: '${index.indexName}'") {
-      if (hasIndex(index)) {
-        log.info("Index already exists")
-      }
-      else {
-        log.infoElapsed {
-          val collection = database.getCollection(index.collection.name)
-          val future = collection.createIndex(index.index, IndexOptions().name(index.indexName)).toFuture()
-          Await.result(future, Duration(25, TimeUnit.MINUTES))
-          ("Created", ())
-        }
+      dropIndex(index)
+      log.infoElapsed {
+        val collection = database.getCollection(index.collection.name)
+        val future = collection.createIndex(index.index, IndexOptions().name(index.indexName)).toFuture()
+        Await.result(future, Duration(25, TimeUnit.MINUTES))
+        ("Created", ())
       }
     }
   }
 
-  private def hasIndex(index: Index): Boolean = {
-    val future = index.collection.listIndexes().toFuture()
-    val indexDefinitions = Await.result(future, Duration(25, TimeUnit.MINUTES))
-    indexDefinitions.exists(_.name == index.indexName)
+  private def dropIndex(index: Index): Unit = {
+    val collection = database.getCollection(index.collection.name)
+    try {
+      val future = collection.dropIndex(index.index).toFuture()
+      Await.result(future, Duration(25, TimeUnit.MINUTES))
+      log.info("dropped")
+    }
+    catch {
+      case e: Exception =>
+        log.warn(s"Could not drop index (does not exist, or index definition does not match)?)")
+    }
   }
 
   private def indexConfiguration(database: Database): Seq[Index] = {
@@ -113,22 +116,26 @@ class CreateIndexesTool(database: Database) {
       Index(
         database.nodes,
         "labels",
+        "active",
         "labels"
       ),
       Index(
         database.nodes,
         "tiles",
+        "active",
         "tiles"
       ),
       Index(
         database.routes,
         "labels",
+        "active",
         "labels",
         "_id"
       ),
       Index(
         database.routes,
         "location-routes-page",
+        "active",
         "labels",
         "summary.name",
         "summary.id"
@@ -136,18 +143,30 @@ class CreateIndexesTool(database: Database) {
       Index(
         database.routes,
         "tiles",
+        "active",
         "tiles"
       ),
 
       Index(
         database.baseRoutes,
         "route-node-references",
+        "active",
         "nodeRefs"
+      ),
+
+      Index( // support MongoQueryParentRoutes
+        database.baseRoutes,
+        "sub-routes",
+        "subRouteIds",
+        "active",
+        "_id",
+        "summary.name",
       ),
 
       Index(
         database.routes,
         "route-edges",
+        "active",
         "summary.routeType",
         "proposed",
         "_id",

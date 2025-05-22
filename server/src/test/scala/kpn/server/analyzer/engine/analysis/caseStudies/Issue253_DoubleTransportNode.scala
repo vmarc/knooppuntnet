@@ -97,7 +97,6 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         newNodeDoc(
           id = 620168928L,
           labels = Seq(
-            Label.active,
             Label.routeType(RouteType.hiking),
             Label.location("nl")
           ),

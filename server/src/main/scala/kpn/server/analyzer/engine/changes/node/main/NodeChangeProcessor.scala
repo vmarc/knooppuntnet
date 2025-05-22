@@ -76,7 +76,8 @@ class NodeChangeProcessor(
     nodeDocBeforeOption match {
       case None =>
         nodeDocAfterOption match {
-          case Some(nodeDocAfter) => processCreate(context, nodeDocAfter)
+          case Some(nodeDocAfter) =>
+            processCreate(context, nodeDocAfter)
           case None =>
             // TODO message ?
             None

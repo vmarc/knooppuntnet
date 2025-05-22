@@ -63,13 +63,13 @@ class RouteDeleteTest01 extends IntegrationTest {
   private def assertBaseRoute(): Unit = {
     val baseRouteDoc = findBaseRouteById(11)
     baseRouteDoc.id should equal(11)
-    assert(!baseRouteDoc.isActive)
+    assert(!baseRouteDoc.active)
   }
 
   private def assertRoute(): Unit = {
     val routeDoc = findRouteById(11)
     routeDoc.id should equal(11)
-    assert(!routeDoc.isActive)
+    assert(!routeDoc.active)
   }
 
   private def assertNode1001(): Unit = {
@@ -78,7 +78,6 @@ class RouteDeleteTest01 extends IntegrationTest {
       newNodeDoc(
         1001,
         labels = Seq(
-          Label.active,
           Label.routeType(RouteType.hiking),
           Label.location("nl")
         ),
@@ -105,7 +104,6 @@ class RouteDeleteTest01 extends IntegrationTest {
       newNodeDoc(
         1002,
         labels = Seq(
-          Label.active,
           Label.routeType(RouteType.hiking),
           Label.location("nl")
         ),

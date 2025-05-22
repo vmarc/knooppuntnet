@@ -32,7 +32,7 @@ class StructureFindOkCyclingRoutesTool(database: Database) {
     val pipeline = Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           equal("labels", Label.routeType(RouteType.cycling)),
           BsonDocument("""{"facts": { "$size": 0 }}""")
         )

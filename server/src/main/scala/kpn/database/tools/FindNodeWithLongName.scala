@@ -1,6 +1,5 @@
 package kpn.database.tools
 
-import kpn.core.doc.Label
 import kpn.database.util.Mongo
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
@@ -20,7 +19,7 @@ object FindNodeWithLongName {
 
       val pipeline = Seq(
         filter(
-          equal("labels", Label.active)
+          equal("active", true),
         ),
         unwind("$names"),
         filter(

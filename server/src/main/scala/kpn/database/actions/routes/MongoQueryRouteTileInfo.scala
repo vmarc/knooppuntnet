@@ -47,7 +47,7 @@ class MongoQueryRouteTileInfo(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", Label.active),
+            equal("active", true),
             equal("labels", Label.routeType(routeType)),
             exists("summary.countries.0"), // TODO redesign tiles - this condition was added temporarily to avoid problems with lat/lon calculations
             equal("summary.nodeNetwork", nodeNetwork)
@@ -66,7 +66,7 @@ class MongoQueryRouteTileInfo(database: Database) {
         filter(
           and(
             equal("_id", routeId),
-            equal("labels", Label.active)
+            equal("active", true),
           )
         ),
         projectRouteTileInfo

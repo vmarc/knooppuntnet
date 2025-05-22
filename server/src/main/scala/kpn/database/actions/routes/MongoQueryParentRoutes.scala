@@ -1,6 +1,5 @@
 package kpn.database.actions.routes
 
-import kpn.core.doc.Label
 import kpn.core.doc.ParentRouteData
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryParentRoutes.log
@@ -33,7 +32,7 @@ class MongoQueryParentRoutes(database: Database) {
       filter(
         and(
           equal("subRouteIds", routeId),
-          equal("labels", Label.active),
+          equal("active", true),
         )
       ),
       project(

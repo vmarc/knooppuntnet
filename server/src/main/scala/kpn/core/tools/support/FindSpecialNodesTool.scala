@@ -2,7 +2,6 @@ package kpn.core.tools.support
 
 import kpn.api.common.Country
 import kpn.api.common.RouteType
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
@@ -39,7 +38,7 @@ class FindSpecialNodesTool(database: Database) {
 
     val pipeline = Seq(
       filter(
-        equal("labels", Label.active),
+        equal("active", true),
       ),
       unwind("$names"),
       filter(

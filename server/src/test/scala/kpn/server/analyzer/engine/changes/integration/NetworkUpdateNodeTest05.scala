@@ -88,6 +88,7 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
       findNodeById(1002),
       newNodeDoc(
         1002,
+        active = false,
         labels = Seq(
           Label.location("nl")
         ),

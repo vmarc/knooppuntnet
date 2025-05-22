@@ -2,7 +2,6 @@ package kpn.database.actions.routes
 
 import kpn.api.common.RouteType.hiking
 import kpn.api.common.route.RouteNameInfo
-import kpn.core.doc.Label
 import kpn.core.doc.RouteDoc
 import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
@@ -31,7 +30,7 @@ class MongoQueryRouteNameInfoTest extends UnitTest with SharedTestObjects {
         routeTypes = Seq(hiking),
         name = name
       ),
-      labels = if (active) Seq(Label.active) else Seq.empty
+      active = active,
     )
   }
 }

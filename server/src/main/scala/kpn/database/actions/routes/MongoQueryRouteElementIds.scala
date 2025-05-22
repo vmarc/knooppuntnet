@@ -1,6 +1,5 @@
 package kpn.database.actions.routes
 
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryRouteElementIds.log
 import kpn.database.base.Database
@@ -24,7 +23,7 @@ class MongoQueryRouteElementIds(database: Database) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
-          equal("labels", Label.active)
+          equal("active", true),
         ),
         project(
           fields(

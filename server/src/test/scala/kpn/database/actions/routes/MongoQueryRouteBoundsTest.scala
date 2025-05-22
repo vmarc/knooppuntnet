@@ -28,7 +28,7 @@ class MongoQueryRouteBoundsTest extends UnitTest with SharedTestObjects {
       database.baseRoutes.save(
         newBaseRouteDoc(
           newRouteSummary(13L),
-          labels = Seq.empty, // route does not have 'active' label
+          active = false, // route does not have 'active' label
           bounds = Some(Bounds(9, 10, 11, 12))
         )
       )

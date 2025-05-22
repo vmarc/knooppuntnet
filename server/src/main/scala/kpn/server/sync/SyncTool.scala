@@ -1,7 +1,6 @@
 package kpn.server.sync
 
 import kpn.api.base.ObjectId
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
@@ -69,7 +68,7 @@ class SyncTool(sourceDatabase: Database, targetDatabase: Database) {
   private def stamps(name: String, database: Database): Map[Long, ObjectId] = {
     val pipeline = Seq(
       filter(
-        equal("labels", Label.active)
+        equal("active", true),
       ),
       project(
         include("stamp")

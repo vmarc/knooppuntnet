@@ -2,7 +2,6 @@ package kpn.core.tools.support
 
 import kpn.api.common.Fact
 import kpn.api.custom.Subset
-import kpn.core.doc.Label
 import kpn.database.base.Database
 import kpn.database.base.Id
 import kpn.database.util.Mongo
@@ -45,7 +44,7 @@ class FactCheckTool(database: Database) {
     val pipeline = Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           equal("labels", "fact-RouteWithoutWays"),
         )
       ),

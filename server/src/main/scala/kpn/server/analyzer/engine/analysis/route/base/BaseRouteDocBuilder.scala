@@ -67,6 +67,7 @@ class BaseRouteDocBuilder() {
 
     BaseRouteDoc(
       summary.id,
+      active = true,
       context.labels,
       summary,
       proposed = context.proposed,

@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.data.MemberType
-import kpn.core.doc.Label
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -36,7 +35,7 @@ class NetworkNodeDocAnalyzer(database: Database) extends NetworkAnalyzer {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", Label.active),
+            equal("active", true),
             in("_id", nodeIds: _*)
           ),
         )

@@ -19,7 +19,6 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
-            Label.active,
             Label.facts,
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
@@ -35,7 +34,6 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1002L,
           labels = Seq(
-            Label.active,
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
           ),
@@ -48,10 +46,10 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
       database.nodes.save(
         newNodeDoc(
           1003L,
+          active = false,
           labels = Seq(
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
-            // not active
           ),
           names = Seq(
             newNodeName(name = "03")
@@ -74,7 +72,6 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
         newRouteDoc(
           newRouteSummary(101L),
           labels = Seq(
-            Label.active,
             Label.facts,
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
@@ -87,7 +84,6 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
         newRouteDoc(
           newRouteSummary(102L),
           labels = Seq(
-            Label.active,
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
           )
@@ -97,11 +93,11 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
       database.routes.save(
         newRouteDoc(
           newRouteSummary(103L),
+          active = false,
           labels = Seq(
             Label.facts,
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
-            // not active
           ),
           facts = Seq(Fact.RouteWithoutWays, Fact.RouteBroken),
         )

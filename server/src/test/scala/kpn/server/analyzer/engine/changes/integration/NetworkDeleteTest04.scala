@@ -14,7 +14,6 @@ import kpn.api.common.data.MemberType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class NetworkDeleteTest04 extends IntegrationTest {
@@ -121,7 +120,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
 
   private def assertRoute(): Unit = {
     val route = findRouteById(1)
-    route.labels should contain(Label.active)
+    route.active should equal(true)
     route.summary.name should equal("01-02")
     route.version should equal(2)
   }

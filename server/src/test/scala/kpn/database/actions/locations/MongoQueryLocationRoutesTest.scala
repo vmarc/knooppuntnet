@@ -1,5 +1,6 @@
 package kpn.database.actions.locations
 
+import kpn.api.common.Fact
 import kpn.api.common.RouteType
 import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.changes.filter.ServerFilterOption
@@ -8,6 +9,7 @@ import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.Day
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
+import kpn.core.doc.Label
 import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.Timestamps
@@ -23,19 +25,19 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       val setup = new MongoQueryLocationRoutesTestSetup(database)
       val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)
 
-      route(database, 11L, "active", "network-type-hiking", "location-essen")
-      route(database, 12L, "active", "network-type-hiking", "location-essen", "facts", "fact-RouteInaccessible")
-      route(database, 13L, "active", "network-type-hiking", "location-essen", "survey", "facts")
-      route(database, 14L, "active", "network-type-hiking", "location-essen", "survey")
-      route(database, 15L, "active", "network-type-hiking", "location-essen", "survey")
-      route(database, 16L, "active", "network-type-hiking", "location-essen")
+      route(database, 11L, active = true, "network-type-hiking", "location-essen")
+      route(database, 12L, active = true, "network-type-hiking", "location-essen", "facts", "fact-RouteInaccessible")
+      route(database, 13L, active = true, "network-type-hiking", "location-essen", "survey", "facts")
+      route(database, 14L, active = true, "network-type-hiking", "location-essen", "survey")
+      route(database, 15L, active = true, "network-type-hiking", "location-essen", "survey")
+      route(database, 16L, active = true, "network-type-hiking", "location-essen")
 
       // non-active is not counted
-      route(database, 17L, "network-type-hiking", "location-essen")
+      route(database, 17L, active = false, "network-type-hiking", "location-essen")
       // non-hiking is not counted
-      route(database, 18L, "active", "network-type-cycling", "location-essen")
+      route(database, 18L, active = true, "network-type-cycling", "location-essen")
       // location other that "essen" not counted
-      route(database, 19L, "active", "network-type-cycling", "location-kalmthout")
+      route(database, 19L, active = true, "network-type-cycling", "location-kalmthout")
 
       countDocuments(query) should equal(6)
     }
@@ -55,10 +57,9 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             tags = Tags.from("osmc:symbol" -> "red:white:red_lower")
           ),
           labels = Seq(
-            "active",
-            "network-type-hiking",
-            "location-essen",
-            "survey"
+            Label.routeType(RouteType.hiking),
+            Label.location("essen"),
+            Label.survey
           ),
           lastSurvey = Some(Day(2020, 8))
         )
@@ -73,10 +74,9 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             broken = true
           ),
           labels = Seq(
-            "active",
-            "network-type-hiking",
-            "location-essen",
-            "facts",
+            Label.routeType(RouteType.hiking),
+            Label.location("essen"),
+            Label.facts
           )
         )
       )
@@ -91,11 +91,10 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             inaccessible = true
           ),
           labels = Seq(
-            "active",
-            "network-type-hiking",
-            "location-essen",
-            "facts",
-            "fact-RouteInaccessible",
+            Label.routeType(RouteType.hiking),
+            Label.location("essen"),
+            Label.facts,
+            Label.fact(Fact.RouteInaccessible),
           )
         )
       )
@@ -154,11 +153,11 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
         newRouteDoc(
           newRouteSummary(10L),
           labels = Seq(
-            "active",
-            "network-type-hiking",
-            "location-be",
-            "fact-RouteIncomplete",
-            "fact-RouteNotForward"
+            Label.routeType(RouteType.hiking),
+            Label.location("be"),
+            Label.facts,
+            Label.fact(Fact.RouteIncomplete),
+            Label.fact(Fact.RouteNotForward),
           ),
         )
       )
@@ -167,10 +166,10 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
         newRouteDoc(
           newRouteSummary(20L),
           labels = Seq(
-            "active",
-            "network-type-hiking",
-            "location-be",
-            "fact-RouteIncomplete",
+            Label.routeType(RouteType.hiking),
+            Label.location("be"),
+            Label.facts,
+            Label.fact(Fact.RouteIncomplete),
           ),
         )
       )
@@ -179,9 +178,8 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
         newRouteDoc(
           newRouteSummary(30L),
           labels = Seq(
-            "active",
-            "network-type-hiking",
-            "location-be",
+            Label.routeType(RouteType.hiking),
+            Label.location("be"),
           ),
         )
       )
@@ -288,14 +286,15 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  private def route(database: Database, id: Long, labels: String*): Unit = {
-    routeWithTags(database, id, Seq.empty, labels: _*)
+  private def route(database: Database, id: Long, active: Boolean, labels: String*): Unit = {
+    routeWithTags(database, id, active, Seq.empty, labels: _*)
   }
 
-  private def routeWithTags(database: Database, id: Long, tags: Seq[Tag], labels: String*): Unit = {
+  private def routeWithTags(database: Database, id: Long, active: Boolean, tags: Seq[Tag], labels: String*): Unit = {
     database.routes.save(
       newRouteDoc(
         newRouteSummary(id, tags = tags),
+        active = active,
         labels = labels,
       )
     )

@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.Fact
 import kpn.api.common.data.MemberType
-import kpn.core.doc.Label
 import kpn.core.doc.NetworkRouteDetail
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
@@ -58,7 +57,7 @@ class NetworkRouteAnalyzer(database: Database) extends NetworkAnalyzer {
         val pipeline = Seq(
           filter(
             and(
-              equal("labels", Label.active),
+              equal("active", true),
               in("_id", routeIds: _*)
             )
           ),

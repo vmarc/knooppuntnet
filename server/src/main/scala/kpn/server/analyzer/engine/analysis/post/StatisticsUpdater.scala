@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.post
 
 import kpn.api.common.statistics.StatisticValue
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.MongoProjections.concat
@@ -78,7 +77,7 @@ class StatisticsUpdater(database: Database) {
       "NodeCount",
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           exists("country")
         )
       ),
@@ -111,7 +110,7 @@ class StatisticsUpdater(database: Database) {
       "RouteCount",
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           exists("summary.countries.0")
         )
       ),
@@ -145,7 +144,7 @@ class StatisticsUpdater(database: Database) {
     Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           exists("country"),
           exists("facts")
         )
@@ -185,7 +184,7 @@ class StatisticsUpdater(database: Database) {
     Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           exists("summary.countries.0"),
           exists("facts")
         )
@@ -393,7 +392,7 @@ class StatisticsUpdater(database: Database) {
       "Distance",
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           exists("summary.countries.0")
         )
       ),
@@ -521,7 +520,7 @@ class StatisticsUpdater(database: Database) {
     Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           exists("summary.countries.0")
         )
       ),
@@ -549,7 +548,7 @@ class StatisticsUpdater(database: Database) {
     Seq(
       filter(
         and(
-          equal("labels", Label.active)
+          equal("active", true),
         )
       ),
       unwind("$names"),
@@ -606,7 +605,7 @@ class StatisticsUpdater(database: Database) {
       "IntegrityCheckCount",
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           exists("country"),
         )
       ),
@@ -640,7 +639,7 @@ class StatisticsUpdater(database: Database) {
       "IntegrityCheckFailedCount",
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           exists("country"),
         )
       ),

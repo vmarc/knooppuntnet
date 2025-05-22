@@ -9,7 +9,6 @@ import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Relation
 import kpn.core.doc.BaseRouteDoc
-import kpn.core.doc.Label
 import kpn.core.doc.RouteDoc
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.history.RouteTagDiffAnalyzer
@@ -68,7 +67,7 @@ class RouteChangeProcessor(
             // TODO nothing to do - log message?
             None
           case Some(baseRouteDoc) =>
-            if (baseRouteDoc.isActive) {
+            if (baseRouteDoc.active) {
               routeMainAnalyzer.analyze(baseRouteDoc) match {
                 case None =>
                   // TODO delete?
@@ -321,7 +320,7 @@ class RouteChangeProcessor(
     analysisContext.watched.routes.delete(routeId)
 
     val updatedRouteDoc = beforeBaseRouteDoc.copy(
-      labels = beforeBaseRouteDoc.labels.filterNot(_ == Label.active),
+      active = false,
       facts = Seq(Fact.LostRouteTags)
     )
 

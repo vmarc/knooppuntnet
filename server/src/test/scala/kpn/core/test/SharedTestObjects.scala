@@ -92,7 +92,6 @@ import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.BaseRouteSegment
 import kpn.core.doc.BaseRouteSegmentElement
-import kpn.core.doc.Label
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkNodeMember
@@ -422,7 +421,8 @@ trait SharedTestObjects extends MockFactory {
 
   def newNodeDoc(
     id: Long,
-    labels: Seq[String] = Seq(Label.active),
+    active: Boolean = true,
+    labels: Seq[String] = Seq.empty,
     country: Option[Country] = None,
     name: Option[String] = None,
     names: Seq[NodeName] = Seq.empty,
@@ -443,6 +443,7 @@ trait SharedTestObjects extends MockFactory {
 
     NodeDoc(
       id,
+      active,
       labels,
       country,
       name,
@@ -465,7 +466,8 @@ trait SharedTestObjects extends MockFactory {
 
   def newBaseRoute(
     id: Long = 0,
-    labels: Seq[String] = Seq(Label.active),
+    active: Boolean = true,
+    labels: Seq[String] = Seq.empty,
     proposed: Boolean = false,
     countries: Seq[Country] = Seq.empty,
     nodeNetwork: Boolean = true,
@@ -515,6 +517,7 @@ trait SharedTestObjects extends MockFactory {
 
     BaseRouteDoc(
       summary.id,
+      active,
       labels,
       summary,
       proposed,
@@ -944,7 +947,8 @@ trait SharedTestObjects extends MockFactory {
 
   def newRouteDoc(
     summary: RouteSummary,
-    labels: Seq[String] = Seq(Label.active),
+    active: Boolean = true,
+    labels: Seq[String] = Seq.empty,
     proposed: Boolean = false,
     version: Int = 0,
     changeSetId: Long = 1,
@@ -969,6 +973,7 @@ trait SharedTestObjects extends MockFactory {
   ): RouteDoc = {
     RouteDoc(
       summary.id,
+      active,
       labels,
       summary,
       proposed,
@@ -998,7 +1003,8 @@ trait SharedTestObjects extends MockFactory {
 
   def newBaseRouteDoc(
     summary: RouteSummary,
-    labels: Seq[String] = Seq(Label.active),
+    active: Boolean = true,
+    labels: Seq[String] = Seq.empty,
     proposed: Boolean = false,
     version: Int = 0,
     changeSetId: Long = 1,
@@ -1027,6 +1033,7 @@ trait SharedTestObjects extends MockFactory {
   ): BaseRouteDoc = {
     BaseRouteDoc(
       summary.id,
+      active,
       labels,
       summary,
       proposed,

@@ -84,7 +84,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", Label.active),
+            equal("active", true),
             equal("labels", Label.country(subset.country)),
             equal("labels", Label.routeType(subset.routeType)),
             equal("labels", Label.fact(fact)),
@@ -238,7 +238,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
       val pipeline = Seq(
         filter(
           and(
-            equal("labels", Label.active),
+            equal("active", true),
             equal("labels", Label.country(subset.country)),
             equal("labels", Label.routeType(subset.routeType)),
             equal("labels", factLabel),

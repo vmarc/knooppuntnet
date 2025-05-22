@@ -31,7 +31,6 @@ class BaseRouteLabelsAnalyzer(context: BaseRouteAnalysisContext) {
 
   private def buildBasicLabels(): Seq[String] = {
     Seq(
-      if (context.active) Some(Label.active) else None,
       if (context.lastSurvey.isDefined) Some(Label.survey) else None,
       if (context.facts.nonEmpty) Some(Label.facts) else None,
       if (context.facts.contains(Fact.RouteBroken)) Some("broken") else None,

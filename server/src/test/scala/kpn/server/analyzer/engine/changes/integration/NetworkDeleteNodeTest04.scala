@@ -94,9 +94,9 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
       findNodeById(1001),
       newNodeDoc(
         1001,
+        active = false,
         labels = Seq(
           Label.location("nl")
-          // not active
         ),
         country = Some(Country.nl),
         locations = Seq("nl"),

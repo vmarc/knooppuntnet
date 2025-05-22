@@ -47,7 +47,7 @@ class MongoQueryLocationFacts(database: Database) {
 
     val mainFilter = filter(
       and(
-        equal("labels", Label.active),
+        equal("active", true),
         equal("labels", Label.routeType(subset.routeType)),
         LocationQuery.locationFilter("labels", subset),
         equal("labels", Label.facts)
@@ -86,7 +86,7 @@ class MongoQueryLocationFacts(database: Database) {
     val nodePipeline2 = Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           equal("labels", Label.routeType(subset.routeType)),
           LocationQuery.locationFilter("labels", subset),
         )

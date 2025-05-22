@@ -46,7 +46,7 @@ class MongoQueryLocationNodeCounts(database: Database) {
     val pipeline = Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           equal("labels", Label.location(country.entryName)),
           equal("labels", Label.routeType(routeType))
         )

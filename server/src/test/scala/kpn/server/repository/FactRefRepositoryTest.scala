@@ -112,7 +112,6 @@ class FactRefRepositoryTest extends UnitTest with SharedTestObjects {
       newRouteDoc(
         newRouteSummary(routeId),
         labels = Seq(
-          Label.active,
           Label.facts,
           Label.routeType(subset.routeType),
           Label.location(subset.country.entryName),
@@ -126,7 +125,6 @@ class FactRefRepositoryTest extends UnitTest with SharedTestObjects {
       newNodeDoc(
         nodeId,
         labels = Seq(
-          Label.active,
           Label.routeType(subset.routeType),
           Label.location(subset.country.entryName),
           s"integrity-check-failed-${subset.routeType.entryName}"

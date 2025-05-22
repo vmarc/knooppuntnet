@@ -22,7 +22,7 @@ class IsNoteTagStillUsedForRouteNameTool(database: Database) {
         println(s"$index/$routeIdsSize")
       }
       database.routes.findById(routeId) foreach { route =>
-        if (route.isActive) {
+        if (route.active) {
           if (!route.summary.hasTag("ref") && !route.summary.hasTag("name")) {
             route.summary.tagValue("note") match {
               case None =>
