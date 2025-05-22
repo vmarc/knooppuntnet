@@ -4,9 +4,9 @@ import kpn.api.base.WithStringId
 import kpn.api.custom.Timestamp2
 import kpn.database.base.Database
 import kpn.database.base.DatabaseCollectionImpl
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.project
@@ -65,7 +65,7 @@ class TimestampDemo(database: Database) {
     days.foreach(println)
   }
 
-  private def pipelineYears(): Seq[Bson] = {
+  private def pipelineYears(): MongoPipeline = {
     val groupId =
       """{
         |  year: {$year: { date: "$timestamp" }}
@@ -87,7 +87,7 @@ class TimestampDemo(database: Database) {
     )
   }
 
-  private def pipelineMonths(): Seq[Bson] = {
+  private def pipelineMonths(): MongoPipeline = {
     val groupId =
       """{
         |  year: {$year: { date: "$timestamp" }},
@@ -111,8 +111,7 @@ class TimestampDemo(database: Database) {
     )
   }
 
-
-  private def pipelineDays(): Seq[Bson] = {
+  private def pipelineDays(): MongoPipeline = {
     val groupId =
       """{
         |  year: {$year: { date: "$timestamp" }},

@@ -7,6 +7,7 @@ import kpn.database.base.Database
 import kpn.database.base.DatabaseImpl
 import kpn.database.base.OldDatabase
 import kpn.database.base.OldDatabaseImpl
+import kpn.database.base.Types.MongoPipeline
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.configuration.CodecRegistry
 import org.bson.json.JsonWriterSettings
@@ -65,7 +66,7 @@ object Mongo {
     bsonDocument.toJson(jsonWriterSettings)
   }
 
-  def pipelineString(stages: Seq[Bson]): String = {
+  def pipelineString(stages: MongoPipeline): String = {
     val stageStrings = stages.map(bsonString)
     stageStrings.mkString(",\n").split("\n").mkString("[\n  ", "\n  ", "\n]")
   }

@@ -3,6 +3,7 @@ package kpn.database.base
 import kpn.api.base.ObjectId
 import kpn.core.util.Log
 import kpn.database.base.DatabaseCollection.collectionLog
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.tools.MongoIndexDefinition
 import org.mongodb.scala.ListIndexesObservable
 import org.mongodb.scala.MongoCollection
@@ -31,14 +32,14 @@ trait DatabaseCollection[T] {
   }
 
   def aggregate[R: ClassTag](
-    pipeline: Seq[Bson],
+    pipeline: MongoPipeline,
     log: Log = collectionLog,
     allowDiskUse: Boolean = false,
     duration: Duration = Duration(120, TimeUnit.SECONDS)
   ): Seq[R]
 
   def optionAggregate[R: ClassTag](
-    pipeline: Seq[Bson],
+    pipeline: MongoPipeline,
     log: Log = collectionLog,
     duration: Duration = Duration(120, TimeUnit.SECONDS)
   ): Option[R]
@@ -88,7 +89,7 @@ trait DatabaseCollection[T] {
 
   def countDocuments(filter: Bson, log: Log = collectionLog): Long
 
-  def updateOne(filter: Bson, update: Seq[Bson], log: Log = collectionLog): Unit
+  def updateOne(filter: Bson, update: MongoPipeline, log: Log = collectionLog): Unit
 
   def drop(log: Log = collectionLog): Unit
 }

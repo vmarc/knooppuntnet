@@ -1,5 +1,5 @@
 package kpn.database.base
 
-import org.mongodb.scala.bson.conversions.Bson
+import kpn.database.base.Types.MongoPipeline
 
-case class Pipeline(name: String, stages: Seq[Bson])
+case class Pipeline(name: String, stages: MongoPipeline)

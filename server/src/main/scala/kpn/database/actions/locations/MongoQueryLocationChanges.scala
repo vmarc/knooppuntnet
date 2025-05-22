@@ -10,6 +10,7 @@ import kpn.database.actions.locations.MongoQueryLocationChanges.log
 import kpn.database.actions.statistics.ChangeSetCounts
 import kpn.database.base.CountResult
 import kpn.database.base.Database
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.bson.conversions.Bson
@@ -138,7 +139,7 @@ class MongoQueryLocationChanges(database: Database) {
 
   private class PipelineBuilder(subset: LocationSubset, parameters: ChangesParameters) {
 
-    def build(): Seq[Bson] = {
+    def build(): MongoPipeline = {
       commonStages() ++
         Seq(
           sort(orderBy(descending("_id.key.time"))),
@@ -154,14 +155,14 @@ class MongoQueryLocationChanges(database: Database) {
         )
     }
 
-    def buildCountPipeline(): Seq[Bson] = {
+    def buildCountPipeline(): MongoPipeline = {
       commonStages() ++
         Seq(
           count()
         )
     }
 
-    def buildFilterOptionsPipeline(): Seq[Bson] = {
+    def buildFilterOptionsPipeline(): MongoPipeline = {
       commonStages() ++
         Seq(
           project(
@@ -175,7 +176,7 @@ class MongoQueryLocationChanges(database: Database) {
         )
     }
 
-    private def commonStages(): Seq[Bson] = {
+    private def commonStages(): MongoPipeline = {
       Seq(
         mainFilter(),
         project(

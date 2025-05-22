@@ -15,6 +15,7 @@ import kpn.core.util.Log
 import kpn.core.util.RouteSymbol
 import kpn.database.base.CountResult
 import kpn.database.base.Database
+import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.facet
@@ -164,7 +165,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     )
   }
 
-  private def surveyPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
+  private def surveyPipeline(parameters: LocationRoutesParameters): MongoPipeline = {
     LocationQuery.surveyPipeline(
       surveyDateInfo,
       Seq(
@@ -175,7 +176,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     )
   }
 
-  private def lastUpdatedPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
+  private def lastUpdatedPipeline(parameters: LocationRoutesParameters): MongoPipeline = {
     LocationQuery.lastUpdatedPipeline(
       surveyDateInfo,
       Seq(
@@ -186,7 +187,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     )
   }
 
-  private def proposedPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
+  private def proposedPipeline(parameters: LocationRoutesParameters): MongoPipeline = {
     LocationQuery.proposedPipeline(
       Seq(
         LocationQuery.factFilter(parameters.fact),
@@ -196,7 +197,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     )
   }
 
-  private def factsPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
+  private def factsPipeline(parameters: LocationRoutesParameters): MongoPipeline = {
     LocationQuery.factsPipeline(
       Seq(
         LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
@@ -206,7 +207,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     )
   }
 
-  private def factsTotalRouteCountPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
+  private def factsTotalRouteCountPipeline(parameters: LocationRoutesParameters): MongoPipeline = {
     LocationQuery.countPipeline(
       Seq(
         LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
@@ -269,7 +270,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     }
   }
 
-  private def mainFilters(subset: LocationSubset): Seq[Bson] = {
+  private def mainFilters(subset: LocationSubset): MongoPipeline = {
     Seq(
       equal("labels", Label.active),
       equal("labels", Label.routeType(subset.routeType)),
@@ -278,7 +279,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
   }
 
   private def buildFilter(subset: LocationSubset, parameters: LocationRoutesParameters): Bson = {
-    val filters: Seq[Bson] = mainFilters(subset) ++ Seq(
+    val filters: MongoPipeline = mainFilters(subset) ++ Seq(
       LocationQuery.factFilter(parameters.fact),
       LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
       LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),

@@ -5,6 +5,7 @@ import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.CountResult
 import kpn.database.base.Database
+import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.conversions.Bson
@@ -81,7 +82,7 @@ class MongoQueryLocations(database: Database) {
     }
   }
 
-  private def nodeCountPipeline(subset: Subset): Seq[Bson] = {
+  private def nodeCountPipeline(subset: Subset): MongoPipeline = {
     selectLocations(subset) ++ Seq(
       groupByLocation,
       project(
@@ -96,7 +97,7 @@ class MongoQueryLocations(database: Database) {
     )
   }
 
-  private def nodeFactCountsPipeline(subset: Subset): Seq[Bson] = {
+  private def nodeFactCountsPipeline(subset: Subset): MongoPipeline = {
     selectLocations(subset) ++ Seq(
       unwind("$facts"),
       groupByLocation,
@@ -112,7 +113,7 @@ class MongoQueryLocations(database: Database) {
     )
   }
 
-  private def routeCountPipeline(subset: Subset): Seq[Bson] = {
+  private def routeCountPipeline(subset: Subset): MongoPipeline = {
     selectLocations(subset) ++ Seq(
       groupByLocation,
       project(
@@ -127,7 +128,7 @@ class MongoQueryLocations(database: Database) {
     )
   }
 
-  private def routeFactCountPipeline(subset: Subset): Seq[Bson] = {
+  private def routeFactCountPipeline(subset: Subset): MongoPipeline = {
     selectLocations(subset) ++ Seq(
       unwind("$facts"),
       filter(
@@ -150,7 +151,7 @@ class MongoQueryLocations(database: Database) {
     )
   }
 
-  private def selectLocations(subset: Subset): Seq[Bson] = {
+  private def selectLocations(subset: Subset): MongoPipeline = {
     Seq(
       filter(
         and(

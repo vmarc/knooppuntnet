@@ -5,7 +5,7 @@ import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.actions.nodes.MongoQueryNodeBaseRouteReferences.log
 import kpn.database.base.Database
-import org.mongodb.scala.bson.conversions.Bson
+import kpn.database.base.Types.MongoPipeline
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.sort
@@ -31,7 +31,7 @@ class MongoQueryNodeBaseRouteReferences(database: Database) {
     }
   }
 
-  private def pipeline(nodeId: Long): Seq[Bson] = {
+  private def pipeline(nodeId: Long): MongoPipeline = {
     Seq(
       filter(
         and(

@@ -9,9 +9,9 @@ import kpn.database.actions.statistics.ChangeSetCount
 import kpn.database.actions.statistics.ChangeSetCounts
 import kpn.database.base.Database
 import kpn.database.base.MongoQuery
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala._
-import org.mongodb.scala.bson.conversions.Bson
+import org.mongodb.scala.*
 import org.mongodb.scala.model.Aggregates.facet
 import org.mongodb.scala.model.Facet
 
@@ -39,7 +39,7 @@ class MongoQueryChangeSetStatsCounts(database: Database) {
       new MongoQuery().toPipeline(string)
     }
 
-    val pipeline: Seq[Bson] = monthOption match {
+    val pipeline: MongoPipeline = monthOption match {
       case None =>
         Seq(
           facet(

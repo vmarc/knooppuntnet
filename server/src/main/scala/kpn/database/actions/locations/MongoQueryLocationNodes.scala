@@ -13,6 +13,7 @@ import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.CountResult
 import kpn.database.base.Database
+import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.count
@@ -323,7 +324,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     }
   }
 
-  private def subsetFilter(subset: LocationSubset): Seq[Bson] = {
+  private def subsetFilter(subset: LocationSubset): MongoPipeline = {
     Seq(
       equal("labels", Label.active),
       equal("labels", Label.routeType(subset.routeType)),
@@ -332,7 +333,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
   }
 
   private def nodeFilter(subset: LocationSubset, parameters: LocationNodesParameters): Bson = {
-    val filters: Seq[Bson] = subsetFilter(subset) ++ allFilters(subset, parameters).flatten
+    val filters: MongoPipeline = subsetFilter(subset) ++ allFilters(subset, parameters).flatten
     and(filters: _*)
   }
 
@@ -349,7 +350,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
   }
 
-  private def surveyPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+  private def surveyPipeline(subset: LocationSubset, parameters: LocationNodesParameters): MongoPipeline = {
     LocationQuery.surveyPipeline(
       surveyDateInfo,
       Seq(
@@ -363,7 +364,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
   }
 
-  private def lastUpdatedPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+  private def lastUpdatedPipeline(subset: LocationSubset, parameters: LocationNodesParameters): MongoPipeline = {
     LocationQuery.lastUpdatedPipeline(
       surveyDateInfo,
       Seq(
@@ -377,7 +378,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
   }
 
-  private def proposedPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+  private def proposedPipeline(subset: LocationSubset, parameters: LocationNodesParameters): MongoPipeline = {
     LocationQuery.proposedPipeline(
       Seq(
         LocationQuery.integrityCheckFilter(subset, parameters.integrityCheck),
@@ -390,7 +391,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
   }
 
-  private def factsPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+  private def factsPipeline(subset: LocationSubset, parameters: LocationNodesParameters): MongoPipeline = {
     LocationQuery.factsPipeline(
       Seq(
         LocationQuery.integrityCheckFilter(subset, parameters.integrityCheck),
@@ -403,7 +404,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
   }
 
-  private def factsTotalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+  private def factsTotalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): MongoPipeline = {
     LocationQuery.countPipeline(
       Seq(
         LocationQuery.integrityCheckFilter(subset, parameters.integrityCheck),
@@ -416,23 +417,23 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
   }
 
-  private def integrityCheckPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+  private def integrityCheckPipeline(subset: LocationSubset, parameters: LocationNodesParameters): MongoPipeline = {
     LocationQuery.integrityCheckPipeline(subset, integrityCheckOtherFilters(subset, parameters))
   }
 
-  private def integrityCheckTotalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+  private def integrityCheckTotalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): MongoPipeline = {
     LocationQuery.countPipeline(integrityCheckOtherFilters(subset, parameters))
   }
 
-  private def referencedInRoutesCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+  private def referencedInRoutesCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): MongoPipeline = {
     LocationQuery.referencedInRoutesPipeline(subset, referencedInRoutesOtherFilters(subset, parameters))
   }
 
-  private def referencedInRoutesTotalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+  private def referencedInRoutesTotalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): MongoPipeline = {
     LocationQuery.countPipeline(referencedInRoutesOtherFilters(subset, parameters))
   }
 
-  private def totalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+  private def totalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): MongoPipeline = {
     LocationQuery.countPipeline(allFilters(subset, parameters))
   }
 
@@ -458,11 +459,11 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
   }
 
-  private def integrityCheckFailedPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+  private def integrityCheckFailedPipeline(subset: LocationSubset, parameters: LocationNodesParameters): MongoPipeline = {
     LocationQuery.integrityCheckFailedPipeline(subset, integrityCheckFailedOtherFilters(subset, parameters))
   }
 
-  private def integrityCheckFailedTotalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+  private def integrityCheckFailedTotalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): MongoPipeline = {
     LocationQuery.countPipeline(integrityCheckFailedOtherFilters(subset, parameters))
   }
 

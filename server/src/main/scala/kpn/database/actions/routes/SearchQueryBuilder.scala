@@ -9,6 +9,7 @@ import kpn.api.common.search.ConditionName
 import kpn.api.common.search.ConditionOperator.Equals
 import kpn.api.common.search.ConditionTag
 import kpn.core.doc.Label
+import kpn.database.base.Types.MongoPipeline
 import org.bson.conversions.Bson
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.model.Filters.and
@@ -19,7 +20,7 @@ import org.mongodb.scala.model.Filters.regex
 object SearchQueryBuilder {
 
   def buildFilter(group: ConditionGroup): Bson = {
-    val conditions: Seq[Bson] = group.conditions.map(buildCondition)
+    val conditions: MongoPipeline = group.conditions.map(buildCondition)
     group.operator match {
       case And => and(conditions: _*)
       case Or => or(conditions: _*)

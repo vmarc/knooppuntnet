@@ -5,6 +5,7 @@ import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.MongoProjections.concat
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import org.mongodb.scala.Document
 import org.mongodb.scala.bson.BsonDocument
@@ -72,7 +73,7 @@ class StatisticsUpdater(database: Database) {
     }
   }
 
-  private def pipelineNodeCount(): Seq[Bson] = {
+  private def pipelineNodeCount(): MongoPipeline = {
     factPipeline(
       "NodeCount",
       filter(
@@ -92,7 +93,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def pipelineOrphanNodeCount(): Seq[Bson] = {
+  private def pipelineOrphanNodeCount(): MongoPipeline = {
     factPipeline(
       "OrphanNodeCount",
       group(
@@ -105,7 +106,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def pipelineRouteCount(): Seq[Bson] = {
+  private def pipelineRouteCount(): MongoPipeline = {
     factPipeline(
       "RouteCount",
       filter(
@@ -126,7 +127,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def pipelineOrphanRouteCount(): Seq[Bson] = {
+  private def pipelineOrphanRouteCount(): MongoPipeline = {
     factPipeline(
       "OrphanRouteCount",
       unwind("$routeTypes"),
@@ -140,7 +141,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def pipelineNodeFacts(): Seq[Bson] = {
+  private def pipelineNodeFacts(): MongoPipeline = {
     Seq(
       filter(
         and(
@@ -180,7 +181,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def pipelineRouteFacts(): Seq[Bson] = {
+  private def pipelineRouteFacts(): MongoPipeline = {
     Seq(
       filter(
         and(
@@ -221,7 +222,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def pipelineNetworkFacts(): Seq[Bson] = {
+  private def pipelineNetworkFacts(): MongoPipeline = {
     Seq(
       filter(
         and(
@@ -277,7 +278,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def pipelineNetworkFacts2(): Seq[Bson] = {
+  private def pipelineNetworkFacts2(): MongoPipeline = {
 
     Seq(
       filter(
@@ -332,7 +333,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def pipelineNetworkFacts3(): Seq[Bson] = {
+  private def pipelineNetworkFacts3(): MongoPipeline = {
 
     Seq(
       filter(
@@ -387,7 +388,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def pipelineRouteDistance(): Seq[Bson] = {
+  private def pipelineRouteDistance(): MongoPipeline = {
     factPipeline(
       "Distance",
       filter(
@@ -414,7 +415,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def pipelineNetworkCount(): Seq[Bson] = {
+  private def pipelineNetworkCount(): MongoPipeline = {
     factPipeline(
       "NetworkCount",
       filter(
@@ -434,7 +435,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def pipelineIntegrityCheckNetworkCount(): Seq[Bson] = {
+  private def pipelineIntegrityCheckNetworkCount(): MongoPipeline = {
     factPipeline(
       "IntegrityCheckNetworkCount",
       filter(
@@ -455,7 +456,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def factCountPipeline(): Seq[Bson] = {
+  private def factCountPipeline(): MongoPipeline = {
     Seq(
       networkFactCountPipeline(),
       Seq(unionWith(database.nodes.name, nodeFactCountPipeline(): _*)),
@@ -464,7 +465,7 @@ class StatisticsUpdater(database: Database) {
     ).flatten
   }
 
-  private def combineFactCounts(): Seq[Bson] = {
+  private def combineFactCounts(): MongoPipeline = {
     Seq(
       group(
         "$_id",
@@ -497,7 +498,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def networkFactCountPipeline(): Seq[Bson] = {
+  private def networkFactCountPipeline(): MongoPipeline = {
     Seq(
       filter(
         and(
@@ -516,7 +517,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def routeFactCountPipeline(): Seq[Bson] = {
+  private def routeFactCountPipeline(): MongoPipeline = {
     Seq(
       filter(
         and(
@@ -544,7 +545,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def nodeFactCountPipeline(): Seq[Bson] = {
+  private def nodeFactCountPipeline(): MongoPipeline = {
     Seq(
       filter(
         and(
@@ -563,7 +564,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def pipelineChangeCount(): Seq[Bson] = {
+  private def pipelineChangeCount(): MongoPipeline = {
     factPipeline(
       "ChangeCount",
       unwind("$subsets"),
@@ -577,7 +578,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def factPipeline(name: String, aggregateElements: Bson*): Seq[Bson] = {
+  private def factPipeline(name: String, aggregateElements: Bson*): MongoPipeline = {
     aggregateElements ++
       Seq(
         sort(orderBy(ascending("_id"))),
@@ -600,7 +601,7 @@ class StatisticsUpdater(database: Database) {
       )
   }
 
-  private def pipelineNodeIntegrityCheckCount(): Seq[Bson] = {
+  private def pipelineNodeIntegrityCheckCount(): MongoPipeline = {
     factPipeline(
       "IntegrityCheckCount",
       filter(
@@ -634,7 +635,7 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
-  private def pipelineNodeIntegrityCheckFailedCount(): Seq[Bson] = {
+  private def pipelineNodeIntegrityCheckFailedCount(): MongoPipeline = {
     factPipeline(
       "IntegrityCheckFailedCount",
       filter(

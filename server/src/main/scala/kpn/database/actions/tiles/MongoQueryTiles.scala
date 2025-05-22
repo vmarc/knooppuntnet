@@ -5,7 +5,6 @@ import kpn.core.util.Log
 import kpn.database.actions.tiles.MongoQueryTiles.log
 import kpn.database.base.Database
 import kpn.database.base.Id
-import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
@@ -21,19 +20,7 @@ class MongoQueryTiles(database: Database) {
 
   def nodeIds(tileName: String): Seq[Long] = {
     log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("active", true),
-            equal("tiles", tileName)
-          )
-        ),
-        project(
-          fields(
-            include("_id")
-          )
-        )
-      )
+      val pipeline = buildNodeIdsPipeline(tileName)
       val ids = database.baseNodes.aggregate[Id](pipeline)
       (s"tile '$tileName', node ids: ${ids.size}", ids.map(_._id))
     }
@@ -41,29 +28,33 @@ class MongoQueryTiles(database: Database) {
 
   def routeIds(tileName: String): Seq[Long] = {
     log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("labels", Label.active),
-            equal("tiles", tileName)
-          )
-        ),
-        project(
-          fields(
-            include("_id")
-          )
-        )
-      )
+      val pipeline = buildRouteIdsPipeline(tileName)
       val ids = database.baseRoutes.aggregate[Id](pipeline)
       (s"tile '$tileName', route ids: ${ids.size}", ids.map(_._id))
     }
   }
 
-  private def pipeline(tileName: String): Seq[Bson] = {
+  private def buildNodeIdsPipeline(tileName: String) = {
     Seq(
       filter(
         and(
           equal("active", true),
+          equal("tiles", tileName)
+        )
+      ),
+      project(
+        fields(
+          include("_id")
+        )
+      )
+    )
+  }
+
+  private def buildRouteIdsPipeline(tileName: String) = {
+    Seq(
+      filter(
+        and(
+          equal("labels", Label.active),
           equal("tiles", tileName)
         )
       ),

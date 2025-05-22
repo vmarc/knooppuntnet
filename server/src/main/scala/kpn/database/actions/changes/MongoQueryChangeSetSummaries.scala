@@ -5,8 +5,8 @@ import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.util.Log
 import kpn.database.actions.changes.MongoQueryChangeSetSummaries.log
 import kpn.database.base.Database
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
 import org.mongodb.scala.model.Aggregates.project
@@ -41,7 +41,7 @@ class MongoQueryChangeSetSummaries(database: Database) {
 
   def execute(parameters: ChangesParameters): Seq[ChangeSetSummary] = {
 
-    val unfilteredPipeline: Seq[Bson] = Seq(
+    val unfilteredPipeline: MongoPipeline = Seq(
       sort(orderBy(descending("key.time"))),
       skip((parameters.pageSize * parameters.pageIndex).toInt),
       limit(parameters.pageSize.toInt),

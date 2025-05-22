@@ -3,10 +3,10 @@ package kpn.database.actions.base
 import kpn.core.util.Log
 import kpn.database.actions.statistics.ChangeSetCounts
 import kpn.database.base.DatabaseCollection
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import org.mongodb.scala.Document
 import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.facet
 import org.mongodb.scala.model.Aggregates.filter
@@ -24,7 +24,13 @@ import org.mongodb.scala.model.Sorts.orderBy
 
 object ChangeCountPipeline {
 
-  def execute(collection: DatabaseCollection[?], mainPipeline: Seq[Bson], year: Int, monthOption: Option[Int], log: Log): ChangeSetCounts = {
+  def execute(
+    collection: DatabaseCollection[?],
+    mainPipeline: MongoPipeline,
+    year: Int,
+    monthOption: Option[Int],
+    log: Log
+  ): ChangeSetCounts = {
 
     val pipeline = monthOption match {
       case None =>
@@ -58,7 +64,7 @@ object ChangeCountPipeline {
     }
   }
 
-  private def years(): Seq[Bson] = {
+  private def years(): MongoPipeline = {
     Seq(
       group(
         Document(
@@ -100,7 +106,7 @@ object ChangeCountPipeline {
     )
   }
 
-  private def months(year: Int): Seq[Bson] = {
+  private def months(year: Int): MongoPipeline = {
     Seq(
       filter(equal("key.time.year", year)),
       group(
@@ -147,7 +153,7 @@ object ChangeCountPipeline {
     )
   }
 
-  private def days(year: Int, month: Int): Seq[Bson] = {
+  private def days(year: Int, month: Int): MongoPipeline = {
     Seq(
       filter(
         and(

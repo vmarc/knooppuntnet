@@ -5,6 +5,7 @@ import kpn.api.base.WithId
 import kpn.api.base.WithObjectId
 import kpn.api.base.WithStringId
 import kpn.core.util.Log
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import org.mongodb.scala.*
 import org.mongodb.scala.MongoCollection
@@ -28,7 +29,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def native: MongoCollection[T] = collection
 
   override def aggregate[R: ClassTag](
-    pipeline: Seq[Bson],
+    pipeline: MongoPipeline,
     log: Log,
     allowDiskUse: Boolean,
     duration: Duration
@@ -42,7 +43,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   }
 
   override def optionAggregate[R: ClassTag](
-    pipeline: Seq[Bson],
+    pipeline: MongoPipeline,
     log: Log,
     duration: Duration
   ): Option[R] = {
@@ -261,7 +262,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
     }
   }
 
-  override def updateOne(filter: Bson, update: Seq[Bson], log: Log): Unit = {
+  override def updateOne(filter: Bson, update: MongoPipeline, log: Log): Unit = {
     val future = collection.updateOne(filter, update).toFuture()
     val updateResult = awaitResult(future, Duration(1, TimeUnit.MINUTES), log)
   }
@@ -273,7 +274,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
 
   private def collectionName: String = collection.namespace.getCollectionName
 
-  private def awaitAggregateResult[A](awaitable: Awaitable[A], duration: Duration, pipeline: Seq[Bson], log: Log): A = {
+  private def awaitAggregateResult[A](awaitable: Awaitable[A], duration: Duration, pipeline: MongoPipeline, log: Log): A = {
     try {
       Await.result(awaitable, duration)
     }

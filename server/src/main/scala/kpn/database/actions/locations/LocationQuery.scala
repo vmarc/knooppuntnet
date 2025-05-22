@@ -6,6 +6,7 @@ import kpn.api.common.location.BooleanParameter
 import kpn.api.common.location.LastUpdatedParameter
 import kpn.api.common.location.SurveyParameter
 import kpn.core.doc.Label
+import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.conversions.Bson
@@ -143,7 +144,7 @@ object LocationQuery {
     }
   }
 
-  def proposedPipeline(otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+  def proposedPipeline(otherFilters: Seq[Option[Bson]]): MongoPipeline = {
     prefilter(otherFilters) ++ Seq(
       project(
         fields(
@@ -158,7 +159,7 @@ object LocationQuery {
     ) ++ optionGroupPipeline("proposed")
   }
 
-  def lastUpdatedPipeline(surveyDateInfo: SurveyDateInfo, otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+  def lastUpdatedPipeline(surveyDateInfo: SurveyDateInfo, otherFilters: Seq[Option[Bson]]): MongoPipeline = {
     val lastUpdatedValue =
       s"""
          |{
@@ -199,7 +200,7 @@ object LocationQuery {
     ) ++ optionGroupPipeline("lastUpdatedValue")
   }
 
-  def surveyPipeline(surveyDateInfo: SurveyDateInfo, otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+  def surveyPipeline(surveyDateInfo: SurveyDateInfo, otherFilters: Seq[Option[Bson]]): MongoPipeline = {
     val surveyValue =
       s"""
          |{
@@ -252,7 +253,7 @@ object LocationQuery {
     ) ++ optionGroupPipeline("survey")
   }
 
-  def factsPipeline(otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+  def factsPipeline(otherFilters: Seq[Option[Bson]]): MongoPipeline = {
     prefilter(otherFilters) ++ Seq(
       unwind("$labels"),
       filter(
@@ -270,13 +271,13 @@ object LocationQuery {
     ) ++ optionGroupPipeline("facts")
   }
 
-  def countPipeline(otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+  def countPipeline(otherFilters: Seq[Option[Bson]]): MongoPipeline = {
     prefilter(otherFilters) ++ Seq(
       count()
     )
   }
 
-  def integrityCheckPipeline(subset: LocationSubset, otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+  def integrityCheckPipeline(subset: LocationSubset, otherFilters: Seq[Option[Bson]]): MongoPipeline = {
     prefilter(otherFilters) ++ Seq(
       filter(
         equal("labels", s"integrity-check-${subset.routeType.entryName}")
@@ -285,7 +286,7 @@ object LocationQuery {
     )
   }
 
-  def integrityCheckFailedPipeline(subset: LocationSubset, otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+  def integrityCheckFailedPipeline(subset: LocationSubset, otherFilters: Seq[Option[Bson]]): MongoPipeline = {
     prefilter(otherFilters) ++ Seq(
       filter(
         equal("labels", s"integrity-check-failed-${subset.routeType.entryName}")
@@ -294,14 +295,14 @@ object LocationQuery {
     )
   }
 
-  def referencedInRoutesPipeline(subset: LocationSubset, otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+  def referencedInRoutesPipeline(subset: LocationSubset, otherFilters: Seq[Option[Bson]]): MongoPipeline = {
     prefilter(otherFilters) ++ Seq(
       filter(referencedInRoutesCondition(subset)),
       count()
     )
   }
 
-  private def optionGroupPipeline(groupName: String): Seq[Bson] = {
+  private def optionGroupPipeline(groupName: String): MongoPipeline = {
     Seq(
       project(
         fields(
@@ -330,7 +331,7 @@ object LocationQuery {
     )
   }
 
-  private def prefilter(otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+  private def prefilter(otherFilters: Seq[Option[Bson]]): MongoPipeline = {
     val filters = otherFilters.flatten
     if (filters.isEmpty) {
       Seq.empty

@@ -9,8 +9,8 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.core.util.Log
 import kpn.database.actions.changes.MongoQueryChangeSet.log
 import kpn.database.base.Database
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
@@ -83,7 +83,7 @@ class MongoQueryChangeSet(database: Database) {
     }
   }
 
-  private def findChanges[T](changeSetId: Long, replicationNumber: Long)(ff: Seq[Bson] => (String, Seq[T])): Seq[T] = {
+  private def findChanges[T](changeSetId: Long, replicationNumber: Long)(ff: MongoPipeline => (String, Seq[T])): Seq[T] = {
     val pipeline = Seq(
       filter(
         and(

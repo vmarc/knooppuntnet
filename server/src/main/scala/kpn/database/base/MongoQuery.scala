@@ -1,8 +1,8 @@
 package kpn.database.base
 
+import kpn.database.base.Types.MongoPipeline
 import org.apache.commons.io.IOUtils
 import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.bson.conversions.Bson
 
 import java.io.InputStream
 import scala.io.Source
@@ -31,7 +31,7 @@ class MongoQuery {
     Pipeline(pipelineName, stages)
   }
 
-  def toPipeline(pipelineString: String): Seq[Bson] = {
+  def toPipeline(pipelineString: String): MongoPipeline = {
     val lines = Source.fromString(pipelineString).getLines().toList
     val strings = toStageStrings(lines)
     strings.map { string =>

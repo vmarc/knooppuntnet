@@ -3,7 +3,7 @@ package kpn.database.actions.nodes
 import kpn.api.common.common.Reference
 import kpn.core.util.Log
 import kpn.database.base.Database
-import org.mongodb.scala.bson.conversions.Bson
+import kpn.database.base.Types.MongoPipeline
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
@@ -25,7 +25,7 @@ class MongoQueryNodeNetworkReferences(database: Database) {
     }
   }
 
-  private def pipeline(nodeId: Long): Seq[Bson] = {
+  private def pipeline(nodeId: Long): MongoPipeline = {
     Seq(
       filter(
         and(

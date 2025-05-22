@@ -1,8 +1,8 @@
 package kpn.database.actions.base
 
 import kpn.api.common.changes.filter.ChangesParameters
+import kpn.database.base.Types.MongoPipeline
 import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
 import org.mongodb.scala.model.Aggregates.lookup
@@ -18,9 +18,9 @@ import org.mongodb.scala.model.Sorts.orderBy
 
 object ChangesPipeline {
 
-  def from(elementId: Long, parameters: ChangesParameters): Seq[Bson] = {
+  def from(elementId: Long, parameters: ChangesParameters): MongoPipeline = {
 
-    val allFilterElements: Seq[Bson] = Seq(
+    val allFilterElements: MongoPipeline = Seq(
       Some(equal("key.elementId", elementId)),
       if (parameters.impact) Some(equal("impact", true)) else None,
       parameters.year.map(year => equal("key.time.year", year.toInt)),

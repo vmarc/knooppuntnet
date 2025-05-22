@@ -3,7 +3,7 @@ package kpn.database.actions.statistics
 import kpn.core.util.Log
 import kpn.database.actions.statistics.MongoQueryStatistics.log
 import kpn.database.base.Database
-import org.mongodb.scala.bson.conversions.Bson
+import kpn.database.base.Types.MongoPipeline
 import org.mongodb.scala.model.Accumulators.push
 import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.merge
@@ -20,7 +20,7 @@ object MongoQueryStatistics {
 
   private val log = Log(classOf[MongoQueryStatistics])
 
-  def groupValues(database: Database, name: String): Seq[Bson] = {
+  def groupValues(database: Database, name: String): MongoPipeline = {
     Seq(
       sort(orderBy(ascending("_id"))),
       project(

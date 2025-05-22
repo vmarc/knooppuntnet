@@ -4,8 +4,8 @@ import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
 import org.mongodb.scala.model.Aggregates.project
@@ -23,6 +23,17 @@ class MongoQueryNetworkChanges(database: Database) {
   private val log = Log(classOf[MongoQueryNetworkChanges])
 
   def execute(networkId: Long, parameters: ChangesParameters): Seq[NetworkChange] = {
+    log.debugElapsed {
+      val pipeline = buildPipeline(networkId, parameters)
+      if (log.isTraceEnabled) {
+        log.trace(Mongo.pipelineString(pipeline))
+      }
+      val docs = database.networkChanges.aggregate[NetworkChange](pipeline)
+      (s"${docs.size} network changes", docs)
+    }
+  }
+
+  private def buildPipeline(networkId: Long, parameters: ChangesParameters): MongoPipeline = {
 
     val filterElements = Seq(
       Some(equal("key.elementId", networkId)),
@@ -34,7 +45,7 @@ class MongoQueryNetworkChanges(database: Database) {
       parameters.day.map(day => equal("key.time.day", day.toInt))
     ).flatten
 
-    val pipeline: Seq[Bson] = Seq(
+    Seq(
       filter(
         and(filterElements: _*)
       ),
@@ -53,14 +64,5 @@ class MongoQueryNetworkChanges(database: Database) {
         )
       )
     )
-
-    if (log.isTraceEnabled) {
-      log.trace(Mongo.pipelineString(pipeline))
-    }
-
-    log.debugElapsed {
-      val docs = database.networkChanges.aggregate[NetworkChange](pipeline)
-      (s"${docs.size} network changes", docs)
-    }
   }
 }

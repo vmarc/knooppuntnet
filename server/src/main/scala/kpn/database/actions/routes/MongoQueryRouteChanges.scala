@@ -4,8 +4,8 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
 import org.mongodb.scala.model.Aggregates.project
@@ -23,6 +23,17 @@ class MongoQueryRouteChanges(database: Database) {
   private val log = Log(classOf[MongoQueryRouteChanges])
 
   def execute(routeId: Long, parameters: ChangesParameters): Seq[RouteChange] = {
+    val pipeline = buildPipeline(routeId, parameters)
+    if (log.isTraceEnabled) {
+      log.trace(Mongo.pipelineString(pipeline))
+    }
+    log.debugElapsed {
+      val routeChanges = database.routeChanges.aggregate[RouteChange](pipeline)
+      (s"${routeChanges.size} route changes", routeChanges)
+    }
+  }
+
+  private def buildPipeline(routeId: Long, parameters: ChangesParameters): MongoPipeline = {
 
     val filterElements = Seq(
       Some(equal("key.elementId", routeId)),
@@ -34,7 +45,7 @@ class MongoQueryRouteChanges(database: Database) {
       parameters.day.map(day => equal("key.time.day", day.toInt))
     ).flatten
 
-    val pipeline: Seq[Bson] = Seq(
+    Seq(
       filter(
         and(filterElements: _*)
       ),
@@ -58,14 +69,5 @@ class MongoQueryRouteChanges(database: Database) {
         )
       )
     )
-
-    if (log.isTraceEnabled) {
-      log.trace(Mongo.pipelineString(pipeline))
-    }
-
-    log.debugElapsed {
-      val routeChanges = database.routeChanges.aggregate[RouteChange](pipeline)
-      (s"${routeChanges.size} route changes", routeChanges)
-    }
   }
 }
