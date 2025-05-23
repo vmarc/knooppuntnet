@@ -14,10 +14,10 @@ import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RawDataRepositoryImpl
 
 object RawDataTool {
-  private val timestamp = Timestamp(2025, 1, 1, 0, 0, 0)
+  private val timestamp = Timestamp(2025, 5, 20, 0, 0, 0)
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-next") { database =>
+    Mongo.executeIn("kpn-laptop") { database =>
       val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
       val overpassRepository = new OverpassRepositoryImpl(overpassQueryExecutor)
       val repository = new RawDataRepositoryImpl(overpassRepository)
@@ -32,8 +32,8 @@ class RawDataTool(database: Database, repository: RawDataRepository) {
   private val log = Log(classOf[RawDataTool])
 
   def load(): Unit = {
-    // loadNodes()
-    // loadNetworks()
+    loadNodes()
+    loadNetworks()
     loadRoutes()
   }
 

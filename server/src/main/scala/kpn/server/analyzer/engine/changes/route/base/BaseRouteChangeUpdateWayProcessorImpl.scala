@@ -9,7 +9,9 @@ import kpn.api.custom.Relation
 import kpn.core.history.WayDiffAnalyzer
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import org.springframework.stereotype.Component
 
+@Component
 class BaseRouteChangeUpdateWayProcessorImpl extends BaseRouteChangeUpdateWayProcessor {
 
   private val log = Log(classOf[BaseRouteChangeUpdateWayProcessorImpl])
