@@ -17,23 +17,30 @@ class FullBaseNodeAnalyzer(
   private val log = Log(classOf[FullBaseNodeAnalyzer])
   private val NodeBatchSize = 500
 
+  private case class AnalysisResult(
+    analyzedIds: Seq[Long],
+    obsoleteIds: Seq[Long]
+  )
+
   def analyze(context: FullAnalysisContext): FullAnalysisContext = {
     Log.context("base-nodes") {
       log.infoElapsed {
-        val activeNodeIds = nodeRepository.activeBaseNodeIds()
-        val rawNodeIds = collectRawNodeIds(context.timestamp)
-        val analyzedNodeIds = processNodesInBatches(context.timestamp, rawNodeIds)
-        val obsoleteNodeIds = findObsoleteNodes(activeNodeIds, analyzedNodeIds)
-        deactivateObsoleteNodes(obsoleteNodeIds)
-        val message = s"completed (${analyzedNodeIds.size} nodes, ${obsoleteNodeIds.size} obsolete nodes)"
-        val updatedContext = context.copy(
-          obsoleteNodeIds = obsoleteNodeIds,
-          nodeIds = analyzedNodeIds
-        )
-
-        (message, updatedContext)
+        val result = analyzeNodes(context)
+        (message(result), context)
       }
     }
+  }
+
+  private def analyzeNodes(context: FullAnalysisContext): AnalysisResult = {
+    val activeNodeIds = nodeRepository.activeBaseNodeIds()
+    val rawNodeIds = collectRawNodeIds(context.timestamp)
+    val analyzedNodeIds = processNodesInBatches(context.timestamp, rawNodeIds)
+    val obsoleteNodeIds = findObsoleteNodes(activeNodeIds, analyzedNodeIds)
+    deactivateObsoleteNodes(obsoleteNodeIds)
+    AnalysisResult(
+      analyzedNodeIds,
+      obsoleteNodeIds
+    )
   }
 
   private def collectActiveBaseNodeIds(): Seq[Long] = {
@@ -93,5 +100,9 @@ class FullBaseNodeAnalyzer(
     nodeIds.flatMap(nodeRepository.baseNodeWithId).foreach(baseNodeDoc =>
       nodeRepository.saveBaseNode(baseNodeDoc.deactivated)
     )
+  }
+
+  private def message(result: AnalysisResult): String = {
+    s"completed (${result.analyzedIds.size} nodes, ${result.obsoleteIds.size} obsolete nodes)"
   }
 }

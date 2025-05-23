@@ -1,5 +1,8 @@
 package kpn.server.analyzer.full.analyzers
 
+import kpn.api.common.ChangeType
+import kpn.api.common.changes.details.BaseRouteChange
+import kpn.api.common.diff.WayDiffs
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.doc.RouteRelation
@@ -10,6 +13,8 @@ import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
@@ -18,6 +23,7 @@ import org.springframework.stereotype.Component
 class FullBaseRouteAnalyzer(
   rawDataRepository: RawDataRepository,
   routeRepository: RouteRepository,
+  changeSetRepository: ChangeSetRepository,
   baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
   baseRouteDocBuilder: BaseRouteDocBuilder,
 ) extends FullAnalyzer {
@@ -25,17 +31,29 @@ class FullBaseRouteAnalyzer(
   private val ThreadPoolSize = 10
   private val log = Log(classOf[FullBaseRouteAnalyzer])
 
+  private case class AnalysisResult(
+    analyzedIds: Seq[Long],
+    obsoleteIds: Seq[Long]
+  )
+
   def analyze(context: FullAnalysisContext): FullAnalysisContext = {
     Log.context("base routes") {
       log.infoElapsed {
-        val existingRouteIds = collectActiveBaseRouteIds()
-        val routeIds = collectRawRouteIds(context.timestamp)
-        analyzeRoutes(context.timestamp, routeIds)
-        val obsoleteRouteIds = handleObsoleteRoutes(existingRouteIds, routeIds)
-        val message = s"Analyzed (${routeIds.size} routes, ${obsoleteRouteIds.size} obsolete routes)"
-        (message, context)
+        val result = analyzeAll(context)
+        (message(result), context)
       }
     }
+  }
+
+  private def analyzeAll(context: FullAnalysisContext): AnalysisResult = {
+    val existingRouteIds = collectActiveBaseRouteIds()
+    val routeIds = collectRawRouteIds(context.timestamp)
+    analyzeRoutes(context.timestamp, context.initialAnalysisChangeSetContext, routeIds)
+    val obsoleteRouteIds = handleObsoleteRoutes(existingRouteIds, routeIds)
+    AnalysisResult(
+      routeIds,
+      obsoleteRouteIds
+    )
   }
 
   private def collectActiveBaseRouteIds(): Seq[Long] = {
@@ -54,7 +72,7 @@ class FullBaseRouteAnalyzer(
     }
   }
 
-  private def analyzeRoutes(timestamp: Timestamp, routeIds: Seq[Long]): Unit = {
+  private def analyzeRoutes(timestamp: Timestamp, changeSetContextOption: Option[ChangeSetContext], routeIds: Seq[Long]): Unit = {
     val routeCount = routeIds.size
     log.info(s"analyzing $routeCount base routes")
     val context = Log.contextMessages
@@ -62,7 +80,7 @@ class FullBaseRouteAnalyzer(
       ThreadExecutor.execute(ThreadPoolSize, routeIds) { (index, count, routeId) =>
         Log.context(context) {
           Log.context(s"$index/$count $routeId") {
-            processRoute(timestamp, routeId)
+            processRoute(timestamp, changeSetContextOption, routeId)
           }
         }
       }
@@ -70,12 +88,12 @@ class FullBaseRouteAnalyzer(
     }
   }
 
-  private def processRoute(timestamp: Timestamp, routeId: Long): Unit = {
+  private def processRoute(timestamp: Timestamp, changeSetContextOption: Option[ChangeSetContext], routeId: Long): Unit = {
     log.infoElapsed {
       try {
         rawDataRepository.route(timestamp, routeId) match {
           case Some(rawRouteDoc) =>
-            analyzeBaseRoute(rawRouteDoc.relation, rawRouteDoc.subRelationTree)
+            analyzeBaseRoute(changeSetContextOption, rawRouteDoc.relation, rawRouteDoc.subRelationTree)
           case None =>
             log.error(s"route $routeId not found in route-relations")
         }
@@ -87,17 +105,36 @@ class FullBaseRouteAnalyzer(
     }
   }
 
-  private def analyzeBaseRoute(relation: Relation, subRelationTree: Option[RouteRelation]): Unit = {
+  private def analyzeBaseRoute(changeSetContextOption: Option[ChangeSetContext], relation: Relation, subRelationTree: Option[RouteRelation]): Unit = {
     val context = baseRouteMainAnalyzer.analyze(relation, subRelationTree)
     if (!context.abort) {
-      saveRouteData(context)
+      saveBaseRoute(context)
+      saveTileData(context)
+      baseRouteChange(changeSetContextOption, context).foreach(changeSetRepository.saveBaseRouteChange)
     }
   }
 
-  private def saveRouteData(context: BaseRouteAnalysisContext): Unit = {
-    val baseRouteDoc = baseRouteDocBuilder.build(context)
-    routeRepository.saveBaseRoute(baseRouteDoc)
-    saveTileData(context)
+  private def saveBaseRoute(context: BaseRouteAnalysisContext): Unit = {
+    routeRepository.saveBaseRoute(baseRouteDocBuilder.build(context))
+  }
+
+  private def baseRouteChange(changeSetContextOption: Option[ChangeSetContext], context: BaseRouteAnalysisContext): Option[BaseRouteChange] = {
+    changeSetContextOption.map { changeSetContext =>
+      val addedWays = context.relation.wayMembers.map(_.way.toRaw)
+      val wayDiffs = WayDiffs(
+        removed = Seq.empty,
+        added = addedWays,
+        updated = Seq.empty
+      )
+      val key = changeSetContext.buildChangeKey(context.routeId)
+      key.toId
+      BaseRouteChange(
+        key.toId,
+        key = key,
+        changeType = ChangeType.InitialValue,
+        wayDiffs = wayDiffs,
+      )
+    }
   }
 
   private def saveTileData(context: BaseRouteAnalysisContext): Unit = {
@@ -149,5 +186,9 @@ class FullBaseRouteAnalyzer(
       log.warn(s"de-activating route ${baseRouteDoc._id}")
       routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
     }
+  }
+
+  private def message(result: AnalysisResult): String = {
+    s"Analyzed (${result.analyzedIds.size} routes, ${result.obsoleteIds.size} obsolete routes)"
   }
 }

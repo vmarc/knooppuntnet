@@ -14,22 +14,30 @@ class FullNetworkAnalyzer(
 
   private val log = Log(classOf[FullNetworkAnalyzer])
 
+  private case class AnalysisResult(
+    analyzedIds: Seq[Long],
+    obsoleteIds: Seq[Long]
+  )
+
   def analyze(context: FullAnalysisContext): FullAnalysisContext = {
     Log.context("network") {
       log.infoElapsed {
-        val activeNetworkIds = collectActiveNetworkIds()
-        val baseNetworkIds = collectBaseNetworkIds()
-        val analyzedNetworkIds = analyzeNetworks(context, baseNetworkIds)
-        val obsoleteNetworkIds = findObsoleteNetworks(activeNetworkIds, analyzedNetworkIds)
-        deactivateObsoleteNetworks(obsoleteNetworkIds)
-        val message = s"completed (${analyzedNetworkIds.size} networks, ${obsoleteNetworkIds.size} obsolete networks)"
-        val updatedContext = context.copy(
-          obsoleteNetworkIds = obsoleteNetworkIds,
-          networkIds = analyzedNetworkIds,
-        )
-        (message, updatedContext)
+        val result = analyzeAll(context)
+        (message(result), context)
       }
     }
+  }
+
+  private def analyzeAll(context: FullAnalysisContext): AnalysisResult = {
+    val activeNetworkIds = collectActiveNetworkIds()
+    val baseNetworkIds = collectBaseNetworkIds()
+    val analyzedNetworkIds = analyzeNetworks(context, baseNetworkIds)
+    val obsoleteNetworkIds = findObsoleteNetworks(activeNetworkIds, analyzedNetworkIds)
+    deactivateObsoleteNetworks(obsoleteNetworkIds)
+    AnalysisResult(
+      analyzedNetworkIds,
+      obsoleteNetworkIds
+    )
   }
 
   private def collectActiveNetworkIds(): Seq[Long] = {
@@ -83,5 +91,9 @@ class FullNetworkAnalyzer(
         networkRepository.save(networkDoc.copy(active = false))
       }
     }
+  }
+
+  private def message(result: AnalysisResult): String = {
+    s"completed (${result.analyzedIds.size} networks, ${result.obsoleteIds.size} obsolete networks)"
   }
 }

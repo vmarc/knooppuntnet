@@ -1,0 +1,26 @@
+package kpn.core.tools.analysis
+
+import kpn.database.util.Mongo
+
+object DropCollectionsTool {
+  def main(args: Array[String]): Unit = {
+    Mongo.executeIn("kpn-next") { database =>
+      database.baseNodes.drop()
+      database.baseRoutes.drop()
+      database.baseNetworks.drop()
+      database.nodes.drop()
+      database.routes.drop()
+      database.networks.drop()
+
+      database.changes.drop()
+      database.nodeChanges.drop()
+      database.networkChanges.drop()
+      database.routeChanges.drop()
+      database.routeTiles.drop()
+
+      database.statistics.drop()
+      database.status.drop()
+      database.transactions.drop()
+    }
+  }
+}

@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes
 
+import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -23,12 +24,17 @@ class ChangeSaver(
 
   private def saveAllChanges(changes: ChangeSetChanges): Unit = {
     saveNetworkChanges(changes.networkChanges)
+    saveBaseRouteChanges(changes.baseRouteChanges)
     saveRouteChanges(changes.routeChanges)
     saveNodeChanges(changes.nodeChanges)
   }
 
   private def saveNetworkChanges(changes: Seq[NetworkChange]): Unit = {
     changes.foreach(changeSetRepository.saveNetworkChange)
+  }
+
+  private def saveBaseRouteChanges(changes: Seq[BaseRouteChange]): Unit = {
+    changes.foreach(changeSetRepository.saveBaseRouteChange)
   }
 
   private def saveRouteChanges(changes: Seq[RouteChange]): Unit = {

@@ -110,7 +110,7 @@ import { RouteMemberNameComponent } from './route-member-name.component';
     .member-details {
       flex-grow: 1;
       border-left: 1px solid lightgray;
-      padding: 0.3em;
+      padding: 0.5em;
     }
 
     .role {

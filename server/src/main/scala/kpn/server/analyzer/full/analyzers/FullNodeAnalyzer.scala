@@ -16,7 +16,7 @@ class FullNodeAnalyzer(
 
   private val log = Log(classOf[FullNodeAnalyzer])
 
-  case class NodeAnalysisResult(
+  case class AnalysisResult(
     analyzedIds: Seq[Long],
     obsoleteIds: Seq[Long]
   )
@@ -25,19 +25,18 @@ class FullNodeAnalyzer(
     Log.context("full-node-analysis") {
       log.infoElapsed {
         val result = analyzeNodes(context)
-        updateContext(context, result)
+        (message(result), context)
       }
     }
   }
 
-  private def analyzeNodes(context: FullAnalysisContext): NodeAnalysisResult = {
+  private def analyzeNodes(context: FullAnalysisContext): AnalysisResult = {
     val activeNodeIds = findActiveNodeIds()
     val baseNodeIds = findBaseNodeIds()
     val analyzedNodeIds = processBaseNodes(context, baseNodeIds)
     val obsoleteNodeIds = (activeNodeIds.toSet -- analyzedNodeIds).toSeq.sorted
-
     deactivateObsoleteNodesBatch(obsoleteNodeIds)
-    NodeAnalysisResult(analyzedNodeIds, obsoleteNodeIds)
+    AnalysisResult(analyzedNodeIds, obsoleteNodeIds)
   }
 
   private def findActiveNodeIds(): Seq[Long] = {
@@ -75,12 +74,7 @@ class FullNodeAnalyzer(
     }
   }
 
-  private def updateContext(context: FullAnalysisContext, result: NodeAnalysisResult): (String, FullAnalysisContext) = {
-    val message = s"completed (${result.analyzedIds.size} nodes, ${result.obsoleteIds.size} obsolete nodes)"
-    val updatedContext = context.copy(
-      obsoleteNodeIds = result.obsoleteIds,
-      nodeIds = result.analyzedIds
-    )
-    (message, updatedContext)
+  private def message(result: AnalysisResult): String = {
+    s"completed (${result.analyzedIds.size} nodes, ${result.obsoleteIds.size} obsolete nodes)"
   }
 }

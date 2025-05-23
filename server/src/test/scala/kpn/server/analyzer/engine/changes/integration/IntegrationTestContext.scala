@@ -379,6 +379,7 @@ class IntegrationTestContext(
     val fullBaseRouteAnalyzer = new FullBaseRouteAnalyzer(
       rawDataRepository,
       routeRepository,
+      changeSetRepository,
       baseRouteMainAnalyzer,
       baseRouteDocBuilder
     )

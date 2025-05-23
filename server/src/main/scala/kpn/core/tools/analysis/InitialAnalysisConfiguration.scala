@@ -223,6 +223,7 @@ class InitialAnalysisConfiguration(options: InitialAnalysisToolOptions) {
   private val fullBaseRouteAnalyzer = new FullBaseRouteAnalyzer(
     rawDataRepository,
     routeRepository,
+    changeSetRepository,
     baseRouteMainAnalyzer,
     baseRouteDocBuilder
   )

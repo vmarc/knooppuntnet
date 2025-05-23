@@ -3,6 +3,7 @@ package kpn.server.repository
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
+import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -39,6 +40,10 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
 
   override def saveNetworkChange(networkChange: NetworkChange): Unit = {
     database.networkChanges.save(networkChange, log)
+  }
+
+  override def saveBaseRouteChange(baseRouteChange: BaseRouteChange): Unit = {
+    database.baseRouteChanges.save(baseRouteChange, log)
   }
 
   override def saveRouteChange(routeChange: RouteChange): Unit = {
