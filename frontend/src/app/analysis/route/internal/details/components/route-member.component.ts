@@ -110,6 +110,7 @@ import { RouteMemberNameComponent } from './route-member-name.component';
     .member-details {
       flex-grow: 1;
       border-left: 1px solid lightgray;
+      padding: 0.3em;
     }
 
     .role {
@@ -125,6 +126,7 @@ import { RouteMemberNameComponent } from './route-member-name.component';
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      gap: 0.5em;
     }
 
     .extra-line {
@@ -132,18 +134,17 @@ import { RouteMemberNameComponent } from './route-member-name.component';
     }
   `,
   imports: [
+    DayPipe,
     LinkNodeComponent,
     MatIconModule,
-    TagsTextComponent,
-    SymbolComponent,
-    DayPipe,
+    MatLabel,
+    MatTooltip,
     RouteDistanceComponent,
     RouteMemberIdComponent,
     RouteMemberImageComponent,
     RouteMemberNameComponent,
-    MatTooltip,
-    MatLabel,
-    DayPipe,
+    SymbolComponent,
+    TagsTextComponent,
   ],
 })
 export class RouteMemberComponent {

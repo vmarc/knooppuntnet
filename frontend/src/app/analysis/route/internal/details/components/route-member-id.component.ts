@@ -27,10 +27,10 @@ import { ActionButtonWayComponent } from '../../../../components/action/action-b
     </div>
   `,
   imports: [
-    MatIconModule,
-    ActionButtonRelationComponent,
     ActionButtonNodeComponent,
+    ActionButtonRelationComponent,
     ActionButtonWayComponent,
+    MatIconModule,
   ],
 })
 export class RouteMemberIdComponent {
