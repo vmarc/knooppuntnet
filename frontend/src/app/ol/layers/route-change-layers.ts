@@ -44,7 +44,7 @@ export class RouteChangeLayers {
   private segmentLayer(
     id: string,
     name: string,
-    segments: PointSegment[],
+    segments: string[],
     width: number,
     color: Color
   ): OldMapLayer {
@@ -61,9 +61,7 @@ export class RouteChangeLayers {
 
     const source = new VectorSource();
     segments.forEach((segment) => {
-      const p1 = OlUtil.latLonToCoordinate(segment.p1);
-      const p2 = OlUtil.latLonToCoordinate(segment.p2);
-      const feature = new Feature(new LineString([p1, p2]));
+      const feature = new Feature(new LineString(JSON.parse(segment)));
       feature.setStyle(style);
       source.addFeature(feature);
     });

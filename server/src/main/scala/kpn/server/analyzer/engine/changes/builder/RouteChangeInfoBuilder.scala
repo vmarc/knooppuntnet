@@ -4,161 +4,176 @@ import kpn.api.common.ElementChangeType
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.RouteChange
-import kpn.api.common.diff.WayDiffsInfo
+import kpn.api.common.diff.RouteData
 import kpn.api.common.route.RouteChangeInfo
 import kpn.api.common.route.RouteNodeChange
 
-class RouteChangeInfoBuilder {
-
+object RouteChangeInfoBuilder {
   def build(
-    index: Long,
+    rowIndex: Long,
     routeChange: RouteChange,
     baseRouteChangeOption: Option[BaseRouteChange],
     changeSetInfos: Seq[ChangeSetInfo]
   ): RouteChangeInfo = {
 
     val changeSetInfo = changeSetInfos.find(changeSetInfo => changeSetInfo.id == routeChange.key.changeSetId)
+    val comment = changeSetInfo.flatMap(_.tagValue("comment"))
 
-    if (routeChange.before.isDefined && routeChange.after.isDefined) {
+    new RouteChangeInfoBuilder(
+      rowIndex,
+      routeChange,
+      baseRouteChangeOption,
+      changeSetInfo,
+      comment
+    ).build()
+  }
+}
 
-      val before = routeChange.before.get
-      val after = routeChange.after.get
+class RouteChangeInfoBuilder(
+  rowIndex: Long,
+  routeChange: RouteChange,
+  baseRouteChangeOption: Option[BaseRouteChange],
+  changeSetInfo: Option[ChangeSetInfo],
+  comment: Option[String],
+) {
 
-      val comment = changeSetInfo.flatMap(_.tagValue("comment"))
+  def build(): RouteChangeInfo = {
+    (routeChange.before, routeChange.after) match {
+      case (None, Some(after)) => buildRouteChangeCreate(after)
+      case (Some(before), None) => updateRouteChangeDelete(before)
+      case (Some(before), Some(after)) => buildRouteChangeUpdate(before, after)
+      case _ =>
+        throw new IllegalStateException(s"Cannot derive RouteChangeInfo from RouteChange $routeChange")
+    }
+  }
 
-      val allNodes = before.networkNodes ++ after.networkNodes
-      val allNodeIds = allNodes.map(_.nodeId).distinct
-
-      val nodeIdsAdded = routeChange.diffs.nodeDiffs.flatMap(_.added.map(_.id))
-      val nodeIdsRemoved = routeChange.diffs.nodeDiffs.flatMap(_.removed.map(_.id))
-
-      val nodeChanges = allNodeIds.flatMap { nodeId =>
-        val changeType = if (nodeIdsAdded.contains(nodeId)) {
-          ElementChangeType.Added
-        } else if (nodeIdsRemoved.contains(nodeId)) {
-          ElementChangeType.Removed
-        } else {
-          before.networkNodes.find(_.nodeId == nodeId) match {
-            case None => ElementChangeType.Unchanged
-            case Some(nodeBefore) =>
-              after.networkNodes.find(_.nodeId == nodeId) match {
-                case None => ElementChangeType.Unchanged
-                case Some(nodeAfter) =>
-                  if (nodeBefore.latitude == nodeAfter.latitude && nodeBefore.longitude == nodeAfter.longitude) {
-                    ElementChangeType.Unchanged
-                  }
-                  else {
-                    ElementChangeType.Changed
-                  }
-              }
-          }
-        }
-        val node = if (changeType == ElementChangeType.Removed) {
-          before.networkNodes.find(_.nodeId == nodeId)
-        }
-        else {
-          after.networkNodes.find(_.nodeId == nodeId)
-        }
-
-        node.map { node =>
-          RouteNodeChange(
-            nodeId,
-            node.latitude,
-            node.longitude,
-            changeType
-          )
-        }
-      }
-
-      RouteChangeInfo(
-        index,
-        after.relationId,
-        after.meta.version,
-        routeChange.key,
-        routeChange.changeType,
-        comment,
-        routeChange.before.map(_.meta),
-        routeChange.after.map(_.meta),
-        routeChange.diffs,
-        after.networkNodes,
-        nodeChanges,
-        changeSetInfo,
-        baseRouteChangeOption.map(_.wayDiffs).getOrElse(WayDiffsInfo.empty),
-        geometryDiff = baseRouteChangeOption.map(_.geometryDiff),
-        bounds = baseRouteChangeOption.flatMap(_.bounds),
-        happy = routeChange.happy,
-        investigate = routeChange.investigate
+  private def updateRouteChangeDelete(before: RouteData): RouteChangeInfo = {
+    val nodeChanges = before.networkNodes.map { node =>
+      RouteNodeChange(
+        node.nodeId,
+        node.latitude,
+        node.longitude,
+        ElementChangeType.Added
       )
     }
-    else if (routeChange.before.isDefined) {
 
-      val routeData = routeChange.before.get
-      val comment = changeSetInfo.flatMap(_.tagValue("comment"))
+    RouteChangeInfo(
+      rowIndex,
+      before.relationId,
+      before.meta.version,
+      routeChange.key,
+      routeChange.changeType,
+      comment,
+      routeChange.before.map(_.meta),
+      routeChange.after.map(_.meta),
+      routeChange.diffs,
+      before.networkNodes,
+      nodeChanges,
+      changeSetInfo,
+      wayDiffs = baseRouteChangeOption.flatMap(_.wayDiffs),
+      geometryDiff = baseRouteChangeOption.flatMap(_.geometryDiff),
+      bounds = baseRouteChangeOption.flatMap(_.bounds),
+      happy = routeChange.happy,
+      investigate = routeChange.investigate
+    )
+  }
 
-      val nodeChanges = routeData.networkNodes.map { node =>
+  private def buildRouteChangeCreate(after: RouteData): RouteChangeInfo = {
+
+    val nodeChanges = after.networkNodes.map { node =>
+      RouteNodeChange(
+        node.nodeId,
+        node.latitude,
+        node.longitude,
+        ElementChangeType.Removed
+      )
+    }
+
+    RouteChangeInfo(
+      rowIndex,
+      after.relationId,
+      after.meta.version,
+      routeChange.key,
+      routeChange.changeType,
+      comment,
+      routeChange.before.map(_.meta),
+      routeChange.after.map(_.meta),
+      routeChange.diffs,
+      after.networkNodes,
+      nodeChanges,
+      changeSetInfo,
+      wayDiffs = baseRouteChangeOption.flatMap(_.wayDiffs),
+      geometryDiff = baseRouteChangeOption.flatMap(_.geometryDiff),
+      bounds = baseRouteChangeOption.flatMap(_.bounds),
+      happy = routeChange.happy,
+      investigate = routeChange.investigate
+    )
+  }
+
+  private def buildRouteChangeUpdate(before: RouteData, after: RouteData): RouteChangeInfo = {
+
+    val allNodes = before.networkNodes ++ after.networkNodes
+    val allNodeIds = allNodes.map(_.nodeId).distinct
+
+    val nodeIdsAdded = routeChange.diffs.nodeDiffs.flatMap(_.added.map(_.id))
+    val nodeIdsRemoved = routeChange.diffs.nodeDiffs.flatMap(_.removed.map(_.id))
+
+    val nodeChanges = allNodeIds.flatMap { nodeId =>
+      val changeType = if (nodeIdsAdded.contains(nodeId)) {
+        ElementChangeType.Added
+      } else if (nodeIdsRemoved.contains(nodeId)) {
+        ElementChangeType.Removed
+      } else {
+        before.networkNodes.find(_.nodeId == nodeId) match {
+          case None => ElementChangeType.Unchanged
+          case Some(nodeBefore) =>
+            after.networkNodes.find(_.nodeId == nodeId) match {
+              case None => ElementChangeType.Unchanged
+              case Some(nodeAfter) =>
+                if (nodeBefore.latitude == nodeAfter.latitude && nodeBefore.longitude == nodeAfter.longitude) {
+                  ElementChangeType.Unchanged
+                }
+                else {
+                  ElementChangeType.Changed
+                }
+            }
+        }
+      }
+      val node = if (changeType == ElementChangeType.Removed) {
+        before.networkNodes.find(_.nodeId == nodeId)
+      }
+      else {
+        after.networkNodes.find(_.nodeId == nodeId)
+      }
+
+      node.map { node =>
         RouteNodeChange(
-          node.nodeId,
+          nodeId,
           node.latitude,
           node.longitude,
-          ElementChangeType.Removed
+          changeType
         )
       }
-
-      RouteChangeInfo(
-        index,
-        routeData.relationId,
-        routeData.meta.version,
-        routeChange.key,
-        routeChange.changeType,
-        comment,
-        routeChange.before.map(_.meta),
-        routeChange.after.map(_.meta),
-        routeChange.diffs,
-        routeData.networkNodes,
-        nodeChanges,
-        changeSetInfo,
-        wayDiffs = baseRouteChangeOption.map(_.wayDiffs).getOrElse(WayDiffsInfo.empty),
-        geometryDiff = baseRouteChangeOption.map(_.geometryDiff),
-        bounds = baseRouteChangeOption.flatMap(_.bounds),
-        happy = routeChange.happy,
-        investigate = routeChange.investigate
-      )
     }
-    else if (routeChange.after.isDefined) {
 
-      val routeData = routeChange.after.get
-      val comment = changeSetInfo.flatMap(_.tagValue("comment"))
-      val nodeChanges = routeData.networkNodes.map { node =>
-        RouteNodeChange(
-          node.nodeId,
-          node.latitude,
-          node.longitude,
-          ElementChangeType.Added
-        )
-      }
-
-      RouteChangeInfo(
-        index,
-        routeData.relationId,
-        routeData.meta.version,
-        routeChange.key,
-        routeChange.changeType,
-        comment,
-        routeChange.before.map(_.meta),
-        routeChange.after.map(_.meta),
-        routeChange.diffs,
-        routeData.networkNodes,
-        nodeChanges,
-        changeSetInfo,
-        wayDiffs = baseRouteChangeOption.map(_.wayDiffs).getOrElse(WayDiffsInfo.empty),
-        geometryDiff = baseRouteChangeOption.map(_.geometryDiff),
-        bounds = baseRouteChangeOption.flatMap(_.bounds),
-        happy = routeChange.happy,
-        investigate = routeChange.investigate
-      )
-    }
-    else {
-      throw new IllegalStateException(s"Cannot derive RouteChangeInfo from RouteChange $routeChange")
-    }
+    RouteChangeInfo(
+      rowIndex = rowIndex,
+      id = after.relationId,
+      version = after.meta.version,
+      changeKey = routeChange.key,
+      changeType = routeChange.changeType,
+      comment = comment,
+      before = routeChange.before.map(_.meta),
+      after = routeChange.after.map(_.meta),
+      diffs = routeChange.diffs,
+      nodes = after.networkNodes,
+      nodeChanges = nodeChanges,
+      changeSetInfo = changeSetInfo,
+      wayDiffs = baseRouteChangeOption.flatMap(_.wayDiffs),
+      geometryDiff = baseRouteChangeOption.flatMap(_.geometryDiff),
+      bounds = baseRouteChangeOption.flatMap(_.bounds),
+      happy = routeChange.happy,
+      investigate = routeChange.investigate
+    )
   }
 }

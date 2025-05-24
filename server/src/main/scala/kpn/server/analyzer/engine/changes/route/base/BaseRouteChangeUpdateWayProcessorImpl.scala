@@ -34,7 +34,7 @@ class BaseRouteChangeUpdateWayProcessorImpl extends BaseRouteChangeUpdateWayProc
           key = key,
           changeType = ChangeType.Update,
           wayDiffsInfo,
-          geometryDiff,
+          Some(geometryDiff),
           Some(bounds)
         )
         changeSetContext.copy(
@@ -50,7 +50,7 @@ class BaseRouteChangeUpdateWayProcessorImpl extends BaseRouteChangeUpdateWayProc
             key = key,
             changeType = ChangeType.Update,
             wayDiffsInfo,
-            GeometryDiff(),
+            None,
             None
           )
           changeSetContext.copy(
@@ -65,7 +65,7 @@ class BaseRouteChangeUpdateWayProcessorImpl extends BaseRouteChangeUpdateWayProc
     }
   }
 
-  private def analyzeWayDiffs(before: Relation, after: Relation): WayDiffsInfo = {
+  private def analyzeWayDiffs(before: Relation, after: Relation): Option[WayDiffsInfo] = {
 
     val wayIdsBefore = before.ways.map(_.id).toSet
     val wayIdsAfter = after.ways.map(_.id).toSet
@@ -75,11 +75,12 @@ class BaseRouteChangeUpdateWayProcessorImpl extends BaseRouteChangeUpdateWayProc
     val added = toWayInfos(after, wayIdsAfter -- wayIdsBefore)
     val updated = analyzeUpdatedWays(before, after, wayIdsCommon)
 
-    WayDiffsInfo(
-      removed,
-      added,
-      updated
-    )
+    if (removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
+      Some(WayDiffsInfo(removed, added, updated))
+    }
+    else {
+      None
+    }
   }
 
   private def analyzeUpdatedWays(

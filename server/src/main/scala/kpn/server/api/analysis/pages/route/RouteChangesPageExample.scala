@@ -60,10 +60,12 @@ object RouteChangesPageExample {
         nodes = Seq.empty,
         nodeChanges = Seq.empty,
         changeSetInfo = None, //Some(ChangeSetInfo()),  TODO do we actually show this???
-        wayDiffs = WayDiffsInfo(
-          removed = removedWays(),
-          added = addedWays(),
-          updated = updatedWays(),
+        wayDiffs = Some(
+          WayDiffsInfo(
+            removed = removedWays(),
+            added = addedWays(),
+            updated = updatedWays(),
+          )
         ),
         geometryDiff = None,
         bounds = None,

@@ -140,18 +140,22 @@ class NetworkCreateTest06 extends IntegrationTest {
         "123:1:11",
         newChangeKey(elementId = 11),
         ChangeType.Create,
-        wayDiffs = WayDiffsInfo(
-          added = Seq(
-            newWayInfo(
-              101,
-              tags = Tags.from(
-                "highway" -> "unclassified"
+        wayDiffs = Some(
+          WayDiffsInfo(
+            added = Seq(
+              newWayInfo(
+                101,
+                tags = Tags.from(
+                  "highway" -> "unclassified"
+                )
               )
             )
           )
         ),
-        geometryDiff = GeometryDiff(
-          after = Seq("[[0,0],[0,0]]")
+        geometryDiff = Some(
+          GeometryDiff(
+            after = Seq("[[0,0],[0,0]]")
+          )
         ),
         bounds = Some(
           Bounds()

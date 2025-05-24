@@ -58,7 +58,7 @@ class RouteChangesPageBuilder(
       val changes = routeChanges.zipWithIndex.map { case (routeChange, index) =>
         val rowIndex = parameters.pageSize * parameters.pageIndex + index
         val baseRouteChangeOption = baseRouteChanges.find(_._id == routeChange._id)
-        new RouteChangeInfoBuilder().build(rowIndex, routeChange, baseRouteChangeOption, changeSetInfos)
+        RouteChangeInfoBuilder.build(rowIndex, routeChange, baseRouteChangeOption, changeSetInfos)
       }
 
       RouteChangesPage(

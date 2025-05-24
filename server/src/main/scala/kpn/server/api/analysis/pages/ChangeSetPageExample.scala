@@ -23,12 +23,10 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
-import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.node.NodeChangeInfo
-import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.RouteChangeInfo
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -597,14 +595,8 @@ object ChangeSetPageExample {
         nodes = Seq.empty,
         nodeChanges = Seq.empty,
         changeSetInfo = None, // no need to populate, already provided above
-        wayDiffs = WayDiffsInfo.empty,
-        geometryDiff = Some(
-          GeometryDiff(
-            // common: Seq[PointSegment] = Seq.empty, // blue
-            // before: Seq[PointSegment] = Seq.empty, // red
-            // after: Seq[PointSegment] = Seq.empty // green
-          )
-        ),
+        wayDiffs = None,
+        geometryDiff = None,
         bounds = None,
         happy = true,
         investigate = true

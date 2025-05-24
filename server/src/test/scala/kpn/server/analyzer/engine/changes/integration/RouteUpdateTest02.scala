@@ -47,12 +47,14 @@ class RouteUpdateTest02 extends IntegrationTest {
       val baseRouteChange = findBaseRouteChangeById("123:1:11")
 
       assertEqual(
-        baseRouteChange.wayDiffs.removed,
-        Seq(
-          newWayInfo(
-            102,
-            tags = Tags.from(
-              "highway" -> "unclassified"
+        baseRouteChange.wayDiffs.map(_.removed),
+        Some(
+          Seq(
+            newWayInfo(
+              102,
+              tags = Tags.from(
+                "highway" -> "unclassified"
+              )
             )
           )
         )

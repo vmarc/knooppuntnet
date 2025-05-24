@@ -20,13 +20,13 @@ export interface RouteChangeInfo {
   readonly comment: string;
   readonly before?: MetaData;
   readonly after?: MetaData;
-  readonly wayDiffs: WayDiffsInfo;
   readonly diffs: RouteDiff;
   readonly nodes: RouteNode[];
   readonly nodeChanges: RouteNodeChange[];
   readonly changeSetInfo?: ChangeSetInfo;
+  readonly wayDiffs?: WayDiffsInfo;
   readonly geometryDiff?: GeometryDiff;
-  readonly bounds: Bounds;
+  readonly bounds?: Bounds;
   readonly happy: boolean;
   readonly investigate: boolean;
 }

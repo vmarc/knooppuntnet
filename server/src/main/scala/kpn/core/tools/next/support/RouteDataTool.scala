@@ -46,11 +46,11 @@ object RouteDataTool {
   )
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-next") { database =>
+    Mongo.executeIn("kpn-laptop") { database =>
       new RouteDataTool(
         database,
         nodeIds = Seq(7903025495L, 1355128623L),
-        routeIds = Seq(13844575L)
+        routeIds = Seq(13844575L) ++ essenOkRouteIds ++ law9,
       ).execute()
     }
   }
@@ -81,6 +81,7 @@ class RouteDataTool(
     database.nodeChanges.drop()
     database.routeChanges.drop()
     database.networkChanges.drop()
+    database.baseRouteChanges.drop()
 
     database.routeTiles.drop()
     database.statistics.drop()

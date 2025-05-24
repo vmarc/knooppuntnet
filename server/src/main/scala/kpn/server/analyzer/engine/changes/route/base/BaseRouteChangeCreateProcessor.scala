@@ -73,15 +73,26 @@ class BaseRouteChangeCreateProcessor(
 
     private def processRouteChange(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
 
-      val wayDiffs = WayDiffsInfo(
-        removed = Seq.empty,
-        added = context.relation.ways.map(WayInfo.from),
-        updated = Seq.empty
-      )
+      val wayDiffs = if (context.relation.ways.nonEmpty) {
+        val added = context.relation.ways.map(WayInfo.from)
+        Some(
+          WayDiffsInfo(
+            added = added,
+          )
+        )
+      }
+      else {
+        None
+      }
 
-      val added = context.relation.ways.map(way => CoordinateUtil.toCoordinates(way.nodes))
+      val geometryDiff = if (context.relation.ways.nonEmpty) {
+        val added = context.relation.ways.map(way => CoordinateUtil.toCoordinates(way.nodes))
+        Some(GeometryDiff(after = added))
+      }
+      else {
+        None
+      }
 
-      val geometryDiff = GeometryDiff(after = added)
       val bounds = if (context.relation.ways.nonEmpty) {
         Some(
           Bounds.from(context.relation.ways.flatMap(_.nodes))

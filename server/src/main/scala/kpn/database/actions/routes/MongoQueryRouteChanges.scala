@@ -8,13 +8,10 @@ import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
-import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.skip
 import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Sorts.descending
 import org.mongodb.scala.model.Sorts.orderBy
 
@@ -63,11 +60,6 @@ class MongoQueryRouteChanges(database: Database) {
       ),
       skip((parameters.pageSize * parameters.pageIndex).toInt),
       limit(parameters.pageSize.toInt),
-      project(
-        fields(
-          excludeId()
-        )
-      )
     )
   }
 }

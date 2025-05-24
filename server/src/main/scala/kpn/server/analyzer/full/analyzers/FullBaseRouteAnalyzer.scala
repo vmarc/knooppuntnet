@@ -76,7 +76,7 @@ class FullBaseRouteAnalyzer(
     }
   }
 
-  private def analyzeRoutes(timestamp: Timestamp, changeSetContextOption: Option[ChangeSetContext], routeIds: Seq[Long]): Unit = {
+  private def analyzeRoutes(timestamp: Timestamp, initialAnalysisChangeSetContext: Option[ChangeSetContext], routeIds: Seq[Long]): Unit = {
     val routeCount = routeIds.size
     log.info(s"analyzing $routeCount base routes")
     val context = Log.contextMessages
@@ -84,7 +84,7 @@ class FullBaseRouteAnalyzer(
       ThreadExecutor.execute(ThreadPoolSize, routeIds) { (index, count, routeId) =>
         Log.context(context) {
           Log.context(s"$index/$count $routeId") {
-            processRoute(timestamp, changeSetContextOption, routeId)
+            processRoute(timestamp, initialAnalysisChangeSetContext, routeId)
           }
         }
       }
@@ -92,12 +92,12 @@ class FullBaseRouteAnalyzer(
     }
   }
 
-  private def processRoute(timestamp: Timestamp, changeSetContextOption: Option[ChangeSetContext], routeId: Long): Unit = {
+  private def processRoute(timestamp: Timestamp, initialAnalysisChangeSetContext: Option[ChangeSetContext], routeId: Long): Unit = {
     log.infoElapsed {
       try {
         rawDataRepository.route(timestamp, routeId) match {
           case Some(rawRouteDoc) =>
-            analyzeBaseRoute(changeSetContextOption, rawRouteDoc.relation, rawRouteDoc.subRelationTree)
+            analyzeBaseRoute(initialAnalysisChangeSetContext, rawRouteDoc.relation, rawRouteDoc.subRelationTree)
           case None =>
             log.error(s"route $routeId not found in route-relations")
         }
@@ -109,12 +109,12 @@ class FullBaseRouteAnalyzer(
     }
   }
 
-  private def analyzeBaseRoute(changeSetContextOption: Option[ChangeSetContext], relation: Relation, subRelationTree: Option[RouteRelation]): Unit = {
+  private def analyzeBaseRoute(initialAnalysisChangeSetContext: Option[ChangeSetContext], relation: Relation, subRelationTree: Option[RouteRelation]): Unit = {
     val context = baseRouteMainAnalyzer.analyze(relation, subRelationTree)
     if (!context.abort) {
       saveBaseRoute(context)
       saveTileData(context)
-      baseRouteChange(changeSetContextOption, context).foreach(changeSetRepository.saveBaseRouteChange)
+      baseRouteChange(initialAnalysisChangeSetContext, context).foreach(changeSetRepository.saveBaseRouteChange)
     }
   }
 
@@ -122,26 +122,35 @@ class FullBaseRouteAnalyzer(
     routeRepository.saveBaseRoute(baseRouteDocBuilder.build(context))
   }
 
-  private def baseRouteChange(changeSetContextOption: Option[ChangeSetContext], context: BaseRouteAnalysisContext): Option[BaseRouteChange] = {
-    changeSetContextOption.map { changeSetContext =>
+  private def baseRouteChange(initialAnalysisChangeSetContext: Option[ChangeSetContext], context: BaseRouteAnalysisContext): Option[BaseRouteChange] = {
+    initialAnalysisChangeSetContext.flatMap { changeSetContext =>
       val addedWays = context.relation.wayMembers.map(m => WayInfo.from(m.way))
-      val wayDiffsInfo = WayDiffsInfo(
-        removed = Seq.empty,
-        added = addedWays,
-        updated = Seq.empty
-      )
-      val key = changeSetContext.buildChangeKey(context.routeId)
+      if (addedWays.nonEmpty) {
+        val wayDiffsInfo = Some(
+          WayDiffsInfo(
+            removed = Seq.empty,
+            added = addedWays,
+            updated = Seq.empty
+          )
+        )
+        val key = changeSetContext.buildChangeKey(context.routeId)
 
-      val (geometryDiff: GeometryDiff, bounds: Bounds) = new RouteGeometryAnalyzer().initialAnalyze(context.relation)
+        val (geometryDiff: GeometryDiff, bounds: Bounds) = new RouteGeometryAnalyzer().initialAnalyze(context.relation)
 
-      BaseRouteChange(
-        key.toId,
-        key = key,
-        changeType = ChangeType.InitialValue,
-        wayDiffs = wayDiffsInfo,
-        geometryDiff,
-        Some(bounds)
-      )
+        Some(
+          BaseRouteChange(
+            key.toId,
+            key = key,
+            changeType = ChangeType.InitialValue,
+            wayDiffs = wayDiffsInfo,
+            Some(geometryDiff),
+            Some(bounds)
+          )
+        )
+      }
+      else {
+        None
+      }
     }
   }
 

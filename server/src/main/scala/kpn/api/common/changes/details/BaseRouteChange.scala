@@ -10,8 +10,8 @@ case class BaseRouteChange(
   _id: String,
   key: ChangeKey,
   changeType: ChangeType,
-  wayDiffs: WayDiffsInfo,
-  geometryDiff: GeometryDiff,
+  wayDiffs: Option[WayDiffsInfo],
+  geometryDiff: Option[GeometryDiff],
   bounds: Option[Bounds],
 ) extends WithStringId {
 

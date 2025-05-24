@@ -98,20 +98,22 @@ class NetworkUpdateTest01 extends IntegrationTest {
         "123:1:11",
         newChangeKey(elementId = 11),
         ChangeType.Update,
-        wayDiffs = WayDiffsInfo(
-          updated = Seq(
-            WayUpdate(
-              101,
-              MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
-              MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
-              Seq.empty,
-              Seq.empty,
-              Seq(
-                NodeUpdate(
-                  newNodeWithName(1002, "02"),
-                  newNodeWithName(1002, "03"),
-                  None,
-                  None
+        wayDiffs = Some(
+          WayDiffsInfo(
+            updated = Seq(
+              WayUpdate(
+                101,
+                MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
+                MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
+                Seq.empty,
+                Seq.empty,
+                Seq(
+                  NodeUpdate(
+                    newNodeWithName(1002, "02"),
+                    newNodeWithName(1002, "03"),
+                    None,
+                    None
+                  )
                 )
               )
             )

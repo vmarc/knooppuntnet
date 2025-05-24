@@ -367,8 +367,8 @@ trait SharedTestObjects extends MockFactory {
     _id: String,
     key: ChangeKey = newChangeKey(),
     changeType: ChangeType = ChangeType.Update,
-    wayDiffs: WayDiffsInfo = WayDiffsInfo.empty,
-    geometryDiff: GeometryDiff = GeometryDiff(),
+    wayDiffs: Option[WayDiffsInfo] = None,
+    geometryDiff: Option[GeometryDiff] = None,
     bounds: Option[Bounds] = None,
   ): BaseRouteChange = {
     BaseRouteChange(

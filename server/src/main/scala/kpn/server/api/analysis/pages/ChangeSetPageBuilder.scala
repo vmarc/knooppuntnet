@@ -116,7 +116,7 @@ class ChangeSetPageBuilder(
 
   private def toRouteChangeInfo(index: Int, routeChange: RouteChange): RouteChangeInfo = {
     val baseRouteChangeOption: Option[BaseRouteChange] = ???
-    new RouteChangeInfoBuilder().build(index, routeChange, baseRouteChangeOption, Seq.empty)
+    RouteChangeInfoBuilder.build(index, routeChange, baseRouteChangeOption, Seq.empty)
   }
 
   private def toNodeChangeInfo(nodeChange: NodeChange): NodeChangeInfo = {
