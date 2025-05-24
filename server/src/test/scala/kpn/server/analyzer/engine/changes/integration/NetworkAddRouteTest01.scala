@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.common.Bounds
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
@@ -19,7 +20,8 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
-import kpn.api.common.diff.WayDiffs
+import kpn.api.common.diff.WayDiffsInfo
+import kpn.api.common.route.GeometryDiff
 import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -81,6 +83,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
 
       assertNetworkDoc()
       assertNetworkChange()
+      assertBaseRouteChange()
       assertRouteChange()
       assertNodeChange1001()
       assertNodeChange1002()
@@ -192,6 +195,33 @@ class NetworkAddRouteTest01 extends IntegrationTest {
     )
   }
 
+  private def assertBaseRouteChange(): Unit = {
+    assertEqual(
+      findBaseRouteChangeById("123:1:11"),
+      newBaseRouteChange(
+        "123:1:11",
+        newChangeKey(elementId = 11),
+        ChangeType.Create,
+        wayDiffs = WayDiffsInfo(
+          added = Seq(
+            newWayInfo(
+              id = 101,
+              tags = Tags.from(
+                "highway" -> "unclassified"
+              )
+            )
+          )
+        ),
+        geometryDiff = GeometryDiff(
+          after = Seq("[[0,0],[0,0]]")
+        ),
+        bounds = Some(
+          Bounds()
+        )
+      )
+    )
+  }
+
   private def assertRouteChange(): Unit = {
 
     val routeData = newRouteData(
@@ -216,20 +246,6 @@ class NetworkAddRouteTest01 extends IntegrationTest {
         addedToNetwork = Seq(Ref(1, "network")),
         before = None,
         after = Some(routeData),
-        wayDiffs = WayDiffs(
-          added = Seq(
-            newRawWay(
-              id = 101,
-              nodeIds = Vector(
-                1001,
-                1002
-              ),
-              tags = Tags.from(
-                "highway" -> "unclassified"
-              )
-            )
-          )
-        ),
         happy = true,
         impact = true,
         locationHappy = true,

@@ -9,6 +9,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
 import kpn.api.common.changes.ChangeSetDetail
 import kpn.api.common.changes.ChangeSetPage
+import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NetworkChangeInfo
 import kpn.api.common.changes.details.NodeChange
@@ -114,7 +115,8 @@ class ChangeSetPageBuilder(
   }
 
   private def toRouteChangeInfo(index: Int, routeChange: RouteChange): RouteChangeInfo = {
-    new RouteChangeInfoBuilder().build(index, routeChange, Seq.empty)
+    val baseRouteChangeOption: Option[BaseRouteChange] = ???
+    new RouteChangeInfoBuilder().build(index, routeChange, baseRouteChangeOption, Seq.empty)
   }
 
   private def toNodeChangeInfo(nodeChange: NodeChange): NodeChangeInfo = {

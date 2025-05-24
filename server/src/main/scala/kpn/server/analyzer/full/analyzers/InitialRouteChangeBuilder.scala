@@ -4,7 +4,6 @@ import kpn.api.common.ChangeType
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.data.MetaData
 import kpn.api.common.diff.RouteData
-import kpn.api.common.diff.WayDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.core.analysis.Facts
@@ -47,7 +46,6 @@ class InitialRouteChangeBuilder(
         removedFromNetwork = Seq.empty,
         before = None,
         after = Some(routeData),
-        wayDiffs = WayDiffs.empty,
         diffs = RouteDiff(factDiffs = Some(FactDiffs(remaining = facts))),
         facts = routeDoc.facts,
         investigate = facts.nonEmpty,

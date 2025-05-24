@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.common.Bounds
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
@@ -12,7 +13,8 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
-import kpn.api.common.diff.WayDiffs
+import kpn.api.common.diff.WayDiffsInfo
+import kpn.api.common.route.GeometryDiff
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
@@ -55,6 +57,7 @@ class RouteCreateTest01 extends IntegrationTest {
       assertOrphanRoute()
       assertNode1001()
       assertNode1002()
+      assertBaseRouteChange()
       assertRouteChange()
       assertNodeChange1001()
       assertNodeChange1002()
@@ -142,6 +145,33 @@ class RouteCreateTest01 extends IntegrationTest {
     )
   }
 
+  private def assertBaseRouteChange(): Unit = {
+    assertEqual(
+      findBaseRouteChangeById("123:1:11"),
+      newBaseRouteChange(
+        "123:1:11",
+        newChangeKey(elementId = 11),
+        ChangeType.Create,
+        wayDiffs = WayDiffsInfo(
+          added = Seq(
+            newWayInfo(
+              id = 101,
+              tags = Tags.from(
+                "highway" -> "unclassified"
+              )
+            )
+          )
+        ),
+        geometryDiff = GeometryDiff(
+          after = Seq("[[0,0],[0,0]]")
+        ),
+        bounds = Some(
+          Bounds()
+        )
+      )
+    )
+  }
+
   private def assertRouteChange(): Unit = {
     assertEqual(
       findRouteChangeById("123:1:11"),
@@ -166,20 +196,6 @@ class RouteCreateTest01 extends IntegrationTest {
               "route" -> "foot",
               "ref" -> "01-02",
               "network:type" -> "node_network"
-            )
-          )
-        ),
-        wayDiffs = WayDiffs(
-          added = Seq(
-            newRawWay(
-              id = 101,
-              nodeIds = Vector(
-                1001,
-                1002
-              ),
-              tags = Tags.from(
-                "highway" -> "unclassified"
-              )
             )
           )
         ),

@@ -1,10 +1,14 @@
 package kpn.server.analyzer.engine.changes.route.base
 
+import kpn.api.common.Bounds
 import kpn.api.common.ChangeType
 import kpn.api.common.Fact
 import kpn.api.common.changes.details.BaseRouteChange
-import kpn.api.common.diff.WayDiffs
+import kpn.api.common.diff.WayDiffsInfo
+import kpn.api.common.diff.WayInfo
+import kpn.api.common.route.GeometryDiff
 import kpn.core.doc.RawRouteDoc
+import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
@@ -69,16 +73,32 @@ class BaseRouteChangeCreateProcessor(
 
     private def processRouteChange(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
 
-      val wayDiffs = WayDiffs(
-        added = context.relation.ways.map(_.toRaw),
+      val wayDiffs = WayDiffsInfo(
+        removed = Seq.empty,
+        added = context.relation.ways.map(WayInfo.from),
+        updated = Seq.empty
       )
+
+      val added = context.relation.ways.map(way => CoordinateUtil.toCoordinates(way.nodes))
+
+      val geometryDiff = GeometryDiff(after = added)
+      val bounds = if (context.relation.ways.nonEmpty) {
+        Some(
+          Bounds.from(context.relation.ways.flatMap(_.nodes))
+        )
+      }
+      else {
+        None
+      }
 
       val key = changeSetContext.buildChangeKey(routeId)
       val change = BaseRouteChange(
         _id = key.toId,
         key = key,
         changeType = ChangeType.Create,
-        wayDiffs
+        wayDiffs,
+        geometryDiff,
+        bounds
       )
 
       changeSetContext.copy(

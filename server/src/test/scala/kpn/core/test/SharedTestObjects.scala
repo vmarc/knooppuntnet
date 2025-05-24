@@ -48,7 +48,8 @@ import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.TagDiffs
-import kpn.api.common.diff.WayDiffs
+import kpn.api.common.diff.WayDiffsInfo
+import kpn.api.common.diff.WayInfo
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.network.NodeRouteReferenceDiffs
 import kpn.api.common.diff.node.NodeMoved
@@ -65,6 +66,7 @@ import kpn.api.common.network.NetworkSummary
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.poi.Poi
+import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.Link
 import kpn.api.common.route.LinkDirection
 import kpn.api.common.route.ParentRoute
@@ -214,6 +216,22 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
+  def newWayInfo(
+    id: Long,
+    version: Int = 0,
+    timestamp: Timestamp = Timestamps.default,
+    changeSetId: Long = 0,
+    tags: Seq[Tag] = Seq.empty
+  ): WayInfo = {
+    WayInfo(
+      id,
+      version,
+      changeSetId,
+      timestamp,
+      tags
+    )
+  }
+
   def newRelation(
     id: Long = 0,
     version: Long = 0,
@@ -315,7 +333,6 @@ trait SharedTestObjects extends MockFactory {
     removedFromNetwork: Seq[Ref] = Seq.empty,
     before: Option[RouteData] = None,
     after: Option[RouteData] = None,
-    wayDiffs: WayDiffs = WayDiffs.empty,
     diffs: RouteDiff = RouteDiff(),
     facts: Seq[Fact] = Seq.empty,
     happy: Boolean = false,
@@ -335,7 +352,6 @@ trait SharedTestObjects extends MockFactory {
       removedFromNetwork,
       before,
       after,
-      wayDiffs,
       diffs,
       facts,
       happy,
@@ -349,15 +365,19 @@ trait SharedTestObjects extends MockFactory {
 
   def newBaseRouteChange(
     _id: String,
-    elementId: Long = 0,
+    key: ChangeKey = newChangeKey(),
     changeType: ChangeType = ChangeType.Update,
-    wayDiffs: WayDiffs = WayDiffs.empty,
+    wayDiffs: WayDiffsInfo = WayDiffsInfo.empty,
+    geometryDiff: GeometryDiff = GeometryDiff(),
+    bounds: Option[Bounds] = None,
   ): BaseRouteChange = {
     BaseRouteChange(
       _id,
-      newChangeKey(elementId = elementId),
+      key,
       changeType,
-      wayDiffs
+      wayDiffs,
+      geometryDiff,
+      bounds
     )
   }
 

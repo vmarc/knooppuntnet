@@ -14,7 +14,7 @@ import kpn.api.common.diff.NodeUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
-import kpn.api.common.diff.WayDiffs
+import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
@@ -73,6 +73,7 @@ class NetworkUpdateTest01 extends IntegrationTest {
       assertBaseNetwork()
       assertNetwork()
       assertNetworkChange()
+      assertBaseRouteChange()
       assertRouteChange()
       database.nodeChanges.stringIds() should equal(Seq("123:1:1002")) // 1001 not changed
       assertNodeChange1002()
@@ -88,6 +89,36 @@ class NetworkUpdateTest01 extends IntegrationTest {
   private def assertNetwork(): Unit = {
     val networkDoc = findNetworkById(1)
     networkDoc._id should equal(1)
+  }
+
+  private def assertBaseRouteChange(): Unit = {
+    assertEqual(
+      findBaseRouteChangeById("123:1:11"),
+      newBaseRouteChange(
+        "123:1:11",
+        newChangeKey(elementId = 11),
+        ChangeType.Update,
+        wayDiffs = WayDiffsInfo(
+          updated = Seq(
+            WayUpdate(
+              101,
+              MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
+              MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
+              Seq.empty,
+              Seq.empty,
+              Seq(
+                NodeUpdate(
+                  newNodeWithName(1002, "02"),
+                  newNodeWithName(1002, "03"),
+                  None,
+                  None
+                )
+              )
+            )
+          )
+        )
+      )
+    )
   }
 
   private def assertRouteChange(): Unit = {
@@ -123,25 +154,6 @@ class NetworkUpdateTest01 extends IntegrationTest {
               newRouteNode(1002, "03")
             ),
             tags = newRouteTags("01-03")
-          )
-        ),
-        wayDiffs = WayDiffs(
-          updated = Seq(
-            WayUpdate(
-              101,
-              MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
-              MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
-              Seq.empty,
-              Seq.empty,
-              Seq(
-                NodeUpdate(
-                  newNodeWithName(1002, "02"),
-                  newNodeWithName(1002, "03"),
-                  None,
-                  None
-                )
-              )
-            )
           )
         ),
         diffs = RouteDiff(

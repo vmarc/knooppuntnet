@@ -17,13 +17,13 @@ case class RouteChangeInfo(
   comment: Option[String],
   before: Option[MetaData],
   after: Option[MetaData],
-  wayDiffs: WayDiffsInfo,
   diffs: RouteDiff,
   nodes: Seq[RouteNode],
   nodeChanges: Seq[RouteNodeChange],
   changeSetInfo: Option[ChangeSetInfo],
+  wayDiffs: WayDiffsInfo,
   geometryDiff: Option[GeometryDiff],
-  bounds: Bounds,
+  bounds: Option[Bounds],
   happy: Boolean,
   investigate: Boolean
 )

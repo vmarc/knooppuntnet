@@ -22,6 +22,7 @@ import kpn.database.actions.networks.MongoQueryNetworkChanges
 import kpn.database.actions.nodes.MongoQueryNodeChangeCount
 import kpn.database.actions.nodes.MongoQueryNodeChangeCounts
 import kpn.database.actions.nodes.MongoQueryNodeChanges
+import kpn.database.actions.routes.MongoQueryBaseRouteChanges
 import kpn.database.actions.routes.MongoQueryRouteChangeCount
 import kpn.database.actions.routes.MongoQueryRouteChangeCounts
 import kpn.database.actions.routes.MongoQueryRouteChanges
@@ -126,6 +127,10 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
 
   override def routeChanges(routeId: Long, parameters: ChangesParameters): Seq[RouteChange] = {
     new MongoQueryRouteChanges(database).execute(routeId, parameters)
+  }
+
+  override def baseRouteChanges(ids: Seq[String]): Seq[BaseRouteChange] = {
+    new MongoQueryBaseRouteChanges(database).execute(ids)
   }
 
   override def nodeChanges(nodeId: Long, parameters: ChangesParameters): Seq[NodeChange] = {

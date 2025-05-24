@@ -4,6 +4,7 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.ChangeSet
+import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -227,6 +228,18 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
       }
       else {
         fail(s"Could not find NetworkChange $id (but found: ${ids.mkString(", ")})")
+      }
+    }
+  }
+
+  def findBaseRouteChangeById(id: String): BaseRouteChange = {
+    database.baseRouteChanges.findByStringId(id).getOrElse {
+      val ids = database.routeChanges.stringIds()
+      if (ids.isEmpty) {
+        fail(s"Could not find BaseRouteChange $id, no base route changes in database")
+      }
+      else {
+        fail(s"Could not find BaseRouteChange $id (but found: ${ids.mkString(", ")})")
       }
     }
   }

@@ -1,5 +1,6 @@
 package kpn.server.api.analysis.pages.route
 
+import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
@@ -41,6 +42,14 @@ class RouteChangesPageBuilder(
         Seq.empty
       }
 
+      val baseRouteChanges: Seq[BaseRouteChange] = if (routeChanges.nonEmpty) {
+        val ids = routeChanges.map(_._id)
+        changeSetRepository.baseRouteChanges(ids)
+      }
+      else {
+        Seq.empty
+      }
+
       val changeSetInfos = {
         val changeSetIds = routeChanges.map(_.key.changeSetId)
         changeSetInfoRepository.all(changeSetIds)
@@ -48,7 +57,8 @@ class RouteChangesPageBuilder(
 
       val changes = routeChanges.zipWithIndex.map { case (routeChange, index) =>
         val rowIndex = parameters.pageSize * parameters.pageIndex + index
-        new RouteChangeInfoBuilder().build(rowIndex, routeChange, changeSetInfos)
+        val baseRouteChangeOption = baseRouteChanges.find(_._id == routeChange._id)
+        new RouteChangeInfoBuilder().build(rowIndex, routeChange, baseRouteChangeOption, changeSetInfos)
       }
 
       RouteChangesPage(

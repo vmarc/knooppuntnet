@@ -14,6 +14,7 @@ import kpn.core.doc.BaseRoutePath
 import kpn.core.planner.graph.GraphPath
 import kpn.core.planner.graph.GraphPathSegment
 import kpn.core.planner.graph.NodeNetworkGraph
+import kpn.core.util.CoordinateUtil
 import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
@@ -237,9 +238,9 @@ class LegBuilderImpl(
         val planFragments = coordinates.sliding(2, 1).zipWithIndex.toSeq.flatMap { case (Seq(coordinate1, coordinate2), index) =>
           val meters = (Haversine.km(coordinate1.getX, coordinate1.getY, coordinate2.getX, coordinate2.getY) * 1000).toLong
           val latLon1 = LatLonImpl(coordinate1.getX.toString, coordinate1.getY.toString)
-          val planCoordinate1 = PlanUtil.toCoordinate(coordinate1.getX, coordinate1.getY)
+          val planCoordinate1 = CoordinateUtil.toCoordinate(coordinate1.getX, coordinate1.getY)
           val latLon2 = LatLonImpl(coordinate2.getX.toString, coordinate2.getY.toString)
-          val planCoordinate2 = PlanUtil.toCoordinate(coordinate2.getX, coordinate2.getY)
+          val planCoordinate2 = CoordinateUtil.toCoordinate(coordinate2.getX, coordinate2.getY)
 
           val fragment1 = PlanFragment(
             0,
@@ -277,7 +278,7 @@ class LegBuilderImpl(
         val sourceNodeName = sourceRouteNetworkNodeInfo.name
         val sourceNodeLongName = Some("TODO CLEANUP")
 
-        val sourceCoordinate = PlanUtil.toCoordinate(sourceRouteNetworkNodeInfo.lat, sourceRouteNetworkNodeInfo.lon)
+        val sourceCoordinate = CoordinateUtil.toCoordinate(sourceRouteNetworkNodeInfo.lat, sourceRouteNetworkNodeInfo.lon)
         val sourceLatLon = LatLonImpl(sourceRouteNetworkNodeInfo.latitude, sourceRouteNetworkNodeInfo.longitude)
 
         val sourceNode = PlanNode(
@@ -295,7 +296,7 @@ class LegBuilderImpl(
             val sinkNodeId = sinkRouteNetworkNodeInfo.nodeId.toString
             val sinkNodeName = sinkRouteNetworkNodeInfo.name
             val sinkNodeLongName = Some("TODO CLEANUP")
-            val sinkCoordinate = PlanUtil.toCoordinate(sinkRouteNetworkNodeInfo.lat, sinkRouteNetworkNodeInfo.lon)
+            val sinkCoordinate = CoordinateUtil.toCoordinate(sinkRouteNetworkNodeInfo.lat, sinkRouteNetworkNodeInfo.lon)
             val sinkLatLon = LatLonImpl(sinkRouteNetworkNodeInfo.latitude, sinkRouteNetworkNodeInfo.longitude)
 
             val sinkNode = PlanNode(

@@ -2,12 +2,12 @@ package kpn.api.common.diff
 
 import kpn.api.common.data.Meta
 import kpn.api.common.data.Tagable
-import kpn.api.common.data.raw.RawWay
+import kpn.api.common.data.Way
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 object WayInfo {
-  def from(way: RawWay): WayInfo = {
+  def from(way: Way): WayInfo = {
     WayInfo(
       way.id,
       way.version,

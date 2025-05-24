@@ -4,18 +4,14 @@ object WayDiffsInfo {
   def empty: WayDiffsInfo = {
     WayDiffsInfo(Seq.empty, Seq.empty, Seq.empty)
   }
-
-  def from(wayDiffs: WayDiffs): WayDiffsInfo = {
-    new WayDiffsInfo(
-      wayDiffs.removed.map(WayInfo.from),
-      wayDiffs.added.map(WayInfo.from),
-      wayDiffs.updated
-    )
-  }
 }
 
 case class WayDiffsInfo(
-  removed: Seq[WayInfo],
-  added: Seq[WayInfo],
-  updated: Seq[WayUpdate],
-)
+  removed: Seq[WayInfo] = Seq.empty,
+  added: Seq[WayInfo] = Seq.empty,
+  updated: Seq[WayUpdate] = Seq.empty,
+) {
+  def isEmpty: Boolean = removed.isEmpty && added.isEmpty && updated.isEmpty
+
+  def nonEmpty: Boolean = removed.nonEmpty || added.nonEmpty || updated.nonEmpty
+}

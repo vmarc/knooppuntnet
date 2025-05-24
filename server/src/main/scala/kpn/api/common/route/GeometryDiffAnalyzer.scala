@@ -12,7 +12,7 @@ class GeometryDiffAnalyzer {
     val after = (afterSegments -- beforeSegments).toSeq
 
     Option.when(before.nonEmpty || after.nonEmpty) {
-      GeometryDiff(common, before, after)
+      GeometryDiff.tmpMigrate(common, before, after)
     }
   }
 

@@ -87,7 +87,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
       Seq(
         newBaseRouteChange(
           _id = "123:1:11",
-          elementId = 11,
+          key = newChangeKey(1, elementId = 11),
           changeType = ChangeType.Create,
         )
       )

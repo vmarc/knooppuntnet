@@ -40,6 +40,8 @@ trait ChangeSetRepository {
 
   def routeChanges(routeId: Long, parameters: ChangesParameters): Seq[RouteChange]
 
+  def baseRouteChanges(ids: Seq[String]): Seq[BaseRouteChange]
+
   def routeChangesFilter(routeId: Long, year: Option[Long], month: Option[Long], day: Option[Long]): Seq[ChangesFilterOption]
 
   def routeChangesCount(routeId: Long): Long

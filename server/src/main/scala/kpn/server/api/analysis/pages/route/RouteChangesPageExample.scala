@@ -1,6 +1,5 @@
 package kpn.server.api.analysis.pages.route
 
-import kpn.api.common.Bounds
 import kpn.api.common.ChangeType
 import kpn.api.common.Fact
 import kpn.api.common.changes.details.ChangeKey
@@ -53,23 +52,21 @@ object RouteChangesPageExample {
           changeSetId = 1,
           elementId = 1
         ),
-        ChangeType.Update,
+        changeType = ChangeType.Update,
         comment = Some("comment"),
         before = None, // TODO CHANGE provide some value
         after = None, // TODO CHANGE provide some value
-
+        diffs = routeDiff(),
+        nodes = Seq.empty,
+        nodeChanges = Seq.empty,
+        changeSetInfo = None, //Some(ChangeSetInfo()),  TODO do we actually show this???
         wayDiffs = WayDiffsInfo(
           removed = removedWays(),
           added = addedWays(),
           updated = updatedWays(),
         ),
-        diffs = routeDiff(),
-        nodes = Seq.empty,
-        Seq.empty,
-        changeSetInfo = None, //Some(ChangeSetInfo()),  TODO do we actually show this???
         geometryDiff = None,
-        bounds = Bounds(
-        ),
+        bounds = None,
         happy = true,
         investigate = true
       )

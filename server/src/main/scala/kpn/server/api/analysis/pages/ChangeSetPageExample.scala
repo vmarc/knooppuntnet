@@ -1,6 +1,5 @@
 package kpn.server.api.analysis.pages
 
-import kpn.api.common.Bounds
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetElementRefs
@@ -578,7 +577,7 @@ object ChangeSetPageExample {
           changeSetId = 1,
           elementId = routeId1
         ),
-        ChangeType.Update,
+        changeType = ChangeType.Update,
         comment = None,
         before = Some(
           MetaData(
@@ -594,13 +593,11 @@ object ChangeSetPageExample {
             changeSetId = 1
           )
         ),
-        wayDiffs = WayDiffsInfo.empty,
         diffs = RouteDiff(),
-        nodes = Seq(
-          // RawNode()
-        ),
-        Seq.empty,
+        nodes = Seq.empty,
+        nodeChanges = Seq.empty,
         changeSetInfo = None, // no need to populate, already provided above
+        wayDiffs = WayDiffsInfo.empty,
         geometryDiff = Some(
           GeometryDiff(
             // common: Seq[PointSegment] = Seq.empty, // blue
@@ -608,7 +605,7 @@ object ChangeSetPageExample {
             // after: Seq[PointSegment] = Seq.empty // green
           )
         ),
-        bounds = Bounds(),
+        bounds = None,
         happy = true,
         investigate = true
       )

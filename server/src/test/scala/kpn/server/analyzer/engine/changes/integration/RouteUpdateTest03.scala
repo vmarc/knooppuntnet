@@ -42,13 +42,12 @@ class RouteUpdateTest03 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
-      val routeChange = findRouteChangeById("123:1:11")
+      val baseRouteChange = findBaseRouteChangeById("123:1:11")
       assertEqual(
-        routeChange.wayDiffs.added,
+        baseRouteChange.wayDiffs.added,
         Seq(
-          newRawWay(
+          newWayInfo(
             102,
-            nodeIds = Vector(1002, 1003),
             tags = Tags.from(
               "highway" -> "unclassified"
             )
