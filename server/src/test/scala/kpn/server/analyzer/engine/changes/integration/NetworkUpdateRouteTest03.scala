@@ -4,6 +4,7 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
+import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
 import kpn.api.common.RouteType
@@ -172,6 +173,16 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
               newRouteNode(1003, "03")
             ),
             tags = newRouteTags("02-03")
+          )
+        ),
+        nodeChanges = Seq(
+          newRouteNodeChange(
+            1002,
+            changeType = ElementChangeType.Removed
+          ),
+          newRouteNodeChange(
+            1003,
+            changeType = ElementChangeType.Removed
           )
         ),
         facts = Seq(Fact.Deleted),

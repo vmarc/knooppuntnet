@@ -6,6 +6,7 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
+import kpn.api.common.ElementChangeType
 import kpn.api.common.LatLonImpl
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
@@ -201,6 +202,16 @@ class RouteCreateTest01 extends IntegrationTest {
               "ref" -> "01-02",
               "network:type" -> "node_network"
             )
+          )
+        ),
+        nodeChanges = Seq(
+          newRouteNodeChange(
+            1001,
+            changeType = ElementChangeType.Removed
+          ),
+          newRouteNodeChange(
+            1002,
+            changeType = ElementChangeType.Removed
           )
         ),
         happy = true,

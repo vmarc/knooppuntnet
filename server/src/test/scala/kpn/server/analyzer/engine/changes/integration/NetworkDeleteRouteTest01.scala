@@ -147,6 +147,10 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
         ChangeType.Update,
         "01-02",
         removedFromNetwork = Seq(Ref(1, "network")),
+        nodeChanges = Seq(
+          newRouteNodeChange(1001),
+          newRouteNodeChange(1002)
+        ),
         before = Some(routeData),
         after = Some(routeData),
         investigate = true,

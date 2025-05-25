@@ -195,6 +195,14 @@ class NetworkCreateTest07 extends IntegrationTest {
             )
           )
         ),
+        nodeChanges = Seq(
+          newRouteNodeChange(
+            1001,
+          ),
+          newRouteNodeChange(
+            1002,
+          )
+        ),
         happy = true,
         impact = true,
         locationHappy = true,

@@ -5,6 +5,7 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
+import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
 import kpn.api.common.NodeName
 import kpn.api.common.RouteScope
@@ -152,6 +153,16 @@ class RouteDeleteTest01 extends IntegrationTest {
           )
         ),
         facts = Seq(Fact.Deleted),
+        nodeChanges = Seq(
+          newRouteNodeChange(
+            1001,
+            changeType = ElementChangeType.Removed
+          ),
+          newRouteNodeChange(
+            1002,
+            changeType = ElementChangeType.Removed
+          )
+        ),
         investigate = true,
         impact = true,
         locationInvestigate = true,

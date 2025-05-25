@@ -10,6 +10,7 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
+import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
 import kpn.api.common.LatLonImpl
 import kpn.api.common.LocationChanges
@@ -74,6 +75,7 @@ import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.RouteNode
+import kpn.api.common.route.RouteNodeChange
 import kpn.api.common.route.RouteNodes
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
@@ -334,6 +336,7 @@ trait SharedTestObjects extends MockFactory {
     before: Option[RouteData] = None,
     after: Option[RouteData] = None,
     diffs: RouteDiff = RouteDiff(),
+    nodeChanges: Seq[RouteNodeChange] = Seq.empty,
     facts: Seq[Fact] = Seq.empty,
     happy: Boolean = false,
     investigate: Boolean = false,
@@ -353,6 +356,7 @@ trait SharedTestObjects extends MockFactory {
       before,
       after,
       diffs,
+      nodeChanges,
       facts,
       happy,
       investigate,
@@ -824,6 +828,20 @@ trait SharedTestObjects extends MockFactory {
       locationHappy,
       locationInvestigate,
       locationImpact
+    )
+  }
+
+  def newRouteNodeChange(
+    id: Long,
+    latitude: String = "0",
+    longitude: String = "0",
+    changeType: ElementChangeType = ElementChangeType.Unchanged
+  ): RouteNodeChange = {
+    RouteNodeChange(
+      id,
+      latitude,
+      longitude,
+      changeType
     )
   }
 

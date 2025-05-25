@@ -1,11 +1,13 @@
 package kpn.server.analyzer.full.analyzers
 
 import kpn.api.common.ChangeType
+import kpn.api.common.ElementChangeType
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.data.MetaData
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.route.RouteNodeChange
 import kpn.core.analysis.Facts
 import kpn.core.doc.RouteDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -24,7 +26,11 @@ class InitialRouteChangeBuilder(
     val locationFacts = facts.filter(Facts.locationFacts.contains)
     val routeData = RouteData(
       routeDoc.summary.id,
-      MetaData(routeDoc.version, routeDoc.lastUpdated, routeDoc.changeSetId),
+      MetaData(
+        routeDoc.version,
+        routeDoc.lastUpdated,
+        routeDoc.changeSetId
+      ),
       routeDoc.summary.countries.toSeq,
       routeDoc.summary.routeTypes,
       routeDoc.summary.name: String,
@@ -34,6 +40,15 @@ class InitialRouteChangeBuilder(
       routeDoc.locationAnalysis,
       routeDoc.summary.tags
     )
+
+    val nodeChanges = routeDoc.nodes.nodes.map { node =>
+      RouteNodeChange(
+        node.nodeId,
+        node.latitude,
+        node.longitude,
+        ElementChangeType.Added
+      )
+    }
 
     changeSetRepository.saveRouteChange(
       RouteChange(
@@ -47,6 +62,7 @@ class InitialRouteChangeBuilder(
         before = None,
         after = Some(routeData),
         diffs = RouteDiff(factDiffs = Some(FactDiffs(remaining = facts))),
+        nodeChanges = nodeChanges,
         facts = routeDoc.facts,
         investigate = facts.nonEmpty,
         impact = true,

@@ -126,6 +126,10 @@ class RouteUpdateTest01 extends IntegrationTest {
             )
           )
         ),
+        nodeChanges = Seq(
+          newRouteNodeChange(1001),
+          newRouteNodeChange(1002)
+        ),
       )
     )
   }

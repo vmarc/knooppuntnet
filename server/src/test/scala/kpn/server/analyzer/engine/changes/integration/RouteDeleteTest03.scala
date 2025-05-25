@@ -121,7 +121,11 @@ class RouteDeleteTest03 extends IntegrationTest {
               "network:type" -> "node_network"
             )
           )
-        )
+        ),
+        nodeChanges = Seq(
+          newRouteNodeChange(1001),
+          newRouteNodeChange(1002)
+        ),
       )
     )
   }

@@ -8,6 +8,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.common.ReferencedElements
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.route.RouteNodeChange
 import kpn.api.custom.Subset
 
 /*
@@ -24,6 +25,7 @@ case class RouteChange(
   before: Option[RouteData],
   after: Option[RouteData],
   diffs: RouteDiff,
+  nodeChanges: Seq[RouteNodeChange],
   facts: Seq[Fact],
   // following values are filled in by RouteChangeAnalyzer.analyzed
   happy: Boolean = false,

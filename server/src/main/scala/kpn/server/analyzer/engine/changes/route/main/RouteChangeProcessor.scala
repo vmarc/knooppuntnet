@@ -1,11 +1,13 @@
 package kpn.server.analyzer.engine.changes.route.main
 
 import kpn.api.common.ChangeType
+import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.route.RouteNodeChange
 import kpn.api.custom.Relation
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
@@ -169,6 +171,15 @@ class RouteChangeProcessor(
     val addedToNetwork = routeDocAfter.networkReferences.map(_.toRef)
     val impactedNetworkIds = addedToNetwork.map(_.id)
 
+    val nodeChanges = routeDocAfter.nodes.nodes.map { node =>
+      RouteNodeChange(
+        node.nodeId,
+        node.latitude,
+        node.longitude,
+        ElementChangeType.Removed
+      )
+    }
+
     Some(
       RouteChangeContext(
         RouteChangeStateAnalyzer.analyzed(
@@ -185,6 +196,7 @@ class RouteChangeProcessor(
             diffs = RouteDiff(
               factDiffs = factDiffs
             ),
+            nodeChanges = nodeChanges,
             facts = Seq.empty,
           )
         ),
@@ -203,6 +215,17 @@ class RouteChangeProcessor(
     val removedFromNetwork = routeDoc.networkReferences.map(_.toRef)
     val impactedNetworkIds = removedFromNetwork.map(_.id)
 
+    val beforeRouteData = RouteData.from(routeDoc)
+
+    val nodeChanges = routeDoc.nodes.nodes.map { node =>
+      RouteNodeChange(
+        node.nodeId,
+        node.latitude,
+        node.longitude,
+        ElementChangeType.Removed
+      )
+    }
+
     val key = context.buildChangeKey(routeDoc._id)
 
     Some(
@@ -216,9 +239,10 @@ class RouteChangeProcessor(
             locationAnalysis = routeDoc.locationAnalysis,
             addedToNetwork = Seq.empty,
             removedFromNetwork = removedFromNetwork,
-            before = Some(RouteData.from(routeDoc)),
+            before = Some(beforeRouteData),
             after = None,
             diffs = RouteDiff(),
+            nodeChanges = nodeChanges,
             facts = Seq(Fact.Deleted),
           )
         ),
@@ -274,6 +298,8 @@ class RouteChangeProcessor(
     val addedToNetwork = after.networkReferences.filter(r => addedNetworkIds.contains(r.id)).map(_.toRef)
     val removedFromNetwork = before.networkReferences.filter(r => removedNetworkIds.contains(r.id)).map(_.toRef)
 
+    val nodeChanges = buildNodeChanges(routeUpdate.before, routeUpdate.after, routeUpdate.diffs)
+
     val key = context.buildChangeKey(routeId)
 
     Some(
@@ -290,6 +316,7 @@ class RouteChangeProcessor(
             before = Some(routeUpdate.before),
             after = Some(routeUpdate.after),
             diffs = routeUpdate.diffs,
+            nodeChanges = nodeChanges,
             facts = routeUpdate.facts,
           )
         ),
@@ -335,6 +362,17 @@ class RouteChangeProcessor(
 
     val tagDiffs = new RouteTagDiffAnalyzer(beforeContext.relation, relationAfter).diffs
 
+    val routeDataBefore = RouteData.from(beforeContext)
+
+    val nodeChanges = routeDataBefore.networkNodes.map { node =>
+      RouteNodeChange(
+        node.nodeId,
+        node.latitude,
+        node.longitude,
+        ElementChangeType.Removed
+      )
+    }
+
     val key = context.buildChangeKey(routeId)
 
     Some(
@@ -349,11 +387,12 @@ class RouteChangeProcessor(
             locationAnalysis = beforeBaseRouteDoc.locationAnalysis,
             addedToNetwork = Seq.empty,
             removedFromNetwork = removedFromNetwork,
-            before = Some(RouteData.from(beforeContext)),
+            before = Some(routeDataBefore),
             after = None,
             diffs = RouteDiff(
               tagDiffs = tagDiffs
             ),
+            nodeChanges,
             facts = Seq(Fact.LostRouteTags)
           )
         ),
@@ -361,5 +400,52 @@ class RouteChangeProcessor(
         impactedNetworkIds = impactedNetworkIds,
       )
     )
+  }
+
+  private def buildNodeChanges(before: RouteData, after: RouteData, diffs: RouteDiff): Seq[RouteNodeChange] = {
+    val allNodes = before.networkNodes ++ after.networkNodes
+    val allNodeIds = allNodes.map(_.nodeId).distinct
+
+    val nodeIdsAdded = diffs.nodeDiffs.flatMap(_.added.map(_.id))
+    val nodeIdsRemoved = diffs.nodeDiffs.flatMap(_.removed.map(_.id))
+
+    val nodeChanges = allNodeIds.flatMap { nodeId =>
+      val changeType = if (nodeIdsAdded.contains(nodeId)) {
+        ElementChangeType.Added
+      } else if (nodeIdsRemoved.contains(nodeId)) {
+        ElementChangeType.Removed
+      } else {
+        before.networkNodes.find(_.nodeId == nodeId) match {
+          case None => ElementChangeType.Unchanged
+          case Some(nodeBefore) =>
+            after.networkNodes.find(_.nodeId == nodeId) match {
+              case None => ElementChangeType.Unchanged
+              case Some(nodeAfter) =>
+                if (nodeBefore.latitude == nodeAfter.latitude && nodeBefore.longitude == nodeAfter.longitude) {
+                  ElementChangeType.Unchanged
+                }
+                else {
+                  ElementChangeType.Changed
+                }
+            }
+        }
+      }
+      val node = if (changeType == ElementChangeType.Removed) {
+        before.networkNodes.find(_.nodeId == nodeId)
+      }
+      else {
+        after.networkNodes.find(_.nodeId == nodeId)
+      }
+
+      node.map { node =>
+        RouteNodeChange(
+          nodeId,
+          node.latitude,
+          node.longitude,
+          changeType
+        )
+      }
+    }
+    nodeChanges
   }
 }
