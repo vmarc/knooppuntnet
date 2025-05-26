@@ -162,18 +162,11 @@ class CreateIndexesTool(database: Database) {
         "_id",
         "summary.name",
       ),
-
-      Index(
+      Index( // supports MongoQueryGraphEdges, and other queries that are relevant for node network routes only
         database.routes,
-        "route-edges",
+        "node-network-routes",
         "active",
-        "summary.routeType",
-        "proposed",
-        "_id",
-        "edges.pathId",
-        "edges.sourceNodeId",
-        "edges.sinkNodeId",
-        "edges.meters"
+        "summary.nodeNetwork",
       ),
       Index(
         database.networkChanges,

@@ -49,8 +49,8 @@ object RouteDataTool {
     Mongo.executeIn("kpn-laptop") { database =>
       new RouteDataTool(
         database,
-        nodeIds = Seq(7903025495L, 1355128623L),
-        routeIds = Seq(13844575L) ++ essenOkRouteIds ++ law9,
+        nodeIds = Seq.empty, // Seq(7903025495L, 1355128623L),
+        routeIds = Seq.empty, // Seq(13844575L) ++ essenOkRouteIds ++ law9,
       ).execute()
     }
   }

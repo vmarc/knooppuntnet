@@ -6,11 +6,13 @@ import kpn.core.planner.graph.GraphEdge
 import kpn.core.util.Log
 import kpn.database.actions.graph.MongoQueryGraphEdges.log
 import kpn.database.base.Database
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.repository.GraphEdges
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
+import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
@@ -27,18 +29,17 @@ case class RouteGraphEdge(
 )
 
 object MongoQueryGraphEdges {
-
   private val log = Log(classOf[MongoQueryGraphEdges])
 
   def main(args: Array[String]): Unit = {
-    println("MongoQueryGraphEdges")
-    Mongo.executeIn("kpn") { database =>
+    log.info("start")
+    Mongo.executeIn("kpn-laptop") { database =>
       val query = new MongoQueryGraphEdges(database)
       database.nodes.findById(0L)
       val t1 = System.currentTimeMillis()
       query.execute()
       val t2 = System.currentTimeMillis()
-      println(s"Total = ${t2 - t1}")
+      log.info(s"Total = ${t2 - t1}ms")
     }
   }
 }
@@ -47,8 +48,24 @@ class MongoQueryGraphEdges(database: Database) {
 
   def execute(): Seq[GraphEdges] = {
 
-    val pipeline = Seq(
-      filter(equal("active", true)),
+    val pipeline = buildPipeline()
+
+    log.infoElapsed {
+      val edges = database.routes.aggregate[RouteGraphEdge](pipeline, log)
+      val edgesByRouteType = groupByRouteType(edges)
+      val message = summary(edgesByRouteType)
+      (message, edgesByRouteType)
+    }
+  }
+
+  private def buildPipeline(): MongoPipeline = {
+    Seq(
+      filter(
+        and(
+          equal("active", true),
+          equal("summary.nodeNetwork", true),
+        )
+      ),
       unwind("$edges"),
       unwind("$summary.routeTypes"),
       project(
@@ -63,23 +80,24 @@ class MongoQueryGraphEdges(database: Database) {
         )
       )
     )
+  }
 
-    log.debugElapsed {
-      val edges = database.baseRoutes.aggregate[RouteGraphEdge](pipeline, log)
-      val grapEdgess = RouteType.values.map { routeType =>
-        val routeTypeEdges = edges.filter(_.routeType == routeType).map { edge =>
-          GraphEdge(
-            edge.sourceNodeId: Long,
-            edge.sinkNodeId: Long,
-            edge.meters: Long,
-            edge.proposed: Boolean,
-            TrackPathKey(edge._id, edge.pathId)
-          )
-        }
-        GraphEdges(routeType, routeTypeEdges)
+  private def groupByRouteType(edges: Seq[RouteGraphEdge]): Seq[GraphEdges] = {
+    RouteType.values.map { routeType =>
+      val routeTypeEdges = edges.filter(_.routeType == routeType).map { edge =>
+        GraphEdge(
+          edge.sourceNodeId: Long,
+          edge.sinkNodeId: Long,
+          edge.meters: Long,
+          edge.proposed: Boolean,
+          TrackPathKey(edge._id, edge.pathId)
+        )
       }
-      val result = grapEdgess.map(e => s"${e.routeType.entryName}: ${e.edges.size}").mkString(", ")
-      (result, grapEdgess)
+      GraphEdges(routeType, routeTypeEdges)
     }
+  }
+
+  private def summary(edgesByRouteType: Seq[GraphEdges]): String = {
+    edgesByRouteType.map(e => s"${e.routeType.entryName}: ${e.edges.size}").mkString(", ")
   }
 }
