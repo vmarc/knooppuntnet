@@ -11,6 +11,7 @@ import kpn.database.actions.nodes.MongoQueryNodeBaseRouteReferences
 import kpn.database.actions.nodes.MongoQueryNodeIds
 import kpn.database.actions.nodes.MongoQueryNodeTileInfo
 import kpn.database.actions.nodes.MongoQueryNodeTilenames
+import kpn.database.actions.nodes.MongoQueryNodes
 import kpn.database.actions.nodes.OldMongoQueryNodeTileInfo
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
@@ -60,6 +61,10 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
 
   override def nodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc] = {
     database.nodes.findByIds(nodeIds, log)
+  }
+
+  override def activeNodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc] = {
+    new MongoQueryNodes(database: Database).execute(nodeIds)
   }
 
   override def baseNodeWithId(nodeId: Long): Option[BaseNodeDoc] = {

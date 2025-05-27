@@ -9,12 +9,14 @@ import kpn.api.common.route.RouteNameInfo
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
 import kpn.core.doc.BaseRouteDoc
+import kpn.core.doc.NetworkRouteDetail
 import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.SubRouteData
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryBaseRouteIds
 import kpn.database.actions.routes.MongoQueryKnownRouteIds
+import kpn.database.actions.routes.MongoQueryNetworkRouteDetails
 import kpn.database.actions.routes.MongoQueryParentRoutes
 import kpn.database.actions.routes.MongoQueryRouteBounds
 import kpn.database.actions.routes.MongoQueryRouteCountry
@@ -189,7 +191,7 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
   }
 
   override def routeTileInfosByRouteType(routeType: RouteType, nodeNetwork: Boolean): Seq[RouteTileInfo] = {
-    new MongoQueryRouteTileInfo(database).findByrouteType(routeType, nodeNetwork)
+    new MongoQueryRouteTileInfo(database).findByRouteType(routeType, nodeNetwork)
   }
 
   override def bounds(routeIds: Seq[Long]): Option[Bounds] = {
@@ -202,5 +204,9 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
 
   override def parentRoutes(routeId: Long): Seq[ParentRouteData] = {
     new MongoQueryParentRoutes(database).execute(routeId)
+  }
+
+  override def networkRouteDetails(routeIds: Seq[Long]): Seq[NetworkRouteDetail] = {
+    new MongoQueryNetworkRouteDetails(database).execute(routeIds)
   }
 }

@@ -201,8 +201,8 @@ class IntegrationTestContext(
 
   private val networkMainAnalyzer = {
 
-    val networkInfoRouteAnalyzer = new NetworkRouteAnalyzer(database)
-    val networkInfoNodeDocAnalyzer = new NetworkNodeDocAnalyzer(database)
+    val networkInfoRouteAnalyzer = new NetworkRouteAnalyzer(routeRepository)
+    val networkInfoNodeDocAnalyzer = new NetworkNodeDocAnalyzer(nodeRepository)
     val networkCountryAnalyzer = new NetworkCountryAnalyzer(locationAnalyzer)
     val networkInfoExtraAnalyzer = new NetworkExtraAnalyzer(overpassRepository)
 

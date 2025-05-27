@@ -1,6 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.common.common.Reference
+import kpn.api.custom.Subset
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.NetworkDoc
 
@@ -31,4 +32,6 @@ trait NetworkRepository {
   def nodeNetworkReferences(nodeId: Long): Seq[Reference]
 
   def routeNetworkReferences(routeId: Long): Seq[Reference]
+
+  def subsetNetworks(subset: Subset): Seq[NetworkDoc]
 }

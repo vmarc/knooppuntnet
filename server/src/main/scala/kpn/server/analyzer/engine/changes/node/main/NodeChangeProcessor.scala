@@ -52,7 +52,7 @@ class NodeChangeProcessor(
 
   private def processBatch(context: ChangeSetContext, nodeIds: Seq[Long]): Seq[NodeChange] = {
 
-    val nodeDocsBefore = nodeRepository.nodesWithIds(nodeIds)
+    val nodeDocsBefore = nodeRepository.activeNodesWithIds(nodeIds)
     val nodeDocsAfter = bulkNodeAnalyzer.analyze(nodeIds)
 
     nodeIds.flatMap { nodeId =>

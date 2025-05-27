@@ -19,6 +19,7 @@ class OrphanRouteUpdater_AllRouteIds(database: Database, log: Log) {
         filter(
           and(
             equal("active", true),
+            equal("summary.nodeNetwork", true),
             exists("summary.countries.0")
           )
         ),

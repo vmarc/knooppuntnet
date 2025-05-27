@@ -1,11 +1,13 @@
 package kpn.server.repository
 
 import kpn.api.common.common.Reference
+import kpn.api.custom.Subset
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
 import kpn.database.actions.networks.MongoQueryBaseNetworkIds
 import kpn.database.actions.networks.MongoQueryNetworkIds
+import kpn.database.actions.networks.MongoQuerySubsetNetworks
 import kpn.database.actions.nodes.MongoQueryNodeBaseNetworkReferences
 import kpn.database.actions.nodes.MongoQueryNodeNetworkReferences
 import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
@@ -68,5 +70,9 @@ class NetworkRepositoryImpl(database: Database) extends NetworkRepository {
 
   override def routeNetworkReferences(routeId: Long): Seq[Reference] = {
     new MongoQueryRouteNetworkReferences(database).execute(routeId)
+  }
+
+  override def subsetNetworks(subset: Subset): Seq[NetworkDoc] = {
+    new MongoQuerySubsetNetworks(database).execute(subset)
   }
 }

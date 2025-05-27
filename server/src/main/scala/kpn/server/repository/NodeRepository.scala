@@ -33,6 +33,8 @@ trait NodeRepository {
 
   def nodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc]
 
+  def activeNodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc]
+
   def nodeRouteReferences(nodeId: Long): Seq[Reference]
 
   def filterKnown(nodeIds: Set[Long]): Set[Long]

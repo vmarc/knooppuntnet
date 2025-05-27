@@ -146,14 +146,13 @@ class CreateIndexesTool(database: Database) {
         "active",
         "tiles"
       ),
-
       Index(
         database.baseRoutes,
         "route-node-references",
         "active",
+        "summary.nodeNetwork",
         "nodeRefs"
       ),
-
       Index( // support MongoQueryParentRoutes
         database.baseRoutes,
         "sub-routes",

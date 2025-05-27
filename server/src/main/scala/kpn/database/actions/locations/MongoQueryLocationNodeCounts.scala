@@ -7,6 +7,7 @@ import kpn.core.doc.LocationNodeCount
 import kpn.core.util.Log
 import kpn.database.actions.locations.MongoQueryLocationNodeCounts.log
 import kpn.database.base.Database
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.filter
@@ -28,13 +29,13 @@ object MongoQueryLocationNodeCounts {
   private val log = Log(classOf[MongoQueryLocationNodeCounts])
 
   def main(args: Array[String]): Unit = {
-    println("MongoQueryLocationNodeCount")
-    Mongo.executeIn("kpn-test") { database =>
+    log.info("start")
+    Mongo.executeIn("kpn-laptop") { database =>
       val query = new MongoQueryLocationNodeCounts(database)
       query.find(RouteType.hiking, Country.be)
       val counts = query.find(RouteType.hiking, Country.nl)
-      counts.foreach(println)
-      println(s"counts: ${counts.size}")
+      counts.map(_.toString).foreach(log.info)
+      log.info(s"counts: ${counts.size}")
     }
   }
 }
@@ -42,8 +43,15 @@ object MongoQueryLocationNodeCounts {
 class MongoQueryLocationNodeCounts(database: Database) {
 
   def find(routeType: RouteType, country: Country): Seq[LocationNodeCount] = {
+    val pipeline = buildPipeline(routeType, country)
+    log.debugElapsed {
+      val counts = database.nodes.aggregate[LocationNodeCount](pipeline, log)
+      (s"location node counts: ${counts.size}", counts)
+    }
+  }
 
-    val pipeline = Seq(
+  private def buildPipeline(routeType: RouteType, country: Country): MongoPipeline = {
+    Seq(
       filter(
         and(
           equal("active", true),
@@ -65,10 +73,5 @@ class MongoQueryLocationNodeCounts(database: Database) {
         )
       )
     )
-
-    log.debugElapsed {
-      val counts = database.nodes.aggregate[LocationNodeCount](pipeline, log)
-      (s"location node counts: ${counts.size}", counts)
-    }
   }
 }

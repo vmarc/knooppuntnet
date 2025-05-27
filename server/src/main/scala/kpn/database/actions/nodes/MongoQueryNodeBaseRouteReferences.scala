@@ -35,6 +35,7 @@ class MongoQueryNodeBaseRouteReferences(database: Database) {
       filter(
         and(
           equal("active", true),
+          equal("summary.nodeNetwork", true),
           equal("nodeRefs", nodeId),
         )
       ),

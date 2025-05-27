@@ -3,45 +3,34 @@ package kpn.server.analyzer.engine.analysis.network.main.analyzers
 import kpn.api.common.data.MemberType
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
-import kpn.database.base.Database
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.in
+import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkNodeDocAnalyzer(database: Database) extends NetworkAnalyzer {
+class NetworkNodeDocAnalyzer(nodeRepository: NodeRepository) extends NetworkAnalyzer {
 
   private val log = Log(classOf[NetworkNodeDocAnalyzer])
 
   override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
-    val nodeDocs = if (context.network.active) {
-      val routeNodeIds = context.routeDetails.flatMap(_.nodeRefs).distinct.sorted
-      val networkNodeIds = context.network.members.filter(_.memberType == MemberType.Node).map(_.ref)
-      val nodeIds = (networkNodeIds ++ routeNodeIds).distinct.sorted
-      queryNodes(nodeIds)
-    }
-    else {
-      Seq.empty
-    }
+    val nodeDocs = loadNodeDocs(context)
     context.copy(
       _nodeDocs = Some(nodeDocs)
     )
   }
 
-  private def queryNodes(nodeIds: Seq[Long]): Seq[NodeDoc] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("active", true),
-            in("_id", nodeIds: _*)
-          ),
-        )
-      )
-      val nodes = database.nodes.aggregate[NodeDoc](pipeline, log)
-      (s"nodes: ${nodes.size}", nodes)
+  private def loadNodeDocs(context: NetworkAnalysisContext): Seq[NodeDoc] = {
+    if (context.network.active) {
+      val nodeIds = allNodeIds(context)
+      nodeRepository.activeNodesWithIds(nodeIds)
     }
+    else {
+      Seq.empty
+    }
+  }
+
+  private def allNodeIds(context: NetworkAnalysisContext): Seq[Long] = {
+    val routeNodeIds = context.routeDetails.flatMap(_.nodeRefs)
+    val networkNodeIds = context.network.members.filter(_.memberType == MemberType.Node).map(_.ref)
+    (networkNodeIds ++ routeNodeIds).distinct.sorted
   }
 }

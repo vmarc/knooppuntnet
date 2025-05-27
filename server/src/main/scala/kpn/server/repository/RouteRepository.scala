@@ -9,6 +9,7 @@ import kpn.api.common.route.RouteNameInfo
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
 import kpn.core.doc.BaseRouteDoc
+import kpn.core.doc.NetworkRouteDetail
 import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.SubRouteData
@@ -74,4 +75,6 @@ trait RouteRepository {
   def subRouteData(routeId: Long): Option[SubRouteData]
 
   def parentRoutes(routeId: Long): Seq[ParentRouteData]
+
+  def networkRouteDetails(routeIds: Seq[Long]): Seq[NetworkRouteDetail]
 }

@@ -4,6 +4,7 @@ import kpn.api.common.subset.SubsetMapNetwork
 import kpn.api.custom.Subset
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.Types.MongoPipeline
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
@@ -19,28 +20,31 @@ class MongoQuerySubsetMapNetworks(database: Database) {
 
   def execute(subset: Subset, log: Log = MongoQuerySubsetMapNetworks.log): Seq[SubsetMapNetwork] = {
     log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("active", true),
-            equal("country", subset.country.entryName),
-            equal("summary.routeType", subset.routeType.entryName),
-          )
-        ),
-        project(
-          fields(
-            computed("id", "$_id"),
-            computed("name", "$summary.name"),
-            computed("km", "$detail.km"),
-            computed("nodeCount", "$summary.nodeCount"),
-            computed("routeCount", "$summary.routeCount"),
-            computed("center", "$detail.center"),
-          )
-        )
-      )
-
+      val pipeline = buildPipeline(subset)
       val subsetMapNetworks = database.networks.aggregate[SubsetMapNetwork](pipeline)
       (s"subset ${subset.name} ${subsetMapNetworks.size} networks", subsetMapNetworks)
     }
+  }
+
+  private def buildPipeline(subset: Subset): MongoPipeline = {
+    Seq(
+      filter(
+        and(
+          equal("active", true),
+          equal("country", subset.country.entryName),
+          equal("summary.routeType", subset.routeType.entryName),
+        )
+      ),
+      project(
+        fields(
+          computed("id", "$_id"),
+          computed("name", "$summary.name"),
+          computed("km", "$detail.km"),
+          computed("nodeCount", "$summary.nodeCount"),
+          computed("routeCount", "$summary.routeCount"),
+          computed("center", "$detail.center"),
+        )
+      )
+    )
   }
 }

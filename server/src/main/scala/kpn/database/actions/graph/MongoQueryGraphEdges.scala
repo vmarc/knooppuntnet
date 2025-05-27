@@ -47,9 +47,7 @@ object MongoQueryGraphEdges {
 class MongoQueryGraphEdges(database: Database) {
 
   def execute(): Seq[GraphEdges] = {
-
     val pipeline = buildPipeline()
-
     log.infoElapsed {
       val edges = database.routes.aggregate[RouteGraphEdge](pipeline, log)
       val edgesByRouteType = groupByRouteType(edges)

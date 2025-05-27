@@ -6,23 +6,14 @@ import kpn.api.custom.Subset
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.Formatter.percentage
 import kpn.core.util.Log
-import kpn.database.base.Database
+import kpn.server.repository.NetworkRepository
 import kpn.server.repository.SubsetRepository
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 import org.springframework.stereotype.Component
 
 @Component
 class SubsetNetworksPageBuilder(
-  database: Database,
-  subsetRepository: SubsetRepository
+  subsetRepository: SubsetRepository,
+  networkRepository: NetworkRepository
 ) {
 
   private val log = Log(classOf[SubsetNetworksPageBuilder])
@@ -31,75 +22,54 @@ class SubsetNetworksPageBuilder(
 
     val subsetInfo = subsetRepository.subsetInfo(subset)
 
-    val networks = queryNetworks(subset)
-    val routeCount = networks.map(_.summary.routeCount).sum
-    val brokenRouteNetworkCount = networks.count(_.detail.brokenRouteCount > 0)
-    val brokenRouteNetworkPercentage = percentage(brokenRouteNetworkCount, networks.size)
-    val brokenRouteCount = networks.map(_.detail.brokenRouteCount).sum
+    val networkDocs = queryNetworks(subset)
+    val routeCount = networkDocs.map(_.summary.routeCount).sum
+    val brokenRouteNetworkCount = networkDocs.count(_.detail.brokenRouteCount > 0)
+    val brokenRouteNetworkPercentage = percentage(brokenRouteNetworkCount, networkDocs.size)
+    val brokenRouteCount = networkDocs.map(_.detail.brokenRouteCount).sum
     val brokenRoutePercentage = percentage(brokenRouteCount, routeCount)
 
-    val xx = networks.map { networkInfoDoc =>
-      NetworkAttributes(
-        networkInfoDoc._id,
-        networkInfoDoc.country,
-        networkInfoDoc.summary.routeType,
-        networkInfoDoc.summary.routeScope,
-        networkInfoDoc.summary.name,
-        networkInfoDoc.detail.km,
-        networkInfoDoc.detail.meters,
-        networkInfoDoc.summary.nodeCount,
-        networkInfoDoc.summary.routeCount,
-        networkInfoDoc.detail.brokenRouteCount,
-        networkInfoDoc.detail.brokenRoutePercentage,
-        networkInfoDoc.detail.integrity,
-        networkInfoDoc.detail.inaccessibleRouteCount,
-        networkInfoDoc.detail.connectionCount,
-        networkInfoDoc.detail.lastUpdated,
-        networkInfoDoc.detail.relationLastUpdated,
-        networkInfoDoc.detail.center
-      )
-    }
+    val networks = networkDocs.map(toNetworkAttributes)
 
     SubsetNetworksPage(
       subsetInfo,
-      km = networks.map(_.detail.meters).sum / 1000,
-      networkCount = networks.size,
-      nodeCount = networks.map(_.summary.nodeCount).sum,
+      km = networkDocs.map(_.detail.meters).sum / 1000,
+      networkCount = networkDocs.size,
+      nodeCount = networkDocs.map(_.summary.nodeCount).sum,
       routeCount = routeCount,
       brokenRouteNetworkCount = brokenRouteNetworkCount,
       brokenRouteNetworkPercentage = brokenRouteNetworkPercentage,
       brokenRouteCount = brokenRouteCount,
       brokenRoutePercentage = brokenRoutePercentage,
-      inaccessibleRouteCount = networks.map(_.detail.inaccessibleRouteCount).sum,
+      inaccessibleRouteCount = networkDocs.map(_.detail.inaccessibleRouteCount).sum,
       analysisUpdatedTime = "TODO",
-      networks = xx
+      networks = networks
     )
   }
 
   private def queryNetworks(subset: Subset): Seq[NetworkDoc] = {
+    networkRepository.subsetNetworks(subset)
+  }
 
-    val pipeline = Seq(
-      filter(
-        and(
-          equal("active", true),
-          equal("country", subset.country.entryName),
-          equal("summary.routeType", subset.routeType.entryName)
-        )
-      ),
-      sort(orderBy(ascending("summary.name"))),
-      project(
-        fields(
-          include("country"),
-          include("summary"),
-          include("detail"),
-        )
-      )
+  private def toNetworkAttributes(networkDoc: NetworkDoc): NetworkAttributes = {
+    NetworkAttributes(
+      networkDoc._id,
+      networkDoc.country,
+      networkDoc.summary.routeType,
+      networkDoc.summary.routeScope,
+      networkDoc.summary.name,
+      networkDoc.detail.km,
+      networkDoc.detail.meters,
+      networkDoc.summary.nodeCount,
+      networkDoc.summary.routeCount,
+      networkDoc.detail.brokenRouteCount,
+      networkDoc.detail.brokenRoutePercentage,
+      networkDoc.detail.integrity,
+      networkDoc.detail.inaccessibleRouteCount,
+      networkDoc.detail.connectionCount,
+      networkDoc.detail.lastUpdated,
+      networkDoc.detail.relationLastUpdated,
+      networkDoc.detail.center
     )
-
-    log.debugElapsed {
-      val networks = database.networks.aggregate[NetworkDoc](pipeline, log)
-      val result = s"subset ${subset.name} networks: ${networks.size}"
-      (result, networks)
-    }
   }
 }

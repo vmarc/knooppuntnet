@@ -154,8 +154,8 @@ class InitialAnalysisConfiguration(options: InitialAnalysisToolOptions) {
 
   private val networkMainAnalyzer: NetworkMainAnalyzer = {
 
-    val networkInfoRouteAnalyzer = new NetworkRouteAnalyzer(database)
-    val networkInfoNodeDocAnalyzer = new NetworkNodeDocAnalyzer(database)
+    val networkInfoRouteAnalyzer = new NetworkRouteAnalyzer(routeRepository)
+    val networkInfoNodeDocAnalyzer = new NetworkNodeDocAnalyzer(nodeRepository)
     val networkCountryAnalyzer = new NetworkCountryAnalyzer(locationAnalyzer)
     val networkInfoExtraAnalyzer = new NetworkExtraAnalyzer(overpassRepository)
 

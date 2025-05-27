@@ -6,6 +6,7 @@ import kpn.core.util.Log
 import kpn.database.actions.locations.MongoQueryLocationFactCount.log
 import kpn.database.base.CountResult
 import kpn.database.base.Database
+import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.BsonDocument
@@ -27,12 +28,15 @@ object MongoQueryLocationFactCount {
   private val log = Log(classOf[MongoQueryLocationFactCount])
 
   def main(args: Array[String]): Unit = {
-    println("MongoQueryLocationFactCount")
-    Mongo.executeIn("kpn-test") { database =>
+    log.info("start")
+    Mongo.executeIn("kpn-laptop") { database =>
       database.networks.findById(0)
       val query = new MongoQueryLocationFactCount(database)
       val subset = LocationSubset("", RouteType.hiking, Seq("de"))
-      query.execute(subset)
+      log.infoElapsed {
+        val count = query.execute(subset)
+        (s"location fact count: $count", ())
+      }
     }
   }
 }
@@ -40,8 +44,29 @@ object MongoQueryLocationFactCount {
 class MongoQueryLocationFactCount(database: Database) {
 
   def execute(subset: LocationSubset): Long = {
+    val pipeline = buildPipeline(subset)
+    log.debugElapsed {
+      val countResults = database.nodes.aggregate[CountResult](pipeline, log)
+      val factCount = countResults.map(_.count).sum
+      (s"fact count: $factCount", factCount)
+    }
+  }
 
-    val nodeFactsPipeline = Seq(
+  private def buildPipeline(subset: LocationSubset): MongoPipeline = {
+
+    val nodeFactsPipeline = buildNodeFactCountPipeline(subset)
+    val nodePipeline2 = buildNodeIntegrityCheckFailedCountPipeline(subset)
+    val routeFactPipeline = buildRouteFactCountPipeline(subset)
+
+    Seq(
+      nodeFactsPipeline,
+      Seq(unionWith("nodes", nodePipeline2: _*)),
+      Seq(unionWith("routes", routeFactPipeline: _*))
+    ).flatten
+  }
+
+  private def buildNodeFactCountPipeline(subset: LocationSubset): MongoPipeline = {
+    Seq(
       filter(
         and(
           equal("active", true),
@@ -66,8 +91,10 @@ class MongoQueryLocationFactCount(database: Database) {
         )
       )
     )
+  }
 
-    val nodePipeline2 = Seq(
+  private def buildNodeIntegrityCheckFailedCountPipeline(subset: LocationSubset): MongoPipeline = {
+    Seq(
       filter(
         and(
           equal("active", true),
@@ -88,8 +115,10 @@ class MongoQueryLocationFactCount(database: Database) {
       ),
       count()
     )
+  }
 
-    val routeFactPipeline = Seq(
+  private def buildRouteFactCountPipeline(subset: LocationSubset): MongoPipeline = {
+    Seq(
       filter(
         and(
           equal("active", true),
@@ -122,17 +151,5 @@ class MongoQueryLocationFactCount(database: Database) {
         )
       )
     )
-
-    val pipeline = Seq(
-      nodeFactsPipeline,
-      Seq(unionWith("nodes", nodePipeline2: _*)),
-      Seq(unionWith("routes", routeFactPipeline: _*))
-    ).flatten
-
-    log.debugElapsed {
-      val countResults = database.nodes.aggregate[CountResult](pipeline, log)
-      val factCount = countResults.map(_.count).sum
-      (s"fact count: $factCount", factCount)
-    }
   }
 }

@@ -7,6 +7,7 @@ import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
+import kpn.server.repository.NodeRepositoryImpl
 
 class NetworkNodeDocAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -41,7 +42,8 @@ class NetworkNodeDocAnalyzerTest extends UnitTest with SharedTestObjects {
       database.nodes.save(newNodeDoc(1003L))
       database.nodes.save(newNodeDoc(1004L))
 
-      val analyzer = new NetworkNodeDocAnalyzer(database)
+      val nodeRepository = new NodeRepositoryImpl(database)
+      val analyzer = new NetworkNodeDocAnalyzer(nodeRepository)
       val updatedContext = analyzer.analyze(context)
 
       assertEqual(

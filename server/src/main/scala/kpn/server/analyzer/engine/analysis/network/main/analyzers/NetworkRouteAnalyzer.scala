@@ -5,19 +5,11 @@ import kpn.api.common.data.MemberType
 import kpn.core.doc.NetworkRouteDetail
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
-import kpn.database.base.Database
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.in
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
+import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkRouteAnalyzer(database: Database) extends NetworkAnalyzer {
+class NetworkRouteAnalyzer(routeRepository: RouteRepository) extends NetworkAnalyzer {
 
   private val log = Log(classOf[NetworkAnalysisContext])
 
@@ -52,35 +44,6 @@ class NetworkRouteAnalyzer(database: Database) extends NetworkAnalyzer {
   }
 
   private def queryRouteDetails(routeIds: Seq[Long]): Seq[NetworkRouteDetail] = {
-    if (routeIds.nonEmpty) {
-      log.debugElapsed {
-        val pipeline = Seq(
-          filter(
-            and(
-              equal("active", true),
-              in("_id", routeIds: _*)
-            )
-          ),
-          project(
-            fields(
-              computed("id", "$_id"),
-              computed("name", "$summary.name"),
-              computed("length", "$summary.meters"),
-              include("facts"),
-              include("proposed"),
-              include("lastUpdated"),
-              include("lastSurvey"),
-              computed("tags", "$summary.tags"),
-              include("nodeRefs")
-            )
-          )
-        )
-        val routeDetails = database.baseRoutes.aggregate[NetworkRouteDetail](pipeline, log)
-        (s"routeDetails: ${routeDetails.size}", routeDetails)
-      }
-    }
-    else {
-      Seq.empty
-    }
+    routeRepository.networkRouteDetails(routeIds)
   }
 }

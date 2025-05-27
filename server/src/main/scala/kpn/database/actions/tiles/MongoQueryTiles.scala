@@ -4,6 +4,7 @@ import kpn.core.util.Log
 import kpn.database.actions.tiles.MongoQueryTiles.log
 import kpn.database.base.Database
 import kpn.database.base.Id
+import kpn.database.base.Types.MongoPipeline
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
@@ -33,7 +34,7 @@ class MongoQueryTiles(database: Database) {
     }
   }
 
-  private def buildNodeIdsPipeline(tileName: String) = {
+  private def buildNodeIdsPipeline(tileName: String): MongoPipeline = {
     Seq(
       filter(
         and(
@@ -49,7 +50,7 @@ class MongoQueryTiles(database: Database) {
     )
   }
 
-  private def buildRouteIdsPipeline(tileName: String) = {
+  private def buildRouteIdsPipeline(tileName: String): MongoPipeline = {
     Seq(
       filter(
         and(

@@ -13,13 +13,13 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
       val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
 
-      nodeRepository.save(newNodeDoc(101))
-      nodeRepository.save(newNodeDoc(102))
-      nodeRepository.save(newNodeDoc(103))
+      nodeRepository.save(newNodeDoc(1001))
+      nodeRepository.save(newNodeDoc(1002))
+      nodeRepository.save(newNodeDoc(1003))
 
-      assertEqual(nodeRepository.nodeWithId(101), Some(newNodeDoc(101)))
-      assertEqual(nodeRepository.nodeWithId(102), Some(newNodeDoc(102)))
-      assertEqual(nodeRepository.nodeWithId(103), Some(newNodeDoc(103)))
+      assertEqual(nodeRepository.nodeWithId(1001), Some(newNodeDoc(1001)))
+      assertEqual(nodeRepository.nodeWithId(1002), Some(newNodeDoc(1002)))
+      assertEqual(nodeRepository.nodeWithId(1003), Some(newNodeDoc(1003)))
       nodeRepository.nodeWithId(104) should equal(None)
     }
   }
@@ -28,12 +28,42 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
+      val nodeRepository = new NodeRepositoryImpl(database)
 
-      nodeRepository.save(newNodeDoc(101))
-      nodeRepository.save(newNodeDoc(102))
+      val node1001 = newNodeDoc(1001)
+      val node1002 = newNodeDoc(1002, active = false)
 
-      assertEqual(nodeRepository.nodesWithIds(Seq(101, 102, 103)), Seq(newNodeDoc(101), newNodeDoc(102)))
+      nodeRepository.save(node1001)
+      nodeRepository.save(node1002)
+
+      assertEqual(
+        nodeRepository.nodesWithIds(Seq(1001, 1002, 1003)),
+        Seq(
+          node1001,
+          node1002
+        )
+      )
+    }
+  }
+
+  test("activeNodesWithIds") {
+
+    withDatabase { database =>
+
+      val nodeRepository = new NodeRepositoryImpl(database)
+
+      val node1001 = newNodeDoc(1001)
+      val node1002 = newNodeDoc(1002, active = false)
+
+      nodeRepository.save(node1001)
+      nodeRepository.save(node1002)
+
+      assertEqual(
+        nodeRepository.activeNodesWithIds(Seq(1001, 1002, 1003)),
+        Seq(
+          node1001
+        )
+      )
     }
   }
 
@@ -41,37 +71,37 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
+      val nodeRepository = new NodeRepositoryImpl(database)
 
-      nodeRepository.save(newNodeDoc(101, tags = Tags.from("rwn_ref" -> "01")))
-      nodeRepository.save(newNodeDoc(102, tags = Tags.from("rwn_ref" -> "02")))
-      nodeRepository.save(newNodeDoc(103, tags = Tags.from("rwn_ref" -> "03")))
+      nodeRepository.save(newNodeDoc(1001, tags = Tags.from("rwn_ref" -> "01")))
+      nodeRepository.save(newNodeDoc(1002, tags = Tags.from("rwn_ref" -> "02")))
+      nodeRepository.save(newNodeDoc(1003, tags = Tags.from("rwn_ref" -> "03")))
 
-      assertEqual(nodeRepository.nodeWithId(101), Some(newNodeDoc(101, tags = Tags.from("rwn_ref" -> "01"))))
-      assertEqual(nodeRepository.nodeWithId(102), Some(newNodeDoc(102, tags = Tags.from("rwn_ref" -> "02"))))
-      assertEqual(nodeRepository.nodeWithId(103), Some(newNodeDoc(103, tags = Tags.from("rwn_ref" -> "03"))))
+      assertEqual(nodeRepository.nodeWithId(1001), Some(newNodeDoc(1001, tags = Tags.from("rwn_ref" -> "01"))))
+      assertEqual(nodeRepository.nodeWithId(1002), Some(newNodeDoc(1002, tags = Tags.from("rwn_ref" -> "02"))))
+      assertEqual(nodeRepository.nodeWithId(1003), Some(newNodeDoc(1003, tags = Tags.from("rwn_ref" -> "03"))))
       nodeRepository.nodeWithId(104) should equal(None)
 
       nodeRepository.bulkSave(
-        newNodeDoc(101, tags = Tags.from("rwn_ref" -> "01")),
-        newNodeDoc(102, tags = Tags.from("rwn_ref" -> "02")),
-        newNodeDoc(103, tags = Tags.from("rwn_ref" -> "03"))
+        newNodeDoc(1001, tags = Tags.from("rwn_ref" -> "01")),
+        newNodeDoc(1002, tags = Tags.from("rwn_ref" -> "02")),
+        newNodeDoc(1003, tags = Tags.from("rwn_ref" -> "03"))
       )
 
-      assertEqual(nodeRepository.nodeWithId(101), Some(newNodeDoc(101, tags = Tags.from("rwn_ref" -> "01"))))
-      assertEqual(nodeRepository.nodeWithId(102), Some(newNodeDoc(102, tags = Tags.from("rwn_ref" -> "02"))))
-      assertEqual(nodeRepository.nodeWithId(103), Some(newNodeDoc(103, tags = Tags.from("rwn_ref" -> "03"))))
+      assertEqual(nodeRepository.nodeWithId(1001), Some(newNodeDoc(1001, tags = Tags.from("rwn_ref" -> "01"))))
+      assertEqual(nodeRepository.nodeWithId(1002), Some(newNodeDoc(1002, tags = Tags.from("rwn_ref" -> "02"))))
+      assertEqual(nodeRepository.nodeWithId(1003), Some(newNodeDoc(1003, tags = Tags.from("rwn_ref" -> "03"))))
       nodeRepository.nodeWithId(104) should equal(None)
 
       nodeRepository.bulkSave(
-        newNodeDoc(101, tags = Tags.from("rwn_ref" -> "01")),
-        newNodeDoc(102, tags = Tags.from("rwn_ref" -> "02")),
-        newNodeDoc(103, tags = Tags.from("rwn_ref" -> "33"))
+        newNodeDoc(1001, tags = Tags.from("rwn_ref" -> "01")),
+        newNodeDoc(1002, tags = Tags.from("rwn_ref" -> "02")),
+        newNodeDoc(1003, tags = Tags.from("rwn_ref" -> "33"))
       )
 
-      assertEqual(nodeRepository.nodeWithId(101), Some(newNodeDoc(101, tags = Tags.from("rwn_ref" -> "01"))))
-      assertEqual(nodeRepository.nodeWithId(102), Some(newNodeDoc(102, tags = Tags.from("rwn_ref" -> "02"))))
-      assertEqual(nodeRepository.nodeWithId(103), Some(newNodeDoc(103, tags = Tags.from("rwn_ref" -> "33")))) // updated
+      assertEqual(nodeRepository.nodeWithId(1001), Some(newNodeDoc(1001, tags = Tags.from("rwn_ref" -> "01"))))
+      assertEqual(nodeRepository.nodeWithId(1002), Some(newNodeDoc(1002, tags = Tags.from("rwn_ref" -> "02"))))
+      assertEqual(nodeRepository.nodeWithId(1003), Some(newNodeDoc(1003, tags = Tags.from("rwn_ref" -> "33")))) // updated
       nodeRepository.nodeWithId(104) should equal(None)
     }
   }
@@ -80,25 +110,28 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
+      val nodeRepository = new NodeRepositoryImpl(database)
 
-      nodeRepository.save(newNodeDoc(101))
-      nodeRepository.save(newNodeDoc(101))
-      nodeRepository.save(newNodeDoc(101))
+      nodeRepository.save(newNodeDoc(1001))
+      nodeRepository.save(newNodeDoc(1001))
+      nodeRepository.save(newNodeDoc(1001))
 
-      assertEqual(nodeRepository.nodeWithId(101), Some(newNodeDoc(101)))
+      assertEqual(
+        nodeRepository.nodeWithId(1001),
+        Some(newNodeDoc(1001))
+      )
     }
   }
 
   test("filterKnown") {
 
     withDatabase { database =>
-      val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
+      val nodeRepository = new NodeRepositoryImpl(database)
 
-      nodeRepository.save(newNodeDoc(101))
-      nodeRepository.save(newNodeDoc(102))
+      nodeRepository.save(newNodeDoc(1001))
+      nodeRepository.save(newNodeDoc(1002))
 
-      nodeRepository.filterKnown(Set(101, 102, 103)) should equal(Set(101, 102))
+      nodeRepository.filterKnown(Set(1001, 1002, 1003)) should equal(Set(1001, 1002))
     }
   }
 }
