@@ -5,19 +5,13 @@ import kpn.api.common.common.Ref
 import kpn.api.common.subset.NetworkFactRefs
 import kpn.api.custom.Subset
 import kpn.core.analysis.Facts
-import kpn.core.doc.Label
 import kpn.core.util.Log
+import kpn.database.actions.facts.MongoQueryNetworkNodes
+import kpn.database.actions.facts.MongoQueryNetworkRoutes
+import kpn.database.actions.facts.MongoQueryNodesWithIntegrityCheckFailed
+import kpn.database.actions.facts.MongoQueryRoutesWithFact
+import kpn.database.actions.facts.MongoQuerySubsetNetworkFacts
 import kpn.database.base.Database
-import kpn.database.util.Mongo
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.in
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
 import org.springframework.stereotype.Component
 
 case class NetworkFactElementIds(networkId: Long, networkName: String, elementIds: Seq[Long] = Seq.empty)
@@ -80,117 +74,19 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
   }
 
   private def findRoutesWithFact(subset: Subset, fact: Fact): Seq[Ref] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("active", true),
-            equal("labels", Label.country(subset.country)),
-            equal("labels", Label.routeType(subset.routeType)),
-            equal("labels", Label.fact(fact)),
-          )
-        ),
-        project(
-          fields(
-            excludeId(),
-            computed("id", "$_id"),
-            computed("name", "$summary.name"),
-          )
-        )
-      )
-
-      println(Mongo.pipelineString(pipeline))
-
-      val refs = database.routes.aggregate[Ref](pipeline, log)
-      (s"routeRefs: ${refs.size}", refs)
-    }
+    new MongoQueryRoutesWithFact(database).execute(subset, fact)
   }
 
   private def findNetworkRoutes(subset: Subset, routeIds: Seq[Long]): Seq[NetworkElement] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("active", true),
-            equal("country", subset.country.entryName),
-            equal("summary.routeType", subset.routeType.entryName)
-          )
-        ),
-        unwind("$routes"),
-        filter(in("routes.id", routeIds: _*)),
-        project(
-          fields(
-            excludeId(),
-            computed("networkId", "$_id"),
-            computed("networkName", "$summary.name"),
-            computed("elementId", "$routes.id"),
-          )
-        )
-      )
-      val references = database.networks.aggregate[NetworkElement](pipeline, log)
-      (s"route network references: ${references.size}", references)
-    }
+    new MongoQueryNetworkRoutes(database).execute(subset, routeIds)
   }
 
   private def findNetworkFactsWithElementIds(subset: Subset, fact: Fact): Seq[NetworkFactRefs] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("active", true),
-            equal("country", subset.country.entryName),
-            equal("summary.routeType", subset.routeType.entryName)
-          )
-        ),
-        unwind("$facts"),
-        filter(equal("facts.fact", fact.entryName)),
-        project(
-          fields(
-            excludeId(),
-            computed("networkId", "$_id"),
-            computed("networkName", "$summary.name"),
-            computed("elementIds", "$facts.elementIds"),
-          )
-        )
-      )
-
-      val elementReferences = database.networks.aggregate[NetworkFactElementIds](pipeline, log)
-      val references = elementReferences.map { reference =>
-        NetworkFactRefs(
-          reference.networkId,
-          reference.networkName,
-          reference.elementIds.map(id => Ref(id, id.toString))
-        )
-      }
-      (s"network element references: ${references.size}", references)
-    }
+    new MongoQuerySubsetNetworkFacts(database).execute(subset, fact)
   }
 
   private def findNetworkFactsWithRefs(subset: Subset, fact: Fact): Seq[NetworkFactRefs] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("active", true),
-            equal("country", subset.country.entryName),
-            equal("summary.routeType", subset.routeType.entryName)
-          )
-        ),
-        unwind("$facts"),
-        filter(equal("facts.fact", fact.entryName)),
-        project(
-          fields(
-            excludeId(),
-            computed("networkId", "$_id"),
-            computed("networkName", "$summary.name"),
-            computed("factRefs", "$facts.elements"),
-          )
-        )
-      )
-
-      val references = database.networks.aggregate[NetworkFactRefs](pipeline, log)
-      (s"network fact references: ${references.size}", references)
-    }
+    new MongoQuerySubsetNetworkFacts(database).execute(subset, fact)
   }
 
   private def findNetworkIntegrityCheckFailed(subset: Subset): Seq[NetworkFactRefs] = {
@@ -231,57 +127,10 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
   }
 
   private def findNodesWithIntegrityCheckFailed(subset: Subset): Seq[Ref] = {
-    log.debugElapsed {
-
-      val factLabel = s"integrity-check-failed-${subset.routeType.entryName}"
-
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("active", true),
-            equal("labels", Label.country(subset.country)),
-            equal("labels", Label.routeType(subset.routeType)),
-            equal("labels", factLabel),
-          )
-        ),
-        unwind("$names"),
-        filter(equal("names.routeType", subset.routeType.entryName)),
-        project(
-          fields(
-            excludeId(),
-            computed("id", "$_id"),
-            computed("name", "$names.name"),
-          )
-        )
-      )
-      val refs = database.nodes.aggregate[Ref](pipeline, log)
-      (s"nodeRefs: ${refs.size}", refs)
-    }
+    new MongoQueryNodesWithIntegrityCheckFailed(database).execute(subset)
   }
 
   private def findNetworkNodes(subset: Subset, nodeIds: Seq[Long]): Seq[NetworkElement] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("active", true),
-            equal("country", subset.country.entryName),
-            equal("summary.routeType", subset.routeType.entryName)
-          )
-        ),
-        unwind("$nodes"),
-        filter(in("nodes.id", nodeIds: _*)),
-        project(
-          fields(
-            excludeId(),
-            computed("networkId", "$_id"),
-            computed("networkName", "$summary.name"),
-            computed("elementId", "$nodes.id"),
-          )
-        )
-      )
-      val references = database.networks.aggregate[NetworkElement](pipeline, log)
-      (s"node network references: ${references.size}", references)
-    }
+    new MongoQueryNetworkNodes(database).execute(subset, nodeIds)
   }
 }
