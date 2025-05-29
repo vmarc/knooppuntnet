@@ -1,6 +1,8 @@
 package kpn.core.tools.operation
 
-object OperationToolOptions {
+import kpn.database.base.Options
+
+object OperationToolOptions extends Options[OperationToolOptions] {
 
   def parse(args: Array[String]): Option[OperationToolOptions] = {
     optionParser.parse(args, OperationToolOptions())

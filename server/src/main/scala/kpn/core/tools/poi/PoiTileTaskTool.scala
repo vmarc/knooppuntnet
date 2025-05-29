@@ -1,7 +1,9 @@
 package kpn.core.tools.poi
 
 import kpn.core.util.Log
-import kpn.database.base.Exit
+import kpn.database.base.Database
+import kpn.database.base.Options
+import kpn.database.base.Tool
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.poi.PoiTileTask
 import kpn.server.repository.PoiRepository
@@ -9,37 +11,22 @@ import kpn.server.repository.PoiRepositoryImpl
 import kpn.server.repository.TaskRepository
 import kpn.server.repository.TaskRepositoryImpl
 
-object PoiTileTaskTool {
+object PoiTileTaskTool extends Tool[PoiTileTaskToolOptions] {
   private val log = Log(classOf[PoiTileTaskTool])
 
-  def main(args: Array[String]): Unit = {
-    val exitCode = execute(args)
-    System.exit(exitCode)
-  }
+  override def options: Options[PoiTileTaskToolOptions] = PoiTileTaskToolOptions
 
-  private def execute(args: Array[String]): Int = {
-    try {
-      PoiTileTaskToolOptions.parse(args) match {
-        case Some(options) => executeWithOptions(options)
-        case None =>
-          // arguments are bad, error message will have been displayed
-          Exit.Failure
-      }
-    } catch {
-      case e: Exception =>
-        log.error(e.getMessage)
-        Exit.Failure
-    }
-  }
-
-  private def executeWithOptions(options: PoiTileTaskToolOptions): Int = {
+  override def execute(options: PoiTileTaskToolOptions): Unit = {
     Mongo.executeIn(options.poiDatabaseName) { database =>
-      val poiRepository = new PoiRepositoryImpl(database)
-      val taskRepository = new TaskRepositoryImpl(database)
-      val tool = new PoiTileTaskTool(poiRepository, taskRepository)
+      val tool = buildTool(options, database)
       tool.generateTasks()
     }
-    Exit.Success
+  }
+
+  private def buildTool(options: PoiTileTaskToolOptions, database: Database): PoiTileTaskTool = {
+    val poiRepository = new PoiRepositoryImpl(database)
+    val taskRepository = new TaskRepositoryImpl(database)
+    new PoiTileTaskTool(poiRepository, taskRepository)
   }
 }
 

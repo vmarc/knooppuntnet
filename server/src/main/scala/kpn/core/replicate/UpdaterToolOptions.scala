@@ -1,6 +1,7 @@
 package kpn.core.replicate
 
 import kpn.core.tools.config.Dirs
+import kpn.database.base.Options
 
 import java.io.File
 
@@ -24,7 +25,7 @@ case class UpdaterToolOptions(
   def overpassUpdate: File = new File(rootDir, "overpass/bin/update_from_dir")
 }
 
-object UpdaterToolOptions {
+object UpdaterToolOptions extends Options[UpdaterToolOptions] {
 
   def parse(args: Array[String]): Option[UpdaterToolOptions] = {
     optionParser.parse(args, UpdaterToolOptions())

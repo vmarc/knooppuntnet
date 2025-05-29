@@ -1,6 +1,8 @@
 package kpn.core.tools.translations
 
-object TranslationTrimToolOptions {
+import kpn.database.base.Options
+
+object TranslationTrimToolOptions extends Options[TranslationTrimToolOptions] {
 
   def parse(args: Array[String]): Option[TranslationTrimToolOptions] = {
     optionParser.parse(args, TranslationTrimToolOptions())

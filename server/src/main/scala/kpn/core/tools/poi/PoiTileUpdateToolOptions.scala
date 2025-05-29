@@ -1,6 +1,8 @@
 package kpn.core.tools.poi
 
-object PoiTileUpdateToolOptions {
+import kpn.database.base.Options
+
+object PoiTileUpdateToolOptions extends Options[PoiTileUpdateToolOptions] {
 
   def parse(args: Array[String]): Option[PoiTileUpdateToolOptions] = {
     optionParser.parse(args, PoiTileUpdateToolOptions())
@@ -21,7 +23,6 @@ object PoiTileUpdateToolOptions {
       opt[String]('t', "task-database").required() valueName "<database-name>" action { (x, c) =>
         c.copy(taskDatabaseName = x)
       } text "task database name"
-
     }
   }
 }

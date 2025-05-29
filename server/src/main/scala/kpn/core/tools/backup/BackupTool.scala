@@ -6,33 +6,16 @@ import kpn.core.files.FtpConfig
 import kpn.core.files.FtpFileSystem
 import kpn.core.files.LocalFileSystem
 import kpn.core.util.Log
-import kpn.database.base.Exit
+import kpn.database.base.Options
+import kpn.database.base.Tool
 
-object BackupTool {
+object BackupTool extends Tool[BackupToolOptions] {
 
   private val log = Log(classOf[BackupTool])
 
-  def main(args: Array[String]): Unit = {
-    val exitCode = execute(args)
-    System.exit(exitCode)
-  }
+  override def options: Options[BackupToolOptions] = BackupToolOptions
 
-  private def execute(args: Array[String]): Int = {
-    try {
-      BackupToolOptions.parse(args) match {
-        case Some(options) => executeWithOptions(options)
-        case None =>
-          // arguments are bad, error message will have been displayed
-          Exit.Failure
-      }
-    } catch {
-      case e: Exception =>
-        log.error(e.getMessage)
-        Exit.Failure
-    }
-  }
-
-  private def executeWithOptions(options: BackupToolOptions): Int = {
+  override def execute(options: BackupToolOptions): Unit = {
     val localFileSystem = new LocalFileSystem(options.localRoot)
 
     val remoteFileSystem = {
@@ -60,7 +43,6 @@ object BackupTool {
       remoteFileSystem.close()
       log.info("Done")
     }
-    Exit.Success
   }
 }
 

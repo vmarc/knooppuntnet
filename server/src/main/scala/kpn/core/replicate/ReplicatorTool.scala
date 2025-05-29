@@ -7,8 +7,10 @@ import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
-import kpn.database.base.Exit
+import kpn.database.base.MetricsDatabase
 import kpn.database.base.MetricsDatabaseImpl
+import kpn.database.base.Options
+import kpn.database.base.Tool
 import kpn.database.util.Mongo.client
 import kpn.database.util.Mongo.codecRegistry
 import kpn.server.analyzer.engine.changes.OsmChangeReader
@@ -17,7 +19,7 @@ import kpn.server.repository.MetricsRepositoryImpl
 
 import java.io.File
 
-object ReplicatorTool {
+object ReplicatorTool extends Tool[ReplicatorToolOptions] {
 
   private val log = Log(classOf[ReplicatorTool])
 
@@ -35,43 +37,17 @@ object ReplicatorTool {
    */
   private val WAIT = 35
 
-  def main(args: Array[String]): Unit = {
-    val exitCode = execute(args)
-    System.exit(exitCode)
-  }
+  override def options: Options[ReplicatorToolOptions] = ReplicatorToolOptions
 
-  private def execute(args: Array[String]): Int = {
-    try {
-      ReplicatorToolOptions.parse(args) match {
-        case Some(options) => executeWithOptions(options)
-        case None =>
-          // arguments are bad, error message will have been displayed
-          Exit.Failure
-      }
-    } catch {
-      case e: Exception =>
-        log.error(e.getMessage)
-        Exit.Failure
-    }
-  }
-
-  private def executeWithOptions(options: ReplicatorToolOptions): Int = {
+  override def execute(options: ReplicatorToolOptions): Unit = {
+    log.info("Start")
     val mongoClient = client
     try {
-      val database = new MetricsDatabaseImpl(mongoClient.getDatabase("kpn-metrics").withCodecRegistry(codecRegistry))
-      val dirs = Dirs()
+      val mongoDatabase = mongoClient.getDatabase(options.actionsDatabaseName).withCodecRegistry(codecRegistry)
+      val database = new MetricsDatabaseImpl(mongoDatabase)
+      val tool = buildTool(options, database)
       try {
-        val statusRepository = new StatusRepositoryImpl(dirs)
-        val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
-        val replicationRequestExecutor = new ReplicationRequestExecutorImpl()
-        val metricsRepository = new MetricsRepositoryImpl(database)
-        new ReplicatorTool(
-          dirs.replicate,
-          statusRepository,
-          replicationStateRepository,
-          replicationRequestExecutor,
-          metricsRepository
-        ).launch()
+        tool.launch()
       }
       finally {
         log.info("Ended")
@@ -80,8 +56,21 @@ object ReplicatorTool {
     finally {
       mongoClient.close()
     }
+  }
 
-    Exit.Success
+  private def buildTool(options: ReplicatorToolOptions, database: MetricsDatabase): ReplicatorTool = {
+    val dirs = Dirs()
+    val statusRepository = new StatusRepositoryImpl(dirs)
+    val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
+    val replicationRequestExecutor = new ReplicationRequestExecutorImpl()
+    val metricsRepository = new MetricsRepositoryImpl(database)
+    new ReplicatorTool(
+      dirs.replicate,
+      statusRepository,
+      replicationStateRepository,
+      replicationRequestExecutor,
+      metricsRepository
+    )
   }
 }
 

@@ -1,6 +1,8 @@
 package kpn.core.tools.tile
 
-object TileToolOptions {
+import kpn.database.base.Options
+
+object TileToolOptions extends Options[TileToolOptions] {
 
   def parse(args: Array[String]): Option[TileToolOptions] = {
     optionParser.parse(args, TileToolOptions())

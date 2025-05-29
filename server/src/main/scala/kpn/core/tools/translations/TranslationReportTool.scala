@@ -2,12 +2,15 @@ package kpn.core.tools.translations
 
 import kpn.core.tools.translations.domain.TranslationFileReader
 import kpn.core.tools.translations.domain.Trim
+import kpn.database.base.Options
+import kpn.database.base.Tool
 
-object TranslationReportTool {
-  def main(args: Array[String]): Unit = {
-    TranslationReportToolOptions.parse(args) foreach { options =>
-      new TranslationReportTool(options.filename).translations()
-    }
+object TranslationReportTool extends Tool[TranslationReportToolOptions] {
+
+  override def options: Options[TranslationReportToolOptions] = TranslationReportToolOptions
+
+  override def execute(options: TranslationReportToolOptions): Unit = {
+    new TranslationReportTool(options.filename).translations()
   }
 }
 

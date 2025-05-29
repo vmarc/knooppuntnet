@@ -4,7 +4,8 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
-import kpn.database.base.Exit
+import kpn.database.base.Options
+import kpn.database.base.Tool
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.full.MainFullAnalyzer
@@ -16,32 +17,16 @@ import kpn.server.repository.AnalysisRepository
   For all nodes and routes an initial NodeChange/RouteChange/NetworkChange document is created. These documents
   can be used to display the oldest known state of the nodes and routes in the changes pages.
  */
-object InitialAnalysisTool {
+object InitialAnalysisTool extends Tool[InitialAnalysisToolOptions] {
 
   private val log = Log(classOf[InitialAnalysisTool])
 
-  def main(args: Array[String]): Unit = {
-    val exitCode = execute(args)
-    System.exit(exitCode)
-  }
+  override def options: Options[InitialAnalysisToolOptions] = InitialAnalysisToolOptions
 
-  private def execute(args: Array[String]): Int = {
-    InitialAnalysisToolOptions.parse(args) match {
-      case Some(options) => executeWithOptions(options)
-      case None => Exit.Failure
-    }
-  }
-
-  private def executeWithOptions(options: InitialAnalysisToolOptions): Int = {
+  override def execute(options: InitialAnalysisToolOptions): Unit = {
     val configuration = new InitialAnalysisConfiguration(options)
     try {
       runAnalysisTool(configuration)
-      Exit.Success
-    }
-    catch {
-      case exception: Throwable =>
-        log.error(s"Failed: ${exception.getMessage}")
-        Exit.Failure
     }
     finally {
       configuration.shutdown()

@@ -1,6 +1,8 @@
 package kpn.core.tools.backup
 
-object BackupToolOptions {
+import kpn.database.base.Options
+
+object BackupToolOptions extends Options[BackupToolOptions] {
 
   def parse(args: Array[String]): Option[BackupToolOptions] = {
     optionParser.parse(args, BackupToolOptions())

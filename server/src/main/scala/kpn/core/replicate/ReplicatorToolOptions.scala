@@ -1,6 +1,8 @@
 package kpn.core.replicate
 
-object ReplicatorToolOptions {
+import kpn.database.base.Options
+
+object ReplicatorToolOptions extends Options[ReplicatorToolOptions] {
 
   def parse(args: Array[String]): Option[ReplicatorToolOptions] = {
     optionParser.parse(args, ReplicatorToolOptions())

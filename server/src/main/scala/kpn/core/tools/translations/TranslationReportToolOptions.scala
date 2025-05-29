@@ -1,6 +1,8 @@
 package kpn.core.tools.translations
 
-object TranslationReportToolOptions {
+import kpn.database.base.Options
+
+object TranslationReportToolOptions extends Options[TranslationReportToolOptions] {
 
   def parse(args: Array[String]): Option[TranslationReportToolOptions] = {
     optionParser.parse(args, TranslationReportToolOptions())

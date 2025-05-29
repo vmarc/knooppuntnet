@@ -1,5 +1,7 @@
 package kpn.core.tools.translations
 
+import kpn.database.base.Options
+import kpn.database.base.Tool
 import org.apache.commons.io.FileUtils
 import org.w3c.dom.Document
 import org.w3c.dom.Node
@@ -13,11 +15,12 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
-object TranslationDeclutterTool {
-  def main(args: Array[String]): Unit = {
-    TranslationTrimToolOptions.parse(args) foreach { options =>
-      new TranslationDeclutterTool(options.root).declutter()
-    }
+object TranslationDeclutterTool extends Tool[TranslationTrimToolOptions] {
+
+  override def options: Options[TranslationTrimToolOptions] = TranslationTrimToolOptions
+
+  override def execute(options: TranslationTrimToolOptions): Unit = {
+    new TranslationDeclutterTool(options.root).declutter()
   }
 }
 

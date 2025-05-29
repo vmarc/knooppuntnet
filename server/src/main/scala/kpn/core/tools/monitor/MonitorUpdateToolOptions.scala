@@ -1,6 +1,8 @@
 package kpn.core.tools.monitor
 
-object MonitorUpdateToolOptions {
+import kpn.database.base.Options
+
+object MonitorUpdateToolOptions extends Options[MonitorUpdateToolOptions] {
 
   def parse(args: Array[String]): Option[MonitorUpdateToolOptions] = {
     optionParser.parse(args, MonitorUpdateToolOptions())

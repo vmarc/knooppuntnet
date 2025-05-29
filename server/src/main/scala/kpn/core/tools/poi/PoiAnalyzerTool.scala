@@ -10,7 +10,9 @@ import kpn.core.poi.PoiLoaderImpl
 import kpn.core.poi.PoiLocation
 import kpn.core.poi.tags.TagExpressionFormatter
 import kpn.core.util.Log
-import kpn.database.base.Exit
+import kpn.database.base.Database
+import kpn.database.base.Options
+import kpn.database.base.Tool
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
@@ -23,52 +25,36 @@ import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzerImpl
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.PoiRepositoryImpl
 
-object PoiAnalyzerTool {
+object PoiAnalyzerTool extends Tool[PoiAnalyzerToolOptions] {
   private val log = Log(classOf[PoiAnalyzerTool])
 
-  def main(args: Array[String]): Unit = {
-    val exitCode = execute(args)
-    System.exit(exitCode)
-  }
+  override def options: Options[PoiAnalyzerToolOptions] = PoiAnalyzerToolOptions
 
-  private def execute(args: Array[String]): Int = {
-    try {
-      PoiAnalyzerToolOptions.parse(args) match {
-        case Some(options) => executeWithOptions(options)
-        case None =>
-          // arguments are bad, error message will have been displayed
-          Exit.Failure
-      }
-    } catch {
-      case e: Exception =>
-        log.error(e.getMessage)
-        Exit.Failure
-    }
-  }
-
-  private def executeWithOptions(options: PoiAnalyzerToolOptions): Int = {
-    Mongo.executeIn(options.poiDatabaseName) { poiDatabase =>
-      val poiLoader = {
-        val overpassQueryExecutor = new OverpassQueryExecutorImpl()
-        new PoiLoaderImpl(overpassQueryExecutor)
-      }
-      val poiRepository = new PoiRepositoryImpl(poiDatabase)
-      val locationAnalyzer = new LocationAnalyzerImpl(true, false)
-      val poiScopeAnalyzer = new PoiScopeAnalyzerImpl(locationAnalyzer)
-      val tileCalculator: OldTileCalculator = new OldTileCalculatorImpl()
-      val masterPoiAnalyzer = new MasterPoiAnalyzerImpl()
-      val tool = new PoiAnalyzerTool(
-        poiLoader,
-        poiScopeAnalyzer,
-        poiRepository,
-        tileCalculator,
-        locationAnalyzer,
-        masterPoiAnalyzer
-      )
+  override def execute(options: PoiAnalyzerToolOptions): Unit = {
+    Mongo.executeIn(options.poiDatabaseName) { database =>
+      val tool = buildTool(options, database)
       tool.analyze()
     }
+  }
 
-    Exit.Success
+  private def buildTool(options: PoiAnalyzerToolOptions, database: Database): PoiAnalyzerTool = {
+    val poiLoader = {
+      val overpassQueryExecutor = new OverpassQueryExecutorImpl()
+      new PoiLoaderImpl(overpassQueryExecutor)
+    }
+    val poiRepository = new PoiRepositoryImpl(database)
+    val locationAnalyzer = new LocationAnalyzerImpl(true, false)
+    val poiScopeAnalyzer = new PoiScopeAnalyzerImpl(locationAnalyzer)
+    val tileCalculator: OldTileCalculator = new OldTileCalculatorImpl()
+    val masterPoiAnalyzer = new MasterPoiAnalyzerImpl()
+    new PoiAnalyzerTool(
+      poiLoader,
+      poiScopeAnalyzer,
+      poiRepository,
+      tileCalculator,
+      locationAnalyzer,
+      masterPoiAnalyzer
+    )
   }
 }
 

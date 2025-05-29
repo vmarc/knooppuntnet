@@ -2,7 +2,8 @@ package kpn.core.tools.support
 
 import kpn.core.replicate.OperMBean
 import kpn.core.util.Log
-import kpn.database.base.Exit
+import kpn.database.base.Options
+import kpn.database.base.Tool
 import org.springframework.boot.admin.SpringApplicationAdminMXBean
 
 import javax.management.JMX
@@ -12,7 +13,7 @@ import javax.management.remote.JMXServiceURL
 
 case class StopOptions(port: String = "")
 
-object StopOptions {
+object StopOptions extends Options[StopOptions] {
 
   def parse(args: Array[String]): Option[StopOptions] = {
     optionParser.parse(args, StopOptions())
@@ -27,32 +28,13 @@ object StopOptions {
   }
 }
 
-object Stop {
+object Stop extends Tool[StopOptions] {
   private val log = Log(classOf[Stop])
 
-  def main(args: Array[String]): Unit = {
-    val exitCode = execute(args)
-    System.exit(exitCode)
-  }
+  override def options: Options[StopOptions] = StopOptions
 
-  private def execute(args: Array[String]): Int = {
-    try {
-      StopOptions.parse(args) match {
-        case Some(options) => executeWithOptions(options)
-        case None =>
-          // arguments are bad, error message will have been displayed
-          Exit.Failure
-      }
-    } catch {
-      case e: Exception =>
-        log.error(e.getMessage)
-        Exit.Failure
-    }
-  }
-
-  private def executeWithOptions(options: StopOptions): Int = {
+  override def execute(options: StopOptions): Unit = {
     new Stop().stop(options.port)
-    Exit.Success
   }
 }
 

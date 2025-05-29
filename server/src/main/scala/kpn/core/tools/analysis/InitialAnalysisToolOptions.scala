@@ -1,6 +1,8 @@
 package kpn.core.tools.analysis
 
-object InitialAnalysisToolOptions {
+import kpn.database.base.Options
+
+object InitialAnalysisToolOptions extends Options[InitialAnalysisToolOptions] {
 
   def parse(args: Array[String]): Option[InitialAnalysisToolOptions] = {
     optionParser.parse(args, InitialAnalysisToolOptions())

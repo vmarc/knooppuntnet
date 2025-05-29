@@ -4,16 +4,18 @@ import jline.console.ConsoleReader
 import jline.console.completer.AggregateCompleter
 import jline.console.completer.ArgumentCompleter
 import jline.console.completer.StringsCompleter
+import kpn.database.base.Options
+import kpn.database.base.Tool
 
 import java.io.File
 import java.io.PrintWriter
 
-object OperationTool {
-  def main(args: Array[String]): Unit = {
-    OperationToolOptions.parse(args) match {
-      case Some(options) => new OperationTool(options.web).launch()
-      case None =>
-    }
+object OperationTool extends Tool[OperationToolOptions] {
+
+  override def options: Options[OperationToolOptions] = OperationToolOptions
+
+  override def execute(options: OperationToolOptions): Unit = {
+    new OperationTool(options.web).launch()
   }
 }
 

@@ -1,6 +1,8 @@
 package kpn.core.tools.poi
 
-object PoiAnalyzerToolOptions {
+import kpn.database.base.Options
+
+object PoiAnalyzerToolOptions extends Options[PoiAnalyzerToolOptions] {
 
   def parse(args: Array[String]): Option[PoiAnalyzerToolOptions] = {
     optionParser.parse(args, PoiAnalyzerToolOptions())

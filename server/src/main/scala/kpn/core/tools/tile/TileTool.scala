@@ -4,7 +4,8 @@ import kpn.api.common.RouteType
 import kpn.core.tools.tile.TileTool.log
 import kpn.core.util.Log
 import kpn.database.base.Database
-import kpn.database.base.Exit
+import kpn.database.base.Options
+import kpn.database.base.Tool
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
@@ -37,36 +38,17 @@ import scala.jdk.CollectionConverters.MapHasAsJava
   Example use:
     kpn.core.tools.tile.TileTool -t /kpn/tiles -d kpn-next
  */
-object TileTool {
+object TileTool extends Tool[TileToolOptions] {
   private val log = Log(classOf[TileTool])
 
-  def main(args: Array[String]): Unit = {
-    val exitCode = execute(args)
-    System.exit(exitCode)
-  }
+  override def options: Options[TileToolOptions] = TileToolOptions
 
-  private def execute(args: Array[String]): Int = {
-    try {
-      TileToolOptions.parse(args) match {
-        case Some(options) => executeWithOptions(options)
-        case None =>
-          // arguments are bad, error message will have been displayed
-          Exit.Failure
-      }
-    } catch {
-      case e: Exception =>
-        log.error(e.getMessage)
-        Exit.Failure
-    }
-  }
-
-  private def executeWithOptions(options: TileToolOptions): Int = {
+  override def execute(options: TileToolOptions): Unit = {
     Mongo.executeIn(options.databaseName) { database =>
-      val tileTool = createTileTool(database, options.tileDir)
+      val tileTool = buildTool(database, options.tileDir)
       processRouteTypes(tileTool)
     }
     log.info("Done")
-    Exit.Success
   }
 
   private def processRouteTypes(tileTool: TileTool): Unit = {
@@ -76,7 +58,7 @@ object TileTool {
     }
   }
 
-  private def createTileTool(database: Database, tileDir: String): TileTool = {
+  private def buildTool(database: Database, tileDir: String): TileTool = {
     val nodeRepository = new NodeRepositoryImpl(database)
     val routeRepository = new RouteRepositoryImpl(database)
     val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
