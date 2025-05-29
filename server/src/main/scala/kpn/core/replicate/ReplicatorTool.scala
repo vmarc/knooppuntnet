@@ -2,14 +2,15 @@ package kpn.core.replicate
 
 import kpn.api.common.ReplicationId
 import kpn.api.common.status.ActionTimestamp
-import kpn.database.base.MetricsDatabaseImpl
 import kpn.core.metrics.ReplicationAction
-import kpn.database.util.Mongo.client
-import kpn.database.util.Mongo.codecRegistry
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
+import kpn.database.base.Exit
+import kpn.database.base.MetricsDatabaseImpl
+import kpn.database.util.Mongo.client
+import kpn.database.util.Mongo.codecRegistry
 import kpn.server.analyzer.engine.changes.OsmChangeReader
 import kpn.server.repository.MetricsRepository
 import kpn.server.repository.MetricsRepositoryImpl
@@ -35,44 +36,52 @@ object ReplicatorTool {
   private val WAIT = 35
 
   def main(args: Array[String]): Unit = {
+    val exitCode = execute(args)
+    System.exit(exitCode)
+  }
 
-    val exit = ReplicatorToolOptions.parse(args) match {
-      case Some(options) =>
+  private def execute(args: Array[String]): Int = {
+    try {
+      ReplicatorToolOptions.parse(args) match {
+        case Some(options) => executeWithOptions(options)
+        case None =>
+          // arguments are bad, error message will have been displayed
+          Exit.Failure
+      }
+    } catch {
+      case e: Exception =>
+        log.error(e.getMessage)
+        Exit.Failure
+    }
+  }
 
-        val mongoClient = client
-        try {
-          val database = new MetricsDatabaseImpl(mongoClient.getDatabase("kpn-metrics").withCodecRegistry(codecRegistry))
-          val dirs = Dirs()
-
-          try {
-            val statusRepository = new StatusRepositoryImpl(dirs)
-            val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
-            val replicationRequestExecutor = new ReplicationRequestExecutorImpl()
-            val metricsRepository = new MetricsRepositoryImpl(database)
-            new ReplicatorTool(
-              dirs.replicate,
-              statusRepository,
-              replicationStateRepository,
-              replicationRequestExecutor,
-              metricsRepository
-            ).launch()
-          }
-          finally {
-            log.info("Ended")
-          }
-        }
-        finally {
-          mongoClient.close()
-        }
-
-        0
-
-      case None =>
-        // arguments are bad, error message will have been displayed
-        -1
+  private def executeWithOptions(options: ReplicatorToolOptions): Int = {
+    val mongoClient = client
+    try {
+      val database = new MetricsDatabaseImpl(mongoClient.getDatabase("kpn-metrics").withCodecRegistry(codecRegistry))
+      val dirs = Dirs()
+      try {
+        val statusRepository = new StatusRepositoryImpl(dirs)
+        val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
+        val replicationRequestExecutor = new ReplicationRequestExecutorImpl()
+        val metricsRepository = new MetricsRepositoryImpl(database)
+        new ReplicatorTool(
+          dirs.replicate,
+          statusRepository,
+          replicationStateRepository,
+          replicationRequestExecutor,
+          metricsRepository
+        ).launch()
+      }
+      finally {
+        log.info("Ended")
+      }
+    }
+    finally {
+      mongoClient.close()
     }
 
-    System.exit(exit)
+    Exit.Success
   }
 }
 
@@ -87,7 +96,7 @@ private case class ReplicationResult(
   changeSetCount: Long = 0
 )
 
-import kpn.core.replicate.ReplicationResultCode._
+import kpn.core.replicate.ReplicationResultCode.*
 
 class ReplicatorTool(
   replicateDir: File,

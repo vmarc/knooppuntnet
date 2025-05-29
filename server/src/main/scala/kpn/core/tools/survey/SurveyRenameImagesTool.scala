@@ -1,5 +1,8 @@
 package kpn.core.tools.survey
 
+import kpn.core.util.Log
+import kpn.database.base.Exit
+
 import java.io.File
 import java.io.FilenameFilter
 
@@ -24,17 +27,31 @@ case class SurveyRenameImagesToolOptions(
 )
 
 object SurveyRenameImagesTool {
-  def main(args: Array[String]): Unit = {
-    val exit = SurveyRenameImagesToolOptions.parse(args) match {
-      case Some(options) =>
-        new SurveyRenameImagesTool(new File(options.directory)).rename()
-        0
+  private val log = Log(classOf[SurveyRenameImagesTool])
 
-      case None =>
-        // arguments are bad, error message will have been displayed
-        -1
+  def main(args: Array[String]): Unit = {
+    val exitCode = execute(args)
+    System.exit(exitCode)
+  }
+
+  private def execute(args: Array[String]): Int = {
+    try {
+      SurveyRenameImagesToolOptions.parse(args) match {
+        case Some(options) => executeWithOptions(options)
+        case None =>
+          // arguments are bad, error message will have been displayed
+          Exit.Failure
+      }
+    } catch {
+      case e: Exception =>
+        log.error(e.getMessage)
+        Exit.Failure
     }
-    System.exit(exit)
+  }
+
+  private def executeWithOptions(options: SurveyRenameImagesToolOptions): Int = {
+    new SurveyRenameImagesTool(new File(options.directory)).rename()
+    Exit.Success
   }
 }
 

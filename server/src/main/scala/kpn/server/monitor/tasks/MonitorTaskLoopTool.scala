@@ -2,6 +2,7 @@ package kpn.server.monitor.tasks
 
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.Exit
 import kpn.database.util.Mongo
 import kpn.server.monitor.domain.MonitorTask
 import org.mongodb.scala.model.Aggregates.limit
@@ -35,7 +36,7 @@ class MonitorTaskLoopTool(database: Database) {
     }
 
     log.info(s"end of task processing loop")
-    System.exit(0)
+    System.exit(Exit.Success)
   }
 
   private def processAllTasks(): Unit = {
@@ -48,8 +49,8 @@ class MonitorTaskLoopTool(database: Database) {
       sort(orderBy(ascending("priority"), ascending("_id"))),
       limit(1)
     )
-    val task = database.monitorTasks.optionAggregate[MonitorTask](pipeline, log)
-    task match {
+    val taskOption = database.monitorTasks.optionAggregate[MonitorTask](pipeline, log)
+    taskOption match {
       case None => false // no more tasks to process
       case Some(task) =>
         log.info(s"  process task: ${task.message}")

@@ -1,6 +1,7 @@
 package kpn.core.tools.support
 
 import kpn.database.base.Database
+import kpn.database.base.Exit
 import kpn.database.util.Mongo
 import kpn.server.repository.RouteRepositoryImpl
 
@@ -8,7 +9,7 @@ object FindCircularRoutesTool {
   def main(args: Array[String]): Unit = {
     if (args.length < 2) {
       println("Usage: FindCircularRoutesTool host analysisDatabaseName")
-      System.exit(-1)
+      System.exit(Exit.Failure)
     }
     val host = args(0)
     val analysisDatabaseName = args(1)

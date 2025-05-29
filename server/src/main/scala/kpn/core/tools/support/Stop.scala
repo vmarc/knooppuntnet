@@ -1,11 +1,14 @@
 package kpn.core.tools.support
 
+import kpn.core.replicate.OperMBean
+import kpn.core.util.Log
+import kpn.database.base.Exit
+import org.springframework.boot.admin.SpringApplicationAdminMXBean
+
 import javax.management.JMX
 import javax.management.ObjectName
 import javax.management.remote.JMXConnectorFactory
 import javax.management.remote.JMXServiceURL
-import kpn.core.replicate.OperMBean
-import org.springframework.boot.admin.SpringApplicationAdminMXBean
 
 case class StopOptions(port: String = "")
 
@@ -25,21 +28,31 @@ object StopOptions {
 }
 
 object Stop {
+  private val log = Log(classOf[Stop])
+
   def main(args: Array[String]): Unit = {
-    val exit = StopOptions.parse(args) match {
-      case Some(options) =>
-        try {
-          new Stop().stop(options.port)
-          0
-        }
-        catch {
-          case e: Exception =>
-            println(s"Could not stop application on port ${options.port}: ${e.getMessage}")
-            -1
-        }
-      case None => -1
+    val exitCode = execute(args)
+    System.exit(exitCode)
+  }
+
+  private def execute(args: Array[String]): Int = {
+    try {
+      StopOptions.parse(args) match {
+        case Some(options) => executeWithOptions(options)
+        case None =>
+          // arguments are bad, error message will have been displayed
+          Exit.Failure
+      }
+    } catch {
+      case e: Exception =>
+        log.error(e.getMessage)
+        Exit.Failure
     }
-    System.exit(exit)
+  }
+
+  private def executeWithOptions(options: StopOptions): Int = {
+    new Stop().stop(options.port)
+    Exit.Success
   }
 }
 

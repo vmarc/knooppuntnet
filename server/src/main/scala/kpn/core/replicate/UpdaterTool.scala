@@ -8,6 +8,7 @@ import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.Log
+import kpn.database.base.Exit
 import kpn.database.base.MetricsDatabaseImpl
 import kpn.database.util.Mongo.client
 import kpn.database.util.Mongo.codecRegistry
@@ -46,38 +47,40 @@ object UpdaterTool {
   private val SLEEP_SHUTDOWN_POLL_INTERVAL = 250L
 
   def main(args: Array[String]): Unit = {
+    val exitCode = execute(args)
+    System.exit(exitCode)
+  }
 
-    val exit = try {
+  private def execute(args: Array[String]): Int = {
+    try {
       UpdaterToolOptions.parse(args) match {
-        case Some(options) =>
-
-          val mongoClient = client
-          try {
-            val dirs = Dirs()
-            val statusRepository = new StatusRepositoryImpl(dirs)
-            val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
-            val database = new MetricsDatabaseImpl(mongoClient.getDatabase("kpn-metrics").withCodecRegistry(codecRegistry))
-            val metricsRepository = new MetricsRepositoryImpl(database)
-            val updater = new UpdaterTool(options, statusRepository, metricsRepository, replicationStateRepository)
-            updater.launch()
-          }
-          finally {
-            mongoClient.close()
-          }
-          0
-
+        case Some(options) => executeWithOptions(options)
         case None =>
           // arguments are bad, error message will have been displayed
-          -1
+          Exit.Failure
       }
-    }
-    catch {
+    } catch {
       case e: Exception =>
-        LOG.fatal("Unexpected exception", e)
-        -1
+        LOG.error(e.getMessage)
+        Exit.Failure
     }
+  }
 
-    System.exit(exit)
+  private def executeWithOptions(options: UpdaterToolOptions): Int = {
+    val mongoClient = client
+    try {
+      val dirs = Dirs()
+      val statusRepository = new StatusRepositoryImpl(dirs)
+      val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
+      val database = new MetricsDatabaseImpl(mongoClient.getDatabase("kpn-metrics").withCodecRegistry(codecRegistry))
+      val metricsRepository = new MetricsRepositoryImpl(database)
+      val updater = new UpdaterTool(options, statusRepository, metricsRepository, replicationStateRepository)
+      updater.launch()
+    }
+    finally {
+      mongoClient.close()
+    }
+    Exit.Success
   }
 }
 

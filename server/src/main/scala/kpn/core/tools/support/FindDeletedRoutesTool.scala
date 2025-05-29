@@ -5,6 +5,7 @@ import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelationIds
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.Exit
 import kpn.database.util.Mongo
 import kpn.server.repository.RouteRepositoryImpl
 
@@ -21,7 +22,7 @@ object FindDeletedRoutesTool {
 
     if (args.length < 1) {
       println("Usage: FindDeletedRoutesTool analysisDatabaseName")
-      System.exit(-1)
+      System.exit(Exit.Failure)
     }
     val analysisDatabaseName = args(0)
     val executor = new OverpassQueryExecutorRemoteImpl()

@@ -1,6 +1,7 @@
 package kpn.core.tools.poi
 
 import kpn.core.util.Log
+import kpn.database.base.Exit
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.poi.PoiTileTask
 import kpn.server.repository.PoiRepository
@@ -9,27 +10,36 @@ import kpn.server.repository.TaskRepository
 import kpn.server.repository.TaskRepositoryImpl
 
 object PoiTileTaskTool {
+  private val log = Log(classOf[PoiTileTaskTool])
 
   def main(args: Array[String]): Unit = {
+    val exitCode = execute(args)
+    System.exit(exitCode)
+  }
 
-    val exit = PoiTileTaskToolOptions.parse(args) match {
-      case Some(options) =>
-
-        Mongo.executeIn(options.poiDatabaseName) { database =>
-          val poiRepository = new PoiRepositoryImpl(database)
-          val taskRepository = new TaskRepositoryImpl(database)
-          val tool = new PoiTileTaskTool(poiRepository, taskRepository)
-          tool.generateTasks()
-        }
-
-        0
-
-      case None =>
-        // arguments are bad, error message will have been displayed
-        -1
+  private def execute(args: Array[String]): Int = {
+    try {
+      PoiTileTaskToolOptions.parse(args) match {
+        case Some(options) => executeWithOptions(options)
+        case None =>
+          // arguments are bad, error message will have been displayed
+          Exit.Failure
+      }
+    } catch {
+      case e: Exception =>
+        log.error(e.getMessage)
+        Exit.Failure
     }
+  }
 
-    System.exit(exit)
+  private def executeWithOptions(options: PoiTileTaskToolOptions): Int = {
+    Mongo.executeIn(options.poiDatabaseName) { database =>
+      val poiRepository = new PoiRepositoryImpl(database)
+      val taskRepository = new TaskRepositoryImpl(database)
+      val tool = new PoiTileTaskTool(poiRepository, taskRepository)
+      tool.generateTasks()
+    }
+    Exit.Success
   }
 }
 

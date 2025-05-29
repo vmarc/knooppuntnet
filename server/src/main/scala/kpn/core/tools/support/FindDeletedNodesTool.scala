@@ -6,6 +6,7 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryNodes
 import kpn.database.base.Database
+import kpn.database.base.Exit
 import kpn.database.util.Mongo
 import kpn.server.repository.NodeRepositoryImpl
 import org.xml.sax.SAXParseException
@@ -18,7 +19,7 @@ object FindDeletedNodesTool {
 
     if (args.length < 2) {
       println("Usage: FindDeletedNodesTool host databaseName")
-      System.exit(-1)
+      System.exit(Exit.Failure)
     }
     val host = args(0)
     val databaseName = args(1)

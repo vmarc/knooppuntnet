@@ -10,6 +10,7 @@ import kpn.core.poi.PoiLoaderImpl
 import kpn.core.poi.PoiLocation
 import kpn.core.poi.tags.TagExpressionFormatter
 import kpn.core.util.Log
+import kpn.database.base.Exit
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
@@ -23,41 +24,51 @@ import kpn.server.repository.PoiRepository
 import kpn.server.repository.PoiRepositoryImpl
 
 object PoiAnalyzerTool {
+  private val log = Log(classOf[PoiAnalyzerTool])
 
   def main(args: Array[String]): Unit = {
+    val exitCode = execute(args)
+    System.exit(exitCode)
+  }
 
-    val exit = PoiAnalyzerToolOptions.parse(args) match {
-      case Some(options) =>
+  private def execute(args: Array[String]): Int = {
+    try {
+      PoiAnalyzerToolOptions.parse(args) match {
+        case Some(options) => executeWithOptions(options)
+        case None =>
+          // arguments are bad, error message will have been displayed
+          Exit.Failure
+      }
+    } catch {
+      case e: Exception =>
+        log.error(e.getMessage)
+        Exit.Failure
+    }
+  }
 
-        Mongo.executeIn(options.poiDatabaseName) { poiDatabase =>
-          val poiLoader = {
-            val overpassQueryExecutor = new OverpassQueryExecutorImpl()
-            new PoiLoaderImpl(overpassQueryExecutor)
-          }
-          val poiRepository = new PoiRepositoryImpl(poiDatabase)
-          val locationAnalyzer = new LocationAnalyzerImpl(true, false)
-          val poiScopeAnalyzer = new PoiScopeAnalyzerImpl(locationAnalyzer)
-          val tileCalculator: OldTileCalculator = new OldTileCalculatorImpl()
-          val masterPoiAnalyzer = new MasterPoiAnalyzerImpl()
-          val tool = new PoiAnalyzerTool(
-            poiLoader,
-            poiScopeAnalyzer,
-            poiRepository,
-            tileCalculator,
-            locationAnalyzer,
-            masterPoiAnalyzer
-          )
-          tool.analyze()
-        }
-
-        0
-
-      case None =>
-        // arguments are bad, error message will have been displayed
-        -1
+  private def executeWithOptions(options: PoiAnalyzerToolOptions): Int = {
+    Mongo.executeIn(options.poiDatabaseName) { poiDatabase =>
+      val poiLoader = {
+        val overpassQueryExecutor = new OverpassQueryExecutorImpl()
+        new PoiLoaderImpl(overpassQueryExecutor)
+      }
+      val poiRepository = new PoiRepositoryImpl(poiDatabase)
+      val locationAnalyzer = new LocationAnalyzerImpl(true, false)
+      val poiScopeAnalyzer = new PoiScopeAnalyzerImpl(locationAnalyzer)
+      val tileCalculator: OldTileCalculator = new OldTileCalculatorImpl()
+      val masterPoiAnalyzer = new MasterPoiAnalyzerImpl()
+      val tool = new PoiAnalyzerTool(
+        poiLoader,
+        poiScopeAnalyzer,
+        poiRepository,
+        tileCalculator,
+        locationAnalyzer,
+        masterPoiAnalyzer
+      )
+      tool.analyze()
     }
 
-    System.exit(exit)
+    Exit.Success
   }
 }
 

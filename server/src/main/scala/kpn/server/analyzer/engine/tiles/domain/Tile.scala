@@ -79,7 +79,13 @@ class Tile(
   val clipBufferSize: Int
 ) {
 
-  def name: String = s"$z-$x-$y"
+  def id: TileId = {
+    TileId(z, x, y)
+  }
+
+  def name: String = {
+    s"$z-$x-$y"
+  }
 
   val tileEnvelope: Polygon = {
     val size = extent.toDouble

@@ -2,6 +2,7 @@ package kpn.core.tools.support
 
 import kpn.core.common.Time
 import kpn.core.util.Elapsed
+import kpn.database.base.Exit
 
 import java.io.IOException
 import java.lang.ProcessBuilder.Redirect
@@ -10,7 +11,7 @@ object ScriptTool {
   def main(args: Array[String]): Unit = {
     if (args.length < 2) {
       println("Usage: ScriptTool name command")
-      System.exit(-1)
+      System.exit(Exit.Failure)
     }
     val name = args(0)
     val command = args(1)

@@ -4,6 +4,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
+import kpn.database.base.Exit
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.full.MainFullAnalyzer
@@ -20,27 +21,27 @@ object InitialAnalysisTool {
   private val log = Log(classOf[InitialAnalysisTool])
 
   def main(args: Array[String]): Unit = {
-    val exitCode = executeAnalysis(args)
+    val exitCode = execute(args)
     System.exit(exitCode)
   }
 
-  private def executeAnalysis(args: Array[String]): Int = {
+  private def execute(args: Array[String]): Int = {
     InitialAnalysisToolOptions.parse(args) match {
-      case Some(options) => runAnalysis(options)
-      case None => -1
+      case Some(options) => executeWithOptions(options)
+      case None => Exit.Failure
     }
   }
 
-  private def runAnalysis(options: InitialAnalysisToolOptions): Int = {
+  private def executeWithOptions(options: InitialAnalysisToolOptions): Int = {
     val configuration = new InitialAnalysisConfiguration(options)
     try {
       runAnalysisTool(configuration)
-      0
+      Exit.Success
     }
     catch {
       case exception: Throwable =>
         log.error(s"Failed: ${exception.getMessage}")
-        -1
+        Exit.Failure
     }
     finally {
       configuration.shutdown()

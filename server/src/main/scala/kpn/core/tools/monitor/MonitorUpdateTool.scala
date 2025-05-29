@@ -5,6 +5,7 @@ import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.Exit
 import kpn.database.util.Mongo
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -16,39 +17,42 @@ object MonitorUpdateTool {
   private val log = Log(classOf[MonitorUpdateTool])
 
   def main(args: Array[String]): Unit = {
+    val exitCode = execute(args)
+    System.exit(exitCode)
+  }
 
-    val exit: Int = try {
+  private def execute(args: Array[String]): Int = {
+    try {
       MonitorUpdateToolOptions.parse(args) match {
-        case Some(options) =>
-          log.infoElapsed {
-            Mongo.executeIn(options.databaseName) { database =>
-              val overpassQueryExecutor = {
-                if (options.remote) {
-                  new OverpassQueryExecutorRemoteImpl()
-                }
-                else {
-                  new OverpassQueryExecutorImpl()
-                }
-              }
-              val tool = new MonitorUpdateTool(database, overpassQueryExecutor)
-              tool.update()
-            }
-            ("update completed", ())
-          }
-          0
-
+        case Some(options) => executeWithOptions(options)
         case None =>
           // arguments are bad, error message will have been displayed
-          -1
+          Exit.Failure
       }
+    } catch {
+      case e: Exception =>
+        log.error(e.getMessage)
+        Exit.Failure
     }
-    catch {
-      case e: Throwable =>
-        log.error(e.getMessage, e)
-        -1
-    }
+  }
 
-    System.exit(exit)
+  private def executeWithOptions(options: MonitorUpdateToolOptions): Int = {
+    log.infoElapsed {
+      Mongo.executeIn(options.databaseName) { database =>
+        val overpassQueryExecutor = {
+          if (options.remote) {
+            new OverpassQueryExecutorRemoteImpl()
+          }
+          else {
+            new OverpassQueryExecutorImpl()
+          }
+        }
+        val tool = new MonitorUpdateTool(database, overpassQueryExecutor)
+        tool.update()
+      }
+      ("update completed", ())
+    }
+    Exit.Success
   }
 }
 
