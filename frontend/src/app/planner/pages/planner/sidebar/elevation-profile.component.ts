@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
-  selector: 'kpn-elevation-profile',
+  selector: 'ui-elevation-profile',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <canvas #profile width="200" height="100"></canvas>

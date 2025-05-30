@@ -20,10 +20,10 @@ import { PdfService } from '../../../pdf/pdf.service';
 import { PlannerService } from '../planner.service';
 
 @Component({
-  selector: 'kpn-plan-output-dialog',
+  selector: 'ui-plan-output-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-dialog>
+    <ui-dialog>
       <div mat-dialog-title>
         <div class="kpn-line">
           <mat-icon svgIcon="output" />
@@ -96,7 +96,7 @@ import { PlannerService } from '../planner.service';
 
         <img [src]="qrCode" alt="qr-code" />
       </div>
-    </kpn-dialog>
+    </ui-dialog>
   `,
   styles: `
     .dialog-content {

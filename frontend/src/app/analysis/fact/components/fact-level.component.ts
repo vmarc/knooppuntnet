@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { FactLevel } from '@api/common/fact-level';
 
 @Component({
-  selector: 'kpn-fact-level',
+  selector: 'ui-fact-level',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @switch (factLevel()) {

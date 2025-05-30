@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
-  selector: 'kpn-fact-unexpected-integrity-check',
+  selector: 'ui-fact-unexpected-integrity-check',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown i18n="@@fact.description.unexpected-integrity-check">

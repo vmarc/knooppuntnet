@@ -10,7 +10,7 @@ import { Subscriptions } from '@app/util/subscriptions';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-poi-config',
+  selector: 'ui-poi-config',
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   changeDetection: ChangeDetectionStrategy.Default,
   template: `

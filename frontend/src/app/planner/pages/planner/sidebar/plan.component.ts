@@ -5,12 +5,12 @@ import { PlanTipComponent } from './plan-tip.component';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-plan',
+  selector: 'ui-plan',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-plan-tip />
-    <kpn-plan-result-menu />
-    <kpn-plan-result />
+    <ui-plan-tip />
+    <ui-plan-result-menu />
+    <ui-plan-result />
   `,
   imports: [PlanTipComponent, PlanResultMenuComponent, PlanResultComponent],
 })

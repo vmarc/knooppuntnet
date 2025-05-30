@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TagDiffType } from '@api/common/diff/tag-diff-type';
 
 @Component({
-  selector: 'kpn-tag-diff-action',
+  selector: 'ui-tag-diff-action',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @switch (action()) {

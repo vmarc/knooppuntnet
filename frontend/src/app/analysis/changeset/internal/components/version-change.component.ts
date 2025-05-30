@@ -5,7 +5,7 @@ import { MetaData } from '@api/common/data/meta-data';
 import { MetaDataComponent } from '@app/shared/components/meta-data.component';
 
 @Component({
-  selector: 'kpn-version-change',
+  selector: 'ui-version-change',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-thin">
@@ -16,7 +16,7 @@ import { MetaDataComponent } from '@app/shared/components/meta-data.component';
       } @else {
         <span i18n="@@version-change.relation-unchanged" class="kpn-label">Relation unchanged</span>
       }
-      <kpn-meta-data [metaData]="after()" />
+      <ui-meta-data [metaData]="after()" />
     </div>
   `,
   imports: [MetaDataComponent],

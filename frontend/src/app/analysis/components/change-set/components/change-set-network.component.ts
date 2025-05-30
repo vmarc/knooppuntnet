@@ -16,7 +16,7 @@ export class ChangeSetNetworkAction {
 }
 
 @Component({
-  selector: 'kpn-change-set-network',
+  selector: 'ui-change-set-network',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
@@ -27,8 +27,8 @@ export class ChangeSetNetworkAction {
         {{ changeSetNetworkAction().network.networkName }}
       </a>
     </div>
-    <kpn-change-set-element-refs elementType="node" [changeSetElementRefs]="nodeChanges()" />
-    <kpn-change-set-element-refs elementType="route" [changeSetElementRefs]="routeChanges()" />
+    <ui-change-set-element-refs elementType="node" [changeSetElementRefs]="nodeChanges()" />
+    <ui-change-set-element-refs elementType="route" [changeSetElementRefs]="routeChanges()" />
   `,
   imports: [ChangesSetElementRefsComponent, RouterLink, NzIconDirective],
 })

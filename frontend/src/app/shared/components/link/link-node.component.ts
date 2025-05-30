@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'kpn-link-node',
+  selector: 'ui-link-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 
 @Component({
-  selector: 'kpn-legend-icon',
+  selector: 'ui-legend-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/i18n -->

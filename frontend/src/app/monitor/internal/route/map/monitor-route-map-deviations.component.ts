@@ -16,7 +16,7 @@ import { LegendLineComponent } from './legend-line';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
-  selector: 'kpn-monitor-route-map-deviations',
+  selector: 'ui-monitor-route-map-deviations',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (!referenceAvailable()) {
@@ -37,7 +37,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
         @if (deviations().length === 0) {
           <p class="kpn-spacer-above kpn-line">
-            <kpn-icon-happy />
+            <ui-icon-happy />
             <span i18n="@@monitor.route.map-deviations.no-deviations"> No deviations </span>
           </p>
         } @else {
@@ -47,7 +47,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
           <div class="segment segment-header">
             <span class="segment-id">
-              <kpn-legend-line color="red" />
+              <ui-legend-line color="red" />
             </span>
             <span class="segment-deviation" i18n="@@monitor.route.map-deviations.deviation">
               Deviation

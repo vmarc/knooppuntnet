@@ -8,20 +8,20 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
 import { ActionButtonWayComponent } from '../../../../components/action/action-button-way.component';
 
 @Component({
-  selector: 'kpn-route-member-id',
+  selector: 'ui-route-member-id',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let row = structureRow();
     <div class="kpn-align-center">
       @switch (row.memberType) {
         @case ('node') {
-          <kpn-action-button-node [nodeId]="row.id" />
+          <ui-action-button-node [nodeId]="row.id" />
         }
         @case ('way') {
-          <kpn-action-button-way [wayId]="row.id" />
+          <ui-action-button-way [wayId]="row.id" />
         }
         @case ('relation') {
-          <kpn-action-button-relation [relationId]="row.id" />
+          <ui-action-button-relation [relationId]="row.id" />
         }
       }
     </div>

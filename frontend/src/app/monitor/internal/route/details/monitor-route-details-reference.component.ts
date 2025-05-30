@@ -6,7 +6,7 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
 
 @Component({
-  selector: 'kpn-monitor-route-details-reference',
+  selector: 'ui-monitor-route-details-reference',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (!page().referenceType) {

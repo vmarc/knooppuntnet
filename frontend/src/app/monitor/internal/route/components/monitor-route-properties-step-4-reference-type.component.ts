@@ -9,7 +9,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-monitor-route-properties-step-4-reference-type',
+  selector: 'ui-monitor-route-properties-step-4-reference-type',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <div class="question">

@@ -10,7 +10,7 @@ import { MAP_SERVICE_TOKEN } from '@app/ol/services/openlayers-map-service';
 import { MonitorRouteChangeMapService } from './monitor-route-change-map.service';
 
 @Component({
-  selector: 'kpn-monitor-route-change-map',
+  selector: 'ui-monitor-route-change-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <div [id]="service.mapId" class="kpn-embedded-map"></div> `,
   providers: [

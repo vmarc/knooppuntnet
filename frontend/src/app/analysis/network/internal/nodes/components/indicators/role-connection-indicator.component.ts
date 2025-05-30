@@ -9,10 +9,10 @@ import { IndicatorComponent } from '@app/shared/components/indicator/indicator.c
 import { RoleConnectionIndicatorDialogComponent } from './role-connection-indicator-dialog.component';
 
 @Component({
-  selector: 'kpn-role-connection-indicator',
+  selector: 'ui-role-connection-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator
+    <ui-indicator
       letter="C"
       i18n-letter="@@role-connection-indicator.letter"
       [color]="color"

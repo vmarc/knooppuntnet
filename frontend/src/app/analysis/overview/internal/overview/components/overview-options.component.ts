@@ -9,7 +9,7 @@ import { OverviewPageService } from '../overview-page.service';
 import { OverviewFormat } from './overview-format';
 
 @Component({
-  selector: 'kpn-overview-options',
+  selector: 'ui-overview-options',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div i18n="@@overview.sidebar.display-options">Display options</div>

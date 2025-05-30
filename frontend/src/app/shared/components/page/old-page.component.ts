@@ -11,7 +11,7 @@ import { PageExperimentalComponent } from './page-experimental.component';
 import { PageFooterComponent } from './page-footer.component';
 
 @Component({
-  selector: 'kpn-old-page',
+  selector: 'ui-old-page',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <mat-sidenav-container>
@@ -22,17 +22,17 @@ import { PageFooterComponent } from './page-footer.component';
         [opened]="sidebarOpen()"
       >
         @if (smallPage()) {
-          <kpn-sidebar-back />
+          <ui-sidebar-back />
         }
-        <kpn-page-experimental />
+        <ui-page-experimental />
         <ng-content select="[sidebar]" />
       </mat-sidenav>
 
       <mat-sidenav-content>
         <header>
-          <!--          <kpn-toolbar>-->
+          <!--          <ui-toolbar>-->
           <!--            <ng-content select="[toolbar]" />-->
-          <!--          </kpn-toolbar>-->
+          <!--          </ui-toolbar>-->
         </header>
         <div class="page-contents">
           <main>
@@ -40,7 +40,7 @@ import { PageFooterComponent } from './page-footer.component';
           </main>
           @if (showFooter()) {
             <footer>
-              <kpn-page-footer />
+              <ui-page-footer />
             </footer>
           }
         </div>

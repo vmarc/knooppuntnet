@@ -9,7 +9,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
-  selector: 'kpn-monitor-route-map-osm-segments',
+  selector: 'ui-monitor-route-map-osm-segments',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-selection-list
@@ -25,7 +25,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
           <div class="segment">
             <span class="segment-id">{{ segment.id }}</span>
             <span class="segment-legend">
-              <kpn-legend-line [color]="segmentColor(segment)" />
+              <ui-legend-line [color]="segmentColor(segment)" />
             </span>
             <span>{{ segment.meters | distance }}</span>
           </div>

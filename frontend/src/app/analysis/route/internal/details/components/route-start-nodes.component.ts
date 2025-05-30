@@ -6,18 +6,18 @@ import { RouteNodes } from '@api/common/route/route-nodes';
 import { RouteNodeComponent } from './route-node.component';
 
 @Component({
-  selector: 'kpn-route-start-nodes',
+  selector: 'ui-route-start-nodes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (hasNodes()) {
       @if (hasStartNode()) {
         <p>
-          <kpn-route-node [node]="nodes().startNode" title="marker-icon-green-small.png" />
+          <ui-route-node [node]="nodes().startNode" title="marker-icon-green-small.png" />
         </p>
       }
       @for (node of nodes().startTentacleNodes; track node) {
         <p>
-          <kpn-route-node [node]="node" title="marker-icon-orange-small.png" />
+          <ui-route-node [node]="node" title="marker-icon-orange-small.png" />
         </p>
       }
     } @else {

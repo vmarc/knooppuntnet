@@ -7,7 +7,7 @@ import { SymbolShape } from './symbol-shape';
 import { SymbolComponent } from '../symbol.component';
 
 @Component({
-  selector: 'kpn-status-page',
+  selector: 'ui-status-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- English only-->
@@ -19,7 +19,7 @@ import { SymbolComponent } from '../symbol.component';
         @for (symbol of backgroundSymbols; track symbol) {
           <div class="symbol">
             <div class="symbol-name">{{ symbol }}</div>
-            <kpn-symbol [description]="backgroundShapeDescription(symbol)" [grid]="true" />
+            <ui-symbol [description]="backgroundShapeDescription(symbol)" [grid]="true" />
           </div>
         }
       </div>
@@ -28,7 +28,7 @@ import { SymbolComponent } from '../symbol.component';
         @for (symbol of symbols; track symbol) {
           <div class="symbol">
             <div class="symbol-name">{{ symbol }}</div>
-            <kpn-symbol [description]="foregroundShapeDescription(symbol)" [grid]="true" />
+            <ui-symbol [description]="foregroundShapeDescription(symbol)" [grid]="true" />
           </div>
         }
       </div>
@@ -37,7 +37,7 @@ import { SymbolComponent } from '../symbol.component';
         @for (symbol of wikiExamples; track symbol) {
           <div class="example">
             <div class="symbol-name">{{ symbol }}</div>
-            <kpn-symbol [description]="symbol" [grid]="true" />
+            <ui-symbol [description]="symbol" [grid]="true" />
           </div>
         }
       </div>
@@ -51,7 +51,7 @@ import { SymbolComponent } from '../symbol.component';
                 {{ example.relationId }}
               </a>
             </div>
-            <kpn-symbol [description]="example.description" [grid]="true" />
+            <ui-symbol [description]="example.description" [grid]="true" />
           </div>
         }
       </div>
@@ -61,13 +61,13 @@ import { SymbolComponent } from '../symbol.component';
           <div class="example">
             <div class="symbol-name">
               <span>{{ example.description }} (relation </span>
-              <kpn-osm-link-relation
+              <ui-osm-link-relation
                 [relationId]="example.relationId"
                 [title]="example.relationId.toString()"
               />
               <span>)</span>
             </div>
-            <kpn-symbol [description]="example.description" [grid]="true" />
+            <ui-symbol [description]="example.description" [grid]="true" />
           </div>
         }
       </div>

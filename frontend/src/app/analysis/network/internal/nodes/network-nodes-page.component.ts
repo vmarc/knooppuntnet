@@ -10,11 +10,11 @@ import { NetworkNodeTableComponent } from './components/network-node-table.compo
 import { NetworkNodesPageService } from './network-nodes-page.service';
 
 @Component({
-  selector: 'kpn-network-nodes-page',
+  selector: 'ui-network-nodes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-network-page-header
+    <ui-page>
+      <ui-network-page-header
         pageName="nodes"
         pageTitle="Nodes"
         i18n-pageTitle="@@network-nodes.title"
@@ -26,12 +26,12 @@ import { NetworkNodesPageService } from './network-nodes-page.service';
         } @else {
           @if (response.result; as page) {
             <p>
-              <kpn-situation-on [timestamp]="response.situationOn" />
+              <ui-situation-on [timestamp]="response.situationOn" />
             </p>
             @if (page.nodes.length === 0) {
               <div i18n="@@network-nodes.no-nodes">No network nodes in network</div>
             } @else {
-              <kpn-network-node-table
+              <ui-network-node-table
                 [routeType]="page.summary.routeType"
                 [routeScope]="page.summary.routeScope"
                 [timeInfo]="page.timeInfo"
@@ -42,7 +42,7 @@ import { NetworkNodesPageService } from './network-nodes-page.service';
           }
         }
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [NetworkNodesPageService, RouterService],
   imports: [

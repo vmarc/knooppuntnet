@@ -4,16 +4,16 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from '@app/shared/components/dialog/dialog.component';
 
 @Component({
-  selector: 'kpn-no-geolocation-dialog',
+  selector: 'ui-no-geolocation-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-dialog>
+    <ui-dialog>
       <div mat-dialog-title i18n="@@geolocation-dialog.unavailable.title">Unavailable</div>
       <div mat-dialog-content i18n="@@geolocation-dialog.unavailable.message">
         We cannot determine your location. Verify your settings to allow this application to access
         you location.
       </div>
-    </kpn-dialog>
+    </ui-dialog>
   `,
   imports: [DialogComponent, MatDialogModule],
 })

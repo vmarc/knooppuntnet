@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
-  selector: 'kpn-fact-route-inaccessible',
+  selector: 'ui-fact-route-inaccessible',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown i18n="@@fact.description.route-inaccessible">

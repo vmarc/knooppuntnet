@@ -4,32 +4,32 @@ import { PoiConfigComponent } from './poi-config.component';
 import { PoiGroupComponent } from './poi-group.component';
 
 @Component({
-  selector: 'kpn-poi-group-amenity',
+  selector: 'ui-poi-group-amenity',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-poi-group name="amenity" title="Amenity" i18n-title="@@poi.group.amenity">
-      <kpn-poi-config poiId="atm" />
-      <kpn-poi-config poiId="bank" />
-      <kpn-poi-config poiId="cinema" />
-      <kpn-poi-config poiId="clinic" />
-      <kpn-poi-config poiId="embassy" />
-      <kpn-poi-config poiId="firestation" />
-      <kpn-poi-config poiId="fuel" />
-      <kpn-poi-config poiId="hospital" />
-      <kpn-poi-config poiId="library" />
-      <kpn-poi-config poiId="musicschool" />
-      <kpn-poi-config poiId="parking" />
-      <kpn-poi-config poiId="pharmacy" />
-      <kpn-poi-config poiId="police" />
-      <kpn-poi-config poiId="postbox" />
-      <kpn-poi-config poiId="postoffice" />
-      <!--    <kpn-poi-config poiId="school_college"></kpn-poi-config > -->
-      <kpn-poi-config poiId="taxi" />
-      <kpn-poi-config poiId="theatre" />
-      <kpn-poi-config poiId="university" />
-      <kpn-poi-config poiId="cemetery" />
-      <kpn-poi-config poiId="busstop" />
-    </kpn-poi-group>
+    <ui-poi-group name="amenity" title="Amenity" i18n-title="@@poi.group.amenity">
+      <ui-poi-config poiId="atm" />
+      <ui-poi-config poiId="bank" />
+      <ui-poi-config poiId="cinema" />
+      <ui-poi-config poiId="clinic" />
+      <ui-poi-config poiId="embassy" />
+      <ui-poi-config poiId="firestation" />
+      <ui-poi-config poiId="fuel" />
+      <ui-poi-config poiId="hospital" />
+      <ui-poi-config poiId="library" />
+      <ui-poi-config poiId="musicschool" />
+      <ui-poi-config poiId="parking" />
+      <ui-poi-config poiId="pharmacy" />
+      <ui-poi-config poiId="police" />
+      <ui-poi-config poiId="postbox" />
+      <ui-poi-config poiId="postoffice" />
+      <!--    <ui-poi-config poiId="school_college"></ui-poi-config > -->
+      <ui-poi-config poiId="taxi" />
+      <ui-poi-config poiId="theatre" />
+      <ui-poi-config poiId="university" />
+      <ui-poi-config poiId="cemetery" />
+      <ui-poi-config poiId="busstop" />
+    </ui-poi-group>
   `,
   imports: [PoiGroupComponent, PoiConfigComponent],
 })

@@ -6,26 +6,26 @@ import { State } from '@app/state/state';
 import { LegendIconComponent } from './legend-icon.component';
 
 @Component({
-  selector: 'kpn-planner-sidebar-legend',
+  selector: 'ui-planner-sidebar-legend',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (mapMode(); as mapMode) {
       @if (mapMode === 'surface') {
         <div class="legend">
           <div>
-            <kpn-legend-icon color="rgba(0, 96, 255)" />
+            <ui-legend-icon color="rgba(0, 96, 255)" />
             <span i18n="@@planner.legend.paved">Paved</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(0, 240, 0)" />
+            <ui-legend-icon color="rgb(0, 240, 0)" />
             <span i18n="@@planner.legend.unpaved">Unpaved</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(255, 176, 0)" />
+            <ui-legend-icon color="rgb(255, 176, 0)" />
             <span i18n="@@planner.legend.surface-unknown">Surface unknown</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(0, 96, 255)" [proposed]="true" />
+            <ui-legend-icon color="rgb(0, 96, 255)" [proposed]="true" />
             <span i18n="@@planner.legend.proposed">Proposed</span>
           </div>
         </div>
@@ -33,29 +33,29 @@ import { LegendIconComponent } from './legend-icon.component';
       @if (mapMode === 'survey') {
         <div class="legend">
           <div>
-            <kpn-legend-icon color="rgb(0, 255, 0)" />
+            <ui-legend-icon color="rgb(0, 255, 0)" />
             <span i18n="@@planner.legend.survey.last-month">Last month</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(0, 200, 0)" />
+            <ui-legend-icon color="rgb(0, 200, 0)" />
             <span i18n="@@planner.legend.survey.last-half-month">Last half year</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(0, 150, 0)" />
+            <ui-legend-icon color="rgb(0, 150, 0)" />
             <span i18n="@@planner.legend.survey.last-year">Last year</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(0, 90, 0)" />
+            <ui-legend-icon color="rgb(0, 90, 0)" />
             <span i18n="@@planner.legend.survey.last-two-years">Last two years</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(150, 0, 0)" />
+            <ui-legend-icon color="rgb(150, 0, 0)" />
             <span i18n="@@planner.legend.survey.more-than-tow-years-ago"
               >More than two years ago</span
             >
           </div>
           <div>
-            <kpn-legend-icon color="rgb(255, 255, 0)" circleColor="rgb(225, 225, 0)" />
+            <ui-legend-icon color="rgb(255, 255, 0)" circleColor="rgb(225, 225, 0)" />
             <span i18n="@@planner.legend.survey.unknown">Unknown</span>
           </div>
         </div>
@@ -63,19 +63,19 @@ import { LegendIconComponent } from './legend-icon.component';
       @if (mapMode === 'analysis') {
         <div class="legend">
           <div>
-            <kpn-legend-icon color="rgb(0, 200, 0)" />
+            <ui-legend-icon color="rgb(0, 200, 0)" />
             <span i18n="@@planner.legend.analysis.ok">OK</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(0, 150, 0)" />
+            <ui-legend-icon color="rgb(0, 150, 0)" />
             <span i18n="@@planner.legend.survey.ok-orphan">OK Orphan</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(255, 0, 0)" />
+            <ui-legend-icon color="rgb(255, 0, 0)" />
             <span i18n="@@planner.legend.survey.review">Review</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(187, 0, 0)" />
+            <ui-legend-icon color="rgb(187, 0, 0)" />
             <span i18n="@@planner.legend.survey.review-orphan">Review Orphan</span>
           </div>
         </div>

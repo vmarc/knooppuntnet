@@ -7,10 +7,10 @@ import { ChangeSetTagsComponent } from '@app/analysis/components/change-set/chan
 import { RouteChangeDetailComponent } from '@app/analysis/components/changes/route/route-change-detail.component';
 
 @Component({
-  selector: 'kpn-route-change',
+  selector: 'ui-route-change',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-change-header
+    <ui-change-header
       [changeKey]="routeChangeInfo().changeKey"
       [happy]="routeChangeInfo().happy"
       [investigate]="routeChangeInfo().investigate"
@@ -32,7 +32,7 @@ import { RouteChangeDetailComponent } from '@app/analysis/components/changes/rou
       <p i18n="@@route-change.initial-value">Oldest known state of the route.</p>
     }
 
-    <kpn-change-set-tags [changeSetTags]="routeChangeInfo().changeSetInfo?.tags" />
+    <ui-change-set-tags [changeSetTags]="routeChangeInfo().changeSetInfo?.tags" />
 
     <div class="kpn-detail">
       <span i18n="@@route-change.version">Version</span>
@@ -42,7 +42,7 @@ import { RouteChangeDetailComponent } from '@app/analysis/components/changes/rou
       }
     </div>
 
-    <kpn-route-change-detail [routeChangeInfo]="routeChangeInfo()" />
+    <ui-route-change-detail [routeChangeInfo]="routeChangeInfo()" />
   `,
   imports: [ChangeHeaderComponent, ChangeSetTagsComponent, RouteChangeDetailComponent],
 })

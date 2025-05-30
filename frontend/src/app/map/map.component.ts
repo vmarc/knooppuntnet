@@ -16,13 +16,13 @@ import { MapRoutePopupComponent } from './popup/map-route-popup.component';
 import { MapService } from './map.service';
 
 @Component({
-  selector: 'kpn-map',
+  selector: 'ui-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="main-map" class="main-map" #overlayOrigin (mouseleave)="onMouseLeave()"></div>
 
     <ng-template cdkPortal>
-      <kpn-map-route-popup />
+      <ui-map-route-popup />
     </ng-template>
   `,
   styles: [

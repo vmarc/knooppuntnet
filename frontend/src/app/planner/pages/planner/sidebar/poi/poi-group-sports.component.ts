@@ -4,26 +4,26 @@ import { PoiConfigComponent } from './poi-config.component';
 import { PoiGroupComponent } from './poi-group.component';
 
 @Component({
-  selector: 'kpn-poi-group-sports',
+  selector: 'ui-poi-group-sports',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-poi-group name="sports" title="Sports" i18n-title="@@poi.group.sports">
-      <kpn-poi-config poiId="american-football" />
-      <kpn-poi-config poiId="baseball" />
-      <kpn-poi-config poiId="basketball" />
-      <kpn-poi-config poiId="cycling" />
-      <kpn-poi-config poiId="gymnastics" />
-      <kpn-poi-config poiId="golf" />
-      <kpn-poi-config poiId="hockey" />
-      <kpn-poi-config poiId="horseracing" />
-      <kpn-poi-config poiId="icehockey" />
-      <kpn-poi-config poiId="soccer" />
-      <kpn-poi-config poiId="sportscentre" />
-      <kpn-poi-config poiId="surfing" />
-      <kpn-poi-config poiId="swimming" />
-      <kpn-poi-config poiId="tennis" />
-      <kpn-poi-config poiId="volleyball" />
-    </kpn-poi-group>
+    <ui-poi-group name="sports" title="Sports" i18n-title="@@poi.group.sports">
+      <ui-poi-config poiId="american-football" />
+      <ui-poi-config poiId="baseball" />
+      <ui-poi-config poiId="basketball" />
+      <ui-poi-config poiId="cycling" />
+      <ui-poi-config poiId="gymnastics" />
+      <ui-poi-config poiId="golf" />
+      <ui-poi-config poiId="hockey" />
+      <ui-poi-config poiId="horseracing" />
+      <ui-poi-config poiId="icehockey" />
+      <ui-poi-config poiId="soccer" />
+      <ui-poi-config poiId="sportscentre" />
+      <ui-poi-config poiId="surfing" />
+      <ui-poi-config poiId="swimming" />
+      <ui-poi-config poiId="tennis" />
+      <ui-poi-config poiId="volleyball" />
+    </ui-poi-group>
   `,
   imports: [PoiGroupComponent, PoiConfigComponent],
 })

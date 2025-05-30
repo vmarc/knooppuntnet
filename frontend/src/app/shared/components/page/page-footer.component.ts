@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { Translations } from '@app/shared/i18n/translations';
 
 @Component({
-  selector: 'kpn-page-footer',
+  selector: 'ui-page-footer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="footer links">

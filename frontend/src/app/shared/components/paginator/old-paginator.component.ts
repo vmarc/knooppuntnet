@@ -9,7 +9,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-  selector: 'kpn-old-paginator',
+  selector: 'ui-old-paginator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-paginator

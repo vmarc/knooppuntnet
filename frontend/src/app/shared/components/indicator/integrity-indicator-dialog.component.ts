@@ -9,10 +9,10 @@ import { IndicatorDialogComponent } from './indicator-dialog.component';
 import { IntegrityIndicatorData } from './integrity-indicator-data';
 
 @Component({
-  selector: 'kpn-integrity-indicator-dialog',
+  selector: 'ui-integrity-indicator-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator-dialog letter="E" i18n-letter="@@integrity-indicator.letter" [color]="color">
+    <ui-indicator-dialog letter="E" i18n-letter="@@integrity-indicator.letter" [color]="color">
       @if (isGray()) {
         <span dialog-title i18n="@@integrity-indicator.gray.title">
           OK - expected route count missing
@@ -49,7 +49,7 @@ import { IntegrityIndicatorData } from './integrity-indicator-data';
           number of routes ({{ expected }}) as defined in the *"{{ tag }}"* tag on this node.
         </markdown>
       }
-    </kpn-indicator-dialog>
+    </ui-indicator-dialog>
   `,
   imports: [IndicatorDialogComponent, MarkdownModule],
 })

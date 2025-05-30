@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 
 @Component({
-  selector: 'kpn-month',
+  selector: 'ui-month',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @switch (month()) {

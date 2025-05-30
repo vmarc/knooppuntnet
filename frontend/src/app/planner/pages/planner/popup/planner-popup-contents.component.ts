@@ -7,18 +7,18 @@ import { PlannerPopupNodeComponent } from './planner-popup-node.component';
 import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
 
 @Component({
-  selector: 'kpn-planner-popup-contents',
+  selector: 'ui-planner-popup-contents',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.popupType(); as popupType) {
       @if (popupType === 'poi') {
-        <kpn-planner-popup-poi />
+        <ui-planner-popup-poi />
       }
       @if (popupType === 'node') {
-        <kpn-planner-popup-node />
+        <ui-planner-popup-node />
       }
       @if (popupType === 'route') {
-        <kpn-planner-popup-route />
+        <ui-planner-popup-route />
       }
     }
   `,

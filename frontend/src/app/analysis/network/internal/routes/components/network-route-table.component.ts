@@ -25,10 +25,10 @@ import { NetworkRoutesPageService } from '../network-routes-page.service';
 import { NetworkRouteAnalysisComponent } from './network-route-analysis.component';
 
 @Component({
-  selector: 'kpn-network-route-table',
+  selector: 'ui-network-route-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-edit-and-paginator
+    <ui-edit-and-paginator
       (edit)="edit()"
       i18n-editLinkTitle="@@network-routes.edit.title"
       editLinkTitle="Load the routes in this page in JOSM"
@@ -69,16 +69,16 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
               {{ rowNumber(i) }}
             </td>
             <td>
-              <kpn-network-route-analysis [route]="route" [routeType]="routeType()" />
+              <ui-network-route-analysis [route]="route" [routeType]="routeType()" />
             </td>
             <td class="symbol">
               @if (route.symbol) {
-                <kpn-symbol [description]="route.symbol" [width]="25" [height]="25" />
+                <ui-symbol [description]="route.symbol" [width]="25" [height]="25" />
               }
             </td>
             <td class="kpn-align-center route-column">
-              <kpn-action-button-route [routeType]="routeType()" [relationId]="route.id" />
-              <kpn-link-route
+              <ui-action-button-route [routeType]="routeType()" [relationId]="route.id" />
+              <ui-link-route
                 [routeId]="route.id"
                 [routeName]="route.name"
                 [routeType]="routeType()"
@@ -94,7 +94,7 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
               {{ route.lastSurvey | day }}
             </td>
             <td class="kpn-separated">
-              <kpn-day [timestamp]="route.lastUpdated" />
+              <ui-day [timestamp]="route.lastUpdated" />
             </td>
           </tr>
         }

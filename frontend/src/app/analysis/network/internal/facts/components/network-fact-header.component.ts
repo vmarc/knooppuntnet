@@ -12,13 +12,13 @@ import { FactNameComponent } from '@app/analysis/fact/components/fact-name.compo
 import { EditService } from '@app/shared/components/edit.service';
 
 @Component({
-  selector: 'kpn-network-fact-header',
+  selector: 'ui-network-fact-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <span class="kpn-thick"><kpn-fact-name [fact]="fact().fact" /></span>
+      <span class="kpn-thick"><ui-fact-name [fact]="fact().fact" /></span>
       <span class="kpn-brackets">{{ factCount() }}</span>
-      <kpn-fact-level [factLevel]="factLevel()" class="level" />
+      <ui-fact-level [factLevel]="factLevel()" class="level" />
     </div>
   `,
   imports: [FactNameComponent, FactLevelComponent],

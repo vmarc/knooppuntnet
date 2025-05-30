@@ -7,7 +7,7 @@ import { Stat } from '../../domain/stat';
 import { OverviewListStatTableComponent } from './overview-list-stat-table.component';
 
 @Component({
-  selector: 'kpn-overview-list-stat',
+  selector: 'ui-overview-list-stat',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="item">
@@ -40,7 +40,7 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
               </p>
             }
           </div>
-          <kpn-overview-list-stat-table [stat]="stat()" />
+          <ui-overview-list-stat-table [stat]="stat()" />
         </div>
       }
     </div>

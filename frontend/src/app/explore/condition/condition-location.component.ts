@@ -9,7 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ConditionLocationForm } from './condition-controls';
 
 @Component({
-  selector: 'kpn-condition-location',
+  selector: 'ui-condition-location',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-form-field appearance="outline">

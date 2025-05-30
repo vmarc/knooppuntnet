@@ -10,10 +10,10 @@ import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../shared/components/page/page.component';
 
 @Component({
-  selector: 'kpn-settings-page',
+  selector: 'ui-settings-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -23,7 +23,7 @@ import { PageComponent } from '../shared/components/page/page.component';
         </nz-breadcrumb-item>
       </nz-breadcrumb>
 
-      <kpn-page-header i18n="@@settings-page.title">Settings</kpn-page-header>
+      <ui-page-header i18n="@@settings-page.title">Settings</ui-page-header>
 
       <div class="setting">
         <mat-slide-toggle
@@ -43,7 +43,7 @@ import { PageComponent } from '../shared/components/page/page.component';
           OpenStreetMap (normally we use tiles from our own server).
         </p>
       </div>
-    </kpn-page>
+    </ui-page>
   `,
   styles: `
     .setting {

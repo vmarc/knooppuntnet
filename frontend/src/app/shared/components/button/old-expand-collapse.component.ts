@@ -6,7 +6,7 @@ import { MatButton } from '@angular/material/button';
 import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
-  selector: 'kpn-old-expand-collapse',
+  selector: 'ui-old-expand-collapse',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-button-group kpn-spacer-above kpn-spacer-below">

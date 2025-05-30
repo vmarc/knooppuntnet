@@ -14,15 +14,15 @@ import { MonitorGroupNameComponent } from '../components/monitor-group-name.comp
 import { MonitorGroupUpdatePageService } from './monitor-group-update-page.service';
 
 @Component({
-  selector: 'kpn-monitor-group-update-page',
+  selector: 'ui-monitor-group-update-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-monitor-group-breadcrumb />
+    <ui-page>
+      <ui-monitor-group-breadcrumb />
 
-      <kpn-page-header>
+      <ui-page-header>
         <ng-container i18n="@@monitor.group.update.title">Monitor - update group</ng-container>
-      </kpn-page-header>
+      </ui-page-header>
 
       @if (service.state(); as state) {
         @if (state.response; as response) {
@@ -36,8 +36,8 @@ import { MonitorGroupUpdatePageService } from './monitor-group-update-page.servi
             @if (response.result; as page) {
               <div>
                 <form [formGroup]="service.form" #ngForm="ngForm">
-                  <kpn-monitor-group-name [ngForm]="ngForm" [name]="service.name" />
-                  <kpn-monitor-group-description
+                  <ui-monitor-group-name [ngForm]="ngForm" [name]="service.name" />
+                  <ui-monitor-group-description
                     [ngForm]="ngForm"
                     [description]="service.description"
                   />
@@ -58,7 +58,7 @@ import { MonitorGroupUpdatePageService } from './monitor-group-update-page.servi
           </div>
         }
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [MonitorGroupUpdatePageService, NavService],
   imports: [

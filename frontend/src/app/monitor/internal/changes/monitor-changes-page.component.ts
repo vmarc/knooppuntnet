@@ -13,10 +13,10 @@ import { MonitorChangesComponent } from '../components/monitor-changes.component
 import { MonitorChangesPageService } from './monitor-changes-page.service';
 
 @Component({
-  selector: 'kpn-monitor-changes-page',
+  selector: 'ui-monitor-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -31,7 +31,7 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
 
       <h1 i18n="@@monitor.changes.title">Monitor</h1>
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.changesState(); as state) {
         @if (state.response; as response) {
@@ -48,7 +48,7 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
                 >Impact
               </mat-slide-toggle>
 
-              <kpn-old-paginator
+              <ui-old-paginator
                 [pageSize]="service.pageSize()"
                 (pageSizeChange)="pageSizeChanged($event)"
                 [pageIndex]="page.pageIndex"
@@ -57,7 +57,7 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
                 [showPageSizeSelection]="true"
               />
 
-              <kpn-monitor-changes
+              <ui-monitor-changes
                 [pageSize]="page.pageSize"
                 [pageIndex]="page.pageIndex"
                 [changes]="page.changes"
@@ -66,7 +66,7 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
           }
         }
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [MonitorChangesPageService],
   imports: [

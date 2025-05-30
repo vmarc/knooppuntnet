@@ -6,19 +6,19 @@ import { RouteStructureRow } from '@api/common/route/route-structure-row';
 import { TryoutWrapperComponent } from '@app/tryout/canvas/tryout-wrapper.component';
 
 @Component({
-  selector: 'kpn-route-member-image',
+  selector: 'ui-route-member-image',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let r = row();
     @if (r.memberType === 'node') {
-      <kpn-tryout-wrapper [memberType]="r.memberType" [link]="null" />
+      <ui-tryout-wrapper [memberType]="r.memberType" [link]="null" />
     } @else if (r.memberType === 'way') {
-      <kpn-tryout-wrapper [memberType]="r.memberType" [link]="r.link" />
+      <ui-tryout-wrapper [memberType]="r.memberType" [link]="r.link" />
     } @else if (r.memberType === 'relation') {
       <!--      @if (r.relation) {-->
-      <kpn-tryout-wrapper [memberType]="r.memberType" [link]="null" />
+      <ui-tryout-wrapper [memberType]="r.memberType" [link]="null" />
       <!--        @if (r.relation.gaps !== undefined) {-->
-      <!--          <kpn-monitor-route-gap [description]="" [osmSegmentCount]="r.relation.osmSegmentCount" />-->
+      <!--          <ui-monitor-route-gap [description]="" [osmSegmentCount]="r.relation.osmSegmentCount" />-->
       <!--        }-->
     }
     <!--    }-->

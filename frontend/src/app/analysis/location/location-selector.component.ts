@@ -24,7 +24,7 @@ import { NzSelectComponent } from 'ng-zorro-antd/select';
 import { LocationOption } from './internal/selection/components/location-option';
 
 @Component({
-  selector: 'kpn-location-selector',
+  selector: 'ui-location-selector',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (options()) {

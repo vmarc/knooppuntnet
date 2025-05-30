@@ -15,11 +15,11 @@ import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { NzTagComponent } from 'ng-zorro-antd/tag';
 
 @Component({
-  selector: 'kpn-tryout-filter-page',
+  selector: 'ui-tryout-filter-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    <kpn-page>
+    <ui-page>
       <h1>Tryout filter</h1>
       <nz-collapse>
         <nz-collapse-panel nzHeader="Filter" nzActive="true">
@@ -75,7 +75,7 @@ import { NzTagComponent } from 'ng-zorro-antd/tag';
         <mat-label>query params</mat-label>
         {{ queryParams() }}
       </div>
-    </kpn-page>
+    </ui-page>
     <!-- eslint-enable @angular-eslint/template/i18n -->
   `,
   styles: `

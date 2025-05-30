@@ -9,7 +9,7 @@ import { OldPoiService } from '@app/shared/services/old-poi.service';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-poi-group',
+  selector: 'ui-poi-group',
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   changeDetection: ChangeDetectionStrategy.Default,
   template: `

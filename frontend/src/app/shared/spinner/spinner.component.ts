@@ -5,7 +5,7 @@ import { NzSpinComponent } from 'ng-zorro-antd/spin';
 import { SpinnerService } from './spinner.service';
 
 @Component({
-  selector: 'kpn-spinner',
+  selector: 'ui-spinner',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.showSpinner()) {

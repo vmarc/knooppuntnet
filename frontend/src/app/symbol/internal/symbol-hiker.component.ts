@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 
 @Component({
-  selector: 'kpn-symbol-hiker',
+  selector: 'ui-symbol-hiker',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/i18n -->

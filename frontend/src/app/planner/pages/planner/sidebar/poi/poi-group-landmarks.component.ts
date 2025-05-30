@@ -4,27 +4,27 @@ import { PoiConfigComponent } from './poi-config.component';
 import { PoiGroupComponent } from './poi-group.component';
 
 @Component({
-  selector: 'kpn-poi-group-landmarks',
+  selector: 'ui-poi-group-landmarks',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-poi-group name="landmarks" title="Landmarks" i18n-title="@@poi.group.landmarks">
-      <kpn-poi-config poiId="windmill" />
-      <kpn-poi-config poiId="watermill" />
-      <kpn-poi-config poiId="place-of-worship" />
-      <kpn-poi-config poiId="church" />
-      <kpn-poi-config poiId="mosque" />
-      <kpn-poi-config poiId="buddhist-temple" />
-      <kpn-poi-config poiId="hindu-temple" />
-      <kpn-poi-config poiId="synagogue" />
-      <kpn-poi-config poiId="wayside-shrine" />
-      <kpn-poi-config poiId="heritage" />
-      <kpn-poi-config poiId="historic" />
-      <kpn-poi-config poiId="boundary-stone" />
-      <kpn-poi-config poiId="castle" />
-      <kpn-poi-config poiId="monument-memorial" />
-      <kpn-poi-config poiId="statue" />
-      <kpn-poi-config poiId="zoo" />
-    </kpn-poi-group>
+    <ui-poi-group name="landmarks" title="Landmarks" i18n-title="@@poi.group.landmarks">
+      <ui-poi-config poiId="windmill" />
+      <ui-poi-config poiId="watermill" />
+      <ui-poi-config poiId="place-of-worship" />
+      <ui-poi-config poiId="church" />
+      <ui-poi-config poiId="mosque" />
+      <ui-poi-config poiId="buddhist-temple" />
+      <ui-poi-config poiId="hindu-temple" />
+      <ui-poi-config poiId="synagogue" />
+      <ui-poi-config poiId="wayside-shrine" />
+      <ui-poi-config poiId="heritage" />
+      <ui-poi-config poiId="historic" />
+      <ui-poi-config poiId="boundary-stone" />
+      <ui-poi-config poiId="castle" />
+      <ui-poi-config poiId="monument-memorial" />
+      <ui-poi-config poiId="statue" />
+      <ui-poi-config poiId="zoo" />
+    </ui-poi-group>
   `,
   imports: [PoiGroupComponent, PoiConfigComponent],
 })

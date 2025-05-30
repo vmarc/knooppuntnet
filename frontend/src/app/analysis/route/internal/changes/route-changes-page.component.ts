@@ -19,10 +19,10 @@ import { RouteChangeComponent } from './components/route-change.component';
 import { RouteChangesPageService } from './route-changes-page.service';
 
 @Component({
-  selector: 'kpn-route-changes-page',
+  selector: 'ui-route-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page-filter>
+    <ui-page-filter>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a>
@@ -35,7 +35,7 @@ import { RouteChangesPageService } from './route-changes-page.service';
         </nz-breadcrumb-item>
       </nz-breadcrumb>
 
-      <kpn-route-page-header pageName="changes" />
+      <ui-route-page-header pageName="changes" />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
@@ -49,16 +49,16 @@ import { RouteChangesPageService } from './route-changes-page.service';
                   contributors only.
                 </p>
                 <p>
-                  <kpn-user-link-login />
+                  <ui-user-link-login />
                 </p>
               </div>
             } @else {
               @if (response.result; as page) {
                 <div>
                   <p>
-                    <kpn-situation-on [timestamp]="response.situationOn" />
+                    <ui-situation-on [timestamp]="response.situationOn" />
                   </p>
-                  <kpn-changes
+                  <ui-changes
                     [impact]="service.impact()"
                     [pageSize]="service.pageSize()"
                     [pageIndex]="service.pageIndex()"
@@ -68,14 +68,14 @@ import { RouteChangesPageService } from './route-changes-page.service';
                     [totalCount]="page.totalCount"
                     [changeCount]="page.changeCount"
                   >
-                    <kpn-items>
+                    <ui-items>
                       @for (routeChangeInfo of page.changes; track routeChangeInfo) {
-                        <kpn-item [index]="routeChangeInfo.rowIndex">
-                          <kpn-route-change [routeChangeInfo]="routeChangeInfo" />
-                        </kpn-item>
+                        <ui-item [index]="routeChangeInfo.rowIndex">
+                          <ui-route-change [routeChangeInfo]="routeChangeInfo" />
+                        </ui-item>
                       }
-                    </kpn-items>
-                  </kpn-changes>
+                    </ui-items>
+                  </ui-changes>
                 </div>
               }
             }
@@ -83,9 +83,9 @@ import { RouteChangesPageService } from './route-changes-page.service';
               @if (response.result; as page) {
                 <div>
                   <p>
-                    <kpn-situation-on [timestamp]="response.situationOn" />
+                    <ui-situation-on [timestamp]="response.situationOn" />
                   </p>
-                  <kpn-changes
+                  <ui-changes
                     [impact]="service.impact()"
                     [pageSize]="service.pageSize()"
                     [pageIndex]="service.pageIndex()"
@@ -95,26 +95,26 @@ import { RouteChangesPageService } from './route-changes-page.service';
                     [totalCount]="page.totalCount"
                     [changeCount]="page.changeCount"
                   >
-                    <kpn-items>
+                    <ui-items>
                       @for (routeChangeInfo of page.changes; track routeChangeInfo) {
-                        <kpn-item [index]="routeChangeInfo.rowIndex">
-                          <kpn-route-change [routeChangeInfo]="routeChangeInfo" />
-                        </kpn-item>
+                        <ui-item [index]="routeChangeInfo.rowIndex">
+                          <ui-route-change [routeChangeInfo]="routeChangeInfo" />
+                        </ui-item>
                       }
-                    </kpn-items>
-                  </kpn-changes>
+                    </ui-items>
+                  </ui-changes>
                 </div>
               }
             </ng-template>
           }
         </div>
       }
-      <kpn-change-filter
+      <ui-change-filter
         [filterOptions]="service.filterOptions()"
         (optionSelected)="onOptionSelected($event)"
         filter
       />
-    </kpn-page-filter>
+    </ui-page-filter>
   `,
   providers: [RouteChangesPageService, RouterService],
   imports: [

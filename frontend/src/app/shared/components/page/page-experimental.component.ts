@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { Version } from '@app/shared/services/version';
 
 @Component({
-  selector: 'kpn-page-experimental',
+  selector: 'ui-page-experimental',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [ngClass]="{ hidden: !isExperimental() }" class="warning-message">

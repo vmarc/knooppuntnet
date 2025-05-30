@@ -5,10 +5,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IndicatorDialogComponent } from '@app/shared/components/indicator/indicator-dialog.component';
 
 @Component({
-  selector: 'kpn-route-investigate-indicator-dialog',
+  selector: 'ui-route-investigate-indicator-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator-dialog
+    <ui-indicator-dialog
       letter="F"
       i18n-letter="@@route-investigate-indicator.letter"
       [color]="color"
@@ -35,7 +35,7 @@ import { IndicatorDialogComponent } from '@app/shared/components/indicator/indic
           </div>
         }
       }
-    </kpn-indicator-dialog>
+    </ui-indicator-dialog>
   `,
   imports: [IndicatorDialogComponent],
 })

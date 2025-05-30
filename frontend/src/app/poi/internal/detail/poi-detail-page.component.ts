@@ -18,56 +18,56 @@ import { RouterService } from '@app/shared/services/router.service';
 import { PoiDetailPageService } from './poi-detail-page.service';
 
 @Component({
-  selector: 'kpn-poi-detail-page',
+  selector: 'ui-poi-detail-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <kpn-page>
-      <!--    <kpn-page-header>-->
+    <ui-page>
+      <!--    <ui-page-header>-->
       <!--      <span i18n="@@poi-areas.title">Poi</span>-->
-      <!--    </kpn-page-header>-->
+      <!--    </ui-page-header>-->
 
       @if (service.response(); as response) {
         @if (response.result) {
-          <kpn-poi-analysis [poi]="response.result.poiAnalysis" />
-          <kpn-divider />
-          <kpn-poi-detail-map [poiDetail]="response.result" />
-          <kpn-divider />
-          <kpn-data title="Identification" i18n-title="@@poi-detail.id">
+          <ui-poi-analysis [poi]="response.result.poiAnalysis" />
+          <ui-divider />
+          <ui-poi-detail-map [poiDetail]="response.result" />
+          <ui-divider />
+          <ui-data title="Identification" i18n-title="@@poi-detail.id">
             <span class="kpn-line">
               <span>{{ response.result.poi._id }}</span>
               @if (response.result.poi.elementType === 'node') {
-                <kpn-action-button-node [nodeId]="response.result.poi.elementId" />
+                <ui-action-button-node [nodeId]="response.result.poi.elementId" />
               }
               @if (response.result.poi.elementType === 'way') {
-                <kpn-action-button-way [wayId]="response.result.poi.elementId" />
+                <ui-action-button-way [wayId]="response.result.poi.elementId" />
               }
               @if (response.result.poi.elementType === 'relation') {
-                <kpn-action-button-relation [relationId]="response.result.poi.elementId" />
+                <ui-action-button-relation [relationId]="response.result.poi.elementId" />
               }
             </span>
-          </kpn-data>
-          <kpn-data title="Layer(s)" i18n-title="@@poi-detail.layers">
+          </ui-data>
+          <ui-data title="Layer(s)" i18n-title="@@poi-detail.layers">
             @for (layer of response.result.poi.layers; track layer) {
               <p>
                 {{ layer }}
               </p>
             }
-          </kpn-data>
-          <kpn-data title="Tags" i18n-title="@@poi-detail.tags">
-            <kpn-tag-table [tags]="tags(response.result.poi.tags)" />
-          </kpn-data>
-          <kpn-data title="Location" i18n-title="@@poi-detail.location">
+          </ui-data>
+          <ui-data title="Tags" i18n-title="@@poi-detail.tags">
+            <ui-tag-table [tags]="tags(response.result.poi.tags)" />
+          </ui-data>
+          <ui-data title="Location" i18n-title="@@poi-detail.location">
             @for (locationName of response.result.poi.location.names; track locationName) {
               <p>
                 {{ locationName }}
               </p>
             }
-          </kpn-data>
+          </ui-data>
           @if (response.result.poiState.imageLink) {
-            <kpn-data title="Image" i18n-title="@@poi-detail.image">
+            <ui-data title="Image" i18n-title="@@poi-detail.image">
               <p>
                 <a
                   class="external"
@@ -87,28 +87,28 @@ import { PoiDetailPageService } from './poi-detail-page.service';
               @if (response.result.poiState.imageFirstSeen) {
                 <p>
                   imageFirstSeen=
-                  <kpn-timestamp [timestamp]="response.result.poiState.imageFirstSeen" />
+                  <ui-timestamp [timestamp]="response.result.poiState.imageFirstSeen" />
                 </p>
               }
               @if (response.result.poiState.imageLastSeen) {
                 <p>
                   imageLastSeen=
-                  <kpn-timestamp [timestamp]="response.result.poiState.imageLastSeen" />
+                  <ui-timestamp [timestamp]="response.result.poiState.imageLastSeen" />
                 </p>
               }
-            </kpn-data>
+            </ui-data>
           }
           <p></p>
-          <kpn-data title="Tiles" i18n-title="@@poi-detail.tiles">
+          <ui-data title="Tiles" i18n-title="@@poi-detail.tiles">
             @for (tile of response.result.poi.tiles; track tile) {
               <p>
                 {{ tile }}
               </p>
             }
-          </kpn-data>
+          </ui-data>
         }
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [PoiDetailPageService, RouterService],
   imports: [

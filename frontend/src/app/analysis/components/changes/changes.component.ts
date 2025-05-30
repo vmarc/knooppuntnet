@@ -7,7 +7,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { OldPaginatorComponent } from '@app/shared/components/paginator/old-paginator.component';
 
 @Component({
-  selector: 'kpn-changes',
+  selector: 'ui-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-slide-toggle
@@ -17,7 +17,7 @@ import { OldPaginatorComponent } from '@app/shared/components/paginator/old-pagi
       >Impact
     </mat-slide-toggle>
 
-    <kpn-old-paginator
+    <ui-old-paginator
       [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"

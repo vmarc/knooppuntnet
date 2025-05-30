@@ -10,13 +10,13 @@ import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { ActionService } from './action.service';
 
 @Component({
-  selector: 'kpn-action-button-network-fact-nodes',
+  selector: 'ui-action-button-network-fact-nodes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-action-button [nzDropdownMenu]="menu" />
+    <ui-action-button [nzDropdownMenu]="menu" />
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <kpn-action-menu-item (action)="josmLoad()">JOSM load nodes</kpn-action-menu-item>
+        <ui-action-menu-item (action)="josmLoad()">JOSM load nodes</ui-action-menu-item>
       </ul>
     </nz-dropdown-menu>
   `,

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'kpn-brackets',
+  selector: 'ui-brackets',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span class="bracket">(</span>

@@ -11,11 +11,11 @@ import { NetworkDetailsComponent } from './components/network-details.component'
 import { NetworkDetailsPageService } from './network-details-page.service';
 
 @Component({
-  selector: 'kpn-network-details-page',
+  selector: 'ui-network-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-network-page-header
+    <ui-page>
+      <ui-network-page-header
         pageName="details"
         pageTitle="Details"
         i18n-pageTitle="@@network-details.title"
@@ -26,12 +26,12 @@ import { NetworkDetailsPageService } from './network-details-page.service';
           @if (!response.result) {
             <p i18n="@@network-page.network-not-found">Network not found</p>
           } @else {
-            <kpn-network-details [response]="response" />
+            <ui-network-details [response]="response" />
           }
         </div>
       }
-      <kpn-network-map-sidebar />
-    </kpn-page>
+      <ui-network-map-sidebar />
+    </ui-page>
   `,
   providers: [NetworkDetailsPageService, AnalysisStrategyService, RouterService],
   imports: [

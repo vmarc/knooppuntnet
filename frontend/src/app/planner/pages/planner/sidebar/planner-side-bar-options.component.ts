@@ -5,7 +5,7 @@ import { State } from '@app/state/state';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 
 @Component({
-  selector: 'kpn-planner-sidebar-options',
+  selector: 'ui-planner-sidebar-options',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <label nz-checkbox [nzChecked]="showProposed()" (nzCheckedChange)="showProposedChanged($event)">

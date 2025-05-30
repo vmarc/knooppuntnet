@@ -11,13 +11,13 @@ import { Util } from '@app/shared/components/util';
 import { TagDiffsComponent } from '../tag-diffs.component';
 
 @Component({
-  selector: 'kpn-route-change-way-updated',
+  selector: 'ui-route-change-way-updated',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">
         <span class="kpn-label" i18n="@@route-change.way-update.title">Updated way</span>
-        <kpn-osm-link-way [wayId]="wayUpdate().id" [title]="wayUpdate().id.toString()" />
+        <ui-osm-link-way [wayId]="wayUpdate().id" [title]="wayUpdate().id.toString()" />
       </div>
 
       <div class="kpn-level-4-body">
@@ -32,7 +32,7 @@ import { TagDiffsComponent } from '../tag-diffs.component';
                 Way version unchanged
               </span>
             }
-            <kpn-meta-data [metaData]="wayUpdate().before" />
+            <ui-meta-data [metaData]="wayUpdate().before" />
           </div>
         </div>
 
@@ -47,7 +47,7 @@ import { TagDiffsComponent } from '../tag-diffs.component';
             <span class="kpn-label" i18n="@@route-change.way-update.removed-nodes">
               Removed node(s)
             </span>
-            <kpn-node-list [nodeIds]="nodeIds(wayUpdate().removedNodes)" />
+            <ui-node-list [nodeIds]="nodeIds(wayUpdate().removedNodes)" />
           </div>
         }
 
@@ -56,7 +56,7 @@ import { TagDiffsComponent } from '../tag-diffs.component';
             <span class="kpn-label" i18n="@@route-change.way-update.added-nodes"
               >Added node(s)</span
             >
-            <kpn-node-list [nodeIds]="nodeIds(wayUpdate().addedNodes)" />
+            <ui-node-list [nodeIds]="nodeIds(wayUpdate().addedNodes)" />
           </div>
         }
 
@@ -65,13 +65,13 @@ import { TagDiffsComponent } from '../tag-diffs.component';
             <span class="kpn-label" i18n="@@route-change.way-update.updated-nodes">
               Updated node(s)
             </span>
-            <kpn-node-list [nodeIds]="nodeUpdateIds(wayUpdate().updatedNodes)" />
+            <ui-node-list [nodeIds]="nodeUpdateIds(wayUpdate().updatedNodes)" />
           </div>
         }
 
         @if (hasTagDiffs()) {
           <div class="kpn-detail">
-            <kpn-tag-diffs [tagDiffs]="wayUpdate().tagDiffs" />
+            <ui-tag-diffs [tagDiffs]="wayUpdate().tagDiffs" />
           </div>
         }
       </div>

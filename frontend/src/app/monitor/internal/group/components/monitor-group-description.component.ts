@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-monitor-group-description',
+  selector: 'ui-monitor-group-description',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <mat-form-field class="description">

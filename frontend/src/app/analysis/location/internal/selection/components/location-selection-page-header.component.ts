@@ -9,18 +9,18 @@ import { RouteTypeNameComponent } from '@app/shared/components/route-type-name.c
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
-  selector: 'kpn-location-selection-page-header',
+  selector: 'ui-location-selection-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (key(); as key) {
-      <kpn-page-header [pageTitle]="'Locations'" subject="network-page">
+      <ui-page-header [pageTitle]="'Locations'" subject="network-page">
         <span class="header-route-type-icon">
           <nz-icon [nzType]="key.routeType" />
         </span>
-        <kpn-route-type-name [routeType]="key.routeType" />
+        <ui-route-type-name [routeType]="key.routeType" />
         <span i18n="@@subset.in" class="in">in</span>
-        <kpn-country-name [country]="key.country" />
-      </kpn-page-header>
+        <ui-country-name [country]="key.country" />
+      </ui-page-header>
     }
   `,
   styles: `

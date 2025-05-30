@@ -8,7 +8,7 @@ import { LocationTreeItem } from '@api/common/location-tree-item';
 import { PageService } from '@app/shared/components/page.service';
 
 @Component({
-  selector: 'kpn-change-set-location-changes',
+  selector: 'ui-change-set-location-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!--    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">-->
@@ -19,10 +19,10 @@ import { PageService } from '@app/shared/components/page.service';
     <!--          [attr.aria-label]="'toggle ' + node.locationName"-->
     <!--        >-->
     <!--          <div class="node-label" *ngIf="node.expandable">-->
-    <!--            <kpn-route-type-icon-->
+    <!--            <ui-route-type-icon-->
     <!--              *ngIf="node.routeType"-->
     <!--              [routeType]="node.routeType"-->
-    <!--            ></kpn-route-type-icon>-->
+    <!--            ></ui-route-type-icon>-->
 
     <!--            <mat-icon-->
     <!--              svgIcon="expand"-->
@@ -38,12 +38,12 @@ import { PageService } from '@app/shared/components/page.service';
     <!--            <a (click)="select(node)">{{ node.locationName }}</a-->
     <!--            ><span class="node-count">{{ node.nodeCount }}</span>-->
 
-    <!--            <kpn-icon-happy-->
+    <!--            <ui-icon-happy-->
     <!--              *ngIf="!treeControl.isExpanded(node) && node.happy"-->
-    <!--            ></kpn-icon-happy>-->
-    <!--            <kpn-icon-investigate-->
+    <!--            ></ui-icon-happy>-->
+    <!--            <ui-icon-investigate-->
     <!--              *ngIf="!treeControl.isExpanded(node) && node.investigate"-->
-    <!--            ></kpn-icon-investigate>-->
+    <!--            ></ui-icon-investigate>-->
     <!--          </div>-->
 
     <!--          <div-->

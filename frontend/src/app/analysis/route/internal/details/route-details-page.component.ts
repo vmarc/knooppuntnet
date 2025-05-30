@@ -32,10 +32,10 @@ import { RouteSummaryComponent } from './components/route-summary.component';
 import { RouteDetailsPageService } from './route-details-page.service';
 
 @Component({
-  selector: 'kpn-route-details-page',
+  selector: 'ui-route-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page-buttons>
+    <ui-page-buttons>
       <button mat-stroked-button routerLink="changes">
         <mat-icon>list</mat-icon>
         <mat-label>segments (3)</mat-label>
@@ -44,8 +44,8 @@ import { RouteDetailsPageService } from './route-details-page.service';
         <mat-icon>history</mat-icon>
         <mat-label>changes</mat-label>
       </button>
-    </kpn-page-buttons>
-    <kpn-page>
+    </ui-page-buttons>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a>
@@ -57,7 +57,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
           <span i18n="@@breadcrumb.route">Route</span>
         </nz-breadcrumb-item>
       </nz-breadcrumb>
-      <kpn-route-page-header pageName="details" />
+      <ui-route-page-header pageName="details" />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
@@ -66,14 +66,14 @@ import { RouteDetailsPageService } from './route-details-page.service';
           }
           @if (response.result; as page) {
             <div>
-              <kpn-route-summary [route]="page.route" />
-              <kpn-divider />
+              <ui-route-summary [route]="page.route" />
+              <ui-divider />
               <div class="data2">
                 <div class="title">
                   <span i18n="@@route.situation-on">Situation on</span>
                 </div>
                 <div class="body">
-                  <kpn-timestamp [timestamp]="response.situationOn" />
+                  <ui-timestamp [timestamp]="response.situationOn" />
                 </div>
               </div>
               <div class="data2">
@@ -81,56 +81,56 @@ import { RouteDetailsPageService } from './route-details-page.service';
                   <span i18n="@@route.last-updated">Last updated</span>
                 </div>
                 <div class="body">
-                  <kpn-timestamp [timestamp]="page.route.lastUpdated" />
+                  <ui-timestamp [timestamp]="page.route.lastUpdated" />
                 </div>
               </div>
-              <kpn-data title="Relation last updated" i18n-title="@@route.relation-last-updated">
-                <kpn-timestamp [timestamp]="page.route.summary.timestamp" />
-              </kpn-data>
-              <kpn-data title="Network" i18n-title="@@route.network">
-                <kpn-route-network-references [references]="page.networkReferences" />
-              </kpn-data>
+              <ui-data title="Relation last updated" i18n-title="@@route.relation-last-updated">
+                <ui-timestamp [timestamp]="page.route.summary.timestamp" />
+              </ui-data>
+              <ui-data title="Network" i18n-title="@@route.network">
+                <ui-route-network-references [references]="page.networkReferences" />
+              </ui-data>
 
               @if (page.route.parentRoutes.length > 0) {
-                <kpn-data title="Part of" i18n-title="@@route.parent-routes">
-                  <kpn-route-parents [parentRoutes]="page.route.parentRoutes" />
-                </kpn-data>
+                <ui-data title="Part of" i18n-title="@@route.parent-routes">
+                  <ui-route-parents [parentRoutes]="page.route.parentRoutes" />
+                </ui-data>
               }
 
               <div>
                 @if (page.route.nodes; as nodes) {
-                  <kpn-data title="Start node" i18n-title="@@route.start-node">
-                    <kpn-route-start-nodes [nodes]="nodes" />
-                  </kpn-data>
+                  <ui-data title="Start node" i18n-title="@@route.start-node">
+                    <ui-route-start-nodes [nodes]="nodes" />
+                  </ui-data>
 
-                  <kpn-data title="End node" i18n-title="@@route.end-node">
-                    <kpn-route-end-nodes [nodes]="nodes" />
-                  </kpn-data>
+                  <ui-data title="End node" i18n-title="@@route.end-node">
+                    <ui-route-end-nodes [nodes]="nodes" />
+                  </ui-data>
                   @if (nodes.redundantNodes.length > 0) {
                     <div>
-                      <kpn-data title="Redundant node" i18n-title="@@route.redundant-node">
-                        <kpn-route-redundant-nodes [nodes]="nodes.redundantNodes" />
-                      </kpn-data>
+                      <ui-data title="Redundant node" i18n-title="@@route.redundant-node">
+                        <ui-route-redundant-nodes [nodes]="nodes.redundantNodes" />
+                      </ui-data>
                     </div>
                   }
                 }
-                <kpn-data title="Number of ways" i18n-title="@@route.number-of-ways">
+                <ui-data title="Number of ways" i18n-title="@@route.number-of-ways">
                   {{ page.route.summary.wayCount }}
-                </kpn-data>
+                </ui-data>
               </div>
 
-              <kpn-divider />
+              <ui-divider />
               <p i18n="@@route.tags">Tags</p>
-              <kpn-tag-table [tags]="routeTags(page)" />
+              <ui-tag-table [tags]="routeTags(page)" />
 
-              <kpn-divider />
+              <ui-divider />
 
-              <kpn-facts [factInfos]="factInfos(page)" />
+              <ui-facts [factInfos]="factInfos(page)" />
               @if (showRouteDetails()) {
-                <kpn-divider />
+                <ui-divider />
                 <div>
                   <!-- TODO redesign routeTypes[0]-->
-                  <kpn-route-members
+                  <ui-route-members
                     [routeType]="page.route.summary.routeTypes[0]"
                     [rows]="page.route.structureRows"
                   />
@@ -140,7 +140,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
           }
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   styleUrl: '../../../../shared/components/data/data.component.scss',
   providers: [RouteDetailsPageService, RouterService],

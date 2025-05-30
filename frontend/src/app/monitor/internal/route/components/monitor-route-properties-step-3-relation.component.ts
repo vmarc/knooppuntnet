@@ -18,7 +18,7 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-monitor-route-properties-step-3-relation',
+  selector: 'ui-monitor-route-properties-step-3-relation',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <div class="question">
@@ -75,7 +75,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 
         @if (apiResponse(); as response) {
           <div>
-            <kpn-monitor-route-info [routeInfo]="response.result" />
+            <ui-monitor-route-info [routeInfo]="response.result" />
           </div>
         }
       </div>

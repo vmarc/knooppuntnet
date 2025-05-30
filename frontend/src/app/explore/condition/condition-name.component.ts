@@ -11,7 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ConditionRouteNameForm } from './condition-controls';
 
 @Component({
-  selector: 'kpn-condition-name',
+  selector: 'ui-condition-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-form-field appearance="outline" class="operator">

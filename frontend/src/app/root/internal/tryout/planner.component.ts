@@ -11,13 +11,13 @@ import { PlannerMapService } from '@app/planner/pages/planner/planner-map.servic
 import { PlannerSidebarComponent } from '@app/planner/pages/planner/sidebar/planner-sidebar.component';
 
 @Component({
-  selector: 'kpn-planner',
+  selector: 'ui-planner',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button mat-icon-button routerLink="/">
       <mat-icon svgIcon="back" />
     </button>
-    <kpn-planner-sidebar />
+    <ui-planner-sidebar />
   `,
   providers: [
     {

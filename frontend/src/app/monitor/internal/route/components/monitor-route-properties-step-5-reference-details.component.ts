@@ -11,7 +11,7 @@ import { DayInputComponent } from '@app/shared/components/format/day-input.compo
 import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
 
 @Component({
-  selector: 'kpn-monitor-route-properties-step-5-reference-details',
+  selector: 'ui-monitor-route-properties-step-5-reference-details',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <div [ngClass]="{ hidden: referenceType().value !== 'osm-now' }">
@@ -39,7 +39,7 @@ import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
       <p i18n="@@monitor.route.properties.reference-details.day">
         Select the date (midnight) of the route relation state that will serve as a reference:
       </p>
-      <kpn-day-input
+      <ui-day-input
         id="osm-reference-date"
         [date]="osmReferenceDate()"
         label="Reference day"
@@ -115,7 +115,7 @@ import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
       <p i18n="@@monitor.route.properties.reference-details.gpx.reference-day">
         Select the date at which the gpx trace was recorded or was known to be valid:
       </p>
-      <kpn-day-input
+      <ui-day-input
         id="gpx-reference-date"
         [date]="gpxReferenceDate()"
         label="Reference day"

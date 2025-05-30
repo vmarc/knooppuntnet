@@ -9,7 +9,7 @@ import { MetaDataComponent } from '@app/shared/components/meta-data.component';
 import { NodeDiffsData } from './node-diffs-data';
 
 @Component({
-  selector: 'kpn-node-diffs-updated',
+  selector: 'ui-node-diffs-updated',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (refs.length > 0) {
@@ -22,7 +22,7 @@ import { NodeDiffsData } from './node-diffs-data';
           @for (nodeRef of refs; track nodeRef.id) {
             <div class="kpn-level-3">
               <div class="kpn-line kpn-level-3-header">
-                <kpn-link-node-ref-header [ref]="nodeRef" [knownElements]="data().knownElements" />
+                <ui-link-node-ref-header [ref]="nodeRef" [knownElements]="data().knownElements" />
               </div>
               <div class="kpn-level-3-body">
                 @for (nodeChangeInfo of data().findNodeChangeInfo(nodeRef); track $index) {
@@ -37,8 +37,8 @@ import { NodeDiffsData } from './node-diffs-data';
                         Node changed to v{{ nodeChangeInfo.after.version }}
                       </ng-container>
                     }
-                    <kpn-meta-data [metaData]="nodeChangeInfo.before" />
-                    <kpn-node-change-detail [nodeChangeInfo]="nodeChangeInfo" />
+                    <ui-meta-data [metaData]="nodeChangeInfo.before" />
+                    <ui-node-change-detail [nodeChangeInfo]="nodeChangeInfo" />
                   </div>
                 }
               </div>

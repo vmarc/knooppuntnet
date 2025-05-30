@@ -10,15 +10,11 @@ import { NetworkMapService } from './components/network-map.service';
 import { NetworkMapPageService } from './network-map-page.service';
 
 @Component({
-  selector: 'kpn-network-map-page',
+  selector: 'ui-network-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-network-page-header
-        pageName="map"
-        pageTitle="Map"
-        i18n-pageTitle="@@network-map.title"
-      />
+    <ui-page>
+      <ui-network-page-header pageName="map" pageTitle="Map" i18n-pageTitle="@@network-map.title" />
 
       @if (service.response(); as response) {
         <div>
@@ -27,11 +23,11 @@ import { NetworkMapPageService } from './network-map-page.service';
               Network not found
             </p>
           } @else {
-            <kpn-network-map [networkId]="service.networkId()" [page]="response.result" />
+            <ui-network-map [networkId]="service.networkId()" [page]="response.result" />
           }
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [NetworkMapService, NetworkMapPageService, RouterService],
   imports: [NetworkMapComponent, NetworkPageHeaderComponent, PageComponent],

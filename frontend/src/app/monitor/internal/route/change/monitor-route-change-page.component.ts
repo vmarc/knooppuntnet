@@ -17,13 +17,13 @@ import { MonitorRouteChangeMapComponent } from './monitor-route-change-map.compo
 import { MonitorRouteChangePageService } from './monitor-route-change-page.service';
 
 @Component({
-  selector: 'kpn-monitor-route-change-page',
+  selector: 'ui-monitor-route-change-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <kpn-page>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -41,7 +41,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
           {{ state.routeName }}
         </h1>
 
-        <kpn-error />
+        <ui-error />
 
         @if (state.response; as response) {
           <div class="kpn-spacer-above">
@@ -58,7 +58,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
                       <td>
                         <div class="kpn-line">
                           <span>{{ page.key.changeSetId }}</span>
-                          <kpn-osm-link-change-set [changeSetId]="page.key.changeSetId" />
+                          <ui-osm-link-change-set [changeSetId]="page.key.changeSetId" />
                           <span>
                             <a
                               class="external"
@@ -89,7 +89,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
                     <tr>
                       <td i18n="@@change-set.header.timestamp">Timestamp</td>
                       <td>
-                        <kpn-timestamp [timestamp]="timestamp(page.key.timestamp)" />
+                        <ui-timestamp [timestamp]="timestamp(page.key.timestamp)" />
                       </td>
                     </tr>
                     <tr>
@@ -132,7 +132,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
                       <td>
                         @if (page.happy) {
                           <div class="kpn-line">
-                            <kpn-icon-happy />
+                            <ui-icon-happy />
                             <span i18n="@@change-set.header.analysis.happy">
                               This changeset brought improvements.
                             </span>
@@ -141,7 +141,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
 
                         @if (page.investigate) {
                           <div class="kpn-line">
-                            <kpn-icon-investigate />
+                            <ui-icon-investigate />
                             <span i18n="@@change-set.header.analysis.investigate">
                               Maybe this changeset is worth a closer look.
                             </span>
@@ -191,7 +191,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
                         <p>Deviation length: {{ segment.meters }}m</p>
                         <p>Maximum distance from reference: {{ segment.distance }}m</p>
 
-                        <kpn-monitor-route-change-map
+                        <ui-monitor-route-change-map
                           [referenceJson]="page.reference.referenceGeoJson"
                           [routeSegments]="page.routeSegments"
                           [deviation]="segment"
@@ -215,7 +215,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
                           Maximum distance from reference:
                           {{ deviation.distance }}m
                         </p>
-                        <kpn-monitor-route-change-map
+                        <ui-monitor-route-change-map
                           [referenceJson]="page.reference.referenceGeoJson"
                           [routeSegments]="page.routeSegments"
                           [deviation]="deviation"
@@ -229,7 +229,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
           </div>
         }
       }
-    </kpn-page>
+    </ui-page>
   `,
   styles: `
     .distance-label {

@@ -5,7 +5,7 @@ import { Timestamp } from '@api/custom/timestamp';
 import { TimestampDayPipe } from '../format/timestamp-day.pipe';
 
 @Component({
-  selector: 'kpn-day',
+  selector: 'ui-day',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` {{ timestamp() | yyyymmdd }} `,
   imports: [TimestampDayPipe],

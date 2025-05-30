@@ -10,7 +10,7 @@ import { IconInvestigateComponent } from '@app/shared/components/icon/icon-inves
 import { PageWidthService } from '@app/shared/components/page-width.service';
 
 @Component({
-  selector: 'kpn-monitor-change-header',
+  selector: 'ui-monitor-change-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
@@ -21,11 +21,11 @@ import { PageWidthService } from '@app/shared/components/page-width.service';
       }
 
       @if (changeSet().happy) {
-        <kpn-icon-happy />
+        <ui-icon-happy />
       }
 
       @if (changeSet().investigate) {
-        <kpn-icon-investigate />
+        <ui-icon-investigate />
       }
     </div>
 

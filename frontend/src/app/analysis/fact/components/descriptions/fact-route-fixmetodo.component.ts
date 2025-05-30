@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
-  selector: 'kpn-fact-route-fixmetodo',
+  selector: 'ui-fact-route-fixmetodo',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown i18n="@@fact.description.route-fixmetodo">

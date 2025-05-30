@@ -5,12 +5,12 @@ import { ApiResponse } from '@api/custom/api-response';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 
 @Component({
-  selector: 'kpn-location-response',
+  selector: 'ui-location-response',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (response()) {
       @if (situationOnEnabled()) {
-        <kpn-situation-on [timestamp]="response().situationOn" />
+        <ui-situation-on [timestamp]="response().situationOn" />
       }
       @if (!response().result) {
         <p i18n="@@location.location-not-found">Location not found</p>

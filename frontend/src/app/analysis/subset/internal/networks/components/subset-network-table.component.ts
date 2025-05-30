@@ -9,7 +9,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
 
 @Component({
-  selector: 'kpn-subset-network-table',
+  selector: 'ui-subset-network-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nz-table
@@ -40,14 +40,14 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
         @for (network of networksTable.data; track network.id) {
           <tr>
             <td>
-              <kpn-link-network-details
+              <ui-link-network-details
                 [networkId]="network.id"
                 [routeType]="network.routeType"
                 [networkName]="network.name"
               />
             </td>
             <td class="happy">
-              <kpn-subset-network-happy [network]="network" />
+              <ui-subset-network-happy [network]="network" />
             </td>
             <td class="number-value kpn-km">
               {{ network.km | integer }}

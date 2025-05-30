@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'kpn-fact-orphan-node',
+  selector: 'ui-fact-orphan-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@fact.description.orphan-node">

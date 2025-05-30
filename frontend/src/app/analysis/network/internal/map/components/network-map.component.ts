@@ -10,11 +10,11 @@ import { NetworkControlComponent } from './network-control.component';
 import { NetworkMapService } from './network-map.service';
 
 @Component({
-  selector: 'kpn-network-map',
+  selector: 'ui-network-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="networkMapService.mapId" class="kpn-map">
-      <kpn-network-control (action)="zoomInToNetwork()" />
+      <ui-network-control (action)="zoomInToNetwork()" />
     </div>
   `,
   providers: [

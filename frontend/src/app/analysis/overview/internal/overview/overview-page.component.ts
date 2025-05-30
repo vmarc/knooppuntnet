@@ -13,35 +13,35 @@ import { OverviewOptionsComponent } from './components/overview-options.componen
 import { OverviewTableComponent } from './components/overview-table.component';
 
 @Component({
-  selector: 'kpn-overview-page',
+  selector: 'ui-overview-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-overview-page-breadcrumb />
+    <ui-page>
+      <ui-overview-page-breadcrumb />
 
-      <kpn-page-header subject="overview-in-numbers-page" i18n="@@overview-page.title">
+      <ui-page-header subject="overview-in-numbers-page" i18n="@@overview-page.title">
         Overview
-      </kpn-page-header>
+      </ui-page-header>
 
-      <kpn-overview-options />
+      <ui-overview-options />
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           @if (response.result) {
             <div class="kpn-small-spacer-below">
-              <kpn-situation-on [timestamp]="response.situationOn" />
+              <ui-situation-on [timestamp]="response.situationOn" />
             </div>
             @if (service.tableFormat()) {
-              <kpn-overview-table [statistics]="response.result" />
+              <ui-overview-table [statistics]="response.result" />
             } @else {
-              <kpn-overview-list [statistics]="response.result" />
+              <ui-overview-list [statistics]="response.result" />
             }
           }
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   imports: [
     ErrorComponent,

@@ -12,11 +12,11 @@ import { ChangeHeaderComponent } from './change-header.component';
 import { ChangesSetElementRefsComponent } from './components/change-set-element-refs.component';
 
 @Component({
-  selector: 'kpn-change-location-analysis-summary',
+  selector: 'ui-change-location-analysis-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="change-set">
-      <kpn-change-header
+      <ui-change-header
         [changeKey]="changeSet().key"
         [happy]="changeSet().happy"
         [investigate]="changeSet().investigate"
@@ -44,11 +44,11 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
               }
             </div>
           </div>
-          <kpn-change-set-element-refs
+          <ui-change-set-element-refs
             [elementType]="'node'"
             [changeSetElementRefs]="locationChanges.nodeChanges"
           />
-          <kpn-change-set-element-refs
+          <ui-change-set-element-refs
             [elementType]="'route'"
             [changeSetElementRefs]="locationChanges.routeChanges"
           />

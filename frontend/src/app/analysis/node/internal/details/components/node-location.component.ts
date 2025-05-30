@@ -6,7 +6,7 @@ import { LocationInfo } from '@api/common/location-info';
 import { RouteType } from '@api/common/route-type';
 
 @Component({
-  selector: 'kpn-node-location',
+  selector: 'ui-node-location',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (!hasLocation()) {

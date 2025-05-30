@@ -10,7 +10,7 @@ import { MetaDataComponent } from '@app/shared/components/meta-data.component';
 import { NodeDiffsData } from './node-diffs-data';
 
 @Component({
-  selector: 'kpn-node-diffs-added',
+  selector: 'ui-node-diffs-added',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (refs.length > 0) {
@@ -18,13 +18,13 @@ import { NodeDiffsData } from './node-diffs-data';
         <div class="kpn-line kpn-level-2-header">
           <span i18n="@@node-diffs-added.title">Added network nodes</span>
           <span class="kpn-brackets kpn-thin">{{ refs.length }}</span>
-          <kpn-icon-happy />
+          <ui-icon-happy />
         </div>
         <div class="kpn-level-2-body">
           @for (nodeRef of refs; track nodeRef.id) {
             <div class="kpn-level-3">
               <div class="kpn-line kpn-level-3-header">
-                <kpn-link-node-ref-header [ref]="nodeRef" [knownElements]="data().knownElements" />
+                <ui-link-node-ref-header [ref]="nodeRef" [knownElements]="data().knownElements" />
               </div>
               <div class="kpn-level-3-body">
                 @for (nodeChangeInfo of data().findNodeChangeInfo(nodeRef); track $index) {
@@ -49,7 +49,7 @@ import { NodeDiffsData } from './node-diffs-data';
                         <span i18n="@@node-diffs-added.change-set-existing" class="kpn-label">
                           Existing node
                         </span>
-                        <kpn-meta-data [metaData]="nodeChangeInfo.after" />
+                        <ui-meta-data [metaData]="nodeChangeInfo.after" />
                       </div>
                     }
                   }

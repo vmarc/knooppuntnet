@@ -11,7 +11,7 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
-  selector: 'kpn-plan-action-button',
+  selector: 'ui-plan-action-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (showButtonText()) {

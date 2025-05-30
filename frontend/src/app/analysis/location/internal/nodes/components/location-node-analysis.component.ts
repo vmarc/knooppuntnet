@@ -10,11 +10,11 @@ import { IntegrityIndicatorComponent } from '@app/shared/components/indicator/in
 import { LocationNodeFactIndicatorComponent } from './location-node-fact-indicator.component';
 
 @Component({
-  selector: 'kpn-location-node-analysis',
+  selector: 'ui-location-node-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-location-node-fact-indicator [node]="node()" />
-    <kpn-integrity-indicator [data]="integrityIndicatorData" />
+    <ui-location-node-fact-indicator [node]="node()" />
+    <ui-integrity-indicator [data]="integrityIndicatorData" />
   `,
   imports: [LocationNodeFactIndicatorComponent, IntegrityIndicatorComponent],
 })

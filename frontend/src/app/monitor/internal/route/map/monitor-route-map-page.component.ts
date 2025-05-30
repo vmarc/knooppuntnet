@@ -15,12 +15,12 @@ import { MonitorRouteMapComponent } from './monitor-route-map.component';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
-  selector: 'kpn-monitor-route-map-page',
+  selector: 'ui-monitor-route-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.state(); as state) {
-      <kpn-old-page [showFooter]="false">
-        <kpn-monitor-route-page-header
+      <ui-old-page [showFooter]="false">
+        <ui-monitor-route-page-header
           pageName="map"
           [groupName]="state.groupName"
           [routeName]="state.routeName"
@@ -36,12 +36,12 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
           @if (!canDisplayMap(page)) {
             <p i18n="@@monitor.route.map.no-map">No map</p>
           } @else {
-            <kpn-monitor-route-map />
+            <ui-monitor-route-map />
           }
         }
 
-        <kpn-monitor-route-map-sidebar sidebar />
-      </kpn-old-page>
+        <ui-monitor-route-map-sidebar sidebar />
+      </ui-old-page>
     }
   `,
   providers: [

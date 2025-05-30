@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { SidebarComponent } from './sidebar.component';
 
 @Component({
-  selector: 'kpn-analysis-sidebar',
+  selector: 'ui-analysis-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<kpn-sidebar/>',
+  template: '<ui-sidebar/>',
   imports: [SidebarComponent],
 })
 export class AnalysisSidebarComponent {}

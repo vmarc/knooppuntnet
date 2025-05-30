@@ -8,7 +8,7 @@ import { TagDiffsComponent } from '../tag-diffs.component';
 import { RouteNodeDiffComponent } from './route-node-diff.component';
 
 @Component({
-  selector: 'kpn-route-diff',
+  selector: 'ui-route-diff',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (diffs().nameDiff) {
@@ -36,21 +36,17 @@ import { RouteNodeDiffComponent } from './route-node-diff.component';
         }}".
       </div>
     }
-    <kpn-fact-diffs [factDiffs]="diffs().factDiffs" />
+    <ui-fact-diffs [factDiffs]="diffs().factDiffs" />
 
     @for (nodeDiff of diffs().nodeDiffs; track $index) {
       @if (nodeDiff.added.length > 0) {
         <div class="kpn-detail">
-          <kpn-route-node-diff
-            action="added"
-            [title]="nodeDiff.title"
-            [nodeRefs]="nodeDiff.added"
-          />
+          <ui-route-node-diff action="added" [title]="nodeDiff.title" [nodeRefs]="nodeDiff.added" />
         </div>
       }
       @if (nodeDiff.removed.length > 0) {
         <div class="kpn-detail">
-          <kpn-route-node-diff
+          <ui-route-node-diff
             action="removed"
             [title]="nodeDiff.title"
             [nodeRefs]="nodeDiff.removed"
@@ -67,7 +63,7 @@ import { RouteNodeDiffComponent } from './route-node-diff.component';
 
     @if (hasTagDiffs()) {
       <div>
-        <kpn-tag-diffs [tagDiffs]="diffs().tagDiffs" class="kpn-detail" />
+        <ui-tag-diffs [tagDiffs]="diffs().tagDiffs" class="kpn-detail" />
       </div>
     }
   `,

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 
 @Component({
-  selector: 'kpn-data',
+  selector: 'ui-data',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="data">

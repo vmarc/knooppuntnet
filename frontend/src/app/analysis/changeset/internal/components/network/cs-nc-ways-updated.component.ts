@@ -6,7 +6,7 @@ import { NetworkChangeInfo } from '@api/common/changes/details/network-change-in
 import { OsmLinkWayComponent } from '@app/shared/components/link/osm-link-way.component';
 
 @Component({
-  selector: 'kpn-cs-nc-ways-updated',
+  selector: 'ui-cs-nc-ways-updated',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (wayIds().length > 0) {
@@ -17,7 +17,7 @@ import { OsmLinkWayComponent } from '@app/shared/components/link/osm-link-way.co
         </div>
         <div class="kpn-level-2-body kpn-comma-list">
           @for (wayId of wayIds(); track wayId) {
-            <kpn-osm-link-way [wayId]="wayId" [title]="wayId.toString()" />
+            <ui-osm-link-way [wayId]="wayId" [title]="wayId.toString()" />
           }
         </div>
       </div>

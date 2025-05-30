@@ -13,31 +13,31 @@ import { LocationChangesComponent } from './components/location-changes.componen
 import { LocationChangesPageService } from './location-changes-page.service';
 
 @Component({
-  selector: 'kpn-location-changes-page',
+  selector: 'ui-location-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page-filter>
-      <kpn-location-page-header
+    <ui-page-filter>
+      <ui-location-page-header
         pageName="changes"
         pageTitle="Changes"
         i18n-pageTitle="@@location-changes.title"
       />
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
-          <kpn-location-response [response]="response">
-            <kpn-location-changes [page]="response.result" />
-          </kpn-location-response>
+          <ui-location-response [response]="response">
+            <ui-location-changes [page]="response.result" />
+          </ui-location-response>
         </div>
       }
-      <kpn-change-filter
+      <ui-change-filter
         [filterOptions]="service.filterOptions()"
         (optionSelected)="onOptionSelected($event)"
         filter
       />
-    </kpn-page-filter>
+    </ui-page-filter>
   `,
   providers: [LocationChangesPageService, RouterService],
   imports: [

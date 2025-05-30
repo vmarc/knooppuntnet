@@ -14,13 +14,13 @@ import { PlanActionButtonComponent } from './plan-action-button.component';
 import { PlanOutputDialogComponent } from './plan-output-dialog.component';
 
 @Component({
-  selector: 'kpn-plan-actions',
+  selector: 'ui-plan-actions',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (plan(); as plan) {
       <div class="buttons">
         @if (showUndoButton()) {
-          <kpn-plan-action-button
+          <ui-plan-action-button
             (action)="undo()"
             [enabled]="undoEnabled()"
             icon="undo"
@@ -31,7 +31,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
           />
         }
         @if (showRedoButton()) {
-          <kpn-plan-action-button
+          <ui-plan-action-button
             (action)="redo()"
             [enabled]="redoEnabled()"
             icon="redo"
@@ -42,7 +42,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
           />
         }
         @if (showResetButton()) {
-          <kpn-plan-action-button
+          <ui-plan-action-button
             (action)="reset()"
             [enabled]="hasStartNode(plan)"
             icon="poweroff"
@@ -53,7 +53,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
           />
         }
         @if (showReverseButton()) {
-          <kpn-plan-action-button
+          <ui-plan-action-button
             (action)="reverse()"
             [enabled]="hasRoute(plan)"
             icon="swap"
@@ -63,7 +63,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
             i18n-title="@@planner.action.reverse.title"
           />
         }
-        <kpn-plan-action-button
+        <ui-plan-action-button
           (action)="output()"
           [enabled]="hasRoute(plan)"
           icon="export"

@@ -7,10 +7,10 @@ import { State } from '@app/state/state';
 import { MenuItemCheckboxComponent } from './menu-item-checkbox.component';
 
 @Component({
-  selector: 'kpn-settings-menu-poi-option',
+  selector: 'ui-settings-menu-poi-option',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-menu-item-checkbox
+    <ui-menu-item-checkbox
       [value]="groupEnabled()"
       [disabled]="poiLayerEnabled() === false"
       (toggle)="groupEnabledChanged()"

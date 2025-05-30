@@ -4,9 +4,9 @@ import { input } from '@angular/core';
 import { OsmLinkComponent } from './osm-link.component';
 
 @Component({
-  selector: 'kpn-osm-link-node',
+  selector: 'ui-osm-link-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <kpn-osm-link kind="node" [elementId]="nodeId().toString()" [title]="title()" /> `,
+  template: ` <ui-osm-link kind="node" [elementId]="nodeId().toString()" [title]="title()" /> `,
   imports: [OsmLinkComponent],
 })
 export class OsmLinkNodeComponent {

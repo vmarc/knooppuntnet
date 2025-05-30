@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { Tag } from '@api/custom/tag';
 
 @Component({
-  selector: 'kpn-change-set-tags',
+  selector: 'ui-change-set-tags',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (hasTags()) {

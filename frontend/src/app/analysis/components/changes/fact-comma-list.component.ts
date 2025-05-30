@@ -7,7 +7,7 @@ import { IconInvestigateComponent } from '@app/shared/components/icon/icon-inves
 import { FactNameComponent } from '../../fact/components/fact-name.component';
 
 @Component({
-  selector: 'kpn-fact-comma-list',
+  selector: 'ui-fact-comma-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (hasFacts()) {
@@ -16,15 +16,15 @@ import { FactNameComponent } from '../../fact/components/fact-name.component';
         <div class="kpn-comma-list">
           @for (fact of facts(); track $index) {
             <span>
-              <kpn-fact-name [fact]="fact" />
+              <ui-fact-name [fact]="fact" />
             </span>
           }
         </div>
         @if (icon() === 'happy') {
-          <kpn-icon-happy />
+          <ui-icon-happy />
         }
         @if (icon() === 'investigate') {
-          <kpn-icon-investigate />
+          <ui-icon-investigate />
         }
       </div>
     }

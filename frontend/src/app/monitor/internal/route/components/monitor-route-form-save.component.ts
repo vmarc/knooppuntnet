@@ -13,7 +13,7 @@ import { MonitorRouteFormSaveStepComponent } from './monitor-route-form-save-ste
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-monitor-route-form-save',
+  selector: 'ui-monitor-route-form-save',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <div>
@@ -21,11 +21,11 @@ import { ChangeDetectionStrategy } from '@angular/core';
         <div class="kpn-spacer-below">Route: {{ routeName() }}</div>
       }
       @for (step of steps(); track trackByStep(step)) {
-        <kpn-monitor-route-form-save-step [step]="step" />
+        <ui-monitor-route-form-save-step [step]="step" />
       }
     </div>
 
-    <kpn-monitor-route-form-errors [errors]="errors()" />
+    <ui-monitor-route-form-errors [errors]="errors()" />
 
     <div class="kpn-button-group">
       <button

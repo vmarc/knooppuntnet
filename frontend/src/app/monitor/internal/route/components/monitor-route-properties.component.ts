@@ -38,7 +38,7 @@ import { MonitorRoutePropertiesStep5ReferenceDetailsComponent } from './monitor-
 import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-properties-step-6-comment.component';
 
 @Component({
-  selector: 'kpn-monitor-route-properties',
+  selector: 'ui-monitor-route-properties',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <mat-stepper orientation="vertical" [linear]="initialProperties() === null">
@@ -49,7 +49,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
           [stepControl]="groupForm"
         >
           <form [formGroup]="groupForm" #ngGroupForm="ngForm">
-            <kpn-monitor-route-properties-step-1-group
+            <ui-monitor-route-properties-step-1-group
               [ngForm]="ngGroupForm"
               [group]="group"
               [routeGroups]="routeGroups()"
@@ -64,7 +64,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
         [stepControl]="nameForm"
       >
         <form [formGroup]="nameForm" #ngNameForm="ngForm">
-          <kpn-monitor-route-properties-step-2-name
+          <ui-monitor-route-properties-step-2-name
             [mode]="mode()"
             [ngForm]="ngNameForm"
             [name]="name"
@@ -78,7 +78,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
         [stepControl]="relationIdForm"
       >
         <form [formGroup]="relationIdForm" #ngForm="ngForm">
-          <kpn-monitor-route-properties-step-3-relation
+          <ui-monitor-route-properties-step-3-relation
             [ngForm]="ngForm"
             [form]="relationIdForm"
             [relationIdKnown]="relationIdKnown"
@@ -92,7 +92,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
         [stepControl]="referenceTypeForm"
       >
         <form [formGroup]="referenceTypeForm" #ngReferenceTypeForm="ngForm">
-          <kpn-monitor-route-properties-step-4-reference-type
+          <ui-monitor-route-properties-step-4-reference-type
             [ngForm]="ngReferenceTypeForm"
             [referenceType]="referenceType"
           />
@@ -104,7 +104,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
         [stepControl]="referenceDetailsForm"
       >
         <form [formGroup]="referenceDetailsForm" #ngReferenceDetailsForm="ngForm">
-          <kpn-monitor-route-properties-step-5-reference-details
+          <ui-monitor-route-properties-step-5-reference-details
             [ngForm]="ngReferenceDetailsForm"
             [referenceType]="referenceType"
             [osmReferenceDate]="osmReferenceDate"
@@ -121,7 +121,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
         [stepControl]="commentForm"
       >
         <form [formGroup]="commentForm">
-          <kpn-monitor-route-properties-step-6-comment [comment]="comment" />
+          <ui-monitor-route-properties-step-6-comment [comment]="comment" />
         </form>
       </mat-step>
     </mat-stepper>

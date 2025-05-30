@@ -14,10 +14,10 @@ import { ChangeSetOrphanNodeChangesComponent } from './components/change-set-orp
 import { ChangeSetOrphanRouteChangesComponent } from './components/change-set-orphan-route-changes.component';
 
 @Component({
-  selector: 'kpn-change-set-page',
+  selector: 'ui-change-set-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <h1>
         <ng-container i18n="@@change-set.title">Changeset</ng-container>
         {{ service.changeSetTitle }}
@@ -31,15 +31,15 @@ import { ChangeSetOrphanRouteChangesComponent } from './components/change-set-or
             @if (!first) {
               <mat-divider />
             }
-            <kpn-change-set-header [detail]="detail" />
-            <kpn-change-set-location-changes [changess]="detail.summary.locationChanges" />
-            <kpn-change-set-network-changes [detail]="detail" />
-            <kpn-change-set-orphan-node-changes [detail]="detail" />
-            <kpn-change-set-orphan-route-changes [detail]="detail" />
+            <ui-change-set-header [detail]="detail" />
+            <ui-change-set-location-changes [changess]="detail.summary.locationChanges" />
+            <ui-change-set-network-changes [detail]="detail" />
+            <ui-change-set-orphan-node-changes [detail]="detail" />
+            <ui-change-set-orphan-route-changes [detail]="detail" />
           }
         }
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [ChangeSetPageService, RouterService],
   imports: [

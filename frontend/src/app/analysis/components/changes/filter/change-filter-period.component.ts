@@ -8,14 +8,14 @@ import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { MonthComponent } from './month.component';
 
 @Component({
-  selector: 'kpn-change-filter-period',
+  selector: 'ui-change-filter-period',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <div class="row">
       <div [ngClass]="option().level">
         @if (option().level === 'month') {
-          <kpn-month [month]="option().month" />
+          <ui-month [month]="option().month" />
         }
 
         @if (option().level !== 'month') {

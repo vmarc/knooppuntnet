@@ -9,7 +9,7 @@ import { Link } from '@api/common/route/link';
 import { TryoutLinkBuilder } from './tryout-link-builder';
 
 @Component({
-  selector: 'kpn-tryout-canvas',
+  selector: 'ui-tryout-canvas',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<canvas #gapCanvas  [height]="height()" width="40"></canvas>',
   styles: `

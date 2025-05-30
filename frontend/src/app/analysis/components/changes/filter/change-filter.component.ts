@@ -7,7 +7,7 @@ import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ChangeFilterPeriodComponent } from './change-filter-period.component';
 
 @Component({
-  selector: 'kpn-change-filter',
+  selector: 'ui-change-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (filterOptions() && filterOptions().length > 0) {
@@ -18,7 +18,7 @@ import { ChangeFilterPeriodComponent } from './change-filter-period.component';
         </div>
         @for (option of filterOptions(); track $index) {
           <div>
-            <kpn-change-filter-period
+            <ui-change-filter-period
               [option]="option"
               (optionSelected)="optionSelected.emit($event)"
             />

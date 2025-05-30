@@ -11,7 +11,7 @@ import { SettingsMenuMapOptionsComponent } from './settings-menu-map-options.com
 import { SettingsMenuScopeComponent } from './settings-menu-scope.component';
 
 @Component({
-  selector: 'kpn-settings-menu',
+  selector: 'ui-settings-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button nz-button (click)="open()">
@@ -28,13 +28,13 @@ import { SettingsMenuScopeComponent } from './settings-menu-scope.component';
       <ng-container *nzDrawerContent>
         <nz-collapse nzAccordion>
           <nz-collapse-panel nzHeader="Map options" nzActive="true">
-            <kpn-settings-menu-map-options />
+            <ui-settings-menu-map-options />
           </nz-collapse-panel>
           <nz-collapse-panel nzHeader="Scope" nzActive="true">
-            <kpn-settings-menu-scope />
+            <ui-settings-menu-scope />
           </nz-collapse-panel>
           <nz-collapse-panel nzHeader="Layers" nzActive="true">
-            <kpn-settings-menu-layers />
+            <ui-settings-menu-layers />
           </nz-collapse-panel>
         </nz-collapse>
       </ng-container>

@@ -6,7 +6,7 @@ import { LinkNodeComponent } from '@app/shared/components/link/link-node.compone
 import { ActionButtonNodeComponent } from '../../../../components/action/action-button-node.component';
 
 @Component({
-  selector: 'kpn-network-fact-checks',
+  selector: 'ui-network-fact-checks',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="network-fact-checks">
@@ -31,8 +31,8 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
               </td>
               <td class="no-indent">
                 <div class="kpn-align-center">
-                  <kpn-action-button-node [nodeId]="check.nodeId" />
-                  <kpn-link-node [nodeId]="check.nodeId" [nodeName]="check.nodeName" />
+                  <ui-action-button-node [nodeId]="check.nodeId" />
+                  <ui-link-node [nodeId]="check.nodeId" [nodeName]="check.nodeName" />
                 </div>
               </td>
               <td>

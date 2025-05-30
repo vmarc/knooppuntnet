@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'kpn-location-map-control',
+  selector: 'ui-location-map-control',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ol-control map-control location-map-control">

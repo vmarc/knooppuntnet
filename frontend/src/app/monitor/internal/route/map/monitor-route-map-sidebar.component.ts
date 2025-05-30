@@ -12,10 +12,10 @@ import { MonitorRouteMapOsmSegmentsComponent } from './monitor-route-map-osm-seg
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
-  selector: 'kpn-monitor-route-map-sidebar',
+  selector: 'ui-monitor-route-map-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-sidebar>
+    <ui-sidebar>
       @if (service.page() !== null) {
         <div class="control">
           @if (service.analysisTimestamp(); as timestamp) {
@@ -24,20 +24,20 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
               <span>{{ timestamp | yyyymmddhhmm }}</span>
             </div>
           }
-          <kpn-monitor-route-map-control-mode />
-          <kpn-monitor-route-map-layers />
-          <kpn-monitor-route-map-control-josm />
+          <ui-monitor-route-map-control-mode />
+          <ui-monitor-route-map-layers />
+          <ui-monitor-route-map-control-josm />
           @switch (service.mode()) {
             @case (MonitorMapMode.comparison) {
-              <kpn-monitor-route-map-deviations />
+              <ui-monitor-route-map-deviations />
             }
             @case (MonitorMapMode.osmSegments) {
-              <kpn-monitor-route-map-osm-segments />
+              <ui-monitor-route-map-osm-segments />
             }
           }
         </div>
       }
-    </kpn-sidebar>
+    </ui-sidebar>
   `,
   styles: `
     .control {

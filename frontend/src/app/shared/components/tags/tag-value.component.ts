@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { Tag } from '@api/custom/tag';
 
 @Component({
-  selector: 'kpn-tag-value',
+  selector: 'ui-tag-value',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @switch (tag().key) {

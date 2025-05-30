@@ -6,14 +6,14 @@ import { LineChartModule } from '@swimlane/ngx-charts';
 import { ActionBarChartComponent } from '../action-bar-chart.component';
 
 @Component({
-  selector: 'kpn-docs-chart',
+  selector: 'ui-docs-chart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <h2>Document count</h2>
     <div class="chart">
-      <kpn-action-bar-chart
+      <ui-action-bar-chart
         [barChart]="barChart()"
         [xAxisLabel]="xAxisLabel()"
         yAxisLabel="documents"

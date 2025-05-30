@@ -6,7 +6,7 @@ import { input } from '@angular/core';
 import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-relation';
 
 @Component({
-  selector: 'kpn-monitor-sub-relation-menu-option',
+  selector: 'ui-monitor-sub-relation-menu-option',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a

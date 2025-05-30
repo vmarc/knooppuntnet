@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
-  selector: 'kpn-fact-network-extra-member-relation',
+  selector: 'ui-fact-network-extra-member-relation',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown i18n="@@fact.description.network-extra-member-relation">

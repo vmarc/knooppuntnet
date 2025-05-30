@@ -9,7 +9,7 @@ import { RefRouteChangeInfo } from './ref-route-change-info';
 import { RouteDiffsData } from './route-diffs-data';
 
 @Component({
-  selector: 'kpn-route-diffs-updated',
+  selector: 'ui-route-diffs-updated',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (refs.length > 0) {
@@ -22,15 +22,15 @@ import { RouteDiffsData } from './route-diffs-data';
           @for (ref of refs; track ref) {
             <div class="kpn-level-3">
               <div class="kpn-line kpn-level-3-header">
-                <kpn-link-route-ref-header [ref]="ref.ref" [knownElements]="data().knownElements" />
+                <ui-link-route-ref-header [ref]="ref.ref" [knownElements]="data().knownElements" />
               </div>
               @if (ref.routeChangeInfo) {
                 <div class="kpn-level-3-body">
-                  <kpn-version-change
+                  <ui-version-change
                     [before]="ref.routeChangeInfo.before"
                     [after]="ref.routeChangeInfo.after"
                   />
-                  <kpn-route-change-detail [routeChangeInfo]="ref.routeChangeInfo" />
+                  <ui-route-change-detail [routeChangeInfo]="ref.routeChangeInfo" />
                 </div>
               }
             </div>

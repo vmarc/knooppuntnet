@@ -13,15 +13,15 @@ import { ProposedIndicatorComponent } from './indicators/proposed-indicator.comp
 import { RoleConnectionIndicatorComponent } from './indicators/role-connection-indicator.component';
 
 @Component({
-  selector: 'kpn-network-node-analysis',
+  selector: 'ui-network-node-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="analysis">
-      <kpn-network-indicator [node]="node()" />
-      <kpn-node-connection-indicator [node]="node()" />
-      <kpn-role-connection-indicator [node]="node()" />
-      <kpn-integrity-indicator [data]="integrityIndicatorData" />
-      <kpn-proposed-indicator [node]="node()" />
+      <ui-network-indicator [node]="node()" />
+      <ui-node-connection-indicator [node]="node()" />
+      <ui-role-connection-indicator [node]="node()" />
+      <ui-integrity-indicator [data]="integrityIndicatorData" />
+      <ui-proposed-indicator [node]="node()" />
     </div>
   `,
   styles: `

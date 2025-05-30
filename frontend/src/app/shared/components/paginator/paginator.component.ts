@@ -10,7 +10,7 @@ import { NzOptionComponent } from 'ng-zorro-antd/select';
 import { NzSelectComponent } from 'ng-zorro-antd/select';
 
 @Component({
-  selector: 'kpn-paginator',
+  selector: 'ui-paginator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span class="kpn-line paginator">

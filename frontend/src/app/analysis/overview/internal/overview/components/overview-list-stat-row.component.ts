@@ -10,20 +10,20 @@ import { Stat } from '../../domain/stat';
 import { OverviewValueComponent } from './overview-value.component';
 
 @Component({
-  selector: 'kpn-overview-list-stat-row',
+  selector: 'ui-overview-list-stat-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <tr>
       @if (rowspan()) {
         <td [rowSpan]="rowspan()">
-          <kpn-country-name [country]="country()" />
+          <ui-country-name [country]="country()" />
         </td>
       }
       <td>
         <nz-icon [nzType]="routeType()" />
       </td>
       <td class="value">
-        <kpn-overview-value [stat]="stat()" [subset]="subset(country(), routeType())" />
+        <ui-overview-value [stat]="stat()" [subset]="subset(country(), routeType())" />
       </td>
     </tr>
   `,

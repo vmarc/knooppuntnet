@@ -6,12 +6,12 @@ import { Reference } from '@api/common/common/reference';
 import { NodeNetworkReferenceComponent } from './node-network-reference.component';
 
 @Component({
-  selector: 'kpn-node-network-references',
+  selector: 'ui-node-network-references',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (reference of references(); track reference.id) {
       <p>
-        <kpn-node-network-reference
+        <ui-node-network-reference
           [nodeInfo]="nodeInfo()"
           [reference]="reference"
           [mixedRouteScopes]="mixedRouteScopes()"

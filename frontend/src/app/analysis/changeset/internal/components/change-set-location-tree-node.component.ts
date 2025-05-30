@@ -8,7 +8,7 @@ import { LinkNodeComponent } from '@app/shared/components/link/link-node.compone
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 
 @Component({
-  selector: 'kpn-change-set-location-tree-node',
+  selector: 'ui-change-set-location-tree-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- work-in-progress -->
@@ -19,10 +19,10 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
         <div class="kpn-line location-block">
           <span>{{ tree.locationName }}</span>
           @if (tree.happy) {
-            <kpn-icon-happy />
+            <ui-icon-happy />
           }
           @if (tree.investigate) {
-            <kpn-icon-investigate />
+            <ui-icon-investigate />
           }
         </div>
         <div>
@@ -32,12 +32,12 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
               @for (ref of tree.routeChanges.removed; track ref) {
                 <div class="refs">
                   <div class="kpn-line">
-                    <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
+                    <ui-link-route [routeId]="ref.id" [routeName]="ref.name" />
                     @if (ref.happy) {
-                      <kpn-icon-happy />
+                      <ui-icon-happy />
                     }
                     @if (ref.investigate) {
-                      <kpn-icon-investigate />
+                      <ui-icon-investigate />
                     }
                   </div>
                 </div>
@@ -50,12 +50,12 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
               @for (ref of tree.routeChanges.added; track ref) {
                 <div class="refs">
                   <div class="kpn-line">
-                    <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
+                    <ui-link-route [routeId]="ref.id" [routeName]="ref.name" />
                     @if (ref.happy) {
-                      <kpn-icon-happy />
+                      <ui-icon-happy />
                     }
                     @if (ref.investigate) {
-                      <kpn-icon-investigate />
+                      <ui-icon-investigate />
                     }
                   </div>
                 </div>
@@ -68,12 +68,12 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
               @for (ref of tree.routeChanges.updated; track ref) {
                 <div class="refs">
                   <div class="kpn-line">
-                    <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
+                    <ui-link-route [routeId]="ref.id" [routeName]="ref.name" />
                     @if (ref.happy) {
-                      <kpn-icon-happy />
+                      <ui-icon-happy />
                     }
                     @if (ref.investigate) {
-                      <kpn-icon-investigate />
+                      <ui-icon-investigate />
                     }
                   </div>
                 </div>
@@ -86,12 +86,12 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
               @for (ref of tree.nodeChanges.removed; track ref) {
                 <div class="refs">
                   <div class="kpn-line">
-                    <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+                    <ui-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
                     @if (ref.happy) {
-                      <kpn-icon-happy />
+                      <ui-icon-happy />
                     }
                     @if (ref.investigate) {
-                      <kpn-icon-investigate />
+                      <ui-icon-investigate />
                     }
                   </div>
                 </div>
@@ -104,12 +104,12 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
               @for (ref of tree.nodeChanges.added; track ref) {
                 <div class="refs">
                   <div class="kpn-line">
-                    <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+                    <ui-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
                     @if (ref.happy) {
-                      <kpn-icon-happy />
+                      <ui-icon-happy />
                     }
                     @if (ref.investigate) {
-                      <kpn-icon-investigate />
+                      <ui-icon-investigate />
                     }
                   </div>
                 </div>
@@ -122,12 +122,12 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
               @for (ref of tree.nodeChanges.updated; track ref) {
                 <div class="refs">
                   <div class="kpn-line">
-                    <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+                    <ui-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
                     @if (ref.happy) {
-                      <kpn-icon-happy />
+                      <ui-icon-happy />
                     }
                     @if (ref.investigate) {
-                      <kpn-icon-investigate />
+                      <ui-icon-investigate />
                     }
                   </div>
                 </div>
@@ -136,7 +136,7 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
           }
         </div>
         <div class="children">
-          <kpn-change-set-location-tree-node [trees]="tree.children" />
+          <ui-change-set-location-tree-node [trees]="tree.children" />
         </div>
       </div>
     }

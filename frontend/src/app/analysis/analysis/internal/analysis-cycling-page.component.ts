@@ -16,10 +16,10 @@ import { AnalysisStrategyComponent } from '../../strategy/analysis-strategy.comp
 import { AnalysisStrategyService } from '../../strategy/analysis-strategy.service';
 
 @Component({
-  selector: 'kpn-analysis-cycling-page',
+  selector: 'ui-analysis-cycling-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -32,60 +32,60 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
         </nz-breadcrumb-item>
       </nz-breadcrumb>
 
-      <kpn-page-header>
+      <ui-page-header>
         <span class="header-route-type-icon">
           <nz-icon nzType="cycling" />
         </span>
         <span i18n="@@route-type.cycling">Cycling</span>
-      </kpn-page-header>
+      </ui-page-header>
 
-      <kpn-analysis-strategy />
+      <ui-analysis-strategy />
 
-      <kpn-icon-buttons>
-        <kpn-icon-button
+      <ui-icon-buttons>
+        <ui-icon-button
           [routerLink]="nlLink()"
           icon="netherlands"
           i18n-title="@@country.nl"
           title="The Netherlands"
         />
-        <kpn-icon-button
+        <ui-icon-button
           [routerLink]="beLink()"
           icon="belgium"
           i18n-title="@@country.be"
           title="Belgium"
         />
-        <kpn-icon-button
+        <ui-icon-button
           [routerLink]="deLink()"
           icon="germany"
           i18n-title="@@country.de"
           title="Germany"
         />
-        <kpn-icon-button
+        <ui-icon-button
           [routerLink]="frLink()"
           icon="france"
           i18n-title="@@country.fr"
           title="France"
         />
-        <kpn-icon-button
+        <ui-icon-button
           [routerLink]="atLink()"
           icon="austria"
           i18n-title="@@country.at"
           title="Austria"
         />
-        <kpn-icon-button
+        <ui-icon-button
           [routerLink]="esLink()"
           icon="spain"
           i18n-title="@@country.es"
           title="Spain"
         />
-        <kpn-icon-button
+        <ui-icon-button
           [routerLink]="dkLink()"
           icon="denmark"
           i18n-title="@@country.dk"
           title="Denmark"
         />
-      </kpn-icon-buttons>
-    </kpn-page>
+      </ui-icon-buttons>
+    </ui-page>
   `,
   providers: [AnalysisStrategyService, RouterService],
   imports: [

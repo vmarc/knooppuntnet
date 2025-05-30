@@ -3,7 +3,7 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-monitor-route-form-errors',
+  selector: 'ui-monitor-route-form-errors',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     @for (error of errors(); track $index) {

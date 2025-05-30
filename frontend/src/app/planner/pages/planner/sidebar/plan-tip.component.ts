@@ -10,7 +10,7 @@ import { PlanPhase } from '../../../domain/plan/plan-phase';
 import { PlannerService } from '../planner.service';
 
 @Component({
-  selector: 'kpn-plan-tip',
+  selector: 'ui-plan-tip',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (planPhase(); as planPhase) {

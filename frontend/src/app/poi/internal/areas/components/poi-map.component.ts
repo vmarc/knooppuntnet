@@ -8,7 +8,7 @@ import { PoiAreasPageService } from '../poi-areas-page.service';
 import { PoiMapService } from './poi-map.service';
 
 @Component({
-  selector: 'kpn-poi-map',
+  selector: 'ui-poi-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <div [id]="service.mapId" class="kpn-map"></div> `,
   providers: [

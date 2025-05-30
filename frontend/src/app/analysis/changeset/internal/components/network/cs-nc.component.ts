@@ -21,35 +21,35 @@ import { CsNcWaysRemovedComponent } from './cs-nc-ways-removed.component';
 import { CsNcWaysUpdatedComponent } from './cs-nc-ways-updated.component';
 
 @Component({
-  selector: 'kpn-cs-nc-component',
+  selector: 'ui-cs-nc-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-cs-nc-type [networkChangeInfo]="networkChangeInfo()" />
+    <ui-cs-nc-type [networkChangeInfo]="networkChangeInfo()" />
 
     @if (networkChangeInfo().after) {
       <div class="kpn-detail">
-        <kpn-version-change
+        <ui-version-change
           [before]="networkChangeInfo().before"
           [after]="networkChangeInfo().after"
         />
       </div>
     }
 
-    <kpn-cs-nc-nodes-removed [networkChangeInfo]="networkChangeInfo()" />
-    <kpn-cs-nc-nodes-added [networkChangeInfo]="networkChangeInfo()" />
-    <kpn-cs-nc-nodes-updated [networkChangeInfo]="networkChangeInfo()" />
+    <ui-cs-nc-nodes-removed [networkChangeInfo]="networkChangeInfo()" />
+    <ui-cs-nc-nodes-added [networkChangeInfo]="networkChangeInfo()" />
+    <ui-cs-nc-nodes-updated [networkChangeInfo]="networkChangeInfo()" />
 
-    <kpn-cs-nc-ways-removed [networkChangeInfo]="networkChangeInfo()" />
-    <kpn-cs-nc-ways-added [networkChangeInfo]="networkChangeInfo()" />
-    <kpn-cs-nc-ways-updated [networkChangeInfo]="networkChangeInfo()" />
+    <ui-cs-nc-ways-removed [networkChangeInfo]="networkChangeInfo()" />
+    <ui-cs-nc-ways-added [networkChangeInfo]="networkChangeInfo()" />
+    <ui-cs-nc-ways-updated [networkChangeInfo]="networkChangeInfo()" />
 
-    <kpn-cs-nc-relations-removed [networkChangeInfo]="networkChangeInfo()" />
-    <kpn-cs-nc-relations-added [networkChangeInfo]="networkChangeInfo()" />
-    <kpn-cs-nc-relations-updated [networkChangeInfo]="networkChangeInfo()" />
+    <ui-cs-nc-relations-removed [networkChangeInfo]="networkChangeInfo()" />
+    <ui-cs-nc-relations-added [networkChangeInfo]="networkChangeInfo()" />
+    <ui-cs-nc-relations-updated [networkChangeInfo]="networkChangeInfo()" />
 
-    <kpn-node-diffs [data]="nodeDiffs(networkChangeInfo())" />
+    <ui-node-diffs [data]="nodeDiffs(networkChangeInfo())" />
 
-    <kpn-route-diffs [data]="routeDiffs(networkChangeInfo())" />
+    <ui-route-diffs [data]="routeDiffs(networkChangeInfo())" />
   `,
   imports: [
     CsNcNodesAddedComponent,

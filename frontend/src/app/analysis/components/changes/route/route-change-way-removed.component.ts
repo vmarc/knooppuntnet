@@ -8,22 +8,22 @@ import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
 import { TagTableComponent } from '@app/shared/components/tags/tag-table.component';
 
 @Component({
-  selector: 'kpn-route-change-way-removed',
+  selector: 'ui-route-change-way-removed',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">
         <span class="kpn-label" i18n="@@route-change.way-removed.title">Removed way</span>
-        <kpn-osm-link-way [wayId]="wayInfo().id" [title]="wayInfo().id.toString()" />
+        <ui-osm-link-way [wayId]="wayInfo().id" [title]="wayInfo().id.toString()" />
       </div>
       <div class="kpn-level-4-body">
         <div class="kpn-detail">
           <div class="kpn-thin">
-            <kpn-meta-data [metaData]="wayInfo()" />
+            <ui-meta-data [metaData]="wayInfo()" />
           </div>
         </div>
         <div class="kpn-detail">
-          <kpn-tag-table [tags]="wayTags(wayInfo())" />
+          <ui-tag-table [tags]="wayTags(wayInfo())" />
         </div>
       </div>
     </div>

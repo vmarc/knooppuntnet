@@ -16,17 +16,17 @@ import { NetworkChangeSetComponent } from './components/network-change-set.compo
 import { NetworkChangesPageService } from './network-changes-page.service';
 
 @Component({
-  selector: 'kpn-network-changes-page',
+  selector: 'ui-network-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-network-page-header
+    <ui-page>
+      <ui-network-page-header
         pageName="changes"
         pageTitle="Changes"
         i18n-pageTitle="@@network-changes.title"
       />
 
-      <kpn-change-filter
+      <ui-change-filter
         [filterOptions]="filterOptions()"
         (optionSelected)="onOptionSelected($event)"
       />
@@ -42,13 +42,13 @@ import { NetworkChangesPageService } from './network-changes-page.service';
                 only.
               </p>
               <p>
-                <kpn-user-link-login />
+                <ui-user-link-login />
               </p>
             } @else {
               <p>
-                <kpn-situation-on [timestamp]="response.situationOn" />
+                <ui-situation-on [timestamp]="response.situationOn" />
               </p>
-              <kpn-changes
+              <ui-changes
                 [impact]="service.impact()"
                 [pageSize]="service.pageSize()"
                 [pageIndex]="service.pageIndex()"
@@ -58,22 +58,22 @@ import { NetworkChangesPageService } from './network-changes-page.service';
                 [totalCount]="response.result.totalCount"
                 [changeCount]="response.result.changes.length"
               >
-                <kpn-items>
+                <ui-items>
                   @for (
                     networkChangeInfo of response.result.changes;
                     track networkChangeInfo.rowIndex
                   ) {
-                    <kpn-item [index]="networkChangeInfo.rowIndex">
-                      <kpn-network-change-set [networkChangeInfo]="networkChangeInfo" />
-                    </kpn-item>
+                    <ui-item [index]="networkChangeInfo.rowIndex">
+                      <ui-network-change-set [networkChangeInfo]="networkChangeInfo" />
+                    </ui-item>
                   }
-                </kpn-items>
-              </kpn-changes>
+                </ui-items>
+              </ui-changes>
             }
           }
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [NetworkChangesPageService, RouterService],
   imports: [

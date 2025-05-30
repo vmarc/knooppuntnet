@@ -7,7 +7,7 @@ import { State } from '@app/state/state';
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
 
 @Component({
-  selector: 'kpn-planner-popup-route',
+  selector: 'ui-planner-popup-route',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (response(); as response) {
@@ -33,7 +33,7 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
             }
           </div>
           <p class="more-details">
-            <kpn-link-route
+            <ui-link-route
               [routeId]="response.result.id"
               [routeName]="response.result.name"
               [routeType]="routeType()"

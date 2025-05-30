@@ -8,12 +8,12 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { ActionButtonRouteComponent } from '@app/analysis/components/action/action-button-route.component';
 
 @Component({
-  selector: 'kpn-search-route',
+  selector: 'ui-search-route',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let route = item();
     <div class="kpn-line">
-      <kpn-action-button-route [routeType]="routeType()" [relationId]="route.id" />
+      <ui-action-button-route [routeType]="routeType()" [relationId]="route.id" />
       <a [routerLink]="'/analysis/route/' + route.id">{{ route.name }}</a>
     </div>
     <div class="kpn-line">

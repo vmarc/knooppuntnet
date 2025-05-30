@@ -7,7 +7,7 @@ import { Stat } from '../../domain/stat';
 import { OverviewValueComponent } from './overview-value.component';
 
 @Component({
-  selector: 'kpn-overview-table-row',
+  selector: 'ui-overview-table-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <td>
@@ -18,7 +18,7 @@ import { OverviewValueComponent } from './overview-value.component';
     </td>
     @for (subset of subsets(); track subset) {
       <td class="value-cell">
-        <kpn-overview-value [stat]="stat()" [subset]="subset" />
+        <ui-overview-value [stat]="stat()" [subset]="subset" />
       </td>
     }
     <td class="comment-cell">

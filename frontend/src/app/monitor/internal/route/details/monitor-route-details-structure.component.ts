@@ -17,7 +17,7 @@ import { ActionButtonRelationComponent } from '@app/analysis/components/action/a
 import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
 
 @Component({
-  selector: 'kpn-monitor-route-details-structure',
+  selector: 'ui-monitor-route-details-structure',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <table mat-table [dataSource]="structureRows()">
@@ -88,7 +88,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
         </th>
         <td mat-cell *matCellDef="let row" class="action-button-table-cell">
           <div class="kpn-align-center">
-            <kpn-action-button-relation [relationId]="row.relationId" />
+            <ui-action-button-relation [relationId]="row.relationId" />
             {{ row.relationId }}
           </div>
         </td>
@@ -100,7 +100,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
         </th>
         <td mat-cell *matCellDef="let row" class="symbol">
           @if (row.symbol) {
-            <kpn-symbol [description]="row.symbol" [width]="25" [height]="25" />
+            <ui-symbol [description]="row.symbol" [width]="25" [height]="25" />
           }
         </td>
       </ng-container>
@@ -214,7 +214,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
         </th>
         <td mat-cell *matCellDef="let row" [ngClass]="{ 'no-route-gap': row.gaps === undefined }">
           @if (row.gaps !== undefined) {
-            <kpn-monitor-route-gap
+            <ui-monitor-route-gap
               [description]="row.gaps"
               [osmSegmentCount]="row.osmSegmentCount"
             />

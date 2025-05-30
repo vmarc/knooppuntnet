@@ -22,12 +22,12 @@ import { MonitorRouteGpxReferenceComponent } from './monitor-route-gpx-reference
 import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 
 @Component({
-  selector: 'kpn-monitor-route-gpx',
+  selector: 'ui-monitor-route-gpx',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (_state(); as state) {
-      <kpn-page>
-        <kpn-monitor-route-gpx-breadcrumb
+      <ui-page>
+        <ui-monitor-route-gpx-breadcrumb
           [groupName]="state.groupName"
           [groupLink]="state.groupLink"
           [routeName]="state.routeName"
@@ -45,7 +45,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 
             <div class="gpx-form">
               <form [formGroup]="form" #ngForm="ngForm">
-                <kpn-monitor-route-gpx-reference
+                <ui-monitor-route-gpx-reference
                   [ngForm]="ngForm"
                   [gpxReferenceDate]="gpxReferenceDate"
                   [referenceFilename]="referenceFilename"
@@ -74,10 +74,10 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 
         @if (busy() === true) {
           @for (step of steps(); track $index) {
-            <kpn-monitor-route-form-save-step [step]="step" />
+            <ui-monitor-route-form-save-step [step]="step" />
           }
 
-          <kpn-monitor-route-form-errors [errors]="errors()" />
+          <ui-monitor-route-form-errors [errors]="errors()" />
 
           <div class="kpn-button-group">
             <button
@@ -91,7 +91,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
             </button>
           </div>
         }
-      </kpn-page>
+      </ui-page>
     }
   `,
   styles: `

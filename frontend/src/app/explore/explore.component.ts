@@ -33,14 +33,14 @@ import { SearchComponent } from './advanced/search.component';
 import { ExploreRoutesComponent } from './explore-routes.component';
 
 @Component({
-  selector: 'kpn-explore',
+  selector: 'ui-explore',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page-buttons>
-      <kpn-back-button />
+    <ui-page-buttons>
+      <ui-back-button />
       <mat-label>Explore</mat-label>
-    </kpn-page-buttons>
-    <kpn-page>
+    </ui-page-buttons>
+    <ui-page>
       <nz-input-group [nzSuffix]="suffixIconSearch">
         <input type="text" nz-input placeholder="input search text" />
       </nz-input-group>
@@ -69,12 +69,12 @@ import { ExploreRoutesComponent } from './explore-routes.component';
       <div class="kpn-spacer-above">
         <button mat-stroked-button (click)="listRoutesInMap()">list routes in map</button>
       </div>
-      <kpn-divider class="kpn-spacer-above" />
-      <kpn-search />
-      <kpn-divider />
+      <ui-divider class="kpn-spacer-above" />
+      <ui-search />
+      <ui-divider />
 
       @if (geocoderLocations().length > 0) {
-        <kpn-divider />
+        <ui-divider />
         <p>Locations</p>
         <mat-nav-list>
           @for (location of geocoderLocations(); track location.name) {
@@ -83,10 +83,10 @@ import { ExploreRoutesComponent } from './explore-routes.component';
             </mat-list-item>
           }
         </mat-nav-list>
-        <kpn-divider />
+        <ui-divider />
       }
-      <kpn-explore-routes />
-    </kpn-page>
+      <ui-explore-routes />
+    </ui-page>
   `,
   imports: [
     BackButtonComponent,

@@ -5,7 +5,7 @@ import { LocationNodeInfo } from '@api/common/location/location-node-info';
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 
 @Component({
-  selector: 'kpn-location-node-routes',
+  selector: 'ui-location-node-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (!hasRouteReferences()) {
@@ -14,7 +14,7 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
       <div class="kpn-comma-list route-list">
         @for (ref of node().routeReferences; track ref) {
           <span>
-            <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
+            <ui-link-route [routeId]="ref.id" [routeName]="ref.name" />
           </span>
         }
       </div>

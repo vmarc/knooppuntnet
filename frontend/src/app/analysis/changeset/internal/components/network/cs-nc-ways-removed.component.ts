@@ -7,7 +7,7 @@ import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.compo
 import { OsmLinkWayComponent } from '@app/shared/components/link/osm-link-way.component';
 
 @Component({
-  selector: 'kpn-cs-nc-ways-removed',
+  selector: 'ui-cs-nc-ways-removed',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (wayIds().length > 0) {
@@ -15,11 +15,11 @@ import { OsmLinkWayComponent } from '@app/shared/components/link/osm-link-way.co
         <div class="kpn-level-2-header kpn-line">
           <span i18n="@@change-set.network-changes.removed-ways">Removed ways</span>
           <span class="kpn-brackets kpn-thin">{{ wayIds().length }}</span>
-          <kpn-icon-happy />
+          <ui-icon-happy />
         </div>
         <div class="kpn-level-2-body kpn-comma-list">
           @for (wayId of wayIds(); track wayId) {
-            <kpn-osm-link-way [wayId]="wayId" [title]="wayId.toString()" />
+            <ui-osm-link-way [wayId]="wayId" [title]="wayId.toString()" />
           }
         </div>
       </div>

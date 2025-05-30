@@ -12,22 +12,22 @@ import { SymbolParser } from './internal/symbol-parser';
 import { SymbolWheelComponent } from './internal/symbol-wheel.component';
 
 @Component({
-  selector: 'kpn-symbol',
+  selector: 'ui-symbol',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [style]="box" class="box">
       <canvas #symbolCanvas [width]="width()" [height]="height()"></canvas>
       @if (isForegroundHiker()) {
-        <kpn-symbol-hiker [width]="width()" [height]="height()" [color]="foregroundColor()" />
+        <ui-symbol-hiker [width]="width()" [height]="height()" [color]="foregroundColor()" />
       }
       @if (isForeground2Hiker()) {
-        <kpn-symbol-hiker [width]="width()" [height]="height()" [color]="foreground2Color()" />
+        <ui-symbol-hiker [width]="width()" [height]="height()" [color]="foreground2Color()" />
       }
       @if (isForegroundWheel()) {
-        <kpn-symbol-wheel [width]="width()" [height]="height()" [color]="foregroundColor()" />
+        <ui-symbol-wheel [width]="width()" [height]="height()" [color]="foregroundColor()" />
       }
       @if (isForeground2Wheel()) {
-        <kpn-symbol-wheel [width]="width()" [height]="height()" [color]="foreground2Color()" />
+        <ui-symbol-wheel [width]="width()" [height]="height()" [color]="foreground2Color()" />
       }
     </div>
   `,

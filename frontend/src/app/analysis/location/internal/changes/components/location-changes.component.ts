@@ -7,11 +7,11 @@ import { LocationChangeComponent } from './location-change.component';
 import { LocationChangesPage } from '@api/common/location/location-changes-page';
 
 @Component({
-  selector: 'kpn-location-changes',
+  selector: 'ui-location-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-spacer-above">
-      <kpn-changes
+      <ui-changes
         [impact]="service.impact()"
         [pageSize]="service.pageSize()"
         [pageIndex]="service.pageIndex()"
@@ -21,14 +21,14 @@ import { LocationChangesPage } from '@api/common/location/location-changes-page'
         [totalCount]="page().changesCount"
         [changeCount]="page().changeSets.length"
       >
-        <kpn-items>
+        <ui-items>
           @for (changeSet of page().changeSets; track $index) {
-            <kpn-item [index]="changeSet.rowIndex">
-              <kpn-location-change [changeSet]="changeSet" />
-            </kpn-item>
+            <ui-item [index]="changeSet.rowIndex">
+              <ui-location-change [changeSet]="changeSet" />
+            </ui-item>
           }
-        </kpn-items>
-      </kpn-changes>
+        </ui-items>
+      </ui-changes>
     </div>
   `,
   imports: [ChangesComponent, ItemComponent, ItemsComponent, LocationChangeComponent],

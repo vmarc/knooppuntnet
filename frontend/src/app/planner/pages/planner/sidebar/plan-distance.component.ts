@@ -6,7 +6,7 @@ import { input } from '@angular/core';
 import { Plan } from '../../../domain/plan/plan';
 
 @Component({
-  selector: 'kpn-plan-distance',
+  selector: 'ui-plan-distance',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (meters > 0) {

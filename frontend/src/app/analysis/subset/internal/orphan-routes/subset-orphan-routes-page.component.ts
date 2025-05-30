@@ -12,35 +12,35 @@ import { SubsetOrphanRoutesTableComponent } from './components/subset-orphan-rou
 import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.service';
 
 @Component({
-  selector: 'kpn-subset-orphan-routes-page',
+  selector: 'ui-subset-orphan-routes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page-filter>
-      <kpn-filter [filterOptions]="filterOptions()" filter />
+    <ui-page-filter>
+      <ui-filter [filterOptions]="filterOptions()" filter />
 
-      <kpn-subset-page-header-block
+      <ui-subset-page-header-block
         pageName="orphan-routes"
         pageTitle="Free routes"
         i18n-pageTitle="@@subset-orphan-routes.title"
       />
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           <p>
-            <kpn-situation-on [timestamp]="response.situationOn" />
+            <ui-situation-on [timestamp]="response.situationOn" />
           </p>
           @if (response.result.routes.length === 0) {
             <p class="kpn-line">
               <span i18n="@@subset-orphan-routes.no-routes">No free routes</span>
             </p>
           } @else {
-            <kpn-subset-orphan-routes-table />
+            <ui-subset-orphan-routes-table />
           }
         </div>
       }
-    </kpn-page-filter>
+    </ui-page-filter>
   `,
   providers: [SubsetOrphanRoutesPageService, RouterService],
   imports: [

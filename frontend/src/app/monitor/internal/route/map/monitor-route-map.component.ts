@@ -9,11 +9,11 @@ import { RouterService } from '@app/shared/services/router.service';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
-  selector: 'kpn-monitor-route-map',
+  selector: 'ui-monitor-route-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="mapId" class="kpn-map">
-      <kpn-geolocation-button />
+      <ui-geolocation-button />
     </div>
   `,
   providers: [

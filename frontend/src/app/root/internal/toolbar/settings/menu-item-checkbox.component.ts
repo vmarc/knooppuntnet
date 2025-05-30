@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 
 @Component({
-  selector: 'kpn-menu-item-checkbox',
+  selector: 'ui-menu-item-checkbox',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <label

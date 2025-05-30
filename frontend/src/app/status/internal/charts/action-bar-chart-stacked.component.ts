@@ -5,7 +5,7 @@ import { BarChart2D } from '@api/common/status/bar-chart2d';
 import { BarChartModule } from '@swimlane/ngx-charts';
 
 @Component({
-  selector: 'kpn-action-bar-chart-stacked',
+  selector: 'ui-action-bar-chart-stacked',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ngx-charts-bar-vertical-stacked

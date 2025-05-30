@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { StatusLinks } from './status-links';
 
 @Component({
-  selector: 'kpn-status-links',
+  selector: 'ui-status-links',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- English only-->

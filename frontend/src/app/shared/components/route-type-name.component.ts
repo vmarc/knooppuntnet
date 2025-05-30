@@ -6,7 +6,7 @@ import { RouteType } from '@api/common/route-type';
 import { Translations } from '@app/shared/i18n/translations';
 
 @Component({
-  selector: 'kpn-route-type-name',
+  selector: 'ui-route-type-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `{{ routeTypeName() }}`,
 })

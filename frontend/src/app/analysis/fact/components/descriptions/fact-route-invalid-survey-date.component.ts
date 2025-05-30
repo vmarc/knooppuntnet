@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
-  selector: 'kpn-fact-route-invalid-survey-date',
+  selector: 'ui-fact-route-invalid-survey-date',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown i18n="@@fact.description.route-invalid-survey-date">

@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-monitor-route-description',
+  selector: 'ui-monitor-route-description',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <div>

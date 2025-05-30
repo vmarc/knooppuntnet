@@ -12,29 +12,29 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
 import { ActionButtonRouteComponent } from '../../../../components/action/action-button-route.component';
 
 @Component({
-  selector: 'kpn-location-fact-panel-contents',
+  selector: 'ui-location-fact-panel-contents',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (locationFact(); as locationFact) {
       <div class="description">
-        <kpn-fact-description [factInfo]="factInfo(locationFact)" />
+        <ui-fact-description [factInfo]="factInfo(locationFact)" />
       </div>
       <div class="sideline">
         @if (locationFact.elementType === 'route') {
           @for (ref of locationFact.refs; track ref) {
             <div class="kpn-line fact-line">
-              <kpn-icon-route />
-              <kpn-action-button-route [relationId]="ref.id" />
-              <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
+              <ui-icon-route />
+              <ui-action-button-route [relationId]="ref.id" />
+              <ui-link-route [routeId]="ref.id" [routeName]="ref.name" />
             </div>
           }
         }
         @if (locationFact.elementType === 'node') {
           @for (ref of locationFact.refs; track ref) {
             <div class="kpn-line fact-line">
-              <kpn-icon-node />
-              <kpn-action-button-node [nodeId]="ref.id" />
-              <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+              <ui-icon-node />
+              <ui-action-button-node [nodeId]="ref.id" />
+              <ui-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
             </div>
           }
         }

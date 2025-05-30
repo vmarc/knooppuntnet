@@ -6,27 +6,27 @@ import { PageHeaderComponent } from '@app/shared/components/page/page-header.com
 import { PageComponent } from '../../../components/page/page.component';
 
 @Component({
-  selector: 'kpn-home-page',
+  selector: 'ui-home-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-page-header [pageTitle]="null" subject="home" i18n="@@home.page-title"
+    <ui-page>
+      <ui-page-header [pageTitle]="null" subject="home" i18n="@@home.page-title"
         >Node networks
-      </kpn-page-header>
-      <kpn-icon-button routerLink="/map" icon="map" title="Map" i18n-title="@@home.map" />
-      <kpn-icon-button
+      </ui-page-header>
+      <ui-icon-button routerLink="/map" icon="map" title="Map" i18n-title="@@home.map" />
+      <ui-icon-button
         routerLink="/analysis"
         icon="analysis"
         title="Analysis"
         i18n-title="@@home.analysis"
       />
-      <kpn-icon-button
+      <ui-icon-button
         routerLink="/monitor"
         icon="monitor"
         title="Monitor"
         i18n-title="@@home.monitor"
       />
-    </kpn-page>
+    </ui-page>
   `,
   imports: [IconButtonComponent, PageComponent, PageHeaderComponent, RouterLink],
 })

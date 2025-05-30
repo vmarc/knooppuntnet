@@ -20,16 +20,16 @@ interface LocationFactPanel {
 }
 
 @Component({
-  selector: 'kpn-location-facts',
+  selector: 'ui-location-facts',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (locationFacts().length === 0) {
       <div class="kpn-line kpn-spacer-above">
         <span i18n="@@location-facts.none">No facts</span>
-        <kpn-icon-happy />
+        <ui-icon-happy />
       </div>
     } @else {
-      <kpn-expand-collapse (expandAll)="expandAll()" (collapseAll)="collapseAll()" />
+      <ui-expand-collapse (expandAll)="expandAll()" (collapseAll)="collapseAll()" />
       <nz-collapse>
         @for (panel of panels(); track panel.locationFact.fact) {
           <nz-collapse-panel
@@ -38,9 +38,9 @@ interface LocationFactPanel {
             (nzActiveChange)="activeChange(panel, $event)"
           >
             <ng-template #header>
-              <kpn-location-fact-panel-header [locationFact]="panel.locationFact" />
+              <ui-location-fact-panel-header [locationFact]="panel.locationFact" />
             </ng-template>
-            <kpn-location-fact-panel-contents [locationFact]="panel.locationFact" />
+            <ui-location-fact-panel-contents [locationFact]="panel.locationFact" />
           </nz-collapse-panel>
         }
       </nz-collapse>

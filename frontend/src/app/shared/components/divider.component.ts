@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 
 @Component({
-  selector: 'kpn-divider',
+  selector: 'ui-divider',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-small-spacer-above kpn-small-spacer-below">

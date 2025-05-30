@@ -6,7 +6,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
-  selector: 'kpn-back-button',
+  selector: 'ui-back-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button mat-icon-button (click)="back()">

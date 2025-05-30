@@ -14,11 +14,11 @@ import { MonitorRouteFormComponent } from '../components/monitor-route-form.comp
 import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
 
 @Component({
-  selector: 'kpn-monitor-route-add-page',
+  selector: 'ui-monitor-route-add-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.state(); as state) {
-      <kpn-page>
+      <ui-page>
         <nz-breadcrumb>
           <nz-breadcrumb-item>
             <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -34,20 +34,20 @@ import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
           </nz-breadcrumb-item>
         </nz-breadcrumb>
 
-        <kpn-page-header [pageTitle]="pageTitle()">
+        <ui-page-header [pageTitle]="pageTitle()">
           {{ state.groupDescription }}
-        </kpn-page-header>
+        </ui-page-header>
 
         <h2>{{ subtitle }}</h2>
 
-        <kpn-error />
+        <ui-error />
 
-        <kpn-monitor-route-form
+        <ui-monitor-route-form
           mode="add"
           [groupName]="state.groupName"
           [initialProperties]="{ groupName: state.groupName }"
         />
-      </kpn-page>
+      </ui-page>
     }
   `,
   providers: [MonitorRouteAddPageService, NavService],

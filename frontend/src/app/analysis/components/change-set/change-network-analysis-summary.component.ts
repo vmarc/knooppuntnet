@@ -11,11 +11,11 @@ import { ChangesSetNetworkComponent } from './components/change-set-network.comp
 import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-nodes.component';
 
 @Component({
-  selector: 'kpn-change-network-analysis-summary',
+  selector: 'ui-change-network-analysis-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="change-set">
-      <kpn-change-header
+      <ui-change-header
         [changeKey]="changeSet().key"
         [happy]="changeSet().happy"
         [investigate]="changeSet().investigate"
@@ -23,18 +23,18 @@ import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-n
       />
 
       @for (action of networkActions; track action) {
-        <kpn-change-set-network [changeSetNetworkAction]="action" />
+        <ui-change-set-network [changeSetNetworkAction]="action" />
       }
 
       @for (orphanNodeChanges of changeSet().network.orphanNodeChanges; track orphanNodeChanges) {
-        <kpn-change-set-orphan-nodes [subsetElementRefs]="orphanNodeChanges" />
+        <ui-change-set-orphan-nodes [subsetElementRefs]="orphanNodeChanges" />
       }
 
       @for (
         orphanRouteChanges of changeSet().network.orphanRouteChanges;
         track orphanRouteChanges
       ) {
-        <kpn-change-set-orphan-routes [subsetElementRefs]="orphanRouteChanges" />
+        <ui-change-set-orphan-routes [subsetElementRefs]="orphanRouteChanges" />
       }
     </div>
   `,

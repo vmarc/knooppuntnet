@@ -6,13 +6,13 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 
 @Component({
-  selector: 'kpn-monitor-route-details-analysis',
+  selector: 'ui-monitor-route-details-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (page().happy) {
       <p class="kpn-line">
         <span i18n="@@monitor.route.details.analysis.ok">All ok</span>
-        <kpn-icon-happy />
+        <ui-icon-happy />
       </p>
     } @else {
       <p>

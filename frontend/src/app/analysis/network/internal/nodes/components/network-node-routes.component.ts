@@ -5,7 +5,7 @@ import { NetworkNodeRow } from '@api/common/network/network-node-row';
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 
 @Component({
-  selector: 'kpn-network-node-routes',
+  selector: 'ui-network-node-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (node().routeReferences.length === 0) {
@@ -13,7 +13,7 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
     } @else {
       <span class="kpn-comma-list">
         @for (ref of node().routeReferences; track $index) {
-          <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" [routeType]="ref.routeType" />
+          <ui-link-route [routeId]="ref.id" [routeName]="ref.name" [routeType]="ref.routeType" />
         }
       </span>
     }

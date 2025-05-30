@@ -11,7 +11,7 @@ import { GeolocationTimeoutDialogComponent } from './geolocation-timeout-dialog.
 import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable-dialog.component';
 
 @Component({
-  selector: 'kpn-geolocation-button',
+  selector: 'ui-geolocation-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button

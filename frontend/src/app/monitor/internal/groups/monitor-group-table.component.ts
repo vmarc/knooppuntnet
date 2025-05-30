@@ -9,7 +9,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzTableModule } from 'ng-zorro-antd/table';
 
 @Component({
-  selector: 'kpn-monitor-group-table',
+  selector: 'ui-monitor-group-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nz-table nzBordered [nzFrontPagination]="false" #groupTable [nzData]="groups()" nzSize="small">

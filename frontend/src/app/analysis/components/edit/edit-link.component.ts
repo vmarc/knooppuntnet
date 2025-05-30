@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 
 @Component({
-  selector: 'kpn-edit-link',
+  selector: 'ui-edit-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <a rel="nofollow" (click)="clicked()" [title]="linkTitle">josm</a> `,
 })

@@ -11,26 +11,26 @@ import { LocationFactsComponent } from './components/location-facts.component';
 import { LocationFactsPageService } from './location-facts-page.service';
 
 @Component({
-  selector: 'kpn-location-facts-page',
+  selector: 'ui-location-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-location-page-header
+    <ui-page>
+      <ui-location-page-header
         pageName="facts"
         i18n-pageTitle="@@location-facts.title"
         pageTitle="Facts"
       />
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
-          <kpn-location-response [response]="response">
-            <kpn-location-facts [locationFacts]="response.result.locationFacts" />
-          </kpn-location-response>
+          <ui-location-response [response]="response">
+            <ui-location-facts [locationFacts]="response.result.locationFacts" />
+          </ui-location-response>
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [LocationFactsPageService, RouterService],
   imports: [

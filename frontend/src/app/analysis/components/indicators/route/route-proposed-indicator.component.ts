@@ -8,10 +8,10 @@ import { IndicatorComponent } from '@app/shared/components/indicator/indicator.c
 import { RouteProposedIndicatorDialogComponent } from './route-proposed-indicator-dialog.component';
 
 @Component({
-  selector: 'kpn-route-proposed-indicator',
+  selector: 'ui-route-proposed-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator
+    <ui-indicator
       letter="P"
       i18n-letter="@@route-proposed-indicator.letter"
       [color]="color"

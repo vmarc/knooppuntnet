@@ -8,7 +8,7 @@ import { DayInputComponent } from '@app/shared/components/format/day-input.compo
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
-  selector: 'kpn-monitor-route-gpx-reference',
+  selector: 'ui-monitor-route-gpx-reference',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@monitor.route.properties.reference-details.file">
@@ -68,7 +68,7 @@ import { MarkdownModule } from 'ngx-markdown';
     <p i18n="@@monitor.route.properties.reference-details.gpx.reference-day">
       Select the date at which the gpx trace was recorded or was known to be valid:
     </p>
-    <kpn-day-input
+    <ui-day-input
       id="gpx-reference-date"
       [date]="gpxReferenceDate()"
       label="Reference day"

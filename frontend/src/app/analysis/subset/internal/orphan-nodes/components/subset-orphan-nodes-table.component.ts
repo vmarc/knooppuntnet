@@ -16,10 +16,10 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
 import { SubsetOrphanNodesPageService } from '../subset-orphan-nodes-page.service';
 
 @Component({
-  selector: 'kpn-subset-orphan-nodes-table',
+  selector: 'ui-subset-orphan-nodes-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-edit-and-paginator
+    <ui-edit-and-paginator
       (edit)="edit()"
       i18n-editLinkTitle="@@subset-orphan-nodes.edit.title"
       editLinkTitle="Load the nodes in this page in JOSM"
@@ -40,8 +40,8 @@ import { SubsetOrphanNodesPageService } from '../subset-orphan-nodes-page.servic
       <ng-container matColumnDef="node">
         <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-nodes.table.node">Node</th>
         <td mat-cell *matCellDef="let node" class="kpn-align-center action-button-table-cell">
-          <kpn-action-button-node [nodeId]="node.id" />
-          <kpn-link-node [nodeId]="node.id" [nodeName]="node.name" />
+          <ui-action-button-node [nodeId]="node.id" />
+          <ui-link-node [nodeId]="node.id" [nodeName]="node.name" />
         </td>
       </ng-container>
 
@@ -66,7 +66,7 @@ import { SubsetOrphanNodesPageService } from '../subset-orphan-nodes-page.servic
           Last edit
         </th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
-          <kpn-day [timestamp]="node.lastUpdated" />
+          <ui-day [timestamp]="node.lastUpdated" />
         </td>
       </ng-container>
 

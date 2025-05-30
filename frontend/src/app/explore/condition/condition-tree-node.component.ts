@@ -12,11 +12,11 @@ import { ConditionComponent } from './condition.component';
 import { ConditionService } from './condition.service';
 
 @Component({
-  selector: 'kpn-condition-tree-node',
+  selector: 'ui-condition-tree-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form [formGroup]="form()">
-      <kpn-condition-group
+      <ui-condition-group
         [form]="form()"
         [removeEnabled]="!root()"
         (add)="add($event)"
@@ -30,11 +30,11 @@ import { ConditionService } from './condition.service';
         ) {
           <li [formGroupName]="conditionIndex">
             @if (conditionForm.controls.subject.value !== 'group') {
-              <kpn-condition [form]="conditionForm" (remove)="removeCondition(conditionIndex)" />
+              <ui-condition [form]="conditionForm" (remove)="removeCondition(conditionIndex)" />
             } @else {
               @let groupForm = conditionForm.controls.group;
               <form [formGroup]="groupForm">
-                <kpn-condition-tree-node
+                <ui-condition-tree-node
                   [form]="groupForm"
                   (remove)="removeCondition(conditionIndex)"
                 />

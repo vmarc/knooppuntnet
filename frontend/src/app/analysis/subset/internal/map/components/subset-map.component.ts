@@ -7,7 +7,7 @@ import { SubsetMapService } from '../subset-map.service';
 import { SubsetMapPageService } from '../subset-map-page.service';
 
 @Component({
-  selector: 'kpn-subset-map',
+  selector: 'ui-subset-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <div [id]="service.mapId" class="kpn-map"></div> `,
   providers: [

@@ -6,19 +6,19 @@ import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-o
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
 
 @Component({
-  selector: 'kpn-monitor-group-page-menu',
+  selector: 'ui-monitor-group-page-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page-menu>
-      <kpn-page-menu-option
+    <ui-page-menu>
+      <ui-page-menu-option
         [link]="'/monitor/groups/' + groupName()"
         [active]="pageName() === 'routes'"
         i18n="@@monitor.group.menu.routes"
       >
         Routes
-      </kpn-page-menu-option>
-    </kpn-page-menu>
-    <kpn-error />
+      </ui-page-menu-option>
+    </ui-page-menu>
+    <ui-error />
   `,
   imports: [PageMenuComponent, PageMenuOptionComponent, ErrorComponent],
 })

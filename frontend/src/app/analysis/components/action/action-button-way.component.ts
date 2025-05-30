@@ -10,20 +10,20 @@ import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { ActionService } from './action.service';
 
 @Component({
-  selector: 'kpn-action-button-way',
+  selector: 'ui-action-button-way',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-action-button [nzDropdownMenu]="menu" />
+    <ui-action-button [nzDropdownMenu]="menu" />
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <kpn-action-menu-item (action)="josmLoad()">JOSM load way</kpn-action-menu-item>
-        <kpn-action-menu-item (action)="josmZoom()">JOSM zoom/pan to way</kpn-action-menu-item>
+        <ui-action-menu-item (action)="josmLoad()">JOSM load way</ui-action-menu-item>
+        <ui-action-menu-item (action)="josmZoom()">JOSM zoom/pan to way</ui-action-menu-item>
         <li nz-menu-divider></li>
-        <kpn-action-menu-item (action)="id()">Open in iD</kpn-action-menu-item>
-        <kpn-action-menu-item (action)="osm()">Open in openstreetmap.org</kpn-action-menu-item>
-        <kpn-action-menu-item (action)="deepHistory()">
+        <ui-action-menu-item (action)="id()">Open in iD</ui-action-menu-item>
+        <ui-action-menu-item (action)="osm()">Open in openstreetmap.org</ui-action-menu-item>
+        <ui-action-menu-item (action)="deepHistory()">
           Open in OSM Deep History
-        </kpn-action-menu-item>
+        </ui-action-menu-item>
       </ul>
     </nz-dropdown-menu>
   `,

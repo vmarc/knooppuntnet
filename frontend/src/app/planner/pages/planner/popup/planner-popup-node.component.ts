@@ -7,7 +7,7 @@ import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.c
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
 
 @Component({
-  selector: 'kpn-planner-popup-node',
+  selector: 'ui-planner-popup-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (response(); as response) {
@@ -18,7 +18,7 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
         </h2>
         <p>
           <span class="kpn-label" i18n="@@map.node-popup.last-updated">Last updated</span>
-          <kpn-timestamp [timestamp]="response.result.lastUpdated" />
+          <ui-timestamp [timestamp]="response.result.lastUpdated" />
         </p>
         <div>
           @if (response.result.networkReferences.length === 1) {
@@ -40,7 +40,7 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
             <span class="kpn-label" i18n="@@map.node-popup.routes">Routes</span>
             @for (ref of response.result.routeReferences; track ref) {
               <div class="reference">
-                <kpn-link-route
+                <ui-link-route
                   [routeId]="ref.id"
                   [routeName]="ref.name"
                   [routeType]="ref.routeType"

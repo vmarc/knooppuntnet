@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { SharedStateService } from '../../core/shared/shared-state.service';
 
 @Component({
-  selector: 'kpn-error',
+  selector: 'ui-error',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.httpError(); as httpError) {

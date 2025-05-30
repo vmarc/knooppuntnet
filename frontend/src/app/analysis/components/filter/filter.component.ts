@@ -7,20 +7,20 @@ import { FilterRadioGroupComponent } from './filter-radio-group.component';
 import { FilterTitleComponent } from './filter-title.component';
 
 @Component({
-  selector: 'kpn-filter',
+  selector: 'ui-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (filterOptions().isEmpty()) {
       <p style="margin: 2em">No filter options</p>
     } @else {
       <div class="filter">
-        <kpn-filter-title [filterOptions]="filterOptions()" />
+        <ui-filter-title [filterOptions]="filterOptions()" />
         @for (group of filterOptions().groups; track $index) {
           <div>
             @if (group.name === 'role') {
-              <kpn-filter-checkbox-group />
+              <ui-filter-checkbox-group />
             } @else {
-              <kpn-filter-radio-group [group]="group" />
+              <ui-filter-radio-group [group]="group" />
             }
           </div>
         }

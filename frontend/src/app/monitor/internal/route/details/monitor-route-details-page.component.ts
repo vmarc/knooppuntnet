@@ -15,19 +15,19 @@ import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-sum
 import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-timestamp.component';
 
 @Component({
-  selector: 'kpn-monitor-route-details-page',
+  selector: 'ui-monitor-route-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.state(); as state) {
-      <kpn-page>
-        <kpn-monitor-route-page-header
+      <ui-page>
+        <ui-monitor-route-page-header
           pageName="details"
           [groupName]="state.groupName"
           [routeName]="state.routeName"
           [routeDescription]="state.routeDescription"
         />
 
-        <kpn-monitor-admin-toggle />
+        <ui-monitor-admin-toggle />
 
         @if (state.response; as response) {
           @if (!response.result) {
@@ -35,33 +35,33 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
           }
 
           @if (response.result; as page) {
-            <kpn-data title="Summary" i18n-title="@@monitor.route.details.summary">
-              <kpn-monitor-route-details-summary [page]="page" />
-            </kpn-data>
+            <ui-data title="Summary" i18n-title="@@monitor.route.details.summary">
+              <ui-monitor-route-details-summary [page]="page" />
+            </ui-data>
 
-            <kpn-data title="Latest analysis" i18n-title="@@monitor.route.details.analysis">
-              <kpn-monitor-route-details-timestamp [page]="page" />
-            </kpn-data>
+            <ui-data title="Latest analysis" i18n-title="@@monitor.route.details.analysis">
+              <ui-monitor-route-details-timestamp [page]="page" />
+            </ui-data>
 
-            <kpn-data title="Reference" i18n-title="@@monitor.route.details.reference">
-              <kpn-monitor-route-details-reference [page]="page" />
-            </kpn-data>
+            <ui-data title="Reference" i18n-title="@@monitor.route.details.reference">
+              <ui-monitor-route-details-reference [page]="page" />
+            </ui-data>
 
             @if (page.relationId) {
-              <kpn-data title="Analysis" i18n-title="@@monitor.route.details.analysis">
-                <kpn-monitor-route-details-analysis [page]="page" />
-              </kpn-data>
+              <ui-data title="Analysis" i18n-title="@@monitor.route.details.analysis">
+                <ui-monitor-route-details-analysis [page]="page" />
+              </ui-data>
             }
             @if (page.comment) {
-              <kpn-data title="Comment" i18n-title="@@monitor.route.details.comment">
+              <ui-data title="Comment" i18n-title="@@monitor.route.details.comment">
                 <markdown [data]="page.comment" />
-              </kpn-data>
+              </ui-data>
             }
 
             @if (page.structureRows) {
-              <kpn-data title="Structure" i18n-title="@@monitor.route.details.structure" />
+              <ui-data title="Structure" i18n-title="@@monitor.route.details.structure" />
               <div class="structure">
-                <kpn-monitor-route-details-structure
+                <ui-monitor-route-details-structure
                   [admin]="service.admin()"
                   [groupName]="page.groupName"
                   [routeName]="page.routeName"
@@ -72,7 +72,7 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
             }
           }
         }
-      </kpn-page>
+      </ui-page>
     }
   `,
   styles: `

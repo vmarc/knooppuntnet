@@ -9,7 +9,7 @@ import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 
 @Component({
-  selector: 'kpn-location-selection-page-breadcrumb',
+  selector: 'ui-location-selection-page-breadcrumb',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (key(); as key) {
@@ -22,11 +22,11 @@ import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
         </nz-breadcrumb-item>
         <nz-breadcrumb-item>
           <a [routerLink]="'/analysis/' + key.routeType">
-            <kpn-route-type-name [routeType]="key.routeType" />
+            <ui-route-type-name [routeType]="key.routeType" />
           </a>
         </nz-breadcrumb-item>
         <nz-breadcrumb-item>
-          <kpn-country-name [country]="key.country" />
+          <ui-country-name [country]="key.country" />
         </nz-breadcrumb-item>
       </nz-breadcrumb>
     }

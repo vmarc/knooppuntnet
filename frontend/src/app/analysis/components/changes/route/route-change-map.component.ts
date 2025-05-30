@@ -11,7 +11,7 @@ import { MAP_SERVICE_TOKEN } from '@app/ol/services/openlayers-map-service';
 import { RouteChangeMapService } from './route-change-map.service';
 
 @Component({
-  selector: 'kpn-route-change-map',
+  selector: 'ui-route-change-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <div [id]="service.mapId" class="kpn-embedded-map"></div> `,
   providers: [

@@ -14,7 +14,7 @@ import { DayUtil } from '@app/shared/components/day-util';
 import { KpnDateAdapter } from '@app/shared/components/day/kpn-date-adapter';
 
 @Component({
-  selector: 'kpn-day-input',
+  selector: 'ui-day-input',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-form-field>

@@ -12,7 +12,7 @@ import { EditParameters } from '@app/analysis/components/edit/edit-parameters';
 import { EditService } from '@app/shared/components/edit.service';
 
 @Component({
-  selector: 'kpn-location-edit',
+  selector: 'ui-location-edit',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p>

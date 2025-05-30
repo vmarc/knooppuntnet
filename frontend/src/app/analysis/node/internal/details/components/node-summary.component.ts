@@ -10,7 +10,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { ActionButtonNodeComponent } from '../../../../components/action/action-button-node.component';
 
 @Component({
-  selector: 'kpn-node-summary',
+  selector: 'ui-node-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
@@ -27,12 +27,12 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
               </td>
               <td>
                 <div class="kpn-line">
-                  <kpn-route-type [routeType]="nodeName.routeType">
+                  <ui-route-type [routeType]="nodeName.routeType">
                     <span i18n="@@node.node" class="route-type">network node</span>
                     <span class="kpn-brackets">
-                      <kpn-route-scope-name [routeScope]="nodeName.routeScope" />
+                      <ui-route-scope-name [routeScope]="nodeName.routeScope" />
                     </span>
-                  </kpn-route-type>
+                  </ui-route-type>
                 </div>
               </td>
             </tr>
@@ -44,9 +44,9 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
         <div>
           @for (nodeName of nodeInfo().names; track nodeName) {
             <p>
-              <kpn-route-type [routeType]="nodeName.routeType">
+              <ui-route-type [routeType]="nodeName.routeType">
                 <span i18n="@@node.node" class="route-type">network node</span>
-              </kpn-route-type>
+              </ui-route-type>
             </p>
           }
         </div>
@@ -54,7 +54,7 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
 
       @if (nodeInfo().country) {
         <p>
-          <kpn-country-name [country]="nodeInfo().country" />
+          <ui-country-name [country]="nodeInfo().country" />
         </p>
       }
 
@@ -76,7 +76,7 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
 
       <div class="kpn-align-center">
         <span>{{ nodeInfo().id }}</span>
-        <kpn-action-button-node [nodeId]="nodeInfo().id" />
+        <ui-action-button-node [nodeId]="nodeInfo().id" />
       </div>
     </div>
   `,

@@ -12,7 +12,7 @@ import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
 import { CountryName } from './country-name';
 
 @Component({
-  selector: 'kpn-country-select',
+  selector: 'ui-country-select',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nz-select

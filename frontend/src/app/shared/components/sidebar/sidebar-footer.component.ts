@@ -9,7 +9,7 @@ import { UserLinkLogoutComponent } from '@app/shared/user/user-link-logout.compo
 import { UserLinkLoginComponent } from '@app/shared/user/user-link-login.component';
 
 @Component({
-  selector: 'kpn-sidebar-footer',
+  selector: 'ui-sidebar-footer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="footer">
@@ -31,11 +31,11 @@ import { UserLinkLoginComponent } from '@app/shared/user/user-link-login.compone
           <p>
             {{ user() }}
             <br />
-            <kpn-user-link-logout />
+            <ui-user-link-logout />
           </p>
         } @else {
           <p>
-            <kpn-user-link-login />
+            <ui-user-link-login />
           </p>
         }
       }

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MonitorRouteGapComponent } from './monitor-route-gap.component';
 
 @Component({
-  selector: 'kpn-monitor-route-gaps',
+  selector: 'ui-monitor-route-gaps',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- English only-->
@@ -17,7 +17,7 @@ import { MonitorRouteGapComponent } from './monitor-route-gap.component';
               {{ description }}
             </td>
             <td class="gap">
-              <kpn-monitor-route-gap [description]="description" [osmSegmentCount]="99" />
+              <ui-monitor-route-gap [description]="description" [osmSegmentCount]="99" />
             </td>
           </tr>
         }

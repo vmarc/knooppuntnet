@@ -6,7 +6,7 @@ import { TagDiffs } from '@api/common/diff/tag-diffs';
 import { TagDiffActionComponent } from './tag-diff-action.component';
 
 @Component({
-  selector: 'kpn-tag-diffs-table',
+  selector: 'ui-tag-diffs-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (tagDiffs()) {
@@ -24,7 +24,7 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
           @for (tagDiff of tagDiffs().mainTags; track $index) {
             <tr [ngClass]="{ same: tagDiff.action === 'same' }">
               <td>
-                <kpn-tag-diff-action [action]="tagDiff.action" />
+                <ui-tag-diff-action [action]="tagDiff.action" />
               </td>
               <td>{{ tagDiff.key }}</td>
               <td>{{ tagDiff.valueBefore }}</td>
@@ -41,7 +41,7 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
           @for (tagDiff of tagDiffs().extraTags; track $index) {
             <tr [ngClass]="{ same: tagDiff.action === 'same' }">
               <td>
-                <kpn-tag-diff-action [action]="tagDiff.action" />
+                <ui-tag-diff-action [action]="tagDiff.action" />
               </td>
               <td>{{ tagDiff.key }}</td>
               <td>{{ tagDiff.valueBefore }}</td>

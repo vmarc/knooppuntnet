@@ -7,11 +7,11 @@ import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ChangesPageService } from '../changes-page.service';
 
 @Component({
-  selector: 'kpn-changes-sidebar',
+  selector: 'ui-changes-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-analysis-strategy (strategyChange)="onStrategyChange()" />
-    <kpn-change-filter
+    <ui-analysis-strategy (strategyChange)="onStrategyChange()" />
+    <ui-change-filter
       [filterOptions]="service.filterOptions()"
       (optionSelected)="onOptionSelected($event)"
     />

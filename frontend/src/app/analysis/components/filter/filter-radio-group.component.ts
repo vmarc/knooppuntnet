@@ -10,7 +10,7 @@ import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
 import { NzRadioComponent } from 'ng-zorro-antd/radio';
 
 @Component({
-  selector: 'kpn-filter-radio-group',
+  selector: 'ui-filter-radio-group',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>

@@ -7,7 +7,7 @@ import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.compo
 import { OsmLinkRelationComponent } from '@app/shared/components/link/osm-link-relation.component';
 
 @Component({
-  selector: 'kpn-cs-nc-relations-removed',
+  selector: 'ui-cs-nc-relations-removed',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (relationIds().length > 0) {
@@ -17,11 +17,11 @@ import { OsmLinkRelationComponent } from '@app/shared/components/link/osm-link-r
             Removed non-route relations
           </span>
           <span class="kpn-brackets kpn-thin">{{ relationIds().length }}</span>
-          <kpn-icon-happy />
+          <ui-icon-happy />
         </div>
         <div class="kpn-level-2-body kpn-comma-list">
           @for (relationId of relationIds(); track relationId) {
-            <kpn-osm-link-relation [relationId]="relationId" [title]="relationId.toString()" />
+            <ui-osm-link-relation [relationId]="relationId" [title]="relationId.toString()" />
           }
         </div>
       </div>

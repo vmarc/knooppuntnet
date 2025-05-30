@@ -11,7 +11,7 @@ import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
 import { LocationRoutesPageService } from '../location-routes-page.service';
 
 @Component({
-  selector: 'kpn-location-routes-filter',
+  selector: 'ui-location-routes-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (store.response(); as response) {

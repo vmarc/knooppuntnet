@@ -7,14 +7,14 @@ import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.compo
 import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
 
 @Component({
-  selector: 'kpn-subset-network-happy',
+  selector: 'ui-subset-network-happy',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (interpretedNetwork.happy()) {
-      <kpn-icon-happy />
+      <ui-icon-happy />
     }
     @if (interpretedNetwork.veryHappy()) {
-      <kpn-icon-happy class="very-happy" />
+      <ui-icon-happy class="very-happy" />
     }
   `,
   styles: `

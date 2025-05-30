@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
 
 @Component({
-  selector: 'kpn-page-menu-option',
+  selector: 'ui-page-menu-option',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a [routerLink]="link()" [ngClass]="{ active: active() }" [state]="state()" class="link">

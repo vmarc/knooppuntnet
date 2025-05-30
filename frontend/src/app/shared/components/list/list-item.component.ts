@@ -5,7 +5,7 @@ import { input } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 
 @Component({
-  selector: 'kpn-list-item',
+  selector: 'ui-list-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div

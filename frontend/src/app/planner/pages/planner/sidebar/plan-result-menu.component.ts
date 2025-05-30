@@ -5,7 +5,7 @@ import { State } from '@app/state/state';
 import { MapResultMode } from '@app/ol/services/map-result-mode';
 
 @Component({
-  selector: 'kpn-plan-result-menu',
+  selector: 'ui-plan-result-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (resultMode(); as resultMode) {

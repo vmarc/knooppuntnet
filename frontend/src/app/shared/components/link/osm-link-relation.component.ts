@@ -4,10 +4,10 @@ import { input } from '@angular/core';
 import { OsmLinkComponent } from './osm-link.component';
 
 @Component({
-  selector: 'kpn-osm-link-relation',
+  selector: 'ui-osm-link-relation',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-osm-link kind="relation" [elementId]="relationId().toString()" [title]="title()" />
+    <ui-osm-link kind="relation" [elementId]="relationId().toString()" [title]="title()" />
   `,
   imports: [OsmLinkComponent],
 })

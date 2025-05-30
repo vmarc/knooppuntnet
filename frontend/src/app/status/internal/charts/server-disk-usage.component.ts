@@ -6,7 +6,7 @@ import { ServerDiskUsageLegendComponent } from './server-disk-usage-legend.compo
 import { ServerDiskUsagePieChartComponent } from './server-disk-usage-pie-chart.component';
 
 @Component({
-  selector: 'kpn-server-disk-usage',
+  selector: 'ui-server-disk-usage',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- English only-->
@@ -14,22 +14,22 @@ import { ServerDiskUsagePieChartComponent } from './server-disk-usage-pie-chart.
     <div class="section">
       <p>Servers disk usage</p>
       <div class="charts">
-        <kpn-server-disk-usage-pie-chart
+        <ui-server-disk-usage-pie-chart
           [data]="diskUsage().frontend.data"
           title="frontend"
           total="180G"
         />
-        <kpn-server-disk-usage-pie-chart
+        <ui-server-disk-usage-pie-chart
           [data]="diskUsage().database.data"
           title="database"
           total="180G"
         />
-        <kpn-server-disk-usage-pie-chart
+        <ui-server-disk-usage-pie-chart
           [data]="diskUsage().backend.data"
           title="backend"
           total="800G"
         />
-        <kpn-server-disk-usage-legend />
+        <ui-server-disk-usage-legend />
       </div>
     </div>
   `,

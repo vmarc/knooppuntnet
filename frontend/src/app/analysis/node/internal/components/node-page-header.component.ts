@@ -8,36 +8,36 @@ import { PageHeaderComponent } from '@app/shared/components/page/page-header.com
 import { NodeService } from '../node.service';
 
 @Component({
-  selector: 'kpn-node-page-header',
+  selector: 'ui-node-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page-header [pageTitle]="service.nodeName()" subject="node-page">
+    <ui-page-header [pageTitle]="service.nodeName()" subject="node-page">
       <span i18n="@@node.title">Node</span>
       @if (service.nodeName()) {
         <span>&nbsp;{{ service.nodeName() }}</span>
       } @else {
         <span>&nbsp;{{ service.nodeId() }}</span>
       }
-    </kpn-page-header>
+    </ui-page-header>
 
-    <kpn-page-menu>
-      <kpn-page-menu-option
+    <ui-page-menu>
+      <ui-page-menu-option
         [link]="linkNodeDetails()"
         [active]="pageName() === 'details'"
         i18n="@@node.menu.details"
       >
         Details
-      </kpn-page-menu-option>
+      </ui-page-menu-option>
 
-      <kpn-page-menu-option
+      <ui-page-menu-option
         [link]="linkNodeChanges()"
         [active]="pageName() === 'changes'"
         [elementCount]="service.changeCount()"
         i18n="@@node.menu.changes"
       >
         Changes
-      </kpn-page-menu-option>
-    </kpn-page-menu>
+      </ui-page-menu-option>
+    </ui-page-menu>
   `,
   imports: [PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })

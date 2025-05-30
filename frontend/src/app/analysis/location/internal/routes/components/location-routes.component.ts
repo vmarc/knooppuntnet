@@ -5,13 +5,13 @@ import { LocationRoutesPage } from '@api/common/location/location-routes-page';
 import { LocationRouteListComponent } from './location-route-list.component';
 
 @Component({
-  selector: 'kpn-location-routes',
+  selector: 'ui-location-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (page().routes.length === 0) {
       <div class="kpn-spacer-above" i18n="@@location-routes.no-routes">No routes</div>
     } @else {
-      <kpn-location-route-list
+      <ui-location-route-list
         [timeInfo]="page().timeInfo"
         [routes]="page().routes"
         [routeCount]="page().routeCount"

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'kpn-fact-route-not-backward',
+  selector: 'ui-fact-route-not-backward',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@fact.description.route-not-backward">

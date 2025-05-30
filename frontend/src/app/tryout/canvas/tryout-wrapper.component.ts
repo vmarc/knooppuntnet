@@ -14,12 +14,12 @@ import { Subscription } from 'rxjs';
 import { TryoutCanvasComponent } from './tryout-canvas.component';
 
 @Component({
-  selector: 'kpn-tryout-wrapper',
+  selector: 'ui-tryout-wrapper',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div #canvasWrapper class="canvasWrapper">
       @if (height() > 0) {
-        <kpn-tryout-canvas [height]="height()" [memberType]="memberType()" [link]="link()" />
+        <ui-tryout-canvas [height]="height()" [memberType]="memberType()" [link]="link()" />
       }
     </div>
   `,

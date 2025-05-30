@@ -29,25 +29,25 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
 import { ActionButtonWayComponent } from '../../../../components/action/action-button-way.component';
 
 @Component({
-  selector: 'kpn-subset-fact-details',
+  selector: 'ui-subset-fact-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (page().networks.length > 0) {
-      <kpn-old-expand-collapse [accordion]="accordion()" />
+      <ui-old-expand-collapse [accordion]="accordion()" />
       @if (fact(); as fact) {
         <mat-accordion multi>
           @for (networkFactRefs of page().networks; track networkFactRefs) {
             <mat-expansion-panel togglePosition="before">
               <mat-expansion-panel-header>
                 <div class="kpn-align-center">
-                  <kpn-icon-network />
+                  <ui-icon-network />
                   @if (networkFactRefs.networkId === 0) {
                     <!-- TODO add button to load all routes -->
                     <span i18n="@@subset-facts.orphan-routes" class="free-route-indent"
                       >Free routes</span
                     >
                   } @else {
-                    <kpn-action-button-network [relationId]="networkFactRefs.networkId" />
+                    <ui-action-button-network [relationId]="networkFactRefs.networkId" />
                   }
                   <div class="kpn-line">
                     @if (networkFactRefs.networkId !== 0) {
@@ -73,36 +73,36 @@ import { ActionButtonWayComponent } from '../../../../components/action/action-b
                   @for (ref of networkFactRefs.factRefs; track ref) {
                     <div class="kpn-align-center">
                       @if (fact.hasNodeRefs()) {
-                        <kpn-icon-node />
-                        <kpn-action-button-node [nodeId]="ref.id" />
-                        <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+                        <ui-icon-node />
+                        <ui-action-button-node [nodeId]="ref.id" />
+                        <ui-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
                       }
                       @if (fact.hasRouteRefs()) {
-                        <kpn-icon-route />
-                        <kpn-action-button-route
+                        <ui-icon-route />
+                        <ui-action-button-route
                           [routeType]="page().subsetInfo.routeType"
                           [relationId]="ref.id"
                         />
-                        <kpn-link-route
+                        <ui-link-route
                           [routeId]="ref.id"
                           [routeName]="ref.name"
                           [routeType]="page().subsetInfo.routeType"
                         />
                       }
                       @if (fact.hasOsmNodeRefs()) {
-                        <kpn-icon-node />
-                        <kpn-action-button-node [nodeId]="ref.id" />
-                        <kpn-osm-link-node [nodeId]="ref.id" [title]="ref.name" />
+                        <ui-icon-node />
+                        <ui-action-button-node [nodeId]="ref.id" />
+                        <ui-osm-link-node [nodeId]="ref.id" [title]="ref.name" />
                       }
                       @if (fact.hasOsmWayRefs()) {
-                        <kpn-icon-way />
-                        <kpn-action-button-way [wayId]="ref.id" />
-                        <kpn-osm-link-way [wayId]="ref.id" [title]="ref.name" />
+                        <ui-icon-way />
+                        <ui-action-button-way [wayId]="ref.id" />
+                        <ui-osm-link-way [wayId]="ref.id" [title]="ref.name" />
                       }
                       @if (fact.hasOsmRelationRefs()) {
-                        <kpn-icon-relation />
-                        <kpn-action-button-relation [relationId]="ref.id" />
-                        <kpn-osm-link-relation [relationId]="ref.id" [title]="ref.name" />
+                        <ui-icon-relation />
+                        <ui-action-button-relation [relationId]="ref.id" />
+                        <ui-osm-link-relation [relationId]="ref.id" [title]="ref.name" />
                       }
                     </div>
                   }

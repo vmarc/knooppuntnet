@@ -18,7 +18,7 @@ import { ExploreState } from '@app/state/explore-state';
 import { ConditionGroupForm } from './condition-controls';
 
 @Component({
-  selector: 'kpn-condition-group',
+  selector: 'ui-condition-group',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="group">

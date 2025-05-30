@@ -4,7 +4,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'kpn-dialog',
+  selector: 'ui-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button mat-icon-button class="close-button" mat-dialog-close>

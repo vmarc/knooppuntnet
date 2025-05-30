@@ -5,7 +5,7 @@ import { input } from '@angular/core';
 import { Fact } from '@api/common/fact';
 
 @Component({
-  selector: 'kpn-fact-name',
+  selector: 'ui-fact-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `{{ factName }}`,
 })

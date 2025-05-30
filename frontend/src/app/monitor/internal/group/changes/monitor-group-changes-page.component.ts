@@ -14,13 +14,13 @@ import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-
 import { MonitorGroupChangesPageService } from './monitor-group-changes-page.service';
 
 @Component({
-  selector: 'kpn-monitor-group-changes',
+  selector: 'ui-monitor-group-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <kpn-page>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -34,11 +34,11 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
       </nz-breadcrumb>
 
       @if (service.changesState(); as state) {
-        <kpn-page-header>
+        <ui-page-header>
           {{ state.groupDescription }}
-        </kpn-page-header>
+        </ui-page-header>
 
-        <kpn-monitor-group-page-menu pageName="changes" [groupName]="state.groupName" />
+        <ui-monitor-group-page-menu pageName="changes" [groupName]="state.groupName" />
 
         @if (state.response; as response) {
           @if (!response.result) {
@@ -54,7 +54,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
                 Impact
               </mat-slide-toggle>
 
-              <kpn-old-paginator
+              <ui-old-paginator
                 (pageIndexChange)="pageChanged($event)"
                 [pageIndex]="page.pageIndex"
                 [pageSize]="page.pageSize"
@@ -62,7 +62,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
                 [showPageSizeSelection]="true"
               />
 
-              <kpn-monitor-changes
+              <ui-monitor-changes
                 [pageSize]="page.pageSize"
                 [pageIndex]="page.pageIndex"
                 [changes]="page.changes"
@@ -71,7 +71,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
           }
         }
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [NavService, MonitorGroupChangesPageService],
   imports: [

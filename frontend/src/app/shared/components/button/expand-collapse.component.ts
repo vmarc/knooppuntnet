@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 
 @Component({
-  selector: 'kpn-expand-collapse',
+  selector: 'ui-expand-collapse',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-button-group">

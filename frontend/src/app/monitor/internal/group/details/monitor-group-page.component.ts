@@ -16,10 +16,10 @@ import { MonitorGroupPageService } from './monitor-group-page.service';
 import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.component';
 
 @Component({
-  selector: 'kpn-monitor-group-page',
+  selector: 'ui-monitor-group-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -33,20 +33,20 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
       </nz-breadcrumb>
 
       @if (service.state(); as state) {
-        <kpn-page-header [pageTitle]="pageTitle()">
+        <ui-page-header [pageTitle]="pageTitle()">
           <span class="kpn-label">{{ state.groupName }}</span>
           <span>{{ state.groupDescription }}</span>
-        </kpn-page-header>
+        </ui-page-header>
 
-        <kpn-monitor-group-page-menu pageName="routes" [groupName]="state.groupName" />
+        <ui-monitor-group-page-menu pageName="routes" [groupName]="state.groupName" />
 
-        <kpn-monitor-admin-toggle />
+        <ui-monitor-admin-toggle />
 
         @if (state.response; as response) {
           <div class="kpn-form">
             @if (response.result; as page) {
               @if (page.routes.length > 0) {
-                <kpn-monitor-group-route-table
+                <ui-monitor-group-route-table
                   [admin]="service.admin()"
                   [groupName]="page.groupName"
                   [routes]="page.routes"
@@ -71,7 +71,7 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
           </div>
         }
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [NavService, MonitorGroupPageService],
   imports: [

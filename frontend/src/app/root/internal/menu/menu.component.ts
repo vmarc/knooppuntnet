@@ -10,7 +10,7 @@ import { MenuTestActionsComponent } from './menu-test-actions.component';
 import { MenuTestLinksComponent } from './menu-test-links.component';
 
 @Component({
-  selector: 'kpn-menu',
+  selector: 'ui-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="main-menu">
@@ -41,9 +41,9 @@ import { MenuTestLinksComponent } from './menu-test-links.component';
     </div>
 
     <nz-divider />
-    <kpn-menu-test-links />
+    <ui-menu-test-links />
     <nz-divider />
-    <kpn-menu-test-actions />
+    <ui-menu-test-actions />
     <nz-divider />
   `,
   styles: `

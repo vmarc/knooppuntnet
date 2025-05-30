@@ -20,11 +20,11 @@ import { SubsetFactDetailsComponent } from './components/subset-fact-details.com
 import { SubsetFactDetailsPageService } from './subset-fact-details-page.service';
 
 @Component({
-  selector: 'kpn-subset-fact-details-page',
+  selector: 'ui-subset-fact-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-subset-page-header-block
+    <ui-page>
+      <ui-subset-page-header-block
         pageName="facts"
         pageTitle="Facts"
         i18n-pageTitle="@@subset-facts.title"
@@ -33,29 +33,29 @@ import { SubsetFactDetailsPageService } from './subset-fact-details-page.service
         <mat-card-header>
           <mat-card-title>
             <div class="kpn-line">
-              <kpn-fact-name [fact]="service.factDefinition().fact" />
-              <kpn-fact-level [factLevel]="service.factDefinition().level" />
+              <ui-fact-name [fact]="service.factDefinition().fact" />
+              <ui-fact-level [factLevel]="service.factDefinition().level" />
             </div>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <kpn-fact-description [factInfo]="factInfo()" />
+          <ui-fact-description [factInfo]="factInfo()" />
           @if (service.page(); as page) {
-            <kpn-subset-fact-details-summary [page]="page" />
+            <ui-subset-fact-details-summary [page]="page" />
           }
         </mat-card-content>
       </mat-card>
-      <kpn-error />
+      <ui-error />
       @if (service.response(); as response) {
         <div>
           @if (response.result) {
             <div>
-              <kpn-subset-fact-details [page]="response.result" />
+              <ui-subset-fact-details [page]="response.result" />
             </div>
           }
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   styleUrl: './subset-fact-details-page.component.scss',
   providers: [SubsetFactDetailsPageService, AnalysisStrategyService, RouterService],

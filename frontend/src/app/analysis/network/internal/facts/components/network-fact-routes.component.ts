@@ -8,14 +8,14 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
 import { ActionButtonRouteComponent } from '../../../../components/action/action-button-route.component';
 
 @Component({
-  selector: 'kpn-network-fact-routes',
+  selector: 'ui-network-fact-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (route of routes(); track route.id) {
       <div class="kpn-align-center">
-        <kpn-icon-route />
-        <kpn-action-button-route [routeType]="routeType()" [relationId]="route.id" />
-        <kpn-link-route [routeId]="route.id" [routeName]="route.name" [routeType]="routeType()" />
+        <ui-icon-route />
+        <ui-action-button-route [routeType]="routeType()" [relationId]="route.id" />
+        <ui-link-route [routeId]="route.id" [routeName]="route.name" [routeType]="routeType()" />
       </div>
     }
   `,

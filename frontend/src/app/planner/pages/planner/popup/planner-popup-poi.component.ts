@@ -11,7 +11,7 @@ import { ActionButtonWayComponent } from '@app/analysis/components/action/action
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
 
 @Component({
-  selector: 'kpn-planner-popup-poi',
+  selector: 'ui-planner-popup-poi',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (response(); as response) {
@@ -20,23 +20,23 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
       } @else {
         @if (response.result.analysis; as poi) {
           <div>
-            <kpn-poi-analysis [poi]="poi" />
+            <ui-poi-analysis [poi]="poi" />
             @if (poi.mainTags && poi.mainTags.length > 0) {
               <div class="item">
-                <kpn-tag-table [tags]="mainTags()" />
+                <ui-tag-table [tags]="mainTags()" />
               </div>
             }
             @if (poi.extraTags && poi.extraTags.length > 0) {
               <div class="item">
-                <kpn-tag-table [tags]="extraTags()" />
+                <ui-tag-table [tags]="extraTags()" />
               </div>
             }
             @if (response.result.elementType === 'node') {
-              <kpn-action-button-node [nodeId]="response.result.elementId" />
+              <ui-action-button-node [nodeId]="response.result.elementId" />
             } @else if (response.result.elementType === 'way') {
-              <kpn-action-button-way [wayId]="response.result.elementId" />
+              <ui-action-button-way [wayId]="response.result.elementId" />
             } @else if (response.result.elementType === 'relation') {
-              <kpn-action-button-relation [relationId]="response.result.elementId" />
+              <ui-action-button-relation [relationId]="response.result.elementId" />
             }
           </div>
         }

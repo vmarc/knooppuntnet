@@ -7,7 +7,7 @@ import { RouteStructureRow } from '@api/common/route/route-structure-row';
 import { RouteMemberComponent } from './route-member.component';
 
 @Component({
-  selector: 'kpn-route-members',
+  selector: 'ui-route-members',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
@@ -23,7 +23,7 @@ import { RouteMemberComponent } from './route-member.component';
         <div class="members">
           @for (row of rows(); track row; let rowIndex = $index) {
             @defer (on viewport) {
-              <kpn-route-member
+              <ui-route-member
                 [routeType]="routeType()"
                 [structureRow]="row"
                 [rowIndex]="rowIndex"

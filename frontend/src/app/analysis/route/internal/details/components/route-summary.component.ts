@@ -12,7 +12,7 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
 import { RouteLocationComponent } from './route-location.component';
 
 @Component({
-  selector: 'kpn-route-summary',
+  selector: 'ui-route-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
@@ -21,30 +21,30 @@ import { RouteLocationComponent } from './route-location.component';
       @if (route().summary.countries) {
         <p>
           @for (country of route().summary.countries; track country) {
-            <kpn-country-name [country]="country" />
+            <ui-country-name [country]="country" />
           }
         </p>
       }
 
       <div class="kpn-align-center">
         <span>{{ route().summary.id }}</span>
-        <kpn-action-button-route
+        <ui-action-button-route
           [routeType]="route().summary.routeTypes[0]"
           [relationId]="route().summary.id"
         />
       </div>
 
       <!-- TODO redesign routeTypes[0] -->
-      <kpn-route-location
+      <ui-route-location
         [routeType]="route().summary.routeTypes[0]"
         [locationCandidateInfos]="route().locationCandidateInfos"
       />
       @if (hasSymbol()) {
-        <kpn-symbol [description]="symbolDescription()" />
+        <ui-symbol [description]="symbolDescription()" />
       }
 
       @if (hasAdditionalInformation()) {
-        <kpn-divider />
+        <ui-divider />
       }
 
       @if (isRouteBroken()) {

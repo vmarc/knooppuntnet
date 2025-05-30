@@ -13,10 +13,10 @@ import { RouteMapService } from './components/route-map.service';
 import { RouteMapPageService } from './route-map-page.service';
 
 @Component({
-  selector: 'kpn-route-map-page',
+  selector: 'ui-route-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -29,16 +29,16 @@ import { RouteMapPageService } from './route-map-page.service';
         </nz-breadcrumb-item>
       </nz-breadcrumb>
 
-      <kpn-route-page-header pageName="map" />
+      <ui-route-page-header pageName="map" />
 
       @if (service.response(); as response) {
         @if (!response.result) {
           <div class="kpn-spacer-above" i18n="@@route.route-not-found">Route not found</div>
         } @else {
-          <kpn-route-map />
+          <ui-route-map />
         }
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [RouteMapPageService, RouterService, RouteMapService],
   imports: [

@@ -7,10 +7,10 @@ import { ChangeSetTagsComponent } from '@app/analysis/components/change-set/chan
 import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node/node-change-detail.component';
 
 @Component({
-  selector: 'kpn-node-change',
+  selector: 'ui-node-change',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-change-header
+    <ui-change-header
       [changeKey]="nodeChangeInfo().changeKey"
       [happy]="nodeChangeInfo().happy"
       [investigate]="nodeChangeInfo().investigate"
@@ -34,7 +34,7 @@ import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node
       </div>
     }
 
-    <kpn-change-set-tags [changeSetTags]="nodeChangeInfo().changeTags" />
+    <ui-change-set-tags [changeSetTags]="nodeChangeInfo().changeTags" />
 
     <div class="kpn-detail">
       <span i18n="@@node.version">Version</span>
@@ -44,7 +44,7 @@ import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node
       }
     </div>
 
-    <kpn-node-change-detail [nodeChangeInfo]="nodeChangeInfo()" />
+    <ui-node-change-detail [nodeChangeInfo]="nodeChangeInfo()" />
   `,
   imports: [ChangeHeaderComponent, ChangeSetTagsComponent, NodeChangeDetailComponent],
 })

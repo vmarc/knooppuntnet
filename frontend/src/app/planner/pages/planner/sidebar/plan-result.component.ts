@@ -8,16 +8,16 @@ import { PlanDetailedComponent } from './plan-detailed.component';
 import { PlanDistanceComponent } from './plan-distance.component';
 
 @Component({
-  selector: 'kpn-plan-result',
+  selector: 'ui-plan-result',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (plan(); as plan) {
-      <kpn-plan-distance [plan]="plan" />
+      <ui-plan-distance [plan]="plan" />
       @if (compact()) {
-        <kpn-plan-compact [plan]="plan" />
+        <ui-plan-compact [plan]="plan" />
       }
       @if (detailed()) {
-        <kpn-plan-detailed [plan]="plan" />
+        <ui-plan-detailed [plan]="plan" />
       }
     }
   `,

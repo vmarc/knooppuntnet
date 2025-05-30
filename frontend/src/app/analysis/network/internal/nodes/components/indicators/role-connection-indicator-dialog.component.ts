@@ -6,10 +6,10 @@ import { IndicatorDialogComponent } from '@app/shared/components/indicator/indic
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
-  selector: 'kpn-role-connection-indicator-dialog',
+  selector: 'ui-role-connection-indicator-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator-dialog
+    <ui-indicator-dialog
       letter="C"
       i18n-letter="@@role-connection-indicator.letter"
       [color]="color"
@@ -39,7 +39,7 @@ import { MarkdownModule } from 'ngx-markdown';
           }
         }
       </div>
-    </kpn-indicator-dialog>
+    </ui-indicator-dialog>
   `,
   imports: [IndicatorDialogComponent, MarkdownModule],
 })

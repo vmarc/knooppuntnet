@@ -11,7 +11,7 @@ import { DocLinkComponent } from '../link/doc-link.component';
 import { PageService } from '../page.service';
 
 @Component({
-  selector: 'kpn-page-header',
+  selector: 'ui-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="header">
@@ -19,7 +19,7 @@ import { PageService } from '../page.service';
         <ng-content />
       </h1>
       @if (subject()) {
-        <kpn-doc-link [subject]="subject()" />
+        <ui-doc-link [subject]="subject()" />
       }
     </div>
   `,

@@ -7,14 +7,14 @@ import { LinkNodeComponent } from '@app/shared/components/link/link-node.compone
 import { ActionButtonNodeComponent } from '../../../../components/action/action-button-node.component';
 
 @Component({
-  selector: 'kpn-network-fact-nodes',
+  selector: 'ui-network-fact-nodes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (node of nodes(); track node.id) {
       <div class="kpn-align-center">
-        <kpn-icon-node />
-        <kpn-action-button-node [nodeId]="node.id" />
-        <kpn-link-node [nodeId]="node.id" [nodeName]="node.name" />
+        <ui-icon-node />
+        <ui-action-button-node [nodeId]="node.id" />
+        <ui-link-node [nodeId]="node.id" [nodeName]="node.name" />
       </div>
     }
   `,

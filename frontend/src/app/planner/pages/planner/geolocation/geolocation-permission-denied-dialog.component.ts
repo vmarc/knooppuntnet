@@ -3,10 +3,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from '@app/shared/components/dialog/dialog.component';
 
 @Component({
-  selector: 'kpn-geolocation-permission-denied-dialog',
+  selector: 'ui-geolocation-permission-denied-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-dialog>
+    <ui-dialog>
       <div mat-dialog-title i18n="@@geolocation-dialog.permission-denied.title">
         Permission denied
       </div>
@@ -14,7 +14,7 @@ import { DialogComponent } from '@app/shared/components/dialog/dialog.component'
         We cannot determine your location. Knooppuntnet does not have the permission to access your
         location.
       </div>
-    </kpn-dialog>
+    </ui-dialog>
   `,
   imports: [DialogComponent, MatDialogModule],
 })

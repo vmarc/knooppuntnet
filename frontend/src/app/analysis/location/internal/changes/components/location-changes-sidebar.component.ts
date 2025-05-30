@@ -5,15 +5,15 @@ import { SidebarComponent } from '@app/shared/components/sidebar/sidebar.compone
 import { LocationChangesPageService } from '../location-changes-page.service';
 
 @Component({
-  selector: 'kpn-location-changes-sidebar',
+  selector: 'ui-location-changes-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-sidebar>
-      <kpn-change-filter
+    <ui-sidebar>
+      <ui-change-filter
         [filterOptions]="service.filterOptions()"
         (optionSelected)="onOptionSelected($event)"
       />
-    </kpn-sidebar>
+    </ui-sidebar>
   `,
   imports: [SidebarComponent, ChangeFilterComponent],
 })

@@ -12,7 +12,7 @@ import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
 import { NzRadioComponent } from 'ng-zorro-antd/radio';
 
 @Component({
-  selector: 'kpn-location-filter-fact',
+  selector: 'ui-location-filter-fact',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="filter">
@@ -24,7 +24,7 @@ import { NzRadioComponent } from 'ng-zorro-antd/radio';
               @if (option.name === 'all') {
                 {{ translate(option.name) }}
               } @else {
-                <kpn-fact-name [fact]="toFact(option.name)" />
+                <ui-fact-name [fact]="toFact(option.name)" />
               }
               <span class="kpn-brackets">{{ option.count }}</span>
             </label>

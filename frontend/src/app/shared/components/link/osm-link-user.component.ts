@@ -5,9 +5,9 @@ import { UserService } from '@app/shared/user/user.service';
 import { OsmLinkComponent } from './osm-link.component';
 
 @Component({
-  selector: 'kpn-osm-link-user',
+  selector: 'ui-osm-link-user',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <kpn-osm-link kind="user" [elementId]="user()" [title]="user()" /> `,
+  template: ` <ui-osm-link kind="user" [elementId]="user()" [title]="user()" /> `,
   imports: [OsmLinkComponent],
 })
 export class OsmLinkUserComponent {

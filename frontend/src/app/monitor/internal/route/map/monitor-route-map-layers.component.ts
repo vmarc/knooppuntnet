@@ -8,7 +8,7 @@ import { MonitorMapMode } from './monitor-map-mode';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
-  selector: 'kpn-monitor-route-map-layers',
+  selector: 'ui-monitor-route-map-layers',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="map-layers">
@@ -18,7 +18,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
         (change)="mapStateService.referenceVisibleChanged($event.checked)"
       >
         <div class="kpn-line">
-          <kpn-legend-line color="blue" />
+          <ui-legend-line color="blue" />
           @if (referenceType() === 'gpx' || referenceType() === 'multi-gpx') {
             <span i18n="@@monitor.route.map-layers.reference.gpx">GPX Reference</span>
           }
@@ -34,7 +34,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
         (change)="mapStateService.matchesVisibleChanged($event.checked)"
       >
         <div class="kpn-line">
-          <kpn-legend-line color="green" />
+          <ui-legend-line color="green" />
           @if (referenceType() === 'gpx' || referenceType() === 'multi-gpx') {
             <span i18n="@@monitor.route.map-layers.gpx-same-as-osm"> GPX same as OSM </span>
           }
@@ -50,7 +50,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
         (change)="mapStateService.deviationsVisibleChanged($event.checked)"
       >
         <div class="kpn-line">
-          <kpn-legend-line color="red" />
+          <ui-legend-line color="red" />
           @if (referenceType() === 'gpx' || referenceType() === 'multi-gpx') {
             <span i18n="@@monitor.route.map-layers.deviations.gpx">
               GPX where OSM is deviating
@@ -68,7 +68,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
         (change)="mapStateService.osmRelationVisibleChanged($event.checked)"
       >
         <div class="kpn-line">
-          <kpn-legend-line color="gold" />
+          <ui-legend-line color="gold" />
           <span i18n="@@monitor.route.map-layers.osm-relation"> OSM relation </span>
         </div>
       </mat-checkbox>

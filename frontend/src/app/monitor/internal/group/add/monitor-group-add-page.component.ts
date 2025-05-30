@@ -14,15 +14,15 @@ import { MonitorGroupNameComponent } from '../components/monitor-group-name.comp
 import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
 
 @Component({
-  selector: 'kpn-monitor-group-add-page',
+  selector: 'ui-monitor-group-add-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-monitor-group-breadcrumb />
+    <ui-page>
+      <ui-monitor-group-breadcrumb />
 
-      <kpn-page-header>
+      <ui-page-header>
         <ng-container i18n="@@monitor.group.add.title">Monitor - add group</ng-container>
-      </kpn-page-header>
+      </ui-page-header>
 
       <div class="kpn-comment">
         <p i18n="@@monitor.group.add.comment.1">
@@ -35,8 +35,8 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
       </div>
 
       <form [formGroup]="service.form" class="kpn-form" #ngForm="ngForm">
-        <kpn-monitor-group-name [ngForm]="ngForm" [name]="service.name" />
-        <kpn-monitor-group-description [ngForm]="ngForm" [description]="service.description" />
+        <ui-monitor-group-name [ngForm]="ngForm" [name]="service.name" />
+        <ui-monitor-group-description [ngForm]="ngForm" [description]="service.description" />
         <div class="kpn-form-buttons">
           <button
             mat-stroked-button
@@ -49,7 +49,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
           <a id="cancel" routerLink="/monitor">{{ cancelLinkText }}</a>
         </div>
       </form>
-    </kpn-page>
+    </ui-page>
   `,
   providers: [MonitorGroupAddPageService, NavService],
   imports: [

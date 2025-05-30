@@ -6,7 +6,7 @@ import { RouteScope } from '@api/common/route-scope';
 import { Translations } from '@app/shared/i18n/translations';
 
 @Component({
-  selector: 'kpn-route-scope-name',
+  selector: 'ui-route-scope-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `{{ routeScopeName() }}`,
 })

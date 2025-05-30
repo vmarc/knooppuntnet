@@ -7,12 +7,12 @@ import { NodeDiffsRemovedComponent } from './node-diffs-removed.component';
 import { NodeDiffsUpdatedComponent } from './node-diffs-updated.component';
 
 @Component({
-  selector: 'kpn-node-diffs',
+  selector: 'ui-node-diffs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-node-diffs-removed [data]="data()" />
-    <kpn-node-diffs-added [data]="data()" />
-    <kpn-node-diffs-updated [data]="data()" />
+    <ui-node-diffs-removed [data]="data()" />
+    <ui-node-diffs-added [data]="data()" />
+    <ui-node-diffs-updated [data]="data()" />
   `,
   imports: [NodeDiffsAddedComponent, NodeDiffsRemovedComponent, NodeDiffsUpdatedComponent],
 })

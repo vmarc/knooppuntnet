@@ -18,22 +18,22 @@ import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header
 import { SubsetChangesPageService } from './subset-changes-page.service';
 
 @Component({
-  selector: 'kpn-subset-changes-page',
+  selector: 'ui-subset-changes-page',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <kpn-page-filter>
-      <kpn-change-filter
+    <ui-page-filter>
+      <ui-change-filter
         [filterOptions]="filterOptions()"
         (optionSelected)="onOptionSelected($event)"
         filter
       />
-      <kpn-subset-page-header-block
+      <ui-subset-page-header-block
         pageName="changes"
         pageTitle="Changes"
         i18n-pageTitle="@@subset-changes.title"
       />
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
@@ -43,13 +43,13 @@ import { SubsetChangesPageService } from './subset-changes-page.service';
               contributors only.
             </p>
             <p>
-              <kpn-user-link-login />
+              <ui-user-link-login />
             </p>
           } @else {
             <p>
-              <kpn-situation-on [timestamp]="response.situationOn" />
+              <ui-situation-on [timestamp]="response.situationOn" />
             </p>
-            <kpn-changes
+            <ui-changes
               [impact]="service.impact()"
               [pageSize]="service.pageSize()"
               [pageIndex]="service.pageIndex()"
@@ -59,23 +59,23 @@ import { SubsetChangesPageService } from './subset-changes-page.service';
               [totalCount]="response.result.changeCount"
               [changeCount]="response.result.changes.length"
             >
-              <kpn-items>
+              <ui-items>
                 @for (changeSet of response.result.changes; track changeSet.rowIndex) {
-                  <kpn-item [index]="changeSet.rowIndex">
+                  <ui-item [index]="changeSet.rowIndex">
                     @if (changeSet.network) {
-                      <kpn-change-network-analysis-summary [changeSet]="changeSet" />
+                      <ui-change-network-analysis-summary [changeSet]="changeSet" />
                     }
                     @if (changeSet.location) {
-                      <kpn-change-location-analysis-summary [changeSet]="changeSet" />
+                      <ui-change-location-analysis-summary [changeSet]="changeSet" />
                     }
-                  </kpn-item>
+                  </ui-item>
                 }
-              </kpn-items>
-            </kpn-changes>
+              </ui-items>
+            </ui-changes>
           }
         </div>
       }
-    </kpn-page-filter>
+    </ui-page-filter>
   `,
   providers: [SubsetChangesPageService, RouterService],
   imports: [

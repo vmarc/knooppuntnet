@@ -6,17 +6,17 @@ import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.compo
 import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
 
 @Component({
-  selector: 'kpn-change-set-analysis',
+  selector: 'ui-change-set-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
       @if (detail().summary.happy) {
-        <kpn-icon-happy />
+        <ui-icon-happy />
         <span i18n="@@change-set.header.analysis.happy">
           This changeset brought improvements.
         </span>
       } @else if (detail().summary.investigate) {
-        <kpn-icon-investigate />
+        <ui-icon-investigate />
         <span i18n="@@change-set.header.analysis.investigate">
           Maybe this changeset is worth a closer look.
         </span>

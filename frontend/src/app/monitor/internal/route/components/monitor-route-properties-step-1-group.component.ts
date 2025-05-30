@@ -12,7 +12,7 @@ import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-monitor-route-properties-step-1-group',
+  selector: 'ui-monitor-route-properties-step-1-group',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <mat-form-field class="group">

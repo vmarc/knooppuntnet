@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { Tag } from '@api/custom/tag';
 
 @Component({
-  selector: 'kpn-tags-text',
+  selector: 'ui-tags-text',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (tag of tags(); track tag) {

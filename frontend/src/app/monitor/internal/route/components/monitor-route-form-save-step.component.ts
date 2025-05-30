@@ -9,7 +9,7 @@ import { MonitorRouteSaveStep } from '../monitor-route-save-step';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-monitor-route-form-save-step',
+  selector: 'ui-monitor-route-form-save-step',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <div #stepDiv class="kpn-line kpn-spacer-below">

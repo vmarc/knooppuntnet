@@ -16,7 +16,7 @@ import { RouteMemberImageComponent } from './route-member-image.component';
 import { RouteMemberNameComponent } from './route-member-name.component';
 
 @Component({
-  selector: 'kpn-route-member',
+  selector: 'ui-route-member',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let row = structureRow();
@@ -24,23 +24,23 @@ import { RouteMemberNameComponent } from './route-member-name.component';
       <div class="member-number">
         {{ rowIndex() + 1 }}
       </div>
-      <kpn-route-member-image [row]="row" />
+      <ui-route-member-image [row]="row" />
       <div class="member-details">
         <div class="first-line">
-          <kpn-route-member-id [structureRow]="row" />
+          <ui-route-member-id [structureRow]="row" />
           @if (row.role) {
             <span class="role" matTooltip="role" matTooltipPosition="after">
               {{ row.role }}
             </span>
           }
-          <kpn-route-member-name [structureRow]="row" />
-          <kpn-route-distance [structureRow]="row" />
+          <ui-route-member-name [structureRow]="row" />
+          <ui-route-distance [structureRow]="row" />
         </div>
         @if (row.way && row.way.nodes.length > 0) {
           <div>
             @for (node of row.way.nodes; track node) {
               <div class="kpn-line extra-line">
-                <kpn-link-node [nodeId]="node.id" [nodeName]="node.alternateName" />
+                <ui-link-node [nodeId]="node.id" [nodeName]="node.alternateName" />
                 @if (node.longName) {
                   <span>{{ node.longName }}</span>
                 }
@@ -51,7 +51,7 @@ import { RouteMemberNameComponent } from './route-member-name.component';
         }
         @if (row.relation) {
           @if (row.relation.symbol) {
-            <kpn-symbol [description]="row.relation.symbol" [width]="25" [height]="25" />
+            <ui-symbol [description]="row.relation.symbol" [width]="25" [height]="25" />
           }
         }
         @if (row.way) {
@@ -75,7 +75,7 @@ import { RouteMemberNameComponent } from './route-member-name.component';
         @if (routeType() === 'cycling') {
           @if (row.way) {
             @if (row.way.oneWayTags.length > 0) {
-              <kpn-tags-text [tags]="row.way.oneWayTags" />
+              <ui-tags-text [tags]="row.way.oneWayTags" />
             }
           }
         }

@@ -3,12 +3,12 @@ import { Component } from '@angular/core';
 import { PageComponent } from '../../../components/page/page.component';
 
 @Component({
-  selector: 'kpn-not-found-page',
+  selector: 'ui-not-found-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <h1 i18n="@@not-found.title">Not found</h1>
-    </kpn-page>
+    </ui-page>
   `,
   imports: [PageComponent],
 })

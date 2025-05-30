@@ -11,24 +11,24 @@ import { LocationMapComponent } from './components/location-map.component';
 import { LocationMapPageService } from './location-map-page.service';
 
 @Component({
-  selector: 'kpn-location-map-page',
+  selector: 'ui-location-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-location-page-header
+    <ui-page>
+      <ui-location-page-header
         pageName="map"
         pageTitle="Map"
         i18n-pageTitle="@@location-map.title"
       />
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.response(); as response) {
-        <kpn-location-response [response]="response">
-          <kpn-location-map />
-        </kpn-location-response>
+        <ui-location-response [response]="response">
+          <ui-location-map />
+        </ui-location-response>
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [LocationMapPageService, RouterService],
   imports: [

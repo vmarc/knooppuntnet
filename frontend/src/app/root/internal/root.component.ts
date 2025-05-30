@@ -14,11 +14,11 @@ import { RootService } from './root.service';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @Component({
-  selector: 'kpn-root',
+  selector: 'ui-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nz-layout>
-      <kpn-toolbar />
+      <ui-toolbar />
       <nz-content>
         @if (small()) {
           <div [ngClass]="{ hidden: hideText() }">
@@ -30,14 +30,14 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
                   </div>
                 </div>
                 <div class="text-panel-footer">
-                  <kpn-sidebar-footer />
+                  <ui-sidebar-footer />
                 </div>
               </div>
             </div>
           </div>
           <div [ngClass]="{ hidden: hideMap() }">
             <div class="map-panel-container content">
-              <kpn-map />
+              <ui-map />
             </div>
           </div>
         } @else {
@@ -49,12 +49,12 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
                     <ng-container *ngTemplateOutlet="text" />
                   </div>
                   <div class="text-panel-footer">
-                    <kpn-sidebar-footer />
+                    <ui-sidebar-footer />
                   </div>
                 </div>
               </as-split-area>
               <as-split-area size="40">
-                <kpn-map />
+                <ui-map />
               </as-split-area>
             </as-split>
           </div>

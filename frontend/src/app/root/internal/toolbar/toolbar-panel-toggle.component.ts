@@ -8,7 +8,7 @@ import { NzSegmentedOptions } from 'ng-zorro-antd/segmented';
 import { NzSegmentedComponent } from 'ng-zorro-antd/segmented';
 
 @Component({
-  selector: 'kpn-toolbar-panel-toggle',
+  selector: 'ui-toolbar-panel-toggle',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nz-segmented

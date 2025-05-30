@@ -14,12 +14,12 @@ import { setTag } from '@sentry/angular';
 import { RootPageComponent } from './root/internal/root.component';
 
 @Component({
-  selector: 'kpn-app',
+  selector: 'ui-app',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-root>
+    <ui-root>
       <router-outlet />
-    </kpn-root>
+    </ui-root>
   `,
   imports: [RootPageComponent, RouterOutlet],
 })

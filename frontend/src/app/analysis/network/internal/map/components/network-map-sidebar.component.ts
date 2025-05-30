@@ -6,7 +6,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { NetworkMapLegendIconComponent } from './network-map-legend-icon.component';
 
 @Component({
-  selector: 'kpn-network-map-sidebar',
+  selector: 'ui-network-map-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!--    @if (zoomLevel(); as zoomLevel) {-->
@@ -17,15 +17,15 @@ import { NetworkMapLegendIconComponent } from './network-map-legend-icon.compone
       <!--      @if (zoomLevel >= minZoom) {-->
       <div class="legend">
         <div>
-          <kpn-network-map-legend-icon color="rgb(0,200,0)" />
+          <ui-network-map-legend-icon color="rgb(0,200,0)" />
           <span i18n="@@network-map.side-bar.part-of-network">Part of network</span>
         </div>
         <div>
-          <kpn-network-map-legend-icon color="rgb(150,150,150)" />
+          <ui-network-map-legend-icon color="rgb(150,150,150)" />
           <span i18n="@@network-map.side-bar.not-part-of-network">Not part of network</span>
         </div>
         <div>
-          <kpn-network-map-legend-icon color="rgb(255,150,0)" />
+          <ui-network-map-legend-icon color="rgb(255,150,0)" />
           <span i18n="@@network-map.side-bar.connection">Connection</span>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 
 @Component({
-  selector: 'kpn-monitor-route-gpx-breadcrumb',
+  selector: 'ui-monitor-route-gpx-breadcrumb',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nz-breadcrumb>

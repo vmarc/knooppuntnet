@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'kpn-fact-lost-horse-node-tag',
+  selector: 'ui-fact-lost-horse-node-tag',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@fact.description.lost-horse-riding-node-tag">

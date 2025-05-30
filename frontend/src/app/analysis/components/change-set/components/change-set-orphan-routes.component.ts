@@ -6,7 +6,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ChangesSetElementRefsComponent } from './change-set-element-refs.component';
 
 @Component({
-  selector: 'kpn-change-set-orphan-routes',
+  selector: 'ui-change-set-orphan-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
@@ -14,7 +14,7 @@ import { ChangesSetElementRefsComponent } from './change-set-element-refs.compon
       <nz-icon [nzType]="routeType()" />
       <span i18n="@@change-set.orphan-routes">Free route(s)</span>
     </div>
-    <kpn-change-set-element-refs
+    <ui-change-set-element-refs
       [elementType]="'route'"
       [changeSetElementRefs]="subsetElementRefs().elementRefs"
     />

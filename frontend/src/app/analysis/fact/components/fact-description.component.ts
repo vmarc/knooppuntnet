@@ -50,147 +50,147 @@ import { FactUnexpectedIntegrityCheckComponent } from './descriptions/fact-unexp
 import { FactInfo } from './fact-info';
 
 @Component({
-  selector: 'kpn-fact-description',
+  selector: 'ui-fact-description',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @switch (factInfo().fact) {
       @case ('Added') {
-        <kpn-fact-added />
+        <ui-fact-added />
       }
       @case ('Deleted') {
-        <kpn-fact-deleted />
+        <ui-fact-deleted />
       }
       @case ('IntegrityCheckFailed') {
-        <kpn-fact-integrity-check-failed />
+        <ui-fact-integrity-check-failed />
       }
       @case ('IntegrityCheck') {
-        <kpn-fact-integrity-check />
+        <ui-fact-integrity-check />
       }
       @case ('LostBicycleNodeTag') {
-        <kpn-fact-lost-bicycle-node-tag />
+        <ui-fact-lost-bicycle-node-tag />
       }
       @case ('LostCanoeNodeTag') {
-        <kpn-fact-lost-canoe-node-tag />
+        <ui-fact-lost-canoe-node-tag />
       }
       @case ('LostHikingNodeTag') {
-        <kpn-fact-lost-hiking-node-tag />
+        <ui-fact-lost-hiking-node-tag />
       }
       @case ('LostHorseNodeTag') {
-        <kpn-fact-lost-horse-node-tag />
+        <ui-fact-lost-horse-node-tag />
       }
       @case ('LostInlineSkateNodeTag') {
-        <kpn-fact-lost-inline-skate-node-tag />
+        <ui-fact-lost-inline-skate-node-tag />
       }
       @case ('LostMotorboatNodeTag') {
-        <kpn-fact-lost-motorboat-node-tag />
+        <ui-fact-lost-motorboat-node-tag />
       }
       @case ('LostRouteTags') {
-        <kpn-fact-lost-route-tags />
+        <ui-fact-lost-route-tags />
       }
       @case ('NameMissing') {
-        <kpn-fact-name-missing />
+        <ui-fact-name-missing />
       }
       @case ('NetworkExtraMemberNode') {
-        <kpn-fact-network-extra-member-node />
+        <ui-fact-network-extra-member-node />
       }
       @case ('NetworkExtraMemberRelation') {
-        <kpn-fact-network-extra-member-relation />
+        <ui-fact-network-extra-member-relation />
       }
       @case ('NetworkExtraMemberWay') {
-        <kpn-fact-network-extra-member-way />
+        <ui-fact-network-extra-member-way />
       }
       @case ('NodeMemberMissing') {
-        <kpn-fact-node-member-missing />
+        <ui-fact-node-member-missing />
       }
       @case ('OrphanNode') {
-        <kpn-fact-orphan-node />
+        <ui-fact-orphan-node />
       }
       @case ('OrphanRoute') {
-        <kpn-fact-orphan-route />
+        <ui-fact-orphan-route />
       }
       @case ('RouteAnalysisFailed') {
-        <kpn-fact-route-analysis-failed />
+        <ui-fact-route-analysis-failed />
       }
       @case ('RouteBroken') {
-        <kpn-fact-route-broken />
+        <ui-fact-route-broken />
       }
       @case ('RouteFixmetodo') {
-        <kpn-fact-route-fixmetodo />
+        <ui-fact-route-fixmetodo />
       }
       @case ('RouteIncomplete') {
-        <kpn-fact-route-incomplete />
+        <ui-fact-route-incomplete />
       }
       @case ('RouteIncompleteOk') {
-        <kpn-fact-route-incomplete-ok />
+        <ui-fact-route-incomplete-ok />
       }
       @case ('RouteNameMissing') {
-        <kpn-fact-route-name-missing />
+        <ui-fact-route-name-missing />
       }
       @case ('RouteNodeMissingInWays') {
-        <kpn-fact-route-node-missing-in-ways />
+        <ui-fact-route-node-missing-in-ways />
       }
       @case ('RouteNodeNameMismatch') {
-        <kpn-fact-route-node-name-mismatch />
+        <ui-fact-route-node-name-mismatch />
       }
       @case ('RouteNotBackward') {
-        <kpn-fact-route-not-backward />
+        <ui-fact-route-not-backward />
       }
       @case ('RouteNotContinious') {
-        <kpn-fact-route-not-continious />
+        <ui-fact-route-not-continious />
       }
       @case ('RouteNotForward') {
-        <kpn-fact-route-not-forward />
+        <ui-fact-route-not-forward />
       }
       @case ('RouteNotOneWay') {
-        <kpn-fact-route-not-one-way />
+        <ui-fact-route-not-one-way />
       }
       @case ('RouteOneWay') {
-        <kpn-fact-route-one-way />
+        <ui-fact-route-one-way />
       }
       @case ('RouteOverlappingWays') {
-        <kpn-fact-route-overlapping-ways />
+        <ui-fact-route-overlapping-ways />
       }
       @case ('RouteRedundantNodes') {
-        <kpn-fact-route-redundant-nodes />
+        <ui-fact-route-redundant-nodes />
       }
       @case ('RouteSuspiciousWays') {
-        <kpn-fact-route-suspicious-ways />
+        <ui-fact-route-suspicious-ways />
       }
       @case ('RouteTagInvalid') {
-        <kpn-fact-route-tag-invalid />
+        <ui-fact-route-tag-invalid />
       }
       @case ('RouteTagMissing') {
-        <kpn-fact-route-tag-missing />
+        <ui-fact-route-tag-missing />
       }
       @case ('RouteInaccessible') {
-        <kpn-fact-route-inaccessible />
+        <ui-fact-route-inaccessible />
       }
       @case ('RouteUnexpectedNode') {
-        <kpn-fact-route-unexpected-node [factInfo]="factInfo()" />
+        <ui-fact-route-unexpected-node [factInfo]="factInfo()" />
       }
       @case ('RouteUnexpectedRelation') {
-        <kpn-fact-route-unexpected-relation [factInfo]="factInfo()" />
+        <ui-fact-route-unexpected-relation [factInfo]="factInfo()" />
       }
       @case ('RouteUnusedSegments') {
-        <kpn-fact-route-unused-segments />
+        <ui-fact-route-unused-segments />
       }
       @case ('RouteWithoutNodes') {
-        <kpn-fact-route-without-nodes />
+        <ui-fact-route-without-nodes />
       }
       @case ('RouteWithoutWays') {
-        <kpn-fact-route-without-ways />
+        <ui-fact-route-without-ways />
       }
       @case ('NodeInvalidSurveyDate') {
-        <kpn-fact-node-invalid-survey-date />
+        <ui-fact-node-invalid-survey-date />
       }
       @case ('RouteInvalidSurveyDate') {
-        <kpn-fact-route-invalid-survey-date />
+        <ui-fact-route-invalid-survey-date />
       }
       @case ('RouteNameDeprecatedNoteTag') {
-        <kpn-fact-route-deprected-note-tag />
+        <ui-fact-route-deprected-note-tag />
       }
       @case ('UnexpectedIntegrityCheck') {
-        <kpn-fact-unexpected-integrity-check />
+        <ui-fact-unexpected-integrity-check />
       }
       @default {
         <p i18n="@@fact.description-missing">{{ factInfo().fact }} description missing!!</p>

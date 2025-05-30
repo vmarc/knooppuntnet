@@ -9,7 +9,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
 
 @Component({
-  selector: 'kpn-toolbar-route-type-menu-item',
+  selector: 'ui-toolbar-route-type-menu-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <li nz-menu-item (click)="clicked()">

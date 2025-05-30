@@ -5,14 +5,14 @@ import { ConditionTreeComponent } from '../condition/condition-tree.component';
 import { SearchRoutesComponent } from './search-routes.component';
 
 @Component({
-  selector: 'kpn-search',
+  selector: 'ui-search',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-condition-tree />
+    <ui-condition-tree />
     <div class="kpn-spacer-above kpn-spacer-below">
-      <kpn-divider />
+      <ui-divider />
     </div>
-    <kpn-search-routes />
+    <ui-search-routes />
   `,
   imports: [ConditionTreeComponent, DividerComponent, SearchRoutesComponent],
 })

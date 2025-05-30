@@ -10,14 +10,14 @@ import { OverviewTableHeaderComponent } from './overview-table-header.component'
 import { OverviewTableRowComponent } from './overview-table-row.component';
 
 @Component({
-  selector: 'kpn-overview-table',
+  selector: 'ui-overview-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <table title="overview" class="kpn-table">
-      <kpn-overview-table-header />
+      <ui-overview-table-header />
       <tbody>
         @for (stat of stats; track stat) {
-          <kpn-overview-table-row [stat]="stat" />
+          <ui-overview-table-row [stat]="stat" />
         }
       </tbody>
     </table>

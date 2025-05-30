@@ -13,7 +13,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NetworkService } from '../network.service';
 
 @Component({
-  selector: 'kpn-network-page-header',
+  selector: 'ui-network-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nz-breadcrumb>
@@ -30,69 +30,69 @@ import { NetworkService } from '../network.service';
 
     @if (service.networkId(); as networkId) {
       @if (service.summary(); as summary) {
-        <kpn-page-header [pageTitle]="networkPageTitle(summary.name)" subject="network-page">
+        <ui-page-header [pageTitle]="networkPageTitle(summary.name)" subject="network-page">
           <span class="header-route-type-icon">
             <nz-icon [nzType]="summary.routeType" />
           </span>
           <span>
             {{ summary.name }}
           </span>
-        </kpn-page-header>
+        </ui-page-header>
 
-        <kpn-page-menu>
-          <kpn-page-menu-option
+        <ui-page-menu>
+          <ui-page-menu-option
             [link]="'/analysis/network/' + networkId"
             [active]="pageName() === 'details'"
             i18n="@@network-page.menu.details"
           >
             Details
-          </kpn-page-menu-option>
+          </ui-page-menu-option>
 
-          <kpn-page-menu-option
+          <ui-page-menu-option
             [link]="'/analysis/network/' + networkId + '/facts'"
             [active]="pageName() === 'facts'"
             [elementCount]="summary?.factCount"
             i18n="@@network-page.menu.facts"
           >
             Facts
-          </kpn-page-menu-option>
+          </ui-page-menu-option>
 
-          <kpn-page-menu-option
+          <ui-page-menu-option
             [link]="'/analysis/network/' + networkId + '/nodes'"
             [active]="pageName() === 'nodes'"
             [elementCount]="summary?.nodeCount"
             i18n="@@network-page.menu.nodes"
           >
             Nodes
-          </kpn-page-menu-option>
+          </ui-page-menu-option>
 
-          <kpn-page-menu-option
+          <ui-page-menu-option
             [link]="'/analysis/network/' + networkId + '/routes'"
             [active]="pageName() === 'routes'"
             [elementCount]="summary?.routeCount"
             i18n="@@network-page.menu.routes"
           >
             Routes
-          </kpn-page-menu-option>
+          </ui-page-menu-option>
 
-          <kpn-page-menu-option
+          <ui-page-menu-option
             [link]="'/analysis/network/' + networkId + '/map'"
             [active]="pageName() === 'map'"
             i18n="@@network-page.menu.map"
           >
             Map
-          </kpn-page-menu-option>
+          </ui-page-menu-option>
 
           <!-- [elementCount]="summary?.changeCount"-->
-          <kpn-page-menu-option
+          <ui-page-menu-option
             [link]="'/analysis/network/' + networkId + '/changes'"
             [active]="pageName() === 'changes'"
             [elementCount]="999"
             i18n="@@network-page.menu.changes"
           >
             Changes
-          </kpn-page-menu-option>
-        </kpn-page-menu>
+          </ui-page-menu-option>
+        </ui-page-menu>
       }
     }
   `,

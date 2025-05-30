@@ -16,11 +16,11 @@ import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteDeletePageService } from './monitor-route-delete-page.service';
 
 @Component({
-  selector: 'kpn-monitor-route-delete-page',
+  selector: 'ui-monitor-route-delete-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.state(); as state) {
-      <kpn-page>
+      <ui-page>
         <nz-breadcrumb>
           <nz-breadcrumb-item>
             <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -36,14 +36,14 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
           </nz-breadcrumb-item>
         </nz-breadcrumb>
 
-        <kpn-page-header [pageTitle]="pageTitle()">
+        <ui-page-header [pageTitle]="pageTitle()">
           <span class="kpn-label">{{ state.routeName }}</span>
           <span>{{ state.routeDescription }}</span>
-        </kpn-page-header>
+        </ui-page-header>
 
         <h2>{{ subtitle }}</h2>
 
-        <kpn-error />
+        <ui-error />
 
         <div class="kpn-form">
           <p i18n="@@monitor.route.delete.comment">Remove this route from the monitor.</p>
@@ -60,7 +60,7 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
             <a [routerLink]="state.groupLink">{{ cancelLinkText }}</a>
           </div>
         </div>
-      </kpn-page>
+      </ui-page>
     }
   `,
   providers: [MonitorRouteDeletePageService, NavService],

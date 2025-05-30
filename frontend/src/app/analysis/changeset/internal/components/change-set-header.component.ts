@@ -8,7 +8,7 @@ import { Util } from '@app/shared/components/util';
 import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
 
 @Component({
-  selector: 'kpn-change-set-header',
+  selector: 'ui-change-set-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <table class="kpn-table">
@@ -18,7 +18,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
           <td>
             <div class="kpn-line">
               <span>{{ detail().summary.key.changeSetId }}</span>
-              <kpn-osm-link-change-set [changeSetId]="detail().summary.key.changeSetId" />
+              <ui-osm-link-change-set [changeSetId]="detail().summary.key.changeSetId" />
               <span>
                 <a
                   class="external"
@@ -49,7 +49,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
         <tr>
           <td i18n="@@change-set.header.timestamp">Timestamp</td>
           <td>
-            <kpn-timestamp [timestamp]="detail().summary.key.timestamp" />
+            <ui-timestamp [timestamp]="detail().summary.key.timestamp" />
           </td>
         </tr>
         <tr>
@@ -69,7 +69,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
         <tr>
           <td i18n="@@change-set.header.analysis">Analysis</td>
           <td>
-            <kpn-change-set-analysis [detail]="detail()" />
+            <ui-change-set-analysis [detail]="detail()" />
           </td>
         </tr>
       </tbody>

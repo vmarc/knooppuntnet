@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
-  selector: 'kpn-page-menu',
+  selector: 'ui-page-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="menu-wrapper">

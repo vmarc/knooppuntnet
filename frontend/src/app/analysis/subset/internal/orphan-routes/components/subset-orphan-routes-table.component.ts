@@ -18,10 +18,10 @@ import { SubsetOrphanRoutesPageService } from '../subset-orphan-routes-page.serv
 import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analysis.component';
 
 @Component({
-  selector: 'kpn-subset-orphan-routes-table',
+  selector: 'ui-subset-orphan-routes-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-edit-and-paginator
+    <ui-edit-and-paginator
       (edit)="edit()"
       i18n-editLinkTitle="@@subset-orphan-routes.edit.title"
       editLinkTitle="Load the routes in this page in JOSM"
@@ -43,15 +43,15 @@ import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analys
           Analysis
         </th>
         <td mat-cell *matCellDef="let route">
-          <kpn-subset-orphan-route-analysis [route]="route" [routeType]="routeType()" />
+          <ui-subset-orphan-route-analysis [route]="route" [routeType]="routeType()" />
         </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-routes.table.name">Route</th>
         <td mat-cell *matCellDef="let route" class="kpn-align-center action-button-table-cell">
-          <kpn-action-button-route [routeType]="routeType()" [relationId]="route.id" />
-          <kpn-link-route [routeId]="route.id" [routeName]="route.name" [routeType]="routeType()" />
+          <ui-action-button-route [routeType]="routeType()" [relationId]="route.id" />
+          <ui-link-route [routeId]="route.id" [routeName]="route.name" [routeType]="routeType()" />
         </td>
       </ng-container>
 
@@ -78,7 +78,7 @@ import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analys
           Last edit
         </th>
         <td mat-cell *matCellDef="let route">
-          <kpn-day [timestamp]="route.lastUpdated" />
+          <ui-day [timestamp]="route.lastUpdated" />
         </td>
       </ng-container>
 

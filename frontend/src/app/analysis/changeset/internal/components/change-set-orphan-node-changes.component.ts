@@ -12,7 +12,7 @@ import { NodeDiffsData } from './node-diffs/node-diffs-data';
 import { NodeDiffsComponent } from './node-diffs/node-diffs.component';
 
 @Component({
-  selector: 'kpn-change-set-orphan-node-changes',
+  selector: 'ui-change-set-orphan-node-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (refs of detail().orphanNodeChanges; track refs) {
@@ -23,7 +23,7 @@ import { NodeDiffsComponent } from './node-diffs/node-diffs.component';
           <span i18n="@@change-set.orphan-nodes.title">Orphan nodes</span>
         </div>
         <div class="kpn-level-1-body">
-          <kpn-node-diffs [data]="nodeDiffs(refs)" />
+          <ui-node-diffs [data]="nodeDiffs(refs)" />
         </div>
       </div>
     }

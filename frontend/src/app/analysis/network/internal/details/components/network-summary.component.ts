@@ -9,7 +9,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { ActionButtonRelationComponent } from '../../../../components/action/action-button-relation.component';
 
 @Component({
-  selector: 'kpn-network-summary',
+  selector: 'ui-network-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (!page().active) {
@@ -34,7 +34,7 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
     }
 
     <p>
-      <kpn-country-name [country]="page().attributes.country" />
+      <ui-country-name [country]="page().attributes.country" />
     </p>
 
     @if (page().active && page().attributes.brokenRouteCount > 0) {
@@ -58,7 +58,7 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
 
     <div class="kpn-line">
       {{ page().attributes.id }}
-      <kpn-action-button-relation [relationId]="page().attributes.id" />
+      <ui-action-button-relation [relationId]="page().attributes.id" />
     </div>
   `,
   imports: [

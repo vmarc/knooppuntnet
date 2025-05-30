@@ -12,15 +12,15 @@ import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-bre
 import { MonitorGroupDeletePageService } from './monitor-group-delete-page.service';
 
 @Component({
-  selector: 'kpn-monitor-group-delete-page',
+  selector: 'ui-monitor-group-delete-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-monitor-group-breadcrumb />
+    <ui-page>
+      <ui-monitor-group-breadcrumb />
 
-      <kpn-page-header>
+      <ui-page-header>
         <ng-container i18n="@@monitor.group.delete.title">Monitor - delete group</ng-container>
-      </kpn-page-header>
+      </ui-page-header>
 
       @if (service.state(); as state) {
         @if (state.response; as response) {
@@ -65,7 +65,7 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
           }
         }
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [MonitorGroupDeletePageService, NavService],
   imports: [

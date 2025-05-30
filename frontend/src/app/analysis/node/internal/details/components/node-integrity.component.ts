@@ -9,7 +9,7 @@ import { RouteScopeNameComponent } from '@app/shared/components/route-scope-name
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
-  selector: 'kpn-node-integrity',
+  selector: 'ui-node-integrity',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (!integrity() || integrity().details.length === 0) {
@@ -30,17 +30,17 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
                     The expected number of routes ({{ detail.expectedRouteCount }}) matches the
                     number of routes found.
                   </span>
-                  <kpn-icon-happy />
+                  <ui-icon-happy />
                 } @else {
                   <span i18n="@@node.integrity.not-ok">
                     The actual number of routes in this node ({{ detail.routeRefs.length }}) does
                     not match the expected number of routes ({{ detail.expectedRouteCount }}).
                   </span>
-                  <kpn-icon-investigate />
+                  <ui-icon-investigate />
                 }
                 @if (mixedRouteScopes()) {
                   <span class="kpn-brackets kpn-thin">
-                    <kpn-route-scope-name [routeScope]="detail.routeScope" />
+                    <ui-route-scope-name [routeScope]="detail.routeScope" />
                   </span>
                 }
               </div>

@@ -4,7 +4,7 @@ import { Subsets } from '@app/shared/kpn/common/subsets';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
-  selector: 'kpn-overview-table-header',
+  selector: 'ui-overview-table-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <tr>

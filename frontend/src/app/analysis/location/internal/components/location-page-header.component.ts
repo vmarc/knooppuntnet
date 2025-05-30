@@ -15,75 +15,75 @@ import { LocationService } from '../location.service';
 import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.component';
 
 @Component({
-  selector: 'kpn-location-page-header',
+  selector: 'ui-location-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.key(); as key) {
-      <kpn-location-page-breadcrumb [locationKey]="key" />
-      <kpn-page-header [pageTitle]="fullPageTitle()" subject="location-page">
+      <ui-location-page-breadcrumb [locationKey]="key" />
+      <ui-page-header [pageTitle]="fullPageTitle()" subject="location-page">
         <span class="header-route-type-icon">
           <nz-icon [nzType]="key.routeType" />
         </span>
-        <kpn-route-type-name [routeType]="key.routeType" />&nbsp;
+        <ui-route-type-name [routeType]="key.routeType" />&nbsp;
         <span i18n="@@location-page.header.in">in</span>
         {{ locationName(key) | location }}
-      </kpn-page-header>
+      </ui-page-header>
       @if (service.summary(); as summary) {
-        <kpn-page-menu>
-          <kpn-page-menu-option
+        <ui-page-menu>
+          <ui-page-menu-option
             [link]="link(key, 'details')"
             [active]="pageName() === 'details'"
             i18n="@@location-page.menu.details"
           >
             Details
-          </kpn-page-menu-option>
-          <kpn-page-menu-option
+          </ui-page-menu-option>
+          <ui-page-menu-option
             [link]="link(key, 'nodes')"
             [active]="pageName() === 'nodes'"
             i18n="@@location-page.menu.nodes"
             [elementCount]="summary.nodeCount"
           >
             Nodes
-          </kpn-page-menu-option>
-          <kpn-page-menu-option
+          </ui-page-menu-option>
+          <ui-page-menu-option
             [link]="link(key, 'routes')"
             [active]="pageName() === 'routes'"
             i18n="@@location-page.menu.routes"
             [elementCount]="summary.routeCount"
           >
             Routes
-          </kpn-page-menu-option>
-          <kpn-page-menu-option
+          </ui-page-menu-option>
+          <ui-page-menu-option
             [link]="link(key, 'facts')"
             [active]="pageName() === 'facts'"
             i18n="@@location-page.menu.facts"
             [elementCount]="summary.factCount"
           >
             Facts
-          </kpn-page-menu-option>
-          <kpn-page-menu-option
+          </ui-page-menu-option>
+          <ui-page-menu-option
             [link]="link(key, 'map')"
             [active]="pageName() === 'map'"
             i18n="@@location-page.menu.map"
           >
             Map
-          </kpn-page-menu-option>
-          <kpn-page-menu-option
+          </ui-page-menu-option>
+          <ui-page-menu-option
             [link]="link(key, 'changes')"
             [active]="pageName() === 'changes'"
             i18n="@@location-page.menu.changes"
             [elementCount]="summary.changesCount"
           >
             Changes
-          </kpn-page-menu-option>
-          <kpn-page-menu-option
+          </ui-page-menu-option>
+          <ui-page-menu-option
             [link]="link(key, 'edit')"
             [active]="pageName() === 'edit'"
             i18n="@@location-page.menu.edit"
           >
             Load in editor
-          </kpn-page-menu-option>
-        </kpn-page-menu>
+          </ui-page-menu-option>
+        </ui-page-menu>
       }
     }
   `,

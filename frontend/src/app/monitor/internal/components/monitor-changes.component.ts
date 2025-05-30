@@ -10,17 +10,17 @@ import { ItemsComponent } from '@app/shared/components/items/items.component';
 import { MonitorChangeHeaderComponent } from './monitor-change-header.component';
 
 @Component({
-  selector: 'kpn-monitor-changes',
+  selector: 'ui-monitor-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <kpn-items>
+    <ui-items>
       @for (change of changes(); track $index) {
-        <kpn-item [index]="rowIndex($index)">
+        <ui-item [index]="rowIndex($index)">
           <div class="change-set">
-            <kpn-monitor-change-header [changeSet]="change" />
+            <ui-monitor-change-header [changeSet]="change" />
 
             <div>
               @if (change.groupDescription) {
@@ -73,21 +73,21 @@ import { MonitorChangeHeaderComponent } from './monitor-change-header.component'
               @if (change.resolvedNokSegmentCount > 0) {
                 <p class="kpn-line">
                   <span>Resolved deviations: {{ change.resolvedNokSegmentCount }}</span>
-                  <kpn-icon-happy />
+                  <ui-icon-happy />
                 </p>
               }
 
               @if (change.newNokSegmentCount > 0) {
                 <p class="kpn-line">
                   <span>New deviations: {{ change.newNokSegmentCount }}</span>
-                  <kpn-icon-investigate />
+                  <ui-icon-investigate />
                 </p>
               }
             </div>
           </div>
-        </kpn-item>
+        </ui-item>
       }
-    </kpn-items>
+    </ui-items>
   `,
   styles: `
     .change-set {

@@ -14,11 +14,11 @@ import { MonitorRouteFormComponent } from '../components/monitor-route-form.comp
 import { MonitorRouteUpdatePageService } from './monitor-route-update-page.service';
 
 @Component({
-  selector: 'kpn-monitor-route-update-page',
+  selector: 'ui-monitor-route-update-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.state(); as state) {
-      <kpn-page>
+      <ui-page>
         <nz-breadcrumb>
           <nz-breadcrumb-item>
             <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -34,24 +34,24 @@ import { MonitorRouteUpdatePageService } from './monitor-route-update-page.servi
           </nz-breadcrumb-item>
         </nz-breadcrumb>
 
-        <kpn-page-header [pageTitle]="pageTitle()">
+        <ui-page-header [pageTitle]="pageTitle()">
           <span class="kpn-label">{{ state.routeName }}</span>
           <span>{{ state.routeDescription }}</span>
-        </kpn-page-header>
+        </ui-page-header>
 
         <h2>{{ subtitle }}</h2>
 
-        <kpn-error />
+        <ui-error />
 
         @if (state.response; as response) {
-          <kpn-monitor-route-form
+          <ui-monitor-route-form
             mode="update"
             [groupName]="state.groupName"
             [initialProperties]="response.result.properties"
             [routeGroups]="response.result.groups"
           />
         }
-      </kpn-page>
+      </ui-page>
     }
   `,
   providers: [MonitorRouteUpdatePageService, NavService],

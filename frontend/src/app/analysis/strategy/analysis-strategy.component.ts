@@ -9,7 +9,7 @@ import { NzRadioComponent } from 'ng-zorro-antd/radio';
 import { AnalysisStrategyService } from './analysis-strategy.service';
 
 @Component({
-  selector: 'kpn-analysis-strategy',
+  selector: 'ui-analysis-strategy',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>Strategy</div>

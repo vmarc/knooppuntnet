@@ -10,27 +10,27 @@ import { ExploreService } from './explore.service';
 import { ScopeIconComponent } from './scope-icon.component';
 
 @Component({
-  selector: 'kpn-explore-routes',
+  selector: 'ui-explore-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (routes().length > 0) {
-      <kpn-divider />
+      <ui-divider />
       <div>
         <span>Routes</span>
         <span class="kpn-brackets">{{ routes().length }}</span>
       </div>
       <div>
-        <kpn-list>
+        <ui-list>
           @for (route of routes(); track route.routeId) {
-            <kpn-list-item [selected]="false">
+            <ui-list-item [selected]="false">
               <div class="kpn-line">
-                <kpn-scope-icon [scope]="route.scope" />
+                <ui-scope-icon [scope]="route.scope" />
                 <span>{{ route.name }}</span>
                 <span>({{ route.routeId }})</span>
               </div>
-            </kpn-list-item>
+            </ui-list-item>
           }
-        </kpn-list>
+        </ui-list>
       </div>
     }
   `,

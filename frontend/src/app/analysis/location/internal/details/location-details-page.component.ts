@@ -10,11 +10,11 @@ import { LocationDetailsComponent } from './components/location-details.componen
 import { LocationDetailsPageService } from './location-details-page.service';
 
 @Component({
-  selector: 'kpn-location-details-page',
+  selector: 'ui-location-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-location-page-header
+    <ui-page>
+      <ui-location-page-header
         pageName="details"
         pageTitle="Details"
         i18n-pageTitle="@@location-details.title"
@@ -25,11 +25,11 @@ import { LocationDetailsPageService } from './location-details-page.service';
           @if (!response.result) {
             <p i18n="@@location-page.location-not-found">Location not found</p>
           } @else {
-            <kpn-location-details [response]="response" />
+            <ui-location-details [response]="response" />
           }
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [LocationDetailsPageService, AnalysisStrategyService, RouterService],
   imports: [LocationDetailsComponent, LocationPageHeaderComponent, PageComponent],

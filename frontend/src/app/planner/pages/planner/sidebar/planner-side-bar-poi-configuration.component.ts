@@ -9,7 +9,7 @@ import { OldPoiService } from '@app/shared/services/old-poi.service';
 import { MapPoiConfigComponent } from './poi/map-poi-config.component';
 
 @Component({
-  selector: 'kpn-planner-sidebar-poi-configuration',
+  selector: 'ui-planner-sidebar-poi-configuration',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-expansion-panel>
@@ -32,7 +32,7 @@ import { MapPoiConfigComponent } from './poi/map-poi-config.component';
           <i i18n="@@planner.pois.zoom-in"> Zoom in to see the icons on the map. </i>
         </p>
 
-        <kpn-map-poi-config />
+        <ui-map-poi-config />
         <button mat-stroked-button i18n="@@planner.pois.reset">
           Reset configuration to default
         </button>

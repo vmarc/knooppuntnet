@@ -6,7 +6,7 @@ import { TagDiff } from '@api/common/diff/tag-diff';
 import { TagDiffs } from '@api/common/diff/tag-diffs';
 
 @Component({
-  selector: 'kpn-tag-diffs-text',
+  selector: 'ui-tag-diffs-text',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (deletedTagDiffs.length > 0) {

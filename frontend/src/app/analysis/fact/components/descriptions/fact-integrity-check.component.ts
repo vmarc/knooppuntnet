@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'kpn-fact-integrity-check',
+  selector: 'ui-fact-integrity-check',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@fact.description.integrity-check">

@@ -8,7 +8,7 @@ import { LocationModeService } from './location-mode.service';
 import { LocationSelectionMode } from './location-selection-mode';
 
 @Component({
-  selector: 'kpn-location-mode',
+  selector: 'ui-location-mode',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div i18n="@@analysis.location-side-bar.title">Location</div>

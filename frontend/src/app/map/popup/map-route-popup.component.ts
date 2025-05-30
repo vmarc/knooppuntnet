@@ -8,18 +8,18 @@ import { State } from '@app/state/state';
 import { ScopeIconComponent } from '@app/explore/scope-icon.component';
 
 @Component({
-  selector: 'kpn-map-route-popup',
+  selector: 'ui-map-route-popup',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="route-popup" [ngClass]="{ hidden: hide() }">
       @for (route of routes(); track route.routeId) {
         <div class="kpn-line">
-          <kpn-scope-icon [scope]="route.scope" />
+          <ui-scope-icon [scope]="route.scope" />
           <span>{{ route.name }}</span>
           <span>({{ route.routeId }})</span>
         </div>
       }
-      <kpn-divider />
+      <ui-divider />
       <div class="hint">Click for further details</div>
     </div>
   `,

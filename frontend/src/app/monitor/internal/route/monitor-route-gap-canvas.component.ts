@@ -7,7 +7,7 @@ import { input } from '@angular/core';
 import { MonitorRouteGapBuilder } from './monitor-route-gap-builder';
 
 @Component({
-  selector: 'kpn-monitor-route-gap-canvas',
+  selector: 'ui-monitor-route-gap-canvas',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<canvas #gapCanvas [height]="height" width="40"></canvas>',
   styles: `

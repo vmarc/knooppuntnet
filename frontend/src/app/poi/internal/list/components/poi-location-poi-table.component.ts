@@ -11,10 +11,10 @@ import { OldPaginatorComponent } from '@app/shared/components/paginator/old-pagi
 import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
 
 @Component({
-  selector: 'kpn-poi-location-poi-table',
+  selector: 'ui-poi-location-poi-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-paginator
+    <ui-old-paginator
       [pageIndex]="service.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="service.pageSize()"
@@ -81,7 +81,7 @@ import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
       <tr mat-row *matRowDef="let node; columns: displayedColumns()"></tr>
     </table>
 
-    <kpn-old-paginator
+    <ui-old-paginator
       [pageIndex]="service.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="service.pageSize()"

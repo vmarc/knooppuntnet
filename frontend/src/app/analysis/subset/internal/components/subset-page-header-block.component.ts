@@ -11,21 +11,21 @@ import { SubsetPageBreadcrumbComponent } from './subset-page-breadcrumb.componen
 import { SubsetPageMenuComponent } from './subset-page-menu.component';
 
 @Component({
-  selector: 'kpn-subset-page-header-block',
+  selector: 'ui-subset-page-header-block',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-subset-page-breadcrumb [subset]="subset()" [pageName]="pageName()" />
+    <ui-subset-page-breadcrumb [subset]="subset()" [pageName]="pageName()" />
 
-    <kpn-page-header [pageTitle]="subsetPageTitle()" [subject]="'subset-' + pageName() + '-page'">
+    <ui-page-header [pageTitle]="subsetPageTitle()" [subject]="'subset-' + pageName() + '-page'">
       <span class="header-route-type-icon">
         <nz-icon [nzType]="routeType()" />
       </span>
       <span>
         {{ subsetName() }}
       </span>
-    </kpn-page-header>
+    </ui-page-header>
 
-    <kpn-subset-page-menu [subset]="subset()" [subsetInfo]="subsetInfo()" [pageName]="pageName()" />
+    <ui-subset-page-menu [subset]="subset()" [subsetInfo]="subsetInfo()" [pageName]="pageName()" />
   `,
   imports: [
     NzIconDirective,

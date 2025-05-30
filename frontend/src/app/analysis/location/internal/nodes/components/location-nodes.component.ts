@@ -5,13 +5,13 @@ import { LocationNodesPage } from '@api/common/location/location-nodes-page';
 import { LocationNodeListComponent } from './location-node-list.component';
 
 @Component({
-  selector: 'kpn-location-nodes',
+  selector: 'ui-location-nodes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (page().nodes.length === 0) {
       <div class="kpn-spacer-above" i18n="@@location-nodes.no-nodes">No nodes</div>
     } @else {
-      <kpn-location-node-list
+      <ui-location-node-list
         [timeInfo]="page().timeInfo"
         [nodes]="page().nodes"
         [nodeCount]="page().nodeCount"

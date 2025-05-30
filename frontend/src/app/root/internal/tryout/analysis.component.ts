@@ -5,7 +5,7 @@ import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'kpn-analysis',
+  selector: 'ui-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button mat-icon-button routerLink="/">

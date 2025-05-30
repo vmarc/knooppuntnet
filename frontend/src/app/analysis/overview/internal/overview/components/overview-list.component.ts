@@ -9,11 +9,11 @@ import { OverviewConfigurationService } from './overview-configuration.service';
 import { OverviewListStatComponent } from './overview-list-stat.component';
 
 @Component({
-  selector: 'kpn-overview-list',
+  selector: 'ui-overview-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (stat of stats; track stat) {
-      <kpn-overview-list-stat [stat]="stat" />
+      <ui-overview-list-stat [stat]="stat" />
     }
   `,
   imports: [OverviewListStatComponent],

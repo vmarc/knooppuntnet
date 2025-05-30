@@ -8,7 +8,7 @@ import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
 import { ExploreMode } from '@app/explore/explore-mode';
 
 @Component({
-  selector: 'kpn-settings-menu-map-options',
+  selector: 'ui-settings-menu-map-options',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nz-radio-group [ngModel]="mode()" (ngModelChange)="modeChanged($event)">

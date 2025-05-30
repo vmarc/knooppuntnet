@@ -8,11 +8,11 @@ import { ChangesSetElementRefsComponent } from '@app/analysis/components/change-
 import { LocationPipe } from '@app/shared/components/format/location.pipe';
 
 @Component({
-  selector: 'kpn-location-change',
+  selector: 'ui-location-change',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="change-set">
-      <kpn-change-header
+      <ui-change-header
         [changeKey]="changeSet().key"
         [happy]="changeSet().happy"
         [investigate]="changeSet().investigate"
@@ -36,11 +36,11 @@ import { LocationPipe } from '@app/shared/components/format/location.pipe';
               }
             </div>
           </div>
-          <kpn-change-set-element-refs
+          <ui-change-set-element-refs
             [elementType]="'node'"
             [changeSetElementRefs]="locationChanges.nodeChanges"
           />
-          <kpn-change-set-element-refs
+          <ui-change-set-element-refs
             [elementType]="'route'"
             [changeSetElementRefs]="locationChanges.routeChanges"
           />

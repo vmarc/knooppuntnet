@@ -7,7 +7,7 @@ import { DataComponent } from '@app/shared/components/data/data.component';
 import { SymbolComponent } from '@app/symbol/symbol.component';
 
 @Component({
-  selector: 'kpn-monitor-route-info',
+  selector: 'ui-monitor-route-info',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (!routeInfo().active) {
@@ -34,37 +34,37 @@ import { SymbolComponent } from '@app/symbol/symbol.component';
 
         <div class="section-body">
           @if (routeInfo().ref) {
-            <kpn-data title="Ref" i18n-title="@@monitor.relation.ref">
+            <ui-data title="Ref" i18n-title="@@monitor.relation.ref">
               {{ routeInfo().ref }}
-            </kpn-data>
+            </ui-data>
           }
 
           @if (routeInfo().name) {
-            <kpn-data title="Name" i18n-title="@@monitor.relation.name">
+            <ui-data title="Name" i18n-title="@@monitor.relation.name">
               {{ routeInfo().name }}
-            </kpn-data>
+            </ui-data>
           }
 
           @if (routeInfo().from) {
-            <kpn-data title="From" i18n-title="@@monitor.relation.from">
+            <ui-data title="From" i18n-title="@@monitor.relation.from">
               {{ routeInfo().from }}
-            </kpn-data>
+            </ui-data>
           }
 
           @if (routeInfo().to) {
-            <kpn-data title="To" i18n-title="@@monitor.relation.to">
+            <ui-data title="To" i18n-title="@@monitor.relation.to">
               {{ routeInfo().to }}
-            </kpn-data>
+            </ui-data>
           }
 
           @if (routeInfo().operator) {
-            <kpn-data title="Operator" i18n-title="@@monitor.relation.operator">
+            <ui-data title="Operator" i18n-title="@@monitor.relation.operator">
               {{ routeInfo().operator }}
-            </kpn-data>
+            </ui-data>
           }
 
           @if (routeInfo().website) {
-            <kpn-data title="Website" i18n-title="@@monitor.relation.website">
+            <ui-data title="Website" i18n-title="@@monitor.relation.website">
               <a
                 class="external"
                 rel="nofollow noreferrer"
@@ -73,14 +73,14 @@ import { SymbolComponent } from '@app/symbol/symbol.component';
               >
                 {{ routeInfo().website }}
               </a>
-            </kpn-data>
+            </ui-data>
           }
 
           @if (routeInfo().symbol) {
-            <kpn-data title="Symbol" i18n-title="@@monitor.relation.symbol">
+            <ui-data title="Symbol" i18n-title="@@monitor.relation.symbol">
               <p>{{ routeInfo().symbol }}</p>
-              <kpn-symbol [description]="routeInfo().symbol" />
-            </kpn-data>
+              <ui-symbol [description]="routeInfo().symbol" />
+            </ui-data>
           }
         </div>
       </div>

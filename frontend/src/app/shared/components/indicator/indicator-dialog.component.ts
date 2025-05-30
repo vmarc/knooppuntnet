@@ -6,12 +6,12 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { IndicatorIconComponent } from './indicator-icon.component';
 
 @Component({
-  selector: 'kpn-indicator-dialog',
+  selector: 'ui-indicator-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-dialog>
+    <ui-dialog>
       <div mat-dialog-title class="title">
-        <kpn-indicator-icon [letter]="letter()" [color]="color()" />
+        <ui-indicator-icon [letter]="letter()" [color]="color()" />
         <div class="title-text">
           <ng-content select="[dialog-title]" />
         </div>
@@ -19,7 +19,7 @@ import { IndicatorIconComponent } from './indicator-icon.component';
       <div mat-dialog-content>
         <ng-content select="[dialog-body]" />
       </div>
-    </kpn-dialog>
+    </ui-dialog>
   `,
   styles: `
     .title {

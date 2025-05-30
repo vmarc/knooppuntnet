@@ -11,15 +11,15 @@ import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-pag
 import { MonitorRouteChangesPageService } from './monitor-route-changes-page.service';
 
 @Component({
-  selector: 'kpn-monitor-route-changes-page',
+  selector: 'ui-monitor-route-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
     @if (service.changesState(); as state) {
-      <kpn-page>
-        <kpn-monitor-route-page-header
+      <ui-page>
+        <ui-monitor-route-page-header
           pageName="changes"
           [groupName]="state.groupName"
           [routeName]="state.routeName"
@@ -38,7 +38,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
                   >Impact
                 </mat-slide-toggle>
 
-                <kpn-old-paginator
+                <ui-old-paginator
                   (pageIndexChange)="pageChanged($event)"
                   [pageIndex]="page.pageIndex"
                   [pageSize]="page.pageSize"
@@ -46,7 +46,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
                   [showPageSizeSelection]="true"
                 />
 
-                <kpn-monitor-changes
+                <ui-monitor-changes
                   [pageSize]="page.pageSize"
                   [pageIndex]="page.pageIndex"
                   [changes]="page.changes"
@@ -55,7 +55,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
             }
           </div>
         }
-      </kpn-page>
+      </ui-page>
     }
   `,
   providers: [MonitorRouteChangesPageService, NavService],

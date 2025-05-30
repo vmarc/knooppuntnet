@@ -9,10 +9,10 @@ import { IndicatorComponent } from '@app/shared/components/indicator/indicator.c
 import { ProposedIndicatorDialogComponent } from './proposed-indicator-dialog.component';
 
 @Component({
-  selector: 'kpn-proposed-indicator',
+  selector: 'ui-proposed-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator
+    <ui-indicator
       letter="P"
       i18n-letter="@@proposed-indicator.letter"
       [color]="color"

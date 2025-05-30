@@ -9,43 +9,43 @@ import { PageHeaderComponent } from '@app/shared/components/page/page-header.com
 import { RouteService } from '../route.service';
 
 @Component({
-  selector: 'kpn-route-page-header',
+  selector: 'ui-route-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page-header [pageTitle]="service.routeName()" subject="route-page">
+    <ui-page-header [pageTitle]="service.routeName()" subject="route-page">
       @if (service.routeName()) {
         <span>{{ service.routeName() }}</span>
       } @else {
         <span>{{ service.routeId() }}</span>
       }
-    </kpn-page-header>
+    </ui-page-header>
 
-    <kpn-page-menu>
-      <kpn-page-menu-option
+    <ui-page-menu>
+      <ui-page-menu-option
         [link]="linkRouteDetails()"
         [active]="pageName() === 'details'"
         i18n="@@route.menu.details"
       >
         Details
-      </kpn-page-menu-option>
+      </ui-page-menu-option>
 
-      <kpn-page-menu-option
+      <ui-page-menu-option
         [link]="linkRouteMap()"
         [active]="pageName() === 'map'"
         i18n="@@route.menu.map"
       >
         Map
-      </kpn-page-menu-option>
+      </ui-page-menu-option>
 
-      <kpn-page-menu-option
+      <ui-page-menu-option
         [link]="linkRouteChanges()"
         [active]="pageName() === 'changes'"
         [elementCount]="service.changeCount()"
         i18n="@@route.menu.changes"
       >
         Changes
-      </kpn-page-menu-option>
-    </kpn-page-menu>
+      </ui-page-menu-option>
+    </ui-page-menu>
   `,
   imports: [MatIconModule, PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })

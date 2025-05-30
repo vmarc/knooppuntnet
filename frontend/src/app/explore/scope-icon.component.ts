@@ -7,7 +7,7 @@ import { RouteScope } from '@api/common/route-scope';
 import { ExploreStyleStandard } from '../map/style/explore-style-standard';
 
 @Component({
-  selector: 'kpn-scope-icon',
+  selector: 'ui-scope-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div

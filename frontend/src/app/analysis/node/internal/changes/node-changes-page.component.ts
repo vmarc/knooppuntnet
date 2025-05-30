@@ -18,10 +18,10 @@ import { NodeChangeComponent } from './components/node-change.component';
 import { NodeChangesPageService } from './node-changes-page.service';
 
 @Component({
-  selector: 'kpn-node-changes-page',
+  selector: 'ui-node-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a>
@@ -34,9 +34,9 @@ import { NodeChangesPageService } from './node-changes-page.service';
         </nz-breadcrumb-item>
       </nz-breadcrumb>
 
-      <kpn-node-page-header pageName="changes" />
+      <ui-node-page-header pageName="changes" />
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
@@ -50,16 +50,16 @@ import { NodeChangesPageService } from './node-changes-page.service';
                   contributors only.
                 </p>
                 <p>
-                  <kpn-user-link-login />
+                  <ui-user-link-login />
                 </p>
               </div>
             } @else {
               @if (response.result; as page) {
                 <div>
                   <p>
-                    <kpn-situation-on [timestamp]="response.situationOn" />
+                    <ui-situation-on [timestamp]="response.situationOn" />
                   </p>
-                  <kpn-changes
+                  <ui-changes
                     [impact]="service.impact()"
                     [pageSize]="service.pageSize()"
                     [pageIndex]="service.pageIndex()"
@@ -69,14 +69,14 @@ import { NodeChangesPageService } from './node-changes-page.service';
                     [totalCount]="page.totalCount"
                     [changeCount]="page.changes.length"
                   >
-                    <kpn-items>
+                    <ui-items>
                       @for (nodeChangeInfo of page.changes; track nodeChangeInfo) {
-                        <kpn-item [index]="nodeChangeInfo.rowIndex">
-                          <kpn-node-change [nodeChangeInfo]="nodeChangeInfo" />
-                        </kpn-item>
+                        <ui-item [index]="nodeChangeInfo.rowIndex">
+                          <ui-node-change [nodeChangeInfo]="nodeChangeInfo" />
+                        </ui-item>
                       }
-                    </kpn-items>
-                  </kpn-changes>
+                    </ui-items>
+                  </ui-changes>
                 </div>
               }
             }
@@ -84,9 +84,9 @@ import { NodeChangesPageService } from './node-changes-page.service';
               @if (response.result; as page) {
                 <div>
                   <p>
-                    <kpn-situation-on [timestamp]="response.situationOn" />
+                    <ui-situation-on [timestamp]="response.situationOn" />
                   </p>
-                  <kpn-changes
+                  <ui-changes
                     [impact]="service.impact()"
                     [pageSize]="service.pageSize()"
                     [pageIndex]="service.pageIndex()"
@@ -96,21 +96,21 @@ import { NodeChangesPageService } from './node-changes-page.service';
                     [totalCount]="page.totalCount"
                     [changeCount]="page.changes.length"
                   >
-                    <kpn-items>
+                    <ui-items>
                       @for (nodeChangeInfo of page.changes; track nodeChangeInfo) {
-                        <kpn-item [index]="nodeChangeInfo.rowIndex">
-                          <kpn-node-change [nodeChangeInfo]="nodeChangeInfo" />
-                        </kpn-item>
+                        <ui-item [index]="nodeChangeInfo.rowIndex">
+                          <ui-node-change [nodeChangeInfo]="nodeChangeInfo" />
+                        </ui-item>
                       }
-                    </kpn-items>
-                  </kpn-changes>
+                    </ui-items>
+                  </ui-changes>
                 </div>
               }
             </ng-template>
           }
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [NodeChangesPageService, RouterService],
   imports: [

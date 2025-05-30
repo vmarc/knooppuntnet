@@ -5,14 +5,14 @@ import { BarChart } from '@api/common/status/bar-chart';
 import { ActionBarChartComponent } from './action-bar-chart.component';
 
 @Component({
-  selector: 'kpn-replication-changesets-chart',
+  selector: 'ui-replication-changesets-chart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <h2>Replication changeset count</h2>
     <div class="chart">
-      <kpn-action-bar-chart
+      <ui-action-bar-chart
         [barChart]="barChart()"
         [xAxisLabel]="xAxisLabel()"
         yAxisLabel="Changesets"

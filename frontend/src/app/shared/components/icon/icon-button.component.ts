@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
-  selector: 'kpn-icon-button',
+  selector: 'ui-icon-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a [routerLink]="routerLink()">

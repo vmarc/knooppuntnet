@@ -25,10 +25,10 @@ import { NodeSummaryComponent } from './components/node-summary.component';
 import { NodeDetailsPageService } from './node-details-page.service';
 
 @Component({
-  selector: 'kpn-node-details-page',
+  selector: 'ui-node-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a>
@@ -41,9 +41,9 @@ import { NodeDetailsPageService } from './node-details-page.service';
         </nz-breadcrumb-item>
       </nz-breadcrumb>
 
-      <kpn-node-page-header pageName="details" />
+      <ui-node-page-header pageName="details" />
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
@@ -52,24 +52,24 @@ import { NodeDetailsPageService } from './node-details-page.service';
           }
           @if (response.result; as page) {
             <div>
-              <kpn-data title="Summary" i18n-title="@@node.summary">
-                <kpn-node-summary [nodeInfo]="page.nodeInfo" />
-              </kpn-data>
+              <ui-data title="Summary" i18n-title="@@node.summary">
+                <ui-node-summary [nodeInfo]="page.nodeInfo" />
+              </ui-data>
               <div class="data2">
                 <div class="title">
                   <span i18n="@@node.situation-on">Situation on</span>
                 </div>
                 <div class="body">
-                  <kpn-timestamp [timestamp]="response.situationOn" />
+                  <ui-timestamp [timestamp]="response.situationOn" />
                 </div>
               </div>
-              <kpn-data title="Last updated" i18n-title="@@node.last-updated">
-                <kpn-timestamp [timestamp]="page.nodeInfo.lastUpdated" />
-              </kpn-data>
-              <kpn-data title="Tags" i18n-title="@@node.tags">
-                <kpn-tag-table [tags]="buildTags(page)" />
-              </kpn-data>
-              <kpn-data title="Location" i18n-title="@@node.location">
+              <ui-data title="Last updated" i18n-title="@@node.last-updated">
+                <ui-timestamp [timestamp]="page.nodeInfo.lastUpdated" />
+              </ui-data>
+              <ui-data title="Tags" i18n-title="@@node.tags">
+                <ui-tag-table [tags]="buildTags(page)" />
+              </ui-data>
+              <ui-data title="Location" i18n-title="@@node.location">
                 @if (routeTypes(); as routeTypes) {
                   <div>
                     @if (routeTypes.length > 1) {
@@ -77,7 +77,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
                         @for (routeType of routeTypes; track routeType) {
                           <div class="kpn-line">
                             <nz-icon [nzType]="routeType" />
-                            <kpn-node-location
+                            <ui-node-location
                               [routeType]="routeType"
                               [locations]="page.nodeInfo.locations"
                             />
@@ -89,7 +89,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
                       <div>
                         @for (routeType of routeTypes; track routeType) {
                           <div>
-                            <kpn-node-location
+                            <ui-node-location
                               [routeType]="routeTypes[0]"
                               [locations]="page.nodeInfo.locations"
                             />
@@ -99,34 +99,34 @@ import { NodeDetailsPageService } from './node-details-page.service';
                     }
                   </div>
                 }
-              </kpn-data>
-              <kpn-data title="Integrity" i18n-title="@@node.integrity">
-                <kpn-node-integrity
+              </ui-data>
+              <ui-data title="Integrity" i18n-title="@@node.integrity">
+                <ui-node-integrity
                   [integrity]="page.integrity"
                   [mixedRouteScopes]="page.mixedRouteScopes"
                 />
-              </kpn-data>
-              <kpn-data title="Routes" i18n-title="@@node.routes">
-                <kpn-node-route-references
+              </ui-data>
+              <ui-data title="Routes" i18n-title="@@node.routes">
+                <ui-node-route-references
                   [references]="page.routeReferences"
                   [mixedRouteScopes]="page.mixedRouteScopes"
                 />
-              </kpn-data>
-              <kpn-data title="Networks" i18n-title="@@node.networks">
-                <kpn-node-network-references
+              </ui-data>
+              <ui-data title="Networks" i18n-title="@@node.networks">
+                <ui-node-network-references
                   [nodeInfo]="page.nodeInfo"
                   [references]="page.networkReferences"
                   [mixedRouteScopes]="page.mixedRouteScopes"
                 />
-              </kpn-data>
-              <kpn-data title="Facts" i18n-title="@@node.facts">
-                <kpn-facts [factInfos]="buildFactInfos(page)" />
-              </kpn-data>
+              </ui-data>
+              <ui-data title="Facts" i18n-title="@@node.facts">
+                <ui-facts [factInfos]="buildFactInfos(page)" />
+              </ui-data>
             </div>
           }
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   styleUrl: '../../../../shared/components/data/data.component.scss',
   providers: [NodeDetailsPageService, RouterService],

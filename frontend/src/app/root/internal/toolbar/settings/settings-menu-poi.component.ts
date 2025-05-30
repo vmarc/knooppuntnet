@@ -7,10 +7,10 @@ import { MenuItemCheckboxComponent } from './menu-item-checkbox.component';
 import { SettingsMenuPoiOptionComponent } from './settings-menu-poi-option.component';
 
 @Component({
-  selector: 'kpn-settings-menu-poi',
+  selector: 'ui-settings-menu-poi',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-menu-item-checkbox
+    <ui-menu-item-checkbox
       [value]="poiLayerEnabled()"
       (toggle)="togglePoiLayerEnabled()"
       i18n-label="@@poi.menu.pois"
@@ -18,47 +18,43 @@ import { SettingsMenuPoiOptionComponent } from './settings-menu-poi-option.compo
     />
 
     <div class="pois">
-      <kpn-settings-menu-poi-option
+      <ui-settings-menu-poi-option
         groupName="hiking-biking"
         i18n-label="@@poi.group.hiking-biking"
         label="Hiking/biking"
       />
-      <kpn-settings-menu-poi-option
+      <ui-settings-menu-poi-option
         groupName="landmarks"
         i18n-label="@@poi.group.landmarks"
         label="Landmarks"
       />
-      <kpn-settings-menu-poi-option
+      <ui-settings-menu-poi-option
         groupName="restaurants"
         i18n-label="@@poi.group.restaurants"
         label="Restaurants"
       />
-      <kpn-settings-menu-poi-option
+      <ui-settings-menu-poi-option
         groupName="places-to-stay"
         i18n-label="@@poi.group.places-to-stay"
         label="Places to stay"
       />
-      <kpn-settings-menu-poi-option
+      <ui-settings-menu-poi-option
         groupName="tourism"
         i18n-label="@@poi.group.tourism"
         label="Tourism"
       />
-      <kpn-settings-menu-poi-option
+      <ui-settings-menu-poi-option
         groupName="amenity"
         i18n-label="@@poi.group.amenity"
         label="Amenity"
       />
-      <kpn-settings-menu-poi-option
-        groupName="shops"
-        i18n-label="@@poi.group.shops"
-        label="Shops"
-      />
-      <kpn-settings-menu-poi-option
+      <ui-settings-menu-poi-option groupName="shops" i18n-label="@@poi.group.shops" label="Shops" />
+      <ui-settings-menu-poi-option
         groupName="foodshops"
         i18n-label="@@poi.group.foodshops"
         label="Foodshops"
       />
-      <kpn-settings-menu-poi-option
+      <ui-settings-menu-poi-option
         groupName="sports"
         i18n-label="@@poi.group.sports"
         label="Sports"

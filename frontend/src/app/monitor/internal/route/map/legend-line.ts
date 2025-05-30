@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { input } from '@angular/core';
 
 @Component({
-  selector: 'kpn-legend-line',
+  selector: 'ui-legend-line',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <svg height="3" width="25">

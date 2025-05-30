@@ -7,7 +7,7 @@ import { Translations } from '@app/shared/i18n/translations';
 import { Util } from './util';
 
 @Component({
-  selector: 'kpn-country-name',
+  selector: 'ui-country-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (country()) {

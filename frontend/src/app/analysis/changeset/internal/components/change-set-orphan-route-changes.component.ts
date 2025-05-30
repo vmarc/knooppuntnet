@@ -12,7 +12,7 @@ import { RouteDiffsData } from './route-diffs/route-diffs-data';
 import { RouteDiffsComponent } from './route-diffs/route-diffs.component';
 
 @Component({
-  selector: 'kpn-change-set-orphan-route-changes',
+  selector: 'ui-change-set-orphan-route-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (refs of detail().orphanRouteChanges; track refs) {
@@ -23,7 +23,7 @@ import { RouteDiffsComponent } from './route-diffs/route-diffs.component';
           <span i18n="@@change-set.orphan-routes.title">Free routes</span>
         </div>
         <div class="kpn-level-1-body">
-          <kpn-route-diffs [data]="routeDiffs(refs)" />
+          <ui-route-diffs [data]="routeDiffs(refs)" />
         </div>
       </div>
     }

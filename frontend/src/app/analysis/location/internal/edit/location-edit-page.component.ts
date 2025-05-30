@@ -12,21 +12,21 @@ import { LocationEditComponent } from './components/location-edit.component';
 import { LocationEditPageService } from './location-edit-page.service';
 
 @Component({
-  selector: 'kpn-location-edit-page',
+  selector: 'ui-location-edit-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-location-page-header
+    <ui-page>
+      <ui-location-page-header
         pageName="edit"
         pageTitle="Load in editor"
         i18n-pageTitle="@@location-edit.title"
       />
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
-          <kpn-location-response [situationOnEnabled]="false" [response]="response">
+          <ui-location-response [situationOnEnabled]="false" [response]="response">
             @if (response.result.tooManyNodes) {
               <p class="too-many-nodes" i18n="@@location-edit.too-many-nodes.1">
                 This location contains more than the maximum number of nodes ({{
@@ -41,9 +41,9 @@ import { LocationEditPageService } from './location-edit-page.service';
                 Please select a location with less nodes.
               </p>
             } @else {
-              <kpn-location-edit [page]="response.result" />
+              <ui-location-edit [page]="response.result" />
             }
-          </kpn-location-response>
+          </ui-location-response>
         </div>
       } @else {
         @if (noHttpError()) {
@@ -52,7 +52,7 @@ import { LocationEditPageService } from './location-edit-page.service';
           </p>
         }
       }
-    </kpn-page>
+    </ui-page>
   `,
   styles: `
     .too-many-nodes {

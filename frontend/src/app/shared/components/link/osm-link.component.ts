@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 
 @Component({
-  selector: 'kpn-osm-link',
+  selector: 'ui-osm-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a

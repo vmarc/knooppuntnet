@@ -6,16 +6,16 @@ import { ChangeHeaderComponent } from '@app/analysis/components/change-set/chang
 import { NetworkChangeComponent } from './network-change.component';
 
 @Component({
-  selector: 'kpn-network-change-set',
+  selector: 'ui-network-change-set',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-change-header
+    <ui-change-header
       [changeKey]="networkChangeInfo().key"
       [happy]="networkChangeInfo().happy"
       [investigate]="networkChangeInfo().investigate"
       [comment]="networkChangeInfo().comment"
     />
-    <kpn-network-change [networkChangeInfo]="networkChangeInfo()" />
+    <ui-network-change [networkChangeInfo]="networkChangeInfo()" />
   `,
   imports: [ChangeHeaderComponent, NetworkChangeComponent],
 })

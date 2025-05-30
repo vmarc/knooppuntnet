@@ -8,7 +8,7 @@ import { ZeroIntegerFormatPipe } from '@app/shared/components/format/zero-intege
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
-  selector: 'kpn-location-summary',
+  selector: 'ui-location-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span class="kpn-comma-list">

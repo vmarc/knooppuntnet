@@ -6,12 +6,12 @@ import { SidebarComponent } from '@app/shared/components/sidebar/sidebar.compone
 import { SubsetOrphanRoutesPageService } from '../subset-orphan-routes-page.service';
 
 @Component({
-  selector: 'kpn-subset-orphan-routes-sidebar',
+  selector: 'ui-subset-orphan-routes-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-sidebar>
-      <kpn-filter [filterOptions]="filterOptions()" />
-    </kpn-sidebar>
+    <ui-sidebar>
+      <ui-filter [filterOptions]="filterOptions()" />
+    </ui-sidebar>
   `,
   imports: [SidebarComponent, FilterComponent],
 })

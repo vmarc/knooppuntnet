@@ -10,11 +10,11 @@ import { MonitorRouteNameComponent } from './monitor-route-name.component';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-monitor-route-properties-step-2-name',
+  selector: 'ui-monitor-route-properties-step-2-name',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <kpn-monitor-route-name [ngForm]="ngForm()" [name]="name()" />
-    <kpn-monitor-route-description [ngForm]="ngForm()" [description]="description()" />
+    <ui-monitor-route-name [ngForm]="ngForm()" [name]="name()" />
+    <ui-monitor-route-description [ngForm]="ngForm()" [description]="description()" />
     <div class="kpn-button-group">
       @if (mode() === 'update') {
         <button id="step2-back" mat-stroked-button matStepperPrevious i18n="@@action.back">

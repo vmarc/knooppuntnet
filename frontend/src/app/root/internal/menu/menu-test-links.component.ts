@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'kpn-menu-test-links',
+  selector: 'ui-menu-test-links',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>

@@ -6,7 +6,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { FactInfo } from '../fact-info';
 
 @Component({
-  selector: 'kpn-fact-route-unexpected-relation',
+  selector: 'ui-fact-route-unexpected-relation',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown>
@@ -17,7 +17,7 @@ import { FactInfo } from '../fact-info';
       <span class="kpn-sentence">
         <span class="kpn-comma-list">
           @for (relationId of factInfo().unexpectedRelationIds; track $index) {
-            <kpn-osm-link-relation [relationId]="relationId" [title]="relationId.toString()" />
+            <ui-osm-link-relation [relationId]="relationId" [title]="relationId.toString()" />
           }
         </span>
       </span>

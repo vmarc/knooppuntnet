@@ -4,20 +4,20 @@ import { PoiConfigComponent } from './poi-config.component';
 import { PoiGroupComponent } from './poi-group.component';
 
 @Component({
-  selector: 'kpn-poi-group-restaurants',
+  selector: 'ui-poi-group-restaurants',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-poi-group name="restaurants" title="Restaurants" i18n-title="@@poi.group.restaurants">
-      <kpn-poi-config poiId="bar" />
-      <kpn-poi-config poiId="bbq" />
-      <kpn-poi-config poiId="biergarten" />
-      <kpn-poi-config poiId="cafe" />
-      <kpn-poi-config poiId="fastfood" />
-      <kpn-poi-config poiId="foodcourt" />
-      <kpn-poi-config poiId="icecream" />
-      <kpn-poi-config poiId="pub" />
-      <kpn-poi-config poiId="restaurant" />
-    </kpn-poi-group>
+    <ui-poi-group name="restaurants" title="Restaurants" i18n-title="@@poi.group.restaurants">
+      <ui-poi-config poiId="bar" />
+      <ui-poi-config poiId="bbq" />
+      <ui-poi-config poiId="biergarten" />
+      <ui-poi-config poiId="cafe" />
+      <ui-poi-config poiId="fastfood" />
+      <ui-poi-config poiId="foodcourt" />
+      <ui-poi-config poiId="icecream" />
+      <ui-poi-config poiId="pub" />
+      <ui-poi-config poiId="restaurant" />
+    </ui-poi-group>
   `,
   imports: [PoiGroupComponent, PoiConfigComponent],
 })

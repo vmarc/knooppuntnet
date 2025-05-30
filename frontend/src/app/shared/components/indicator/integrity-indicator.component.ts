@@ -8,10 +8,10 @@ import { IntegrityIndicatorData } from './integrity-indicator-data';
 import { IntegrityIndicatorDialogComponent } from './integrity-indicator-dialog.component';
 
 @Component({
-  selector: 'kpn-integrity-indicator',
+  selector: 'ui-integrity-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator
+    <ui-indicator
       letter="E"
       i18n-letter="@@integrity-indicator.letter"
       [color]="data().color()"

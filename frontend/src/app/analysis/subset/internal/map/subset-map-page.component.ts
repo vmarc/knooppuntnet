@@ -13,22 +13,22 @@ import { SubsetMapPageService } from './subset-map-page.service';
 import { SubsetMapService } from './subset-map.service';
 
 @Component({
-  selector: 'kpn-subset-map-page',
+  selector: 'ui-subset-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-subset-page-header-block
+    <ui-page>
+      <ui-subset-page-header-block
         pageName="map"
         pageTitle="Map"
         i18n-pageTitle="@@subset-map.title"
       />
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.response(); as response) {
-        <kpn-subset-map />
+        <ui-subset-map />
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [SubsetMapService, SubsetMapPageService, AnalysisStrategyService, RouterService],
   imports: [ErrorComponent, SubsetMapComponent, SubsetPageHeaderBlockComponent, PageComponent],

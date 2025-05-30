@@ -19,12 +19,12 @@ import { LogPageService } from './log-page.service';
 import { StatusPageMenuComponent } from './status-page-menu.component';
 
 @Component({
-  selector: 'kpn-log-page',
+  selector: 'ui-log-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    <kpn-page>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -40,27 +40,27 @@ import { StatusPageMenuComponent } from './status-page-menu.component';
       <h1>Log analysis</h1>
 
       @if (service.page(); as page) {
-        <kpn-status-page-menu [links]="service.statusLinks()" [periodType]="page.periodType" />
+        <ui-status-page-menu [links]="service.statusLinks()" [periodType]="page.periodType" />
         <div>
           <a [routerLink]="'TODO previous'" class="previous">previous</a>
           <a [routerLink]="'TODO next'">next</a>
         </div>
         <div class="chart-group">
           <h2>Analysis</h2>
-          <kpn-log-tile-chart [barChart]="page.tile" [xAxisLabel]="service.xAxisLabel" />
-          <kpn-log-tile-robot-chart [barChart]="page.tileRobot" [xAxisLabel]="service.xAxisLabel" />
-          <kpn-log-api-chart [barChart]="page.api" [xAxisLabel]="service.xAxisLabel" />
-          <kpn-log-api-robot-chart [barChart]="page.apiRobot" [xAxisLabel]="service.xAxisLabel" />
-          <kpn-log-analysis-chart [barChart]="page.analysis" [xAxisLabel]="service.xAxisLabel" />
-          <kpn-log-analysis-robot-chart
+          <ui-log-tile-chart [barChart]="page.tile" [xAxisLabel]="service.xAxisLabel" />
+          <ui-log-tile-robot-chart [barChart]="page.tileRobot" [xAxisLabel]="service.xAxisLabel" />
+          <ui-log-api-chart [barChart]="page.api" [xAxisLabel]="service.xAxisLabel" />
+          <ui-log-api-robot-chart [barChart]="page.apiRobot" [xAxisLabel]="service.xAxisLabel" />
+          <ui-log-analysis-chart [barChart]="page.analysis" [xAxisLabel]="service.xAxisLabel" />
+          <ui-log-analysis-robot-chart
             [barChart]="page.analysisRobot"
             [xAxisLabel]="service.xAxisLabel"
           />
-          <kpn-log-robot-chart [barChart]="page.robot" [xAxisLabel]="service.xAxisLabel" />
-          <kpn-log-non-robot-chart [barChart]="page.nonRobot" [xAxisLabel]="service.xAxisLabel" />
+          <ui-log-robot-chart [barChart]="page.robot" [xAxisLabel]="service.xAxisLabel" />
+          <ui-log-non-robot-chart [barChart]="page.nonRobot" [xAxisLabel]="service.xAxisLabel" />
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   styles: `
     .chart-group {

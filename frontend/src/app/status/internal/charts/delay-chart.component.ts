@@ -5,14 +5,14 @@ import { BarChart2D } from '@api/common/status/bar-chart2d';
 import { ActionBarChartStackedComponent } from './action-bar-chart-stacked.component';
 
 @Component({
-  selector: 'kpn-delay-chart',
+  selector: 'ui-delay-chart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <h2>Average delay</h2>
     <div class="chart">
-      <kpn-action-bar-chart-stacked
+      <ui-action-bar-chart-stacked
         [barChart]="barChart()"
         [xAxisLabel]="xAxisLabel()"
         yAxisLabel="Average delay"

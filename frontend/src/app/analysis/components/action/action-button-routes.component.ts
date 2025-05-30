@@ -9,16 +9,16 @@ import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { ActionService } from './action.service';
 
 @Component({
-  selector: 'kpn-action-button-routes',
+  selector: 'ui-action-button-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-action-button [nzDropdownMenu]="menu" />
+    <ui-action-button [nzDropdownMenu]="menu" />
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <kpn-action-menu-item (action)="josmLoad()">JOSM load route relation</kpn-action-menu-item>
-        <kpn-action-menu-item (action)="josmLoadFull()">
+        <ui-action-menu-item (action)="josmLoad()">JOSM load route relation</ui-action-menu-item>
+        <ui-action-menu-item (action)="josmLoadFull()">
           JOSM load relation and members
-        </kpn-action-menu-item>
+        </ui-action-menu-item>
       </ul>
     </nz-dropdown-menu>
   `,

@@ -7,7 +7,7 @@ import { RouteStructureRow } from '@api/common/route/route-structure-row';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 
 @Component({
-  selector: 'kpn-route-distance',
+  selector: 'ui-route-distance',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let row = structureRow();

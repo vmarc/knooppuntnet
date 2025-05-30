@@ -6,17 +6,17 @@ import { MenuItemCheckboxComponent } from './menu-item-checkbox.component';
 import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
 
 @Component({
-  selector: 'kpn-settings-menu-layers',
+  selector: 'ui-settings-menu-layers',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-menu-items">
       <div>
-        <kpn-menu-item-checkbox
+        <ui-menu-item-checkbox
           [value]="standardBackgroundLayerEnabled()"
           (toggle)="toggleStandardBackgroundLayerEnabled()"
           label="Standard background"
         />
-        <kpn-menu-item-checkbox
+        <ui-menu-item-checkbox
           [value]="osmBackgroundLayerEnabled()"
           (toggle)="toggleOsmBackgroundLayerEnabled()"
           label="OSM background"
@@ -24,7 +24,7 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
       </div>
       <div>
         @if (routeType() == 'hiking') {
-          <kpn-menu-item-checkbox
+          <ui-menu-item-checkbox
             [value]="routeLayerEnabled()"
             (toggle)="toggleRouteLayerEnabled()"
             i18n-label="@@route-type.hiking"
@@ -33,7 +33,7 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
         }
 
         @if (routeType() == 'cycling') {
-          <kpn-menu-item-checkbox
+          <ui-menu-item-checkbox
             [value]="routeLayerEnabled()"
             (toggle)="toggleRouteLayerEnabled()"
             i18n-label="@@network-type.cycling"
@@ -42,7 +42,7 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
         }
 
         @if (routeType() == 'horse-riding') {
-          <kpn-menu-item-checkbox
+          <ui-menu-item-checkbox
             [value]="routeLayerEnabled()"
             (toggle)="toggleRouteLayerEnabled()"
             i18n-label="@@network-type.horse-riding"
@@ -51,7 +51,7 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
         }
 
         @if (routeType() == 'motorboat') {
-          <kpn-menu-item-checkbox
+          <ui-menu-item-checkbox
             [value]="routeLayerEnabled()"
             (toggle)="toggleRouteLayerEnabled()"
             i18n-label="@@network-type.motorboat"
@@ -60,7 +60,7 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
         }
 
         @if (routeType() == 'canoe') {
-          <kpn-menu-item-checkbox
+          <ui-menu-item-checkbox
             [value]="routeLayerEnabled()"
             (toggle)="toggleRouteLayerEnabled()"
             i18n-label="@@network-type.canoe"
@@ -69,7 +69,7 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
         }
 
         @if (routeType() == 'hiking') {
-          <kpn-menu-item-checkbox
+          <ui-menu-item-checkbox
             [value]="flandersOpenDataLayerEnabled()"
             (toggle)="toggleFlandersOpenDataLayerEnabled()"
             i18n-label="@@map.layer.flanders-hiking"
@@ -78,7 +78,7 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
         }
 
         @if (routeType() == 'cycling') {
-          <kpn-menu-item-checkbox
+          <ui-menu-item-checkbox
             [value]="flandersOpenDataLayerEnabled()"
             (toggle)="toggleFlandersOpenDataLayerEnabled()"
             i18n-label="@@map.layer.flanders-cycling"
@@ -87,7 +87,7 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
         }
 
         @if (routeType() == 'hiking') {
-          <kpn-menu-item-checkbox
+          <ui-menu-item-checkbox
             [value]="netherlandsOpenDataLayerEnabled()"
             (toggle)="toggleNetherlandsOpenDataLayerEnabled()"
             i18n-label="@@map.layer.netherlands-hiking"
@@ -96,7 +96,7 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
         }
 
         @if (routeType() == 'cycling') {
-          <kpn-menu-item-checkbox
+          <ui-menu-item-checkbox
             [value]="netherlandsOpenDataLayerEnabled()"
             (toggle)="toggleNetherlandsOpenDataLayerEnabled()"
             i18n-label="@@map.layer.netherlands-cycling"
@@ -105,14 +105,14 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
         }
 
         @if (routeType() == 'hiking') {
-          <kpn-menu-item-checkbox
+          <ui-menu-item-checkbox
             [value]="franceOpenDataLayerEnabled()"
             (toggle)="toggleFranceOpenDataLayerEnabled()"
             label="Parc du Vercors"
           />
         }
 
-        <kpn-menu-item-checkbox
+        <ui-menu-item-checkbox
           [value]="gridLayerEnabled()"
           (toggle)="toggleGridLayerEnabled()"
           label="Grid"
@@ -120,7 +120,7 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
       </div>
 
       <div>
-        <kpn-settings-menu-poi />
+        <ui-settings-menu-poi />
       </div>
     </div>
   `,

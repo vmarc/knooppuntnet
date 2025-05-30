@@ -14,7 +14,7 @@ import { SymbolComponent } from '@app/symbol/symbol.component';
 import { ActionButtonRelationComponent } from '@app/analysis/components/action/action-button-relation.component';
 
 @Component({
-  selector: 'kpn-monitor-group-route-table',
+  selector: 'ui-monitor-group-route-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <table mat-table [dataSource]="routes()">
@@ -39,7 +39,7 @@ import { ActionButtonRelationComponent } from '@app/analysis/components/action/a
         </th>
         <td mat-cell *matCellDef="let route" class="action-button-table-cell">
           <div class="kpn-align-center">
-            <kpn-action-button-relation [relationId]="route.relationId" />
+            <ui-action-button-relation [relationId]="route.relationId" />
             <a [routerLink]="routeLink(route)" [state]="route">{{ route.name }}</a>
           </div>
         </td>
@@ -82,7 +82,7 @@ import { ActionButtonRelationComponent } from '@app/analysis/components/action/a
         <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.route-table.symbol">Symbol</th>
         <td mat-cell *matCellDef="let route" class="symbol">
           @if (route.symbol) {
-            <kpn-symbol [description]="route.symbol" [width]="25" [height]="25" />
+            <ui-symbol [description]="route.symbol" [width]="25" [height]="25" />
           }
         </td>
       </ng-container>

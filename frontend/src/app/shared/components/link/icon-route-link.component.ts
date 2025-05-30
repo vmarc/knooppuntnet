@@ -5,10 +5,10 @@ import { Reference } from '@api/common/common/reference';
 import { IconLinkComponent } from './icon-link.component';
 
 @Component({
-  selector: 'kpn-icon-route-link',
+  selector: 'ui-icon-route-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-icon-link
+    <ui-icon-link
       [reference]="reference()"
       [mixedRouteScopes]="mixedRouteScopes()"
       elementType="route"

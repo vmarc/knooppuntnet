@@ -7,7 +7,7 @@ import { IconInvestigateComponent } from '@app/shared/components/icon/icon-inves
 import { FactNameComponent } from '../../fact/components/fact-name.component';
 
 @Component({
-  selector: 'kpn-fact-diffs',
+  selector: 'ui-fact-diffs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (factDiffs()) {
@@ -16,7 +16,7 @@ import { FactNameComponent } from '../../fact/components/fact-name.component';
           @if (factDiffs().resolved.length === 1) {
             <div>
               <span i18n="@@fact-diffs.resolved-fact" class="kpn-label">Resolved fact</span>
-              <kpn-fact-name [fact]="factDiffs().resolved[0]" />
+              <ui-fact-name [fact]="factDiffs().resolved[0]" />
             </div>
           }
           @if (factDiffs().resolved.length > 1) {
@@ -25,13 +25,13 @@ import { FactNameComponent } from '../../fact/components/fact-name.component';
               <div class="kpn-comma-list">
                 @for (fact of factDiffs().resolved; track $index) {
                   <span>
-                    <kpn-fact-name [fact]="fact" />
+                    <ui-fact-name [fact]="fact" />
                   </span>
                 }
               </div>
             </div>
           }
-          <kpn-icon-happy />
+          <ui-icon-happy />
         </div>
       }
 
@@ -40,7 +40,7 @@ import { FactNameComponent } from '../../fact/components/fact-name.component';
           @if (factDiffs().introduced.length === 1) {
             <div>
               <span i18n="@@fact-diffs.introduced-fact" class="kpn-label">Introduced fact</span>
-              <kpn-fact-name [fact]="factDiffs().introduced[0]" />
+              <ui-fact-name [fact]="factDiffs().introduced[0]" />
             </div>
           }
           @if (factDiffs().introduced.length > 1) {
@@ -49,13 +49,13 @@ import { FactNameComponent } from '../../fact/components/fact-name.component';
               <div class="kpn-comma-list">
                 @for (fact of factDiffs().introduced; track $index) {
                   <span>
-                    <kpn-fact-name [fact]="fact" />
+                    <ui-fact-name [fact]="fact" />
                   </span>
                 }
               </div>
             </div>
           }
-          <kpn-icon-investigate />
+          <ui-icon-investigate />
         </div>
       }
 
@@ -64,7 +64,7 @@ import { FactNameComponent } from '../../fact/components/fact-name.component';
           @if (factDiffs().remaining.length === 1) {
             <div>
               <span i18n="@@fact-diffs.remaining-fact" class="kpn-label">Remaining fact</span>
-              <kpn-fact-name [fact]="factDiffs().remaining[0]" />
+              <ui-fact-name [fact]="factDiffs().remaining[0]" />
             </div>
           }
           @if (factDiffs().remaining.length > 1) {
@@ -73,7 +73,7 @@ import { FactNameComponent } from '../../fact/components/fact-name.component';
               <div class="kpn-comma-list">
                 @for (fact of factDiffs().remaining; track $index) {
                   <span>
-                    <kpn-fact-name [fact]="fact" />
+                    <ui-fact-name [fact]="fact" />
                   </span>
                 }
               </div>

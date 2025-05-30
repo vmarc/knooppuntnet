@@ -9,16 +9,16 @@ import { RouteChangeWayUpdatedComponent } from './route-change-way-updated.compo
 import { RouteDiffComponent } from './route-diff.component';
 
 @Component({
-  selector: 'kpn-route-change-detail',
+  selector: 'ui-route-change-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-route-diff [diffs]="routeChangeInfo().diffs" />
+    <ui-route-diff [diffs]="routeChangeInfo().diffs" />
 
     @if (!routeChangeInfo().geometryDiff) {
       <div class="kpn-detail" i18n="@@route-change.no-geometry-diff">No geometry change</div>
     } @else {
       <div class="kpn-detail">
-        <kpn-route-change-map
+        <ui-route-change-map
           [geometryDiff]="routeChangeInfo().geometryDiff"
           [nodeChanges]="routeChangeInfo().nodeChanges"
           [bounds]="routeChangeInfo().bounds"
@@ -27,15 +27,15 @@ import { RouteDiffComponent } from './route-diff.component';
     }
 
     @for (removedWayInfo of routeChangeInfo().wayDiffs.removed; track $index) {
-      <kpn-route-change-way-removed [wayInfo]="removedWayInfo" />
+      <ui-route-change-way-removed [wayInfo]="removedWayInfo" />
     }
 
     @for (addedWayInfo of routeChangeInfo().wayDiffs.added; track $index) {
-      <kpn-route-change-way-added [routeChangeInfo]="routeChangeInfo()" [wayInfo]="addedWayInfo" />
+      <ui-route-change-way-added [routeChangeInfo]="routeChangeInfo()" [wayInfo]="addedWayInfo" />
     }
 
     @for (wayUpdate of routeChangeInfo().wayDiffs.updated; track $index) {
-      <kpn-route-change-way-updated [wayUpdate]="wayUpdate" />
+      <ui-route-change-way-updated [wayUpdate]="wayUpdate" />
     }
   `,
   imports: [

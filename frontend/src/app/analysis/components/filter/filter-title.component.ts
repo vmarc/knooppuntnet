@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { FilterOptions } from '@app/shared/kpn/filter/filter-options';
 
 @Component({
-  selector: 'kpn-filter-title',
+  selector: 'ui-filter-title',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="row">

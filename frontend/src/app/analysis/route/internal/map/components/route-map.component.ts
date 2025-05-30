@@ -7,7 +7,7 @@ import { RouteMapPageService } from '../route-map-page.service';
 import { RouteMapService } from './route-map.service';
 
 @Component({
-  selector: 'kpn-route-map',
+  selector: 'ui-route-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <div [id]="routeMapService.mapId" class="kpn-map"></div> `,
   providers: [

@@ -11,19 +11,19 @@ import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.c
 import { NetworkSummaryComponent } from './network-summary.component';
 
 @Component({
-  selector: 'kpn-network-details',
+  selector: 'ui-network-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-data title="Summary" i18n-title="@@network-details.summary">
-      <kpn-network-summary [page]="response().result" />
-    </kpn-data>
+    <ui-data title="Summary" i18n-title="@@network-details.summary">
+      <ui-network-summary [page]="response().result" />
+    </ui-data>
 
     <div class="data2">
       <div class="title">
         <span i18n="@@network-details.situation-on">Situation on</span>
       </div>
       <div class="body">
-        <kpn-timestamp [timestamp]="response().situationOn" />
+        <ui-timestamp [timestamp]="response().situationOn" />
       </div>
     </div>
 
@@ -32,17 +32,17 @@ import { NetworkSummaryComponent } from './network-summary.component';
         <span i18n="@@network-details.last-updated">Last updated</span>
       </div>
       <div class="body">
-        <kpn-timestamp [timestamp]="response().result.attributes.lastUpdated" />
+        <ui-timestamp [timestamp]="response().result.attributes.lastUpdated" />
       </div>
     </div>
 
-    <kpn-data title="Relation last updated" i18n-title="@@network-details.relation-last-updated">
-      <kpn-timestamp [timestamp]="response().result.attributes.relationLastUpdated" />
-    </kpn-data>
+    <ui-data title="Relation last updated" i18n-title="@@network-details.relation-last-updated">
+      <ui-timestamp [timestamp]="response().result.attributes.relationLastUpdated" />
+    </ui-data>
 
-    <kpn-data title="Tags" i18n-title="@@network-details.tags">
-      <kpn-tag-table [tags]="tags" />
-    </kpn-data>
+    <ui-data title="Tags" i18n-title="@@network-details.tags">
+      <ui-tag-table [tags]="tags" />
+    </ui-data>
   `,
   styleUrl: '../../../../../shared/components/data/data.component.scss',
   imports: [DataComponent, NetworkSummaryComponent, TagTableComponent, TimestampComponent],

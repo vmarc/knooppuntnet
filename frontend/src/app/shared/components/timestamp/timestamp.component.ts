@@ -5,7 +5,7 @@ import { Timestamp } from '@api/custom/timestamp';
 import { TimestampPipe } from '../format/timestamp-pipe';
 
 @Component({
-  selector: 'kpn-timestamp',
+  selector: 'ui-timestamp',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` {{ timestamp() | yyyymmddhhmm }} `,
   imports: [TimestampPipe],

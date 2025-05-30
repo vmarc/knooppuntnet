@@ -7,16 +7,16 @@ import { ItemsComponent } from '@app/shared/components/items/items.component';
 import { SubsetNetworkComponent } from './subset-network.component';
 
 @Component({
-  selector: 'kpn-subset-network-list',
+  selector: 'ui-subset-network-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-items>
+    <ui-items>
       @for (network of networks(); track network; let i = $index) {
-        <kpn-item [index]="i">
-          <kpn-subset-network [network]="network" />
-        </kpn-item>
+        <ui-item [index]="i">
+          <ui-subset-network [network]="network" />
+        </ui-item>
       }
-    </kpn-items>
+    </ui-items>
   `,
   imports: [ItemsComponent, ItemComponent, SubsetNetworkComponent],
 })

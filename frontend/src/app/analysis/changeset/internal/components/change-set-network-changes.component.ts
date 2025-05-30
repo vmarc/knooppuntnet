@@ -13,7 +13,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { CsNcComponent } from './network/cs-nc.component';
 
 @Component({
-  selector: 'kpn-change-set-network-changes',
+  selector: 'ui-change-set-network-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (networkChangeInfo of detail().networkChanges; track networkChangeInfo) {
@@ -24,7 +24,7 @@ import { CsNcComponent } from './network/cs-nc.component';
           <div class="kpn-line">
             <nz-icon [nzType]="networkChangeInfo.routeType" />
             <span i18n="@@change-set.network-changes.network">Network</span>
-            <kpn-link-network-details
+            <ui-link-network-details
               [networkId]="networkChangeInfo.networkId"
               [routeType]="networkChangeInfo.routeType"
               [networkName]="networkChangeInfo.networkName"
@@ -32,7 +32,7 @@ import { CsNcComponent } from './network/cs-nc.component';
           </div>
         </div>
         <div class="kpn-level-1-body">
-          <kpn-cs-nc-component [detail]="detail()" [networkChangeInfo]="networkChangeInfo" />
+          <ui-cs-nc-component [detail]="detail()" [networkChangeInfo]="networkChangeInfo" />
         </div>
       </div>
     }

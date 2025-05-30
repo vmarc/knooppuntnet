@@ -9,7 +9,7 @@ import { MAP_SERVICE_TOKEN } from '@app/ol/services/openlayers-map-service';
 import { NodeMovedMapService } from './node-moved-map.service';
 
 @Component({
-  selector: 'kpn-node-moved-map',
+  selector: 'ui-node-moved-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <div [id]="service.mapId" class="kpn-embedded-map"></div> `,
   providers: [

@@ -6,11 +6,11 @@ import { Reference } from '@api/common/common/reference';
 import { IconNetworkLinkComponent } from '@app/shared/components/link/icon-network-link.component';
 
 @Component({
-  selector: 'kpn-node-network-reference',
+  selector: 'ui-node-network-reference',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <kpn-icon-network-link [reference]="reference()" [mixedRouteScopes]="mixedRouteScopes()" />
+      <ui-icon-network-link [reference]="reference()" [mixedRouteScopes]="mixedRouteScopes()" />
     </div>
   `,
   imports: [IconNetworkLinkComponent],

@@ -4,15 +4,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from '@app/shared/components/dialog/dialog.component';
 
 @Component({
-  selector: 'kpn-geolocation-timeout-dialog',
+  selector: 'ui-geolocation-timeout-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-dialog>
+    <ui-dialog>
       <div mat-dialog-title i18n="@@geolocation-dialog.timeout.title">Timeout</div>
       <div mat-dialog-content i18n="@@geolocation-dialog.timeout.message">
         We cannot determine your location.
       </div>
-    </kpn-dialog>
+    </ui-dialog>
   `,
   imports: [DialogComponent, MatDialogModule],
 })

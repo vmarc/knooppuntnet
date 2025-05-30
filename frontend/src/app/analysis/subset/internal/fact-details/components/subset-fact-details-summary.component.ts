@@ -8,14 +8,14 @@ import { DividerComponent } from '@app/shared/components/divider.component';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 
 @Component({
-  selector: 'kpn-subset-fact-details-summary',
+  selector: 'ui-subset-fact-details-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-divider />
+    <ui-divider />
     @if (page().networks.length === 0) {
       <div class="kpn-line">
         <span i18n="@@subset-facts.no-facts">No facts</span>
-        <kpn-icon-happy />
+        <ui-icon-happy />
       </div>
     } @else {
       @if (fact(); as fact) {

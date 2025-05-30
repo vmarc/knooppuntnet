@@ -6,12 +6,12 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouteTypeNameComponent } from './route-type-name.component';
 
 @Component({
-  selector: 'kpn-route-type',
+  selector: 'ui-route-type',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="route-type">
       <nz-icon [nzType]="routeType()" />
-      <kpn-route-type-name [routeType]="routeType()" />
+      <ui-route-type-name [routeType]="routeType()" />
       <ng-content />
     </div>
   `,

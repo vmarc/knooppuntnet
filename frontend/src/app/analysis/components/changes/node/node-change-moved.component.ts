@@ -6,7 +6,7 @@ import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.c
 import { NodeMovedMapComponent } from './node-moved-map.component';
 
 @Component({
-  selector: 'kpn-node-change-moved',
+  selector: 'ui-node-change-moved',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (nodeMoved) {
@@ -22,11 +22,11 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
         </div>
       }
 
-      <kpn-node-moved-map [nodeMoved]="nodeMoved" />
+      <ui-node-moved-map [nodeMoved]="nodeMoved" />
 
       <div class="note">
         <span i18n="@@node-change.moved.note.1"> Note: Node position is shown as it was at </span>
-        <kpn-timestamp [timestamp]="nodeChangeInfo().changeKey.timestamp" />
+        <ui-timestamp [timestamp]="nodeChangeInfo().changeKey.timestamp" />
         <span i18n="@@node-change.moved.note.2">
           , while the map background is shown as it is today.
         </span>

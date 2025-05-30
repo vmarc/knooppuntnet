@@ -5,13 +5,13 @@ import { IconNodeComponent } from '@app/shared/components/icon/icon-node.compone
 import { ActionButtonNodeComponent } from '../../../../components/action/action-button-node.component';
 
 @Component({
-  selector: 'kpn-network-fact-node-ids',
+  selector: 'ui-network-fact-node-ids',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (nodeId of nodeIds(); track nodeId) {
       <div class="kpn-align-center">
-        <kpn-icon-node />
-        <kpn-action-button-node [nodeId]="nodeId" />
+        <ui-icon-node />
+        <ui-action-button-node [nodeId]="nodeId" />
         {{ nodeId }}
       </div>
     }

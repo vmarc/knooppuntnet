@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'kpn-link-changeset',
+  selector: 'ui-link-changeset',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a [routerLink]="'/analysis/changeset/' + changeSetId() + '/' + replicationNumber()">{{

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'kpn-icon-happy',
+  selector: 'ui-icon-happy',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <mat-icon svgIcon="happy" /> `,
   styles: `

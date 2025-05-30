@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-page-buttons',
+  selector: 'ui-page-buttons',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <div class="page-buttons">

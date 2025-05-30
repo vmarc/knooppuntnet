@@ -5,7 +5,7 @@ import { SidebarFooterComponent } from '@app/shared/components/sidebar/sidebar-f
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
-  selector: 'kpn-node-details-sidebar',
+  selector: 'ui-node-details-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="sidebar-body sidebar-logo"></div>
@@ -23,7 +23,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
           </p>
         }
       </div>
-      <kpn-sidebar-footer />
+      <ui-sidebar-footer />
     </div>
   `,
   styles: `

@@ -12,23 +12,23 @@ import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { Facts } from '@app/analysis/fact/components/facts';
 
 @Component({
-  selector: 'kpn-facts-page',
+  selector: 'ui-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <h1 i18n="@@fact-page.title">All facts</h1>
 
-      <kpn-items>
+      <ui-items>
         @for (factName of allFactNames(); track $index) {
-          <kpn-item [index]="$index">
+          <ui-item [index]="$index">
             <p>
-              <kpn-fact-name [fact]="factName" />
+              <ui-fact-name [fact]="factName" />
             </p>
-            <kpn-fact-description [factInfo]="factInfo(factName)" />
-          </kpn-item>
+            <ui-fact-description [factInfo]="factInfo(factName)" />
+          </ui-item>
         }
-      </kpn-items>
-    </kpn-page>
+      </ui-items>
+    </ui-page>
   `,
   providers: [AnalysisStrategyService, RouterService],
   imports: [

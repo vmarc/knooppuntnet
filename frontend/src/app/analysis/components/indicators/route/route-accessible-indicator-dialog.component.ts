@@ -6,10 +6,10 @@ import { IndicatorDialogComponent } from '@app/shared/components/indicator/indic
 import { RouteAccessibleData } from './route-accessible-data';
 
 @Component({
-  selector: 'kpn-route-acccessible-indicator-dialog',
+  selector: 'ui-route-acccessible-indicator-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator-dialog
+    <ui-indicator-dialog
       letter="A"
       i18n-letter="@@route-accessible-indicator.letter"
       [color]="data.color"
@@ -86,7 +86,7 @@ import { RouteAccessibleData } from './route-accessible-data';
           }
         </div>
       }
-    </kpn-indicator-dialog>
+    </ui-indicator-dialog>
   `,
   imports: [IndicatorDialogComponent],
 })

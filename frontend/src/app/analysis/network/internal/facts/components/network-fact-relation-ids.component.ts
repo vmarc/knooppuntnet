@@ -5,13 +5,13 @@ import { IconRouteComponent } from '@app/shared/components/icon/icon-route.compo
 import { ActionButtonRouteComponent } from '../../../../components/action/action-button-route.component';
 
 @Component({
-  selector: 'kpn-network-fact-relation-ids',
+  selector: 'ui-network-fact-relation-ids',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (elementId of elementIds(); track elementId) {
       <div class="kpn-align-center">
-        <kpn-icon-route />
-        <kpn-action-button-route [relationId]="elementId" />
+        <ui-icon-route />
+        <ui-action-button-route [relationId]="elementId" />
         {{ elementId }}
       </div>
     }

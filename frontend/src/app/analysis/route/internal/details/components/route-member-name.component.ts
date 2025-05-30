@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { RouteStructureRow } from '@api/common/route/route-structure-row';
 
 @Component({
-  selector: 'kpn-route-member-name',
+  selector: 'ui-route-member-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let row = structureRow();

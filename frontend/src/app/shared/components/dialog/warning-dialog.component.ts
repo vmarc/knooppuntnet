@@ -7,17 +7,17 @@ import { DialogComponent } from './dialog.component';
 import { WarningDialogData } from './warning-dialog-data';
 
 @Component({
-  selector: 'kpn-warning-dialog',
+  selector: 'ui-warning-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-dialog>
+    <ui-dialog>
       <div mat-dialog-title>
         {{ data.title }}
       </div>
       <div mat-dialog-content>
         {{ data.message }}
       </div>
-    </kpn-dialog>
+    </ui-dialog>
   `,
   imports: [DialogComponent, MatDialogModule],
 })

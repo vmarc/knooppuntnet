@@ -6,7 +6,7 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
 import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
 
 @Component({
-  selector: 'kpn-monitor-route-details-timestamp',
+  selector: 'ui-monitor-route-details-timestamp',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (page().analysisTimestamp) {

@@ -9,7 +9,7 @@ import { MonitorMapMode } from './monitor-map-mode';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
-  selector: 'kpn-monitor-route-map-control-josm',
+  selector: 'ui-monitor-route-map-control-josm',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-spacer-above">

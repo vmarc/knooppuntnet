@@ -4,19 +4,19 @@ import { PoiConfigComponent } from './poi-config.component';
 import { PoiGroupComponent } from './poi-group.component';
 
 @Component({
-  selector: 'kpn-poi-group-tourism',
+  selector: 'ui-poi-group-tourism',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-poi-group name="tourism" title="Tourism" i18n-title="@@poi.group.tourism">
-      <kpn-poi-config poiId="arts-centre" />
-      <kpn-poi-config poiId="artwork" />
-      <kpn-poi-config poiId="casino" />
-      <kpn-poi-config poiId="gallery" />
-      <kpn-poi-config poiId="monumental-tree" />
-      <kpn-poi-config poiId="museum" />
-      <kpn-poi-config poiId="vineyard" />
-      <kpn-poi-config poiId="tourism" />
-    </kpn-poi-group>
+    <ui-poi-group name="tourism" title="Tourism" i18n-title="@@poi.group.tourism">
+      <ui-poi-config poiId="arts-centre" />
+      <ui-poi-config poiId="artwork" />
+      <ui-poi-config poiId="casino" />
+      <ui-poi-config poiId="gallery" />
+      <ui-poi-config poiId="monumental-tree" />
+      <ui-poi-config poiId="museum" />
+      <ui-poi-config poiId="vineyard" />
+      <ui-poi-config poiId="tourism" />
+    </ui-poi-group>
   `,
   imports: [PoiGroupComponent, PoiConfigComponent],
 })

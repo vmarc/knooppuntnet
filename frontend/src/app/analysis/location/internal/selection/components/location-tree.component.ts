@@ -24,7 +24,7 @@ import { LocationFlatNode } from './location-flat-node';
 import { LocationTreeNodeComponent } from './location-tree-node.component';
 
 @Component({
-  selector: 'kpn-location-tree',
+  selector: 'ui-location-tree',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-small-spacer-above kpn-small-spacer-below">
@@ -71,7 +71,7 @@ import { LocationTreeNodeComponent } from './location-tree-node.component';
         matTreeNodePadding
         [ngClass]="{ hidden: !(all() || leafNode.isUsed()) }"
       >
-        <kpn-location-tree-node [node]="leafNode" (selection)="selection.emit($event)" />
+        <ui-location-tree-node [node]="leafNode" (selection)="selection.emit($event)" />
       </mat-tree-node>
       <mat-tree-node
         *matTreeNodeDef="let expandableNode; when: hasChild"
@@ -90,7 +90,7 @@ import { LocationTreeNodeComponent } from './location-tree-node.component';
               <mat-icon svgIcon="collapse" class="expand-collapse-icon" />
             }
           </div>
-          <kpn-location-tree-node [node]="expandableNode" (selection)="selection.emit($event)" />
+          <ui-location-tree-node [node]="expandableNode" (selection)="selection.emit($event)" />
         </div>
       </mat-tree-node>
     </mat-tree>

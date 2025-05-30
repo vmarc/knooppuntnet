@@ -15,10 +15,10 @@ import { MonitorGroupTableComponent } from './monitor-group-table.component';
 import { MonitorGroupsPageService } from './monitor-groups-page.service';
 
 @Component({
-  selector: 'kpn-monitor-groups',
+  selector: 'ui-monitor-groups',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -28,11 +28,11 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
         </nz-breadcrumb-item>
       </nz-breadcrumb>
 
-      <kpn-page-header>
+      <ui-page-header>
         <ng-container i18n="@@monitor.groups.title">Monitor</ng-container>
-      </kpn-page-header>
+      </ui-page-header>
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.state(); as state) {
         @if (state.response; as response) {
@@ -41,10 +41,10 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
               <div id="routes-in-groups" i18n="@@monitor.groups.routes-in-groups">
                 {{ page.routeCount }} routes in {{ page.groups.length }} groups
               </div>
-              <kpn-monitor-admin-toggle />
+              <ui-monitor-admin-toggle />
             </div>
             @if (page.groups.length > 0) {
-              <kpn-monitor-group-table [admin]="service.admin()" [groups]="page.groups" />
+              <ui-monitor-group-table [admin]="service.admin()" [groups]="page.groups" />
             } @else {
               <div id="no-groups" i18n="@@monitor.groups.no-groups">No route groups</div>
             }
@@ -63,7 +63,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
           }
         }
       }
-    </kpn-page>
+    </ui-page>
   `,
   styles: `
     .header {

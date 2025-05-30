@@ -9,7 +9,7 @@ import { PaginatorComponent } from '@app/shared/components/paginator/paginator.c
 import { NzSwitchComponent } from 'ng-zorro-antd/switch';
 
 @Component({
-  selector: 'kpn-list',
+  selector: 'ui-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (pageSize() > 0) {
@@ -22,7 +22,7 @@ import { NzSwitchComponent } from 'ng-zorro-antd/switch';
         }
         <ng-content select="[header-extra]" />
         <span class="paginator">
-          <kpn-paginator
+          <ui-paginator
             [pageIndex]="pageIndex()"
             (pageIndexChange)="onPageIndexChange($event)"
             [pageSize]="pageSize()"
@@ -53,7 +53,7 @@ import { NzSwitchComponent } from 'ng-zorro-antd/switch';
       @if (pageSize() > 0) {
         <div class="footer">
           <span class="paginator">
-            <kpn-paginator
+            <ui-paginator
               [pageIndex]="pageIndex()"
               (pageIndexChange)="onPageIndexChange($event)"
               [pageSize]="pageSize()"

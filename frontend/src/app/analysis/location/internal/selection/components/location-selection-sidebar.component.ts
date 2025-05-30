@@ -9,12 +9,12 @@ import { LocationService } from '../../location.service';
 import { LocationModeComponent } from './location-mode.component';
 
 @Component({
-  selector: 'kpn-location-selection-sidebar',
+  selector: 'ui-location-selection-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-analysis-strategy (strategyChange)="onStrategyChange($event)" />
+    <ui-analysis-strategy (strategyChange)="onStrategyChange($event)" />
     <nz-divider />
-    <kpn-location-mode />
+    <ui-location-mode />
   `,
   imports: [AnalysisStrategyComponent, LocationModeComponent, NzDividerComponent],
 })

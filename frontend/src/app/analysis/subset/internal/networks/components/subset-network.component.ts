@@ -9,17 +9,17 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
 import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
 
 @Component({
-  selector: 'kpn-subset-network',
+  selector: 'ui-subset-network',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-align-center">
-      <kpn-link-network-details
+      <ui-link-network-details
         [networkId]="network().id"
         [routeType]="network().routeType"
         [networkName]="network().name"
       />
       <span class="percentage">{{ interpretedNetwork.percentageOk() }}</span>
-      <kpn-subset-network-happy [network]="network()" class="happy" />
+      <ui-subset-network-happy [network]="network()" class="happy" />
     </div>
     <div i18n="@@subset-network.summary">
       {{ network().km | integer }} km, {{ network().nodeCount | integer }} nodes,

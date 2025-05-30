@@ -10,17 +10,17 @@ import { NetworkRouteTableComponent } from './components/network-route-table.com
 import { NetworkRoutesPageService } from './network-routes-page.service';
 
 @Component({
-  selector: 'kpn-network-routes-page',
+  selector: 'ui-network-routes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-network-page-header
+    <ui-page>
+      <ui-network-page-header
         pageName="routes"
         pageTitle="Routes"
         i18n-pageTitle="@@network-routes.title"
       />
 
-      <!-- TODO      <kpn-filter [filterOptions]="service.filterOptions()" /> -->
+      <!-- TODO      <ui-filter [filterOptions]="service.filterOptions()" /> -->
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
@@ -29,12 +29,12 @@ import { NetworkRoutesPageService } from './network-routes-page.service';
           } @else {
             @if (response.result; as page) {
               <p>
-                <kpn-situation-on [timestamp]="response.situationOn" />
+                <ui-situation-on [timestamp]="response.situationOn" />
               </p>
               @if (page.routes.length === 0) {
                 <p i18n="@@network-routes.no-routes">No network routes in network</p>
               } @else {
-                <kpn-network-route-table
+                <ui-network-route-table
                   [timeInfo]="page.timeInfo"
                   [surveyDateInfo]="page.surveyDateInfo"
                   [routeType]="page.routeType"
@@ -45,7 +45,7 @@ import { NetworkRoutesPageService } from './network-routes-page.service';
           }
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [NetworkRoutesPageService, RouterService],
   imports: [

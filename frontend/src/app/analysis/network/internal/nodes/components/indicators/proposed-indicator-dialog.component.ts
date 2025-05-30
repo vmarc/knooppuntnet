@@ -6,10 +6,10 @@ import { IndicatorDialogComponent } from '@app/shared/components/indicator/indic
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
-  selector: 'kpn-proposed-indicator-dialog',
+  selector: 'ui-proposed-indicator-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator-dialog letter="P" i18n-letter="@@proposed-indicator.letter" [color]="color">
+    <ui-indicator-dialog letter="P" i18n-letter="@@proposed-indicator.letter" [color]="color">
       <div dialog-title>
         @switch (color) {
           @case ('blue') {
@@ -36,7 +36,7 @@ import { MarkdownModule } from 'ngx-markdown';
           }
         }
       </div>
-    </kpn-indicator-dialog>
+    </ui-indicator-dialog>
   `,
   imports: [IndicatorDialogComponent, MarkdownModule],
 })

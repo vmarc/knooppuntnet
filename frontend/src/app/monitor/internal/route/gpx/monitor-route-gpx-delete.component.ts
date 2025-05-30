@@ -17,12 +17,12 @@ import { MonitorRouteGpxBreadcrumbComponent } from './monitor-route-gpx-breadcru
 import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 
 @Component({
-  selector: 'kpn-monitor-route-gpx-delete',
+  selector: 'ui-monitor-route-gpx-delete',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (_state(); as state) {
-      <kpn-page>
-        <kpn-monitor-route-gpx-breadcrumb
+      <ui-page>
+        <ui-monitor-route-gpx-breadcrumb
           [groupName]="state.groupName"
           [groupLink]="state.groupLink"
           [routeName]="state.routeName"
@@ -37,15 +37,15 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
             <h2 i18n="@@monitor.route.gpx-delete.title">GPX reference</h2>
 
             <div class="gpx-form">
-              <kpn-data title="File" i18n-title="@@monitor.route.gpx-delete.reference-filename">
+              <ui-data title="File" i18n-title="@@monitor.route.gpx-delete.reference-filename">
                 {{ page.referenceFilename }}
-              </kpn-data>
-              <kpn-data title="Reference day" i18n-title="@@monitor.route.gpx-delete.reference-day">
+              </ui-data>
+              <ui-data title="Reference day" i18n-title="@@monitor.route.gpx-delete.reference-day">
                 {{ page.referenceTimestamp | yyyymmdd }}
-              </kpn-data>
-              <kpn-data title="Distance" i18n-title="@@monitor.route.gpx-delete.reference-distance">
+              </ui-data>
+              <ui-data title="Distance" i18n-title="@@monitor.route.gpx-delete.reference-distance">
                 {{ page.referenceDistance | distance }}
-              </kpn-data>
+              </ui-data>
             </div>
 
             @if (busy() === false) {
@@ -63,9 +63,9 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 
         @if (busy() === true) {
           @for (step of steps(); track $index) {
-            <kpn-monitor-route-form-save-step [step]="step" />
+            <ui-monitor-route-form-save-step [step]="step" />
           }
-          <kpn-monitor-route-form-errors [errors]="errors()" />
+          <ui-monitor-route-form-errors [errors]="errors()" />
 
           <div class="kpn-button-group">
             <button
@@ -79,7 +79,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
             </button>
           </div>
         }
-      </kpn-page>
+      </ui-page>
     }
   `,
   styles: `

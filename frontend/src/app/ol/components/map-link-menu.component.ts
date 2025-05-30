@@ -11,7 +11,7 @@ import { OpenlayersMapService } from '../services/openlayers-map-service';
 import { MAP_SERVICE_TOKEN } from '../services/openlayers-map-service';
 
 @Component({
-  selector: 'kpn-map-link-menu',
+  selector: 'ui-map-link-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>

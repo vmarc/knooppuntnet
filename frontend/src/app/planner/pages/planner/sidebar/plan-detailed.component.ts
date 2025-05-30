@@ -6,7 +6,7 @@ import { Plan } from '../../../domain/plan/plan';
 import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
 
 @Component({
-  selector: 'kpn-plan-detailed',
+  selector: 'ui-plan-detailed',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (plan().sourceNode !== null) {

@@ -9,32 +9,32 @@ import { StatusLinksComponent } from './status-links.component';
 import { StatusPageService } from './status-page.service';
 
 @Component({
-  selector: 'kpn-status-page',
+  selector: 'ui-status-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    <kpn-page>
+    <ui-page>
       @if (service.response(); as response) {
         <p>
           <span class="kpn-label">The analysis is up-to-date until</span>
-          <kpn-timestamp [timestamp]="response.situationOn" />
+          <ui-timestamp [timestamp]="response.situationOn" />
         </p>
         <p>
           <span class="kpn-label">Replication details</span>
-          <kpn-status-links [links]="service.replicationLinks()" />
+          <ui-status-links [links]="service.replicationLinks()" />
         </p>
         <p>
           <span class="kpn-label">System details</span>
-          <kpn-status-links [links]="service.systemLinks()" />
+          <ui-status-links [links]="service.systemLinks()" />
         </p>
         <p>
           <span class="kpn-label">Log analysis</span>
-          <kpn-status-links [links]="service.logLinks()" />
+          <ui-status-links [links]="service.logLinks()" />
         </p>
-        <kpn-server-disk-usage [diskUsage]="response.result.diskUsage" />
+        <ui-server-disk-usage [diskUsage]="response.result.diskUsage" />
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [StatusPageService],
   imports: [ServerDiskUsageComponent, StatusLinksComponent, TimestampComponent, PageComponent],

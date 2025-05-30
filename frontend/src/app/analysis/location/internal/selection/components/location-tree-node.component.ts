@@ -7,7 +7,7 @@ import { ZeroIntegerFormatPipe } from '@app/shared/components/format/zero-intege
 import { LocationFlatNode } from './location-flat-node';
 
 @Component({
-  selector: 'kpn-location-tree-node',
+  selector: 'ui-location-tree-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (node(); as node) {

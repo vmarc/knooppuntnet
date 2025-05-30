@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { UserService } from '@app/shared/user/user.service';
 
 @Component({
-  selector: 'kpn-osm-link-user-oath-clients',
+  selector: 'ui-osm-link-user-oath-clients',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a

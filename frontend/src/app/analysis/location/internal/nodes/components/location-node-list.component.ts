@@ -20,10 +20,10 @@ import { LocationNodeAnalysisComponent } from './location-node-analysis.componen
 import { LocationNodeRoutesComponent } from './location-node-routes.component';
 
 @Component({
-  selector: 'kpn-location-node-list',
+  selector: 'ui-location-node-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-list
+    <ui-list
       [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
@@ -31,9 +31,9 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       [length]="nodeCount()"
       [filter]="true"
     >
-      <kpn-location-nodes-filter filter />
+      <ui-location-nodes-filter filter />
 
-      <kpn-edit-link
+      <ui-edit-link
         header-extra
         (edit)="edit()"
         i18n-title="@@location-nodes.edit.title"
@@ -41,15 +41,15 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       />
 
       @for (node of nodes(); track node.id) {
-        <kpn-list-item [selected]="false">
+        <ui-list-item [selected]="false">
           <div class="kpn-line">
             <span>{{ node.rowIndex + 1 }}</span>
-            <kpn-action-button-node [nodeId]="node.id" />
-            <kpn-link-node [nodeId]="node.id" [nodeName]="node.name" />
+            <ui-action-button-node [nodeId]="node.id" />
+            <ui-link-node [nodeId]="node.id" [nodeName]="node.name" />
             <span>{{ node.longName }}</span>
           </div>
           <div class="kpn-line">
-            <kpn-location-node-analysis
+            <ui-location-node-analysis
               [node]="node"
               [routeType]="routeType()"
               [routeScope]="routeScope"
@@ -65,7 +65,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
             <span>
               <span i18n="@@location-nodes.table.last-edit" class="kpn-label">Last edit</span>
               <span>
-                <kpn-day [timestamp]="node.lastUpdated" />
+                <ui-day [timestamp]="node.lastUpdated" />
               </span>
             </span>
           </div>
@@ -79,12 +79,12 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
           </div>
 
           <div>
-            <kpn-location-node-routes [node]="node" />
+            <ui-location-node-routes [node]="node" />
           </div>
           <td></td>
-        </kpn-list-item>
+        </ui-list-item>
       }
-    </kpn-list>
+    </ui-list>
   `,
   imports: [
     ActionButtonNodeComponent,

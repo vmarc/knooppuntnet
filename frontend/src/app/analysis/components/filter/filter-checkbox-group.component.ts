@@ -7,7 +7,7 @@ import { FilterOption } from '@app/shared/kpn/filter/filter-option';
 import { FilterOptionGroup } from '@app/shared/kpn/filter/filter-option-group';
 
 @Component({
-  selector: 'kpn-filter-checkbox-group',
+  selector: 'ui-filter-checkbox-group',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>

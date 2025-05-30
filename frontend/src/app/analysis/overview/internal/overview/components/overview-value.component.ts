@@ -6,7 +6,7 @@ import { Subset } from '@api/custom/subset';
 import { Stat } from '../../domain/stat';
 
 @Component({
-  selector: 'kpn-overview-value',
+  selector: 'ui-overview-value',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (hasLink()) {

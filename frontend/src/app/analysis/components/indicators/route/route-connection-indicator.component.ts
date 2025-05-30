@@ -9,10 +9,10 @@ import { IndicatorComponent } from '@app/shared/components/indicator/indicator.c
 import { RouteConnectionIndicatorDialogComponent } from './route-connection-indicator-dialog.component';
 
 @Component({
-  selector: 'kpn-route-connection-indicator',
+  selector: 'ui-route-connection-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator
+    <ui-indicator
       letter="C"
       i18n-letter="@@route-connection-indicator.letter"
       [color]="color"

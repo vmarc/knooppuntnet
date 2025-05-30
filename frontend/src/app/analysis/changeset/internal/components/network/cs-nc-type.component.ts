@@ -5,7 +5,7 @@ import { input } from '@angular/core';
 import { NetworkChangeInfo } from '@api/common/changes/details/network-change-info';
 
 @Component({
-  selector: 'kpn-cs-nc-type',
+  selector: 'ui-cs-nc-type',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (changeType() === 'create') {

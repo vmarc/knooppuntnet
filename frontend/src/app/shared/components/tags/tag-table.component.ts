@@ -6,7 +6,7 @@ import { InterpretedTags } from './interpreted-tags';
 import { TagValueComponent } from './tag-value.component';
 
 @Component({
-  selector: 'kpn-tag-table',
+  selector: 'ui-tag-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (tags().isEmpty()) {
@@ -24,7 +24,7 @@ import { TagValueComponent } from './tag-value.component';
             <tr>
               <td>{{ tag.key }}</td>
               <td>
-                <kpn-tag-value [tag]="tag" />
+                <ui-tag-value [tag]="tag" />
               </td>
             </tr>
           }
@@ -37,7 +37,7 @@ import { TagValueComponent } from './tag-value.component';
             <tr>
               <td>{{ tag.key }}</td>
               <td>
-                <kpn-tag-value [tag]="tag" />
+                <ui-tag-value [tag]="tag" />
               </td>
             </tr>
           }

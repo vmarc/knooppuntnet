@@ -9,10 +9,10 @@ import { IndicatorComponent } from '@app/shared/components/indicator/indicator.c
 import { NetworkIndicatorDialogComponent } from './network-indicator-dialog.component';
 
 @Component({
-  selector: 'kpn-network-indicator',
+  selector: 'ui-network-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator
+    <ui-indicator
       letter="N"
       i18n-letter="@@network-indicator.letter"
       [color]="color"

@@ -36,18 +36,18 @@ import { NetworkFactRoutesComponent } from './network-fact-routes.component';
 import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
 
 @Component({
-  selector: 'kpn-network-facts',
+  selector: 'ui-network-facts',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (apiResponse().result; as page) {
-      <kpn-situation-on [timestamp]="apiResponse().situationOn" />
+      <ui-situation-on [timestamp]="apiResponse().situationOn" />
       @if (page.facts.length === 0) {
         <p class="kpn-line">
           <span i18n="@@network-facts.no-facts">No facts</span>
-          <kpn-icon-happy />
+          <ui-icon-happy />
         </p>
       } @else {
-        <kpn-old-expand-collapse
+        <ui-old-expand-collapse
           [accordion]="accordion()"
           (active)="expandCollapseActiveChanged($event)"
         />
@@ -57,62 +57,62 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
               <mat-expansion-panel-header>
                 <div class="kpn-align-center">
                   @if (fact.elements && fact.elementType === 'node') {
-                    <kpn-action-button-nodes [nodeIds]="elementIds(fact)" />
+                    <ui-action-button-nodes [nodeIds]="elementIds(fact)" />
                   } @else if (fact.elements && fact.elementType === 'route') {
-                    <kpn-action-button-routes [relationIds]="elementIds(fact)" />
+                    <ui-action-button-routes [relationIds]="elementIds(fact)" />
                   } @else if (fact.checks && fact.checks.length > 0) {
-                    <kpn-action-button-nodes [nodeIds]="checkIds(fact)" />
+                    <ui-action-button-nodes [nodeIds]="checkIds(fact)" />
                   } @else if (fact.elementIds) {
                     @switch (fact.elementType) {
                       @case ('node') {
-                        <kpn-action-button-nodes [nodeIds]="fact.elementIds" />
+                        <ui-action-button-nodes [nodeIds]="fact.elementIds" />
                       }
                       @case ('way') {
-                        <kpn-action-button-ways [wayIds]="fact.elementIds" />
+                        <ui-action-button-ways [wayIds]="fact.elementIds" />
                       }
                       @case ('relation') {
-                        <kpn-action-button-relations [relationIds]="fact.elementIds" />
+                        <ui-action-button-relations [relationIds]="fact.elementIds" />
                       }
                       @case ('route') {
-                        <kpn-action-button-routes [relationIds]="fact.elementIds" />
+                        <ui-action-button-routes [relationIds]="fact.elementIds" />
                       }
                     }
                   }
-                  <kpn-network-fact-header [fact]="fact" />
+                  <ui-network-fact-header [fact]="fact" />
                 </div>
               </mat-expansion-panel-header>
 
               <ng-template matExpansionPanelContent>
                 <div class="description">
-                  <kpn-fact-description [factInfo]="factInfo(fact)" />
+                  <ui-fact-description [factInfo]="factInfo(fact)" />
                 </div>
-                <kpn-divider />
+                <ui-divider />
                 <div class="sideline">
                   @if (fact.elements) {
                     @if (fact.elementType === 'route') {
-                      <kpn-network-fact-routes
+                      <ui-network-fact-routes
                         [routes]="fact.elements"
                         [routeType]="page.summary.routeType"
                       />
                     } @else if (fact.elementType === 'node') {
-                      <kpn-network-fact-nodes [nodes]="fact.elements" />
+                      <ui-network-fact-nodes [nodes]="fact.elements" />
                     }
                   } @else if (fact.elementIds) {
                     @switch (fact.elementType) {
                       @case ('node') {
-                        <kpn-network-fact-node-ids [nodeIds]="fact.elementIds" />
+                        <ui-network-fact-node-ids [nodeIds]="fact.elementIds" />
                       }
                       @case ('way') {
-                        <kpn-network-fact-way-ids [elementIds]="fact.elementIds" />
+                        <ui-network-fact-way-ids [elementIds]="fact.elementIds" />
                       }
                       @case ('relation') {
-                        <kpn-network-fact-relation-ids [elementIds]="fact.elementIds" />
+                        <ui-network-fact-relation-ids [elementIds]="fact.elementIds" />
                       }
                     }
                   }
 
                   @if (fact.checks && fact.checks.length > 0) {
-                    <kpn-network-fact-checks [checks]="fact.checks" />
+                    <ui-network-fact-checks [checks]="fact.checks" />
                   }
                 </div>
               </ng-template>

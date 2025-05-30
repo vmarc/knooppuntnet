@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 
 @Component({
-  selector: 'kpn-indicator-icon',
+  selector: 'ui-indicator-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [class]="'indicator-icon ' + color()">

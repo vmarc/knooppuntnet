@@ -4,7 +4,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
 
 @Component({
-  selector: 'kpn-icon-way',
+  selector: 'ui-icon-way',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nz-icon

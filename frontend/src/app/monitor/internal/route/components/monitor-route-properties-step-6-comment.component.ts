@@ -9,7 +9,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-monitor-route-properties-step-6-comment',
+  selector: 'ui-monitor-route-properties-step-6-comment',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <mat-form-field appearance="fill" class="comment">

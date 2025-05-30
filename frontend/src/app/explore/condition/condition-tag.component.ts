@@ -13,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ConditionTagForm } from './condition-controls';
 
 @Component({
-  selector: 'kpn-condition-tag',
+  selector: 'ui-condition-tag',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-form-field appearance="outline">

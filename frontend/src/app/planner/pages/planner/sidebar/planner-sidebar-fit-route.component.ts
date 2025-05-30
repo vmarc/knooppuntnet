@@ -6,7 +6,7 @@ import { MapService } from '@app/map/map.service';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-planner-fit-route',
+  selector: 'ui-planner-fit-route',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>

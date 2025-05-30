@@ -12,12 +12,12 @@ import { Subscription } from 'rxjs';
 import { MonitorRouteGapCanvasComponent } from './monitor-route-gap-canvas.component';
 
 @Component({
-  selector: 'kpn-monitor-route-gap',
+  selector: 'ui-monitor-route-gap',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div #canvasWrapper class="canvasWrapper">
       @if (height() > 0) {
-        <kpn-monitor-route-gap-canvas
+        <ui-monitor-route-gap-canvas
           [height]="height()"
           [description]="description()"
           [osmSegmentCount]="osmSegmentCount()"

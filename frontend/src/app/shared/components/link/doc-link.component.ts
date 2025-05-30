@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Translations } from '@app/shared/i18n/translations';
 
 @Component({
-  selector: 'kpn-doc-link',
+  selector: 'ui-doc-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a

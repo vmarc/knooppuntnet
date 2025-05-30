@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { PageComponent } from './page.component';
 
 @Component({
-  selector: 'kpn-page-filter',
+  selector: 'ui-page-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <div class="page">
         <div class="page-left">
           <div>
@@ -17,7 +17,7 @@ import { PageComponent } from './page.component';
           <ng-content />
         </div>
       </div>
-    </kpn-page>
+    </ui-page>
   `,
   styles: `
     .page {

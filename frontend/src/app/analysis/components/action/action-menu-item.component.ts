@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
 
 @Component({
-  selector: 'kpn-action-menu-item',
+  selector: 'ui-action-menu-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <li nz-menu-item (click)="clicked($event)">

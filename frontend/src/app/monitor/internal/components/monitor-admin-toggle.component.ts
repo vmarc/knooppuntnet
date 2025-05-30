@@ -8,7 +8,7 @@ import { NzSwitchComponent } from 'ng-zorro-antd/switch';
 import { MonitorService } from '../monitor.service';
 
 @Component({
-  selector: 'kpn-monitor-admin-toggle',
+  selector: 'ui-monitor-admin-toggle',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="toggle">

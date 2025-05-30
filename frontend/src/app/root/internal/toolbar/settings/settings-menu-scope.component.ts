@@ -5,7 +5,7 @@ import { State } from '@app/state/state';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 
 @Component({
-  selector: 'kpn-settings-menu-scope',
+  selector: 'ui-settings-menu-scope',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>

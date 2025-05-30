@@ -7,12 +7,12 @@ import { RouteAccessibleIndicatorComponent } from '@app/analysis/components/indi
 import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/indicators/route/route-investigate-indicator.component';
 
 @Component({
-  selector: 'kpn-subset-orphan-route-analysis',
+  selector: 'ui-subset-orphan-route-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="analysis">
-      <kpn-route-investigate-indicator [investigate]="route().isBroken" />
-      <kpn-route-accessible-indicator [accessible]="route().accessible" [routeType]="routeType()" />
+      <ui-route-investigate-indicator [investigate]="route().isBroken" />
+      <ui-route-accessible-indicator [accessible]="route().accessible" [routeType]="routeType()" />
     </div>
   `,
   styles: `

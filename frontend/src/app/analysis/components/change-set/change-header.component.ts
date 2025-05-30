@@ -11,7 +11,7 @@ import { PageWidthService } from '@app/shared/components/page-width.service';
 import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
 
 @Component({
-  selector: 'kpn-change-header',
+  selector: 'ui-change-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
@@ -19,25 +19,25 @@ import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.c
         <span i18n="@@change-header.start"> Start </span>
       }
       @if (changeKey().changeSetId > 0) {
-        <kpn-link-changeset
+        <ui-link-changeset
           [changeSetId]="changeKey().changeSetId"
           [replicationNumber]="changeKey().replicationNumber"
           class="kpn-thick"
         />
       }
       @if (timestampOnSameLine()) {
-        <kpn-timestamp [timestamp]="changeKey().timestamp" class="kpn-thin" />
+        <ui-timestamp [timestamp]="changeKey().timestamp" class="kpn-thin" />
       }
       @if (happy()) {
-        <kpn-icon-happy />
+        <ui-icon-happy />
       }
       @if (investigate()) {
-        <kpn-icon-investigate />
+        <ui-icon-investigate />
       }
     </div>
     @if (timestampOnSeparateLine()) {
       <div>
-        <kpn-timestamp [timestamp]="changeKey().timestamp" class="kpn-thin" />
+        <ui-timestamp [timestamp]="changeKey().timestamp" class="kpn-thin" />
       </div>
     }
 

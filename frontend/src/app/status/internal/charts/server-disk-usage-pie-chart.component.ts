@@ -5,7 +5,7 @@ import { NameValue } from '@api/common/status/name-value';
 import { PieChartModule } from '@swimlane/ngx-charts';
 
 @Component({
-  selector: 'kpn-server-disk-usage-pie-chart',
+  selector: 'ui-server-disk-usage-pie-chart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="server">

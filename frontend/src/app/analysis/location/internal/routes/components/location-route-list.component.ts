@@ -20,10 +20,10 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
 import { LocationRouteAnalysisComponent } from './location-route-analysis';
 
 @Component({
-  selector: 'kpn-location-route-list',
+  selector: 'ui-location-route-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-list
+    <ui-list
       [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
@@ -31,8 +31,8 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       [length]="routeCount()"
       [filter]="true"
     >
-      <kpn-location-routes-filter filter />
-      <kpn-edit-link
+      <ui-location-routes-filter filter />
+      <ui-edit-link
         header-extra
         (edit)="edit()"
         i18n-title="@@location-routes.edit.title"
@@ -40,11 +40,11 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       />
 
       @for (route of routes(); track route.id) {
-        <kpn-list-item [selected]="false">
+        <ui-list-item [selected]="false">
           <div class="kpn-line">
             <span>{{ route.rowIndex + 1 }}</span>
-            <kpn-action-button-route [routeType]="routeType()" [relationId]="route.id" />
-            <kpn-link-route
+            <ui-action-button-route [routeType]="routeType()" [relationId]="route.id" />
+            <ui-link-route
               [routeId]="route.id"
               [routeName]="route.name"
               [routeType]="routeType()"
@@ -53,9 +53,9 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
           </div>
           <div class="kpn-line">
             @if (route.symbol) {
-              <kpn-symbol [description]="route.symbol" [width]="25" [height]="25" />
+              <ui-symbol [description]="route.symbol" [width]="25" [height]="25" />
             }
-            <kpn-location-route-analysis [route]="route" [routeType]="routeType()" />
+            <ui-location-route-analysis [route]="route" [routeType]="routeType()" />
 
             @if (route.lastSurvey) {
               <span i18n="@@location-routes.table.last-survey" class="kpn-label">Survey</span>
@@ -63,12 +63,12 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
             }
             <span>
               <span i18n="@@location-routes.table.last-edit" class="kpn-label">Last edit</span>
-              <kpn-day [timestamp]="route.lastUpdated" />
+              <ui-day [timestamp]="route.lastUpdated" />
             </span>
           </div>
-        </kpn-list-item>
+        </ui-list-item>
       }
-    </kpn-list>
+    </ui-list>
   `,
   imports: [
     ActionButtonRouteComponent,

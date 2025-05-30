@@ -10,16 +10,16 @@ import { ToolbarRouteTypeMenuComponent } from './toolbar-route-type-menu.compone
 import { ToolbarTitleComponent } from './toolbar-title.component';
 
 @Component({
-  selector: 'kpn-toolbar',
+  selector: 'ui-toolbar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nz-header class="toolbar">
-      <kpn-settings-menu />
-      <kpn-toolbar-route-type-menu />
-      <kpn-toolbar-title />
-      <kpn-spinner />
+      <ui-settings-menu />
+      <ui-toolbar-route-type-menu />
+      <ui-toolbar-title />
+      <ui-spinner />
       @if (small()) {
-        <kpn-toolbar-panel-toggle />
+        <ui-toolbar-panel-toggle />
       }
     </nz-header>
   `,

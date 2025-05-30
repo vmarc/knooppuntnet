@@ -7,7 +7,7 @@ import { SymbolComponent } from '@app/symbol/symbol.component';
 import { ActionButtonRelationComponent } from '@app/analysis/components/action/action-button-relation.component';
 
 @Component({
-  selector: 'kpn-monitor-route-details-summary',
+  selector: 'ui-monitor-route-details-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (!page().relationId) {
@@ -30,12 +30,12 @@ import { ActionButtonRelationComponent } from '@app/analysis/components/action/a
 
       <div class="kpn-align-center">
         <span>{{ page().relationId }}</span>
-        <kpn-action-button-relation [relationId]="page().relationId" />
+        <ui-action-button-relation [relationId]="page().relationId" />
       </div>
 
       @if (page().symbol) {
         <div class="kpn-small-spacer-above">
-          <kpn-symbol [description]="page().symbol" />
+          <ui-symbol [description]="page().symbol" />
         </div>
       }
     }

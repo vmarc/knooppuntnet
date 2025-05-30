@@ -5,7 +5,7 @@ import { Ref } from '@api/common/common/ref';
 import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
 
 @Component({
-  selector: 'kpn-route-node-diff',
+  selector: 'ui-route-node-diff',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @switch (title()) {
@@ -36,7 +36,7 @@ import { LinkNodeComponent } from '@app/shared/components/link/link-node.compone
 
     <div class="kpn-comma-list">
       @for (node of nodeRefs(); track $index) {
-        <kpn-link-node [nodeId]="node.id" [nodeName]="node.name" />
+        <ui-link-node [nodeId]="node.id" [nodeName]="node.name" />
       }
     </div>
   `,

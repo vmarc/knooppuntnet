@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'kpn-network-control',
+  selector: 'ui-network-control',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ol-control map-control network-control">

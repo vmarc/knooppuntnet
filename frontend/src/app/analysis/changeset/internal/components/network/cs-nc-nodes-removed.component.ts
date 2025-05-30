@@ -7,7 +7,7 @@ import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.compo
 import { OsmLinkNodeComponent } from '@app/shared/components/link/osm-link-node.component';
 
 @Component({
-  selector: 'kpn-cs-nc-nodes-removed',
+  selector: 'ui-cs-nc-nodes-removed',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (nodeIds().length > 0) {
@@ -15,11 +15,11 @@ import { OsmLinkNodeComponent } from '@app/shared/components/link/osm-link-node.
         <div class="kpn-line kpn-level-2-header">
           <span i18n="@@change-set.network-changes.removed-nodes">Removed non-network nodes</span>
           <span class="kpn-brackets kpn-thin">{{ nodeIds().length }}</span>
-          <kpn-icon-happy />
+          <ui-icon-happy />
         </div>
         <div class="kpn-level-2-body kpn-comma-list">
           @for (nodeId of nodeIds(); track nodeId) {
-            <kpn-osm-link-node [nodeId]="nodeId" [title]="nodeId.toString()" />
+            <ui-osm-link-node [nodeId]="nodeId" [title]="nodeId.toString()" />
           }
         </div>
       </div>

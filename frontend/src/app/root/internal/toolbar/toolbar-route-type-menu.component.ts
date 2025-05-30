@@ -12,7 +12,7 @@ import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-item.component';
 
 @Component({
-  selector: 'kpn-toolbar-route-type-menu',
+  selector: 'ui-toolbar-route-type-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
@@ -26,32 +26,32 @@ import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-ite
 
     <nz-dropdown-menu #routeTypeMenu="nzDropdownMenu">
       <ul nz-menu>
-        <kpn-toolbar-route-type-menu-item
+        <ui-toolbar-route-type-menu-item
           routeType="hiking"
           i18n-label="@@route-type.hiking"
           label="Hiking"
         />
-        <kpn-toolbar-route-type-menu-item
+        <ui-toolbar-route-type-menu-item
           routeType="cycling"
           i18n-label="@@route-type.cycling"
           label="Cycling"
         />
-        <kpn-toolbar-route-type-menu-item
+        <ui-toolbar-route-type-menu-item
           routeType="horse-riding"
           i18n-label="@@route-type.horse-riding"
           label="Horse riding"
         />
-        <kpn-toolbar-route-type-menu-item
+        <ui-toolbar-route-type-menu-item
           routeType="motorboat"
           i18n-label="@@route-type.motorboat"
           label="Motorboat"
         />
-        <kpn-toolbar-route-type-menu-item
+        <ui-toolbar-route-type-menu-item
           routeType="canoe"
           i18n-label="@@route-type.canoe"
           label="Canoe"
         />
-        <kpn-toolbar-route-type-menu-item
+        <ui-toolbar-route-type-menu-item
           routeType="inline-skating"
           i18n-label="@@route-type.inline-skating"
           label="Inline skating"

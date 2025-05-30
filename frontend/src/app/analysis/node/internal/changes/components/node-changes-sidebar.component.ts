@@ -8,15 +8,15 @@ import { RouterService } from '@app/shared/services/router.service';
 import { NodeChangesPageService } from '../node-changes-page.service';
 
 @Component({
-  selector: 'kpn-node-changes-sidebar',
+  selector: 'ui-node-changes-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-sidebar>
-      <kpn-change-filter
+    <ui-sidebar>
+      <ui-change-filter
         [filterOptions]="filterOptions()"
         (optionSelected)="onOptionSelected($event)"
       />
-    </kpn-sidebar>
+    </ui-sidebar>
   `,
   providers: [NodeChangesPageService, RouterService],
   imports: [SidebarComponent, ChangeFilterComponent],

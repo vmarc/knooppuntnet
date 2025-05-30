@@ -18,12 +18,12 @@ import { ReplicationStatusPageService } from './replication-status-page.service'
 import { StatusPageMenuComponent } from './status-page-menu.component';
 
 @Component({
-  selector: 'kpn-replication-status-page',
+  selector: 'ui-replication-status-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    <kpn-page>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -39,39 +39,39 @@ import { StatusPageMenuComponent } from './status-page-menu.component';
       <h1>Replication</h1>
 
       @if (service.page(); as page) {
-        <kpn-status-page-menu [links]="service.statusLinks()" [periodType]="page.periodType" />
+        <ui-status-page-menu [links]="service.statusLinks()" [periodType]="page.periodType" />
         <div>
           <a [routerLink]="'TODO previous'" class="previous">previous</a>
           <a [routerLink]="'TODO next'">next</a>
         </div>
         <div class="chart-group">
-          <kpn-delay-chart [barChart]="page.delay" [xAxisLabel]="service.xAxisLabel" />
-          <kpn-analysis-delay-chart
+          <ui-delay-chart [barChart]="page.delay" [xAxisLabel]="service.xAxisLabel" />
+          <ui-analysis-delay-chart
             [barChart]="page.analysisDelay"
             [xAxisLabel]="service.xAxisLabel"
           />
-          <kpn-update-delay-chart [barChart]="page.updateDelay" [xAxisLabel]="service.xAxisLabel" />
-          <kpn-replication-delay-chart
+          <ui-update-delay-chart [barChart]="page.updateDelay" [xAxisLabel]="service.xAxisLabel" />
+          <ui-replication-delay-chart
             [barChart]="page.replicationDelay"
             [xAxisLabel]="service.xAxisLabel"
           />
         </div>
         <div class="chart-group">
-          <kpn-replication-bytes-chart
+          <ui-replication-bytes-chart
             [barChart]="page.replicationBytes"
             [xAxisLabel]="service.xAxisLabel"
           />
-          <kpn-replication-elements-chart
+          <ui-replication-elements-chart
             [barChart]="page.replicationElements"
             [xAxisLabel]="service.xAxisLabel"
           />
-          <kpn-replication-changesets-chart
+          <ui-replication-changesets-chart
             [barChart]="page.replicationChangeSets"
             [xAxisLabel]="service.xAxisLabel"
           />
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   styles: `
     .chart-group {

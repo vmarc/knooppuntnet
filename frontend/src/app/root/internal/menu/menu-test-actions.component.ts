@@ -8,7 +8,7 @@ import { State } from '@app/state/state';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
 
 @Component({
-  selector: 'kpn-menu-test-actions',
+  selector: 'ui-menu-test-actions',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="action">

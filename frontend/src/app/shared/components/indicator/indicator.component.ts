@@ -5,11 +5,11 @@ import { input } from '@angular/core';
 import { IndicatorIconComponent } from './indicator-icon.component';
 
 @Component({
-  selector: 'kpn-indicator',
+  selector: 'ui-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="indicator" (click)="onOpenDialog()">
-      <kpn-indicator-icon [letter]="letter()" [color]="color()" />
+      <ui-indicator-icon [letter]="letter()" [color]="color()" />
     </div>
   `,
   styles: `

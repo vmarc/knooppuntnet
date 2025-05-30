@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'kpn-link-fact',
+  selector: 'ui-link-fact',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a [routerLink]="'/analysis/' + fact() + '/' + country() + '/' + routeType()">{{ fact() }}</a>

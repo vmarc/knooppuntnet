@@ -17,7 +17,7 @@ import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-relation-menu-option.component';
 
 @Component({
-  selector: 'kpn-monitor-route-page-header',
+  selector: 'ui-monitor-route-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nz-breadcrumb>
@@ -35,9 +35,9 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
       </nz-breadcrumb-item>
     </nz-breadcrumb>
 
-    <kpn-page-header [pageTitle]="pageTitle()">
+    <ui-page-header [pageTitle]="pageTitle()">
       {{ routeName() + ': ' + routeDescription() }}
-    </kpn-page-header>
+    </ui-page-header>
 
     <mat-menu #appMenu="matMenu" class="sub-relation-menu">
       <ng-template matMenuContent>
@@ -49,34 +49,34 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
       </ng-template>
     </mat-menu>
 
-    <kpn-page-menu>
-      <kpn-page-menu-option
+    <ui-page-menu>
+      <ui-page-menu-option
         [link]="routeDetailLink()"
         [active]="pageName() === 'details'"
         [state]="routeLinkState()"
         i18n="@@monitor.route.menu.details"
       >
         Details
-      </kpn-page-menu-option>
+      </ui-page-menu-option>
 
-      <kpn-page-menu-option
+      <ui-page-menu-option
         [link]="routeMapLink()"
         [active]="pageName() === 'map'"
         [state]="routeLinkState()"
         i18n="@@monitor.route.menu.map"
       >
         Map
-      </kpn-page-menu-option>
+      </ui-page-menu-option>
 
       @if (pageName() === 'map') {
-        <kpn-monitor-sub-relation-menu-option
+        <ui-monitor-sub-relation-menu-option
           [routeSubRelation]="previous()"
           (selectSubRelation)="select($event)"
           name="Previous"
           i18n-name="@@monitor.route.menu.previous"
         />
 
-        <kpn-monitor-sub-relation-menu-option
+        <ui-monitor-sub-relation-menu-option
           [routeSubRelation]="next()"
           (selectSubRelation)="select($event)"
           name="Next"
@@ -105,9 +105,9 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
           </a>
         }
       </span>
-    </kpn-page-menu>
+    </ui-page-menu>
 
-    <kpn-error />
+    <ui-error />
   `,
   styles: `
     ::ng-deep .sub-relation-menu {

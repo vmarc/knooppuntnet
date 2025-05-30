@@ -6,7 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { PageService } from '@app/shared/components/page.service';
 
 @Component({
-  selector: 'kpn-sidebar-back',
+  selector: 'ui-sidebar-back',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-nav-list>

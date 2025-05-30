@@ -6,7 +6,7 @@ import { NzDropDownDirective } from 'ng-zorro-antd/dropdown';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
-  selector: 'kpn-action-button',
+  selector: 'ui-action-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a nz-dropdown [nzDropdownMenu]="nzDropdownMenu()">

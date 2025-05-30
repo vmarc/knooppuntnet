@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 
 @Component({
-  selector: 'kpn-subset-map-network-dialog',
+  selector: 'ui-subset-map-network-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="dialog">

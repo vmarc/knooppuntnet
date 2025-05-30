@@ -11,25 +11,25 @@ import { PoiLocationPoiTableComponent } from './components/poi-location-poi-tabl
 import { PoiLocationPoisPageService } from './poi-location-pois-page.service';
 
 @Component({
-  selector: 'kpn-poi-location-pois-page',
+  selector: 'ui-poi-location-pois-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <nz-tabset [nzSelectedIndex]="selectedTabIndex()">
         <nz-tab nzTitle="Select">
-          <kpn-location-poi-select />
+          <ui-location-poi-select />
         </nz-tab>
         <nz-tab nzTitle="Pois">
           @if (poisResponse(); as response) {
             @if (response.result; as page) {
-              <kpn-poi-location-poi-table [pois]="page.pois" [poiCount]="page.poiCount" />
+              <ui-poi-location-poi-table [pois]="page.pois" [poiCount]="page.poiCount" />
             }
           } @else {
             First select location and poi type to see poi list.
           }
         </nz-tab>
       </nz-tabset>
-    </kpn-page>
+    </ui-page>
   `,
   providers: [PoiLocationPoisPageService, RouterService],
   imports: [

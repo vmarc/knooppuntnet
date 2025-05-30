@@ -14,11 +14,11 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
 import { LocationSummaryComponent } from './location-summary.component';
 
 @Component({
-  selector: 'kpn-location-details',
+  selector: 'ui-location-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-data title="Summary" i18n-title="@@location-details.summary">
-      <kpn-location-summary [page]="response().result" />
+    <ui-data title="Summary" i18n-title="@@location-details.summary">
+      <ui-location-summary [page]="response().result" />
       <p class="location-names">
         @for (
           locationInfo of response().result.locationInfos;
@@ -39,17 +39,17 @@ import { LocationSummaryComponent } from './location-summary.component';
 
       <div class="kpn-line">
         {{ relationId() }}
-        <kpn-action-button-relation [relationId]="relationId()" />
+        <ui-action-button-relation [relationId]="relationId()" />
       </div>
-    </kpn-data>
+    </ui-data>
 
-    <kpn-data title="Situation on" i18n-title="@@location-details.situation-on">
-      <kpn-timestamp [timestamp]="response().situationOn" />
-    </kpn-data>
+    <ui-data title="Situation on" i18n-title="@@location-details.situation-on">
+      <ui-timestamp [timestamp]="response().situationOn" />
+    </ui-data>
 
-    <kpn-data title="Tags" i18n-title="@@location-details.tags">
-      <kpn-tag-table [tags]="tags()" />
-    </kpn-data>
+    <ui-data title="Tags" i18n-title="@@location-details.tags">
+      <ui-tag-table [tags]="tags()" />
+    </ui-data>
   `,
   styleUrl: '../../../../../shared/components/data/data.component.scss',
   styles: `

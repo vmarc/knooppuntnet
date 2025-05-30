@@ -5,11 +5,11 @@ import { Timestamp } from '@api/custom/timestamp';
 import { TimestampComponent } from './timestamp.component';
 
 @Component({
-  selector: 'kpn-situation-on',
+  selector: 'ui-situation-on',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span class="kpn-label" i18n="@@situation-on">Situation on</span>
-    <kpn-timestamp [timestamp]="timestamp()" />
+    <ui-timestamp [timestamp]="timestamp()" />
   `,
   imports: [TimestampComponent],
 })

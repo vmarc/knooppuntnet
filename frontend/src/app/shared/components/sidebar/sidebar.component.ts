@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { SidebarFooterComponent } from './sidebar-footer.component';
 
 @Component({
-  selector: 'kpn-sidebar',
+  selector: 'ui-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="sidebar-body sidebar-logo">
@@ -15,7 +15,7 @@ import { SidebarFooterComponent } from './sidebar-footer.component';
       </div>
     </div>
     <div class="sidebar-footer">
-      <kpn-sidebar-footer />
+      <ui-sidebar-footer />
     </div>
   `,
   styles: `

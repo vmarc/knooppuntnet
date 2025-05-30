@@ -15,19 +15,19 @@ import { LocationTreeComponent } from './components/location-tree.component';
 import { LocationSelectionPageService } from './location-selection-page.service';
 
 @Component({
-  selector: 'kpn-location-selection-page',
+  selector: 'ui-location-selection-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-location-selection-sidebar />
+    <ui-page>
+      <ui-location-selection-sidebar />
       <nz-divider />
-      <kpn-location-selection-page-breadcrumb [key]="service.key()" />
-      <kpn-location-selection-page-header [key]="service.key()" />
-      <kpn-error />
+      <ui-location-selection-page-breadcrumb [key]="service.key()" />
+      <ui-location-selection-page-header [key]="service.key()" />
+      <ui-error />
 
       @if (service.locationNode(); as locationNode) {
         @if (service.isModeName()) {
-          <kpn-location-selector
+          <ui-location-selector
             [country]="service.country()"
             [locationNode]="locationNode"
             [all]="true"
@@ -35,7 +35,7 @@ import { LocationSelectionPageService } from './location-selection-page.service'
           />
         }
         @if (service.isModeTree()) {
-          <kpn-location-tree
+          <ui-location-tree
             [routeType]="service.routeType()"
             [country]="service.country()"
             [locationNode]="locationNode"
@@ -43,7 +43,7 @@ import { LocationSelectionPageService } from './location-selection-page.service'
           />
         }
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [LocationSelectionPageService, AnalysisStrategyService, RouterService],
   imports: [

@@ -7,15 +7,15 @@ import { LinkNodeComponent } from '@app/shared/components/link/link-node.compone
 import { OsmLinkNodeComponent } from '@app/shared/components/link/osm-link-node.component';
 
 @Component({
-  selector: 'kpn-route-node',
+  selector: 'ui-route-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p class="kpn-line">
       <img [src]="'/assets/images/' + title()" class="image" title="" alt="" />
-      <kpn-link-node [nodeId]="node().nodeId" [nodeName]="node().alternateName" />
-      <kpn-brackets>
-        <kpn-osm-link-node [nodeId]="node().nodeId" />
-      </kpn-brackets>
+      <ui-link-node [nodeId]="node().nodeId" [nodeName]="node().alternateName" />
+      <ui-brackets>
+        <ui-osm-link-node [nodeId]="node().nodeId" />
+      </ui-brackets>
     </p>
   `,
   imports: [LinkNodeComponent, BracketsComponent, OsmLinkNodeComponent],

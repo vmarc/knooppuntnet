@@ -7,7 +7,7 @@ import { IconInvestigateComponent } from '@app/shared/components/icon/icon-inves
 import { OsmLinkNodeComponent } from '@app/shared/components/link/osm-link-node.component';
 
 @Component({
-  selector: 'kpn-cs-nc-nodes-added',
+  selector: 'ui-cs-nc-nodes-added',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (nodeIds().length > 0) {
@@ -15,11 +15,11 @@ import { OsmLinkNodeComponent } from '@app/shared/components/link/osm-link-node.
         <div class="kpn-level-2-header kpn-line">
           <span i18n="@@change-set.network-changes.added-nodes">Added non-network nodes</span>
           <span class="kpn-brackets kpn-thin">{{ nodeIds().length }}</span>
-          <kpn-icon-investigate />
+          <ui-icon-investigate />
         </div>
         <div class="kpn-level-2-body kpn-comma-list">
           @for (nodeId of nodeIds(); track $index) {
-            <kpn-osm-link-node [nodeId]="nodeId" [title]="nodeId.toString()" />
+            <ui-osm-link-node [nodeId]="nodeId" [title]="nodeId.toString()" />
           }
         </div>
       </div>

@@ -11,11 +11,11 @@ import { MonitorRoutePropertiesComponent } from './monitor-route-properties.comp
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'kpn-monitor-route-form',
+  selector: 'ui-monitor-route-form',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <div [ngClass]="{ hidden: saving }">
-      <kpn-monitor-route-properties
+      <ui-monitor-route-properties
         [mode]="mode()"
         [groupName]="groupName()"
         [initialProperties]="initialProperties()"
@@ -24,7 +24,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
       />
     </div>
     <div [ngClass]="{ hidden: !saving }">
-      <kpn-monitor-route-form-save [command]="command" />
+      <ui-monitor-route-form-save [command]="command" />
     </div>
   `,
   styles: `

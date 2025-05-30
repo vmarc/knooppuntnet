@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'kpn-server-disk-usage-legend',
+  selector: 'ui-server-disk-usage-legend',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- English only-->

@@ -5,7 +5,7 @@ import { OsmLinkNodeComponent } from '@app/shared/components/link/osm-link-node.
 import { FactInfo } from '../fact-info';
 
 @Component({
-  selector: 'kpn-fact-route-unexpected-node',
+  selector: 'ui-fact-route-unexpected-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p class="kpn-sentence">
@@ -14,7 +14,7 @@ import { FactInfo } from '../fact-info';
       </span>
       <span class="kpn-comma-list">
         @for (nodeId of factInfo().unexpectedNodeIds; track $index) {
-          <kpn-osm-link-node [nodeId]="nodeId" [title]="nodeId.toString()" />
+          <ui-osm-link-node [nodeId]="nodeId" [title]="nodeId.toString()" />
         }
       </span>
     </p>

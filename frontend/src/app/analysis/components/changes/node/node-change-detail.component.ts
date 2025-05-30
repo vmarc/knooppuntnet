@@ -16,12 +16,12 @@ import { NodeChangeMovedComponent } from './node-change-moved.component';
 import { NodeMovedMapComponent } from './node-moved-map.component';
 
 @Component({
-  selector: 'kpn-node-change-detail',
+  selector: 'ui-node-change-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (fact of nodeChangeInfo().facts; track $index) {
       <div class="kpn-detail">
-        <kpn-fact-name [fact]="fact" />
+        <ui-fact-name [fact]="fact" />
       </div>
     }
 
@@ -36,7 +36,7 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
             This node no longer belongs to another network
           </span>
         }
-        <kpn-link-network-details [networkId]="change.ref.id" [networkName]="change.ref.name" />
+        <ui-link-network-details [networkId]="change.ref.id" [networkName]="change.ref.name" />
       </div>
     }
 
@@ -51,7 +51,7 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
             This node no longer has role "connection" in the network relation
           </span>
         }
-        <kpn-link-network-details [networkId]="change.ref.id" [networkName]="change.ref.name" />
+        <ui-link-network-details [networkId]="change.ref.id" [networkName]="change.ref.name" />
       </div>
     }
 
@@ -66,28 +66,28 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
             Removed from network relation
           </span>
         }
-        <kpn-link-network-details [networkId]="change.ref.id" [networkName]="change.ref.name" />
+        <ui-link-network-details [networkId]="change.ref.id" [networkName]="change.ref.name" />
       </div>
     }
 
     @for (ref of nodeChangeInfo().addedToRoute; track $index) {
       <div class="kpn-detail">
         <span i18n="@@node-change.added-to-route" class="kpn-label">Added to route</span>
-        <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
+        <ui-link-route [routeId]="ref.id" [routeName]="ref.name" />
       </div>
     }
 
     @for (ref of nodeChangeInfo().addedToNetwork; track $index) {
       <div class="kpn-detail">
         <span i18n="@@node-change.added-to-network" class="kpn-label">Added to network</span>
-        <kpn-link-network-details [networkId]="ref.id" [networkName]="ref.name" />
+        <ui-link-network-details [networkId]="ref.id" [networkName]="ref.name" />
       </div>
     }
 
     @for (ref of nodeChangeInfo().removedFromRoute; track $index) {
       <div class="kpn-detail">
         <span i18n="@@node-change.removed-from-route" class="kpn-label">Removed from route</span>
-        <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
+        <ui-link-route [routeId]="ref.id" [routeName]="ref.name" />
       </div>
     }
 
@@ -96,28 +96,28 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
         <span i18n="@@node-change.removed-from-network" class="kpn-label">
           Removed from network
         </span>
-        <kpn-link-network-details [networkId]="ref.id" [networkName]="ref.name" />
+        <ui-link-network-details [networkId]="ref.id" [networkName]="ref.name" />
       </div>
     }
-    <kpn-fact-diffs [factDiffs]="nodeChangeInfo().factDiffs" />
+    <ui-fact-diffs [factDiffs]="nodeChangeInfo().factDiffs" />
 
     @if (hasTagDiffs()) {
       <div class="kpn-detail">
-        <kpn-tag-diffs [tagDiffs]="nodeChangeInfo().tagDiffs" />
+        <ui-tag-diffs [tagDiffs]="nodeChangeInfo().tagDiffs" />
       </div>
     }
 
-    <kpn-node-change-moved [nodeChangeInfo]="nodeChangeInfo()" />
+    <ui-node-change-moved [nodeChangeInfo]="nodeChangeInfo()" />
 
     @if (nodeChangeInfo().initialTags) {
       <div class="kpn-detail">
-        <kpn-tag-table [tags]="initialTags" />
+        <ui-tag-table [tags]="initialTags" />
       </div>
     }
 
     @if (nodeChangeInfo().initialLatLon) {
       <div class="kpn-detail">
-        <kpn-node-moved-map [nodeMoved]="nodeMoved" />
+        <ui-node-moved-map [nodeMoved]="nodeMoved" />
       </div>
     }
   `,

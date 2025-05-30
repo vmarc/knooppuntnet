@@ -10,10 +10,10 @@ import { RouteAccessibleData } from './route-accessible-data';
 import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indicator-dialog.component';
 
 @Component({
-  selector: 'kpn-route-accessible-indicator',
+  selector: 'ui-route-accessible-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator
+    <ui-indicator
       letter="A"
       i18n-letter="@@route-accessible-indicator.letter"
       [color]="color"

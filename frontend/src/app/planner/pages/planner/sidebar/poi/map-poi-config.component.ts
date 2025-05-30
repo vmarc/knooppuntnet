@@ -11,18 +11,18 @@ import { PoiGroupLandmarksComponent } from './poi-group-landmarks.component';
 import { PoiGroupHikingBikingComponent } from './poi-group-hiking-biking.component';
 
 @Component({
-  selector: 'kpn-map-poi-config',
+  selector: 'ui-map-poi-config',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-poi-group-hiking-biking />
-    <kpn-poi-group-landmarks />
-    <kpn-poi-group-restaurants />
-    <kpn-poi-group-places-to-stay />
-    <kpn-poi-group-tourism />
-    <kpn-poi-group-amenity />
-    <kpn-poi-group-shops />
-    <kpn-poi-group-foodshops />
-    <kpn-poi-group-sports />
+    <ui-poi-group-hiking-biking />
+    <ui-poi-group-landmarks />
+    <ui-poi-group-restaurants />
+    <ui-poi-group-places-to-stay />
+    <ui-poi-group-tourism />
+    <ui-poi-group-amenity />
+    <ui-poi-group-shops />
+    <ui-poi-group-foodshops />
+    <ui-poi-group-sports />
   `,
   styles: `
     ::ng-deep .subset-title {

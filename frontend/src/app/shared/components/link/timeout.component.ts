@@ -4,10 +4,10 @@ import { MatDialogContent } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
-  selector: 'kpn-timeout',
+  selector: 'ui-timeout',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-dialog>
+    <ui-dialog>
       <div mat-dialog-title>
         <span i18n="@@timeout.message-1">Sorry.</span>
       </div>
@@ -17,7 +17,7 @@ import { DialogComponent } from '../dialog/dialog.component';
           Has the editor (JOSM) been started? Has remote control been enabled in the editor?
         </p>
       </div>
-    </kpn-dialog>
+    </ui-dialog>
   `,
   imports: [DialogComponent, MatDialogContent, MatDialogTitle],
 })

@@ -11,47 +11,47 @@ import { LocationFilterGroupComponent } from '../../components/filter/location-f
 import { LocationNodesPageService } from '../location-nodes-page.service';
 
 @Component({
-  selector: 'kpn-location-nodes-filter',
+  selector: 'ui-location-nodes-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (store.response(); as response) {
-      <kpn-location-filter-group
+      <ui-location-filter-group
         title="integrityCheck"
         [filterGroup]="response.result.filter.integrityCheck"
         (changed)="integrityCheckChanged($event)"
       />
 
-      <kpn-location-filter-group
+      <ui-location-filter-group
         title="integrityCheckFailed"
         [filterGroup]="response.result.filter.integrityCheckFailed"
         (changed)="integrityCheckFailedChanged($event)"
       />
 
-      <kpn-location-filter-fact
+      <ui-location-filter-fact
         title="fact"
         [filterGroup]="response.result.filter.fact"
         (changed)="factChanged($event)"
       />
 
-      <kpn-location-filter-group
+      <ui-location-filter-group
         title="referencedInRoute"
         [filterGroup]="response.result.filter.referencedInRoutes"
         (changed)="referencedInRoutesChanged($event)"
       />
 
-      <kpn-location-filter-group
+      <ui-location-filter-group
         title="survey"
         [filterGroup]="response.result.filter.survey"
         (changed)="surveyChanged($event)"
       />
 
-      <kpn-location-filter-group
+      <ui-location-filter-group
         title="lastUpdated"
         [filterGroup]="response.result.filter.lastUpdated"
         (changed)="lastUpdatedChanged($event)"
       />
 
-      <kpn-location-filter-group
+      <ui-location-filter-group
         title="proposed"
         [filterGroup]="response.result.filter.proposed"
         (changed)="proposedChanged($event)"

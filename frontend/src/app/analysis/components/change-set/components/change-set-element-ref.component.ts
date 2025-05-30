@@ -13,7 +13,7 @@ export class ChangeSetElement {
 }
 
 @Component({
-  selector: 'kpn-change-set-element-ref',
+  selector: 'ui-change-set-element-ref',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [ngClass]="['ref-block', borderStyle()]">

@@ -16,10 +16,10 @@ import { AnalysisStrategyComponent } from '../../strategy/analysis-strategy.comp
 import { AnalysisStrategyService } from '../../strategy/analysis-strategy.service';
 
 @Component({
-  selector: 'kpn-analysis-inline-skating-page',
+  selector: 'ui-analysis-inline-skating-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <ui-page>
       <nz-breadcrumb>
         <nz-breadcrumb-item>
           <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
@@ -32,24 +32,24 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
         </nz-breadcrumb-item>
       </nz-breadcrumb>
 
-      <kpn-page-header>
+      <ui-page-header>
         <span class="header-route-type-icon">
           <nz-icon nzType="inline-skating" />
         </span>
         <span i18n="@@route-type.inline-skating">Inline skating</span>
-      </kpn-page-header>
+      </ui-page-header>
 
-      <kpn-analysis-strategy />
+      <ui-analysis-strategy />
 
-      <kpn-icon-buttons>
-        <kpn-icon-button
+      <ui-icon-buttons>
+        <ui-icon-button
           [routerLink]="nlLink()"
           icon="netherlands"
           i18n-title="@@country.nl"
           title="The Netherlands"
         />
-      </kpn-icon-buttons>
-    </kpn-page>
+      </ui-icon-buttons>
+    </ui-page>
   `,
   providers: [AnalysisStrategyService, RouterService],
   imports: [

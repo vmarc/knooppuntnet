@@ -14,18 +14,18 @@ import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
 import { CountrySelectComponent } from './country-select.component';
 
 @Component({
-  selector: 'kpn-location-poi-select',
+  selector: 'ui-location-poi-select',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="poi-select-form">
       <nz-form-item>
         <nz-form-control>
-          <kpn-country-select />
+          <ui-country-select />
         </nz-form-control>
       </nz-form-item>
 
       @if (service.locationNode(); as locationNode) {
-        <kpn-location-selector
+        <ui-location-selector
           [country]="service.country()"
           [locationNode]="locationNode"
           [all]="true"

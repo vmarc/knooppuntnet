@@ -25,49 +25,49 @@ import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header
 import { SubsetFactsPageService } from './subset-facts-page.service';
 
 @Component({
-  selector: 'kpn-subset-facts-page',
+  selector: 'ui-subset-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-subset-page-header-block
+    <ui-page>
+      <ui-subset-page-header-block
         pageName="facts"
         pageTitle="Facts"
         i18n-pageTitle="@@subset-facts.title"
       />
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           <p>
-            <kpn-situation-on [timestamp]="response.situationOn" />
+            <ui-situation-on [timestamp]="response.situationOn" />
           </p>
           @if (!hasFacts(response)) {
             <p class="kpn-line">
               <span i18n="@@subset-facts.no-facts">No facts</span>
-              <kpn-icon-happy />
+              <ui-icon-happy />
             </p>
           } @else {
             <div class="kpn-line">
-              <kpn-items>
+              <ui-items>
                 @for (factCount of response.result.factCounts; track factCount; let i = $index) {
-                  <kpn-item [index]="i">
+                  <ui-item [index]="i">
                     <div class="kpn-line">
                       <a [routerLink]="factCount.fact">
-                        <kpn-fact-name [fact]="factCount.fact" />
+                        <ui-fact-name [fact]="factCount.fact" />
                       </a>
                       <span>({{ factCount.count }})</span>
-                      <kpn-fact-level [factLevel]="factLevel(factCount.fact)" />
+                      <ui-fact-level [factLevel]="factLevel(factCount.fact)" />
                     </div>
-                    <kpn-fact-description [factInfo]="factInfo(factCount)" />
-                  </kpn-item>
+                    <ui-fact-description [factInfo]="factInfo(factCount)" />
+                  </ui-item>
                 }
-              </kpn-items>
+              </ui-items>
             </div>
           }
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [SubsetFactsPageService, AnalysisStrategyService, RouterService],
   imports: [

@@ -11,79 +11,79 @@ import { ScopeIconComponent } from '../scope-icon.component';
 import { SearchRouteComponent } from './search-route.component';
 
 @Component({
-  selector: 'kpn-search-routes',
+  selector: 'ui-search-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>{{ rowCount() }} routes</div>
     @let list = routeList();
     @if (list?.international) {
       <div class="kpn-line">
-        <kpn-scope-icon scope="international" />
+        <ui-scope-icon scope="international" />
         <span>International</span>
       </div>
-      <kpn-list>
+      <ui-list>
         @for (item of list.international; track item.id; let i = $index) {
-          <kpn-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
-            <kpn-search-route [routeType]="routeType()" [item]="item" />
-          </kpn-list-item>
+          <ui-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
+            <ui-search-route [routeType]="routeType()" [item]="item" />
+          </ui-list-item>
         }
-      </kpn-list>
+      </ui-list>
     }
 
     @if (list?.national) {
       <div class="kpn-line">
-        <kpn-scope-icon scope="national" />
+        <ui-scope-icon scope="national" />
         <span>National</span>
       </div>
-      <kpn-list>
+      <ui-list>
         @for (item of list.national; track item.id; let i = $index) {
-          <kpn-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
-            <kpn-search-route [routeType]="routeType()" [item]="item" />
-          </kpn-list-item>
+          <ui-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
+            <ui-search-route [routeType]="routeType()" [item]="item" />
+          </ui-list-item>
         }
-      </kpn-list>
+      </ui-list>
     }
 
     @if (list?.regional) {
       <div class="kpn-line">
-        <kpn-scope-icon scope="regional" />
+        <ui-scope-icon scope="regional" />
         <span>Regional</span>
       </div>
-      <kpn-list>
+      <ui-list>
         @for (item of list.regional; track item.id; let i = $index) {
-          <kpn-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
-            <kpn-search-route [routeType]="routeType()" [item]="item" />
-          </kpn-list-item>
+          <ui-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
+            <ui-search-route [routeType]="routeType()" [item]="item" />
+          </ui-list-item>
         }
-      </kpn-list>
+      </ui-list>
     }
 
     @if (list?.local) {
       <div class="kpn-line">
-        <kpn-scope-icon scope="local" />
+        <ui-scope-icon scope="local" />
         <span>Local</span>
       </div>
-      <kpn-list>
+      <ui-list>
         @for (item of list.local; track item.id; let i = $index) {
-          <kpn-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
-            <kpn-search-route [routeType]="routeType()" [item]="item" />
-          </kpn-list-item>
+          <ui-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
+            <ui-search-route [routeType]="routeType()" [item]="item" />
+          </ui-list-item>
         }
-      </kpn-list>
+      </ui-list>
     }
 
     @if (list?.unknown) {
       <div class="kpn-line">
-        <kpn-scope-icon scope="unknown" />
+        <ui-scope-icon scope="unknown" />
         <span>Other</span>
       </div>
-      <kpn-list>
+      <ui-list>
         @for (item of list.unknown; track item.id; let i = $index) {
-          <kpn-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
-            <kpn-search-route [routeType]="routeType()" [item]="item" />
-          </kpn-list-item>
+          <ui-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
+            <ui-search-route [routeType]="routeType()" [item]="item" />
+          </ui-list-item>
         }
-      </kpn-list>
+      </ui-list>
     }
   `,
   imports: [ListComponent, ListItemComponent, SearchRouteComponent, ScopeIconComponent],

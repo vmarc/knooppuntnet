@@ -8,12 +8,12 @@ import { ChangeSetElement } from './change-set-element-ref.component';
 import { ChangesSetElementRefComponent } from './change-set-element-ref.component';
 
 @Component({
-  selector: 'kpn-change-set-element-refs',
+  selector: 'ui-change-set-element-refs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       @for (element of elements; track element) {
-        <kpn-change-set-element-ref [element]="element" />
+        <ui-change-set-element-ref [element]="element" />
       }
     </div>
   `,

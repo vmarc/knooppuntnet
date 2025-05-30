@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
-  selector: 'kpn-fact-route-tag-invalid',
+  selector: 'ui-fact-route-tag-invalid',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown ngPreserveWhitespaces i18n="@@fact.description.route-tag-invalid">

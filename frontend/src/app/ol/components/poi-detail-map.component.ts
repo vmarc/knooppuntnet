@@ -9,7 +9,7 @@ import { MAP_SERVICE_TOKEN } from '../services/openlayers-map-service';
 import { PoiDetailMapService } from './poi-detail-map.service';
 
 @Component({
-  selector: 'kpn-poi-detail-map',
+  selector: 'ui-poi-detail-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <div [id]="service.mapId" class="kpn-embedded-map"></div> `,
   providers: [

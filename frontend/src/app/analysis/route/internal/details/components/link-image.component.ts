@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 import { fromEvent } from 'rxjs';
 
 @Component({
-  selector: 'kpn-link-image',
+  selector: 'ui-link-image',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div style="height: 100%;" #imageWrapper>

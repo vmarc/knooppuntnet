@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { RouteType } from '@api/common/route-type';
 
 @Component({
-  selector: 'kpn-link-route',
+  selector: 'ui-link-route',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a

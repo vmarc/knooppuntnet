@@ -7,7 +7,7 @@ import { LocationCandidateInfo } from '@api/common/location/location-candidate-i
 import { RouteType } from '@api/common/route-type';
 
 @Component({
-  selector: 'kpn-route-location',
+  selector: 'ui-route-location',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (!locationCandidateInfos()) {

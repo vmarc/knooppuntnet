@@ -7,12 +7,12 @@ import { RouteDiffsRemovedComponent } from './route-diffs-removed.component';
 import { RouteDiffsUpdatedComponent } from './route-diffs-updated.component';
 
 @Component({
-  selector: 'kpn-route-diffs',
+  selector: 'ui-route-diffs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-route-diffs-removed [data]="data()" />
-    <kpn-route-diffs-added [data]="data()" />
-    <kpn-route-diffs-updated [data]="data()" />
+    <ui-route-diffs-removed [data]="data()" />
+    <ui-route-diffs-added [data]="data()" />
+    <ui-route-diffs-updated [data]="data()" />
   `,
   imports: [RouteDiffsAddedComponent, RouteDiffsRemovedComponent, RouteDiffsUpdatedComponent],
 })

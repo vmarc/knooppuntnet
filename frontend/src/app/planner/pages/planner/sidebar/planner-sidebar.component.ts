@@ -13,17 +13,17 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { PlannerSidebarFitRouteComponent } from './planner-sidebar-fit-route.component';
 
 @Component({
-  selector: 'kpn-planner-sidebar',
+  selector: 'ui-planner-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-plan-actions />
-    <kpn-planner-fit-route />
-    <kpn-geolocation-button />
-    <kpn-map-link-menu />
+    <ui-plan-actions />
+    <ui-planner-fit-route />
+    <ui-geolocation-button />
+    <ui-map-link-menu />
 
     <nz-collapse>
       <nz-collapse-panel nzHeader="Plan" [nzActive]="true">
-        <kpn-plan />
+        <ui-plan />
       </nz-collapse-panel>
 
       <nz-collapse>
@@ -33,7 +33,7 @@ import { PlannerSidebarFitRouteComponent } from './planner-sidebar-fit-route.com
           [nzActive]="legendExpanded()"
           (nzActiveChange)="legendExpandedChanged($event)"
         >
-          <kpn-planner-sidebar-legend />
+          <ui-planner-sidebar-legend />
         </nz-collapse-panel>
         <nz-collapse-panel
           i18n-nzHeader="@@planner.options"
@@ -41,13 +41,13 @@ import { PlannerSidebarFitRouteComponent } from './planner-sidebar-fit-route.com
           [nzActive]="optionsExpanded()"
           (nzActiveChange)="optionsExpandedChanged($event)"
         >
-          <kpn-planner-sidebar-options />
+          <ui-planner-sidebar-options />
         </nz-collapse-panel>
       </nz-collapse>
 
       <!--
-        <kpn-elevation-profile />
-        <kpn-planner-sidebar-poi-configuration />
+        <ui-elevation-profile />
+        <ui-planner-sidebar-poi-configuration />
       -->
     </nz-collapse>
   `,

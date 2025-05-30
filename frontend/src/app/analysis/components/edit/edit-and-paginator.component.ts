@@ -8,13 +8,13 @@ import { PaginatorComponent } from '@app/shared/components/paginator/paginator.c
 import { EditLinkComponent } from './edit-link.component';
 
 @Component({
-  selector: 'kpn-edit-and-paginator',
+  selector: 'ui-edit-and-paginator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="edit-and-paginator">
-      <kpn-edit-link (edit)="editClicked()" [title]="editLinkTitle()" />
+      <ui-edit-link (edit)="editClicked()" [title]="editLinkTitle()" />
       <div class="paginator">
-        <kpn-paginator
+        <ui-paginator
           [pageIndex]="pageIndex()"
           (pageIndexChange)="onPageIndexChange($event)"
           [pageSize]="pageSize()"

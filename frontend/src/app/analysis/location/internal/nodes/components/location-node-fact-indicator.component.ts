@@ -9,10 +9,10 @@ import { IndicatorComponent } from '@app/shared/components/indicator/indicator.c
 import { LocationNodeFactIndicatorDialogComponent } from './location-node-fact-indicator-dialog.component';
 
 @Component({
-  selector: 'kpn-location-node-fact-indicator',
+  selector: 'ui-location-node-fact-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator
+    <ui-indicator
       letter="F"
       i18n-letter="@@location-node-fact-indicator.letter"
       [color]="color"

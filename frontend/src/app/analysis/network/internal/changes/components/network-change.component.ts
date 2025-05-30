@@ -7,7 +7,7 @@ import { LinkNodeComponent } from '@app/shared/components/link/link-node.compone
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 
 @Component({
-  selector: 'kpn-network-change',
+  selector: 'ui-network-change',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- changeType -->
@@ -36,7 +36,7 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
         }
         <div class="kpn-comma-list">
           @for (ref of networkChangeInfo().networkNodes.added; track $index) {
-            <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+            <ui-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
           }
         </div>
       </div>
@@ -52,7 +52,7 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
         }
         <div class="kpn-comma-list">
           @for (ref of networkChangeInfo().routes.added; track $index) {
-            <kpn-link-route
+            <ui-link-route
               [routeId]="ref.id"
               [routeName]="ref.name"
               [routeType]="networkChangeInfo().routeType"
@@ -94,7 +94,7 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
         </span>
         <div class="kpn-comma-list">
           @for (ref of networkChangeInfo().networkNodes.updated; track $index) {
-            <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+            <ui-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
           }
         </div>
       </div>
@@ -106,7 +106,7 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
         <span class="kpn-label" i18n="@@network-changes.routes.updated">Updated route(s)</span>
         <div class="kpn-comma-list">
           @for (ref of networkChangeInfo().routes.updated; track $index) {
-            <kpn-link-route
+            <ui-link-route
               [routeId]="ref.id"
               [routeName]="ref.name"
               [routeType]="networkChangeInfo().routeType"
@@ -139,7 +139,7 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
         </span>
         <div class="kpn-comma-list">
           @for (ref of networkChangeInfo().networkNodes.removed; track $index) {
-            <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+            <ui-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
           }
         </div>
       </div>
@@ -151,7 +151,7 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
         <span class="kpn-label" i18n="@@network-changes.routes.removed">Removed route(s)</span>
         <div class="kpn-comma-list">
           @for (ref of networkChangeInfo().routes.removed; track $index) {
-            <kpn-link-route
+            <ui-link-route
               [routeId]="ref.id"
               [routeName]="ref.name"
               [routeType]="networkChangeInfo().routeType"

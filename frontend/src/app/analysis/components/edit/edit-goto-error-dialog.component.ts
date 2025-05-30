@@ -6,7 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'kpn-edit-goto-error-dialog',
+  selector: 'ui-edit-goto-error-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div mat-dialog-title class="dialog" i18n="@@edit-goto-error-dialog.title">JOSM</div>

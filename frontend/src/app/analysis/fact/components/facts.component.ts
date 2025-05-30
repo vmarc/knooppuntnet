@@ -13,47 +13,47 @@ import { FactNameComponent } from './fact-name.component';
 import { Facts } from './facts';
 
 @Component({
-  selector: 'kpn-facts',
+  selector: 'ui-facts',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@route.facts">Facts</p>
     @for (factInfo of filteredFactInfos; track $index) {
       <div class="fact">
         <div>
-          <kpn-fact-level [factLevel]="factLevel(factInfo)" class="level" />
-          <kpn-fact-name [fact]="factInfo.fact" />
+          <ui-fact-level [factLevel]="factLevel(factInfo)" class="level" />
+          <ui-fact-name [fact]="factInfo.fact" />
 
           @if (factInfo.networkRef) {
             <div class="reference">
-              <kpn-brackets>
+              <ui-brackets>
                 <a class="text" [routerLink]="'/analysis/network/' + factInfo.networkRef.id">{{
                   factInfo.networkRef.name
                 }}</a>
-              </kpn-brackets>
+              </ui-brackets>
             </div>
           }
 
           @if (factInfo.routeRef) {
             <div class="reference">
-              <kpn-brackets>
-                <kpn-link-route
+              <ui-brackets>
+                <ui-link-route
                   [routeId]="factInfo.routeRef.id"
                   [routeName]="factInfo.routeRef.name"
                 />
-              </kpn-brackets>
+              </ui-brackets>
             </div>
           }
 
           @if (factInfo.nodeRef) {
             <div class="reference">
-              <kpn-brackets>
-                <kpn-link-node [nodeId]="factInfo.nodeRef.id" [nodeName]="factInfo.nodeRef.name" />
-              </kpn-brackets>
+              <ui-brackets>
+                <ui-link-node [nodeId]="factInfo.nodeRef.id" [nodeName]="factInfo.nodeRef.name" />
+              </ui-brackets>
             </div>
           }
         </div>
         <div class="description">
-          <kpn-fact-description [factInfo]="factInfo" />
+          <ui-fact-description [factInfo]="factInfo" />
         </div>
       </div>
     } @empty {

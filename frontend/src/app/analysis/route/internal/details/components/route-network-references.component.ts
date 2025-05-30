@@ -6,7 +6,7 @@ import { Reference } from '@api/common/common/reference';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
-  selector: 'kpn-route-network-references',
+  selector: 'ui-route-network-references',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (reference of references(); track reference) {

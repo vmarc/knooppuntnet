@@ -8,7 +8,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouteScopeNameComponent } from '../route-scope-name.component';
 
 @Component({
-  selector: 'kpn-icon-link',
+  selector: 'ui-icon-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
@@ -16,7 +16,7 @@ import { RouteScopeNameComponent } from '../route-scope-name.component';
       <a [routerLink]="link" [state]="state" title="">{{ reference().name }}</a>
       @if (mixedRouteScopes()) {
         <span class="kpn-brackets kpn-thin">
-          <kpn-route-scope-name [routeScope]="reference().routeScope" />
+          <ui-route-scope-name [routeScope]="reference().routeScope" />
         </span>
       }
     </div>

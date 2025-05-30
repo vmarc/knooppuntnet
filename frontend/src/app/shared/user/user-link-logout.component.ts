@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { UserService } from './user.service';
 
 @Component({
-  selector: 'kpn-user-link-logout',
+  selector: 'ui-user-link-logout',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <a rel="nofollow noreferrer" (click)="logout()">logout</a> `,
 })

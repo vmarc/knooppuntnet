@@ -20,7 +20,7 @@ import { ConditionNameComponent } from './condition-name.component';
 import { ConditionTagComponent } from './condition-tag.component';
 
 @Component({
-  selector: 'kpn-condition',
+  selector: 'ui-condition',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="card-wrapper">
@@ -37,13 +37,13 @@ import { ConditionTagComponent } from './condition-tag.component';
           </mat-form-field>
 
           @if (subject.value === 'tag') {
-            <kpn-condition-tag [form]="form().controls.tag" />
+            <ui-condition-tag [form]="form().controls.tag" />
           }
           @if (subject.value === 'location') {
-            <kpn-condition-location [form]="form().controls.location" />
+            <ui-condition-location [form]="form().controls.location" />
           }
           @if (subject.value === 'name') {
-            <kpn-condition-name [form]="form().controls.name" />
+            <ui-condition-name [form]="form().controls.name" />
           }
 
           <button mat-icon-button>

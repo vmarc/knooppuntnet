@@ -5,10 +5,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IndicatorDialogComponent } from '@app/shared/components/indicator/indicator-dialog.component';
 
 @Component({
-  selector: 'kpn-location-node-fact-indicator-dialog',
+  selector: 'ui-location-node-fact-indicator-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-indicator-dialog
+    <ui-indicator-dialog
       letter="F"
       i18n-letter="@@location-node-fact-indicator.letter"
       [color]="color"
@@ -29,7 +29,7 @@ import { IndicatorDialogComponent } from '@app/shared/components/indicator/indic
           One or more facts are generated as the result of the node analysis.
         </div>
       }
-    </kpn-indicator-dialog>
+    </ui-indicator-dialog>
   `,
   imports: [IndicatorDialogComponent],
 })

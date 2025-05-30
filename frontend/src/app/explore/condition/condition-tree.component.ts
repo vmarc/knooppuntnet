@@ -8,11 +8,11 @@ import { ConditionTreeNodeComponent } from './condition-tree-node.component';
 import { ConditionService } from './condition.service';
 
 @Component({
-  selector: 'kpn-condition-tree',
+  selector: 'ui-condition-tree',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="condition-tree">
-      <kpn-condition-tree-node [form]="form" [root]="true" />
+      <ui-condition-tree-node [form]="form" [root]="true" />
     </div>
     <div class="kpn-spacer-above">
       <button mat-stroked-button (click)="onSubmit()">Search</button>

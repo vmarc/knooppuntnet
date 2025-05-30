@@ -12,19 +12,19 @@ import { ActionButtonLocationFactNodesComponent } from '../../../../components/a
 import { ActionButtonLocationFactRoutesComponent } from '../../../../components/action/action-button-location-fact-routes.component';
 
 @Component({
-  selector: 'kpn-location-fact-panel-header',
+  selector: 'ui-location-fact-panel-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (locationFact(); as locationFact) {
       <div class="kpn-line">
         @if (locationFact.elementType === 'node') {
-          <kpn-action-button-location-fact-nodes [locationFact]="locationFact" />
+          <ui-action-button-location-fact-nodes [locationFact]="locationFact" />
         } @else if (locationFact.elementType === 'route') {
-          <kpn-action-button-location-fact-routes [locationFact]="locationFact" />
+          <ui-action-button-location-fact-routes [locationFact]="locationFact" />
         }
-        <kpn-fact-name [fact]="locationFact.fact" />
-        <kpn-brackets>{{ locationFact.refs.length }}</kpn-brackets>
-        <kpn-fact-level [factLevel]="factLevel(locationFact.fact)" class="level" />
+        <ui-fact-name [fact]="locationFact.fact" />
+        <ui-brackets>{{ locationFact.refs.length }}</ui-brackets>
+        <ui-fact-level [factLevel]="factLevel(locationFact.fact)" class="level" />
       </div>
     }
   `,

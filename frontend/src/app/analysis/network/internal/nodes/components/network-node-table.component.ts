@@ -22,10 +22,10 @@ import { NetworkNodeAnalysisComponent } from './network-node-analysis.component'
 import { NetworkNodeRoutesComponent } from './network-node-routes.component';
 
 @Component({
-  selector: 'kpn-network-node-table',
+  selector: 'ui-network-node-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-list
+    <ui-list
       [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
@@ -33,9 +33,9 @@ import { NetworkNodeRoutesComponent } from './network-node-routes.component';
       [length]="nodeCount()"
       [filter]="true"
     >
-      <kpn-filter [filterOptions]="filterOptions()" filter />
+      <ui-filter [filterOptions]="filterOptions()" filter />
 
-      <kpn-edit-link
+      <ui-edit-link
         header-extra
         (edit)="edit()"
         i18n-title="@@network-nodes.edit.title"
@@ -43,15 +43,15 @@ import { NetworkNodeRoutesComponent } from './network-node-routes.component';
       />
 
       @for (node of filteredNodes(); track node.detail.id; let i = $index) {
-        <kpn-list-item [selected]="false">
+        <ui-list-item [selected]="false">
           <div class="kpn-line">
             {{ rowNumber(i) }}
-            <kpn-action-button-node [nodeId]="node.detail.id" />
-            <kpn-link-node [nodeId]="node.detail.id" [nodeName]="node.detail.name" />
+            <ui-action-button-node [nodeId]="node.detail.id" />
+            <ui-link-node [nodeId]="node.detail.id" [nodeName]="node.detail.name" />
             <span>{{ node.detail.longName }}</span>
           </div>
           <div class="kpn-line">
-            <kpn-network-node-analysis
+            <ui-network-node-analysis
               [routeType]="routeType()"
               [routeScope]="routeScope()"
               [node]="node"
@@ -67,7 +67,7 @@ import { NetworkNodeRoutesComponent } from './network-node-routes.component';
             <span>
               <span i18n="@@network-nodes.table.last-edit" class="kpn-label">Last edit</span>
               <span>
-                <kpn-day [timestamp]="node.detail.timestamp" />
+                <ui-day [timestamp]="node.detail.timestamp" />
               </span>
             </span>
           </div>
@@ -79,12 +79,12 @@ import { NetworkNodeRoutesComponent } from './network-node-routes.component';
           </div>
 
           <div>
-            <kpn-network-node-routes [node]="node" />
+            <ui-network-node-routes [node]="node" />
           </div>
           <td></td>
-        </kpn-list-item>
+        </ui-list-item>
       }
-    </kpn-list>
+    </ui-list>
   `,
   imports: [
     ActionButtonNodeComponent,

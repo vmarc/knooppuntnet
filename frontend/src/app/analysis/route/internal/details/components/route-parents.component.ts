@@ -8,7 +8,7 @@ import { ParentRoute } from '@api/common/route/parent-route';
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
-  selector: 'kpn-route-parents',
+  selector: 'ui-route-parents',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (parentRoute of parentRoutes(); track parentRoute.routeId) {

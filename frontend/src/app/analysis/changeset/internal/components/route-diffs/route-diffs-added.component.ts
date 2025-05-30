@@ -10,7 +10,7 @@ import { RefRouteChangeInfo } from './ref-route-change-info';
 import { RouteDiffsData } from './route-diffs-data';
 
 @Component({
-  selector: 'kpn-route-diffs-added',
+  selector: 'ui-route-diffs-added',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (refs.length > 0) {
@@ -18,13 +18,13 @@ import { RouteDiffsData } from './route-diffs-data';
         <div class="kpn-line kpn-level-2-header">
           <span class="kpn-thick" i18n="@@route-diffs-added.title">Added routes</span>
           <span>({{ refs.length }})</span>
-          <kpn-icon-happy />
+          <ui-icon-happy />
         </div>
         <div class="kpn-level-2-body">
           @for (ref of refs; track ref) {
             <div class="kpn-level-3">
               <div class="kpn-line kpn-level-3-header">
-                <kpn-link-route-ref-header [ref]="ref.ref" [knownElements]="data().knownElements" />
+                <ui-link-route-ref-header [ref]="ref.ref" [knownElements]="data().knownElements" />
               </div>
               @if (ref.routeChangeInfo) {
                 <div class="kpn-level-3-body">
@@ -51,12 +51,12 @@ import { RouteDiffsData } from './route-diffs-data';
                             class="kpn-label"
                             >Existing relation
                           </ng-container>
-                          <kpn-meta-data [metaData]="ref.routeChangeInfo.after" />
+                          <ui-meta-data [metaData]="ref.routeChangeInfo.after" />
                         }
                       </div>
                     </div>
                   }
-                  <kpn-fact-diffs [factDiffs]="ref.routeChangeInfo.diffs.factDiffs" />
+                  <ui-fact-diffs [factDiffs]="ref.routeChangeInfo.diffs.factDiffs" />
                 </div>
               }
             </div>

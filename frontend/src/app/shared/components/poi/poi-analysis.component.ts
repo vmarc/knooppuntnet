@@ -6,7 +6,7 @@ import { PoiAnalysis } from '@api/common/poi-analysis';
 import { OldPoiService } from '@app/shared/services/old-poi.service';
 
 @Component({
-  selector: 'kpn-poi-analysis',
+  selector: 'ui-poi-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (poi().name) {

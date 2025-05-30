@@ -15,7 +15,7 @@ import { EditParameters } from './edit-parameters';
 import { EditService } from './edit.service';
 
 @Component({
-  selector: 'kpn-edit-dialog',
+  selector: 'ui-edit-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div mat-dialog-title class="dialog" i18n="@@edit-dialog.title">Load in editor</div>

@@ -22,11 +22,11 @@ import { ChangesPageService } from './changes-page.service';
 import { ChangesSidebarComponent } from './components/changes-sidebar.component';
 
 @Component({
-  selector: 'kpn-changes-page',
+  selector: 'ui-changes-page',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <kpn-page>
-      <kpn-changes-sidebar />
+    <ui-page>
+      <ui-changes-sidebar />
       <nz-divider />
       <nz-breadcrumb>
         <nz-breadcrumb-item>
@@ -40,11 +40,9 @@ import { ChangesSidebarComponent } from './components/changes-sidebar.component'
         </nz-breadcrumb-item>
       </nz-breadcrumb>
 
-      <kpn-page-header subject="changes-page" i18n="@@changes-page.title">
-        Changes
-      </kpn-page-header>
+      <ui-page-header subject="changes-page" i18n="@@changes-page.title"> Changes </ui-page-header>
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
@@ -54,14 +52,14 @@ import { ChangesSidebarComponent } from './components/changes-sidebar.component'
               contributors only.
             </p>
             <p>
-              <kpn-user-link-login />
+              <ui-user-link-login />
             </p>
           } @else {
             @if (response.result; as page) {
               <p>
-                <kpn-situation-on [timestamp]="response.situationOn" />
+                <ui-situation-on [timestamp]="response.situationOn" />
               </p>
-              <kpn-changes
+              <ui-changes
                 [impact]="service.impact()"
                 [pageSize]="service.pageSize()"
                 [pageIndex]="service.pageIndex()"
@@ -71,24 +69,24 @@ import { ChangesSidebarComponent } from './components/changes-sidebar.component'
                 [totalCount]="page.changeCount"
                 [changeCount]="page.changes.length"
               >
-                <kpn-items>
+                <ui-items>
                   @for (changeSet of page.changes; track $index) {
-                    <kpn-item [index]="changeSet.rowIndex">
+                    <ui-item [index]="changeSet.rowIndex">
                       @if (changeSet.network) {
-                        <kpn-change-network-analysis-summary [changeSet]="changeSet" />
+                        <ui-change-network-analysis-summary [changeSet]="changeSet" />
                       }
                       @if (changeSet.location) {
-                        <kpn-change-location-analysis-summary [changeSet]="changeSet" />
+                        <ui-change-location-analysis-summary [changeSet]="changeSet" />
                       }
-                    </kpn-item>
+                    </ui-item>
                   }
-                </kpn-items>
-              </kpn-changes>
+                </ui-items>
+              </ui-changes>
             }
           }
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [ChangesPageService, AnalysisStrategyService, RouterService],
   imports: [

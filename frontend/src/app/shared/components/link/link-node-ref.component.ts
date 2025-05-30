@@ -8,13 +8,13 @@ import { LinkNodeComponent } from './link-node.component';
 import { OsmLinkNodeComponent } from './osm-link-node.component';
 
 @Component({
-  selector: 'kpn-link-node-ref',
+  selector: 'ui-link-node-ref',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (known) {
-      <kpn-link-node [nodeId]="ref().id" [nodeName]="ref().name" />
+      <ui-link-node [nodeId]="ref().id" [nodeName]="ref().name" />
     } @else {
-      <kpn-osm-link-node [nodeId]="ref().id" [title]="ref().name" />
+      <ui-osm-link-node [nodeId]="ref().id" [title]="ref().name" />
     }
   `,
   imports: [LinkNodeComponent, OsmLinkNodeComponent],

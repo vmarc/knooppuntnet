@@ -10,11 +10,11 @@ import { LocationMapControlComponent } from './location-map-control';
 import { LocationMapService } from './location-map.service';
 
 @Component({
-  selector: 'kpn-location-map',
+  selector: 'ui-location-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="mapService.mapId" class="kpn-map">
-      <kpn-location-map-control (action)="zoomToLocation()" />
+      <ui-location-map-control (action)="zoomToLocation()" />
     </div>
   `,
   providers: [

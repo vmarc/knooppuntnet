@@ -9,14 +9,14 @@ import { TagDiffsTableComponent } from './tag-diffs-table.component';
 import { TagDiffsTextComponent } from './tag-diffs-text.component';
 
 @Component({
-  selector: 'kpn-tag-diffs',
+  selector: 'ui-tag-diffs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (small()) {
-      <kpn-tag-diffs-text [tagDiffs]="tagDiffs()" />
+      <ui-tag-diffs-text [tagDiffs]="tagDiffs()" />
     } @else {
       <div class="kpn-label" i18n="@@tag-diffs.title">Tag changes</div>
-      <kpn-tag-diffs-table #large [tagDiffs]="tagDiffs()" />
+      <ui-tag-diffs-table #large [tagDiffs]="tagDiffs()" />
     }
   `,
   imports: [TagDiffsTextComponent, TagDiffsTableComponent],

@@ -16,17 +16,17 @@ import { SubsetNetworkTableComponent } from './components/subset-network-table.c
 import { SubsetNetworksPageService } from './subset-networks-page.service';
 
 @Component({
-  selector: 'kpn-subset-networks-page',
+  selector: 'ui-subset-networks-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-subset-page-header-block
+    <ui-page>
+      <ui-subset-page-header-block
         pageName="networks"
         pageTitle="Networks"
         i18n-pageTitle="@@subset-networks.title"
       />
 
-      <kpn-error />
+      <ui-error />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
@@ -35,7 +35,7 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
           } @else {
             <div>
               <p>
-                <kpn-situation-on [timestamp]="response.situationOn" />
+                <ui-situation-on [timestamp]="response.situationOn" />
               </p>
               <markdown i18n="@@subset-networks.summary">
                 _There are __{{ response.result.networkCount | integer }}__ networks, with a total
@@ -44,15 +44,15 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
                 }}__ routes with an overall length of __{{ response.result.km | integer }}__ km._
               </markdown>
               @if (large()) {
-                <kpn-subset-network-table [networks]="response.result.networks" />
+                <ui-subset-network-table [networks]="response.result.networks" />
               } @else {
-                <kpn-subset-network-list [networks]="response.result.networks" />
+                <ui-subset-network-list [networks]="response.result.networks" />
               }
             </div>
           }
         </div>
       }
-    </kpn-page>
+    </ui-page>
   `,
   providers: [SubsetNetworksPageService, AnalysisStrategyService, RouterService],
   imports: [
