@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tiles.raster
 
+import kpn.server.analyzer.engine.tiles.OldTileData
 import kpn.server.analyzer.engine.tiles.TileBuilder
-import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.domain.Tile
 
 import java.awt.BasicStroke
@@ -17,7 +17,7 @@ class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
   private val width = 256
   private val height = 256
 
-  def build(data: TileData, tile: Tile): Array[Byte] = {
+  def build(data: OldTileData, tile: Tile): Array[Byte] = {
     val image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
     val g = createGraphics(image)
     try {
@@ -30,7 +30,7 @@ class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
     toByteArray(image)
   }
 
-  private def drawRoutes(g: Graphics2D, data: TileData, tile: Tile): Unit = {
+  private def drawRoutes(g: Graphics2D, data: OldTileData, tile: Tile): Unit = {
 
     val lineWidth = if (tile.z < 9) {
       0.5f
@@ -86,7 +86,7 @@ class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
     ((lat - tile.bounds.yMin) * height / (tile.bounds.yMax - tile.bounds.yMin)).round.toInt
   }
 
-  private def drawNodes(g: Graphics2D, data: TileData, tile: Tile): Unit = {
+  private def drawNodes(g: Graphics2D, data: OldTileData, tile: Tile): Unit = {
 
     data.nodes.foreach { node =>
 

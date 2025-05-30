@@ -57,7 +57,7 @@ class TileDataNodeBuilderImpl extends TileDataNodeBuilder {
         nodeTileInfo.hasTag("state", "proposed")
 
       TileDataNode(
-        nodeTileInfo._id,
+        nodeTileInfo.nodeId,
         parts.ref,
         parts.name,
         nodeTileInfo.latitude,

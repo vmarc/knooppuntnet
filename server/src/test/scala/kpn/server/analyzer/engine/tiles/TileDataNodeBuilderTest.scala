@@ -16,6 +16,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
   test("rwn_ref") {
 
     val nodeTileInfo = NodeTileInfo(
+      "TODO redesign",
       1001L,
       names = Seq(
         NodeName(
@@ -52,6 +53,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
   test("proposed") {
 
     val nodeTileInfo = NodeTileInfo(
+      "TODO redesign",
       1001L,
       names = Seq(
         NodeName(
@@ -88,6 +90,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
   test("rwn_ref = 'o'") {
 
     val nodeTileInfo = NodeTileInfo(
+      "TODO redesign",
       1001L,
       names = Seq(
         NodeName(
@@ -111,6 +114,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
   test("proposed:rwn_ref = 'o'") {
 
     val nodeTileInfo = NodeTileInfo(
+      "TODO redesign",
       1001L,
       names = Seq(
         NodeName(
@@ -134,6 +138,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
   test("rwn_ref and rwn_name") {
 
     val nodeTileInfo = NodeTileInfo(
+      "TODO redesign",
       1001L,
       names = Seq(
         NodeName(

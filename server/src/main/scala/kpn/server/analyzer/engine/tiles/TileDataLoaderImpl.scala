@@ -15,11 +15,11 @@ class TileDataLoaderImpl(
 
   private val log = Log(classOf[TileDataLoaderImpl])
 
-  def load(routeType: RouteType, nodeNetwork: Boolean): TileData = {
+  def load(routeType: RouteType, nodeNetwork: Boolean): OldTileData = {
     log.infoElapsed {
       val nodes = if (nodeNetwork) findNodes(routeType) else Seq.empty
       val routes = findRoutes(routeType, nodeNetwork)
-      val tileAnalysis = TileData(routeType, nodes, routes)
+      val tileAnalysis = OldTileData(routeType, nodes, routes)
       (s"Completed analysis for ${routeType.entryName}", tileAnalysis)
     }
   }

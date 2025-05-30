@@ -41,7 +41,7 @@ trait NodeRepository {
 
   def tileIds(routeType: RouteType): Seq[TileId]
 
-  def tileInfos(routeType: RouteType, tileId: TileId): Seq[NodeTileInfo]
+  def tileInfos(routeType: RouteType, zoomLevel: Int): Seq[NodeTileInfo]
 
   def nodeTileInfoByrouteType(routeType: RouteType): Seq[NodeTileInfo]
 

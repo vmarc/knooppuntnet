@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.tiles.vector
 
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.tiles.OldTileData
 import kpn.server.analyzer.engine.tiles.TileBuilder
-import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
@@ -19,7 +19,7 @@ class VectorTileBuilder extends TileBuilder {
   private val log = Log(classOf[VectorTileBuilder])
   private val geometryFactory = new GeometryFactory
 
-  def build(data: TileData, tile: Tile): Array[Byte] = {
+  def build(data: OldTileData, tile: Tile): Array[Byte] = {
     val encoder = new VectorTileEncoder(tile.extent, tile.clipBufferSize, false)
     buildNodes(tile, encoder, data.nodes)
     buildRoutes(tile, encoder, data.routes)
@@ -36,7 +36,7 @@ class VectorTileBuilder extends TileBuilder {
     val coordinate = tile.scale(new Coordinate(node.lon, node.lat))
     val point = geometryFactory.createPoint(coordinate)
     val userData = Seq(
-      Some("id" -> node.id.toString),
+      Some("id" -> node.nodeId.toString),
       node.ref.map(ref => "ref" -> ref),
       node.name.map(name => "name" -> name),
       node.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm),

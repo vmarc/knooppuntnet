@@ -11,7 +11,7 @@ class TileFileManager(
 
   private val log = Log(classOf[TileFileManager])
 
-  def existingFiles(z: Int, data: TileData): TileFileSnapshot = {
+  def existingFiles(z: Int, data: OldTileData): TileFileSnapshot = {
     if (z < ZoomLevel.vectorTileMinZoom) {
       val snapshot = TileFileSnapshot(
         bitmapTileNames = collectExistingBitmapTileNames(z, data),
@@ -67,7 +67,7 @@ class TileFileManager(
     }
   }
 
-  private def collectExistingVectorTileNames(z: Int, data: TileData) = {
+  private def collectExistingVectorTileNames(z: Int, data: OldTileData) = {
     if (z >= ZoomLevel.vectorTileMinZoom - 1) {
       vectorTileFileRepository.existingTileNames(data.routeType.entryName, z)
     }
@@ -76,7 +76,7 @@ class TileFileManager(
     }
   }
 
-  private def collectExistingBitmapTileNames(z: Int, data: TileData) = {
+  private def collectExistingBitmapTileNames(z: Int, data: OldTileData) = {
     if (z < ZoomLevel.vectorTileMinZoom) {
       bitmapTileFileRepository.existingTileNames(data.routeType.entryName, z)
     }
@@ -85,7 +85,7 @@ class TileFileManager(
     }
   }
 
-  private def collectExistingBitmapTileNamesSurface(z: Int, data: TileData) = {
+  private def collectExistingBitmapTileNamesSurface(z: Int, data: OldTileData) = {
     if (z < ZoomLevel.vectorTileMinZoom) {
       bitmapTileFileRepository.existingTileNames(s"${data.routeType.entryName}/surface", z)
     }
@@ -94,7 +94,7 @@ class TileFileManager(
     }
   }
 
-  private def collectExistingBitmapTileNamesSurvey(z: Int, data: TileData) = {
+  private def collectExistingBitmapTileNamesSurvey(z: Int, data: OldTileData) = {
     if (z < ZoomLevel.vectorTileMinZoom) {
       bitmapTileFileRepository.existingTileNames(s"${data.routeType.entryName}/survey", z)
     }
@@ -103,7 +103,7 @@ class TileFileManager(
     }
   }
 
-  private def collectExistingBitmapTileNamesAnalysis(z: Int, data: TileData) = {
+  private def collectExistingBitmapTileNamesAnalysis(z: Int, data: OldTileData) = {
     if (z < ZoomLevel.vectorTileMinZoom) {
       bitmapTileFileRepository.existingTileNames(s"${data.routeType.entryName}/analysis", z)
     }

@@ -4,5 +4,5 @@ import kpn.api.common.RouteType
 
 trait TileDataLoader {
 
-  def load(routeType: RouteType, nodenetwork: Boolean): TileData
+  def load(routeType: RouteType, nodenetwork: Boolean): OldTileData
 }

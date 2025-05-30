@@ -10,7 +10,8 @@ import kpn.api.custom.Tag
    Information about node that is needed to build tiles.
  */
 case class NodeTileInfo(
-  _id: Long,
+  tileName: String,
+  nodeId: Long,
   names: Seq[NodeName],
   latitude: String,
   longitude: String,

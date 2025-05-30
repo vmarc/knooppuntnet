@@ -17,7 +17,7 @@ class TilesBuilder(
 
   private val log = Log(classOf[TilesBuilder])
 
-  def build(z: Int, allTileData: TileData): Unit = {
+  def build(z: Int, allTileData: OldTileData): Unit = {
 
     val manager = new TileFileManager(bitmapTileFileRepository, vectorTileFileRepository)
     val existingFilesSnapshot = manager.existingFiles(z, allTileData)
@@ -63,7 +63,7 @@ class TilesBuilder(
         // val tileDataRoutes = allTileData.routes.filter(_.tiles.contains(tileName))
         val tileDataRoutes = tileDataRouteMap(tileName)
         //log.info(s"nodes=${nodes.size}, routes=${tileDataRoutes.size}")
-        val tileData = TileData(
+        val tileData = OldTileData(
           allTileData.routeType,
           nodes,
           tileDataRoutes

@@ -4,7 +4,7 @@ import kpn.api.common.LatLon
 import kpn.api.custom.Day
 
 case class TileDataNode(
-  id: Long,
+  nodeId: Long,
   ref: Option[String],
   name: Option[String],
   latitude: String,

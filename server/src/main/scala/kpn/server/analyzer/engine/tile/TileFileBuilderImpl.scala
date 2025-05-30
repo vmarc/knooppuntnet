@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.tiles.OldTileData
 import kpn.server.analyzer.engine.tiles.TileBuilder
-import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.raster.RasterTileBuilder
@@ -21,7 +21,7 @@ class TileFileBuilderImpl(
 
   private val log = Log(classOf[TileFileBuilderImpl])
 
-  def build(tileData: TileData, tile: Tile): Unit = {
+  def build(tileData: OldTileData, tile: Tile): Unit = {
     //    if (tile.z <= ZoomLevel.bitmapTileMaxZoom) {
     //      buildRasterStandard(tileData, tile)
     //      buildRasterSurface(tileData, tile)
@@ -36,7 +36,7 @@ class TileFileBuilderImpl(
     //    }
   }
 
-  private def buildVector(tileData: TileData, tile: Tile): Unit = {
+  private def buildVector(tileData: OldTileData, tile: Tile): Unit = {
     if (tileData.isEmpty) {
       vectorTileRepository.deleteTile(tileData.routeType.entryName, tile)
     }
@@ -51,23 +51,23 @@ class TileFileBuilderImpl(
     }
   }
 
-  private def buildRasterStandard(tileData: TileData, tile: Tile): Unit = {
+  private def buildRasterStandard(tileData: OldTileData, tile: Tile): Unit = {
     build(new RasterTileBuilder(new TileColorSurface), tileData.routeType.entryName, tileData, tile)
   }
 
-  private def buildRasterSurface(tileData: TileData, tile: Tile): Unit = {
+  private def buildRasterSurface(tileData: OldTileData, tile: Tile): Unit = {
     build(new RasterTileBuilder(new TileColorSurface), s"${tileData.routeType.entryName}/surface", tileData, tile)
   }
 
-  private def buildRasterSurvey(tileData: TileData, tile: Tile): Unit = {
+  private def buildRasterSurvey(tileData: OldTileData, tile: Tile): Unit = {
     build(new RasterTileBuilder(new TileColorSurvey(SurveyDateInfoBuilder.dateInfo)), s"${tileData.routeType.entryName}/survey", tileData, tile)
   }
 
-  private def buildRasterAnalysis(tileData: TileData, tile: Tile): Unit = {
+  private def buildRasterAnalysis(tileData: OldTileData, tile: Tile): Unit = {
     build(new RasterTileBuilder(new TileColorAnalysis), s"${tileData.routeType.entryName}/analysis", tileData, tile)
   }
 
-  private def build(tileBuilder: TileBuilder, tileType: String, tileData: TileData, tile: Tile): Unit = {
+  private def build(tileBuilder: TileBuilder, tileType: String, tileData: OldTileData, tile: Tile): Unit = {
     if (tileData.isEmpty) {
       rasterTileRepository.deleteTile(tileType, tile)
     }

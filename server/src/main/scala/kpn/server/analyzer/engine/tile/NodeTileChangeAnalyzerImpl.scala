@@ -33,6 +33,7 @@ class NodeTileChangeAnalyzerImpl(
 
   private def toNodeTileInfo(nodeDoc: NodeDoc): NodeTileInfo = {
     NodeTileInfo(
+      "TODO redesign",
       nodeDoc._id,
       nodeDoc.names,
       nodeDoc.latitude,

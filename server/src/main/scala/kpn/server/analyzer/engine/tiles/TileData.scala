@@ -1,15 +1,13 @@
 package kpn.server.analyzer.engine.tiles
 
 import kpn.api.common.RouteType
-import kpn.server.analyzer.engine.tiles.domain.TileDataNode
-import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
+import kpn.server.analyzer.engine.tiles.domain.Tile
 
 case class TileData(
   routeType: RouteType,
-  nodes: Seq[TileDataNode],
-  routes: Seq[TileDataRoute]
-) {
-  def isEmpty: Boolean = {
-    nodes.isEmpty && routes.isEmpty
-  }
-}
+  tile: Tile,
+  nodes: Seq[NodeTileInfo],
+  routes: Seq[RouteTileDoc]
+)

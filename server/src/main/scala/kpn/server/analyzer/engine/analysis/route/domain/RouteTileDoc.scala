@@ -17,4 +17,8 @@ case class RouteTileDoc(
   survey: Option[String],
   error: Option[String],
   segments: Seq[RouteTileSegment]
-) extends WithStringId
+) extends WithStringId {
+  def tileName: String = {
+    s"$z-$x-$y"
+  }
+}

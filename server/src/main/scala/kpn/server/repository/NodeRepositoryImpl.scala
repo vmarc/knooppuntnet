@@ -87,8 +87,8 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
     new MongoQueryNodeTileIds(database).execute(routeType)
   }
 
-  override def tileInfos(routeType: RouteType, tileId: TileId): Seq[NodeTileInfo] = {
-    new MongoQueryNodeTileInfos(database).execute(routeType, tileId)
+  override def tileInfos(routeType: RouteType, zoomLevel: Int): Seq[NodeTileInfo] = {
+    new MongoQueryNodeTileInfos(database).execute(routeType, zoomLevel)
   }
 
   override def nodeTileInfoByrouteType(routeType: RouteType): Seq[NodeTileInfo] = {

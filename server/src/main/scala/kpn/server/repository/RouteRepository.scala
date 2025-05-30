@@ -38,6 +38,8 @@ trait RouteRepository {
 
   def routeTileIds(routeId: Long): Seq[String]
 
+  def routeTileInfos(routeType: RouteType, zoomLevel: Int): Seq[RouteTileDoc]
+
   def deleteRouteTiles(routeId: Long): Unit
 
   def deleteRouteTile(tileId: String): Unit

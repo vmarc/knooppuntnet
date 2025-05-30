@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.tile
 import kpn.api.common.RouteType
 import kpn.api.common.tiles.ZoomLevel
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tiles.TileData
+import kpn.server.analyzer.engine.tiles.OldTileData
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
 import kpn.server.analyzer.engine.tiles.TileDataRouteBuilder
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
@@ -62,7 +62,7 @@ class TileUpdaterImpl(
     private def updateTile(routeType: RouteType, tile: Tile): Unit = {
       val tileDataNodes = collectTileDataNodes(routeType, tile)
       val tileDataRoutes = collectTileDataRoutes(routeType, tile)
-      val tileData = TileData(routeType, tileDataNodes, tileDataRoutes)
+      val tileData = OldTileData(routeType, tileDataNodes, tileDataRoutes)
       tileFileBuilder.build(tileData, tile)
     }
 

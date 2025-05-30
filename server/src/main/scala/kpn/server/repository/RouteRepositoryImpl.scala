@@ -31,6 +31,7 @@ import kpn.database.actions.routes.MongoQueryRouteTileIds
 import kpn.database.actions.routes.MongoQueryRouteTileInfo
 import kpn.database.actions.routes.MongoQueryRoutes
 import kpn.database.actions.routes.MongoQuerySubRouteData
+import kpn.database.actions.routes.MongoQueryTileInfoRoutes
 import kpn.database.base.Database
 import kpn.database.base.StringId
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
@@ -106,6 +107,10 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
       val ids = database.routeTiles.aggregate[StringId](pipeline, log).map(_._id)
       (s"found ${ids.size} tile doc ids for route $routeId", ids)
     }
+  }
+
+  def routeTileInfos(routeType: RouteType, zoomLevel: Int): Seq[RouteTileDoc] = {
+    new MongoQueryTileInfoRoutes(database).execute(routeType, zoomLevel, log)
   }
 
   override def deleteRouteTiles(routeId: Long): Unit = {

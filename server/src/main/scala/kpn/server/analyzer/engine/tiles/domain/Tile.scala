@@ -45,6 +45,11 @@ object Tile {
     new Tile(z, x, y, detailed, extent, clipBufferSize)
   }
 
+  def routeTileFromName(tilename: String): Tile = {
+    val splitted = tilename.split("-")
+    routeTile(splitted(0).toInt, splitted(1).toInt, splitted(2).toInt)
+  }
+
   def poiTileFromName(tilename: String): Tile = {
     val splitted = tilename.split("-")
     poiTile(splitted(0).toInt, splitted(1).toInt, splitted(2).toInt)
