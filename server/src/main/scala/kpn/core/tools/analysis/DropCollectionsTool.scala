@@ -4,7 +4,7 @@ import kpn.database.util.Mongo
 
 object DropCollectionsTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-next") { database =>
+    Mongo.executeIn("kpn-laptop") { database =>
       database.baseNodes.drop()
       database.baseRoutes.drop()
       database.baseNetworks.drop()

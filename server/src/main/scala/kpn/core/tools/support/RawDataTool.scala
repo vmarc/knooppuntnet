@@ -14,7 +14,7 @@ import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RawDataRepositoryImpl
 
 object RawDataTool {
-  private val timestamp = Timestamp(2025, 5, 20, 0, 0, 0)
+  val timestamp: Timestamp = Timestamp(2025, 5, 20, 0, 0, 0)
 
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-laptop") { database =>

@@ -106,7 +106,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
 
   private def assertBaseRoute(): Unit = {
     assertEqual(
-      findBaseRouteById(11).copy(geometryDigest = "", tiles = Seq.empty),
+      findBaseRouteById(11).copy(geometryDigest = ""),
       newBaseRouteDoc(
         newRouteSummary(
           11,

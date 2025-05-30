@@ -84,7 +84,6 @@ class BaseRouteDocBuilder() {
       routeAnalysis,
       context.geometryDigest,
       context._locationAnalysis.get,
-      context.tiles,
       context.routeNodesAnalysis.nodeIds,
       context.elementIds,
       context.edges,

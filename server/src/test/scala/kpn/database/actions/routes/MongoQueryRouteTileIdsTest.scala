@@ -47,6 +47,7 @@ class MongoQueryRouteTileIdsTest extends UnitTest with SharedTestObjects {
       scope = None,
       survey = None,
       error = None,
+      proposed = false,
       segments = Seq.empty
     )
   }

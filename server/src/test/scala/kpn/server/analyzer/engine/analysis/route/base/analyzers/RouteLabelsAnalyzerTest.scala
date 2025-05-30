@@ -32,7 +32,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("no survey") {
-    val context = buildContext().copy(lastSurvey = None)
+    val context = buildContext().copy(_lastSurvey = Some(None))
     val labels = BaseRouteLabelsAnalyzer.analyze(context).labels
     labels shouldNot contain(Label.survey)
   }
@@ -78,7 +78,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
       _scopes = Some(Seq(RouteScope.regional)),
       scopedRouteTypeOption = Some(ScopedRouteType.rwn),
       _countries = Some(Seq(Country.be)),
-      lastSurvey = Some(Day(2020, 8)),
+      _lastSurvey = Some(Some(Day(2020, 8))),
       facts = Seq(Fact.RouteBroken),
       _locationAnalysis = Some(
         RouteLocationAnalysis(

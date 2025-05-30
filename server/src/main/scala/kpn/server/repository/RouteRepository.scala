@@ -15,7 +15,6 @@ import kpn.core.doc.RouteDoc
 import kpn.core.doc.SubRouteData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
-import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
 
 trait RouteRepository {
@@ -38,7 +37,9 @@ trait RouteRepository {
 
   def routeTileIds(routeId: Long): Seq[String]
 
-  def routeTileInfos(routeType: RouteType, zoomLevel: Int): Seq[RouteTileDoc]
+  def tileInfosByZoomLevel(routeType: RouteType, zoomLevel: Int): Seq[RouteTileDoc]
+
+  def tileInfosByTileId(routeType: RouteType, tileId: TileId): Seq[RouteTileDoc]
 
   def deleteRouteTiles(routeId: Long): Unit
 
@@ -54,8 +55,6 @@ trait RouteRepository {
 
   def networkReferences(routeId: Long): Seq[Reference]
 
-  def routeTileInfosById(routeId: Long): Option[RouteTileInfo]
-
   def routeCountry(routeId: Long): Option[Country]
 
   def explore(query: ConditionGroup): RouteList
@@ -69,8 +68,6 @@ trait RouteRepository {
   def findBaseRouteById(routeId: Long): Option[BaseRouteDoc]
 
   def filterKnownBaseRoutes(routeIds: Set[Long]): Set[Long]
-
-  def routeTileInfosByRouteType(routeType: RouteType, nodeNetwork: Boolean): Seq[RouteTileInfo]
 
   def bounds(routeIds: Seq[Long]): Option[Bounds]
 

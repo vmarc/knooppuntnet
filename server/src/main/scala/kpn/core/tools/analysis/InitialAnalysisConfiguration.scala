@@ -55,6 +55,7 @@ import kpn.server.analyzer.full.analyzers.FullRouteAnalyzer
 import kpn.server.analyzer.full.analyzers.InitialNetworkChangeBuilder
 import kpn.server.analyzer.full.analyzers.InitialNodeChangeBuilder
 import kpn.server.analyzer.full.analyzers.InitialRouteChangeBuilder
+import kpn.server.analyzer.full.analyzers.SingleBaseRouteAnalyzer
 import kpn.server.overpass.OverpassRepository
 import kpn.server.overpass.OverpassRepositoryImpl
 import kpn.server.repository.AnalysisRepository
@@ -220,12 +221,19 @@ class InitialAnalysisConfiguration(options: InitialAnalysisToolOptions) {
     baseNodeMainAnalyzer
   )
 
-  private val fullBaseRouteAnalyzer = new FullBaseRouteAnalyzer(
+  val singleBaseRouteAnalyzer = new SingleBaseRouteAnalyzer(
     rawDataRepository,
     routeRepository,
     changeSetRepository,
     baseRouteMainAnalyzer,
-    baseRouteDocBuilder
+    baseRouteDocBuilder,
+  )
+
+  private val fullBaseRouteAnalyzer = new FullBaseRouteAnalyzer(
+    rawDataRepository,
+    routeRepository,
+    baseRouteDocBuilder,
+    singleBaseRouteAnalyzer
   )
 
   private val fullBaseNetworkAnalyzer = new FullBaseNetworkAnalyzer(

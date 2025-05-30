@@ -10,6 +10,7 @@ case class RouteTileData(
   scope: Option[RouteScope],
   survey: Option[String],
   error: Option[String],
+  proposed: Boolean,
   segments: Seq[RouteTileSegment]
 ) {
   def name: String = {

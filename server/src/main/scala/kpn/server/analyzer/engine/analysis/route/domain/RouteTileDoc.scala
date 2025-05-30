@@ -16,6 +16,7 @@ case class RouteTileDoc(
   scope: Option[RouteScope],
   survey: Option[String],
   error: Option[String],
+  proposed: Boolean,
   segments: Seq[RouteTileSegment]
 ) extends WithStringId {
   def tileName: String = {

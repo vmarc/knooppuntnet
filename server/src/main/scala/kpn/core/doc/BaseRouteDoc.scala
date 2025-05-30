@@ -34,7 +34,6 @@ case class BaseRouteDoc(
   analysis: RouteInfoAnalysis,
   geometryDigest: String,
   locationAnalysis: RouteLocationAnalysis,
-  tiles: Seq[String],
   nodeRefs: Seq[Long], // networkNodeIds
   elementIds: ElementIds,
   edges: Seq[RouteEdge],

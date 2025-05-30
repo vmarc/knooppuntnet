@@ -85,7 +85,7 @@ class AnalyzerEngineImpl(
           replicationContext.tiles.foreach { tile =>
             taskRepository.add(TileTask.task(tile))
           }
-          tileUpdater.update(11)
+          tileUpdater.update()
           poiTileUpdater.update()
         }
 

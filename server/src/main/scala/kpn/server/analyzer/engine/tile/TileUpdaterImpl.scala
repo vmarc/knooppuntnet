@@ -3,17 +3,13 @@ package kpn.server.analyzer.engine.tile
 import kpn.api.common.RouteType
 import kpn.api.common.tiles.ZoomLevel
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tiles.OldTileData
-import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
-import kpn.server.analyzer.engine.tiles.TileDataRouteBuilder
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.analyzer.engine.tiles.domain.TileDataNode
-import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.TaskRepository
-import kpn.server.repository.TileRepository
 import org.springframework.stereotype.Component
 
 @Component
@@ -21,84 +17,52 @@ class TileUpdaterImpl(
   taskRepository: TaskRepository,
   nodeRepository: NodeRepository,
   routeRepository: RouteRepository,
-  tileRepository: TileRepository,
-  tileFileBuilder: TileFileBuilder,
   tileCalculator: TileCalculator,
-  tileDataNodeBuilder: TileDataNodeBuilder
+  routeTileEncoder: RouteTileEncoder
 ) extends TileUpdater {
 
   private val log = Log(classOf[TileUpdaterImpl])
 
-  override def update(minZoomLevel: Int): Unit = {
-    new Updater(minZoomLevel).update()
+  override def update(): Unit = {
+    val allTileTasks = taskRepository.all(TileTask.prefix)
+    processAllTileTasks(allTileTasks)
   }
 
-  private class Updater(minZoomLevel: Int) {
-
-    private val nodeCache = new TileDataCache[NodeTileInfo]()
-    private val routeCache = new TileDataCache[TileDataRoute]()
-
-    def update(): Unit = {
-      val allTasks = taskRepository.all(TileTask.prefix)
-      log.debug(s"processing ${allTasks.size} tasks")
-      (minZoomLevel to ZoomLevel.maxZoom).foreach { zoomLevel =>
-        routeCache.clear()
-        val tasks = allTasks.filter(task => TileTask.zoomLevel(task) == zoomLevel)
-        log.debug(s"processing ${tasks.size} tasks at zoomLevel $zoomLevel")
-        tasks.foreach { task =>
-          log.debug(s"processing task $task")
-          processTask(task)
-          taskRepository.delete(task)
-        }
-      }
+  private def processAllTileTasks(allTasks: Seq[String]): Unit = {
+    log.debug(s"processing ${allTasks.size} tile tasks")
+    (ZoomLevel.minZoom to ZoomLevel.maxZoom).foreach { zoomLevel =>
+      val tasks = allTasks.filter(task => TileTask.zoomLevel(task) == zoomLevel)
+      processZoomLevelTileTasks(zoomLevel, tasks)
     }
+  }
 
-    private def processTask(task: String): Unit = {
-      val tile = tileCalculator.tileNamed(TileTask.tileName(task))
-      val routeType: RouteType = TileTask.routeType(task)
-      updateTile(routeType, tile)
+  private def processZoomLevelTileTasks(zoomLevel: Int, tasks: Seq[String]): Unit = {
+    log.debug(s"processing ${tasks.size} tasks at zoomLevel $zoomLevel")
+    tasks.foreach { task =>
+      log.debug(s"processing task $task")
+      processTask(task)
+      taskRepository.delete(task)
     }
+  }
 
-    private def updateTile(routeType: RouteType, tile: Tile): Unit = {
-      val tileDataNodes = collectTileDataNodes(routeType, tile)
-      val tileDataRoutes = collectTileDataRoutes(routeType, tile)
-      val tileData = OldTileData(routeType, tileDataNodes, tileDataRoutes)
-      tileFileBuilder.build(tileData, tile)
-    }
+  private def processTask(task: String): Unit = {
+    val tile = tileCalculator.tileNamed(TileTask.tileName(task))
+    val routeType = TileTask.routeType(task)
+    updateTile(routeType, tile)
+  }
 
-    private def collectTileDataNodes(routeType: RouteType, tile: Tile): Seq[TileDataNode] = {
-      val nodeIds = tileRepository.nodeIds(routeType, tile)
-      nodeIds.flatMap { nodeId =>
-        val nodeTileInfoOption = nodeCache.getOrElseUpdate(
-          nodeId,
-          nodeRepository.nodeTileInfoById(nodeId)
-        )
-        nodeTileInfoOption match {
-          case Some(tileInfoNode) => tileDataNodeBuilder.build(routeType, tileInfoNode)
-          case None =>
-            log.error(s"Unexpected data integrity problem: node $nodeId for tile ${routeType.entryName}-${tile.name} not found in database")
-            None
-        }
-      }
-    }
+  private def updateTile(routeType: RouteType, tile: Tile): Unit = {
+    val nodeTileInfos = collectTileDataNodes(routeType, tile)
+    val routeTileDocs = collectTileDataRoutes(routeType, tile)
+    val tileData = TileData(routeType, tile, nodeTileInfos, routeTileDocs)
+    routeTileEncoder.encode(tileData)
+  }
 
-    private def collectTileDataRoutes(routeType: RouteType, tile: Tile): Seq[TileDataRoute] = {
-      val routeIds = tileRepository.routeIds(routeType, tile)
-      routeIds.flatMap { routeId =>
-        routeCache.getOrElseUpdate(
-          routeId,
-          routeRepository.routeTileInfosById(routeId) match {
-            case Some(routeTileInfo) =>
-              val tileDataRoute = TileDataRouteBuilder.fromRouteInfo(routeTileInfo)
-              Option.when(tileDataRoute.segments.nonEmpty) {
-                tileDataRoute
-              }
-            case None =>
-              log.error(s"Unexpected data integrity problem: route $routeId for tile ${routeType.entryName}-${tile.name} not found in database")
-              None
-          }
-        )
-      }
-    }
+  private def collectTileDataNodes(routeType: RouteType, tile: Tile): Seq[NodeTileInfo] = {
+    nodeRepository.tileInfosByTile(routeType, tile.id)
+  }
+
+  private def collectTileDataRoutes(routeType: RouteType, tile: Tile): Seq[RouteTileDoc] = {
+    routeRepository.tileInfosByTileId(routeType, tile.id)
   }
 }

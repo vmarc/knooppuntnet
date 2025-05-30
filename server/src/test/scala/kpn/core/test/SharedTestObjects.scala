@@ -87,7 +87,6 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.analysis.Facts
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.doc.BaseNetworkDoc
@@ -488,90 +487,6 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newBaseRoute(
-    id: Long = 0,
-    active: Boolean = true,
-    labels: Seq[String] = Seq.empty,
-    proposed: Boolean = false,
-    countries: Seq[Country] = Seq.empty,
-    nodeNetwork: Boolean = true,
-    routeTypes: Seq[RouteType] = Seq(RouteType.hiking),
-    routeScope: RouteScope = RouteScope.regional,
-    name: String = "",
-    meters: Int = 0,
-    wayCount: Int = 0,
-    lastUpdated: Timestamp = Timestamps.default,
-    relationLastUpdated: Timestamp = Timestamps.default,
-    lastSurvey: Option[Day] = None,
-    unexpectedNodeIds: Seq[Long] = Seq.empty,
-    unexpectedRelationIds: Seq[Long] = Seq.empty,
-    members: Seq[RouteMemberInfo] = Seq.empty,
-    nameDerivedFromNodes: Boolean = false,
-    nodes: RouteNodes = RouteNodes(),
-    analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
-    geometryDigest: String = "",
-    locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
-    facts: Seq[Fact] = Seq.empty,
-    tiles: Seq[String] = Seq.empty,
-    elementIds: ElementIds = ElementIds(),
-    edges: Seq[RouteEdge] = Seq.empty,
-    segments: Seq[BaseRouteSegment] = Seq.empty,
-    segmentElements: Seq[BaseRouteSegmentElement] = Seq.empty,
-    paths: Seq[BaseRoutePath] = Seq.empty,
-    relation: Option[Relation] = None,
-    subRelationTree: Option[RouteRelation] = None,
-    bounds: Option[Bounds] = None,
-    subRouteIds: Seq[Long] = Seq.empty
-  ): BaseRouteDoc = {
-
-    val summary = RouteSummary(
-      id,
-      countries,
-      nodeNetwork,
-      routeTypes,
-      Seq.empty, // TODO redesign tiles - scopes
-      name,
-      meters,
-      broken = facts.exists(Facts.isError),
-      inaccessible = facts.contains(Fact.RouteInaccessible),
-      wayCount,
-      relationLastUpdated,
-      tags = Seq.empty,
-    )
-
-    BaseRouteDoc(
-      summary.id,
-      active,
-      labels,
-      summary,
-      proposed,
-      version = 0,
-      changeSetId = 0,
-      lastUpdated,
-      lastSurvey,
-      facts,
-      unexpectedNodeIds,
-      unexpectedRelationIds,
-      members,
-      nameDerivedFromNodes,
-      nodes,
-      analysis,
-      geometryDigest,
-      locationAnalysis,
-      tiles,
-      nodes.nodeIds,
-      elementIds,
-      edges,
-      segments,
-      segmentElements,
-      paths,
-      relation,
-      subRelationTree,
-      bounds,
-      subRouteIds
-    )
-  }
-
   def newRouteTileDoc(
     _id: String,
     routeId: Long,
@@ -588,6 +503,7 @@ trait SharedTestObjects extends MockFactory {
       scope = None,
       survey = None,
       error = None,
+      proposed = false,
       segments = Seq.empty
     )
   }
@@ -1057,7 +973,6 @@ trait SharedTestObjects extends MockFactory {
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     geometryDigest: String = "",
     locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
-    tiles: Seq[String] = Seq.empty,
     nodeRefs: Seq[Long] = Seq.empty,
     elementIds: ElementIds = ElementIds(),
     edges: Seq[RouteEdge] = Seq.empty,
@@ -1088,7 +1003,6 @@ trait SharedTestObjects extends MockFactory {
       analysis,
       geometryDigest,
       locationAnalysis,
-      tiles,
       nodeRefs,
       elementIds,
       edges,
@@ -1649,17 +1563,19 @@ trait SharedTestObjects extends MockFactory {
     scope: Option[RouteScope] = None,
     survey: Option[String] = None,
     error: Option[String] = None,
+    proposed: Boolean = false,
     segments: Seq[RouteTileSegment] = Seq.empty
   ): RouteTileData = {
     RouteTileData(
-      z: Long,
-      x: Long,
-      y: Long,
-      layer: String,
-      scope: Option[RouteScope],
-      survey: Option[String],
-      error: Option[String],
-      segments: Seq[RouteTileSegment]
+      z,
+      x,
+      y,
+      layer,
+      scope,
+      survey,
+      error,
+      proposed,
+      segments
     )
   }
 

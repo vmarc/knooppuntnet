@@ -93,9 +93,6 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         country = Some(Country.nl),
         locations = Seq("nl"),
         tiles = Seq(
-          "cycling-9-256-256",
-          "cycling-10-512-512",
-          "cycling-11-1024-1024",
           "cycling-12-2048-2048",
           "cycling-13-4096-4096",
           "cycling-14-8192-8192"

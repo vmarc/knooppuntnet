@@ -16,8 +16,10 @@ class BaseRouteLastSurveyAnalyzer(context: BaseRouteAnalysisContext) {
   def analyze: BaseRouteAnalysisContext = {
     val surveyDateTry = SurveyDateAnalyzer.analyze(context.relation)
     surveyDateTry match {
-      case Success(surveyDate) => context.copy(lastSurvey = surveyDate)
-      case Failure(_) => context.withFact(Fact.RouteInvalidSurveyDate)
+      case Success(surveyDate) => context.copy(_lastSurvey = Some(surveyDate))
+      case Failure(_) => context
+        .copy(_lastSurvey = Some(None))
+        .withFact(Fact.RouteInvalidSurveyDate)
     }
   }
 }

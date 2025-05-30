@@ -123,7 +123,7 @@ class BaseRouteChangeCreateProcessor(
       if (context.facts.contains(Fact.LostRouteTags)) {
         val baseRouteDoc = baseRouteDocBuilder.build(context)
         changeSetContext.withImpact(
-          tileIds = baseRouteDoc.tiles,
+          tileIds = context.tiles,
           nodeIds = baseRouteDoc.nodes.nodeIds,
         )
       }

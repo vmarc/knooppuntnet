@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
+import kpn.api.common.RouteScope
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Relation
 import kpn.core.analysis.Facts
@@ -68,20 +69,20 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
   }
 
   private def includeRoute(context: BaseRouteAnalysisContext, zoomLevel: Int): Boolean = {
-    if (context.nodeNetwork && zoomLevel >= 6) {
+    if (context.nodeNetwork && zoomLevel >= ZoomLevel.minZoomNodeNetwork) {
       return true
     }
-    val includedScopes = if (zoomLevel < 7) {
-      Seq("international")
+    val includedScopes = if (zoomLevel < ZoomLevel.minZoomNational) {
+      Seq(RouteScope.international)
     }
-    else if (zoomLevel < 9) {
-      Seq("international", "national")
+    else if (zoomLevel < ZoomLevel.minZoomRegional) {
+      Seq(RouteScope.international, RouteScope.national)
     }
-    else if (zoomLevel < 11) {
-      Seq("international", "national", "regional")
+    else if (zoomLevel < ZoomLevel.minZoomLocal) {
+      Seq(RouteScope.international, RouteScope.national, RouteScope.regional)
     }
     else {
-      Seq("international", "national", "regional", "local", "unkown")
+      Seq(RouteScope.international, RouteScope.national, RouteScope.regional, RouteScope.local, RouteScope.unknown)
     }
     includedScopes.exists(context.scopes.contains)
   }
@@ -134,6 +135,7 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
             scope,
             survey,
             error,
+            context.proposed,
             segments
           )
         )

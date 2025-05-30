@@ -58,7 +58,7 @@ case class BaseRouteAnalysisContext(
   allWayNodes: Option[Seq[Node]] = None,
   _geometryDigest: Option[String] = None,
   _locationAnalysis: Option[RouteLocationAnalysis] = None,
-  lastSurvey: Option[Day] = None,
+  _lastSurvey: Option[Option[Day]] = None,
   labels: Seq[String] = Seq.empty,
   _tileAnalysis: Option[RouteTileAnalysis] = None,
   tiles: Seq[String] = Seq.empty,
@@ -156,6 +156,8 @@ case class BaseRouteAnalysisContext(
   def geometryDigest: String = _geometryDigest.getOrElse(throw new PreconditionMissingException)
 
   def locationAnalysis: RouteLocationAnalysis = _locationAnalysis.getOrElse(throw new PreconditionMissingException)
+
+  def lastSurvey: Option[Day] = _lastSurvey.getOrElse(throw new PreconditionMissingException)
 
   def tileAnalysis: RouteTileAnalysis = _tileAnalysis.getOrElse(throw new PreconditionMissingException)
 

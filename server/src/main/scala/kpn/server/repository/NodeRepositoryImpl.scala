@@ -12,7 +12,6 @@ import kpn.database.actions.nodes.MongoQueryNodeIds
 import kpn.database.actions.nodes.MongoQueryNodeTileIds
 import kpn.database.actions.nodes.MongoQueryNodeTileInfos
 import kpn.database.actions.nodes.MongoQueryNodes
-import kpn.database.actions.nodes.OldMongoQueryNodeTileInfo
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
@@ -87,15 +86,11 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
     new MongoQueryNodeTileIds(database).execute(routeType)
   }
 
-  override def tileInfos(routeType: RouteType, zoomLevel: Int): Seq[NodeTileInfo] = {
-    new MongoQueryNodeTileInfos(database).execute(routeType, zoomLevel)
+  override def tileInfosByZoomLevel(routeType: RouteType, zoomLevel: Int): Seq[NodeTileInfo] = {
+    new MongoQueryNodeTileInfos(database).byZoomLevel(routeType, zoomLevel)
   }
 
-  override def nodeTileInfoByrouteType(routeType: RouteType): Seq[NodeTileInfo] = {
-    new OldMongoQueryNodeTileInfo(database).findByrouteType(routeType)
-  }
-
-  override def nodeTileInfoById(nodeId: Long): Option[NodeTileInfo] = {
-    new OldMongoQueryNodeTileInfo(database).findById(nodeId)
+  override def tileInfosByTile(routeType: RouteType, tileId: TileId): Seq[NodeTileInfo] = {
+    new MongoQueryNodeTileInfos(database).byTileId(routeType, tileId)
   }
 }

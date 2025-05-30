@@ -19,6 +19,7 @@ object RouteTileDocBuilder {
         scope = tileData.scope,
         survey = tileData.survey,
         error = tileData.error,
+        proposed = tileData.proposed,
         segments = tileData.segments
       )
     }

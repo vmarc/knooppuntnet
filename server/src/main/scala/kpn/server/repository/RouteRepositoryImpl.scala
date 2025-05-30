@@ -28,7 +28,6 @@ import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.database.actions.routes.MongoQueryRouteSearchResults
 import kpn.database.actions.routes.MongoQueryRouteTileDocs
 import kpn.database.actions.routes.MongoQueryRouteTileIds
-import kpn.database.actions.routes.MongoQueryRouteTileInfo
 import kpn.database.actions.routes.MongoQueryRoutes
 import kpn.database.actions.routes.MongoQuerySubRouteData
 import kpn.database.actions.routes.MongoQueryTileInfoRoutes
@@ -36,7 +35,6 @@ import kpn.database.base.Database
 import kpn.database.base.StringId
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
-import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.sync.Transaction
 import org.mongodb.scala.model.Aggregates.filter
@@ -109,8 +107,12 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     }
   }
 
-  def routeTileInfos(routeType: RouteType, zoomLevel: Int): Seq[RouteTileDoc] = {
-    new MongoQueryTileInfoRoutes(database).execute(routeType, zoomLevel, log)
+  override def tileInfosByZoomLevel(routeType: RouteType, zoomLevel: Int): Seq[RouteTileDoc] = {
+    new MongoQueryTileInfoRoutes(database).byZoomLevel(routeType, zoomLevel, log)
+  }
+
+  override def tileInfosByTileId(routeType: RouteType, tileId: TileId): Seq[RouteTileDoc] = {
+    new MongoQueryTileInfoRoutes(database).byTileId(routeType, tileId, log)
   }
 
   override def deleteRouteTiles(routeId: Long): Unit = {
@@ -162,10 +164,6 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQueryRouteNetworkReferences(database).execute(routeId, log)
   }
 
-  override def routeTileInfosById(routeId: Long): Option[RouteTileInfo] = {
-    new MongoQueryRouteTileInfo(database).findById(routeId)
-  }
-
   override def routeCountry(routeId: Long): Option[Country] = {
     new MongoQueryRouteCountry(database).execute(routeId)
   }
@@ -193,10 +191,6 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
 
   override def filterKnownBaseRoutes(routeIds: Set[Long]): Set[Long] = {
     new MongoQueryKnownRouteIds(database).execute(routeIds.toSeq, log).toSet
-  }
-
-  override def routeTileInfosByRouteType(routeType: RouteType, nodeNetwork: Boolean): Seq[RouteTileInfo] = {
-    new MongoQueryRouteTileInfo(database).findByRouteType(routeType, nodeNetwork)
   }
 
   override def bounds(routeIds: Seq[Long]): Option[Bounds] = {
