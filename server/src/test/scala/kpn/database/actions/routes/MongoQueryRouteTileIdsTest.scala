@@ -7,11 +7,11 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.tiles.domain.TileId
 
-class MongoQueryRouteTileNamesTest extends UnitTest with SharedTestObjects {
+class MongoQueryRouteTileIdsTest extends UnitTest with SharedTestObjects {
 
   test("execute") {
     withDatabase { database =>
-      val query = new MongoQueryRouteTileNames(database)
+      val query = new MongoQueryRouteTileIds(database)
 
       database.routeTiles.save(buildTile(1, Seq(RouteType.hiking), 2))
       database.routeTiles.save(buildTile(2, Seq(RouteType.hiking), 2))

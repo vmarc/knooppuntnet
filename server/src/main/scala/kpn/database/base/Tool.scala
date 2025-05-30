@@ -23,7 +23,7 @@ abstract class Tool[T] {
       }
     } catch {
       case e: Exception =>
-        log.error(e.getMessage)
+        log.error(e.getMessage, e)
         Exit.Failure
     }
   }

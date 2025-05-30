@@ -1,7 +1,6 @@
 package kpn.database.actions.nodes
 
 import kpn.api.common.RouteType
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Types.MongoPipeline
@@ -14,16 +13,16 @@ import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 
-object MongoQueryNodeTileInfo {
-  private val log = Log(classOf[MongoQueryNodeTileInfo])
+object MongoQueryNodeTileInfos {
+  private val log = Log(classOf[MongoQueryNodeTileInfos])
 }
 
-class MongoQueryNodeTileInfo(database: Database) {
+class MongoQueryNodeTileInfos(database: Database) {
 
-  def execute(routeType: RouteType, tileId: TileId, log: Log = MongoQueryNodeTileInfo.log): Seq[NodeTileInfo] = {
+  def execute(routeType: RouteType, tileId: TileId, log: Log = MongoQueryNodeTileInfos.log): Seq[NodeTileInfo] = {
     log.debugElapsed {
       val pipeline = buildPipeline(routeType, tileId)
-      val nodes = database.nodes.aggregate[NodeTileInfo](pipeline, log)
+      val nodes = database.baseNodes.aggregate[NodeTileInfo](pipeline, log)
       (s"${nodes.size} nodes", nodes)
     }
   }
@@ -34,7 +33,7 @@ class MongoQueryNodeTileInfo(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("labels", Label.routeType(routeType)),
+          equal("names.routeType", routeType.entryName),
           equal("tiles", tilename)
         )
       ),
@@ -44,7 +43,6 @@ class MongoQueryNodeTileInfo(database: Database) {
           include("names"),
           include("latitude"),
           include("longitude"),
-          include("lastSurvey"),
           include("tags"),
           include("facts")
         )

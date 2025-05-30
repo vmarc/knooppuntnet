@@ -39,9 +39,9 @@ trait NodeRepository {
 
   def filterKnown(nodeIds: Set[Long]): Set[Long]
 
-  def tiles(routeType: RouteType): Seq[TileId]
+  def tileIds(routeType: RouteType): Seq[TileId]
 
-  def tilesWithName(routeType: RouteType, tileId: TileId): Seq[NodeTileInfo]
+  def tileInfos(routeType: RouteType, tileId: TileId): Seq[NodeTileInfo]
 
   def nodeTileInfoByrouteType(routeType: RouteType): Seq[NodeTileInfo]
 

@@ -161,6 +161,14 @@ class CreateIndexesTool(database: Database) {
         "_id",
         "summary.name",
       ),
+      Index( // support MongoQueryRouteTileIds
+        database.routeTiles,
+        "tile",
+        "z",
+        "x",
+        "y",
+        "routeTypes",
+      ),
       Index( // supports MongoQueryGraphEdges, and other queries that are relevant for node network routes only
         database.routes,
         "node-network-routes",

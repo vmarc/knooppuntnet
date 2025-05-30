@@ -10,14 +10,17 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
 import java.util.zip.GZIPInputStream
+import scala.jdk.CollectionConverters.IterableHasAsScala
 
 object TileViewTool {
 
   def main(args: Array[String]): Unit = {
-    // new TileViewTool().print("/Users/marc/kpn/tiles/hiking/6/31/21.mvt")
+    //    new TileViewTool().print("/Users/marc/kpn/tiles/hiking/7/65/42.mvt")
+    new TileViewTool().print("/Users/marc/kpn/tiles/hiking/14/8484/5883.mvt")
+
     // new TileViewTool().print("/Users/marc/kpn/tiles/hiking/13/4197/2724.mvt")
-    new TileViewTool().print("/Users/marc/kpn/tiles/poi/15/16790/10901.mvt")
-    new TileViewTool().print("/Users/marc/kpn/tiles/poi/14/8395/5450.mvt")
+    // new TileViewTool().print("/Users/marc/kpn/tiles/poi/15/16790/10901.mvt")
+    // new TileViewTool().print("/Users/marc/kpn/tiles/poi/14/8395/5450.mvt")
     println("Done")
   }
 }
@@ -27,7 +30,14 @@ class TileViewTool {
   def print(filename: String): Unit = {
     println(filename)
     val features = load(filename)
-    features.forEach(feature => printFeature(feature))
+    features.foreach(feature => printFeature(feature))
+
+    val layers = features.map(_.getLayerName).distinct.sorted
+
+    layers.foreach { layer =>
+      val count = features.count(_.getLayerName == layer)
+      println(s"layer=$layer, count=$count")
+    }
   }
 
   private def printFeature(feature: VectorTileDecoder.Feature): Unit = {
@@ -45,14 +55,15 @@ class TileViewTool {
     println(s"    $geometry")
   }
 
-  def load(filename: String): VectorTileDecoder.FeatureIterable = {
+  def load(filename: String): Seq[VectorTileDecoder.Feature] = {
     val bytes = if (filename.endsWith(".pbf")) {
       loadPbf(filename)
     }
     else {
       loadMvt(filename)
     }
-    new VectorTileDecoder().decode(bytes)
+    val iterator = new VectorTileDecoder().decode(bytes)
+    iterator.asScala.toSeq
   }
 
   private def loadMvt(filename: String): Array[Byte] = {

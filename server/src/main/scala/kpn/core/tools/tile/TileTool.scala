@@ -86,10 +86,11 @@ class TileTool(
   }
 
   private def loadTileIds(routeType: RouteType): Seq[TileId] = {
-    log.info("loading tile ids")
-    val nodeTiles = nodeRepository.tiles(routeType)
-    val routeTiles = routeRepository.tiles(routeType)
-    (nodeTiles ++ routeTiles).distinct.sortBy(t => (t.z, t.x, t.y))
+    log.info("loading node tile ids")
+    val nodeTileIds = nodeRepository.tileIds(routeType)
+    log.info("loading route tile ids")
+    val routeTileIds = routeRepository.tileIds(routeType)
+    (nodeTileIds ++ routeTileIds).distinct.sortBy(t => (t.z, t.x, t.y))
   }
 
   private def processTiles(routeType: RouteType, tileIds: Seq[TileId]): Unit = {
@@ -117,73 +118,68 @@ class TileTool(
   }
 
   private def encodeTileNodes(encoder: VectorTileEncoder, routeType: RouteType, tile: Tile): Unit = {
-    val nodeDocs = nodeRepository.tilesWithName(routeType, tile.id)
-    nodeDocs.foreach { doc =>
-      if (tile.z >= 11) { // TODO redesign - can do this test in outer loop, or not needed anymore???
-        tileDataNodeBuilder.build(routeType, doc).foreach { node =>
-          encodeTileNode(encoder, tile, node)
-        }
+    val nodeTileInfos = nodeRepository.tileInfos(routeType, tile.id)
+    nodeTileInfos.foreach { nodeTileInfo =>
+      tileDataNodeBuilder.build(routeType, nodeTileInfo).foreach { tileDataNode =>
+        encodeTileNode(encoder, tile, tileDataNode)
       }
     }
   }
 
-  private def encodeTileNode(encoder: VectorTileEncoder, tile: Tile, node: TileDataNode): Unit = {
-    val point = buildNodePoint(tile, node)
-    val userData = buildNodeUserData(node)
-    encoder.addFeature(node.layer, userData, point)
+  private def encodeTileNode(encoder: VectorTileEncoder, tile: Tile, tileDataNode: TileDataNode): Unit = {
+    val point = buildNodePoint(tile, tileDataNode)
+    val userData = buildNodeUserData(tileDataNode)
+    encoder.addFeature(tileDataNode.layer, userData, point)
   }
 
-  private def buildNodePoint(tile: Tile, node: TileDataNode): Point = {
-    val worldCoordinate = new Coordinate(lonToWorldX(node.lon), latToWorldY(node.lat))
+  private def buildNodePoint(tile: Tile, tileDataNode: TileDataNode): Point = {
+    val worldCoordinate = new Coordinate(lonToWorldX(tileDataNode.lon), latToWorldY(tileDataNode.lat))
     val coordinate = tile.scale(worldCoordinate)
     geometryFactory.createPoint(coordinate)
   }
 
-  private def buildNodeUserData(node: TileDataNode): java.util.Map[String, String] = {
+  private def buildNodeUserData(tileDataNode: TileDataNode): java.util.Map[String, String] = {
     Seq(
-      Some("id" -> node.id.toString),
-      node.ref.map(ref => "ref" -> ref),
-      node.name.map(name => "name" -> name),
-      node.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm),
-      if (node.proposed) Some("proposed" -> "true") else None
+      Some("id" -> tileDataNode.id.toString),
+      tileDataNode.ref.map(ref => "ref" -> ref),
+      tileDataNode.name.map(name => "name" -> name),
+      tileDataNode.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm),
+      if (tileDataNode.proposed) Some("proposed" -> "true") else None
     ).flatten.toMap.asJava
   }
 
   private def encodeTileRoutes(encoder: VectorTileEncoder, routeType: RouteType, tile: Tile): Unit = {
-    val routeDocs = routeRepository.tilesWithName(routeType, tile.id)
-    routeDocs.foreach { doc =>
-      if (!(tile.z < 11 && doc.layer == "node-route")) {
-        encodeTileRoute(encoder, doc)
-      }
+    val routeTileDocs = routeRepository.tilesWithName(routeType, tile.id)
+    routeTileDocs.foreach { routeTileDoc =>
+      encodeTileRoute(encoder, routeTileDoc)
     }
   }
 
-  private def encodeTileRoute(encoder: VectorTileEncoder, doc: RouteTileDoc): Unit = {
-    doc.segments.foreach { segment =>
-      val userData = buildRouteUserData(doc, segment)
+  private def encodeTileRoute(encoder: VectorTileEncoder, routeTileDoc: RouteTileDoc): Unit = {
+    routeTileDoc.segments.foreach { segment =>
+      val userData = buildRouteUserData(routeTileDoc, segment)
       segment.geometries.foreach { geometryString =>
         val lineString = buildRouteLineString(geometryString)
-        encoder.addFeature(doc.layer, userData, lineString)
+        encoder.addFeature(routeTileDoc.layer, userData, lineString)
       }
     }
   }
 
   private def buildRouteLineString(geometryString: String): LineString = {
-
     val coordinates: Array[Coordinate] = Json.value(geometryString, classOf[CoordinateArray]).coordinates
     val flipped = coordinates.map(c => new Coordinate(c.y, c.x))
     geometryFactory.createLineString(flipped)
   }
 
-  private def buildRouteUserData(doc: RouteTileDoc, segment: RouteTileSegment): java.util.Map[String, String] = {
+  private def buildRouteUserData(routeTileDoc: RouteTileDoc, segment: RouteTileSegment): java.util.Map[String, String] = {
     Seq(
-      Some("routeId" -> doc.routeId.toString),
-      Some("name" -> doc.routeName),
+      Some("routeId" -> routeTileDoc.routeId.toString),
+      Some("name" -> routeTileDoc.routeName),
       segment.segmentId.map(segmentId => "segmentId" -> segmentId.toString),
       segment.segmentElementId.map(segmentElementId => "segmentElementId" -> segmentElementId.toString),
-      doc.scope.map(scope => "scope" -> scope.entryName),
-      doc.survey.map(survey => "survey" -> survey),
-      doc.error.map(error => "error" -> error)
+      routeTileDoc.scope.map(scope => "scope" -> scope.entryName),
+      routeTileDoc.survey.map(survey => "survey" -> survey),
+      routeTileDoc.error.map(error => "error" -> error)
     ).flatten.toMap.asJava
   }
 }

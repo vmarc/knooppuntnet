@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.tiles
 
 import kpn.api.common.Fact
-import kpn.api.common.NodeName
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.core.analysis.Facts
@@ -16,6 +15,11 @@ import scala.util.Success
 @Component
 class TileDataNodeBuilderImpl extends TileDataNodeBuilder {
 
+  private case class NodeNameParts(
+    ref: Option[String],
+    name: Option[String]
+  )
+
   private val prioritizedScopes = Seq(
     RouteScope.regional, // prefer regional over local
     RouteScope.local,
@@ -23,54 +27,55 @@ class TileDataNodeBuilderImpl extends TileDataNodeBuilder {
     RouteScope.international
   )
 
-  def build(routeType: RouteType, node: NodeTileInfo): Option[TileDataNode] = {
+  def build(routeType: RouteType, nodeTileInfo: NodeTileInfo): Option[TileDataNode] = {
 
-    val nodeNameOption: Option[NodeName] = {
-      val unprioritizedNames = node.names
-        .filter(_.routeType == routeType)
-        .filterNot(_.name == "o")
-      prioritizedScopes.flatMap { scope =>
-        unprioritizedNames.filter(_.routeScope == scope)
-      }.headOption
-    }
+    calculatePrioritizedNodeName(routeType, nodeTileInfo).map { nodeName =>
 
-    nodeNameOption.map { nodeName =>
-      val (ref, name) = nodeName.longName match {
-        case None => (Some(nodeName.name), None)
+      val parts = nodeName.longName match {
+        case None => NodeNameParts(Some(nodeName.name), None)
         case Some(longName) =>
           if (longName == nodeName.name) {
             if (longName.length <= 3) {
-              (Some(longName), None)
+              NodeNameParts(Some(longName), None)
             }
             else {
-              (None, Some(longName))
+              NodeNameParts(None, Some(longName))
             }
           }
           else {
-            (Some(nodeName.name), Some(longName))
+            NodeNameParts(Some(nodeName.name), Some(longName))
           }
       }
 
-      val surveyDateTry = SurveyDateAnalyzer.analyze(node)
+      val surveyDateTry = SurveyDateAnalyzer.analyze(nodeTileInfo)
       val surveyDate = surveyDateTry match {
         case Success(date) => date
         case Failure(_) => None
       }
 
-      val proposed = nodeNameOption.exists(_.proposed) ||
-        node.hasTag("state", "proposed")
+      val proposed = nodeName.proposed ||
+        nodeTileInfo.hasTag("state", "proposed")
 
       TileDataNode(
-        node._id,
-        ref,
-        name,
-        node.latitude,
-        node.longitude,
-        layer(node.facts),
+        nodeTileInfo._id,
+        parts.ref,
+        parts.name,
+        nodeTileInfo.latitude,
+        nodeTileInfo.longitude,
+        layer(nodeTileInfo.facts),
         surveyDate,
         proposed
       )
     }
+  }
+
+  private def calculatePrioritizedNodeName(routeType: RouteType, nodeTileInfo: NodeTileInfo) = {
+    val unprioritizedNames = nodeTileInfo.names
+      .filter(_.routeType == routeType)
+      .filterNot(_.name == "o")
+    prioritizedScopes.flatMap { scope =>
+      unprioritizedNames.filter(_.routeScope == scope)
+    }.headOption
   }
 
   private def layer(facts: Seq[Fact]): String = {

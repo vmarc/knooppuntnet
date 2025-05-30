@@ -26,7 +26,7 @@ trait RouteRepository {
 
   def activeBaseRouteIds(): Seq[Long]
 
-  def tiles(routeType: RouteType): Seq[TileId]
+  def tileIds(routeType: RouteType): Seq[TileId]
 
   def tilesWithName(routeType: RouteType, tileId: TileId): Seq[RouteTileDoc]
 

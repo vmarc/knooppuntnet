@@ -9,8 +9,8 @@ import kpn.database.actions.nodes.MongoQueryBaseNodeIds
 import kpn.database.actions.nodes.MongoQueryKnownNodeIds
 import kpn.database.actions.nodes.MongoQueryNodeBaseRouteReferences
 import kpn.database.actions.nodes.MongoQueryNodeIds
-import kpn.database.actions.nodes.MongoQueryNodeTileInfo
-import kpn.database.actions.nodes.MongoQueryNodeTilenames
+import kpn.database.actions.nodes.MongoQueryNodeTileIds
+import kpn.database.actions.nodes.MongoQueryNodeTileInfos
 import kpn.database.actions.nodes.MongoQueryNodes
 import kpn.database.actions.nodes.OldMongoQueryNodeTileInfo
 import kpn.database.base.Database
@@ -83,12 +83,12 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
     new MongoQueryKnownNodeIds(database).execute(nodeIds.toSeq).toSet
   }
 
-  override def tiles(routeType: RouteType): Seq[TileId] = {
-    new MongoQueryNodeTilenames(database).execute(routeType)
+  override def tileIds(routeType: RouteType): Seq[TileId] = {
+    new MongoQueryNodeTileIds(database).execute(routeType)
   }
 
-  override def tilesWithName(routeType: RouteType, tileId: TileId): Seq[NodeTileInfo] = {
-    new MongoQueryNodeTileInfo(database).execute(routeType, tileId)
+  override def tileInfos(routeType: RouteType, tileId: TileId): Seq[NodeTileInfo] = {
+    new MongoQueryNodeTileInfos(database).execute(routeType, tileId)
   }
 
   override def nodeTileInfoByrouteType(routeType: RouteType): Seq[NodeTileInfo] = {

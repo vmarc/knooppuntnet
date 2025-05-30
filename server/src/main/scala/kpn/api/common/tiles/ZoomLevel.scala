@@ -23,5 +23,5 @@ object ZoomLevel {
 
   val all: Seq[Int] = ZoomLevel.minZoom.to(ZoomLevel.maxZoom)
 
-  val nodeMinZoom = 9
+  val nodeMinZoom = 12
 }

@@ -27,8 +27,8 @@ import kpn.database.actions.routes.MongoQueryRouteNameInfo
 import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.database.actions.routes.MongoQueryRouteSearchResults
 import kpn.database.actions.routes.MongoQueryRouteTileDocs
+import kpn.database.actions.routes.MongoQueryRouteTileIds
 import kpn.database.actions.routes.MongoQueryRouteTileInfo
-import kpn.database.actions.routes.MongoQueryRouteTileNames
 import kpn.database.actions.routes.MongoQueryRoutes
 import kpn.database.actions.routes.MongoQuerySubRouteData
 import kpn.database.base.Database
@@ -62,8 +62,8 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQueryBaseRouteIds(database).execute(log).sorted
   }
 
-  override def tiles(routeType: RouteType): Seq[TileId] = {
-    new MongoQueryRouteTileNames(database).execute(routeType, log)
+  override def tileIds(routeType: RouteType): Seq[TileId] = {
+    new MongoQueryRouteTileIds(database).execute(routeType, log)
   }
 
   override def tilesWithName(routeType: RouteType, tileId: TileId): Seq[RouteTileDoc] = {
