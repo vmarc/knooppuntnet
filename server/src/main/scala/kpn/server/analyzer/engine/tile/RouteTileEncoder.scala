@@ -14,14 +14,11 @@ import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.json.Json
-import no.ecc.vectortile.VectorTileEncoder
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.Point
 import org.springframework.stereotype.Component
-
-import scala.jdk.CollectionConverters.MapHasAsJava
 
 @Component
 class RouteTileEncoder(
@@ -39,30 +36,30 @@ class RouteTileEncoder(
   }
 
   private def encodeTile(tileData: TileData): Array[Byte] = {
-    val encoder = new VectorTileEncoder(tileData.tile.extent, tileData.tile.clipBufferSize, false)
-    encodeTileNodes(tileData.routeType, tileData.nodeTileInfos, tileData.tile, encoder)
-    encodeTileRoutes(tileData.tile.z, tileData.routeTileInfos, encoder)
-    encoder.encode()
+    val nodeFeatures = buildNodeFeatures(tileData.routeType, tileData.nodeTileInfos, tileData.tile)
+    val routeFeatures = buildRouteFeatures(tileData.tile.z, tileData.routeTileInfos)
+    val features = nodeFeatures ++ routeFeatures
+    TileEncoder.encode(tileData.tile, features)
   }
 
-  private def encodeTileRoutes(zoomLevel: Int, routeTileInfos: Seq[RouteTileInfo], encoder: VectorTileEncoder): Unit = {
-    routeTileInfos.foreach { routeTileInfo =>
-      encodeTileRoute(zoomLevel, encoder, routeTileInfo)
-    }
-  }
-
-  private def encodeTileNodes(routeType: RouteType, nodeTileInfos: Seq[NodeTileInfo], tile: Tile, encoder: VectorTileEncoder): Unit = {
-    nodeTileInfos.foreach { nodeTileInfo =>
-      tileDataNodeBuilder.build(routeType, nodeTileInfo).foreach { tileDataNode =>
-        encodeTileNode(encoder, tile, tileDataNode)
+  private def buildNodeFeatures(routeType: RouteType, nodeTileInfos: Seq[NodeTileInfo], tile: Tile): Seq[Feature] = {
+    nodeTileInfos.flatMap { nodeTileInfo =>
+      tileDataNodeBuilder.build(routeType, nodeTileInfo).map { tileDataNode =>
+        nodeFeature(tile, tileDataNode)
       }
     }
   }
 
-  private def encodeTileNode(encoder: VectorTileEncoder, tile: Tile, tileDataNode: TileDataNode): Unit = {
+  private def buildRouteFeatures(zoomLevel: Int, routeTileInfos: Seq[RouteTileInfo]): Seq[Feature] = {
+    routeTileInfos.flatMap { routeTileInfo =>
+      buildRouteSegmentsFeatures(zoomLevel, routeTileInfo)
+    }
+  }
+
+  private def nodeFeature(tile: Tile, tileDataNode: TileDataNode): Feature = {
     val point = buildNodePoint(tile, tileDataNode)
     val userData = buildNodeUserData(tileDataNode)
-    encoder.addFeature(tileDataNode.layer, userData, point)
+    Feature(tileDataNode.layer, userData, point)
   }
 
   private def buildNodePoint(tile: Tile, tileDataNode: TileDataNode): Point = {
@@ -71,22 +68,22 @@ class RouteTileEncoder(
     geometryFactory.createPoint(coordinate)
   }
 
-  private def buildNodeUserData(tileDataNode: TileDataNode): java.util.Map[String, String] = {
+  private def buildNodeUserData(tileDataNode: TileDataNode): Map[String, String] = {
     Seq(
       Some("id" -> tileDataNode.nodeId.toString),
       tileDataNode.ref.map(ref => "ref" -> ref),
       tileDataNode.name.map(name => "name" -> name),
       tileDataNode.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm),
       if (tileDataNode.proposed) Some("proposed" -> "true") else None
-    ).flatten.toMap.asJava
+    ).flatten.toMap
   }
 
-  private def encodeTileRoute(zoomLevel: Int, encoder: VectorTileEncoder, routeTileInfo: RouteTileInfo): Unit = {
-    routeTileInfo.segments.foreach { segment =>
+  private def buildRouteSegmentsFeatures(zoomLevel: Int, routeTileInfo: RouteTileInfo): Seq[Feature] = {
+    routeTileInfo.segments.flatMap { segment =>
       val userData = buildRouteUserData(zoomLevel, routeTileInfo, segment)
-      segment.geometries.foreach { geometryString =>
+      segment.geometries.map { geometryString =>
         val lineString = buildRouteLineString(geometryString)
-        encoder.addFeature(routeTileInfo.layer, userData, lineString)
+        Feature(routeTileInfo.layer, userData, lineString)
       }
     }
   }
@@ -97,12 +94,12 @@ class RouteTileEncoder(
     geometryFactory.createLineString(flipped)
   }
 
-  private def buildRouteUserData(zoomLevel: Int, routeTileInfo: RouteTileInfo, segment: RouteTileSegment): java.util.Map[String, String] = {
+  private def buildRouteUserData(zoomLevel: Int, routeTileInfo: RouteTileInfo, segment: RouteTileSegment): Map[String, String] = {
     if (routeTileInfo.layer == "node-route" && zoomLevel < ZoomLevel.minZoomNodeNetworkUserData) {
       Seq(
         routeTileInfo.survey.map(survey => "survey" -> survey),
         routeTileInfo.error.map(error => "error" -> error)
-      ).flatten.toMap.asJava
+      ).flatten.toMap
     }
     else {
       Seq(
@@ -113,7 +110,7 @@ class RouteTileEncoder(
         routeTileInfo.scope.map(scope => "scope" -> scope.entryName),
         routeTileInfo.survey.map(survey => "survey" -> survey),
         routeTileInfo.error.map(error => "error" -> error)
-      ).flatten.toMap.asJava
+      ).flatten.toMap
     }
   }
 }
