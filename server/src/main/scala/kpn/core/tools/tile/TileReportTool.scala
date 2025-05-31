@@ -1,6 +1,5 @@
 package kpn.core.tools.tile
 
-import kpn.api.common.RouteType
 import kpn.api.common.tiles.ZoomLevel
 
 import java.io.File
@@ -15,14 +14,14 @@ case class TileInfo(z: Int, x: Int, y: Int, size: Long) {
 object TileReportTool {
 
   def main(args: Array[String]): Unit = {
-    new TileReportTool().report()
+    new TileReportTool("/Users/marc/kpn/tiles/opendata/netherlands/hiking").report()
     println("Done")
   }
 }
 
-class TileReportTool {
+class TileReportTool(rootDir: String) {
   def report(): Unit = {
-    val tileInfos = loadTileInfos(RouteType.cycling)
+    val tileInfos = loadTileInfos()
     reportSummary(tileInfos)
     reportZoomLevelTileSizes(tileInfos)
   }
@@ -52,9 +51,9 @@ class TileReportTool {
     }
   }
 
-  private def loadTileInfos(routeType: RouteType): Seq[TileInfo] = {
-    println(s"loading ${routeType.entryName} tile infos")
-    val root = new File("/Users/marc/kpn/tiles", routeType.entryName)
+  private def loadTileInfos(): Seq[TileInfo] = {
+    println(s"loading tile infos")
+    val root = new File(rootDir)
     val zs = root.listFiles(fileFilter).map(dir => dir.getName.toInt).sorted.toSeq
     zs.flatMap { z =>
       val zDir = new File(root, z.toString)

@@ -43,7 +43,7 @@ class OpenDataTileBuilderTool {
     Log.context("Flanders") {
       val nodes = readFlandersHikingNodes().map(_.toOpenDataNode)
       val routes = readFlandersHikingRoutes().map(_.toOpenDataRoute)
-      new OpenDataTileBuilder().build(nodes, routes, "opendata/flanders/hiking")
+      new OpenDataTileBuilder(nodes, routes, "opendata/flanders/hiking").build()
     }
   }
 
@@ -63,7 +63,7 @@ class OpenDataTileBuilderTool {
     Log.context("Flanders") {
       val nodes = readFlandersCyclingNodes().map(_.toOpenDataNode)
       val routes = readFlandersCyclingRoutes().map(_.toOpenDataRoute)
-      new OpenDataTileBuilder().build(nodes, routes, "opendata/flanders/cycling")
+      new OpenDataTileBuilder(nodes, routes, "opendata/flanders/cycling").build()
     }
   }
 
@@ -88,7 +88,7 @@ class OpenDataTileBuilderTool {
     Log.context("Netherlands") {
       val nodes = readNetherlandsNodes("wandelknooppunten").map(_.toOpenDataNode)
       val routes = readNetherlandsRoutes("wandelnetwerken").map(_.toOpenDataRoute)
-      new OpenDataTileBuilder().build(nodes, routes, "opendata/netherlands/hiking")
+      new OpenDataTileBuilder(nodes, routes, "opendata/netherlands/hiking").build()
     }
   }
 
@@ -96,7 +96,7 @@ class OpenDataTileBuilderTool {
     Log.context("Netherlands") {
       val nodes = readNetherlandsNodes("fietsknooppunten").map(_.toOpenDataNode).toVector
       val routes = readNetherlandsRoutes("fietsnetwerken").map(_.toOpenDataRoute).toVector
-      new OpenDataTileBuilder().build(nodes, routes, "opendata/netherlands/cycling")
+      new OpenDataTileBuilder(nodes, routes, "opendata/netherlands/cycling").build()
     }
   }
 
@@ -121,7 +121,7 @@ class OpenDataTileBuilderTool {
   private def buildFranceHiking(): Unit = {
     Log.context("France") {
       val routes = readFranceHikingRoutes()
-      new OpenDataTileBuilder().build(Seq.empty, routes, "opendata/france/hiking")
+      new OpenDataTileBuilder(Seq.empty, routes, "opendata/france/hiking").build()
     }
   }
 

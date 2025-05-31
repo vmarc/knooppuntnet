@@ -12,6 +12,8 @@ export class ZoomLevel {
   static readonly newMinZoom: number = 2;
   static readonly newMaxZoom: number = 13;
 
+  static readonly minZoomOpenData = 6;
+
   static readonly minZoom: number = Math.min(
     ZoomLevel.bitmapTileMinZoom,
     ZoomLevel.vectorTileMinZoom

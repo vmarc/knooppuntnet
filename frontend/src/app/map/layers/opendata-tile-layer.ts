@@ -13,7 +13,7 @@ import { LayerType } from '@app/state/layer-type';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
-export class OpendataVectorTileLayer {
+export class OpendataTileLayer {
   private static readonly largeMaxZoomResolution = /* zoomLevel 13 */ 19.109;
   private static readonly smallStyle = this.buildSmallStyle(false);
   private static readonly largeStyle = this.buildLargeStyle(false);
@@ -23,7 +23,7 @@ export class OpendataVectorTileLayer {
   static build(layerType: LayerType, routeType: RouteType, dir: string): MapLayer {
     const source = new VectorTile({
       tileSize: 256,
-      minZoom: ZoomLevel.vectorTileMinZoom,
+      minZoom: ZoomLevel.minZoomOpenData,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
       url: `/tiles/opendata/${dir}/{z}/{x}/{y}.mvt`,
@@ -43,7 +43,7 @@ export class OpendataVectorTileLayer {
     return {
       layerType,
       routeType,
-      minZoom: ZoomLevel.vectorTileMinZoom,
+      minZoom: ZoomLevel.minZoomOpenData,
       maxZoom: ZoomLevel.vectorTileMaxOverZoom,
       layer,
     };

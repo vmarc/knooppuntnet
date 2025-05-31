@@ -5,8 +5,7 @@ import { State } from '@app/state/state';
 import { LayersState } from '@app/state/layers-state';
 import { MapStyleOptions } from '@app/state/map-style-options';
 import { PoiStyleMap } from '@app/state/poi/poi-style-map';
-import { OpendataBitmapTileLayer } from './opendata-bitmap-tile-layer';
-import { OpendataVectorTileLayer } from './opendata-vector-tile-layer';
+import { OpendataTileLayer } from './opendata-tile-layer';
 import { StandardBackground } from './standard-background';
 import { GridLayer } from './grid-layer';
 import { MapLayer } from './map-layer';
@@ -39,16 +38,11 @@ export class Layers {
       new RouteLayer(styleOptions).build('canoe'),
       new RouteLayer(styleOptions).build('inline-skating'),
       this.poiLayer,
-      OpendataBitmapTileLayer.build('flanders-open-data', 'hiking', 'flanders/hiking'),
-      OpendataVectorTileLayer.build('flanders-open-data', 'hiking', 'flanders/hiking'),
-      OpendataBitmapTileLayer.build('flanders-open-data', 'cycling', 'flanders/cycling'),
-      OpendataVectorTileLayer.build('flanders-open-data', 'cycling', 'flanders/cycling'),
-      OpendataBitmapTileLayer.build('netherlands-open-data', 'hiking', 'netherlands/hiking'),
-      OpendataVectorTileLayer.build('netherlands-open-data', 'hiking', 'netherlands/hiking'),
-      OpendataBitmapTileLayer.build('netherlands-open-data', 'cycling', 'netherlands/cycling'),
-      OpendataVectorTileLayer.build('netherlands-open-data', 'cycling', 'netherlands/cycling'),
-      OpendataBitmapTileLayer.build('france-open-data', 'hiking', 'france/hiking'),
-      OpendataVectorTileLayer.build('france-open-data', 'hiking', 'france/hiking'),
+      OpendataTileLayer.build('flanders-open-data', 'hiking', 'flanders/hiking'),
+      OpendataTileLayer.build('flanders-open-data', 'cycling', 'flanders/cycling'),
+      OpendataTileLayer.build('netherlands-open-data', 'hiking', 'netherlands/hiking'),
+      OpendataTileLayer.build('netherlands-open-data', 'cycling', 'netherlands/cycling'),
+      OpendataTileLayer.build('france-open-data', 'hiking', 'france/hiking'),
     ];
 
     const layersState: Signal<LayersState> = computed(() => {

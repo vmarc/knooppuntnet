@@ -15,7 +15,7 @@ import scala.jdk.CollectionConverters.IterableHasAsScala
 object TileViewTool {
 
   def main(args: Array[String]): Unit = {
-    new TileViewTool().print("/Users/marc/kpn/tiles/cycling/6/32/21.mvt")
+    new TileViewTool().print("/Users/marc/kpn/tiles/opendata/netherlands/hiking/8/132/83.mvt")
   }
 }
 
@@ -41,7 +41,7 @@ class TileViewTool {
     val attributes = feature.getAttributes
     val geometry = feature.getGeometry match {
       case lineString: LineString =>
-        lineString.getCoordinates.map(coordinate => s"[${coordinate.x},${coordinate.x}]").mkString(",")
+        lineString.getCoordinates.map(coordinate => s"[${coordinate.x},${coordinate.y}]").mkString(",")
       case point: Point => s"[${point.getX},${point.getY}]"
       case _ => "?"
     }

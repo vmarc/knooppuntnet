@@ -27,4 +27,7 @@ object ZoomLevel {
   val minZoomNational = 7
   val minZoomRegional = 9
   val minZoomLocal = 11
+
+  val minZoomOpenData = 6 // min(bitmapTileMinZoom, vectorTileMinZoom)
+  val minZoomOpendataNode = 12
 }
