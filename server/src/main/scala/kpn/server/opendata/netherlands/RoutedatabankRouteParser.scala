@@ -24,7 +24,7 @@ class RoutedatabankRouteParser {
     }
   }
 
-  private def toRoute(feature: SimpleFeature, lineString: LineString) = {
+  private def toRoute(feature: SimpleFeature, lineString: LineString): RoutedatabankRoute = {
     val _id = attribute(feature, "lijnid", fallbackAttribute = "ogc_fid")
     val regio = attribute(feature, "regio")
     val provincie = attribute(feature, "provincie")
@@ -39,7 +39,7 @@ class RoutedatabankRouteParser {
     )
   }
 
-  private def toCoordinates(lineString: LineString) = {
+  private def toCoordinates(lineString: LineString): Seq[LatLonImpl] = {
     lineString.getCoordinates.toSeq.map { coordinate =>
       LatLonImpl(
         coordinate.getY.toString,
@@ -48,7 +48,7 @@ class RoutedatabankRouteParser {
     }
   }
 
-  private def findUpdated(feature: SimpleFeature) = {
+  private def findUpdated(feature: SimpleFeature): Option[String] = {
     val lastEditedDate = feature.getAttribute("last_edited_date")
     val updated = lastEditedDate match {
       case date: Date => Some(simpleDateFormat.format(date))

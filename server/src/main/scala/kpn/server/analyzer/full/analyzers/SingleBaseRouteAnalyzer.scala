@@ -14,7 +14,7 @@ import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.route.base.RouteGeometryAnalyzer
 import kpn.server.repository.ChangeSetRepository
@@ -103,16 +103,16 @@ class SingleBaseRouteAnalyzer(
 
   private def saveTileData(context: BaseRouteAnalysisContext): Unit = {
     context.tileDatas.foreach { tileData =>
-      val doc = buildTileDoc(context, tileData)
+      val doc = buildRouteTileInfo(context, tileData)
       routeRepository.saveRouteTile(doc)
     }
   }
 
-  private def buildTileDoc(context: BaseRouteAnalysisContext, tileData: RouteTileData) = {
-    RouteTileDoc(
+  private def buildRouteTileInfo(context: BaseRouteAnalysisContext, tileData: RouteTileData) = {
+    RouteTileInfo(
       _id = s"${tileData.name}-${context.relation.id}",
       routeId = context.relation.id,
-      routeName = context.routeNameAnalysis.name.getOrElse("no-name"), // TODO redesign tiles - can do better?
+      routeName = context.routeNameAnalysis.name.getOrElse("no-name"),
       routeTypes = context.routeTypes,
       z = tileData.z,
       x = tileData.x,

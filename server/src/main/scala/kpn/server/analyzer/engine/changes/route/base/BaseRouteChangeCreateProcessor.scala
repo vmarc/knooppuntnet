@@ -135,7 +135,7 @@ class BaseRouteChangeCreateProcessor(
     private def updateRouteData(context: BaseRouteAnalysisContext): Unit = {
       updateWatchedRoutes(context)
       updateBaseRouteDoc(context)
-      updateRouteTileDocs(context)
+      updateRouteTileInfos(context)
     }
 
     private def updateBaseRouteDoc(context: BaseRouteAnalysisContext): Unit = {
@@ -143,9 +143,9 @@ class BaseRouteChangeCreateProcessor(
       routeRepository.saveBaseRoute(baseRouteDoc)
     }
 
-    private def updateRouteTileDocs(context: BaseRouteAnalysisContext): Unit = {
-      val routeTileDocs = RouteTileDocBuilder.build(context)
-      routeTileDocs.foreach(routeRepository.saveRouteTile)
+    private def updateRouteTileInfos(context: BaseRouteAnalysisContext): Unit = {
+      val routeTileInfos = RouteTileInfoBuilder.build(context)
+      routeTileInfos.foreach(routeRepository.saveRouteTile)
     }
 
     private def updateWatchedRoutes(context: BaseRouteAnalysisContext): Unit = {

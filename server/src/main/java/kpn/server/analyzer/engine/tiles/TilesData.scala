@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tiles
 
 import kpn.api.common.RouteType
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.Tile
 
@@ -9,28 +9,28 @@ import kpn.server.analyzer.engine.tiles.domain.Tile
 case class TilesData(
   routeType: RouteType,
   zoomLevel: Int,
-  nodes: Map[String, Seq[NodeTileInfo]],
-  routes: Map[String, Seq[RouteTileDoc]]
+  nodeTileInfos: Map[String, Seq[NodeTileInfo]],
+  routeTileInfos: Map[String, Seq[RouteTileInfo]]
 ) {
   def isEmpty: Boolean = {
-    nodes.isEmpty && routes.isEmpty
+    nodeTileInfos.isEmpty && routeTileInfos.isEmpty
   }
 
   def tileNames: Seq[String] = {
-    val nodeTileNames = nodes.keys
-    val routeTileNames = routes.keys
+    val nodeTileNames = nodeTileInfos.keys
+    val routeTileNames = routeTileInfos.keys
     (nodeTileNames ++ routeTileNames).toSeq.distinct.sorted
   }
 
   def tileData(tileName: String): TileData = {
     val tile = Tile.routeTileFromName(tileName)
-    val nodeTileInfos = nodes.getOrElse(tileName, Seq.empty)
-    val routeTileDocs = routes.getOrElse(tileName, Seq.empty)
+    val tileNodeTileInfos = nodeTileInfos.getOrElse(tileName, Seq.empty)
+    val tileRouteTileInfos = routeTileInfos.getOrElse(tileName, Seq.empty)
     TileData(
       routeType,
       tile,
-      nodeTileInfos,
-      routeTileDocs
+      tileNodeTileInfos,
+      tileRouteTileInfos
     )
   }
 }

@@ -117,8 +117,8 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
       val routeRepository = new RouteRepositoryImpl(database)
 
-      routeRepository.saveRouteTile(newRouteTileDoc("tile-1", 11))
-      routeRepository.saveRouteTile(newRouteTileDoc("tile-2", 11))
+      routeRepository.saveRouteTile(newRouteTileInfo("tile-1", 11))
+      routeRepository.saveRouteTile(newRouteTileInfo("tile-2", 11))
 
       assertEqual(
         routeRepository.routeTileIds(11),
@@ -133,8 +133,8 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
       val routeRepository = new RouteRepositoryImpl(database)
 
-      routeRepository.saveRouteTile(newRouteTileDoc("tile-1", 11))
-      routeRepository.saveRouteTile(newRouteTileDoc("tile-2", 11))
+      routeRepository.saveRouteTile(newRouteTileInfo("tile-1", 11))
+      routeRepository.saveRouteTile(newRouteTileInfo("tile-2", 11))
 
       assertEqual(
         routeRepository.routeTiles(11).map(_._id),

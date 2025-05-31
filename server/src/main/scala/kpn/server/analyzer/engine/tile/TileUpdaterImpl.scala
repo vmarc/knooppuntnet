@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.tile
 import kpn.api.common.RouteType
 import kpn.api.common.tiles.ZoomLevel
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.Tile
@@ -53,16 +53,16 @@ class TileUpdaterImpl(
 
   private def updateTile(routeType: RouteType, tile: Tile): Unit = {
     val nodeTileInfos = collectTileDataNodes(routeType, tile)
-    val routeTileDocs = collectTileDataRoutes(routeType, tile)
-    val tileData = TileData(routeType, tile, nodeTileInfos, routeTileDocs)
+    val routeTileInfos = collectTileDataRoutes(routeType, tile)
+    val tileData = TileData(routeType, tile, nodeTileInfos, routeTileInfos)
     routeTileEncoder.encode(tileData)
   }
 
   private def collectTileDataNodes(routeType: RouteType, tile: Tile): Seq[NodeTileInfo] = {
-    nodeRepository.tileInfosByTile(routeType, tile.id)
+    nodeRepository.tileInfosByTileId(routeType, tile.id)
   }
 
-  private def collectTileDataRoutes(routeType: RouteType, tile: Tile): Seq[RouteTileDoc] = {
+  private def collectTileDataRoutes(routeType: RouteType, tile: Tile): Seq[RouteTileInfo] = {
     routeRepository.tileInfosByTileId(routeType, tile.id)
   }
 }

@@ -58,14 +58,14 @@ class SingleTileTool(
 
   private def buildTileData(routeType: RouteType, z: Int, x: Int, y: Int) = {
     val tileId = TileId(z, x, y)
-    val nodeTileInfos = nodeRepository.tileInfosByTile(routeType, tileId)
-    val routeTileDocs = routeRepository.tilesWithName(routeType, tileId)
+    val nodeTileInfos = nodeRepository.tileInfosByTileId(routeType, tileId)
+    val routeTileInfos = routeRepository.tileInfosByTileId(routeType, tileId)
     val tile = Tile.routeTileFromId(tileId)
     val tileData = TileData(
       routeType,
       tile,
       nodeTileInfos,
-      routeTileDocs
+      routeTileInfos
     )
     tileData
   }

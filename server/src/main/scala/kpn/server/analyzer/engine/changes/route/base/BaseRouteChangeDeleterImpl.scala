@@ -27,7 +27,7 @@ class BaseRouteChangeDeleterImpl(
 
     def delete(changeSetContext: ChangeSetContext): ChangeSetContext = {
       unwatchRoute()
-      val context1 = deleteRouteTileDocs(changeSetContext)
+      val context1 = deleteRouteTiles(changeSetContext)
       val context2 = deleteBaseRouteDoc(context1)
       context2.withImpact(routeIds = Seq(routeId))
     }
@@ -36,7 +36,7 @@ class BaseRouteChangeDeleterImpl(
       analysisContext.watched.routes.delete(routeId)
     }
 
-    private def deleteRouteTileDocs(changeSetContext: ChangeSetContext): ChangeSetContext = {
+    private def deleteRouteTiles(changeSetContext: ChangeSetContext): ChangeSetContext = {
       val tileIds = routeRepository.routeTileIds(routeId)
       tileIds.foreach(routeRepository.deleteRouteTile)
       changeSetContext.withImpact(tileIds = tileIds)

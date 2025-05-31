@@ -109,7 +109,7 @@ import kpn.core.doc.RouteRelation
 import kpn.database.actions.statistics.ChangeSetCount2
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
@@ -487,11 +487,11 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newRouteTileDoc(
+  def newRouteTileInfo(
     _id: String,
     routeId: Long,
-  ): RouteTileDoc = {
-    RouteTileDoc(
+  ): RouteTileInfo = {
+    RouteTileInfo(
       _id,
       routeId,
       routeName = "",

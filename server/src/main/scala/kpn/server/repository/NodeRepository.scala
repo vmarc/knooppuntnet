@@ -43,5 +43,5 @@ trait NodeRepository {
 
   def tileInfosByZoomLevel(routeType: RouteType, zoomLevel: Int): Seq[NodeTileInfo]
 
-  def tileInfosByTile(routeType: RouteType, tileId: TileId): Seq[NodeTileInfo]
+  def tileInfosByTileId(routeType: RouteType, tileId: TileId): Seq[NodeTileInfo]
 }

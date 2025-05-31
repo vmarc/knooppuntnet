@@ -14,7 +14,7 @@ import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
@@ -71,11 +71,11 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
     ).once()
 
     (setup.routeRepository.saveRouteTile _).verify(
-      where((routeTileDoc: RouteTileDoc) => routeTileDoc._id == "1-1-1-11")
+      where((routeTileInfo: RouteTileInfo) => routeTileInfo._id == "1-1-1-11")
     ).once()
 
     (setup.routeRepository.saveRouteTile _).verify(
-      where((routeTileDoc: RouteTileDoc) => routeTileDoc._id == "2-2-2-11")
+      where((routeTileInfo: RouteTileInfo) => routeTileInfo._id == "2-2-2-11")
     ).once()
 
     assertEqual(updatedChangeSetContext.impactedTileIds, Seq("1-1-1-11", "2-2-2-11"))
@@ -162,11 +162,11 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects
     ).once()
 
     (setup.routeRepository.saveRouteTile _).verify(
-      where((routeTileDoc: RouteTileDoc) => routeTileDoc._id == "1-1-1-11")
+      where((routeTileInfo: RouteTileInfo) => routeTileInfo._id == "1-1-1-11")
     ).once()
 
     (setup.routeRepository.saveRouteTile _).verify(
-      where((routeTileDoc: RouteTileDoc) => routeTileDoc._id == "2-2-2-11")
+      where((routeTileInfo: RouteTileInfo) => routeTileInfo._id == "2-2-2-11")
     ).once()
 
     assertEqual(updatedChangeSetContext.impactedTileIds, Seq("1-1-1-11", "2-2-2-11"))

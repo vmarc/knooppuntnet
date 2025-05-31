@@ -26,14 +26,13 @@ import kpn.database.actions.routes.MongoQueryRouteMapInfo
 import kpn.database.actions.routes.MongoQueryRouteNameInfo
 import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.database.actions.routes.MongoQueryRouteSearchResults
-import kpn.database.actions.routes.MongoQueryRouteTileDocs
 import kpn.database.actions.routes.MongoQueryRouteTileIds
+import kpn.database.actions.routes.MongoQueryRouteTileInfos
 import kpn.database.actions.routes.MongoQueryRoutes
 import kpn.database.actions.routes.MongoQuerySubRouteData
-import kpn.database.actions.routes.MongoQueryTileInfoRoutes
 import kpn.database.base.Database
 import kpn.database.base.StringId
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.sync.Transaction
@@ -65,27 +64,23 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQueryRouteTileIds(database).execute(routeType, log)
   }
 
-  override def tilesWithName(routeType: RouteType, tileId: TileId): Seq[RouteTileDoc] = {
-    new MongoQueryRouteTileDocs(database).execute(routeType, tileId, log)
-  }
-
   override def saveRoute(routeDoc: RouteDoc): Unit = {
     database.routes.save(routeDoc, log)
     database.transactions.save(Transaction.routeUpdate(routeDoc._id))
   }
 
-  override def saveRouteTile(routeTileDoc: RouteTileDoc): Unit = {
-    database.routeTiles.save(routeTileDoc, log)
+  override def saveRouteTile(routeTileInfo: RouteTileInfo): Unit = {
+    database.routeTiles.save(routeTileInfo, log)
   }
 
-  override def routeTiles(routeId: Long): Seq[RouteTileDoc] = {
+  override def routeTiles(routeId: Long): Seq[RouteTileInfo] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
           equal("routeId", routeId),
         )
       )
-      val docs = database.routeTiles.aggregate[RouteTileDoc](pipeline, log)
+      val docs = database.routeTiles.aggregate[RouteTileInfo](pipeline, log)
       (s"find tile docs route $routeId", docs)
     }
   }
@@ -107,12 +102,12 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     }
   }
 
-  override def tileInfosByZoomLevel(routeType: RouteType, zoomLevel: Int): Seq[RouteTileDoc] = {
-    new MongoQueryTileInfoRoutes(database).byZoomLevel(routeType, zoomLevel, log)
+  override def tileInfosByZoomLevel(routeType: RouteType, zoomLevel: Int): Seq[RouteTileInfo] = {
+    new MongoQueryRouteTileInfos(database).byZoomLevel(routeType, zoomLevel, log)
   }
 
-  override def tileInfosByTileId(routeType: RouteType, tileId: TileId): Seq[RouteTileDoc] = {
-    new MongoQueryTileInfoRoutes(database).byTileId(routeType, tileId, log)
+  override def tileInfosByTileId(routeType: RouteType, tileId: TileId): Seq[RouteTileInfo] = {
+    new MongoQueryRouteTileInfos(database).byTileId(routeType, tileId, log)
   }
 
   override def deleteRouteTiles(routeId: Long): Unit = {

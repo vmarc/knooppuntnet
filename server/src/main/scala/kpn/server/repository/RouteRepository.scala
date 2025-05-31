@@ -13,7 +13,7 @@ import kpn.core.doc.NetworkRouteDetail
 import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.SubRouteData
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
 
@@ -27,19 +27,17 @@ trait RouteRepository {
 
   def tileIds(routeType: RouteType): Seq[TileId]
 
-  def tilesWithName(routeType: RouteType, tileId: TileId): Seq[RouteTileDoc]
-
   def saveRoute(route: RouteDoc): Unit
 
-  def saveRouteTile(routeTileDoc: RouteTileDoc): Unit
+  def saveRouteTile(routeTileInfo: RouteTileInfo): Unit
 
-  def routeTiles(routeId: Long): Seq[RouteTileDoc]
+  def routeTiles(routeId: Long): Seq[RouteTileInfo]
 
   def routeTileIds(routeId: Long): Seq[String]
 
-  def tileInfosByZoomLevel(routeType: RouteType, zoomLevel: Int): Seq[RouteTileDoc]
+  def tileInfosByZoomLevel(routeType: RouteType, zoomLevel: Int): Seq[RouteTileInfo]
 
-  def tileInfosByTileId(routeType: RouteType, tileId: TileId): Seq[RouteTileDoc]
+  def tileInfosByTileId(routeType: RouteType, tileId: TileId): Seq[RouteTileInfo]
 
   def deleteRouteTiles(routeId: Long): Unit
 

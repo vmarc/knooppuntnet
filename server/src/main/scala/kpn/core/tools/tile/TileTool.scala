@@ -86,16 +86,16 @@ class TileTool(
 
   private def collectTileData(routeType: RouteType, zoomLevel: Int): TilesData = {
     val nodeTileInfos = nodeRepository.tileInfosByZoomLevel(routeType, zoomLevel)
-    val routeTileDocs = routeRepository.tileInfosByZoomLevel(routeType, zoomLevel)
+    val routeTileInfos = routeRepository.tileInfosByZoomLevel(routeType, zoomLevel)
 
     val nodeTileInfosByTileName = nodeTileInfos.groupBy(_.tileName)
-    val routeTileDocsByTileName = routeTileDocs.groupBy(_.tileName)
+    val routeTileInfosByTileName = routeTileInfos.groupBy(_.tileName)
 
     TilesData(
       routeType,
       zoomLevel,
       nodeTileInfosByTileName,
-      routeTileDocsByTileName
+      routeTileInfosByTileName
     )
   }
 }

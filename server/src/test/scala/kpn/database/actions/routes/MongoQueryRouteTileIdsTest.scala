@@ -4,7 +4,7 @@ import kpn.api.common.RouteType
 import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
 
 class MongoQueryRouteTileIdsTest extends UnitTest with SharedTestObjects {
@@ -34,8 +34,8 @@ class MongoQueryRouteTileIdsTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  private def buildTile(id: Long, routeTypes: Seq[RouteType], y: Long): RouteTileDoc = {
-    RouteTileDoc(
+  private def buildTile(id: Long, routeTypes: Seq[RouteType], y: Long): RouteTileInfo = {
+    RouteTileInfo(
       _id = id.toString,
       routeId = id,
       routeName = id.toString,

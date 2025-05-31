@@ -4,31 +4,31 @@ import kpn.api.common.RouteType
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Types.MongoPipeline
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 
-object MongoQueryTileInfoRoutes {
-  private val log = Log(classOf[MongoQueryTileInfoRoutes])
+object MongoQueryRouteTileInfos {
+  private val log = Log(classOf[MongoQueryRouteTileInfos])
 }
 
-class MongoQueryTileInfoRoutes(database: Database) {
+class MongoQueryRouteTileInfos(database: Database) {
 
-  def byZoomLevel(routeType: RouteType, zoomLevel: Int, log: Log = MongoQueryTileInfoRoutes.log): Seq[RouteTileDoc] = {
-    log.infoElapsed {
+  def byZoomLevel(routeType: RouteType, zoomLevel: Int, log: Log = MongoQueryRouteTileInfos.log): Seq[RouteTileInfo] = {
+    log.debugElapsed {
       val pipeline = buildByZoomLevelPipeline(routeType, zoomLevel)
-      val routeTileDocs = database.routeTiles.aggregate[RouteTileDoc](pipeline, log)
-      (s"${routeTileDocs.size} route tile docs", routeTileDocs)
+      val routeTileInfos = database.routeTiles.aggregate[RouteTileInfo](pipeline, log)
+      (s"${routeTileInfos.size} route tile infos", routeTileInfos)
     }
   }
 
-  def byTileId(routeType: RouteType, tileId: TileId, log: Log = MongoQueryTileInfoRoutes.log): Seq[RouteTileDoc] = {
-    log.infoElapsed {
+  def byTileId(routeType: RouteType, tileId: TileId, log: Log = MongoQueryRouteTileInfos.log): Seq[RouteTileInfo] = {
+    log.debugElapsed {
       val pipeline = buildByTileIdPipeline(routeType, tileId)
-      val routeTileDocs = database.routeTiles.aggregate[RouteTileDoc](pipeline, log)
-      (s"${routeTileDocs.size} route tile docs", routeTileDocs)
+      val routeTileInfos = database.routeTiles.aggregate[RouteTileInfo](pipeline, log)
+      (s"${routeTileInfos.size} route tile infos", routeTileInfos)
     }
   }
 

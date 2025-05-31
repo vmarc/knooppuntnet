@@ -1,16 +1,16 @@
 package kpn.server.analyzer.engine.changes.route.base
 
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 
-object RouteTileDocBuilder {
+object RouteTileInfoBuilder {
 
-  def build(context: BaseRouteAnalysisContext): Seq[RouteTileDoc] = {
+  def build(context: BaseRouteAnalysisContext): Seq[RouteTileInfo] = {
     context.tileDatas.map { tileData =>
-      RouteTileDoc(
+      RouteTileInfo(
         _id = s"${tileData.name}-${context.routeId}",
         routeId = context.relation.id,
-        routeName = context.routeNameAnalysis.name.getOrElse("no-name"), // TODO redesign tiles - can do better?
+        routeName = context.routeNameAnalysis.name.getOrElse("no-name"),
         routeTypes = context.routeTypes,
         z = tileData.z,
         x = tileData.x,

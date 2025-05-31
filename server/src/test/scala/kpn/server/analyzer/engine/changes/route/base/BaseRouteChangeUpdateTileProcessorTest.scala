@@ -5,7 +5,7 @@ import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.RouteNameAnalysis
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.repository.RouteRepository
 import org.scalamock.handlers.CallHandler1
@@ -65,8 +65,8 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with SharedTestObj
       )
     )
 
-    private val beforeTileDocs = RouteTileDocBuilder.build(beforeContext)
-    (routeRepository.routeTiles _).when(*).returns(beforeTileDocs)
+    private val beforeRouteTileInfos = RouteTileInfoBuilder.build(beforeContext)
+    (routeRepository.routeTiles _).when(*).returns(beforeRouteTileInfos)
 
     def process(): ChangeSetContext = {
       processor.process(newChangeSetContext(), afterContext)
@@ -76,10 +76,10 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with SharedTestObj
       (routeRepository.deleteRouteTile _).verify(tileId).once()
     }
 
-    def verifyTileSaved(tileId: String): CallHandler1[RouteTileDoc, Unit] = {
+    def verifyTileSaved(tileId: String): CallHandler1[RouteTileInfo, Unit] = {
       (routeRepository.saveRouteTile _).verify(
-        where { (doc: RouteTileDoc) =>
-          doc._id == tileId
+        where { (routeTileInfo: RouteTileInfo) =>
+          routeTileInfo._id == tileId
         }
       )
     }
