@@ -1,3 +1,4 @@
+import { OlUtil } from '@app/ol/ol-util';
 import { FeatureLike } from 'ol/Feature';
 import { Style } from 'ol/style';
 import { StyleFunction } from 'ol/style/Style';
@@ -21,8 +22,8 @@ export class NetworkMapStyle {
   public styleFunction(): StyleFunction {
     return (feature, resolution) => {
       if (feature) {
-        const layer = feature.get('layer');
-        if (layer.includes('node')) {
+        const featureLayer = OlUtil.featureLayer(feature);
+        if (featureLayer.includes('node')) {
           return this.nodeStyle(feature, resolution);
         }
         return this.buildRouteStyle(feature, resolution);
@@ -84,13 +85,13 @@ export class NetworkMapStyle {
 
   private buildRouteStyle(feature: FeatureLike, resolution: number): Style {
     const featureId = feature.get('id');
-    const layer = feature.get('layer');
+    const featureLayer = OlUtil.featureLayer(feature);
     const routeId = +featureId.substring(0, featureId.indexOf('-'));
     const dashed = feature.get('state') === 'proposed';
     let routeColor = StyleColor.networkOut;
     if (this.networkRouteIds.includes(routeId)) {
       routeColor = StyleColor.networkIn;
-      if ('incomplete-route' === layer || 'error-route' === layer) {
+      if ('incomplete-route' === featureLayer || 'error-route' === featureLayer) {
         routeColor = StyleColor.analysisError;
       }
     } else if (this.connectionRouteIds.includes(routeId)) {

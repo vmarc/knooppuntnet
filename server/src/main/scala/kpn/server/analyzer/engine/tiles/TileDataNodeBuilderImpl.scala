@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.tiles
 
 import kpn.api.common.Fact
+import kpn.api.common.FeatureLayer
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.core.analysis.Facts
@@ -68,12 +69,12 @@ class TileDataNodeBuilderImpl extends TileDataNodeBuilder {
     }.headOption
   }
 
-  private def layer(facts: Seq[Fact]): String = {
+  private def layer(facts: Seq[Fact]): FeatureLayer = {
     if (hasError(facts)) {
-      "error-node"
+      FeatureLayer.errorNode
     }
     else {
-      "node"
+      FeatureLayer.node
     }
   }
 

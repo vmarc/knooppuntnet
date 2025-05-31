@@ -1,12 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
+import kpn.api.common.FeatureLayer
 import kpn.api.common.RouteScope
 
 case class RouteTileData(
   z: Long,
   x: Long,
   y: Long,
-  layer: String,
+  layer: FeatureLayer,
   scope: Option[RouteScope],
   survey: Option[String],
   error: Option[String],

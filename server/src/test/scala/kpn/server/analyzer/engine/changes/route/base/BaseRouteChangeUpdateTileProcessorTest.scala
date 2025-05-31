@@ -48,9 +48,9 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with SharedTestObj
     private val beforeContext = context.copy(
       _tileDatas = Some(
         Seq(
-          newRouteTileData(1, 1, 1, "to-be-deleted"),
-          newRouteTileData(1, 1, 2, "common-unchanged"),
-          newRouteTileData(1, 1, 3, "common-changed"),
+          newRouteTileData(1, 1, 1), // to be deleted
+          newRouteTileData(1, 1, 2), // unchanged
+          newRouteTileData(1, 1, 3), // changed
         )
       )
     )
@@ -58,9 +58,9 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with SharedTestObj
     private val afterContext = context.copy(
       _tileDatas = Some(
         Seq(
-          newRouteTileData(1, 1, 2, "common-unchanged"),
-          newRouteTileData(1, 1, 3, "common-changed", error = Some("error")),
-          newRouteTileData(1, 1, 4, "new"),
+          newRouteTileData(1, 1, 2), // unchanged
+          newRouteTileData(1, 1, 3, error = Some("error")), // changed
+          newRouteTileData(1, 1, 4), // new
         )
       )
     )

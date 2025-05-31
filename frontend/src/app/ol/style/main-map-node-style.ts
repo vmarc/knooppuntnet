@@ -1,3 +1,4 @@
+import { OlUtil } from '@app/ol/ol-util';
 import { FeatureLike } from 'ol/Feature';
 import Circle from 'ol/style/Circle';
 import Fill from 'ol/style/Fill';
@@ -102,8 +103,8 @@ export class MainMapNodeStyle {
     } else if (parameters.mapMode === 'survey') {
       style = SurveyDateStyle.largeNodeStyle(feature, parameters, proposed);
     } else if (parameters.mapMode === 'analysis') {
-      const layer = feature.get('layer');
-      if ('error-node' === layer) {
+      const featureLayer = OlUtil.featureLayer(feature);
+      if ('error-node' === featureLayer) {
         if (proposed) {
           style = NodeStyle.analysisErrorProposedLarge;
         } else {
@@ -146,9 +147,9 @@ export class MainMapNodeStyle {
   }
 
   private smallNodeStyleAnalysis(feature: FeatureLike): Style {
-    const layer = feature.get('layer');
+    const featureLayer = OlUtil.featureLayer(feature);
     let style: Style;
-    if ('error-node' === layer) {
+    if ('error-node' === featureLayer) {
       style = NodeStyle.analysisErrorSmall;
     } else {
       style = NodeStyle.analysisOkSmall;

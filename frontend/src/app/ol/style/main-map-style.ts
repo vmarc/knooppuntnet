@@ -1,4 +1,5 @@
 import { Signal } from '@angular/core';
+import { OlUtil } from '@app/ol/ol-util';
 import { StyleFunction } from 'ol/style/Style';
 import Style from 'ol/style/Style';
 import { MainMapNodeStyle } from './main-map-node-style';
@@ -24,7 +25,7 @@ export class MainMapStyle {
         return this.invisible;
       }
 
-      const layer = feature.get('layer');
+      const featureLayer = OlUtil.featureLayer(feature);
       let show = true;
       const proposed = feature.get('state') === 'proposed';
       if (proposed && !this.parameters().showProposed) {
@@ -32,7 +33,7 @@ export class MainMapStyle {
       }
 
       if (show) {
-        if (layer.includes('node')) {
+        if (featureLayer.includes('node')) {
           return this.mainMapNodeStyle.nodeStyle(this.parameters(), resolution, feature);
         }
         return this.mainMapRouteStyle.routeStyle(this.parameters(), resolution, feature);

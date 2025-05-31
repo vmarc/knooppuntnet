@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.tiles
 
+import kpn.api.common.FeatureLayer
 import kpn.api.common.NodeName
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
@@ -42,7 +43,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
           name = None,
           latitude = "1",
           longitude = "2",
-          layer = "node",
+          layer = FeatureLayer.node,
           surveyDate = None,
           proposed = false
         )
@@ -79,7 +80,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
           name = None,
           latitude = "1",
           longitude = "2",
-          layer = "node",
+          layer = FeatureLayer.node,
           surveyDate = None,
           proposed = true
         )
@@ -167,7 +168,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
           name = Some("name"),
           latitude = "1",
           longitude = "2",
-          layer = "node",
+          layer = FeatureLayer.node,
           surveyDate = None,
           proposed = false
         )

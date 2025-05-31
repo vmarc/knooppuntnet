@@ -1,5 +1,6 @@
 package kpn.database.actions.routes
 
+import kpn.api.common.FeatureLayer
 import kpn.api.common.RouteType
 import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
@@ -43,7 +44,7 @@ class MongoQueryRouteTileIdsTest extends UnitTest with SharedTestObjects {
       z = 1,
       x = 1,
       y = y,
-      layer = "",
+      layer = FeatureLayer.route,
       scope = None,
       survey = None,
       error = None,

@@ -1,3 +1,4 @@
+import { OlUtil } from '@app/ol/ol-util';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { FeatureLike } from 'ol/Feature';
@@ -50,18 +51,18 @@ export class Features {
   }
 
   static mapFeature(feature: FeatureLike): MapFeature {
-    const layer = feature.get('layer');
-    if (layer) {
-      if ('leg' === layer) {
+    const featureLayer = OlUtil.featureLayer(feature);
+    if (featureLayer) {
+      if ('leg' === featureLayer) {
         const legId = feature.getId() as string;
         return new LegFeature(legId);
       }
-      if ('flag' === layer) {
+      if ('flag' === featureLayer) {
         const id = feature.getId() as string;
         const flagType = feature.get('flag-type');
         return new FlagFeature(flagType, id);
       }
-      if (layer.endsWith('node') && !layer.endsWith('opendata-node')) {
+      if (featureLayer.endsWith('node') && !featureLayer.endsWith('opendata-node')) {
         const nodeId = feature.get('id');
         const proposed = feature.get('state') === 'proposed';
         let nodeRef = feature.get('ref');
@@ -91,10 +92,10 @@ export class Features {
         const point: Point = feature.getGeometry() as Point;
         const extent = point.getExtent();
         const coordinate: Coordinate = [extent[0], extent[1]];
-        return new PoiFeature(poiId, layerType, layer, coordinate);
+        return new PoiFeature(poiId, layerType, featureLayer, coordinate);
       }
 
-      if (layer.endsWith('route') && !layer.endsWith('opendata-route')) {
+      if (featureLayer.endsWith('route') && !featureLayer.endsWith('opendata-route')) {
         const segmentId = feature.get('id');
         const routeName = feature.get('name');
         const oneWay = feature.get('oneway') === 'true';

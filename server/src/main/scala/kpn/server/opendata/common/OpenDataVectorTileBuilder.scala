@@ -1,5 +1,6 @@
 package kpn.server.opendata.common
 
+import kpn.api.common.FeatureLayer
 import kpn.server.analyzer.engine.tile.Feature
 import kpn.server.analyzer.engine.tile.TileEncoder
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
@@ -24,7 +25,7 @@ class OpenDataVectorTileBuilder(tile: Tile, nodes: Seq[OpenDataNode], routes: Se
     nodes.map { node =>
       val point = nodePoint(node)
       val userData = nodeUserData(node)
-      Feature("opendata-node", userData, point)
+      Feature(FeatureLayer.opendataNode, userData, point)
     }
   }
 
@@ -33,7 +34,7 @@ class OpenDataVectorTileBuilder(tile: Tile, nodes: Seq[OpenDataNode], routes: Se
       val lineString = routeLineString(route)
       if (includeLineString(lineString)) {
         val userData = routeUserData(route)
-        Some(Feature("opendata-route", userData, lineString))
+        Some(Feature(FeatureLayer.opendataRoute, userData, lineString))
       }
       else {
         None
@@ -66,8 +67,7 @@ class OpenDataVectorTileBuilder(tile: Tile, nodes: Seq[OpenDataNode], routes: Se
     val worldCoordinates = route.coordinates.map(coordinate => new Coordinate(lonToWorldX(coordinate.lon), latToWorldY(coordinate.lat)))
     val tileCoordinates = TileUtil.tileCoordinates(tile, worldCoordinates)
     val coordinates = tileCoordinates.map(c => new Coordinate(c.x, c.y))
-    val lineString = geometryFactory.createLineString(coordinates.toArray)
-    lineString
+    geometryFactory.createLineString(coordinates.toArray)
   }
 
   private def routeUserData(route: OpenDataRoute): Map[String, String] = {

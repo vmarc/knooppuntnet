@@ -1,3 +1,4 @@
+import { OlUtil } from '@app/ol/ol-util';
 import { Color } from 'ol/color';
 import { FeatureLike } from 'ol/Feature';
 import { MainMapStyleParameters } from './main-map-style-parameters';
@@ -29,13 +30,13 @@ export class StyleColor {
   static readonly defaultColor: Color = [0, 200, 0]; // green
 
   static routeColorAnalysis(feature: FeatureLike): Color {
-    const layer = feature.get('layer');
+    const featureLayer = OlUtil.featureLayer(feature);
     let color = StyleColor.gray;
-    if ('route' === layer) {
+    if ('route' === featureLayer) {
       color = StyleColor.analysisOk;
-    } else if ('incomplete-route' === layer) {
+    } else if ('incomplete-route' === featureLayer) {
       color = StyleColor.analysisError;
-    } else if ('error-route' === layer) {
+    } else if ('error-route' === featureLayer) {
       color = StyleColor.analysisError;
     }
     return color;

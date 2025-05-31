@@ -1,5 +1,6 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { OlUtil } from '@app/ol/ol-util';
 import { OldPoiService } from '@app/shared/services/old-poi.service';
 import { StyleFunction } from 'ol/style/Style';
 import { ZoomLevel } from '../domain/zoom-level';
@@ -44,10 +45,10 @@ export class OldPoiTileLayerService {
   private poiStyleFunction(): StyleFunction {
     return (feature, resolution) => {
       if (this.poiStyleMap) {
-        const layer = feature.get('layer');
-        if (layer != null) {
-          if (this.poiService.isPoiActive(layer)) {
-            const style = this.poiStyleMap.get(layer);
+        const featureLayer = OlUtil.featureLayer(feature);
+        if (featureLayer != null) {
+          if (this.poiService.isPoiActive(featureLayer)) {
+            const style = this.poiStyleMap.get(featureLayer);
             if (style != null) {
               return [style];
             }

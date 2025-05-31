@@ -1,3 +1,4 @@
+import { OlUtil } from '@app/ol/ol-util';
 import { PlannerMarkerLayer } from '../context/planner-marker-layer';
 import { PlannerMarkerLayerImpl } from '../context/planner-marker-layer-impl';
 import Feature from 'ol/Feature';
@@ -13,11 +14,11 @@ export class PlannerMarkerLayerPrinter {
       const features = (plannerMarkerLayer as PlannerMarkerLayerImpl).features();
       this.out.println(`markerLayer (${features.size} features)`);
       features.forEach((feature) => {
-        const layer = feature.get('layer');
-        if (layer === 'flag') {
+        const featureLayer = OlUtil.featureLayer(feature);
+        if (featureLayer === 'flag') {
           this.printFlag(feature);
         } else {
-          this.out.println('  layer=' + layer);
+          this.out.println('  layer=' + featureLayer);
         }
       });
     }

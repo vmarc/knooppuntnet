@@ -1,3 +1,4 @@
+import { OlUtil } from '@app/ol/ol-util';
 import { ExploreRoute } from '@app/state/explore-route';
 import { MapRoutePopupState } from '@app/state/map-route-popup-state';
 import { MapRoutePopupRoute } from '@app/state/map-route-popup-route';
@@ -43,12 +44,12 @@ export class MapRoutePopupHandler {
 
     return features
       .map((feature: FeatureLike) => {
-        const layer = feature.get('layer');
-        if (layer == 'node-route' || layer == 'route') {
+        const featureLayer = OlUtil.featureLayer(feature);
+        if (featureLayer == 'node-route' || featureLayer == 'route') {
           const routeId = feature.get('routeId');
           const name = feature.get('name');
           const scope = feature.get('scope');
-          if (name && routeId && layer) {
+          if (name && routeId && featureLayer) {
             return new MapRoutePopupRoute(routeId, name, scope);
           }
         }
@@ -123,8 +124,8 @@ export class MapRoutePopupHandler {
   private containsRoutes(features: Array<FeatureLike>): boolean {
     for (let i = 0; i < features.length; i++) {
       const feature = features[i];
-      const layer = feature.get('layer');
-      if (layer == 'node-route' || layer == 'route') {
+      const featureLayer = OlUtil.featureLayer(feature);
+      if (featureLayer == 'node-route' || featureLayer == 'route') {
         return true;
       }
     }

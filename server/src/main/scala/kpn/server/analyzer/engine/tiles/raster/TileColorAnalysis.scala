@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.tiles.raster
 
+import kpn.api.common.FeatureLayer
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.server.analyzer.engine.tiles.domain.TileDataRouteSegment
@@ -10,20 +11,20 @@ class TileColorAnalysis extends TileColor {
 
   override def routeColor(route: TileDataRoute, segment: TileDataRouteSegment): Color = {
     route.layer match {
-      case "orphan-route" => TileColor.darkGreen
-      case "incomplete-route" => TileColor.red
-      case "error-route" => TileColor.red
-      case "route" => TileColor.green
+      case FeatureLayer.orphanRoute => TileColor.darkGreen
+      case FeatureLayer.incompleteRoute => TileColor.red
+      case FeatureLayer.errorRoute => TileColor.red
+      case FeatureLayer.route => TileColor.green
       case _ => TileColor.green
     }
   }
 
   override def nodeColor(node: TileDataNode): Color = {
     node.layer match {
-      case "error-orphan-node" => TileColor.darkRed
-      case "orphan-node" => TileColor.darkGreen
-      case "error-node" => TileColor.red
-      case "node" => TileColor.green
+      case FeatureLayer.errorOrphanNode => TileColor.darkRed
+      case FeatureLayer.orphanNode => TileColor.darkGreen
+      case FeatureLayer.errorNode => TileColor.red
+      case FeatureLayer.node => TileColor.green
       case _ => TileColor.green
     }
   }

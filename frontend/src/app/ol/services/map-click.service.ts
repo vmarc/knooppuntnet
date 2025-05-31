@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { OlUtil } from '@app/ol/ol-util';
 import { MapBrowserEvent } from 'ol';
 import { platformModifierKeyOnly } from 'ol/events/condition';
 import { FeatureLike } from 'ol/Feature';
@@ -128,16 +129,18 @@ export class MapClickService {
   }
 
   private isNode(feature: FeatureLike): boolean {
-    const layer = feature.get('layer');
+    const featureLayer = OlUtil.featureLayer(feature);
     return (
-      layer &&
-      (layer.endsWith('node') || layer === 'node-marker') &&
-      !layer.endsWith('opendata-node')
+      featureLayer &&
+      (featureLayer.endsWith('node') || featureLayer === 'node-marker') &&
+      !featureLayer.endsWith('opendata-node')
     );
   }
 
   private isRoute(feature: FeatureLike): boolean {
-    const layer = feature.get('layer');
-    return layer && layer.endsWith('route') && !layer.endsWith('opendata-route');
+    const featureLayer = OlUtil.featureLayer(feature);
+    return (
+      featureLayer && featureLayer.endsWith('route') && !featureLayer.endsWith('opendata-route')
+    );
   }
 }

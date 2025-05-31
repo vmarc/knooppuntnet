@@ -12,6 +12,7 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
+import kpn.api.common.FeatureLayer
 import kpn.api.common.LatLonImpl
 import kpn.api.common.LocationChanges
 import kpn.api.common.NetworkChanges
@@ -499,7 +500,7 @@ trait SharedTestObjects extends MockFactory {
       z = 0,
       x = 0,
       y = 0,
-      layer = "",
+      layer = FeatureLayer.route,
       scope = None,
       survey = None,
       error = None,
@@ -1559,7 +1560,7 @@ trait SharedTestObjects extends MockFactory {
     z: Long = 0,
     x: Long = 0,
     y: Long = 0,
-    layer: String = "",
+    layer: FeatureLayer = FeatureLayer.route,
     scope: Option[RouteScope] = None,
     survey: Option[String] = None,
     error: Option[String] = None,

@@ -6,6 +6,7 @@ import { RouteData } from '@api/common/diff/route-data';
 import { RouteDiff } from '@api/common/diff/route/route-diff';
 import { Fact } from '@api/common/fact';
 import { RouteLocationAnalysis } from '@api/common/route-location-analysis';
+import { RouteNodeChange } from '@api/common/route/route-node-change';
 import { ChangeKey } from './change-key';
 
 export interface RouteChange {
@@ -19,6 +20,7 @@ export interface RouteChange {
   readonly before?: RouteData;
   readonly after?: RouteData;
   readonly diffs: RouteDiff;
+  readonly nodeChanges: RouteNodeChange[];
   readonly facts: Fact[];
   readonly happy: boolean;
   readonly investigate: boolean;

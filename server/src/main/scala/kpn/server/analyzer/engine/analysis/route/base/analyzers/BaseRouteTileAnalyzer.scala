@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
+import kpn.api.common.FeatureLayer
 import kpn.api.common.RouteScope
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Relation
@@ -97,7 +98,7 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
     tileSegments: Seq[TileSegment]
   ): Seq[RouteTileData] = {
 
-    val layer = if (context.nodeNetwork) "node-route" else "route"
+    val layer = if (context.nodeNetwork) FeatureLayer.nodeRoute else FeatureLayer.route
     val scope = if (context.nodeNetwork) {
       None
     } else {

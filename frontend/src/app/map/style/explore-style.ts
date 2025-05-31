@@ -1,3 +1,4 @@
+import { OlUtil } from '@app/ol/ol-util';
 import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { MainMapNodeStyle } from '@app/ol/style/main-map-node-style';
 import { MainMapStyleParameters } from '@app/ol/style/main-map-style-parameters';
@@ -16,10 +17,10 @@ export class ExploreStyle {
       return undefined;
     }
 
-    const layer = feature.get('layer');
-    if (layer === 'node') {
+    const featureLayer = OlUtil.featureLayer(feature);
+    if (featureLayer === 'node') {
       return this.nodeStyle(styleOptions, feature);
-    } else if (layer === 'route' || layer === 'node-route') {
+    } else if (featureLayer === 'route' || featureLayer === 'node-route') {
       return this.routeStyle(styleOptions, feature);
     }
     return undefined;

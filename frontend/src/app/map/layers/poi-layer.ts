@@ -1,5 +1,6 @@
 import { Signal } from '@angular/core';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
+import { OlUtil } from '@app/ol/ol-util';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
@@ -46,10 +47,10 @@ export class PoiLayer {
     return (feature, resolution) => {
       // console.log('styleFunction()', poiStyleMap(), poiActive(), feature);
       if (poiStyleMap()) {
-        const layer = feature.get('layer');
-        if (layer != null && poiActive()) {
-          if (poiActive().get(layer) === true) {
-            const style = poiStyleMap().get(layer);
+        const featureLayer = OlUtil.featureLayer(feature);
+        if (featureLayer != null && poiActive()) {
+          if (poiActive().get(featureLayer) === true) {
+            const style = poiStyleMap().get(featureLayer);
             if (style != null) {
               return [style];
             }

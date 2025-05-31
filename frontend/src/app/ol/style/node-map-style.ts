@@ -1,3 +1,4 @@
+import { OlUtil } from '@app/ol/ol-util';
 import { FeatureLike } from 'ol/Feature';
 import Style from 'ol/style/Style';
 import { StyleFunction } from 'ol/style/Style';
@@ -14,8 +15,8 @@ export class NodeMapStyle {
     return (feature, resolution) => {
       if (feature) {
         const proposed = feature.get('state') === 'proposed';
-        const layer = feature.get('layer');
-        if (layer.includes('node')) {
+        const featureLayer = OlUtil.featureLayer(feature);
+        if (featureLayer.includes('node')) {
           return this.nodeStyle(feature, resolution, proposed);
         }
         const color = StyleColor.routeColorAnalysis(feature);

@@ -9,6 +9,7 @@ import { OldBackgroundLayer } from '@app/ol/layers/old-background-layer';
 import { MapControls } from '@app/ol/layers/map-controls';
 import { OldMapLayerRegistry } from '@app/ol/layers/old-map-layer-registry';
 import { OldOsmLayer } from '@app/ol/layers/old-osm-layer';
+import { OlUtil } from '@app/ol/ol-util';
 import { OpenlayersMapService } from '@app/ol/services/openlayers-map-service';
 import { NavService } from '@app/shared/components/nav.service';
 import { Util } from '@app/shared/components/util';
@@ -291,8 +292,8 @@ export class MonitorRouteMapService extends OpenlayersMapService {
           const relationIds: string[] = [];
           if (features && features.length > 0) {
             features.forEach((feature) => {
-              const layer = feature.get('layer');
-              if (layer === 'relation') {
+              const featureLayer = OlUtil.featureLayer(feature);
+              if (featureLayer === 'relation') {
                 const id = feature.get('id');
                 relationIds.push(id);
               }

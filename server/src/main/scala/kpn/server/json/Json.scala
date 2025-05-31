@@ -15,6 +15,7 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
+import kpn.api.common.FeatureLayer
 import kpn.api.common.Language
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
@@ -51,6 +52,8 @@ import kpn.server.json.enumeratum.ElementChangeTypeJsonDeserializer
 import kpn.server.json.enumeratum.ElementChangeTypeJsonSerializer
 import kpn.server.json.enumeratum.FactJsonDeserializer
 import kpn.server.json.enumeratum.FactJsonSerializer
+import kpn.server.json.enumeratum.FeatureLayerJsonDeserializer
+import kpn.server.json.enumeratum.FeatureLayerJsonSerializer
 import kpn.server.json.enumeratum.LanguageJsonDeserializer
 import kpn.server.json.enumeratum.LanguageJsonSerializer
 import kpn.server.json.enumeratum.LastUpdatedParameterJsonDeserializer
@@ -109,6 +112,9 @@ object Json {
 
     b.deserializerByType(classOf[Language], new LanguageJsonDeserializer())
     b.serializerByType(classOf[Language], new LanguageJsonSerializer())
+
+    b.deserializerByType(classOf[FeatureLayer], new FeatureLayerJsonDeserializer())
+    b.serializerByType(classOf[FeatureLayer], new FeatureLayerJsonSerializer())
 
     b.deserializerByType(classOf[LinkDirection], new LinkDirectionJsonDeserializer())
     b.serializerByType(classOf[LinkDirection], new LinkDirectionJsonSerializer())

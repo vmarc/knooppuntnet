@@ -1,5 +1,7 @@
 import { LatLonImpl } from '@api/common/lat-lon-impl';
+import { FeatureLayer } from '@api/common/feature-layer';
 import { Coordinate } from 'ol/coordinate';
+import { FeatureLike } from 'ol/Feature';
 import { fromLonLat } from 'ol/proj';
 import { toLonLat } from 'ol/proj';
 
@@ -28,5 +30,9 @@ export class OlUtil {
       return '[' + lonLat[1] + ', ' + lonLat[0] + ']';
     }
     return '[]';
+  }
+
+  static featureLayer(feature: FeatureLike): FeatureLayer {
+    return feature.get('layer');
   }
 }
