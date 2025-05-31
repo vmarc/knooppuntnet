@@ -11,8 +11,10 @@ import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.wayToWorldCoordinates
 import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.TileCoordinate
 import kpn.server.analyzer.engine.tiles.domain.TileUtil
 import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineSegment
 import org.springframework.stereotype.Component
 
@@ -24,6 +26,7 @@ case class TileSegment(
 
 @Component
 class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) extends BaseRouteAnalyzer {
+  private val geometryFactory = new GeometryFactory
 
   def analyze(context: BaseRouteAnalysisContext): BaseRouteAnalysisContext = {
     val tileSegments = context.analysisSegments.flatMap { segment =>
@@ -145,12 +148,23 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
 
   private def tileSegmentToGeometry(tile: Tile, tileSegment: TileSegment): Option[String] = {
     val tileCoordinates = TileUtil.tileCoordinates(tile, tileSegment.worldCoordinates)
-    if (tileCoordinates.isEmpty) {
-      None
-    }
-    else {
+    if (longEnough(tileCoordinates)) {
       val geometryString = tileCoordinates.map(coordinate => s"[${coordinate.x},${coordinate.y}]").mkString("[", ",", "]")
       Some(geometryString)
+    }
+    else {
+      None
+    }
+  }
+
+  private def longEnough(tileCoordinates: Seq[TileCoordinate]): Boolean = {
+    if (tileCoordinates.isEmpty) {
+      false
+    }
+    else {
+      val flipped: Array[Coordinate] = tileCoordinates.toArray.map(c => new Coordinate(c.y, c.x))
+      val lineString = geometryFactory.createLineString(flipped)
+      lineString.getLength > 1.5
     }
   }
 }

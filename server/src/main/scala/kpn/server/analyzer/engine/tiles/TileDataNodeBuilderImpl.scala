@@ -4,13 +4,9 @@ import kpn.api.common.Fact
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.core.analysis.Facts
-import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import org.springframework.stereotype.Component
-
-import scala.util.Failure
-import scala.util.Success
 
 @Component
 class TileDataNodeBuilderImpl extends TileDataNodeBuilder {
@@ -47,12 +43,6 @@ class TileDataNodeBuilderImpl extends TileDataNodeBuilder {
           }
       }
 
-      val surveyDateTry = SurveyDateAnalyzer.analyze(nodeTileInfo)
-      val surveyDate = surveyDateTry match {
-        case Success(date) => date
-        case Failure(_) => None
-      }
-
       val proposed = nodeName.proposed ||
         nodeTileInfo.hasTag("state", "proposed")
 
@@ -63,7 +53,7 @@ class TileDataNodeBuilderImpl extends TileDataNodeBuilder {
         nodeTileInfo.latitude,
         nodeTileInfo.longitude,
         layer(nodeTileInfo.facts),
-        surveyDate,
+        nodeTileInfo.lastSurvey,
         proposed
       )
     }

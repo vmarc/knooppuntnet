@@ -22,14 +22,27 @@ object TileReportTool {
 
 class TileReportTool {
   def report(): Unit = {
-    val tileInfos = loadTileInfos(RouteType.hiking)
+    val tileInfos = loadTileInfos(RouteType.cycling)
+    reportSummary(tileInfos)
+    reportZoomLevelTileSizes(tileInfos)
+  }
+
+  private def reportSummary(tileInfos: Seq[TileInfo]): Unit = {
     val sizes = tileInfos.map(_.size)
-    println(s"tileCount=${tileInfos.size}, totalSize=${sizes.sum}, maxTileSize=${sizes.max}")
+    println(s"tileCount=${tileInfos.size}")
+    println(s"totalSize=${sizes.sum / 1000}K")
+    println(s"maxTileSize=${sizes.max / 1000}K")
+    println()
+  }
+
+  private def reportZoomLevelTileSizes(tileInfos: Seq[TileInfo]): Unit = {
+    println("|zoomLevel|tileCount|max|largestTile|")
+    println("|---------|---------|---|---|")
     (ZoomLevel.newMinZoom to ZoomLevel.poiTileMaxZoom).foreach { z =>
       val zoomLevelTiles = tileInfos.filter(_.z == z)
       val max = if (zoomLevelTiles.isEmpty) 0 else zoomLevelTiles.map(_.size).max
       val largestTiles: Seq[TileInfo] = if (zoomLevelTiles.isEmpty) Seq.empty else zoomLevelTiles.filter(_.size == max)
-      println(s"zoomLevel=$z, tileCount=${zoomLevelTiles.size}, max=$max, largestTile=${largestTiles.map(_.name)}")
+      println(s"|$z|${zoomLevelTiles.size}|${max / 1000}K|${largestTiles.map(_.name).mkString}|")
     }
   }
 

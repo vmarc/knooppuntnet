@@ -23,6 +23,7 @@ object ZoomLevel {
   val nodeMinZoom = 12
 
   val minZoomNodeNetwork = 6
+  val minZoomNodeNetworkUserData = 11
   val minZoomNational = 7
   val minZoomRegional = 9
   val minZoomLocal = 11

@@ -9,23 +9,23 @@ import kpn.server.analyzer.engine.tiles.domain.Tile
 case class TilesData(
   routeType: RouteType,
   zoomLevel: Int,
-  nodes: Seq[NodeTileInfo],
-  routes: Seq[RouteTileDoc]
+  nodes: Map[String, Seq[NodeTileInfo]],
+  routes: Map[String, Seq[RouteTileDoc]]
 ) {
   def isEmpty: Boolean = {
     nodes.isEmpty && routes.isEmpty
   }
 
   def tileNames: Seq[String] = {
-    val nodeTileNames = nodes.map(_.tileName)
-    val routeTileNames = routes.map(_.tileName)
-    (nodeTileNames ++ routeTileNames).distinct.sorted
+    val nodeTileNames = nodes.keys
+    val routeTileNames = routes.keys
+    (nodeTileNames ++ routeTileNames).toSeq.distinct.sorted
   }
 
   def tileData(tileName: String): TileData = {
     val tile = Tile.routeTileFromName(tileName)
-    val nodeTileInfos = nodes.filter(_.tileName == tileName)
-    val routeTileDocs = routes.filter(_.tileName == tileName)
+    val nodeTileInfos = nodes.getOrElse(tileName, Seq.empty)
+    val routeTileDocs = routes.getOrElse(tileName, Seq.empty)
     TileData(
       routeType,
       tile,

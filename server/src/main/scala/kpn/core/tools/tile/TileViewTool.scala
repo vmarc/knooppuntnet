@@ -15,13 +15,7 @@ import scala.jdk.CollectionConverters.IterableHasAsScala
 object TileViewTool {
 
   def main(args: Array[String]): Unit = {
-    //    new TileViewTool().print("/Users/marc/kpn/tiles/hiking/7/65/42.mvt")
-    new TileViewTool().print("/Users/marc/kpn/tiles/hiking/14/8484/5883.mvt")
-
-    // new TileViewTool().print("/Users/marc/kpn/tiles/hiking/13/4197/2724.mvt")
-    // new TileViewTool().print("/Users/marc/kpn/tiles/poi/15/16790/10901.mvt")
-    // new TileViewTool().print("/Users/marc/kpn/tiles/poi/14/8395/5450.mvt")
-    println("Done")
+    new TileViewTool().print("/Users/marc/kpn/tiles/cycling/6/32/21.mvt")
   }
 }
 
