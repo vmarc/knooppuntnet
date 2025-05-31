@@ -15,71 +15,53 @@ class RoutedatabankRouteParser {
   private val simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd")
 
   def parse(inputStream: InputStream): Seq[RoutedatabankRoute] = {
-
     val features = toFeatures(inputStream)
-
     features.map { feature =>
       feature.getDefaultGeometry match {
-        case lineString: LineString =>
-          val _id = {
-            val value = feature.getAttribute("lijnid")
-            if (value == null) {
-              feature.getAttribute("ogc_fid").toString
-            }
-            else {
-              value.toString
-            }
-          }
-          val regio = {
-            val value = feature.getAttribute("regio")
-            if (value != null) {
-              value.toString
-            }
-            else {
-              ""
-            }
-          }
-          val provincie = {
-            val value = feature.getAttribute("provincie")
-            if (value != null) {
-              value.toString
-            }
-            else {
-              ""
-            }
-          }
-          val lastEditedDate = feature.getAttribute("last_edited_date")
-
-          val updated = lastEditedDate match {
-            case date: Date => Some(simpleDateFormat.format(date))
-            case string: String =>
-              if (string == "null") {
-                None
-              }
-              else {
-                Some(string.take("yyyy-mm-dd".length))
-              }
-            case _ => None
-          }
-
-          val coordinates = lineString.getCoordinates.toSeq.map { coordinate =>
-            LatLonImpl(
-              coordinate.getY.toString,
-              coordinate.getX.toString
-            )
-          }
-
-          RoutedatabankRoute(
-            _id,
-            updated,
-            regio,
-            provincie,
-            coordinates
-          )
-
+        case lineString: LineString => toRoute(feature, lineString)
         case _ => throw new RuntimeException("unexpected route geometry type")
       }
     }
+  }
+
+  private def toRoute(feature: SimpleFeature, lineString: LineString) = {
+    val _id = attribute(feature, "lijnid", fallbackAttribute = "ogc_fid")
+    val regio = attribute(feature, "regio")
+    val provincie = attribute(feature, "provincie")
+    val updated = findUpdated(feature)
+    val coordinates = toCoordinates(lineString)
+    RoutedatabankRoute(
+      _id,
+      updated,
+      regio,
+      provincie,
+      coordinates
+    )
+  }
+
+  private def toCoordinates(lineString: LineString) = {
+    lineString.getCoordinates.toSeq.map { coordinate =>
+      LatLonImpl(
+        coordinate.getY.toString,
+        coordinate.getX.toString
+      )
+    }
+  }
+
+  private def findUpdated(feature: SimpleFeature) = {
+    val lastEditedDate = feature.getAttribute("last_edited_date")
+    val updated = lastEditedDate match {
+      case date: Date => Some(simpleDateFormat.format(date))
+      case string: String =>
+        if (string == "null") {
+          None
+        }
+        else {
+          Some(string.take("yyyy-mm-dd".length))
+        }
+      case _ => None
+    }
+    updated
   }
 
   private def toFeatures(inputStream: InputStream): Seq[SimpleFeature] = {
@@ -89,5 +71,27 @@ class RoutedatabankRouteParser {
       features += featureIterator.next()
     }
     features.toSeq
+  }
+
+  private def attribute(
+    feature: SimpleFeature,
+    attributeName: String,
+    fallbackAttribute: String = null,
+  ): String = {
+    val value = feature.getAttribute(attributeName)
+    if (value == null) {
+      if (fallbackAttribute != null) {
+        val fallbackValue = feature.getAttribute(fallbackAttribute)
+        if (fallbackValue != null) {
+          fallbackValue.toString
+        } else {
+          ""
+        }
+      } else {
+        ""
+      }
+    } else {
+      value.toString
+    }
   }
 }
