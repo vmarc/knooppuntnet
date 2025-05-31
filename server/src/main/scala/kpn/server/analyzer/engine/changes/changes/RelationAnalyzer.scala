@@ -20,11 +20,9 @@ object RelationAnalyzerHelper {
     val nodeIds = referencedNodes(relation).map(_.id)
     val wayIds = referencedWays(relation).map(_.id)
     val relationIds = referencedRelations(relation).map(_.id)
-    val relationIds2 = relation.members.flatMap { member =>
-      member match {
-        case relationIdMember: RelationIdMember => Some(relationIdMember.relationId)
-        case _ => None
-      }
+    val relationIds2 = relation.members.flatMap {
+      case relationIdMember: RelationIdMember => Some(relationIdMember.relationId)
+      case _ => None
     }
 
     ElementIds(

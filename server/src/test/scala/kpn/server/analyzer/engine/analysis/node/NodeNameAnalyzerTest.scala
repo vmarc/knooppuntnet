@@ -396,7 +396,7 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   private def analyze(tags: TagTuple*): Seq[NodeName] = {
-    val nodeTags = Tags.from(tags: _*).toSeq ++ Tags.from("network:type" -> "node_network")
+    val nodeTags = Tags.from(tags: _*) ++ Tags.from("network:type" -> "node_network")
     val node = newNode(tags = nodeTags)
     NodeNameAnalyzer.analyze(node)
   }

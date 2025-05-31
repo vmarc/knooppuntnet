@@ -21,7 +21,7 @@ object CoordinateUtil {
     PlanCoordinate(target.x, target.y)
   }
 
-  def toCoordinate2(latitude: String, longitude: String): Tuple2[String, String] = {
+  def toCoordinate2(latitude: String, longitude: String): (String, String) = {
     val coordinate = new Coordinate(latitude.toDouble, longitude.toDouble)
     val target = JTS.transform(coordinate, null, transform)
     (target.x.toString, target.y.toString)

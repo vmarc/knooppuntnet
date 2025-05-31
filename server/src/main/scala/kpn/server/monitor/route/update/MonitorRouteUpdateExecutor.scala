@@ -753,7 +753,6 @@ class MonitorRouteUpdateExecutor(
       case None =>
         val error = s"Could not load relation ${monitorRouteRelation.relationId} at ${Time.now.yyyymmddhhmmss}"
         monitorRouteRepository.deleteRouteState(context.routeId, monitorRouteRelation.relationId)
-        None
 
       case Some(subRelation) =>
         monitorRouteRepository.routeReference(context.routeId, Some(monitorRouteRelation.relationId)) match {

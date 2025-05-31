@@ -14,11 +14,9 @@ import scala.collection.mutable
 
 object StructureElementAnalyzer {
   def analyze(routeNodeAnalysis: RouteNodes, members: Seq[Member], traceEnabled: Boolean = false): Seq[StructureElementGroup] = {
-    val wayMembers = members.flatMap { member =>
-      member match {
-        case wayMember: WayMember => Some(wayMember)
-        case _ => None
-      }
+    val wayMembers = members.flatMap {
+      case wayMember: WayMember => Some(wayMember)
+      case _ => None
     }
     if (wayMembers.exists(_.way.nodes.length < 2)) {
       throw new IllegalStateException("ways with less than 2 nodes should have been filtered out at this point")

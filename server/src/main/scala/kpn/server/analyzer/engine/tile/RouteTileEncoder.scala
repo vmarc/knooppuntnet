@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
+import kpn.api.common.FeatureLayer
 import kpn.api.common.RouteType
 import kpn.api.common.tiles.ZoomLevel
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
@@ -95,7 +96,7 @@ class RouteTileEncoder(
   }
 
   private def buildRouteUserData(zoomLevel: Int, routeTileInfo: RouteTileInfo, segment: RouteTileSegment): Map[String, String] = {
-    if (routeTileInfo.layer == "node-route" && zoomLevel < ZoomLevel.minZoomNodeNetworkUserData) {
+    if (routeTileInfo.layer == FeatureLayer.nodeRoute && zoomLevel < ZoomLevel.minZoomNodeNetworkUserData) {
       Seq(
         routeTileInfo.survey.map(survey => "survey" -> survey),
         routeTileInfo.error.map(error => "error" -> error)

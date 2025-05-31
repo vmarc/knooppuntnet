@@ -14,7 +14,7 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysi
 import org.springframework.stereotype.Component
 
 @Component
-class BaseRouteDocBuilder() {
+class BaseRouteDocBuilder {
 
   def build(context: BaseRouteAnalysisContext): BaseRouteDoc = {
 

@@ -19,8 +19,8 @@ class RouteRelationAnalyzerTest extends UnitTest with SharedTestObjects {
     val d = new RouteTestData("01-02") {
       node(1, "01")
       node(2, "02")
-      memberNode(1, "")
-      memberNode(2, "")
+      memberNode(1)
+      memberNode(2)
     }
     analyze(d) should equal(Seq(1, 2))
   }

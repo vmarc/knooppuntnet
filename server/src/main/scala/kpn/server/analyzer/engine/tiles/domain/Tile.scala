@@ -6,9 +6,9 @@ import org.locationtech.jts.geom.Polygon
 
 object Tile {
 
-  val TILE_SIZE = 256
-  val EXTENT_STANDARD = TILE_SIZE
-  val EXTENT_DETAILED = 4096
+  val TILE_SIZE: Int = 256
+  val EXTENT_STANDARD: Int = TILE_SIZE
+  val EXTENT_DETAILED: Int = 4096
 
   // x part of the z-x-y tilename
   def tileX(z: Int, worldX: Double): Int = {
@@ -103,11 +103,11 @@ class Tile(
     new GeometryFactory().createPolygon(coords)
   }
 
-  val zoomFactor = 1 << z // the number of tiles across the map in each direction
-  val worldXMin = x.toDouble / zoomFactor
-  val worldXMax = (x.toDouble + 1) / zoomFactor
-  val worldYMin = y.toDouble / zoomFactor
-  val worldYMax = (y.toDouble + 1) / zoomFactor
+  val zoomFactor: Int = 1 << z // the number of tiles across the map in each direction
+  val worldXMin: Double = x.toDouble / zoomFactor
+  val worldXMax: Double = (x.toDouble + 1) / zoomFactor
+  val worldYMin: Double = y.toDouble / zoomFactor
+  val worldYMax: Double = (y.toDouble + 1) / zoomFactor
 
   val bounds: Rectangle = {
     Rectangle(

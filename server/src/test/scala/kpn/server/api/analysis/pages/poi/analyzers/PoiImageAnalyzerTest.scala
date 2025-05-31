@@ -24,8 +24,6 @@ class PoiImageAnalyzerTest extends UnitTest with SharedTestObjects {
     val poi = newPoi(
       "node",
       1000L,
-      "",
-      "",
       tags = Tags.from(
         "image" -> tagValue
       )

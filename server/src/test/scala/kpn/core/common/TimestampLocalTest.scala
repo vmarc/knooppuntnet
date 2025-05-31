@@ -7,7 +7,7 @@ import kpn.core.util.UnitTest
 class TimestampLocalTest extends UnitTest with SharedTestObjects {
 
   test("test node object") {
-    val node = newNode(1001, timestamp = Timestamp(2018, 8, 11, 0, 0, 0))
+    val node = newNode(timestamp = Timestamp(2018, 8, 11, 0, 0, 0))
     TimestampLocal.localize(node)
     node.timestamp should equal(Timestamp(2018, 8, 11, 2, 0, 0))
   }
