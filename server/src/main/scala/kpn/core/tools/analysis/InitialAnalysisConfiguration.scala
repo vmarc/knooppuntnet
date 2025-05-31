@@ -40,10 +40,7 @@ import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRo
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
-import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
-import kpn.server.analyzer.engine.tiles.TilesBuilder
 import kpn.server.analyzer.full.MainFullAnalyzer
 import kpn.server.analyzer.full.analyzers.FullAnalysisPipeline
 import kpn.server.analyzer.full.analyzers.FullBaseNetworkAnalyzer
@@ -182,17 +179,6 @@ class InitialAnalysisConfiguration(options: InitialAnalysisToolOptions) {
 
   private val executionContext: ExecutionContext = {
     ExecutionContext.fromExecutor(executor)
-  }
-
-  private val tilesBuilder: TilesBuilder = {
-    val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
-    val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
-    val tileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
-    new TilesBuilder(
-      bitmapTileFileRepository,
-      vectorTileFileRepository,
-      tileFileBuilder
-    )(executionContext)
   }
 
   private val rawDataRepository: RawDataRepository = new RawDataRepositoryDevelopmentImpl(database)

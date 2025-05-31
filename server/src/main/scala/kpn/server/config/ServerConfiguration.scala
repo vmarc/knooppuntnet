@@ -9,10 +9,8 @@ import kpn.database.base.MetricsDatabaseImpl
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
-import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
-import kpn.server.analyzer.engine.tiles.vector.VectorTileBuilder
 import kpn.server.json.Json
 import org.mongodb.scala.MongoClient
 import org.springframework.beans.factory.annotation.Value
@@ -110,11 +108,6 @@ class ServerConfiguration {
   @Bean
   def testEnabled(@Value("${app.test-enabled:false}") value: Boolean): Boolean = {
     value
-  }
-
-  @Bean
-  def vectorTileBuilder: TileBuilder = {
-    new VectorTileBuilder()
   }
 
   @Bean
