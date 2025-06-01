@@ -1,25 +1,19 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 
 @Component({
   selector: 'ui-monitor-group-breadcrumb',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <nz-breadcrumb>
-      <nz-breadcrumb-item>
-        <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-      </nz-breadcrumb-item>
-      <nz-breadcrumb-item>
-        <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-      </nz-breadcrumb-item>
-      <nz-breadcrumb-item>
-        <span i18n="@@breadcrumb.monitor.group">Group</span>
-      </nz-breadcrumb-item>
-    </nz-breadcrumb>
-  `,
-  imports: [RouterLink, NzBreadCrumbComponent, NzBreadCrumbItemComponent],
+  template: ` <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" /> `,
+  imports: [BreadcrumbComponent],
 })
-export class MonitorGroupBreadcrumbComponent {}
+export class MonitorGroupBreadcrumbComponent {
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    Breadcrumbs.monitor,
+    { label: Breadcrumbs.monitorGroupLabel },
+  ];
+}

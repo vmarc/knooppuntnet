@@ -2,11 +2,11 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { RouterLink } from '@angular/router';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { State } from '@app/state/state';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../shared/components/page/page.component';
 
 @Component({
@@ -14,15 +14,7 @@ import { PageComponent } from '../shared/components/page/page.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-page>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>
-          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <span i18n="@@breadcrumb.settings">Settings</span>
-        </nz-breadcrumb-item>
-      </nz-breadcrumb>
-
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
       <ui-page-header i18n="@@settings-page.title">Settings</ui-page-header>
 
       <div class="setting">
@@ -56,18 +48,15 @@ import { PageComponent } from '../shared/components/page/page.component';
       font-style: italic;
     }
   `,
-  imports: [
-    MatSlideToggleModule,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
-    PageComponent,
-    PageHeaderComponent,
-    RouterLink,
-  ],
+  imports: [MatSlideToggleModule, PageComponent, PageHeaderComponent, BreadcrumbComponent],
 })
 export class SettingsPageComponent {
   private readonly state = inject(State);
-  readonly extraLayers = this.state.preferences.extraLayers;
+  protected readonly extraLayers = this.state.preferences.extraLayers;
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    { label: Breadcrumbs.settingsLabel },
+  ];
 
   extraLayersChanged(event: MatSlideToggleChange): void {
     this.state.preferences.updateExtraLayers(event.checked);

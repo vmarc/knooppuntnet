@@ -1,3 +1,4 @@
+import { Signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -5,13 +6,14 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { Translations } from '@app/shared/i18n/translations';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteDeletePageService } from './monitor-route-delete-page.service';
 
@@ -21,21 +23,7 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
   template: `
     @if (service.state(); as state) {
       <ui-page>
-        <nz-breadcrumb>
-          <nz-breadcrumb-item>
-            <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-          </nz-breadcrumb-item>
-          <nz-breadcrumb-item>
-            <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-          </nz-breadcrumb-item>
-          <nz-breadcrumb-item>
-            <a [routerLink]="state.groupLink">{{ state.groupName }}</a>
-          </nz-breadcrumb-item>
-          <nz-breadcrumb-item>
-            <span i18n="@@breadcrumb.monitor.route">Route</span>
-          </nz-breadcrumb-item>
-        </nz-breadcrumb>
-
+        <ui-breadcrumb [breadcrumbItems]="breadcrumbItems()" />
         <ui-page-header [pageTitle]="pageTitle()">
           <span class="kpn-label">{{ state.routeName }}</span>
           <span>{{ state.routeDescription }}</span>
@@ -65,23 +53,32 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
   `,
   providers: [MonitorRouteDeletePageService, NavService],
   imports: [
+    BreadcrumbComponent,
     ErrorComponent,
     MatButtonModule,
     MatIconModule,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
     PageComponent,
     PageHeaderComponent,
     RouterLink,
   ],
 })
 export class MonitorRouteDeletePageComponent {
-  readonly subtitle = $localize`:@@monitor.route.delete.title:Delete`;
-  readonly service = inject(MonitorRouteDeletePageService);
-  readonly cancelLinkText = Translations.get('action.cancel');
-  readonly pageTitle = computed(() => {
+  protected readonly subtitle = $localize`:@@monitor.route.delete.title:Delete`;
+  protected readonly service = inject(MonitorRouteDeletePageService);
+  protected readonly cancelLinkText = Translations.get('action.cancel');
+  protected readonly pageTitle = computed(() => {
     const state = this.service.state();
     const monitor = MonitorTranslations.get('monitor');
     return `${this.subtitle} | ${state.routeName} | ${state.groupName} | ${monitor}`;
+  });
+  private readonly groupLink = computed(() => this.service.state().groupLink);
+  private readonly groupName = computed(() => this.service.state().groupName);
+  protected readonly breadcrumbItems: Signal<BreadcrumbItem[]> = computed(() => {
+    return [
+      Breadcrumbs.home,
+      Breadcrumbs.monitor,
+      { routerLink: this.groupLink(), label: this.groupName() },
+      { label: Breadcrumbs.monitorRouteLabel },
+    ];
   });
 }

@@ -2,8 +2,10 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
 import { Timestamp } from '@api/custom/timestamp';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
@@ -11,8 +13,6 @@ import { OsmLinkChangeSetComponent } from '@app/shared/components/link/osm-link-
 import { NavService } from '@app/shared/components/nav.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { MonitorRouteChangeMapComponent } from './monitor-route-change-map.component';
 import { MonitorRouteChangePageService } from './monitor-route-change-page.service';
 
@@ -24,17 +24,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
     <ui-page>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>
-          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <a routerLink="/monitor/routes">Monitor</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <span>Route</span>
-        </nz-breadcrumb-item>
-      </nz-breadcrumb>
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
 
       @if (service.state(); as state) {
         <h1 class="title">
@@ -248,21 +238,24 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
   `,
   providers: [MonitorRouteChangePageService, NavService],
   imports: [
+    BreadcrumbComponent,
     ErrorComponent,
     IconHappyComponent,
     IconInvestigateComponent,
     MatIconModule,
     MonitorRouteChangeMapComponent,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
     OsmLinkChangeSetComponent,
     PageComponent,
-    RouterLink,
     TimestampComponent,
   ],
 })
 export class MonitorRouteChangePageComponent {
-  readonly service = inject(MonitorRouteChangePageService);
+  protected readonly service = inject(MonitorRouteChangePageService);
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    Breadcrumbs.monitorRoutes,
+    { label: Breadcrumbs.routeLabel },
+  ];
 
   timestamp(timestampString: string): Timestamp {
     // temporary hack until Timestamp is interface

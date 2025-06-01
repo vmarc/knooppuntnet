@@ -3,12 +3,13 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { MonitorAdminToggleComponent } from '../components/monitor-admin-toggle.component';
 import { MonitorGroupTableComponent } from './monitor-group-table.component';
@@ -19,15 +20,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-page>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>
-          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <span i18n="@@breadcrumb.monitor">Monitor</span>
-        </nz-breadcrumb-item>
-      </nz-breadcrumb>
-
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
       <ui-page-header>
         <ng-container i18n="@@monitor.groups.title">Monitor</ng-container>
       </ui-page-header>
@@ -79,12 +72,11 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
   `,
   providers: [MonitorGroupsPageService, NavService],
   imports: [
+    BreadcrumbComponent,
     ErrorComponent,
     MatButtonModule,
     MonitorAdminToggleComponent,
     MonitorGroupTableComponent,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
     NzButtonComponent,
     PageComponent,
     PageHeaderComponent,
@@ -92,5 +84,9 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
   ],
 })
 export class MonitorGroupsPageComponent {
-  readonly service = inject(MonitorGroupsPageService);
+  protected readonly service = inject(MonitorGroupsPageService);
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    { label: Breadcrumbs.monitorLabel },
+  ];
 }

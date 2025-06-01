@@ -2,16 +2,16 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { ChangesComponent } from '@app/analysis/components/changes/changes.component';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter/change-filter.component';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ItemComponent } from '@app/shared/components/items/item.component';
 import { ItemsComponent } from '@app/shared/components/items/items.component';
 import { PageFilterComponent } from '@app/shared/components/page/page-filter.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { RouterService } from '@app/shared/services/router.service';
 import { UserLinkLoginComponent } from '@app/shared/user/user-link-login.component';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
@@ -23,18 +23,7 @@ import { RouteChangesPageService } from './route-changes-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-page-filter>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>
-          <a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <span i18n="@@breadcrumb.route-changes">Route changes</span>
-        </nz-breadcrumb-item>
-      </nz-breadcrumb>
-
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
       <ui-route-page-header pageName="changes" />
 
       @if (service.response(); as response) {
@@ -118,22 +107,26 @@ import { RouteChangesPageService } from './route-changes-page.service';
   `,
   providers: [RouteChangesPageService, RouterService],
   imports: [
+    BreadcrumbComponent,
     ChangeFilterComponent,
     ChangesComponent,
     ItemComponent,
     ItemsComponent,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
     PageFilterComponent,
     RouteChangeComponent,
     RoutePageHeaderComponent,
-    RouterLink,
     SituationOnComponent,
     UserLinkLoginComponent,
   ],
 })
 export class RouteChangesPageComponent implements OnInit {
   protected readonly service = inject(RouteChangesPageService);
+
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    Breadcrumbs.analysis,
+    { label: Breadcrumbs.routeChangesLabel },
+  ];
 
   ngOnInit(): void {
     this.service.onInit();

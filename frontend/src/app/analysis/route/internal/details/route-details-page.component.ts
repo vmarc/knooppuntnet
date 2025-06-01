@@ -10,6 +10,9 @@ import { RouterLink } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactsComponent } from '@app/analysis/fact/components/facts.component';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { DataComponent } from '@app/shared/components/data/data.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { PageWidthService } from '@app/shared/components/page-width.service';
@@ -18,8 +21,6 @@ import { PageComponent } from '@app/shared/components/page/page.component';
 import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
 import { TagTableComponent } from '@app/shared/components/tags/tag-table.component';
 import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { RouterService } from '@app/shared/services/router.service';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { RouteEndNodesComponent } from './components/route-end-nodes.component';
@@ -46,17 +47,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
       </button>
     </ui-page-buttons>
     <ui-page>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>
-          <a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <span i18n="@@breadcrumb.route">Route</span>
-        </nz-breadcrumb-item>
-      </nz-breadcrumb>
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
       <ui-route-page-header pageName="details" />
 
       @if (service.response(); as response) {
@@ -145,14 +136,13 @@ import { RouteDetailsPageService } from './route-details-page.service';
   styleUrl: '../../../../shared/components/data/data.component.scss',
   providers: [RouteDetailsPageService, RouterService],
   imports: [
+    BreadcrumbComponent,
     DataComponent,
     DividerComponent,
     FactsComponent,
     MatButton,
     MatIcon,
     MatLabel,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
     PageButtonsComponent,
     PageComponent,
     RouteEndNodesComponent,
@@ -173,6 +163,12 @@ export class RouteDetailsPageComponent implements OnInit {
   private readonly pageWidthService = inject(PageWidthService);
 
   readonly showRouteDetails = computed(() => !this.pageWidthService.isAllSmall());
+
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    Breadcrumbs.analysis,
+    { label: Breadcrumbs.routeLabel },
+  ];
 
   ngOnInit(): void {
     this.service.onInit();

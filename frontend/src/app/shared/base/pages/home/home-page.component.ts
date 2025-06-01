@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { IconButtonComponent } from '@app/shared/components/icon/icon-button.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '../../../components/page/page.component';
@@ -10,6 +12,7 @@ import { PageComponent } from '../../../components/page/page.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-page>
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
       <ui-page-header [pageTitle]="null" subject="home" i18n="@@home.page-title"
         >Node networks
       </ui-page-header>
@@ -28,6 +31,16 @@ import { PageComponent } from '../../../components/page/page.component';
       />
     </ui-page>
   `,
-  imports: [IconButtonComponent, PageComponent, PageHeaderComponent, RouterLink],
+  imports: [
+    IconButtonComponent,
+    PageComponent,
+    PageHeaderComponent,
+    RouterLink,
+    BreadcrumbComponent,
+  ],
 })
-export class HomePageComponent {}
+export class HomePageComponent {
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    { label: $localize`:@@breadcrumb.home:Home` },
+  ];
+}

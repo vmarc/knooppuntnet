@@ -5,11 +5,12 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AnalysisStrategyComponent } from '@app/analysis/strategy/analysis-strategy.component';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { IconButtonComponent } from '@app/shared/components/icon/icon-button.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { RouterService } from '@app/shared/services/router.service';
 
 @Component({
@@ -17,17 +18,8 @@ import { RouterService } from '@app/shared/services/router.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-page>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>
-          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <span i18n="@@breadcrumb.analysis">Analysis</span>
-        </nz-breadcrumb-item>
-      </nz-breadcrumb>
-
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
       <ui-page-header i18n="@@analysis-page.title">Analysis</ui-page-header>
-
       <ui-analysis-strategy />
 
       <div class="buttons">
@@ -94,9 +86,8 @@ import { RouterService } from '@app/shared/services/router.service';
   providers: [AnalysisStrategyService, RouterService],
   imports: [
     AnalysisStrategyComponent,
+    BreadcrumbComponent,
     IconButtonComponent,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
     PageComponent,
     PageHeaderComponent,
     RouterLink,
@@ -104,6 +95,11 @@ import { RouterService } from '@app/shared/services/router.service';
 })
 export class AnalysisPageComponent implements OnInit {
   private analysisStrategyService = inject(AnalysisStrategyService);
+
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    { label: Breadcrumbs.analysisLabel },
+  ];
 
   ngOnInit(): void {
     this.analysisStrategyService.init();

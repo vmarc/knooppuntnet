@@ -3,12 +3,12 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NetworkService } from '../network.service';
 
@@ -16,17 +16,7 @@ import { NetworkService } from '../network.service';
   selector: 'ui-network-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <nz-breadcrumb>
-      <nz-breadcrumb-item>
-        <a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a>
-      </nz-breadcrumb-item>
-      <nz-breadcrumb-item>
-        <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
-      </nz-breadcrumb-item>
-      <nz-breadcrumb-item>
-        <span i18n="@@breadcrumb.network">Network</span>
-      </nz-breadcrumb-item>
-    </nz-breadcrumb>
+    <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
 
     @if (service.networkId(); as networkId) {
       @if (service.summary(); as summary) {
@@ -102,9 +92,7 @@ import { NetworkService } from '../network.service';
     PageHeaderComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
-    RouterLink,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
+    BreadcrumbComponent,
   ],
 })
 export class NetworkPageHeaderComponent {
@@ -112,6 +100,12 @@ export class NetworkPageHeaderComponent {
   pageTitle = input.required<string>();
 
   protected readonly service = inject(NetworkService);
+
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    Breadcrumbs.analysis,
+    { label: Breadcrumbs.networkLabel },
+  ];
 
   networkPageTitle(networkName: string): string {
     if (networkName) {

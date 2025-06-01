@@ -3,9 +3,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { RouterService } from '@app/shared/services/router.service';
 import { DataSizeChartComponent } from './charts/system/data-size-chart.component';
 import { DiskSizeChartComponent } from './charts/system/disk-size-chart.component';
@@ -24,18 +25,7 @@ import { SystemStatusPageService } from './system-status-page.service';
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <ui-page>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>
-          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <a routerLink="/status" i18n="@@breadcrumb.status">Status</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <span i18n="@@breadcrumb.system">System</span>
-        </nz-breadcrumb-item>
-      </nz-breadcrumb>
-
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
       <h1>System</h1>
 
       @if (service.page(); as page) {
@@ -103,6 +93,7 @@ import { SystemStatusPageService } from './system-status-page.service';
   `,
   providers: [SystemStatusPageComponent, RouterService],
   imports: [
+    BreadcrumbComponent,
     DataSizeChartComponent,
     DiskSizeChartComponent,
     DiskSizeExternalChartComponent,
@@ -110,15 +101,18 @@ import { SystemStatusPageService } from './system-status-page.service';
     DiskSpaceOverpassChartComponent,
     DiskSpaceUsedChartComponent,
     DocsChartComponent,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
     PageComponent,
     RouterLink,
     StatusPageMenuComponent,
   ],
 })
 export class SystemStatusPageComponent implements OnInit {
-  readonly service = inject(SystemStatusPageService);
+  protected readonly service = inject(SystemStatusPageService);
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    Breadcrumbs.status,
+    { label: Breadcrumbs.systemLabel },
+  ];
 
   ngOnInit(): void {
     this.service.onInit();

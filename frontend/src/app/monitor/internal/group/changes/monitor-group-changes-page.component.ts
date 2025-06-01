@@ -2,13 +2,13 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { RouterLink } from '@angular/router';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { OldPaginatorComponent } from '@app/shared/components/paginator/old-paginator.component';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { MonitorChangesComponent } from '../../components/monitor-changes.component';
 import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-menu.component';
 import { MonitorGroupChangesPageService } from './monitor-group-changes-page.service';
@@ -21,17 +21,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
     <ui-page>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>
-          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <span>Group changes</span>
-        </nz-breadcrumb-item>
-      </nz-breadcrumb>
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
 
       @if (service.changesState(); as state) {
         <ui-page-header>
@@ -75,19 +65,22 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
   `,
   providers: [NavService, MonitorGroupChangesPageService],
   imports: [
+    BreadcrumbComponent,
     MatSlideToggleModule,
     MonitorChangesComponent,
     MonitorGroupPageMenuComponent,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
     OldPaginatorComponent,
     PageComponent,
     PageHeaderComponent,
-    RouterLink,
   ],
 })
 export class MonitorGroupChangesPageComponent {
-  readonly service = inject(MonitorGroupChangesPageService);
+  protected readonly service = inject(MonitorGroupChangesPageService);
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    Breadcrumbs.monitor,
+    { label: Breadcrumbs.groupChangesLabel },
+  ];
 
   pageChanged(pageIndex: number) {
     window.scroll(0, 0);

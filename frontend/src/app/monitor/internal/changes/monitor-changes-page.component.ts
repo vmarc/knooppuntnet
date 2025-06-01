@@ -3,12 +3,12 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { RouterLink } from '@angular/router';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { OldPaginatorComponent } from '@app/shared/components/paginator/old-paginator.component';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { MonitorChangesComponent } from '../components/monitor-changes.component';
 import { MonitorChangesPageService } from './monitor-changes-page.service';
 
@@ -17,20 +17,8 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-page>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>
-          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <span i18n="@@breadcrumb.monitor.changes">Changes</span>
-        </nz-breadcrumb-item>
-      </nz-breadcrumb>
-
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
       <h1 i18n="@@monitor.changes.title">Monitor</h1>
-
       <ui-error />
 
       @if (service.changesState(); as state) {
@@ -70,18 +58,21 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
   `,
   providers: [MonitorChangesPageService],
   imports: [
+    BreadcrumbComponent,
     ErrorComponent,
     MatSlideToggleModule,
     MonitorChangesComponent,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
     OldPaginatorComponent,
     PageComponent,
-    RouterLink,
   ],
 })
 export class MonitorChangesPageComponent {
-  readonly service = inject(MonitorChangesPageService);
+  protected readonly service = inject(MonitorChangesPageService);
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    Breadcrumbs.monitor,
+    { label: Breadcrumbs.changesLabel },
+  ];
 
   impactChanged(event: MatSlideToggleChange) {
     this.service.updateImpact(event.checked);

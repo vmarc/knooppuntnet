@@ -1,18 +1,19 @@
 import { NgClass } from '@angular/common';
+import { Signal } from '@angular/core';
 import { output } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
-import { RouterLink } from '@angular/router';
 import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-relation';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-relation-menu-option.component';
 
@@ -20,21 +21,7 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
   selector: 'ui-monitor-route-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <nz-breadcrumb>
-      <nz-breadcrumb-item>
-        <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-      </nz-breadcrumb-item>
-      <nz-breadcrumb-item>
-        <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-      </nz-breadcrumb-item>
-      <nz-breadcrumb-item>
-        <a [routerLink]="groupLink()">{{ groupName() }}</a>
-      </nz-breadcrumb-item>
-      <nz-breadcrumb-item>
-        <span i18n="@@breadcrumb.monitor.route">Route</span>
-      </nz-breadcrumb-item>
-    </nz-breadcrumb>
-
+    <ui-breadcrumb [breadcrumbItems]="breadcrumbItems()" />
     <ui-page-header [pageTitle]="pageTitle()">
       {{ routeName() + ': ' + routeDescription() }}
     </ui-page-header>
@@ -120,32 +107,38 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
     }
   `,
   imports: [
+    BreadcrumbComponent,
     ErrorComponent,
     MatMenuModule,
     MonitorRouteSubRelationMenuOptionComponent,
     NgClass,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
     PageHeaderComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
-    RouterLink,
   ],
 })
 export class MonitorRoutePageHeaderComponent {
-  pageName = input.required<string>();
-  groupName = input.required<string>();
-  routeName = input.required<string>();
-  routeDescription = input.required<string>();
-  subRelations = input<MonitorRouteSubRelation[]>([]);
-  previous = input<MonitorRouteSubRelation>();
-  next = input<MonitorRouteSubRelation>();
-  selectSubRelation = output<MonitorRouteSubRelation>();
-  goHereInJosm = output<void>();
+  readonly pageName = input.required<string>();
+  readonly groupName = input.required<string>();
+  readonly routeName = input.required<string>();
+  readonly routeDescription = input.required<string>();
+  readonly subRelations = input<MonitorRouteSubRelation[]>([]);
+  readonly previous = input<MonitorRouteSubRelation>();
+  readonly next = input<MonitorRouteSubRelation>();
+  readonly selectSubRelation = output<MonitorRouteSubRelation>();
+  readonly goHereInJosm = output<void>();
 
   protected pageTitle = computed(() => {
     const monitor = MonitorTranslations.get('monitor');
     return `${this.routeName()} | ${this.groupName()} | ${monitor}`;
+  });
+  protected readonly breadcrumbItems: Signal<BreadcrumbItem[]> = computed(() => {
+    return [
+      Breadcrumbs.home,
+      Breadcrumbs.monitor,
+      { routerLink: this.groupLink(), label: this.groupName() },
+      { label: Breadcrumbs.monitorRouteLabel },
+    ];
   });
 
   select(subRelation: MonitorRouteSubRelation): void {

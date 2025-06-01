@@ -4,11 +4,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { MonitorGroupBreadcrumbComponent } from '@app/monitor/internal/group/components/monitor-group-breadcrumb.component';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { MonitorAdminToggleComponent } from '../../components/monitor-admin-toggle.component';
 import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-menu.component';
@@ -20,17 +19,7 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-page>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>
-          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <span i18n="@@breadcrumb.monitor.group">Group</span>
-        </nz-breadcrumb-item>
-      </nz-breadcrumb>
+      <ui-monitor-group-breadcrumb />
 
       @if (service.state(); as state) {
         <ui-page-header [pageTitle]="pageTitle()">
@@ -77,10 +66,9 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
   imports: [
     MatButtonModule,
     MonitorAdminToggleComponent,
+    MonitorGroupBreadcrumbComponent,
     MonitorGroupPageMenuComponent,
     MonitorGroupRouteTableComponent,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
     PageComponent,
     PageHeaderComponent,
     RouterLink,

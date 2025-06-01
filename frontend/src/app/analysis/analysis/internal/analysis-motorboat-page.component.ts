@@ -4,12 +4,13 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { IconButtonComponent } from '@app/shared/components/icon/icon-button.component';
 import { IconButtonsComponent } from '@app/shared/components/icon/icon-buttons.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
-import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouterService } from '@app/shared/services/router.service';
 import { AnalysisStrategyComponent } from '../../strategy/analysis-strategy.component';
@@ -20,18 +21,7 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-page>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>
-          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-        </nz-breadcrumb-item>
-        <nz-breadcrumb-item>
-          <span i18n="@@route-type.motorboat">Motorboat</span>
-        </nz-breadcrumb-item>
-      </nz-breadcrumb>
-
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
       <ui-page-header>
         <span class="header-route-type-icon">
           <nz-icon nzType="motorboat" />
@@ -54,11 +44,10 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
   providers: [AnalysisStrategyService, RouterService],
   imports: [
     AnalysisStrategyComponent,
+    BreadcrumbComponent,
     IconButtonComponent,
     IconButtonsComponent,
     MatIconModule,
-    NzBreadCrumbComponent,
-    NzBreadCrumbItemComponent,
     NzIconDirective,
     PageComponent,
     PageHeaderComponent,
@@ -68,6 +57,12 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
 export class AnalysisMotorboatPageComponent implements OnInit {
   private readonly analysisStrategyService = inject(AnalysisStrategyService);
   protected readonly nlLink = this.analysisStrategyService.link('motorboat', 'nl');
+
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    Breadcrumbs.analysis,
+    { label: $localize`:@@route-type.motorboat:Motorboat` },
+  ];
 
   ngOnInit(): void {
     this.analysisStrategyService.init();
