@@ -50,10 +50,7 @@ class TranslationDeclutterTool(root: String) {
         currentTransUnitNode = Some(node)
       }
       else if (node.getNodeName == "context-group") {
-        currentTransUnitNode match {
-          case Some(translationUnit) => translationUnit.removeChild(node)
-          case None =>
-        }
+        currentTransUnitNode.foreach(_.removeChild(node))
       }
       node = it.nextNode
     }

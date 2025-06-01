@@ -33,11 +33,18 @@ class TranslationTrimTool(root: String) {
   }
 
   def trimNodes(doc: Document): Unit = {
+    var currentTransUnitNode: Option[Node] = None
     val traversal = doc.asInstanceOf[DocumentTraversal]
     val it = traversal.createNodeIterator(doc.getDocumentElement, NodeFilter.SHOW_ELEMENT, null, true)
     var node = it.nextNode
     while (node != null) {
-      if (node.getNodeName == "source" || node.getNodeName == "target") {
+      if (node.getNodeName == "trans-unit") {
+        currentTransUnitNode = Some(node)
+      }
+      else if (node.getNodeName == "context-group") {
+        currentTransUnitNode.foreach(_.removeChild(node))
+      }
+      else if (node.getNodeName == "source" || node.getNodeName == "target") {
         trimNode(node)
       }
       node = it.nextNode
@@ -77,8 +84,10 @@ class TranslationTrimTool(root: String) {
     val writer = new StringWriter
     transformer.transform(new DOMSource(doc), new StreamResult(writer))
     val xmlString = writer.getBuffer.toString
+    val lines = xmlString.split("\n")
+    val whithoutBlankLines = lines.filter(line => line.trim.nonEmpty).mkString("\n")
     val file = new File(s"$root/locale/translations.trimmed.xlf")
     println(s"write ${file.getAbsolutePath}")
-    FileUtils.writeStringToFile(file, xmlString, "UTF-8")
+    FileUtils.writeStringToFile(file, whithoutBlankLines, "UTF-8")
   }
 }
