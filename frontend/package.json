@@ -10,7 +10,7 @@
     "serve:translation:nl": "ng serve --configuration=nl --proxy-config src/proxy-translation.conf.mjs",
     "serve:translation:de": "ng serve --configuration=de --proxy-config src/proxy-translation.conf.mjs",
     "serve:translation:fr": "ng serve --configuration=fr --proxy-config src/proxy-translation.conf.mjs",
-    "extract-i18n": "ng extract-i18n --output-path src/locale",
+    "extract-i18n": "ng extract-i18n --format json",
     "prettier-check": "prettier --check --config .prettierrc --ignore-path .prettierignore --log-level warn \"{**/*,*}.{js,ts}\"",
     "prettier-write": "prettier --write --config .prettierrc --ignore-path .prettierignore --log-level warn \"{**/*,*}.{js,ts}\"",
     "lint": "ng lint",

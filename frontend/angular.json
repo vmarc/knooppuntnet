@@ -11,13 +11,13 @@
         },
         "locales": {
           "nl": {
-            "translation": "src/locale/translations.nl.xlf"
+            "translation": "src/locale/translations.nl.json"
           },
           "fr": {
-            "translation": "src/locale/translations.fr.xlf"
+            "translation": "src/locale/translations.fr.json"
           },
           "de": {
-            "translation": "src/locale/translations.de.xlf"
+            "translation": "src/locale/translations.de.json"
           }
         }
       },
@@ -188,7 +188,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "outFile": "translations.xlf",
+            "outFile": "translations-extract.json",
             "outputPath": "src/locale",
             "buildTarget": "frontend:build"
           }

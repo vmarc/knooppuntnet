@@ -11,8 +11,8 @@ import { RouteMemberComponent } from './route-member.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <p i18n="@@route.members.title">
-        <span>Route members</span>
+      <p>
+        <span i18n="@@route.members.title">Route members</span>
         <span class="kpn-brackets">{{ rows().length }}</span>
       </p>
       @if (rows().length === 0) {
