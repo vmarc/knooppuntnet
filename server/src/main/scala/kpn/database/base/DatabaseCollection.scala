@@ -4,7 +4,6 @@ import kpn.api.base.ObjectId
 import kpn.core.util.Log
 import kpn.database.base.DatabaseCollection.collectionLog
 import kpn.database.base.Types.MongoPipeline
-import kpn.database.tools.MongoIndexDefinition
 import org.mongodb.scala.ListIndexesObservable
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.bson.conversions.Bson

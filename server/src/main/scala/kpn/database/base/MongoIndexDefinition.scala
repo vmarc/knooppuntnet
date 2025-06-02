@@ -1,3 +1,3 @@
-package kpn.database.tools
+package kpn.database.base
 
 case class MongoIndexDefinition(name: String)

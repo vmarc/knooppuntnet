@@ -1,5 +1,6 @@
-package kpn.core.tools.analysis
+package kpn.database.tools
 
+import kpn.database.index.Indexer
 import kpn.database.util.Mongo
 
 object DropCollectionsTool {
@@ -21,6 +22,8 @@ object DropCollectionsTool {
       database.statistics.drop()
       database.status.drop()
       database.transactions.drop()
+
+      new Indexer(database).createIndexes()
     }
   }
 }
