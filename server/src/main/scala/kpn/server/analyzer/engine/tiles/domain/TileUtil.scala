@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.tiles.domain
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.geom.LineSegment
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.TopologyException
 import org.locationtech.jts.io.ParseException
@@ -12,42 +11,6 @@ import org.locationtech.jts.simplify.DouglasPeuckerSimplifier
 
 object TileUtil {
   private val geometryFactory = new GeometryFactory
-
-  def top(tile: Tile): LineSegment = {
-    new LineSegment(
-      tile.worldXMin,
-      tile.worldYMin,
-      tile.worldXMax,
-      tile.worldYMin
-    )
-  }
-
-  def bottom(tile: Tile): LineSegment = {
-    new LineSegment(
-      tile.worldXMin,
-      tile.worldYMax,
-      tile.worldXMax,
-      tile.worldYMax
-    )
-  }
-
-  def left(tile: Tile): LineSegment = {
-    new LineSegment(
-      tile.worldXMin,
-      tile.worldYMin,
-      tile.worldXMin,
-      tile.worldYMax
-    )
-  }
-
-  def right(tile: Tile): LineSegment = {
-    new LineSegment(
-      tile.worldXMax,
-      tile.worldYMin,
-      tile.worldXMax,
-      tile.worldYMin
-    )
-  }
 
   def tileCoordinates(tile: Tile, worldCoordinates: Seq[Coordinate]): Seq[TileCoordinate] = {
     val scaledCoordinates = worldCoordinates.map(tile.scale)

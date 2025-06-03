@@ -13,9 +13,7 @@ class RouteTileCalculatorTest extends UnitTest {
 
   test("single tile route") {
 
-    pendingRedesign()
-
-    val b = t.t22.tile.bounds
+    val b = t.center.tile.bounds
 
     val delta = (b.xMax - b.xMin) / 4
     val x1 = b.xMin + delta
@@ -41,17 +39,15 @@ class RouteTileCalculatorTest extends UnitTest {
 
     tiles.map(_.name).toSet should equal(
       Set(
-        t.t22.tile.name
+        t.center.tile.name
       )
     )
   }
 
   test("route traversing 2 tiles") {
 
-    pendingRedesign()
-
-    val tile1 = t.t12.tile.bounds
-    val tile2 = t.t22.tile.bounds
+    val tile1 = t.west.tile.bounds
+    val tile2 = t.center.tile.bounds
 
     val worldCoordinates = Seq(tile1.xCenter, tile1.yCenter, tile2.xCenter, tile2.yCenter)
 
@@ -71,18 +67,16 @@ class RouteTileCalculatorTest extends UnitTest {
 
     tiles.map(_.name).toSet should equal(
       Set(
-        t.t12.tile.name,
-        t.t22.tile.name
+        t.west.tile.name,
+        t.center.tile.name
       )
     )
   }
 
   test("route traversing 3 tiles") {
 
-    pendingRedesign()
-
-    val tile1 = t.t12.tile.bounds
-    val tile2 = t.t32.tile.bounds
+    val tile1 = t.west.tile.bounds
+    val tile2 = t.east.tile.bounds
 
     val worldCoordinates = Seq(tile1.xCenter, tile1.yCenter, tile2.xCenter, tile2.yCenter)
 
@@ -102,9 +96,9 @@ class RouteTileCalculatorTest extends UnitTest {
 
     tiles.map(_.name).toSet should equal(
       Set(
-        t.t12.tile.name,
-        t.t22.tile.name,
-        t.t32.tile.name
+        t.west.tile.name,
+        t.center.tile.name,
+        t.east.tile.name
       )
     )
   }

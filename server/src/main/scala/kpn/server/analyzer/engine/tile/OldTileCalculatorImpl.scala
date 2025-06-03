@@ -16,17 +16,15 @@ class OldTileCalculatorImpl extends OldTileCalculator {
     cache(z, lon, lat)
   }
 
-  def tileXY(z: Int, x: Int, y: Int): OldTile = {
+  private def tileXY(z: Int, x: Int, y: Int): OldTile = {
     cache(z, x, y)
-  }
-
-  def tileNamed(tileName: String): OldTile = {
-    cache(tileName)
   }
 
   def poiTiles(latLon: LatLon, poiDefinitions: Seq[PoiDefinition]): Seq[String] = {
     val minLevel = poiDefinitions.map(_.minLevel).min
-    val tiles = (minLevel.toInt to ZoomLevel.poiTileMaxZoom).flatMap { z =>
+    val tiles = (minLevel.toInt to ZoomLevel.vectorTileMaxZoom).flatMap { z =>
+
+      //TODO redesign - re-use logic from NodeTileCalculator here???
       val lon = latLon.lon
       val lat = latLon.lat
 
@@ -49,7 +47,6 @@ class OldTileCalculatorImpl extends OldTileCalculator {
 
   private def explore(lon: Double, lat: Double, z: Int, x: Int, y: Int): Option[OldTile] = {
     val tile = tileXY(z, x, y)
-    if (tile.poiClipBounds.contains(lon, lat)) Some(tile) else None
+    if (tile.clipBounds.contains(lon, lat)) Some(tile) else None
   }
-
 }

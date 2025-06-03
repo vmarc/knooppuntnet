@@ -8,10 +8,5 @@ trait OldTileCalculator {
 
   def tileLonLat(z: Int, lon: Double, lat: Double): OldTile
 
-  def tileXY(z: Int, x: Int, y: Int): OldTile
-
-  def tileNamed(tileName: String): OldTile
-
   def poiTiles(latLon: LatLon, poiDefinitions: Seq[PoiDefinition]): Seq[String]
-
 }

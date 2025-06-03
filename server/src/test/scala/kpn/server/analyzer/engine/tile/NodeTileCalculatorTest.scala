@@ -1,10 +1,12 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.LatLon
+import kpn.api.common.LatLonImpl
 import kpn.core.test.Locations
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.TestTile
 import kpn.server.analyzer.engine.tiles.TileTestSetup
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform
 
 class NodeTileCalculatorTest extends UnitTest {
 
@@ -12,44 +14,43 @@ class NodeTileCalculatorTest extends UnitTest {
 
   val calculator = new NodeTileCalculatorImpl(t.tileCalculator)
 
-  test("test") {
+  test("calculate all tiles for given node") {
 
-    assertTile(Locations.essen, Seq(t.t22))
+    assertEqual(calculateLatLon(Locations.essen), tileNames(t.center))
 
-    // TODO redesign tiles - uncomment
-    //    val delta = 0.0005
-    //
-    //    val centerTile = t.t22.tile.bounds
-    //    val xCenter = centerTile.xCenter
-    //    val yCenter = centerTile.yCenter
-    //
-    //    val left = centerTile.xMin + delta
-    //    val right = centerTile.xMax - delta
-    //    val top = centerTile.yMax - delta
-    //    val bottom = centerTile.yMin + delta
-    //
-    //    assertTile(LatLonImpl.from(yCenter, left), Seq(t.t12, t.t22))
-    //    assertTile(LatLonImpl.from(yCenter, right), Seq(t.t22, t.t32))
-    //    assertTile(LatLonImpl.from(top, xCenter), Seq(t.t21, t.t22))
-    //    assertTile(LatLonImpl.from(bottom, xCenter), Seq(t.t22, t.t23))
-    //
-    //    assertTile(LatLonImpl.from(top, left), Seq(t.t11, t.t21, t.t12, t.t22))
-    //    assertTile(LatLonImpl.from(top, right), Seq(t.t21, t.t31, t.t22, t.t32))
-    //    assertTile(LatLonImpl.from(bottom, left), Seq(t.t12, t.t22, t.t13, t.t23))
-    //    assertTile(LatLonImpl.from(bottom, right), Seq(t.t22, t.t32, t.t23, t.t33))
+    val delta = 0.0005
+
+    val centerTile = t.center.tile.bounds
+
+    val centerLat = Locations.essen.lat
+    val centerLon = Locations.essen.lon
+
+    val left = CoordinateTransform.worldXtoLon(centerTile.xMin) //+ delta
+    val right = CoordinateTransform.worldXtoLon(centerTile.xMax) //- delta
+    val top = CoordinateTransform.worldYtoLat(centerTile.yMin) //- delta
+    val bottom = CoordinateTransform.worldYtoLat(centerTile.yMax) //+ delta
+
+    assertEqual(calculate(centerLat, left), tileNames(t.center, t.west))
+    assertEqual(calculate(centerLat, right), tileNames(t.center, t.east))
+    assertEqual(calculate(top, centerLon), tileNames(t.center, t.north))
+    assertEqual(calculate(bottom, centerLon), tileNames(t.center, t.south))
+
+    assertEqual(calculate(top, left), tileNames(t.northWest, t.north, t.west, t.center))
+    assertEqual(calculate(top, right), tileNames(t.north, t.northEast, t.center, t.east))
+    assertEqual(calculate(bottom, left), tileNames(t.west, t.center, t.southWest, t.south))
+    assertEqual(calculate(bottom, right), tileNames(t.center, t.east, t.south, t.southEast))
   }
 
-  private def assertTile(latLon: LatLon, expected: Seq[TestTile]): Unit = {
-    //    val a1 = calculator.tiles(t.zoomLevel, latLon)
-    //    val a2 = a1.map(_.name)
-    //    val a3 = a2.map(t.tilesByName)
-    //    val a4 = a3.map(_.id)
-    //    val a5 = a4.toSet
-    //    val b = (expected.map(_.id).toSet)
-    //    a5 shouldMatchTo (b)
+  private def calculate(lat: Double, lon: Double): Seq[String] = {
+    calculateLatLon(LatLonImpl.from(lat, lon))
+  }
 
+  private def calculateLatLon(latLon: LatLon): Seq[String] = {
     val calculated = calculator.tiles(t.zoomLevel, latLon)
-    println(calculated)
-    //calculated shouldMatchTo (expected)
+    calculated.map(_.name).sorted
+  }
+
+  private def tileNames(tiles: TestTile*): Seq[String] = {
+    tiles.map(_.tile.name).sorted
   }
 }

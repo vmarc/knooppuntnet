@@ -19,10 +19,10 @@ class TileTest extends UnitTest {
 
     val tile = Tile.routeTile(z, x, y)
 
-    tile.worldXMin should equal(lonToWorldX(4.43847) +- 0.001)
-    tile.worldXMax should equal(lonToWorldX(4.48242) +- 0.001)
-    tile.worldYMin should equal(latToWorldY(51.45400) +- 0.001)
-    tile.worldYMax should equal(latToWorldY(51.48138) +- 0.001)
+    tile.bounds.xMin should equal(lonToWorldX(4.43847) +- 0.001)
+    tile.bounds.xMax should equal(lonToWorldX(4.48242) +- 0.001)
+    tile.bounds.yMin should equal(latToWorldY(51.45400) +- 0.001)
+    tile.bounds.yMax should equal(latToWorldY(51.48138) +- 0.001)
 
     tile.clipBounds.xMin should equal(lonToWorldX(4.43607) +- 0.001)
     tile.clipBounds.xMax should equal(lonToWorldX(4.48482) +- 0.001)

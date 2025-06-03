@@ -9,5 +9,5 @@ case class PoiAnalysisContext(
   processedTagKeys: Seq[String],
   ignoredTagKeys: Seq[String],
   ignoredTagKeyValues: Seq[Tag],
-  analysis: PoiAnalysis) {
-}
+  analysis: PoiAnalysis
+)

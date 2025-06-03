@@ -52,10 +52,10 @@ object PoiLocation {
 
   private def latLonBoundsFrom(topLeftTile: Tile, bottomRightTile: Tile): Rectangle = {
     Rectangle(
-      xMin = worldXtoLon(topLeftTile.worldXMin),
-      xMax = worldXtoLon(bottomRightTile.worldXMax),
-      yMin = worldYtoLat(bottomRightTile.worldYMax),
-      yMax = worldYtoLat(topLeftTile.worldYMin)
+      xMin = worldXtoLon(topLeftTile.bounds.xMin),
+      xMax = worldXtoLon(bottomRightTile.bounds.xMax),
+      yMin = worldYtoLat(bottomRightTile.bounds.yMax),
+      yMax = worldYtoLat(topLeftTile.bounds.yMin)
     )
   }
 }

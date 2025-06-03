@@ -11,25 +11,25 @@ import scala.math.toRadians
 
 object OldTile {
 
-  def apply(z: Int, x: Int, y: Int): OldTile = {
-    new OldTile(z, x, y)
-  }
+  private val EXTENT: Int = 4096
 
-  val EXTENT: Int = 4096
-
-  val CLIP_BUFFER: ClipBuffer = ClipBuffer(
+  private val CLIP_BUFFER: ClipBuffer = ClipBuffer(
     EXTENT * 14 / 256, // assume tile size 256 pixels, radius of node circle 14 pixels
     EXTENT * 14 / 256,
     EXTENT * 14 / 256,
     EXTENT * 14 / 256
   )
 
-  val POI_CLIP_BUFFER: ClipBuffer = ClipBuffer(
+  private val POI_CLIP_BUFFER: ClipBuffer = ClipBuffer(
     left = EXTENT * 17 / 256, // poi icon width 32 (32 / 2 + 1) -> 17
     right = EXTENT * 17 / 256,
     top = 0,
     bottom = EXTENT * 39 / 256 // poi icon height 37 (37 + 2)
   )
+
+  def apply(z: Int, x: Int, y: Int): OldTile = {
+    buildTile(z, x, y)
+  }
 
   def x(z: Int, lon: Double): Int = {
     ((lon + 180.0) / 360.0 * (1 << z)).toInt
@@ -47,45 +47,47 @@ object OldTile {
     toDegrees(atan(sinh(Pi * (1.0 - 2.0 * y.toDouble / (1 << z)))))
   }
 
+  private def buildTile(z: Int, x: Int, y: Int): OldTile = {
+
+    val bounds: Rectangle = {
+      val xMin = OldTile.lon(z, x)
+      val xMax = OldTile.lon(z, x + 1)
+      val yMin = OldTile.lat(z, y + 1)
+      val yMax = OldTile.lat(z, y)
+      Rectangle(xMin, xMax, yMin, yMax)
+    }
+
+    val clipBounds: Rectangle = {
+      val xMin = bounds.xMin - ((bounds.xMax - bounds.xMin) * POI_CLIP_BUFFER.left / OldTile.EXTENT)
+      val xMax = bounds.xMax + ((bounds.xMax - bounds.xMin) * POI_CLIP_BUFFER.right / OldTile.EXTENT)
+      val yMin = bounds.yMin - ((bounds.yMax - bounds.yMin) * POI_CLIP_BUFFER.bottom / OldTile.EXTENT)
+      val yMax = bounds.yMax + ((bounds.yMax - bounds.yMin) * POI_CLIP_BUFFER.top / OldTile.EXTENT)
+      Rectangle(xMin, xMax, yMin, yMax)
+    }
+
+    val tileId = TileId(z, x, y)
+
+    OldTile(
+      tileId,
+      bounds, // verschil met Tile --> hier uitgedrukt in latlon vs. worldX en Y in Tile
+      clipBounds // verschil met Tile --> hier uitgedrukt in latlon vs. worldX en Y in Tile
+    )
+  }
 }
 
-class OldTile(val z: Int, val x: Int, val y: Int) { // TODO MAP make case class
+case class OldTile(
+  tileId: TileId,
+  bounds: Rectangle,
+  clipBounds: Rectangle,
+) {
 
-  val name: String = s"$z-$x-$y"
+  def z: Int = tileId.z
 
-  override def equals(obj: Any): Boolean = {
-    obj.isInstanceOf[OldTile] && obj.asInstanceOf[OldTile].name == name
-  }
+  def x: Int = tileId.x
 
-  override def hashCode(): Int = name.hashCode()
+  def y: Int = tileId.y
 
-  val bounds: Rectangle = {
-
-    val xMin = OldTile.lon(z, x)
-    val xMax = OldTile.lon(z, x + 1)
-    val yMin = OldTile.lat(z, y + 1)
-    val yMax = OldTile.lat(z, y)
-
-    Rectangle(xMin, xMax, yMin, yMax)
-  }
-
-  val clipBounds: Rectangle = {
-    buildClipBounds(OldTile.CLIP_BUFFER)
-  }
-
-  val poiClipBounds: Rectangle = {
-    buildClipBounds(OldTile.POI_CLIP_BUFFER)
-  }
-
-  private def buildClipBounds(clipBuffer: ClipBuffer): Rectangle = {
-    val xMin = bounds.xMin - ((bounds.xMax - bounds.xMin) * clipBuffer.left / OldTile.EXTENT)
-    val xMax = bounds.xMax + ((bounds.xMax - bounds.xMin) * clipBuffer.right / OldTile.EXTENT)
-    val yMin = bounds.yMin - ((bounds.yMax - bounds.yMin) * clipBuffer.bottom / OldTile.EXTENT)
-    val yMax = bounds.yMax + ((bounds.yMax - bounds.yMin) * clipBuffer.top / OldTile.EXTENT)
-    Rectangle(xMin, xMax, yMin, yMax)
-  }
-
-  override def toString: String = s"${this.getClass.getSimpleName}($name)"
+  val name: String = tileId.name
 
   def scaleLat(lat: Double): Double = {
     OldTile.EXTENT - ((lat - bounds.yMin) * OldTile.EXTENT / (bounds.yMax - bounds.yMin))

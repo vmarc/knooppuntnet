@@ -5,6 +5,7 @@ import kpn.api.common.poi.Poi
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiDefinition
+import kpn.core.poi.PoiGroupDefinition
 import kpn.core.poi.PoiLoader
 import kpn.core.poi.PoiLoaderImpl
 import kpn.core.poi.PoiLocation
@@ -71,74 +72,59 @@ class PoiAnalyzerTool(
 
   def analyze(): Unit = {
     PoiConfiguration.instance.groupDefinitions.foreach { group =>
-      group.definitions.foreach { poiDefinition =>
-        val layer = poiDefinition.name
-        Seq("node", "way", "relation").foreach { elementType =>
-          Log.context(s"$layer $elementType") {
-            log.info(s"Load pois")
-            PoiLocation.boundingBoxStrings.foreach { bbox =>
-              val conditions = new TagExpressionFormatter().format(poiDefinition.expression)
-              conditions.foreach { condition =>
-                val pois = poiLoader.load(elementType, layer, bbox, condition)
-                log.info(s"Saving ${pois.size} pois $layer $bbox $elementType")
-                pois.foreach { poi =>
-                  if (poiScopeAnalyzer.inScope(poi)) {
-                    val poiDefinitions = findPoiDefinitions(poi)
-                    val layers = poiDefinitions.map(_.name).distinct.sorted
-                    if (layers.nonEmpty) {
+      analyzeGroup(group)
+    }
+  }
 
-                      val context = masterPoiAnalyzer.analyze(poi)
+  private def analyzeGroup(group: PoiGroupDefinition): Unit = {
+    group.definitions.foreach { poiDefinition =>
+      analyzePoi(poiDefinition)
+    }
+  }
 
-                      val link = context.analysis.facebook.isDefined ||
-                        context.analysis.twitter.isDefined ||
-                        context.analysis.website.isDefined ||
-                        context.analysis.wikidata.isDefined ||
-                        context.analysis.wikipedia.isDefined ||
-                        context.analysis.molenDatabase.isDefined ||
-                        context.analysis.hollandscheMolenDatabase.isDefined ||
-                        context.analysis.onroerendErfgoed.isDefined
-
-                      val image = context.analysis.image.isDefined ||
-                        context.analysis.imageLink.isDefined ||
-                        context.analysis.imageThumbnail.isDefined ||
-                        context.analysis.mapillary.isDefined
-
-                      val tileNames = tileCalculator.poiTiles(poi, poiDefinitions)
-                      val location = Location(locationAnalyzer.findLocations(poi.latitude, poi.longitude))
-
-                      val description = context.analysis.name match {
-                        case Some(name) => Some(name)
-                        case None => context.analysis.description
-                      }
-
-                      val address = context.analysis.addressLine1 match {
-                        case None => context.analysis.addressLine2
-                        case Some(addressLine1) =>
-                          context.analysis.addressLine2 match {
-                            case Some(addressLine2) => Some(s"$addressLine1, $addressLine2")
-                            case None => Some(addressLine1)
-                          }
-                      }
-
-                      poiRepository.save(
-                        poi.copy(
-                          layers = layers,
-                          location = location,
-                          tiles = tileNames,
-                          description = description,
-                          address = address,
-                          link = link,
-                          image = image
-                        )
-                      )
-                    }
-                  }
-                }
-              }
-            }
-          }
+  private def analyzePoi(poiDefinition: PoiDefinition): Unit = {
+    val layer = poiDefinition.name
+    Seq("node", "way", "relation").foreach { elementType =>
+      Log.context(s"$layer $elementType") {
+        log.info(s"Load pois")
+        PoiLocation.boundingBoxStrings.foreach { bbox =>
+          analyzePoiBbox(poiDefinition, layer, elementType, bbox)
         }
       }
+    }
+  }
+
+  private def analyzePoiBbox(poiDefinition: PoiDefinition, layer: String, elementType: String, bbox: String): Unit = {
+    val conditions = new TagExpressionFormatter().format(poiDefinition.expression)
+    conditions.foreach { condition =>
+      val pois = poiLoader.load(elementType, layer, bbox, condition)
+      log.info(s"Saving ${pois.size} pois $layer $bbox $elementType")
+      pois.foreach { poi =>
+        if (poiScopeAnalyzer.inScope(poi)) {
+          analyzePoi(poi)
+        }
+      }
+    }
+  }
+
+  private def analyzePoi(poi: Poi): Unit = {
+    val poiDefinitions = findPoiDefinitions(poi)
+    val layers = poiDefinitions.map(_.name).distinct.sorted
+    if (layers.nonEmpty) {
+      val poiAnalysisContext = masterPoiAnalyzer.analyze(poi)
+      val tileNames = tileCalculator.poiTiles(poi, poiDefinitions)
+      val location = Location(locationAnalyzer.findLocations(poi.latitude, poi.longitude))
+      poiRepository.save(
+        poi.copy(
+          layers = layers,
+          location = location,
+          tiles = tileNames,
+          description = poiAnalysisContext.analysis.nameDescription,
+          address = poiAnalysisContext.analysis.address,
+          link = poiAnalysisContext.analysis.hasLink,
+          image = poiAnalysisContext.analysis.hasImage
+        )
+      )
     }
   }
 

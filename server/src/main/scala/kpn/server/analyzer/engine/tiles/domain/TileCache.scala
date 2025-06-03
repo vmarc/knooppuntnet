@@ -1,8 +1,10 @@
 package kpn.server.analyzer.engine.tiles.domain
 
+import scala.collection.concurrent.TrieMap
+
 class TileCache {
 
-  private val tiles = scala.collection.mutable.Map[String, Tile]()
+  private val tiles = TrieMap.empty[String, Tile]
 
   def tileContainingWorldCoordinate(z: Int, worldX: Double, worldY: Double): Tile = {
     val x = Tile.tileX(z, worldX)

@@ -31,4 +31,40 @@ case class PoiAnalysis(
   serviceTimes: Option[String] = None,
   cuisine: Option[String] = None,
   denomination: Option[String] = None
-)
+) {
+  def hasImage: Boolean = {
+    image.isDefined ||
+      imageLink.isDefined ||
+      imageThumbnail.isDefined ||
+      mapillary.isDefined
+  }
+
+  def hasLink: Boolean = {
+    facebook.isDefined ||
+      twitter.isDefined ||
+      website.isDefined ||
+      wikidata.isDefined ||
+      wikipedia.isDefined ||
+      molenDatabase.isDefined ||
+      hollandscheMolenDatabase.isDefined ||
+      onroerendErfgoed.isDefined
+  }
+
+  def address: Option[String] = {
+    addressLine1 match {
+      case None => addressLine2
+      case Some(addressLine1Value) =>
+        addressLine2 match {
+          case Some(addressLine2Value) => Some(s"$addressLine1Value, $addressLine2Value")
+          case None => addressLine1
+        }
+    }
+  }
+
+  def nameDescription: Option[String] = {
+    name match {
+      case Some(nameValue) => Some(nameValue)
+      case None => description
+    }
+  }
+}

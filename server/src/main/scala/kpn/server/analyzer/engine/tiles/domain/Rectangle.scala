@@ -1,5 +1,7 @@
 package kpn.server.analyzer.engine.tiles.domain
 
+import org.locationtech.jts.geom.LineSegment
+
 object Rectangle {
 
   /**
@@ -21,7 +23,6 @@ object Rectangle {
    * Bitmask indicating that point  lies below rectangle.
    */
   val OUT_BOTTOM = 8
-
 }
 
 case class Rectangle(xMin: Double, xMax: Double, yMin: Double, yMax: Double) {
@@ -60,4 +61,11 @@ case class Rectangle(xMin: Double, xMax: Double, yMin: Double, yMax: Double) {
     out
   }
 
+  def topLineSegment: LineSegment = new LineSegment(xMin, yMin, xMax, yMin)
+
+  def bottomLineSegment: LineSegment = new LineSegment(xMin, yMax, xMax, yMax)
+
+  def leftLineSegment: LineSegment = new LineSegment(xMin, yMin, xMin, yMax)
+
+  def rightLineSegment: LineSegment = new LineSegment(xMax, yMin, xMax, yMax)
 }

@@ -149,6 +149,8 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
 
   private def tileSegmentToGeometry(tile: Tile, tileSegment: TileSegment): Option[String] = {
     val tileCoordinates = TileUtil.tileCoordinates(tile, tileSegment.worldCoordinates)
+
+    // TODO redesign -  the longEnough logic is already covered in TileUtil.tileCoordinates ??? or it could be???
     if (longEnough(tileCoordinates)) {
       val geometryString = tileCoordinates.map(coordinate => s"[${coordinate.x},${coordinate.y}]").mkString("[", ",", "]")
       Some(geometryString)

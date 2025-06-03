@@ -13,7 +13,7 @@ class Indexer(database: Database) {
   private val log = Log(classOf[Indexer])
 
   def createIndexes(): Unit = {
-    val indexes = IndexConfiguration.indexes(database)
+    val indexes = new IndexConfiguration(database).indexes
     log.info(s"Create ${indexes.size} indexes")
     indexes.foreach(createIndex)
     log.info("Done")
