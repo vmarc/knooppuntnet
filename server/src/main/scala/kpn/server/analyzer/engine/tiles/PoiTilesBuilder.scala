@@ -4,6 +4,7 @@ import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiInfo
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tile.NodeTileCalculator
+import kpn.server.analyzer.engine.tiles.domain.TileContext
 import kpn.server.analyzer.engine.tiles.domain.TilePois
 import kpn.server.analyzer.engine.tiles.vector.PoiVectorTileBuilder
 
@@ -32,6 +33,7 @@ class PoiTilesBuilder(
 
     var progress: Int = 0
 
+    val tileContext = TileContext.poi(z)
     val tilePoisMapSize = tilePoisMap.size
     tilePoisMap.values.zipWithIndex.foreach { case (tilePois, index) =>
       val currentProgress = (100d * (index + 1) / tilePoisMapSize).round.toInt
@@ -45,7 +47,7 @@ class PoiTilesBuilder(
         tilePois.pois
       )
 
-      val tileBytes = tileBuilder.build(tileData)
+      val tileBytes = tileBuilder.build(tileContext, tileData)
       if (tileBytes.nonEmpty) {
         tileFileRepository.saveOrUpdate("poi", tilePois.tile, tileBytes)
       }

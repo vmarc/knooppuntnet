@@ -17,7 +17,8 @@ class TileTest extends UnitTest {
     Tile.tileX(z, lonToWorldX(Locations.essen.lon)) should equal(x)
     Tile.tileY(z, latToWorldY(Locations.essen.lat)) should equal(y)
 
-    val tile = Tile.routeTile(z, x, y)
+    val tileContext = TileContext.route(z)
+    val tile = tileContext.tile(TileId(z, x, y))
 
     tile.bounds.xMin should equal(lonToWorldX(4.43847) +- 0.001)
     tile.bounds.xMax should equal(lonToWorldX(4.48242) +- 0.001)
@@ -32,13 +33,15 @@ class TileTest extends UnitTest {
     val worldX = lonToWorldX(Locations.essen.lon)
     val worldY = latToWorldY(Locations.essen.lat)
     val worldCoordinate = new Coordinate(worldX, worldY)
-    val scaled = tile.scale(worldCoordinate)
 
-    println(scaled)
+    val tileCoordinate = tileContext.toTileCoorinate(tile, worldCoordinate)
+    math.round(tileCoordinate.x) should equal(2788)
+    math.round(tileCoordinate.y) should equal(2042)
   }
 
   test("contains") {
-    val tile = Tile.routeTile(1, 0, 0)
+    val tileContext = TileContext.route(1)
+    val tile = tileContext.tile(TileId(1, 0, 0))
 
     tile.bounds.xMin should equal(0.0)
     tile.bounds.xMax should equal(0.5)

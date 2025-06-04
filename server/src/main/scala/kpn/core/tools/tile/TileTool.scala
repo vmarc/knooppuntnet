@@ -12,6 +12,7 @@ import kpn.server.analyzer.engine.tile.RouteTileEncoder
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.TilesData
+import kpn.server.analyzer.engine.tiles.domain.TileContext
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepository
@@ -71,6 +72,7 @@ class TileTool(
   }
 
   private def processTiles(routeType: RouteType, zoomLevel: Int): Unit = {
+    val tileContext = TileContext.route(zoomLevel)
     val tileDatas = collectTileData(routeType, zoomLevel)
     val tileNames = tileDatas.tileNames.toVector
     val context = Log.contextMessages
@@ -78,7 +80,7 @@ class TileTool(
       Log.context(context) {
         Log.context(s"$index/$count $tileName") {
           val tileData = tileDatas.tileData(tileName)
-          routeTileEncoder.encode(tileData)
+          routeTileEncoder.encode(tileContext, tileData)
         }
       }
     }

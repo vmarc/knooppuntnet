@@ -11,29 +11,31 @@ import org.locationtech.jts.simplify.DouglasPeuckerSimplifier
 
 object TileUtil {
   private val geometryFactory = new GeometryFactory
+  private val MinimumGeometryLength = 1.0d
+  private val SimplificationTolerance = 1.0d
 
-  def tileCoordinates(tile: Tile, worldCoordinates: Seq[Coordinate]): Seq[TileCoordinate] = {
-    val scaledCoordinates = worldCoordinates.map(tile.scale)
+  def tileCoordinates(tileContext: TileContext, tile: Tile, worldCoordinates: Seq[Coordinate]): Seq[TileCoordinate] = {
+    val scaledCoordinates = tileContext.toTileCoordinate(tile, worldCoordinates)
     val lineString = geometryFactory.createLineString(scaledCoordinates.toArray)
-    val simplifiedLineString = if (!tile.detailed) {
-      DouglasPeuckerSimplifier.simplify(lineString, 1).asInstanceOf[LineString]
+    val simplifiedLineString = if (!tileContext.detailed) {
+      DouglasPeuckerSimplifier.simplify(lineString, SimplificationTolerance).asInstanceOf[LineString]
     }
     else {
       lineString
     }
 
-    if (simplifiedLineString.getLength < 1.0d) {
+    if (simplifiedLineString.getLength < MinimumGeometryLength) {
       Seq.empty
     }
     else {
-      val clippedGeometry = clipGeometry(tile, simplifiedLineString)
+      val clippedGeometry = clipGeometry(tileContext, simplifiedLineString)
 
       // ignore geometry if empty after clipping
       if (clippedGeometry.isEmpty) {
         Seq.empty
       }
       else {
-        if (clippedGeometry.getLength < 1.0d) {
+        if (clippedGeometry.getLength < MinimumGeometryLength) {
           Seq.empty
         }
         else {
@@ -43,14 +45,14 @@ object TileUtil {
     }
   }
 
-  private def clipGeometry(tile: Tile, geometry: Geometry): Geometry = {
+  private def clipGeometry(tileContext: TileContext, geometry: Geometry): Geometry = {
     try {
-      var clippedGeometry = tile.tileEnvelope.intersection(geometry)
+      var clippedGeometry = tileContext.tileEnvelope.intersection(geometry)
       // some times a intersection is returned as an empty geometry.
       // going via wkt fixes the problem.
-      if (clippedGeometry.isEmpty && geometry.intersects(tile.tileEnvelope)) {
+      if (clippedGeometry.isEmpty && geometry.intersects(tileContext.tileEnvelope)) {
         val originalViaWkt = new WKTReader().read(geometry.toText)
-        clippedGeometry = tile.tileEnvelope.intersection(originalViaWkt)
+        clippedGeometry = tileContext.tileEnvelope.intersection(originalViaWkt)
       }
       clippedGeometry
     } catch {

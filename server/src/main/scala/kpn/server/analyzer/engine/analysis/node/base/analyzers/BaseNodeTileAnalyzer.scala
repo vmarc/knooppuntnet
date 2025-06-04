@@ -14,7 +14,7 @@ class BaseNodeTileAnalyzer(nodeTileCalculator: NodeTileCalculator) extends BaseN
       context.names.map(_.routeType).distinct.map { routeType =>
         s"${routeType.entryName}-${tile.name}"
       }
-    }
+    }.sorted
     context.copy(_tiles = Some(tileNames))
   }
 }

@@ -26,6 +26,12 @@ class TileCache {
   }
 
   private def cachedOrNewTile(tileName: String, z: Int, x: Int, y: Int): Tile = {
-    tiles.getOrElseUpdate(tileName, Tile.routeTile(z, x, y))
+    tiles.getOrElseUpdate(
+      tileName,
+      {
+        val tileContext = TileContext.route(z)
+        tileContext.tile(TileId(z, x, y))
+      }
+    )
   }
 }

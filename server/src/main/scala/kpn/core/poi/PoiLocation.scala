@@ -3,20 +3,22 @@ package kpn.core.poi
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.worldXtoLon
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.worldYtoLat
 import kpn.server.analyzer.engine.tiles.domain.Rectangle
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.TileContext
+import kpn.server.analyzer.engine.tiles.domain.TileId
 
 import java.text.DecimalFormat
 
 object PoiLocation {
+  private val tileContext = TileContext.poi(10)
 
-  val belgiumAndNetherlands: Rectangle = latLonBoundsFrom(Tile.poiTile(10, 519, 331), Tile.poiTile(10, 532, 349))
-  private val germany = latLonBoundsFrom(Tile.poiTile(10, 535, 355), Tile.poiTile(10, 536, 356))
-  private val germanyNorth = latLonBoundsFrom(Tile.poiTile(10, 531, 330), Tile.poiTile(10, 536, 338))
-  private val germanySouth = latLonBoundsFrom(Tile.poiTile(10, 528, 338), Tile.poiTile(10, 537, 344))
-  private val germanyEast = latLonBoundsFrom(Tile.poiTile(10, 544, 331), Tile.poiTile(10, 553, 341))
-  private val austria = latLonBoundsFrom(Tile.poiTile(10, 552, 358), Tile.poiTile(10, 555, 360))
-  private val france = latLonBoundsFrom(Tile.poiTile(10, 518, 343), Tile.poiTile(10, 520, 344))
-  private val spain = latLonBoundsFrom(Tile.poiTile(10, 508, 380), Tile.poiTile(10, 509, 381))
+  val belgiumAndNetherlands: Rectangle = latLonBoundsFrom(TileId(10, 519, 331), TileId(10, 532, 349))
+  private val germany = latLonBoundsFrom(TileId(10, 535, 355), TileId(10, 536, 356))
+  private val germanyNorth = latLonBoundsFrom(TileId(10, 531, 330), TileId(10, 536, 338))
+  private val germanySouth = latLonBoundsFrom(TileId(10, 528, 338), TileId(10, 537, 344))
+  private val germanyEast = latLonBoundsFrom(TileId(10, 544, 331), TileId(10, 553, 341))
+  private val austria = latLonBoundsFrom(TileId(10, 552, 358), TileId(10, 555, 360))
+  private val france = latLonBoundsFrom(TileId(10, 518, 343), TileId(10, 520, 344))
+  private val spain = latLonBoundsFrom(TileId(10, 508, 380), TileId(10, 509, 381))
 
   val allBoundingBoxes: Seq[Rectangle] = Seq(
     belgiumAndNetherlands,
@@ -50,7 +52,9 @@ object PoiLocation {
     }
   }
 
-  private def latLonBoundsFrom(topLeftTile: Tile, bottomRightTile: Tile): Rectangle = {
+  private def latLonBoundsFrom(topLeftTileId: TileId, bottomRightTileId: TileId): Rectangle = {
+    val topLeftTile = tileContext.tile(topLeftTileId)
+    val bottomRightTile = tileContext.tile(bottomRightTileId)
     Rectangle(
       xMin = worldXtoLon(topLeftTile.bounds.xMin),
       xMax = worldXtoLon(bottomRightTile.bounds.xMax),

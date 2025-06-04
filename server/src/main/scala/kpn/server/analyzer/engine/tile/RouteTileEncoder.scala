@@ -13,6 +13,7 @@ import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.TileContext
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.json.Json
 import org.locationtech.jts.geom.Coordinate
@@ -29,24 +30,24 @@ class RouteTileEncoder(
   private val geometryFactory = new GeometryFactory
   private val emptyUserData = new java.util.HashMap[String, String]()
 
-  def encode(tileData: TileData): Unit = {
-    val tileBytes = encodeTile(tileData)
+  def encode(tileContext: TileContext, tileData: TileData): Unit = {
+    val tileBytes = encodeTile(tileContext, tileData)
     if (tileBytes.nonEmpty) {
       vectorTileRepository.saveOrUpdate(tileData.routeType.entryName, tileData.tile, tileBytes)
     }
   }
 
-  private def encodeTile(tileData: TileData): Array[Byte] = {
-    val nodeFeatures = buildNodeFeatures(tileData.routeType, tileData.nodeTileInfos, tileData.tile)
+  private def encodeTile(tileContext: TileContext, tileData: TileData): Array[Byte] = {
+    val nodeFeatures = buildNodeFeatures(tileContext, tileData.routeType, tileData.nodeTileInfos, tileData.tile)
     val routeFeatures = buildRouteFeatures(tileData.tile.z, tileData.routeTileInfos)
     val features = nodeFeatures ++ routeFeatures
-    TileEncoder.encode(tileData.tile, features)
+    TileEncoder.encode(tileContext, features)
   }
 
-  private def buildNodeFeatures(routeType: RouteType, nodeTileInfos: Seq[NodeTileInfo], tile: Tile): Seq[Feature] = {
+  private def buildNodeFeatures(tileContext: TileContext, routeType: RouteType, nodeTileInfos: Seq[NodeTileInfo], tile: Tile): Seq[Feature] = {
     nodeTileInfos.flatMap { nodeTileInfo =>
       tileDataNodeBuilder.build(routeType, nodeTileInfo).map { tileDataNode =>
-        nodeFeature(tile, tileDataNode)
+        nodeFeature(tileContext, tile, tileDataNode)
       }
     }
   }
@@ -57,15 +58,15 @@ class RouteTileEncoder(
     }
   }
 
-  private def nodeFeature(tile: Tile, tileDataNode: TileDataNode): Feature = {
-    val point = buildNodePoint(tile, tileDataNode)
+  private def nodeFeature(tileContext: TileContext, tile: Tile, tileDataNode: TileDataNode): Feature = {
+    val point = buildNodePoint(tileContext, tile, tileDataNode)
     val userData = buildNodeUserData(tileDataNode)
     Feature(tileDataNode.layer, userData, point)
   }
 
-  private def buildNodePoint(tile: Tile, tileDataNode: TileDataNode): Point = {
+  private def buildNodePoint(tileContext: TileContext, tile: Tile, tileDataNode: TileDataNode): Point = {
     val worldCoordinate = new Coordinate(lonToWorldX(tileDataNode.lon), latToWorldY(tileDataNode.lat))
-    val coordinate = tile.scale(worldCoordinate)
+    val coordinate = tileContext.toTileCoorinate(tile, worldCoordinate)
     geometryFactory.createPoint(coordinate)
   }
 

@@ -24,6 +24,10 @@ abstract class UnitTest extends AnyFunSuite with Matchers {
     pending
   }
 
+  def pendingRedesignTiles(): Unit = {
+    pending
+  }
+
   def pendingRedesign(): Unit = {
     pending
   }

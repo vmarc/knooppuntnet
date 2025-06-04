@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.tiles.vector
 import kpn.server.analyzer.engine.tiles.PoiTileData
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
+import kpn.server.analyzer.engine.tiles.domain.TileContext
 import no.ecc.vectortile.VectorTileEncoder
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
@@ -10,13 +11,13 @@ import org.springframework.stereotype.Component
 
 @Component
 class PoiVectorTileBuilder {
+  private val geometryFactory = new GeometryFactory
 
-  def build(data: PoiTileData): Array[Byte] = {
-    val geometryFactory = new GeometryFactory
-    val encoder = new VectorTileEncoder(data.tile.extent, data.tile.clipBufferSize, false)
+  def build(tileContext: TileContext, data: PoiTileData): Array[Byte] = {
+    val encoder = new VectorTileEncoder(tileContext.extent, tileContext.clipBufferSize, false)
     data.pois.foreach { poi =>
       val worldCoordinate = new Coordinate(lonToWorldX(poi.lon), latToWorldY(poi.lat))
-      val coordinate = data.tile.scale(worldCoordinate)
+      val coordinate = tileContext.toTileCoorinate(data.tile, worldCoordinate)
       val coordinateInt = new Coordinate(coordinate.x.toInt, coordinate.y.toInt)
       val point = geometryFactory.createPoint(coordinateInt)
       val userData = new java.util.HashMap[String, String]()

@@ -8,6 +8,7 @@ import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.TileContext
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.LineSegment
@@ -99,7 +100,8 @@ class OpenDataTileBuilder(nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute], 
     val nodes = nodeMap.get(tileName).map(_.nodes).getOrElse(Seq.empty)
     val routes = routeMap.get(tileName).map(_.routes).getOrElse(Seq.empty)
 
-    val tileBytes = new OpenDataVectorTileBuilder(tile, nodes, routes).build()
+    val tileContext = TileContext.route(tile.z)
+    val tileBytes = new OpenDataVectorTileBuilder(tileContext, tile, nodes, routes).build()
     if (tileBytes.nonEmpty) {
       writeTile(tile, tileBytes, dir, "mvt")
     }
