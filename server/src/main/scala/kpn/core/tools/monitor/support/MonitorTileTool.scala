@@ -7,8 +7,8 @@ import kpn.database.base.Database
 import kpn.database.base.Id
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.toWorldCoordinates
+import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.analyzer.engine.tiles.domain.TileContext
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.repository.MonitorRelationRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
@@ -79,18 +79,17 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
     val allRelationDatas: Map[Long, TileRelationData] = loadAllRelations()
     (2 to 14) foreach { zoomLevel =>
       Log.context(s"zoom=$zoomLevel") {
-        val tileContext = TileContext.route(zoomLevel)
         val tileDatas = config.relationRepository.tilesZoomLevel(zoomLevel)
         val tileDatasSize = tileDatas.size
         tileDatas.zipWithIndex.foreach { case (tileData, index) =>
           Log.context(s"${index + 1}/$tileDatasSize") {
             try {
-              val tile = tileContext.tile(TileId(tileData.name))
+              val tile = RouteTiles.tile(TileId(tileData.name))
               val tileRelationDatas = tileData.relationIds.flatMap { relationId =>
                 allRelationDatas.get(relationId)
               }
               if (tileRelationDatas.nonEmpty) {
-                val tileBytes = build(tileContext, tile, tileRelationDatas)
+                val tileBytes = build(tile, tileRelationDatas)
                 writeTile(tile, tileBytes)
               }
             } catch {
@@ -102,7 +101,7 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
     }
   }
 
-  private def build(tileContext: TileContext, tile: Tile, tileRelationDatas: Seq[TileRelationData]): Array[Byte] = {
+  private def build(tile: Tile, tileRelationDatas: Seq[TileRelationData]): Array[Byte] = {
 
     val geometryFactory = new GeometryFactory
 
@@ -110,7 +109,7 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
 
     tileRelationDatas.foreach { tileRelationData =>
       tileRelationData.segments.foreach { segment =>
-        val scaledCoordinates = tileContext.toTileCoordinate(tile, segment.worldCoordinates)
+        val scaledCoordinates = RouteTiles.toTileCoordinate(tile, segment.worldCoordinates)
         val lineString = geometryFactory.createLineString(scaledCoordinates.toArray)
         val userData = new java.util.HashMap[String, String]()
         userData.put("id", tileRelationData.relationId.toString)

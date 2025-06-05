@@ -2,35 +2,20 @@ package kpn.server.analyzer.engine.tiles.domain
 
 import scala.collection.concurrent.TrieMap
 
-class TileCache {
+class TileCache(tiles: Tiles) {
 
-  private val tiles = TrieMap.empty[String, Tile]
-
-  def tileContainingWorldCoordinate(z: Int, worldX: Double, worldY: Double): Tile = {
-    val x = Tile.tileX(z, worldX)
-    val y = Tile.tileY(z, worldY)
-    apply(z, x, y)
-  }
-
-  def apply(z: Int, x: Int, y: Int): Tile = {
-    val name = s"$z-$x-$y"
-    cachedOrNewTile(name, z, x, y)
-  }
+  private val tileMap = TrieMap.empty[String, Tile]
 
   def apply(tileName: String): Tile = {
-    val splitted = tileName.split("-")
-    val z = splitted(0).toInt
-    val x = splitted(1).toInt
-    val y = splitted(2).toInt
-    cachedOrNewTile(tileName, z, x, y)
+    cachedOrNewTile(tileName)
   }
 
-  private def cachedOrNewTile(tileName: String, z: Int, x: Int, y: Int): Tile = {
-    tiles.getOrElseUpdate(
+  private def cachedOrNewTile(tileName: String): Tile = {
+    tileMap.getOrElseUpdate(
       tileName,
       {
-        val tileContext = TileContext.route(z)
-        tileContext.tile(TileId(z, x, y))
+        val tileId = TileId(tileName)
+        tiles.tile(tileId)
       }
     )
   }

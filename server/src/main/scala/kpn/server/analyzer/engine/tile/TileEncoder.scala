@@ -1,14 +1,16 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.server.analyzer.engine.tiles.domain.TileContext
+import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import no.ecc.vectortile.VectorTileEncoder
 
 import scala.jdk.CollectionConverters.MapHasAsJava
 
 object TileEncoder {
 
-  def encode(tileContext: TileContext, features: Seq[Feature]): Array[Byte] = {
-    val encoder = new VectorTileEncoder(tileContext.extent, tileContext.clipBufferSize, false)
+  def encode(zoomLevel: Int, features: Seq[Feature]): Array[Byte] = {
+    val extent = RouteTiles.extent(zoomLevel)
+    val clipBufferSize = RouteTiles.clipBufferSize(zoomLevel)
+    val encoder = new VectorTileEncoder(extent, clipBufferSize, false)
     features.foreach { feature =>
       encoder.addFeature(feature.layer.entryName, feature.attributes.asJava, feature.geometry)
     }

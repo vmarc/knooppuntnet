@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tiles
 
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.tiles.domain.TileContext
+import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import org.apache.commons.io.FileUtils
 
@@ -126,8 +126,7 @@ class TileFileRepositoryTest extends UnitTest {
 
       val repo = new TileFileRepositoryImpl("/tmp/tiles", "png")
 
-      val tileContext = TileContext.route(11)
-      val tile = tileContext.tile(TileId(11, 12, 13))
+      val tile = RouteTiles.tile(TileId(11, 12, 13))
 
       repo.saveOrUpdate("cycling/survey", tile, Array())
       assert(file.exists())

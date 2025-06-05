@@ -5,21 +5,21 @@ import kpn.server.analyzer.engine.tile.Feature
 import kpn.server.analyzer.engine.tile.TileEncoder
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
+import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.analyzer.engine.tiles.domain.TileContext
 import kpn.server.analyzer.engine.tiles.domain.TileUtil
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.Point
 
-class OpenDataVectorTileBuilder(tileContext: TileContext, tile: Tile, nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute]) {
+class OpenDataVectorTileBuilder(tile: Tile, nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute]) {
 
   private val geometryFactory = new GeometryFactory
 
   def build(): Array[Byte] = {
     val features = nodeFeatures() ++ routeFeatures()
-    TileEncoder.encode(tileContext, features)
+    TileEncoder.encode(tile.z, features)
   }
 
   private def nodeFeatures(): Seq[Feature] = {
@@ -45,7 +45,7 @@ class OpenDataVectorTileBuilder(tileContext: TileContext, tile: Tile, nodes: Seq
 
   private def nodePoint(node: OpenDataNode): Point = {
     val worldCoordinate = new Coordinate(lonToWorldX(node.lon), latToWorldY(node.lat))
-    val scaledCoordinate = tileContext.toTileCoorinate(tile, worldCoordinate)
+    val scaledCoordinate = RouteTiles.toTileCoordinate(tile, worldCoordinate)
     val coordinate = new Coordinate(Math.floor(scaledCoordinate.x), Math.floor(scaledCoordinate.y))
     geometryFactory.createPoint(coordinate)
   }
@@ -66,7 +66,7 @@ class OpenDataVectorTileBuilder(tileContext: TileContext, tile: Tile, nodes: Seq
 
   private def routeLineString(route: OpenDataRoute) = {
     val worldCoordinates = route.coordinates.map(coordinate => new Coordinate(lonToWorldX(coordinate.lon), latToWorldY(coordinate.lat)))
-    val tileCoordinates = TileUtil.tileCoordinates(tileContext, tile, worldCoordinates)
+    val tileCoordinates = TileUtil.routeTileCoordinates(tile, worldCoordinates)
     val coordinates = tileCoordinates.map(c => new Coordinate(c.x, c.y))
     geometryFactory.createLineString(coordinates.toArray)
   }

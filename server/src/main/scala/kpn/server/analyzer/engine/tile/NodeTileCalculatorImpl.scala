@@ -47,7 +47,8 @@ class NodeTileCalculatorImpl(tileCalculator: TileCalculator) extends NodeTileCal
   }
 
   private def explore(xWorld: Double, yWorld: Double, z: Int, x: Int, y: Int): Option[Tile] = {
-    val tile = tileCalculator.tileXY(z, x, y)
+    val tileName = s"$z-$x-$y"
+    val tile = tileCalculator.tileNamed(tileName)
     Option.when(tile.clipBounds.contains(xWorld, yWorld)) {
       tile
     }

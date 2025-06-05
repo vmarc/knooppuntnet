@@ -34,7 +34,7 @@ class TileTest extends UnitTest {
     val worldY = latToWorldY(Locations.essen.lat)
     val worldCoordinate = new Coordinate(worldX, worldY)
 
-    val tileCoordinate = tileContext.toTileCoorinate(tile, worldCoordinate)
+    val tileCoordinate = tileContext.toTileCoordinate(tile, worldCoordinate)
     math.round(tileCoordinate.x) should equal(2788)
     math.round(tileCoordinate.y) should equal(2042)
   }

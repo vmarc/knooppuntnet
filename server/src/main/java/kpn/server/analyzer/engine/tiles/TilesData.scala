@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.tiles
 import kpn.api.common.RouteType
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
-import kpn.server.analyzer.engine.tiles.domain.TileContext
+import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.TileId
 
 // Tile data for all tiles of the given route type and zoom level
@@ -24,8 +24,7 @@ case class TilesData(
   }
 
   def tileData(tileName: String): TileData = {
-    val tileContext = TileContext.route(zoomLevel)
-    val tile = tileContext.tile(TileId(tileName))
+    val tile = RouteTiles.tile(TileId(tileName))
     val tileNodeTileInfos = nodeTileInfos.getOrElse(tileName, Seq.empty)
     val tileRouteTileInfos = routeTileInfos.getOrElse(tileName, Seq.empty)
     TileData(

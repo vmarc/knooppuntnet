@@ -7,7 +7,6 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.analyzer.engine.tiles.domain.TileContext
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.TaskRepository
@@ -56,8 +55,7 @@ class TileUpdaterImpl(
     val nodeTileInfos = collectTileDataNodes(routeType, tile)
     val routeTileInfos = collectTileDataRoutes(routeType, tile)
     val tileData = TileData(routeType, tile, nodeTileInfos, routeTileInfos)
-    val tileContext = TileContext.route(tile.z)
-    routeTileEncoder.encode(tileContext, tileData)
+    routeTileEncoder.encode(tileData)
   }
 
   private def collectTileDataNodes(routeType: RouteType, tile: Tile): Seq[NodeTileInfo] = {

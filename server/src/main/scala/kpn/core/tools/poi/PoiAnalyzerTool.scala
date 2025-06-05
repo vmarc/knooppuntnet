@@ -19,8 +19,8 @@ import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.poi.PoiScopeAnalyzer
 import kpn.server.analyzer.engine.poi.PoiScopeAnalyzerImpl
-import kpn.server.analyzer.engine.tile.OldTileCalculator
-import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.PoiTileCalculator
+import kpn.server.analyzer.engine.tile.PoiTileCalculatorImpl
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzerImpl
 import kpn.server.repository.PoiRepository
@@ -46,13 +46,13 @@ object PoiAnalyzerTool extends Tool[PoiAnalyzerToolOptions] {
     val poiRepository = new PoiRepositoryImpl(database)
     val locationAnalyzer = new LocationAnalyzerImpl(true, false)
     val poiScopeAnalyzer = new PoiScopeAnalyzerImpl(locationAnalyzer)
-    val tileCalculator: OldTileCalculator = new OldTileCalculatorImpl()
+    val poiTileCalculator: PoiTileCalculator = new PoiTileCalculatorImpl()
     val masterPoiAnalyzer = new MasterPoiAnalyzerImpl()
     new PoiAnalyzerTool(
       poiLoader,
       poiScopeAnalyzer,
       poiRepository,
-      tileCalculator,
+      poiTileCalculator,
       locationAnalyzer,
       masterPoiAnalyzer
     )
@@ -63,7 +63,7 @@ class PoiAnalyzerTool(
   poiLoader: PoiLoader,
   poiScopeAnalyzer: PoiScopeAnalyzer,
   poiRepository: PoiRepository,
-  tileCalculator: OldTileCalculator,
+  poiTileCalculator: PoiTileCalculator,
   locationAnalyzer: LocationAnalyzer,
   masterPoiAnalyzer: MasterPoiAnalyzer
 ) {
@@ -112,7 +112,7 @@ class PoiAnalyzerTool(
     val layers = poiDefinitions.map(_.name).distinct.sorted
     if (layers.nonEmpty) {
       val poiAnalysisContext = masterPoiAnalyzer.analyze(poi)
-      val tileNames = tileCalculator.poiTiles(poi, poiDefinitions)
+      val tileNames = poiTileCalculator.poiTiles(poi, poiDefinitions)
       val location = Location(locationAnalyzer.findLocations(poi.latitude, poi.longitude))
       poiRepository.save(
         poi.copy(

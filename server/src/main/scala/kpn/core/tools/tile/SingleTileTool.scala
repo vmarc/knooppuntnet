@@ -8,7 +8,7 @@ import kpn.server.analyzer.engine.tile.RouteTileEncoder
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
-import kpn.server.analyzer.engine.tiles.domain.TileContext
+import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.NodeRepositoryImpl
@@ -52,16 +52,15 @@ class SingleTileTool(
 ) {
 
   def make(routeType: RouteType, z: Int, x: Int, y: Int): Unit = {
-    val tileContext = TileContext.route(z)
-    val tileData = buildTileData(tileContext, routeType, z, x, y)
-    routeTileEncoder.encode(tileContext, tileData)
+    val tileData = buildTileData(routeType, z, x, y)
+    routeTileEncoder.encode(tileData)
   }
 
-  private def buildTileData(tileContext: TileContext, routeType: RouteType, z: Int, x: Int, y: Int) = {
+  private def buildTileData(routeType: RouteType, z: Int, x: Int, y: Int) = {
     val tileId = TileId(z, x, y)
     val nodeTileInfos = nodeRepository.tileInfosByTileId(routeType, tileId)
     val routeTileInfos = routeRepository.tileInfosByTileId(routeType, tileId)
-    val tile = tileContext.tile(tileId)
+    val tile = RouteTiles.tile(tileId)
     val tileData = TileData(
       routeType,
       tile,

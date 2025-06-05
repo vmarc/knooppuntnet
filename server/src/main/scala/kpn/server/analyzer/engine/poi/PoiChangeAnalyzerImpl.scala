@@ -14,7 +14,7 @@ import kpn.core.poi.PoiDefinition
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.OsmChange
-import kpn.server.analyzer.engine.tile.OldTileCalculator
+import kpn.server.analyzer.engine.tile.PoiTileCalculator
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.TaskRepository
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component
 class PoiChangeAnalyzerImpl(
   knownPoiCache: KnownPoiCache,
   poiRepository: PoiRepository,
-  tileCalculator: OldTileCalculator,
+  poiTileCalculator: PoiTileCalculator,
   taskRepository: TaskRepository,
   poiScopeAnalyzer: PoiScopeAnalyzer,
   poiQueryExecutor: PoiQueryExecutor,
@@ -138,7 +138,7 @@ class PoiChangeAnalyzerImpl(
     val location = Location(locationAnalyzer.findLocations(center.latitude, center.longitude))
 
     val oldTileNames = poiRepository.get(poiRef).toSeq.flatMap(_.tiles)
-    val newTileNames = tileCalculator.poiTiles(center, poiDefinitions)
+    val newTileNames = poiTileCalculator.poiTiles(center, poiDefinitions)
     val allTileNames = (oldTileNames ++ newTileNames).sorted.distinct
 
     val poi = Poi(

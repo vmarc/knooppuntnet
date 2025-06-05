@@ -88,16 +88,16 @@ case class TileContext(
 ) {
 
   def toTileCoordinate(tile: Tile, worldCoordinates: Seq[Coordinate]): Seq[Coordinate] = {
-    worldCoordinates.map(c => toTileCoorinate(tile, c))
+    worldCoordinates.map(c => toTileCoordinate(tile, c))
   }
 
-  def toTileCoorinate(tile: Tile, worldCoordinate: Coordinate): Coordinate = {
-    val scaledX = scaleCoordinate(worldCoordinate.x, tile.bounds.xMin, tile.bounds.width)
-    val scaledY = scaleCoordinate(worldCoordinate.y, tile.bounds.yMin, tile.bounds.height)
+  def toTileCoordinate(tile: Tile, worldCoordinate: Coordinate): Coordinate = {
+    val scaledX = toTileCoordinate(worldCoordinate.x, tile.bounds.xMin, tile.bounds.width)
+    val scaledY = toTileCoordinate(worldCoordinate.y, tile.bounds.yMin, tile.bounds.height)
     new Coordinate(scaledX, scaledY)
   }
 
-  private def scaleCoordinate(value: Double, min: Double, dimension: Double): Double = {
+  private def toTileCoordinate(value: Double, min: Double, dimension: Double): Double = {
     (value - min) * extent / dimension
   }
 

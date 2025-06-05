@@ -11,8 +11,8 @@ import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.wayToWorldCoordinates
+import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.analyzer.engine.tiles.domain.TileContext
 import kpn.server.analyzer.engine.tiles.domain.TileCoordinate
 import kpn.server.analyzer.engine.tiles.domain.TileUtil
 import org.locationtech.jts.geom.Coordinate
@@ -99,7 +99,6 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
     tileSegments: Seq[TileSegment]
   ): Seq[RouteTileData] = {
 
-    val tileContext = TileContext.route(zoomLevel)
     val layer = if (context.nodeNetwork) FeatureLayer.nodeRoute else FeatureLayer.route
     val scope = if (context.nodeNetwork) {
       None
@@ -112,11 +111,11 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
     val zoomLevelTiles = tiles.filter(_.z == zoomLevel)
     zoomLevelTiles.flatMap { tile =>
       val segments = tileSegments.flatMap { tileSegment =>
-        tileSegmentToGeometry(tileContext, tile, tileSegment).flatMap { geometry =>
+        tileSegmentToGeometry(tile, tileSegment).flatMap { geometry =>
           val segmentId = Option.when(tile.z > 6) {
             tileSegment.segmentId
           }
-          val segmentElementId = Option.when(tileContext.detailed) {
+          val segmentElementId = Option.when(RouteTiles.detailed(tile.z)) {
             tileSegment.segmentElementId
           }
           Some(
@@ -149,8 +148,8 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
     }
   }
 
-  private def tileSegmentToGeometry(tileContext: TileContext, tile: Tile, tileSegment: TileSegment): Option[String] = {
-    val tileCoordinates = TileUtil.tileCoordinates(tileContext, tile, tileSegment.worldCoordinates)
+  private def tileSegmentToGeometry(tile: Tile, tileSegment: TileSegment): Option[String] = {
+    val tileCoordinates = TileUtil.routeTileCoordinates(tile, tileSegment.worldCoordinates)
 
     // TODO redesign-tile -  the longEnough logic is already covered in TileUtil.tileCoordinates ??? or it could be???
     if (longEnough(tileCoordinates)) {

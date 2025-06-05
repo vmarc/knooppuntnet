@@ -3,13 +3,12 @@ package kpn.core.poi
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.worldXtoLon
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.worldYtoLat
 import kpn.server.analyzer.engine.tiles.domain.Rectangle
-import kpn.server.analyzer.engine.tiles.domain.TileContext
+import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.TileId
 
 import java.text.DecimalFormat
 
 object PoiLocation {
-  private val tileContext = TileContext.poi(10)
 
   val belgiumAndNetherlands: Rectangle = latLonBoundsFrom(TileId(10, 519, 331), TileId(10, 532, 349))
   private val germany = latLonBoundsFrom(TileId(10, 535, 355), TileId(10, 536, 356))
@@ -53,8 +52,8 @@ object PoiLocation {
   }
 
   private def latLonBoundsFrom(topLeftTileId: TileId, bottomRightTileId: TileId): Rectangle = {
-    val topLeftTile = tileContext.tile(topLeftTileId)
-    val bottomRightTile = tileContext.tile(bottomRightTileId)
+    val topLeftTile = RouteTiles.tile(topLeftTileId)
+    val bottomRightTile = RouteTiles.tile(bottomRightTileId)
     Rectangle(
       xMin = worldXtoLon(topLeftTile.bounds.xMin),
       xMax = worldXtoLon(bottomRightTile.bounds.xMax),

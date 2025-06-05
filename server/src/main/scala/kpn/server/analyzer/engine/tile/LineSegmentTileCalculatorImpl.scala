@@ -15,9 +15,12 @@ class LineSegmentTileCalculatorImpl(tileCalculator: TileCalculator) extends Line
     val tileQueue = scala.collection.mutable.Queue[Tile]()
     val foundTiles = scala.collection.mutable.Map[String, Tile]()
 
-    // the tiles of the end points of the segements are the starting point for exploration
+    // the tiles of the end points of the segments are the starting point for exploration
     lineSegments.flatMap(ls => Seq(ls.p0, ls.p1)).map { p =>
-      val tile = tileCalculator.tileContainingWorldCoordinate(z, p.x, p.y)
+      val x = Tile.tileX(z, p.x)
+      val y = Tile.tileY(z, p.y)
+      val tileName = s"$z-$x-$y"
+      val tile = tileCalculator.tileNamed(tileName)
       foundTiles += tile.name -> tile
     }
 
@@ -50,7 +53,8 @@ class LineSegmentTileCalculatorImpl(tileCalculator: TileCalculator) extends Line
     val x = tile.x + xDelta
     val y = tile.y + yDelta
     if (x >= 0 && y >= 0) {
-      val adjecentTile = tileCalculator.tileXY(tile.z, x, y)
+      val tileName = s"${tile.z}-$x-$y"
+      val adjecentTile = tileCalculator.tileNamed(tileName)
       if (!foundTiles.contains(adjecentTile.name)) {
         if (lineSegments.exists(_.intersection(side) != null)) {
           tileQueue += adjecentTile

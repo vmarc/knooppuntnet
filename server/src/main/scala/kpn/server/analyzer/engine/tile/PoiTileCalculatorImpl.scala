@@ -3,28 +3,38 @@ package kpn.server.analyzer.engine.tile
 import kpn.api.common.LatLon
 import kpn.api.common.tiles.ZoomLevel
 import kpn.core.poi.PoiDefinition
-import kpn.server.analyzer.engine.tiles.domain.OldTile
-import kpn.server.analyzer.engine.tiles.domain.OldTileCache
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
+import kpn.server.analyzer.engine.tiles.domain.PoiTileCache
+import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.springframework.stereotype.Component
 
 @Component
-class OldTileCalculatorImpl extends OldTileCalculator {
+class PoiTileCalculatorImpl extends PoiTileCalculator {
 
-  private val cache = new OldTileCache()
+  private val cache = new PoiTileCache()
 
-  def tileLonLat(z: Int, lon: Double, lat: Double): OldTile = {
-    cache(z, lon, lat)
+  def tileLonLat(z: Int, lon: Double, lat: Double): Tile = {
+    val worldX = lonToWorldX(lon)
+    val worldY = latToWorldY(lat)
+
+    val x = Tile.tileX(z, worldX)
+    val y = Tile.tileY(z, worldY)
+    val tileName = s"$z-$x-$y"
+
+    cache(tileName)
   }
 
-  private def tileXY(z: Int, x: Int, y: Int): OldTile = {
-    cache(z, x, y)
+  private def tileXY(z: Int, x: Int, y: Int): Tile = {
+    val tileName = s"$z-$x-$y"
+    cache(tileName)
   }
 
   def poiTiles(latLon: LatLon, poiDefinitions: Seq[PoiDefinition]): Seq[String] = {
     val minLevel = poiDefinitions.map(_.minLevel).min
     val tiles = (minLevel.toInt to ZoomLevel.vectorTileMaxZoom).flatMap { z =>
 
-      //TODO redesign - re-use logic from NodeTileCalculator here???
+      //TODO redesign tiles - re-use logic from NodeTileCalculator here???
       val lon = latLon.lon
       val lat = latLon.lat
 
@@ -45,8 +55,9 @@ class OldTileCalculatorImpl extends OldTileCalculator {
     tiles.map(_.name)
   }
 
-  private def explore(lon: Double, lat: Double, z: Int, x: Int, y: Int): Option[OldTile] = {
-    val tile = tileXY(z, x, y)
+  private def explore(lon: Double, lat: Double, z: Int, x: Int, y: Int): Option[Tile] = {
+    val tileName = s"$z-$x-$y"
+    val tile = cache(tileName)
     if (tile.clipBounds.contains(lon, lat)) Some(tile) else None
   }
 }

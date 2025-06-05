@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.changes.ChangeAction
 import kpn.api.custom.Tags
+import kpn.core.test.Locations
 import kpn.core.test.OverpassData
 
 class OrphanNodeDeleteTest05 extends IntegrationTest {
@@ -15,8 +16,8 @@ class OrphanNodeDeleteTest05 extends IntegrationTest {
           "network:type" -> "node_network",
           "rwn_ref" -> "01"
         ),
-        "999",
-        "999"
+        Locations.newYork.latitude,
+        Locations.newYork.longitude,
       )
 
     val dataAfter = OverpassData.empty

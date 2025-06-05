@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.poi
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.PoiTileData
 import kpn.server.analyzer.engine.tiles.TileFileRepository
-import kpn.server.analyzer.engine.tiles.domain.TileContext
+import kpn.server.analyzer.engine.tiles.domain.PoiTiles
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.analyzer.engine.tiles.vector.PoiVectorTileBuilder
 import kpn.server.repository.PoiRepository
@@ -23,15 +23,14 @@ class PoiTileBuilderImpl(
     log.infoElapsed {
 
       val tileId = TileId(tileName)
-      val tileContext = TileContext.poi(tileId.z)
-      val tile = tileContext.tile(tileId)
+      val tile = PoiTiles.tile(tileId)
       val poiInfos = poiRepository.tilePoiInfos(tileName)
       val tileData = PoiTileData(
         tile,
         poiInfos
       )
 
-      val tileBytes = poiVectorTileBuilder.build(tileContext, tileData)
+      val tileBytes = poiVectorTileBuilder.build(tileData)
       if (tileBytes.nonEmpty) {
         vectorTileRepository.saveOrUpdate("poi", tile, tileBytes)
       }
