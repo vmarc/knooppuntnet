@@ -13,7 +13,6 @@ import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.wayToWorldCoordinates
 import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.analyzer.engine.tiles.domain.TileCoordinate
 import kpn.server.analyzer.engine.tiles.domain.TileUtil
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
@@ -150,25 +149,12 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
 
   private def tileSegmentToGeometry(tile: Tile, tileSegment: TileSegment): Option[String] = {
     val tileCoordinates = TileUtil.routeTileCoordinates(tile, tileSegment.worldCoordinates)
-
-    // TODO redesign-tile -  the longEnough logic is already covered in TileUtil.tileCoordinates ??? or it could be???
-    if (longEnough(tileCoordinates)) {
+    if (tileCoordinates.nonEmpty) {
       val geometryString = tileCoordinates.map(coordinate => s"[${coordinate.x},${coordinate.y}]").mkString("[", ",", "]")
       Some(geometryString)
     }
     else {
       None
-    }
-  }
-
-  private def longEnough(tileCoordinates: Seq[TileCoordinate]): Boolean = {
-    if (tileCoordinates.isEmpty) {
-      false
-    }
-    else {
-      val flipped: Array[Coordinate] = tileCoordinates.toArray.map(c => new Coordinate(c.y, c.x))
-      val lineString = geometryFactory.createLineString(flipped)
-      lineString.getLength > 1.5
     }
   }
 }

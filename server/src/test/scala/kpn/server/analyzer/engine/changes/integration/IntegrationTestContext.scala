@@ -61,7 +61,7 @@ import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculator
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileChangeAnalyzerImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.full.MainFullAnalyzer
 import kpn.server.analyzer.full.analyzers.FullAnalysisPipeline
@@ -125,8 +125,8 @@ class IntegrationTestContext(
   private val blacklistRepository = stub[BlacklistRepository]
   (blacklistRepository.get _).when(*).returns(Blacklist())
 
-  private val tileCalculator = new TileCalculatorImpl()
-  private val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
+  private val routeTileCache = new RouteTileCache()
+  private val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
   private val routeTileAnalyzer = new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
   private val routeCountryAnalyzer = new BaseRouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
   private val routeLocationAnalyzer = new BaseRouteLocationAnalyzerMock()
@@ -239,7 +239,7 @@ class IntegrationTestContext(
 
   private val baseNodeMainAnalyzer = {
     val locationAnalyzer: LocationAnalyzer = new LocationAnalyzerFixed()
-    val nodeTileCalculator: NodeTileCalculator = new NodeTileCalculatorImpl(new TileCalculatorImpl())
+    val nodeTileCalculator: NodeTileCalculator = new NodeTileCalculatorImpl(new RouteTileCache())
     val baseNodeCountryAnalyzer = new BaseNodeCountryAnalyzer(locationAnalyzer)
     val baseNodeLocationAnalyzer = new BaseNodeLocationAnalyzer(locationAnalyzer)
     val baseNodeTileAnalyzer = new BaseNodeTileAnalyzer(nodeTileCalculator)

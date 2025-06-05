@@ -12,7 +12,7 @@ class NodeTileCalculatorTest extends UnitTest {
 
   val t = new TileTestSetup()
 
-  val calculator = new NodeTileCalculatorImpl(t.tileCalculator)
+  val calculator = new NodeTileCalculatorImpl(t.routeTileCache)
 
   test("calculate all tiles for given node") {
 

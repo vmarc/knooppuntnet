@@ -9,7 +9,7 @@ import kpn.database.util.Mongo.codecRegistry
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.wayToWorldCoordinates
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.locationtech.jts.geom.LineSegment
@@ -21,7 +21,7 @@ object NextCreateRouteStatesTool {
     try {
       val mongoDatabase = client.getDatabase("kpn-next").withCodecRegistry(codecRegistry)
       val database = new NextDatabaseImpl(mongoDatabase)
-      val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(new TileCalculatorImpl())
+      val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(new RouteTileCache())
       val tool = new NextCreateRouteStatesTool(database, lineSegmentTileCalculator)
       tool.createRelationStates()
     } finally {

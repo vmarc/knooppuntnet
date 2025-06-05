@@ -17,7 +17,7 @@ class TileUpdaterImpl(
   taskRepository: TaskRepository,
   nodeRepository: NodeRepository,
   routeRepository: RouteRepository,
-  tileCalculator: TileCalculator,
+  routeTileCache: RouteTileCache,
   routeTileEncoder: RouteTileEncoder
 ) extends TileUpdater {
 
@@ -46,7 +46,7 @@ class TileUpdaterImpl(
   }
 
   private def processTask(task: String): Unit = {
-    val tile = tileCalculator.tileNamed(TileTask.tileName(task))
+    val tile = routeTileCache(TileTask.tileName(task))
     val routeType = TileTask.routeType(task)
     updateTile(routeType, tile)
   }

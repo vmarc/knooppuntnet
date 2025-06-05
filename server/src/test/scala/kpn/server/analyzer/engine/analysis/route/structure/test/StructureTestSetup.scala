@@ -10,7 +10,7 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAna
 import kpn.server.analyzer.engine.analysis.route.structure.RouteDetailAnalysisTestContext
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.RouteTileCache
 
 class StructureTestSetup(val data: Data) {
 
@@ -27,14 +27,9 @@ class StructureTestSetup(val data: Data) {
     elementGroups.map(_.elements.map(_.string))
   }
 
-  //  def structure(traceEnabled: Boolean = false): TestStructure = {
-  //    val elementGroups = StructureElementAnalyzer.analyze(RouteNodes(), relation.members, traceEnabled)
-  //    TestStructure.from(new OldStructureAnalyzer(traceEnabled).analyze(RouteNodes(), elementGroups))
-  //  }
-
   def analyze(traceEnabled: Boolean = false): RouteDetailAnalysisTestContext = {
-    val tileCalculator = new TileCalculatorImpl()
-    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
+    val routeTileCache = new RouteTileCache()
+    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
     val routeTileAnalyzer = new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
     val routeCountryAnalyzer = new BaseRouteCountryAnalyzerMock()
     val routeLocationAnalyzer = new BaseRouteLocationAnalyzerMock()

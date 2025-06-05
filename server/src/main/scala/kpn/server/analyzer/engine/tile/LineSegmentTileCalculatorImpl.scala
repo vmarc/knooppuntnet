@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
   Calculates which map tiles are needed to display a set of line segments at a given zoom level.
  */
 @Component
-class LineSegmentTileCalculatorImpl(tileCalculator: TileCalculator) extends LineSegmentTileCalculator {
+class LineSegmentTileCalculatorImpl(routeTileCache: RouteTileCache) extends LineSegmentTileCalculator {
 
   override def tiles(z: Int, lineSegments: Seq[LineSegment]): Seq[Tile] = {
 
@@ -20,7 +20,7 @@ class LineSegmentTileCalculatorImpl(tileCalculator: TileCalculator) extends Line
       val x = Tile.tileX(z, p.x)
       val y = Tile.tileY(z, p.y)
       val tileName = s"$z-$x-$y"
-      val tile = tileCalculator.tileNamed(tileName)
+      val tile = routeTileCache(tileName)
       foundTiles += tile.name -> tile
     }
 
@@ -54,7 +54,7 @@ class LineSegmentTileCalculatorImpl(tileCalculator: TileCalculator) extends Line
     val y = tile.y + yDelta
     if (x >= 0 && y >= 0) {
       val tileName = s"${tile.z}-$x-$y"
-      val adjecentTile = tileCalculator.tileNamed(tileName)
+      val adjecentTile = routeTileCache(tileName)
       if (!foundTiles.contains(adjecentTile.name)) {
         if (lineSegments.exists(_.intersection(side) != null)) {
           tileQueue += adjecentTile

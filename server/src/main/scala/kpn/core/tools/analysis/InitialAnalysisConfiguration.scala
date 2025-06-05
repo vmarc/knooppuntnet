@@ -39,7 +39,7 @@ import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnaly
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.full.MainFullAnalyzer
 import kpn.server.analyzer.full.analyzers.FullAnalysisPipeline
@@ -88,12 +88,12 @@ class InitialAnalysisConfiguration(options: InitialAnalysisToolOptions) {
 
   private val locationAnalyzer = new LocationAnalyzerImpl(true, false)
 
-  private val tileCalculator = new TileCalculatorImpl()
+  private val routeTileCache = new RouteTileCache()
 
-  private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
+  private val nodeTileCalculator = new NodeTileCalculatorImpl(routeTileCache)
 
   private val routeTileAnalyzer = {
-    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
+    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
     new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
   }
 

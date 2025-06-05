@@ -8,7 +8,7 @@ class LineSegmentTileCalculatorTest extends UnitTest {
 
   val t = new TileTestSetup()
 
-  val linesTileCalculator = new LineSegmentTileCalculatorImpl(t.tileCalculator)
+  val linesTileCalculator = new LineSegmentTileCalculatorImpl(t.routeTileCache)
 
   test("single tile route") {
 

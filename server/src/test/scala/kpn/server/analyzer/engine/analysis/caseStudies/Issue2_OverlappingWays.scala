@@ -15,7 +15,7 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountry
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.json.Json
 import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
@@ -64,8 +64,8 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
       members = routeRelation1.members ++ routeRelation2.members
     )
 
-    val tileCalculator = new TileCalculatorImpl()
-    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
+    val routeTileCache = new RouteTileCache()
+    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
     val routeTileAnalyzer = new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
     val locationAnalyzer = LocationAnalyzerTest.locationAnalyzer
     val routeRepository = stub[RouteRepository]

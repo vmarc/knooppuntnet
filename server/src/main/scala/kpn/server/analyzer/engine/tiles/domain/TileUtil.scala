@@ -11,7 +11,7 @@ import org.locationtech.jts.simplify.DouglasPeuckerSimplifier
 
 object TileUtil {
   private val geometryFactory = new GeometryFactory
-  private val MinimumGeometryLength = 1.0d
+  private val MinimumGeometryLength = 1.5d
   private val SimplificationTolerance = 1.0d
 
   def routeTileCoordinates(tile: Tile, worldCoordinates: Seq[Coordinate]): Seq[TileCoordinate] = {
@@ -45,7 +45,7 @@ object TileUtil {
     }
   }
 
-  private def simplify(lineString: LineString) = {
+  private def simplify(lineString: LineString): LineString = {
     DouglasPeuckerSimplifier.simplify(lineString, SimplificationTolerance).asInstanceOf[LineString]
   }
 

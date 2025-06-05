@@ -12,7 +12,7 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountry
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
 
@@ -24,8 +24,8 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest with MockFactory {
   test("ignore ways with less than 2 nodes in route analysis") {
     val routeRelation = readRoute()
     val locationAnalyzer = new LocationAnalyzerFixed()
-    val tileCalculator = new TileCalculatorImpl()
-    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
+    val routeTileCache = new RouteTileCache()
+    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
     val routeTileAnalyzer = new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
     val routeRepository = stub[RouteRepository]
     val routeCountryAnalyzer = new BaseRouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
