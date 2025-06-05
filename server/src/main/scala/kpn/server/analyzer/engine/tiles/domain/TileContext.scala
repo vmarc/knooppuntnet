@@ -9,10 +9,11 @@ object TileContext {
   private val TileSize = 256
   private val StandardExtent = TileSize
   private val DetailedExtent = 4096
-  private val RouteDetailZoomThreshold = 13
+  private val RouteDetailZoomThreshold = 14 // zoomlevel at which DetailExtent is used
   private val PoiDetailZoomThreshold = 15
 
-  private val RouteBufferSizePixels = 14
+  private val RouteBufferSizePixelsLarge = 14
+  private val RouteBufferSizePixelsSmall = 3
   private val PoiBufferSizePixels = 17
 
   private val geometryFactory = new GeometryFactory()
@@ -20,10 +21,10 @@ object TileContext {
   def route(zoomLevel: Int): TileContext = {
     val detailed = zoomLevel >= RouteDetailZoomThreshold
     val clipBufferSize = if (zoomLevel < RouteDetailZoomThreshold) {
-      RouteBufferSizePixels // assume tile size 256 pixels, radius of node circle 14 pixels TODO redesign - could be smaller, because at these levels nodes do not have that size anymore?
+      RouteBufferSizePixelsSmall // assume tile size 256 pixels, radius of node circle 3/256 pixels
     }
     else {
-      DetailedExtent * RouteBufferSizePixels / TileSize
+      DetailedExtent * RouteBufferSizePixelsLarge / TileSize // detailed (radius of node circle 14/256 pixels)
     }
     apply(detailed: Boolean, clipBufferSize)
   }
@@ -31,7 +32,7 @@ object TileContext {
   def poi(zoomLevel: Int): TileContext = {
     val detailed = zoomLevel >= PoiDetailZoomThreshold
     val clipBufferSize = if (zoomLevel < RouteDetailZoomThreshold) {
-      PoiBufferSizePixels // assume tile size 256 pixels, radius of node circle 14 pixels TODO redesign - could be smaller, because at these levels nodes do not have that size anymore?
+      PoiBufferSizePixels // assume tile size 256 pixels, radius of node circle 14 pixels
     }
     else {
       DetailedExtent * PoiBufferSizePixels / TileSize

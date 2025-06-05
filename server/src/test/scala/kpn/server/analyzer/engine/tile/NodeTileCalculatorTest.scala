@@ -4,9 +4,9 @@ import kpn.api.common.LatLon
 import kpn.api.common.LatLonImpl
 import kpn.core.test.Locations
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.tiles.TestTile
 import kpn.server.analyzer.engine.tiles.TileTestSetup
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform
+import kpn.server.analyzer.engine.tiles.domain.Tile
 
 class NodeTileCalculatorTest extends UnitTest {
 
@@ -20,7 +20,7 @@ class NodeTileCalculatorTest extends UnitTest {
 
     val delta = 0.0005
 
-    val centerTile = t.center.tile.bounds
+    val centerTile = t.center.bounds
 
     val centerLat = Locations.essen.lat
     val centerLon = Locations.essen.lon
@@ -50,7 +50,7 @@ class NodeTileCalculatorTest extends UnitTest {
     calculated.map(_.name).sorted
   }
 
-  private def tileNames(tiles: TestTile*): Seq[String] = {
-    tiles.map(_.tile.name).sorted
+  private def tileNames(tiles: Tile*): Seq[String] = {
+    tiles.map(_.name).sorted
   }
 }

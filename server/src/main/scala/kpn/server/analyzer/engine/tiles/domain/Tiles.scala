@@ -10,33 +10,35 @@ abstract class Tiles(tileContexts: Map[Int, TileContext]) {
   }
 
   def toTileCoordinate(tile: Tile, worldCoordinate: Coordinate): Coordinate = {
-    val tileContext = tileContexts(tile.z)
-    tileContext.toTileCoordinate(tile, worldCoordinate)
+    tileContext(tile.id.z).toTileCoordinate(tile, worldCoordinate)
   }
 
   def tile(tileId: TileId): Tile = {
-    val tileContext = tileContexts(tileId.z)
-    tileContext.tile(tileId)
+    tileContext(tileId.z).tile(tileId)
   }
 
   def tileEnvelope(zoomLevel: Int): Polygon = {
-    val tileContext = tileContexts(zoomLevel)
-    tileContext.tileEnvelope
+    tileContext(zoomLevel).tileEnvelope
   }
 
   def detailed(zoomLevel: Int): Boolean = {
-    val tileContext = tileContexts(zoomLevel)
-    tileContext.detailed
+    tileContext(zoomLevel).detailed
   }
 
   def extent(zoomLevel: Int): Int = {
-    val tileContext = tileContexts(zoomLevel)
-    tileContext.extent
+    tileContext(zoomLevel).extent
   }
 
   def clipBufferSize(zoomLevel: Int): Int = {
-    val tileContext = tileContexts(zoomLevel)
-    tileContext.clipBufferSize
+    tileContext(zoomLevel).clipBufferSize
+  }
+
+  private def tileContext(zoomLevel: Int): TileContext = {
+    tileContexts.getOrElse(
+      zoomLevel,
+      {
+        throw new IllegalArgumentException(s"Unknown zoom level: $zoomLevel")
+      }
+    )
   }
 }
-

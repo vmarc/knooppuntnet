@@ -10,57 +10,84 @@ import org.springframework.stereotype.Component
 @Component
 class LineSegmentTileCalculatorImpl(routeTileCache: RouteTileCache) extends LineSegmentTileCalculator {
 
+  private case class Direction(xDelta: Int, yDelta: Int, getSide: Tile => LineSegment)
+
+  private val directions = {
+    val left = Direction(-1, 0, _.bounds.leftLineSegment)
+    val right = Direction(1, 0, _.bounds.rightLineSegment)
+    val top = Direction(0, -1, _.bounds.topLineSegment)
+    val bottom = Direction(0, 1, _.bounds.bottomLineSegment)
+    Seq(left, right, top, bottom)
+  }
+
   override def tiles(z: Int, lineSegments: Seq[LineSegment]): Seq[Tile] = {
+    val initialTiles = findEndpointTiles(z, lineSegments)
+    findItermediateTiles(initialTiles, lineSegments)
+  }
+
+  /**
+   * Finds tiles containing the endpoints of all line segments
+   */
+  private def findEndpointTiles(z: Int, lineSegments: Seq[LineSegment]): Map[String, Tile] = {
+    val endpoints = lineSegments.flatMap(ls => Seq(ls.p0, ls.p1))
+    val tileNames = endpoints.map { point =>
+      val x = Tile.tileX(z, point.x)
+      val y = Tile.tileY(z, point.y)
+      s"$z-$x-$y"
+    }.distinct
+    tileNames.map(tileName => tileName -> routeTileCache(tileName)).toMap
+  }
+
+  private def findItermediateTiles(initialTiles: Map[String, Tile], lineSegments: Seq[LineSegment]): Seq[Tile] = {
 
     val tileQueue = scala.collection.mutable.Queue[Tile]()
-    val foundTiles = scala.collection.mutable.Map[String, Tile]()
-
-    // the tiles of the end points of the segments are the starting point for exploration
-    lineSegments.flatMap(ls => Seq(ls.p0, ls.p1)).map { p =>
-      val x = Tile.tileX(z, p.x)
-      val y = Tile.tileY(z, p.y)
-      val tileName = s"$z-$x-$y"
-      val tile = routeTileCache(tileName)
-      foundTiles += tile.name -> tile
-    }
+    var foundTiles = initialTiles
 
     tileQueue ++= foundTiles.values
 
     // At this point we might be missing tiles between the segment endpoints, so for each
     // tile in the queue, the four adjacent tiles (left, right, top, bottom) are explored.
     while (tileQueue.nonEmpty) {
-      val tile = tileQueue.dequeue()
-      explore(tileQueue, foundTiles, lineSegments, tile, tile.bounds.leftLineSegment, -1, 0)
-      explore(tileQueue, foundTiles, lineSegments, tile, tile.bounds.rightLineSegment, 1, 0)
-      explore(tileQueue, foundTiles, lineSegments, tile, tile.bounds.topLineSegment, 0, 1)
-      explore(tileQueue, foundTiles, lineSegments, tile, tile.bounds.bottomLineSegment, 0, -1)
+      val currentTile = tileQueue.dequeue()
+      val newTiles = directions.flatMap { direction =>
+        exploreDirection(currentTile, lineSegments, direction, foundTiles)
+      }
+      // Update found tiles and queue with newly discovered tiles
+      foundTiles ++= newTiles.map(tile => tile.name -> tile)
+      tileQueue ++= newTiles
     }
     foundTiles.values.toSeq
   }
 
-  // Checks whether given line segment intersects with a side of the current tile
-  // If it does, adds the adjacent tile to both the queue and the set of found tiles
-  // Avoids re-processing tiles that have already been found
-  private def explore(
-    tileQueue: scala.collection.mutable.Queue[Tile],
-    foundTiles: scala.collection.mutable.Map[String, Tile],
-    lineSegments: Seq[LineSegment],
+  /**
+   * Explores in a specific direction from the current tile.
+   * Returns the adjacent tile if it intersects with any line segment and hasn't been found yet.
+   */
+  private def exploreDirection(
     tile: Tile,
-    side: LineSegment,
-    xDelta: Int,
-    yDelta: Int
-  ): Unit = {
-    val x = tile.x + xDelta
-    val y = tile.y + yDelta
-    if (x >= 0 && y >= 0) {
-      val tileName = s"${tile.z}-$x-$y"
-      val adjecentTile = routeTileCache(tileName)
-      if (!foundTiles.contains(adjecentTile.name)) {
-        if (lineSegments.exists(_.intersection(side) != null)) {
-          tileQueue += adjecentTile
-          foundTiles += adjecentTile.name -> adjecentTile
-        }
-      }
+    lineSegments: Seq[LineSegment],
+    direction: Direction,
+    foundTiles: Map[String, Tile]
+  ): Option[Tile] = {
+    val x = tile.x + direction.xDelta
+    val y = tile.y + direction.yDelta
+
+    if (x < 0 || y < 0) {
+      return None
+    }
+
+    val tileName = s"${tile.z}-$x-$y"
+    val adjacentTile = routeTileCache(tileName)
+
+    if (foundTiles.contains(adjacentTile.name)) {
+      return None
+    }
+
+    val side = direction.getSide(tile)
+    if (lineSegments.exists(_.intersection(side) != null)) {
+      Some(adjacentTile)
+    } else {
+      None
     }
   }
 }
