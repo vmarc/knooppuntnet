@@ -14,11 +14,12 @@ import { MatFormField } from '@angular/material/select';
 import { MatLabel } from '@angular/material/select';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { GeocoderLocation } from '@api/common/geocoder-location';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { ApiService } from '@app/shared/services/api.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BackButtonComponent } from '@app/shared/components/back-button.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
-import { PageButtonsComponent } from '@app/shared/components/page/page-buttons.component';
 import { State } from '@app/state/state';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
@@ -36,11 +37,8 @@ import { ExploreRoutesComponent } from './explore-routes.component';
   selector: 'ui-explore',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page-buttons>
-      <ui-back-button />
-      <mat-label>Explore</mat-label>
-    </ui-page-buttons>
     <ui-page>
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
       <nz-input-group [nzSuffix]="suffixIconSearch">
         <input type="text" nz-input placeholder="input search text" />
       </nz-input-group>
@@ -89,7 +87,7 @@ import { ExploreRoutesComponent } from './explore-routes.component';
     </ui-page>
   `,
   imports: [
-    BackButtonComponent,
+    BreadcrumbComponent,
     DividerComponent,
     ExploreRoutesComponent,
     FormsModule,
@@ -107,7 +105,6 @@ import { ExploreRoutesComponent } from './explore-routes.component';
     NzInputGroupComponent,
     NzInputGroupWhitSuffixOrPrefixDirective,
     NzSegmentedComponent,
-    PageButtonsComponent,
     PageComponent,
     PageComponent,
     ReactiveFormsModule,
@@ -126,6 +123,16 @@ export class ExploreComponent implements OnInit {
   });
 
   readonly options = ['Map', 'Route', 'Network'];
+
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    { label: Breadcrumbs.exploreLabel },
+  ];
+
+  static readonly home: BreadcrumbItem = {
+    routerLink: '/',
+    label: Breadcrumbs.homeLabel,
+  };
 
   ngOnInit(): void {
     this.state.map.updateSubject('explore');

@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -12,17 +13,13 @@ import { RouteService } from '../route.service';
   selector: 'ui-route-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page-header [pageTitle]="service.routeName()" subject="route-page">
-      @if (service.routeName()) {
-        <span>{{ service.routeName() }}</span>
-      } @else {
-        <span>{{ service.routeId() }}</span>
-      }
+    <ui-page-header [pageTitle]="service.routeDisplayName()" subject="route-page">
+      <span>{{ service.routeDisplayName() }}</span>
     </ui-page-header>
 
     <ui-page-menu>
       <ui-page-menu-option
-        [link]="linkRouteDetails()"
+        [link]="routeLink()"
         [active]="pageName() === 'details'"
         i18n="@@route.menu.details"
       >
@@ -30,7 +27,7 @@ import { RouteService } from '../route.service';
       </ui-page-menu-option>
 
       <ui-page-menu-option
-        [link]="linkRouteMap()"
+        [link]="mapLink()"
         [active]="pageName() === 'map'"
         i18n="@@route.menu.map"
       >
@@ -38,35 +35,30 @@ import { RouteService } from '../route.service';
       </ui-page-menu-option>
 
       <ui-page-menu-option
-        [link]="linkRouteChanges()"
+        [link]="changesLink()"
         [active]="pageName() === 'changes'"
         [elementCount]="service.changeCount()"
         i18n="@@route.menu.changes"
       >
         Changes
       </ui-page-menu-option>
+
+      <ui-page-menu-option
+        [link]="segmentsLink()"
+        [active]="pageName() === 'segments'"
+        [elementCount]="3"
+        i18n="@@route.menu.segments"
+        >Segments
+      </ui-page-menu-option>
     </ui-page-menu>
   `,
   imports: [MatIconModule, PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class RoutePageHeaderComponent {
-  pageName = input.required<string>();
-
+  readonly pageName = input.required<string>();
   protected readonly service = inject(RouteService);
-
-  linkRouteDetails(): string {
-    return this.linkRoute('');
-  }
-
-  linkRouteMap(): string {
-    return this.linkRoute('/map');
-  }
-
-  linkRouteChanges(): string {
-    return this.linkRoute('/changes');
-  }
-
-  private linkRoute(suffix: string): string {
-    return `/analysis/route/${this.service.routeId()}${suffix}`;
-  }
+  protected readonly routeLink = computed(() => `/analysis/route/${this.service.routeId()}`);
+  protected readonly mapLink = computed(() => this.routeLink() + '/map');
+  protected readonly changesLink = computed(() => this.routeLink() + '/changes');
+  protected readonly segmentsLink = computed(() => this.routeLink() + '/segments');
 }

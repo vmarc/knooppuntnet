@@ -14,6 +14,5 @@ import { ChangeDetectionStrategy } from '@angular/core';
       margin: 1em;
     }
   `,
-  imports: [],
 })
 export class PageComponent {}

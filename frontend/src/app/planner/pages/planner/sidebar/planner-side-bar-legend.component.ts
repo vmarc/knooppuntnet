@@ -133,5 +133,5 @@ import { LegendIconComponent } from './legend-icon.component';
 })
 export class PlannerSideBarLegendComponent {
   private readonly state = inject(State);
-  readonly mapMode = this.state.map.mode;
+  protected readonly mapMode = this.state.map.mode;
 }

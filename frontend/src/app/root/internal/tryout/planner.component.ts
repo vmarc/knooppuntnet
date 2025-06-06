@@ -2,22 +2,64 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { MapLinkMenuComponent } from '@app/ol/components/map-link-menu.component';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services/openlayers-map-service';
+import { GeolocationButtonComponent } from '@app/planner/pages/planner/geolocation/geolocation-button.component';
+import { PlanActionsComponent } from '@app/planner/pages/planner/sidebar/plan-actions.component';
+import { PlanComponent } from '@app/planner/pages/planner/sidebar/plan.component';
+import { PlannerSideBarLegendComponent } from '@app/planner/pages/planner/sidebar/planner-side-bar-legend.component';
+import { PlannerSideBarOptionsComponent } from '@app/planner/pages/planner/sidebar/planner-side-bar-options.component';
+import { PlannerSidebarFitRouteComponent } from '@app/planner/pages/planner/sidebar/planner-sidebar-fit-route.component';
+import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
+import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { State } from '@app/state/state';
 import { PlannerMapService } from '@app/planner/pages/planner/planner-map.service';
-import { PlannerSidebarComponent } from '@app/planner/pages/planner/sidebar/planner-sidebar.component';
+import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
+import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
 
 @Component({
   selector: 'ui-planner',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button mat-icon-button routerLink="/">
-      <mat-icon svgIcon="back" />
-    </button>
-    <ui-planner-sidebar />
+    <ui-page>
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
+      <ui-plan-actions />
+      <ui-planner-fit-route />
+      <ui-geolocation-button />
+      <ui-map-link-menu />
+    </ui-page>
+
+    <nz-collapse>
+      <nz-collapse-panel nzHeader="Plan" [nzActive]="true">
+        <ui-plan />
+      </nz-collapse-panel>
+
+      <nz-collapse>
+        <nz-collapse-panel
+          i18n-nzHeader="@@planner.legend"
+          nzHeader="Legend"
+          [nzActive]="legendExpanded()"
+          (nzActiveChange)="legendExpandedChanged($event)"
+        >
+          <ui-planner-sidebar-legend />
+        </nz-collapse-panel>
+        <nz-collapse-panel
+          i18n-nzHeader="@@planner.options"
+          nzHeader="Options"
+          [nzActive]="optionsExpanded()"
+          (nzActiveChange)="optionsExpandedChanged($event)"
+        >
+          <ui-planner-sidebar-options />
+        </nz-collapse-panel>
+      </nz-collapse>
+
+      <!--
+        <ui-elevation-profile />
+        <ui-planner-sidebar-poi-configuration />
+      -->
+    </nz-collapse>
   `,
   providers: [
     {
@@ -25,12 +67,39 @@ import { PlannerSidebarComponent } from '@app/planner/pages/planner/sidebar/plan
       useExisting: PlannerMapService,
     },
   ],
-  imports: [MatIcon, MatIconButton, RouterLink, PlannerSidebarComponent],
+  imports: [
+    BreadcrumbComponent,
+    GeolocationButtonComponent,
+    MapLinkMenuComponent,
+    NzCollapseComponent,
+    NzCollapsePanelComponent,
+    PageComponent,
+    PlanActionsComponent,
+    PlanComponent,
+    PlannerSideBarLegendComponent,
+    PlannerSideBarOptionsComponent,
+    PlannerSidebarFitRouteComponent,
+  ],
 })
 export class PlannerComponent implements OnInit {
   private readonly state = inject(State);
+  protected readonly legendExpanded = this.state.preferences.showLegend;
+  protected readonly optionsExpanded = this.state.preferences.showOptions;
+
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [
+    Breadcrumbs.home,
+    { label: Breadcrumbs.planLabel },
+  ];
 
   ngOnInit(): void {
     this.state.map.updateSubject('plan');
+  }
+
+  legendExpandedChanged(expanded: boolean): void {
+    this.state.preferences.updateShowLegend(expanded);
+  }
+
+  optionsExpandedChanged(expanded: boolean): void {
+    this.state.preferences.updateShowOptions(expanded);
   }
 }

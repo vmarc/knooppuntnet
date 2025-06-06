@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
+import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { IconButtonComponent } from '@app/shared/components/icon/icon-button.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '../../../components/page/page.component';
@@ -40,7 +41,5 @@ import { PageComponent } from '../../../components/page/page.component';
   ],
 })
 export class HomePageComponent {
-  protected readonly breadcrumbItems: BreadcrumbItem[] = [
-    { label: $localize`:@@breadcrumb.home:Home` },
-  ];
+  protected readonly breadcrumbItems: BreadcrumbItem[] = [{ label: Breadcrumbs.homeLabel }];
 }

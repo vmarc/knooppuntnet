@@ -1,4 +1,5 @@
 import { Location } from '@angular/common';
+import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
@@ -21,6 +22,7 @@ export class RouteService {
   readonly routeName = this._routeName.asReadonly();
   readonly routeType = this._routeType.asReadonly();
   readonly changeCount = this._changeCount.asReadonly();
+  readonly routeDisplayName = computed(() => this.routeName() || this.routeId());
 
   private location = inject(Location);
   private preferencesService = inject(PreferencesService);

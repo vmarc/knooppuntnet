@@ -10,6 +10,7 @@ import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { PoiService } from '@app/map/poi/poi.service';
 import { MapRoutePopupRoute } from '@app/state/map-route-popup-route';
 import { Coordinate } from 'ol/coordinate';
 import { MapRoutePopupComponent } from './popup/map-route-popup.component';
@@ -54,7 +55,7 @@ import { MapService } from './map.service';
 })
 export class MapComponent implements AfterViewInit, OnDestroy {
   private readonly mapService = inject(MapService);
-
+  private readonly poiService = inject(PoiService);
   private readonly overlay = inject(Overlay);
   private readonly elementRef = viewChild<ElementRef<HTMLDivElement>>('overlayOrigin');
   portal = viewChild(CdkPortal);

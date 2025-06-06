@@ -2,6 +2,8 @@ import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-ite
 
 export class Breadcrumbs {
   static readonly homeLabel: string = $localize`:@@breadcrumb.home:Home`;
+  static readonly exploreLabel: string = $localize`:@@breadcrumb.explore:Explore`;
+  static readonly planLabel: string = $localize`:@@breadcrumb.plan:Plan`;
   static readonly analysisLabel: string = $localize`:@@breadcrumb.analysis:Analysis`;
   static readonly changesLabel: string = $localize`:@@breadcrumb.changes:Changes`;
   static readonly networkLabel: string = $localize`:@@breadcrumb.network:Network`;
@@ -24,6 +26,11 @@ export class Breadcrumbs {
   static readonly home: BreadcrumbItem = {
     routerLink: '/',
     label: Breadcrumbs.homeLabel,
+  };
+
+  static readonly explore: BreadcrumbItem = {
+    routerLink: '/',
+    label: Breadcrumbs.exploreLabel,
   };
 
   static readonly analysis: BreadcrumbItem = {

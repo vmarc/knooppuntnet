@@ -3,10 +3,6 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { MatButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { MatLabel } from '@angular/material/select';
-import { RouterLink } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactsComponent } from '@app/analysis/fact/components/facts.component';
@@ -16,7 +12,6 @@ import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { DataComponent } from '@app/shared/components/data/data.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { PageWidthService } from '@app/shared/components/page-width.service';
-import { PageButtonsComponent } from '@app/shared/components/page/page-buttons.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
 import { TagTableComponent } from '@app/shared/components/tags/tag-table.component';
@@ -36,16 +31,6 @@ import { RouteDetailsPageService } from './route-details-page.service';
   selector: 'ui-route-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page-buttons>
-      <button mat-stroked-button routerLink="changes">
-        <mat-icon>list</mat-icon>
-        <mat-label>segments (3)</mat-label>
-      </button>
-      <button mat-stroked-button routerLink="changes">
-        <mat-icon>history</mat-icon>
-        <mat-label>changes</mat-label>
-      </button>
-    </ui-page-buttons>
     <ui-page>
       <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
       <ui-route-page-header pageName="details" />
@@ -140,10 +125,6 @@ import { RouteDetailsPageService } from './route-details-page.service';
     DataComponent,
     DividerComponent,
     FactsComponent,
-    MatButton,
-    MatIcon,
-    MatLabel,
-    PageButtonsComponent,
     PageComponent,
     RouteEndNodesComponent,
     RouteMembersComponent,
@@ -153,7 +134,6 @@ import { RouteDetailsPageService } from './route-details-page.service';
     RouteRedundantNodesComponent,
     RouteStartNodesComponent,
     RouteSummaryComponent,
-    RouterLink,
     TagTableComponent,
     TimestampComponent,
   ],
