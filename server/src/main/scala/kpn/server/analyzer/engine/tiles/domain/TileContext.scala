@@ -9,7 +9,7 @@ object TileContext {
   private val TileSize = 256
   private val StandardExtent = TileSize
   private val DetailedExtent = 4096
-  private val RouteDetailZoomThreshold = 14 // zoomlevel at which DetailExtent is used
+  private val RouteDetailZoomThreshold = 13 // zoomlevel at which DetailExtent is used
   private val PoiDetailZoomThreshold = 15
 
   private val RouteBufferSizePixelsLarge = 14

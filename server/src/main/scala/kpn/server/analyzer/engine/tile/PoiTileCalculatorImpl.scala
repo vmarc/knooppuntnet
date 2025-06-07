@@ -31,7 +31,7 @@ class PoiTileCalculatorImpl extends PointTileCalculator(new PoiTileCache()) with
 
   def poiTiles(latLon: LatLon, poiDefinitions: Seq[PoiDefinition]): Seq[String] = {
     val minLevel = poiDefinitions.map(_.minLevel).min
-    val tilesX = (minLevel.toInt to ZoomLevel.vectorTileMaxZoom).flatMap { z =>
+    val tilesX = (minLevel.toInt to ZoomLevel.poiTileMaxZoom).flatMap { z =>
 
       tiles(z, latLon).map(_.name)
     }

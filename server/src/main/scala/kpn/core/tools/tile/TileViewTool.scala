@@ -17,9 +17,10 @@ object TileViewTool {
   def main(args: Array[String]): Unit = {
     // new TileViewTool().print("/Users/marc/kpn/tiles/opendata/netherlands/hiking/8/132/83.mvt")
     // new TileViewTool().print("/Users/marc/kpn/tiles/hiking/12/979/1521.mvt") // route 12 extent 256
-    new TileViewTool().print("/Users/marc/kpn/tiles/hiking/14/8591/5639.mvt") // route 14 extent 4096
+    // new TileViewTool().print("/Users/marc/kpn/tiles/hiking/14/8591/5639.mvt") // route 14 extent 4096
     // new TileViewTool().print("/Users/marc/kpn/tiles-old/poi/13/4433/2871.mvt") // poi 13 extent 256
     // new TileViewTool().print("/Users/marc/kpn/tiles-old/poi/15/17765/11521.mvt") // poi 15 extent 4096
+    new TileViewTool().print("/Users/marc/kpn/tiles/poi/14/8395/5450.mvt") // route 14 extent 4096
   }
 }
 

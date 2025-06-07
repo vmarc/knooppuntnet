@@ -14,7 +14,7 @@ object SingleBaseRouteAnalyzerTool {
     val configuration = new InitialAnalysisConfiguration(options)
     try {
       val tool = buildTool(configuration)
-      tool.analyze(2650)
+      tool.analyze(13844575)
     }
     finally {
       configuration.shutdown()

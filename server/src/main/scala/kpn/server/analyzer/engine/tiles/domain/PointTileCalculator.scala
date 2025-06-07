@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.tiles.domain
 
 import kpn.api.common.LatLon
-import kpn.server.analyzer.engine.tile.NodeTileCalculator
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 
@@ -28,9 +27,9 @@ object PointTileCalculator {
   )
 }
 
-class PointTileCalculator(protected val tileCache: TileCache) extends NodeTileCalculator {
+class PointTileCalculator(protected val tileCache: TileCache) {
 
-  override def tiles(z: Int, latLon: LatLon): Seq[Tile] = {
+  def tiles(z: Int, latLon: LatLon): Seq[Tile] = {
 
     val xWorld = lonToWorldX(latLon.lon)
     val yWorld = latToWorldY(latLon.lat)
