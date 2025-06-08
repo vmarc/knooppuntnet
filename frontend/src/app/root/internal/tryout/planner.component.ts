@@ -7,7 +7,7 @@ import { MAP_SERVICE_TOKEN } from '@app/ol/services/openlayers-map-service';
 import { GeolocationButtonComponent } from '@app/planner/pages/planner/geolocation/geolocation-button.component';
 import { PlanActionsComponent } from '@app/planner/pages/planner/sidebar/plan-actions.component';
 import { PlanComponent } from '@app/planner/pages/planner/sidebar/plan.component';
-import { PlannerSideBarLegendComponent } from '@app/planner/pages/planner/sidebar/planner-side-bar-legend.component';
+import { PlannerLegendComponent } from '@app/planner/pages/planner/legend/planner-legend.component';
 import { PlannerSideBarOptionsComponent } from '@app/planner/pages/planner/sidebar/planner-side-bar-options.component';
 import { PlannerSidebarFitRouteComponent } from '@app/planner/pages/planner/sidebar/planner-sidebar-fit-route.component';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
@@ -43,7 +43,7 @@ import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
           [nzActive]="legendExpanded()"
           (nzActiveChange)="legendExpandedChanged($event)"
         >
-          <ui-planner-sidebar-legend />
+          <ui-planner-legend />
         </nz-collapse-panel>
         <nz-collapse-panel
           i18n-nzHeader="@@planner.options"
@@ -76,7 +76,7 @@ import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
     PageComponent,
     PlanActionsComponent,
     PlanComponent,
-    PlannerSideBarLegendComponent,
+    PlannerLegendComponent,
     PlannerSideBarOptionsComponent,
     PlannerSidebarFitRouteComponent,
   ],

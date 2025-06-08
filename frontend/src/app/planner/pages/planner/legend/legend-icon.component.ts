@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -25,19 +26,19 @@ import { input } from '@angular/core';
   `,
 })
 export class LegendIconComponent {
-  color = input.required<string>();
-  circleColor = input<string>();
-  proposed = input<boolean>();
+  readonly color = input.required<string>();
+  readonly circleColor = input<string>();
+  readonly proposed = input<boolean>();
 
-  style(): string {
+  protected readonly style = computed(() => {
     const standard = `stroke:${this.color()};stroke-width:3;`;
     if (this.proposed()) {
       return standard + 'stroke-dasharray:5;';
     }
     return standard;
-  }
+  });
 
-  circleStyle(): string {
+  protected readonly circleStyle = computed(() => {
     let selectedColor = this.color();
     if (this.circleColor()) {
       selectedColor = this.circleColor()!;
@@ -47,5 +48,5 @@ export class LegendIconComponent {
       return standard + 'stroke-dasharray:5;';
     }
     return standard;
-  }
+  });
 }
