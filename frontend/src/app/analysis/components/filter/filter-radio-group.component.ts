@@ -33,7 +33,7 @@ import { NzRadioComponent } from 'ng-zorro-antd/radio';
   imports: [MatRadioModule, NzRadioComponent, NzRadioGroupComponent, FormsModule],
 })
 export class FilterRadioGroupComponent {
-  group = input.required<FilterOptionGroup>();
+  readonly group = input.required<FilterOptionGroup>();
 
   selection() {
     const selectedOption = this.group().options.find((option) => option.selected);

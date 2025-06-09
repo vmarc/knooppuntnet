@@ -19,7 +19,7 @@ import { OverviewListStatComponent } from './overview-list-stat.component';
   imports: [OverviewListStatComponent],
 })
 export class OverviewListComponent implements OnInit {
-  statistics = input.required<StatisticValues[]>();
+  readonly statistics = input.required<StatisticValues[]>();
 
   private readonly overviewConfigurationService = inject(OverviewConfigurationService);
 

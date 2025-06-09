@@ -99,5 +99,5 @@ import { SymbolComponent } from '@app/symbol/symbol.component';
   imports: [DataComponent, SymbolComponent, MatIconModule],
 })
 export class MonitorRouteInfoComponent {
-  routeInfo = input.required<MonitorRouteInfoPage>();
+  readonly routeInfo = input.required<MonitorRouteInfoPage>();
 }

@@ -24,7 +24,7 @@ import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
   imports: [TimestampPipe, TimestampPipe],
 })
 export class MonitorRouteDetailsTimestampComponent implements OnInit {
-  page = input.required<MonitorRouteDetailsPage>();
+  readonly page = input.required<MonitorRouteDetailsPage>();
 
   analysisDuration = 0;
 

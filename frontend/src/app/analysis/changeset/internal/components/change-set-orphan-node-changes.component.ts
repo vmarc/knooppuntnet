@@ -31,7 +31,7 @@ import { NodeDiffsComponent } from './node-diffs/node-diffs.component';
   imports: [NodeDiffsComponent, NzIconDirective],
 })
 export class ChangeSetOrphanNodeChangesComponent {
-  detail = input.required<ChangeSetDetail>();
+  readonly detail = input.required<ChangeSetDetail>();
 
   nodeDiffs(refs: ChangeSetSubsetElementRefs): NodeDiffsData {
     const refDiffs: RefDiffs = {
@@ -44,7 +44,7 @@ export class ChangeSetOrphanNodeChangesComponent {
       refDiffs,
       this.detail().summary.key.changeSetId,
       this.detail().knownElements,
-      List(this.detail().nodeChanges)
+      this.detail().nodeChanges
     );
   }
 

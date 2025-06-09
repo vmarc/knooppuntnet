@@ -48,5 +48,5 @@ import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.compo
   imports: [IconHappyComponent, DistancePipe, DistancePipe],
 })
 export class MonitorRouteDetailsAnalysisComponent {
-  page = input.required<MonitorRouteDetailsPage>();
+  readonly page = input.required<MonitorRouteDetailsPage>();
 }

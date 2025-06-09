@@ -37,7 +37,7 @@ import { ActionButtonLocationFactRoutesComponent } from '../../../../components/
   ],
 })
 export class LocationFactPanelHeaderComponent {
-  locationFact = input.required<LocationFact>();
+  readonly locationFact = input.required<LocationFact>();
 
   factLevel(fact: Fact): FactLevel {
     return Facts.factLevel(fact);

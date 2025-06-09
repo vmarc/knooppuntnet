@@ -77,9 +77,11 @@ import { LocationSummaryComponent } from './location-summary.component';
   ],
 })
 export class LocationDetailsComponent {
-  response = input.required<ApiResponse<LocationDetailsPage>>();
-  tags = computed(() => InterpretedTags.locationTags(this.response().result.tags));
-  relationId = computed(() => this.response().result.relationId);
+  readonly response = input.required<ApiResponse<LocationDetailsPage>>();
+  protected readonly tags = computed(() =>
+    InterpretedTags.locationTags(this.response().result.tags)
+  );
+  protected readonly relationId = computed(() => this.response().result.relationId);
 
   locationLink(link: string): string {
     return `/analysis/${link}/details`;

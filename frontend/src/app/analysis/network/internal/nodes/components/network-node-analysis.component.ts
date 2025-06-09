@@ -38,9 +38,9 @@ import { RoleConnectionIndicatorComponent } from './indicators/role-connection-i
   ],
 })
 export class NetworkNodeAnalysisComponent implements OnInit {
-  routeType = input.required<RouteType>();
-  routeScope = input.required<RouteScope>();
-  node = input.required<NetworkNodeRow>();
+  readonly routeType = input.required<RouteType>();
+  readonly routeScope = input.required<RouteScope>();
+  readonly node = input.required<NetworkNodeRow>();
 
   integrityIndicatorData: IntegrityIndicatorData;
 

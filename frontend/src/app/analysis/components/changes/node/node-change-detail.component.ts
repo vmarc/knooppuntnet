@@ -133,7 +133,7 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
   ],
 })
 export class NodeChangeDetailComponent implements OnInit {
-  nodeChangeInfo = input.required<NodeChangeInfo>();
+  readonly nodeChangeInfo = input.required<NodeChangeInfo>();
 
   initialTags: InterpretedTags;
   nodeMoved: NodeMoved;

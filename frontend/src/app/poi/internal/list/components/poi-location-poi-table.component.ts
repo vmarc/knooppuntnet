@@ -97,8 +97,8 @@ import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
   imports: [MatTableModule, RouterLink, OldPaginatorComponent],
 })
 export class PoiLocationPoiTableComponent {
-  pois = input.required<LocationPoiInfo[]>();
-  poiCount = input.required<number>();
+  readonly pois = input.required<LocationPoiInfo[]>();
+  readonly poiCount = input.required<number>();
 
   private readonly pageWidthService = inject(PageWidthService);
   readonly service = inject(PoiLocationPoisPageService);

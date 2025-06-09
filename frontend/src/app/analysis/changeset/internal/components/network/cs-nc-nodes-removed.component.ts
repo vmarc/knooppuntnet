@@ -28,6 +28,6 @@ import { OsmLinkNodeComponent } from '@app/shared/components/link/osm-link-node.
   imports: [IconHappyComponent, OsmLinkNodeComponent],
 })
 export class CsNcNodesRemovedComponent {
-  networkChangeInfo = input.required<NetworkChangeInfo>();
-  readonly nodeIds = computed(() => this.networkChangeInfo().nodes.removed);
+  readonly networkChangeInfo = input.required<NetworkChangeInfo>();
+  protected readonly nodeIds = computed(() => this.networkChangeInfo().nodes.removed);
 }

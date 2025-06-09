@@ -39,5 +39,5 @@ import { ChangeDetectionStrategy } from '@angular/core';
   ],
 })
 export class MonitorRoutePropertiesStep6CommentComponent {
-  comment = input.required<FormControl<string>>();
+  readonly comment = input.required<FormControl<string>>();
 }

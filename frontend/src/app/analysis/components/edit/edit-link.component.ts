@@ -10,8 +10,8 @@ import { input } from '@angular/core';
   template: ` <a rel="nofollow" (click)="clicked()" [title]="linkTitle">josm</a> `,
 })
 export class EditLinkComponent implements OnInit {
-  title = input<string>();
-  edit = output<void>();
+  readonly title = input<string>();
+  readonly edit = output<void>();
 
   linkTitle: string;
 

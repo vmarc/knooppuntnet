@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -47,9 +48,9 @@ import { CsNcWaysUpdatedComponent } from './cs-nc-ways-updated.component';
     <ui-cs-nc-relations-added [networkChangeInfo]="networkChangeInfo()" />
     <ui-cs-nc-relations-updated [networkChangeInfo]="networkChangeInfo()" />
 
-    <ui-node-diffs [data]="nodeDiffs(networkChangeInfo())" />
+    <ui-node-diffs [data]="nodeDiffs()" />
 
-    <ui-route-diffs [data]="routeDiffs(networkChangeInfo())" />
+    <ui-route-diffs [data]="routeDiffs()" />
   `,
   imports: [
     CsNcNodesAddedComponent,
@@ -68,24 +69,24 @@ import { CsNcWaysUpdatedComponent } from './cs-nc-ways-updated.component';
   ],
 })
 export class CsNcComponent {
-  detail = input.required<ChangeSetDetail>();
-  networkChangeInfo = input.required<NetworkChangeInfo>();
+  readonly detail = input.required<ChangeSetDetail>();
+  readonly networkChangeInfo = input.required<NetworkChangeInfo>();
 
-  nodeDiffs(networkChangeInfo: NetworkChangeInfo): NodeDiffsData {
+  protected readonly nodeDiffs = computed(() => {
     return new NodeDiffsData(
-      networkChangeInfo.networkNodes,
+      this.networkChangeInfo().networkNodes,
       this.detail().summary.key.changeSetId,
       this.detail().knownElements,
-      List(this.detail().nodeChanges)
+      this.detail().nodeChanges
     );
-  }
+  });
 
-  routeDiffs(networkChangeInfo: NetworkChangeInfo): RouteDiffsData {
+  protected readonly routeDiffs = computed(() => {
     return new RouteDiffsData(
-      networkChangeInfo.routes,
+      this.networkChangeInfo().routes,
       this.detail().summary.key.changeSetId,
       this.detail().knownElements,
-      List(this.detail().routeChanges)
+      this.detail().routeChanges
     );
-  }
+  });
 }

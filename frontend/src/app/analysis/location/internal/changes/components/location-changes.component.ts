@@ -36,7 +36,7 @@ import { LocationChangesPage } from '@api/common/location/location-changes-page'
 export class LocationChangesComponent {
   protected readonly service = inject(LocationChangesPageService);
 
-  page = input.required<LocationChangesPage>();
+  readonly page = input.required<LocationChangesPage>();
 
   onImpactChange(impact: boolean): void {
     this.service.setImpact(impact);

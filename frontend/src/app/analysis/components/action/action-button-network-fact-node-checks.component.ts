@@ -28,7 +28,7 @@ import { ActionService } from './action.service';
   ],
 })
 export class ActionButtonNetworkFactNodeChecksComponent {
-  networkFact = input.required<NetworkFact>();
+  readonly networkFact = input.required<NetworkFact>();
 
   private readonly actionService = inject(ActionService);
 

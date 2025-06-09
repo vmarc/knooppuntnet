@@ -31,8 +31,8 @@ import { MatAccordion } from '@angular/material/expansion';
   imports: [MatButton],
 })
 export class OldExpandCollapseComponent {
-  accordion = input.required<MatAccordion>();
-  active = output<boolean>();
+  readonly accordion = input.required<MatAccordion>();
+  readonly active = output<boolean>();
 
   expandAll(): void {
     this.active.emit(true);

@@ -48,7 +48,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   imports: [MatIconModule, MatProgressSpinnerModule],
 })
 export class MonitorRouteFormSaveStepComponent implements AfterViewChecked {
-  step = input.required<MonitorRouteSaveStep>();
+  readonly step = input.required<MonitorRouteSaveStep>();
   private readonly stepDiv = viewChild.required<ElementRef<HTMLDivElement>>('stepDiv');
 
   ngAfterViewChecked() {

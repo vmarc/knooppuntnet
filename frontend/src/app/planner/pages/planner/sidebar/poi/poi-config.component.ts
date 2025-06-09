@@ -77,7 +77,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   imports: [MatRadioModule],
 })
 export class PoiConfigComponent implements OnInit, OnDestroy {
-  poiId = input.required<string>();
+  readonly poiId = input.required<string>();
 
   private readonly poiService = inject(OldPoiService);
 

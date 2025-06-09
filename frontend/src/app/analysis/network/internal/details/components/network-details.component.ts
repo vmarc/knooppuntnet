@@ -48,7 +48,7 @@ import { NetworkSummaryComponent } from './network-summary.component';
   imports: [DataComponent, NetworkSummaryComponent, TagTableComponent, TimestampComponent],
 })
 export class NetworkDetailsComponent implements OnInit {
-  response = input.required<ApiResponse<NetworkDetailsPage>>();
+  readonly response = input.required<ApiResponse<NetworkDetailsPage>>();
 
   tags: InterpretedTags;
 

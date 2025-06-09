@@ -100,7 +100,7 @@ import { RouteLocationComponent } from './route-location.component';
   ],
 })
 export class RouteSummaryComponent {
-  route = input.required<RouteDetailsPageData>();
+  readonly route = input.required<RouteDetailsPageData>();
 
   isRouteBroken() {
     return this.route().facts.includes('RouteBroken');

@@ -56,5 +56,5 @@ import { input } from '@angular/core';
   `,
 })
 export class ItemComponent {
-  index = input.required<number>();
+  readonly index = input.required<number>();
 }

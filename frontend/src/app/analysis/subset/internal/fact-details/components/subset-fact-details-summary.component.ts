@@ -83,7 +83,7 @@ import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.compo
   imports: [IconHappyComponent, DividerComponent],
 })
 export class SubsetFactDetailsSummaryComponent {
-  page = input.required<SubsetFactDetailsPage>();
+  readonly page = input.required<SubsetFactDetailsPage>();
 
   protected refCount = computed(
     () => new Set(this.page().networks.flatMap((n) => n.factRefs.map((r) => r.id))).size

@@ -1,8 +1,8 @@
+import { computed } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { Ref } from '@api/common/common/ref';
 import { MetaData } from '@api/common/data/meta-data';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { LinkNodeRefHeaderComponent } from '@app/shared/components/link/link-node-ref-header';
@@ -13,15 +13,15 @@ import { NodeDiffsData } from './node-diffs-data';
   selector: 'ui-node-diffs-added',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (refs.length > 0) {
+    @if (refs().length > 0) {
       <div class="kpn-level-2">
         <div class="kpn-line kpn-level-2-header">
           <span i18n="@@node-diffs-added.title">Added network nodes</span>
-          <span class="kpn-brackets kpn-thin">{{ refs.length }}</span>
+          <span class="kpn-brackets kpn-thin">{{ refs().length }}</span>
           <ui-icon-happy />
         </div>
         <div class="kpn-level-2-body">
-          @for (nodeRef of refs; track nodeRef.id) {
+          @for (nodeRef of refs(); track nodeRef.id) {
             <div class="kpn-level-3">
               <div class="kpn-line kpn-level-3-header">
                 <ui-link-node-ref-header [ref]="nodeRef" [knownElements]="data().knownElements" />
@@ -63,14 +63,9 @@ import { NodeDiffsData } from './node-diffs-data';
   `,
   imports: [IconHappyComponent, LinkNodeRefHeaderComponent, MetaDataComponent],
 })
-export class NodeDiffsAddedComponent implements OnInit {
-  data = input.required<NodeDiffsData>();
-
-  refs: Ref[];
-
-  ngOnInit(): void {
-    this.refs = this.data().refDiffs.added;
-  }
+export class NodeDiffsAddedComponent {
+  readonly data = input.required<NodeDiffsData>();
+  protected readonly refs = computed(() => this.data().refDiffs.added);
 
   isCreated(metaData: MetaData): boolean {
     return this.data().changeSetId === metaData.changeSetId && metaData.version === 1;

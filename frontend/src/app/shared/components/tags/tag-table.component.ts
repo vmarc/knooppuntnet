@@ -58,5 +58,5 @@ import { TagValueComponent } from './tag-value.component';
   imports: [TagValueComponent, NzTableModule],
 })
 export class TagTableComponent {
-  tags = input.required<InterpretedTags>();
+  readonly tags = input.required<InterpretedTags>();
 }

@@ -145,10 +145,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
   ],
 })
 export class MonitorRoutePropertiesStep3RelationComponent implements OnInit, OnDestroy {
-  ngForm = input.required<FormGroupDirective>();
-  form = input.required<FormGroup>();
-  relationIdKnown = input.required<FormControl<boolean>>();
-  relationId = input.required<FormControl<number | null>>();
+  readonly ngForm = input.required<FormGroupDirective>();
+  readonly form = input.required<FormGroup>();
+  readonly relationIdKnown = input.required<FormControl<boolean>>();
+  readonly relationId = input.required<FormControl<number | null>>();
 
   private readonly service = inject(MonitorRoutePropertiesStep3RelationService);
 

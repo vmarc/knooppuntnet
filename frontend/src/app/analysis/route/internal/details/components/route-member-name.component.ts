@@ -88,5 +88,5 @@ import { RouteStructureRow } from '@api/common/route/route-structure-row';
   imports: [MatIconModule, RouterLink],
 })
 export class RouteMemberNameComponent {
-  structureRow = input.required<RouteStructureRow>();
+  readonly structureRow = input.required<RouteStructureRow>();
 }

@@ -22,6 +22,6 @@ import { ActionBarChartStackedComponent } from './action-bar-chart-stacked.compo
   imports: [ActionBarChartStackedComponent],
 })
 export class DelayChartComponent {
-  barChart = input.required<BarChart2D>();
-  xAxisLabel = input.required<string>();
+  readonly barChart = input.required<BarChart2D>();
+  readonly xAxisLabel = input.required<string>();
 }

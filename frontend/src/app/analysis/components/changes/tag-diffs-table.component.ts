@@ -65,7 +65,7 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
   imports: [NgClass, TagDiffActionComponent],
 })
 export class TagDiffsTableComponent {
-  tagDiffs = input.required<TagDiffs>();
+  readonly tagDiffs = input.required<TagDiffs>();
 
   hasSeparator(): boolean {
     return this.tagDiffs().mainTags.length > 0 && this.tagDiffs().extraTags.length > 0;

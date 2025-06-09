@@ -34,5 +34,5 @@ import { ActionButtonWayComponent } from '../../../../components/action/action-b
   ],
 })
 export class RouteMemberIdComponent {
-  structureRow = input.required<RouteStructureRow>();
+  readonly structureRow = input.required<RouteStructureRow>();
 }

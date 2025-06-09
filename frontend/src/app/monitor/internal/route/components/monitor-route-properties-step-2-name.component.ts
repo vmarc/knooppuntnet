@@ -34,8 +34,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
   ],
 })
 export class MonitorRoutePropertiesStep2NameComponent {
-  mode = input.required<string>();
-  ngForm = input.required<FormGroupDirective>();
-  name = input.required<FormControl<string>>();
-  description = input.required<FormControl<string>>();
+  readonly mode = input.required<string>();
+  readonly ngForm = input.required<FormGroupDirective>();
+  readonly name = input.required<FormControl<string>>();
+  readonly description = input.required<FormControl<string>>();
 }

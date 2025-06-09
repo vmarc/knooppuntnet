@@ -70,7 +70,7 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
   ],
 })
 export class LocationFactPanelContentsComponent {
-  locationFact = input.required<LocationFact>();
+  readonly locationFact = input.required<LocationFact>();
 
   factInfo(locationFact: LocationFact): FactInfo {
     return new FactInfo(locationFact.fact);

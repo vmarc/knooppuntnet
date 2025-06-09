@@ -37,8 +37,8 @@ import { PageService } from '../page.service';
   imports: [DocLinkComponent],
 })
 export class PageHeaderComponent implements AfterViewInit, OnChanges {
-  subject = input<string>();
-  pageTitle = input<string>();
+  readonly subject = input<string>();
+  readonly pageTitle = input<string>();
 
   private readonly pageService = inject(PageService);
 

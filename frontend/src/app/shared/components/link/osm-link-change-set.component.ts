@@ -10,5 +10,5 @@ import { OsmLinkComponent } from './osm-link.component';
   imports: [OsmLinkComponent],
 })
 export class OsmLinkChangeSetComponent {
-  changeSetId = input.required<number>();
+  readonly changeSetId = input.required<number>();
 }

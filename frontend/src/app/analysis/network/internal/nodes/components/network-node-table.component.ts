@@ -103,19 +103,19 @@ import { NetworkNodeRoutesComponent } from './network-node-routes.component';
 export class NetworkNodeTableComponent {
   private readonly service = inject(NetworkNodesPageService);
 
-  routeType = input.required<RouteType>();
-  routeScope = input.required<RouteScope>();
-  timeInfo = input.required<TimeInfo>();
-  surveyDateInfo = input.required<SurveyDateInfo>();
-  nodes = input.required<NetworkNodeRow[]>();
+  readonly routeType = input.required<RouteType>();
+  readonly routeScope = input.required<RouteScope>();
+  readonly timeInfo = input.required<TimeInfo>();
+  readonly surveyDateInfo = input.required<SurveyDateInfo>();
+  readonly nodes = input.required<NetworkNodeRow[]>();
 
   // private readonly editService = inject(EditService);
 
-  readonly pageIndex = this.service.pageIndex;
-  readonly pageSize = this.service.pageSize;
-  readonly filteredNodes = this.service.filteredNodes;
-  readonly nodeCount = computed(() => this.filteredNodes()?.length);
-  readonly filterOptions = this.service.filterOptions;
+  protected readonly pageIndex = this.service.pageIndex;
+  protected readonly pageSize = this.service.pageSize;
+  protected readonly filteredNodes = this.service.filteredNodes;
+  protected readonly nodeCount = computed(() => this.filteredNodes()?.length);
+  protected readonly filterOptions = this.service.filterOptions;
 
   rowNumber(index: number): number {
     // return this.editAndPaginator().paginator().rowNumber(index);

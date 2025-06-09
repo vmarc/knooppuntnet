@@ -22,7 +22,7 @@ import { ProposedIndicatorDialogComponent } from './proposed-indicator-dialog.co
   imports: [IndicatorComponent],
 })
 export class ProposedIndicatorComponent implements OnInit {
-  node = input.required<NetworkNodeRow>();
+  readonly node = input.required<NetworkNodeRow>();
 
   private readonly dialog = inject(MatDialog);
   color: string;

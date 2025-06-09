@@ -22,7 +22,7 @@ import { FilterOptionGroup } from '@app/shared/kpn/filter/filter-option-group';
   imports: [MatCheckboxModule],
 })
 export class FilterCheckboxGroupComponent {
-  group = input<FilterOptionGroup>();
+  readonly group = input<FilterOptionGroup>();
 
   isSelected() {
     return false;

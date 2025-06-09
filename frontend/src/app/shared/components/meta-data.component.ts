@@ -20,5 +20,5 @@ import { TimestampComponent } from './timestamp/timestamp.component';
   imports: [TimestampComponent],
 })
 export class MetaDataComponent {
-  metaData = input.required<MetaData>();
+  readonly metaData = input.required<MetaData>();
 }

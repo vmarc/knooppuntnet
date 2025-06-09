@@ -60,7 +60,7 @@ import { EditService } from '@app/shared/components/edit.service';
   imports: [MatCheckboxModule, MatButtonModule],
 })
 export class LocationEditComponent implements OnInit {
-  page = input.required<LocationEditPage>();
+  readonly page = input.required<LocationEditPage>();
 
   private readonly editService = inject(EditService);
 

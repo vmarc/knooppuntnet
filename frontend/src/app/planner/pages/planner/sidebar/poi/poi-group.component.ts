@@ -64,8 +64,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
   imports: [MatExpansionModule, MatCheckboxModule, MatButtonModule],
 })
 export class PoiGroupComponent {
-  name = input.required<string>();
-  title = input.required<string>();
+  readonly name = input.required<string>();
+  readonly title = input.required<string>();
 
   private readonly poiService = inject(OldPoiService);
 

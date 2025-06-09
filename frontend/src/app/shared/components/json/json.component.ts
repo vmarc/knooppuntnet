@@ -26,7 +26,7 @@ import { input } from '@angular/core';
   imports: [],
 })
 export class JsonComponent implements OnInit {
-  object = input.required<any>();
+  readonly object = input.required<any>();
 
   contents = '';
   visible = false;

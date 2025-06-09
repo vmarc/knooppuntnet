@@ -28,6 +28,6 @@ import { OsmLinkWayComponent } from '@app/shared/components/link/osm-link-way.co
   imports: [IconHappyComponent, OsmLinkWayComponent],
 })
 export class CsNcWaysRemovedComponent {
-  networkChangeInfo = input.required<NetworkChangeInfo>();
-  readonly wayIds = computed(() => this.networkChangeInfo().ways.removed);
+  readonly networkChangeInfo = input.required<NetworkChangeInfo>();
+  protected readonly wayIds = computed(() => this.networkChangeInfo().ways.removed);
 }

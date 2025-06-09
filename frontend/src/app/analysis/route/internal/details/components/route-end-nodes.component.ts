@@ -28,8 +28,8 @@ import { RouteNodeComponent } from './route-node.component';
   imports: [RouteNodeComponent],
 })
 export class RouteEndNodesComponent {
-  nodes = input.required<RouteNodes>();
-  hasEndNode = computed(() => this.nodes().endNode);
-  hasTentacles = computed(() => this.nodes().endTentacleNodes?.length > 0);
-  hasNodes = computed(() => this.hasEndNode() || this.hasTentacles());
+  readonly nodes = input.required<RouteNodes>();
+  protected readonly hasEndNode = computed(() => this.nodes().endNode);
+  protected readonly hasTentacles = computed(() => this.nodes().endTentacleNodes?.length > 0);
+  protected readonly hasNodes = computed(() => this.hasEndNode() || this.hasTentacles());
 }

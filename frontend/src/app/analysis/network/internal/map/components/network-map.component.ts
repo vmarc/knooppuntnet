@@ -26,8 +26,8 @@ import { NetworkMapService } from './network-map.service';
   imports: [NetworkControlComponent],
 })
 export class NetworkMapComponent implements AfterViewInit {
-  networkId = input.required<number>();
-  page = input.required<NetworkMapPage>();
+  readonly networkId = input.required<number>();
+  readonly page = input.required<NetworkMapPage>();
 
   protected readonly networkMapService = inject(NetworkMapService);
   private readonly networkMapPageService = inject(NetworkMapPageService);

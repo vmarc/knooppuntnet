@@ -78,7 +78,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
   imports: [ChangeSetAnalysisComponent, OsmLinkChangeSetComponent, TimestampComponent],
 })
 export class ChangeSetHeaderComponent {
-  detail = input.required<ChangeSetDetail>();
+  readonly detail = input.required<ChangeSetDetail>();
 
   replicationName() {
     return Util.replicationName(this.detail().summary.key.replicationNumber);

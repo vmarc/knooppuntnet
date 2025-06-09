@@ -25,8 +25,8 @@ import { OsmLinkNodeComponent } from './osm-link-node.component';
   imports: [LinkNodeComponent, OsmLinkNodeComponent],
 })
 export class LinkNodeRefHeaderComponent implements OnInit {
-  ref = input.required<Ref>();
-  knownElements = input.required<KnownElements>();
+  readonly ref = input.required<Ref>();
+  readonly knownElements = input.required<KnownElements>();
 
   known: boolean;
 

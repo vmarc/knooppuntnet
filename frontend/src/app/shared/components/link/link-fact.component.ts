@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
 })
 export class LinkFactComponent {
-  fact = input.required<string>();
-  country = input.required<string>();
-  routeType = input.required<string>();
+  readonly fact = input.required<string>();
+  readonly country = input.required<string>();
+  readonly routeType = input.required<string>();
 }

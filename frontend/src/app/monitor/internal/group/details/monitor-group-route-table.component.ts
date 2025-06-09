@@ -268,9 +268,9 @@ import { ActionButtonRelationComponent } from '@app/analysis/components/action/a
   ],
 })
 export class MonitorGroupRouteTableComponent {
-  admin = input.required<boolean>();
-  groupName = input.required<string>();
-  routes = input.required<MonitorRouteDetail[]>();
+  readonly admin = input.required<boolean>();
+  readonly groupName = input.required<string>();
+  readonly routes = input.required<MonitorRouteDetail[]>();
 
   private readonly columns = [
     'nr',

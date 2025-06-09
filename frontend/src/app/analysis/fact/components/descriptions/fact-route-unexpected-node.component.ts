@@ -22,5 +22,5 @@ import { FactInfo } from '../fact-info';
   imports: [OsmLinkNodeComponent],
 })
 export class FactRouteUnexpectedNodeComponent {
-  factInfo = input.required<FactInfo>();
+  readonly factInfo = input.required<FactInfo>();
 }

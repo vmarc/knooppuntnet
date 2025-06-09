@@ -88,13 +88,13 @@ export class LocationRouteListComponent {
   private readonly service = inject(LocationRoutesPageService);
   private readonly editService = inject(EditService);
 
-  timeInfo = input.required<TimeInfo>();
-  routes = input.required<LocationRouteInfo[]>();
-  routeCount = input.required<number>();
+  readonly timeInfo = input.required<TimeInfo>();
+  readonly routes = input.required<LocationRouteInfo[]>();
+  readonly routeCount = input.required<number>();
 
-  readonly pageIndex = this.service.pageIndex;
-  readonly pageSize = this.service.pageSize;
-  readonly routeType = this.service.routeType;
+  protected readonly pageIndex = this.service.pageIndex;
+  protected readonly pageSize = this.service.pageSize;
+  protected readonly routeType = this.service.routeType;
 
   onPageSizeChange(pageSize: number) {
     this.service.updatePageSize(pageSize);

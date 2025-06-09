@@ -34,5 +34,5 @@ import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
   imports: [DistancePipe, TimestampPipe, TimestampPipe, DistancePipe],
 })
 export class MonitorRouteDetailsReferenceComponent {
-  page = input.required<MonitorRouteDetailsPage>();
+  readonly page = input.required<MonitorRouteDetailsPage>();
 }

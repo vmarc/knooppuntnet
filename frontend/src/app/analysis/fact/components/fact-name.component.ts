@@ -10,7 +10,7 @@ import { Fact } from '@api/common/fact';
   template: `{{ factName }}`,
 })
 export class FactNameComponent implements OnInit {
-  fact = input.required<Fact>();
+  readonly fact = input.required<Fact>();
 
   factName: string;
 

@@ -33,7 +33,7 @@ import { ActionService } from './action.service';
   ],
 })
 export class ActionButtonNetworkFactRoutesComponent {
-  networkFact = input.required<NetworkFact>();
+  readonly networkFact = input.required<NetworkFact>();
 
   private readonly actionService = inject(ActionService);
 

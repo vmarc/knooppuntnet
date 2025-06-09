@@ -62,10 +62,10 @@ import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.c
   ],
 })
 export class ChangeHeaderComponent {
-  changeKey = input.required<ChangeKey>();
-  happy = input.required<boolean>();
-  investigate = input.required<boolean>();
-  comment = input.required<string>();
+  readonly changeKey = input.required<ChangeKey>();
+  readonly happy = input.required<boolean>();
+  readonly investigate = input.required<boolean>();
+  readonly comment = input.required<string>();
 
   private readonly pageWidthService = inject(PageWidthService);
   protected timestampOnSeparateLine = computed(() => this.pageWidthService.isAllSmall());

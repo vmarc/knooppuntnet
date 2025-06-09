@@ -22,7 +22,7 @@ import { LocationNodeFactIndicatorDialogComponent } from './location-node-fact-i
   imports: [IndicatorComponent],
 })
 export class LocationNodeFactIndicatorComponent implements OnInit {
-  node = input.required<LocationNodeInfo>();
+  readonly node = input.required<LocationNodeInfo>();
 
   private readonly dialog = inject(MatDialog);
   color: string;

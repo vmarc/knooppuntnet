@@ -98,7 +98,7 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
   imports: [MarkdownModule, MatIconModule, OverviewListStatTableComponent],
 })
 export class OverviewListStatComponent {
-  stat = input.required<Stat>();
+  readonly stat = input.required<Stat>();
 
   open = false;
 

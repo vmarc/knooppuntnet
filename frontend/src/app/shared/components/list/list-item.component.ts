@@ -20,5 +20,5 @@ import { MatRipple } from '@angular/material/core';
   imports: [NgClass, MatRipple],
 })
 export class ListItemComponent {
-  selected = input.required<boolean>();
+  readonly selected = input.required<boolean>();
 }

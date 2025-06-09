@@ -17,8 +17,8 @@ import { MonitorRouteGapBuilder } from './monitor-route-gap-builder';
   `,
 })
 export class MonitorRouteGapCanvasComponent {
-  description = input.required<string>();
-  osmSegmentCount = input.required<number>();
+  readonly description = input.required<string>();
+  readonly osmSegmentCount = input.required<number>();
 
   private _height: number;
   get height(): number {

@@ -76,6 +76,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
   imports: [MatButtonModule, MatRadioModule, MatStepperModule, ReactiveFormsModule],
 })
 export class MonitorRoutePropertiesStep4ReferenceTypeComponent {
-  ngForm = input.required<FormGroupDirective>();
-  referenceType = input.required<FormControl<string>>();
+  readonly ngForm = input.required<FormGroupDirective>();
+  readonly referenceType = input.required<FormControl<string>>();
 }

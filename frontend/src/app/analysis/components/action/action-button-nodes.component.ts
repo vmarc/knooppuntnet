@@ -27,7 +27,7 @@ import { ActionService } from './action.service';
   ],
 })
 export class ActionButtonNodesComponent {
-  nodeIds = input.required<number[]>();
+  readonly nodeIds = input.required<number[]>();
 
   private readonly actionService = inject(ActionService);
 

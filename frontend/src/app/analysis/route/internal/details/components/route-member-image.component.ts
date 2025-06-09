@@ -32,5 +32,5 @@ import { TryoutWrapperComponent } from '@app/tryout/canvas/tryout-wrapper.compon
   imports: [MatIconModule, TryoutWrapperComponent],
 })
 export class RouteMemberImageComponent {
-  row = input.required<RouteStructureRow>();
+  readonly row = input.required<RouteStructureRow>();
 }

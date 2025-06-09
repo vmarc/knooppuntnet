@@ -94,7 +94,7 @@ import { Facts } from './facts';
   ],
 })
 export class FactsComponent {
-  factInfos = input.required<FactInfo[]>();
+  readonly factInfos = input.required<FactInfo[]>();
 
   get filteredFactInfos(): FactInfo[] {
     return this.factInfos().filter((factInfo) => factInfo.fact !== 'RouteBroken');

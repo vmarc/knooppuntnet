@@ -106,7 +106,7 @@ import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
   `,
 })
 export class PlanDetailedComponent {
-  plan = input.required<Plan>();
+  readonly plan = input.required<Plan>();
 
   hasColour(planRoute: PlanRoute): boolean {
     return PlanRouteColourUtil.hasColour(planRoute);

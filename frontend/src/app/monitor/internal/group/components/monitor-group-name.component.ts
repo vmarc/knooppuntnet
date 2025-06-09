@@ -49,6 +49,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
   imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
 })
 export class MonitorGroupNameComponent {
-  ngForm = input.required<FormGroupDirective>();
-  name = input.required<FormControl<string>>();
+  readonly ngForm = input.required<FormGroupDirective>();
+  readonly name = input.required<FormControl<string>>();
 }

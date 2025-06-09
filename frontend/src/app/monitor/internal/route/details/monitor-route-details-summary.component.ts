@@ -43,5 +43,5 @@ import { ActionButtonRelationComponent } from '@app/analysis/components/action/a
   imports: [ActionButtonRelationComponent, DistancePipe, SymbolComponent, DistancePipe],
 })
 export class MonitorRouteDetailsSummaryComponent {
-  page = input.required<MonitorRouteDetailsPage>();
+  readonly page = input.required<MonitorRouteDetailsPage>();
 }

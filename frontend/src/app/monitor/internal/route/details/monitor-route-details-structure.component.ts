@@ -317,11 +317,11 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
   ],
 })
 export class MonitorRouteDetailsStructureComponent {
-  admin = input.required<boolean>();
-  groupName = input.required<string>();
-  routeName = input.required<string>();
-  structureRows = input.required<MonitorRouteRelationStructureRow[]>();
-  referenceType = input.required<string>();
+  readonly admin = input.required<boolean>();
+  readonly groupName = input.required<string>();
+  readonly routeName = input.required<string>();
+  readonly structureRows = input.required<MonitorRouteRelationStructureRow[]>();
+  readonly referenceType = input.required<string>();
 
   private readonly mainColumns = [
     'nr',

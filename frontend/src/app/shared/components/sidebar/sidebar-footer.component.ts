@@ -57,7 +57,7 @@ import { UserLinkLoginComponent } from '@app/shared/user/user-link-login.compone
   imports: [UserLinkLoginComponent, UserLinkLogoutComponent],
 })
 export class SidebarFooterComponent {
-  loginEnabled = input(true);
+  readonly loginEnabled = input(true);
 
   private readonly router = inject(Router);
 

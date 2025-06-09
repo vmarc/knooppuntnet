@@ -23,6 +23,6 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
   imports: [RouteAccessibleIndicatorComponent, RouteInvestigateIndicatorComponent],
 })
 export class SubsetOrphanRouteAnalysisComponent {
-  route = input.required<OrphanRouteInfo>();
-  routeType = input.required<RouteType>();
+  readonly route = input.required<OrphanRouteInfo>();
+  readonly routeType = input.required<RouteType>();
 }

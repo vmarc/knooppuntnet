@@ -30,14 +30,14 @@ import { MatPaginator } from '@angular/material/paginator';
   imports: [MatPaginatorModule],
 })
 export class OldPaginatorComponent implements AfterViewInit {
-  pageSize = input.required<number>();
-  pageIndex = input.required<number>();
-  length = input.required<number>();
-  showFirstLastButtons = input(false);
-  showPageSizeSelection = input(false);
+  readonly pageSize = input.required<number>();
+  readonly pageIndex = input.required<number>();
+  readonly length = input.required<number>();
+  readonly showFirstLastButtons = input(false);
+  readonly showPageSizeSelection = input(false);
 
-  pageSizeChange = output<number>();
-  pageIndexChange = output<number>();
+  readonly pageSizeChange = output<number>();
+  readonly pageIndexChange = output<number>();
 
   readonly matPaginator = viewChild(MatPaginator);
 

@@ -23,6 +23,6 @@ import { ActionButtonRouteComponent } from '@app/analysis/components/action/acti
   imports: [DistancePipe, RouterLink, ActionButtonRouteComponent, DistancePipe],
 })
 export class SearchRouteComponent {
-  routeType = input.required<RouteType>();
-  item = input.required<RouteListItem>();
+  readonly routeType = input.required<RouteType>();
+  readonly item = input.required<RouteListItem>();
 }

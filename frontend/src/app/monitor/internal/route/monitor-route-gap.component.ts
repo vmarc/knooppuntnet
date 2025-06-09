@@ -34,8 +34,8 @@ import { MonitorRouteGapCanvasComponent } from './monitor-route-gap-canvas.compo
   imports: [MonitorRouteGapCanvasComponent],
 })
 export class MonitorRouteGapComponent implements AfterViewInit, OnInit, OnDestroy {
-  description = input.required<string>();
-  osmSegmentCount = input.required<number>();
+  readonly description = input.required<string>();
+  readonly osmSegmentCount = input.required<number>();
 
   private readonly canvasWrapper = viewChild<ElementRef<HTMLDivElement>>('canvasWrapper');
 

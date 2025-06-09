@@ -32,7 +32,7 @@ import { Tag } from '@api/custom/tag';
   `,
 })
 export class ChangeSetTagsComponent {
-  changeSetTags = input.required<Tag[]>();
+  readonly changeSetTags = input.required<Tag[]>();
 
   tags(): Tag[] {
     if (this.changeSetTags()) {

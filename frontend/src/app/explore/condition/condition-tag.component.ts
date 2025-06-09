@@ -69,5 +69,5 @@ import { ConditionTagForm } from './condition-controls';
   ],
 })
 export class ConditionTagComponent {
-  form = input.required<ConditionTagForm>();
+  readonly form = input.required<ConditionTagForm>();
 }

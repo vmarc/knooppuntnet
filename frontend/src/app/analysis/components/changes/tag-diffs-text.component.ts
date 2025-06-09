@@ -160,7 +160,7 @@ import { TagDiffs } from '@api/common/diff/tag-diffs';
   `,
 })
 export class TagDiffsTextComponent implements OnInit {
-  tagDiffs = input.required<TagDiffs>();
+  readonly tagDiffs = input.required<TagDiffs>();
 
   deletedTagDiffs: TagDiff[];
   addedTagDiffs: TagDiff[];

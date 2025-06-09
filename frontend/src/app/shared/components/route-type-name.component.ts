@@ -11,7 +11,9 @@ import { Translations } from '@app/shared/i18n/translations';
   template: `{{ routeTypeName() }}`,
 })
 export class RouteTypeNameComponent {
-  routeType = input.required<RouteType>();
+  readonly routeType = input.required<RouteType>();
 
-  protected routeTypeName = computed(() => Translations.get('route-type.' + this.routeType()));
+  protected readonly routeTypeName = computed(() =>
+    Translations.get('route-type.' + this.routeType())
+  );
 }

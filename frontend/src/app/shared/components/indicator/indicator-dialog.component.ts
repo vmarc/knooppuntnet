@@ -37,6 +37,6 @@ import { IndicatorIconComponent } from './indicator-icon.component';
   imports: [DialogComponent, MatDialogModule, IndicatorIconComponent],
 })
 export class IndicatorDialogComponent {
-  letter = input.required<string>();
-  color = input.required<string>();
+  readonly letter = input.required<string>();
+  readonly color = input.required<string>();
 }

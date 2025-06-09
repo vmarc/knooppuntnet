@@ -20,5 +20,5 @@ import { NetworkChangeComponent } from './network-change.component';
   imports: [ChangeHeaderComponent, NetworkChangeComponent],
 })
 export class NetworkChangeSetComponent {
-  networkChangeInfo = input.required<NetworkChangeInfo>();
+  readonly networkChangeInfo = input.required<NetworkChangeInfo>();
 }

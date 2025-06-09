@@ -79,17 +79,17 @@ import { NzSelectComponent } from 'ng-zorro-antd/select';
   imports: [FormsModule, NzButtonComponent, NzIconDirective, NzOptionComponent, NzSelectComponent],
 })
 export class PaginatorComponent {
-  pageSize = input.required<number>();
-  pageIndex = input.required<number>();
-  length = input.required<number>();
-  full = input<boolean>(true);
+  readonly pageSize = input.required<number>();
+  readonly pageIndex = input.required<number>();
+  readonly length = input.required<number>();
+  readonly full = input<boolean>(true);
 
-  pageSizeChange = output<number>();
-  pageIndexChange = output<number>();
+  readonly pageSizeChange = output<number>();
+  readonly pageIndexChange = output<number>();
 
-  pageSizeString = computed(() => '' + this.pageSize());
-  pageStartIndex = computed(() => this.pageIndex() * this.pageSize() + 1);
-  pageEndIndex = computed(() => {
+  protected readonly pageSizeString = computed(() => '' + this.pageSize());
+  protected readonly pageStartIndex = computed(() => this.pageIndex() * this.pageSize() + 1);
+  protected readonly pageEndIndex = computed(() => {
     const endIndex = this.pageStartIndex() + this.pageSize() - 1;
     if (endIndex > this.length()) {
       return this.length();
@@ -97,7 +97,7 @@ export class PaginatorComponent {
     return endIndex;
   });
 
-  pageCount = computed(() => {
+  protected readonly pageCount = computed(() => {
     const count = Math.trunc(this.length() / this.pageSize());
     if (count * this.pageSize() + 1 < this.length()) {
       return count + 1;
@@ -105,12 +105,14 @@ export class PaginatorComponent {
     return count;
   });
 
-  buttonStartDisabled = computed(() => this.length() > 0 && this.pageIndex() < 1);
-  buttonPrevDisabled = computed(() => this.length() > 0 && this.pageIndex() < 1);
-  buttonNextDisabled = computed(
+  protected readonly buttonStartDisabled = computed(
+    () => this.length() > 0 && this.pageIndex() < 1
+  );
+  protected readonly buttonPrevDisabled = computed(() => this.length() > 0 && this.pageIndex() < 1);
+  protected readonly buttonNextDisabled = computed(
     () => this.length() > 0 && this.pageIndex() === this.pageCount() - 1
   );
-  buttonEndDisabled = computed(
+  protected readonly buttonEndDisabled = computed(
     () => this.length() > 0 && this.pageIndex() === this.pageCount() - 1
   );
 

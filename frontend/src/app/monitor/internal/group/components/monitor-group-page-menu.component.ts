@@ -23,6 +23,6 @@ import { PageMenuComponent } from '@app/shared/components/menu/page-menu.compone
   imports: [PageMenuComponent, PageMenuOptionComponent, ErrorComponent],
 })
 export class MonitorGroupPageMenuComponent {
-  pageName = input.required<string>();
-  groupName = input.required<string>();
+  readonly pageName = input.required<string>();
+  readonly groupName = input.required<string>();
 }

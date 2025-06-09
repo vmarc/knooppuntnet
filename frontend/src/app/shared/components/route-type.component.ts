@@ -30,5 +30,5 @@ import { RouteTypeNameComponent } from './route-type-name.component';
   imports: [RouteTypeNameComponent, NzIconDirective],
 })
 export class RouteTypeComponent {
-  routeType = input.required<RouteType>();
+  readonly routeType = input.required<RouteType>();
 }

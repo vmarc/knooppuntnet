@@ -139,18 +139,18 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
   ],
 })
 export class NetworkRouteTableComponent {
-  timeInfo = input.required<TimeInfo>();
-  surveyDateInfo = input.required<SurveyDateInfo>();
-  routeType = input.required<RouteType>();
-  routes = input.required<NetworkRouteRow[]>();
+  readonly timeInfo = input.required<TimeInfo>();
+  readonly surveyDateInfo = input.required<SurveyDateInfo>();
+  readonly routeType = input.required<RouteType>();
+  readonly routes = input.required<NetworkRouteRow[]>();
 
   private readonly editAndPaginator = viewChild(EditAndPaginatorComponent);
 
   private readonly editService = inject(EditService);
   private readonly service = inject(NetworkRoutesPageService);
 
-  readonly pageSize = this.service.pageSize;
-  readonly totalRouteCount = this.service.totalRouteCount;
+  protected readonly pageSize = this.service.pageSize;
+  protected readonly totalRouteCount = this.service.totalRouteCount;
 
   rowNumber(index: number): number {
     return this.editAndPaginator().paginator().rowNumber(index);

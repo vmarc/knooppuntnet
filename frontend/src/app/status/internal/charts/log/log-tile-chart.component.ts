@@ -22,6 +22,6 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
   imports: [ActionBarChartComponent],
 })
 export class LogTileChartComponent {
-  barChart = input.required<BarChart>();
-  xAxisLabel = input.required<string>();
+  readonly barChart = input.required<BarChart>();
+  readonly xAxisLabel = input.required<string>();
 }

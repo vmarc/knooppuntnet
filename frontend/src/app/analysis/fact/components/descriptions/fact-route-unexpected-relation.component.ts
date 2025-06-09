@@ -26,5 +26,5 @@ import { FactInfo } from '../fact-info';
   imports: [MarkdownModule, OsmLinkRelationComponent],
 })
 export class FactRouteUnexpectedRelationComponent {
-  factInfo = input.required<FactInfo>();
+  readonly factInfo = input.required<FactInfo>();
 }

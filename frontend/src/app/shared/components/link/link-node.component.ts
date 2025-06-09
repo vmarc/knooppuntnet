@@ -19,6 +19,6 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
 })
 export class LinkNodeComponent {
-  nodeId = input.required<number>();
-  nodeName = input.required<string>();
+  readonly nodeId = input.required<number>();
+  readonly nodeName = input.required<string>();
 }

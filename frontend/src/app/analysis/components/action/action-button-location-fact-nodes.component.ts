@@ -28,7 +28,7 @@ import { ActionService } from './action.service';
   ],
 })
 export class ActionButtonLocationFactNodesComponent {
-  locationFact = input.required<LocationFact>();
+  readonly locationFact = input.required<LocationFact>();
 
   private readonly actionService = inject(ActionService);
 

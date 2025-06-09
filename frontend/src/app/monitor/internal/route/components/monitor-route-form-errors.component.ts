@@ -44,5 +44,5 @@ import { ChangeDetectionStrategy } from '@angular/core';
   `,
 })
 export class MonitorRouteFormErrorsComponent {
-  errors = input.required<string[]>();
+  readonly errors = input.required<string[]>();
 }

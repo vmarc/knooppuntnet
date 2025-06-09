@@ -32,8 +32,8 @@ import { TryoutCanvasComponent } from './tryout-canvas.component';
   imports: [TryoutCanvasComponent],
 })
 export class TryoutWrapperComponent implements AfterViewInit, OnInit, OnDestroy {
-  memberType = input.required<MemberType>();
-  link = input.required<Link>();
+  readonly memberType = input.required<MemberType>();
+  readonly link = input.required<Link>();
 
   private readonly canvasWrapper = viewChild<ElementRef<HTMLDivElement>>('canvasWrapper');
 

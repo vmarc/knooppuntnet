@@ -38,8 +38,8 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
   imports: [ActionBarChartComponent, LineChartModule],
 })
 export class DiskSpaceUsedChartComponent {
-  barChart = input.required<BarChart>();
-  xAxisLabel = input.required<string>();
+  readonly barChart = input.required<BarChart>();
+  readonly xAxisLabel = input.required<string>();
 
   view: [number, number] = [700, 300];
 

@@ -58,6 +58,6 @@ import { RouteMemberComponent } from './route-member.component';
   imports: [MatIconModule, RouteMemberComponent],
 })
 export class RouteMembersComponent {
-  routeType = input.required<RouteType>();
-  rows = input.required<RouteStructureRow[]>();
+  readonly routeType = input.required<RouteType>();
+  readonly rows = input.required<RouteStructureRow[]>();
 }

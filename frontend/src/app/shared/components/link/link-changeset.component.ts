@@ -14,6 +14,6 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
 })
 export class LinkChangesetComponent {
-  changeSetId = input.required<number>();
-  replicationNumber = input.required<number>();
+  readonly changeSetId = input.required<number>();
+  readonly replicationNumber = input.required<number>();
 }

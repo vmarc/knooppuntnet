@@ -163,5 +163,5 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
   imports: [IconHappyComponent, IconInvestigateComponent, LinkNodeComponent, LinkRouteComponent],
 })
 export class ChangeSetLocationTreeNodeComponent {
-  trees = input.required<LocationChangesTreeNode[]>();
+  readonly trees = input.required<LocationChangesTreeNode[]>();
 }

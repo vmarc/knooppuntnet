@@ -20,5 +20,5 @@ import { ConditionLocationForm } from './condition-controls';
   imports: [MatLabel, MatFormField, MatInput, FormsModule, ReactiveFormsModule],
 })
 export class ConditionLocationComponent {
-  form = input.required<ConditionLocationForm>();
+  readonly form = input.required<ConditionLocationForm>();
 }

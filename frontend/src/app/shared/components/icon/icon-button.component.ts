@@ -57,7 +57,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
   imports: [RouterLink, NzIconDirective],
 })
 export class IconButtonComponent {
-  title = input.required<string>();
-  routerLink = input.required<string>();
-  icon = input.required<string>();
+  readonly title = input.required<string>();
+  readonly routerLink = input.required<string>();
+  readonly icon = input.required<string>();
 }

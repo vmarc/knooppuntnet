@@ -23,9 +23,9 @@ import { RouteChangeMapService } from './route-change-map.service';
   ],
 })
 export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
-  geometryDiff = input.required<GeometryDiff>();
-  bounds = input.required<Bounds>();
-  nodeChanges = input.required<RouteNodeChange[]>();
+  readonly geometryDiff = input.required<GeometryDiff>();
+  readonly bounds = input.required<Bounds>();
+  readonly nodeChanges = input.required<RouteNodeChange[]>();
 
   protected readonly service = inject(RouteChangeMapService);
 

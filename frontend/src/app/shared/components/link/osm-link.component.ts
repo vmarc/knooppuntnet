@@ -19,7 +19,7 @@ import { input } from '@angular/core';
   `,
 })
 export class OsmLinkComponent {
-  kind = input.required<string>();
-  elementId = input.required<string>();
-  title = input.required<string>();
+  readonly kind = input.required<string>();
+  readonly elementId = input.required<string>();
+  readonly title = input.required<string>();
 }

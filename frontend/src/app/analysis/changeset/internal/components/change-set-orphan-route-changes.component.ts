@@ -31,7 +31,7 @@ import { RouteDiffsComponent } from './route-diffs/route-diffs.component';
   imports: [RouteDiffsComponent, NzIconDirective],
 })
 export class ChangeSetOrphanRouteChangesComponent {
-  detail = input.required<ChangeSetDetail>();
+  readonly detail = input.required<ChangeSetDetail>();
 
   routeDiffs(refs: ChangeSetSubsetElementRefs): RouteDiffsData {
     const refDiffs: RefDiffs = {
@@ -43,7 +43,7 @@ export class ChangeSetOrphanRouteChangesComponent {
       refDiffs,
       this.detail().summary.key.changeSetId,
       this.detail().knownElements,
-      List(this.detail().routeChanges)
+      this.detail().routeChanges
     );
   }
 

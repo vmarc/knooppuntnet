@@ -129,13 +129,13 @@ import { NzSwitchComponent } from 'ng-zorro-antd/switch';
   imports: [PaginatorComponent, NzSwitchComponent, FormsModule, NgTemplateOutlet],
 })
 export class ListComponent {
-  pageSize = input<number>(0);
-  pageIndex = input<number>(0);
-  length = input<number>(0);
-  filter = input<boolean>(false);
+  readonly pageSize = input<number>(0);
+  readonly pageIndex = input<number>(0);
+  readonly length = input<number>(0);
+  readonly filter = input<boolean>(false);
 
-  pageSizeChange = output<number>();
-  pageIndexChange = output<number>();
+  readonly pageSizeChange = output<number>();
+  readonly pageIndexChange = output<number>();
 
   filterEnabled = signal<boolean>(true);
 

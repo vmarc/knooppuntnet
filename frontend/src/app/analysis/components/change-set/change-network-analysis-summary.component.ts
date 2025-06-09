@@ -52,7 +52,7 @@ import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-n
   ],
 })
 export class ChangeNetworkAnalysisSummaryComponent implements OnInit {
-  changeSet = input.required<ChangeSetSummaryInfo>();
+  readonly changeSet = input.required<ChangeSetSummaryInfo>();
 
   networkActions: ChangeSetNetworkAction[];
 

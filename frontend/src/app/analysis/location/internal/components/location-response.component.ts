@@ -22,6 +22,6 @@ import { SituationOnComponent } from '@app/shared/components/timestamp/situation
   imports: [SituationOnComponent],
 })
 export class LocationResponseComponent {
-  situationOnEnabled = input(true);
-  response = input.required<ApiResponse<any>>();
+  readonly situationOnEnabled = input(true);
+  readonly response = input.required<ApiResponse<any>>();
 }

@@ -42,8 +42,8 @@ import { KpnDateAdapter } from '@app/shared/components/day/kpn-date-adapter';
   ],
 })
 export class DayInputComponent {
-  date = input.required<FormControl<Date | null>>();
-  label = input.required<string>();
+  readonly date = input.required<FormControl<Date | null>>();
+  readonly label = input.required<string>();
 
   private readonly matDateLocale = inject(MAT_DATE_LOCALE);
 

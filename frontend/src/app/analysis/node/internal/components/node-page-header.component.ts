@@ -42,9 +42,9 @@ import { NodeService } from '../node.service';
   imports: [PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class NodePageHeaderComponent {
-  pageName = input.required<string>();
+  readonly pageName = input.required<string>();
 
-  readonly service = inject(NodeService);
+  protected readonly service = inject(NodeService);
 
   linkNodeDetails(): string {
     return this.linkNode('');

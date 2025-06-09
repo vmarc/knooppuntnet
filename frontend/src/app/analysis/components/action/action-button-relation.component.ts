@@ -39,7 +39,7 @@ import { ActionService } from './action.service';
   ],
 })
 export class ActionButtonRelationComponent {
-  relationId = input.required<number>();
+  readonly relationId = input.required<number>();
 
   private readonly actionService = inject(ActionService);
 

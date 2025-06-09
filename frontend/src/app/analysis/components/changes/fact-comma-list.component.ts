@@ -32,9 +32,9 @@ import { FactNameComponent } from '../../fact/components/fact-name.component';
   imports: [FactNameComponent, IconHappyComponent, IconInvestigateComponent],
 })
 export class FactCommaListComponent {
-  title = input.required<string>();
-  facts = input.required<Fact[]>();
-  icon = input.required<string>();
+  readonly title = input.required<string>();
+  readonly facts = input.required<Fact[]>();
+  readonly icon = input.required<string>();
 
   hasFacts(): boolean {
     return this.facts() && this.facts().length > 0;

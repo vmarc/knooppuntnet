@@ -28,7 +28,7 @@ import { ActionService } from './action.service';
   imports: [ActionMenuItemComponent, NzMenuDirective, NzDropDownModule, ActionButtonComponent],
 })
 export class ActionButtonLocationFactRoutesComponent {
-  locationFact = input.required<LocationFact>();
+  readonly locationFact = input.required<LocationFact>();
 
   private readonly actionService = inject(ActionService);
 

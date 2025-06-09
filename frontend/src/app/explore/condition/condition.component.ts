@@ -89,9 +89,9 @@ import { ConditionTagComponent } from './condition-tag.component';
   ],
 })
 export class ConditionComponent {
-  form = input.required<ConditionForm>();
-  update = output<Condition>();
-  remove = output<void>();
+  readonly form = input.required<ConditionForm>();
+  readonly update = output<Condition>();
+  readonly remove = output<void>();
 
   onSubjectChange(subject: ConditionSubject): void {
     const updated = ExploreState.defaultConditionSubject(subject);

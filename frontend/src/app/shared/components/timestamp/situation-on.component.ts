@@ -14,5 +14,5 @@ import { TimestampComponent } from './timestamp.component';
   imports: [TimestampComponent],
 })
 export class SituationOnComponent {
-  timestamp = input.required<Timestamp>();
+  readonly timestamp = input.required<Timestamp>();
 }

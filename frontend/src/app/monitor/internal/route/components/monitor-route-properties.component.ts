@@ -161,47 +161,56 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
   ],
 })
 export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
-  mode = input.required<string>();
-  groupName = input.required<string>();
-  initialProperties = input.required<MonitorRouteProperties>();
-  routeGroups = input.required<MonitorRouteGroup[]>();
-  update = output<MonitorRouteUpdate>();
+  readonly mode = input.required<string>();
+  readonly groupName = input.required<string>();
+  readonly initialProperties = input.required<MonitorRouteProperties>();
+  readonly routeGroups = input.required<MonitorRouteGroup[]>();
+  readonly update = output<MonitorRouteUpdate>();
 
   private readonly monitorService = inject(MonitorService);
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 
-  readonly cancelLinkText = Translations.get('action.cancel');
+  protected readonly cancelLinkText = Translations.get('action.cancel');
 
-  readonly group = new FormControl<MonitorRouteGroup>(null);
+  protected readonly group = new FormControl<MonitorRouteGroup>(null);
 
-  readonly name = new FormControl<string>('', {
+  protected readonly name = new FormControl<string>('', {
     validators: [Validators.required, Validators.maxLength(15)],
     asyncValidators: this.asyncAddRouteNameUniqueValidator(),
   });
-  readonly description = new FormControl<string>('', [
+  protected readonly description = new FormControl<string>('', [
     Validators.required,
     Validators.maxLength(100),
   ]);
-  readonly relationIdKnown = new FormControl<boolean>(null);
-  readonly relationId = new FormControl<number>(null);
-  readonly referenceType = new FormControl<string>(null, Validators.required);
-  readonly osmReferenceDate = new FormControl<Date>(null, this.osmReferenceTimestampValidator());
-  readonly gpxReferenceDate = new FormControl<Date>(null, this.gpxReferenceTimestampValidator());
-  readonly referenceFilename = new FormControl<string>(null, this.gpxReferenceFilenameValidator());
-  readonly referenceFile = new FormControl<File>(null);
+  protected readonly relationIdKnown = new FormControl<boolean>(null);
+  protected readonly relationId = new FormControl<number>(null);
+  protected readonly referenceType = new FormControl<string>(null, Validators.required);
+  protected readonly osmReferenceDate = new FormControl<Date>(
+    null,
+    this.osmReferenceTimestampValidator()
+  );
+  protected readonly gpxReferenceDate = new FormControl<Date>(
+    null,
+    this.gpxReferenceTimestampValidator()
+  );
+  protected readonly referenceFilename = new FormControl<string>(
+    null,
+    this.gpxReferenceFilenameValidator()
+  );
+  protected readonly referenceFile = new FormControl<File>(null);
 
-  readonly comment = new FormControl<string>(null);
+  protected readonly comment = new FormControl<string>(null);
 
-  readonly groupForm = new FormGroup({
+  protected readonly groupForm = new FormGroup({
     group: this.group,
   });
 
-  readonly nameForm = new FormGroup({
+  protected readonly nameForm = new FormGroup({
     name: this.name,
     description: this.description,
   });
 
-  readonly relationIdForm = new FormGroup(
+  protected readonly relationIdForm = new FormGroup(
     {
       relationIdKnown: this.relationIdKnown,
       relationId: this.relationId,
@@ -209,22 +218,22 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
     this.relationIdFormValidator()
   );
 
-  readonly referenceTypeForm = new FormGroup({
+  protected readonly referenceTypeForm = new FormGroup({
     referenceType: this.referenceType,
   });
 
-  readonly referenceDetailsForm = new FormGroup({
+  protected readonly referenceDetailsForm = new FormGroup({
     osmReferenceDate: this.osmReferenceDate,
     gpxReferenceDate: this.gpxReferenceDate,
     referenceFilename: this.referenceFilename,
     referenceFile: this.referenceFile,
   });
 
-  readonly commentForm = new FormGroup({
+  protected readonly commentForm = new FormGroup({
     comment: this.comment,
   });
 
-  readonly form = new FormGroup(
+  protected readonly form = new FormGroup(
     {
       groupForm: this.groupForm,
       nameForm: this.nameForm,

@@ -40,5 +40,5 @@ import { MarkdownModule } from 'ngx-markdown';
   imports: [MarkdownModule, MatIconModule, RouterLink, NgClass],
 })
 export class RouteParentsComponent {
-  parentRoutes = input.required<Array<ParentRoute>>();
+  readonly parentRoutes = input.required<Array<ParentRoute>>();
 }

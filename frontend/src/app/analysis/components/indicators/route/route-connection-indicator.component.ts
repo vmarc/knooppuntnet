@@ -22,7 +22,7 @@ import { RouteConnectionIndicatorDialogComponent } from './route-connection-indi
   imports: [IndicatorComponent],
 })
 export class RouteConnectionIndicatorComponent implements OnInit {
-  route = input.required<NetworkRouteRow>();
+  readonly route = input.required<NetworkRouteRow>();
 
   private readonly dialog = inject(MatDialog);
   color: string;

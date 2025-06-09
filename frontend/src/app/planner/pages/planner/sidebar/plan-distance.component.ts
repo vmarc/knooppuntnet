@@ -29,7 +29,7 @@ import { Plan } from '../../../domain/plan/plan';
   imports: [],
 })
 export class PlanDistanceComponent implements OnChanges {
-  plan = input.required<Plan>();
+  readonly plan = input.required<Plan>();
 
   meters = 0;
 

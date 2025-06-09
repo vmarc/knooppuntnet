@@ -66,8 +66,8 @@ import { NzTableModule } from 'ng-zorro-antd/table';
   imports: [RouterLink, NzTableModule, NzIconDirective, NzDividerComponent],
 })
 export class MonitorGroupTableComponent {
-  admin = input.required<boolean>();
-  groups = input.required<MonitorGroupsPageGroup[]>();
+  readonly admin = input.required<boolean>();
+  readonly groups = input.required<MonitorGroupsPageGroup[]>();
 
   groupLink(group: MonitorGroupDetail): string {
     return `/monitor/groups/${group.name}`;

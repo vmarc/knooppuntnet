@@ -48,5 +48,5 @@ import { ServerDiskUsagePieChartComponent } from './server-disk-usage-pie-chart.
   imports: [ServerDiskUsagePieChartComponent, ServerDiskUsageLegendComponent],
 })
 export class ServerDiskUsageComponent {
-  diskUsage = input.required<DiskUsage>();
+  readonly diskUsage = input.required<DiskUsage>();
 }

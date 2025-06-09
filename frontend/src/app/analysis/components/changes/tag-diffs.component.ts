@@ -22,7 +22,7 @@ import { TagDiffsTextComponent } from './tag-diffs-text.component';
   imports: [TagDiffsTextComponent, TagDiffsTableComponent],
 })
 export class TagDiffsComponent {
-  tagDiffs = input.required<TagDiffs>();
+  readonly tagDiffs = input.required<TagDiffs>();
 
   private readonly pageWidthService = inject(PageWidthService);
   protected readonly small = computed(() => this.pageWidthService.isAllSmall());

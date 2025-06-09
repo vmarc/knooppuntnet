@@ -19,6 +19,6 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
   imports: [NzButtonComponent],
 })
 export class ExpandCollapseComponent {
-  expandAll = output<void>();
-  collapseAll = output<void>();
+  readonly expandAll = output<void>();
+  readonly collapseAll = output<void>();
 }

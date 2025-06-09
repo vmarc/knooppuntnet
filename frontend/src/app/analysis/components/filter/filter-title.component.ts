@@ -15,5 +15,5 @@ import { FilterOptions } from '@app/shared/kpn/filter/filter-options';
   styleUrl: './filter.scss',
 })
 export class FilterTitleComponent {
-  filterOptions = input.required<FilterOptions>();
+  readonly filterOptions = input.required<FilterOptions>();
 }

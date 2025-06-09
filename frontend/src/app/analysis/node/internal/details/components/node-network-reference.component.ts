@@ -16,7 +16,7 @@ import { IconNetworkLinkComponent } from '@app/shared/components/link/icon-netwo
   imports: [IconNetworkLinkComponent],
 })
 export class NodeNetworkReferenceComponent {
-  nodeInfo = input.required<NodeInfo>();
-  reference = input.required<Reference>();
-  mixedRouteScopes = input.required<boolean>();
+  readonly nodeInfo = input.required<NodeInfo>();
+  readonly reference = input.required<Reference>();
+  readonly mixedRouteScopes = input.required<boolean>();
 }

@@ -21,5 +21,5 @@ import { LocationNodeListComponent } from './location-node-list.component';
   imports: [LocationNodeListComponent],
 })
 export class LocationNodesComponent {
-  page = input.required<LocationNodesPage>();
+  readonly page = input.required<LocationNodesPage>();
 }

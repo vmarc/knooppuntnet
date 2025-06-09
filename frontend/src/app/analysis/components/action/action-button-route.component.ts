@@ -44,8 +44,8 @@ import { ActionService } from './action.service';
   ],
 })
 export class ActionButtonRouteComponent {
-  relationId = input.required<number>();
-  routeType = input<RouteType | undefined>(undefined);
+  readonly relationId = input.required<number>();
+  readonly routeType = input<RouteType | undefined>(undefined);
 
   private readonly actionService = inject(ActionService);
 

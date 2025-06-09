@@ -71,7 +71,7 @@ import { LocationPipe } from '@app/shared/components/format/location.pipe';
   imports: [ChangeHeaderComponent, ChangesSetElementRefsComponent, RouterLink, LocationPipe],
 })
 export class LocationChangeComponent {
-  changeSet = input.required<LocationChangeSetInfo>();
+  readonly changeSet = input.required<LocationChangeSetInfo>();
 
   locationLink(link: string): string {
     return `/analysis/${link}/details`;

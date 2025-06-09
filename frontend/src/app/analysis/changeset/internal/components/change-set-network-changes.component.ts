@@ -40,7 +40,7 @@ import { CsNcComponent } from './network/cs-nc.component';
   imports: [CsNcComponent, LinkNetworkDetailsComponent, NzIconDirective],
 })
 export class ChangeSetNetworkChangesComponent implements OnDestroy, AfterViewInit {
-  detail = input.required<ChangeSetDetail>();
+  readonly detail = input.required<ChangeSetDetail>();
 
   private readonly route = inject(ActivatedRoute);
   private readonly document = inject(DOCUMENT);

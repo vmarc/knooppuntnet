@@ -77,7 +77,7 @@ import { PageFooterComponent } from './page-footer.component';
   imports: [MatSidenavModule, PageExperimentalComponent, PageFooterComponent, SidebarBackComponent],
 })
 export class OldPageComponent {
-  showFooter = input<boolean>(true);
+  readonly showFooter = input<boolean>(true);
 
   private readonly pageService = inject(PageService);
   private readonly pageWidthService = inject(PageWidthService);

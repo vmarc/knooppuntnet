@@ -42,8 +42,8 @@ import { RouteType } from '@api/common/route-type';
   imports: [RouterLink],
 })
 export class RouteLocationComponent {
-  routeType = input.required<RouteType>();
-  locationCandidateInfos = input.required<LocationCandidateInfo[]>();
+  readonly routeType = input.required<RouteType>();
+  readonly locationCandidateInfos = input.required<LocationCandidateInfo[]>();
 
   link(locationInfo: LocationInfo) {
     return `/analysis/${this.routeType()}/${locationInfo.link}/details`;

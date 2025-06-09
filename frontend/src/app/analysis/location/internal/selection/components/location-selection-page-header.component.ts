@@ -41,5 +41,5 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
   ],
 })
 export class LocationSelectionPageHeaderComponent {
-  key = input.required<LocationKey>();
+  readonly key = input.required<LocationKey>();
 }

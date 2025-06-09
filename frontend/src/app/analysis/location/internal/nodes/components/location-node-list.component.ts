@@ -104,13 +104,13 @@ export class LocationNodeListComponent {
   private readonly service = inject(LocationNodesPageService);
   private readonly editService = inject(EditService);
 
-  timeInfo = input.required<TimeInfo>();
-  nodes = input.required<LocationNodeInfo[]>();
-  nodeCount = input.required<number>();
+  readonly timeInfo = input.required<TimeInfo>();
+  readonly nodes = input.required<LocationNodeInfo[]>();
+  readonly nodeCount = input.required<number>();
 
-  readonly pageSize = this.service.pageSize;
-  readonly pageIndex = this.service.pageIndex;
-  readonly routeType = this.service.routeType;
+  protected readonly pageSize = this.service.pageSize;
+  protected readonly pageIndex = this.service.pageIndex;
+  protected readonly routeType = this.service.routeType;
 
   // TODO SIGNAL
   routeScope: RouteScope = 'regional';

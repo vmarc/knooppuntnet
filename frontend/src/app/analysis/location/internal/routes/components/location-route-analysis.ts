@@ -26,6 +26,6 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
   imports: [RouteAccessibleIndicatorComponent, RouteInvestigateIndicatorComponent],
 })
 export class LocationRouteAnalysisComponent {
-  route = input.required<LocationRouteInfo>();
-  routeType = input.required<RouteType>();
+  readonly route = input.required<LocationRouteInfo>();
+  readonly routeType = input.required<RouteType>();
 }

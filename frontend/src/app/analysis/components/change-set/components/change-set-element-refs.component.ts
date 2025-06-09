@@ -20,8 +20,8 @@ import { ChangesSetElementRefComponent } from './change-set-element-ref.componen
   imports: [ChangesSetElementRefComponent],
 })
 export class ChangesSetElementRefsComponent implements OnInit {
-  elementType = input.required<string>();
-  changeSetElementRefs = input.required<ChangeSetElementRefs>();
+  readonly elementType = input.required<string>();
+  readonly changeSetElementRefs = input.required<ChangeSetElementRefs>();
 
   elements: ChangeSetElement[];
 

@@ -22,10 +22,10 @@ import { IndicatorIconComponent } from './indicator-icon.component';
   imports: [IndicatorIconComponent],
 })
 export class IndicatorComponent {
-  letter = input.required<string>();
-  color = input.required<string>();
+  readonly letter = input.required<string>();
+  readonly color = input.required<string>();
 
-  openDialog = output<void>();
+  readonly openDialog = output<void>();
 
   onOpenDialog() {
     this.openDialog.emit();

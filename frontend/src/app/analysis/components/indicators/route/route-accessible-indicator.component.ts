@@ -23,8 +23,8 @@ import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indi
   imports: [IndicatorComponent],
 })
 export class RouteAccessibleIndicatorComponent implements OnInit {
-  accessible = input.required<boolean>();
-  routeType = input.required<RouteType>();
+  readonly accessible = input.required<boolean>();
+  readonly routeType = input.required<RouteType>();
 
   private readonly dialog = inject(MatDialog);
   color: string;

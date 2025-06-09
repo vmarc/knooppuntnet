@@ -34,11 +34,11 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
   imports: [MatButtonModule, MatIconModule, NzIconDirective, NzButtonComponent],
 })
 export class PlanActionButtonComponent {
-  enabled = input(false);
-  icon = input('');
-  text = input('');
-  title = input('');
-  action = output<void>();
+  readonly enabled = input(false);
+  readonly icon = input('');
+  readonly text = input('');
+  readonly title = input('');
+  readonly action = output<void>();
 
   private readonly pageWidthService = inject(PageWidthService);
   protected showButtonText = computed(

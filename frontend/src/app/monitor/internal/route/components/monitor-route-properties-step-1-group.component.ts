@@ -45,7 +45,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   ],
 })
 export class MonitorRoutePropertiesStep1GroupComponent {
-  ngForm = input.required<FormGroupDirective>();
-  group = input.required<FormControl<MonitorRouteGroup | null>>();
-  routeGroups = input.required<MonitorRouteGroup[]>();
+  readonly ngForm = input.required<FormGroupDirective>();
+  readonly group = input.required<FormControl<MonitorRouteGroup | null>>();
+  readonly routeGroups = input.required<MonitorRouteGroup[]>();
 }

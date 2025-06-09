@@ -45,6 +45,6 @@ import { input } from '@angular/core';
   `,
 })
 export class IndicatorIconComponent {
-  letter = input.required<string>();
-  color = input.required<string>();
+  readonly letter = input.required<string>();
+  readonly color = input.required<string>();
 }

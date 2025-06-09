@@ -53,10 +53,10 @@ import { SymbolWheelComponent } from './internal/symbol-wheel.component';
   imports: [SymbolHikerComponent, SymbolWheelComponent],
 })
 export class SymbolComponent implements OnInit, AfterViewInit {
-  description = input.required<string>();
-  width = input(50);
-  height = input(50);
-  grid = input(false);
+  readonly description = input.required<string>();
+  readonly width = input(50);
+  readonly height = input(50);
+  readonly grid = input(false);
   private readonly canvas = viewChild<ElementRef<HTMLCanvasElement>>('symbolCanvas');
 
   box = '';

@@ -37,8 +37,8 @@ import { MonthComponent } from './month.component';
   imports: [NgClass, MonthComponent],
 })
 export class ChangeFilterPeriodComponent {
-  option = input.required<ChangesFilterOption>();
-  optionSelected = output<ChangeOption>();
+  readonly option = input.required<ChangesFilterOption>();
+  readonly optionSelected = output<ChangeOption>();
 
   impactedCountClicked(): void {
     this.countClicked(true);

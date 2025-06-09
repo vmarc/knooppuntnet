@@ -100,8 +100,8 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
   ],
 })
 export class LocationPageHeaderComponent {
-  pageName = input.required<string>();
-  pageTitle = input.required<string>();
+  readonly pageName = input.required<string>();
+  readonly pageTitle = input.required<string>();
 
   protected readonly service = inject(LocationService);
 

@@ -11,7 +11,9 @@ import { Translations } from '@app/shared/i18n/translations';
   template: `{{ routeScopeName() }}`,
 })
 export class RouteScopeNameComponent {
-  routeScope = input.required<RouteScope>();
+  readonly routeScope = input.required<RouteScope>();
 
-  protected routeScopeName = computed(() => Translations.get('route-scope.' + this.routeScope()));
+  protected readonly routeScopeName = computed(() =>
+    Translations.get('route-scope.' + this.routeScope())
+  );
 }

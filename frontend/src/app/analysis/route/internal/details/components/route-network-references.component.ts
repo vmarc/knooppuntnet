@@ -23,5 +23,5 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
   imports: [RouterLink, NzIconDirective],
 })
 export class RouteNetworkReferencesComponent {
-  references = input.required<Reference[]>();
+  readonly references = input.required<Reference[]>();
 }

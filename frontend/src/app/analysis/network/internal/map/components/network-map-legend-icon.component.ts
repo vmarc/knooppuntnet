@@ -25,7 +25,7 @@ import { input } from '@angular/core';
   `,
 })
 export class NetworkMapLegendIconComponent {
-  color = input.required<string>();
+  readonly color = input.required<string>();
 
   style(): string {
     return `stroke:${this.color()};stroke-width:3`;

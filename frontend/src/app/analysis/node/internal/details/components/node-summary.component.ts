@@ -99,7 +99,7 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
   ],
 })
 export class NodeSummaryComponent {
-  nodeInfo = input.required<NodeInfo>();
+  readonly nodeInfo = input.required<NodeInfo>();
 
   isProposed(): boolean {
     return this.nodeInfo().names.some((name) => name.proposed);

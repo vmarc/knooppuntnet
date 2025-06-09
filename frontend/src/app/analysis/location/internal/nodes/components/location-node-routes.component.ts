@@ -32,7 +32,7 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
   imports: [LinkRouteComponent],
 })
 export class LocationNodeRoutesComponent {
-  node = input.required<LocationNodeInfo>();
+  readonly node = input.required<LocationNodeInfo>();
 
   hasRouteReferences(): boolean {
     return this.node().routeReferences && this.node().routeReferences.length > 0;

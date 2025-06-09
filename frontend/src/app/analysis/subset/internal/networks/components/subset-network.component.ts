@@ -45,7 +45,7 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
   ],
 })
 export class SubsetNetworkComponent implements OnInit {
-  network = input.required<NetworkAttributes>();
+  readonly network = input.required<NetworkAttributes>();
 
   interpretedNetwork: InterpretedNetworkAttributes;
 

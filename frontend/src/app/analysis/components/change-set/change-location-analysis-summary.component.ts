@@ -84,7 +84,7 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
   ],
 })
 export class ChangeLocationAnalysisSummaryComponent {
-  changeSet = input.required<ChangeSetSummaryInfo>();
+  readonly changeSet = input.required<ChangeSetSummaryInfo>();
 
   locationLink(routeType: RouteType, locationNames: string[], index: number): string {
     const country = locationNames[0].toLowerCase();

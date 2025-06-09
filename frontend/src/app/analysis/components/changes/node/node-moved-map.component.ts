@@ -21,7 +21,7 @@ import { NodeMovedMapService } from './node-moved-map.service';
   ],
 })
 export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
-  nodeMoved = input.required<NodeMoved>();
+  readonly nodeMoved = input.required<NodeMoved>();
 
   protected readonly service = inject(NodeMovedMapService);
 

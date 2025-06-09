@@ -26,6 +26,6 @@ import { OsmLinkWayComponent } from '@app/shared/components/link/osm-link-way.co
   imports: [OsmLinkWayComponent],
 })
 export class CsNcWaysUpdatedComponent {
-  networkChangeInfo = input.required<NetworkChangeInfo>();
-  readonly wayIds = computed(() => this.networkChangeInfo().ways.updated);
+  readonly networkChangeInfo = input.required<NetworkChangeInfo>();
+  protected readonly wayIds = computed(() => this.networkChangeInfo().ways.updated);
 }

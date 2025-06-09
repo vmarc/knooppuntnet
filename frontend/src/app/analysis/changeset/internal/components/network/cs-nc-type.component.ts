@@ -22,5 +22,5 @@ import { NetworkChangeInfo } from '@api/common/changes/details/network-change-in
 })
 export class CsNcTypeComponent {
   readonly networkChangeInfo = input.required<NetworkChangeInfo>();
-  readonly changeType = computed(() => this.networkChangeInfo().changeType);
+  protected readonly changeType = computed(() => this.networkChangeInfo().changeType);
 }

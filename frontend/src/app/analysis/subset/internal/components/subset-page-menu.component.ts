@@ -67,9 +67,9 @@ import { PageMenuComponent } from '@app/shared/components/menu/page-menu.compone
   imports: [PageMenuComponent, PageMenuOptionComponent],
 })
 export class SubsetPageMenuComponent {
-  subset = input.required<Subset>();
-  subsetInfo = input.required<SubsetInfo>();
-  pageName = input.required<string>();
+  readonly subset = input.required<Subset>();
+  readonly subsetInfo = input.required<SubsetInfo>();
+  readonly pageName = input.required<string>();
 
   link(targetPageName: string) {
     return `/analysis/${this.subset().routeType}/${this.subset().country}/${targetPageName}`;

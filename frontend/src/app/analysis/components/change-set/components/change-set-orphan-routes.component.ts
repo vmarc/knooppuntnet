@@ -22,7 +22,7 @@ import { ChangesSetElementRefsComponent } from './change-set-element-refs.compon
   imports: [ChangesSetElementRefsComponent, NzIconDirective],
 })
 export class ChangesSetOrphanRoutesComponent {
-  subsetElementRefs = input.required<ChangeSetSubsetElementRefs>();
+  readonly subsetElementRefs = input.required<ChangeSetSubsetElementRefs>();
 
   domain() {
     if (this.subsetElementRefs().subset.country) {

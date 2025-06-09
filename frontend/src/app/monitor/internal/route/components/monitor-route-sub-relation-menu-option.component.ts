@@ -26,9 +26,9 @@ import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-r
   imports: [NgClass],
 })
 export class MonitorRouteSubRelationMenuOptionComponent {
-  routeSubRelation = input.required<MonitorRouteSubRelation>();
-  name = input.required<string>();
-  selectSubRelation = output<MonitorRouteSubRelation>();
+  readonly routeSubRelation = input.required<MonitorRouteSubRelation>();
+  readonly name = input.required<string>();
+  readonly selectSubRelation = output<MonitorRouteSubRelation>();
 
   goto(): void {
     this.selectSubRelation.emit(this.routeSubRelation());

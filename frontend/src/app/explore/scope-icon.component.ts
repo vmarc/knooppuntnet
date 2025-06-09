@@ -26,9 +26,9 @@ import { ExploreStyleStandard } from '../map/style/explore-style-standard';
   imports: [MatTooltip],
 })
 export class ScopeIconComponent {
-  scope = input.required<RouteScope | string>();
-  color = computed(() => this.scopeColor(this.scope()));
-  tooltip = computed(() => this.scope() + ' route');
+  readonly scope = input.required<RouteScope | string>();
+  readonly color = computed(() => this.scopeColor(this.scope()));
+  readonly tooltip = computed(() => this.scope() + ' route');
 
   private scopeColor(scope: RouteScope | string): string {
     if (scope === 'international') {

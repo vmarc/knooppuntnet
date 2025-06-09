@@ -10,6 +10,6 @@ import { OsmLinkComponent } from './osm-link.component';
   imports: [OsmLinkComponent],
 })
 export class OsmLinkWayComponent {
-  wayId = input.required<number>();
-  title = input('osm');
+  readonly wayId = input.required<number>();
+  readonly title = input('osm');
 }

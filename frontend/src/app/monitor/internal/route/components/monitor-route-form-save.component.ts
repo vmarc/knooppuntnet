@@ -57,14 +57,14 @@ import { ChangeDetectionStrategy } from '@angular/core';
   ],
 })
 export class MonitorRouteFormSaveComponent {
-  command = input.required<MonitorRouteUpdate>();
+  readonly command = input.required<MonitorRouteUpdate>();
 
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
   private readonly router = inject(Router);
 
-  readonly steps = this.monitorWebsocketService.steps;
-  readonly errors = this.monitorWebsocketService.errors;
-  readonly done = this.monitorWebsocketService.done;
+  protected readonly steps = this.monitorWebsocketService.steps;
+  protected readonly errors = this.monitorWebsocketService.errors;
+  protected readonly done = this.monitorWebsocketService.done;
 
   trackByStep(step: MonitorRouteSaveStep): string {
     return `${step.stepId}-${step.status}`;

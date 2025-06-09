@@ -22,5 +22,5 @@ import { Tag } from '@api/custom/tag';
   imports: [],
 })
 export class TagsTextComponent {
-  tags = input.required<Tag[]>();
+  readonly tags = input.required<Tag[]>();
 }

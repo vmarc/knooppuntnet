@@ -247,5 +247,5 @@ import { FactInfo } from './fact-info';
   ],
 })
 export class FactDescriptionComponent {
-  factInfo = input.required<FactInfo>();
+  readonly factInfo = input.required<FactInfo>();
 }

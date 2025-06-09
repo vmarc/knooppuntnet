@@ -28,6 +28,6 @@ import { OsmLinkNodeComponent } from '@app/shared/components/link/osm-link-node.
   imports: [IconInvestigateComponent, OsmLinkNodeComponent],
 })
 export class CsNcNodesAddedComponent {
-  networkChangeInfo = input.required<NetworkChangeInfo>();
-  readonly nodeIds = computed(() => this.networkChangeInfo().nodes.added);
+  readonly networkChangeInfo = input.required<NetworkChangeInfo>();
+  protected readonly nodeIds = computed(() => this.networkChangeInfo().nodes.added);
 }

@@ -131,11 +131,11 @@ import { LocationTreeNodeComponent } from './location-tree-node.component';
   ],
 })
 export class LocationTreeComponent implements OnInit, OnDestroy {
-  routeType = input.required<RouteType>();
-  country = input.required<Country>();
-  locationNode = input.required<LocalLocationNode>();
+  readonly routeType = input.required<RouteType>();
+  readonly country = input.required<Country>();
+  readonly locationNode = input.required<LocalLocationNode>();
 
-  selection = output<string>();
+  readonly selection = output<string>();
 
   private readonly dialog = inject(MatDialog);
 

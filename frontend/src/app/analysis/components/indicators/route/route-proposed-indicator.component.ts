@@ -21,7 +21,7 @@ import { RouteProposedIndicatorDialogComponent } from './route-proposed-indicato
   imports: [IndicatorComponent],
 })
 export class RouteProposedIndicatorComponent implements OnInit {
-  proposed = input.required<boolean>();
+  readonly proposed = input.required<boolean>();
 
   private readonly dialog = inject(MatDialog);
   color: string;

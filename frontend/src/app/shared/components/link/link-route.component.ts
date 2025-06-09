@@ -20,10 +20,10 @@ import { RouteType } from '@api/common/route-type';
   imports: [RouterLink],
 })
 export class LinkRouteComponent implements OnInit {
-  routeId = input.required<number>();
-  routeName = input.required<string>();
-  routeType = input<RouteType>();
-  title = input<string>();
+  readonly routeId = input.required<number>();
+  readonly routeName = input.required<string>();
+  readonly routeType = input<RouteType>();
+  readonly title = input<string>();
 
   protected linkTitle = '';
 

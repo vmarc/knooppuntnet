@@ -45,5 +45,5 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
   imports: [MatIconModule, DistancePipe, MatTooltip, DistancePipe],
 })
 export class RouteDistanceComponent {
-  structureRow = input.required<RouteStructureRow>();
+  readonly structureRow = input.required<RouteStructureRow>();
 }

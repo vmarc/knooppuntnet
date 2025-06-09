@@ -21,5 +21,5 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
   imports: [LinkRouteComponent],
 })
 export class NetworkNodeRoutesComponent {
-  node = input.required<NetworkNodeRow>();
+  readonly node = input.required<NetworkNodeRow>();
 }

@@ -101,5 +101,5 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
   ],
 })
 export class SubsetNetworkTableComponent {
-  networks = input.required<NetworkAttributes[]>();
+  readonly networks = input.required<NetworkAttributes[]>();
 }

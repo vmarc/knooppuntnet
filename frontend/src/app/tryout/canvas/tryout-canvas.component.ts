@@ -19,9 +19,9 @@ import { TryoutLinkBuilder } from './tryout-link-builder';
   `,
 })
 export class TryoutCanvasComponent {
-  memberType = input.required<MemberType>();
-  link = input.required<Link>();
-  height = input.required<number>();
+  readonly memberType = input.required<MemberType>();
+  readonly link = input.required<Link>();
+  readonly height = input.required<number>();
   private readonly canvas = viewChild<ElementRef<HTMLCanvasElement>>('gapCanvas');
 
   constructor() {

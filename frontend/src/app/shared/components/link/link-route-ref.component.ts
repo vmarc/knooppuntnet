@@ -20,8 +20,8 @@ import { OsmLinkRelationComponent } from './osm-link-relation.component';
   imports: [LinkRouteComponent, OsmLinkRelationComponent],
 })
 export class LinkRouteRefComponent implements OnInit {
-  ref = input.required<Ref>();
-  knownElements = input.required<KnownElements>();
+  readonly ref = input.required<Ref>();
+  readonly knownElements = input.required<KnownElements>();
 
   known: boolean;
 

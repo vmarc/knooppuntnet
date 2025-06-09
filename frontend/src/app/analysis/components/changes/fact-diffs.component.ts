@@ -86,5 +86,5 @@ import { FactNameComponent } from '../../fact/components/fact-name.component';
   imports: [FactNameComponent, IconHappyComponent, IconInvestigateComponent],
 })
 export class FactDiffsComponent {
-  factDiffs = input.required<FactDiffs>();
+  readonly factDiffs = input.required<FactDiffs>();
 }

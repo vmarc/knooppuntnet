@@ -77,8 +77,8 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
   imports: [IconHappyComponent, IconInvestigateComponent, RouteScopeNameComponent, NzIconDirective],
 })
 export class NodeIntegrityComponent {
-  integrity = input.required<NodeIntegrity>();
-  mixedRouteScopes = input.required<boolean>();
+  readonly integrity = input.required<NodeIntegrity>();
+  readonly mixedRouteScopes = input.required<boolean>();
 
   happy(detail: NodeIntegrityDetail): boolean {
     return detail.expectedRouteCount === detail.routeRefs.length;

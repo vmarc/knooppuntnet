@@ -97,10 +97,10 @@ import { MarkdownModule } from 'ngx-markdown';
   imports: [DayInputComponent, MarkdownModule, MatButtonModule],
 })
 export class MonitorRouteGpxReferenceComponent {
-  ngForm = input.required<FormGroupDirective>();
-  gpxReferenceDate = input.required<FormControl<Date | null>>();
-  referenceFilename = input.required<FormControl<string>>();
-  referenceFile = input.required<FormControl<File>>();
+  readonly ngForm = input.required<FormGroupDirective>();
+  readonly gpxReferenceDate = input.required<FormControl<Date | null>>();
+  readonly referenceFilename = input.required<FormControl<string>>();
+  readonly referenceFile = input.required<FormControl<File>>();
 
   selectFile(selectEvent: any) {
     if (selectEvent.target.files && selectEvent.target.files.length > 0) {

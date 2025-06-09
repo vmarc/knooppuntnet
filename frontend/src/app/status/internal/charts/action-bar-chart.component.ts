@@ -27,9 +27,9 @@ import { BarChartModule } from '@swimlane/ngx-charts';
   imports: [BarChartModule],
 })
 export class ActionBarChartComponent {
-  barChart = input.required<BarChart>();
-  xAxisLabel = input.required<string>();
-  yAxisLabel = input.required<string>();
+  readonly barChart = input.required<BarChart>();
+  readonly xAxisLabel = input.required<string>();
+  readonly yAxisLabel = input.required<string>();
 
   view: [number, number] = [700, 300];
 

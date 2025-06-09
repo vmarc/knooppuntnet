@@ -21,7 +21,7 @@ import { Util } from './util';
   imports: [],
 })
 export class CountryNameComponent {
-  country = input.required<Country>();
+  readonly country = input.required<Country>();
 
   protected countryName = computed(() =>
     Translations.get('country.' + Util.safeGet(() => this.country()))

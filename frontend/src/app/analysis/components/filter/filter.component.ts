@@ -31,5 +31,5 @@ import { FilterTitleComponent } from './filter-title.component';
   imports: [FilterCheckboxGroupComponent, FilterRadioGroupComponent, FilterTitleComponent],
 })
 export class FilterComponent {
-  filterOptions = input.required<FilterOptions>();
+  readonly filterOptions = input.required<FilterOptions>();
 }

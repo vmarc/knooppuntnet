@@ -30,5 +30,5 @@ import { IconInvestigateComponent } from '@app/shared/components/icon/icon-inves
   imports: [IconHappyComponent, IconInvestigateComponent],
 })
 export class ChangeSetAnalysisComponent {
-  detail = input.required<ChangeSetDetail>();
+  readonly detail = input.required<ChangeSetDetail>();
 }

@@ -18,5 +18,5 @@ import { input } from '@angular/core';
   styleUrl: './data.component.scss',
 })
 export class DataComponent {
-  title = input.required<string>();
+  readonly title = input.required<string>();
 }

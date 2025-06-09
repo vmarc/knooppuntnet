@@ -172,13 +172,13 @@ import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
   ],
 })
 export class MonitorRoutePropertiesStep5ReferenceDetailsComponent {
-  ngForm = input.required<FormGroupDirective>();
-  referenceType = input.required<FormControl<string>>();
-  osmReferenceDate = input.required<FormControl<Date | null>>();
-  gpxReferenceDate = input.required<FormControl<Date | null>>();
-  referenceFilename = input.required<FormControl<string>>();
-  referenceFile = input.required<FormControl<File>>();
-  oldReferenceTimestamp = input.required<Timestamp | null>();
+  readonly ngForm = input.required<FormGroupDirective>();
+  readonly referenceType = input.required<FormControl<string>>();
+  readonly osmReferenceDate = input.required<FormControl<Date | null>>();
+  readonly gpxReferenceDate = input.required<FormControl<Date | null>>();
+  readonly referenceFilename = input.required<FormControl<string>>();
+  readonly referenceFile = input.required<FormControl<File>>();
+  readonly oldReferenceTimestamp = input.required<Timestamp | null>();
 
   selectFile(selectEvent: any) {
     if (selectEvent.target.files && selectEvent.target.files.length > 0) {

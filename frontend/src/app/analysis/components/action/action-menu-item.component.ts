@@ -14,7 +14,7 @@ import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
   imports: [NzMenuItemComponent],
 })
 export class ActionMenuItemComponent {
-  action = output<void>();
+  readonly action = output<void>();
 
   clicked(event: MouseEvent): void {
     event.stopPropagation();

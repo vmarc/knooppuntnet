@@ -25,5 +25,5 @@ import { Component } from '@angular/core';
   `,
 })
 export class LocationMapControlComponent {
-  action = output<void>();
+  readonly action = output<void>();
 }

@@ -31,6 +31,6 @@ import { ChangeFilterPeriodComponent } from './change-filter-period.component';
   imports: [ChangeFilterPeriodComponent],
 })
 export class ChangeFilterComponent {
-  filterOptions = input.required<ChangesFilterOption[]>();
-  optionSelected = output<ChangeOption>();
+  readonly filterOptions = input.required<ChangesFilterOption[]>();
+  readonly optionSelected = output<ChangeOption>();
 }

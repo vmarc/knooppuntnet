@@ -22,6 +22,6 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
   imports: [LinkRouteComponent, ActionButtonRouteComponent, IconRouteComponent],
 })
 export class NetworkFactRoutesComponent {
-  routeType = input.required<RouteType>();
-  routes = input.required<Ref[]>();
+  readonly routeType = input.required<RouteType>();
+  readonly routes = input.required<Ref[]>();
 }

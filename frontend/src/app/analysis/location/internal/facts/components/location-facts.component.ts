@@ -59,8 +59,8 @@ export class LocationFactsComponent implements AfterViewInit {
   private readonly routerService = inject(RouterService);
   private readonly router = inject(Router);
 
-  locationFacts = input.required<LocationFact[]>();
-  panels = signal<LocationFactPanel[]>([]);
+  readonly locationFacts = input.required<LocationFact[]>();
+  readonly panels = signal<LocationFactPanel[]>([]);
 
   ngAfterViewInit(): void {
     const selectedFact = this.routerService.fragment();

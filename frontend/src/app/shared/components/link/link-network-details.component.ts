@@ -18,7 +18,7 @@ import { RouteType } from '@api/common/route-type';
   imports: [RouterLink],
 })
 export class LinkNetworkDetailsComponent {
-  networkId = input.required<number>();
-  networkName = input.required<string>();
-  routeType = input<RouteType>();
+  readonly networkId = input.required<number>();
+  readonly networkName = input.required<string>();
+  readonly routeType = input<RouteType>();
 }

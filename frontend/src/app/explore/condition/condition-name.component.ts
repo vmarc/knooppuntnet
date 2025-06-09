@@ -48,5 +48,5 @@ import { ConditionRouteNameForm } from './condition-controls';
   ],
 })
 export class ConditionNameComponent {
-  form = input.required<ConditionRouteNameForm>();
+  readonly form = input.required<ConditionRouteNameForm>();
 }

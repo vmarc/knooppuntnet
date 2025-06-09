@@ -21,7 +21,7 @@ import { RouteInvestigateIndicatorDialogComponent } from './route-investigate-in
   imports: [IndicatorComponent],
 })
 export class RouteInvestigateIndicatorComponent implements OnInit {
-  investigate = input.required<boolean>();
+  readonly investigate = input.required<boolean>();
 
   private readonly dialog = inject(MatDialog);
   color: string;

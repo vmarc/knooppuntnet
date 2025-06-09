@@ -45,9 +45,9 @@ import { NzRadioComponent } from 'ng-zorro-antd/radio';
   imports: [FactNameComponent, FormsModule, NzRadioComponent, NzRadioGroupComponent],
 })
 export class LocationFilterFactComponent {
-  title = input.required<string>();
-  filterGroup = input.required<ServerFilterGroup>();
-  changed = output<Fact | null>();
+  readonly title = input.required<string>();
+  readonly filterGroup = input.required<ServerFilterGroup>();
+  readonly changed = output<Fact | null>();
 
   translate(option: string): string {
     return Translations.get(`filter.${option}`);

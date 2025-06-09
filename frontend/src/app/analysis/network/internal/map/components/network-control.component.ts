@@ -25,5 +25,5 @@ import { Component } from '@angular/core';
   `,
 })
 export class NetworkControlComponent {
-  action = output<void>();
+  readonly action = output<void>();
 }

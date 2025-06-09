@@ -105,9 +105,9 @@ import { MonitorChangeHeaderComponent } from './monitor-change-header.component'
   ],
 })
 export class MonitorChangesComponent {
-  pageSize = input.required<number>();
-  pageIndex = input.required<number>();
-  changes = input.required<MonitorRouteChangeSummary[]>();
+  readonly pageSize = input.required<number>();
+  readonly pageIndex = input.required<number>();
+  readonly changes = input.required<MonitorRouteChangeSummary[]>();
 
   rowIndex(index: number): number {
     return this.pageSize() * this.pageIndex() + index;

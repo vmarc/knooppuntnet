@@ -68,11 +68,11 @@ import { ConditionGroupForm } from './condition-controls';
   ],
 })
 export class ConditionGroupComponent {
-  form = input.required<ConditionGroupForm>();
-  removeEnabled = input<boolean>(true);
-  add = output<Condition>();
-  remove = output<void>();
-  update = output<ConditionGroup>();
+  readonly form = input.required<ConditionGroupForm>();
+  readonly removeEnabled = input<boolean>(true);
+  readonly add = output<Condition>();
+  readonly remove = output<void>();
+  readonly update = output<ConditionGroup>();
 
   onRemove() {
     this.remove.emit();

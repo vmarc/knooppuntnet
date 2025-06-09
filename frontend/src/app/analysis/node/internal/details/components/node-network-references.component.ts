@@ -24,7 +24,7 @@ import { NodeNetworkReferenceComponent } from './node-network-reference.componen
   imports: [NodeNetworkReferenceComponent],
 })
 export class NodeNetworkReferencesComponent {
-  nodeInfo = input.required<NodeInfo>();
-  references = input.required<Reference[]>();
-  mixedRouteScopes = input.required<boolean>();
+  readonly nodeInfo = input.required<NodeInfo>();
+  readonly references = input.required<Reference[]>();
+  readonly mixedRouteScopes = input.required<boolean>();
 }

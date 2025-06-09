@@ -96,8 +96,8 @@ import { NetworkService } from '../network.service';
   ],
 })
 export class NetworkPageHeaderComponent {
-  pageName = input.required<string>();
-  pageTitle = input.required<string>();
+  readonly pageName = input.required<string>();
+  readonly pageTitle = input.required<string>();
 
   protected readonly service = inject(NetworkService);
 

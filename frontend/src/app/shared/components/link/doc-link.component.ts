@@ -26,7 +26,7 @@ import { Translations } from '@app/shared/i18n/translations';
   imports: [MatIconModule],
 })
 export class DocLinkComponent {
-  subject = input.required<string>();
+  readonly subject = input.required<string>();
 
   href(): string {
     const languageSpecificSubject = Translations.get(`@@wiki.${this.subject()}`);

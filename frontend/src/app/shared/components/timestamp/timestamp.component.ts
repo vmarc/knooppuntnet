@@ -11,5 +11,5 @@ import { TimestampPipe } from '../format/timestamp-pipe';
   imports: [TimestampPipe],
 })
 export class TimestampComponent {
-  timestamp = input.required<Timestamp>();
+  readonly timestamp = input.required<Timestamp>();
 }

@@ -47,5 +47,5 @@ import { input } from '@angular/core';
   `,
 })
 export class MonthComponent {
-  month = input.required<number>();
+  readonly month = input.required<number>();
 }

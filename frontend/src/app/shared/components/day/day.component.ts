@@ -11,5 +11,5 @@ import { TimestampDayPipe } from '../format/timestamp-day.pipe';
   imports: [TimestampDayPipe],
 })
 export class DayComponent {
-  timestamp = input.required<Timestamp>();
+  readonly timestamp = input.required<Timestamp>();
 }

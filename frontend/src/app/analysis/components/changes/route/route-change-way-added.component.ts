@@ -44,8 +44,8 @@ import { TagTableComponent } from '@app/shared/components/tags/tag-table.compone
   imports: [OsmLinkWayComponent, MetaDataComponent, TagTableComponent],
 })
 export class RouteChangeWayAddedComponent {
-  wayInfo = input.required<WayInfo>();
-  routeChangeInfo = input.required<RouteChangeInfo>();
+  readonly wayInfo = input.required<WayInfo>();
+  readonly routeChangeInfo = input.required<RouteChangeInfo>();
 
   wayTags(wayInfo: WayInfo): InterpretedTags {
     return InterpretedTags.all(wayInfo.tags);

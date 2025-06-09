@@ -34,13 +34,13 @@ import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.
   imports: [RouterLink, NgClass, IntegerFormatPipe, IntegerFormatPipe],
 })
 export class PageMenuOptionComponent {
-  link = input.required<string>();
-  active = input(false);
-  state = input<
+  readonly link = input.required<string>();
+  readonly active = input(false);
+  readonly state = input<
     | {
         [k: string]: any;
       }
     | undefined
   >();
-  elementCount = input<number>();
+  readonly elementCount = input<number>();
 }

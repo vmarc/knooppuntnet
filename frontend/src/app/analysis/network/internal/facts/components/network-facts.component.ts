@@ -159,7 +159,7 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
   ],
 })
 export class NetworkFactsComponent implements AfterViewInit {
-  apiResponse = input.required<ApiResponse<NetworkFactsPage>>();
+  readonly apiResponse = input.required<ApiResponse<NetworkFactsPage>>();
 
   private readonly routerService = inject(RouterService);
   private readonly router = inject(Router);

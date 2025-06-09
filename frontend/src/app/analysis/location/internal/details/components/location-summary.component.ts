@@ -30,5 +30,5 @@ import { MarkdownModule } from 'ngx-markdown';
   imports: [MarkdownModule, MatIconModule, DistancePipe, ZeroIntegerFormatPipe, DistancePipe],
 })
 export class LocationSummaryComponent {
-  page = input.required<LocationDetailsPage>();
+  readonly page = input.required<LocationDetailsPage>();
 }

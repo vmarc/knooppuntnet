@@ -21,8 +21,8 @@ import { RouteType } from '@api/common/route-type';
   imports: [RouterLink],
 })
 export class NodeLocationComponent {
-  routeType = input.required<RouteType>();
-  locations = input.required<LocationInfo[]>();
+  readonly routeType = input.required<RouteType>();
+  readonly locations = input.required<LocationInfo[]>();
 
   hasLocation() {
     return this.locations() && this.locations().length > 0;

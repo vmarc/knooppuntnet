@@ -51,7 +51,7 @@ import { Translations } from '@app/shared/i18n/translations';
   imports: [RouterLink],
 })
 export class PageFooterComponent {
-  settings = input(false);
+  readonly settings = input(false);
 
   issues(): string {
     const languageSpecificSubject = Translations.get(`@@wiki.issues`);

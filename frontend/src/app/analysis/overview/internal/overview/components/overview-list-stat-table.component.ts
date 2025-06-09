@@ -57,5 +57,5 @@ import { OverviewListStatRowComponent } from './overview-list-stat-row.component
   imports: [OverviewListStatRowComponent],
 })
 export class OverviewListStatTableComponent {
-  stat = input.required<Stat>();
+  readonly stat = input.required<Stat>();
 }

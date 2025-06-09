@@ -21,7 +21,7 @@ import { IntegrityIndicatorDialogComponent } from './integrity-indicator-dialog.
   imports: [IndicatorComponent],
 })
 export class IntegrityIndicatorComponent {
-  data = input.required<IntegrityIndicatorData>();
+  readonly data = input.required<IntegrityIndicatorData>();
 
   private readonly dialog = inject(MatDialog);
 

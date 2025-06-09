@@ -41,10 +41,10 @@ import { OverviewValueComponent } from './overview-value.component';
   imports: [CountryNameComponent, OverviewValueComponent, NzIconDirective],
 })
 export class OverviewListStatRowComponent {
-  rowspan = input<number>(null);
-  country = input.required<Country>();
-  routeType = input.required<RouteType>();
-  stat = input.required<Stat>();
+  readonly rowspan = input<number>(null);
+  readonly country = input.required<Country>();
+  readonly routeType = input.required<RouteType>();
+  readonly stat = input.required<Stat>();
 
   subset(country: Country, routeType: RouteType): Subset {
     return { country, routeType };

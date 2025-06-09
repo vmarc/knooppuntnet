@@ -41,5 +41,5 @@ import { FactLevel } from '@api/common/fact-level';
   `,
 })
 export class FactLevelComponent {
-  factLevel = input.required<FactLevel>();
+  readonly factLevel = input.required<FactLevel>();
 }

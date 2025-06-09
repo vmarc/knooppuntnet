@@ -21,5 +21,5 @@ import { StatusLinks } from './status-links';
   imports: [RouterLink],
 })
 export class StatusLinksComponent {
-  links = input.required<StatusLinks>();
+  readonly links = input.required<StatusLinks>();
 }

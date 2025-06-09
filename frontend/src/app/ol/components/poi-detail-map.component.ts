@@ -21,7 +21,7 @@ import { PoiDetailMapService } from './poi-detail-map.service';
   ],
 })
 export class PoiDetailMapComponent implements AfterViewInit, OnDestroy {
-  poiDetail = input.required<PoiDetail>();
+  readonly poiDetail = input.required<PoiDetail>();
 
   readonly service = inject(PoiDetailMapService);
 

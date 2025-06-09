@@ -246,7 +246,7 @@ import { OldPoiService } from '@app/shared/services/old-poi.service';
   imports: [],
 })
 export class PoiAnalysisComponent {
-  poi = input.required<PoiAnalysis>();
+  readonly poi = input.required<PoiAnalysis>();
 
   private readonly poiService = inject(OldPoiService);
 

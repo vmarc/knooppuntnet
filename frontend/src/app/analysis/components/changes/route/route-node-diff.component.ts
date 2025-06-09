@@ -43,7 +43,7 @@ import { LinkNodeComponent } from '@app/shared/components/link/link-node.compone
   imports: [LinkNodeComponent],
 })
 export class RouteNodeDiffComponent {
-  title = input.required<string>(); // startNodes | endNodes | startTentacleNodes | endTentacleNodes
-  action = input.required<string>(); // added | removed
-  nodeRefs = input.required<Ref[]>();
+  readonly title = input.required<string>(); // startNodes | endNodes | startTentacleNodes | endTentacleNodes
+  readonly action = input.required<string>(); // added | removed
+  readonly nodeRefs = input.required<Ref[]>();
 }

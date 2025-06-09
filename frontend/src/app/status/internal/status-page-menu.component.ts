@@ -32,6 +32,6 @@ import { StatusLinks } from './status-links';
   imports: [PageMenuComponent, PageMenuOptionComponent],
 })
 export class StatusPageMenuComponent {
-  periodType = input.required<string>();
-  links = input.required<StatusLinks>();
+  readonly periodType = input.required<string>();
+  readonly links = input.required<StatusLinks>();
 }

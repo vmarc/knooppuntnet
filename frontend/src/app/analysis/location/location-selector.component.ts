@@ -80,11 +80,11 @@ import { LocationOption } from './internal/selection/components/location-option'
   ],
 })
 export class LocationSelectorComponent /* implements OnInit*/ {
-  country = input.required<Country>();
+  readonly country = input.required<Country>();
+  readonly locationNode = input.required<LocationNode>();
+  readonly all = input(false);
+  readonly selection = output<string>();
 
-  locationNode = input.required<LocationNode>();
-  all = input(false);
-  selection = output<string>();
   private readonly maxOptions = 2000;
   private readonly fb = inject(UntypedFormBuilder);
 

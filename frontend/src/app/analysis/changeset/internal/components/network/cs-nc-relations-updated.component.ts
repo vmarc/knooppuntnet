@@ -28,6 +28,6 @@ import { OsmLinkRelationComponent } from '@app/shared/components/link/osm-link-r
   imports: [OsmLinkRelationComponent],
 })
 export class CsNcRelationsUpdatedComponent {
-  networkChangeInfo = input.required<NetworkChangeInfo>();
-  readonly relationIds = computed(() => this.networkChangeInfo().relations.updated);
+  readonly networkChangeInfo = input.required<NetworkChangeInfo>();
+  protected readonly relationIds = computed(() => this.networkChangeInfo().relations.updated);
 }

@@ -71,7 +71,7 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
   ],
 })
 export class NetworkSummaryComponent {
-  page = input.required<NetworkDetailsPage>();
+  readonly page = input.required<NetworkDetailsPage>();
 
   isProposed() {
     const stateTag = this.page().tags.find((t) => t.key === 'state');

@@ -22,5 +22,5 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
   imports: [NzDropDownDirective, NzIconDirective],
 })
 export class ActionButtonComponent {
-  nzDropdownMenu = input.required<NzDropdownMenuComponent>();
+  readonly nzDropdownMenu = input.required<NzDropdownMenuComponent>();
 }

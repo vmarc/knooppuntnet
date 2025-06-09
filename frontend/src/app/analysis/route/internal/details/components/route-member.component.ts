@@ -148,7 +148,7 @@ import { RouteMemberNameComponent } from './route-member-name.component';
   ],
 })
 export class RouteMemberComponent {
-  routeType = input.required<RouteType>();
-  structureRow = input.required<RouteStructureRow>();
-  rowIndex = input.required<number>();
+  readonly routeType = input.required<RouteType>();
+  readonly structureRow = input.required<RouteStructureRow>();
+  readonly rowIndex = input.required<number>();
 }

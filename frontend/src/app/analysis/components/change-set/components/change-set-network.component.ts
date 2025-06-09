@@ -33,7 +33,7 @@ export class ChangeSetNetworkAction {
   imports: [ChangesSetElementRefsComponent, RouterLink, NzIconDirective],
 })
 export class ChangesSetNetworkComponent {
-  changeSetNetworkAction = input.required<ChangeSetNetworkAction>();
+  readonly changeSetNetworkAction = input.required<ChangeSetNetworkAction>();
 
   domain() {
     if (this.changeSetNetworkAction().network.country) {

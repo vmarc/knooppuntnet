@@ -59,9 +59,9 @@ import { LocationFlatNode } from './location-flat-node';
   imports: [LocationPipe, ZeroIntegerFormatPipe],
 })
 export class LocationTreeNodeComponent {
-  node = input.required<LocationFlatNode>();
+  readonly node = input.required<LocationFlatNode>();
 
-  selection = output<string>();
+  readonly selection = output<string>();
 
   select(expandableNode: LocationFlatNode): void {
     const locationName =

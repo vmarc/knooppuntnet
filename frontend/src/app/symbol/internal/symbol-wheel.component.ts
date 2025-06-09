@@ -87,9 +87,9 @@ import { input } from '@angular/core';
   `,
 })
 export class SymbolWheelComponent implements OnInit {
-  color = input('#000000');
-  width = input(50);
-  height = input(50);
+  readonly color = input('#000000');
+  readonly width = input(50);
+  readonly height = input(50);
 
   scaledWidth = 0;
   scaledHeight = 0;

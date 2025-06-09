@@ -27,7 +27,7 @@ import { ActionService } from './action.service';
   ],
 })
 export class ActionButtonWaysComponent {
-  wayIds = input.required<number[]>();
+  readonly wayIds = input.required<number[]>();
 
   private readonly actionService = inject(ActionService);
 

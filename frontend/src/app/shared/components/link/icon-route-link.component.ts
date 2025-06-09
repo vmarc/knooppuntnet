@@ -17,6 +17,6 @@ import { IconLinkComponent } from './icon-link.component';
   imports: [IconLinkComponent],
 })
 export class IconRouteLinkComponent {
-  reference = input.required<Reference>();
-  mixedRouteScopes = input.required<boolean>();
+  readonly reference = input.required<Reference>();
+  readonly mixedRouteScopes = input.required<boolean>();
 }

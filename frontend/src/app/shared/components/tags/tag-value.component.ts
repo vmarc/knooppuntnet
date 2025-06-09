@@ -28,5 +28,5 @@ import { Tag } from '@api/custom/tag';
   `,
 })
 export class TagValueComponent {
-  tag = input.required<Tag>();
+  readonly tag = input.required<Tag>();
 }

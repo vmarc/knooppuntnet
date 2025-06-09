@@ -28,7 +28,7 @@ export class ChangeSetElement {
   imports: [NgClass],
 })
 export class ChangesSetElementRefComponent {
-  element = input.required<ChangeSetElement>();
+  readonly element = input.required<ChangeSetElement>();
 
   borderStyle() {
     if (this.element().ref.investigate === true) {

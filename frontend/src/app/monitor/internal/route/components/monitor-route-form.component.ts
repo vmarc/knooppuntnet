@@ -36,10 +36,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
   imports: [MonitorRouteFormSaveComponent, MonitorRoutePropertiesComponent, NgClass],
 })
 export class MonitorRouteFormComponent {
-  mode = input.required<string>();
-  groupName = input.required<string>();
-  initialProperties = input.required<MonitorRouteProperties>();
-  routeGroups = input<MonitorRouteGroup[]>([]);
+  readonly mode = input.required<string>();
+  readonly groupName = input.required<string>();
+  readonly initialProperties = input.required<MonitorRouteProperties>();
+  readonly routeGroups = input<MonitorRouteGroup[]>([]);
 
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 

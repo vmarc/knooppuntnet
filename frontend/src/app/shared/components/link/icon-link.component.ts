@@ -24,9 +24,9 @@ import { RouteScopeNameComponent } from '../route-scope-name.component';
   imports: [RouteScopeNameComponent, RouterLink, NzIconDirective],
 })
 export class IconLinkComponent implements OnInit {
-  reference = input.required<Reference>();
-  mixedRouteScopes = input.required<boolean>();
-  elementType = input.required<string>();
+  readonly reference = input.required<Reference>();
+  readonly mixedRouteScopes = input.required<boolean>();
+  readonly elementType = input.required<string>();
 
   protected state = {};
   protected link: string;

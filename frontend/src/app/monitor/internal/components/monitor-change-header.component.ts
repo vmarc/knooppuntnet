@@ -51,12 +51,12 @@ import { PageWidthService } from '@app/shared/components/page-width.service';
   imports: [IconHappyComponent, IconInvestigateComponent, RouterLink],
 })
 export class MonitorChangeHeaderComponent {
-  changeSet = input.required<MonitorRouteChangeSummary>();
+  readonly changeSet = input.required<MonitorRouteChangeSummary>();
 
   private readonly pageWidthService = inject(PageWidthService);
 
-  readonly timestampOnSeparateLine = computed(() => this.pageWidthService.isAllSmall());
-  readonly timestampOnSameLine = computed(() => !this.timestampOnSeparateLine());
+  protected readonly timestampOnSeparateLine = computed(() => this.pageWidthService.isAllSmall());
+  protected readonly timestampOnSameLine = computed(() => !this.timestampOnSeparateLine());
 
   link(): string {
     const key = this.changeSet().key;

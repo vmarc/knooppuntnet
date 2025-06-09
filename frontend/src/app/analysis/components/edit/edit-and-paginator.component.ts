@@ -37,16 +37,16 @@ import { EditLinkComponent } from './edit-link.component';
   imports: [EditLinkComponent, PaginatorComponent],
 })
 export class EditAndPaginatorComponent {
-  editLinkTitle = input.required<string>();
-  pageSize = input.required<number>();
-  pageIndex = input<number>();
-  length = input.required<number>();
-  showFirstLastButtons = input(false);
-  showPageSizeSelection = input(false);
+  readonly editLinkTitle = input.required<string>();
+  readonly pageSize = input.required<number>();
+  readonly pageIndex = input<number>();
+  readonly length = input.required<number>();
+  readonly showFirstLastButtons = input(false);
+  readonly showPageSizeSelection = input(false);
 
-  pageSizeChange = output<number>();
-  pageIndexChange = output<number>();
-  edit = output<void>();
+  readonly pageSizeChange = output<number>();
+  readonly pageIndexChange = output<number>();
+  readonly edit = output<void>();
 
   readonly paginator = viewChild(OldPaginatorComponent);
 

@@ -39,15 +39,15 @@ import { OldPaginatorComponent } from '@app/shared/components/paginator/old-pagi
   imports: [MatSlideToggleModule, OldPaginatorComponent],
 })
 export class ChangesComponent {
-  changeCount = input.required<number>();
-  totalCount = input.required<number>();
-  impact = input.required<boolean>();
-  pageSize = input.required<number>();
-  pageIndex = input.required<number>();
+  readonly changeCount = input.required<number>();
+  readonly totalCount = input.required<number>();
+  readonly impact = input.required<boolean>();
+  readonly pageSize = input.required<number>();
+  readonly pageIndex = input.required<number>();
 
-  impactChange = output<boolean>();
-  pageSizeChange = output<number>();
-  pageIndexChange = output<number>();
+  readonly impactChange = output<boolean>();
+  readonly pageSizeChange = output<number>();
+  readonly pageIndexChange = output<number>();
 
   onImpactChanged(event: MatSlideToggleChange) {
     this.impactChange.emit(event.checked);

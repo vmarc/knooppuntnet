@@ -23,8 +23,8 @@ import { Stat } from '../../domain/stat';
   imports: [RouterLink],
 })
 export class OverviewValueComponent {
-  stat = input.required<Stat>();
-  subset = input.required<Subset>();
+  readonly stat = input.required<Stat>();
+  readonly subset = input.required<Subset>();
 
   hasLink() {
     return this.stat().configuration.linkFunction !== null;

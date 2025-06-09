@@ -23,5 +23,5 @@ import { TagDiffType } from '@api/common/diff/tag-diff-type';
   imports: [MatIconModule],
 })
 export class TagDiffActionComponent {
-  action = input.required<TagDiffType>();
+  readonly action = input.required<TagDiffType>();
 }
