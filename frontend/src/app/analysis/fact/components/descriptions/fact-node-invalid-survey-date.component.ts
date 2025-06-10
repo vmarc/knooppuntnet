@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'ui-fact-node-invalid-survey-date',
@@ -12,6 +12,6 @@ import { MarkdownModule } from 'ngx-markdown';
       *"source=survey"*.
     </markdown>
   `,
-  imports: [MarkdownModule],
+  imports: [MarkdownComponent],
 })
 export class FactNodeInvalidSurveyDateComponent {}

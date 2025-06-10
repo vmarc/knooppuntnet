@@ -8,7 +8,7 @@ import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.
 import { PageWidthService } from '@app/shared/components/page-width.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 import { RouterService } from '@app/shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetNetworkListComponent } from './components/subset-network-list.component';
@@ -58,7 +58,7 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
   imports: [
     ErrorComponent,
     IntegerFormatPipe,
-    MarkdownModule,
+    MarkdownComponent,
     PageComponent,
     SituationOnComponent,
     SubsetNetworkListComponent,

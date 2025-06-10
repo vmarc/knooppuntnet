@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NetworkDetailsPage } from '@api/common/network/network-details-page';
 import { CountryNameComponent } from '@app/shared/components/country-name.component';
 import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 import { ActionButtonRelationComponent } from '../../../../components/action/action-button-relation.component';
 
 @Component({
@@ -64,7 +64,7 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
   imports: [
     CountryNameComponent,
     IntegerFormatPipe,
-    MarkdownModule,
+    MarkdownComponent,
     MatIconModule,
     ActionButtonRelationComponent,
     IntegerFormatPipe,

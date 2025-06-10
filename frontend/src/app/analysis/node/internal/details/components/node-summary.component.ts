@@ -6,7 +6,7 @@ import { NodeInfo } from '@api/common/node-info';
 import { CountryNameComponent } from '@app/shared/components/country-name.component';
 import { RouteScopeNameComponent } from '@app/shared/components/route-scope-name.component';
 import { RouteTypeComponent } from '@app/shared/components/route-type.component';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 import { ActionButtonNodeComponent } from '../../../../components/action/action-button-node.component';
 
 @Component({
@@ -91,7 +91,7 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
   `,
   imports: [
     CountryNameComponent,
-    MarkdownModule,
+    MarkdownComponent,
     MatIconModule,
     RouteScopeNameComponent,
     RouteTypeComponent,

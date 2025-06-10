@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { LocationDetailsPage } from '@api/common/location/location-details-page';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { ZeroIntegerFormatPipe } from '@app/shared/components/format/zero-integer-format.pipe';
-import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'ui-location-summary',
@@ -27,7 +26,7 @@ import { MarkdownModule } from 'ngx-markdown';
       </span>
     </span>
   `,
-  imports: [MarkdownModule, MatIconModule, DistancePipe, ZeroIntegerFormatPipe, DistancePipe],
+  imports: [MatIconModule, DistancePipe, ZeroIntegerFormatPipe, DistancePipe],
 })
 export class LocationSummaryComponent {
   readonly page = input.required<LocationDetailsPage>();

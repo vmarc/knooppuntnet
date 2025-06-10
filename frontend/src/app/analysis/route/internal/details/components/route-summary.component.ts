@@ -7,7 +7,7 @@ import { CountryNameComponent } from '@app/shared/components/country-name.compon
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { SymbolComponent } from '@app/symbol/symbol.component';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 import { ActionButtonRouteComponent } from '../../../../components/action/action-button-route.component';
 import { RouteLocationComponent } from './route-location.component';
 
@@ -91,7 +91,7 @@ import { RouteLocationComponent } from './route-location.component';
     ActionButtonRouteComponent,
     CountryNameComponent,
     DividerComponent,
-    MarkdownModule,
+    MarkdownComponent,
     MatIconModule,
     RouteLocationComponent,
     SymbolComponent,

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'ui-fact-route-node-name-mismatch',
@@ -11,6 +11,6 @@ import { MarkdownModule } from 'ngx-markdown';
       derived from the start and end node of the route.
     </markdown>
   `,
-  imports: [MarkdownModule],
+  imports: [MarkdownComponent],
 })
 export class FactRouteNodeNameMismatchComponent {}

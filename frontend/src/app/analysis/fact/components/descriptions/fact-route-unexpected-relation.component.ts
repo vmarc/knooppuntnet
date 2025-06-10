@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { OsmLinkRelationComponent } from '@app/shared/components/link/osm-link-relation.component';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 import { FactInfo } from '../fact-info';
 
 @Component({
@@ -24,7 +24,7 @@ import { FactInfo } from '../fact-info';
       </span>
     </markdown>
   `,
-  imports: [MarkdownModule, OsmLinkRelationComponent],
+  imports: [MarkdownComponent, OsmLinkRelationComponent],
 })
 export class FactRouteUnexpectedRelationComponent {
   readonly factInfo = input.required<FactInfo>();

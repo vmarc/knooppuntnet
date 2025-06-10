@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 import { Stat } from '../../domain/stat';
 import { OverviewListStatTableComponent } from './overview-list-stat-table.component';
 
@@ -95,7 +95,7 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
       max-width: 40em;
     }
   `,
-  imports: [MarkdownModule, MatIconModule, OverviewListStatTableComponent],
+  imports: [MarkdownComponent, MatIconModule, OverviewListStatTableComponent],
 })
 export class OverviewListStatComponent {
   readonly stat = input.required<Stat>();

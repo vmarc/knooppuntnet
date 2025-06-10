@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IndicatorDialogComponent } from '@app/shared/components/indicator/indicator-dialog.component';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'ui-proposed-indicator-dialog',
@@ -38,7 +38,7 @@ import { MarkdownModule } from 'ngx-markdown';
       </div>
     </ui-indicator-dialog>
   `,
-  imports: [IndicatorDialogComponent, MarkdownModule],
+  imports: [IndicatorDialogComponent, MarkdownComponent],
 })
 export class ProposedIndicatorDialogComponent {
   protected readonly color: string = inject(MAT_DIALOG_DATA);

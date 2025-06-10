@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { Subsets } from '@app/shared/kpn/common/subsets';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 import { Stat } from '../../domain/stat';
 import { OverviewValueComponent } from './overview-value.component';
 
@@ -53,7 +53,7 @@ import { OverviewValueComponent } from './overview-value.component';
       text-align: right;
     }
   `,
-  imports: [OverviewValueComponent, MarkdownModule],
+  imports: [OverviewValueComponent, MarkdownComponent],
 })
 export class OverviewTableRowComponent {
   readonly stat = input.required<Stat>();

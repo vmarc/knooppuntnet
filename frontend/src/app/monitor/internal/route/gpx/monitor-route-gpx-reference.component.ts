@@ -5,7 +5,6 @@ import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { DayInputComponent } from '@app/shared/components/format/day-input.component';
-import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'ui-monitor-route-gpx-reference',
@@ -94,7 +93,7 @@ import { MarkdownModule } from 'ngx-markdown';
       display: none;
     }
   `,
-  imports: [DayInputComponent, MarkdownModule, MatButtonModule],
+  imports: [DayInputComponent, MatButtonModule],
 })
 export class MonitorRouteGpxReferenceComponent {
   readonly ngForm = input.required<FormGroupDirective>();

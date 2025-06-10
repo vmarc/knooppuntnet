@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'ui-fact-route-tag-invalid',
@@ -15,6 +15,6 @@ import { MarkdownModule } from 'ngx-markdown';
       *"inline_skates"*.
     </markdown>
   `,
-  imports: [MarkdownModule],
+  imports: [MarkdownComponent],
 })
 export class FactRouteTagInvalidComponent {}

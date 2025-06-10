@@ -5,7 +5,6 @@ import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { ParentRoute } from '@api/common/route/parent-route';
-import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'ui-route-parents',
@@ -37,7 +36,7 @@ import { MarkdownModule } from 'ngx-markdown';
       margin-left: 6em;
     }
   `,
-  imports: [MarkdownModule, MatIconModule, RouterLink, NgClass],
+  imports: [MatIconModule, RouterLink, NgClass],
 })
 export class RouteParentsComponent {
   readonly parentRoutes = input.required<Array<ParentRoute>>();

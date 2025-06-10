@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RouteScopes } from '@app/shared/kpn/common/route-scopes';
 import { RouteTypes } from '@app/shared/kpn/common/route-types';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 import { IndicatorDialogComponent } from './indicator-dialog.component';
 import { IntegrityIndicatorData } from './integrity-indicator-data';
 
@@ -51,7 +51,7 @@ import { IntegrityIndicatorData } from './integrity-indicator-data';
       }
     </ui-indicator-dialog>
   `,
-  imports: [IndicatorDialogComponent, MarkdownModule],
+  imports: [IndicatorDialogComponent, MarkdownComponent],
 })
 export class IntegrityIndicatorDialogComponent {
   private readonly indicatorData: IntegrityIndicatorData = inject(MAT_DIALOG_DATA);

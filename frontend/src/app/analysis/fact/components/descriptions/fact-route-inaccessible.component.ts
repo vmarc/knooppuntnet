@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'ui-fact-route-inaccessible',
@@ -11,6 +11,6 @@ import { MarkdownModule } from 'ngx-markdown';
       [accessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible).
     </markdown>
   `,
-  imports: [MarkdownModule],
+  imports: [MarkdownComponent],
 })
 export class FactRouteInaccessibleComponent {}

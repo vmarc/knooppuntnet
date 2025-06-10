@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'ui-fact-route-deprected-note-tag',
@@ -12,6 +12,6 @@ import { MarkdownModule } from 'ngx-markdown';
       used for mapper notes only. The _"ref"_ and _"name"_ tags can be used for naming routes.
     </markdown>
   `,
-  imports: [MarkdownModule],
+  imports: [MarkdownComponent],
 })
 export class FactRouteNameDeprecatedNoteTagComponent {}

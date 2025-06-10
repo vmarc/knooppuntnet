@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'ui-fact-network-extra-member-node',
@@ -11,6 +11,6 @@ import { MarkdownModule } from 'ngx-markdown';
       network nodes or information maps as members in the network relation).
     </markdown>
   `,
-  imports: [MarkdownModule],
+  imports: [MarkdownComponent],
 })
 export class FactNetworkExtraMemberNodeComponent {}

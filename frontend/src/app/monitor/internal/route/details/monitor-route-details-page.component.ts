@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { DataComponent } from '@app/shared/components/data/data.component';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 import { MonitorAdminToggleComponent } from '../../components/monitor-admin-toggle.component';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 import { MonitorRouteDetailsAnalysisComponent } from './monitor-route-details-analysis.component';
@@ -83,7 +83,7 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
   providers: [MonitorRouteDetailsPageService, NavService],
   imports: [
     DataComponent,
-    MarkdownModule,
+    MarkdownComponent,
     MonitorAdminToggleComponent,
     MonitorRouteDetailsAnalysisComponent,
     MonitorRouteDetailsReferenceComponent,
