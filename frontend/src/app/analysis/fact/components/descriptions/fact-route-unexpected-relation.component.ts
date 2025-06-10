@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -16,7 +17,7 @@ import { FactInfo } from '../fact-info';
       </ng-container>
       <span class="kpn-sentence">
         <span class="kpn-comma-list">
-          @for (relationId of factInfo().unexpectedRelationIds; track $index) {
+          @for (relationId of unexpectedRelationIds(); track $index) {
             <ui-osm-link-relation [relationId]="relationId" [title]="relationId.toString()" />
           }
         </span>
@@ -27,4 +28,5 @@ import { FactInfo } from '../fact-info';
 })
 export class FactRouteUnexpectedRelationComponent {
   readonly factInfo = input.required<FactInfo>();
+  protected readonly unexpectedRelationIds = computed(() => this.factInfo().unexpectedRelationIds);
 }
