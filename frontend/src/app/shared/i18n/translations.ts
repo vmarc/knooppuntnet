@@ -1,19 +1,34 @@
 export class Translations {
+  static readonly countryNl = $localize`:@@country.nl:The Netherlands`;
+  static readonly countryBe = $localize`:@@country.be:Belgium`;
+  static readonly countryDe = $localize`:@@country.de:Germany`;
+  static readonly countryFr = $localize`:@@country.fr:France`;
+  static readonly countryAt = $localize`:@@country.at:Austria`;
+  static readonly countryEs = $localize`:@@country.es:Spain`;
+  static readonly countryDk = $localize`:@@country.dk:Denmark`;
+
+  static readonly routeTypeHiking = $localize`:@@route-type.hiking:Hiking`;
+  static readonly routeTypeCycling = $localize`:@@route-type.cycling:Cycling`;
+  static readonly routeTypeHorseRiding = $localize`:@@route-type.horse-riding:Horse riding`;
+  static readonly routeTypeMotorboat = $localize`:@@route-type.motorboat:Motorboat`;
+  static readonly routeTypeCanoe = $localize`:@@route-type.canoe:Canoe`;
+  static readonly routeTypeInlineSkating = $localize`:@@route-type.inline-skating:Inline skating`;
+
   private static readonly translations = new Map<string, string>([
-    ['country.nl', $localize`:@@country.nl:The Netherlands`],
-    ['country.be', $localize`:@@country.be:Belgium`],
-    ['country.de', $localize`:@@country.de:Germany`],
-    ['country.fr', $localize`:@@country.fr:France`],
-    ['country.at', $localize`:@@country.at:Austria`],
-    ['country.es', $localize`:@@country.es:Spain`],
-    ['country.dk', $localize`:@@country.dk:Denmark`],
+    ['country.nl', this.countryNl],
+    ['country.be', this.countryBe],
+    ['country.de', this.countryDe],
+    ['country.fr', this.countryFr],
+    ['country.at', this.countryAt],
+    ['country.es', this.countryEs],
+    ['country.dk', this.countryDk],
     //
-    ['route-type.hiking', $localize`:@@route-type.hiking:Hiking`],
-    ['route-type.cycling', $localize`:@@route-type.cycling:Cycling`],
-    ['route-type.horse-riding', $localize`:@@route-type.horse-riding:Horse riding`],
-    ['route-type.motorboat', $localize`:@@route-type.motorboat:Motorboat`],
-    ['route-type.canoe', $localize`:@@route-type.canoe:Canoe`],
-    ['network-type.inline-skating', $localize`:@@network-type.inline-skating:Inline skating`],
+    ['route-type.hiking', this.routeTypeHiking],
+    ['route-type.cycling', this.routeTypeCycling],
+    ['route-type.horse-riding', this.routeTypeHorseRiding],
+    ['route-type.motorboat', this.routeTypeMotorboat],
+    ['route-type.canoe', this.routeTypeCanoe],
+    ['route-type.inline-skating', this.routeTypeInlineSkating],
     //
     ['route-scope.local', $localize`:@@route-scope.local:local`],
     ['route-scope.regional', $localize`:@@route-scope.regional:regional`],

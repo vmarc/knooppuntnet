@@ -3,15 +3,17 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { RouteType } from '@api/common/route-type';
+import { AnalysisLinkComponent } from './analysis-link.component';
 import { AnalysisStrategyComponent } from '@app/analysis/strategy/analysis-strategy.component';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
-import { IconButtonComponent } from '@app/shared/components/icon/icon-button.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { RouterService } from '@app/shared/services/router.service';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'ui-analysis-page',
@@ -20,74 +22,41 @@ import { RouterService } from '@app/shared/services/router.service';
     <ui-page>
       <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
       <ui-page-header i18n="@@analysis-page.title">Analysis</ui-page-header>
+
+      <a routerLink="/analysis/overview">
+        <nz-icon nzType="file-text" class="icon" />
+        <span i18n="@@analysis-page.overview">Overview</span>
+      </a>
+
+      <a routerLink="/analysis/changes">
+        <nz-icon nzType="clock-circle" />
+        <span i18n="@@analysis-page.changes">Changes</span>
+      </a>
+
       <ui-analysis-strategy />
 
-      <div class="buttons">
-        <ui-icon-button
-          routerLink="/analysis/overview"
-          icon="overview"
-          i18n-title="@@analysis-page.overview"
-          title="Overview"
-        />
-        <ui-icon-button
-          routerLink="/analysis/changes"
-          icon="changes"
-          i18n-title="@@analysis-page.changes"
-          title="Changes"
-        />
-      </div>
-
-      <div class="buttons">
-        <ui-icon-button
-          routerLink="/analysis/cycling"
-          icon="cycling"
-          i18n-title="@@route-type.cycling"
-          title="Cycling"
-        />
-        <ui-icon-button
-          routerLink="/analysis/hiking"
-          icon="hiking"
-          i18n-title="@@route-type.hiking"
-          title="Hiking"
-        />
-        <ui-icon-button
-          routerLink="/analysis/horse-riding"
-          icon="horse-riding"
-          i18n-title="@@route-type.horse-riding"
-          title="Horse riding"
-        />
-        <ui-icon-button
-          routerLink="/analysis/motorboat"
-          icon="motorboat"
-          i18n-title="@@route-type.motorboat"
-          title="Motorboat"
-        />
-        <ui-icon-button
-          routerLink="/analysis/canoe"
-          icon="canoe"
-          i18n-title="@@route-type.canoe"
-          title="Canoe"
-        />
-        <ui-icon-button
-          routerLink="/analysis/inline-skating"
-          icon="inline-skating"
-          i18n-title="@@route-type.inline-skating"
-          title="Inline skating"
-        />
-      </div>
+      @for (routeType of routeTypes; track routeType) {
+        <ui-analysis-link [routeType]="routeType" />
+      }
     </ui-page>
   `,
   styles: `
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
+    a {
+      display: block;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
+
+    a > nz-icon {
+      padding-right: 1em;
     }
   `,
   providers: [AnalysisStrategyService, RouterService],
   imports: [
+    AnalysisLinkComponent,
     AnalysisStrategyComponent,
     BreadcrumbComponent,
-    IconButtonComponent,
+    NzIconDirective,
     PageComponent,
     PageHeaderComponent,
     RouterLink,
@@ -99,6 +68,15 @@ export class AnalysisPageComponent implements OnInit {
   protected readonly breadcrumbItems: BreadcrumbItem[] = [
     Breadcrumbs.home,
     { label: Breadcrumbs.analysisLabel },
+  ];
+
+  protected readonly routeTypes: RouteType[] = [
+    'cycling',
+    'hiking',
+    'horse-riding',
+    'motorboat',
+    'canoe',
+    'inline-skating',
   ];
 
   ngOnInit(): void {

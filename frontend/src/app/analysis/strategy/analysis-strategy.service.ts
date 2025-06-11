@@ -1,5 +1,3 @@
-import { computed } from '@angular/core';
-import { Signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { AnalysisStrategy } from '@app/shared/core/preferences/analysis-strategy';
@@ -27,14 +25,5 @@ export class AnalysisStrategyService {
   setStrategy(strategy: AnalysisStrategy): void {
     this.state.preferences.updateStrategy(strategy);
     this.routerService.updateQueryParams({ strategy });
-  }
-
-  link(routeType: string, country: string): Signal<string> {
-    return computed(() => {
-      return (
-        `/analysis/${routeType}/${country}` +
-        (this.state.preferences.strategy() === 'network' ? '/networks' : '')
-      );
-    });
   }
 }
