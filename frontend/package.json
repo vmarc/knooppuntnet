@@ -71,9 +71,9 @@
     "@softarc/eslint-plugin-sheriff": "^0.18.0",
     "@softarc/sheriff-core": "^0.18.0",
     "@types/jasmine": "~5.1.4",
-    "angular-eslint": "19.0.2",
+    "angular-eslint": "20.0.0",
     "esbuild-visualizer": "^0.7.0",
-    "eslint": "^9.16.0",
+    "eslint": "^9.28.0",
     "jasmine-core": "~5.4.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",
@@ -86,6 +86,6 @@
     "prettier-eslint": "^16.3.0",
     "ts-node": "~10.9.2",
     "typescript": "5.8.3",
-    "typescript-eslint": "8.18.0"
+    "typescript-eslint": "^8.33.1"
   }
 }
