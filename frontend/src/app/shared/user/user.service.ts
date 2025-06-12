@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';

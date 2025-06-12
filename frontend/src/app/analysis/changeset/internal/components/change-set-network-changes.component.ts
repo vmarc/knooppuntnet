@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
