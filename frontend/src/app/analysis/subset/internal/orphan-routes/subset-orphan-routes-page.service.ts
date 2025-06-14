@@ -39,13 +39,30 @@ export class SubsetOrphanRoutesPageService {
 
   readonly filterOptions = computed(() => this.filter().filterOptions(this.routes()));
 
+  readonly pageRoutes = computed(() => {
+    const pageIndex = this.pageIndex();
+    const pageSize = this.pageSize();
+    const start = pageIndex * pageSize;
+    const end = start + pageSize;
+    return this.filteredRoutes()?.slice(start, end);
+  });
+
+  readonly routeCount = computed(() => {
+    return this.filteredRoutes().length;
+  });
+
   onInit(): void {
     this.subsetService.initPage(this.routerService);
     this.load();
   }
 
   updatePageSize(pageSize: number): void {
+    this._pageIndex.set(0);
     this.state.preferences.updatePageSize(pageSize);
+  }
+
+  updatePageIndex(pageIndex: number): void {
+    this._pageIndex.set(pageIndex);
   }
 
   private load(): void {

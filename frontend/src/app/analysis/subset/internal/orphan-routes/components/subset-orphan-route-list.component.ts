@@ -1,23 +1,16 @@
-import { signal } from '@angular/core';
-import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { input } from '@angular/core';
-import { SurveyDateInfo } from '@api/common/survey-date-info';
-import { TimeInfo } from '@api/common/time-info';
-import { NetworkRouteRow } from '@api/common/network/network-route-row';
-import { RouteType } from '@api/common/route-type';
 import { EditLinkComponent } from '@app/analysis/components/edit/edit-link.component';
 import { FilterComponent } from '@app/analysis/components/filter/filter.component';
-import { NetworkRouteListItemComponent } from '@app/analysis/network/internal/routes/components/network-route-list-item.component';
+import { SubsetOrphanRouteListItemComponent } from './subset-orphan-route-list-item.component';
 import { EditService } from '@app/shared/components/edit.service';
 import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { ListComponent } from '@app/shared/components/list/list.component';
-import { NetworkRoutesPageService } from '../network-routes-page.service';
+import { SubsetOrphanRoutesPageService } from '../subset-orphan-routes-page.service';
 
 @Component({
-  selector: 'ui-network-route-list',
+  selector: 'ui-subset-orphan-route-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-list
@@ -38,7 +31,7 @@ import { NetworkRoutesPageService } from '../network-routes-page.service';
 
       @for (route of pageRoutes(); track route.id) {
         <ui-list-item [selected]="false">
-          <ui-network-route-list-item
+          <ui-subset-orphan-route-list-item
             [routeType]="routeType()"
             [rowNumber]="rowNumber($index)"
             [row]="route"
@@ -52,49 +45,37 @@ import { NetworkRoutesPageService } from '../network-routes-page.service';
     FilterComponent,
     ListComponent,
     ListItemComponent,
-    NetworkRouteListItemComponent,
+    SubsetOrphanRouteListItemComponent,
   ],
 })
-export class NetworkRouteListComponent {
-  readonly timeInfo = input.required<TimeInfo>();
-  readonly surveyDateInfo = input.required<SurveyDateInfo>();
-  readonly routeType = input.required<RouteType>();
-  readonly routes = input.required<NetworkRouteRow[]>();
-
+export class SubsetOrphanRouteListComponent {
   private readonly editService = inject(EditService);
-  private readonly service = inject(NetworkRoutesPageService);
-  protected readonly filteredRoutes = this.service.filteredRoutes;
-  protected readonly filterOptions = this.service.filterOptions;
-
-  protected readonly routeCount = computed(() => this.filteredRoutes()?.length);
+  private readonly service = inject(SubsetOrphanRoutesPageService);
   protected readonly pageSize = this.service.pageSize;
-  protected readonly pageIndex = signal<number>(0);
-  protected readonly pageRoutes = computed(() => {
-    const pageIndex = this.pageIndex();
-    const pageSize = this.pageSize();
-    const start = pageIndex * pageSize;
-    const end = start + pageSize;
-    return this.filteredRoutes()?.slice(start, end);
-  });
+  protected readonly pageIndex = this.service.pageIndex;
+  protected readonly routeType = this.service.routeType;
+  protected readonly routes = this.service.filteredRoutes;
+  protected readonly filterOptions = this.service.filterOptions;
+  protected readonly pageRoutes = this.service.pageRoutes;
+  protected readonly routeCount = this.service.routeCount;
 
   rowNumber(index: number): number {
     return this.pageSize() * this.pageIndex() + index + 1;
   }
 
-  onPageSizeChange(pageSize: number): void {
-    this.pageIndex.set(0);
+  onPageSizeChange(pageSize: number) {
     this.service.updatePageSize(pageSize);
   }
 
-  edit(): void {
-    const relationIds = this.routes().map((route) => route.id);
-    this.editService.edit({
-      relationIds,
-      fullRelation: true,
-    });
+  onPageIndexChange(pageIndex: number) {
+    this.service.updatePageIndex(pageIndex);
   }
 
-  onPageIndexChange(event: number) {
-    this.pageIndex.set(event);
+  edit(): void {
+    const routeIds = this.routes().map((orphanRoute) => orphanRoute.id);
+    this.editService.edit({
+      relationIds: routeIds,
+      fullRelation: true,
+    });
   }
 }

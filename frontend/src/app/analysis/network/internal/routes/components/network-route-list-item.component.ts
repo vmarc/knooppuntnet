@@ -20,10 +20,7 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
       <span>{{ rowNumber() }}</span>
       <ui-action-button-route [routeType]="routeType()" [relationId]="route.id" />
       <ui-link-route [routeId]="route.id" [routeName]="route.name" [routeType]="routeType()" />
-      <span>
-        <span i18n="@@network-routes.table.distance" class="kpn-label">Distance</span>
-        <span>{{ route.length | distance }}</span>
-      </span>
+      <span> {{ route.length | distance }} </span>
     </div>
     <div class="kpn-line">
       <ui-network-route-analysis [route]="route" [routeType]="routeType()" />

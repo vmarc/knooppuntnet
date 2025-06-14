@@ -54,6 +54,7 @@ export class NetworkNodesPageService {
   }
 
   updatePageSize(pageSize: number): void {
+    this._pageIndex.set(0);
     this.state.preferences.updatePageSize(pageSize);
   }
 

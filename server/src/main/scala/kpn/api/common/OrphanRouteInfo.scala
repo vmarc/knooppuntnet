@@ -8,6 +8,6 @@ case class OrphanRouteInfo(
   meters: Long,
   isBroken: Boolean,
   accessible: Boolean,
-  lastSurvey: String,
+  lastSurvey: Option[String],
   lastUpdated: Timestamp
 )

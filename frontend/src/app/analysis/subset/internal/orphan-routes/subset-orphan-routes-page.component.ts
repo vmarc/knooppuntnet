@@ -2,22 +2,19 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FilterComponent } from '@app/analysis/components/filter/filter.component';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
-import { PageFilterComponent } from '@app/shared/components/page/page-filter.component';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { SubsetOrphanRoutesTableComponent } from './components/subset-orphan-routes-table.component';
+import { SubsetOrphanRouteListComponent } from './components/subset-orphan-route-list.component';
 import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.service';
 
 @Component({
   selector: 'ui-subset-orphan-routes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page-filter>
-      <ui-filter [filterOptions]="filterOptions()" filter />
-
+    <ui-page>
       <ui-subset-page-header-block
         pageName="orphan-routes"
         pageTitle="Free routes"
@@ -36,19 +33,18 @@ import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.servi
               <span i18n="@@subset-orphan-routes.no-routes">No free routes</span>
             </p>
           } @else {
-            <ui-subset-orphan-routes-table />
+            <ui-subset-orphan-route-list />
           }
         </div>
       }
-    </ui-page-filter>
+    </ui-page>
   `,
   providers: [SubsetOrphanRoutesPageService, RouterService],
   imports: [
     ErrorComponent,
-    FilterComponent,
-    PageFilterComponent,
+    PageComponent,
     SituationOnComponent,
-    SubsetOrphanRoutesTableComponent,
+    SubsetOrphanRouteListComponent,
     SubsetPageHeaderBlockComponent,
   ],
 })
