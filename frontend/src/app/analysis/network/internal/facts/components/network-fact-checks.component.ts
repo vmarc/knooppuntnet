@@ -29,8 +29,8 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
               <td>
                 <span class="kpn-thin">{{ $index + 1 }}</span>
               </td>
-              <td class="no-indent">
-                <div class="kpn-align-center">
+              <td>
+                <div class="kpn-align-center kpn-line">
                   <ui-action-button-node [nodeId]="check.nodeId" />
                   <ui-link-node [nodeId]="check.nodeId" [nodeName]="check.nodeName" />
                 </div>
@@ -52,10 +52,6 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
       padding-left: 1em;
       padding-right: 1em;
       vertical-align: middle;
-    }
-
-    .no-indent {
-      padding-left: 0 !important;
     }
   `,
   imports: [LinkNodeComponent, ActionButtonNodeComponent],

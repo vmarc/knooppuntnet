@@ -15,13 +15,13 @@ import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
       </span>
     }
     @for (leg of plan().legs; track leg) {
-      @for (legRoute of leg.routes; track legRoute; let i = $index) {
+      @for (legRoute of leg.routes; track legRoute) {
         @if (hasColour(legRoute)) {
           <span class="colour">
             {{ colours(legRoute) }}
           </span>
         }
-        <span class="node" [class.visited-node]="i < leg.routes.size - 1">
+        <span class="node" [class.visited-node]="$index < leg.routes.size - 1">
           {{ legRoute.sinkNode.nodeName }}
         </span>
       }

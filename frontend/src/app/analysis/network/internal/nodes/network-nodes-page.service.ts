@@ -40,6 +40,14 @@ export class NetworkNodesPageService {
 
   readonly filterOptions = computed(() => this.filter().filterOptions(this.nodes()));
 
+  readonly pageNodes = computed(() => {
+    const pageIndex = this.pageIndex();
+    const pageSize = this.pageSize();
+    const start = pageIndex * pageSize;
+    const end = start + pageSize;
+    return this.filteredNodes()?.slice(start, end);
+  });
+
   onInit(): void {
     this.networkService.initPage(this.routerService);
     this.load();
@@ -47,7 +55,10 @@ export class NetworkNodesPageService {
 
   updatePageSize(pageSize: number): void {
     this.state.preferences.updatePageSize(pageSize);
-    this.load();
+  }
+
+  updatePageIndex(pageIndex: number): void {
+    this._pageIndex.set(pageIndex);
   }
 
   private load(): void {

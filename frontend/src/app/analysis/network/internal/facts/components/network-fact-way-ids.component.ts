@@ -9,7 +9,7 @@ import { ActionButtonWayComponent } from '../../../../components/action/action-b
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (elementId of elementIds(); track elementId) {
-      <div class="kpn-align-center">
+      <div class="kpn-align-center kpn-line">
         <ui-icon-way />
         <ui-action-button-way [wayId]="elementId" />
         {{ elementId }}

@@ -40,7 +40,7 @@ import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
           }
         </div>
       }
-      @for (legRoute of leg.routes; track legRoute; let i = $index) {
+      @for (legRoute of leg.routes; track legRoute) {
         <!-- eslint-disable @angular-eslint/template/i18n -->
         <div class="leg">
           {{ legRoute.meters }} m
@@ -51,7 +51,7 @@ import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
           }
         </div>
         <!-- eslint-enable @angular-eslint/template/i18n -->
-        <div class="node" [class.server-selected]="i < leg.routes.size - 1">
+        <div class="node" [class.server-selected]="$index < leg.routes.size - 1">
           @if (legRoute.sinkNode.nodeName.length <= 3) {
             <div class="text">
               {{ legRoute.sinkNode.nodeName }}

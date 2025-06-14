@@ -11,7 +11,7 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (node of nodes(); track node.id) {
-      <div class="kpn-align-center">
+      <div class="kpn-align-center kpn-line">
         <ui-icon-node />
         <ui-action-button-node [nodeId]="node.id" />
         <ui-link-node [nodeId]="node.id" [nodeName]="node.name" />

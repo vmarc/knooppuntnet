@@ -12,7 +12,7 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (route of routes(); track route.id) {
-      <div class="kpn-align-center">
+      <div class="kpn-align-center kpn-line">
         <ui-icon-route />
         <ui-action-button-route [routeType]="routeType()" [relationId]="route.id" />
         <ui-link-route [routeId]="route.id" [routeName]="route.name" [routeType]="routeType()" />

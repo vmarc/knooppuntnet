@@ -22,7 +22,7 @@ import { SearchRouteComponent } from './search-route.component';
         <span>International</span>
       </div>
       <ui-list>
-        @for (item of list.international; track item.id; let i = $index) {
+        @for (item of list.international; track item.id) {
           <ui-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
             <ui-search-route [routeType]="routeType()" [item]="item" />
           </ui-list-item>
@@ -36,7 +36,7 @@ import { SearchRouteComponent } from './search-route.component';
         <span>National</span>
       </div>
       <ui-list>
-        @for (item of list.national; track item.id; let i = $index) {
+        @for (item of list.national; track item.id) {
           <ui-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
             <ui-search-route [routeType]="routeType()" [item]="item" />
           </ui-list-item>
@@ -50,7 +50,7 @@ import { SearchRouteComponent } from './search-route.component';
         <span>Regional</span>
       </div>
       <ui-list>
-        @for (item of list.regional; track item.id; let i = $index) {
+        @for (item of list.regional; track item.id) {
           <ui-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
             <ui-search-route [routeType]="routeType()" [item]="item" />
           </ui-list-item>
@@ -64,7 +64,7 @@ import { SearchRouteComponent } from './search-route.component';
         <span>Local</span>
       </div>
       <ui-list>
-        @for (item of list.local; track item.id; let i = $index) {
+        @for (item of list.local; track item.id) {
           <ui-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
             <ui-search-route [routeType]="routeType()" [item]="item" />
           </ui-list-item>
@@ -78,7 +78,7 @@ import { SearchRouteComponent } from './search-route.component';
         <span>Other</span>
       </div>
       <ui-list>
-        @for (item of list.unknown; track item.id; let i = $index) {
+        @for (item of list.unknown; track item.id) {
           <ui-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
             <ui-search-route [routeType]="routeType()" [item]="item" />
           </ui-list-item>

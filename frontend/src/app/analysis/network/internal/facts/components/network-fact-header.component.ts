@@ -1,89 +1,40 @@
-import { inject } from '@angular/core';
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkFact } from '@api/common/network-fact';
-import { EditParameters } from '@app/analysis/components/edit/edit-parameters';
-import { FactInfo } from '@app/analysis/fact/components/fact-info';
-import { FactLevel } from '@api/common/fact-level';
 import { Facts } from '@app/analysis/fact/components/facts';
 import { FactLevelComponent } from '@app/analysis/fact/components/fact-level.component';
 import { FactNameComponent } from '@app/analysis/fact/components/fact-name.component';
-import { EditService } from '@app/shared/components/edit.service';
+import { NetworkFactActionButtonComponent } from '@app/analysis/network/internal/facts/components/network-fact-action-button.component';
 
 @Component({
   selector: 'ui-network-fact-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <span class="kpn-thick"><ui-fact-name [fact]="fact().fact" /></span>
+      <ui-network-fact-action-button [networkFact]="networkFact()" />
+      <ui-fact-name [fact]="networkFact().fact" />
       <span class="kpn-brackets">{{ factCount() }}</span>
       <ui-fact-level [factLevel]="factLevel()" class="level" />
     </div>
   `,
-  imports: [FactNameComponent, FactLevelComponent],
+  imports: [FactNameComponent, FactLevelComponent, NetworkFactActionButtonComponent],
 })
 export class NetworkFactHeaderComponent {
-  readonly fact = input.required<NetworkFact>();
-
-  private readonly editService = inject(EditService);
-
-  factLevel(): FactLevel {
-    return Facts.factLevel(this.fact().fact);
-  }
-
-  factCount(): number {
-    if (this.fact().elements && this.fact().elements.length > 0) {
-      return this.fact().elements.length;
+  readonly networkFact = input.required<NetworkFact>();
+  protected readonly factLevel = computed(() => Facts.factLevel(this.networkFact().fact));
+  protected readonly factCount = computed(() => {
+    const fact = this.networkFact();
+    if (fact.elements && fact.elements.length > 0) {
+      return fact.elements.length;
     }
-    if (this.fact().elementIds && this.fact().elementIds.length > 0) {
-      return this.fact().elementIds.length;
+    if (fact.elementIds && fact.elementIds.length > 0) {
+      return fact.elementIds.length;
     }
-    if (this.fact().checks) {
-      return this.fact().checks.length;
+    if (fact.checks) {
+      return fact.checks.length;
     }
     return 0;
-  }
-
-  edit(networkFact: NetworkFact): void {
-    let editParameters: EditParameters = null;
-
-    if (
-      networkFact.elementType === 'node' &&
-      networkFact.elementIds &&
-      networkFact.elementIds.length > 0
-    ) {
-      editParameters = {
-        nodeIds: networkFact.elementIds,
-      };
-    } else if (
-      networkFact.elementType === 'node' &&
-      networkFact.elements &&
-      networkFact.elements.length > 0
-    ) {
-      editParameters = {
-        nodeIds: networkFact.elements.map((ref) => ref.id),
-      };
-    } else if (
-      networkFact.elementType === 'route' &&
-      networkFact.elementIds &&
-      networkFact.elementIds.length > 0
-    ) {
-      editParameters = {
-        relationIds: networkFact.elementIds,
-        fullRelation: true,
-      };
-    } else if (networkFact.checks && networkFact.checks.length > 0) {
-      editParameters = {
-        nodeIds: networkFact.checks.map((check) => check.nodeId),
-      };
-    }
-    if (editParameters !== null) {
-      this.editService.edit(editParameters);
-    }
-  }
-
-  factInfo(networkFact: NetworkFact): FactInfo {
-    return new FactInfo(networkFact.fact);
-  }
+  });
 }

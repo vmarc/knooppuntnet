@@ -140,11 +140,11 @@ export class ListComponent {
   filterEnabled = signal<boolean>(true);
 
   onPageSizeChange(pageSize: number): void {
-    this.pageSizeChange.emit(pageSize);
+    this.pageSizeChange.emit(+pageSize);
   }
 
   onPageIndexChange(pageIndex: number): void {
-    this.pageIndexChange.emit(pageIndex);
+    this.pageIndexChange.emit(+pageIndex);
   }
 
   toggleFilterEnabled(): void {

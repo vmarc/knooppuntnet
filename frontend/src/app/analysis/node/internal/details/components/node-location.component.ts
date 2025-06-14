@@ -13,7 +13,7 @@ import { RouteType } from '@api/common/route-type';
       <p i18n="@@node.location.none">None</p>
     }
     <div class="kpn-comma-list">
-      @for (locationInfo of locations(); track locationInfo.name; let i = $index) {
+      @for (locationInfo of locations(); track locationInfo.name) {
         <a [routerLink]="link(locationInfo)">{{ locationInfo.name }}</a>
       }
     </div>

@@ -28,15 +28,11 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
           <div class="kpn-line">
             <nz-icon [nzType]="locationChanges.routeType" />
             <div class="location-names">
-              @for (
-                locationName of locationChanges.locationNames;
-                track locationName;
-                let i = $index
-              ) {
+              @for (locationName of locationChanges.locationNames; track locationName) {
                 <div class="location-name">
                   <a
                     [routerLink]="
-                      locationLink(locationChanges.routeType, locationChanges.locationNames, i)
+                      locationLink(locationChanges.routeType, locationChanges.locationNames, $index)
                     "
                     >{{ locationName | location }}</a
                   >
@@ -45,11 +41,11 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
             </div>
           </div>
           <ui-change-set-element-refs
-            [elementType]="'node'"
+            elementType="node"
             [changeSetElementRefs]="locationChanges.nodeChanges"
           />
           <ui-change-set-element-refs
-            [elementType]="'route'"
+            elementType="route"
             [changeSetElementRefs]="locationChanges.routeChanges"
           />
         </div>

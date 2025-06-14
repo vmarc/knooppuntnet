@@ -23,21 +23,14 @@ import { ConditionService } from './condition.service';
         (remove)="removeGroup()"
       />
       <ul formArrayName="conditions">
-        @for (
-          conditionForm of form().controls.conditions.controls;
-          track conditionIndex;
-          let conditionIndex = $index
-        ) {
-          <li [formGroupName]="conditionIndex">
+        @for (conditionForm of form().controls.conditions.controls; track $index) {
+          <li [formGroupName]="$index">
             @if (conditionForm.controls.subject.value !== 'group') {
-              <ui-condition [form]="conditionForm" (remove)="removeCondition(conditionIndex)" />
+              <ui-condition [form]="conditionForm" (remove)="removeCondition($index)" />
             } @else {
               @let groupForm = conditionForm.controls.group;
               <form [formGroup]="groupForm">
-                <ui-condition-tree-node
-                  [form]="groupForm"
-                  (remove)="removeCondition(conditionIndex)"
-                />
+                <ui-condition-tree-node [form]="groupForm" (remove)="removeCondition($index)" />
               </form>
             }
           </li>

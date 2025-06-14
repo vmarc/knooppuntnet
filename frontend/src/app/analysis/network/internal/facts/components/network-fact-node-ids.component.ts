@@ -9,7 +9,7 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (nodeId of nodeIds(); track nodeId) {
-      <div class="kpn-align-center">
+      <div class="kpn-align-center kpn-line">
         <ui-icon-node />
         <ui-action-button-node [nodeId]="nodeId" />
         {{ nodeId }}

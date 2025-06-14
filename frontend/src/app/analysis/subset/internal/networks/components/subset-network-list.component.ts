@@ -11,8 +11,8 @@ import { SubsetNetworkComponent } from './subset-network.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-items>
-      @for (network of networks(); track network; let i = $index) {
-        <ui-item [index]="i">
+      @for (network of networks(); track network) {
+        <ui-item [index]="$index">
           <ui-subset-network [network]="network" />
         </ui-item>
       }

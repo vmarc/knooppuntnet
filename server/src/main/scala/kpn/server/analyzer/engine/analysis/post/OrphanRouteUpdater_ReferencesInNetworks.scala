@@ -6,7 +6,6 @@ import kpn.database.base.Id
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
@@ -17,19 +16,14 @@ class OrphanRouteUpdater_ReferencesInNetworks(database: Database, log: Log) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(equal("active", true)),
-        unwind("$members"),
-        filter(
-          and(
-            equal("members.memberType", "relation"),
-          )
-        ),
+        unwind("$routes"),
         project(
           fields(
-            computed("_id", "$members.ref")
+            computed("_id", "$routes.id")
           )
         )
       )
-      val ids = database.baseNetworks.aggregate[Id](pipeline, log).map(_._id).distinct
+      val ids = database.networks.aggregate[Id](pipeline, log).map(_._id).distinct
       (s"${ids.size} routes referenced in networks", ids)
     }
   }

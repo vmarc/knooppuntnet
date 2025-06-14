@@ -16,11 +16,7 @@ import { RouteType } from '@api/common/route-type';
       @for (candidate of locationCandidateInfos(); track candidate) {
         <div class="candidates">
           <div class="kpn-comma-list">
-            @for (
-              locationInfo of candidate.locationInfos;
-              track locationInfo.name;
-              let i = $index
-            ) {
+            @for (locationInfo of candidate.locationInfos; track locationInfo.name) {
               <a [routerLink]="link(locationInfo)">{{ locationInfo.name }}</a>
             }
           </div>

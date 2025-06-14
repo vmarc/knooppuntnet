@@ -23,11 +23,7 @@ import { LocationPipe } from '@app/shared/components/format/location.pipe';
         <div>
           <div class="kpn-line">
             <div class="location-names">
-              @for (
-                locationInfo of locationChanges.locationInfos;
-                track locationInfo;
-                let i = $index
-              ) {
+              @for (locationInfo of locationChanges.locationInfos; track locationInfo) {
                 <div class="location-name">
                   <a [routerLink]="locationLink(locationInfo.link)">{{
                     locationInfo.name | location
@@ -37,11 +33,11 @@ import { LocationPipe } from '@app/shared/components/format/location.pipe';
             </div>
           </div>
           <ui-change-set-element-refs
-            [elementType]="'node'"
+            elementType="node"
             [changeSetElementRefs]="locationChanges.nodeChanges"
           />
           <ui-change-set-element-refs
-            [elementType]="'route'"
+            elementType="route"
             [changeSetElementRefs]="locationChanges.routeChanges"
           />
         </div>

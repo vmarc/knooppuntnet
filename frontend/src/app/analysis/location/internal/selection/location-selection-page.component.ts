@@ -19,11 +19,11 @@ import { LocationSelectionPageService } from './location-selection-page.service'
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-page>
-      <ui-location-selection-sidebar />
-      <nz-divider />
       <ui-location-selection-page-breadcrumb [key]="service.key()" />
       <ui-location-selection-page-header [key]="service.key()" />
       <ui-error />
+      <ui-location-selection-sidebar />
+      <nz-divider />
 
       @if (service.locationNode(); as locationNode) {
         @if (service.isModeName()) {

@@ -21,13 +21,9 @@ import { RouteMemberComponent } from './route-member.component';
         </div>
       } @else {
         <div class="members">
-          @for (row of rows(); track row; let rowIndex = $index) {
+          @for (row of rows(); track row) {
             @defer (on viewport) {
-              <ui-route-member
-                [routeType]="routeType()"
-                [structureRow]="row"
-                [rowIndex]="rowIndex"
-              />
+              <ui-route-member [routeType]="routeType()" [structureRow]="row" [rowIndex]="$index" />
             } @placeholder {
               <div class="member-placeholder"></div>
             }

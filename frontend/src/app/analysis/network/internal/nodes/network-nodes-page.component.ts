@@ -6,7 +6,7 @@ import { PageComponent } from '@app/shared/components/page/page.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
-import { NetworkNodeTableComponent } from './components/network-node-table.component';
+import { NetworkNodeListComponent } from './components/network-node-list.component';
 import { NetworkNodesPageService } from './network-nodes-page.service';
 
 @Component({
@@ -31,7 +31,7 @@ import { NetworkNodesPageService } from './network-nodes-page.service';
             @if (page.nodes.length === 0) {
               <div i18n="@@network-nodes.no-nodes">No network nodes in network</div>
             } @else {
-              <ui-network-node-table
+              <ui-network-node-list
                 [routeType]="page.summary.routeType"
                 [routeScope]="page.summary.routeScope"
                 [timeInfo]="page.timeInfo"
@@ -46,7 +46,7 @@ import { NetworkNodesPageService } from './network-nodes-page.service';
   `,
   providers: [NetworkNodesPageService, RouterService],
   imports: [
-    NetworkNodeTableComponent,
+    NetworkNodeListComponent,
     NetworkPageHeaderComponent,
     PageComponent,
     SituationOnComponent,

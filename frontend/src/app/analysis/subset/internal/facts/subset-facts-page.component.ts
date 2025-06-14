@@ -50,8 +50,8 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
           } @else {
             <div class="kpn-line">
               <ui-items>
-                @for (factCount of response.result.factCounts; track factCount; let i = $index) {
-                  <ui-item [index]="i">
+                @for (factCount of response.result.factCounts; track factCount) {
+                  <ui-item [index]="$index">
                     <div class="kpn-line">
                       <a [routerLink]="factCount.fact">
                         <ui-fact-name [fact]="factCount.fact" />

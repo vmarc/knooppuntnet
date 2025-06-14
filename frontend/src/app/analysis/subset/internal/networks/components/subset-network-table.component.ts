@@ -5,7 +5,7 @@ import { input } from '@angular/core';
 import { NetworkAttributes } from '@api/common/network/network-attributes';
 import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
 import { LinkNetworkDetailsComponent } from '@app/shared/components/link/link-network-details.component';
-import { NzTableComponent } from 'ng-zorro-antd/table';
+import { NzTableModule } from 'ng-zorro-antd/table';
 import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
 
 @Component({
@@ -14,9 +14,9 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
   template: `
     <nz-table
       #networksTable
-      nzBordered
-      [nzFrontPagination]="false"
       [nzData]="networks()"
+      [nzBordered]="true"
+      nzFrontPagination="false"
       nzSize="small"
     >
       <thead>
@@ -95,7 +95,7 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
     IntegerFormatPipe,
     LinkNetworkDetailsComponent,
     NgClass,
-    NzTableComponent,
+    NzTableModule,
     SubsetNetworkHappyComponent,
   ],
 })
