@@ -34,10 +34,10 @@ class SubsetOrphanNodesPageBuilder(database: Database) {
     OrphanNodeInfo(
       id = doc.nodeId,
       name = doc.name,
-      longName = doc.longName.getOrElse("-"),
+      longName = doc.longName,
       proposed = doc.proposed,
       lastUpdated = doc.lastUpdated,
-      lastSurvey = doc.lastSurvey.map(_.yyyymmdd).getOrElse("-"),
+      lastSurvey = doc.lastSurvey.map(_.yyyymmdd),
       factCount = doc.facts.size
     )
   }

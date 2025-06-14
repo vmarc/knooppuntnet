@@ -2,21 +2,20 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FilterComponent } from '@app/analysis/components/filter/filter.component';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
-import { PageFilterComponent } from '@app/shared/components/page/page-filter.component';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { SubsetOrphanNodesTableComponent } from './components/subset-orphan-nodes-table.component';
+import { SubsetOrphanNodeListComponent } from './components/subset-orphan-node-list.component';
 import { SubsetOrphanNodesPageService } from './subset-orphan-nodes-page.service';
 
 @Component({
   selector: 'ui-subset-orphan-nodes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page-filter>
+    <ui-page>
       <ui-subset-page-header-block
         pageName="orphan-nodes"
         pageTitle="Orphan nodes"
@@ -36,22 +35,20 @@ import { SubsetOrphanNodesPageService } from './subset-orphan-nodes-page.service
               <span i18n="@@subset-orphan-nodes.no-routes">No orphan nodes</span>
             </p>
           } @else {
-            <ui-subset-orphan-nodes-table />
+            <ui-subset-orphan-node-list />
           }
         </div>
       }
-      <ui-filter [filterOptions]="filterOptions()" filter />
-    </ui-page-filter>
+    </ui-page>
   `,
   providers: [SubsetOrphanNodesPageService, RouterService],
   imports: [
     ErrorComponent,
-    FilterComponent,
     IconHappyComponent,
-    PageFilterComponent,
     SituationOnComponent,
-    SubsetOrphanNodesTableComponent,
+    SubsetOrphanNodeListComponent,
     SubsetPageHeaderBlockComponent,
+    PageComponent,
   ],
 })
 export class SubsetOrphanNodesPageComponent implements OnInit {

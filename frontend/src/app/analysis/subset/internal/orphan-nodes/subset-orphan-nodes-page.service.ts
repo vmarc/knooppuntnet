@@ -35,13 +35,29 @@ export class SubsetOrphanNodesPageService {
     return this.filter().filter(this.nodes());
   });
 
+  readonly nodeCount = computed(() => {
+    return this.filteredNodes().length;
+  });
+
   readonly filterOptions = computed(() => {
     return this.filter().filterOptions(this.nodes());
+  });
+
+  readonly pageNodes = computed(() => {
+    const pageIndex = this.pageIndex();
+    const pageSize = this.pageSize();
+    const start = pageIndex * pageSize;
+    const end = start + pageSize;
+    return this.filteredNodes()?.slice(start, end);
   });
 
   onInit(): void {
     this.subsetService.initPage(this.routerService);
     this.load();
+  }
+
+  updatePageIndex(pageIndex: number): void {
+    this._pageIndex.set(pageIndex);
   }
 
   updatePageSize(pageSize: number): void {

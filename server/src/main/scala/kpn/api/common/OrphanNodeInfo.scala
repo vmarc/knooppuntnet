@@ -5,9 +5,9 @@ import kpn.api.custom.Timestamp
 case class OrphanNodeInfo(
   id: Long,
   name: String,
-  longName: String,
+  longName: Option[String],
   lastUpdated: Timestamp,
   proposed: Boolean,
-  lastSurvey: String,
+  lastSurvey: Option[String],
   factCount: Long,
 )
