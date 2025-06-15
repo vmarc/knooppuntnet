@@ -1,6 +1,8 @@
+import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatDividerModule } from '@angular/material/divider';
+import { MenuOption } from '@app/shared/components/menu/menu-option';
+import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
 
 @Component({
   selector: 'ui-page-menu',
@@ -8,6 +10,16 @@ import { MatDividerModule } from '@angular/material/divider';
   template: `
     <div class="menu-wrapper">
       <div class="menu">
+        @if (options()) {
+          @for (option of options(); track option.pageName) {
+            <ui-page-menu-option
+              [link]="option.pageLink"
+              [active]="pageName() === option.pageName"
+              [elementCount]="option.elementCount"
+              >{{ option.label }}
+            </ui-page-menu-option>
+          }
+        }
         <ng-content />
       </div>
       <div class="menu-extra">
@@ -36,6 +48,9 @@ import { MatDividerModule } from '@angular/material/divider';
       padding-right: 5px;
     }
   `,
-  imports: [MatDividerModule],
+  imports: [PageMenuOptionComponent],
 })
-export class PageMenuComponent {}
+export class PageMenuComponent {
+  readonly pageName = input<string>();
+  readonly options = input<MenuOption[]>();
+}

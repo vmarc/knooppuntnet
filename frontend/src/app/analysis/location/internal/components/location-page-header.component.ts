@@ -1,12 +1,12 @@
+import { Signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { LocationKey } from '@api/custom/location-key';
 import { LocationPipe } from '@app/shared/components/format/location.pipe';
-import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
+import { MenuOption } from '@app/shared/components/menu/menu-option';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { RouteTypeNameComponent } from '@app/shared/components/route-type-name.component';
@@ -18,7 +18,7 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
   selector: 'ui-location-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (service.key(); as key) {
+    @if (locationKey(); as key) {
       <ui-location-page-breadcrumb [locationKey]="key" />
       <ui-page-header [pageTitle]="fullPageTitle()" subject="location-page">
         <span class="header-route-type-icon">
@@ -28,92 +28,80 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
         <span i18n="@@location-page.header.in">in</span>
         {{ locationName(key) | location }}
       </ui-page-header>
-      @if (service.summary(); as summary) {
-        <ui-page-menu>
-          <ui-page-menu-option
-            [link]="link(key, 'details')"
-            [active]="pageName() === 'details'"
-            i18n="@@location-page.menu.details"
-          >
-            Details
-          </ui-page-menu-option>
-          <ui-page-menu-option
-            [link]="link(key, 'nodes')"
-            [active]="pageName() === 'nodes'"
-            i18n="@@location-page.menu.nodes"
-            [elementCount]="summary.nodeCount"
-          >
-            Nodes
-          </ui-page-menu-option>
-          <ui-page-menu-option
-            [link]="link(key, 'routes')"
-            [active]="pageName() === 'routes'"
-            i18n="@@location-page.menu.routes"
-            [elementCount]="summary.routeCount"
-          >
-            Routes
-          </ui-page-menu-option>
-          <ui-page-menu-option
-            [link]="link(key, 'facts')"
-            [active]="pageName() === 'facts'"
-            i18n="@@location-page.menu.facts"
-            [elementCount]="summary.factCount"
-          >
-            Facts
-          </ui-page-menu-option>
-          <ui-page-menu-option
-            [link]="link(key, 'map')"
-            [active]="pageName() === 'map'"
-            i18n="@@location-page.menu.map"
-          >
-            Map
-          </ui-page-menu-option>
-          <ui-page-menu-option
-            [link]="link(key, 'changes')"
-            [active]="pageName() === 'changes'"
-            i18n="@@location-page.menu.changes"
-            [elementCount]="summary.changesCount"
-          >
-            Changes
-          </ui-page-menu-option>
-          <ui-page-menu-option
-            [link]="link(key, 'edit')"
-            [active]="pageName() === 'edit'"
-            i18n="@@location-page.menu.edit"
-          >
-            Load in editor
-          </ui-page-menu-option>
-        </ui-page-menu>
-      }
+      <ui-page-menu [pageName]="pageName()" [options]="menuOptions()" />
     }
   `,
   imports: [
     LocationPageBreadcrumbComponent,
     LocationPipe,
-    MatIconModule,
     NzIconDirective,
     PageHeaderComponent,
     PageMenuComponent,
-    PageMenuOptionComponent,
     RouteTypeNameComponent,
-    LocationPipe,
   ],
 })
 export class LocationPageHeaderComponent {
   readonly pageName = input.required<string>();
   readonly pageTitle = input.required<string>();
 
-  protected readonly service = inject(LocationService);
+  private readonly service = inject(LocationService);
+  protected readonly locationKey = this.service.key;
 
-  readonly fullPageTitle = computed(() => `${this.service.key().name} | ${this.pageTitle()}`);
+  protected readonly fullPageTitle = computed(
+    () => `${this.service.key().name} | ${this.pageTitle()}`
+  );
+
+  protected readonly menuOptions: Signal<MenuOption[]> = computed(() => {
+    const summary = this.service.summary();
+    const locationKey = this.service.key();
+    const key = `${locationKey.routeType}/${locationKey.country}/${locationKey.name}`;
+    const link = `/analysis/${key}/`;
+
+    return [
+      {
+        pageName: 'details',
+        pageLink: link + '/details',
+        label: $localize`:@@location-page.menu.details:Details`,
+      },
+      {
+        pageName: 'nodes',
+        pageLink: link + '/nodes',
+        label: $localize`:@@location-page.menu.nodes:Nodes`,
+        elementCount: summary.nodeCount,
+      },
+      {
+        pageName: 'routes',
+        pageLink: link + '/routes',
+        label: $localize`:@@location-page.menu.routes:Routes`,
+        elementCount: summary.routeCount,
+      },
+      {
+        pageName: 'facts',
+        pageLink: link + '/facts',
+        label: $localize`:@@location-page.menu.facts:Facts`,
+        elementCount: summary.factCount,
+      },
+      {
+        pageName: 'map',
+        pageLink: link + '/map',
+        label: $localize`:@@location-page.menu.map:Map`,
+      },
+      {
+        pageName: 'changes',
+        pageLink: link + '/changes',
+        label: $localize`:@@location-page.menu.changes:Changes`,
+        elementCount: summary.changesCount,
+      },
+      {
+        pageName: 'edit',
+        pageLink: link + '/edit',
+        label: $localize`:@@@location-page.menu.edit:Load in editor`,
+      },
+    ];
+  });
 
   locationName(locationKey: LocationKey): string {
     const nameParts = locationKey.name.split(':');
     return nameParts[nameParts.length - 1];
-  }
-
-  link(locationKey: LocationKey, target: string): string {
-    const key = `${locationKey.routeType}/${locationKey.country}/${locationKey.name}`;
-    return `/analysis/${key}/${target}`;
   }
 }

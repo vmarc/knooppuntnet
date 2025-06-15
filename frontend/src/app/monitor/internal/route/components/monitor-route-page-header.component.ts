@@ -54,7 +54,6 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
       >
         Map
       </ui-page-menu-option>
-
       @if (pageName() === 'map') {
         <ui-monitor-sub-relation-menu-option
           [routeSubRelation]="previous()"

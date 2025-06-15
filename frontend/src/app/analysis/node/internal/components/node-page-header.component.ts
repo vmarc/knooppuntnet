@@ -1,7 +1,10 @@
+import { computed } from '@angular/core';
+import { Signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
+import { MenuOption } from '@app/shared/components/menu/menu-option';
 import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
@@ -11,50 +14,40 @@ import { NodeService } from '../node.service';
   selector: 'ui-node-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page-header [pageTitle]="service.nodeName()" subject="node-page">
+    <ui-page-header [pageTitle]="nodeName()" subject="node-page">
       <span i18n="@@node.title">Node</span>
-      @if (service.nodeName()) {
-        <span>&nbsp;{{ service.nodeName() }}</span>
+      @if (nodeName()) {
+        <span>&nbsp;{{ nodeName() }}</span>
       } @else {
-        <span>&nbsp;{{ service.nodeId() }}</span>
+        <span>&nbsp;{{ nodeId() }}</span>
       }
     </ui-page-header>
 
-    <ui-page-menu>
-      <ui-page-menu-option
-        [link]="linkNodeDetails()"
-        [active]="pageName() === 'details'"
-        i18n="@@node.menu.details"
-      >
-        Details
-      </ui-page-menu-option>
-
-      <ui-page-menu-option
-        [link]="linkNodeChanges()"
-        [active]="pageName() === 'changes'"
-        [elementCount]="service.changeCount()"
-        i18n="@@node.menu.changes"
-      >
-        Changes
-      </ui-page-menu-option>
-    </ui-page-menu>
+    <ui-page-menu [pageName]="pageName()" [options]="menuOptions()" />
   `,
   imports: [PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class NodePageHeaderComponent {
   readonly pageName = input.required<string>();
 
-  protected readonly service = inject(NodeService);
+  private readonly service = inject(NodeService);
+  protected readonly nodeName = computed(() => this.service.nodeName());
+  protected readonly nodeId = computed(() => this.service.nodeId());
 
-  linkNodeDetails(): string {
-    return this.linkNode('');
-  }
-
-  linkNodeChanges(): string {
-    return this.linkNode('/changes');
-  }
-
-  private linkNode(suffix: string): string {
-    return `/analysis/node/${this.service.nodeId()}${suffix}`;
-  }
+  protected readonly menuOptions: Signal<MenuOption[]> = computed(() => {
+    const link = `/analysis/node/${this.service.nodeId()}`;
+    return [
+      {
+        pageName: 'details',
+        pageLink: link,
+        label: $localize`:@@node.menu.details:Details`,
+      },
+      {
+        pageName: 'changes',
+        pageLink: link + '/changes',
+        label: $localize`:@@node.menu.changes:Changes`,
+        elementCount: this.service.changeCount(),
+      },
+    ];
+  });
 }

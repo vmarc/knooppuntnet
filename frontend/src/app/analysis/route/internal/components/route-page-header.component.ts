@@ -1,10 +1,10 @@
+import { Signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
+import { MenuOption } from '@app/shared/components/menu/menu-option';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { RouteService } from '../route.service';
@@ -13,52 +13,43 @@ import { RouteService } from '../route.service';
   selector: 'ui-route-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page-header [pageTitle]="service.routeDisplayName()" subject="route-page">
-      <span>{{ service.routeDisplayName() }}</span>
+    <ui-page-header [pageTitle]="routeDisplayName()" subject="route-page">
+      <span>{{ routeDisplayName() }}</span>
     </ui-page-header>
-
-    <ui-page-menu>
-      <ui-page-menu-option
-        [link]="routeLink()"
-        [active]="pageName() === 'details'"
-        i18n="@@route.menu.details"
-      >
-        Details
-      </ui-page-menu-option>
-
-      <ui-page-menu-option
-        [link]="mapLink()"
-        [active]="pageName() === 'map'"
-        i18n="@@route.menu.map"
-      >
-        Map
-      </ui-page-menu-option>
-
-      <ui-page-menu-option
-        [link]="changesLink()"
-        [active]="pageName() === 'changes'"
-        [elementCount]="service.changeCount()"
-        i18n="@@route.menu.changes"
-      >
-        Changes
-      </ui-page-menu-option>
-
-      <ui-page-menu-option
-        [link]="segmentsLink()"
-        [active]="pageName() === 'segments'"
-        [elementCount]="3"
-        i18n="@@route.menu.segments"
-        >Segments
-      </ui-page-menu-option>
-    </ui-page-menu>
+    <ui-page-menu [pageName]="pageName()" [options]="menuOptions()" />
   `,
-  imports: [MatIconModule, PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
+  imports: [PageHeaderComponent, PageMenuComponent],
 })
 export class RoutePageHeaderComponent {
   readonly pageName = input.required<string>();
-  protected readonly service = inject(RouteService);
-  protected readonly routeLink = computed(() => `/analysis/route/${this.service.routeId()}`);
-  protected readonly mapLink = computed(() => this.routeLink() + '/map');
-  protected readonly changesLink = computed(() => this.routeLink() + '/changes');
-  protected readonly segmentsLink = computed(() => this.routeLink() + '/segments');
+  private readonly service = inject(RouteService);
+  protected readonly routeDisplayName = this.service.routeDisplayName;
+
+  protected readonly menuOptions: Signal<MenuOption[]> = computed(() => {
+    const link = `/analysis/route/${this.service.routeId()}`;
+    return [
+      {
+        pageName: 'details',
+        pageLink: link,
+        label: $localize`:@@route.menu.details:Details`,
+      },
+      {
+        pageName: 'map',
+        pageLink: link + '/map',
+        label: $localize`:@@route.menu.map:Map`,
+      },
+      {
+        pageName: 'changes',
+        pageLink: link + '/changes',
+        label: $localize`:@@route.menu.changes:Changes`,
+        elementCount: this.service.changeCount(),
+      },
+      {
+        pageName: 'segments',
+        pageLink: link + '/segments',
+        label: $localize`:@@route.menu.segments:Segments`,
+        elementCount: 33,
+      },
+    ];
+  });
 }

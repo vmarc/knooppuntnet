@@ -8,18 +8,11 @@ import { NetworkPage } from '@app/analysis/network/internal/components/network-p
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
-import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
+import { MenuOption } from '@app/shared/components/menu/menu-option';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NetworkService } from '../network.service';
-
-interface MenuOption {
-  pageName: NetworkPage;
-  pageLink: string;
-  label: string;
-  elementCount?: number;
-}
 
 @Component({
   selector: 'ui-network-page-header',
@@ -37,25 +30,10 @@ interface MenuOption {
         </span>
       </ui-page-header>
 
-      <ui-page-menu>
-        @for (option of menuOptions(); track option.pageName) {
-          <ui-page-menu-option
-            [link]="option.pageLink"
-            [active]="pageName() === option.pageName"
-            [elementCount]="option.elementCount"
-            >{{ option.label }}
-          </ui-page-menu-option>
-        }
-      </ui-page-menu>
+      <ui-page-menu [pageName]="pageName()" [options]="menuOptions()" />
     }
   `,
-  imports: [
-    BreadcrumbComponent,
-    NzIconDirective,
-    PageHeaderComponent,
-    PageMenuComponent,
-    PageMenuOptionComponent,
-  ],
+  imports: [BreadcrumbComponent, NzIconDirective, PageHeaderComponent, PageMenuComponent],
 })
 export class NetworkPageHeaderComponent {
   readonly pageName = input.required<NetworkPage>();

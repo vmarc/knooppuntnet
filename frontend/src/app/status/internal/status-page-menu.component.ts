@@ -1,6 +1,9 @@
+import { computed } from '@angular/core';
+import { Signal } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
+import { MenuOption } from '@app/shared/components/menu/menu-option';
 import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
 import { StatusLinks } from './status-links';
@@ -9,29 +12,41 @@ import { StatusLinks } from './status-links';
   selector: 'ui-status-page-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <!-- English only-->
-    <!-- eslint-disable @angular-eslint/template/i18n -->
-    <ui-page-menu>
-      <ui-page-menu-option [link]="links().hour" [active]="periodType() === 'hour'">
-        Hour
-      </ui-page-menu-option>
-      <ui-page-menu-option [link]="links().day" [active]="periodType() === 'day'">
-        Day
-      </ui-page-menu-option>
-      <ui-page-menu-option [link]="links().week" [active]="periodType() === 'week'">
-        Week
-      </ui-page-menu-option>
-      <ui-page-menu-option [link]="links().month" [active]="periodType() === 'month'">
-        Month
-      </ui-page-menu-option>
-      <ui-page-menu-option [link]="links().year" [active]="periodType() === 'year'">
-        Year
-      </ui-page-menu-option>
-    </ui-page-menu>
+    <ui-page-menu [pageName]="periodType()" [options]="menuOptions()" />
   `,
   imports: [PageMenuComponent, PageMenuOptionComponent],
 })
 export class StatusPageMenuComponent {
   readonly periodType = input.required<string>();
   readonly links = input.required<StatusLinks>();
+
+  protected readonly menuOptions: Signal<MenuOption[]> = computed(() => {
+    return [
+      {
+        pageName: 'hour',
+        pageLink: this.links().hour,
+        label: 'Hour',
+      },
+      {
+        pageName: 'day',
+        pageLink: this.links().day,
+        label: 'Day',
+      },
+      {
+        pageName: 'week',
+        pageLink: this.links().week,
+        label: 'Week',
+      },
+      {
+        pageName: 'month',
+        pageLink: this.links().month,
+        label: 'Month',
+      },
+      {
+        pageName: 'year',
+        pageLink: this.links().year,
+        label: 'Year',
+      },
+    ];
+  });
 }
