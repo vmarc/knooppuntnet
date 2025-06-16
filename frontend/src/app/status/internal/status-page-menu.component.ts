@@ -4,23 +4,20 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MenuOption } from '@app/shared/components/menu/menu-option';
-import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
 import { StatusLinks } from './status-links';
 
 @Component({
   selector: 'ui-status-page-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <ui-page-menu [pageName]="periodType()" [options]="menuOptions()" />
-  `,
-  imports: [PageMenuComponent, PageMenuOptionComponent],
+  template: ` <ui-page-menu [pageName]="periodType()" [options]="menuItems()" /> `,
+  imports: [PageMenuComponent],
 })
 export class StatusPageMenuComponent {
   readonly periodType = input.required<string>();
   readonly links = input.required<StatusLinks>();
 
-  protected readonly menuOptions: Signal<MenuOption[]> = computed(() => {
+  protected readonly menuItems: Signal<MenuOption[]> = computed(() => {
     return [
       {
         pageName: 'hour',

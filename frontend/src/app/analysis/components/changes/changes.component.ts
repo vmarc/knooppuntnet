@@ -2,29 +2,30 @@ import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { OldPaginatorComponent } from '@app/shared/components/paginator/old-paginator.component';
+import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
+import { NzSwitchComponent } from 'ng-zorro-antd/switch';
 
 @Component({
   selector: 'ui-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-slide-toggle
-      [checked]="impact()"
-      (change)="onImpactChanged($event)"
-      i18n="@@changes.impact"
-      >Impact
-    </mat-slide-toggle>
-
-    <ui-old-paginator
-      [pageIndex]="pageIndex()"
-      (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize()"
-      (pageSizeChange)="onPageSizeChange($event)"
-      [length]="totalCount()"
-      [showPageSizeSelection]="true"
-    />
+    <div class="header">
+      <div class="filter-switch kpn-line" (click)="onToggleImpact()">
+        <nz-switch nzSize="small" [ngModel]="impact()" />
+        <span i18n="@@changes.impact">Impact</span>
+      </div>
+      <div class="paginator">
+        <ui-paginator
+          [pageIndex]="pageIndex()"
+          (pageIndexChange)="onPageIndexChange($event)"
+          [pageSize]="pageSize()"
+          (pageSizeChange)="onPageSizeChange($event)"
+          [length]="totalCount()"
+        />
+      </div>
+    </div>
 
     @if (totalCount() === 0) {
       <div i18n="@@changes.no-changes">No changes</div>
@@ -36,7 +37,15 @@ import { OldPaginatorComponent } from '@app/shared/components/paginator/old-pagi
       </div>
     }
   `,
-  imports: [MatSlideToggleModule, OldPaginatorComponent],
+  styles: `
+    .header {
+      display: flex;
+    }
+    .paginator {
+      margin-left: auto;
+    }
+  `,
+  imports: [MatSlideToggleModule, NzSwitchComponent, FormsModule, PaginatorComponent],
 })
 export class ChangesComponent {
   readonly changeCount = input.required<number>();
@@ -49,8 +58,8 @@ export class ChangesComponent {
   readonly pageSizeChange = output<number>();
   readonly pageIndexChange = output<number>();
 
-  onImpactChanged(event: MatSlideToggleChange) {
-    this.impactChange.emit(event.checked);
+  onToggleImpact() {
+    this.impactChange.emit(!this.impact());
   }
 
   onPageIndexChange(pageIndex: number) {

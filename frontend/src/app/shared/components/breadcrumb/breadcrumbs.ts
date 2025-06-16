@@ -7,12 +7,9 @@ export class Breadcrumbs {
   static readonly analysisLabel: string = $localize`:@@breadcrumb.analysis:Analysis`;
   static readonly changesLabel: string = $localize`:@@breadcrumb.changes:Changes`;
   static readonly networkLabel: string = $localize`:@@breadcrumb.network:Network`;
-  static readonly nodeChangesLabel: string = $localize`:@@breadcrumb.node-changes:Node changes`;
-  static readonly routeChangesLabel: string = $localize`:@@breadcrumb.route-changes:Route changes`;
   static readonly groupChangesLabel: string = $localize`:@@breadcrumb.group-changes:Group changes`;
   static readonly overviewLabel: string = $localize`:@@breadcrumb.overview:Overview`;
   static readonly routeLabel: string = $localize`:@@breadcrumb.route:Route`;
-  static readonly routeMapLabel: string = $localize`:@@breadcrumb.route-map:Route map`;
   static readonly monitorLabel: string = $localize`:@@breadcrumb.monitor:Monitor`;
   static readonly monitorGroupLabel: string = $localize`:@@breadcrumb.monitor.group:Group`;
   static readonly settingsLabel: string = $localize`:@@breadcrumb.settings:Settings`;

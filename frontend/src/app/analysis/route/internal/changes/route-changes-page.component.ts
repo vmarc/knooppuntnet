@@ -2,30 +2,19 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { ChangesComponent } from '@app/analysis/components/changes/changes.component';
-import { ChangeFilterComponent } from '@app/analysis/components/changes/filter/change-filter.component';
-import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
-import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
-import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
-import { ChangeOption } from '@app/shared/kpn/common/change-option';
-import { ItemComponent } from '@app/shared/components/items/item.component';
-import { ItemsComponent } from '@app/shared/components/items/items.component';
-import { PageFilterComponent } from '@app/shared/components/page/page-filter.component';
-import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
+import { RouteChangesComponent } from '@app/analysis/route/internal/changes/components/route-changes.component';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { UserLinkLoginComponent } from '@app/shared/user/user-link-login.component';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
-import { RouteChangeComponent } from './components/route-change.component';
 import { RouteChangesPageService } from './route-changes-page.service';
 
 @Component({
   selector: 'ui-route-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page-filter>
-      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
+    <ui-page>
       <ui-route-page-header pageName="changes" />
-
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
@@ -43,108 +32,21 @@ import { RouteChangesPageService } from './route-changes-page.service';
               </div>
             } @else {
               @if (response.result; as page) {
-                <div>
-                  <p>
-                    <ui-situation-on [timestamp]="response.situationOn" />
-                  </p>
-                  <ui-changes
-                    [impact]="service.impact()"
-                    [pageSize]="service.pageSize()"
-                    [pageIndex]="service.pageIndex()"
-                    (impactChange)="onImpactChange($event)"
-                    (pageSizeChange)="onPageSizeChange($event)"
-                    (pageIndexChange)="onPageIndexChange($event)"
-                    [totalCount]="page.totalCount"
-                    [changeCount]="page.changeCount"
-                  >
-                    <ui-items>
-                      @for (routeChangeInfo of page.changes; track routeChangeInfo) {
-                        <ui-item [index]="routeChangeInfo.rowIndex">
-                          <ui-route-change [routeChangeInfo]="routeChangeInfo" />
-                        </ui-item>
-                      }
-                    </ui-items>
-                  </ui-changes>
-                </div>
+                <ui-route-changes />
               }
             }
-            <ng-template #changes>
-              @if (response.result; as page) {
-                <div>
-                  <p>
-                    <ui-situation-on [timestamp]="response.situationOn" />
-                  </p>
-                  <ui-changes
-                    [impact]="service.impact()"
-                    [pageSize]="service.pageSize()"
-                    [pageIndex]="service.pageIndex()"
-                    (impactChange)="onImpactChange($event)"
-                    (pageSizeChange)="onPageSizeChange($event)"
-                    (pageIndexChange)="onPageIndexChange($event)"
-                    [totalCount]="page.totalCount"
-                    [changeCount]="page.changeCount"
-                  >
-                    <ui-items>
-                      @for (routeChangeInfo of page.changes; track routeChangeInfo) {
-                        <ui-item [index]="routeChangeInfo.rowIndex">
-                          <ui-route-change [routeChangeInfo]="routeChangeInfo" />
-                        </ui-item>
-                      }
-                    </ui-items>
-                  </ui-changes>
-                </div>
-              }
-            </ng-template>
           }
         </div>
       }
-      <ui-change-filter
-        [filterOptions]="service.filterOptions()"
-        (optionSelected)="onOptionSelected($event)"
-        filter
-      />
-    </ui-page-filter>
+    </ui-page>
   `,
   providers: [RouteChangesPageService, RouterService],
-  imports: [
-    BreadcrumbComponent,
-    ChangeFilterComponent,
-    ChangesComponent,
-    ItemComponent,
-    ItemsComponent,
-    PageFilterComponent,
-    RouteChangeComponent,
-    RoutePageHeaderComponent,
-    SituationOnComponent,
-    UserLinkLoginComponent,
-  ],
+  imports: [PageComponent, RouteChangesComponent, RoutePageHeaderComponent, UserLinkLoginComponent],
 })
 export class RouteChangesPageComponent implements OnInit {
   protected readonly service = inject(RouteChangesPageService);
 
-  protected readonly breadcrumbItems: BreadcrumbItem[] = [
-    Breadcrumbs.home,
-    Breadcrumbs.analysis,
-    { label: Breadcrumbs.routeChangesLabel },
-  ];
-
   ngOnInit(): void {
     this.service.onInit();
-  }
-
-  onImpactChange(impact: boolean): void {
-    this.service.updateImpact(impact);
-  }
-
-  onPageSizeChange(pageSize: number): void {
-    this.service.updatePageSize(pageSize);
-  }
-
-  onPageIndexChange(pageIndex: number): void {
-    this.service.updatePageIndex(pageIndex);
-  }
-
-  onOptionSelected(option: ChangeOption): void {
-    this.service.updateFilterOption(option);
   }
 }

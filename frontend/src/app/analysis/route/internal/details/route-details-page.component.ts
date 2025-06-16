@@ -5,26 +5,12 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
-import { FactsComponent } from '@app/analysis/fact/components/facts.component';
-import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
-import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
-import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
-import { DataComponent } from '@app/shared/components/data/data.component';
-import { DividerComponent } from '@app/shared/components/divider.component';
+import { RouteDetailsComponent } from '@app/analysis/route/internal/details/components/route-details.component';
 import { PageWidthService } from '@app/shared/components/page-width.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
-import { TagTableComponent } from '@app/shared/components/tags/tag-table.component';
-import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
-import { RouteEndNodesComponent } from './components/route-end-nodes.component';
-import { RouteMembersComponent } from './components/route-members.component';
-import { RouteNetworkReferencesComponent } from './components/route-network-references.component';
-import { RouteParentsComponent } from './components/route-parents.component';
-import { RouteRedundantNodesComponent } from './components/route-redundant-nodes.component';
-import { RouteStartNodesComponent } from './components/route-start-nodes.component';
-import { RouteSummaryComponent } from './components/route-summary.component';
 import { RouteDetailsPageService } from './route-details-page.service';
 
 @Component({
@@ -32,7 +18,6 @@ import { RouteDetailsPageService } from './route-details-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-page>
-      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
       <ui-route-page-header pageName="details" />
 
       @if (service.response(); as response) {
@@ -41,114 +26,20 @@ import { RouteDetailsPageService } from './route-details-page.service';
             <div i18n="@@route.route-not-found">Route not found</div>
           }
           @if (response.result; as page) {
-            <div>
-              <ui-route-summary [route]="page.route" />
-              <ui-divider />
-              <div class="data2">
-                <div class="title">
-                  <span i18n="@@route.situation-on">Situation on</span>
-                </div>
-                <div class="body">
-                  <ui-timestamp [timestamp]="response.situationOn" />
-                </div>
-              </div>
-              <div class="data2">
-                <div class="title">
-                  <span i18n="@@route.last-updated">Last updated</span>
-                </div>
-                <div class="body">
-                  <ui-timestamp [timestamp]="page.route.lastUpdated" />
-                </div>
-              </div>
-              <ui-data title="Relation last updated" i18n-title="@@route.relation-last-updated">
-                <ui-timestamp [timestamp]="page.route.summary.timestamp" />
-              </ui-data>
-              <ui-data title="Network" i18n-title="@@route.network">
-                <ui-route-network-references [references]="page.networkReferences" />
-              </ui-data>
-
-              @if (page.route.parentRoutes.length > 0) {
-                <ui-data title="Part of" i18n-title="@@route.parent-routes">
-                  <ui-route-parents [parentRoutes]="page.route.parentRoutes" />
-                </ui-data>
-              }
-
-              <div>
-                @if (page.route.nodes; as nodes) {
-                  <ui-data title="Start node" i18n-title="@@route.start-node">
-                    <ui-route-start-nodes [nodes]="nodes" />
-                  </ui-data>
-
-                  <ui-data title="End node" i18n-title="@@route.end-node">
-                    <ui-route-end-nodes [nodes]="nodes" />
-                  </ui-data>
-                  @if (nodes.redundantNodes.length > 0) {
-                    <div>
-                      <ui-data title="Redundant node" i18n-title="@@route.redundant-node">
-                        <ui-route-redundant-nodes [nodes]="nodes.redundantNodes" />
-                      </ui-data>
-                    </div>
-                  }
-                }
-                <ui-data title="Number of ways" i18n-title="@@route.number-of-ways">
-                  {{ page.route.summary.wayCount }}
-                </ui-data>
-              </div>
-
-              <ui-divider />
-              <p i18n="@@route.tags">Tags</p>
-              <ui-tag-table [tags]="routeTags(page)" />
-
-              <ui-divider />
-
-              <ui-facts [factInfos]="factInfos(page)" />
-              @if (showRouteDetails()) {
-                <ui-divider />
-                <div>
-                  <!-- TODO redesign routeTypes[0]-->
-                  <ui-route-members
-                    [routeType]="page.route.summary.routeTypes[0]"
-                    [rows]="page.route.structureRows"
-                  />
-                </div>
-              }
-            </div>
+            <ui-route-details />
           }
         </div>
       }
     </ui-page>
   `,
-  styleUrl: '../../../../shared/components/data/data.component.scss',
   providers: [RouteDetailsPageService, RouterService],
-  imports: [
-    BreadcrumbComponent,
-    DataComponent,
-    DividerComponent,
-    FactsComponent,
-    PageComponent,
-    RouteEndNodesComponent,
-    RouteMembersComponent,
-    RouteNetworkReferencesComponent,
-    RoutePageHeaderComponent,
-    RouteParentsComponent,
-    RouteRedundantNodesComponent,
-    RouteStartNodesComponent,
-    RouteSummaryComponent,
-    TagTableComponent,
-    TimestampComponent,
-  ],
+  imports: [PageComponent, RoutePageHeaderComponent, RouteDetailsComponent],
 })
 export class RouteDetailsPageComponent implements OnInit {
   readonly service = inject(RouteDetailsPageService);
   private readonly pageWidthService = inject(PageWidthService);
 
   readonly showRouteDetails = computed(() => !this.pageWidthService.isAllSmall());
-
-  protected readonly breadcrumbItems: BreadcrumbItem[] = [
-    Breadcrumbs.home,
-    Breadcrumbs.analysis,
-    { label: Breadcrumbs.routeLabel },
-  ];
 
   ngOnInit(): void {
     this.service.onInit();

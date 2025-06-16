@@ -1,0 +1,149 @@
+import { computed } from '@angular/core';
+import { inject } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouteDetailsPage } from '@api/common/route/route-details-page';
+import { FactInfo } from '@app/analysis/fact/components/fact-info';
+import { FactsComponent } from '@app/analysis/fact/components/facts.component';
+import { DataComponent } from '@app/shared/components/data/data.component';
+import { DividerComponent } from '@app/shared/components/divider.component';
+import { PageWidthService } from '@app/shared/components/page-width.service';
+import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
+import { TagTableComponent } from '@app/shared/components/tags/tag-table.component';
+import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
+import { RouterService } from '@app/shared/services/router.service';
+import { RouteEndNodesComponent } from './route-end-nodes.component';
+import { RouteMembersComponent } from './route-members.component';
+import { RouteNetworkReferencesComponent } from './route-network-references.component';
+import { RouteParentsComponent } from './route-parents.component';
+import { RouteRedundantNodesComponent } from './route-redundant-nodes.component';
+import { RouteStartNodesComponent } from './route-start-nodes.component';
+import { RouteSummaryComponent } from './route-summary.component';
+import { RouteDetailsPageService } from '../route-details-page.service';
+
+@Component({
+  selector: 'ui-route-details',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    @let page = service.response().result;
+    <div>
+      <ui-route-summary [route]="page.route" />
+      <ui-divider />
+      <div class="data2">
+        <div class="title">
+          <span i18n="@@route.situation-on">Situation on</span>
+        </div>
+        <div class="body">
+          <ui-timestamp [timestamp]="service.response().situationOn" />
+        </div>
+      </div>
+      <div class="data2">
+        <div class="title">
+          <span i18n="@@route.last-updated">Last updated</span>
+        </div>
+        <div class="body">
+          <ui-timestamp [timestamp]="page.route.lastUpdated" />
+        </div>
+      </div>
+      <ui-data title="Relation last updated" i18n-title="@@route.relation-last-updated">
+        <ui-timestamp [timestamp]="page.route.summary.timestamp" />
+      </ui-data>
+      <ui-data title="Network" i18n-title="@@route.network">
+        <ui-route-network-references [references]="page.networkReferences" />
+      </ui-data>
+
+      @if (page.route.parentRoutes.length > 0) {
+        <ui-data title="Part of" i18n-title="@@route.parent-routes">
+          <ui-route-parents [parentRoutes]="page.route.parentRoutes" />
+        </ui-data>
+      }
+
+      <div>
+        @if (page.route.nodes; as nodes) {
+          <ui-data title="Start node" i18n-title="@@route.start-node">
+            <ui-route-start-nodes [nodes]="nodes" />
+          </ui-data>
+
+          <ui-data title="End node" i18n-title="@@route.end-node">
+            <ui-route-end-nodes [nodes]="nodes" />
+          </ui-data>
+          @if (nodes.redundantNodes.length > 0) {
+            <div>
+              <ui-data title="Redundant node" i18n-title="@@route.redundant-node">
+                <ui-route-redundant-nodes [nodes]="nodes.redundantNodes" />
+              </ui-data>
+            </div>
+          }
+        }
+        <ui-data title="Number of ways" i18n-title="@@route.number-of-ways">
+          {{ page.route.summary.wayCount }}
+        </ui-data>
+      </div>
+
+      <ui-divider />
+      <p i18n="@@route.tags">Tags</p>
+      <ui-tag-table [tags]="routeTags(page)" />
+
+      <ui-divider />
+
+      <ui-facts [factInfos]="factInfos(page)" />
+      @if (showRouteDetails()) {
+        <ui-divider />
+        <div>
+          <!-- TODO redesign routeTypes[0]-->
+          <ui-route-members
+            [routeType]="page.route.summary.routeTypes[0]"
+            [rows]="page.route.structureRows"
+          />
+        </div>
+      }
+    </div>
+  `,
+  styleUrl: '../../../../../shared/components/data/data.component.scss',
+  providers: [RouterService],
+  imports: [
+    DataComponent,
+    DividerComponent,
+    FactsComponent,
+    RouteEndNodesComponent,
+    RouteMembersComponent,
+    RouteNetworkReferencesComponent,
+    RouteParentsComponent,
+    RouteRedundantNodesComponent,
+    RouteStartNodesComponent,
+    RouteSummaryComponent,
+    TagTableComponent,
+    TimestampComponent,
+  ],
+})
+export class RouteDetailsComponent {
+  protected readonly service = inject(RouteDetailsPageService);
+  private readonly pageWidthService = inject(PageWidthService);
+
+  readonly showRouteDetails = computed(() => !this.pageWidthService.isAllSmall());
+
+  routeTags(page: RouteDetailsPage) {
+    return InterpretedTags.routeTags(page.route.summary.tags);
+  }
+
+  factInfos(page: RouteDetailsPage): FactInfo[] {
+    return page.route.facts.map((fact) => {
+      if (fact === 'RouteUnexpectedNode') {
+        const unexpectedNodeIds = page.route.unexpectedNodeIds;
+        return new FactInfo(fact, undefined, undefined, undefined, unexpectedNodeIds);
+      }
+      if (fact === 'RouteUnexpectedRelation') {
+        const unexpectedRelationIds = page.route.unexpectedRelationIds;
+        return new FactInfo(
+          fact,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          unexpectedRelationIds
+        );
+      }
+      return new FactInfo(fact);
+    });
+  }
+}
