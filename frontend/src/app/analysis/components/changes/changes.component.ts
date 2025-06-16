@@ -1,73 +1,76 @@
-import { output } from '@angular/core';
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
-import { NzSwitchComponent } from 'ng-zorro-antd/switch';
+import { ChangesService } from '@app/analysis/components/changes/changes.service';
+import { ChangeFilterComponent } from '@app/analysis/components/changes/filter/change-filter.component';
+import { ListComponent } from '@app/shared/components/list/list.component';
+import { SwitchComponent } from '@app/shared/components/switch/switch.component';
+import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
+import { ChangeOption } from '@app/shared/kpn/common/change-option';
 
 @Component({
   selector: 'ui-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="header">
-      <div class="filter-switch kpn-line" (click)="onToggleImpact()">
-        <nz-switch nzSize="small" [ngModel]="impact()" />
-        <span i18n="@@changes.impact">Impact</span>
-      </div>
-      <div class="paginator">
-        <ui-paginator
-          [pageIndex]="pageIndex()"
-          (pageIndexChange)="onPageIndexChange($event)"
-          [pageSize]="pageSize()"
-          (pageSizeChange)="onPageSizeChange($event)"
-          [length]="totalCount()"
-        />
-      </div>
-    </div>
-
-    @if (totalCount() === 0) {
+    @if (changeCount() === 0) {
       <div i18n="@@changes.no-changes">No changes</div>
     }
 
     @if (changeCount() > 0) {
-      <div>
+      <p>
+        <ui-situation-on [timestamp]="situationOn()" />
+      </p>
+
+      <ui-switch
+        i18n-label="@@changes.impact"
+        label="impact"
+        [value]="impact()"
+        (valueChange)="impactChanged($event)"
+      />
+      <ui-list
+        [pageIndex]="pageIndex()"
+        (pageIndexChange)="onPageIndexChange($event)"
+        [pageSize]="pageSize()"
+        (pageSizeChange)="onPageSizeChange($event)"
+        [length]="changeCount()"
+        [filter]="true"
+      >
+        <ui-change-filter
+          [filterOptions]="filterOptions()"
+          (optionSelected)="onOptionSelected($event)"
+          filter
+        />
         <ng-content />
-      </div>
+      </ui-list>
     }
   `,
-  styles: `
-    .header {
-      display: flex;
-    }
-    .paginator {
-      margin-left: auto;
-    }
-  `,
-  imports: [MatSlideToggleModule, NzSwitchComponent, FormsModule, PaginatorComponent],
+  imports: [SwitchComponent, ChangeFilterComponent, ListComponent, SituationOnComponent],
 })
 export class ChangesComponent {
-  readonly changeCount = input.required<number>();
-  readonly totalCount = input.required<number>();
-  readonly impact = input.required<boolean>();
-  readonly pageSize = input.required<number>();
-  readonly pageIndex = input.required<number>();
+  readonly service = input.required<ChangesService>();
 
-  readonly impactChange = output<boolean>();
-  readonly pageSizeChange = output<number>();
-  readonly pageIndexChange = output<number>();
+  readonly situationOn = computed(() => this.service().situationOn());
+  readonly impact = computed(() => this.service().impact());
+  readonly pageSize = computed(() => this.service().pageSize());
+  readonly pageIndex = computed(() => this.service().pageIndex());
+  readonly filterOptions = computed(() => this.service().filterOptions());
+  readonly changeCount = computed(() => this.service().changeCount());
 
-  onToggleImpact() {
-    this.impactChange.emit(!this.impact());
+  impactChanged(impact: boolean): void {
+    this.service().updateImpact(impact);
   }
 
-  onPageIndexChange(pageIndex: number) {
+  onPageIndexChange(pageIndex: number): void {
     window.scroll(0, 0);
-    this.pageIndexChange.emit(pageIndex);
+    this.service().updatePageIndex(pageIndex);
   }
 
-  onPageSizeChange(pageSize: number) {
-    this.pageSizeChange.emit(pageSize);
+  onPageSizeChange(pageSize: number): void {
+    this.service().updatePageSize(pageSize);
+  }
+
+  onOptionSelected(option: ChangeOption): void {
+    this.service().updateFilterOption(option);
   }
 }

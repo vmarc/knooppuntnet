@@ -14,7 +14,7 @@ class NodeChangeInfoBuilder {
 
     NodeChangeInfo(
       0,
-      change.id,
+      change.key.changeSetId,
       change.after.map(_.version),
       change.key,
       change.changeType,

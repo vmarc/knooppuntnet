@@ -4,6 +4,7 @@ import { signal } from '@angular/core';
 import { ChangesPage } from '@api/common/changes-page';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { ApiResponse } from '@api/custom/api-response';
+import { ChangesService } from '@app/analysis/components/changes/changes.service';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ApiService } from '@app/shared/services/api.service';
@@ -13,7 +14,7 @@ import { State } from '@app/state/state';
 import { RouterService } from '@app/shared/services/router.service';
 import { UserService } from '@app/shared/user/user.service';
 
-export class ChangesPageService {
+export class ChangesPageService implements ChangesService {
   private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly routerService = inject(RouterService);
@@ -27,10 +28,12 @@ export class ChangesPageService {
   readonly impact = computed(() => this.changesParameters().impact);
   readonly pageSize = computed(() => this.changesParameters().pageSize);
   readonly pageIndex = computed(() => this.changesParameters().pageIndex);
-  readonly filterOptions = computed(() => this.response()?.result?.filterOptions);
+  readonly filterOptions = computed(() => this.response().result.filterOptions);
+  readonly changeCount = computed(() => this.response().result.changeCount);
 
   readonly changesParameters = this._changesParameters.asReadonly();
   readonly response = this._response.asReadonly();
+  readonly situationOn = computed(() => this.response().situationOn);
 
   onInit(): void {
     this.analysisStrategyService.init();

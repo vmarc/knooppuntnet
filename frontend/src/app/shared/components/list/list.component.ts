@@ -4,9 +4,8 @@ import { output } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
-import { NzSwitchComponent } from 'ng-zorro-antd/switch';
+import { SwitchComponent } from '@app/shared/components/switch/switch.component';
 
 @Component({
   selector: 'ui-list',
@@ -15,10 +14,12 @@ import { NzSwitchComponent } from 'ng-zorro-antd/switch';
     @if (pageSize() > 0) {
       <div class="header">
         @if (filter() === true) {
-          <div class="filter-switch" (click)="toggleFilterEnabled()">
-            <nz-switch nzSize="small" [ngModel]="filterEnabled()" />
-            <span>filter</span>
-          </div>
+          <ui-switch
+            i18n-label="@@list.filter"
+            label="filter"
+            [value]="filterEnabled()"
+            (valueChange)="filterEnabledChanged($event)"
+          />
         }
         <ng-content select="[header-extra]" />
         <span class="paginator">
@@ -126,7 +127,7 @@ import { NzSwitchComponent } from 'ng-zorro-antd/switch';
       }
     }
   `,
-  imports: [PaginatorComponent, NzSwitchComponent, FormsModule, NgTemplateOutlet],
+  imports: [PaginatorComponent, NgTemplateOutlet, SwitchComponent],
 })
 export class ListComponent {
   readonly pageSize = input<number>(0);
@@ -147,7 +148,7 @@ export class ListComponent {
     this.pageIndexChange.emit(+pageIndex);
   }
 
-  toggleFilterEnabled(): void {
-    this.filterEnabled.set(!this.filterEnabled());
+  filterEnabledChanged(filterEnabled: boolean): void {
+    this.filterEnabled.set(filterEnabled);
   }
 }

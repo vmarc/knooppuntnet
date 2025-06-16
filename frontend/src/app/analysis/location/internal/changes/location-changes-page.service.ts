@@ -4,6 +4,7 @@ import { inject } from '@angular/core';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { LocationChangesPage } from '@api/common/location/location-changes-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { ChangesService } from '@app/analysis/components/changes/changes.service';
 import { PreferencesService } from '@app/shared/core/preferences/preferences.service';
 import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ApiService } from '@app/shared/services/api.service';
@@ -14,7 +15,7 @@ import { RouterService } from '@app/shared/services/router.service';
 import { UserService } from '@app/shared/user/user.service';
 import { LocationService } from '../location.service';
 
-export class LocationChangesPageService {
+export class LocationChangesPageService implements ChangesService {
   private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly locationService = inject(LocationService);
@@ -33,6 +34,8 @@ export class LocationChangesPageService {
 
   readonly response = this._response.asReadonly();
   readonly changesParameters = this._changesParameters.asReadonly();
+  readonly situationOn = computed(() => this.response().situationOn);
+  readonly changeCount = computed(() => this.response().result.changesCount);
 
   onInit() {
     this.locationService.initPage(this.routerService);
@@ -47,7 +50,7 @@ export class LocationChangesPageService {
     this.load();
   }
 
-  setPageSize(pageSize: number): void {
+  updatePageSize(pageSize: number): void {
     this.state.preferences.updatePageSize(pageSize);
     this.setChangeParameters({
       ...this.changesParameters(),
@@ -56,7 +59,7 @@ export class LocationChangesPageService {
     });
   }
 
-  setImpact(impact: boolean): void {
+  updateImpact(impact: boolean): void {
     this.setChangeParameters({
       ...this.changesParameters(),
       pageIndex: 0,
@@ -64,14 +67,14 @@ export class LocationChangesPageService {
     });
   }
 
-  setPageIndex(pageIndex: number): void {
+  updatePageIndex(pageIndex: number): void {
     this.setChangeParameters({
       ...this.changesParameters(),
       pageIndex,
     });
   }
 
-  setFilterOption(option: ChangeOption): void {
+  updateFilterOption(option: ChangeOption): void {
     this.setChangeParameters({
       ...this.changesParameters(),
       year: option.year,

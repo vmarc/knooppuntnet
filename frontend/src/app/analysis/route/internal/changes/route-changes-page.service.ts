@@ -5,6 +5,7 @@ import { computed } from '@angular/core';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { RouteChangesPage } from '@api/common/route/route-changes-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { ChangesService } from '@app/analysis/components/changes/changes.service';
 import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ApiService } from '@app/shared/services/api.service';
 import { PageParams } from '@app/shared/base/page-params';
@@ -15,7 +16,7 @@ import { UserService } from '@app/shared/user/user.service';
 import { RouteService } from '../route.service';
 
 @Injectable()
-export class RouteChangesPageService {
+export class RouteChangesPageService implements ChangesService {
   private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly routeService = inject(RouteService);
@@ -30,10 +31,13 @@ export class RouteChangesPageService {
   private readonly _changesParameters = signal<ChangesParameters>(null);
   readonly changesParameters = this._changesParameters.asReadonly();
 
+  readonly situationOn = computed(() => this.response().situationOn);
+
   readonly impact = computed(() => this.changesParameters().impact);
   readonly pageSize = computed(() => this.changesParameters().pageSize);
   readonly pageIndex = computed(() => this.changesParameters().pageIndex);
   readonly filterOptions = computed(() => this.response()?.result?.filterOptions);
+  readonly changeCount = this.routeService.changeCount;
 
   onInit(): void {
     this.routeService.initPage(this.routerService);

@@ -13,7 +13,7 @@ import { MonitorService } from '../monitor.service';
   template: `
     <div class="toggle">
       <nz-switch
-        [nzSize]="'small'"
+        nzSize="small"
         [ngModel]="admin()"
         (ngModelChange)="adminChanged($event)"
         [nzDisabled]="adminDisabled()"

@@ -638,6 +638,13 @@ input[type=number] {
   padding: 0 !important;
 }
 
+.kpn-list-item-base {
+  border-bottom-color: lightgray;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  padding: 10px;
+}
+
 .kpn-list-item {
   border-bottom-color: lightgray;
   border-bottom-style: solid;

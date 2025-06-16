@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { ChangesComponent } from '@app/analysis/components/changes/changes.component';
-import { ItemComponent } from '@app/shared/components/items/item.component';
-import { ItemsComponent } from '@app/shared/components/items/items.component';
+import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { LocationChangesPageService } from '../location-changes-page.service';
 import { LocationChangeComponent } from './location-change.component';
 import { LocationChangesPage } from '@api/common/location/location-changes-page';
@@ -10,43 +9,18 @@ import { LocationChangesPage } from '@api/common/location/location-changes-page'
   selector: 'ui-location-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="kpn-spacer-above">
-      <ui-changes
-        [impact]="service.impact()"
-        [pageSize]="service.pageSize()"
-        [pageIndex]="service.pageIndex()"
-        (impactChange)="onImpactChange($event)"
-        (pageSizeChange)="onPageSizeChange($event)"
-        (pageIndexChange)="onPageIndexChange($event)"
-        [totalCount]="page().changesCount"
-        [changeCount]="page().changeSets.length"
-      >
-        <ui-items>
-          @for (changeSet of page().changeSets; track $index) {
-            <ui-item [index]="changeSet.rowIndex">
-              <ui-location-change [changeSet]="changeSet" />
-            </ui-item>
-          }
-        </ui-items>
-      </ui-changes>
-    </div>
+    <ui-changes [service]="service">
+      @for (changeSet of page().changeSets; track $index) {
+        <ui-list-item [selected]="false">
+          <ui-location-change [changeSet]="changeSet" />
+        </ui-list-item>
+      }
+    </ui-changes>
   `,
-  imports: [ChangesComponent, ItemComponent, ItemsComponent, LocationChangeComponent],
+  imports: [LocationChangeComponent, ChangesComponent, ListItemComponent],
 })
 export class LocationChangesComponent {
   protected readonly service = inject(LocationChangesPageService);
 
   readonly page = input.required<LocationChangesPage>();
-
-  onImpactChange(impact: boolean): void {
-    this.service.setImpact(impact);
-  }
-
-  onPageSizeChange(pageSize: number): void {
-    this.service.setPageSize(pageSize);
-  }
-
-  onPageIndexChange(pageIndex: number): void {
-    this.service.setPageIndex(pageIndex);
-  }
 }

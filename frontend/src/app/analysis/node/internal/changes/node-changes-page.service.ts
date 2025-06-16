@@ -5,6 +5,7 @@ import { computed } from '@angular/core';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { NodeChangesPage } from '@api/common/node/node-changes-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { ChangesService } from '@app/analysis/components/changes/changes.service';
 import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ApiService } from '@app/shared/services/api.service';
 import { PageParams } from '@app/shared/base/page-params';
@@ -15,7 +16,7 @@ import { UserService } from '@app/shared/user/user.service';
 import { NodeService } from '../node.service';
 
 @Injectable()
-export class NodeChangesPageService {
+export class NodeChangesPageService implements ChangesService {
   private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly nodeService = inject(NodeService);
@@ -33,7 +34,9 @@ export class NodeChangesPageService {
   readonly impact = computed(() => this.changesParameters().impact);
   readonly pageSize = computed(() => this.changesParameters().pageSize);
   readonly pageIndex = computed(() => this.changesParameters().pageIndex);
-  readonly filterOptions = computed(() => this.response()?.result?.filterOptions);
+  readonly filterOptions = computed(() => this.response().result.filterOptions);
+  readonly situationOn = computed(() => this.response().situationOn);
+  readonly changeCount = computed(() => this.response().result.totalCount);
 
   onInit(): void {
     this.nodeService.initPage(this.routerService);

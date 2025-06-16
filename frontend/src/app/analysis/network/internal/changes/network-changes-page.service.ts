@@ -4,6 +4,7 @@ import { inject } from '@angular/core';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { NetworkChangesPage } from '@api/common/network/network-changes-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { ChangesService } from '@app/analysis/components/changes/changes.service';
 import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ApiService } from '@app/shared/services/api.service';
 import { PageParams } from '@app/shared/base/page-params';
@@ -13,7 +14,7 @@ import { RouterService } from '@app/shared/services/router.service';
 import { UserService } from '@app/shared/user/user.service';
 import { NetworkService } from '../network.service';
 
-export class NetworkChangesPageService {
+export class NetworkChangesPageService implements ChangesService {
   private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly networkService = inject(NetworkService);
@@ -29,7 +30,9 @@ export class NetworkChangesPageService {
   readonly impact = computed(() => this.changesParameters().impact);
   readonly pageSize = computed(() => this.changesParameters().pageSize);
   readonly pageIndex = computed(() => this.changesParameters().pageIndex);
-  readonly filterOptions = computed(() => this.response()?.result?.filterOptions);
+  readonly filterOptions = computed(() => this.response().result.filterOptions);
+  readonly changeCount = computed(() => this.response().result.totalCount);
+  readonly situationOn = computed(() => this.response().situationOn);
 
   onInit(): void {
     this.networkService.initPage(this.routerService);

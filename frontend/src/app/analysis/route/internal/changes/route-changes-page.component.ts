@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { RouteChangesComponent } from '@app/analysis/route/internal/changes/components/route-changes.component';
+import { RouteChangesComponent } from './components/route-changes.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { UserLinkLoginComponent } from '@app/shared/user/user-link-login.component';
@@ -31,7 +31,7 @@ import { RouteChangesPageService } from './route-changes-page.service';
                 </p>
               </div>
             } @else {
-              @if (response.result; as page) {
+              @if (response.result) {
                 <ui-route-changes />
               }
             }

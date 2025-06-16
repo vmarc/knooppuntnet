@@ -4,6 +4,7 @@ import { inject } from '@angular/core';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { SubsetChangesPage } from '@api/common/subset/subset-changes-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { ChangesService } from '@app/analysis/components/changes/changes.service';
 import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ApiService } from '@app/shared/services/api.service';
 import { PageParams } from '@app/shared/base/page-params';
@@ -13,7 +14,7 @@ import { RouterService } from '@app/shared/services/router.service';
 import { UserService } from '@app/shared/user/user.service';
 import { SubsetService } from '../subset.service';
 
-export class SubsetChangesPageService {
+export class SubsetChangesPageService implements ChangesService {
   private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly subsetService = inject(SubsetService);
@@ -29,7 +30,9 @@ export class SubsetChangesPageService {
   readonly impact = computed(() => this.changesParameters().impact);
   readonly pageSize = computed(() => this.changesParameters().pageSize);
   readonly pageIndex = computed(() => this.changesParameters().pageIndex);
-  readonly filterOptions = computed(() => this.response()?.result?.filterOptions);
+  readonly filterOptions = computed(() => this.response().result.filterOptions);
+  readonly situationOn = computed(() => this.response().situationOn);
+  readonly changeCount = computed(() => this.response().result.changeCount);
 
   onInit(): void {
     this.subsetService.initPage(this.routerService);
@@ -62,14 +65,14 @@ export class SubsetChangesPageService {
     });
   }
 
-  setPageIndex(pageIndex: number): void {
+  updatePageIndex(pageIndex: number): void {
     this.setChangesParameters({
       ...this.changesParameters(),
       pageIndex,
     });
   }
 
-  setFilterOption(option: ChangeOption): void {
+  updateFilterOption(option: ChangeOption): void {
     this.setChangesParameters({
       ...this.changesParameters(),
       year: option.year,

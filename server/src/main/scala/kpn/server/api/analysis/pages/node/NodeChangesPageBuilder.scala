@@ -35,7 +35,7 @@ class NodeChangesPageBuilder(
           val rowIndex = parameters.pageSize * parameters.pageIndex + index
           NodeChangeInfo(
             rowIndex,
-            change.id,
+            change.key.changeSetId,
             change.after.map(_.version),
             change.key,
             change.changeType,

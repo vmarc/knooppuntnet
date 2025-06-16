@@ -2,16 +2,9 @@ import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { ChangeNetworkAnalysisSummaryComponent } from '@app/analysis/components/change-set/change-network-analysis-summary.component';
-import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set/change-location-analysis-summary.component';
-import { ChangesComponent } from '@app/analysis/components/changes/changes.component';
-import { ChangeFilterComponent } from '@app/analysis/components/changes/filter/change-filter.component';
-import { ChangeOption } from '@app/shared/kpn/common/change-option';
+import { SubsetChangesComponent } from './components/subset-changes.component';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
-import { ItemComponent } from '@app/shared/components/items/item.component';
-import { ItemsComponent } from '@app/shared/components/items/items.component';
-import { PageFilterComponent } from '@app/shared/components/page/page-filter.component';
-import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { UserLinkLoginComponent } from '@app/shared/user/user-link-login.component';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
@@ -21,12 +14,7 @@ import { SubsetChangesPageService } from './subset-changes-page.service';
   selector: 'ui-subset-changes-page',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <ui-page-filter>
-      <ui-change-filter
-        [filterOptions]="filterOptions()"
-        (optionSelected)="onOptionSelected($event)"
-        filter
-      />
+    <ui-page>
       <ui-subset-page-header-block
         pageName="changes"
         pageTitle="Changes"
@@ -46,73 +34,25 @@ import { SubsetChangesPageService } from './subset-changes-page.service';
               <ui-user-link-login />
             </p>
           } @else {
-            <p>
-              <ui-situation-on [timestamp]="response.situationOn" />
-            </p>
-            <ui-changes
-              [impact]="service.impact()"
-              [pageSize]="service.pageSize()"
-              [pageIndex]="service.pageIndex()"
-              (impactChange)="onImpactChange($event)"
-              (pageSizeChange)="onPageSizeChange($event)"
-              (pageIndexChange)="onPageIndexChange($event)"
-              [totalCount]="response.result.changeCount"
-              [changeCount]="response.result.changes.length"
-            >
-              <ui-items>
-                @for (changeSet of response.result.changes; track changeSet.rowIndex) {
-                  <ui-item [index]="changeSet.rowIndex">
-                    @if (changeSet.network) {
-                      <ui-change-network-analysis-summary [changeSet]="changeSet" />
-                    }
-                    @if (changeSet.location) {
-                      <ui-change-location-analysis-summary [changeSet]="changeSet" />
-                    }
-                  </ui-item>
-                }
-              </ui-items>
-            </ui-changes>
+            <ui-subset-changes />
           }
         </div>
       }
-    </ui-page-filter>
+    </ui-page>
   `,
   providers: [SubsetChangesPageService, RouterService],
   imports: [
-    ChangeFilterComponent,
-    ChangeLocationAnalysisSummaryComponent,
-    ChangeNetworkAnalysisSummaryComponent,
-    ChangesComponent,
     ErrorComponent,
-    ItemComponent,
-    ItemsComponent,
-    PageFilterComponent,
-    SituationOnComponent,
     SubsetPageHeaderBlockComponent,
     UserLinkLoginComponent,
+    PageComponent,
+    SubsetChangesComponent,
   ],
 })
 export class SubsetChangesPageComponent implements OnInit {
   protected readonly service = inject(SubsetChangesPageService);
-  protected readonly filterOptions = this.service.filterOptions;
 
   ngOnInit(): void {
     this.service.onInit();
-  }
-
-  onImpactChange(impact: boolean): void {
-    this.service.updateImpact(impact);
-  }
-
-  onPageSizeChange(pageSize: number): void {
-    this.service.updatePageSize(pageSize);
-  }
-
-  onPageIndexChange(pageIndex: number): void {
-    this.service.setPageIndex(pageIndex);
-  }
-
-  onOptionSelected(option: ChangeOption): void {
-    this.service.setFilterOption(option);
   }
 }

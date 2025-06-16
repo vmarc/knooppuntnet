@@ -8,17 +8,24 @@ import { MatRipple } from '@angular/material/core';
   selector: 'ui-list-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div
-      class="kpn-list-item"
-      [ngClass]="{ 'kpn-list-item-selected': selected() }"
-      matRipple
-      matRippleColor="lightgray"
-    >
-      <ng-content />
-    </div>
+    @if (clickacle()) {
+      <div
+        class="kpn-list-item"
+        [ngClass]="{ 'kpn-list-item-selected': selected() }"
+        matRipple
+        matRippleColor="lightgray"
+      >
+        <ng-content />
+      </div>
+    } @else {
+      <div class="kpn-list-item-base">
+        <ng-content />
+      </div>
+    }
   `,
   imports: [NgClass, MatRipple],
 })
 export class ListItemComponent {
-  readonly selected = input.required<boolean>();
+  readonly clickacle = input<boolean>(false);
+  readonly selected = input<boolean>(false);
 }

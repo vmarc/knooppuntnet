@@ -2,10 +2,8 @@ import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { ChangeFilterComponent } from '@app/analysis/components/changes/filter/change-filter.component';
-import { ChangeOption } from '@app/shared/kpn/common/change-option';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
-import { PageFilterComponent } from '@app/shared/components/page/page-filter.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
@@ -16,7 +14,7 @@ import { LocationChangesPageService } from './location-changes-page.service';
   selector: 'ui-location-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page-filter>
+    <ui-page>
       <ui-location-page-header
         pageName="changes"
         pageTitle="Changes"
@@ -32,12 +30,7 @@ import { LocationChangesPageService } from './location-changes-page.service';
           </ui-location-response>
         </div>
       }
-      <ui-change-filter
-        [filterOptions]="service.filterOptions()"
-        (optionSelected)="onOptionSelected($event)"
-        filter
-      />
-    </ui-page-filter>
+    </ui-page>
   `,
   providers: [LocationChangesPageService, RouterService],
   imports: [
@@ -45,8 +38,7 @@ import { LocationChangesPageService } from './location-changes-page.service';
     LocationChangesComponent,
     LocationPageHeaderComponent,
     LocationResponseComponent,
-    PageFilterComponent,
-    ChangeFilterComponent,
+    PageComponent,
   ],
 })
 export class LocationChangesPageComponent implements OnInit {
@@ -54,9 +46,5 @@ export class LocationChangesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.onInit();
-  }
-
-  onOptionSelected(option: ChangeOption): void {
-    this.service.setFilterOption(option);
   }
 }
