@@ -1,3 +1,5 @@
+import { RouteType } from '@api/common/route-type';
+
 export class Translations {
   static readonly countryNl = $localize`:@@country.nl:The Netherlands`;
   static readonly countryBe = $localize`:@@country.be:Belgium`;
@@ -13,6 +15,31 @@ export class Translations {
   static readonly routeTypeMotorboat = $localize`:@@route-type.motorboat:Motorboat`;
   static readonly routeTypeCanoe = $localize`:@@route-type.canoe:Canoe`;
   static readonly routeTypeInlineSkating = $localize`:@@route-type.inline-skating:Inline skating`;
+
+  static routeTypeLabel(routeType: RouteType): string {
+    let label = '';
+    switch (routeType) {
+      case 'hiking':
+        label = Translations.routeTypeHiking;
+        break;
+      case 'cycling':
+        label = Translations.routeTypeCycling;
+        break;
+      case 'horse-riding':
+        label = Translations.routeTypeHorseRiding;
+        break;
+      case 'motorboat':
+        label = Translations.routeTypeMotorboat;
+        break;
+      case 'canoe':
+        label = Translations.routeTypeCanoe;
+        break;
+      case 'inline-skating':
+        label = Translations.routeTypeInlineSkating;
+        break;
+    }
+    return label;
+  }
 
   private static readonly translations = new Map<string, string>([
     ['country.nl', this.countryNl],

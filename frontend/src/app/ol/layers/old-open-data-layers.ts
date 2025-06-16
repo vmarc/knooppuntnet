@@ -5,11 +5,9 @@ import { OldOpendataBitmapTileLayer } from './old-opendata-bitmap-tile-layer';
 import { OldOpendataVectorTileLayer } from './old-opendata-vector-tile-layer';
 
 export class OldOpenDataLayers {
-  private static readonly flandersHikingName = $localize`:@@map.layer.flanders-hiking:Toerisme Vlaanderen (hiking)`;
-  private static readonly flandersCyclingName = $localize`:@@map.layer.flanders-cycling:Toerisme Vlaanderen (cycling)`;
-  private static readonly netherlandsHikingName = $localize`:@@map.layer.netherlands-hiking:NL routedatabank (hiking)`;
-  private static readonly netherlandsCyclingName = $localize`:@@map.layer.netherlands-cycling:NL routedatabank (cycling)`;
-  private static readonly franceHikingName = $localize`:@@map.layer.france-hiking:Parc du Vercors`;
+  private static readonly openDataFlanders = $localize`:@@map.layer.open-data-flanders:Toerisme Vlaanderen`;
+  private static readonly openDataNetherlands = $localize`:@@map.layer.open-data-netherlands:NL routedatabank`;
+  private static readonly openDataFrance = $localize`:@@map.layer.open-data-france:Parc du Vercors`;
 
   static register(
     registry: OldMapLayerRegistry,
@@ -34,7 +32,7 @@ export class OldOpenDataLayers {
     return OldOpendataBitmapTileLayer.build(
       'hiking',
       'flanders-hiking',
-      this.flandersHikingName,
+      this.openDataFlanders,
       'flanders/hiking'
     );
   }
@@ -43,7 +41,7 @@ export class OldOpenDataLayers {
     return OldOpendataVectorTileLayer.build(
       'hiking',
       'flanders-hiking',
-      this.flandersHikingName,
+      this.openDataFlanders,
       'flanders/hiking'
     );
   }
@@ -56,7 +54,7 @@ export class OldOpenDataLayers {
     return OldOpendataBitmapTileLayer.build(
       'cycling',
       'flanders-cycling',
-      this.flandersCyclingName,
+      this.openDataFlanders,
       'flanders/cycling'
     );
   }
@@ -65,7 +63,7 @@ export class OldOpenDataLayers {
     return OldOpendataVectorTileLayer.build(
       'cycling',
       'flanders-cycling',
-      this.flandersCyclingName,
+      this.openDataFlanders,
       'flanders/cycling'
     );
   }
@@ -78,7 +76,7 @@ export class OldOpenDataLayers {
     return OldOpendataBitmapTileLayer.build(
       'hiking',
       'netherlands-hiking',
-      this.netherlandsHikingName,
+      this.openDataNetherlands,
       'netherlands/hiking'
     );
   }
@@ -87,7 +85,7 @@ export class OldOpenDataLayers {
     return OldOpendataVectorTileLayer.build(
       'hiking',
       'netherlands-hiking',
-      this.netherlandsHikingName,
+      this.openDataNetherlands,
       'netherlands/hiking'
     );
   }
@@ -100,7 +98,7 @@ export class OldOpenDataLayers {
     return OldOpendataBitmapTileLayer.build(
       'cycling',
       'netherlands-cycling',
-      this.netherlandsCyclingName,
+      this.openDataNetherlands,
       'netherlands/cycling'
     );
   }
@@ -109,7 +107,7 @@ export class OldOpenDataLayers {
     return OldOpendataVectorTileLayer.build(
       'cycling',
       'netherlands-cycling',
-      this.netherlandsCyclingName,
+      this.openDataNetherlands,
       'netherlands/cycling'
     );
   }
@@ -122,7 +120,7 @@ export class OldOpenDataLayers {
     return OldOpendataBitmapTileLayer.build(
       'hiking',
       'france-hiking',
-      this.franceHikingName,
+      this.openDataFrance,
       'france/hiking'
     );
   }
@@ -131,7 +129,7 @@ export class OldOpenDataLayers {
     return OldOpendataVectorTileLayer.build(
       'hiking',
       'france-hiking',
-      this.franceHikingName,
+      this.openDataFrance,
       'france/hiking'
     );
   }

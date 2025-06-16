@@ -1,6 +1,8 @@
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { Translations } from '@app/shared/i18n/translations';
 import { State } from '@app/state/state';
 import { MenuItemCheckboxComponent } from './menu-item-checkbox.component';
 import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
@@ -14,93 +16,38 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
         <ui-menu-item-checkbox
           [value]="standardBackgroundLayerEnabled()"
           (toggle)="toggleStandardBackgroundLayerEnabled()"
+          i18n-label="@@map.layer.standard-background"
           label="Standard background"
         />
         <ui-menu-item-checkbox
           [value]="osmBackgroundLayerEnabled()"
           (toggle)="toggleOsmBackgroundLayerEnabled()"
+          i18n-label="@@map.layer.osm-background"
           label="OSM background"
         />
       </div>
       <div>
-        @if (routeType() == 'hiking') {
-          <ui-menu-item-checkbox
-            [value]="routeLayerEnabled()"
-            (toggle)="toggleRouteLayerEnabled()"
-            i18n-label="@@route-type.hiking"
-            label="Hiking"
-          />
-        }
+        <ui-menu-item-checkbox
+          [value]="routeLayerEnabled()"
+          (toggle)="toggleRouteLayerEnabled()"
+          [label]="routeTypeLabel()"
+        />
 
-        @if (routeType() == 'cycling') {
-          <ui-menu-item-checkbox
-            [value]="routeLayerEnabled()"
-            (toggle)="toggleRouteLayerEnabled()"
-            i18n-label="@@network-type.cycling"
-            label="Cycling"
-          />
-        }
-
-        @if (routeType() == 'horse-riding') {
-          <ui-menu-item-checkbox
-            [value]="routeLayerEnabled()"
-            (toggle)="toggleRouteLayerEnabled()"
-            i18n-label="@@network-type.horse-riding"
-            label="Horseriding"
-          />
-        }
-
-        @if (routeType() == 'motorboat') {
-          <ui-menu-item-checkbox
-            [value]="routeLayerEnabled()"
-            (toggle)="toggleRouteLayerEnabled()"
-            i18n-label="@@network-type.motorboat"
-            label="Motorboat"
-          />
-        }
-
-        @if (routeType() == 'canoe') {
-          <ui-menu-item-checkbox
-            [value]="routeLayerEnabled()"
-            (toggle)="toggleRouteLayerEnabled()"
-            i18n-label="@@network-type.canoe"
-            label="Canoe"
-          />
-        }
-
-        @if (routeType() == 'hiking') {
+        @if (routeType() == 'hiking' || routeType() == 'cycling') {
           <ui-menu-item-checkbox
             [value]="flandersOpenDataLayerEnabled()"
             (toggle)="toggleFlandersOpenDataLayerEnabled()"
-            i18n-label="@@map.layer.flanders-hiking"
-            label="Toerisme Vlaanderen (hiking)"
+            i18n-label="@@map.layer.open-data-flanders"
+            label="Toerisme Vlaanderen"
           />
         }
 
-        @if (routeType() == 'cycling') {
-          <ui-menu-item-checkbox
-            [value]="flandersOpenDataLayerEnabled()"
-            (toggle)="toggleFlandersOpenDataLayerEnabled()"
-            i18n-label="@@map.layer.flanders-cycling"
-            label="Toerisme Vlaanderen (cycling)"
-          />
-        }
-
-        @if (routeType() == 'hiking') {
+        @if (routeType() == 'hiking' || routeType() == 'cycling') {
           <ui-menu-item-checkbox
             [value]="netherlandsOpenDataLayerEnabled()"
             (toggle)="toggleNetherlandsOpenDataLayerEnabled()"
-            i18n-label="@@map.layer.netherlands-hiking"
-            label="NL routedatabank (hiking)"
-          />
-        }
-
-        @if (routeType() == 'cycling') {
-          <ui-menu-item-checkbox
-            [value]="netherlandsOpenDataLayerEnabled()"
-            (toggle)="toggleNetherlandsOpenDataLayerEnabled()"
-            i18n-label="@@map.layer.netherlands-cycling"
-            label="NL routedatabank (cycling)"
+            i18n-label="@@map.layer.open-data-netherlands"
+            label="NL routedatabank"
           />
         }
 
@@ -108,6 +55,7 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
           <ui-menu-item-checkbox
             [value]="franceOpenDataLayerEnabled()"
             (toggle)="toggleFranceOpenDataLayerEnabled()"
+            i18n-label="@@map.layer.open-data-france"
             label="Parc du Vercors"
           />
         }
@@ -115,6 +63,7 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
         <ui-menu-item-checkbox
           [value]="gridLayerEnabled()"
           (toggle)="toggleGridLayerEnabled()"
+          i18n-label="@@map.layer.grid"
           label="Grid"
         />
       </div>
@@ -129,14 +78,16 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
 export class SettingsMenuLayersComponent {
   private readonly state = inject(State);
   private readonly layers = this.state.map.layers;
-  readonly routeType = this.state.page.routeType;
-  readonly standardBackgroundLayerEnabled = this.layers.standardBackgroundLayerEnabled;
-  readonly osmBackgroundLayerEnabled = this.layers.osmBackgroundLayerEnabled;
-  readonly flandersOpenDataLayerEnabled = this.layers.flandersOpenDataLayerEnabled;
-  readonly netherlandsOpenDataLayerEnabled = this.layers.netherlandsOpenDataLayerEnabled;
-  readonly franceOpenDataLayerEnabled = this.layers.franceOpenDataLayerEnabled;
-  readonly routeLayerEnabled = this.layers.routeLayerEnabled;
-  readonly gridLayerEnabled = this.layers.gridLayerEnabled;
+  protected readonly routeType = this.state.page.routeType;
+  protected readonly standardBackgroundLayerEnabled = this.layers.standardBackgroundLayerEnabled;
+  protected readonly osmBackgroundLayerEnabled = this.layers.osmBackgroundLayerEnabled;
+  protected readonly flandersOpenDataLayerEnabled = this.layers.flandersOpenDataLayerEnabled;
+  protected readonly netherlandsOpenDataLayerEnabled = this.layers.netherlandsOpenDataLayerEnabled;
+  protected readonly franceOpenDataLayerEnabled = this.layers.franceOpenDataLayerEnabled;
+  protected readonly routeLayerEnabled = this.layers.routeLayerEnabled;
+  protected readonly gridLayerEnabled = this.layers.gridLayerEnabled;
+
+  protected readonly routeTypeLabel = computed(() => Translations.routeTypeLabel(this.routeType()));
 
   toggleStandardBackgroundLayerEnabled(): void {
     const value = this.standardBackgroundLayerEnabled();
@@ -144,7 +95,6 @@ export class SettingsMenuLayersComponent {
   }
 
   toggleOsmBackgroundLayerEnabled(): void {
-    console.log(`TOGGLE OSM ${this.osmBackgroundLayerEnabled()}`);
     const value = this.osmBackgroundLayerEnabled();
     this.layers.updateOsmBackgroundLayerEnabled(!value);
   }
