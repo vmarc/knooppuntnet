@@ -16,29 +16,17 @@ export class Translations {
   static readonly routeTypeCanoe = $localize`:@@route-type.canoe:Canoe`;
   static readonly routeTypeInlineSkating = $localize`:@@route-type.inline-skating:Inline skating`;
 
+  private static readonly routeTypes = new Map<RouteType, string>([
+    ['hiking', Translations.routeTypeHiking],
+    ['cycling', Translations.routeTypeCycling],
+    ['horse-riding', Translations.routeTypeHorseRiding],
+    ['motorboat', Translations.routeTypeMotorboat],
+    ['canoe', Translations.routeTypeCanoe],
+    ['inline-skating', Translations.routeTypeInlineSkating],
+  ]);
+
   static routeTypeLabel(routeType: RouteType): string {
-    let label = routeType as string;
-    switch (routeType) {
-      case 'hiking':
-        label = Translations.routeTypeHiking;
-        break;
-      case 'cycling':
-        label = Translations.routeTypeCycling;
-        break;
-      case 'horse-riding':
-        label = Translations.routeTypeHorseRiding;
-        break;
-      case 'motorboat':
-        label = Translations.routeTypeMotorboat;
-        break;
-      case 'canoe':
-        label = Translations.routeTypeCanoe;
-        break;
-      case 'inline-skating':
-        label = Translations.routeTypeInlineSkating;
-        break;
-    }
-    return label;
+    return this.routeTypes.get(routeType) ?? (routeType as string);
   }
 
   private static readonly translations = new Map<string, string>([
