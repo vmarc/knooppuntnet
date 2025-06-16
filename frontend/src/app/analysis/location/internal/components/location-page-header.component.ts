@@ -67,19 +67,19 @@ export class LocationPageHeaderComponent {
         pageName: 'nodes',
         pageLink: link + '/nodes',
         label: $localize`:@@location-page.menu.nodes:Nodes`,
-        elementCount: summary.nodeCount,
+        elementCount: summary?.nodeCount,
       },
       {
         pageName: 'routes',
         pageLink: link + '/routes',
         label: $localize`:@@location-page.menu.routes:Routes`,
-        elementCount: summary.routeCount,
+        elementCount: summary?.routeCount,
       },
       {
         pageName: 'facts',
         pageLink: link + '/facts',
         label: $localize`:@@location-page.menu.facts:Facts`,
-        elementCount: summary.factCount,
+        elementCount: summary?.factCount,
       },
       {
         pageName: 'map',
@@ -90,7 +90,7 @@ export class LocationPageHeaderComponent {
         pageName: 'changes',
         pageLink: link + '/changes',
         label: $localize`:@@location-page.menu.changes:Changes`,
-        elementCount: summary.changesCount,
+        elementCount: summary?.changesCount,
       },
       {
         pageName: 'edit',
