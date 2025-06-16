@@ -61,7 +61,7 @@ object TileContext {
     val size = extent.toDouble
 
     val xLeft = 0d - clipBufferSize
-    val xRight = 0d - clipBufferSize
+    val xRight = size + clipBufferSize
     val yTop = 0d - clipBufferSize
     val yBottom = size + clipBufferSize
 
