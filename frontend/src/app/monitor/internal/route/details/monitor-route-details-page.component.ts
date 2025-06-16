@@ -39,7 +39,7 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
               <ui-monitor-route-details-summary [page]="page" />
             </ui-data>
 
-            <ui-data title="Latest analysis" i18n-title="@@monitor.route.details.analysis">
+            <ui-data title="Analysis" i18n-title="@@monitor.route.details.analysis">
               <ui-monitor-route-details-timestamp [page]="page" />
             </ui-data>
 

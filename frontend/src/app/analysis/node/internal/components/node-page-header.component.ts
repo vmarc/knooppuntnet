@@ -28,7 +28,7 @@ import { NodeService } from '../node.service';
 
     <ui-page-menu [pageName]="pageName()" [options]="menuOptions()" />
   `,
-  imports: [PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent, BreadcrumbComponent],
+  imports: [PageHeaderComponent, PageMenuComponent, BreadcrumbComponent],
 })
 export class NodePageHeaderComponent {
   readonly pageName = input.required<string>();

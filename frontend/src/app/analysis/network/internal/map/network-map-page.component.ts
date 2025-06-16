@@ -2,6 +2,7 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { NetworkNotFoundComponent } from '@app/analysis/network/internal/components/network-not-found.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
@@ -19,9 +20,7 @@ import { NetworkMapPageService } from './network-map-page.service';
       @if (service.response(); as response) {
         <div>
           @if (!response.result) {
-            <p class="kpn-spacer-above" i18n="@@network-page.network-not-found">
-              Network not found
-            </p>
+            <ui-network-not-found />
           } @else {
             <ui-network-map [networkId]="service.networkId()" [page]="response.result" />
           }
@@ -30,7 +29,12 @@ import { NetworkMapPageService } from './network-map-page.service';
     </ui-page>
   `,
   providers: [NetworkMapService, NetworkMapPageService, RouterService],
-  imports: [NetworkMapComponent, NetworkPageHeaderComponent, PageComponent],
+  imports: [
+    NetworkMapComponent,
+    NetworkNotFoundComponent,
+    NetworkPageHeaderComponent,
+    PageComponent,
+  ],
 })
 export class NetworkMapPageComponent implements OnInit {
   protected readonly service = inject(NetworkMapPageService);

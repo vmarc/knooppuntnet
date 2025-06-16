@@ -95,7 +95,7 @@ export class LocationPageHeaderComponent {
       {
         pageName: 'edit',
         pageLink: link + '/edit',
-        label: $localize`:@@@location-page.menu.edit:Load in editor`,
+        label: $localize`:@@location-page.menu.edit:Load in editor`,
       },
     ];
   });

@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangesComponent } from '@app/analysis/components/changes/changes.component';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter/change-filter.component';
+import { NetworkNotFoundComponent } from '@app/analysis/network/internal/components/network-not-found.component';
 import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ItemComponent } from '@app/shared/components/items/item.component';
 import { ItemsComponent } from '@app/shared/components/items/items.component';
@@ -34,7 +35,7 @@ import { NetworkChangesPageService } from './network-changes-page.service';
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
-            <p i18n="@@network-page.network-not-found">Network not found</p>
+            <ui-network-not-found />
           } @else {
             @if (service.loggedIn() === false) {
               <p i18n="@@network-changes.login-required">
@@ -82,6 +83,7 @@ import { NetworkChangesPageService } from './network-changes-page.service';
     ItemComponent,
     ItemsComponent,
     NetworkChangeSetComponent,
+    NetworkNotFoundComponent,
     NetworkPageHeaderComponent,
     PageComponent,
     SituationOnComponent,

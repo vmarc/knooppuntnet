@@ -2,6 +2,7 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { NetworkNotFoundComponent } from '@app/analysis/network/internal/components/network-not-found.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 import { RouterService } from '@app/shared/services/router.service';
@@ -25,7 +26,7 @@ import { NetworkRoutesPageService } from './network-routes-page.service';
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
-            <p i18n="@@network-page.network-not-found">Network not found</p>
+            <ui-network-not-found />
           } @else {
             @if (response.result; as page) {
               <p>
@@ -49,6 +50,7 @@ import { NetworkRoutesPageService } from './network-routes-page.service';
   `,
   providers: [NetworkRoutesPageService, RouterService],
   imports: [
+    NetworkNotFoundComponent,
     NetworkPageHeaderComponent,
     NetworkRouteListComponent,
     PageComponent,

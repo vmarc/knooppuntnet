@@ -83,7 +83,7 @@ export class NetworkPageHeaderComponent {
       {
         pageName: 'map',
         pageLink: link + '/map',
-        label: $localize`:@@network-page.menu:Map`,
+        label: $localize`:@@network-page.menu.map:Map`,
       },
       {
         pageName: 'changes',
