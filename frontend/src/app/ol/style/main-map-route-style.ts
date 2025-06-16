@@ -1,8 +1,8 @@
+import { ExploreStyleConstants } from '@app/map/style/explore-style-constants';
 import { Color } from 'ol/color';
 import { FeatureLike } from 'ol/Feature';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import { zIndexRoute } from './main-map-style';
 import { MainMapStyleParameters } from './main-map-style-parameters';
 import { RouteStyle } from './route-style';
 import { StyleColor } from './style-color';
@@ -49,7 +49,7 @@ export class MainMapRouteStyle {
 
   private initRouteSelectedStyle(): Style {
     return new Style({
-      zIndex: zIndexRoute,
+      zIndex: ExploreStyleConstants.zIndexNodeRoute,
       stroke: new Stroke({
         color: StyleColor.selected,
         width: 14,

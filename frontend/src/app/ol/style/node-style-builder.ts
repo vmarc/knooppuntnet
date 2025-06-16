@@ -1,16 +1,16 @@
+import { ExploreStyleConstants } from '@app/map/style/explore-style-constants';
 import { Color } from 'ol/color';
 import Circle from 'ol/style/Circle';
 import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import Text from 'ol/style/Text';
-import { zIndexNode } from './main-map-style';
 import { proposedWhite } from './style-color';
 import { white } from './style-color';
 
 export const nameStyle = (): Style =>
   new Style({
-    zIndex: zIndexNode,
+    zIndex: ExploreStyleConstants.zIndexNode,
     text: new Text({
       text: '',
       textAlign: 'center',
@@ -29,7 +29,7 @@ export const nameStyle = (): Style =>
 
 export const small = (color: Color | string): Style => {
   return new Style({
-    zIndex: zIndexNode,
+    zIndex: ExploreStyleConstants.zIndexNode,
     image: new Circle({
       radius: 3,
       fill: new Fill({
@@ -55,7 +55,7 @@ function buildLarge(color: Color | string, proposed: boolean): Style {
   const backgroundColor = proposed ? proposedWhite : white;
   const lineDash = proposed ? [3, 6] : null;
   return new Style({
-    zIndex: zIndexNode,
+    zIndex: ExploreStyleConstants.zIndexNode,
     image: new Circle({
       radius: 14,
       fill: new Fill({

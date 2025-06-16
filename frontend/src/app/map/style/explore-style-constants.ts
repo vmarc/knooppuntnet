@@ -7,4 +7,7 @@ export class ExploreStyleConstants {
   static readonly zIndexNational = 12;
   static readonly zIndexRegional = 13;
   static readonly zIndexLocal = 14;
+
+  static readonly zIndexNodeRoute = 19;
+  static readonly zIndexNode = 20;
 }
