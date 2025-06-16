@@ -17,7 +17,7 @@ export class Translations {
   static readonly routeTypeInlineSkating = $localize`:@@route-type.inline-skating:Inline skating`;
 
   static routeTypeLabel(routeType: RouteType): string {
-    let label = '';
+    let label = routeType as string;
     switch (routeType) {
       case 'hiking':
         label = Translations.routeTypeHiking;
