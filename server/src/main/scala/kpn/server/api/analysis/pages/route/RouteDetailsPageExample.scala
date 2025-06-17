@@ -25,7 +25,8 @@ object RouteDetailsPageExample {
         Reference(RouteType.cycling, RouteScope.regional, 1, "network one", None),
         Reference(RouteType.cycling, RouteScope.regional, 2, "network two", None)
       ),
-      123
+      123,
+      3
     )
   }
 

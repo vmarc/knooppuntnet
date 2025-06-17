@@ -7,5 +7,6 @@ case class RouteChangesPage(
   filterOptions: Seq[ChangesFilterOption],
   changes: Seq[RouteChangeInfo],
   totalCount: Long,
-  changeCount: Long
+  changeCount: Long,
+  segmentCount: Long
 )

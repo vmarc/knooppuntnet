@@ -17,11 +17,13 @@ export class RouteService {
   private readonly _routeName = signal<string>(null);
   private readonly _routeType = signal<RouteType>(null);
   private readonly _changeCount = signal<number>(null);
+  private readonly _segmentCount = signal<number>(null);
 
   readonly routeId = this._routeId.asReadonly();
   readonly routeName = this._routeName.asReadonly();
   readonly routeType = this._routeType.asReadonly();
   readonly changeCount = this._changeCount.asReadonly();
+  readonly segmentCount = this._segmentCount.asReadonly();
   readonly routeDisplayName = computed(() => this.routeName() || this.routeId());
 
   private location = inject(Location);
@@ -48,9 +50,15 @@ export class RouteService {
     }
   }
 
-  updateRoute(routeType: RouteType, routeName: string, changeCount: number): void {
+  updateRoute(
+    routeType: RouteType,
+    routeName: string,
+    changeCount: number,
+    segmentCount: number
+  ): void {
     this._routeName.set(routeName);
     this._routeType.set(routeType);
     this._changeCount.set(changeCount);
+    this._segmentCount.set(segmentCount);
   }
 }

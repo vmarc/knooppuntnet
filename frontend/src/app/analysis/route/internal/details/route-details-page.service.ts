@@ -38,7 +38,8 @@ export class RouteDetailsPageService {
         const name = response.result.route.summary.name;
         const routeType = response.result.route.summary.routeTypes[0]; // TODO redesign
         const changeCount = response.result.changeCount;
-        this.routeService.updateRoute(routeType, name, changeCount);
+        const segmentCount = response.result.segmentCount;
+        this.routeService.updateRoute(routeType, name, changeCount, segmentCount);
       }
       this._response.set(response);
       const route = response.result?.route;

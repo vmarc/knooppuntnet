@@ -10,4 +10,5 @@ export interface RouteChangesPage {
   readonly changes: RouteChangeInfo[];
   readonly totalCount: number;
   readonly changeCount: number;
+  readonly segmentCount: number;
 }

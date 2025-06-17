@@ -66,7 +66,8 @@ class RouteChangesPageBuilder(
         filterOptions,
         changes,
         totalCount,
-        changeCount
+        changeCount,
+        routeNameInfo.segmentCount
       )
     }
   }

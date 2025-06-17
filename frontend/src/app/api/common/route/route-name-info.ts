@@ -6,4 +6,5 @@ export interface RouteNameInfo {
   readonly routeId: number;
   readonly routeName: string;
   readonly routeType: RouteType;
+  readonly segmentCount: number;
 }

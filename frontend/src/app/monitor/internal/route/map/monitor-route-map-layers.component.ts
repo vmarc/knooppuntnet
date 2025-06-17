@@ -3,7 +3,7 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { LegendLineComponent } from './legend-line';
+import { LegendLineComponent } from '@app/shared/components/legend-line';
 import { MonitorMapMode } from './monitor-map-mode';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 

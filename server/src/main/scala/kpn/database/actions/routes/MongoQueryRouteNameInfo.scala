@@ -3,6 +3,7 @@ package kpn.database.actions.routes
 import kpn.api.common.route.RouteNameInfo
 import kpn.core.util.Log
 import kpn.database.base.Database
+import org.mongodb.scala.Document
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
@@ -29,7 +30,8 @@ class MongoQueryRouteNameInfo(database: Database) {
             excludeId(),
             computed("routeId", "$_id"),
             computed("routeName", "$summary.name"),
-            computed("routeType", "$summary.routeTypes")
+            computed("routeType", "$summary.routeTypes"),
+            computed("segmentCount", Document("""{ $size: "$segments" }"""))
           )
         )
       )

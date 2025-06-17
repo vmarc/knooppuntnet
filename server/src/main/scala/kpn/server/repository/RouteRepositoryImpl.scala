@@ -6,6 +6,7 @@ import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
+import kpn.api.common.route.RouteSegmentData
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
 import kpn.core.doc.BaseRouteDoc
@@ -26,6 +27,7 @@ import kpn.database.actions.routes.MongoQueryRouteMapInfo
 import kpn.database.actions.routes.MongoQueryRouteNameInfo
 import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.database.actions.routes.MongoQueryRouteSearchResults
+import kpn.database.actions.routes.MongoQueryRouteSegmentData
 import kpn.database.actions.routes.MongoQueryRouteTileIds
 import kpn.database.actions.routes.MongoQueryRouteTileInfos
 import kpn.database.actions.routes.MongoQueryRoutes
@@ -145,6 +147,10 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
 
   override def findRouteById(routeId: Long): Option[RouteDoc] = {
     database.routes.findById(routeId, log)
+  }
+
+  override def routeSegments(routeId: Long): Option[RouteSegmentData] = {
+    new MongoQueryRouteSegmentData(database).execute(routeId, log)
   }
 
   override def mapInfo(routeId: Long): Option[RouteMapInfo] = {

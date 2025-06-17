@@ -6,6 +6,7 @@ import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
+import kpn.api.common.route.RouteSegmentData
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
 import kpn.core.doc.BaseRouteDoc
@@ -46,6 +47,8 @@ trait RouteRepository {
   def bulkSaveRoutes(routes: Seq[RouteDoc]): Unit
 
   def findRouteById(routeId: Long): Option[RouteDoc]
+
+  def routeSegments(routeId: Long): Option[RouteSegmentData]
 
   def mapInfo(routeId: Long): Option[RouteMapInfo]
 

@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
-import { LegendLineComponent } from './legend-line';
+import { LegendLineComponent } from '@app/shared/components/legend-line';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 

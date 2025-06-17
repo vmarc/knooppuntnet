@@ -40,7 +40,8 @@ export class RouteMapPageService {
         const routeType = response.result.routeMapInfo.routeType;
         const name = response.result.routeMapInfo.routeName;
         const changeCount = response.result.changeCount;
-        this.routeService.updateRoute(routeType, name, changeCount);
+        const segmentCount = response.result.changeCount;
+        this.routeService.updateRoute(routeType, name, changeCount, segmentCount);
       }
       this._response.set(response);
     });

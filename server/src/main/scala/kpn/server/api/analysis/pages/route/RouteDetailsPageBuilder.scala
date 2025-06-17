@@ -28,6 +28,7 @@ class RouteDetailsPageBuilder(
   private def doBuildDetailsPage(language: Language, routeId: Long): Option[RouteDetailsPage] = {
     routeRepository.findRouteById(routeId).map { routeDoc =>
       val changeCount = changeSetRepository.routeChangesCount(routeId)
+      val segmentCount = routeDoc.segments.size
       val networkReferences = routeRepository.networkReferences(routeId)
       val locationCandidateInfos = {
         routeDoc.locationAnalysis.candidates.map { candidate =>
@@ -60,7 +61,12 @@ class RouteDetailsPageBuilder(
         routeDoc.routeIds,
         routeDoc.parentRoutes
       )
-      RouteDetailsPage(data, networkReferences, changeCount)
+      RouteDetailsPage(
+        data,
+        networkReferences,
+        changeCount,
+        segmentCount
+      )
     }
   }
 }

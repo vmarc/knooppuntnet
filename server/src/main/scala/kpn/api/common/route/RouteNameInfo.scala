@@ -5,5 +5,6 @@ import kpn.api.common.RouteType
 case class RouteNameInfo(
   routeId: Long,
   routeName: String,
-  routeType: RouteType
+  routeType: RouteType,
+  segmentCount: Long,
 )

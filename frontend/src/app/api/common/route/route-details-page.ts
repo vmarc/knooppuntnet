@@ -7,4 +7,5 @@ export interface RouteDetailsPage {
   readonly route: RouteDetailsPageData;
   readonly networkReferences: Reference[];
   readonly changeCount: number;
+  readonly segmentCount: number;
 }

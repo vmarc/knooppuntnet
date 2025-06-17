@@ -31,12 +31,14 @@ object RouteChangesPageExample {
       RouteNameInfo(
         route.id,
         route.summary.name,
-        route.summary.routeTypes.head // TODO redesign - improve support for multiple routeTypes
+        route.summary.routeTypes.head, // TODO redesign - improve support for multiple routeTypes
+        3
       ),
       Seq.empty,
       changes(),
       totalCount = 3,
-      changeCount = 3
+      changeCount = 3,
+      segmentCount = 3
     )
   }
 

@@ -58,7 +58,7 @@ export class RoutePageHeaderComponent {
         pageName: 'segments',
         pageLink: link + '/segments',
         label: $localize`:@@route.menu.segments:Segments`,
-        elementCount: 33,
+        elementCount: this.service.segmentCount(),
       },
     ];
   });

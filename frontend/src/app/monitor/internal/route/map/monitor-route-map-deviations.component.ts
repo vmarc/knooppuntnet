@@ -12,7 +12,7 @@ import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviati
 import { EditService } from '@app/shared/components/edit.service';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
-import { LegendLineComponent } from './legend-line';
+import { LegendLineComponent } from '@app/shared/components/legend-line';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
