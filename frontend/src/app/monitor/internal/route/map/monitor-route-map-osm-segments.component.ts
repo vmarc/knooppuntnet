@@ -3,6 +3,7 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
+import { SegmentColors } from '@app/map/domain/segment-colors';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { LegendLineComponent } from '@app/shared/components/legend-line';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
@@ -64,6 +65,6 @@ export class MonitorRouteMapOsmSegmentsComponent {
   }
 
   segmentColor(segment: MonitorRouteSegment): string {
-    return this.mapService.colorForSegmentId(segment.id);
+    return SegmentColors.colorForSegmentId(segment.id);
   }
 }

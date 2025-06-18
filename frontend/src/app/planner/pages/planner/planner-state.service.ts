@@ -8,7 +8,7 @@ import { RouteTypes } from '@app/shared/kpn/common/route-types';
 import { MapLayerState } from '@app/ol/domain/map-layer-state';
 import { MapPosition } from '@app/ol/domain/map-position';
 import { OldPoiTileLayerService } from '@app/ol/services/old-poi-tile-layer.service';
-import { MapMode } from '@app/ol/services/map-mode';
+import { MapMode } from '@app/map/domain/map-mode';
 import { BrowserStorageService } from '@app/shared/services/browser-storage.service';
 import { Util } from '@app/shared/components/util';
 import { State } from '@app/state/state';

@@ -12,7 +12,7 @@ import { LegNotFoundDialogComponent } from '@app/ol/components/leg-not-found-dia
 import { LegHttpErrorDialogComponent } from '@app/ol/components/leg-http-error.dialog';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import { MapControls } from '@app/ol/layers/map-controls';
-import { MapMode } from '@app/ol/services/map-mode';
+import { MapMode } from '@app/map/domain/map-mode';
 import { ApiService } from '@app/shared/services/api.service';
 import { Util } from '@app/shared/components/util';
 import { State } from '@app/state/state';
@@ -214,6 +214,7 @@ export class MapService {
   }
 
   setMapMode(mapMode: MapMode): void {
+    this.state.map.updateMode(mapMode);
     this.state.planner.updateMapMode(mapMode);
     // this.plannerMapService.updateLayerVisibility();
   }

@@ -31,6 +31,7 @@ class RouteSegmentsPageBuilder(
         routeTypes = routeSegmentData.routeTypes,
         changeCount = changeCount,
         segmentCount = routeSegmentData.segments.length,
+        bounds = routeSegmentData.bounds,
       )
       RouteSegmentsPage(
         routeInfo,

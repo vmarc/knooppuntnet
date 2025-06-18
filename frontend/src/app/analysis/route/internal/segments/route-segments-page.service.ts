@@ -6,6 +6,7 @@ import { RouteSegment } from '@api/common/route/route-segment';
 import { RouteSegmentsPage } from '@api/common/route/route-segments-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/shared/services/api.service';
+import { State } from '@app/state/state';
 import { Subscriptions } from '@app/util/subscriptions';
 import { FocusElements } from '@app/state/focus-elements';
 import { MapService } from '@app/map/map.service';
@@ -14,6 +15,7 @@ import { RouteService } from '../route.service';
 
 @Injectable()
 export class RouteSegmentsPageService {
+  private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly mapService = inject(MapService);
   private readonly routeService = inject(RouteService);
@@ -26,30 +28,8 @@ export class RouteSegmentsPageService {
 
   private readonly _selectedSegment = signal<RouteSegment>(null);
   readonly selectedSegment = this._selectedSegment.asReadonly();
-
-  private readonly colors = [
-    '#e6194B', // red
-    '#3cb44b', // green
-    '#ffe119', // yellow
-    '#4363d8', // blue
-    '#f58231', // orange
-    '#911eb4', // purple
-    '#42d4f4', // cyan
-    '#f032e6', // magenta
-    '#bfef45', // lime
-    '#fabed4', // pink
-    '#469990', // teal
-    '#dcbeff', // lavender
-    '#9A6324', // brown
-    '#fffac8', // beige
-    '#800000', // maroon
-    '#aaffc3', // mint
-    '#808000', // olive
-    '#ffd8b1', // apricot
-    '#000075', // navy
-  ];
-
   onInit(): void {
+    this.mapService.setMapMode('route-segments');
     this.subscriptions.add(
       this.activatedRoute.params.subscribe((params) => {
         this.routeService.initPage(this.routerService);
@@ -59,7 +39,9 @@ export class RouteSegmentsPageService {
   }
 
   private load(): void {
-    this.apiService.routeSegments(this.routeService.routeId()).subscribe((response) => {
+    const routeId = this.routeService.routeId();
+    this.state.map.updateSelectedRoute(routeId);
+    this.apiService.routeSegments(routeId).subscribe((response) => {
       if (response.result) {
         this.routeService.updateRoute(response.result.routeInfo);
       }
@@ -67,17 +49,16 @@ export class RouteSegmentsPageService {
     });
   }
 
-  colorForSegmentId(id: number): string {
-    const index = (id - 1) % this.colors.length;
-    return this.colors[index];
-  }
-
   selectSegment(routeSegment: RouteSegment): void {
     const elements: FocusElements = {
       nodeIds: [],
       routeIds: [],
     };
-    this.mapService.focusElements(routeSegment.bounds, elements);
+    if (routeSegment) {
+      this.mapService.focusElements(routeSegment.bounds, elements);
+    } else {
+      this.mapService.focusElements(this.response().result.routeInfo.bounds, elements);
+    }
     this._selectedSegment.set(routeSegment);
   }
 }

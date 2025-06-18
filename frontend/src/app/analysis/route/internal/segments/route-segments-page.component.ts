@@ -7,6 +7,8 @@ import { RouteSegment } from '@api/common/route/route-segment';
 import { RouteSegmentComponent } from '@app/analysis/route/internal/segments/components/route-segment.component';
 import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { ListComponent } from '@app/shared/components/list/list.component';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouteSegmentsPageService } from './route-segments-page.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { RouterService } from '@app/shared/services/router.service';
@@ -17,7 +19,15 @@ import { RoutePageHeaderComponent } from '../components/route-page-header.compon
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-page>
-      <ui-route-page-header pageName="segments" />
+      <div class="kpn-small-spacer-above kpn-small-spacer-below">
+        <ui-route-page-header pageName="segments" />
+      </div>
+      <div>
+        <button nz-button (click)="zoomToFitRoute()">
+          <nz-icon nzType="fullscreen-exit" />
+          <span>Zoom to fit entire route</span>
+        </button>
+      </div>
       @if (response()) {
         <ui-list>
           @for (segment of segments(); track segment.id) {
@@ -37,6 +47,8 @@ import { RoutePageHeaderComponent } from '../components/route-page-header.compon
   imports: [
     ListComponent,
     ListItemComponent,
+    NzButtonComponent,
+    NzIconDirective,
     PageComponent,
     RoutePageHeaderComponent,
     RouteSegmentComponent,
@@ -52,7 +64,11 @@ export class RouteSegmentsPageComponent implements OnInit {
     this.service.onInit();
   }
 
-  onSelectionChange(routeSegment: RouteSegment) {
+  onSelectionChange(routeSegment: RouteSegment): void {
     this.service.selectSegment(routeSegment);
+  }
+
+  zoomToFitRoute(): void {
+    this.service.selectSegment(undefined);
   }
 }

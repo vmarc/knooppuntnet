@@ -33,7 +33,8 @@ object RouteChangesPageExample {
         route.summary.name,
         route.summary.routeTypes,
         3,
-        3
+        3,
+        None
       ),
       Seq.empty,
       changes(),

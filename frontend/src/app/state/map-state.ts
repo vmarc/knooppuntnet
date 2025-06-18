@@ -1,9 +1,9 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
+import { MapMode } from '@app/map/domain/map-mode';
 import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { MapLayerState } from '@app/ol/domain/map-layer-state';
 import { Coordinate } from 'ol/coordinate';
-import { ExploreMode } from '../explore/explore-mode';
 import { FocusElements } from './focus-elements';
 import { PoiStyleMap } from './poi/poi-style-map';
 import { MapSubject } from '../ol/services/map-subject';
@@ -20,7 +20,7 @@ export class MapState {
   private readonly _routePopupState = signal<MapRoutePopupState>(
     new MapRoutePopupState([], [0, 0])
   );
-  private readonly _mode = signal<ExploreMode>('analysis');
+  private readonly _mode = signal<MapMode>('analysis');
 
   private readonly _focusElements = signal<FocusElements | undefined>(undefined);
   private readonly _selectedRoute = signal<number | undefined>(undefined);
@@ -81,7 +81,7 @@ export class MapState {
     this._routePopupState.set(value);
   }
 
-  updateMode(value: ExploreMode): void {
+  updateMode(value: MapMode): void {
     this._mode.set(value);
   }
 

@@ -27,6 +27,7 @@ object RouteDetailsPageExample {
         routeTypes = Seq(RouteType.hiking),
         changeCount = 5,
         segmentCount = 3,
+        None
       ),
       data(),
     )

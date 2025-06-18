@@ -3,6 +3,7 @@ import { effect } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
+import { SegmentColors } from '@app/map/domain/segment-colors';
 import { MapPosition } from '@app/ol/domain/map-position';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import { OldBackgroundLayer } from '@app/ol/layers/old-background-layer';
@@ -36,29 +37,9 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   private readonly navService = inject(NavService);
   private readonly stateService = inject(MonitorRouteMapStateService);
 
-  private readonly colors = [
-    '#e6194B', // red
-    '#3cb44b', // green
-    '#ffe119', // yellow
-    '#4363d8', // blue
-    '#f58231', // orange
-    '#911eb4', // purple
-    '#42d4f4', // cyan
-    '#f032e6', // magenta
-    '#bfef45', // lime
-    '#fabed4', // pink
-    '#469990', // teal
-    '#dcbeff', // lavender
-    '#9A6324', // brown
-    '#fffac8', // beige
-    '#800000', // maroon
-    '#aaffc3', // mint
-    '#808000', // olive
-    '#ffd8b1', // apricot
-    '#000075', // navy
-  ];
-
-  private readonly osmSegmentStyles = this.colors.map((color) => this.fixedStyle(color, 4));
+  private readonly osmSegmentStyles = SegmentColors.colors.map((color) =>
+    this.fixedStyle(color, 4)
+  );
 
   private readonly referenceLayer: VectorLayer<VectorSource<Feature<Geometry>>>;
   private readonly matchesLayer: VectorLayer<VectorSource<Feature<Geometry>>>;
@@ -153,13 +134,8 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     }
   }
 
-  colorForSegmentId(id: number): string {
-    const index = (id - 1) % this.colors.length;
-    return this.colors[index];
-  }
-
   private styleForSegmentId(id: number): Style {
-    const index = (id - 1) % this.colors.length;
+    const index = (id - 1) % this.osmSegmentStyles.length;
     return this.osmSegmentStyles[index];
   }
 

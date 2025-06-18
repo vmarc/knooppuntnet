@@ -24,6 +24,7 @@ class RouteMapPageBuilder(
         routeTypes = routeMapData.routeTypes,
         changeCount = changeCount,
         segmentCount = routeMapData.segments.size,
+        bounds = Some(bounds)
       )
       val routeMapInfo = RouteMapInfo(
         segments = routeMapData.segments,

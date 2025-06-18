@@ -47,6 +47,7 @@ class RouteDetailsPageBuilder(
         routeDoc.summary.routeTypes,
         changeCount,
         segmentCount,
+        routeDoc.bounds
       )
 
       // TODO add routeIds, parent routes (reverse subRelationTree), add children

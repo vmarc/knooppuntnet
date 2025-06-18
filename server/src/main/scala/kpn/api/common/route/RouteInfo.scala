@@ -1,5 +1,6 @@
 package kpn.api.common.route
 
+import kpn.api.common.Bounds
 import kpn.api.common.RouteType
 
 case class RouteInfo(
@@ -8,4 +9,5 @@ case class RouteInfo(
   routeTypes: Seq[RouteType],
   changeCount: Long,
   segmentCount: Long,
+  bounds: Option[Bounds],
 )

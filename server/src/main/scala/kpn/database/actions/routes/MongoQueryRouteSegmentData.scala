@@ -28,7 +28,8 @@ class MongoQueryRouteSegmentData(database: Database) {
             excludeId(),
             computed("name", "$summary.name"),
             computed("routeTypes", "$summary.routeTypes"),
-            include("segments")
+            include("segments"),
+            include("bounds")
           )
         )
       )

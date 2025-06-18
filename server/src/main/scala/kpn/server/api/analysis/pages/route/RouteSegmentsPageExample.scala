@@ -13,6 +13,7 @@ object RouteSegmentsPageExample {
         routeTypes = Seq(RouteType.hiking),
         changeCount = 3,
         segmentCount = 2,
+        bounds = None
       ),
       Seq.empty
     )

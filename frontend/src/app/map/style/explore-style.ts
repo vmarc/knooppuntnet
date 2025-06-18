@@ -1,3 +1,4 @@
+import { RouteSegmentStyle } from '@app/map/style/route-segment-style';
 import { OlUtil } from '@app/ol/ol-util';
 import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { MainMapNodeStyle } from '@app/ol/style/main-map-node-style';
@@ -27,6 +28,18 @@ export class ExploreStyle {
   }
 
   private static nodeStyle(styleOptions: MapStyleOptions, feature: FeatureLike): Array<Style> {
+    if (styleOptions.mode === 'route-segments') {
+      const ref = feature.get('ref');
+      const name = feature.get('name');
+      let title: string;
+      if (ref && ref !== 'o') {
+        title = ref;
+      } else {
+        title = name;
+      }
+      return [RouteSegmentStyle.nodeStyle(styleOptions.zoom, title)];
+    }
+
     const baseStyle = this.baseNodeStyle(styleOptions, feature);
     if (baseStyle) {
       if (styleOptions.focusElements) {
@@ -83,6 +96,13 @@ export class ExploreStyle {
     styleOptions: MapStyleOptions,
     feature: FeatureLike
   ): Style | Array<Style> {
+    if (styleOptions.mode === 'route-segments') {
+      const routeId = +feature.get('routeId');
+      const segmentId = +feature.get('segmentId');
+      const segmentElementId = +feature.get('segmentElementId');
+      return RouteSegmentStyle.routeStyle(styleOptions, routeId, segmentId, segmentElementId);
+    }
+
     const baseStyle = this.baseRouteStyle(styleOptions, feature);
     if (baseStyle && styleOptions.focusElements) {
       const routeId = feature.get('routeId');

@@ -2,10 +2,10 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MapMode } from '@app/map/domain/map-mode';
 import { State } from '@app/state/state';
 import { NzRadioComponent } from 'ng-zorro-antd/radio';
 import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
-import { ExploreMode } from '@app/explore/explore-mode';
 
 @Component({
   selector: 'ui-settings-menu-map-options',
@@ -32,7 +32,7 @@ export class SettingsMenuMapOptionsComponent {
   private readonly state = inject(State);
   readonly mode = this.state.map.mode;
 
-  modeChanged(modeOption: ExploreMode): void {
+  modeChanged(modeOption: MapMode): void {
     this.state.map.updateMode(modeOption);
   }
 }
