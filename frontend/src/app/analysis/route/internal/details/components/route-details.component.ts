@@ -27,7 +27,7 @@ import { RouteDetailsPageService } from '../route-details-page.service';
   template: `
     @let page = service.response().result;
     <div>
-      <ui-route-summary [route]="page.route" />
+      <ui-route-summary [route]="page.data" />
       <ui-divider />
       <div class="data2">
         <div class="title">
@@ -42,24 +42,24 @@ import { RouteDetailsPageService } from '../route-details-page.service';
           <span i18n="@@route.last-updated">Last updated</span>
         </div>
         <div class="body">
-          <ui-timestamp [timestamp]="page.route.lastUpdated" />
+          <ui-timestamp [timestamp]="page.data.lastUpdated" />
         </div>
       </div>
       <ui-data title="Relation last updated" i18n-title="@@route.relation-last-updated">
-        <ui-timestamp [timestamp]="page.route.summary.timestamp" />
+        <ui-timestamp [timestamp]="page.data.summary.timestamp" />
       </ui-data>
       <ui-data title="Network" i18n-title="@@route.network">
-        <ui-route-network-references [references]="page.networkReferences" />
+        <ui-route-network-references [references]="page.data.networkReferences" />
       </ui-data>
 
-      @if (page.route.parentRoutes.length > 0) {
+      @if (page.data.parentRoutes.length > 0) {
         <ui-data title="Part of" i18n-title="@@route.parent-routes">
-          <ui-route-parents [parentRoutes]="page.route.parentRoutes" />
+          <ui-route-parents [parentRoutes]="page.data.parentRoutes" />
         </ui-data>
       }
 
       <div>
-        @if (page.route.nodes; as nodes) {
+        @if (page.data.nodes; as nodes) {
           <ui-data title="Start node" i18n-title="@@route.start-node">
             <ui-route-start-nodes [nodes]="nodes" />
           </ui-data>
@@ -76,7 +76,7 @@ import { RouteDetailsPageService } from '../route-details-page.service';
           }
         }
         <ui-data title="Number of ways" i18n-title="@@route.number-of-ways">
-          {{ page.route.summary.wayCount }}
+          {{ page.data.summary.wayCount }}
         </ui-data>
       </div>
 
@@ -92,8 +92,8 @@ import { RouteDetailsPageService } from '../route-details-page.service';
         <div>
           <!-- TODO redesign routeTypes[0]-->
           <ui-route-members
-            [routeType]="page.route.summary.routeTypes[0]"
-            [rows]="page.route.structureRows"
+            [routeType]="page.data.summary.routeTypes[0]"
+            [rows]="page.data.structureRows"
           />
         </div>
       }
@@ -123,17 +123,17 @@ export class RouteDetailsComponent {
   readonly showRouteDetails = computed(() => !this.pageWidthService.isAllSmall());
 
   routeTags(page: RouteDetailsPage) {
-    return InterpretedTags.routeTags(page.route.summary.tags);
+    return InterpretedTags.routeTags(page.data.summary.tags);
   }
 
   factInfos(page: RouteDetailsPage): FactInfo[] {
-    return page.route.facts.map((fact) => {
+    return page.data.facts.map((fact) => {
       if (fact === 'RouteUnexpectedNode') {
-        const unexpectedNodeIds = page.route.unexpectedNodeIds;
+        const unexpectedNodeIds = page.data.unexpectedNodeIds;
         return new FactInfo(fact, undefined, undefined, undefined, unexpectedNodeIds);
       }
       if (fact === 'RouteUnexpectedRelation') {
-        const unexpectedRelationIds = page.route.unexpectedRelationIds;
+        const unexpectedRelationIds = page.data.unexpectedRelationIds;
         return new FactInfo(
           fact,
           undefined,

@@ -61,11 +61,7 @@ export class RouteSegmentsPageService {
   private load(): void {
     this.apiService.routeSegments(this.routeService.routeId()).subscribe((response) => {
       if (response.result) {
-        const name = response.result.data.name;
-        const routeType = response.result.data.routeTypes[0]; // TODO redesign
-        const changeCount = response.result.changeCount;
-        const segmentCount = response.result.segmentCount;
-        this.routeService.updateRoute(routeType, name, changeCount, segmentCount);
+        this.routeService.updateRoute(response.result.routeInfo);
       }
       this._response.set(response);
     });

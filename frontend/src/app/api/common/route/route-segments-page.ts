@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
-import { RouteSegmentData } from './route-segment-data';
+import { RouteInfo } from './route-info';
+import { RouteSegment } from './route-segment';
 
 export interface RouteSegmentsPage {
-  readonly data: RouteSegmentData;
-  readonly changeCount: number;
-  readonly segmentCount: number;
+  readonly routeInfo: RouteInfo;
+  readonly segments: RouteSegment[];
 }

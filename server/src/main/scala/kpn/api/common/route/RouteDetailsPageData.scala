@@ -3,6 +3,7 @@ package kpn.api.common.route
 import kpn.api.common.Bounds
 import kpn.api.common.Fact
 import kpn.api.common.RouteSummary
+import kpn.api.common.common.Reference
 import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
@@ -26,4 +27,5 @@ case class RouteDetailsPageData(
   bounds: Option[Bounds],
   routeIds: Seq[Long],
   parentRoutes: Seq[ParentRoute],
+  networkReferences: Seq[Reference],
 )

@@ -2,9 +2,10 @@
 
 import { RouteType } from '@api/common/route-type';
 
-export interface RouteNameInfo {
+export interface RouteInfo {
   readonly routeId: number;
   readonly routeName: string;
-  readonly routeType: RouteType;
+  readonly routeTypes: RouteType[];
+  readonly changeCount: number;
   readonly segmentCount: number;
 }

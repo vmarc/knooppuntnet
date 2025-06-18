@@ -2,13 +2,10 @@
 
 import { ChangesFilterOption } from '@api/common/changes/filter/changes-filter-option';
 import { RouteChangeInfo } from './route-change-info';
-import { RouteNameInfo } from './route-name-info';
+import { RouteInfo } from './route-info';
 
 export interface RouteChangesPage {
-  readonly routeNameInfo: RouteNameInfo;
+  readonly routeInfo: RouteInfo;
   readonly filterOptions: ChangesFilterOption[];
   readonly changes: RouteChangeInfo[];
-  readonly totalCount: number;
-  readonly changeCount: number;
-  readonly segmentCount: number;
 }

@@ -46,17 +46,17 @@ export class RouteDetailsPageComponent implements OnInit {
   }
 
   routeTags(page: RouteDetailsPage) {
-    return InterpretedTags.routeTags(page.route.summary.tags);
+    return InterpretedTags.routeTags(page.data.summary.tags);
   }
 
   factInfos(page: RouteDetailsPage): FactInfo[] {
-    return page.route.facts.map((fact) => {
+    return page.data.facts.map((fact) => {
       if (fact === 'RouteUnexpectedNode') {
-        const unexpectedNodeIds = page.route.unexpectedNodeIds;
+        const unexpectedNodeIds = page.data.unexpectedNodeIds;
         return new FactInfo(fact, undefined, undefined, undefined, unexpectedNodeIds);
       }
       if (fact === 'RouteUnexpectedRelation') {
-        const unexpectedRelationIds = page.route.unexpectedRelationIds;
+        const unexpectedRelationIds = page.data.unexpectedRelationIds;
         return new FactInfo(
           fact,
           undefined,

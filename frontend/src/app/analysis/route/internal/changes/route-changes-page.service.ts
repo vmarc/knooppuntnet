@@ -98,11 +98,7 @@ export class RouteChangesPageService implements ChangesService {
         .routeChanges(this.routeService.routeId(), this.changesParameters())
         .subscribe((response) => {
           if (response.result) {
-            const name = response.result.routeNameInfo.routeName;
-            const routeType = response.result.routeNameInfo.routeType;
-            const changeCount = response.result.changeCount;
-            const segmentCount = response.result.segmentCount;
-            this.routeService.updateRoute(routeType, name, changeCount, segmentCount);
+            this.routeService.updateRoute(response.result.routeInfo);
           }
           this._response.set(response);
         });

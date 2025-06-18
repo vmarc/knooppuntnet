@@ -4,8 +4,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.Country
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
-import kpn.api.common.route.RouteMapInfo
-import kpn.api.common.route.RouteNameInfo
+import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteSegmentData
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
@@ -17,6 +16,7 @@ import kpn.core.doc.SubRouteData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
+import kpn.server.api.analysis.pages.route.RouteMapData
 
 trait RouteRepository {
 
@@ -50,9 +50,9 @@ trait RouteRepository {
 
   def routeSegments(routeId: Long): Option[RouteSegmentData]
 
-  def mapInfo(routeId: Long): Option[RouteMapInfo]
+  def mapData(routeId: Long): Option[RouteMapData]
 
-  def nameInfo(routeId: Long): Option[RouteNameInfo]
+  def routeInfo(routeId: Long): Option[RouteInfo]
 
   def networkReferences(routeId: Long): Seq[Reference]
 

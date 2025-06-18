@@ -171,23 +171,23 @@ export class ApiService {
     return this.http.post(url, parameters);
   }
 
-  routeDetails(routeId: string): Observable<ApiResponse<RouteDetailsPage>> {
+  routeDetails(routeId: number): Observable<ApiResponse<RouteDetailsPage>> {
     const url = `/api/route/${routeId}`;
     return this.http.get(url, { params: this.languageParams() });
   }
 
-  routeMap(routeId: string): Observable<ApiResponse<RouteMapPage>> {
+  routeMap(routeId: number): Observable<ApiResponse<RouteMapPage>> {
     const url = `/api/route/${routeId}/map`;
     return this.http.get(url);
   }
 
-  routeSegments(routeId: string): Observable<ApiResponse<RouteSegmentsPage>> {
+  routeSegments(routeId: number): Observable<ApiResponse<RouteSegmentsPage>> {
     const url = `/api/route-segments/${routeId}`;
     return this.http.get(url, { params: this.languageParams() });
   }
 
   routeChanges(
-    routeId: string,
+    routeId: number,
     parameters: ChangesParameters
   ): Observable<ApiResponse<RouteChangesPage>> {
     const url = `/api/route/${routeId}/changes`;

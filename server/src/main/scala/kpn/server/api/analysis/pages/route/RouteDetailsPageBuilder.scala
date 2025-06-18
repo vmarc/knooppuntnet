@@ -4,6 +4,7 @@ import kpn.api.common.Language
 import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteDetailsPageData
+import kpn.api.common.route.RouteInfo
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.ChangeSetRepository
@@ -40,6 +41,14 @@ class RouteDetailsPageBuilder(
 
       val routeBounds = Util.mergeBounds(routeDoc.segments.map(_.bounds))
 
+      val routeInfo = RouteInfo(
+        routeDoc._id,
+        routeDoc.summary.name,
+        routeDoc.summary.routeTypes,
+        changeCount,
+        segmentCount,
+      )
+
       // TODO add routeIds, parent routes (reverse subRelationTree), add children
       val data = RouteDetailsPageData(
         routeDoc._id,
@@ -59,13 +68,12 @@ class RouteDetailsPageBuilder(
         routeDoc.nodes,
         routeDoc.bounds,
         routeDoc.routeIds,
-        routeDoc.parentRoutes
+        routeDoc.parentRoutes,
+        networkReferences,
       )
       RouteDetailsPage(
+        routeInfo,
         data,
-        networkReferences,
-        changeCount,
-        segmentCount
       )
     }
   }

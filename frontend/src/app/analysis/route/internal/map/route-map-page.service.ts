@@ -37,11 +37,7 @@ export class RouteMapPageService {
   private load(): void {
     this.apiService.routeMap(this.routeService.routeId()).subscribe((response) => {
       if (response.result) {
-        const routeType = response.result.routeMapInfo.routeType;
-        const name = response.result.routeMapInfo.routeName;
-        const changeCount = response.result.changeCount;
-        const segmentCount = response.result.changeCount;
-        this.routeService.updateRoute(routeType, name, changeCount, segmentCount);
+        this.routeService.updateRoute(response.result.routeInfo);
       }
       this._response.set(response);
     });

@@ -4,8 +4,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.Country
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
-import kpn.api.common.route.RouteMapInfo
-import kpn.api.common.route.RouteNameInfo
+import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteSegmentData
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
@@ -23,8 +22,8 @@ import kpn.database.actions.routes.MongoQueryRouteBounds
 import kpn.database.actions.routes.MongoQueryRouteCountry
 import kpn.database.actions.routes.MongoQueryRouteElementIds
 import kpn.database.actions.routes.MongoQueryRouteIds
-import kpn.database.actions.routes.MongoQueryRouteMapInfo
-import kpn.database.actions.routes.MongoQueryRouteNameInfo
+import kpn.database.actions.routes.MongoQueryRouteInfo
+import kpn.database.actions.routes.MongoQueryRouteMapData
 import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.database.actions.routes.MongoQueryRouteSearchResults
 import kpn.database.actions.routes.MongoQueryRouteSegmentData
@@ -37,6 +36,7 @@ import kpn.database.base.StringId
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
+import kpn.server.api.analysis.pages.route.RouteMapData
 import kpn.server.sync.Transaction
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
@@ -153,12 +153,12 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQueryRouteSegmentData(database).execute(routeId, log)
   }
 
-  override def mapInfo(routeId: Long): Option[RouteMapInfo] = {
-    new MongoQueryRouteMapInfo(database).execute(routeId, log)
+  override def mapData(routeId: Long): Option[RouteMapData] = {
+    new MongoQueryRouteMapData(database).execute(routeId, log)
   }
 
-  override def nameInfo(routeId: Long): Option[RouteNameInfo] = {
-    new MongoQueryRouteNameInfo(database).execute(routeId, log)
+  override def routeInfo(routeId: Long): Option[RouteInfo] = {
+    new MongoQueryRouteInfo(database).execute(routeId, log)
   }
 
   override def networkReferences(routeId: Long): Seq[Reference] = {

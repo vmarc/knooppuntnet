@@ -35,38 +35,34 @@ export class RouteDetailsPageService {
   private load(): void {
     this.apiService.routeDetails(this.routeService.routeId()).subscribe((response) => {
       if (response.result) {
-        const name = response.result.route.summary.name;
-        const routeType = response.result.route.summary.routeTypes[0]; // TODO redesign
-        const changeCount = response.result.changeCount;
-        const segmentCount = response.result.segmentCount;
-        this.routeService.updateRoute(routeType, name, changeCount, segmentCount);
+        this.routeService.updateRoute(response.result.routeInfo);
       }
       this._response.set(response);
-      const route = response.result?.route;
+      const data = response.result?.data;
 
-      if (route) {
-        const routeIds = route.routeIds.map((id) => id.toString());
+      if (data) {
+        const routeIds = data.routeIds.map((id) => id.toString());
         const nodeIds = new Array<string>();
-        if (route.nodes.startNode) {
-          nodeIds.push(route.nodes.startNode.nodeId.toString());
+        if (data.nodes.startNode) {
+          nodeIds.push(data.nodes.startNode.nodeId.toString());
         }
-        if (route.nodes.endNode) {
-          nodeIds.push(route.nodes.endNode.nodeId.toString());
+        if (data.nodes.endNode) {
+          nodeIds.push(data.nodes.endNode.nodeId.toString());
         }
-        route.nodes.startTentacleNodes
+        data.nodes.startTentacleNodes
           .map((node) => node.nodeId.toString())
           .forEach((nodeId) => nodeIds.push(nodeId));
-        route.nodes.endTentacleNodes
+        data.nodes.endTentacleNodes
           .map((node) => node.nodeId.toString())
           .forEach((nodeId) => nodeIds.push(nodeId));
-        route.nodes.redundantNodes
+        data.nodes.redundantNodes
           .map((node) => node.nodeId.toString())
           .forEach((nodeId) => nodeIds.push(nodeId));
         const elements: FocusElements = {
           nodeIds,
           routeIds,
         };
-        this.mapService.focusElements(route.bounds, elements);
+        this.mapService.focusElements(data.bounds, elements);
       }
     });
   }

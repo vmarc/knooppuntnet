@@ -19,26 +19,24 @@ import kpn.api.common.diff.route.RouteNodeDiff
 import kpn.api.common.diff.route.RouteRoleDiff
 import kpn.api.common.route.RouteChangeInfo
 import kpn.api.common.route.RouteChangesPage
-import kpn.api.common.route.RouteNameInfo
+import kpn.api.common.route.RouteInfo
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
 object RouteChangesPageExample {
 
   val page: RouteChangesPage = {
-    val route = RouteDetailsPageExample.page.route
+    val route = RouteDetailsPageExample.page.data
     RouteChangesPage(
-      RouteNameInfo(
+      RouteInfo(
         route.id,
         route.summary.name,
-        route.summary.routeTypes.head, // TODO redesign - improve support for multiple routeTypes
+        route.summary.routeTypes,
+        3,
         3
       ),
       Seq.empty,
       changes(),
-      totalCount = 3,
-      changeCount = 3,
-      segmentCount = 3
     )
   }
 

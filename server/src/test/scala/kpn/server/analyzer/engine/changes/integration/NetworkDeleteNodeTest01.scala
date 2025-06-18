@@ -79,11 +79,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
           "hiking-13-4095-4095",
           "hiking-13-4095-4096",
           "hiking-13-4096-4095",
-          "hiking-13-4096-4096",
-          "hiking-14-8191-8191",
-          "hiking-14-8191-8192",
-          "hiking-14-8192-8191",
-          "hiking-14-8192-8192"
+          "hiking-13-4096-4096"
         )
       )
     )

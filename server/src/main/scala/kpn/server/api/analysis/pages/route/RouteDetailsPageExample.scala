@@ -9,6 +9,7 @@ import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteDetailsPageData
+import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteNodes
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.RouteStructureWay
@@ -20,17 +21,18 @@ import kpn.api.custom.Timestamp
 object RouteDetailsPageExample {
   val page: RouteDetailsPage = {
     RouteDetailsPage(
-      route(),
-      networkReferences = Seq(
-        Reference(RouteType.cycling, RouteScope.regional, 1, "network one", None),
-        Reference(RouteType.cycling, RouteScope.regional, 2, "network two", None)
+      RouteInfo(
+        routeId = 1,
+        routeName = "01-02",
+        routeTypes = Seq(RouteType.hiking),
+        changeCount = 5,
+        segmentCount = 3,
       ),
-      123,
-      3
+      data(),
     )
   }
 
-  private def route(): RouteDetailsPageData = {
+  private def data(): RouteDetailsPageData = {
 
     val nodes = RouteNodes()
 
@@ -114,7 +116,11 @@ object RouteDetailsPageExample {
       nodes,
       None,
       Seq(1L),
-      Seq.empty
+      Seq.empty,
+      networkReferences = Seq(
+        Reference(RouteType.cycling, RouteScope.regional, 1, "network one", None),
+        Reference(RouteType.cycling, RouteScope.regional, 2, "network two", None)
+      ),
     )
   }
 }

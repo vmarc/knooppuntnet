@@ -1,6 +1,7 @@
 // this file is generated, please do not modify
 
 import { Bounds } from '@api/common/bounds';
+import { Reference } from '@api/common/common/reference';
 import { Fact } from '@api/common/fact';
 import { LocationCandidateInfo } from '@api/common/location/location-candidate-info';
 import { RouteSummary } from '@api/common/route-summary';
@@ -29,4 +30,5 @@ export interface RouteDetailsPageData {
   readonly bounds?: Bounds;
   readonly routeIds: number[];
   readonly parentRoutes: ParentRoute[];
+  readonly networkReferences: Reference[];
 }

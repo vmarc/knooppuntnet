@@ -1,8 +1,8 @@
 package kpn.database.actions.routes
 
-import kpn.api.common.route.RouteMapInfo
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.server.api.analysis.pages.route.RouteMapData
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
@@ -12,13 +12,13 @@ import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 
-object MongoQueryRouteMapInfo {
-  private val log = Log(classOf[MongoQueryRouteMapInfo])
+object MongoQueryRouteMapData {
+  private val log = Log(classOf[MongoQueryRouteMapData])
 }
 
-class MongoQueryRouteMapInfo(database: Database) {
+class MongoQueryRouteMapData(database: Database) {
 
-  def execute(routeId: Long, log: Log = MongoQueryRouteMapInfo.log): Option[RouteMapInfo] = {
+  def execute(routeId: Long, log: Log = MongoQueryRouteMapData.log): Option[RouteMapData] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
@@ -30,14 +30,14 @@ class MongoQueryRouteMapInfo(database: Database) {
             excludeId(),
             computed("routeId", "$_id"),
             computed("routeName", "$summary.name"),
-            computed("routeType", "$summary.routeTypes"),
+            computed("routeTypes", "$summary.routeTypes"),
             include("segments"),
             include("paths"),
           )
         )
       )
-      val routeMapInfo = database.routes.optionAggregate[RouteMapInfo](pipeline, log)
-      (s"route map info", routeMapInfo)
+      val data = database.routes.optionAggregate[RouteMapData](pipeline, log)
+      (s"route map data", data)
     }
   }
 }

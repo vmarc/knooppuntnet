@@ -4,7 +4,7 @@ import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
-import { PreferencesService } from '@app/shared/core/preferences/preferences.service';
+import { RouteInfo } from '@api/common/route/route-info';
 import { State } from '@app/state/state';
 import { RouterService } from '@app/shared/services/router.service';
 
@@ -13,28 +13,21 @@ import { RouterService } from '@app/shared/services/router.service';
 })
 export class RouteService {
   private readonly state = inject(State);
-  private readonly _routeId = signal<string>(null);
-  private readonly _routeName = signal<string>(null);
-  private readonly _routeType = signal<RouteType>(null);
-  private readonly _changeCount = signal<number>(null);
-  private readonly _segmentCount = signal<number>(null);
 
-  readonly routeId = this._routeId.asReadonly();
-  readonly routeName = this._routeName.asReadonly();
-  readonly routeType = this._routeType.asReadonly();
-  readonly changeCount = this._changeCount.asReadonly();
-  readonly segmentCount = this._segmentCount.asReadonly();
-  readonly routeDisplayName = computed(() => this.routeName() || this.routeId());
+  private readonly _routeInfo = signal<RouteInfo>(null);
+  readonly routeId = computed(() => this._routeInfo()?.routeId);
+  readonly routeName = computed(() => this._routeInfo()?.routeName);
+  readonly routeTypes = computed(() => this._routeInfo()?.routeTypes);
+  readonly changeCount = computed(() => this._routeInfo()?.changeCount);
+  readonly segmentCount = computed(() => this._routeInfo()?.segmentCount);
+  readonly routeDisplayName = computed(() => this.routeName() || '' + this.routeId());
 
   private location = inject(Location);
-  private preferencesService = inject(PreferencesService);
 
   initPage(routerService: RouterService): void {
-    const oldRouteId = this.routeId();
+    const oldRouteId = '' + this.routeId();
     const newRouteId = routerService.param('routeId');
     if (!oldRouteId || oldRouteId !== newRouteId) {
-      this._routeId.set(newRouteId);
-      this._changeCount.set(null);
       let newRouteName: string = undefined;
       let newRouteType: RouteType = undefined;
       const state = this.location.getState();
@@ -42,23 +35,22 @@ export class RouteService {
         newRouteName = state['routeName'];
         newRouteType = state['routeType'];
       }
-      this._routeName.set(newRouteName);
-      this._routeType.set(newRouteType);
+      const routeInfo: RouteInfo = {
+        routeId: +newRouteId,
+        routeName: newRouteName,
+        routeTypes: [newRouteType],
+        changeCount: 0,
+        segmentCount: 0,
+      };
+
+      this._routeInfo.set(routeInfo);
       if (newRouteType) {
         this.state.preferences.updateRouteType(newRouteType);
       }
     }
   }
 
-  updateRoute(
-    routeType: RouteType,
-    routeName: string,
-    changeCount: number,
-    segmentCount: number
-  ): void {
-    this._routeName.set(routeName);
-    this._routeType.set(routeType);
-    this._changeCount.set(changeCount);
-    this._segmentCount.set(segmentCount);
+  updateRoute(routeInfo: RouteInfo): void {
+    this._routeInfo.set(routeInfo);
   }
 }

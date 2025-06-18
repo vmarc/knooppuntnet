@@ -45,7 +45,7 @@ import { RoutePageHeaderComponent } from '../components/route-page-header.compon
 export class RouteSegmentsPageComponent implements OnInit {
   private readonly service = inject(RouteSegmentsPageService);
   protected readonly response = computed(() => this.service.response());
-  protected readonly segments = computed(() => this.response().result.data.segments);
+  protected readonly segments = computed(() => this.response().result.segments);
   protected readonly selectedSegment = computed(() => this.service.selectedSegment());
 
   ngOnInit(): void {

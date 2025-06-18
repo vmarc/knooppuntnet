@@ -64,7 +64,7 @@ export class RouteMapService extends OpenlayersMapService {
 
   private registerLayers(page: RouteMapPage, urlLayerIds: string[]): void {
     const networkVectorTileLayer = NetworkVectorTileLayer.build(
-      page.routeMapInfo.routeType,
+      page.routeInfo.routeTypes[0], // TODO redesign - properly support multiple route types
       new NodeMapStyle().styleFunction()
     );
     // const routeLayers = new RouteLayers(page.map).build();
@@ -73,7 +73,11 @@ export class RouteMapService extends OpenlayersMapService {
     registry.register(urlLayerIds, OldOsmLayer.build(), false);
     registry.register(urlLayerIds, networkVectorTileLayer, true);
     // routeLayers.forEach((mapLayer) => registry.register(urlLayerIds, mapLayer, true));
-    OldOpenDataLayers.register(registry, page.routeMapInfo.routeType, urlLayerIds);
+    OldOpenDataLayers.register(
+      registry,
+      page.routeInfo.routeTypes[0], // TODO redesign - properly support multiple route types
+      urlLayerIds
+    );
     registry.register(urlLayerIds, TileDebug256Layer.build(), false);
 
     this.register(registry);

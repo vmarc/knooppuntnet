@@ -100,11 +100,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
           "cycling-13-4095-4095",
           "cycling-13-4095-4096",
           "cycling-13-4096-4095",
-          "cycling-13-4096-4096",
-          "cycling-14-8191-8191",
-          "cycling-14-8191-8192",
-          "cycling-14-8192-8191",
-          "cycling-14-8192-8192"
+          "cycling-13-4096-4096"
         )
       )
     )

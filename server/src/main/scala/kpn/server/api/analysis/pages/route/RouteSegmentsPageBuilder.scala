@@ -1,6 +1,7 @@
 package kpn.server.api.analysis.pages.route
 
 import kpn.api.common.Language
+import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteSegmentsPage
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.RouteRepository
@@ -21,13 +22,19 @@ class RouteSegmentsPageBuilder(
   }
 
   private def doBuildSegmentsPage(language: Language, routeId: Long): Option[RouteSegmentsPage] = {
-    routeRepository.routeSegments(routeId).map { routeSegments =>
+    routeRepository.routeSegments(routeId).map { routeSegmentData =>
       val changeCount = changeSetRepository.routeChangesCount(routeId)
-      val segmentCount = routeSegments.segments.length
+      val segmentCount = routeSegmentData.segments.length
+      val routeInfo = RouteInfo(
+        routeId,
+        routeName = routeSegmentData.name,
+        routeTypes = routeSegmentData.routeTypes,
+        changeCount = changeCount,
+        segmentCount = routeSegmentData.segments.length,
+      )
       RouteSegmentsPage(
-        routeSegments,
-        changeCount,
-        segmentCount
+        routeInfo,
+        routeSegmentData.segments,
       )
     }
   }

@@ -1,11 +1,9 @@
 // this file is generated, please do not modify
 
-import { Reference } from '@api/common/common/reference';
 import { RouteDetailsPageData } from './route-details-page-data';
+import { RouteInfo } from './route-info';
 
 export interface RouteDetailsPage {
-  readonly route: RouteDetailsPageData;
-  readonly networkReferences: Reference[];
-  readonly changeCount: number;
-  readonly segmentCount: number;
+  readonly routeInfo: RouteInfo;
+  readonly data: RouteDetailsPageData;
 }

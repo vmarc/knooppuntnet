@@ -30,7 +30,7 @@ class RouteChangesPageBuilder(
 
   private def buildPage(routeId: Long, parameters: ChangesParameters): Option[RouteChangesPage] = {
 
-    routeRepository.nameInfo(routeId).map { routeNameInfo =>
+    routeRepository.routeInfo(routeId).map { routeNameInfo =>
       val filterOptions = changeSetRepository.routeChangesFilter(routeId, parameters.year, parameters.month, parameters.day)
       val totalCount = ChangesFilterOption.changesCount(filterOptions, parameters)
       val changeCount = if (filterOptions.isEmpty) 0 else filterOptions.head.totalCount
@@ -62,12 +62,9 @@ class RouteChangesPageBuilder(
       }
 
       RouteChangesPage(
-        routeNameInfo,
+        routeNameInfo.copy(changeCount = totalCount),
         filterOptions,
         changes,
-        totalCount,
-        changeCount,
-        routeNameInfo.segmentCount
       )
     }
   }
