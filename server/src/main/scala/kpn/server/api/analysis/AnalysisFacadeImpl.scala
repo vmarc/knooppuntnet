@@ -31,6 +31,7 @@ import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
+import kpn.api.common.route.RoutePathsPage
 import kpn.api.common.route.RouteSegmentsPage
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
@@ -70,6 +71,7 @@ import kpn.server.api.analysis.pages.node.NodeDetailsPageBuilder
 import kpn.server.api.analysis.pages.route.RouteChangesPageBuilder
 import kpn.server.api.analysis.pages.route.RouteDetailsPageBuilder
 import kpn.server.api.analysis.pages.route.RouteMapPageBuilder
+import kpn.server.api.analysis.pages.route.RoutePathsPageBuilder
 import kpn.server.api.analysis.pages.route.RouteSegmentsPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetChangesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetFactDetailsPageBuilder
@@ -93,6 +95,7 @@ class AnalysisFacadeImpl(
   nodeChangesPageBuilder: NodeChangesPageBuilder,
   routeDetailsPageBuilder: RouteDetailsPageBuilder,
   routeSegmentsPageBuilder: RouteSegmentsPageBuilder,
+  routePathsPageBuilder: RoutePathsPageBuilder,
   routeMapPageBuilder: RouteMapPageBuilder,
   routeChangesPageBuilder: RouteChangesPageBuilder,
   networkDetailsPageBuilder: NetworkDetailsPageBuilder,
@@ -149,6 +152,12 @@ class AnalysisFacadeImpl(
   override def routeSegments(language: Language, routeId: Long): ApiResponse[RouteSegmentsPage] = {
     api.execute("route-segments", s"$routeId") {
       reply(routeSegmentsPageBuilder.build(language, routeId))
+    }
+  }
+
+  override def routePaths(language: Language, routeId: Long): ApiResponse[RoutePathsPage] = {
+    api.execute("route-paths", s"$routeId") {
+      reply(routePathsPageBuilder.build(language, routeId))
     }
   }
 

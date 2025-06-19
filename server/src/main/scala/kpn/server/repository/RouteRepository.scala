@@ -5,6 +5,7 @@ import kpn.api.common.Country
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteInfo
+import kpn.api.common.route.RoutePathData
 import kpn.api.common.route.RouteSegmentData
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
@@ -49,6 +50,8 @@ trait RouteRepository {
   def findRouteById(routeId: Long): Option[RouteDoc]
 
   def routeSegments(routeId: Long): Option[RouteSegmentData]
+
+  def routePaths(routeId: Long): Option[RoutePathData]
 
   def mapData(routeId: Long): Option[RouteMapData]
 

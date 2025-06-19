@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { RoutePathsPageComponent } from '@app/analysis/route/internal/paths/route-paths-page.component';
 import { RouteSegmentsPageComponent } from '@app/analysis/route/internal/segments/route-segments-page.component';
 import { RouteChangesPageComponent } from './internal/changes/route-changes-page.component';
 import { RouteDetailsPageComponent } from './internal/details/route-details-page.component';
@@ -23,6 +24,10 @@ export const routeRoutes: Routes = [
       {
         path: ':routeId/segments',
         component: RouteSegmentsPageComponent,
+      },
+      {
+        path: ':routeId/paths',
+        component: RoutePathsPageComponent,
       },
     ],
   },

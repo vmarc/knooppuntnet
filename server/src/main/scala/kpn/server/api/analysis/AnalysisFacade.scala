@@ -31,6 +31,7 @@ import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
+import kpn.api.common.route.RoutePathsPage
 import kpn.api.common.route.RouteSegmentsPage
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
@@ -58,6 +59,8 @@ trait AnalysisFacade {
   def routeMap(routeId: Long): ApiResponse[RouteMapPage]
 
   def routeSegments(language: Language, routeId: Long): ApiResponse[RouteSegmentsPage]
+
+  def routePaths(language: Language, routeId: Long): ApiResponse[RoutePathsPage]
 
   def routeChanges(routeId: Long, parameters: ChangesParameters): ApiResponse[RouteChangesPage]
 
