@@ -15,11 +15,8 @@ import { LegendLineComponent } from '@app/shared/components/legend-line';
       <span class="segment-legend">
         <ui-legend-line [color]="segmentColor()" />
       </span>
+      <span>{{ name() }}</span>
     </div>
-    <pre>
-      {{ debug() }}
-    </pre
-    >
   `,
   styles: `
     .segment {
@@ -38,7 +35,7 @@ import { LegendLineComponent } from '@app/shared/components/legend-line';
 })
 export class RoutePathComponent {
   readonly path = input.required<RoutePath>();
+  protected readonly name = computed(() => this.path().name);
   protected readonly segmentColor = computed(() => SegmentColors.colorForSegmentId(this.path().id));
-
   protected readonly debug = computed(() => JSON.stringify(this.path(), null, 2));
 }

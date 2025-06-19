@@ -38,8 +38,6 @@ import { MapRouteDetail } from '@api/common/route/map-route-detail';
 import { RouteChangesPage } from '@api/common/route/route-changes-page';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { RouteMapPage } from '@api/common/route/route-map-page';
-import { RoutePathsPage } from '@api/common/route/route-paths-page';
-import { RouteSegmentsPage } from '@api/common/route/route-segments-page';
 import { SearchResponse } from '@api/common/search-response';
 import { ConditionGroup } from '@api/common/search/condition-group';
 import { RouteList } from '@api/common/search/route-list';
@@ -180,16 +178,6 @@ export class ApiService {
   routeMap(routeId: number): Observable<ApiResponse<RouteMapPage>> {
     const url = `/api/route/${routeId}/map`;
     return this.http.get(url);
-  }
-
-  routeSegments(routeId: number): Observable<ApiResponse<RouteSegmentsPage>> {
-    const url = `/api/route-segments/${routeId}`;
-    return this.http.get(url, { params: this.languageParams() });
-  }
-
-  routePaths(routeId: number): Observable<ApiResponse<RoutePathsPage>> {
-    const url = `/api/route-paths/${routeId}`;
-    return this.http.get(url, { params: this.languageParams() });
   }
 
   routeChanges(

@@ -1,13 +1,11 @@
 import { computed } from '@angular/core';
 import { input } from '@angular/core';
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouteSegment } from '@api/common/route/route-segment';
 import { SegmentColors } from '@app/map/domain/segment-colors';
 import { LegendLineComponent } from '@app/shared/components/legend-line';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
-import { RouteSegmentsPageService } from '../route-segments-page.service';
 
 @Component({
   selector: 'ui-route-segment',
@@ -38,7 +36,6 @@ import { RouteSegmentsPageService } from '../route-segments-page.service';
 })
 export class RouteSegmentComponent {
   readonly segment = input.required<RouteSegment>();
-  private readonly service = inject(RouteSegmentsPageService);
   protected readonly segmentColor = computed(() =>
     SegmentColors.colorForSegmentId(this.segment().id)
   );

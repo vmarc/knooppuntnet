@@ -9,6 +9,8 @@ import { Day } from '@api/custom/day';
 import { Timestamp } from '@api/custom/timestamp';
 import { ParentRoute } from './parent-route';
 import { RouteNodes } from './route-nodes';
+import { RoutePath } from './route-path';
+import { RouteSegment } from './route-segment';
 import { RouteStructureRow } from './route-structure-row';
 
 export interface RouteDetailsPageData {
@@ -24,6 +26,8 @@ export interface RouteDetailsPageData {
   readonly locationCandidateInfos: LocationCandidateInfo[];
   readonly unexpectedNodeIds: number[];
   readonly unexpectedRelationIds: number[];
+  readonly segments: RouteSegment[];
+  readonly paths: RoutePath[];
   readonly structureRows: RouteStructureRow[];
   readonly nameDerivedFromNodes: boolean;
   readonly nodes: RouteNodes;

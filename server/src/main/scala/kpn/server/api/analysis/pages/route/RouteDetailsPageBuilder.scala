@@ -64,6 +64,8 @@ class RouteDetailsPageBuilder(
         locationCandidateInfos,
         routeDoc.unexpectedNodeIds,
         routeDoc.unexpectedRelationIds,
+        routeDoc.segments,
+        routeDoc.paths,
         routeDoc.structureRows,
         routeDoc.nameDerivedFromNodes,
         routeDoc.nodes,

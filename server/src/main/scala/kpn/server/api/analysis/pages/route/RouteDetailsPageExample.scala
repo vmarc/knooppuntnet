@@ -79,6 +79,8 @@ object RouteDetailsPageExample {
       locationCandidateInfos = Seq(),
       unexpectedNodeIds = Seq(1001),
       unexpectedRelationIds = Seq(1, 2, 3),
+      segments = Seq.empty,
+      paths = Seq.empty,
       structureRows = Seq(
         RouteStructureRow(
           id = 1L,

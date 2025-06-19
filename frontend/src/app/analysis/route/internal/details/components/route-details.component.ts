@@ -5,13 +5,16 @@ import { Component } from '@angular/core';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactsComponent } from '@app/analysis/fact/components/facts.component';
+import { RoutePathsComponent } from '@app/analysis/route/internal/details/components/route-paths.component';
+import { RouteSegmentsComponent } from '@app/analysis/route/internal/details/components/route-segments.component';
 import { DataComponent } from '@app/shared/components/data/data.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
-import { PageWidthService } from '@app/shared/components/page-width.service';
 import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
 import { TagTableComponent } from '@app/shared/components/tags/tag-table.component';
 import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
 import { RouterService } from '@app/shared/services/router.service';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouteEndNodesComponent } from './route-end-nodes.component';
 import { RouteMembersComponent } from './route-members.component';
 import { RouteNetworkReferencesComponent } from './route-network-references.component';
@@ -85,18 +88,25 @@ import { RouteDetailsPageService } from '../route-details-page.service';
       <ui-tag-table [tags]="routeTags(page)" />
 
       <ui-divider />
-
       <ui-facts [factInfos]="factInfos(page)" />
-      @if (showRouteDetails()) {
-        <ui-divider />
-        <div>
-          <!-- TODO redesign routeTypes[0]-->
-          <ui-route-members
-            [routeType]="page.data.summary.routeTypes[0]"
-            [rows]="page.data.structureRows"
-          />
-        </div>
-      }
+
+      <ui-divider />
+      <button nz-button (click)="zoomToFitRoute()">
+        <nz-icon nzType="fullscreen-exit" />
+        <span>Zoom to fit entire route</span>
+      </button>
+
+      <ui-divider />
+      <ui-route-segments />
+
+      <ui-divider />
+      <ui-route-paths />
+
+      <ui-divider />
+      <ui-route-members
+        [routeType]="page.data.summary.routeTypes[0]"
+        [rows]="page.data.structureRows"
+      />
     </div>
   `,
   styleUrl: '../../../../../shared/components/data/data.component.scss',
@@ -105,11 +115,15 @@ import { RouteDetailsPageService } from '../route-details-page.service';
     DataComponent,
     DividerComponent,
     FactsComponent,
+    NzButtonComponent,
+    NzIconDirective,
     RouteEndNodesComponent,
     RouteMembersComponent,
     RouteNetworkReferencesComponent,
     RouteParentsComponent,
+    RoutePathsComponent,
     RouteRedundantNodesComponent,
+    RouteSegmentsComponent,
     RouteStartNodesComponent,
     RouteSummaryComponent,
     TagTableComponent,
@@ -118,9 +132,6 @@ import { RouteDetailsPageService } from '../route-details-page.service';
 })
 export class RouteDetailsComponent {
   protected readonly service = inject(RouteDetailsPageService);
-  private readonly pageWidthService = inject(PageWidthService);
-
-  readonly showRouteDetails = computed(() => !this.pageWidthService.isAllSmall());
 
   routeTags(page: RouteDetailsPage) {
     return InterpretedTags.routeTags(page.data.summary.tags);
@@ -145,5 +156,9 @@ export class RouteDetailsComponent {
       }
       return new FactInfo(fact);
     });
+  }
+
+  zoomToFitRoute(): void {
+    this.service.selectSegment(undefined);
   }
 }

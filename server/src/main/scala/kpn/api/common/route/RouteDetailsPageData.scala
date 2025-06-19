@@ -21,6 +21,8 @@ case class RouteDetailsPageData(
   locationCandidateInfos: Seq[LocationCandidateInfo],
   unexpectedNodeIds: Seq[Long],
   unexpectedRelationIds: Seq[Long],
+  segments: Seq[RouteSegment],
+  paths: Seq[RoutePath],
   structureRows: Seq[RouteStructureRow],
   nameDerivedFromNodes: Boolean,
   nodes: RouteNodes,

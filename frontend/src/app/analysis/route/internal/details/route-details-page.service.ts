@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
+import { RouteSegment } from '@api/common/route/route-segment';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/shared/services/api.service';
 import { Subscriptions } from '@app/util/subscriptions';
@@ -22,6 +23,9 @@ export class RouteDetailsPageService {
 
   private readonly _response = signal<ApiResponse<RouteDetailsPage>>(null);
   readonly response = this._response.asReadonly();
+
+  private readonly _selectedSegment = signal<RouteSegment>(null);
+  readonly selectedSegment = this._selectedSegment.asReadonly();
 
   onInit(): void {
     this.subscriptions.add(
@@ -65,5 +69,18 @@ export class RouteDetailsPageService {
         this.mapService.focusElements(data.bounds, elements);
       }
     });
+  }
+
+  selectSegment(routeSegment: RouteSegment): void {
+    const elements: FocusElements = {
+      nodeIds: [],
+      routeIds: [],
+    };
+    if (routeSegment) {
+      this.mapService.focusElements(routeSegment.bounds, elements);
+    } else {
+      this.mapService.focusElements(this.response().result.routeInfo.bounds, elements);
+    }
+    this._selectedSegment.set(routeSegment);
   }
 }

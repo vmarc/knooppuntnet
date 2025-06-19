@@ -34,8 +34,6 @@ import kpn.api.common.route.LinkInfo
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
-import kpn.api.common.route.RoutePathsPage
-import kpn.api.common.route.RouteSegmentsPage
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
 import kpn.api.common.statistics.StatisticValues
@@ -223,22 +221,6 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable routeId: Long
   ): ApiResponse[RouteDetailsPage] = {
     analysisFacade.routeDetails(toLanguage(language), routeId)
-  }
-
-  @GetMapping(value = Array("/api/route-segments/{routeId}"))
-  def routeSegments(
-    @RequestParam language: String,
-    @PathVariable routeId: Long
-  ): ApiResponse[RouteSegmentsPage] = {
-    analysisFacade.routeSegments(toLanguage(language), routeId)
-  }
-
-  @GetMapping(value = Array("/api/route-paths/{routeId}"))
-  def routePaths(
-    @RequestParam language: String,
-    @PathVariable routeId: Long
-  ): ApiResponse[RoutePathsPage] = {
-    analysisFacade.routePaths(toLanguage(language), routeId)
   }
 
   @GetMapping(value = Array("/api/route/{routeId}/map"))
