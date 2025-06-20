@@ -2,6 +2,7 @@ package kpn.core.tools.next.support
 
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.tools.DropCollections
 import kpn.database.util.Mongo
 
 object RouteDataTool {
@@ -49,8 +50,8 @@ object RouteDataTool {
     Mongo.executeIn("kpn-laptop") { database =>
       new RouteDataTool(
         database,
-        nodeIds = Seq.empty, // Seq(7903025495L, 1355128623L),
-        routeIds = Seq.empty, // Seq(13844575L) ++ essenOkRouteIds ++ law9,
+        // nodeIds = Seq(7903025495L, 1355128623L),
+        // routeIds = Seq(13844575L) ++ essenOkRouteIds ++ law9 ++ Seq(1207218L) /*EV1 subroute with 25 segments */ ,
       ).execute()
     }
   }
@@ -66,27 +67,12 @@ class RouteDataTool(
   private val log = Log(classOf[RouteDataTool])
 
   def execute(): Unit = {
+
     database.rawNodes.drop()
     database.rawRoutes.drop()
     database.rawNetworks.drop()
 
-    database.baseNodes.drop()
-    database.baseRoutes.drop()
-    database.baseNetworks.drop()
-
-    database.nodes.drop()
-    database.routes.drop()
-    database.networks.drop()
-
-    database.nodeChanges.drop()
-    database.routeChanges.drop()
-    database.networkChanges.drop()
-    database.baseRouteChanges.drop()
-
-    database.routeTiles.drop()
-    database.statistics.drop()
-    database.status.drop()
-    database.transactions.drop()
+    DropCollections.execute(database)
 
     database.rawNodes.bulkSave(database.allRawNodes.findByIds(nodeIds))
     database.rawRoutes.bulkSave(database.allRawRoutes.findByIds(routeIds))

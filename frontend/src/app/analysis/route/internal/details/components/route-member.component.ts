@@ -91,6 +91,9 @@ import { RouteMemberNameComponent } from './route-member-name.component';
           </div>
         }
       </div>
+      {{ 'surface=' + row.way?.surface }}
+      {{ 'pathIds=' + row.pathIds }}
+      {{ 'segmentIds=' + row.segmentIds }}
     </div>
   `,
   styles: `

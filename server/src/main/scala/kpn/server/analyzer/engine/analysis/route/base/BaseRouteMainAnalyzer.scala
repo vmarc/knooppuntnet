@@ -16,6 +16,7 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteExpecte
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteFactCombinationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteFixmeTodoAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteGeometryDigestAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteInaccessibleAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteIncompleteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteIncompleteOkAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLabelsAnalyzer
@@ -86,6 +87,7 @@ class BaseRouteMainAnalyzer(
         BaseRouteSegmentAnalyzer2,
 
         BaseRouteMemberAnalyzer,
+        BaseRouteInaccessibleAnalyzer,
         BaseRouteGeometryDigestAnalyzer,
         locationAnalyzer,
         BaseRouteIncompleteOkAnalyzer,

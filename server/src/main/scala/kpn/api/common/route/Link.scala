@@ -3,6 +3,7 @@ package kpn.api.common.route
 import scala.collection.mutable
 
 case class Link(
+  memberIndex: Long,
   direction: LinkDirection,
   hasPrev: Boolean,
   hasNext: Boolean,

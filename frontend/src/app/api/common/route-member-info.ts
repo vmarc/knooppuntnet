@@ -10,4 +10,6 @@ export interface RouteMemberInfo {
   readonly name: string;
   readonly poi: string;
   readonly way?: RouteMemberInfoWay;
+  readonly segmentIds: number[];
+  readonly pathIds: number[];
 }

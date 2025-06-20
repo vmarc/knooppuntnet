@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.structure.reference;
 // equivalent of Josm WayConnectionType
 public class JavaLink {
 
+    public final Long memberIndex;
     private final boolean nodeOrRelationMember; // member does not contain a way
     public boolean linkedToPreviousMember;
     public boolean linkedToNextMember;
@@ -26,28 +27,13 @@ public class JavaLink {
     public boolean isOnewayHead;
     public boolean isOnewayTail;
 
-    public JavaLink(
-            final boolean linkedToPreviousMember,
-            final boolean linkedToNextMember,
-            final Direction direction
-    ) {
-        this.linkedToPreviousMember = linkedToPreviousMember;
-        this.linkedToNextMember = linkedToNextMember;
-        this.isLoop = false;
-        this.direction = direction;
-        nodeOrRelationMember = false;
-    }
-
-    public JavaLink(final boolean nodeOrRelationMember) {
+    public JavaLink(final Long memberIndex, final boolean nodeOrRelationMember) {
+        this.memberIndex = memberIndex;
         this.linkedToPreviousMember = false;
         this.linkedToNextMember = false;
         this.isLoop = false;
         this.direction = Direction.NONE;
         this.nodeOrRelationMember = nodeOrRelationMember;
-    }
-
-    public JavaLink() {
-        this(true);
     }
 
     public boolean isNodeOrRelationMember() {

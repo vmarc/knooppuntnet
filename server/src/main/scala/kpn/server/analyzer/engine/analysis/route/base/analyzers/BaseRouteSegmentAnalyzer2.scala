@@ -54,10 +54,14 @@ class BaseRouteSegmentAnalyzer2(context: BaseRouteAnalysisContext) {
       segment.elements.flatMap { element =>
         element.fragmentGroups.map { fragmentGroup =>
           val coordinates = fragmentGroup.nodes.map(node => s"[${node.longitude},${node.latitude}]").mkString("[", ",", "]")
+          val fragmentIds = fragmentGroup.fragments.map(_.id)
+          val wayIds = fragmentGroup.fragments.map(_.way.id)
+          val memberIndexes = fragmentGroup.fragments.map { fragment => fragment.link.memberIndex }
           BaseRouteSegmentElement(
             segment.id,
             element.id,
             fragmentGroup.surface,
+            memberIndexes,
             coordinates
           )
         }

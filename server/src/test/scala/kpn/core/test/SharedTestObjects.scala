@@ -1527,6 +1527,7 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newLink(
+    memberIndex: Long,
     direction: LinkDirection = LinkDirection.Unconnected,
     hasPrev: Boolean = false,
     hasNext: Boolean = false,
@@ -1537,6 +1538,7 @@ trait SharedTestObjects extends MockFactory {
     isOnewayTail: Boolean = false,
   ): Link = {
     Link(
+      memberIndex,
       direction,
       hasPrev,
       hasNext,

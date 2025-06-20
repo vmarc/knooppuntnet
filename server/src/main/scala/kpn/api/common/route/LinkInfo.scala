@@ -11,6 +11,7 @@ object LinkInfo {
                 Seq(true, false) flatMap { hasPrev =>
                   Seq(true, false) map { hasNext =>
                     val link = Link(
+                      0,
                       linkDirection,
                       hasPrev,
                       hasNext,

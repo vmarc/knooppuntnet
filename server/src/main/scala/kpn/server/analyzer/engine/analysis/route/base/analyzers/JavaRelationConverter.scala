@@ -25,11 +25,16 @@ class JavaRelationConverter {
   private val nodeMap = mutable.Map[Long, JavaNode]()
 
   def toJava(relation: Relation): JavaRelation = {
-    val wayMembers = relation.wayMembers.map(toJavaMember).asJava
+    val wayMembers = relation.members.zipWithIndex.flatMap { case (member, index) =>
+      member match {
+        case wayMember: WayMember => Some(toJavaMember(index, wayMember))
+        case _ => None
+      }
+    }.asJava
     new JavaRelation(Collections.unmodifiableList(wayMembers))
   }
 
-  private def toJavaMember(wayMember: WayMember): JavaMember = {
+  private def toJavaMember(memberIndex: Long, wayMember: WayMember): JavaMember = {
     val role = toJavaRole(wayMember)
     val nodes = toJavaNodes(wayMember)
     val tags = toJavaTags(wayMember)
@@ -38,7 +43,7 @@ class JavaRelationConverter {
       tags,
       nodes
     )
-    new JavaMember(role, referenceWay)
+    new JavaMember(memberIndex, role, referenceWay)
   }
 
   private def toJavaRole(member: Member): String = {

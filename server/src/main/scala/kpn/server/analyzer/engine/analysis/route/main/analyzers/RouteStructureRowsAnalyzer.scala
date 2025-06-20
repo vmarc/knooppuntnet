@@ -77,6 +77,7 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
         RouteStructureWay(
           wayType = way.wayType,
           nodes = way.nodes,
+          surface = way.surface,
           accessible = way.accessible,
           nodeCount = way.nodeCount,
           oneWay = way.oneWay,
@@ -84,6 +85,8 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
         )
       ),
       None,
+      segmentIds = member.segmentIds,
+      pathIds = member.pathIds,
     )
   }
 

@@ -82,7 +82,7 @@ public class JavaLinkAnalyzer {
     ) {
         logFunctionStart("processNextMember(currentMemberIndex=%d)", currentMemberIndex);
         try {
-            final JavaLink link = new JavaLink(false);
+            final JavaLink link = new JavaLink(currentMember.getMemberIndex(), false);
 
             // MV the value of linkedToPreviousMember is not necessarily correct after following statement
             //      will be true if there is a previous member even if there is no connection with that member!

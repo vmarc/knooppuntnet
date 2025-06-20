@@ -135,14 +135,17 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                   RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
                 ),
                 timestamp = Timestamp(2015, 8, 11, 0, 0, 0),
+                surface = "paved",
                 accessible = true,
                 distance = 0,
                 nodeCount = "2",
                 oneWay = WayDirection.Both,
                 oneWayTags = Seq.empty,
-                link = newLink() // "wn000"
+                link = newLink(0) // "wn000"
               )
-            )
+            ),
+            segmentIds = Seq(1),
+            pathIds = Seq(1, 2)
           )
         ),
         nodes = RouteNodes(
@@ -179,6 +182,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             segmentId = 1,
             segmentElementId = 1,
             surface = "paved",
+            memberIndexes = Seq(0),
             coordinates = "[[0,0],[0,0]]"
           )
         ),
@@ -259,14 +263,17 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                   RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
                 ),
                 Timestamp(2015, 8, 11, 0, 0, 0),
+                surface = "paved",
                 accessible = true,
                 0,
                 "2",
                 WayDirection.Both,
                 Seq.empty,
-                newLink() // "wn000"
+                newLink(0) // "wn000"
               )
-            )
+            ),
+            segmentIds = Seq(1),
+            pathIds = Seq(1, 2)
           )
         ),
         nodes = RouteNodes(
@@ -306,9 +313,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             memberType = MemberType.Way,
             role = None,
             link = Some(
-              newLink(
-
-              )
+              newLink(0)
             ),
             distance = 0,
             name = None,
@@ -328,6 +333,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                     alternateName = "02",
                   ),
                 ),
+                surface = "paved",
                 accessible = true,
                 nodeCount = "2",
                 oneWay = WayDirection.Both,
@@ -335,6 +341,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
               )
             ),
             relation = None,
+            segmentIds = Seq(1),
+            pathIds = Seq(1, 2)
           ),
         ),
         edges = Seq(

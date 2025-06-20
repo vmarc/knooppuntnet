@@ -3,6 +3,7 @@
 import { LinkDirection } from './link-direction';
 
 export interface Link {
+  readonly memberIndex: number;
   readonly direction: LinkDirection;
   readonly hasPrev: boolean;
   readonly hasNext: boolean;

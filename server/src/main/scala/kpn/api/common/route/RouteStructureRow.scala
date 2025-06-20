@@ -12,4 +12,6 @@ case class RouteStructureRow(
   poi: Option[String],
   way: Option[RouteStructureWay] = None,
   relation: Option[RouteStructureRelation] = None,
+  segmentIds: Seq[Long] = Seq.empty,
+  pathIds: Seq[Long] = Seq.empty,
 )

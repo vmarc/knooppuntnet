@@ -10,6 +10,7 @@ case class RouteMemberInfoWay(
   wayType: Option[String],
   nodes: Seq[RouteNetworkNodeInfo],
   timestamp: Timestamp,
+  surface: String,
   accessible: Boolean,
   distance: Long,
   nodeCount: String,

@@ -10,6 +10,7 @@ export interface RouteMemberInfoWay {
   readonly wayType: string;
   readonly nodes: RouteNetworkNodeInfo[];
   readonly timestamp: Timestamp;
+  readonly surface: string;
   readonly accessible: boolean;
   readonly distance: number;
   readonly nodeCount: string;

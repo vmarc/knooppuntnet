@@ -103,6 +103,7 @@ object RouteDetailsPageExample {
             RouteStructureWay(
               wayType = Some("path"),
               nodes = Seq.empty,
+              surface = "unknown",
               accessible = false,
               nodeCount = "3",
               oneWay = WayDirection.Both,

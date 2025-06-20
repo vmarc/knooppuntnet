@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public class JavaMember {
 
+    private final Long memberIndex;
+
     private final String role;
 
     private final JavaElement member;
@@ -14,6 +16,10 @@ public class JavaMember {
 
     boolean hasRole() {
         return !"".equals(getRole());
+    }
+
+    public Long getMemberIndex() {
+        return memberIndex;
     }
 
     public boolean isRelation() {
@@ -44,7 +50,8 @@ public class JavaMember {
         return member;
     }
 
-    public JavaMember(String role, JavaElement member) {
+    public JavaMember(Long memberIndex, String role, JavaElement member) {
+        this.memberIndex = memberIndex;
         this.role = role;
         this.member = member;
     }

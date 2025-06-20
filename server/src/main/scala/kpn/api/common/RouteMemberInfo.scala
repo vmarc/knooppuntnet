@@ -9,4 +9,6 @@ case class RouteMemberInfo(
   name: Option[String],
   poi: Option[String],
   way: Option[RouteMemberInfoWay],
+  segmentIds: Seq[Long],
+  pathIds: Seq[Long],
 )
