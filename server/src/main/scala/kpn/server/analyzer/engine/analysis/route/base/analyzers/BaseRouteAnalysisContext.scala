@@ -59,7 +59,6 @@ case class BaseRouteAnalysisContext(
   _geometryDigest: Option[String] = None,
   _locationAnalysis: Option[RouteLocationAnalysis] = None,
   _lastSurvey: Option[Option[Day]] = None,
-  labels: Seq[String] = Seq.empty,
   _tileAnalysis: Option[RouteTileAnalysis] = None,
   tiles: Seq[String] = Seq.empty,
   _tileDatas: Option[Seq[RouteTileData]] = None,

@@ -959,7 +959,6 @@ trait SharedTestObjects extends MockFactory {
   def newBaseRouteDoc(
     summary: RouteSummary,
     active: Boolean = true,
-    labels: Seq[String] = Seq.empty,
     proposed: Boolean = false,
     version: Int = 0,
     changeSetId: Long = 1,
@@ -988,7 +987,6 @@ trait SharedTestObjects extends MockFactory {
     BaseRouteDoc(
       summary.id,
       active,
-      labels,
       summary,
       proposed,
       version,

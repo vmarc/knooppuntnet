@@ -19,7 +19,6 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteGeometr
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteInaccessibleAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteIncompleteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteIncompleteOkAnalyzer
-import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLabelsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLastSurveyAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLinkAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzer
@@ -96,7 +95,6 @@ class BaseRouteMainAnalyzer(
         BaseRouteElementsAnalyzer,
         tileAnalyzer,
         BaseRouteEdgeAnalyzer,
-        BaseRouteLabelsAnalyzer, // this always should be the last analyzer
         BaseRouteContextAnalyzer // helper to be used during development only
       )
 

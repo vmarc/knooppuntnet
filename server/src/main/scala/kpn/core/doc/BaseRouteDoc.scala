@@ -18,7 +18,6 @@ import kpn.server.analyzer.engine.context.ElementIds
 case class BaseRouteDoc(
   _id: Long, // routeId
   active: Boolean,
-  labels: Seq[String],
   summary: RouteSummary,
   proposed: Boolean,
   version: Long,
@@ -51,9 +50,6 @@ case class BaseRouteDoc(
   def toRef: Ref = Ref(summary.id, summary.name)
 
   def deactivated: BaseRouteDoc = {
-    copy(
-      active = false,
-      labels = labels.filterNot(_.startsWith("fact"))
-    )
+    copy(active = false)
   }
 }

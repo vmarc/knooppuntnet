@@ -11,6 +11,7 @@ import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 case class RouteAnalysisContext(
   route: BaseRouteDoc,
+  _labels: Option[Seq[String]] = None,
   _routeIds: Option[Seq[Long]] = None,
   _bounds: Option[Option[Bounds]] = None,
   _structureRows: Option[Seq[RouteStructureRow]] = None,
@@ -20,6 +21,8 @@ case class RouteAnalysisContext(
   _parentRoutes: Option[Seq[ParentRoute]] = None,
   _networkReferences: Option[Seq[Reference]] = None,
 ) {
+  def labels: Seq[String] = _labels.getOrElse(throw new PreconditionMissingException)
+
   def routeIds: Seq[Long] = _routeIds.getOrElse(throw new PreconditionMissingException)
 
   def bounds: Option[Bounds] = _bounds.getOrElse(throw new PreconditionMissingException)

@@ -46,7 +46,7 @@ class BaseRouteChangeDeleterTest extends UnitTest with SharedTestObjects {
 
     (setup.routeRepository.saveBaseRoute _).verify(
       where { (doc: BaseRouteDoc) =>
-        doc.labels == Seq.empty
+        !doc.active
       }
     ).once()
 

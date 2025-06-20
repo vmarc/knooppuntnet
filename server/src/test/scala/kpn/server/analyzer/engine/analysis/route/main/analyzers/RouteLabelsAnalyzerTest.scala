@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.analysis.route.base.analyzers
+package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
 import kpn.api.common.Country
 import kpn.api.common.Fact
@@ -6,18 +6,18 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.custom.Day
-import kpn.api.custom.ScopedRouteType
 import kpn.core.doc.Label
 import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
 class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("labels") {
     val context = buildContext()
     assertEqual(
-      BaseRouteLabelsAnalyzer.analyze(context).labels,
+      RouteLabelsAnalyzer.analyze(context).labels,
       Seq(
         "broken",
         Label.fact(Fact.RouteBroken),
@@ -32,30 +32,42 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("no survey") {
-    val context = buildContext().copy(_lastSurvey = Some(None))
-    val labels = BaseRouteLabelsAnalyzer.analyze(context).labels
+    val context = buildContext()
+    val updatedContext = context.copy(
+      route = context.route.copy(
+        lastSurvey = None
+      )
+    )
+    val labels = RouteLabelsAnalyzer.analyze(updatedContext).labels
     labels shouldNot contain(Label.survey)
   }
 
   test("not broken") {
-    val context = buildContext().copy(facts = Seq(Fact.RouteInaccessible))
-    val labels = BaseRouteLabelsAnalyzer.analyze(context).labels
+    val context = buildContext()
+    val updatedContext = context.copy(
+      route = context.route.copy(
+        facts = Seq(Fact.RouteInaccessible)
+      )
+    )
+    val labels = RouteLabelsAnalyzer.analyze(updatedContext).labels
     labels should contain(Label.facts)
     labels shouldNot contain("broken")
   }
 
   test("no location analysis - country location is included") {
-    val context = buildContext().copy(
-      _locationAnalysis = Some(
-        RouteLocationAnalysis(
+    val context = buildContext()
+    val updatedContext = context.copy(
+      route = context.route.copy(
+        locationAnalysis = RouteLocationAnalysis(
           None,
           Seq.empty,
           Seq.empty,
         )
       )
     )
+
     assertEqual(
-      BaseRouteLabelsAnalyzer.analyze(context).labels,
+      RouteLabelsAnalyzer.analyze(updatedContext).labels,
       Seq(
         "broken",
         Label.fact(Fact.RouteBroken),
@@ -68,25 +80,27 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  private def buildContext(): BaseRouteAnalysisContext = {
+  private def buildContext(): RouteAnalysisContext = {
     val data = new RouteTestData("01-02").data
     val relation = data.relations(1L)
-    BaseRouteAnalysisContext(
-      relation,
+    RouteAnalysisContext(
+      route = newBaseRouteDoc(
+        summary = newRouteSummary(
+          id = 1,
+          countries = Seq(Country.be),
+          routeTypes = Seq(RouteType.hiking),
+          scopes = Seq(RouteScope.regional)
+        ),
+        lastSurvey = Some(Day(2020, 8)),
+        facts = Seq(Fact.RouteBroken),
+        locationAnalysis =
+          RouteLocationAnalysis(
+            None,
+            Seq.empty,
+            Seq("be", "Essen")
+          )
+      ),
       None,
-      _routeTypes = Some(Seq(RouteType.hiking)),
-      _scopes = Some(Seq(RouteScope.regional)),
-      scopedRouteTypeOption = Some(ScopedRouteType.rwn),
-      _countries = Some(Seq(Country.be)),
-      _lastSurvey = Some(Some(Day(2020, 8))),
-      facts = Seq(Fact.RouteBroken),
-      _locationAnalysis = Some(
-        RouteLocationAnalysis(
-          None,
-          Seq.empty,
-          Seq("be", "Essen")
-        )
-      )
     )
   }
 }

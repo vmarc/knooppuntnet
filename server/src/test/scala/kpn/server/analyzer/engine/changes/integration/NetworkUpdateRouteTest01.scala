@@ -115,11 +115,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           wayCount = 1,
           tags = newRouteTags("01-02")
         ),
-        labels = Seq(
-          Label.country(Country.nl),
-          Label.routeType(RouteType.hiking),
-          Label.scope(RouteScope.regional),
-        ),
         members = Seq(
           RouteMemberInfo(
             id = 101,

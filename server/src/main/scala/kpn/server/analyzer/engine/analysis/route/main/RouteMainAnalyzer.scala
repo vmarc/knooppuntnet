@@ -7,6 +7,7 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteBoundsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteIdsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteLabelsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
@@ -31,7 +32,7 @@ class RouteMainAnalyzer(
         structureRowsAnalyzer,
         parentAnalyzer,
         networkReferencesAnalyzer,
-        // RouteLabelsAnalyzer, // this always should be the last analyzer
+        RouteLabelsAnalyzer, // this always should be the last analyzer
       )
       doAnalyze(analyzers, context)
     }
@@ -49,7 +50,7 @@ class RouteMainAnalyzer(
         RouteDoc(
           context.route._id, // routeId
           context.route.active,
-          context.route.labels,
+          context.labels,
           summary,
           context.route.proposed,
           context.route.version,
