@@ -27,7 +27,14 @@ class BaseRouteStructureAnalyzer(context: BaseRouteAnalysisContext) {
 
   def analyze: BaseRouteAnalysisContext = {
 
-    val structure = new StructureAnalyzer(context).analyze()
+    val structure = {
+      if (context.nodeNetwork) {
+        new NodeNetworkStructureAnalyzer(context).analyze()
+      }
+      else {
+        new NonNodeNetworkStructureAnalyzer(context).analyze()
+      }
+    }
 
     if (!Seq(RouteAnalysisFailed, RouteWithoutNodes, RouteNodeMissingInWays).exists(context.facts.contains)) {
 
