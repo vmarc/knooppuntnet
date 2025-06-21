@@ -1,12 +1,14 @@
 package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
 import kpn.api.common.RouteMemberInfo
+import kpn.api.common.RouteMemberInfoWay
 import kpn.api.common.data.MemberType
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.common.route.RouteStructureRelation
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.RouteStructureWay
+import kpn.core.doc.SubRouteData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
@@ -14,15 +16,30 @@ import org.springframework.stereotype.Component
 @Component
 class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends RouteAnalyzer {
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    val rows = context.route.members.flatMap { member =>
+    val rows = buildRows(context)
+    val segments = buildSegments(context)
+    val paths = buildPaths(context)
+    val distance = calculateDistance(rows)
+    context.copy(
+      _structureRows = Some(rows),
+      _segments = Some(segments),
+      _paths = Some(paths),
+      _distance = Some(distance)
+    )
+  }
+
+  private def buildRows(context: RouteAnalysisContext): Seq[RouteStructureRow] = {
+    context.route.members.flatMap { member =>
       member.memberType match {
-        case MemberType.Relation => relationRows(1, member, Seq.empty)
-        case MemberType.Way => Seq(wayRow(member))
-        case MemberType.Node => Seq(nodeRow(member))
+        case MemberType.Relation => buildRelationRows(1, member, Seq.empty)
+        case MemberType.Way => Seq(buildWayRow(member))
+        case MemberType.Node => Seq(buildNodeRow(member))
       }
     }
+  }
 
-    val segments = context.route.segments.map { segment =>
+  private def buildSegments(context: RouteAnalysisContext): Seq[RouteSegment] = {
+    context.route.segments.map { segment =>
       RouteSegment(
         segment.id,
         segment.startNodeId,
@@ -32,25 +49,23 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
         segment.elementIds
       )
     }
+  }
 
-    val paths = context.route.paths.map { path =>
+  private def buildPaths(context: RouteAnalysisContext): Seq[RoutePath] = {
+    context.route.paths.map { path =>
       RoutePath(
         path.id,
         path.name,
         path.elementIds
       )
     }
-
-    val distance = rows.map(_.distance).sum
-    context.copy(
-      _structureRows = Some(rows),
-      _segments = Some(segments),
-      _paths = Some(paths),
-      _distance = Some(distance)
-    )
   }
 
-  private def nodeRow(member: RouteMemberInfo): RouteStructureRow = {
+  private def calculateDistance(rows: Seq[RouteStructureRow]): Long = {
+    rows.map(_.distance).sum
+  }
+
+  private def buildNodeRow(member: RouteMemberInfo): RouteStructureRow = {
     RouteStructureRow(
       member.id,
       member.memberType,
@@ -64,7 +79,7 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
     )
   }
 
-  private def wayRow(member: RouteMemberInfo): RouteStructureRow = {
+  private def buildWayRow(member: RouteMemberInfo): RouteStructureRow = {
     RouteStructureRow(
       member.id,
       member.memberType,
@@ -73,69 +88,82 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
       distance = member.way.map(_.distance).sum,
       name = member.name,
       poi = member.poi,
-      way = member.way.map(way =>
-        RouteStructureWay(
-          wayType = way.wayType,
-          nodes = way.nodes,
-          surface = way.surface,
-          accessible = way.accessible,
-          nodeCount = way.nodeCount,
-          oneWay = way.oneWay,
-          oneWayTags = way.oneWayTags
-        )
-      ),
+      way = member.way.map(toRouteStructureWay),
       None,
       segmentIds = member.segmentIds,
       pathIds = member.pathIds,
     )
   }
 
-  private def relationRows(
+  private def toRouteStructureWay(way: RouteMemberInfoWay): RouteStructureWay = {
+    RouteStructureWay(
+      wayType = way.wayType,
+      nodes = way.nodes,
+      surface = way.surface,
+      accessible = way.accessible,
+      nodeCount = way.nodeCount,
+      oneWay = way.oneWay,
+      oneWayTags = way.oneWayTags
+    )
+  }
+
+  private def buildRelationRows(
     level: Int,
     member: RouteMemberInfo,
     processedRelationIds: Seq[Long]
   ): Seq[RouteStructureRow] = {
 
     if (processedRelationIds.contains(member.id)) {
-      Seq.empty
+      return Seq.empty
     }
-    else {
-      routeRepository.subRouteData(member.id) match {
-        case None => Seq.empty
-        case Some(subRouteData) =>
-          val subRelationMembers = subRouteData.members.filter(_.memberType == MemberType.Relation)
-          val subRows: Seq[RouteStructureRow] = subRelationMembers.flatMap(subRelationMember =>
-            relationRows(level + 1, subRelationMember, processedRelationIds :+ member.id)
-          )
-          val distance = subRouteData.distance
-          val subRowsDistance = subRows.flatMap(_.relation.map(_.totalDistance)).sum
-          val totalDistance = distance + subRowsDistance
 
-          RouteStructureRow(
-            id = member.id,
-            memberType = member.memberType,
-            role = member.role,
-            link = None,
-            distance = distance,
-            name = member.name,
-            poi = member.poi,
-            way = None,
-            relation = Some(
-              RouteStructureRelation(
-                level = level,
-                physical = false,
-                name = subRouteData.name,
-                subRelationIndex = None,
-                survey = None,
-                symbol = None,
-                osmSegmentCount = None, //Some(subRouteData.segments.size),
-                totalDistance = totalDistance,
-                gaps = None,
-                happy = false,
-              )
-            )
-          ) +: subRows
-      }
+    routeRepository.subRouteData(member.id) match {
+      case None => Seq.empty
+      case Some(subRouteData) =>
+        val subRows = buildSubRelationRows(level, member, processedRelationIds, subRouteData)
+        buildStructureRow(level, member, subRouteData, subRows) +: subRows
     }
+  }
+
+  private def buildStructureRow(
+    level: Int,
+    member: RouteMemberInfo,
+    subRouteData: SubRouteData,
+    subRows: Seq[RouteStructureRow]
+  ) = {
+    val distance = subRouteData.distance
+    val subRowsDistance = subRows.flatMap(_.relation.map(_.totalDistance)).sum
+    val totalDistance = distance + subRowsDistance
+    RouteStructureRow(
+      id = member.id,
+      memberType = member.memberType,
+      role = member.role,
+      link = None,
+      distance = distance,
+      name = member.name,
+      poi = member.poi,
+      way = None,
+      relation = Some(
+        RouteStructureRelation(
+          level = level,
+          physical = false,
+          name = subRouteData.name,
+          subRelationIndex = None,
+          survey = None,
+          symbol = None,
+          osmSegmentCount = None, //Some(subRouteData.segments.size),
+          totalDistance = totalDistance,
+          gaps = None,
+          happy = false,
+        )
+      )
+    )
+  }
+
+  private def buildSubRelationRows(level: Int, member: RouteMemberInfo, processedRelationIds: Seq[Long], subRouteData: SubRouteData): Seq[RouteStructureRow] = {
+    val subRelationMembers = subRouteData.members.filter(_.memberType == MemberType.Relation)
+    subRelationMembers.flatMap(subRelationMember =>
+      buildRelationRows(level + 1, subRelationMember, processedRelationIds :+ member.id)
+    )
   }
 }

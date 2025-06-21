@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
 import kpn.api.common.route.ParentRoute
+import kpn.core.doc.ParentRouteData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
@@ -16,14 +17,16 @@ class RouteParentAnalyzer(routeRepository: RouteRepository) extends RouteAnalyze
 
   private def findParentRoutes(routeId: Long, level: Int, visitedRouteIds: Seq[Long]): Seq[ParentRoute] = {
     if (visitedRouteIds.contains(routeId)) {
-      Seq.empty
+      return Seq.empty
     }
-    else {
-      val routes = routeRepository.parentRoutes(routeId).map(data => ParentRoute(level, data.routeId, data.name))
-      val grandParentRoutes = routes.flatMap { parentRoute =>
-        findParentRoutes(parentRoute.routeId, level + 1, visitedRouteIds :+ routeId)
-      }
-      routes ++ grandParentRoutes
+    val directParentRoutes = routeRepository.parentRoutes(routeId).map(newParentRoute(level, _))
+    val grandParentRoutes = directParentRoutes.flatMap { parentRoute =>
+      findParentRoutes(parentRoute.routeId, level + 1, visitedRouteIds :+ routeId)
     }
+    directParentRoutes ++ grandParentRoutes
+  }
+
+  private def newParentRoute(level: Int, data: ParentRouteData): ParentRoute = {
+    ParentRoute(level, data.routeId, data.name)
   }
 }

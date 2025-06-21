@@ -13,21 +13,18 @@ object RouteLabelsAnalyzer extends RouteAnalyzer {
 class RouteLabelsAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-    val basicLabels = buildBasicLabels()
-    val factLabels = context.route.facts.map(fact => Label.fact(fact))
-    val routeTypeLabels = context.route.summary.routeTypes.map(Label.routeType)
-    val scopeLabels = context.route.summary.scopes.map(Label.scope)
-    val locationLabels = {
-      val analysisLabels = context.route.locationAnalysis.locationNames.map(location => Label.location(location))
-      if (analysisLabels.isEmpty) {
-        context.route.summary.countries.map(country => Label.location(country.entryName))
-      }
-      else {
-        analysisLabels
-      }
-    }
-    val labels = (basicLabels ++ factLabels ++ routeTypeLabels ++ scopeLabels ++ locationLabels).sorted
+    val labels = buildLabels()
     context.copy(_labels = Some(labels))
+  }
+
+  private def buildLabels(): Seq[String] = {
+    Seq(
+      buildBasicLabels(),
+      buildFactLabels(),
+      buildRouteTypeLabels(),
+      buildScopeLabels(),
+      buildLocationLabels()
+    ).flatten.sorted
   }
 
   private def buildBasicLabels(): Seq[String] = {
@@ -36,5 +33,27 @@ class RouteLabelsAnalyzer(context: RouteAnalysisContext) {
       if (context.route.facts.nonEmpty) Some(Label.facts) else None,
       if (context.route.facts.contains(Fact.RouteBroken)) Some("broken") else None,
     ).flatten
+  }
+
+  private def buildFactLabels(): Seq[String] = {
+    context.route.facts.map(fact => Label.fact(fact))
+  }
+
+  private def buildRouteTypeLabels(): Seq[String] = {
+    context.route.summary.routeTypes.map(Label.routeType)
+  }
+
+  private def buildScopeLabels(): Seq[String] = {
+    context.route.summary.scopes.map(Label.scope)
+  }
+
+  private def buildLocationLabels(): Seq[String] = {
+    val analysisLabels = context.route.locationAnalysis.locationNames.map(Label.location)
+    if (analysisLabels.isEmpty) {
+      context.route.summary.countries.map(country => Label.location(country.entryName))
+    }
+    else {
+      analysisLabels
+    }
   }
 }
