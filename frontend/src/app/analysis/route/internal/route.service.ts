@@ -19,7 +19,6 @@ export class RouteService {
   readonly routeName = computed(() => this._routeInfo()?.routeName);
   readonly routeTypes = computed(() => this._routeInfo()?.routeTypes);
   readonly changeCount = computed(() => this._routeInfo()?.changeCount);
-  readonly segmentCount = computed(() => this._routeInfo()?.segmentCount);
   readonly routeDisplayName = computed(() => this.routeName() || '' + this.routeId());
 
   private location = inject(Location);

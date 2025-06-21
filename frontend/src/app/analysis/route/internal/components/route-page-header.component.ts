@@ -54,18 +54,6 @@ export class RoutePageHeaderComponent {
         label: $localize`:@@route.menu.changes:Changes`,
         elementCount: this.service.changeCount(),
       },
-      {
-        pageName: 'segments',
-        pageLink: link + '/segments',
-        label: $localize`:@@route.menu.segments:Segments`,
-        elementCount: this.service.segmentCount(),
-      },
-      {
-        pageName: 'paths',
-        pageLink: link + '/paths',
-        label: $localize`:@@route.menu.paths:Paths`,
-        elementCount: 999, // TODO redesign - this.service.pathCount(),
-      },
     ];
   });
 }

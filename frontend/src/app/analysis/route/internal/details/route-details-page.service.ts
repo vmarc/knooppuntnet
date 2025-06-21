@@ -66,12 +66,14 @@ export class RouteDetailsPageService {
           nodeIds,
           routeIds,
         };
+        this.mapService.updateSelectedRoute(this.routeService.routeId());
         this.mapService.focusElements(data.bounds, elements);
       }
     });
   }
 
   selectSegment(routeSegment: RouteSegment): void {
+    this.mapService.setMapMode('route-segments');
     const elements: FocusElements = {
       nodeIds: [],
       routeIds: [],

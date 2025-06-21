@@ -2,9 +2,11 @@ import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactsComponent } from '@app/analysis/fact/components/facts.component';
+import { MapModeComponent } from '@app/analysis/route/internal/details/components/map-mode.component';
 import { RoutePathsComponent } from '@app/analysis/route/internal/details/components/route-paths.component';
 import { RouteSegmentsComponent } from '@app/analysis/route/internal/details/components/route-segments.component';
 import { DataComponent } from '@app/shared/components/data/data.component';
@@ -14,6 +16,8 @@ import { TagTableComponent } from '@app/shared/components/tags/tag-table.compone
 import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
+import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouteEndNodesComponent } from './route-end-nodes.component';
 import { RouteMembersComponent } from './route-members.component';
@@ -28,7 +32,7 @@ import { RouteDetailsPageService } from '../route-details-page.service';
   selector: 'ui-route-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @let page = service.response().result;
+    @let page = response().result;
     <div>
       <ui-route-summary [route]="page.data" />
       <ui-divider />
@@ -37,7 +41,7 @@ import { RouteDetailsPageService } from '../route-details-page.service';
           <span i18n="@@route.situation-on">Situation on</span>
         </div>
         <div class="body">
-          <ui-timestamp [timestamp]="service.response().situationOn" />
+          <ui-timestamp [timestamp]="response().situationOn" />
         </div>
       </div>
       <div class="data2">
@@ -91,22 +95,42 @@ import { RouteDetailsPageService } from '../route-details-page.service';
       <ui-facts [factInfos]="factInfos(page)" />
 
       <ui-divider />
-      <button nz-button (click)="zoomToFitRoute()">
-        <nz-icon nzType="fullscreen-exit" />
-        <span>Zoom to fit entire route</span>
-      </button>
+      <div class="kpn-button-group">
+        <button nz-button (click)="zoomToFitRoute()">
+          <nz-icon nzType="fullscreen-exit" />
+          <span>Zoom to fit entire route</span>
+        </button>
+        <ui-map-mode />
+      </div>
 
       <ui-divider />
-      <ui-route-segments />
 
-      <ui-divider />
-      <ui-route-paths />
-
-      <ui-divider />
-      <ui-route-members
-        [routeType]="page.data.summary.routeTypes[0]"
-        [rows]="page.data.structureRows"
-      />
+      <nz-collapse>
+        <nz-collapse-panel [nzHeader]="segmentsHeader">
+          <ng-template #segmentsHeader>
+            <span i18n="@@route.segments.title">Segments</span>
+            <span class="kpn-brackets">{{ segmentCount() }}</span>
+          </ng-template>
+          <ui-route-segments />
+        </nz-collapse-panel>
+        <nz-collapse-panel [nzHeader]="pathsHeader">
+          <ng-template #pathsHeader>
+            <span i18n="@@route.paths.title">Paths</span>
+            <span class="kpn-brackets">{{ pathCount() }}</span>
+          </ng-template>
+          <ui-route-paths />
+        </nz-collapse-panel>
+        <nz-collapse-panel [nzHeader]="membersHeader">
+          <ng-template #membersHeader>
+            <span i18n="@@route.members.title">Route members</span>
+            <span class="kpn-brackets">{{ memberCount() }}</span>
+          </ng-template>
+          <ui-route-members
+            [routeType]="page.data.summary.routeTypes[0]"
+            [rows]="page.data.structureRows"
+          />
+        </nz-collapse-panel>
+      </nz-collapse>
     </div>
   `,
   styleUrl: '../../../../../shared/components/data/data.component.scss',
@@ -115,7 +139,11 @@ import { RouteDetailsPageService } from '../route-details-page.service';
     DataComponent,
     DividerComponent,
     FactsComponent,
+    FormsModule,
+    MapModeComponent,
     NzButtonComponent,
+    NzCollapseComponent,
+    NzCollapsePanelComponent,
     NzIconDirective,
     RouteEndNodesComponent,
     RouteMembersComponent,
@@ -131,7 +159,13 @@ import { RouteDetailsPageService } from '../route-details-page.service';
   ],
 })
 export class RouteDetailsComponent {
-  protected readonly service = inject(RouteDetailsPageService);
+  private readonly service = inject(RouteDetailsPageService);
+  protected readonly response = computed(() => this.service.response());
+  protected readonly segmentCount = computed(() => this.response()?.result?.data.segments.length);
+  protected readonly pathCount = computed(() => this.response()?.result?.data.paths.length);
+  protected readonly memberCount = computed(
+    () => this.response()?.result?.data.structureRows.length
+  );
 
   routeTags(page: RouteDetailsPage) {
     return InterpretedTags.routeTags(page.data.summary.tags);

@@ -110,8 +110,10 @@ export class MapService {
         'local=' + styleOptions.scopeLocal,
         'nodeRoutes=' + styleOptions.scopeNodeRoutes,
         'route=' + styleOptions.selectedRoute,
+        'focusNodeIds=' + styleOptions.focusElements?.nodeIds.join(','),
+        'focusRouteIds=' + styleOptions.focusElements?.routeIds.join(','),
       ];
-      console.log(`mapStyleOptions ${options.join(', ')}`);
+      console.log(`mapStyleOptions ${options.join(' | ')}`);
     });
     effect(() => {
       const xxx = this.state.map.poiActive();
@@ -217,6 +219,10 @@ export class MapService {
     this.state.map.updateMode(mapMode);
     this.state.planner.updateMapMode(mapMode);
     // this.plannerMapService.updateLayerVisibility();
+  }
+
+  updateSelectedRoute(routeId: number): void {
+    this.state.map.updateSelectedRoute(routeId);
   }
 
   mouseleave() {

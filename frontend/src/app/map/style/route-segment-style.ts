@@ -43,12 +43,12 @@ export class RouteSegmentStyle {
     segmentId: number,
     segmentElementId: number
   ): Style {
-    let style = this.otherSegmentStyle;
     if (styleOptions.selectedRoute === routeId) {
-      style = this.segmentStyle;
+      const style = this.segmentStyle;
       const color = SegmentColors.colorForSegmentId(segmentId);
       style.getStroke().setColor(color);
+      return style;
     }
-    return style;
+    return undefined;
   }
 }
