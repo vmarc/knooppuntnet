@@ -11,15 +11,20 @@ import { MemberType } from '@api/common/data/member-type';
 import { Link } from '@api/common/route/link';
 import { fromEvent } from 'rxjs';
 import { Subscription } from 'rxjs';
-import { TryoutCanvasComponent } from './tryout-canvas.component';
+import { StructureCanvasComponent } from './structure-canvas.component';
 
 @Component({
-  selector: 'ui-tryout-wrapper',
+  selector: 'ui-structure-canvas-wrapper',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div #canvasWrapper class="canvasWrapper">
       @if (height() > 0) {
-        <ui-tryout-canvas [height]="height()" [memberType]="memberType()" [link]="link()" />
+        <ui-structure-canvas
+          [height]="height()"
+          [segmentIds]="segmentIds()"
+          [memberType]="memberType()"
+          [link]="link()"
+        />
       }
     </div>
   `,
@@ -29,9 +34,10 @@ import { TryoutCanvasComponent } from './tryout-canvas.component';
       justify-content: center;
     }
   `,
-  imports: [TryoutCanvasComponent],
+  imports: [StructureCanvasComponent],
 })
-export class TryoutWrapperComponent implements AfterViewInit, OnInit, OnDestroy {
+export class StructureCanvasWrapperComponent implements AfterViewInit, OnInit, OnDestroy {
+  readonly segmentIds = input<number[]>([]);
   readonly memberType = input.required<MemberType>();
   readonly link = input.required<Link>();
 

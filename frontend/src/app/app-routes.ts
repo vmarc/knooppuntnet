@@ -11,9 +11,7 @@ export const appRoutes: Routes = [
   {
     path: 'tryout-canvas',
     loadComponent: () =>
-      import('./tryout/canvas/tryout-canvas-page.component').then(
-        (m) => m.TryoutCanvasPageComponent
-      ),
+      import('./tryout/structure/structure-page.component').then((m) => m.StructurePageComponent),
   },
   {
     path: 'analysis',

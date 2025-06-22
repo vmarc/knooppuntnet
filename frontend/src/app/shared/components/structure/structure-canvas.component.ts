@@ -6,10 +6,10 @@ import { ElementRef } from '@angular/core';
 import { Component } from '@angular/core';
 import { MemberType } from '@api/common/data/member-type';
 import { Link } from '@api/common/route/link';
-import { TryoutLinkBuilder } from './tryout-link-builder';
+import { DrawStructure } from '@app/shared/components/structure/draw-structure';
 
 @Component({
-  selector: 'ui-tryout-canvas',
+  selector: 'ui-structure-canvas',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<canvas #gapCanvas  [height]="height()" width="40"></canvas>',
   styles: `
@@ -18,7 +18,8 @@ import { TryoutLinkBuilder } from './tryout-link-builder';
     }
   `,
 })
-export class TryoutCanvasComponent {
+export class StructureCanvasComponent {
+  readonly segmentIds = input.required<number[]>();
   readonly memberType = input.required<MemberType>();
   readonly link = input.required<Link>();
   readonly height = input.required<number>();
@@ -31,7 +32,10 @@ export class TryoutCanvasComponent {
       const canvas = this.canvas()?.nativeElement;
       const height = this.height();
       if (memberType && canvas && height > 0) {
-        setTimeout(() => new TryoutLinkBuilder(canvas, height, memberType, link).draw(), 0);
+        setTimeout(
+          () => new DrawStructure(canvas, height, this.segmentIds(), memberType, link).draw(),
+          0
+        );
       }
     });
   }

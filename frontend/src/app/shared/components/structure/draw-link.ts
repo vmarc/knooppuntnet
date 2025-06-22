@@ -1,24 +1,15 @@
 import { MemberType } from '@api/common/data/member-type';
 import { Link } from '@api/common/route/link';
 
-export class TryoutLinkBuilder {
+export class DrawLink {
   private readonly width = 40;
-  private context: CanvasRenderingContext2D;
 
   constructor(
-    canvas: HTMLCanvasElement,
+    private context: CanvasRenderingContext2D,
     private height: number,
     private memberType: MemberType,
     private link: Link
-  ) {
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = this.width * dpr;
-    canvas.height = height * dpr;
-    this.context = canvas.getContext('2d');
-    this.context.scale(dpr, dpr);
-    canvas.style.width = `${this.width}px`;
-    canvas.style.height = `${this.height}px`;
-  }
+  ) {}
 
   draw(): void {
     if (this.memberType === 'node') {
@@ -31,22 +22,26 @@ export class TryoutLinkBuilder {
   }
 
   private drawNode(): void {
-    const x = this.width / 2;
-    const y = this.height / 2;
+    const centerX = this.width / 2;
+    const centerY = this.height / 2;
     this.context.fillStyle = 'blue';
     this.context.beginPath();
-    this.context.arc(x, y, 3, 0, Math.PI * 2);
+    this.context.arc(centerX, centerY, 3, 0, Math.PI * 2);
     this.context.fill();
     this.context.closePath();
   }
 
   private drawRelation(): void {
+    const centerX = this.width / 2;
+    const centerY = this.height / 2;
     this.context.strokeStyle = 'blue';
     this.context.beginPath();
-    this.context.moveTo(this.width / 2, this.height / 2 - 5);
-    this.context.lineTo(this.width / 2, this.height / 2 + 5);
-    this.context.moveTo(this.width / 2 - 5, this.height / 2);
-    this.context.lineTo(this.width / 2 + 5, this.height / 2);
+    // Vertical line
+    this.context.moveTo(centerX, centerY - 5);
+    this.context.lineTo(centerX, centerY + 5);
+    // Horizontal line
+    this.context.moveTo(centerX - 5, centerY);
+    this.context.lineTo(centerX + 5, centerY);
     this.context.stroke();
     this.context.closePath();
   }
@@ -56,6 +51,7 @@ export class TryoutLinkBuilder {
     const xloop = 14;
 
     let xowloop = 0;
+
     if (this.link.isOnewayLoopBackwardPart) {
       xowloop = 7;
     } else if (this.link.isOnewayLoopForwardPart) {
@@ -193,12 +189,15 @@ export class TryoutLinkBuilder {
     if (direction === 'roundabout-left' || direction === 'roundabout-right') {
       this.context.fillStyle = 'white';
       this.context.strokeStyle = 'blue';
+
+      // Outer circle
       this.context.beginPath();
       this.context.arc(x, y, 9, 0, Math.PI * 2);
       this.context.fill();
       this.context.stroke();
       this.context.closePath();
 
+      // Inner circle
       this.context.strokeStyle = 'blue';
       this.context.beginPath();
       this.context.arc(x, y, 3, 0, Math.PI * 2);
