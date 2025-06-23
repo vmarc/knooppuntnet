@@ -14,6 +14,8 @@ export class DrawLink {
     private link: Link
   ) {}
 
+  readonly ymax = this.height - 1;
+
   draw(): void {
     this.context.fillStyle = 'blue';
     this.context.strokeStyle = 'blue';
@@ -48,7 +50,6 @@ export class DrawLink {
   }
 
   private drawWay(): void {
-    const ymax = this.height - 1;
     const xloop = 14;
 
     let xowloop = 0;
@@ -71,64 +72,19 @@ export class DrawLink {
 
     if (!this.link.hasPrev) {
       if (this.link.isLoop) {
-        y1 = 5;
-        this.strokeArc(xoff + 3, y1, 3, -Math.PI, -Math.PI / 2); // left arc
-        this.strokeArc(xoff + xloop - 3, y1, 3, -Math.PI / 2, 0); // right arc
-        this.drawLine(xoff + 3, y1 - 3, xoff + xloop - 3, y1 - 3);
+        y1 = this.drawLoopStart(xoff, xloop);
       } else {
-        this.context.strokeStyle = 'red';
-        this.context.fillStyle = 'red';
-        if (this.link.isOnewayHead) {
-          this.fillRect(
-            xoff - 2,
-            DrawLink.STUB_PADDING - 3 - DrawLink.STUB_SIZE,
-            DrawLink.STUB_SIZE,
-            DrawLink.STUB_SIZE
-          );
-        } else {
-          this.fillRect(
-            xoff - 2 + xowloop,
-            DrawLink.STUB_PADDING - 1 - DrawLink.STUB_SIZE,
-            DrawLink.STUB_SIZE,
-            DrawLink.STUB_SIZE
-          );
-        }
-        this.context.strokeStyle = 'blue';
-        this.context.fillStyle = 'blue';
-        y1 = DrawLink.STUB_PADDING;
+        y1 = this.drawStartStub(xoff, xowloop);
       }
     }
 
     if (this.link.hasNext) {
-      y2 = ymax;
+      y2 = this.ymax;
     } else {
       if (this.link.isLoop) {
-        y2 = ymax - 5;
-        this.fillRect(xoff - 1, y2 + 2, 3, 3);
-        this.drawLine(xoff, y2, xoff, y2 + 2);
-        this.strokeArc(xoff + xloop - 3, y2, 3, 0, Math.PI / 2); // right arc
-        this.drawLine(xoff + 3 - 1, y2 + 3, xoff + xloop - 3, y2 + 3);
+        y2 = this.drawLoopEnd(xoff, xloop);
       } else {
-        this.context.strokeStyle = 'red';
-        this.context.fillStyle = 'red';
-        if (this.link.isOnewayTail) {
-          this.fillRect(
-            xoff - 2,
-            ymax - DrawLink.STUB_PADDING + 3,
-            DrawLink.STUB_SIZE,
-            DrawLink.STUB_SIZE
-          );
-        } else {
-          this.fillRect(
-            xoff - 2 + xowloop,
-            ymax - DrawLink.STUB_PADDING + 1,
-            DrawLink.STUB_SIZE,
-            DrawLink.STUB_SIZE
-          );
-        }
-        this.context.strokeStyle = 'blue';
-        this.context.fillStyle = 'blue';
-        y2 = ymax - DrawLink.STUB_PADDING;
+        y2 = this.drawEndStub(xoff, xowloop);
       }
     }
 
@@ -138,30 +94,11 @@ export class DrawLink {
     }
 
     if (this.link.isOnewayHead) {
-      this.context.setLineDash([2, 2]);
-      y1 = 7;
-      this.context.beginPath();
-      this.context.moveTo(xoff - xowloop + 1, ymax);
-      this.context.lineTo(xoff - xowloop + 1, y1 + 1);
-      this.context.lineTo(xoff, 1);
-      this.context.stroke();
-      this.context.closePath();
-
-      this.context.setLineDash([]);
-      this.drawLine(xoff + xowloop, y1 + 1, xoff, 1);
+      y1 = this.drawOnewayHead(xoff, xowloop);
     }
 
     if (this.link.isOnewayTail) {
-      this.context.setLineDash([2, 2]);
-      y2 = ymax - 7;
-      this.context.beginPath();
-      this.context.moveTo(xoff + 1, ymax - 1);
-      this.context.lineTo(xoff - xowloop + 1, y2);
-      this.context.lineTo(xoff - xowloop + 1, y1);
-      this.context.stroke();
-      this.context.closePath();
-      this.context.setLineDash([]);
-      this.drawLine(xoff + xowloop, y2, xoff, ymax - 1);
+      y2 = this.drawOnewayTail(xoff, xowloop, y1);
     }
 
     if (
@@ -183,6 +120,98 @@ export class DrawLink {
     // special icons
     this.drawRoundabout(xoff, this.height / 2);
     this.drawArrow(xoff, xoff + xowloop, (y1 + y2) / 2 - 2);
+  }
+
+  private drawOnewayTail(xoff: number, xowloop: number, y1: number) {
+    this.context.setLineDash([2, 2]);
+    const y = this.ymax - 7;
+    this.context.beginPath();
+    this.context.moveTo(xoff + 1, this.ymax - 1);
+    this.context.lineTo(xoff - xowloop + 1, y);
+    this.context.lineTo(xoff - xowloop + 1, y1);
+    this.context.stroke();
+    this.context.closePath();
+    this.context.setLineDash([]);
+    this.drawLine(xoff + xowloop, y, xoff, this.ymax - 1);
+    return y;
+  }
+
+  private drawOnewayHead(xoff: number, xowloop: number) {
+    this.context.setLineDash([2, 2]);
+    const y = 7;
+    this.context.beginPath();
+    this.context.moveTo(xoff - xowloop + 1, this.ymax);
+    this.context.lineTo(xoff - xowloop + 1, y + 1);
+    this.context.lineTo(xoff, 1);
+    this.context.stroke();
+    this.context.closePath();
+
+    this.context.setLineDash([]);
+    this.drawLine(xoff + xowloop, y + 1, xoff, 1);
+    return y;
+  }
+
+  private drawEndStub(xoff: number, xowloop: number): number {
+    this.context.strokeStyle = 'red';
+    this.context.fillStyle = 'red';
+    if (this.link.isOnewayTail) {
+      this.fillRect(
+        xoff - 2,
+        this.ymax - DrawLink.STUB_PADDING + 3,
+        DrawLink.STUB_SIZE,
+        DrawLink.STUB_SIZE
+      );
+    } else {
+      this.fillRect(
+        xoff - 2 + xowloop,
+        this.ymax - DrawLink.STUB_PADDING + 1,
+        DrawLink.STUB_SIZE,
+        DrawLink.STUB_SIZE
+      );
+    }
+    this.context.strokeStyle = 'blue';
+    this.context.fillStyle = 'blue';
+    return this.ymax - DrawLink.STUB_PADDING;
+  }
+
+  private drawLoopEnd(xoff: number, xloop: number): number {
+    const y = this.ymax - 5;
+    this.fillRect(xoff - 1, y + 2, 3, 3);
+    this.drawLine(xoff, y, xoff, y + 2);
+    this.strokeArc(xoff + xloop - 3, y, 3, 0, Math.PI / 2); // right arc
+    this.drawLine(xoff + 3 - 1, y + 3, xoff + xloop - 3, y + 3);
+    return y;
+  }
+
+  private drawStartStub(xoff: number, xowloop: number): number {
+    this.context.strokeStyle = 'red';
+    this.context.fillStyle = 'red';
+    if (this.link.isOnewayHead) {
+      this.fillRect(
+        xoff - 2,
+        DrawLink.STUB_PADDING - 3 - DrawLink.STUB_SIZE,
+        DrawLink.STUB_SIZE,
+        DrawLink.STUB_SIZE
+      );
+    } else {
+      this.fillRect(
+        xoff - 2 + xowloop,
+        DrawLink.STUB_PADDING - 1 - DrawLink.STUB_SIZE,
+        DrawLink.STUB_SIZE,
+        DrawLink.STUB_SIZE
+      );
+    }
+    this.context.strokeStyle = 'blue';
+    this.context.fillStyle = 'blue';
+    return DrawLink.STUB_PADDING;
+  }
+
+  private drawLoopStart(xoff: number, xloop: number): number {
+    const y = 5;
+    this.strokeArc(xoff + 3, y, 3, -Math.PI, -Math.PI / 2); // left arc
+    this.strokeArc(xoff + xloop - 3, y, 3, -Math.PI / 2, 0); // right arc
+    this.drawLine(xoff + 3, y - 3, xoff + xloop - 3, y - 3);
+    return y;
   }
 
   private drawRoundabout(x: number, y: number): void {
@@ -250,6 +279,7 @@ export class DrawLink {
     this.context.stroke();
     this.context.closePath();
   }
+
   private fillArc(
     x: number,
     y: number,
