@@ -4,6 +4,9 @@ import { Link } from '@api/common/route/link';
 export class DrawLink {
   private readonly width = 40;
 
+  private static readonly STUB_SIZE = 4;
+  private static readonly STUB_PADDING = 4 + DrawLink.STUB_SIZE + 1;
+
   constructor(
     private context: CanvasRenderingContext2D,
     private height: number,
@@ -12,6 +15,8 @@ export class DrawLink {
   ) {}
 
   draw(): void {
+    this.context.fillStyle = 'blue';
+    this.context.strokeStyle = 'blue';
     if (this.memberType === 'node') {
       this.drawNode();
     } else if (this.memberType === 'way') {
@@ -24,17 +29,13 @@ export class DrawLink {
   private drawNode(): void {
     const centerX = this.width / 2;
     const centerY = this.height / 2;
-    this.context.fillStyle = 'blue';
-    this.context.beginPath();
-    this.context.arc(centerX, centerY, 3, 0, Math.PI * 2);
-    this.context.fill();
-    this.context.closePath();
+    this.fillArc(centerX, centerY, 3, 0, Math.PI * 2);
   }
 
   private drawRelation(): void {
     const centerX = this.width / 2;
     const centerY = this.height / 2;
-    this.context.strokeStyle = 'blue';
+
     this.context.beginPath();
     // Vertical line
     this.context.moveTo(centerX, centerY - 5);
@@ -65,37 +66,36 @@ export class DrawLink {
       xoff = this.width / 2;
     }
 
-    const w = 4;
-    const p = 4 + w + 1;
     let y1 = 0;
     let y2 = 0;
 
     if (!this.link.hasPrev) {
       if (this.link.isLoop) {
-        this.context.strokeStyle = 'black';
         y1 = 5;
-        // left arc
-        this.context.beginPath();
-        this.context.arc(xoff + 3, y1, 3, -Math.PI, -Math.PI / 2);
-        this.context.stroke();
-        this.context.closePath();
-        // right arc
-        this.context.beginPath();
-        this.context.arc(xoff + xloop - 3, y1, 3, -Math.PI / 2, 0);
-        this.context.stroke();
-        this.context.closePath();
+        this.strokeArc(xoff + 3, y1, 3, -Math.PI, -Math.PI / 2); // left arc
+        this.strokeArc(xoff + xloop - 3, y1, 3, -Math.PI / 2, 0); // right arc
         this.drawLine(xoff + 3, y1 - 3, xoff + xloop - 3, y1 - 3);
       } else {
         this.context.strokeStyle = 'red';
         this.context.fillStyle = 'red';
         if (this.link.isOnewayHead) {
-          this.drawRect(xoff - 2, p - 3 - w, w, w);
-          this.fillRect(xoff - 2, p - 3 - w, w, w);
+          this.fillRect(
+            xoff - 2,
+            DrawLink.STUB_PADDING - 3 - DrawLink.STUB_SIZE,
+            DrawLink.STUB_SIZE,
+            DrawLink.STUB_SIZE
+          );
         } else {
-          this.drawRect(xoff - 2 + xowloop, p - 1 - w, w, w);
-          this.fillRect(xoff - 2 + xowloop, p - 1 - w, w, w);
+          this.fillRect(
+            xoff - 2 + xowloop,
+            DrawLink.STUB_PADDING - 1 - DrawLink.STUB_SIZE,
+            DrawLink.STUB_SIZE,
+            DrawLink.STUB_SIZE
+          );
         }
-        y1 = p;
+        this.context.strokeStyle = 'blue';
+        this.context.fillStyle = 'blue';
+        y1 = DrawLink.STUB_PADDING;
       }
     }
 
@@ -103,35 +103,36 @@ export class DrawLink {
       y2 = ymax;
     } else {
       if (this.link.isLoop) {
-        this.context.strokeStyle = 'black';
-        this.context.fillStyle = 'black';
         y2 = ymax - 5;
         this.fillRect(xoff - 1, y2 + 2, 3, 3);
         this.drawLine(xoff, y2, xoff, y2 + 2);
-        // right arc
-        this.context.beginPath();
-        this.context.arc(xoff + xloop - 3, y2, 3, 0, Math.PI / 2);
-        this.context.stroke();
-        this.context.closePath();
-
+        this.strokeArc(xoff + xloop - 3, y2, 3, 0, Math.PI / 2); // right arc
         this.drawLine(xoff + 3 - 1, y2 + 3, xoff + xloop - 3, y2 + 3);
       } else {
         this.context.strokeStyle = 'red';
         this.context.fillStyle = 'red';
         if (this.link.isOnewayTail) {
-          this.drawRect(xoff - 2, ymax - p + 3, w, w);
-          this.fillRect(xoff - 2, ymax - p + 3, w, w);
+          this.fillRect(
+            xoff - 2,
+            ymax - DrawLink.STUB_PADDING + 3,
+            DrawLink.STUB_SIZE,
+            DrawLink.STUB_SIZE
+          );
         } else {
-          this.drawRect(xoff - 2 + xowloop, ymax - p + 1, w, w);
-          this.fillRect(xoff - 2 + xowloop, ymax - p + 1, w, w);
+          this.fillRect(
+            xoff - 2 + xowloop,
+            ymax - DrawLink.STUB_PADDING + 1,
+            DrawLink.STUB_SIZE,
+            DrawLink.STUB_SIZE
+          );
         }
-        y2 = ymax - p;
+        this.context.strokeStyle = 'blue';
+        this.context.fillStyle = 'blue';
+        y2 = ymax - DrawLink.STUB_PADDING;
       }
     }
 
     // vertical lines
-    this.context.strokeStyle = 'blue';
-
     if (this.link.isLoop) {
       this.drawLine(xoff + xloop, y1, xoff + xloop, y2);
     }
@@ -187,22 +188,15 @@ export class DrawLink {
   private drawRoundabout(x: number, y: number): void {
     const direction = this.link.direction;
     if (direction === 'roundabout-left' || direction === 'roundabout-right') {
-      this.context.fillStyle = 'white';
-      this.context.strokeStyle = 'blue';
-
       // Outer circle
-      this.context.beginPath();
-      this.context.arc(x, y, 9, 0, Math.PI * 2);
-      this.context.fill();
-      this.context.stroke();
-      this.context.closePath();
+      this.context.fillStyle = 'white';
+      this.fillArc(x, y, 9, 0, Math.PI * 2);
+      this.context.strokeStyle = 'blue';
+      this.strokeArc(x, y, 9, 0, Math.PI * 2);
 
       // Inner circle
       this.context.strokeStyle = 'blue';
-      this.context.beginPath();
-      this.context.arc(x, y, 3, 0, Math.PI * 2);
-      this.context.stroke();
-      this.context.closePath();
+      this.strokeArc(x, y, 3, 0, Math.PI * 2);
     }
   }
 
@@ -210,17 +204,17 @@ export class DrawLink {
     const direction = this.link.direction;
     if (direction === 'forward' || direction === 'backward') {
       if (!this.link.isOnewayLoopForwardPart && !this.link.isOnewayLoopBackwardPart) {
-        this.drawArrow1(xLeft, y, direction === 'forward');
+        this.drawArrowShape(xLeft, y, direction === 'forward');
       }
       if (this.link.isOnewayLoopBackwardPart && this.link.isOnewayLoopForwardPart) {
-        this.drawArrow1(xRight, y, direction === 'backward');
+        this.drawArrowShape(xRight, y, direction === 'backward');
       } else {
-        this.drawArrow1(xRight, y, direction === 'forward');
+        this.drawArrowShape(xRight, y, direction === 'forward');
       }
     }
   }
 
-  private drawArrow1(x: number, y: number, down: boolean): void {
+  private drawArrowShape(x: number, y: number, down: boolean): void {
     const xLeft = x - 3;
     const xRight = x + 3;
     const height = 7;
@@ -239,11 +233,33 @@ export class DrawLink {
     this.context.closePath();
   }
 
-  private drawRect(x1: number, y1: number, x2: number, y2: number): void {
+  private fillRect(x1: number, y1: number, x2: number, y2: number): void {
     this.context.strokeRect(x1, y1, x2, y2);
+    this.context.fillRect(x1, y1, x2, y2);
   }
 
-  private fillRect(x1: number, y1: number, x2: number, y2: number): void {
-    this.context.fillRect(x1, y1, x2, y2);
+  private strokeArc(
+    x: number,
+    y: number,
+    radius: number,
+    startAngle: number,
+    endAngle: number
+  ): void {
+    this.context.beginPath();
+    this.context.arc(x, y, radius, startAngle, endAngle);
+    this.context.stroke();
+    this.context.closePath();
+  }
+  private fillArc(
+    x: number,
+    y: number,
+    radius: number,
+    startAngle: number,
+    endAngle: number
+  ): void {
+    this.context.beginPath();
+    this.context.arc(x, y, radius, startAngle, endAngle);
+    this.context.fill();
+    this.context.closePath();
   }
 }
