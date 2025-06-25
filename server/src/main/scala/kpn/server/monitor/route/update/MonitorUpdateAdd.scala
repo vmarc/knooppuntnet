@@ -1,0 +1,241 @@
+package kpn.server.monitor.route.update
+
+import kpn.api.base.ObjectId
+import kpn.api.common.monitor.MonitorRouteRelation
+import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
+import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
+import kpn.core.common.Time
+import kpn.core.util.Log
+import kpn.core.util.Util
+import kpn.server.analyzer.engine.monitor.MonitorFilter
+import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
+import kpn.server.monitor.domain.MonitorRoute
+import kpn.server.monitor.domain.MonitorRouteReference
+import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.repository.MonitorRouteRepository
+import org.springframework.stereotype.Component
+
+@Component
+class MonitorUpdateAdd(
+  monitorRouteRepository: MonitorRouteRepository,
+  monitorUpdateStructure: MonitorUpdateStructure,
+  monitorRouteRelationRepository: MonitorRouteRelationRepository,
+  monitorRouteOsmSegmentAnalyzer: MonitorRouteOsmSegmentAnalyzer,
+  monitorUpdateUpdate: MonitorUpdateUpdate,
+  monitorUpdateCommon: MonitorUpdateCommon,
+  monitorUpdateSave: MonitorUpdateSave
+) {
+
+  private val log = Log(classOf[MonitorUpdateAdd])
+
+  def add(context: MonitorContext): Unit = {
+
+    context.value.reporter.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = Seq(
+          MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+          MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+          MonitorRouteUpdateStatusCommand("step-active", "prepare"),
+        )
+      )
+    )
+
+    monitorUpdateCommon.findGroup(context)
+    assertNewRoute(context)
+
+    val referenceTimestamp = if (context.value.update.referenceNow.contains(true)) {
+      Some(Time.now)
+    }
+    else {
+      context.value.update.referenceTimestamp
+    }
+
+    context.set(
+      context.value.copy(
+        newRoute = Some(
+          MonitorRoute(
+            ObjectId(),
+            context.value.group.get._id,
+            context.value.update.routeName,
+            context.value.update.description.getOrElse(""),
+            context.value.update.comment,
+            context.value.update.relationId,
+            context.value.user,
+            Time.now,
+            None,
+            None,
+            None,
+            referenceType = context.value.update.referenceType,
+            referenceTimestamp = referenceTimestamp,
+            referenceFilename = context.value.update.referenceFilename,
+            referenceDistance = 0,
+            deviationDistance = 0,
+            deviationCount = 0,
+            osmWayCount = 0,
+            osmSegmentCount = 0,
+            osmDistance = 0,
+            happy = false,
+            osmSegments = Seq.empty,
+            relation = None
+          )
+        )
+      )
+    )
+
+    context.stepActive("analyze-route-structure")
+    context.set(monitorUpdateStructure.update(context.value))
+
+    if (context.value.isReferenceTypeGpx) {
+      monitorUpdateUpdate.updateRouteWithGpxReference(context)
+    }
+    else if (context.value.isReferenceTypeMultiGpx) {
+      addRouteWithMultiGpxReference(context)
+    }
+    else {
+      monitorUpdateUpdate.updateSubRelationOsmReferences(context)
+    }
+
+    context.stepActive("save")
+    monitorUpdateSave.save(context)
+    context.stepDone("save")
+  }
+
+  private def addRouteWithMultiGpxReference(context: MonitorContext): Unit = {
+    context.value.newRoute match {
+      case None =>
+      case Some(newRoute) =>
+        newRoute.relation match {
+          case None =>
+          case Some(monitorRouteRelation) =>
+            val processList = monitorUpdateCommon.composeProcessList(monitorRouteRelation)
+            context.value.reporter.processList(processList)
+
+            val processListSize = processList.size
+            processList.zipWithIndex.foreach { case (mrr, index) =>
+              Log.context(s"${index + 1}/$processListSize ${mrr.relationId}") {
+                context.stepActive(mrr.relationId.toString)
+                val updateSingleRelationRoute = index == 0 && processList.sizeIs == 1
+
+                monitorRouteRelationRepository.loadTopLevel(None, mrr.relationId).map { relation =>
+
+                  val wayMembers = MonitorFilter.filterWayMembers(relation.wayMembers)
+                  if (wayMembers.nonEmpty) {
+                    val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
+                    val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds))
+
+                    val id = if (context.value.isActionUpdate || context.value.isActionGpxUpload) {
+                      context.value.oldStateIds.find(_.relationId == mrr.relationId) match {
+                        case Some(oldStateId) => oldStateId._id
+                        case None => ObjectId()
+                      }
+                    }
+                    else {
+                      ObjectId()
+                    }
+
+                    val state = MonitorRouteState(
+                      id,
+                      routeId = context.value.routeId,
+                      relationId = mrr.relationId,
+                      timestamp = Time.now,
+                      wayCount = wayMembers.size,
+                      startNodeId = osmSegmentAnalysis.startNodeId,
+                      endNodeId = osmSegmentAnalysis.endNodeId,
+                      osmDistance = osmSegmentAnalysis.osmDistance,
+                      bounds = bounds,
+                      osmSegments = osmSegmentAnalysis.routeSegments.map(_.segment),
+                      matchesGeometry = None,
+                      deviations = Seq.empty,
+                      happy = false,
+                    )
+
+                    monitorRouteRepository.saveRouteState(state)
+                    context.set(
+                      context.value.copy(
+                        stateChanged = true
+                      )
+                    )
+                  }
+                }
+              }
+            }
+        }
+    }
+  }
+
+  private def updateMonitorRouteRelation(
+    monitorRouteRelation: MonitorRouteRelation,
+    reference: MonitorRouteReference,
+    stateOption: Option[MonitorRouteState]
+  ): MonitorRouteRelation = {
+
+    reference.relationId match {
+      case None => monitorRouteRelation
+      case Some(referenceRelationId) =>
+
+        if (referenceRelationId == monitorRouteRelation.relationId) {
+
+          val deviationDistance = stateOption match {
+            case None => 0
+            case Some(state) => state.deviations.map(_.distance).sum
+          }
+          val deviationCount = stateOption match {
+            case None => 0
+            case Some(state) => state.deviations.size
+          }
+          val happy = stateOption match {
+            case None => false
+            case Some(state) => state.happy
+          }
+
+          monitorRouteRelation.copy(
+            referenceTimestamp = Some(reference.referenceTimestamp),
+            referenceFilename = reference.referenceFilename,
+            referenceDistance = reference.referenceDistance,
+            deviationDistance = deviationDistance,
+            deviationCount = deviationCount,
+            // TODO update happy, taking into account subrelations
+            happy = happy
+          )
+        }
+        else {
+          val relations = monitorRouteRelation.relations.map { subRelation =>
+            updateMonitorRouteRelation(subRelation, reference, stateOption)
+          }
+          monitorRouteRelation.copy(
+            relations = relations
+            // TODO update happy, taking into account subrelations
+          )
+        }
+    }
+  }
+
+  private def resetReference(monitorRouteRelation: MonitorRouteRelation, subRelationId: Long): MonitorRouteRelation = {
+    if (monitorRouteRelation.relationId == subRelationId) {
+      monitorRouteRelation.copy(
+        referenceTimestamp = None,
+        referenceFilename = None,
+        referenceDistance = 0,
+        deviationDistance = 0,
+        deviationCount = 0,
+      )
+    }
+    else {
+      monitorRouteRelation.copy(
+        relations = monitorRouteRelation.relations.map(rel => resetReference(rel, subRelationId))
+      )
+    }
+  }
+
+  private def assertNewRoute(context: MonitorContext): Unit = {
+    val group = context.value.group.get
+    val routeName = context.value.update.routeName
+    monitorRouteRepository.routeByName(group._id, routeName) match {
+      case None => // OK: no route with this name yet
+      case Some(route) =>
+        throw new IllegalStateException(
+          s"""Could not add route with name "$routeName": already exists (_id=${route._id.oid}) in group with name "${group.name}""""
+        )
+    }
+  }
+}

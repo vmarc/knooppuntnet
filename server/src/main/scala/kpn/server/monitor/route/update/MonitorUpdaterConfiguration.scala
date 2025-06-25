@@ -22,6 +22,57 @@ class MonitorUpdaterConfiguration(
   private val monitorRouteDeviationAnalyzer = new MonitorRouteDeviationAnalyzerImpl()
   private val monitorRouteGapAnalyzer = new MonitorRouteGapAnalyzer()
 
+  private val monitorUpdateCommon = new MonitorUpdateCommon(
+    monitorGroupRepository,
+    monitorRouteRepository,
+  )
+
+  private val monitorUpdateSave = new MonitorUpdateSave(
+    monitorRouteRepository,
+    monitorRouteGapAnalyzer,
+  )
+
+  private val monitorUpdateAnalyzeReference = new MonitorUpdateAnalyzeReference(
+    monitorRouteRelationRepository,
+    monitorRouteOsmSegmentAnalyzer,
+    monitorRouteDeviationAnalyzer,
+  )
+
+  private val monitorUpdateGpxUpload = new MonitorUpdateGpxUpload(
+    monitorRouteRepository,
+    monitorRouteRelationRepository,
+    monitorUpdateAnalyzeReference,
+    monitorUpdateCommon,
+    monitorUpdateSave
+  )
+
+  private val monitorUpdateGpxDelete = new MonitorUpdateGpxDelete(
+    monitorRouteRepository,
+    monitorUpdateCommon,
+    monitorUpdateSave
+  )
+
+  private val monitorUpdateUpdate = new MonitorUpdateUpdate(
+    monitorGroupRepository,
+    monitorRouteRepository,
+    monitorUpdateStructure,
+    monitorRouteRelationRepository,
+    monitorRouteOsmSegmentAnalyzer,
+    monitorUpdateAnalyzeReference,
+    monitorUpdateCommon,
+    monitorUpdateSave
+  )
+
+  private val monitorUpdateAdd = new MonitorUpdateAdd(
+    monitorRouteRepository,
+    monitorUpdateStructure,
+    monitorRouteRelationRepository,
+    monitorRouteOsmSegmentAnalyzer,
+    monitorUpdateUpdate,
+    monitorUpdateCommon,
+    monitorUpdateSave
+  )
+
   val monitorRouteUpdateExecutor = new MonitorRouteUpdateExecutor(
     monitorGroupRepository,
     monitorRouteRepository,
@@ -29,6 +80,13 @@ class MonitorUpdaterConfiguration(
     monitorRouteRelationRepository,
     monitorRouteOsmSegmentAnalyzer,
     monitorRouteGapAnalyzer,
-    monitorRouteDeviationAnalyzer
+    monitorRouteDeviationAnalyzer,
+    monitorUpdateGpxUpload,
+    monitorUpdateGpxDelete,
+    monitorUpdateAdd,
+    monitorUpdateUpdate,
+    monitorUpdateAnalyzeReference,
+    monitorUpdateCommon,
+    monitorUpdateSave,
   )
 }

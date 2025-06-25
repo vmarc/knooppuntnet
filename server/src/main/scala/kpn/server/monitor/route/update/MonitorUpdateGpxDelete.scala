@@ -1,0 +1,66 @@
+package kpn.server.monitor.route.update
+
+import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
+import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
+import kpn.core.util.Log
+import kpn.server.monitor.repository.MonitorRouteRepository
+import org.springframework.stereotype.Component
+
+@Component
+class MonitorUpdateGpxDelete(
+  monitorRouteRepository: MonitorRouteRepository,
+  monitorUpdateCommon: MonitorUpdateCommon,
+  monitorUpdateSave: MonitorUpdateSave
+) {
+
+  private val log = Log(classOf[MonitorUpdateGpxDelete])
+
+  def gpxDelete(context: MonitorContext): Unit = {
+
+    val commands = Seq(
+      MonitorRouteUpdateStatusCommand(
+        "step-add",
+        "delete",
+      ),
+      MonitorRouteUpdateStatusCommand(
+        "step-add",
+        "save"
+      ),
+      MonitorRouteUpdateStatusCommand(
+        "step-active",
+        "delete",
+      ),
+    )
+
+    context.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = commands
+      )
+    )
+
+    monitorUpdateCommon.findGroup(context)
+    monitorUpdateCommon.findRoute(context)
+
+    val relationId = context.value.update.relationId.getOrElse(throw new RuntimeException("subrelation id needed for gpx-delete"))
+    monitorRouteRepository.deleteRouteReference(context.value.routeId, relationId)
+    monitorRouteRepository.routeState(context.value.routeId, relationId) match {
+      case None =>
+      case Some(state) =>
+        val updatedState = state.copy(
+          matchesGeometry = None,
+          deviations = Seq.empty,
+          happy = false
+        )
+        monitorRouteRepository.saveRouteState(updatedState)
+        context.set(
+          context.value.copy(
+            stateChanged = true
+          )
+        )
+    }
+
+    context.stepActive("save")
+    monitorUpdateSave.save(context)
+    context.stepDone("save")
+  }
+}
