@@ -76,6 +76,6 @@ class MonitorUpdateTool(
   }
 
   private def updateAnalysis(group: MonitorGroup, route: MonitorRoute): Unit = {
-    configuration.monitorRouteUpdateExecutor.updateAnalysis(group, route)
+    configuration.monitorUpdateAnalysis.updateAnalysis(group, route)
   }
 }

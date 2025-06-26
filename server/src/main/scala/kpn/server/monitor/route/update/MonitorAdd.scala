@@ -16,19 +16,19 @@ import kpn.server.monitor.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
-class MonitorUpdateAdd(
+class MonitorAdd(
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateStructure: MonitorUpdateStructure,
   monitorRouteRelationRepository: MonitorRouteRelationRepository,
   monitorRouteOsmSegmentAnalyzer: MonitorRouteOsmSegmentAnalyzer,
-  monitorUpdateUpdate: MonitorUpdateUpdate,
+  monitorUpdate: MonitorUpdate,
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorUpdateSave: MonitorUpdateSave
 ) {
 
-  private val log = Log(classOf[MonitorUpdateAdd])
+  private val log = Log(classOf[MonitorAdd])
 
-  def add(context: MonitorContext): Unit = {
+  def execute(context: MonitorContext): Unit = {
 
     context.value.reporter.report(
       MonitorRouteUpdateStatusMessage(
@@ -86,13 +86,13 @@ class MonitorUpdateAdd(
     context.set(monitorUpdateStructure.update(context.value))
 
     if (context.value.isReferenceTypeGpx) {
-      monitorUpdateUpdate.updateRouteWithGpxReference(context)
+      monitorUpdate.updateRouteWithGpxReference(context)
     }
     else if (context.value.isReferenceTypeMultiGpx) {
       addRouteWithMultiGpxReference(context)
     }
     else {
-      monitorUpdateUpdate.updateSubRelationOsmReferences(context)
+      monitorUpdate.updateSubRelationOsmReferences(context)
     }
 
     context.stepActive("save")

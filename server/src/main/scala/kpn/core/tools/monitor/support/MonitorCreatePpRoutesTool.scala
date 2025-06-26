@@ -7,8 +7,8 @@ import kpn.database.util.Mongo
 import kpn.server.monitor.route.update.MonitorRouteRelationRepository
 import kpn.server.monitor.route.update.MonitorRouteStructureLoader
 import kpn.server.monitor.route.update.MonitorUpdateContext
-import kpn.server.monitor.route.update.MonitorUpdaterConfiguration
 import kpn.server.monitor.route.update.MonitorUpdateReporterLogger
+import kpn.server.monitor.route.update.MonitorUpdaterConfiguration
 
 object MonitorCreatePpRoutesTool {
   def main(args: Array[String]): Unit = {

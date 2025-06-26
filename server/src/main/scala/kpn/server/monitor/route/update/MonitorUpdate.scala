@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component
 import scala.xml.XML
 
 @Component
-class MonitorUpdateUpdate(
+class MonitorUpdate(
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateStructure: MonitorUpdateStructure,
@@ -37,9 +37,9 @@ class MonitorUpdateUpdate(
   monitorUpdateSave: MonitorUpdateSave
 ) {
 
-  private val log = Log(classOf[MonitorUpdateUpdate])
+  private val log = Log(classOf[MonitorUpdate])
 
-  def update(context: MonitorContext): Unit = {
+  def execute(context: MonitorContext): Unit = {
 
     context.report(
       MonitorRouteUpdateStatusMessage(

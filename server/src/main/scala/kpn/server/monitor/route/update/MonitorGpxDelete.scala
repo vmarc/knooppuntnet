@@ -7,15 +7,15 @@ import kpn.server.monitor.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
-class MonitorUpdateGpxDelete(
+class MonitorGpxDelete(
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorUpdateSave: MonitorUpdateSave
 ) {
 
-  private val log = Log(classOf[MonitorUpdateGpxDelete])
+  private val log = Log(classOf[MonitorGpxDelete])
 
-  def gpxDelete(context: MonitorContext): Unit = {
+  def execute(context: MonitorContext): Unit = {
 
     val commands = Seq(
       MonitorRouteUpdateStatusCommand(

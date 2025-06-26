@@ -1,8 +1,8 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.Bounds
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.SharedTestObjects

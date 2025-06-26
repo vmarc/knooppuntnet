@@ -22,7 +22,7 @@ import org.xml.sax.SAXParseException
 import scala.xml.XML
 
 @Component
-class MonitorUpdateGpxUpload(
+class MonitorGpxUpload(
   monitorRouteRepository: MonitorRouteRepository,
   monitorRouteRelationRepository: MonitorRouteRelationRepository,
   monitorUpdateAnalyzeReference: MonitorUpdateAnalyzeReference,
@@ -30,9 +30,9 @@ class MonitorUpdateGpxUpload(
   monitorUpdateSave: MonitorUpdateSave
 ) {
 
-  private val log = Log(classOf[MonitorUpdateGpxUpload])
+  private val log = Log(classOf[MonitorGpxUpload])
 
-  def gpxUpload(context: MonitorContext): Unit = {
+  def execute(context: MonitorContext): Unit = {
 
     val commands = Seq(
       MonitorRouteUpdateStatusCommand(
