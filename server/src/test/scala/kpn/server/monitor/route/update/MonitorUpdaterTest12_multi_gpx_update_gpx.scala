@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
+import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
@@ -42,7 +43,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
       configuration.monitorGroupRepository.saveGroup(group)
 
       val routeAdd = MonitorRouteUpdate(
-        action = "add",
+        action = MonitorAction.add,
         groupName = group.name,
         routeName = "route-name",
         referenceType = MonitorReferenceType.multiGpx,
@@ -193,7 +194,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
 
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
       val uploadGpx1 = MonitorRouteUpdate(
-        action = "gpx-upload",
+        action = MonitorAction.gpxUpload,
         groupName = group.name,
         routeName = "route-name",
         referenceType = MonitorReferenceType.multiGpx,
@@ -277,7 +278,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
       Time.set(Timestamp(2022, 8, 13, 12, 0, 0))
 
       val uploadGpx2 = MonitorRouteUpdate(
-        action = "gpx-upload",
+        action = MonitorAction.gpxUpload,
         groupName = group.name,
         routeName = "route-name",
         referenceType = MonitorReferenceType.multiGpx,

@@ -1,6 +1,7 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
+import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatus
@@ -103,13 +104,13 @@ case class MonitorUpdateContext(
 
   def isReferenceTypeOsm: Boolean = referenceType.contains(MonitorReferenceType.osm)
 
-  def isActionAdd: Boolean = update != null && update.action == "add"
+  def isActionAdd: Boolean = update != null && update.action == MonitorAction.add
 
-  def isActionUpdate: Boolean = update != null && update.action == "update"
+  def isActionUpdate: Boolean = update != null && update.action == MonitorAction.update
 
-  def isActionGpxUpload: Boolean = update != null && update.action == "gpx-upload"
+  def isActionGpxUpload: Boolean = update != null && update.action == MonitorAction.gpxUpload
 
-  def isActionGpxDelete: Boolean = update != null && update.action == "gpx-delete"
+  def isActionGpxDelete: Boolean = update != null && update.action == MonitorAction.gpxDelete
 
   def isActionAnalyze: Boolean = update == null
 }

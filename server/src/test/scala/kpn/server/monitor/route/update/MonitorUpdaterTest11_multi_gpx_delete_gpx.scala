@@ -1,6 +1,7 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
+import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -143,7 +144,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
           "user",
           reporter,
           MonitorRouteUpdate(
-            action = "gpx-delete",
+            action = MonitorAction.gpxDelete,
             groupName = group.name,
             routeName = "route-name",
             referenceType = MonitorReferenceType.multiGpx,

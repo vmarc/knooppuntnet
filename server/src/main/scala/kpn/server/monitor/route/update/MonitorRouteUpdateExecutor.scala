@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.common.Time
 import kpn.core.util.Log
@@ -17,11 +18,11 @@ class MonitorRouteUpdateExecutor(
 
   private val log = Log(classOf[MonitorRouteUpdateExecutor])
 
-  private val actionStrategies: Map[String, MonitorContext => Unit] = Map(
-    "add" -> monitorAdd.execute,
-    "update" -> monitorUpdate.execute,
-    "gpx-upload" -> monitorGpxUpload.execute,
-    "gpx-delete" -> monitorGpxDelete.execute
+  private val actionStrategies: Map[MonitorAction, MonitorContext => Unit] = Map(
+    MonitorAction.add -> monitorAdd.execute,
+    MonitorAction.update -> monitorUpdate.execute,
+    MonitorAction.gpxUpload -> monitorGpxUpload.execute,
+    MonitorAction.gpxDelete -> monitorGpxDelete.execute
   )
 
   def execute(originalContext: MonitorUpdateContext): Unit = {

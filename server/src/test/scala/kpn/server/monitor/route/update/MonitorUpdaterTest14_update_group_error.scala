@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
@@ -62,7 +63,7 @@ class MonitorUpdaterTest14_update_group_error extends UnitTest with BeforeAndAft
           "user",
           reporter,
           MonitorRouteUpdate(
-            action = "update",
+            action = MonitorAction.update,
             groupName = "group1",
             newGroupName = Some("group2"), // <-- changed, but there is no group2
             routeName = "route",

@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
@@ -27,7 +28,7 @@ class MonitorUpdaterTest16_group_not_found extends UnitTest with BeforeAndAfterE
           "user",
           reporter,
           MonitorRouteUpdate(
-            action = "add",
+            action = MonitorAction.add,
             groupName = "unknown-group",
             routeName = "route-name",
             referenceType = MonitorReferenceType.osm,

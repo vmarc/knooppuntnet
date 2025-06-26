@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
@@ -26,7 +27,7 @@ class MonitorUpdaterTest17_route_not_found extends UnitTest with SharedTestObjec
           "user",
           reporter,
           MonitorRouteUpdate(
-            action = "update",
+            action = MonitorAction.update,
             groupName = "group-name",
             routeName = "unknown-route-name",
             description = Some("description"),

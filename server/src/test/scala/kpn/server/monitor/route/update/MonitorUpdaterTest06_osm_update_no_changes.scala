@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
@@ -62,7 +63,7 @@ class MonitorUpdaterTest06_osm_update_no_changes extends UnitTest with BeforeAnd
           "user",
           reporter,
           MonitorRouteUpdate(
-            action = "update",
+            action = MonitorAction.update,
             groupName = group.name,
             routeName = "route",
             description = Some(""),

@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
+import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
@@ -60,7 +61,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends UnitTest with BeforeAndAfte
           "user1",
           reporter,
           MonitorRouteUpdate(
-            action = "add",
+            action = MonitorAction.add,
             groupName = group.name,
             routeName = "route-name",
             referenceType = MonitorReferenceType.gpx,
@@ -196,7 +197,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends UnitTest with BeforeAndAfte
           "user2",
           reporter,
           MonitorRouteUpdate(
-            action = "update",
+            action = MonitorAction.update,
             groupName = group.name,
             routeName = "route-name",
             referenceType = MonitorReferenceType.osm,

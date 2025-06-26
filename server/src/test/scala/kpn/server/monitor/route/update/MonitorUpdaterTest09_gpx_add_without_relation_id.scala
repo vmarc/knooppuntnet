@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
+import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
@@ -56,7 +57,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends UnitTest with Bef
           |""".stripMargin
 
       val update = MonitorRouteUpdate(
-        action = "add",
+        action = MonitorAction.add,
         groupName = group.name,
         routeName = "route-name",
         referenceType = MonitorReferenceType.gpx,
@@ -139,7 +140,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends UnitTest with Bef
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
 
       val update2 = update.copy(
-        action = "update",
+        action = MonitorAction.update,
         relationId = Some(1),
         referenceGpx = None
       )

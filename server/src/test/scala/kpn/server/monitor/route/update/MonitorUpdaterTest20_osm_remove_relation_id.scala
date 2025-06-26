@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
@@ -81,7 +82,7 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends UnitTest with BeforeAn
           "user",
           reporter,
           MonitorRouteUpdate(
-            action = "update",
+            action = MonitorAction.update,
             groupName = group.name,
             routeName = "route",
             referenceType = MonitorReferenceType.osm,

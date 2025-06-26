@@ -1,5 +1,6 @@
 package kpn.core.tools.monitor.support
 
+import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
@@ -49,7 +50,7 @@ class MonitorCreatePpRoutesTool(configuration: MonitorUpdaterConfiguration) {
                 "create-pp-routes",
                 new MonitorUpdateReporterLogger(),
                 MonitorRouteUpdate(
-                  action = "add",
+                  action = MonitorAction.add,
                   groupName = targetGroup.name,
                   routeName = targetRouteName,
                   referenceType = MonitorReferenceType.osm,

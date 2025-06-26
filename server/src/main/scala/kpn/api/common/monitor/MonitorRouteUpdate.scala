@@ -3,7 +3,7 @@ package kpn.api.common.monitor
 import kpn.api.custom.Timestamp
 
 case class MonitorRouteUpdate(
-  action: String, // "add", "update", "gpx-upload", "gpx-delete"
+  action: MonitorAction,
   groupName: String,
   routeName: String,
   referenceType: MonitorReferenceType,

@@ -1,5 +1,6 @@
 package kpn.core.tools.monitor.support
 
+import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp
@@ -38,7 +39,7 @@ class MonitorPerformanceAnalysisTool(database: Database) {
         "user",
         new MonitorUpdateReporterLogger(),
         MonitorRouteUpdate(
-          action = "update",
+          action = MonitorAction.update,
           groupName = "AAA",
           routeName = "E2",
           referenceType = MonitorReferenceType.osm,
