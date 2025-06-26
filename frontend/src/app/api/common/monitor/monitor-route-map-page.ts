@@ -2,6 +2,7 @@
 
 import { Bounds } from '@api/common/bounds';
 import { Timestamp } from '@api/custom/timestamp';
+import { MonitorReferenceType } from './monitor-reference-type';
 import { MonitorRouteDeviation } from './monitor-route-deviation';
 import { MonitorRouteReferenceInfo } from './monitor-route-reference-info';
 import { MonitorRouteSegment } from './monitor-route-segment';
@@ -13,7 +14,7 @@ export interface MonitorRouteMapPage {
   readonly routeDescription: string;
   readonly groupName: string;
   readonly groupDescription: string;
-  readonly referenceType: string;
+  readonly referenceType: MonitorReferenceType;
   readonly bounds?: Bounds;
   readonly analysisTimestamp?: Timestamp;
   readonly currentSubRelation?: MonitorRouteSubRelation;

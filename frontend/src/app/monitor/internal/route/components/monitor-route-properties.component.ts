@@ -15,6 +15,8 @@ import { Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { RouterLink } from '@angular/router';
+import { MonitorAction } from '@api/common/monitor/monitor-action';
+import { MonitorReferenceType } from '@api/common/monitor/monitor-reference-type';
 import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
 import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
@@ -161,7 +163,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
   ],
 })
 export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
-  readonly mode = input.required<string>();
+  readonly mode = input.required<MonitorAction>();
   readonly groupName = input.required<string>();
   readonly initialProperties = input.required<MonitorRouteProperties>();
   readonly routeGroups = input.required<MonitorRouteGroup[]>();
@@ -329,7 +331,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       relationId = this.relationId.value;
     }
 
-    let referenceType = '';
+    let referenceType: MonitorReferenceType = undefined;
     let referenceNow = false;
     let referenceTimestamp: Timestamp = null;
     if (this.referenceType.value === 'osm-now') {

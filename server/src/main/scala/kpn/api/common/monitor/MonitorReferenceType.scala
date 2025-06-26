@@ -12,6 +12,8 @@ object MonitorReferenceType extends Enum[MonitorReferenceType] {
 
   final case object osm extends MonitorReferenceType
 
+  final case object osmPast extends MonitorReferenceType
+
   final case object gpx extends MonitorReferenceType
 
   final case object multiGpx extends MonitorReferenceType

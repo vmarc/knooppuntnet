@@ -1,6 +1,7 @@
 // this file is generated, please do not modify
 
 import { Timestamp } from '@api/custom/timestamp';
+import { MonitorReferenceType } from './monitor-reference-type';
 import { MonitorRouteRelationStructureRow } from './monitor-route-relation-structure-row';
 
 export interface MonitorRouteDetailsPage {
@@ -14,7 +15,7 @@ export interface MonitorRouteDetailsPage {
   readonly symbol: string;
   readonly analysisTimestamp?: Timestamp;
   readonly analysisDuration: number;
-  readonly referenceType: string;
+  readonly referenceType: MonitorReferenceType;
   readonly referenceTimestamp?: Timestamp;
   readonly referenceFilename: string;
   readonly referenceDistance: number;

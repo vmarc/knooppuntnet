@@ -2,6 +2,7 @@ import { NgClass } from '@angular/common';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
+import { MonitorAction } from '@api/common/monitor/monitor-action';
 import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
 import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
@@ -36,7 +37,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   imports: [MonitorRouteFormSaveComponent, MonitorRoutePropertiesComponent, NgClass],
 })
 export class MonitorRouteFormComponent {
-  readonly mode = input.required<string>();
+  readonly mode = input.required<MonitorAction>();
   readonly groupName = input.required<string>();
   readonly initialProperties = input.required<MonitorRouteProperties>();
   readonly routeGroups = input<MonitorRouteGroup[]>([]);
