@@ -10,12 +10,12 @@ import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Envelope
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
-import org.locationtech.jts.geom.MultiLineString
+import org.locationtech.jts.geom.Point
 import org.locationtech.jts.index.strtree.STRtree
 import org.locationtech.jts.io.geojson.GeoJsonReader
 import org.springframework.stereotype.Component
 
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 case class ReferenceCoordinateSequence(
   indexes: Seq[Int]
@@ -25,9 +25,10 @@ case class ReferenceCoordinateSequence(
 class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
 
   private val geometryFactory = new GeometryFactory
-  private val sampleDistanceMeters = 10
-  private val toleranceMeters = 10
   private val log = Log(classOf[MonitorRouteDeviationAnalyzer])
+
+  private val SampleDistanceMeters = 10
+  private val ToleranceMeters = 10
 
   def analyze(ways: Seq[Way], referenceGeoJson: String): MonitorRouteDeviationAnalysis = {
 
@@ -35,22 +36,11 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
     val referenceGeometry = new GeoJsonReader().read(referenceGeoJson)
     val referenceSegments = MonitorRouteReferenceUtil.toLineStrings(referenceGeometry)
 
-    val referenceSegmentsSize = referenceSegments.size
-    val analysisResults = referenceSegments.zipWithIndex.map { case (referenceSegment, index) =>
-      Log.context(s"reference segment ${index + 1}/$referenceSegmentsSize") {
-        analyzeReferenceSegment(tree, referenceSegment)
-      }
-    }
-
+    val analysisResults = analyzeReferenceSegments(tree, referenceSegments)
     val allMatches = geometryFactory.createGeometryCollection(analysisResults.map(_.matches).toArray)
-
     val referenceDistance = Math.round(referenceSegments.map(Haversine.meters).sum)
-
     val matchesGeometry = Some(MonitorRouteAnalysisSupport.toGeoJson(allMatches))
-
-    val deviations = analysisResults.flatMap(_.deviations).sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
-      s.copy(id = index + 1)
-    }
+    val deviations = organizeDeviations(analysisResults)
 
     MonitorRouteDeviationAnalysis(
       analysisResults,
@@ -59,6 +49,22 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
       matchesGeometry,
       deviations
     )
+  }
+
+  private def analyzeReferenceSegments(tree: STRtree, referenceSegments: Seq[LineString]): Seq[DeviationAnalysisResult] = {
+    val referenceSegmentsSize = referenceSegments.size
+    val analysisResults = referenceSegments.zipWithIndex.map { case (referenceSegment, index) =>
+      Log.context(s"reference segment ${index + 1}/$referenceSegmentsSize") {
+        analyzeReferenceSegment(tree, referenceSegment)
+      }
+    }
+    analysisResults
+  }
+
+  private def organizeDeviations(analysisResults: Seq[DeviationAnalysisResult]) = {
+    analysisResults.flatMap(_.deviations).sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
+      s.copy(id = index + 1)
+    }
   }
 
   private def buildRTree(ways: Seq[Way]): STRtree = {
@@ -73,22 +79,23 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
   }
 
   private def analyzeReferenceSegment(tree: STRtree, referenceSegment: LineString): DeviationAnalysisResult = {
-
-    val referenceSampleCoordinates = MonitorRouteAnalysisSupport.toSampleCoordinates(sampleDistanceMeters, referenceSegment)
+    val referenceSampleCoordinates = MonitorRouteAnalysisSupport.toSampleCoordinates(SampleDistanceMeters, referenceSegment)
     val distances = analyzeDistances(tree, referenceSampleCoordinates)
-
-    val distanceWithinToleranceFlags = distances.map(distance => distance < toleranceMeters)
-    val flagsAndIndexes = distanceWithinToleranceFlags.zipWithIndex.map { case (flag, index) => flag -> index }
-    val splittedFlagsAndIndexes = MonitorRouteAnalysisSupport.split(flagsAndIndexes.toList)
-    val okSequences = splittedFlagsAndIndexes.filter(_.head._1).map(xx => ReferenceCoordinateSequence(xx.map(_._2)))
-    val nokSequences = splittedFlagsAndIndexes.filterNot(_.head._1).map(xx => ReferenceCoordinateSequence(xx.map(_._2)))
-
-    val matches: MultiLineString = MonitorRouteAnalysisSupport.toMultiLineString(
+    val (matchingSequences, deviationSequences) = calculateDeviations(distances, referenceSampleCoordinates)
+    val matches = MonitorRouteAnalysisSupport.toMultiLineString(
       referenceSampleCoordinates,
-      okSequences
+      matchingSequences
     )
+    val deviations = buildDeviations(deviationSequences, distances, referenceSampleCoordinates)
+    DeviationAnalysisResult(deviations, matches)
+  }
 
-    val deviations = nokSequences.zipWithIndex.flatMap { case (sequence, sequenceIndex) =>
+  private def buildDeviations(
+    deviationSequences: Seq[ReferenceCoordinateSequence],
+    distances: Vector[Double],
+    referenceSampleCoordinates: Seq[Coordinate]
+  ): Seq[MonitorRouteDeviation] = {
+    deviationSequences.zipWithIndex.flatMap { case (sequence, sequenceIndex) =>
       val maxDistance = sequence.indexes.map(index => distances(index)).max
       val lineString = MonitorRouteAnalysisSupport.toLineString(referenceSampleCoordinates, sequence)
       val meters = Math.round(Haversine.meters(lineString))
@@ -109,7 +116,18 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
         )
       }
     }
-    DeviationAnalysisResult(deviations, matches)
+  }
+
+  private def calculateDeviations(
+    distances: Vector[Double],
+    referenceSampleCoordinates: Seq[Coordinate]
+  ): (Seq[ReferenceCoordinateSequence], Seq[ReferenceCoordinateSequence]) = {
+    val distanceWithinToleranceFlags = distances.map(distance => distance < ToleranceMeters)
+    val flagsAndIndexes = distanceWithinToleranceFlags.zipWithIndex.map { case (flag, index) => flag -> index }
+    val splittedFlagsAndIndexes = MonitorRouteAnalysisSupport.split(flagsAndIndexes.toList)
+    val matchingSequences = splittedFlagsAndIndexes.filter(_.head._1).map(xx => ReferenceCoordinateSequence(xx.map(_._2)))
+    val deviationSequences = splittedFlagsAndIndexes.filterNot(_.head._1).map(xx => ReferenceCoordinateSequence(xx.map(_._2)))
+    (matchingSequences, deviationSequences)
   }
 
   private def analyzeDistances(tree: STRtree, referenceSampleCoordinates: Seq[Coordinate]): Vector[Double] = {
@@ -117,23 +135,25 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
       val distances = referenceSampleCoordinates.toVector.map { coordinate =>
         val point = geometryFactory.createPoint(coordinate)
         val lineStrings = findNearLineStrings(tree, coordinate)
-        val lineStringDistances = lineStrings.map { lineString =>
-          lineString.distance(point)
-        }
-        if (lineStringDistances.nonEmpty) {
-          val d = toMeters(lineStringDistances.min) // closest distance between reference point and osm route
-          if (d > 2500) {
-            2500 // long distance: (2500 means 2500m or more)
-          }
-          else {
-            d
-          }
-        }
-        else {
-          2500 // no near line strings means long distance (2500 means 2500m or more)
-        }
+        calculateMinimumDistance(point, lineStrings)
       }
       (s"distances (samples=${referenceSampleCoordinates.size})", distances)
+    }
+  }
+
+  private def calculateMinimumDistance(point: Point, lineStrings: Seq[LineString]): Double = {
+    val lineStringDistances = lineStrings.map(_.distance(point))
+    if (lineStringDistances.nonEmpty) {
+      val d = toMeters(lineStringDistances.min) // closest distance between reference point and osm route
+      if (d > 2500) {
+        2500 // long distance: (2500 means 2500m or more)
+      }
+      else {
+        d
+      }
+    }
+    else {
+      2500 // no near line strings means long distance (2500 means 2500m or more)
     }
   }
 

@@ -35,6 +35,7 @@ class MonitorUpdateAnalyzeReference(
       else {
         monitorRouteRelationRepository.loadTopLevel(None, relationId)
       }
+
       relationOption.flatMap { relation =>
         if (context.value.isReferenceTypeGpx) {
           updateSubRelationOsmInfo(context, relation)
@@ -48,7 +49,9 @@ class MonitorUpdateAnalyzeReference(
         }
         val wayMembers = MonitorFilter.filterWayMembers(allWayMembers)
         val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
+
         val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(wayMembers.map(_.way), reference.referenceGeoJson)
+
         val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds) ++ deviationAnalysis.deviations.map(_.bounds))
         val routeAnalysis = MonitorRouteAnalysis(
           relation,
