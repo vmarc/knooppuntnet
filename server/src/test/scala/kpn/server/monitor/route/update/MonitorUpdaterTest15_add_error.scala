@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
@@ -26,7 +27,7 @@ class MonitorUpdaterTest15_add_error extends UnitTest with BeforeAndAfterEach wi
         name = "route-name",
         relationId = None,
         user = "user",
-        referenceType = "osm",
+        referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceFilename = None,
       )
@@ -43,7 +44,7 @@ class MonitorUpdaterTest15_add_error extends UnitTest with BeforeAndAfterEach wi
             action = "add",
             groupName = "group-name",
             routeName = "route-name",
-            referenceType = "osm",
+            referenceType = MonitorReferenceType.osm,
             description = Some("description"),
             comment = Some("comment"),
             relationId = Some(1),

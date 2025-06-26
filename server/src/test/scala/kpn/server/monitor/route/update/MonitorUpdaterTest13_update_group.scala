@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
@@ -31,14 +32,14 @@ class MonitorUpdaterTest13_update_group extends UnitTest with BeforeAndAfterEach
         group1._id,
         name = "route",
         relationId = Some(1),
-        referenceType = "osm",
+        referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceFilename = None,
       )
       val reference = newMonitorRouteReference(
         routeId = route._id,
         relationId = Some(1),
-        referenceType = "osm",
+        referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Timestamp(2022, 8, 11),
       )
       val state = newMonitorRouteState(
@@ -63,7 +64,7 @@ class MonitorUpdaterTest13_update_group extends UnitTest with BeforeAndAfterEach
             groupName = group1.name,
             newGroupName = Some(group2.name), // <-- changed
             routeName = "route",
-            referenceType = "osm",
+            referenceType = MonitorReferenceType.osm,
             description = Some(""),
             relationId = Some(1),
             referenceTimestamp = Some(Timestamp(2022, 8, 11)),

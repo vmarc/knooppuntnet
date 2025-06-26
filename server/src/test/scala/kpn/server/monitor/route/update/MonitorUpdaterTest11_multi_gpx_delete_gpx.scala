@@ -1,6 +1,7 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp
@@ -33,7 +34,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
         name = "route-name",
         relationId = Some(1),
         user = "user",
-        referenceType = "osm",
+        referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceFilename = None,
         relation = Some(
@@ -79,21 +80,21 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
       val reference11 = newMonitorRouteReference(
         routeId = route._id,
         relationId = Some(11),
-        referenceType = "gpx",
+        referenceType = MonitorReferenceType.gpx,
         referenceTimestamp = Timestamp(2022, 8, 11),
         filename = Some("filename-11"),
       )
       val reference111 = newMonitorRouteReference(
         routeId = route._id,
         relationId = Some(111),
-        referenceType = "gpx",
+        referenceType = MonitorReferenceType.gpx,
         referenceTimestamp = Timestamp(2022, 8, 11),
         filename = Some("filename-111"),
       )
       val reference112 = newMonitorRouteReference(
         routeId = route._id,
         relationId = Some(112),
-        referenceType = "gpx",
+        referenceType = MonitorReferenceType.gpx,
         referenceTimestamp = Timestamp(2022, 8, 11),
         filename = Some("filename-112"),
       )
@@ -145,7 +146,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
             action = "gpx-delete",
             groupName = group.name,
             routeName = "route-name",
-            referenceType = "multi-gpx",
+            referenceType = MonitorReferenceType.multiGpx,
             relationId = Some(111),
           )
         )

@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -53,7 +54,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
             action = "add",
             groupName = group.name,
             routeName = "route-name",
-            referenceType = "osm",
+            referenceType = MonitorReferenceType.osm,
             description = Some("route-description"),
             comment = Some("route-comment"),
             relationId = Some(1),
@@ -81,7 +82,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
           symbol = None,
           analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
           analysisDuration = None,
-          referenceType = "osm",
+          referenceType = MonitorReferenceType.osm,
           referenceTimestamp = Some(referenceTimestamp),
           referenceFilename = None,
           referenceDistance = 274,
@@ -187,7 +188,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           user = "user",
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-          referenceType = "osm",
+          referenceType = MonitorReferenceType.osm,
           referenceTimestamp = Timestamp(2022, 8, 11),
           referenceDistance = 181,
           referenceSegmentCount = 1,
@@ -206,7 +207,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           user = "user",
           referenceBounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
-          referenceType = "osm",
+          referenceType = MonitorReferenceType.osm,
           referenceTimestamp = Timestamp(2022, 8, 11),
           referenceDistance = 93,
           referenceSegmentCount = 1,

@@ -1,11 +1,12 @@
 package e2e
 
+import com.microsoft.playwright.Page
 import com.microsoft.playwright.assertions.LocatorAssertions
 import com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat
-import com.microsoft.playwright.Page
 import com.microsoft.playwright.options.AriaRole
 import e2e.pages.Application
 import kpn.api.common.common.User
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.database.base.Database
 import kpn.database.base.DatabaseImpl
 import kpn.database.util.Mongo
@@ -419,7 +420,7 @@ class ApplicationTest extends EndToEndTest {
     route.comment should equal(Some("route comment"))
     route.relationId should equal(None)
     route.user should equal("test-user")
-    route.referenceType should equal("multi-gpx")
+    route.referenceType should equal(MonitorReferenceType.multiGpx)
     route.referenceTimestamp should equal(None)
     route.referenceFilename should equal(None)
     route.relation should equal(None)

@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
@@ -31,7 +32,7 @@ class MonitorUpdaterTest17_route_not_found extends UnitTest with SharedTestObjec
             description = Some("description"),
             comment = Some("comment"),
             relationId = Some(1),
-            referenceType = "osm",
+            referenceType = MonitorReferenceType.osm,
             referenceTimestamp = Some(Timestamp(2022, 8, 11)),
           )
         )

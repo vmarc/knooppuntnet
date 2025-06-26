@@ -58,6 +58,7 @@ import kpn.api.common.diff.node.NodeMoved
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
@@ -1080,7 +1081,7 @@ trait SharedTestObjects extends MockFactory {
     symbol: Option[String] = None,
     analysisTimestamp: Option[Timestamp] = None,
     analysisDuration: Option[Long] = None,
-    referenceType: String = "gpx",
+    referenceType: MonitorReferenceType = MonitorReferenceType.gpx,
     referenceTimestamp: Option[Timestamp] = None,
     referenceDistance: Long = 0,
     referenceFilename: Option[String] = None,
@@ -1194,7 +1195,7 @@ trait SharedTestObjects extends MockFactory {
     timestamp: Timestamp = Time.now,
     user: String = "",
     bounds: Bounds = Bounds(),
-    referenceType: String = "",
+    referenceType: MonitorReferenceType = MonitorReferenceType.gpx,
     referenceTimestamp: Timestamp = Time.now,
     distance: Long = 0,
     segmentCount: Long = 0,

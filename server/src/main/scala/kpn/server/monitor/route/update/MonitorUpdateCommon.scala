@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.core.util.Log
 import kpn.server.monitor.MonitorUtil
@@ -50,7 +51,7 @@ class MonitorUpdateCommon(
       case None => context.value
       case Some(newRoute) =>
         val oldReferenceType = context.value.oldRoute.map(_.referenceType)
-        if (newRoute.referenceType == "multi-gpx" && !oldReferenceType.contains("multi-gpx")) {
+        if (newRoute.referenceType == MonitorReferenceType.multiGpx && !oldReferenceType.contains(MonitorReferenceType.multiGpx)) {
           context.value.oldReferenceIds.foreach { referenceId =>
             monitorRouteRepository.deleteRouteReferenceById(referenceId._id)
           }
@@ -59,7 +60,7 @@ class MonitorUpdateCommon(
           )
         }
         else {
-          if (newRoute.referenceType == "osm") {
+          if (newRoute.referenceType == MonitorReferenceType.osm) {
             val allRelationIds = newRoute.relationId.toSeq ++ MonitorUtil.subRelationsIn(newRoute).map(_.relationId)
             if (allRelationIds.isEmpty) {
               monitorRouteRepository.deleteRouteReferences(newRoute._id)

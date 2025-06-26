@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
@@ -36,7 +37,7 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends UnitTest with BeforeAn
         relationId = Some(1),
         user = "user",
         symbol = Some("red:red:white_bar"),
-        referenceType = "osm",
+        referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceFilename = None,
         referenceDistance = 1000,
@@ -59,7 +60,7 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends UnitTest with BeforeAn
       val reference = newMonitorRouteReference(
         routeId = route._id,
         relationId = Some(1),
-        referenceType = "osm",
+        referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Timestamp(2022, 8, 11),
       )
       val state = newMonitorRouteState(
@@ -83,7 +84,7 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends UnitTest with BeforeAn
             action = "update",
             groupName = group.name,
             routeName = "route",
-            referenceType = "osm",
+            referenceType = MonitorReferenceType.osm,
             description = Some("route description"),
             relationId = None,
             referenceTimestamp = Some(Timestamp(2022, 8, 1)),
@@ -112,7 +113,7 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends UnitTest with BeforeAn
           symbol = None,
           analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
           analysisDuration = None,
-          referenceType = "osm",
+          referenceType = MonitorReferenceType.osm,
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = None,
           referenceDistance = 0,

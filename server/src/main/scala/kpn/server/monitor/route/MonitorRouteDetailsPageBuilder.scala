@@ -1,5 +1,6 @@
 package kpn.server.monitor.route
 
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteRelationStructureRow
@@ -94,14 +95,14 @@ class MonitorRouteDetailsPageBuilder(
   private def toRow(route: MonitorRoute, level: Long, monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelationStructureRow = {
     val physical = monitorRouteRelation.osmDistance > 0 || monitorRouteRelation.referenceFilename.isDefined
 
-    val visible = if (route.referenceType == "gpx") {
+    val visible = if (route.referenceType == MonitorReferenceType.gpx) {
       level == 1
     }
     else {
       physical
     }
 
-    val showMap = if (route.referenceType == "gpx") level == 1 else physical
+    val showMap = if (route.referenceType == MonitorReferenceType.gpx) level == 1 else physical
     val deviationDistance = if (visible) Some(monitorRouteRelation.deviationDistance) else None
     val deviationCount = if (visible) Some(monitorRouteRelation.deviationCount) else None
     val osmSegmentCount = if (visible) Some(monitorRouteRelation.osmSegmentCount) else None

@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorGroup
@@ -7,12 +8,9 @@ import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorRouteRepository
-import org.springframework.beans.factory.config.ConfigurableBeanFactory
-import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 
 @Component
-@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 class MonitorUpdateAnalysis(
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateStructure: MonitorUpdateStructure,
@@ -23,13 +21,12 @@ class MonitorUpdateAnalysis(
 
   private val log = Log(classOf[MonitorUpdateAnalysis])
 
-  private val context = new MonitorContext()
-
   def updateAnalysis(group: MonitorGroup, oldRoute: MonitorRoute): Unit = {
 
     Log.context(s"${group.name}, ${oldRoute.name}") {
       log.infoElapsed {
 
+        val context = new MonitorContext()
         val reporter = new MonitorUpdateReporterLogger()
         context.set(
           MonitorUpdateContext(
@@ -56,14 +53,14 @@ class MonitorUpdateAnalysis(
 
         monitorUpdateCommon.removeObsoleteStates(context)
 
-        if (oldRoute.referenceType == "multi-gpx") {
-          analyzeMultiGpx(oldRoute)
+        if (oldRoute.referenceType == MonitorReferenceType.multiGpx) {
+          analyzeMultiGpx(context, oldRoute)
         }
-        else if (oldRoute.referenceType == "gpx") {
-          analyzeGpx(oldRoute)
+        else if (oldRoute.referenceType == MonitorReferenceType.gpx) {
+          analyzeGpx(context, oldRoute)
         }
         else {
-          analyzeOsm(oldRoute)
+          analyzeOsm(context, oldRoute)
         }
 
         monitorUpdateSave.save(context)
@@ -72,7 +69,7 @@ class MonitorUpdateAnalysis(
     }
   }
 
-  private def analyzeMultiGpx(route: MonitorRoute): Unit = {
+  private def analyzeMultiGpx(context: MonitorContext, route: MonitorRoute): Unit = {
     route.relation match {
       case None =>
       case Some(rootMonitorRouteRelation) =>
@@ -109,7 +106,7 @@ class MonitorUpdateAnalysis(
     }
   }
 
-  private def analyzeGpx(route: MonitorRoute): Unit = {
+  private def analyzeGpx(context: MonitorContext, route: MonitorRoute): Unit = {
     monitorRouteRepository.routeReference(route._id, route.relationId) match {
       case None => log.error("reference not found")
       case Some(reference) =>
@@ -139,7 +136,7 @@ class MonitorUpdateAnalysis(
     }
   }
 
-  private def analyzeOsm(route: MonitorRoute): Unit = {
+  private def analyzeOsm(context: MonitorContext, route: MonitorRoute): Unit = {
     route.relation match {
       case None =>
       case Some(rootMonitorRouteRelation) =>

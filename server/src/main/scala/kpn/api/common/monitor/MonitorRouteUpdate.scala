@@ -6,7 +6,7 @@ case class MonitorRouteUpdate(
   action: String, // "add", "update", "gpx-upload", "gpx-delete"
   groupName: String,
   routeName: String,
-  referenceType: String, // "osm" | "gpx" | "multi-gpx"
+  referenceType: MonitorReferenceType,
   description: Option[String] = None,
   comment: Option[String] = None,
   relationId: Option[Long] = None,

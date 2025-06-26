@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp
 import kpn.core.loadOld.Parser
@@ -173,7 +174,7 @@ class TaunusKlubTool(configuration: MonitorUpdaterConfiguration) {
             action = "add",
             groupName = "de-tc",
             routeName = routeInfo.name,
-            referenceType = "osm",
+            referenceType = MonitorReferenceType.osm,
             referenceTimestamp = Some(Timestamp(2024, 2, 1)),
             description = Some(routeInfo.description),
             comment = None,

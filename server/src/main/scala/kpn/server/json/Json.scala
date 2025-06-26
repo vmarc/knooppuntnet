@@ -24,6 +24,7 @@ import kpn.api.common.diff.TagDiffType
 import kpn.api.common.location.BooleanParameter
 import kpn.api.common.location.LastUpdatedParameter
 import kpn.api.common.location.SurveyParameter
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.planner.PlanCoordinate
 import kpn.api.common.route.LinkDirection
 import kpn.api.common.route.WayDirection
@@ -62,6 +63,8 @@ import kpn.server.json.enumeratum.LinkDirectionJsonDeserializer
 import kpn.server.json.enumeratum.LinkDirectionJsonSerializer
 import kpn.server.json.enumeratum.MemberTypeJsonDeserializer
 import kpn.server.json.enumeratum.MemberTypeJsonSerializer
+import kpn.server.json.enumeratum.MonitorReferenceTypeJsonDeserializer
+import kpn.server.json.enumeratum.MonitorReferenceTypeJsonSerializer
 import kpn.server.json.enumeratum.RouteScopeJsonDeserializer
 import kpn.server.json.enumeratum.RouteScopeJsonSerializer
 import kpn.server.json.enumeratum.RouteTypeJsonDeserializer
@@ -183,6 +186,9 @@ object Json {
 
     b.deserializerByType(classOf[TagDiffType], new TagDiffTypeJsonDeserializer())
     b.serializerByType(classOf[TagDiffType], new TagDiffTypeJsonSerializer())
+
+    b.deserializerByType(classOf[MonitorReferenceType], new MonitorReferenceTypeJsonDeserializer())
+    b.serializerByType(classOf[MonitorReferenceType], new MonitorReferenceTypeJsonSerializer())
 
     b.deserializerByType(classOf[CoordinateArray], new CoordinateArrayJsonDeserializer())
 

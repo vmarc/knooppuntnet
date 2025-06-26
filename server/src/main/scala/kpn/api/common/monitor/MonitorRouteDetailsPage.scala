@@ -13,7 +13,7 @@ case class MonitorRouteDetailsPage(
   symbol: Option[String],
   analysisTimestamp: Option[Timestamp],
   analysisDuration: Option[Long],
-  referenceType: String,
+  referenceType: MonitorReferenceType,
   referenceTimestamp: Option[Timestamp],
   referenceFilename: Option[String],
   referenceDistance: Long,

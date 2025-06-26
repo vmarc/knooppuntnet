@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -43,7 +44,7 @@ class MonitorUpdaterTest07_osm_update_properties extends UnitTest with BeforeAnd
         symbol = None,
         analysisTimestamp = None,
         analysisDuration = None,
-        referenceType = "osm",
+        referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Some(Timestamp(2022, 8, 1)),
         referenceFilename = None,
         referenceDistance = 196,
@@ -109,7 +110,7 @@ class MonitorUpdaterTest07_osm_update_properties extends UnitTest with BeforeAnd
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         user = "user1",
         referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        referenceType = "osm",
+        referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Timestamp(2022, 8, 1),
         referenceDistance = 196,
         referenceSegmentCount = 1,
@@ -132,7 +133,7 @@ class MonitorUpdaterTest07_osm_update_properties extends UnitTest with BeforeAnd
             action = "update",
             groupName = group.name,
             routeName = "route-name",
-            referenceType = "osm",
+            referenceType = MonitorReferenceType.osm,
             description = Some("description-changed"), // <-- changed
             comment = Some("comment-changed"), // <-- changed
             relationId = Some(1),

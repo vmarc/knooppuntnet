@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
@@ -32,7 +33,7 @@ class MonitorUpdaterTest14_update_group_error extends UnitTest with BeforeAndAft
         name = "route",
         relationId = Some(1),
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
-        referenceType = "osm",
+        referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Some(Timestamp(2022, 8, 1)),
         referenceFilename = None,
       )
@@ -45,7 +46,7 @@ class MonitorUpdaterTest14_update_group_error extends UnitTest with BeforeAndAft
         routeId = route._id,
         relationId = Some(1),
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
-        referenceType = "osm",
+        referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Timestamp(2022, 8, 1),
       )
 
@@ -65,7 +66,7 @@ class MonitorUpdaterTest14_update_group_error extends UnitTest with BeforeAndAft
             groupName = "group1",
             newGroupName = Some("group2"), // <-- changed, but there is no group2
             routeName = "route",
-            referenceType = "osm",
+            referenceType = MonitorReferenceType.osm,
             description = Some(""),
             comment = None,
             relationId = Some(1),

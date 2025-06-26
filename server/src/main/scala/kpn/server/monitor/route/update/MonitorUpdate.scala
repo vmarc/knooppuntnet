@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
@@ -150,7 +151,7 @@ class MonitorUpdate(
               timestamp = Time.now,
               user = context.value.user,
               referenceBounds = referenceBounds,
-              referenceType = "gpx",
+              referenceType = MonitorReferenceType.gpx,
               referenceTimestamp = referenceTimestamp,
               referenceDistance = referenceDistance,
               referenceSegmentCount = referenceSegmentCount,
@@ -232,7 +233,7 @@ class MonitorUpdate(
           timestamp = now,
           user = context.value.user,
           referenceBounds = referenceBounds,
-          referenceType = "gpx",
+          referenceType = MonitorReferenceType.gpx,
           referenceTimestamp = referenceTimestamp,
           referenceDistance = referenceDistance,
           referenceSegmentCount = referenceSegmentCount,
@@ -345,7 +346,7 @@ class MonitorUpdate(
             Time.now,
             context.value.user,
             bounds,
-            "osm",
+            MonitorReferenceType.osm,
             context.value.newRoute.get.referenceTimestamp.get,
             analysis.osmDistance,
             analysis.routeSegments.size,

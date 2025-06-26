@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -58,7 +59,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends UnitTest with Bef
         action = "add",
         groupName = group.name,
         routeName = "route-name",
-        referenceType = "gpx",
+        referenceType = MonitorReferenceType.gpx,
         description = Some("route-description"),
         comment = Some("route-comment"),
         relationId = None, // <-- no relationId yet
@@ -98,7 +99,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends UnitTest with Bef
           symbol = None,
           analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
           analysisDuration = None,
-          referenceType = "gpx",
+          referenceType = MonitorReferenceType.gpx,
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = Some("filename"),
           referenceDistance = 181,
@@ -126,7 +127,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends UnitTest with Bef
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           user = "user1",
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-          referenceType = "gpx",
+          referenceType = MonitorReferenceType.gpx,
           referenceTimestamp = Timestamp(2022, 8, 1),
           referenceDistance = 181,
           referenceSegmentCount = 1,
@@ -224,7 +225,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends UnitTest with Bef
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0), // <-- date that reference was added, not latest change by "user2"
           user = "user1", // <-- not "user2" who provided the relationId, the reference was still added by "user1"
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-          referenceType = "gpx",
+          referenceType = MonitorReferenceType.gpx,
           referenceTimestamp = Timestamp(2022, 8, 1),
           referenceDistance = 181,
           referenceSegmentCount = 1,

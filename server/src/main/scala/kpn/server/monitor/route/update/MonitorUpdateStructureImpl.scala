@@ -1,9 +1,10 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.core.util.Log
-import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.MonitorUtil
+import kpn.server.monitor.domain.MonitorRoute
 import org.springframework.stereotype.Component
 
 @Component
@@ -25,31 +26,7 @@ class MonitorUpdateStructureImpl(
         newRoute.relationId match {
           case None =>
             // relationId has not been defined for the route yet, so cannot pick up route structure yet
-            val updatedNewRoute = context.newRoute.get.copy(
-              symbol = None,
-              deviationDistance = 0,
-              deviationCount = 0,
-              osmWayCount = 0,
-              osmDistance = 0,
-              osmSegmentCount = 0,
-              osmSegments = Seq.empty,
-              relation = None,
-              happy = false
-            )
-
-            val updatedNewRoute2 = if (updatedNewRoute.referenceType == "osm") {
-              updatedNewRoute.copy(
-                referenceFilename = None,
-                referenceDistance = 0,
-              )
-            }
-            else {
-              updatedNewRoute
-            }
-
-            context.copy(
-              newRoute = Some(updatedNewRoute2)
-            )
+            buildEmptyRouteStructure(context)
 
           case Some(relationId) =>
 
@@ -71,6 +48,34 @@ class MonitorUpdateStructureImpl(
     }
   }
 
+  private def buildEmptyRouteStructure(context: MonitorUpdateContext): MonitorUpdateContext = {
+    val updatedNewRoute = context.newRoute.get.copy(
+      symbol = None,
+      deviationDistance = 0,
+      deviationCount = 0,
+      osmWayCount = 0,
+      osmDistance = 0,
+      osmSegmentCount = 0,
+      osmSegments = Seq.empty,
+      relation = None,
+      happy = false
+    )
+
+    val finalRoute = if (updatedNewRoute.referenceType == MonitorReferenceType.osm) {
+      updatedNewRoute.copy(
+        referenceFilename = None,
+        referenceDistance = 0,
+      )
+    }
+    else {
+      updatedNewRoute
+    }
+
+    context.copy(
+      newRoute = Some(finalRoute)
+    )
+  }
+
   private def loadStructure(context: MonitorUpdateContext, newRoute: MonitorRoute, relationId: Long): MonitorUpdateContext = {
     log.info(s"load structure relationId=$relationId")
     monitorRouteStructureLoader.load(None, relationId) match {
@@ -78,7 +83,7 @@ class MonitorUpdateStructureImpl(
         context // TODO add message in saveResult: "could not load route structure"
       case Some(monitorRouteRelation) =>
         log.info(s"load structure relationId=$relationId, subrelations=${monitorRouteRelation.relations.size}")
-        val updatedMonitorRouteRelation = if (newRoute.referenceType == "multi-gpx") {
+        val updatedMonitorRouteRelation = if (newRoute.referenceType == MonitorReferenceType.multiGpx) {
           updateMultiGpxReferences(monitorRouteRelation, newRoute)
         }
         else {
@@ -94,7 +99,6 @@ class MonitorUpdateStructureImpl(
         )
     }
   }
-
 
   private def updateMultiGpxReferences(monitorRouteRelation: MonitorRouteRelation, oldRoute: MonitorRoute): MonitorRouteRelation = {
 

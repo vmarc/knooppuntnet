@@ -1,6 +1,7 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatus
 import kpn.server.monitor.domain.MonitorGroup
@@ -13,7 +14,7 @@ case class MonitorUpdateContext(
   user: String,
   reporter: MonitorUpdateReporter,
   update: MonitorRouteUpdate,
-  referenceType: Option[String] = None,
+  referenceType: Option[MonitorReferenceType] = None,
   status: MonitorRouteUpdateStatus = MonitorRouteUpdateStatus(),
   group: Option[MonitorGroup] = None,
   oldRoute: Option[MonitorRoute] = None,
@@ -82,11 +83,11 @@ case class MonitorUpdateContext(
           true
         }
         else {
-          if (update.referenceType == "osm") {
+          if (update.referenceType == MonitorReferenceType.osm) {
             route.relationId != update.relationId ||
               route.referenceTimestamp != update.referenceTimestamp
           }
-          else if (update.referenceType == "gpx") {
+          else if (update.referenceType == MonitorReferenceType.gpx) {
             update.referenceGpx.nonEmpty
           }
           else {
@@ -96,11 +97,11 @@ case class MonitorUpdateContext(
     }
   }
 
-  def isReferenceTypeGpx: Boolean = referenceType.contains("gpx")
+  def isReferenceTypeGpx: Boolean = referenceType.contains(MonitorReferenceType.gpx)
 
-  def isReferenceTypeMultiGpx: Boolean = referenceType.contains("multi-gpx")
+  def isReferenceTypeMultiGpx: Boolean = referenceType.contains(MonitorReferenceType.multiGpx)
 
-  def isReferenceTypeOsm: Boolean = referenceType.contains("osm")
+  def isReferenceTypeOsm: Boolean = referenceType.contains(MonitorReferenceType.osm)
 
   def isActionAdd: Boolean = update != null && update.action == "add"
 

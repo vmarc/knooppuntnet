@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -46,7 +47,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         action = "add",
         groupName = group.name,
         routeName = "route-name",
-        referenceType = "multi-gpx",
+        referenceType = MonitorReferenceType.multiGpx,
         description = Some("route-description"),
         comment = Some("route-comment"),
         relationId = Some(1),
@@ -83,7 +84,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           symbol = None,
           analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
           analysisDuration = None,
-          referenceType = "multi-gpx",
+          referenceType = MonitorReferenceType.multiGpx,
           referenceTimestamp = None,
           referenceDistance = 0,
           referenceFilename = None,
@@ -256,7 +257,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         action = "gpx-upload",
         groupName = group.name,
         routeName = "route-name",
-        referenceType = "multi-gpx",
+        referenceType = MonitorReferenceType.multiGpx,
         relationId = Some(11),
         referenceTimestamp = Some(Timestamp(2022, 8, 1, 0, 0, 0)),
         referenceFilename = Some("filename-1"),
@@ -315,7 +316,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           user = "user2",
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-          referenceType = "gpx", // the route reference type is "multi-gpx", but the invidual reference is "gpx"
+          referenceType = MonitorReferenceType.gpx, // the route reference type is "multi-gpx", but the invidual reference is "gpx"
           referenceTimestamp = Timestamp(2022, 8, 1),
           referenceDistance = 181,
           referenceSegmentCount = 1,
@@ -360,7 +361,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         action = "gpx-upload",
         groupName = group.name,
         routeName = "route-name",
-        referenceType = "multi-gpx",
+        referenceType = MonitorReferenceType.multiGpx,
         relationId = Some(12),
         referenceTimestamp = Some(Timestamp(2022, 8, 2, 0, 0, 0)),
         referenceFilename = Some("filename-2"),
@@ -434,7 +435,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           timestamp = Timestamp(2022, 8, 13, 12, 0, 0),
           user = "user3",
           referenceBounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
-          referenceType = "gpx", // the route reference type is "multi-gpx", but the invidual reference is "gpx"
+          referenceType = MonitorReferenceType.gpx, // the route reference type is "multi-gpx", but the invidual reference is "gpx"
           referenceTimestamp = Timestamp(2022, 8, 2),
           referenceDistance = 93,
           referenceSegmentCount = 1,

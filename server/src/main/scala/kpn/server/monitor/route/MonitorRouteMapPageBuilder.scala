@@ -1,6 +1,7 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.Bounds
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
 import kpn.core.util.Log
@@ -89,7 +90,7 @@ class MonitorRouteMapPageBuilder(
 
     route.relation match {
       case None =>
-        if (route.referenceType == "gpx") {
+        if (route.referenceType == MonitorReferenceType.gpx) {
           monitorRouteRepository.routeReference(route._id, None) match {
             case Some(reference) => buildPageWithGpxReferenceOnly(group, route, reference)
             case None => buildEmptyPage(group, route) // TODO or throw exception?
@@ -100,7 +101,7 @@ class MonitorRouteMapPageBuilder(
         }
 
       case Some(relation) =>
-        if (relation.relations.isEmpty || route.referenceType == "gpx") {
+        if (relation.relations.isEmpty || route.referenceType == MonitorReferenceType.gpx) {
           // build page with first sub-relation
           buildSimpleRoutePage(group, route, relation.relationId)
         }

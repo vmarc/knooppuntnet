@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -48,7 +49,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends UnitTest with BeforeAn
         relationId = Some(1),
         user = "user1",
         symbol = None,
-        referenceType = "osm",
+        referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceFilename = None,
         referenceDistance = 1000,
@@ -71,7 +72,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends UnitTest with BeforeAn
       val reference = newMonitorRouteReference(
         routeId = route._id,
         relationId = Some(1),
-        referenceType = "osm",
+        referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Timestamp(2022, 8, 11),
       )
       val state = newMonitorRouteState(
@@ -95,7 +96,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends UnitTest with BeforeAn
             action = "update",
             groupName = group.name,
             routeName = "route",
-            referenceType = "osm",
+            referenceType = MonitorReferenceType.osm,
             description = Some("description"),
             relationId = Some(2),
             referenceTimestamp = Some(Timestamp(2022, 8, 12)),
@@ -124,7 +125,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends UnitTest with BeforeAn
           symbol = None,
           analysisTimestamp = Some(Timestamp(2022, 8, 12, 12, 0, 0)),
           analysisDuration = None,
-          referenceType = "osm",
+          referenceType = MonitorReferenceType.osm,
           referenceTimestamp = Some(Timestamp(2022, 8, 12)),
           referenceFilename = None,
           referenceDistance = 181,
@@ -184,7 +185,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends UnitTest with BeforeAn
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           user = "user2",
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-          referenceType = "osm",
+          referenceType = MonitorReferenceType.osm,
           referenceTimestamp = Timestamp(2022, 8, 12),
           referenceDistance = 181,
           referenceSegmentCount = 1,

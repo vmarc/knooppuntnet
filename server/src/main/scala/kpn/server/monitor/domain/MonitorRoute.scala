@@ -2,6 +2,7 @@ package kpn.server.monitor.domain
 
 import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.custom.Timestamp
 
@@ -25,10 +26,7 @@ case class MonitorRoute(
 
   // *** reference information ***
 
-  /*
-    possible values: "osm", "gpx", "multi-gpx"
-   */
-  referenceType: String,
+  referenceType: MonitorReferenceType,
 
   /*
     The "referenceTimestamp" is only filled in when the reference type is "osm" or "gpx".

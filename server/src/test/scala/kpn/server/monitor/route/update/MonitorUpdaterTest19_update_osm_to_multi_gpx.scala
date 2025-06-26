@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -50,7 +51,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends UnitTest with BeforeA
             action = "add",
             groupName = group.name,
             routeName = "route-name",
-            referenceType = "osm",
+            referenceType = MonitorReferenceType.osm,
             description = Some("route-description"),
             comment = Some("route-comment"),
             relationId = Some(1),
@@ -78,7 +79,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends UnitTest with BeforeA
           symbol = None,
           analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
           analysisDuration = None,
-          referenceType = "osm",
+          referenceType = MonitorReferenceType.osm,
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = None,
           referenceDistance = 181,
@@ -135,7 +136,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends UnitTest with BeforeA
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           user = "user1",
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-          referenceType = "osm",
+          referenceType = MonitorReferenceType.osm,
           referenceTimestamp = Timestamp(2022, 8, 1),
           referenceDistance = 181,
           referenceSegmentCount = 1,
@@ -183,7 +184,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends UnitTest with BeforeA
             action = "update",
             groupName = group.name,
             routeName = "route-name",
-            referenceType = "multi-gpx",
+            referenceType = MonitorReferenceType.multiGpx,
             description = Some("route-description"),
             comment = Some("route-comment"),
             relationId = Some(1),
@@ -210,7 +211,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends UnitTest with BeforeA
           symbol = None,
           analysisTimestamp = Some(Timestamp(2022, 8, 12, 12, 0, 0)),
           analysisDuration = None,
-          referenceType = "multi-gpx",
+          referenceType = MonitorReferenceType.multiGpx,
           referenceTimestamp = None,
           referenceFilename = None,
           referenceDistance = 0,

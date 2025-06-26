@@ -8,7 +8,7 @@ case class MonitorRouteReferenceInfo(
   user: String,
   referenceBounds: Bounds,
   referenceDistance: Long,
-  referenceType: String, // "osm" | "gpx" | "multi-gpx"
+  referenceType: MonitorReferenceType,
   referenceTimestamp: Timestamp,
   referenceSegmentCount: Long,
   referenceFilename: Option[String],

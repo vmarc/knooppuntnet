@@ -1,6 +1,7 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.common.Time
@@ -106,7 +107,7 @@ class MonitorGpxUpload(
       timestamp = now,
       user = context.value.user,
       referenceBounds = bounds,
-      referenceType = "gpx",
+      referenceType = MonitorReferenceType.gpx,
       referenceTimestamp = referenceTimestamp,
       referenceDistance = distance,
       referenceSegmentCount = segmentCount,

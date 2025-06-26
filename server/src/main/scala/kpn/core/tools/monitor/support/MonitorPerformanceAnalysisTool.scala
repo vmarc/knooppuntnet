@@ -1,5 +1,6 @@
 package kpn.core.tools.monitor.support
 
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
@@ -40,7 +41,7 @@ class MonitorPerformanceAnalysisTool(database: Database) {
           action = "update",
           groupName = "AAA",
           routeName = "E2",
-          referenceType = "osm",
+          referenceType = MonitorReferenceType.osm,
           description = Some(""),
           relationId = Some(1254604),
           referenceTimestamp = Some(Timestamp(2023, 6, 1)),
