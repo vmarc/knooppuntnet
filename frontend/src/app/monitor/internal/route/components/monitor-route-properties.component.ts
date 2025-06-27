@@ -64,9 +64,9 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
     MonitorRoutePropertiesStep6CommentComponent,
     NzButtonComponent,
     NzDividerComponent,
+    NzFormDirective,
     ReactiveFormsModule,
     RouterLink,
-    NzFormDirective,
   ],
 })
 export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
@@ -101,9 +101,6 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   }
 
   save(): void {
-    console.log('SUBMIT');
-    if (this.monitorForm.form.valid) {
-      this.monitorForm.save();
-    }
+    this.monitorForm.save();
   }
 }

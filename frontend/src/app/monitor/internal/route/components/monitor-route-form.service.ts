@@ -33,6 +33,7 @@ export class MonitorRouteForm {
 
   private readonly monitorService = inject(MonitorService);
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
+  private isSubmitted = false;
 
   readonly group = new FormControl<MonitorRouteGroup>(null);
 
@@ -160,16 +161,33 @@ export class MonitorRouteForm {
     this.subscriptions.unsubscribe();
   }
 
+  validateStatus(formControl: FormControl): string {
+    if (
+      formControl.invalid &&
+      formControl.errors &&
+      (formControl.dirty || formControl.touched || this.isSubmitted)
+    ) {
+      return 'error';
+    }
+    if (this.name.valid) {
+      return 'success';
+    }
+    return undefined;
+  }
+
   save(): void {
-    if (this.referenceFile.value) {
-      const file = this.referenceFile.value;
-      const promise = file.text();
-      console.log(`Send file ${file.name}, size=${file.size}`);
-      from(promise).subscribe((referenceGpx) => {
-        this.doSave(referenceGpx);
-      });
-    } else {
-      this.doSave(null);
+    this.isSubmitted = true;
+    if (this.form.valid) {
+      if (this.referenceFile.value) {
+        const file = this.referenceFile.value;
+        const promise = file.text();
+        console.log(`Send file ${file.name}, size=${file.size}`);
+        from(promise).subscribe((referenceGpx) => {
+          this.doSave(referenceGpx);
+        });
+      } else {
+        this.doSave(null);
+      }
     }
   }
 
