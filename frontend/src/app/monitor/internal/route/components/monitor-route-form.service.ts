@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 import { AsyncValidatorFn } from '@angular/forms';
@@ -32,8 +31,6 @@ export class MonitorRouteForm {
   routeGroups: MonitorRouteGroup[];
   // TODO redesign -  readonly update = output<MonitorRouteUpdate>();
 
-  protected readonly currentStep = signal<number>(0);
-
   private readonly monitorService = inject(MonitorService);
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 
@@ -57,11 +54,8 @@ export class MonitorRouteForm {
 
   readonly comment = new FormControl<string>(null);
 
-  readonly groupForm = new FormGroup({
-    group: this.group,
-  });
-
   readonly nameForm = new FormGroup({
+    group: this.group,
     name: this.name,
     description: this.description,
   });
@@ -91,7 +85,6 @@ export class MonitorRouteForm {
 
   readonly form = new FormGroup(
     {
-      groupForm: this.groupForm,
       nameForm: this.nameForm,
       relationIdForm: this.relationIdForm,
       referenceTypeForm: this.referenceTypeForm,
@@ -120,19 +113,14 @@ export class MonitorRouteForm {
 
     this.monitorWebsocketService.reset();
     if (this.mode === 'add') {
-      this.groupForm.setValue({
-        group: { groupName: this.groupName, groupDescription: '' },
-      });
       this.osmReferenceDate.setValue(new Date());
       this.gpxReferenceDate.setValue(new Date());
     } else {
       const initialGroup = this.routeGroups.find(
         (g) => g.groupName === this.initialProperties.groupName
       );
-      this.groupForm.setValue({
-        group: initialGroup,
-      });
       this.nameForm.setValue({
+        group: initialGroup,
         name: this.initialProperties.name,
         description: this.initialProperties.description,
       });
@@ -170,10 +158,6 @@ export class MonitorRouteForm {
 
   destroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  groupLink(): string {
-    return `/monitor/groups/${this.groupName}`;
   }
 
   save(): void {
@@ -280,7 +264,7 @@ export class MonitorRouteForm {
   }
 
   private validateRouteNameUnique(): Observable<ValidationErrors | null> {
-    const validationGroupName = this.group.value.groupName;
+    const validationGroupName = this.group.value?.groupName;
     const validationRouteName = this.name.value;
 
     if (

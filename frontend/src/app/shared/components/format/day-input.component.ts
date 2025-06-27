@@ -1,53 +1,33 @@
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DateAdapter } from '@angular/material/core';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { DayUtil } from '@app/shared/components/day-util';
-import { KpnDateAdapter } from '@app/shared/components/day/kpn-date-adapter';
+import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
+import { NzFormItemComponent } from 'ng-zorro-antd/form';
+import { NzFormControlComponent } from 'ng-zorro-antd/form';
+import { NzFormLabelComponent } from 'ng-zorro-antd/form';
 
 @Component({
   selector: 'ui-day-input',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-form-field>
-      <mat-label>{{ label() }}</mat-label>
-      <input matInput [matDatepicker]="picker" [formControl]="date()" />
-      <mat-hint>{{ dateFormatString() }}</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="picker" />
-      <mat-datepicker #picker />
-    </mat-form-field>
+    <nz-form-item nzHasFeedback>
+      <nz-form-label>{{ label() }}</nz-form-label>
+      <nz-form-control>
+        <nz-date-picker [formControl]="date()" />
+      </nz-form-control>
+    </nz-form-item>
   `,
-  providers: [
-    MatNativeDateModule,
-    {
-      provide: DateAdapter,
-      useClass: KpnDateAdapter,
-      deps: [MAT_DATE_LOCALE],
-    },
-  ],
   imports: [
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule,
     ReactiveFormsModule,
+    NzFormLabelComponent,
+    NzFormControlComponent,
+    NzDatePickerComponent,
+    NzFormItemComponent,
   ],
 })
 export class DayInputComponent {
   readonly date = input.required<FormControl<Date | null>>();
   readonly label = input.required<string>();
-
-  private readonly matDateLocale = inject(MAT_DATE_LOCALE);
-
-  dateFormatString(): string {
-    return DayUtil.formatString(this.matDateLocale.toString());
-  }
 }

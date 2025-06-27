@@ -2,12 +2,15 @@ import { NgClass } from '@angular/common';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { MonitorRouteForm } from '@app/monitor/internal/route/components/monitor-route-form.service';
 import { DayInputComponent } from '@app/shared/components/format/day-input.component';
 import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
+import { NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzFormItemComponent } from 'ng-zorro-antd/form';
+import { NzFormControlComponent } from 'ng-zorro-antd/form';
 
 @Component({
   selector: 'ui-monitor-route-properties-step-5-reference-details',
@@ -37,32 +40,41 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
           </p>
         }
 
-        <p i18n="@@monitor.route.properties.reference-details.day">
-          Select the date (midnight) of the route relation state that will serve as a reference:
-        </p>
-        <ui-day-input
-          id="osm-reference-date"
-          [date]="osmReferenceDate"
-          label="Reference day"
-          i18n-label="@@monitor.route.properties.reference-details.day.label"
-        />
+        <nz-form-item nzHasFeedback>
+          <nz-form-label nzRequired i18n="@@monitor.route.properties.reference-details.day">
+            Select the date (midnight) of the route relation state that will serve as a reference
+          </nz-form-label>
+          <nz-form-control>
+            <nz-date-picker id="osm-reference-date" [formControl]="osmReferenceDate" />
+            <ng-template #descriptionError let-osmReferenceDate>
+              @if (osmReferenceDate.errors['required']) {
+                <span
+                  id="osm-reference-date-required-error"
+                  i18n="@@monitor.route.reference-day.required"
+                >
+                  Please provide a valid reference day
+                </span>
+              }
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
 
-        @if (
-          osmReferenceDate.invalid &&
-          osmReferenceDate.errors &&
-          (osmReferenceDate.touched || ngForm.submitted)
-        ) {
-          <div class="kpn-form-error">
-            @if (osmReferenceDate.errors['required']) {
-              <div
-                id="osm-reference-date-required-error"
-                i18n="@@monitor.route.reference-day.required"
-              >
-                Please provide a valid reference day
-              </div>
-            }
-          </div>
-        }
+        <!--        @if (-->
+        <!--          osmReferenceDate.invalid &&-->
+        <!--          osmReferenceDate.errors &&-->
+        <!--          (osmReferenceDate.touched || ngForm.submitted)-->
+        <!--        ) {-->
+        <!--          <div class="kpn-form-error">-->
+        <!--            @if (osmReferenceDate.errors['required']) {-->
+        <!--              <div-->
+        <!--                id="osm-reference-date-required-error"-->
+        <!--                i18n="@@monitor.route.reference-day.required"-->
+        <!--              >-->
+        <!--                Please provide a valid reference day-->
+        <!--              </div>-->
+        <!--            }-->
+        <!--          </div>-->
+        <!--        }-->
       </div>
 
       <div [ngClass]="{ hidden: referenceType.value !== 'gpx' }">
@@ -78,7 +90,7 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
             #fileInput
           />
           <button
-            mat-stroked-button
+            nz-button
             (click)="fileInput.click()"
             type="button"
             i18n="@@monitor.route.properties.reference-details.file.select"
@@ -151,10 +163,6 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
         </p>
       </div>
     </form>
-    <div class="kpn-button-group">
-      <button id="step5-back" nz-button nzType="default" i18n="@@action.back">Back</button>
-      <button id="step5-next" nz-button nzType="default" i18n="@@action.next">Next</button>
-    </div>
   `,
   styles: `
     .file-input {
@@ -162,12 +170,15 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
     }
   `,
   imports: [
-    DayInputComponent,
-    MatButtonModule,
     NgClass,
     NzButtonComponent,
+    NzDatePickerComponent,
+    NzFormControlComponent,
+    NzFormItemComponent,
+    NzFormLabelComponent,
     ReactiveFormsModule,
     TimestampPipe,
+    DayInputComponent,
   ],
 })
 export class MonitorRoutePropertiesStep5ReferenceDetailsComponent {

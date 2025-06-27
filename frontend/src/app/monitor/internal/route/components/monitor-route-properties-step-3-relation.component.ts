@@ -3,12 +3,15 @@ import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatRadioModule } from '@angular/material/radio';
-import { MonitorRouteForm } from '@app/monitor/internal/route/components/monitor-route-form.service';
+import { MonitorRouteForm } from './monitor-route-form.service';
 import { Subscriptions } from '@app/util/subscriptions';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzFormControlComponent } from 'ng-zorro-antd/form';
+import { NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzFormItemComponent } from 'ng-zorro-antd/form';
+import { NzInputDirective } from 'ng-zorro-antd/input';
+import { NzRadioComponent } from 'ng-zorro-antd/radio';
+import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
 import { MonitorRouteInfoComponent } from '../add/monitor-route-info.component';
 import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-properties-step-3-relation.service';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -23,24 +26,14 @@ import { ChangeDetectionStrategy } from '@angular/core';
         <p i18n="@@monitor.route.properties.relation.question">
           Do you know the OSM relation id for this route?
         </p>
-        <mat-radio-group [formControl]="relationIdKnown">
-          <mat-radio-button
-            id="relation-id-known-yes"
-            class="answer"
-            [value]="true"
-            [checked]="relationIdKnown.value === true"
-          >
-            <span i18n="@@monitor.route.properties.relation.question.yes"> Yes </span>
-          </mat-radio-button>
-          <mat-radio-button
-            id="relation-id-known-no"
-            class="answer"
-            [value]="false"
-            [checked]="relationIdKnown.value === false"
-          >
+        <nz-radio-group [formControl]="relationIdKnown">
+          <label nz-radio id="relation-id-known-yes" class="answer" [nzValue]="true">
+            <span i18n="@@monitor.route.properties.relation.question.yes">Yes</span>
+          </label>
+          <label nz-radio id="relation-id-known-no" class="answer" [nzValue]="false">
             <span i18n="@@monitor.route.properties.relation.question.no">No</span>
-          </mat-radio-button>
-        </mat-radio-group>
+          </label>
+        </nz-radio-group>
       </div>
 
       @if (relationIdKnown.value === false) {
@@ -55,15 +48,17 @@ import { ChangeDetectionStrategy } from '@angular/core';
 
       @if (relationIdKnown.value === true) {
         <div>
-          <mat-form-field>
-            <mat-label i18n="@@monitor.route.properties.relation.label"
-              >Route relation id</mat-label
-            >
-            <input matInput type="number" id="relation-id" [formControl]="relationId" />
-          </mat-form-field>
+          <nz-form-item>
+            <nz-form-label i18n="@@monitor.route.properties.relation.label">
+              Route relation id
+            </nz-form-label>
+            <nz-form-control nzHasFeedback>
+              <input nz-input type="number" id="relation-id" [formControl]="relationId" />
+            </nz-form-control>
+          </nz-form-item>
           <div>
             <button
-              mat-stroked-button
+              nz-button
               type="button"
               id="verify"
               (click)="getRouteInformation()"
@@ -107,11 +102,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
         }
       }
     </form>
-
-    <div class="kpn-button-group">
-      <button id="step3-back" nz-button nzType="default" i18n="@@action.back">Back</button>
-      <button id="step3-next" nz-button nzType="default" i18n="@@action.next">Next</button>
-    </div>
   `,
   styles: `
     .question {
@@ -130,11 +120,14 @@ import { ChangeDetectionStrategy } from '@angular/core';
   `,
   providers: [MonitorRoutePropertiesStep3RelationService],
   imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    MatRadioModule,
     MonitorRouteInfoComponent,
     NzButtonComponent,
+    NzFormControlComponent,
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzInputDirective,
+    NzRadioComponent,
+    NzRadioGroupComponent,
     ReactiveFormsModule,
   ],
 })
