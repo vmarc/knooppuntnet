@@ -5,7 +5,6 @@ import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
@@ -22,220 +21,138 @@ class MonitorUpdateAnalysis(
   private val log = Log(classOf[MonitorUpdateAnalysis])
 
   def updateAnalysis(group: MonitorGroup, oldRoute: MonitorRoute): Unit = {
-
     Log.context(s"${group.name}, ${oldRoute.name}") {
       log.infoElapsed {
-
-        val context = new MonitorContext()
-        val reporter = new MonitorUpdateReporterLogger()
-        context.set(
-          MonitorUpdateContext(
-            user = "analyzer",
-            reporter = null,
-            update = null, //update,
-            referenceType = Some(oldRoute.referenceType),
-            group = Some(group),
-            newRoute = Some(oldRoute),
-            analysisStartMillis = Some(System.currentTimeMillis()),
-          )
-        )
-
-        context.set(
-          monitorUpdateStructure.update(context.value)
-        )
-
-        val oldStateIds = monitorRouteRepository.routeStateIds(context.value.routeId)
-        context.set(
-          context.value.copy(
-            oldStateIds = oldStateIds
-          )
-        )
-
-        monitorUpdateCommon.removeObsoleteStates(context)
-
-        if (oldRoute.referenceType == MonitorReferenceType.multiGpx) {
-          analyzeMultiGpx(context, oldRoute)
-        }
-        else if (oldRoute.referenceType == MonitorReferenceType.gpx) {
-          analyzeGpx(context, oldRoute)
-        }
-        else {
-          analyzeOsm(context, oldRoute)
-        }
-
-        monitorUpdateSave.save(context)
+        val context = initializeContext(group, oldRoute)
+        analyze(context, oldRoute)
         ("analysis completed", ())
       }
     }
   }
 
-  private def analyzeMultiGpx(context: MonitorContext, route: MonitorRoute): Unit = {
-    route.relation match {
-      case None =>
-      case Some(rootMonitorRouteRelation) =>
-        val monitorRouteRelations = monitorUpdateCommon.composeProcessList(rootMonitorRouteRelation)
-        val monitorRouteRelationsSize = monitorRouteRelations.size
-        monitorRouteRelations.zipWithIndex.foreach { case (monitorRouteRelation, index) =>
-          Log.context(s"${index + 1}/$monitorRouteRelationsSize ${monitorRouteRelation.relationId}") {
-            if (monitorRouteRelation.referenceTimestamp.nonEmpty && monitorRouteRelation.referenceFilename.nonEmpty) {
-              monitorRouteRepository.routeReference(route._id, Some(monitorRouteRelation.relationId)) match {
-                case None => log.error("could not find reference")
-                case Some(reference) =>
-                  monitorUpdateAnalyzeReference.analyzeReference(context, reference, None) match {
-                    case None => log.error("could not analyze")
-                    case Some(newState) =>
-                      val shouldUpdate = monitorRouteRepository.routeState(route._id, monitorRouteRelation.relationId) match {
-                        case None => true
-                        case Some(oldState) =>
-                          newState.copy(timestamp = null) != oldState.copy(timestamp = null)
-                      }
+  private def initializeContext(group: MonitorGroup, oldRoute: MonitorRoute): MonitorContext = {
+    val context = new MonitorContext()
 
-                      if (shouldUpdate) {
-                        monitorRouteRepository.saveRouteState(newState)
-                        context.set(
-                          context.value.copy(
-                            stateChanged = true
-                          )
-                        )
-                      }
-                  }
-              }
-            }
-          }
-        }
+    // Initialize context with basic information
+    context.set(
+      MonitorUpdateContext(
+        user = "analyzer",
+        reporter = null,
+        update = null,
+        referenceType = Some(oldRoute.referenceType),
+        group = Some(group),
+        newRoute = Some(oldRoute),
+        analysisStartMillis = Some(System.currentTimeMillis()),
+      )
+    )
+
+    // Update context with structure and state IDs
+    context.set(monitorUpdateStructure.update(context.value))
+
+    val oldStateIds = monitorRouteRepository.routeStateIds(context.value.routeId)
+    context.set(context.value.copy(oldStateIds = oldStateIds))
+
+    // Remove obsolete states
+    monitorUpdateCommon.removeObsoleteStates(context)
+
+    context
+  }
+
+  private def analyze(context: MonitorContext, route: MonitorRoute): Unit = {
+    route.referenceType match {
+      case MonitorReferenceType.multiGpx => analyzeMultiGpx(context, route)
+      case MonitorReferenceType.gpx => analyzeGpx(context, route)
+      case _ => analyzeOsm(context, route)
     }
+    monitorUpdateSave.save(context)
+  }
+
+  private def analyzeMultiGpx(context: MonitorContext, route: MonitorRoute): Unit = {
+    analyzeRelations(
+      context,
+      route,
+    )
   }
 
   private def analyzeGpx(context: MonitorContext, route: MonitorRoute): Unit = {
-    monitorRouteRepository.routeReference(route._id, route.relationId) match {
-      case None => log.error("reference not found")
-      case Some(reference) =>
-        monitorUpdateAnalyzeReference.analyzeReference(context, reference, None) match {
-          case None => log.error("could not analyze")
-          case Some(newState) =>
-
-            val shouldUpdate = route.relationId match {
-              case None => false
-              case Some(relationId) =>
-                monitorRouteRepository.routeState(route._id, relationId) match {
-                  case None => true
-                  case Some(oldState) =>
-                    newState.copy(timestamp = null) != oldState.copy(timestamp = null)
-                }
-            }
-
-            if (shouldUpdate) {
-              monitorRouteRepository.saveRouteState(newState)
-              context.set(
-                context.value.copy(
-                  stateChanged = true
-                )
-              )
-            }
-        }
+    route.relationId.foreach { relationId =>
+      analyzeReference(context, route, relationId)
     }
   }
 
   private def analyzeOsm(context: MonitorContext, route: MonitorRoute): Unit = {
-    route.relation match {
+    analyzeRelations(
+      context,
+      route,
+    )
+  }
+
+  private def analyzeRelations(
+    context: MonitorContext,
+    route: MonitorRoute,
+  ): Unit = {
+    route.relation.foreach { rootMonitorRouteRelation =>
+      val monitorRouteRelations = monitorUpdateCommon
+        .composeProcessList(rootMonitorRouteRelation)
+        .filter(hasReference(context, _))
+      val monitorRouteRelationsSize = monitorRouteRelations.size
+      monitorRouteRelations.zipWithIndex.foreach { case (monitorRouteRelation, index) =>
+        Log.context(s"${index + 1}/$monitorRouteRelationsSize ${monitorRouteRelation.relationId}") {
+          analyzeReference(context, route, monitorRouteRelation.relationId)
+        }
+      }
+    }
+  }
+
+  private def analyzeReference(context: MonitorContext, route: MonitorRoute, relationId: Long): Unit = {
+    monitorRouteRepository.routeReference(route._id, Some(relationId)) match {
       case None =>
-      case Some(rootMonitorRouteRelation) =>
-        val monitorRouteRelations = monitorUpdateCommon.composeProcessList(rootMonitorRouteRelation)
-        val monitorRouteRelationsSize = monitorRouteRelations.size
-        monitorRouteRelations.zipWithIndex.foreach { case (monitorRouteRelation, index) =>
-          Log.context(s"${index + 1}/$monitorRouteRelationsSize ${monitorRouteRelation.relationId}") {
-            monitorRouteRepository.routeReference(route._id, Some(monitorRouteRelation.relationId)) match {
-              case None =>
-                log.info("could not find reference") // TODO ???
-              case Some(reference) =>
-                monitorUpdateAnalyzeReference.analyzeReference(context, reference, None) match {
-                  case None =>
-                    log.error("could not analyze")
-                  case Some(newState) =>
-
-                    val shouldUpdate = monitorRouteRepository.routeState(route._id, monitorRouteRelation.relationId) match {
-                      case None =>
-                        true
-                      case Some(oldState) =>
-                        newState.copy(timestamp = null) != oldState.copy(timestamp = null)
-                    }
-
-                    if (shouldUpdate) {
-                      monitorRouteRepository.saveRouteState(newState)
-                      context.set(
-                        context.value.copy(
-                          stateChanged = true
-                        )
-                      )
-                    }
-                }
-            }
-          }
+        log.error("reference not found")
+      case Some(reference) =>
+        monitorUpdateAnalyzeReference.analyzeReference(context, reference, None) match {
+          case None =>
+            log.error("could not analyze")
+          case Some(newState) =>
+            updateStateIfChanged(context, route, relationId, newState)
         }
     }
   }
 
-  private def updateMonitorRouteRelation(
-    monitorRouteRelation: MonitorRouteRelation,
-    reference: MonitorRouteReference,
-    stateOption: Option[MonitorRouteState]
-  ): MonitorRouteRelation = {
-
-    reference.relationId match {
-      case None => monitorRouteRelation
-      case Some(referenceRelationId) =>
-
-        if (referenceRelationId == monitorRouteRelation.relationId) {
-
-          val deviationDistance = stateOption match {
-            case None => 0
-            case Some(state) => state.deviations.map(_.distance).sum
-          }
-          val deviationCount = stateOption match {
-            case None => 0
-            case Some(state) => state.deviations.size
-          }
-          val happy = stateOption match {
-            case None => false
-            case Some(state) => state.happy
-          }
-
-          monitorRouteRelation.copy(
-            referenceTimestamp = Some(reference.referenceTimestamp),
-            referenceFilename = reference.referenceFilename,
-            referenceDistance = reference.referenceDistance,
-            deviationDistance = deviationDistance,
-            deviationCount = deviationCount,
-            // TODO update happy, taking into account subrelations
-            happy = happy
-          )
-        }
-        else {
-          val relations = monitorRouteRelation.relations.map { subRelation =>
-            updateMonitorRouteRelation(subRelation, reference, stateOption)
-          }
-          monitorRouteRelation.copy(
-            relations = relations
-            // TODO update happy, taking into account subrelations
-          )
-        }
+  private def updateStateIfChanged(
+    context: MonitorContext,
+    route: MonitorRoute,
+    relationId: Long,
+    newState: MonitorRouteState
+  ): Unit = {
+    if (hasStateChanged(route, relationId, newState)) {
+      monitorRouteRepository.saveRouteState(newState)
+      context.set(
+        context.value.copy(
+          stateChanged = true
+        )
+      )
     }
   }
 
-  private def resetReference(monitorRouteRelation: MonitorRouteRelation, subRelationId: Long): MonitorRouteRelation = {
-    if (monitorRouteRelation.relationId == subRelationId) {
-      monitorRouteRelation.copy(
-        referenceTimestamp = None,
-        referenceFilename = None,
-        referenceDistance = 0,
-        deviationDistance = 0,
-        deviationCount = 0,
-      )
+  private def hasStateChanged(
+    route: MonitorRoute,
+    relationId: Long,
+    newState: MonitorRouteState
+  ): Boolean = {
+    monitorRouteRepository.routeState(route._id, relationId) match {
+      case Some(oldState) => newState.copy(timestamp = null) != oldState.copy(timestamp = null)
+      case None => true
     }
-    else {
-      monitorRouteRelation.copy(
-        relations = monitorRouteRelation.relations.map(rel => resetReference(rel, subRelationId))
-      )
+  }
+
+  private def hasReference(
+    context: MonitorContext,
+    monitorRouteRelation: MonitorRouteRelation
+  ): Boolean = {
+    context.value.referenceType match {
+      case Some(MonitorReferenceType.multiGpx) =>
+        monitorRouteRelation.referenceTimestamp.nonEmpty && monitorRouteRelation.referenceFilename.nonEmpty
+      case _ => true
     }
   }
 }

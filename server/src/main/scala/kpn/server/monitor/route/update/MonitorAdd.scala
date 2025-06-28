@@ -1,7 +1,6 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
-import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.common.Time
@@ -10,7 +9,6 @@ import kpn.core.util.Util
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
@@ -160,70 +158,6 @@ class MonitorAdd(
               }
             }
         }
-    }
-  }
-
-  private def updateMonitorRouteRelation(
-    monitorRouteRelation: MonitorRouteRelation,
-    reference: MonitorRouteReference,
-    stateOption: Option[MonitorRouteState]
-  ): MonitorRouteRelation = {
-
-    reference.relationId match {
-      case None => monitorRouteRelation
-      case Some(referenceRelationId) =>
-
-        if (referenceRelationId == monitorRouteRelation.relationId) {
-
-          val deviationDistance = stateOption match {
-            case None => 0
-            case Some(state) => state.deviations.map(_.distance).sum
-          }
-          val deviationCount = stateOption match {
-            case None => 0
-            case Some(state) => state.deviations.size
-          }
-          val happy = stateOption match {
-            case None => false
-            case Some(state) => state.happy
-          }
-
-          monitorRouteRelation.copy(
-            referenceTimestamp = Some(reference.referenceTimestamp),
-            referenceFilename = reference.referenceFilename,
-            referenceDistance = reference.referenceDistance,
-            deviationDistance = deviationDistance,
-            deviationCount = deviationCount,
-            // TODO update happy, taking into account subrelations
-            happy = happy
-          )
-        }
-        else {
-          val relations = monitorRouteRelation.relations.map { subRelation =>
-            updateMonitorRouteRelation(subRelation, reference, stateOption)
-          }
-          monitorRouteRelation.copy(
-            relations = relations
-            // TODO update happy, taking into account subrelations
-          )
-        }
-    }
-  }
-
-  private def resetReference(monitorRouteRelation: MonitorRouteRelation, subRelationId: Long): MonitorRouteRelation = {
-    if (monitorRouteRelation.relationId == subRelationId) {
-      monitorRouteRelation.copy(
-        referenceTimestamp = None,
-        referenceFilename = None,
-        referenceDistance = 0,
-        deviationDistance = 0,
-        deviationCount = 0,
-      )
-    }
-    else {
-      monitorRouteRelation.copy(
-        relations = monitorRouteRelation.relations.map(rel => resetReference(rel, subRelationId))
-      )
     }
   }
 
