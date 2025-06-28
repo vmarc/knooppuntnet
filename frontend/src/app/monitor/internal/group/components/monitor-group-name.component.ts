@@ -3,52 +3,64 @@ import { input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { FormErrorComponent } from '@app/shared/components/form/form-error.component';
+import { FormUtil } from '@app/shared/form/form-util';
+import { NzFormControlComponent } from 'ng-zorro-antd/form';
+import { NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzFormItemComponent } from 'ng-zorro-antd/form';
+import { NzRowDirective } from 'ng-zorro-antd/grid';
+import { NzColDirective } from 'ng-zorro-antd/grid';
+import { NzInputDirective } from 'ng-zorro-antd/input';
 
 @Component({
   selector: 'ui-monitor-group-name',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <mat-form-field>
-      <mat-label i18n="@@monitor.group.name.label">Name</mat-label>
-      <input matInput [formControl]="name()" class="name" required />
-    </mat-form-field>
-
-    @if (
-      name().invalid && name().errors && (name().dirty || name().touched || ngForm().submitted)
-    ) {
-      <div class="kpn-form-error">
-        @if (name().errors['required']) {
-          <div i18n="@@monitor.group.name.required">Name is required.</div>
-        }
-        @if (name().errors['maxlength']) {
-          <div i18n="@@monitor.group.name.maxlength">
-            Too long (max= {{ name().errors['maxlength'].requiredLength }}, actual={{
-              name().errors['maxlength'].actualLength
-            }}).
-          </div>
-        }
-        @if (name().errors['groupNameNonUnique']) {
-          <div i18n="@@monitor.group.name.unique">
-            Name should be unique. A group with this name already exists.
-          </div>
-        }
-      </div>
-    }
+    <nz-form-item nz-row>
+      <nz-form-label nzRequired nzFor="name" i18n="@@monitor.group.name.label">
+        Name
+      </nz-form-label>
+      <nz-form-control nzHasFeedback [nzValidateStatus]="validateStatus()">
+        <input nz-input id="name" [formControl]="name()" required />
+      </nz-form-control>
+      @if (validateStatus() === 'error') {
+        <ui-form-error [error]="error()" />
+      }
+    </nz-form-item>
   `,
-  styles: `
-    :host {
-      display: block;
-    }
-    .name {
-      width: 8em;
-    }
-  `,
-  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+  imports: [
+    FormErrorComponent,
+    NzColDirective,
+    NzFormControlComponent,
+    NzFormItemComponent,
+    NzFormLabelComponent,
+    NzInputDirective,
+    NzRowDirective,
+    ReactiveFormsModule,
+  ],
 })
 export class MonitorGroupNameComponent {
   readonly ngForm = input.required<FormGroupDirective>();
   readonly name = input.required<FormControl<string>>();
+
+  validateStatus(): string {
+    return FormUtil.validateStatus(this.ngForm(), this.name());
+  }
+
+  error(): string | null {
+    const errors = this.name().errors;
+    if (errors) {
+      if (errors['required']) {
+        return $localize`:@@monitor.group.name.required:Name is required.`;
+      }
+      if (errors['maxlength']) {
+        return $localize`:@@monitor.group.name.maxlength:Too long (max= ${this.name().errors['maxlength'].requiredLength}, actual=${this.name().errors['maxlength'].actualLength}).`;
+      }
+      if (errors['groupNameNonUnique']) {
+        return $localize`:@@monitor.group.name.unique:Name should be unique. A group with this name already exists.`;
+      }
+    }
+    return null;
+  }
 }

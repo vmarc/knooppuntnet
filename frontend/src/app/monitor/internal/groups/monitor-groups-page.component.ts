@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
@@ -74,7 +73,6 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
   imports: [
     BreadcrumbComponent,
     ErrorComponent,
-    MatButtonModule,
     MonitorAdminToggleComponent,
     MonitorGroupTableComponent,
     NzButtonComponent,

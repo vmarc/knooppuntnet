@@ -14,12 +14,12 @@ import { ChangeDetectionStrategy } from '@angular/core';
   selector: 'ui-monitor-route-properties-step-2-name',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <form nz-form nzLayout="vertical" [formGroup]="form">
+    <form nz-form nzLayout="vertical" [formGroup]="form" #ngForm="ngForm">
       @if (mode() === 'update') {
         <ui-monitor-route-group [routeGroups]="routeGroups()" />
       }
-      <ui-monitor-route-name />
-      <ui-monitor-route-description />
+      <ui-monitor-route-name [ngForm]="ngForm" [name]="name" />
+      <ui-monitor-route-description [ngForm]="ngForm" [description]="description" />
     </form>
   `,
   imports: [
@@ -36,4 +36,6 @@ export class MonitorRoutePropertiesStep2NameComponent {
 
   private readonly monitorForm = inject(MonitorRouteForm);
   protected readonly form = this.monitorForm.nameForm;
+  protected readonly name = this.monitorForm.name;
+  protected readonly description = this.monitorForm.description;
 }

@@ -10,6 +10,7 @@ import { SymbolComponent } from '@app/symbol/symbol.component';
   selector: 'ui-monitor-route-info',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (!routeInfo().active) {
       <div class="kpn-line kpn-error">
         <mat-icon svgIcon="warning" />

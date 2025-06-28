@@ -64,7 +64,7 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
         <!--          osmReferenceDate.errors &&-->
         <!--          (osmReferenceDate.touched || ngForm.submitted)-->
         <!--        ) {-->
-        <!--          <div class="kpn-form-error">-->
+        <!--          <div class="ant-form-item-explain">-->
         <!--            @if (osmReferenceDate.errors['required']) {-->
         <!--              <div-->
         <!--                id="osm-reference-date-required-error"-->
@@ -113,7 +113,7 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
           referenceFilename.errors &&
           (referenceFilename.dirty || referenceFilename.touched || ngForm.submitted)
         ) {
-          <div class="kpn-form-error">
+          <div class="ant-form-item-explain">
             @if (referenceFilename.errors['required']) {
               <div
                 id="reference-filename.required"
@@ -140,7 +140,7 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
           gpxReferenceDate.errors &&
           (gpxReferenceDate.touched || ngForm.submitted)
         ) {
-          <div class="kpn-form-error">
+          <div class="ant-form-item-explain">
             @if (gpxReferenceDate.errors['required']) {
               <div id="reference-day.required" i18n="@@monitor.route.reference-day.required">
                 Please provide a valid reference day

@@ -41,7 +41,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
       </div>
 
       @if (form.errors && form.errors['routeNameNonUnique']) {
-        <p class="kpn-form-error" i18n="@@monitor.route.properties.name.unique">
+        <p class="ant-form-item-explain-error" i18n="@@monitor.route.properties.name.unique">
           The route name should be unique within its the group. A route with name "{{ name.value }}"
           already exists within group "{{ group.value.groupName }}".
         </p>

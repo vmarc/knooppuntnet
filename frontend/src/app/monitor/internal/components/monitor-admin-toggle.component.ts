@@ -3,7 +3,6 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NzSwitchComponent } from 'ng-zorro-antd/switch';
 import { MonitorService } from '../monitor.service';
 
@@ -33,7 +32,7 @@ import { MonitorService } from '../monitor.service';
       line-height: 16px;
     }
   `,
-  imports: [MatSlideToggleModule, NzSwitchComponent, FormsModule],
+  imports: [NzSwitchComponent, FormsModule],
 })
 export class MonitorAdminToggleComponent {
   private readonly service = inject(MonitorService);

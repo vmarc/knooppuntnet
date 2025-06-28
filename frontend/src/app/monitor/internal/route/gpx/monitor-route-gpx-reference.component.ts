@@ -42,7 +42,7 @@ import { DayInputComponent } from '@app/shared/components/format/day-input.compo
 
     @if (referenceFile().errors && referenceFile().errors['maxFileSizeExceeded']) {
       <div
-        class="kpn-form-error"
+        class="ant-form-item-explain-error"
         i18n="@@monitor.route.properties.reference-details.file.max-size-exceeded"
       >
         Cannot upload this file. It is too big (maximum file size is
@@ -55,7 +55,7 @@ import { DayInputComponent } from '@app/shared/components/format/day-input.compo
       referenceFilename().errors &&
       (referenceFilename().dirty || referenceFilename().touched || ngForm().submitted)
     ) {
-      <div class="kpn-form-error">
+      <div class="ant-form-item-explain-error">
         @if (referenceFilename().errors['required']) {
           <div id="reference-filename.required" i18n="@@monitor.route.reference-filename.required">
             Reference filename is required
@@ -79,7 +79,7 @@ import { DayInputComponent } from '@app/shared/components/format/day-input.compo
       gpxReferenceDate().errors &&
       (gpxReferenceDate().touched || ngForm().submitted)
     ) {
-      <div class="kpn-form-error">
+      <div class="ant-form-item-explain-error">
         @if (gpxReferenceDate().errors['required']) {
           <div id="reference-day.required" i18n="@@monitor.route.reference-day.required">
             Please provide a valid reference day

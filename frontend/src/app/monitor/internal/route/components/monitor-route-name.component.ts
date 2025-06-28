@@ -1,8 +1,11 @@
-import { inject } from '@angular/core';
+import { input } from '@angular/core';
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { FormGroupDirective } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { MonitorRouteForm } from '@app/monitor/internal/route/components/monitor-route-form.service';
+import { FormErrorComponent } from '@app/shared/components/form/form-error.component';
+import { FormUtil } from '@app/shared/form/form-util';
 import { NzFormControlComponent } from 'ng-zorro-antd/form';
 import { NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzFormItemComponent } from 'ng-zorro-antd/form';
@@ -14,40 +17,20 @@ import { NzInputDirective } from 'ng-zorro-antd/input';
   selector: 'ui-monitor-route-name',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <div>
-      <nz-form-item>
-        <nz-form-label nzRequired nzFor="name" i18n="@@monitor.route.name.label">
-          Name
-        </nz-form-label>
-        <nz-form-control nzHasFeedback [nzValidateStatus]="validateStatus()">
-          <input nz-input id="name" [formControl]="name" required />
-        </nz-form-control>
-        @if (validateStatus() === 'error') {
-          <div class="ant-form-item-explain">
-            @if (name.errors?.['required']) {
-              <div class="ant-form-item-explain-error" i18n="@@monitor.route.name.required">
-                Name is required.
-              </div>
-            }
-            @if (name.errors?.['maxlength']) {
-              <span class="ant-form-item-explain-error" i18n="@@monitor.route.name.maxlength">
-                Too long (max= {{ name.errors['maxlength'].requiredLength }}, actual={{
-                  name.errors?.['maxlength'].actualLength
-                }}).
-              </span>
-            }
-            @if (name.errors?.['routeNameNonUnique']) {
-              <span class="ant-form-item-explain-error" i18n="@@monitor.route.name.unique">
-                The route name should be unique within the group. A route with this name already
-                exists within this group.
-              </span>
-            }
-          </div>
-        }
-      </nz-form-item>
-    </div>
+    <nz-form-item nz-row>
+      <nz-form-label nzRequired nzFor="name" i18n="@@monitor.route.name.label">
+        Name
+      </nz-form-label>
+      <nz-form-control nzHasFeedback [nzValidateStatus]="validateStatus()">
+        <input nz-input id="name" [formControl]="name()" required />
+      </nz-form-control>
+      @if (validateStatus() === 'error') {
+        <ui-form-error [error]="error()" />
+      }
+    </nz-form-item>
   `,
   imports: [
+    FormErrorComponent,
     NzColDirective,
     NzFormControlComponent,
     NzFormItemComponent,
@@ -58,10 +41,28 @@ import { NzInputDirective } from 'ng-zorro-antd/input';
   ],
 })
 export class MonitorRouteNameComponent {
-  private readonly monitorForm = inject(MonitorRouteForm);
-  protected readonly name = this.monitorForm.name;
+  readonly ngForm = input.required<FormGroupDirective>();
+  readonly name = input.required<FormControl<string>>();
 
   validateStatus(): string {
-    return this.monitorForm.validateStatus(this.name);
+    return FormUtil.validateStatus(this.ngForm(), this.name());
+  }
+
+  error(): string | null {
+    const errors = this.name().errors;
+    if (errors) {
+      if (errors['required']) {
+        return $localize`:@@monitor.route.name.required:Name is required.`;
+      }
+      if (errors['maxlength']) {
+        const e = errors['maxlength'];
+        return $localize`:@@monitor.route.name.maxlength:Too long (max= ${e.requiredLength}, actual=${e.actualLength}).`;
+      }
+
+      if (errors['routeNameNonUnique']) {
+        return $localize`:@@monitor.route.name.unique:The route name should be unique within the group. A route with this name already exists within this group.`;
+      }
+    }
+    return null;
   }
 }

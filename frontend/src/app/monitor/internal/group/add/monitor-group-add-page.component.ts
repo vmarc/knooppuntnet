@@ -2,12 +2,13 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { Translations } from '@app/shared/i18n/translations';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzFormDirective } from 'ng-zorro-antd/form';
 import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
 import { MonitorGroupDescriptionComponent } from '../components/monitor-group-description.component';
 import { MonitorGroupNameComponent } from '../components/monitor-group-name.component';
@@ -34,12 +35,13 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
         </p>
       </div>
 
-      <form [formGroup]="service.form" class="kpn-form" #ngForm="ngForm">
-        <ui-monitor-group-name [ngForm]="ngForm" [name]="service.name" />
-        <ui-monitor-group-description [ngForm]="ngForm" [description]="service.description" />
+      <form nz-form nzLayout="vertical" [formGroup]="form" #ngForm="ngForm">
+        <ui-monitor-group-name [ngForm]="ngForm" [name]="name" />
+        <ui-monitor-group-description [ngForm]="ngForm" [description]="description" />
         <div class="kpn-form-buttons">
           <button
-            mat-stroked-button
+            nz-button
+            nzType="primary"
             id="add-group"
             (click)="add()"
             i18n="@@monitor.group.add.action"
@@ -53,11 +55,12 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
   `,
   providers: [MonitorGroupAddPageService, NavService],
   imports: [
-    MatButtonModule,
     MonitorGroupBreadcrumbComponent,
     MonitorGroupDescriptionComponent,
     MonitorGroupDescriptionComponent,
     MonitorGroupNameComponent,
+    NzButtonComponent,
+    NzFormDirective,
     PageComponent,
     PageHeaderComponent,
     ReactiveFormsModule,
@@ -65,8 +68,11 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
   ],
 })
 export class MonitorGroupAddPageComponent {
-  readonly service = inject(MonitorGroupAddPageService);
-  readonly cancelLinkText = Translations.get('action.cancel');
+  private service = inject(MonitorGroupAddPageService);
+  protected readonly form = this.service.form;
+  protected readonly name = this.service.name;
+  protected readonly description = this.service.description;
+  protected readonly cancelLinkText = Translations.get('action.cancel');
 
   add(): void {
     this.service.add();
