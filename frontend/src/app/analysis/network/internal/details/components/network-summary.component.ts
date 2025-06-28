@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { NetworkDetailsPage } from '@api/common/network/network-details-page';
 import { CountryNameComponent } from '@app/shared/components/country-name.component';
 import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
+import { IconWarningComponent } from '@app/shared/components/icon/icon-warning.component';
 import { MarkdownComponent } from 'ngx-markdown';
 import { ActionButtonRelationComponent } from '../../../../components/action/action-button-relation.component';
 
@@ -39,7 +39,7 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
 
     @if (page().active && page().attributes.brokenRouteCount > 0) {
       <p class="kpn-line">
-        <mat-icon svgIcon="warning" />
+        <ui-icon-warning />
         <span i18n="@@network-details.contains-broken-routes">
           This network contains broken (non-continuous) routes.
         </span>
@@ -48,7 +48,7 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
 
     @if (page().active && isProposed()) {
       <p class="kpn-line">
-        <mat-icon svgIcon="warning" style="min-width: 24px" />
+        <ui-icon-warning />
         <markdown i18n="@@network.proposed">
           Proposed: this network has tag _"state=proposed"_. The network is assumed to still be in a
           planning phase and likely not signposted in the field.
@@ -62,12 +62,12 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
     </div>
   `,
   imports: [
+    ActionButtonRelationComponent,
     CountryNameComponent,
+    IconWarningComponent,
+    IntegerFormatPipe,
     IntegerFormatPipe,
     MarkdownComponent,
-    MatIconModule,
-    ActionButtonRelationComponent,
-    IntegerFormatPipe,
   ],
 })
 export class NetworkSummaryComponent {

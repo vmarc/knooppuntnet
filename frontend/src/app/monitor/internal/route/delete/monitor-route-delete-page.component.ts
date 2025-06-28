@@ -3,17 +3,17 @@ import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
+import { IconWarningComponent } from '@app/shared/components/icon/icon-warning.component';
 import { Translations } from '@app/shared/i18n/translations';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteDeletePageService } from './monitor-route-delete-page.service';
 
@@ -37,13 +37,13 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
           <p i18n="@@monitor.route.delete.comment">Remove this route from the monitor.</p>
 
           <p class="kpn-line">
-            <mat-icon svgIcon="warning" />
+            <ui-icon-warning />
             <span i18n="@@monitor.route.delete.warning">Attention: all history will be lost!</span>
           </p>
 
           <div class="kpn-form-buttons">
-            <button mat-stroked-button (click)="service.delete()">
-              <span class="kpn-warning" i18n="@@monitor.route.delete.action">Delete Route</span>
+            <button nz-button nzType="primary" (click)="service.delete()">
+              <span i18n="@@monitor.route.delete.action">Delete Route</span>
             </button>
             <a [routerLink]="state.groupLink">{{ cancelLinkText }}</a>
           </div>
@@ -55,8 +55,8 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
   imports: [
     BreadcrumbComponent,
     ErrorComponent,
-    MatButtonModule,
-    MatIconModule,
+    IconWarningComponent,
+    NzButtonComponent,
     PageComponent,
     PageHeaderComponent,
     RouterLink,

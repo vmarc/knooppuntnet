@@ -12,6 +12,7 @@ import { MonitorRouteRelationStructureRow } from '@api/common/monitor/monitor-ro
 import { DayPipe } from '@app/shared/components/format/day.pipe';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { TimestampDayPipe } from '@app/shared/components/format/timestamp-day.pipe';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { SymbolComponent } from '@app/symbol/symbol.component';
 import { ActionButtonRelationComponent } from '@app/analysis/components/action/action-button-relation.component';
 import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
@@ -20,6 +21,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
   selector: 'ui-monitor-route-details-structure',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     <table mat-table [dataSource]="structureRows()">
       <ng-container matColumnDef="nr">
         <th mat-header-cell *matHeaderCellDef i18n="@@monitor.route.relation-table.nr">Nr</th>
@@ -62,7 +64,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
           @if (row.happy) {
-            <mat-icon svgIcon="happy" />
+            <ui-icon-happy />
           }
         </td>
       </ng-container>
@@ -241,7 +243,6 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
               <mat-icon svgIcon="upload" />
             </button>
             <button
-              mat-icon-button
               [routerLink]="deleteGpx()"
               [queryParams]="subRelationIdQueryParams(row)"
               [disabled]="!canDelete(row)"
@@ -314,6 +315,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
     ActionButtonRelationComponent,
     DistancePipe,
     TimestampDayPipe,
+    IconHappyComponent,
   ],
 })
 export class MonitorRouteDetailsStructureComponent {

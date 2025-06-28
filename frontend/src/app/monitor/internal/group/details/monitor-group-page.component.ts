@@ -2,12 +2,12 @@ import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MonitorGroupBreadcrumbComponent } from '@app/monitor/internal/group/components/monitor-group-breadcrumb.component';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { MonitorAdminToggleComponent } from '../../components/monitor-admin-toggle.component';
 import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-menu.component';
@@ -46,7 +46,8 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
               @if (service.admin()) {
                 <div class="kpn-form-buttons">
                   <button
-                    mat-stroked-button
+                    nz-button
+                    nzType="primary"
                     id="add-route"
                     [routerLink]="addRouteLink()"
                     type="button"
@@ -64,11 +65,11 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
   `,
   providers: [NavService, MonitorGroupPageService],
   imports: [
-    MatButtonModule,
     MonitorAdminToggleComponent,
     MonitorGroupBreadcrumbComponent,
     MonitorGroupPageMenuComponent,
     MonitorGroupRouteTableComponent,
+    NzButtonComponent,
     PageComponent,
     PageHeaderComponent,
     RouterLink,

@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { Timestamp } from '@api/custom/timestamp';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
@@ -9,6 +8,7 @@ import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
+import { IconWarningComponent } from '@app/shared/components/icon/icon-warning.component';
 import { OsmLinkChangeSetComponent } from '@app/shared/components/link/osm-link-change-set.component';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
@@ -22,6 +22,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
   template: `
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 
     <ui-page>
       <ui-breadcrumb [breadcrumbItems]="breadcrumbItems" />
@@ -148,7 +149,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
 
                         @if (page.routeSegmentCount !== 1) {
                           <div class="kpn-line route-analysis">
-                            <mat-icon svgIcon="warning" />
+                            <ui-icon-warning />
                             <span> Not OK: {{ page.routeSegmentCount }} route segments </span>
                           </div>
                         }
@@ -242,7 +243,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
     ErrorComponent,
     IconHappyComponent,
     IconInvestigateComponent,
-    MatIconModule,
+    IconWarningComponent,
     MonitorRouteChangeMapComponent,
     OsmLinkChangeSetComponent,
     PageComponent,

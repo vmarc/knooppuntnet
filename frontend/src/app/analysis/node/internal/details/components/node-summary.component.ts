@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { NodeInfo } from '@api/common/node-info';
 import { CountryNameComponent } from '@app/shared/components/country-name.component';
+import { IconWarningComponent } from '@app/shared/components/icon/icon-warning.component';
 import { RouteScopeNameComponent } from '@app/shared/components/route-scope-name.component';
 import { RouteTypeComponent } from '@app/shared/components/route-type.component';
 import { MarkdownComponent } from 'ngx-markdown';
@@ -13,6 +13,7 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
   selector: 'ui-node-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     <div>
       @if (!nodeInfo().active) {
         <p class="kpn-warning" i18n="@@node.inactive">This network node is not active anymore.</p>
@@ -66,7 +67,7 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
 
       @if (isProposed()) {
         <p class="kpn-line">
-          <mat-icon svgIcon="warning" style="min-width: 24px" />
+          <ui-icon-warning />
           <markdown i18n="@@node.proposed">
             Proposed: the network node is assumed to still be in a planning phase and likely not
             signposted in the field.
@@ -90,12 +91,12 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
     }
   `,
   imports: [
+    ActionButtonNodeComponent,
     CountryNameComponent,
+    IconWarningComponent,
     MarkdownComponent,
-    MatIconModule,
     RouteScopeNameComponent,
     RouteTypeComponent,
-    ActionButtonNodeComponent,
   ],
 })
 export class NodeSummaryComponent {

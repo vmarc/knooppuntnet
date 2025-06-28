@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { RouteDetailsPageData } from '@api/common/route/route-details-page-data';
 import { CountryNameComponent } from '@app/shared/components/country-name.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
+import { IconWarningComponent } from '@app/shared/components/icon/icon-warning.component';
 import { SymbolComponent } from '@app/symbol/symbol.component';
 import { MarkdownComponent } from 'ngx-markdown';
 import { ActionButtonRouteComponent } from '../../../../components/action/action-button-route.component';
@@ -15,6 +15,7 @@ import { RouteLocationComponent } from './route-location.component';
   selector: 'ui-route-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     <div>
       <p>{{ route().summary.meters | distance }}</p>
 
@@ -49,14 +50,14 @@ import { RouteLocationComponent } from './route-location.component';
 
       @if (isRouteBroken()) {
         <p class="kpn-line">
-          <mat-icon svgIcon="warning" />
+          <ui-icon-warning />
           <span i18n="@@route.broken">Something seems wrong with this route.</span>
         </p>
       }
 
       @if (isRouteIncomplete()) {
         <p class="kpn-line">
-          <mat-icon svgIcon="warning" />
+          <ui-icon-warning />
           <markdown i18n="@@route.incomplete">
             Route definition is incomplete (has tag *"fixme=incomplete"*).
           </markdown>
@@ -69,7 +70,7 @@ import { RouteLocationComponent } from './route-location.component';
 
       @if (isProposed()) {
         <p class="kpn-line">
-          <mat-icon svgIcon="warning" style="min-width: 24px" />
+          <ui-icon-warning />
           <markdown i18n="@@route.proposed">
             Proposed: this route has a tag _"state=proposed"_. The route is assumed to still be in a
             planning phase and likely not signposted in the field.
@@ -90,13 +91,13 @@ import { RouteLocationComponent } from './route-location.component';
   imports: [
     ActionButtonRouteComponent,
     CountryNameComponent,
+    DistancePipe,
+    DistancePipe,
     DividerComponent,
+    IconWarningComponent,
     MarkdownComponent,
-    MatIconModule,
     RouteLocationComponent,
     SymbolComponent,
-    DistancePipe,
-    DistancePipe,
   ],
 })
 export class RouteSummaryComponent {

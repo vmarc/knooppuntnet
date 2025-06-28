@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { DataComponent } from '@app/shared/components/data/data.component';
+import { IconWarningComponent } from '@app/shared/components/icon/icon-warning.component';
 import { SymbolComponent } from '@app/symbol/symbol.component';
 
 @Component({
@@ -13,7 +13,7 @@ import { SymbolComponent } from '@app/symbol/symbol.component';
     <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (!routeInfo().active) {
       <div class="kpn-line kpn-error">
-        <mat-icon svgIcon="warning" />
+        <ui-icon-warning />
         <span i18n="@@monitor.relation.not-found">
           Could not find an OSM relation with this id.
         </span>
@@ -22,7 +22,7 @@ import { SymbolComponent } from '@app/symbol/symbol.component';
 
     @if (routeInfo().active && !routeInfo().hasRouteTags) {
       <div class="kpn-line kpn-error">
-        <mat-icon svgIcon="warning" />
+        <ui-icon-warning />
         <span i18n="@@monitor.relation.no-route-tags">
           This OSM relation does not seem to have the required tags for a route.
         </span>
@@ -97,7 +97,7 @@ import { SymbolComponent } from '@app/symbol/symbol.component';
       padding-left: 2em;
     }
   `,
-  imports: [DataComponent, SymbolComponent, MatIconModule],
+  imports: [DataComponent, SymbolComponent, IconWarningComponent],
 })
 export class MonitorRouteInfoComponent {
   readonly routeInfo = input.required<MonitorRouteInfoPage>();

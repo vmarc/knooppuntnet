@@ -1,13 +1,13 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { MonitorGroupDeleteInfoComponent } from '@app/monitor/internal/group/delete/monitor-group-delete-info.component';
 import { Translations } from '@app/shared/i18n/translations';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
 import { MonitorGroupDeletePageService } from './monitor-group-delete-page.service';
 
@@ -28,39 +28,12 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
             <p class="kpn-error" i18n="@@monitor.group.delete.group-not-found">Group not found</p>
           }
           @if (response.result; as page) {
-            <div class="kpn-form">
-              <p>
-                <span class="kpn-label" i18n="@@monitor.group.delete.name"> Name </span>
-                {{ page.groupName }}
-              </p>
-
-              <p>
-                <span class="kpn-label" i18n="@@monitor.group.delete.description">
-                  Description
-                </span>
-                {{ page.groupDescription }}
-              </p>
-
-              @if (page.routes.length; as routeCount) {
-                @if (routeCount > 0) {
-                  <div class="kpn-line">
-                    <mat-icon svgIcon="warning" />
-                    <span i18n="@@monitor.group.delete.warning">
-                      The information of all routes ({{ routeCount }} route(s)) in the group will
-                      also be deleted!
-                    </span>
-                  </div>
-                }
-              }
-
-              <div class="kpn-form-buttons">
-                <button mat-stroked-button (click)="service.delete(page.groupId)">
-                  <span class="kpn-warning" i18n="@@monitor.group.delete.action">
-                    Delete group
-                  </span>
-                </button>
-                <a routerLink="/monitor">{{ cancelLinkText }}</a>
-              </div>
+            <ui-monitor-group-delete-info [page]="page" />
+            <div class="kpn-form-buttons">
+              <button nz-button nzType="primary" (click)="service.delete(page.groupId)">
+                <span i18n="@@monitor.group.delete.action">Delete group</span>
+              </button>
+              <a routerLink="/monitor">{{ cancelLinkText }}</a>
             </div>
           }
         }
@@ -69,9 +42,9 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
   `,
   providers: [MonitorGroupDeletePageService, NavService],
   imports: [
-    MatButtonModule,
-    MatIconModule,
     MonitorGroupBreadcrumbComponent,
+    MonitorGroupDeleteInfoComponent,
+    NzButtonComponent,
     PageComponent,
     PageHeaderComponent,
     RouterLink,

@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatLabel } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouteType } from '@api/common/route-type';
 import { RouteStructureRow } from '@api/common/route/route-structure-row';
 import { DayPipe } from '@app/shared/components/format/day.pipe';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
+import { IconWarningComponent } from '@app/shared/components/icon/icon-warning.component';
 import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
 import { TagsTextComponent } from '@app/shared/components/tags/tags-text.component';
 import { SymbolComponent } from '@app/symbol/symbol.component';
@@ -19,6 +20,7 @@ import { RouteMemberNameComponent } from './route-member-name.component';
   selector: 'ui-route-member',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @let row = structureRow();
     <div class="member">
       <div class="member-number">
@@ -57,7 +59,7 @@ import { RouteMemberNameComponent } from './route-member-name.component';
         @if (row.way) {
           @if (!row.way.accessible) {
             <div class="kpn-line extra-line">
-              <mat-icon svgIcon="warning" />
+              <ui-icon-warning />
               <mat-label>Not accessible</mat-label>
             </div>
           }
@@ -81,7 +83,7 @@ import { RouteMemberNameComponent } from './route-member-name.component';
         }
         @if (row.relation) {
           @if (row.relation.happy) {
-            <mat-icon svgIcon="happy" />
+            <ui-icon-happy />
           }
         }
         @if (row.relation && row.relation.survey) {
@@ -91,9 +93,9 @@ import { RouteMemberNameComponent } from './route-member-name.component';
           </div>
         }
       </div>
-      {{ 'surface=' + row.way?.surface }}
-      {{ 'pathIds=' + row.pathIds }}
-      {{ 'segmentIds=' + row.segmentIds }}
+      <!--      {{ 'surface=' + row.way?.surface }}-->
+      <!--      {{ 'pathIds=' + row.pathIds }}-->
+      <!--      {{ 'segmentIds=' + row.segmentIds }}-->
     </div>
   `,
   styles: `
@@ -138,8 +140,9 @@ import { RouteMemberNameComponent } from './route-member-name.component';
   `,
   imports: [
     DayPipe,
+    IconHappyComponent,
+    IconWarningComponent,
     LinkNodeComponent,
-    MatIconModule,
     MatLabel,
     MatTooltip,
     RouteDistanceComponent,

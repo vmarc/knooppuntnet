@@ -518,8 +518,11 @@ markdown > p > em:after {
 }
 
 .kpn-action-cell {
-  padding: 0 !important;
   min-width: 78px !important;
+
+  > a:not(:last-child) {
+    margin-right: 10px;
+  }
 }
 
 .kpn-action-button {
@@ -670,3 +673,4 @@ input[type=number] {
     margin-bottom: 1em;
   }
 }
+

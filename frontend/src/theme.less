@@ -12,3 +12,9 @@
 
 //@breadcrumb-link-color: @link-color;
 //@breadcrumb-link-color-hover: @link-hover-color;
+
+// the default for nz-table is to center align th when colspan > 1, we override here to also left align in this case
+.ant-table-thead > tr > th {
+  text-align: left !important;
+}
+

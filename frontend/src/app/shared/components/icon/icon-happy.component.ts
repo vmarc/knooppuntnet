@@ -1,22 +1,16 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'ui-icon-happy',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <mat-icon svgIcon="happy" /> `,
+  template: `<nz-icon nzType="smile" theme="twotone" twoToneColor="#00ff00" />`,
   styles: `
-    :host {
-      width: 25px;
-      height: 25px;
-    }
-
-    mat-icon {
-      width: 25px;
-      height: 25px;
+    nz-icon {
+      font-size: 22px;
     }
   `,
-  imports: [MatIconModule],
+  imports: [NzIconDirective],
 })
 export class IconHappyComponent {}
