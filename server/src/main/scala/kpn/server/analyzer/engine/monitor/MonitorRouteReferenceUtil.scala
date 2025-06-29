@@ -10,12 +10,14 @@ object MonitorRouteReferenceUtil {
   private val geometryFactory = new GeometryFactory
 
   def toLineStrings(referenceGeometry: Geometry): Seq[LineString] = {
-    val collection = referenceGeometry match {
-      case geometryCollection: GeometryCollection => geometryCollection
-      case _ => geometryFactory.createGeometryCollection(Array(referenceGeometry))
-    }
-    0.until(collection.getNumGeometries).map { index =>
-      collection.getGeometryN(index).asInstanceOf[LineString]
+    referenceGeometry match {
+      case lineString: LineString => Seq(lineString)
+      case geometryCollection: GeometryCollection =>
+        0.until(geometryCollection.getNumGeometries).map { index =>
+          geometryCollection.getGeometryN(index).asInstanceOf[LineString]
+        }
+      case _ =>
+        throw new IllegalArgumentException(s"Unexpected geometry type: ${referenceGeometry.getClass.getSimpleName}")
     }
   }
 }

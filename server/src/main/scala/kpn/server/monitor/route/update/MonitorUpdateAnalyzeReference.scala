@@ -10,9 +10,14 @@ import kpn.core.util.Util
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
+import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteAnalysis
+import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
+import kpn.server.json.Json
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
+import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.io.geojson.GeoJsonReader
 import org.springframework.stereotype.Component
 
 @Component
@@ -23,6 +28,7 @@ class MonitorUpdateAnalyzeReference(
 ) {
 
   private val log = Log(classOf[MonitorUpdateAnalyzeReference])
+  private val geometryFactory = new GeometryFactory
 
   def analyzeReference(context: MonitorContext, reference: MonitorRouteReference, currentRelation: Option[Relation]): Option[MonitorRouteState] = {
     reference.relationId.flatMap { relationId =>
@@ -50,7 +56,22 @@ class MonitorUpdateAnalyzeReference(
         val wayMembers = MonitorFilter.filterWayMembers(allWayMembers)
         val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
 
-        val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(wayMembers.map(_.way), reference.referenceGeoJson)
+        // convert to info as stored in BaseRouteDoc.segmentElements
+        val segmentElementLines = wayMembers.map(_.way).map { way =>
+          way.nodes.map(node => s"[${node.latitude},${node.longitude}]").mkString("[", ",", "]")
+        }
+
+        val routeLines = segmentElementLines.map { line =>
+          val coordinates = Json.value(line, classOf[CoordinateArray]).coordinates
+          geometryFactory.createLineString(coordinates)
+        }
+
+        val referenceLines = {
+          val referenceGeometry = new GeoJsonReader().read(reference.referenceGeoJson)
+          MonitorRouteReferenceUtil.toLineStrings(referenceGeometry)
+        }
+
+        val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
 
         val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds) ++ deviationAnalysis.deviations.map(_.bounds))
         val routeAnalysis = MonitorRouteAnalysis(
@@ -62,7 +83,7 @@ class MonitorUpdateAnalyzeReference(
           deviationAnalysis.referenceDistance,
           bounds,
           osmSegmentAnalysis.routeSegments.map(_.segment),
-          Some(deviationAnalysis.referenceGeometry),
+          Some(reference.referenceGeoJson),
           deviationAnalysis.matchesGeometry,
           deviationAnalysis.deviations,
           relations = Seq.empty

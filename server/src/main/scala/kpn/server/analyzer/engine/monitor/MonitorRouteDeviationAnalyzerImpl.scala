@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.monitor
 
-import kpn.api.common.data.Way
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.core.util.Haversine
 import kpn.core.util.Log
@@ -12,7 +11,6 @@ import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.Point
 import org.locationtech.jts.index.strtree.STRtree
-import org.locationtech.jts.io.geojson.GeoJsonReader
 import org.springframework.stereotype.Component
 
 import scala.jdk.CollectionConverters.*
@@ -30,56 +28,49 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
   private val SampleDistanceMeters = 10
   private val ToleranceMeters = 10
 
-  def analyze(ways: Seq[Way], referenceGeoJson: String): MonitorRouteDeviationAnalysis = {
+  def analyze(routeLines: Seq[LineString], referenceLines: Seq[LineString]): MonitorRouteDeviationAnalysis = {
 
-    val tree = buildRTree(ways)
-    val referenceGeometry = new GeoJsonReader().read(referenceGeoJson)
-    val referenceSegments = MonitorRouteReferenceUtil.toLineStrings(referenceGeometry)
+    val tree = buildRTree(routeLines)
 
-    val analysisResults = analyzeReferenceSegments(tree, referenceSegments)
+    val analysisResults = analyzeDeviations(tree, referenceLines)
     val allMatches = geometryFactory.createGeometryCollection(analysisResults.map(_.matches).toArray)
-    val referenceDistance = Math.round(referenceSegments.map(Haversine.meters).sum)
+    val referenceDistance = Math.round(referenceLines.map(Haversine.meters).sum)
     val matchesGeometry = Some(MonitorRouteAnalysisSupport.toGeoJson(allMatches))
     val deviations = organizeDeviations(analysisResults)
 
     MonitorRouteDeviationAnalysis(
       analysisResults,
       referenceDistance,
-      referenceGeoJson,
       matchesGeometry,
       deviations
     )
   }
 
-  private def analyzeReferenceSegments(tree: STRtree, referenceSegments: Seq[LineString]): Seq[DeviationAnalysisResult] = {
-    val referenceSegmentsSize = referenceSegments.size
-    val analysisResults = referenceSegments.zipWithIndex.map { case (referenceSegment, index) =>
+  private def analyzeDeviations(tree: STRtree, referenceLines: Seq[LineString]): Seq[DeviationAnalysisResult] = {
+    val referenceSegmentsSize = referenceLines.size
+    referenceLines.zipWithIndex.map { case (referenceLine, index) =>
       Log.context(s"reference segment ${index + 1}/$referenceSegmentsSize") {
-        analyzeReferenceSegment(tree, referenceSegment)
+        analyzeReferenceLine(tree, referenceLine)
       }
     }
-    analysisResults
   }
 
-  private def organizeDeviations(analysisResults: Seq[DeviationAnalysisResult]) = {
+  private def organizeDeviations(analysisResults: Seq[DeviationAnalysisResult]): Seq[MonitorRouteDeviation] = {
     analysisResults.flatMap(_.deviations).sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
       s.copy(id = index + 1)
     }
   }
 
-  private def buildRTree(ways: Seq[Way]): STRtree = {
+  private def buildRTree(routeLines: Seq[LineString]): STRtree = {
     val tree = new STRtree(4)
-    ways.foreach { way =>
-      val linestring = geometryFactory.createLineString(
-        way.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray
-      )
-      tree.insert(linestring.getEnvelopeInternal, linestring)
+    routeLines.foreach { line =>
+      tree.insert(line.getEnvelopeInternal, line)
     }
     tree
   }
 
-  private def analyzeReferenceSegment(tree: STRtree, referenceSegment: LineString): DeviationAnalysisResult = {
-    val referenceSampleCoordinates = MonitorRouteAnalysisSupport.toSampleCoordinates(SampleDistanceMeters, referenceSegment)
+  private def analyzeReferenceLine(tree: STRtree, referenceLine: LineString): DeviationAnalysisResult = {
+    val referenceSampleCoordinates = MonitorRouteAnalysisSupport.toSampleCoordinates(SampleDistanceMeters, referenceLine)
     val distances = analyzeDistances(tree, referenceSampleCoordinates)
     val (matchingSequences, deviationSequences) = calculateDeviations(distances, referenceSampleCoordinates)
     val matches = MonitorRouteAnalysisSupport.toMultiLineString(

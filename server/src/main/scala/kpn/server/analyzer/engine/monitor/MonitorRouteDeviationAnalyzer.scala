@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.monitor
 
-import kpn.api.common.data.Way
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteDeviationAnalysis
+import org.locationtech.jts.geom.LineString
 
 trait MonitorRouteDeviationAnalyzer {
-  def analyze(ways: Seq[Way], referenceGeometry: String): MonitorRouteDeviationAnalysis
+  def analyze(routeLines: Seq[LineString], referenceLines: Seq[LineString]): MonitorRouteDeviationAnalysis
 }
