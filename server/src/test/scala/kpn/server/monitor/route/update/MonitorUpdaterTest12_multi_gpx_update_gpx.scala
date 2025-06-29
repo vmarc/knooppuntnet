@@ -4,8 +4,6 @@ import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -17,8 +15,6 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteOsmSegment
-import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
@@ -86,59 +82,15 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
           referenceFilename = None,
           deviationDistance = 0,
           deviationCount = 0,
-          osmWayCount = 1,
-          osmDistance = 181,
           osmSegmentCount = 1,
-          osmSegments = Seq(
-            MonitorRouteOsmSegment(
-              Seq(
-                MonitorRouteOsmSegmentElement(
-                  relationId = 11,
-                  segmentId = 1,
-                  meters = 181,
-                  bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-                  reversed = false
-                )
-              )
-            )
-          ),
           relation = Some(
-            MonitorRouteRelation(
+            newMonitorRouteRelation(
               relationId = 1,
               name = "main-relation",
-              role = None,
-              survey = None,
-              symbol = None,
-              referenceTimestamp = None,
-              referenceFilename = None,
-              referenceDistance = 0,
-              deviationDistance = 0,
-              deviationCount = 0,
-              osmWayCount = 0,
-              osmSegmentCount = 0,
-              osmDistance = 0,
-              osmDistanceSubRelations = 181,
-              gaps = None,
-              happy = false,
               relations = Seq(
-                MonitorRouteRelation(
+                newMonitorRouteRelation(
                   relationId = 11,
                   name = "sub-relation",
-                  role = None,
-                  survey = None,
-                  symbol = None,
-                  referenceTimestamp = None,
-                  referenceFilename = None,
-                  referenceDistance = 0,
-                  deviationDistance = 0,
-                  deviationCount = 0,
-                  osmWayCount = 1,
-                  osmSegmentCount = 1,
-                  osmDistance = 181,
-                  osmDistanceSubRelations = 0,
-                  gaps = Some("start-end"),
-                  happy = false,
-                  relations = Seq.empty
                 )
               )
             )
@@ -159,24 +111,9 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
           routeId = route._id,
           relationId = 11,
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
-          wayCount = 1,
-          startNodeId = Some(1001),
-          endNodeId = Some(1002),
-          osmDistance = 181,
-          bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-          osmSegments = Seq(
-            MonitorRouteSegment(
-              id = 1,
-              startNodeId = 1001,
-              endNodeId = 1002,
-              meters = 181,
-              bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-              geoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
-            ),
-          ),
+          // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           matchesGeometry = None,
           deviations = Seq.empty,
-          happy = false
         )
       )
 
@@ -232,9 +169,6 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
                   referenceTimestamp = Some(Timestamp(2022, 8, 1)),
                   referenceFilename = Some("filename-1"),
                   referenceDistance = 181,
-                  osmWayCount = 1,
-                  osmDistance = 181,
-                  osmSegmentCount = 1,
                   happy = true,
                 )
               )
@@ -271,7 +205,6 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
         state11.copy(
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
-          happy = true,
         )
       )
 
@@ -316,9 +249,6 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
                   referenceTimestamp = Some(Timestamp(2022, 8, 2)),
                   referenceFilename = Some("filename-2"),
                   referenceDistance = 181,
-                  osmWayCount = 1,
-                  osmDistance = 181,
-                  osmSegmentCount = 1,
                   happy = true,
                 )
               )

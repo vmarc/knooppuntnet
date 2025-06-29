@@ -47,10 +47,5 @@ class RouteStateTool(database: Database) {
     routeState.deviations.foreach { deviation =>
       println(s"  ${deviation.id} ${Util.humanReadableBytes(deviation.geoJson.length)}")
     }
-
-    println(s"${routeState.osmSegments.size} osm segments")
-    routeState.osmSegments.foreach { segment =>
-      println(s"  ${segment.id} ${Util.humanReadableBytes(segment.geoJson.length)}")
-    }
   }
 }

@@ -4,8 +4,6 @@ import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
@@ -51,30 +49,13 @@ class MonitorUpdaterTest07_osm_update_properties extends UnitTest with BeforeAnd
         referenceDistance = 196,
         deviationDistance = 0,
         deviationCount = 0,
-        osmWayCount = 1,
-        osmDistance = 196,
         osmSegmentCount = 1,
         happy = true,
-        osmSegments = Seq.empty,
         relation = Some(
-          MonitorRouteRelation(
+          newMonitorRouteRelation(
             relationId = 1,
             name = "route-name",
-            role = None,
-            survey = None,
-            symbol = None,
-            referenceTimestamp = None,
-            referenceFilename = None,
-            referenceDistance = 0,
-            deviationDistance = 0,
-            deviationCount = 0,
-            osmWayCount = 1,
-            osmSegmentCount = 1,
-            osmDistance = 196,
-            osmDistanceSubRelations = 196,
-            gaps = None,
             happy = true,
-            relations = Seq.empty
           )
         )
       )
@@ -84,24 +65,9 @@ class MonitorUpdaterTest07_osm_update_properties extends UnitTest with BeforeAnd
         routeId = route._id,
         relationId = 1,
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
-        wayCount = 1,
-        startNodeId = None,
-        endNodeId = None,
-        osmDistance = 196,
-        bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        osmSegments = Seq(
-          MonitorRouteSegment(
-            1,
-            1001,
-            1002,
-            196,
-            Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-            """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
-          )
-        ),
+        // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
         deviations = Seq.empty,
-        happy = true
       )
 
       val reference = MonitorRouteReference(

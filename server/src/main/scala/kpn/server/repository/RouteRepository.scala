@@ -11,11 +11,13 @@ import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.NetworkRouteDetail
 import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDoc
+import kpn.core.doc.RouteRelation
 import kpn.core.doc.SubRouteData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.api.analysis.pages.route.RouteMapData
+import org.locationtech.jts.geom.Coordinate
 
 trait RouteRepository {
 
@@ -51,6 +53,8 @@ trait RouteRepository {
 
   def routeInfo(routeId: Long): Option[RouteInfo]
 
+  def routeSegmentCount(routeId: Long): Option[Long]
+
   def networkReferences(routeId: Long): Seq[Reference]
 
   def routeCountry(routeId: Long): Option[Country]
@@ -74,4 +78,8 @@ trait RouteRepository {
   def parentRoutes(routeId: Long): Seq[ParentRouteData]
 
   def networkRouteDetails(routeIds: Seq[Long]): Seq[NetworkRouteDetail]
+
+  def subRelationTree(routeId: Long): Option[RouteRelation]
+
+  def coordinatesArrays(routeIds: Seq[Long]): Seq[Array[Coordinate]]
 }

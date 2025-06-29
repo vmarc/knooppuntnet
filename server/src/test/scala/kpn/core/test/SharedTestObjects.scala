@@ -61,7 +61,6 @@ import kpn.api.common.location.LocationCandidate
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkDetail
@@ -118,7 +117,6 @@ import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
-import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.route.update.MonitorUpdaterConfiguration
@@ -1090,7 +1088,6 @@ trait SharedTestObjects extends MockFactory {
     osmWayCount: Long = 0,
     osmDistance: Long = 0,
     osmSegmentCount: Long = 0,
-    osmSegments: Seq[MonitorRouteOsmSegment] = Seq.empty,
     relation: Option[MonitorRouteRelation] = None,
     happy: Boolean = false
   ): MonitorRoute = {
@@ -1112,10 +1109,7 @@ trait SharedTestObjects extends MockFactory {
       referenceDistance,
       deviationDistance,
       deviationCount,
-      osmWayCount,
-      osmDistance,
       osmSegmentCount,
-      osmSegments,
       relation,
       happy
     )
@@ -1132,11 +1126,6 @@ trait SharedTestObjects extends MockFactory {
     referenceDistance: Long = 0,
     deviationDistance: Long = 0,
     deviationCount: Long = 0,
-    osmWayCount: Long = 0,
-    osmSegmentCount: Long = 0,
-    osmDistance: Long = 0,
-    osmDistanceSubRelations: Long = 0,
-    gaps: Option[String] = None,
     happy: Boolean = false,
     relations: Seq[MonitorRouteRelation] = Seq.empty
   ): MonitorRouteRelation = {
@@ -1151,11 +1140,6 @@ trait SharedTestObjects extends MockFactory {
       referenceDistance,
       deviationDistance,
       deviationCount,
-      osmWayCount,
-      osmSegmentCount,
-      osmDistance,
-      osmDistanceSubRelations,
-      gaps,
       happy,
       relations
     )
@@ -1222,30 +1206,16 @@ trait SharedTestObjects extends MockFactory {
     routeId: ObjectId,
     relationId: Long,
     timestamp: Timestamp = Timestamps.default,
-    wayCount: Long = 0,
-    startNodeId: Option[Long] = None,
-    endNodeId: Option[Long] = None,
-    osmDistance: Long = 0,
-    bounds: Bounds = Bounds(),
-    osmSegments: Seq[MonitorRouteSegment] = Seq.empty,
     matchesGeometry: Option[String] = None,
     deviations: Seq[MonitorRouteDeviation] = Seq.empty,
-    happy: Boolean = false
   ): MonitorRouteState = {
     MonitorRouteState(
       ObjectId(),
       routeId,
       relationId,
       timestamp,
-      wayCount,
-      startNodeId,
-      endNodeId,
-      osmDistance,
-      bounds,
-      osmSegments,
       matchesGeometry,
       deviations,
-      happy,
     )
   }
 
@@ -1590,6 +1560,40 @@ trait SharedTestObjects extends MockFactory {
       name = name,
       alternateName = "",
       isInWay = false,
+    )
+  }
+
+  def newBaseRouteSegment(
+    id: Long,
+    startNodeId: Long = 0,
+    endNodeId: Long = 0,
+    meters: Long = 0,
+    bounds: Bounds = Bounds(),
+    elementIds: Seq[Long] = Seq.empty,
+  ): BaseRouteSegment = {
+    BaseRouteSegment(
+      id,
+      startNodeId,
+      endNodeId,
+      meters,
+      bounds,
+      elementIds
+    )
+  }
+
+  def newBaseRouteSegmentElement(
+    segmentId: Long,
+    segmentElementId: Long,
+    surface: String = "",
+    memberIndexes: Seq[Long] = Seq.empty,
+    coordinates: String = ""
+  ): BaseRouteSegmentElement = {
+    BaseRouteSegmentElement(
+      segmentId,
+      segmentElementId,
+      surface,
+      memberIndexes,
+      coordinates
     )
   }
 }

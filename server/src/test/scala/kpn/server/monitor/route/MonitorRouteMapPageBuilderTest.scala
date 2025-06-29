@@ -12,8 +12,6 @@ import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.Log
 import kpn.core.util.UnitTest
-import kpn.server.monitor.domain.MonitorRouteOsmSegment
-import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 
@@ -211,28 +209,12 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         osmWayCount = 10,
         osmDistance = 1000,
         osmSegmentCount = 1,
-        osmSegments = Seq(
-          MonitorRouteOsmSegment(
-            Seq(
-              MonitorRouteOsmSegmentElement(
-                relationId = 1,
-                segmentId = 1,
-                meters = 1000,
-                bounds = Bounds(1, 1, 1, 1),
-                reversed = false
-              )
-            )
-          )
-        ),
         relation = Some(
           newMonitorRouteRelation(
             relationId = 1,
             name = "name-relation-1",
             deviationDistance = 100,
             deviationCount = 1,
-            osmWayCount = 10,
-            osmDistance = 1000,
-            osmSegmentCount = 1,
             relations = Seq.empty
           )
         ),
@@ -257,19 +239,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         routeId = route._id,
         relationId = 1,
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
-        wayCount = 10,
-        osmDistance = 1000,
-        bounds = Bounds(1, 1, 1, 1),
-        osmSegments = Seq(
-          MonitorRouteSegment(
-            id = 1,
-            startNodeId = 1001,
-            endNodeId = 1002,
-            meters = 100,
-            bounds = Bounds(1, 1, 1, 1),
-            geoJson = "geo-json-route-segment-11-1"
-          )
-        ),
+        // TODO redesign cleanup - bounds = Bounds(1, 1, 1, 1),
         matchesGeometry = Some("matches-geometry"),
         deviations = Seq(
           MonitorRouteDeviation(
@@ -368,13 +338,11 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             relations = Seq(
               newMonitorRouteRelation(
                 relationId = 11,
-                name = "sub-relation-11",
-                osmWayCount = 1
+                name = "sub-relation-11"
               ),
               newMonitorRouteRelation(
                 relationId = 12,
-                name = "sub-relation-12",
-                osmWayCount = 1
+                name = "sub-relation-12"
               )
             )
           )
@@ -427,8 +395,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               MonitorRouteSubRelation(
                 Some(0),
                 11,
-                "sub-relation-11",
-                1
+                "sub-relation-11"
               )
             ),
             previousSubRelation = None,
@@ -436,8 +403,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               MonitorRouteSubRelation(
                 Some(1),
                 12,
-                "sub-relation-12",
-                1
+                "sub-relation-12"
               )
             ),
             osmSegments = Seq.empty,
@@ -460,14 +426,12 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               MonitorRouteSubRelation(
                 Some(0),
                 11,
-                "sub-relation-11",
-                1
+                "sub-relation-11"
               ),
               MonitorRouteSubRelation(
                 Some(1),
                 12,
-                "sub-relation-12",
-                1
+                "sub-relation-12"
               )
             )
           )
@@ -490,16 +454,14 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               MonitorRouteSubRelation(
                 Some(1),
                 12,
-                "sub-relation-12",
-                1
+                "sub-relation-12"
               )
             ),
             previousSubRelation = Some(
               MonitorRouteSubRelation(
                 Some(0),
                 11,
-                "sub-relation-11",
-                1
+                "sub-relation-11"
               )
             ),
             nextSubRelation = None,
@@ -523,14 +485,12 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               MonitorRouteSubRelation(
                 Some(0),
                 11,
-                "sub-relation-11",
-                1
+                "sub-relation-11"
               ),
               MonitorRouteSubRelation(
                 Some(1),
                 12,
-                "sub-relation-12",
-                1
+                "sub-relation-12"
               )
             )
           )
@@ -565,13 +525,11 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             relations = Seq(
               newMonitorRouteRelation(
                 relationId = 11,
-                name = "sub-relation-11",
-                osmWayCount = 1
+                name = "sub-relation-11"
               ),
               newMonitorRouteRelation(
                 relationId = 12,
-                name = "sub-relation-12",
-                osmWayCount = 1
+                name = "sub-relation-12"
               )
             )
           )
@@ -597,19 +555,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         routeId = route._id,
         relationId = 11,
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
-        wayCount = 111,
-        osmDistance = 1011,
-        bounds = Bounds(1, 1, 1, 1),
-        osmSegments = Seq(
-          MonitorRouteSegment(
-            id = 1,
-            startNodeId = 1001,
-            endNodeId = 1002,
-            meters = 100,
-            bounds = Bounds(1, 1, 1, 1),
-            geoJson = "geo-json-route-segment-11-1"
-          )
-        ),
+        // TODO redesign cleanup - bounds = Bounds(1, 1, 1, 1),
         matchesGeometry = Some("matches-geometry-11"),
         deviations = Seq(
           MonitorRouteDeviation(
@@ -621,7 +567,6 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
 
           )
         ),
-        happy = true
       )
 
       val reference12 = newMonitorRouteReference(
@@ -641,19 +586,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         routeId = route._id,
         relationId = 12,
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
-        wayCount = 112,
-        osmDistance = 1012,
-        bounds = Bounds(1, 1, 1, 1),
-        osmSegments = Seq(
-          MonitorRouteSegment(
-            id = 1,
-            startNodeId = 2001,
-            endNodeId = 2002,
-            meters = 200,
-            bounds = Bounds(1, 1, 1, 1),
-            geoJson = "geo-json-route-segment-12-1"
-          )
-        ),
+        // TODO redesign cleanup - bounds = Bounds(1, 1, 1, 1),
         matchesGeometry = Some("matches-geometry-12"),
         deviations = Seq(
           MonitorRouteDeviation(
@@ -664,7 +597,6 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             geoJson = "geo-json-deviation-12-1"
           )
         ),
-        happy = true
       )
       routeRepository.saveRouteReference(reference11)
       routeRepository.saveRouteReference(reference12)
@@ -685,8 +617,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             MonitorRouteSubRelation(
               Some(0),
               11,
-              "sub-relation-11",
-              1
+              "sub-relation-11"
             )
           ),
           previousSubRelation = None,
@@ -694,8 +625,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             MonitorRouteSubRelation(
               Some(1),
               12,
-              "sub-relation-12",
-              1
+              "sub-relation-12"
             )
           ),
           osmSegments = Seq(
@@ -736,14 +666,12 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             MonitorRouteSubRelation(
               Some(0),
               11,
-              "sub-relation-11",
-              1
+              "sub-relation-11"
             ),
             MonitorRouteSubRelation(
               Some(1),
               12,
-              "sub-relation-12",
-              1
+              "sub-relation-12"
             )
           )
         )
@@ -763,16 +691,14 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             MonitorRouteSubRelation(
               Some(1),
               12,
-              "sub-relation-12",
-              1
+              "sub-relation-12"
             )
           ),
           previousSubRelation = Some(
             MonitorRouteSubRelation(
               Some(0),
               11,
-              "sub-relation-11",
-              1
+              "sub-relation-11"
             )
           ),
           nextSubRelation = None,
@@ -813,14 +739,12 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             MonitorRouteSubRelation(
               Some(0),
               11,
-              "sub-relation-11",
-              1
+              "sub-relation-11"
             ),
             MonitorRouteSubRelation(
               Some(1),
               12,
-              "sub-relation-12",
-              1
+              "sub-relation-12"
             )
           )
         )

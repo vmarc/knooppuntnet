@@ -196,15 +196,8 @@ class MonitorChangeProcessorImpl(
         null, // TODO routeId,
         1L, // TODO relationId
         afterRouteAnalysis.relation.timestamp,
-        afterRouteAnalysis.wayCount,
-        afterRouteAnalysis.startNodeId,
-        afterRouteAnalysis.endNodeId,
-        afterRouteAnalysis.osmDistance,
-        afterRouteAnalysis.bounds,
-        afterRouteAnalysis.osmSegments,
         afterRouteAnalysis.matchesGeometry,
         afterRouteAnalysis.deviations,
-        happy,
       )
 
       monitorRouteRepository.saveRouteState(routeState)

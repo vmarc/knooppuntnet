@@ -2,8 +2,8 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegmentInfo
-import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.monitor.MonitorUtil
+import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import org.springframework.stereotype.Component
 
 @Component
@@ -37,7 +37,7 @@ class MonitorRouteGapAnalyzer {
 
       val osmSegmentCount = MonitorUtil.findSubRelation(monitorRouteRelation, relationId) match {
         case None => 0
-        case Some(monitorRouteSubRelation) => monitorRouteSubRelation.osmSegmentCount
+        case Some(monitorRouteSubRelation) => 0 // TODO redesign cleanup - monitorRouteSubRelation.osmSegmentCount
       }
 
       if (osmSegmentCount > 1) {
@@ -83,7 +83,7 @@ class MonitorRouteGapAnalyzer {
     val updatedRelations = monitorRouteRelation.relations.map(r => updatedMonitorRouteRelationGap(r, gapInfos))
     val gaps = gapInfos.find(_.relationId == monitorRouteRelation.relationId).flatMap(_.gaps)
     monitorRouteRelation.copy(
-      gaps = gaps,
+      // TODO redesign cleanup - gaps = gaps,
       relations = updatedRelations
     )
   }

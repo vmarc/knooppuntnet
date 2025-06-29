@@ -1,12 +1,10 @@
 package kpn.server.monitor.route
 
-import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
 import kpn.core.util.Log
 import kpn.core.util.Triplet
-import kpn.core.util.Util
 import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -106,7 +104,7 @@ class MonitorRouteMapPageBuilder(
           buildSimpleRoutePage(group, route, relation.relationId)
         }
         else {
-          val subRelationsWithWays = MonitorUtil.allRelationsIn(route).filter(_.wayCount > 0)
+          val subRelationsWithWays = MonitorUtil.allRelationsIn(route) // TODO redesign cleanup - .filter(_.wayCount > 0)
           if (subRelationsWithWays.isEmpty) {
             buildSimpleRoutePage(group, route, relation.relationId)
           }
@@ -197,18 +195,7 @@ class MonitorRouteMapPageBuilder(
         )
 
         val stateOption = monitorRouteRepository.routeState(route._id, relationId)
-        val bounds = stateOption match {
-          case None => Some(reference.referenceBounds)
-          case Some(state) =>
-            if (state.bounds == Bounds()) {
-              Some(reference.referenceBounds)
-            }
-            else {
-              Some(
-                Util.mergeBounds(Seq(state.bounds, reference.referenceBounds))
-              )
-            }
-        }
+        val bounds = reference.referenceBounds
 
         MonitorRouteMapPage(
           route.relationId,
@@ -217,12 +204,12 @@ class MonitorRouteMapPageBuilder(
           group.name,
           group.description,
           route.referenceType,
-          bounds,
+          Some(bounds),
           route.analysisTimestamp,
           None,
           None,
           None,
-          stateOption.toSeq.flatMap(_.osmSegments),
+          Seq.empty, // TODO redesign -  stateOption.toSeq.flatMap(_.osmSegments),
           stateOption.flatMap(_.matchesGeometry),
           stateOption.toSeq.flatMap(_.deviations),
           referenceInfo,
@@ -237,7 +224,7 @@ class MonitorRouteMapPageBuilder(
     subRelationIndex: Int
   ): MonitorRouteMapPage = {
 
-    val subRelations = MonitorUtil.allRelationsIn(route).filter(_.wayCount > 0)
+    val subRelations = MonitorUtil.allRelationsIn(route) // TODO redesign cleanup - .filter(_.wayCount > 0)
       .zipWithIndex.map { case (subRelation, index) => subRelation.copy(subRelationIndex = Some(index.toLong)) }
 
     val triplet = {
@@ -282,7 +269,6 @@ class MonitorRouteMapPageBuilder(
           )
         }
 
-        val bounds = stateOption.map(_.bounds)
         MonitorRouteMapPage(
           route.relationId,
           route.name,
@@ -290,12 +276,12 @@ class MonitorRouteMapPageBuilder(
           group.name,
           group.description,
           route.referenceType,
-          bounds,
+          None,
           route.analysisTimestamp,
           Some(triplet.current),
           triplet.previous,
           triplet.next,
-          stateOption.toSeq.flatMap(_.osmSegments),
+          Seq.empty, // TODO redesign -  stateOption.toSeq.flatMap(_.osmSegments),
           stateOption.flatMap(_.matchesGeometry),
           stateOption.toSeq.flatMap(_.deviations),
           referenceOption,
@@ -316,16 +302,7 @@ class MonitorRouteMapPageBuilder(
           reference.referenceGeoJson
         )
         val stateOption = monitorRouteRepository.routeState(route._id, relationId)
-        val bounds = stateOption match {
-          case None => reference.referenceBounds
-          case Some(state) =>
-            if (state.bounds == Bounds()) { // TODO this is not possible?
-              reference.referenceBounds
-            }
-            else {
-              Util.mergeBounds(Seq(state.bounds, referenceInfo.referenceBounds))
-            }
-        }
+        val bounds = reference.referenceBounds
 
         MonitorRouteMapPage(
           route.relationId,
@@ -339,7 +316,7 @@ class MonitorRouteMapPageBuilder(
           Some(triplet.current),
           triplet.previous,
           triplet.next,
-          stateOption.toSeq.flatMap(_.osmSegments),
+          Seq.empty, // TODO redesign -  stateOption.toSeq.flatMap(_.osmSegments),
           stateOption.flatMap(_.matchesGeometry),
           stateOption.toSeq.flatMap(_.deviations),
           Some(referenceInfo),

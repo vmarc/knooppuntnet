@@ -11,6 +11,7 @@ import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.NetworkRouteDetail
 import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDoc
+import kpn.core.doc.RouteRelation
 import kpn.core.doc.SubRouteData
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryBaseRouteIds
@@ -18,6 +19,7 @@ import kpn.database.actions.routes.MongoQueryKnownRouteIds
 import kpn.database.actions.routes.MongoQueryNetworkRouteDetails
 import kpn.database.actions.routes.MongoQueryParentRoutes
 import kpn.database.actions.routes.MongoQueryRouteBounds
+import kpn.database.actions.routes.MongoQueryRouteCoordinateArrays
 import kpn.database.actions.routes.MongoQueryRouteCountry
 import kpn.database.actions.routes.MongoQueryRouteElementIds
 import kpn.database.actions.routes.MongoQueryRouteIds
@@ -25,9 +27,11 @@ import kpn.database.actions.routes.MongoQueryRouteInfo
 import kpn.database.actions.routes.MongoQueryRouteMapData
 import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.database.actions.routes.MongoQueryRouteSearchResults
+import kpn.database.actions.routes.MongoQueryRouteSegmentCount
 import kpn.database.actions.routes.MongoQueryRouteTileIds
 import kpn.database.actions.routes.MongoQueryRouteTileInfos
 import kpn.database.actions.routes.MongoQueryRoutes
+import kpn.database.actions.routes.MongoQuerySubRelationTree
 import kpn.database.actions.routes.MongoQuerySubRouteData
 import kpn.database.base.Database
 import kpn.database.base.StringId
@@ -36,6 +40,7 @@ import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.api.analysis.pages.route.RouteMapData
 import kpn.server.sync.Transaction
+import org.locationtech.jts.geom.Coordinate
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.equal
@@ -155,6 +160,10 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQueryRouteInfo(database).execute(routeId, log)
   }
 
+  override def routeSegmentCount(routeId: Long): Option[Long] = {
+    new MongoQueryRouteSegmentCount(database).execute(routeId, log)
+  }
+
   override def networkReferences(routeId: Long): Seq[Reference] = {
     new MongoQueryRouteNetworkReferences(database).execute(routeId, log)
   }
@@ -202,5 +211,13 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
 
   override def networkRouteDetails(routeIds: Seq[Long]): Seq[NetworkRouteDetail] = {
     new MongoQueryNetworkRouteDetails(database).execute(routeIds)
+  }
+
+  override def subRelationTree(routeId: Long): Option[RouteRelation] = {
+    new MongoQuerySubRelationTree(database).execute(routeId)
+  }
+
+  override def coordinatesArrays(routeIds: Seq[Long]): Seq[Array[Coordinate]] = {
+    new MongoQueryRouteCoordinateArrays(database).execute(routeIds)
   }
 }

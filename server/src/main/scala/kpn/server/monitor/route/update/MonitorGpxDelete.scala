@@ -49,7 +49,6 @@ class MonitorGpxDelete(
         val updatedState = state.copy(
           matchesGeometry = None,
           deviations = Seq.empty,
-          happy = false
         )
         monitorRouteRepository.saveRouteState(updatedState)
         context.set(

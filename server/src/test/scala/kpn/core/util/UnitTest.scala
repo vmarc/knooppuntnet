@@ -47,4 +47,8 @@ abstract class UnitTest extends AnyFunSuite with Matchers {
   def pendingRedesignRoutePlanning(): Unit = {
     pending
   }
+
+  def pendingRedesignMonitor(): Unit = {
+    pending
+  }
 }

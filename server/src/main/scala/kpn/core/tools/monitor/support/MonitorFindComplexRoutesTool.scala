@@ -77,7 +77,7 @@ class MonitorFindComplexRoutesTool(database: Database) {
   }
 
   private def complexSubRelations(monitorRouteRelation: MonitorRouteRelation): Seq[ComplexRouteRelation] = {
-    if (monitorRouteRelation.osmDistance > 0 && monitorRouteRelation.relations.nonEmpty) {
+    if (monitorRouteRelation.relations.nonEmpty) {
       val id = monitorRouteRelation.relationId
       val name = monitorRouteRelation.name
       ComplexRouteRelation(id, name) +: monitorRouteRelation.relations.flatMap(complexSubRelations)

@@ -5,7 +5,6 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.common.Time
 import kpn.core.util.Log
-import kpn.core.util.Util
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.monitor.domain.MonitorRoute
@@ -69,11 +68,8 @@ class MonitorAdd(
             referenceDistance = 0,
             deviationDistance = 0,
             deviationCount = 0,
-            osmWayCount = 0,
             osmSegmentCount = 0,
-            osmDistance = 0,
             happy = false,
-            osmSegments = Seq.empty,
             relation = None
           )
         )
@@ -119,7 +115,6 @@ class MonitorAdd(
                   val wayMembers = MonitorFilter.filterWayMembers(relation.wayMembers)
                   if (wayMembers.nonEmpty) {
                     val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
-                    val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds))
 
                     val id = if (context.value.isActionUpdate || context.value.isActionGpxUpload) {
                       context.value.oldStateIds.find(_.relationId == mrr.relationId) match {
@@ -136,15 +131,8 @@ class MonitorAdd(
                       routeId = context.value.routeId,
                       relationId = mrr.relationId,
                       timestamp = Time.now,
-                      wayCount = wayMembers.size,
-                      startNodeId = osmSegmentAnalysis.startNodeId,
-                      endNodeId = osmSegmentAnalysis.endNodeId,
-                      osmDistance = osmSegmentAnalysis.osmDistance,
-                      bounds = bounds,
-                      osmSegments = osmSegmentAnalysis.routeSegments.map(_.segment),
                       matchesGeometry = None,
                       deviations = Seq.empty,
-                      happy = false,
                     )
 
                     monitorRouteRepository.saveRouteState(state)

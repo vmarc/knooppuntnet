@@ -5,12 +5,14 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzerImpl
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzerImpl
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 
 class MonitorUpdaterConfiguration(
   database: Database,
   val monitorRouteRelationRepository: MonitorRouteRelationRepository,
   val monitorRouteStructureLoader: MonitorRouteStructureLoader
 ) {
+  val routeRepository = new RouteRepositoryImpl(database)
 
   val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
   val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
@@ -28,11 +30,13 @@ class MonitorUpdaterConfiguration(
   )
 
   private val monitorUpdateSave = new MonitorUpdateSave(
+    routeRepository,
     monitorRouteRepository,
     monitorRouteGapAnalyzer,
   )
 
   private val monitorUpdateAnalyzeReference = new MonitorUpdateAnalyzeReference(
+    routeRepository,
     monitorRouteRelationRepository,
     monitorRouteOsmSegmentAnalyzer,
     monitorRouteDeviationAnalyzer,

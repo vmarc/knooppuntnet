@@ -48,7 +48,6 @@ object MonitorUtil {
       None,
       monitorRouteRelation.relationId,
       monitorRouteRelation.name,
-      monitorRouteRelation.osmWayCount
     )
   }
 }

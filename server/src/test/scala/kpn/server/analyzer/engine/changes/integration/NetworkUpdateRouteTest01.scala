@@ -32,7 +32,6 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.BaseRouteSegment
-import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 import kpn.core.test.Timestamps
@@ -173,7 +172,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           )
         ),
         segmentElements = Seq(
-          BaseRouteSegmentElement(
+          newBaseRouteSegmentElement(
             segmentId = 1,
             segmentElementId = 1,
             surface = "paved",

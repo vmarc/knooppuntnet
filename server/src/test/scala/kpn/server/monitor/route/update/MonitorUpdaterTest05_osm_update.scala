@@ -3,7 +3,6 @@ package kpn.server.monitor.route.update
 import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
@@ -119,29 +118,12 @@ class MonitorUpdaterTest05_osm_update extends UnitTest with BeforeAndAfterEach w
           referenceDistance = 0,
           deviationDistance = 0,
           deviationCount = 0,
-          osmWayCount = 0,
-          osmDistance = 0,
           osmSegmentCount = 0,
-          osmSegments = Seq.empty,
           relation = Some(
-            MonitorRouteRelation(
+            newMonitorRouteRelation(
               relationId = 1,
               name = "route",
-              role = None,
-              survey = None,
-              symbol = None,
-              referenceTimestamp = None,
-              referenceFilename = None,
-              referenceDistance = 0,
-              deviationDistance = 0,
-              deviationCount = 0,
-              osmWayCount = 0,
-              osmSegmentCount = 0,
-              osmDistance = 0,
-              osmDistanceSubRelations = 0,
-              gaps = None,
               happy = true,
-              relations = Seq.empty
             )
           ),
           happy = false

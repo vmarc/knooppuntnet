@@ -255,8 +255,6 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       val state1 = newMonitorRouteState(
         route._id,
         relationId = 11,
-        wayCount = 10,
-        osmDistance = 100,
         deviations = Seq(
           MonitorRouteDeviation(
             1,
@@ -277,8 +275,6 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       val state2 = newMonitorRouteState(
         route._id,
         relationId = 12,
-        wayCount = 20,
-        osmDistance = 200,
         deviations = Seq(
           MonitorRouteDeviation(
             1,
@@ -301,8 +297,6 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
         case Some(monitorRouteStateSummary) =>
           monitorRouteStateSummary.deviationDistance should equal(90L)
           monitorRouteStateSummary.deviationCount should equal(3L)
-          monitorRouteStateSummary.osmWayCount should equal(30L)
-          monitorRouteStateSummary.osmDistance should equal(300L)
       }
     }
   }

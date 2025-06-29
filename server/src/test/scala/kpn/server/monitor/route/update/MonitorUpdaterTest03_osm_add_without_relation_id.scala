@@ -4,8 +4,6 @@ import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -17,8 +15,6 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteOsmSegment
-import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
@@ -85,11 +81,8 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
           referenceDistance = 0,
           deviationDistance = 0,
           deviationCount = 0,
-          osmWayCount = 0,
-          osmDistance = 0,
           osmSegmentCount = 0,
-          happy = false,
-          osmSegments = Seq.empty,
+          happy = true,
           relation = None // route structure not known yet
         )
       )
@@ -99,6 +92,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
 
       setupLoadStructure(configuration)
       setupLoadTopLevel(configuration)
+      setupBaseRouteDoc(configuration)
 
       val updatedUpdate = update.copy(
         action = MonitorAction.update,
@@ -141,42 +135,13 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
           referenceDistance = 181,
           deviationDistance = 0,
           deviationCount = 0,
-          osmWayCount = 1,
-          osmDistance = 181,
           osmSegmentCount = 1,
           happy = true,
-          osmSegments = Seq(
-            MonitorRouteOsmSegment(
-              Seq(
-                MonitorRouteOsmSegmentElement(
-                  relationId = 1,
-                  segmentId = 1,
-                  meters = 181,
-                  bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-                  reversed = false
-                )
-              )
-            )
-          ),
           relation = Some(
-            MonitorRouteRelation(
+            newMonitorRouteRelation(
               relationId = 1,
               name = "route-name",
-              role = None,
-              survey = None,
-              symbol = None,
-              referenceTimestamp = None,
-              referenceFilename = None,
-              referenceDistance = 0,
-              deviationDistance = 0,
-              deviationCount = 0,
-              osmWayCount = 1,
-              osmSegmentCount = 1,
-              osmDistance = 181,
-              osmDistanceSubRelations = 0,
-              gaps = Some("start-end"),
               happy = true,
-              relations = Seq.empty
             )
           )
         )
@@ -209,24 +174,9 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
           routeId = route._id,
           relationId = 1,
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
-          wayCount = 1,
-          startNodeId = Some(1001),
-          endNodeId = Some(1002),
-          osmDistance = 181,
-          bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-          osmSegments = Seq(
-            MonitorRouteSegment(
-              1,
-              1001,
-              1002,
-              181,
-              Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-              """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
-            )
-          ),
+          // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
           deviations = Seq.empty,
-          happy = true
         )
       )
     }
@@ -264,5 +214,23 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
     val relation = new DataBuilder(overpassData.rawData).data.relations(1)
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 8, 1)), 1).returns(Some(relation))
+  }
+
+  private def setupBaseRouteDoc(configuration: MonitorUpdaterConfiguration): Unit = {
+    configuration.routeRepository.saveBaseRoute(
+      newBaseRouteDoc(
+        newRouteSummary(1),
+        segments = Seq(
+          newBaseRouteSegment(1)
+        ),
+        segmentElements = Seq(
+          newBaseRouteSegmentElement(
+            segmentId = 1,
+            segmentElementId = 1,
+            coordinates = "[[4.4553911, 51.4633666],[4.4562458,51.4618272]]"
+          )
+        )
+      )
+    )
   }
 }

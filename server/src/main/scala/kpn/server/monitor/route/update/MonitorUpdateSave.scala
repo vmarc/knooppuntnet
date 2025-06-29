@@ -6,10 +6,12 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentBuilder
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.repository.MonitorRouteStateSummary
+import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class MonitorUpdateSave(
+  routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorRouteGapAnalyzer: MonitorRouteGapAnalyzer,
 ) {
@@ -89,8 +91,6 @@ class MonitorUpdateSave(
       }
 
       val symbol = relationWithGaps.flatMap(_.symbol)
-      val osmWayCount = stateSummaries.map(_.osmWayCount).sum
-      val osmDistance = stateSummaries.map(_.osmDistance).sum
       val deviationCount = stateSummaries.map(_.deviationCount).sum
       val deviationDistance = stateSummaries.map(_.deviationDistance).sum
 
@@ -100,36 +100,26 @@ class MonitorUpdateSave(
             context.value.route.copy(
               symbol = symbol,
               relation = relationWithGaps,
-              osmWayCount = osmWayCount,
-              osmDistance = osmDistance,
               deviationCount = deviationCount,
               deviationDistance = deviationDistance
             )
           )
         )
       )
-
-      val happy = superRouteSuperSegments.sizeIs == 1 &&
-        context.value.newRoute.map(_.deviationCount).sum == 0 &&
-        context.value.newRoute.get.relation.exists(_.happy)
-
-      val updatedRoute = context.value.route.copy(
-        osmSegments = superRouteSuperSegments,
-        osmSegmentCount = superRouteSuperSegments.size,
-        happy = happy
-      )
-      context.set(
-        context.value.copy(
-          newRoute = Some(updatedRoute)
-        )
-      )
     }
 
     val analysisDuration = System.currentTimeMillis() - context.value.analysisStartMillis.get
 
+    val segmentCount: Long = context.value.update.relationId.flatMap(routeRepository.routeSegmentCount).getOrElse(0)
+    val happy = context.value.update.relationId.nonEmpty &&
+      context.value.newRoute.map(_.deviationCount).sum == 0 &&
+      context.value.newRoute.get.relation.exists(_.happy)
+
     val savedRoute = context.value.route.copy(
       analysisTimestamp = Some(Time.now),
-      analysisDuration = Some(analysisDuration)
+      analysisDuration = Some(analysisDuration),
+      osmSegmentCount = segmentCount,
+      happy = happy,
     )
     monitorRouteRepository.saveRoute(savedRoute)
   }
@@ -165,10 +155,6 @@ class MonitorUpdateSave(
           monitorRouteRelation.copy(
             deviationDistance = stateSummary.deviationDistance,
             deviationCount = stateSummary.deviationCount,
-            osmWayCount = stateSummary.osmWayCount,
-            osmSegmentCount = stateSummary.osmSegmentCount,
-            osmDistanceSubRelations = 0,
-            happy = stateSummary.happy,
           )
       }
     }
@@ -187,10 +173,7 @@ class MonitorUpdateSave(
           monitorRouteRelation.copy(
             deviationDistance = state.deviationDistance,
             deviationCount = state.deviationCount,
-            osmWayCount = state.osmWayCount,
-            osmSegmentCount = state.osmSegmentCount,
-            osmDistance = state.osmDistance,
-            happy = state.happy && subRelationsHappy,
+            happy = subRelationsHappy,
             relations = updatedRelations
           )
       }
@@ -210,9 +193,7 @@ class MonitorUpdateSave(
 
   private def updatedMonitorRouteRelationCumulativeDistance(monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelation = {
     val updatedRelations = monitorRouteRelation.relations.map(r => updatedMonitorRouteRelationCumulativeDistance(r))
-    val osmDistanceSubRelations = monitorRouteRelation.relations.flatMap(monitorRouteRelationSubRelations).map(_.osmDistance).sum
     monitorRouteRelation.copy(
-      osmDistanceSubRelations = osmDistanceSubRelations,
       relations = updatedRelations
     )
   }

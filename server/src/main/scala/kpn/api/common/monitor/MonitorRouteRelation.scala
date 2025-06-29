@@ -25,7 +25,7 @@ object MonitorRouteRelation {
     val names = nameTagKeys.flatMap(nameTagKey => relation.tagValues(nameTagKey))
 
     val name = names.headOption match {
-      case Some(name) => name
+      case Some(nameValue) => nameValue
       case None =>
         relation.tagValue("from") match {
           case None => "?" // TODO get  name from 'name:fr', 'name:nl', etc.
@@ -47,8 +47,6 @@ object MonitorRouteRelation {
       MonitorRouteRelation.from(member.relation, member.role)
     }
 
-    val subRelationsDistance = relations.map(_.osmDistance).sum
-
     MonitorRouteRelation(
       relationId = relation.id,
       name = name,
@@ -60,12 +58,7 @@ object MonitorRouteRelation {
       referenceDistance = 0,
       deviationDistance = 0,
       deviationCount = 0,
-      osmWayCount = 0,
-      osmSegmentCount = 0,
-      osmDistance = 0,
-      osmDistanceSubRelations = subRelationsDistance,
-      gaps = None,
-      happy = false,
+      happy = true,
       relations = relations
     )
   }
@@ -89,11 +82,6 @@ case class MonitorRouteRelation(
 
   deviationDistance: Long,
   deviationCount: Long,
-  osmWayCount: Long,
-  osmSegmentCount: Long,
-  osmDistance: Long,
-  osmDistanceSubRelations: Long,
-  gaps: Option[String],
   happy: Boolean,
   relations: Seq[MonitorRouteRelation]
 )

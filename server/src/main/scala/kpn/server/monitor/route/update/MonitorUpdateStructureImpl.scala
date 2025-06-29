@@ -53,12 +53,9 @@ class MonitorUpdateStructureImpl(
       symbol = None,
       deviationDistance = 0,
       deviationCount = 0,
-      osmWayCount = 0,
-      osmDistance = 0,
       osmSegmentCount = 0,
-      osmSegments = Seq.empty,
       relation = None,
-      happy = false
+      happy = true
     )
 
     val finalRoute = if (updatedNewRoute.referenceType == MonitorReferenceType.osm) {

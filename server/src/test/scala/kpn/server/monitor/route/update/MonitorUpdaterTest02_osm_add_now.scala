@@ -4,8 +4,6 @@ import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
@@ -19,8 +17,6 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteOsmSegment
-import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
@@ -40,6 +36,7 @@ class MonitorUpdaterTest02_osm_add_now extends UnitTest with BeforeAndAfterEach 
       val configuration = MonitorUpdaterTestSupport.configuration(database)
       setupLoadStructure(configuration)
       setupLoadTopLevel(configuration)
+      setupBaseRouteDoc(configuration)
 
       val group = newMonitorGroup("group")
       configuration.monitorGroupRepository.saveGroup(group)
@@ -91,41 +88,12 @@ class MonitorUpdaterTest02_osm_add_now extends UnitTest with BeforeAndAfterEach 
           referenceDistance = 181,
           deviationDistance = 0,
           deviationCount = 0,
-          osmWayCount = 1,
-          osmDistance = 181,
           osmSegmentCount = 1,
-          osmSegments = Seq(
-            MonitorRouteOsmSegment(
-              Seq(
-                MonitorRouteOsmSegmentElement(
-                  relationId = 1,
-                  segmentId = 1,
-                  meters = 181,
-                  bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-                  reversed = false
-                )
-              )
-            )
-          ),
           relation = Some(
-            MonitorRouteRelation(
+            newMonitorRouteRelation(
               relationId = 1,
               name = "route-name",
-              role = None,
-              survey = None,
-              symbol = None,
-              referenceTimestamp = None,
-              referenceFilename = None,
-              referenceDistance = 0,
-              deviationDistance = 0,
-              deviationCount = 0,
-              osmWayCount = 1,
-              osmSegmentCount = 1,
-              osmDistance = 181,
-              osmDistanceSubRelations = 0,
-              gaps = Some("start-end"),
               happy = true,
-              relations = Seq.empty
             )
           ),
           happy = true
@@ -159,61 +127,12 @@ class MonitorUpdaterTest02_osm_add_now extends UnitTest with BeforeAndAfterEach 
           routeId = route._id,
           relationId = 1,
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
-          wayCount = 1,
-          startNodeId = Some(1001),
-          endNodeId = Some(1002),
-          osmDistance = 181,
-          bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-          osmSegments = Seq(
-            MonitorRouteSegment(
-              id = 1,
-              startNodeId = 1001,
-              endNodeId = 1002,
-              meters = 181,
-              bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-              geoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
-            )
-          ),
+          // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
           deviations = Seq.empty,
-          happy = true
         )
       )
     }
-  }
-
-  private def setupLoadStructure(configuration: MonitorUpdaterConfiguration): Unit = {
-
-    val overpassData = OverpassData()
-      .relation(
-        1,
-        tags = Tags.from(
-          "name" -> "route-name"
-        ),
-      )
-
-    setupRouteStructure(configuration, overpassData, 1)
-  }
-
-  private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration): Unit = {
-
-    val overpassData = OverpassData()
-      .node(1001, latitude = "51.4633666", longitude = "4.4553911")
-      .node(1002, latitude = "51.4618272", longitude = "4.4562458")
-      .way(101, 1001, 1002)
-      .relation(
-        1,
-        tags = Tags.from(
-          "name" -> "route-name"
-        ),
-        members = Seq(
-          newMember(MemberType.Way, 101),
-        )
-      )
-
-    val relation = new DataBuilder(overpassData.rawData).data.relations(1)
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 8, 11, 12, 0, 0)), 1).returns(Some(relation))
   }
 
   private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
@@ -254,5 +173,57 @@ class MonitorUpdaterTest02_osm_add_now extends UnitTest with BeforeAndAfterEach 
         )
       )
     )
+  }
+
+  private def setupBaseRouteDoc(configuration: MonitorUpdaterConfiguration): Unit = {
+    configuration.routeRepository.saveBaseRoute(
+      newBaseRouteDoc(
+        newRouteSummary(1),
+        segments = Seq(
+          newBaseRouteSegment(1)
+        ),
+        segmentElements = Seq(
+          newBaseRouteSegmentElement(
+            segmentId = 1,
+            segmentElementId = 1,
+            coordinates = "[[4.4553911, 51.4633666],[4.4562458,51.4618272]]"
+          )
+        )
+      )
+    )
+  }
+
+  private def setupLoadStructure(configuration: MonitorUpdaterConfiguration): Unit = {
+
+    val overpassData = OverpassData()
+      .relation(
+        1,
+        tags = Tags.from(
+          "name" -> "route-name"
+        ),
+      )
+
+    setupRouteStructure(configuration, overpassData, 1)
+  }
+
+  private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration): Unit = {
+
+    val overpassData = OverpassData()
+      .node(1001, latitude = "51.4633666", longitude = "4.4553911")
+      .node(1002, latitude = "51.4618272", longitude = "4.4562458")
+      .way(101, 1001, 1002)
+      .relation(
+        1,
+        tags = Tags.from(
+          "name" -> "route-name"
+        ),
+        members = Seq(
+          newMember(MemberType.Way, 101),
+        )
+      )
+
+    val relation = new DataBuilder(overpassData.rawData).data.relations(1)
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 8, 11, 12, 0, 0)), 1).returns(Some(relation))
   }
 }

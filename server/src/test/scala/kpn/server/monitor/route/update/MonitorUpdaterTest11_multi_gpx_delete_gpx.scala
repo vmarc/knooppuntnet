@@ -119,7 +119,6 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
             geoJson = "geoJson"
           )
         ),
-        happy = true
 
       )
       val state112 = newMonitorRouteState(
@@ -181,7 +180,6 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
           state111.copy(
             matchesGeometry = None,
             deviations = Seq.empty,
-            happy = false
           )
         )
       )

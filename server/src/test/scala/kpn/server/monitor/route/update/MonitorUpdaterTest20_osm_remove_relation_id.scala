@@ -12,7 +12,6 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest20_osm_remove_relation_id extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
@@ -47,9 +46,6 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends UnitTest with BeforeAn
         osmWayCount = 30,
         osmDistance = 1010,
         osmSegmentCount = 1,
-        osmSegments = Seq(
-          MonitorRouteOsmSegment(Seq.empty)
-        ),
         relation = Some(
           newMonitorRouteRelation(
             relationId = 1,
@@ -120,10 +116,7 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends UnitTest with BeforeAn
           referenceDistance = 0,
           deviationDistance = 0,
           deviationCount = 0,
-          osmWayCount = 0,
-          osmDistance = 0,
           osmSegmentCount = 0,
-          osmSegments = Seq.empty,
           relation = None,
           happy = false
         )
