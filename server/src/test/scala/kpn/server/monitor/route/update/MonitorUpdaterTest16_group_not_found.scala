@@ -40,25 +40,29 @@ class MonitorUpdaterTest16_group_not_found extends UnitTest with BeforeAndAfterE
         )
       )
 
-      assertEqual(
-        reporter.messages,
-        Seq(
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-              MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-              MonitorRouteUpdateStatusCommand("step-active", "prepare")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            exception = Some("""Could not find group with name "unknown-group"""")
-          )
-        )
-      )
+      assertMessages(reporter)
 
       database.monitorRoutes.countDocuments(log) should equal(0)
       database.monitorRouteReferences.countDocuments(log) should equal(0)
       database.monitorRouteStates.countDocuments(log) should equal(0)
     }
+  }
+
+  private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
+    assertEqual(
+      reporter.messages,
+      Seq(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+            MonitorRouteUpdateStatusCommand("step-active", "prepare")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          exception = Some("""Could not find group with name "unknown-group"""")
+        )
+      )
+    )
   }
 }

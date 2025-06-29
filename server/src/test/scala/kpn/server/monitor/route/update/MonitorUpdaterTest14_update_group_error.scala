@@ -75,21 +75,8 @@ class MonitorUpdaterTest14_update_group_error extends UnitTest with BeforeAndAft
           )
         )
       )
-      assertEqual(
-        reporter.messages,
-        Seq(
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-              MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-              MonitorRouteUpdateStatusCommand("step-active", "prepare")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            exception = Some("""Could not find group with name "group2"""")
-          )
-        )
-      )
+
+      assertMessages(reporter)
 
       database.monitorRoutes.countDocuments(log) should equal(1)
       database.monitorRouteReferences.countDocuments(log) should equal(1)
@@ -103,5 +90,23 @@ class MonitorUpdaterTest14_update_group_error extends UnitTest with BeforeAndAft
       updatedState should equal(state)
       updatedReference should equal(reference)
     }
+  }
+
+  private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
+    assertEqual(
+      reporter.messages,
+      Seq(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+            MonitorRouteUpdateStatusCommand("step-active", "prepare")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          exception = Some("""Could not find group with name "group2"""")
+        )
+      )
+    )
   }
 }

@@ -39,21 +39,25 @@ class MonitorUpdaterTest17_route_not_found extends UnitTest with SharedTestObjec
         )
       )
 
-      assertEqual(
-        reporter.messages,
-        Seq(
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-              MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-              MonitorRouteUpdateStatusCommand("step-active", "prepare")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            exception = Some("""Could not find route with name "unknown-route-name" in group "group-name"""")
+      assertMessages(reporter)
+    }
+  }
+
+  private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
+    assertEqual(
+      reporter.messages,
+      Seq(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+            MonitorRouteUpdateStatusCommand("step-active", "prepare")
           )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          exception = Some("""Could not find route with name "unknown-route-name" in group "group-name"""")
         )
       )
-    }
+    )
   }
 }

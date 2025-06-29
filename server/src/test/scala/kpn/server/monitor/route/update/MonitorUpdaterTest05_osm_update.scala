@@ -15,6 +15,7 @@ import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
+import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import org.scalatest.BeforeAndAfterEach
 
@@ -97,42 +98,46 @@ class MonitorUpdaterTest05_osm_update extends UnitTest with BeforeAndAfterEach w
       database.monitorRouteReferences.countDocuments(log) should equal(0)
       database.monitorRouteStates.countDocuments(log) should equal(0)
 
-      val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
-      assertEqual(
-        updatedRoute.copy(analysisDuration = None),
-        MonitorRoute(
-          _id = route._id,
-          groupId = group._id,
-          name = "route",
-          description = "route description",
-          comment = None,
-          relationId = Some(1),
-          user = "user",
-          timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
-          symbol = None,
-          analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
-          analysisDuration = None,
-          referenceType = MonitorReferenceType.osm,
-          referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-          referenceFilename = None,
-          referenceDistance = 0,
-          deviationDistance = 0,
-          deviationCount = 0,
-          osmSegmentCount = 0,
-          relation = Some(
-            newMonitorRouteRelation(
-              relationId = 1,
-              name = "route",
-              happy = true,
-            )
-          ),
-          happy = false
-        )
-      )
+      assertRoute(configuration, group, route)
 
       configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
       configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
     }
+  }
+
+  private def assertRoute(configuration: MonitorUpdaterConfiguration, group: MonitorGroup, route: MonitorRoute): Unit = {
+    val route = configuration.monitorRouteRepository.routeByName(group._id, "route").get
+    assertEqual(
+      route.copy(analysisDuration = None),
+      MonitorRoute(
+        _id = route._id,
+        groupId = group._id,
+        name = "route",
+        description = "route description",
+        comment = None,
+        relationId = Some(1),
+        user = "user",
+        timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+        symbol = None,
+        analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
+        analysisDuration = None,
+        referenceType = MonitorReferenceType.osm,
+        referenceTimestamp = Some(Timestamp(2022, 8, 1)),
+        referenceFilename = None,
+        referenceDistance = 0,
+        deviationDistance = 0,
+        deviationCount = 0,
+        osmSegmentCount = 0,
+        relation = Some(
+          newMonitorRouteRelation(
+            relationId = 1,
+            name = "route",
+            happy = true,
+          )
+        ),
+        happy = false
+      )
+    )
   }
 
   private def setupStructureLoader(configuration: MonitorUpdaterConfiguration): Unit = {

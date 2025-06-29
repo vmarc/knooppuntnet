@@ -10,6 +10,7 @@ import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
+import kpn.server.monitor.domain.MonitorRoute
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest15_add_error extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
@@ -54,25 +55,29 @@ class MonitorUpdaterTest15_add_error extends UnitTest with BeforeAndAfterEach wi
         )
       )
 
-      assertEqual(
-        reporter.messages,
-        Seq(
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-              MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-              MonitorRouteUpdateStatusCommand("step-active", "prepare")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            exception = Some(s"""Could not add route with name "route-name": already exists (_id=${route._id.oid}) in group with name "group-name"""")
-          )
-        )
-      )
+      assertMessages(route, reporter)
 
       database.monitorRoutes.countDocuments(log) should equal(1)
       database.monitorRouteReferences.countDocuments(log) should equal(0)
       database.monitorRouteStates.countDocuments(log) should equal(0)
     }
+  }
+
+  private def assertMessages(route: MonitorRoute, reporter: MonitorUpdateReporterMock): Unit = {
+    assertEqual(
+      reporter.messages,
+      Seq(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+            MonitorRouteUpdateStatusCommand("step-active", "prepare")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          exception = Some(s"""Could not add route with name "route-name": already exists (_id=${route._id.oid}) in group with name "group-name"""")
+        )
+      )
+    )
   }
 }
