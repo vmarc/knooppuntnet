@@ -7,69 +7,56 @@ import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
-import org.scalatest.BeforeAndAfterEach
+import kpn.server.monitor.domain.MonitorRouteReference
+import kpn.server.monitor.domain.MonitorRouteState
 
-class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
-
-  private val ReferenceTimestamp = Timestamp(2022, 8, 1)
-  private val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
-
-  override def afterEach(): Unit = {
-    Time.clear()
-  }
+class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
 
   test("add route with gpx references per subrelation - delete subrelation gpx reference") {
 
-    withDatabase() { database =>
+    val (group, route, reference11, reference112, state11, state111, state112, reporter) = setup()
 
-      val (configuration, group, route, reference11, reference112, state11, state111, state112, reporter) = setup(database)
+    executeGpxDelete(group, reporter)
 
-      executeGpxDelete(configuration, group, reporter)
+    database.monitorRoutes.countDocuments() should equal(1)
+    database.monitorRouteReferences.countDocuments() should equal(2)
+    database.monitorRouteStates.countDocuments() should equal(3)
 
-      database.monitorRoutes.countDocuments() should equal(1)
-      database.monitorRouteReferences.countDocuments() should equal(2)
-      database.monitorRouteStates.countDocuments() should equal(3)
+    val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
+    val subrelation111 = updatedRoute.relation.get.relations.head.relations.head
 
-      val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      val subrelation111 = updatedRoute.relation.get.relations.head.relations.head
+    subrelation111.referenceTimestamp should equal(None)
+    subrelation111.referenceFilename should equal(None)
+    subrelation111.deviationDistance should equal(0)
+    subrelation111.deviationCount should equal(0)
 
-      subrelation111.referenceTimestamp should equal(None)
-      subrelation111.referenceFilename should equal(None)
-      subrelation111.deviationDistance should equal(0)
-      subrelation111.deviationCount should equal(0)
+    val subrelation112 = updatedRoute.relation.get.relations.head.relations(1)
 
-      val subrelation112 = updatedRoute.relation.get.relations.head.relations(1)
+    subrelation112.referenceTimestamp should equal(Some(Timestamp(2022, 8, 11)))
+    subrelation112.referenceFilename should equal(Some("filename-112"))
+    subrelation112.deviationDistance should equal(0)
+    subrelation112.deviationCount should equal(0)
 
-      subrelation112.referenceTimestamp should equal(Some(Timestamp(2022, 8, 11)))
-      subrelation112.referenceFilename should equal(Some("filename-112"))
-      subrelation112.deviationDistance should equal(0)
-      subrelation112.deviationCount should equal(0)
+    configuration.monitorRouteRepository.routeReference(route._id, Some(11)) should equal(Some(reference11))
+    configuration.monitorRouteRepository.routeState(route._id, 11) should equal(Some(state11))
 
-      configuration.monitorRouteRepository.routeReference(route._id, Some(11)) should equal(Some(reference11))
-      configuration.monitorRouteRepository.routeState(route._id, 11) should equal(Some(state11))
-
-      configuration.monitorRouteRepository.routeReference(route._id, Some(111)) should equal(None)
-      configuration.monitorRouteRepository.routeState(route._id, 111) should equal(
-        Some(
-          state111.copy(
-            matchesGeometry = None,
-            deviations = Seq.empty,
-          )
+    configuration.monitorRouteRepository.routeReference(route._id, Some(111)) should equal(None)
+    configuration.monitorRouteRepository.routeState(route._id, 111) should equal(
+      Some(
+        state111.copy(
+          matchesGeometry = None,
+          deviations = Seq.empty,
         )
       )
+    )
 
-      configuration.monitorRouteRepository.routeReference(route._id, Some(112)) should equal(Some(reference112))
-      configuration.monitorRouteRepository.routeState(route._id, 112) should equal(Some(state112))
-    }
+    configuration.monitorRouteRepository.routeReference(route._id, Some(112)) should equal(Some(reference112))
+    configuration.monitorRouteRepository.routeState(route._id, 112) should equal(Some(state112))
   }
 
-  private def executeGpxDelete(configuration: MonitorUpdaterConfiguration, group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
+  private def executeGpxDelete(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         "user",
@@ -85,8 +72,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
     )
   }
 
-  private def setup(database: Database) = {
-    val configuration = MonitorUpdaterTestSupport.configuration(database)
+  private def setup() = {
 
     val group = newMonitorGroup("group")
     val route = setupRoute(group)
@@ -109,10 +95,10 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
 
     Time.set(CurrentTimestamp)
     val reporter = new MonitorUpdateReporterMock()
-    (configuration, group, route, reference11, reference112, state11, state111, state112, reporter)
+    (group, route, reference11, reference112, state11, state111, state112, reporter)
   }
 
-  private def setupRoute(group: MonitorGroup) = {
+  private def setupRoute(group: MonitorGroup): MonitorRoute = {
     newMonitorRoute(
       group._id,
       name = "route-name",
@@ -163,7 +149,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
     )
   }
 
-  private def setupReference11(route: MonitorRoute) = {
+  private def setupReference11(route: MonitorRoute): MonitorRouteReference = {
     newMonitorRouteReference(
       routeId = route._id,
       relationId = Some(11),
@@ -173,7 +159,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
     )
   }
 
-  private def setupReference111(route: MonitorRoute) = {
+  private def setupReference111(route: MonitorRoute): MonitorRouteReference = {
     newMonitorRouteReference(
       routeId = route._id,
       relationId = Some(111),
@@ -183,7 +169,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
     )
   }
 
-  private def setupReference112(route: MonitorRoute) = {
+  private def setupReference112(route: MonitorRoute): MonitorRouteReference = {
     newMonitorRouteReference(
       routeId = route._id,
       relationId = Some(112),
@@ -193,7 +179,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
     )
   }
 
-  private def setupState11(route: MonitorRoute) = {
+  private def setupState11(route: MonitorRoute): MonitorRouteState = {
     newMonitorRouteState(
       route._id,
       11,
@@ -201,7 +187,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
     )
   }
 
-  private def setupState111(route: MonitorRoute) = {
+  private def setupState111(route: MonitorRoute): MonitorRouteState = {
     newMonitorRouteState(
       route._id,
       111,
@@ -219,7 +205,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
     )
   }
 
-  private def setupState112(route: MonitorRoute) = {
+  private def setupState112(route: MonitorRoute): MonitorRouteState = {
     newMonitorRouteState(
       route._id,
       112,

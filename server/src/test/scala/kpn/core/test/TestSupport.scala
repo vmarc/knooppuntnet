@@ -42,4 +42,12 @@ object TestSupport {
       mongoClient.close()
     }
   }
+
+  def newDatabase: (MongoClient, Database) = {
+    val databaseName = s"unit-testdb-${count.incrementAndGet()}"
+    val mongoClient = MongoClient()
+    val database = Mongo.database(mongoClient, databaseName)
+    database.dropDatabase()
+    (mongoClient, database)
+  }
 }

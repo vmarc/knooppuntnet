@@ -5,49 +5,31 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
-import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest08_gpx_add extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
-
-  private val ReferenceTimestamp = Timestamp(2022, 8, 1)
-  private val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
-
-  override def afterEach(): Unit = {
-    Time.clear()
-  }
+class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
 
   test("add non-super route with single gpx reference") {
 
-    withDatabase() { database =>
+    val (group, gpx, reporter) = setup()
 
-      val (configuration, group, gpx, reporter) = setup(database)
+    executeMonitorUpdate(group, gpx, reporter)
 
-      executeMonitorUpdate(configuration, group, gpx, reporter)
-
-      verifyDocumentCounts(database)
-      val route = verifyRoute(configuration, group)
-      verifyReference(configuration, route)
-      verifyState(configuration, route)
-      verifyReporterMessages(reporter)
-    }
+    verifyDocumentCounts()
+    val route = verifyRoute(group)
+    verifyReference(route)
+    verifyState(route)
+    verifyReporterMessages(reporter)
   }
 
-  private def executeMonitorUpdate(configuration: MonitorUpdaterConfiguration, group: MonitorGroup, gpx: String, reporter: MonitorUpdateReporterMock): Unit = {
+  private def executeMonitorUpdate(group: MonitorGroup, gpx: String, reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         "user",
@@ -68,13 +50,13 @@ class MonitorUpdaterTest08_gpx_add extends UnitTest with BeforeAndAfterEach with
     )
   }
 
-  private def verifyDocumentCounts(database: Database) = {
+  private def verifyDocumentCounts(): Unit = {
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(1)
     database.monitorRouteStates.countDocuments() should equal(1)
   }
 
-  private def verifyRoute(configuration: MonitorUpdaterConfiguration, group: MonitorGroup) = {
+  private def verifyRoute(group: MonitorGroup): MonitorRoute = {
     val monitorRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
       monitorRoute.copy(analysisDuration = None),
@@ -110,7 +92,7 @@ class MonitorUpdaterTest08_gpx_add extends UnitTest with BeforeAndAfterEach with
     monitorRoute
   }
 
-  private def verifyReference(configuration: MonitorUpdaterConfiguration, monitorRoute: MonitorRoute): Unit = {
+  private def verifyReference(monitorRoute: MonitorRoute): Unit = {
     val reference = configuration.monitorRouteRepository.routeReference(monitorRoute._id, Some(1)).get
     assertEqual(
       reference,
@@ -131,7 +113,7 @@ class MonitorUpdaterTest08_gpx_add extends UnitTest with BeforeAndAfterEach with
     )
   }
 
-  private def verifyState(configuration: MonitorUpdaterConfiguration, monitorRoute: MonitorRoute): Unit = {
+  private def verifyState(monitorRoute: MonitorRoute): Unit = {
     val state = configuration.monitorRouteRepository.routeState(monitorRoute._id, 1).get
     assertEqual(
       state,
@@ -147,7 +129,7 @@ class MonitorUpdaterTest08_gpx_add extends UnitTest with BeforeAndAfterEach with
     )
   }
 
-  private def setupBaseRouteDoc(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupBaseRouteDoc(): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
         newRouteSummary(1),
@@ -165,11 +147,11 @@ class MonitorUpdaterTest08_gpx_add extends UnitTest with BeforeAndAfterEach with
     )
   }
 
-  private def setup(database: Database) = {
-    val configuration = MonitorUpdaterTestSupport.configuration(database)
-    setupLoadStructure(configuration)
-    setupLoadRelation(configuration)
-    setupBaseRouteDoc(configuration)
+  private def setup() = {
+
+    setupLoadStructure()
+    setupLoadRelation()
+    setupBaseRouteDoc()
 
     val group = newMonitorGroup("group")
     configuration.monitorGroupRepository.saveGroup(group)
@@ -188,10 +170,10 @@ class MonitorUpdaterTest08_gpx_add extends UnitTest with BeforeAndAfterEach with
 
     Time.set(CurrentTimestamp)
     val reporter = new MonitorUpdateReporterMock()
-    (configuration, group, gpx, reporter)
+    (group, gpx, reporter)
   }
 
-  private def setupLoadStructure(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupLoadStructure(): Unit = {
     val overpassData = OverpassData()
       .relation(
         1,
@@ -199,10 +181,10 @@ class MonitorUpdaterTest08_gpx_add extends UnitTest with BeforeAndAfterEach with
           "name" -> "route-name"
         )
       )
-    setupRouteStructure(configuration, overpassData, 1)
+    setupRouteStructure(overpassData, 1)
   }
 
-  private def setupLoadRelation(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupLoadRelation(): Unit = {
 
     val overpassData = OverpassData()
       .node(1001, latitude = "51.4633666", longitude = "4.4553911")
@@ -226,38 +208,27 @@ class MonitorUpdaterTest08_gpx_add extends UnitTest with BeforeAndAfterEach with
     assertEqual(
       reporter.messages,
       Seq(
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-            MonitorRouteUpdateStatusCommand("step-active", "prepare")
-          )
+        message(
+          command("step-add", "prepare"),
+          command("step-add", "analyze-route-structure"),
+          command("step-active", "prepare")
         ),
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
-          )
+        message(
+          command("step-active", "analyze-route-structure")
         ),
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-add", "load-gpx"),
-            MonitorRouteUpdateStatusCommand("step-add", "analyze"),
-            MonitorRouteUpdateStatusCommand("step-active", "load-gpx")
-          )
+        message(
+          command("step-add", "load-gpx"),
+          command("step-add", "analyze"),
+          command("step-active", "load-gpx")
         ),
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-active", "analyze")
-          )
+        message(
+          command("step-active", "analyze")
         ),
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-active", "save")
-          )
+        message(
+          command("step-active", "save")
         ),
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-done", "save"))
+        message(
+          command("step-done", "save")
         )
       )
     )

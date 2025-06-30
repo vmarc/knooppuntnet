@@ -6,53 +6,36 @@ import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
-import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
-
-  private val ReferenceTimestamp = Timestamp(2022, 8, 1)
-  private val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
-  private val UpdateTimestamp = Timestamp(2022, 8, 12, 12, 0, 0)
-
-  override def afterEach(): Unit = {
-    Time.clear()
-  }
+class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest {
 
   test("add route with osm reference, initially with relationId unknown") {
 
-    withDatabase() { database =>
+    val (group, reporter) = setup()
 
-      val (configuration, group, reporter) = setup(database)
+    val update = executeMonitorUpdateWithoutRelationId(group, reporter)
 
-      val update = executeMonitorUpdateWithoutRelationId(configuration, group, reporter)
+    verifyDocumentCounts()
+    val route = verifyRoute(group)
+    verifyNoReference(route)
+    verifyNoState(route)
 
-      verifyDocumentCounts(database)
-      val route = verifyRoute(configuration, group)
-      verifyNoReference(configuration, route)
-      verifyNoState(configuration, route)
+    executeMonitorUpdateWithRelationId(reporter, update)
 
-      executeMonitorUpdateWithRelationId(configuration, reporter, update)
-
-      verifyUpdatedDocumentCounts(database)
-      verifyUpdatedRoute(configuration, group, route)
-      verifyReference(configuration, route)
-      verifyState(configuration, route)
-    }
+    verifyUpdatedDocumentCounts()
+    verifyUpdatedRoute(group, route)
+    verifyReference(route)
+    verifyState(route)
   }
 
-  private def executeMonitorUpdateWithoutRelationId(configuration: MonitorUpdaterConfiguration, group: MonitorGroup, reporter: MonitorUpdateReporterMock): MonitorRouteUpdate = {
+  private def executeMonitorUpdateWithoutRelationId(group: MonitorGroup, reporter: MonitorUpdateReporterMock): MonitorRouteUpdate = {
     val update = MonitorRouteUpdate(
       action = MonitorAction.add,
       groupName = group.name,
@@ -72,10 +55,10 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
     update
   }
 
-  private def executeMonitorUpdateWithRelationId(configuration: MonitorUpdaterConfiguration, reporter: MonitorUpdateReporterMock, update: MonitorRouteUpdate): Unit = {
-    setupLoadStructure(configuration)
-    setupLoadTopLevel(configuration)
-    setupBaseRouteDoc(configuration)
+  private def executeMonitorUpdateWithRelationId(reporter: MonitorUpdateReporterMock, update: MonitorRouteUpdate): Unit = {
+    setupLoadStructure()
+    setupLoadTopLevel()
+    setupBaseRouteDoc()
 
     val updatedUpdate = update.copy(
       action = MonitorAction.update,
@@ -94,27 +77,27 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
     )
   }
 
-  private def verifyNoState(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): Unit = {
+  private def verifyNoState(route: MonitorRoute): Unit = {
     configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
   }
 
-  private def verifyNoReference(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): Unit = {
+  private def verifyNoReference(route: MonitorRoute): Unit = {
     configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
   }
 
-  private def verifyDocumentCounts(database: Database): Unit = {
+  private def verifyDocumentCounts(): Unit = {
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(0)
     database.monitorRouteStates.countDocuments() should equal(0)
   }
 
-  private def verifyUpdatedDocumentCounts(database: Database): Unit = {
+  private def verifyUpdatedDocumentCounts(): Unit = {
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(1)
     database.monitorRouteStates.countDocuments() should equal(1)
   }
 
-  private def verifyRoute(configuration: MonitorUpdaterConfiguration, group: MonitorGroup): MonitorRoute = {
+  private def verifyRoute(group: MonitorGroup): MonitorRoute = {
     val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
       route.copy(analysisDuration = None),
@@ -144,7 +127,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
     route
   }
 
-  private def verifyUpdatedRoute(configuration: MonitorUpdaterConfiguration, group: MonitorGroup, route: MonitorRoute): Unit = {
+  private def verifyUpdatedRoute(group: MonitorGroup, route: MonitorRoute): Unit = {
     val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
       route.copy(analysisDuration = None),
@@ -179,7 +162,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
     )
   }
 
-  private def verifyReference(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): Unit = {
+  private def verifyReference(route: MonitorRoute): Unit = {
     val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
     assertEqual(
       reference,
@@ -200,7 +183,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
     )
   }
 
-  private def verifyState(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): Unit = {
+  private def verifyState(route: MonitorRoute): Unit = {
     val state = configuration.monitorRouteRepository.routeState(route._id, 1).get
     assertEqual(
       state,
@@ -216,18 +199,17 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
     )
   }
 
-  private def setup(database: Database) = {
-    val configuration = MonitorUpdaterTestSupport.configuration(database)
+  private def setup() = {
 
     val group = newMonitorGroup("group")
     configuration.monitorGroupRepository.saveGroup(group)
 
     Time.set(CurrentTimestamp)
     val reporter = new MonitorUpdateReporterMock()
-    (configuration, group, reporter)
+    (group, reporter)
   }
 
-  private def setupLoadStructure(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupLoadStructure(): Unit = {
     val overpassData = OverpassData()
       .relation(
         1,
@@ -235,10 +217,10 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
           "name" -> "route-name"
         ),
       )
-    setupRouteStructure(configuration, overpassData, 1)
+    setupRouteStructure(overpassData, 1)
   }
 
-  private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupLoadTopLevel(): Unit = {
     val overpassData = OverpassData()
       .node(1001, latitude = "51.4633666", longitude = "4.4553911")
       .node(1002, latitude = "51.4618272", longitude = "4.4562458")
@@ -257,7 +239,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp), 1).returns(Some(relation))
   }
 
-  private def setupBaseRouteDoc(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupBaseRouteDoc(): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
         newRouteSummary(1),

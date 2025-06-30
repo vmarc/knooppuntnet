@@ -31,7 +31,7 @@ class MonitorAdd(
     initReporter(context)
 
     monitorUpdateCommon.findGroup(context)
-    assertNewRoute(context)
+    verifyNewRoute(context)
 
     val referenceTimestamp = determineReferenceTimestamp(context)
 
@@ -163,7 +163,7 @@ class MonitorAdd(
     }
   }
 
-  private def assertNewRoute(context: MonitorContext): Unit = {
+  private def verifyNewRoute(context: MonitorContext): Unit = {
     val group = context.value.group.get
     val routeName = context.value.update.routeName
     monitorRouteRepository.routeByName(group._id, routeName) match {

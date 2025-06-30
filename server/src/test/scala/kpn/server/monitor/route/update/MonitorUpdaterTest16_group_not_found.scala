@@ -3,34 +3,22 @@ package kpn.server.monitor.route.update
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
-import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest16_group_not_found extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
-
-  private val ReferenceTimestamp = Timestamp(2022, 8, 1)
-  private val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
+class MonitorUpdaterTest16_group_not_found extends MonitorUpdateTest {
 
   test("add/update/upload - group not found") {
 
-    withDatabase() { database =>
+    val (reporter) = setup()
 
-      val (configuration, reporter) = setup(database)
+    executeMonitorUpdate(reporter)
 
-      executeMonitorUpdate(configuration, reporter)
-
-      verifyDocumentCounts(database)
-      verifyReporterMessages(reporter)
-    }
+    verifyDocumentCounts()
+    verifyReporterMessages(reporter)
   }
 
-  private def executeMonitorUpdate(configuration: MonitorUpdaterConfiguration, reporter: MonitorUpdateReporterMock): Unit = {
+  private def executeMonitorUpdate(reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         "user",
@@ -49,7 +37,7 @@ class MonitorUpdaterTest16_group_not_found extends UnitTest with BeforeAndAfterE
     )
   }
 
-  private def verifyDocumentCounts(database: Database) = {
+  private def verifyDocumentCounts() = {
     database.monitorRoutes.countDocuments() should equal(0)
     database.monitorRouteReferences.countDocuments() should equal(0)
     database.monitorRouteStates.countDocuments() should equal(0)
@@ -59,12 +47,10 @@ class MonitorUpdaterTest16_group_not_found extends UnitTest with BeforeAndAfterE
     assertEqual(
       reporter.messages,
       Seq(
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-            MonitorRouteUpdateStatusCommand("step-active", "prepare")
-          )
+        message(
+          command("step-add", "prepare"),
+          command("step-add", "analyze-route-structure"),
+          command("step-active", "prepare")
         ),
         MonitorRouteUpdateStatusMessage(
           exception = Some("""Could not find group with name "unknown-group"""")
@@ -73,9 +59,8 @@ class MonitorUpdaterTest16_group_not_found extends UnitTest with BeforeAndAfterE
     )
   }
 
-  private def setup(database: Database) = {
-    val configuration = MonitorUpdaterTestSupport.configuration(database)
+  private def setup() = {
     val reporter = new MonitorUpdateReporterMock()
-    (configuration, reporter)
+    (reporter)
   }
 }

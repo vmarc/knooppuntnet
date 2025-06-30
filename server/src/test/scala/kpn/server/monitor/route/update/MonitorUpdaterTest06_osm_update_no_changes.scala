@@ -3,46 +3,29 @@ package kpn.server.monitor.route.update
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
-import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest06_osm_update_no_changes extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
-
-  private val ReferenceTimestamp = Timestamp(2022, 8, 1)
-  private val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
-
-  override def afterEach(): Unit = {
-    Time.clear()
-  }
+class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
 
   test("route update - no changes") {
 
-    withDatabase() { database =>
+    val (group, route, reference, state, reporter) = setup()
 
-      val (configuration, group, route, reference, state, reporter) = setup(database)
+    executeMonitorUpdate(group, reporter)
 
-      executeMonitorUpdate(configuration, group, reporter)
-
-      verifyDocumentCounts(database)
-      verifyRouteNotChanged(configuration, group, route)
-      verifyReferenceNotChanged(configuration, route, reference)
-      verifyStateNotChanged(configuration, route, state)
-      verifyReporterMessages(reporter)
-    }
+    verifyDocumentCounts()
+    verifyRouteNotChanged(group, route)
+    verifyReferenceNotChanged(route, reference)
+    verifyStateNotChanged(route, state)
+    verifyReporterMessages(reporter)
   }
 
-  private def executeMonitorUpdate(configuration: MonitorUpdaterConfiguration, group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
+  private def executeMonitorUpdate(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         "user",
@@ -60,23 +43,23 @@ class MonitorUpdaterTest06_osm_update_no_changes extends UnitTest with BeforeAnd
     )
   }
 
-  private def verifyDocumentCounts(database: Database): Unit = {
+  private def verifyDocumentCounts(): Unit = {
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(1)
     database.monitorRouteStates.countDocuments() should equal(1)
   }
 
-  private def verifyRouteNotChanged(configuration: MonitorUpdaterConfiguration, group: MonitorGroup, route: MonitorRoute): Unit = {
+  private def verifyRouteNotChanged(group: MonitorGroup, route: MonitorRoute): Unit = {
     val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
     updatedRoute.copy(analysisTimestamp = None, analysisDuration = None) should equal(route)
   }
 
-  private def verifyReferenceNotChanged(configuration: MonitorUpdaterConfiguration, route: MonitorRoute, reference: MonitorRouteReference): Unit = {
+  private def verifyReferenceNotChanged(route: MonitorRoute, reference: MonitorRouteReference): Unit = {
     val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
     updatedReference should equal(reference)
   }
 
-  private def verifyStateNotChanged(configuration: MonitorUpdaterConfiguration, route: MonitorRoute, state: MonitorRouteState): Unit = {
+  private def verifyStateNotChanged(route: MonitorRoute, state: MonitorRouteState): Unit = {
     val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
     updatedState should equal(state)
   }
@@ -85,33 +68,24 @@ class MonitorUpdaterTest06_osm_update_no_changes extends UnitTest with BeforeAnd
     assertEqual(
       reporter.messages,
       Seq(
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-            MonitorRouteUpdateStatusCommand("step-active", "prepare")
-          )
+        message(
+          command("step-add", "prepare"),
+          command("step-add", "analyze-route-structure"),
+          command("step-active", "prepare")
         ),
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
-          )
+        message(
+          command("step-active", "analyze-route-structure")
         ),
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-active", "save")
-          )
+        message(
+          command("step-active", "save")
         ),
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-done", "save"))
-        )
+        message(
+          command("step-done", "save"))
       )
     )
   }
 
-  private def setup(database: Database) = {
-    val configuration = MonitorUpdaterTestSupport.configuration(database)
+  private def setup() = {
 
     Time.set(Timestamp(2023, 1, 1))
 
@@ -127,7 +101,7 @@ class MonitorUpdaterTest06_osm_update_no_changes extends UnitTest with BeforeAnd
 
     Time.set(Timestamp(2023, 1, 2))
     val reporter = new MonitorUpdateReporterMock()
-    (configuration, group, route, reference, state, reporter)
+    (group, route, reference, state, reporter)
   }
 
   private def setupRoute(group: MonitorGroup): MonitorRoute = {

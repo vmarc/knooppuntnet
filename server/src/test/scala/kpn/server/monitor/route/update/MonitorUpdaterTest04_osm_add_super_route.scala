@@ -10,47 +10,32 @@ import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
-import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
-
-  private val ReferenceTimestamp = Timestamp(2022, 8, 1)
-  private val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
-
-  override def afterEach(): Unit = {
-    Time.clear()
-  }
+class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
 
   test("add superroute osm reference") {
 
     val referenceTimestamp = Timestamp(2022, 8, 11)
 
-    withDatabase() { database =>
+    val (group, reporter) = setup(referenceTimestamp)
 
-      val (configuration, group, reporter) = setup(referenceTimestamp, database)
+    executeMonitorUpdate(referenceTimestamp, group, reporter)
 
-      executeMonitorUpdate(referenceTimestamp, configuration, group, reporter)
-
-      verifyDocumentCounts(database)
-      val route = verifyRoute(referenceTimestamp, configuration, group)
-      verifyReference1(configuration, route)
-      verifyReference11(configuration, route)
-      verifyReference12(configuration, route)
-      verifyState1(configuration, route)
-      verifyState11(configuration, route)
-      verifyState12(configuration, route)
-    }
+    verifyDocumentCounts()
+    val route = verifyRoute(referenceTimestamp, group)
+    verifyReference1(route)
+    verifyReference11(route)
+    verifyReference12(route)
+    verifyState1(route)
+    verifyState11(route)
+    verifyState12(route)
   }
 
-  private def executeMonitorUpdate(referenceTimestamp: Timestamp, configuration: MonitorUpdaterConfiguration, group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
+  private def executeMonitorUpdate(referenceTimestamp: Timestamp, group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         "user",
@@ -69,13 +54,13 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
     )
   }
 
-  private def verifyDocumentCounts(database: Database): Unit = {
+  private def verifyDocumentCounts(): Unit = {
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(2)
     database.monitorRouteStates.countDocuments() should equal(2)
   }
 
-  private def verifyRoute(referenceTimestamp: Timestamp, configuration: MonitorUpdaterConfiguration, group: MonitorGroup): MonitorRoute = {
+  private def verifyRoute(referenceTimestamp: Timestamp, group: MonitorGroup): MonitorRoute = {
     val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
       route.copy(analysisDuration = None),
@@ -123,12 +108,12 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
     route
   }
 
-  private def verifyReference1(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): Unit = {
+  private def verifyReference1(route: MonitorRoute): Unit = {
     val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(1))
     reference should equal(None)
   }
 
-  private def verifyReference11(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): Unit = {
+  private def verifyReference11(route: MonitorRoute): Unit = {
     val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(11)).get
     assertEqual(
       reference,
@@ -149,7 +134,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
     )
   }
 
-  private def verifyReference12(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): Unit = {
+  private def verifyReference12(route: MonitorRoute): Unit = {
     val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(12)).get
     assertEqual(
       reference,
@@ -170,12 +155,12 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
     )
   }
 
-  private def verifyState1(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): Unit = {
+  private def verifyState1(route: MonitorRoute): Unit = {
     val state = configuration.monitorRouteRepository.routeState(route._id, 1)
     state should equal(None)
   }
 
-  private def verifyState11(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): Unit = {
+  private def verifyState11(route: MonitorRoute): Unit = {
     val state = configuration.monitorRouteRepository.routeState(route._id, 11).get
     assertEqual(
       state,
@@ -191,7 +176,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
     )
   }
 
-  private def verifyState12(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): Unit = {
+  private def verifyState12(route: MonitorRoute): Unit = {
     val state = configuration.monitorRouteRepository.routeState(route._id, 12).get
     assertEqual(
       state,
@@ -207,13 +192,13 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
     )
   }
 
-  private def setup(referenceTimestamp: Timestamp, database: Database) = {
-    val configuration = MonitorUpdaterTestSupport.configuration(database)
-    setupLoadStructure(configuration)
-    setupLoadTopLevel(configuration, referenceTimestamp)
-    setupBaseRouteDoc1(configuration)
-    setupBaseRouteDoc11(configuration)
-    setupBaseRouteDoc12(configuration)
+  private def setup(referenceTimestamp: Timestamp) = {
+
+    setupLoadStructure()
+    setupLoadTopLevel(referenceTimestamp)
+    setupBaseRouteDoc1()
+    setupBaseRouteDoc11()
+    setupBaseRouteDoc12()
 
     val group = newMonitorGroup("group")
     configuration.monitorGroupRepository.saveGroup(group)
@@ -221,10 +206,10 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
     Time.set(CurrentTimestamp)
 
     val reporter = new MonitorUpdateReporterMock()
-    (configuration, group, reporter)
+    (group, reporter)
   }
 
-  private def setupBaseRouteDoc1(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupBaseRouteDoc1(): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
         newRouteSummary(1),
@@ -248,7 +233,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
     )
   }
 
-  private def setupBaseRouteDoc11(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupBaseRouteDoc11(): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
         newRouteSummary(11),
@@ -266,7 +251,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
     )
   }
 
-  private def setupBaseRouteDoc12(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupBaseRouteDoc12(): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
         newRouteSummary(12),
@@ -284,7 +269,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
     )
   }
 
-  private def setupLoadStructure(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupLoadStructure(): Unit = {
 
     val overpassData = OverpassData()
       .relation(
@@ -310,10 +295,10 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
         ),
       )
 
-    setupRouteStructure(configuration, overpassData, 1)
+    setupRouteStructure(overpassData, 1)
   }
 
-  private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration, referenceTimestamp: Timestamp): Unit = {
+  private def setupLoadTopLevel(referenceTimestamp: Timestamp): Unit = {
 
     val overpassData = OverpassData()
       .node(1001, latitude = "51.4633666", longitude = "4.4553911")

@@ -89,7 +89,6 @@ import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
-import kpn.core.data.DataBuilder
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
@@ -119,7 +118,6 @@ import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
-import kpn.server.monitor.route.update.MonitorUpdaterConfiguration
 import org.scalamock.scalatest.MockFactory
 
 trait SharedTestObjects extends MockFactory {
@@ -1479,11 +1477,6 @@ trait SharedTestObjects extends MockFactory {
       impact,
       total
     )
-  }
-
-  def setupRouteStructure(configuration: MonitorUpdaterConfiguration, overpassData: OverpassData, relationId: Long): Unit = {
-    val monitorRouteRelation = MonitorRouteRelation.from(new DataBuilder(overpassData.rawData).data.relations(relationId), None)
-    (configuration.monitorRouteStructureLoader.load _).when(None, relationId).returns(Some(monitorRouteRelation))
   }
 
   def newRouteRelation(

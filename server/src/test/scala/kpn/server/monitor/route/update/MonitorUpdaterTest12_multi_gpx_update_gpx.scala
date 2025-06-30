@@ -10,44 +10,28 @@ import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
-import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
-
-  private val ReferenceTimestamp = Timestamp(2022, 8, 1)
-  private val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
-  private val UpdateTimestamp = Timestamp(2022, 8, 12, 12, 0, 0)
-
-  override def afterEach(): Unit = {
-    Time.clear()
-  }
+class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
 
   test("gpx reference per subrelation - update subrelation gpx reference") {
 
-    withDatabase() { database =>
+    val (group) = setup()
 
-      val (configuration, group) = setup(database)
+    executeAddRoute(group)
+    val (route, state11) = verifyAddRoute(group)
 
-      executeAddRoute(configuration, group)
-      val (route, state11) = verifyAddRoute(database, configuration, group)
+    val gpx = executeUploadGpx1(group)
+    val reference11 = verifyGpxUpload1(group, route, state11)
 
-      val gpx = executeUploadGpx1(configuration, group)
-      val reference11 = verifyGpxUpload1(database, configuration, group, route, state11)
-
-      executeGpxUpload2(configuration, group, gpx)
-      verifyGpxUpload2(database, configuration, group, route, reference11)
-    }
+    executeGpxUpload2(group, gpx)
+    verifyGpxUpload2(group, route, reference11)
   }
 
-  private def executeAddRoute(configuration: MonitorUpdaterConfiguration, group: MonitorGroup): Unit = {
+  private def executeAddRoute(group: MonitorGroup): Unit = {
     val routeAdd = MonitorRouteUpdate(
       action = MonitorAction.add,
       groupName = group.name,
@@ -67,7 +51,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
     )
   }
 
-  private def executeUploadGpx1(configuration: MonitorUpdaterConfiguration, group: MonitorGroup): String = {
+  private def executeUploadGpx1(group: MonitorGroup): String = {
     val gpx =
       """
         |<gpx>
@@ -103,7 +87,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
     gpx
   }
 
-  private def executeGpxUpload2(configuration: MonitorUpdaterConfiguration, group: MonitorGroup, gpx: String): Unit = {
+  private def executeGpxUpload2(group: MonitorGroup, gpx: String): Unit = {
     Time.set(Timestamp(2022, 8, 13, 12, 0, 0))
 
     val uploadGpx2 = MonitorRouteUpdate(
@@ -127,37 +111,37 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
     )
   }
 
-  private def verifyGpxUpload1(database: Database, configuration: MonitorUpdaterConfiguration, group: MonitorGroup, route: MonitorRoute, state11: MonitorRouteState): MonitorRouteReference = {
+  private def verifyGpxUpload1(group: MonitorGroup, route: MonitorRoute, state11: MonitorRouteState): MonitorRouteReference = {
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(1)
     database.monitorRouteStates.countDocuments() should equal(1)
 
-    verifyUpdatedRoute1(configuration, group, route)
+    verifyUpdatedRoute1(group, route)
 
-    val reference11 = verifyReference11(configuration, route)
+    val reference11 = verifyReference11(route)
 
     configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
 
-    assertUpdatedState11(configuration, route, state11)
+    assertUpdatedState11(route, state11)
     reference11
   }
 
-  private def verifyAddRoute(database: Database, configuration: MonitorUpdaterConfiguration, group: MonitorGroup): (MonitorRoute, MonitorRouteState) = {
+  private def verifyAddRoute(group: MonitorGroup): (MonitorRoute, MonitorRouteState) = {
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(0)
     database.monitorRouteStates.countDocuments() should equal(1)
 
-    val route = verifyRoute(configuration, group)
+    val route = verifyRoute(group)
 
     configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
     configuration.monitorRouteRepository.routeReference(route._id, Some(11)) should equal(None)
 
     configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
-    val state11 = verifyState11(configuration, route)
+    val state11 = verifyState11(route)
     (route, state11)
   }
 
-  private def verifyRoute(configuration: MonitorUpdaterConfiguration, group: MonitorGroup): MonitorRoute = {
+  private def verifyRoute(group: MonitorGroup): MonitorRoute = {
     val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
       route.copy(analysisDuration = None),
@@ -198,7 +182,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
     route
   }
 
-  private def verifyState11(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): MonitorRouteState = {
+  private def verifyState11(route: MonitorRoute): MonitorRouteState = {
     val state = configuration.monitorRouteRepository.routeState(route._id, 11).get
     assertEqual(
       state,
@@ -215,7 +199,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
     state
   }
 
-  private def verifyUpdatedRoute1(configuration: MonitorUpdaterConfiguration, group: MonitorGroup, route: MonitorRoute): Unit = {
+  private def verifyUpdatedRoute1(group: MonitorGroup, route: MonitorRoute): Unit = {
     val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
       route.copy(analysisDuration = None),
@@ -241,7 +225,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
     )
   }
 
-  private def verifyReference11(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): MonitorRouteReference = {
+  private def verifyReference11(route: MonitorRoute): MonitorRouteReference = {
     val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(11)).get
     assertEqual(
       reference,
@@ -263,7 +247,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
     reference
   }
 
-  private def assertUpdatedState11(configuration: MonitorUpdaterConfiguration, route: MonitorRoute, state11: MonitorRouteState): Unit = {
+  private def assertUpdatedState11(route: MonitorRoute, state11: MonitorRouteState): Unit = {
     val state = configuration.monitorRouteRepository.routeState(route._id, 11).get
     assertEqual(
       state,
@@ -274,7 +258,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
     )
   }
 
-  private def verifyUpdatedRoute2(configuration: MonitorUpdaterConfiguration, group: MonitorGroup, route: MonitorRoute): Unit = {
+  private def verifyUpdatedRoute2(group: MonitorGroup, route: MonitorRoute): Unit = {
     val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
       route.copy(analysisDuration = None),
@@ -300,7 +284,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
     )
   }
 
-  private def assertUpdatedReference11(configuration: MonitorUpdaterConfiguration, route: MonitorRoute, reference11: MonitorRouteReference): Unit = {
+  private def assertUpdatedReference11(route: MonitorRoute, reference11: MonitorRouteReference): Unit = {
     assertEqual(
       configuration.monitorRouteRepository.routeReference(route._id, Some(11)),
       Some(
@@ -314,32 +298,31 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
     )
   }
 
-  private def verifyGpxUpload2(database: Database, configuration: MonitorUpdaterConfiguration, group: MonitorGroup, route: MonitorRoute, reference11: MonitorRouteReference): Unit = {
+  private def verifyGpxUpload2(group: MonitorGroup, route: MonitorRoute, reference11: MonitorRouteReference): Unit = {
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(1)
     database.monitorRouteStates.countDocuments() should equal(1)
 
-    verifyUpdatedRoute2(configuration, group, route)
+    verifyUpdatedRoute2(group, route)
 
     configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
-    assertUpdatedReference11(configuration, route, reference11)
+    assertUpdatedReference11(route, reference11)
   }
 
-  private def setup(database: Database) = {
+  private def setup() = {
 
-    val configuration = MonitorUpdaterTestSupport.configuration(database)
-    setupLoadStructure(configuration)
-    setupLoadTopLevel(configuration)
+    setupLoadStructure()
+    setupLoadTopLevel()
 
     val group = newMonitorGroup("group")
     configuration.monitorGroupRepository.saveGroup(group)
 
     Time.set(CurrentTimestamp)
 
-    (configuration, group)
+    (group)
   }
 
-  private def setupLoadStructure(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupLoadStructure(): Unit = {
 
     val overpassData = OverpassData()
       .relation(
@@ -358,10 +341,10 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
         ),
       )
 
-    setupRouteStructure(configuration, overpassData, 1)
+    setupRouteStructure(overpassData, 1)
   }
 
-  private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupLoadTopLevel(): Unit = {
 
     val overpassData = OverpassData()
       .node(1001, latitude = "51.4633666", longitude = "4.4553911")

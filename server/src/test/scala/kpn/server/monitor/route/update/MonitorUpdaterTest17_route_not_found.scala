@@ -3,32 +3,21 @@ package kpn.server.monitor.route.update
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
 
-class MonitorUpdaterTest17_route_not_found extends UnitTest with SharedTestObjects {
-
-  private val ReferenceTimestamp = Timestamp(2022, 8, 1)
-  private val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
+class MonitorUpdaterTest17_route_not_found extends MonitorUpdateTest {
 
   test("update/upload - route not found") {
 
-    withDatabase() { database =>
+    val (reporter) = setup()
 
-      val (configuration, reporter) = setup(database)
+    executeMonitorUpdate(reporter)
 
-      executeMonitorUpdate(configuration, reporter)
-
-      verifyReporterMessages(reporter)
-    }
+    verifyReporterMessages(reporter)
   }
 
-  private def executeMonitorUpdate(configuration: MonitorUpdaterConfiguration, reporter: MonitorUpdateReporterMock): Unit = {
+  private def executeMonitorUpdate(reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         "user",
@@ -51,12 +40,10 @@ class MonitorUpdaterTest17_route_not_found extends UnitTest with SharedTestObjec
     assertEqual(
       reporter.messages,
       Seq(
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-            MonitorRouteUpdateStatusCommand("step-active", "prepare")
-          )
+        message(
+          command("step-add", "prepare"),
+          command("step-add", "analyze-route-structure"),
+          command("step-active", "prepare")
         ),
         MonitorRouteUpdateStatusMessage(
           exception = Some("""Could not find route with name "unknown-route-name" in group "group-name"""")
@@ -65,13 +52,12 @@ class MonitorUpdaterTest17_route_not_found extends UnitTest with SharedTestObjec
     )
   }
 
-  private def setup(database: Database) = {
-    val configuration = MonitorUpdaterTestSupport.configuration(database)
+  private def setup() = {
 
     val group = newMonitorGroup("group-name")
     configuration.monitorGroupRepository.saveGroup(group)
 
     val reporter = new MonitorUpdateReporterMock()
-    (configuration, reporter)
+    (reporter)
   }
 }
