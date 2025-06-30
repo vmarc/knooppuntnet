@@ -3,6 +3,7 @@ package kpn.server.monitor.route.update
 import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
+import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorFilter
@@ -27,26 +28,34 @@ class MonitorAdd(
 
   def execute(context: MonitorContext): Unit = {
 
-    context.value.reporter.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-          MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-          MonitorRouteUpdateStatusCommand("step-active", "prepare"),
-        )
-      )
-    )
+    initReporter(context)
 
     monitorUpdateCommon.findGroup(context)
     assertNewRoute(context)
 
-    val referenceTimestamp = if (context.value.update.referenceNow.contains(true)) {
-      Some(Time.now)
+    val referenceTimestamp = determineReferenceTimestamp(context)
+
+    buildMonitorRoute(context, referenceTimestamp)
+
+    context.stepActive("analyze-route-structure")
+    context.set(monitorUpdateStructure.update(context.value))
+
+    if (context.value.isReferenceTypeGpx) {
+      monitorUpdate.updateRouteWithGpxReference(context)
+    }
+    else if (context.value.isReferenceTypeMultiGpx) {
+      addRouteWithMultiGpxReference(context)
     }
     else {
-      context.value.update.referenceTimestamp
+      monitorUpdate.updateSubRelationOsmReferences(context)
     }
 
+    context.stepActive("save")
+    monitorUpdateSave.save(context)
+    context.stepDone("save")
+  }
+
+  private def buildMonitorRoute(context: MonitorContext, referenceTimestamp: Option[Timestamp]): Unit = {
     context.set(
       context.value.copy(
         newRoute = Some(
@@ -75,23 +84,28 @@ class MonitorAdd(
         )
       )
     )
+  }
 
-    context.stepActive("analyze-route-structure")
-    context.set(monitorUpdateStructure.update(context.value))
-
-    if (context.value.isReferenceTypeGpx) {
-      monitorUpdate.updateRouteWithGpxReference(context)
-    }
-    else if (context.value.isReferenceTypeMultiGpx) {
-      addRouteWithMultiGpxReference(context)
+  private def determineReferenceTimestamp(context: MonitorContext) = {
+    val referenceTimestamp = if (context.value.update.referenceNow.contains(true)) {
+      Some(Time.now)
     }
     else {
-      monitorUpdate.updateSubRelationOsmReferences(context)
+      context.value.update.referenceTimestamp
     }
+    referenceTimestamp
+  }
 
-    context.stepActive("save")
-    monitorUpdateSave.save(context)
-    context.stepDone("save")
+  private def initReporter(context: MonitorContext): Unit = {
+    context.value.reporter.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = Seq(
+          MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+          MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+          MonitorRouteUpdateStatusCommand("step-active", "prepare"),
+        )
+      )
+    )
   }
 
   private def addRouteWithMultiGpxReference(context: MonitorContext): Unit = {

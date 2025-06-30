@@ -1486,11 +1486,16 @@ trait SharedTestObjects extends MockFactory {
     (configuration.monitorRouteStructureLoader.load _).when(None, relationId).returns(Some(monitorRouteRelation))
   }
 
-  def newRouteRelation(relationId: Long, relations: Seq[RouteRelation] = Seq.empty): RouteRelation = {
+  def newRouteRelation(
+    relationId: Long,
+    name: String = "",
+    role: Option[String] = None,
+    relations: Seq[RouteRelation] = Seq.empty
+  ): RouteRelation = {
     RouteRelation(
       relationId,
-      "",
-      None,
+      name,
+      role,
       if (relations.nonEmpty) Some(relations) else None
     )
   }

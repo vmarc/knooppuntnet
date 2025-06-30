@@ -42,15 +42,7 @@ class MonitorUpdate(
 
   def execute(context: MonitorContext): Unit = {
 
-    context.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-          MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-          MonitorRouteUpdateStatusCommand("step-active", "prepare"),
-        )
-      )
-    )
+    initReporter(context)
 
     monitorUpdateCommon.findGroup(context)
     val oldRoute = monitorUpdateCommon.findRoute(context)
@@ -99,12 +91,14 @@ class MonitorUpdate(
     context.stepActive("analyze-route-structure")
     context.set(monitorUpdateStructure.update(context.value))
 
+    val oldReferences = monitorRouteRepository.routeReferences(context.value.routeId)
     val oldReferenceIds = monitorRouteRepository.routeReferenceIds(context.value.routeId)
     val oldStateIds = monitorRouteRepository.routeStateIds(context.value.routeId)
     context.set(
       context.value.copy(
         oldReferenceIds = oldReferenceIds,
-        oldStateIds = oldStateIds
+        oldStateIds = oldStateIds,
+        references = oldReferences,
       )
     )
 
@@ -123,6 +117,18 @@ class MonitorUpdate(
     context.stepActive("save")
     monitorUpdateSave.save(context)
     context.stepDone("save")
+  }
+
+  private def initReporter(context: MonitorContext): Unit = {
+    context.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = Seq(
+          MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+          MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+          MonitorRouteUpdateStatusCommand("step-active", "prepare"),
+        )
+      )
+    )
   }
 
   def updateRouteWithGpxReference(context: MonitorContext): Unit = {
@@ -159,6 +165,7 @@ class MonitorUpdate(
               referenceGeoJson = referenceGeoJson
             )
 
+            context.upsertRouteReference(reference)
             monitorRouteRepository.saveRouteReference(reference)
 
             val updatedNewRoute = context.value.newRoute.get.copy(
@@ -189,6 +196,7 @@ class MonitorUpdate(
                   val updatedReference = reference.copy(
                     relationId = context.value.update.relationId
                   )
+                  context.upsertRouteReference(updatedReference)
                   monitorRouteRepository.saveRouteReference(updatedReference)
                   context.set(
                     context.value.copy(
@@ -241,6 +249,7 @@ class MonitorUpdate(
           referenceGeoJson = referenceGeoJson
         )
 
+        context.upsertRouteReference(reference)
         monitorRouteRepository.saveRouteReference(reference)
 
         val updatedNewRoute = context.value.newRoute.get.copy(
@@ -309,6 +318,7 @@ class MonitorUpdate(
             errors = Some(Seq(error))
           )
         )
+        context.deleteRouteReference(context.value.routeId, Some(monitorRouteRelation.relationId))
         monitorRouteRepository.deleteRouteReference(context.value.routeId, monitorRouteRelation.relationId)
         monitorRouteRepository.deleteRouteState(context.value.routeId, monitorRouteRelation.relationId)
         context.set(
@@ -354,6 +364,7 @@ class MonitorUpdate(
             geometry
           )
 
+          context.upsertRouteReference(ref)
           monitorRouteRepository.saveRouteReference(ref)
           context.set(
             context.value.copy(

@@ -220,19 +220,6 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
     database.monitorRouteStates.countDocuments() should equal(2)
   }
 
-  private def setup(database: Database) = {
-    val configuration = MonitorUpdaterTestSupport.configuration(database)
-    setupLoadStructure(configuration)
-    setupLoadTopLevel(configuration)
-
-    val group = newMonitorGroup("group")
-    configuration.monitorGroupRepository.saveGroup(group)
-
-    Time.set(CurrentTimestamp)
-    val routeAddReporter = new MonitorUpdateReporterMock()
-    (configuration, group, routeAddReporter)
-  }
-
   private def verifyRoute(configuration: MonitorUpdaterConfiguration, group: MonitorGroup) = {
     val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
@@ -255,7 +242,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         referenceFilename = None,
         deviationDistance = 0,
         deviationCount = 0,
-        osmSegmentCount = 1,
+        osmSegmentCount = 0,
         relation = Some(
           newMonitorRouteRelation(
             relationId = 1,
@@ -431,6 +418,82 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       state12.copy(
         timestamp = GpxUpload2Timestamp,
         matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
+      )
+    )
+  }
+
+  private def setup(database: Database) = {
+    val configuration = MonitorUpdaterTestSupport.configuration(database)
+    setupLoadStructure(configuration)
+    setupLoadTopLevel(configuration)
+    setupBaseRouteDoc1(configuration)
+    setupBaseRouteDoc11(configuration)
+    setupBaseRouteDoc12(configuration)
+
+    val group = newMonitorGroup("group")
+    configuration.monitorGroupRepository.saveGroup(group)
+
+    Time.set(CurrentTimestamp)
+    val routeAddReporter = new MonitorUpdateReporterMock()
+    (configuration, group, routeAddReporter)
+  }
+
+  private def setupBaseRouteDoc1(configuration: MonitorUpdaterConfiguration): Unit = {
+    configuration.routeRepository.saveBaseRoute(
+      newBaseRouteDoc(
+        newRouteSummary(1),
+        subRelationTree = Some(
+          newRouteRelation(
+            relationId = 1,
+            name = "main-relation",
+            relations = Seq(
+              newRouteRelation(
+                relationId = 11,
+                name = "sub-relation-1",
+              ),
+              newRouteRelation(
+                relationId = 12,
+                name = "sub-relation-2",
+              )
+            )
+          )
+        )
+      )
+    )
+  }
+
+  private def setupBaseRouteDoc11(configuration: MonitorUpdaterConfiguration): Unit = {
+    configuration.routeRepository.saveBaseRoute(
+      newBaseRouteDoc(
+        newRouteSummary(11),
+        segments = Seq(
+          newBaseRouteSegment(1)
+        ),
+        segmentElements = Seq(
+          newBaseRouteSegmentElement(
+            segmentId = 1,
+            segmentElementId = 1,
+            coordinates = "[[4.4553911, 51.4633666],[4.4562458,51.4618272]]"
+          )
+        ),
+      )
+    )
+  }
+
+  private def setupBaseRouteDoc12(configuration: MonitorUpdaterConfiguration): Unit = {
+    configuration.routeRepository.saveBaseRoute(
+      newBaseRouteDoc(
+        newRouteSummary(12),
+        segments = Seq(
+          newBaseRouteSegment(1)
+        ),
+        segmentElements = Seq(
+          newBaseRouteSegmentElement(
+            segmentId = 1,
+            segmentElementId = 1,
+            coordinates = "[[4.4562458,51.4618272],[4.4550560,51.4614496]]"
+          )
+        ),
       )
     )
   }

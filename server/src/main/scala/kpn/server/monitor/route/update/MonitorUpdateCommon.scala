@@ -53,6 +53,7 @@ class MonitorUpdateCommon(
         val oldReferenceType = context.value.oldRoute.map(_.referenceType)
         if (newRoute.referenceType == MonitorReferenceType.multiGpx && !oldReferenceType.contains(MonitorReferenceType.multiGpx)) {
           context.value.oldReferenceIds.foreach { referenceId =>
+            context.deleteRouteReferenceById(referenceId._id)
             monitorRouteRepository.deleteRouteReferenceById(referenceId._id)
           }
           context.value.copy(
@@ -73,6 +74,7 @@ class MonitorUpdateCommon(
                 }
               }
               obsoleteReferenceIds.foreach { referenceId =>
+                context.deleteRouteReferenceById(referenceId._id)
                 monitorRouteRepository.deleteRouteReferenceById(referenceId._id)
               }
             }

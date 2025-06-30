@@ -7,6 +7,7 @@ import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatus
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
+import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteReferenceSummary
 import kpn.server.monitor.repository.MonitorRouteReferenceId
 import kpn.server.monitor.repository.MonitorRouteStateId
@@ -26,6 +27,7 @@ case class MonitorUpdateContext(
   analysisStartMillis: Option[Long] = None,
   structureChanged: Boolean = false,
   stateChanged: Boolean = false,
+  references: Seq[MonitorRouteReference] = Seq.empty,
 ) {
 
   def routeId: ObjectId = {

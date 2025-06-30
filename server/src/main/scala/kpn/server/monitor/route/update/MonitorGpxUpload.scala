@@ -115,6 +115,7 @@ class MonitorGpxUpload(
       referenceGeoJson = geoJson
     )
 
+    context.upsertRouteReference(reference)
     monitorRouteRepository.saveRouteReference(reference)
 
     context.set(

@@ -81,43 +81,6 @@ class MonitorUpdaterTest06_osm_update_no_changes extends UnitTest with BeforeAnd
     updatedState should equal(state)
   }
 
-  private def setup(database: Database) = {
-    val configuration = MonitorUpdaterTestSupport.configuration(database)
-
-    Time.set(Timestamp(2023, 1, 1))
-
-    val group = newMonitorGroup("group")
-    val route = newMonitorRoute(
-      group._id,
-      name = "route",
-      relationId = Some(1),
-      user = "user",
-      referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-      referenceFilename = None,
-    )
-    val reference = newMonitorRouteReference(
-      routeId = route._id,
-      relationId = Some(1),
-      referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = Timestamp(2022, 8, 11),
-    )
-    val state = newMonitorRouteState(
-      route._id,
-      1,
-      timestamp = Timestamp(2022, 8, 11),
-    )
-
-    configuration.monitorGroupRepository.saveGroup(group)
-    configuration.monitorRouteRepository.saveRoute(route)
-    configuration.monitorRouteRepository.saveRouteReference(reference)
-    configuration.monitorRouteRepository.saveRouteState(state)
-
-    Time.set(Timestamp(2023, 1, 2))
-    val reporter = new MonitorUpdateReporterMock()
-    (configuration, group, route, reference, state, reporter)
-  }
-
   private def verifyReporterMessages(reporter: MonitorUpdateReporterMock): Unit = {
     assertEqual(
       reporter.messages,
@@ -144,6 +107,55 @@ class MonitorUpdaterTest06_osm_update_no_changes extends UnitTest with BeforeAnd
             MonitorRouteUpdateStatusCommand("step-done", "save"))
         )
       )
+    )
+  }
+
+  private def setup(database: Database) = {
+    val configuration = MonitorUpdaterTestSupport.configuration(database)
+
+    Time.set(Timestamp(2023, 1, 1))
+
+    val group = newMonitorGroup("group")
+    val route = setupRoute(group)
+    val reference = setupReference(route)
+    val state = setupState(route)
+
+    configuration.monitorGroupRepository.saveGroup(group)
+    configuration.monitorRouteRepository.saveRoute(route)
+    configuration.monitorRouteRepository.saveRouteReference(reference)
+    configuration.monitorRouteRepository.saveRouteState(state)
+
+    Time.set(Timestamp(2023, 1, 2))
+    val reporter = new MonitorUpdateReporterMock()
+    (configuration, group, route, reference, state, reporter)
+  }
+
+  private def setupRoute(group: MonitorGroup): MonitorRoute = {
+    newMonitorRoute(
+      group._id,
+      name = "route",
+      relationId = Some(1),
+      user = "user",
+      referenceType = MonitorReferenceType.osm,
+      referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+      referenceFilename = None,
+    )
+  }
+
+  private def setupReference(route: MonitorRoute): MonitorRouteReference = {
+    newMonitorRouteReference(
+      routeId = route._id,
+      relationId = Some(1),
+      referenceType = MonitorReferenceType.osm,
+      referenceTimestamp = Timestamp(2022, 8, 11),
+    )
+  }
+
+  private def setupState(route: MonitorRoute): MonitorRouteState = {
+    newMonitorRouteState(
+      route._id,
+      1,
+      timestamp = Timestamp(2022, 8, 11),
     )
   }
 }
