@@ -17,26 +17,7 @@ class MonitorGpxDelete(
 
   def execute(context: MonitorContext): Unit = {
 
-    val commands = Seq(
-      MonitorRouteUpdateStatusCommand(
-        "step-add",
-        "delete",
-      ),
-      MonitorRouteUpdateStatusCommand(
-        "step-add",
-        "save"
-      ),
-      MonitorRouteUpdateStatusCommand(
-        "step-active",
-        "delete",
-      ),
-    )
-
-    context.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = commands
-      )
-    )
+    initReporter(context)
 
     monitorUpdateCommon.findGroup(context)
     monitorUpdateCommon.findRoute(context)
@@ -62,5 +43,26 @@ class MonitorGpxDelete(
     context.stepActive("save")
     monitorUpdateSave.save(context)
     context.stepDone("save")
+  }
+
+  private def initReporter(context: MonitorContext): Unit = {
+    context.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = Seq(
+          MonitorRouteUpdateStatusCommand(
+            "step-add",
+            "delete",
+          ),
+          MonitorRouteUpdateStatusCommand(
+            "step-add",
+            "save"
+          ),
+          MonitorRouteUpdateStatusCommand(
+            "step-active",
+            "delete",
+          ),
+        )
+      )
+    )
   }
 }

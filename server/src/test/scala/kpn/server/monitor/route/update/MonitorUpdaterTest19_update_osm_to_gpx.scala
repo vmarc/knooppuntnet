@@ -271,6 +271,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends UnitTest with BeforeAndAfte
     val configuration = MonitorUpdaterTestSupport.configuration(database)
     setupLoadStructure(configuration)
     setupLoadRelation(configuration)
+    setupBaseRouteDoc(configuration)
 
     val group = newMonitorGroup("group")
     configuration.monitorGroupRepository.saveGroup(group)
@@ -278,6 +279,24 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends UnitTest with BeforeAndAfte
     Time.set(CurrentTimestamp)
     val reporter = new MonitorUpdateReporterMock()
     (configuration, group, reporter)
+  }
+
+  private def setupBaseRouteDoc(configuration: MonitorUpdaterConfiguration): Unit = {
+    configuration.routeRepository.saveBaseRoute(
+      newBaseRouteDoc(
+        newRouteSummary(1),
+        segments = Seq(
+          newBaseRouteSegment(1)
+        ),
+        segmentElements = Seq(
+          newBaseRouteSegmentElement(
+            segmentId = 1,
+            segmentElementId = 1,
+            coordinates = "[[4.4553911, 51.4633666],[4.4562458,51.4618272]]"
+          )
+        )
+      )
+    )
   }
 
   private def setupLoadStructure(configuration: MonitorUpdaterConfiguration): Unit = {

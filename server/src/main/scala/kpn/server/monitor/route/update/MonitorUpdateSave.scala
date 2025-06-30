@@ -96,10 +96,6 @@ class MonitorUpdateSave(
 
       val segmentCount: Long = context.value.update.relationId.flatMap(routeRepository.routeSegmentCount).getOrElse(0)
 
-      val happy = context.value.update.relationId.nonEmpty &&
-        context.value.newRoute.map(_.deviationCount).sum == 0 &&
-        context.value.newRoute.get.relation.exists(_.happy)
-
       context.set(
         context.value.copy(
           newRoute = Some(
@@ -109,6 +105,19 @@ class MonitorUpdateSave(
               deviationCount = deviationCount,
               deviationDistance = deviationDistance,
               osmSegmentCount = segmentCount,
+            )
+          )
+        )
+      )
+
+      val happy = context.value.update.relationId.nonEmpty &&
+        context.value.newRoute.map(_.deviationCount).sum == 0 &&
+        context.value.route.relation.exists(_.happy)
+
+      context.set(
+        context.value.copy(
+          newRoute = Some(
+            context.value.route.copy(
               happy = happy
             )
           )

@@ -106,6 +106,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends UnitTest with BeforeA
     val configuration = MonitorUpdaterTestSupport.configuration(database)
     setupLoadStructure(configuration)
     setupLoadRelation(configuration)
+    setupBaseRouteDoc(configuration)
 
     val group = newMonitorGroup("group")
     configuration.monitorGroupRepository.saveGroup(group)
@@ -219,7 +220,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends UnitTest with BeforeA
             happy = true,
           )
         ),
-        happy = true
+        happy = false
       )
     )
     route
@@ -237,6 +238,24 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends UnitTest with BeforeA
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
         deviations = Seq.empty,
+      )
+    )
+  }
+
+  private def setupBaseRouteDoc(configuration: MonitorUpdaterConfiguration): Unit = {
+    configuration.routeRepository.saveBaseRoute(
+      newBaseRouteDoc(
+        newRouteSummary(1),
+        segments = Seq(
+          newBaseRouteSegment(1)
+        ),
+        segmentElements = Seq(
+          newBaseRouteSegmentElement(
+            segmentId = 1,
+            segmentElementId = 1,
+            coordinates = "[[4.4553911, 51.4633666],[4.4562458,51.4618272]]"
+          )
+        )
       )
     )
   }
