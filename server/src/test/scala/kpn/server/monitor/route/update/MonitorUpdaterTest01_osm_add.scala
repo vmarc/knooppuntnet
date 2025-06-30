@@ -14,8 +14,8 @@ import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
 import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
+import kpn.database.base.Database
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
@@ -24,7 +24,8 @@ import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
-  private val log = new MockLog()
+  private val ReferenceTimestamp = Timestamp(2022, 8, 1)
+  private val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
 
   override def afterEach(): Unit = {
     Time.clear()
@@ -34,46 +35,44 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
 
     withDatabase() { database =>
 
-      val configuration = MonitorUpdaterTestSupport.configuration(database)
-      setupLoadStructure(configuration)
-      setupLoadTopLevel(configuration)
-      setupBaseRouteDoc(configuration)
+      val (configuration, reporter, group) = setup(database)
 
-      val group = newMonitorGroup("group")
-      configuration.monitorGroupRepository.saveGroup(group)
+      executeMonitorUpdate(configuration, reporter, group)
 
-      Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
-
-      val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorRouteUpdateExecutor.execute(
-        MonitorUpdateContext(
-          "user",
-          reporter,
-          MonitorRouteUpdate(
-            action = MonitorAction.add,
-            groupName = group.name,
-            routeName = "route-name",
-            referenceType = MonitorReferenceType.osm,
-            description = Some("route-description"),
-            comment = Some("route-comment"),
-            relationId = Some(1),
-            referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-          )
-        )
-      )
-
-      database.monitorRoutes.countDocuments(log) should equal(1)
-      database.monitorRouteReferences.countDocuments(log) should equal(1)
-      database.monitorRouteStates.countDocuments(log) should equal(1)
-
-      val monitorRoute = assertMonitorRoute(configuration, group)
-      assertRouteReference(configuration, monitorRoute)
-      assertRouteState(configuration, monitorRoute)
-      assertMessages(reporter)
+      verifyDocumentCounts(database)
+      val monitorRoute = verifyMonitorRoute(configuration, group)
+      verifyRouteReference(configuration, monitorRoute)
+      verifyRouteState(configuration, monitorRoute)
+      verifyReporterMessages(reporter)
     }
   }
 
-  private def assertMonitorRoute(configuration: MonitorUpdaterConfiguration, group: MonitorGroup) = {
+  private def executeMonitorUpdate(configuration: MonitorUpdaterConfiguration, reporter: MonitorUpdateReporterMock, group: MonitorGroup): Unit = {
+    configuration.monitorRouteUpdateExecutor.execute(
+      MonitorUpdateContext(
+        "user",
+        reporter,
+        MonitorRouteUpdate(
+          action = MonitorAction.add,
+          groupName = group.name,
+          routeName = "route-name",
+          referenceType = MonitorReferenceType.osm,
+          description = Some("route-description"),
+          comment = Some("route-comment"),
+          relationId = Some(1),
+          referenceTimestamp = Some(ReferenceTimestamp),
+        )
+      )
+    )
+  }
+
+  private def verifyDocumentCounts(database: Database): Unit = {
+    database.monitorRoutes.countDocuments() should equal(1)
+    database.monitorRouteReferences.countDocuments() should equal(1)
+    database.monitorRouteStates.countDocuments() should equal(1)
+  }
+
+  private def verifyMonitorRoute(configuration: MonitorUpdaterConfiguration, group: MonitorGroup): MonitorRoute = {
     val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
       route.copy(analysisDuration = None),
@@ -85,12 +84,12 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
         comment = Some("route-comment"),
         relationId = Some(1),
         user = "user",
-        timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+        timestamp = CurrentTimestamp,
         symbol = None,
-        analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
+        analysisTimestamp = Some(CurrentTimestamp),
         analysisDuration = None,
         referenceType = MonitorReferenceType.osm,
-        referenceTimestamp = Some(Timestamp(2022, 8, 1)),
+        referenceTimestamp = Some(ReferenceTimestamp),
         referenceFilename = None,
         referenceDistance = 181,
         deviationDistance = 0,
@@ -109,7 +108,7 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
     route
   }
 
-  private def assertRouteReference(configuration: MonitorUpdaterConfiguration, monitorRoute: MonitorRoute): Unit = {
+  private def verifyRouteReference(configuration: MonitorUpdaterConfiguration, monitorRoute: MonitorRoute): Unit = {
     val reference = configuration.monitorRouteRepository.routeReference(monitorRoute._id, Some(1)).get
     assertEqual(
       reference,
@@ -117,11 +116,11 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
         _id = reference._id,
         routeId = monitorRoute._id,
         relationId = Some(1),
-        timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+        timestamp = CurrentTimestamp,
         user = "user",
         referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         referenceType = MonitorReferenceType.osm,
-        referenceTimestamp = Timestamp(2022, 8, 1),
+        referenceTimestamp = ReferenceTimestamp,
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = None,
@@ -130,7 +129,7 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
     )
   }
 
-  private def assertRouteState(configuration: MonitorUpdaterConfiguration, monitorRoute: MonitorRoute): Unit = {
+  private def verifyRouteState(configuration: MonitorUpdaterConfiguration, monitorRoute: MonitorRoute): Unit = {
     val state = configuration.monitorRouteRepository.routeState(monitorRoute._id, 1).get
     assertEqual(
       state,
@@ -138,7 +137,7 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
         state._id,
         routeId = monitorRoute._id,
         relationId = 1,
-        timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+        timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
         deviations = Seq.empty,
@@ -146,7 +145,7 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
     )
   }
 
-  private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
+  private def verifyReporterMessages(reporter: MonitorUpdateReporterMock): Unit = {
     assertEqual(
       reporter.messages,
       Seq(
@@ -186,6 +185,20 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
     )
   }
 
+  private def setup(database: Database) = {
+    val configuration = MonitorUpdaterTestSupport.configuration(database)
+    setupLoadStructure(configuration)
+    setupLoadTopLevel(configuration)
+    setupBaseRouteDoc(configuration)
+
+    val group = newMonitorGroup("group")
+    configuration.monitorGroupRepository.saveGroup(group)
+    val reporter = new MonitorUpdateReporterMock()
+
+    Time.set(CurrentTimestamp)
+    (configuration, reporter, group)
+  }
+
   private def setupBaseRouteDoc(configuration: MonitorUpdaterConfiguration): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
@@ -205,7 +218,6 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
   }
 
   private def setupLoadStructure(configuration: MonitorUpdaterConfiguration): Unit = {
-
     val overpassData = OverpassData()
       .relation(
         1,
@@ -213,12 +225,10 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
           "name" -> "route-name"
         ),
       )
-
     setupRouteStructure(configuration, overpassData, 1)
   }
 
   private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration): Unit = {
-
     val overpassData = OverpassData()
       .node(1001, latitude = "51.4633666", longitude = "4.4553911")
       .node(1002, latitude = "51.4618272", longitude = "4.4562458")
@@ -232,9 +242,8 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
           newMember(MemberType.Way, 101),
         )
       )
-
     val relation = new DataBuilder(overpassData.rawData).data.relations(1)
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 8, 1)), 1).returns(Some(relation))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp), 1).returns(Some(relation))
   }
 }

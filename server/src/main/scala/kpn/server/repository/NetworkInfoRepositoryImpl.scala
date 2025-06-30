@@ -40,7 +40,7 @@ class NetworkInfoRepositoryImpl(database: Database) extends NetworkInfoRepositor
 
     val changesCount = {
       val changesFilter = equal("networkId", networkId)
-      database.networkChanges.countDocuments(changesFilter)
+      database.networkChanges.countFilteredDocuments(changesFilter)
     }
 
     val filter = equal("_id", networkId)

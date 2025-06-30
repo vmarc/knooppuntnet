@@ -13,15 +13,16 @@ import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
 import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
+import kpn.database.base.Database
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest05_osm_update extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
-  private val log = new MockLog()
+  private val ReferenceTimestamp = Timestamp(2022, 8, 1)
+  private val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
 
   override def afterEach(): Unit = {
     Time.clear()
@@ -31,81 +32,37 @@ class MonitorUpdaterTest05_osm_update extends UnitTest with BeforeAndAfterEach w
 
     withDatabase() { database =>
 
-      val configuration = MonitorUpdaterTestSupport.configuration(database)
-      setupStructureLoader(configuration)
-      setupLoadTopLevel(configuration)
+      val (configuration, group, route, reporter) = setup(database)
 
-      val group = newMonitorGroup("group")
-      configuration.monitorGroupRepository.saveGroup(group)
+      executeMonitorUpdate(configuration, group, reporter)
 
-      val route = newMonitorRoute(
-        group._id,
-        name = "route",
-        relationId = Some(1),
-        user = "user",
-        referenceType = MonitorReferenceType.osm,
-        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-        referenceFilename = None,
-        relation = Some(
-          newMonitorRouteRelation(
-            relationId = 1,
-            name = "route"
-          )
-        )
-      )
-      val reference = newMonitorRouteReference(
-        routeId = route._id,
-        relationId = Some(1),
-        referenceType = MonitorReferenceType.osm,
-        referenceTimestamp = Timestamp(2022, 8, 11),
-      )
-      val state = newMonitorRouteState(
-        route._id,
-        1,
-        timestamp = Timestamp(2022, 8, 11),
-      )
-
-      configuration.monitorGroupRepository.saveGroup(group)
-      configuration.monitorRouteRepository.saveRoute(route)
-      configuration.monitorRouteRepository.saveRouteReference(reference)
-      configuration.monitorRouteRepository.saveRouteState(state)
-
-      database.monitorRoutes.countDocuments(log) should equal(1)
-      database.monitorRouteReferences.countDocuments(log) should equal(1)
-      database.monitorRouteStates.countDocuments(log) should equal(1)
-
-      Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
-      val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorRouteUpdateExecutor.execute(
-        MonitorUpdateContext(
-          "user",
-          reporter,
-          MonitorRouteUpdate(
-            action = MonitorAction.update,
-            groupName = group.name,
-            routeName = "route",
-            referenceType = MonitorReferenceType.osm,
-            description = Some("route description"),
-            relationId = Some(1),
-            referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-          )
-        )
-      )
-
-      assertMessages(reporter)
-
-      database.monitorRoutes.countDocuments(log) should equal(1)
-      database.monitorRouteReferences.countDocuments(log) should equal(0)
-      database.monitorRouteStates.countDocuments(log) should equal(0)
-
-      assertRoute(configuration, group, route)
-
-      configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
-      configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
+      verifyDocumentCounts(database)
+      verifyRoute(configuration, group, route)
+      verifyReferenceDeleted(configuration, route)
+      verifyStateDeleted(configuration, route)
+      verifyReporterMessages(reporter)
     }
   }
 
-  private def assertRoute(configuration: MonitorUpdaterConfiguration, group: MonitorGroup, route: MonitorRoute): Unit = {
+  private def executeMonitorUpdate(configuration: MonitorUpdaterConfiguration, group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
+    configuration.monitorRouteUpdateExecutor.execute(
+      MonitorUpdateContext(
+        "user",
+        reporter,
+        MonitorRouteUpdate(
+          action = MonitorAction.update,
+          groupName = group.name,
+          routeName = "route",
+          referenceType = MonitorReferenceType.osm,
+          description = Some("route description"),
+          relationId = Some(1),
+          referenceTimestamp = Some(ReferenceTimestamp),
+        )
+      )
+    )
+  }
+
+  private def verifyRoute(configuration: MonitorUpdaterConfiguration, group: MonitorGroup, route: MonitorRoute): Unit = {
     val route = configuration.monitorRouteRepository.routeByName(group._id, "route").get
     assertEqual(
       route.copy(analysisDuration = None),
@@ -117,12 +74,12 @@ class MonitorUpdaterTest05_osm_update extends UnitTest with BeforeAndAfterEach w
         comment = None,
         relationId = Some(1),
         user = "user",
-        timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+        timestamp = CurrentTimestamp,
         symbol = None,
-        analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
+        analysisTimestamp = Some(CurrentTimestamp),
         analysisDuration = None,
         referenceType = MonitorReferenceType.osm,
-        referenceTimestamp = Some(Timestamp(2022, 8, 1)),
+        referenceTimestamp = Some(ReferenceTimestamp),
         referenceFilename = None,
         referenceDistance = 0,
         deviationDistance = 0,
@@ -140,41 +97,21 @@ class MonitorUpdaterTest05_osm_update extends UnitTest with BeforeAndAfterEach w
     )
   }
 
-  private def setupStructureLoader(configuration: MonitorUpdaterConfiguration): Unit = {
-
-    val overpassData = OverpassData()
-      .relation(
-        1,
-        tags = Tags.from(
-          "name" -> "route"
-        ),
-      )
-
-    setupRouteStructure(configuration, overpassData, 1)
+  private def verifyDocumentCounts(database: Database): Unit = {
+    database.monitorRoutes.countDocuments() should equal(1)
+    database.monitorRouteReferences.countDocuments() should equal(0)
+    database.monitorRouteStates.countDocuments() should equal(0)
   }
 
-  private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration): Unit = {
-
-    val overpassData = OverpassData()
-      .node(1001, latitude = "51.4633666", longitude = "4.4553911")
-      .node(1002, latitude = "51.4618272", longitude = "4.4562458")
-      .way(101, 1001, 1002)
-      .relation(
-        1,
-        tags = Tags.from(
-          "name" -> "route"
-        ),
-        members = Seq(
-          newMember(MemberType.Way, 101),
-        )
-      )
-
-    val relation = new DataBuilder(overpassData.rawData).data.relations(1)
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 8, 1)), 1).returns(None)
+  private def verifyReferenceDeleted(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): Unit = {
+    configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
   }
 
-  private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
+  private def verifyStateDeleted(configuration: MonitorUpdaterConfiguration, route: MonitorRoute): Unit = {
+    configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
+  }
+
+  private def verifyReporterMessages(reporter: MonitorUpdateReporterMock): Unit = {
     assertEqual(
       reporter.messages,
       Seq(
@@ -216,5 +153,88 @@ class MonitorUpdaterTest05_osm_update extends UnitTest with BeforeAndAfterEach w
         )
       )
     )
+  }
+
+  private def setup(database: Database) = {
+    val configuration = MonitorUpdaterTestSupport.configuration(database)
+    setupStructureLoader(configuration)
+    setupLoadTopLevel(configuration)
+
+    val group = newMonitorGroup("group")
+    configuration.monitorGroupRepository.saveGroup(group)
+
+    val route = newMonitorRoute(
+      group._id,
+      name = "route",
+      relationId = Some(1),
+      user = "user",
+      referenceType = MonitorReferenceType.osm,
+      referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+      referenceFilename = None,
+      relation = Some(
+        newMonitorRouteRelation(
+          relationId = 1,
+          name = "route"
+        )
+      )
+    )
+    val reference = newMonitorRouteReference(
+      routeId = route._id,
+      relationId = Some(1),
+      referenceType = MonitorReferenceType.osm,
+      referenceTimestamp = Timestamp(2022, 8, 11),
+    )
+    val state = newMonitorRouteState(
+      route._id,
+      1,
+      timestamp = Timestamp(2022, 8, 11),
+    )
+
+    configuration.monitorGroupRepository.saveGroup(group)
+    configuration.monitorRouteRepository.saveRoute(route)
+    configuration.monitorRouteRepository.saveRouteReference(reference)
+    configuration.monitorRouteRepository.saveRouteState(state)
+
+    database.monitorRoutes.countDocuments() should equal(1)
+    database.monitorRouteReferences.countDocuments() should equal(1)
+    database.monitorRouteStates.countDocuments() should equal(1)
+
+    Time.set(CurrentTimestamp)
+    val reporter = new MonitorUpdateReporterMock()
+    (configuration, group, route, reporter)
+  }
+
+  private def setupStructureLoader(configuration: MonitorUpdaterConfiguration): Unit = {
+
+    val overpassData = OverpassData()
+      .relation(
+        1,
+        tags = Tags.from(
+          "name" -> "route"
+        ),
+      )
+
+    setupRouteStructure(configuration, overpassData, 1)
+  }
+
+  private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration): Unit = {
+
+    val overpassData = OverpassData()
+      .node(1001, latitude = "51.4633666", longitude = "4.4553911")
+      .node(1002, latitude = "51.4618272", longitude = "4.4562458")
+      .way(101, 1001, 1002)
+      .relation(
+        1,
+        tags = Tags.from(
+          "name" -> "route"
+        ),
+        members = Seq(
+          newMember(MemberType.Way, 101),
+        )
+      )
+
+    val relation = new DataBuilder(overpassData.rawData).data.relations(1)
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp), 1).returns(None)
   }
 }

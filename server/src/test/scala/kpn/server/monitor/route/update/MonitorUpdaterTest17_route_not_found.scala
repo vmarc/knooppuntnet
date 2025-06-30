@@ -9,41 +9,45 @@ import kpn.api.custom.Timestamp
 import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.database.base.Database
 
 class MonitorUpdaterTest17_route_not_found extends UnitTest with SharedTestObjects {
+
+  private val ReferenceTimestamp = Timestamp(2022, 8, 1)
+  private val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
 
   test("update/upload - route not found") {
 
     withDatabase() { database =>
 
-      val configuration = MonitorUpdaterTestSupport.configuration(database)
+      val (configuration, reporter) = setup(database)
 
-      val group = newMonitorGroup("group-name")
-      configuration.monitorGroupRepository.saveGroup(group)
+      executeMonitorUpdate(configuration, reporter)
 
-      val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorRouteUpdateExecutor.execute(
-        MonitorUpdateContext(
-          "user",
-          reporter,
-          MonitorRouteUpdate(
-            action = MonitorAction.update,
-            groupName = "group-name",
-            routeName = "unknown-route-name",
-            description = Some("description"),
-            comment = Some("comment"),
-            relationId = Some(1),
-            referenceType = MonitorReferenceType.osm,
-            referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-          )
-        )
-      )
-
-      assertMessages(reporter)
+      verifyReporterMessages(reporter)
     }
   }
 
-  private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
+  private def executeMonitorUpdate(configuration: MonitorUpdaterConfiguration, reporter: MonitorUpdateReporterMock): Unit = {
+    configuration.monitorRouteUpdateExecutor.execute(
+      MonitorUpdateContext(
+        "user",
+        reporter,
+        MonitorRouteUpdate(
+          action = MonitorAction.update,
+          groupName = "group-name",
+          routeName = "unknown-route-name",
+          description = Some("description"),
+          comment = Some("comment"),
+          relationId = Some(1),
+          referenceType = MonitorReferenceType.osm,
+          referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+        )
+      )
+    )
+  }
+
+  private def verifyReporterMessages(reporter: MonitorUpdateReporterMock): Unit = {
     assertEqual(
       reporter.messages,
       Seq(
@@ -59,5 +63,15 @@ class MonitorUpdaterTest17_route_not_found extends UnitTest with SharedTestObjec
         )
       )
     )
+  }
+
+  private def setup(database: Database) = {
+    val configuration = MonitorUpdaterTestSupport.configuration(database)
+
+    val group = newMonitorGroup("group-name")
+    configuration.monitorGroupRepository.saveGroup(group)
+
+    val reporter = new MonitorUpdateReporterMock()
+    (configuration, reporter)
   }
 }

@@ -422,7 +422,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         equal("happy", true),
         equal("investigate", true)
       )
-      database.monitorRouteChanges.countDocuments(
+      database.monitorRouteChanges.countFilteredDocuments(
         filter,
         log
       )
@@ -499,7 +499,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
 
   override def groupChangesCount(groupName: String, parameters: MonitorChangesParameters): Long = {
     val changesFilter = groupChangesFilter(groupName, parameters)
-    database.monitorRouteChanges.countDocuments(changesFilter, log)
+    database.monitorRouteChanges.countFilteredDocuments(changesFilter, log)
   }
 
   override def groupChanges(groupName: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
@@ -516,7 +516,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
 
   override def routeChangesCount(id: String, parameters: MonitorChangesParameters): Long = {
     val changesFilter = routeChangesCountFilter(id, parameters)
-    database.monitorRouteChanges.countDocuments(changesFilter, log)
+    database.monitorRouteChanges.countFilteredDocuments(changesFilter, log)
   }
 
   override def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {

@@ -84,9 +84,9 @@ trait DatabaseCollection[T] {
 
   def insertMany(docs: Seq[T], log: Log = collectionLog): Unit
 
-  def countDocuments(log: Log): Long
+  def countDocuments(log: Log = collectionLog): Long
 
-  def countDocuments(filter: Bson, log: Log = collectionLog): Long
+  def countFilteredDocuments(filter: Bson, log: Log = collectionLog): Long
 
   def updateOne(filter: Bson, update: MongoPipeline, log: Log = collectionLog): Unit
 

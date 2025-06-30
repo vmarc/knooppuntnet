@@ -27,7 +27,7 @@ class MongoQueryLocationPoiCount(database: Database) {
           LayerFilter.of(layers)
         ).flatten: _*
       )
-      val locationPoiCount = database.pois.countDocuments(filter, log)
+      val locationPoiCount = database.pois.countFilteredDocuments(filter, log)
       (s"locationPoiCount: $locationPoiCount", locationPoiCount)
     }
   }

@@ -253,7 +253,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
     }
   }
 
-  override def countDocuments(filter: Bson, log: Log): Long = {
+  override def countFilteredDocuments(filter: Bson, log: Log): Long = {
     log.debugElapsed {
       val future = collection.countDocuments(filter).toFuture()
       val count = awaitResult(future, Duration(1, TimeUnit.MINUTES), log)

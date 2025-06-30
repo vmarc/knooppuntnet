@@ -8,47 +8,54 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
+import kpn.database.base.Database
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest16_group_not_found extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
-  private val log = new MockLog()
+  private val ReferenceTimestamp = Timestamp(2022, 8, 1)
+  private val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
 
   test("add/update/upload - group not found") {
 
     withDatabase() { database =>
 
-      val configuration = MonitorUpdaterTestSupport.configuration(database)
+      val (configuration, reporter) = setup(database)
 
-      val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorRouteUpdateExecutor.execute(
-        MonitorUpdateContext(
-          "user",
-          reporter,
-          MonitorRouteUpdate(
-            action = MonitorAction.add,
-            groupName = "unknown-group",
-            routeName = "route-name",
-            referenceType = MonitorReferenceType.osm,
-            description = Some("description"),
-            comment = Some("comment"),
-            relationId = Some(1),
-            referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-          )
-        )
-      )
+      executeMonitorUpdate(configuration, reporter)
 
-      assertMessages(reporter)
-
-      database.monitorRoutes.countDocuments(log) should equal(0)
-      database.monitorRouteReferences.countDocuments(log) should equal(0)
-      database.monitorRouteStates.countDocuments(log) should equal(0)
+      verifyDocumentCounts(database)
+      verifyReporterMessages(reporter)
     }
   }
 
-  private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
+  private def executeMonitorUpdate(configuration: MonitorUpdaterConfiguration, reporter: MonitorUpdateReporterMock): Unit = {
+    configuration.monitorRouteUpdateExecutor.execute(
+      MonitorUpdateContext(
+        "user",
+        reporter,
+        MonitorRouteUpdate(
+          action = MonitorAction.add,
+          groupName = "unknown-group",
+          routeName = "route-name",
+          referenceType = MonitorReferenceType.osm,
+          description = Some("description"),
+          comment = Some("comment"),
+          relationId = Some(1),
+          referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+        )
+      )
+    )
+  }
+
+  private def verifyDocumentCounts(database: Database) = {
+    database.monitorRoutes.countDocuments() should equal(0)
+    database.monitorRouteReferences.countDocuments() should equal(0)
+    database.monitorRouteStates.countDocuments() should equal(0)
+  }
+
+  private def verifyReporterMessages(reporter: MonitorUpdateReporterMock): Unit = {
     assertEqual(
       reporter.messages,
       Seq(
@@ -64,5 +71,11 @@ class MonitorUpdaterTest16_group_not_found extends UnitTest with BeforeAndAfterE
         )
       )
     )
+  }
+
+  private def setup(database: Database) = {
+    val configuration = MonitorUpdaterTestSupport.configuration(database)
+    val reporter = new MonitorUpdateReporterMock()
+    (configuration, reporter)
   }
 }
