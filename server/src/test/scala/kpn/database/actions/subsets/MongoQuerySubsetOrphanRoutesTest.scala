@@ -7,68 +7,56 @@ import kpn.api.custom.Day
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.doc.OrphanRouteDoc
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
+import kpn.core.test.MongoTest
 
-class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
+class MongoQuerySubsetOrphanRoutesTest extends MongoTest {
 
   test("orphan route") {
-    withDatabase { database =>
-
-      database.orphanRoutes.save(createOrphanRouteDoc())
-
-      assertEqual(
-        new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking),
-        Seq(
-          OrphanRouteDoc(
-            _id = 100L,
-            Country.nl,
-            Seq(RouteType.hiking),
-            name = "01-02",
-            meters = 123,
-            facts = Seq.empty,
-            lastSurvey = None,
-            lastUpdated = Timestamp(2020, 8, 11),
-          )
+    database.orphanRoutes.save(createOrphanRouteDoc())
+    assertEqual(
+      new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking),
+      Seq(
+        OrphanRouteDoc(
+          _id = 100L,
+          Country.nl,
+          Seq(RouteType.hiking),
+          name = "01-02",
+          meters = 123,
+          facts = Seq.empty,
+          lastSurvey = None,
+          lastUpdated = Timestamp(2020, 8, 11),
         )
       )
-    }
+    )
   }
 
   test("do not include routes in another country") {
-    withDatabase { database =>
-      database.orphanRoutes.save(createOrphanRouteDoc(country = Country.be))
-      new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking) should equal(Seq.empty)
-    }
+    database.orphanRoutes.save(createOrphanRouteDoc(country = Country.be))
+    new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking) should equal(Seq.empty)
   }
 
   test("do not include routes with a different routeType") {
-    withDatabase { database =>
-      database.orphanRoutes.save(createOrphanRouteDoc(routeType = RouteType.cycling))
-      new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking) should equal(Seq.empty)
-    }
+    database.orphanRoutes.save(createOrphanRouteDoc(routeType = RouteType.cycling))
+    new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking) should equal(Seq.empty)
   }
 
   test("route that is broken") {
-    withDatabase { database =>
-      database.orphanRoutes.save(createOrphanRouteDoc(facts = Seq(Fact.RouteBroken)))
-      assertEqual(
-        new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking),
-        Seq(
-          OrphanRouteDoc(
-            _id = 100L,
-            Country.nl,
-            Seq(RouteType.hiking),
-            name = "01-02",
-            meters = 123,
-            facts = Seq(Fact.RouteBroken),
-            lastSurvey = None,
-            lastUpdated = Timestamp(2020, 8, 11),
-          )
+    database.orphanRoutes.save(createOrphanRouteDoc(facts = Seq(Fact.RouteBroken)))
+    assertEqual(
+      new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking),
+      Seq(
+        OrphanRouteDoc(
+          _id = 100L,
+          Country.nl,
+          Seq(RouteType.hiking),
+          name = "01-02",
+          meters = 123,
+          facts = Seq(Fact.RouteBroken),
+          lastSurvey = None,
+          lastUpdated = Timestamp(2020, 8, 11),
         )
       )
-    }
+    )
   }
 
   private def createOrphanRouteDoc(

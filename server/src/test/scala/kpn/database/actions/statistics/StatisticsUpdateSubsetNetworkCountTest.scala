@@ -6,45 +6,40 @@ import kpn.api.common.Country.nl
 import kpn.api.common.RouteType
 import kpn.api.common.RouteType.cycling
 import kpn.api.common.RouteType.hiking
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
+import kpn.core.test.MongoTest
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
-class StatisticsUpdateSubsetNetworkCountTest extends UnitTest with SharedTestObjects {
+class StatisticsUpdateSubsetNetworkCountTest extends MongoTest {
 
   test("execute") {
-    withDatabase { database =>
 
-      buildNetwork(database, 1L, nl, hiking)
-      buildNetwork(database, 2L, nl, hiking)
-      buildNetwork(database, 3L, nl, cycling)
-      buildNetwork(database, 4L, de, hiking)
-      buildNetwork(database, 5L, de, hiking)
-      buildNetwork(database, 6L, de, cycling)
+    buildNetwork(1L, nl, hiking)
+    buildNetwork(2L, nl, hiking)
+    buildNetwork(3L, nl, cycling)
+    buildNetwork(4L, de, hiking)
+    buildNetwork(5L, de, hiking)
+    buildNetwork(6L, de, cycling)
 
-      // non-active networks are not included in the statistics
-      buildNetwork(database, 7L, de, cycling, active = false)
+    // non-active networks are not included in the statistics
+    buildNetwork(7L, de, cycling, active = false)
 
-      new StatisticsUpdater(database).execute()
-      val counts = new MongoQueryStatistics(database).execute()
+    new StatisticsUpdater(database).execute()
+    val counts = new MongoQueryStatistics(database).execute()
 
-      counts should contain(
-        StatisticLongValues(
-          "NetworkCount",
-          Seq(
-            StatisticLongValue(de, cycling, 1L),
-            StatisticLongValue(de, hiking, 2L),
-            StatisticLongValue(nl, cycling, 1L),
-            StatisticLongValue(nl, hiking, 2L),
-          )
+    counts should contain(
+      StatisticLongValues(
+        "NetworkCount",
+        Seq(
+          StatisticLongValue(de, cycling, 1L),
+          StatisticLongValue(de, hiking, 2L),
+          StatisticLongValue(nl, cycling, 1L),
+          StatisticLongValue(nl, hiking, 2L),
         )
       )
-    }
+    )
   }
 
-  private def buildNetwork(database: Database, networkId: Long, country: Country, routeType: RouteType, active: Boolean = true): Unit = {
+  private def buildNetwork(networkId: Long, country: Country, routeType: RouteType, active: Boolean = true): Unit = {
     database.networks.save(
       newNetworkDoc(
         networkId,

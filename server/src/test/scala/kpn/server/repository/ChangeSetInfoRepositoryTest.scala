@@ -3,10 +3,9 @@ package kpn.server.repository
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
+import kpn.core.test.MongoTest
 
-class ChangeSetInfoRepositoryTest extends UnitTest {
+class ChangeSetInfoRepositoryTest extends MongoTest {
 
   test("changeSetInfo not found") {
     withRepository { repository =>
@@ -65,8 +64,6 @@ class ChangeSetInfoRepositoryTest extends UnitTest {
   }
 
   private def withRepository(f: ChangeSetInfoRepository => Unit): Unit = {
-    withDatabase { database =>
-      f(new ChangeSetInfoRepositoryImpl(database))
-    }
+    f(new ChangeSetInfoRepositoryImpl(database))
   }
 }

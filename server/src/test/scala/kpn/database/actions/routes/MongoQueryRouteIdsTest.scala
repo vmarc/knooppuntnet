@@ -1,20 +1,15 @@
 package kpn.database.actions.routes
 
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
+import kpn.core.test.MongoTest
 
-class MongoQueryRouteIdsTest extends UnitTest with SharedTestObjects {
+class MongoQueryRouteIdsTest extends MongoTest {
 
   test("active route ids") {
 
-    withDatabase { database =>
+    database.routes.save(newRouteDoc(newRouteSummary(11L)))
+    database.routes.save(newRouteDoc(newRouteSummary(12L)))
+    database.routes.save(newRouteDoc(newRouteSummary(13L), active = false))
 
-      database.routes.save(newRouteDoc(newRouteSummary(11L)))
-      database.routes.save(newRouteDoc(newRouteSummary(12L)))
-      database.routes.save(newRouteDoc(newRouteSummary(13L), active = false))
-
-      new MongoQueryRouteIds(database).execute() should equal(Seq(11L, 12L))
-    }
+    new MongoQueryRouteIds(database).execute() should equal(Seq(11L, 12L))
   }
 }

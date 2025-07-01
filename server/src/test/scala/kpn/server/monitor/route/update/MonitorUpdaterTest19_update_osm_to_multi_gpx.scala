@@ -10,7 +10,6 @@ import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
-import kpn.core.test.TestSupport.withDatabase
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
@@ -20,16 +19,13 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
 
   test("add route with osm reference, and change to reference type multi-gpx afterwards") {
 
-    withDatabase() { database =>
+    val (group, reporter) = setup()
 
-      val (group, reporter) = setup()
+    executeAdd(group, reporter)
+    val (addedRoute, addedState) = verifyAdd(group)
 
-      executeAdd(group, reporter)
-      val (addedRoute, addedState) = verifyAdd(group)
-
-      executeUpdate(group, reporter)
-      verifyUpdate(group, addedRoute, addedState)
-    }
+    executeUpdate(group, reporter)
+    verifyUpdate(group, addedRoute, addedState)
   }
 
   private def executeAdd(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {

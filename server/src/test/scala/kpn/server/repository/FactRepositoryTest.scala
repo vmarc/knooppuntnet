@@ -8,145 +8,137 @@ import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
 import kpn.api.common.subset.NetworkFactRefs
 import kpn.api.custom.Subset
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
+import kpn.core.test.MongoTest
 
-class FactRepositoryTest extends UnitTest with SharedTestObjects {
+class FactRepositoryTest extends MongoTest {
 
   test("routeFacts") {
 
-    withDatabase { database =>
+    val networkRepository = new NetworkRepositoryImpl(database)
+    networkRepository.save(
+      newNetworkDoc(
+        1,
+        country = Some(Country.be),
+        summary = newNetworkSummary(
+          name = "network-1",
+          routeType = RouteType.hiking,
+        ),
+        routes = Seq(
+          newNetworkRouteDetail(
+            11,
+            "01-02",
+            facts = Seq(
+              Fact.RouteRedundantNodes,
+              Fact.RouteUnusedSegments
+            )
+          ),
+          newNetworkRouteDetail(
+            12,
+            "02-03",
+            facts = Seq(
+              Fact.RouteNodeMissingInWays,
+              Fact.RouteUnusedSegments
+            )
+          )
+        )
+      )
+    )
 
-      val networkRepository = new NetworkRepositoryImpl(database)
-      networkRepository.save(
-        newNetworkDoc(
+    networkRepository.save(
+      newNetworkDoc(
+        2,
+        country = Some(Country.be),
+        summary = newNetworkSummary(
+          name = "network-2",
+          routeType = RouteType.hiking,
+        ),
+        routes = Seq(
+          newNetworkRouteDetail(
+            13,
+            "03-04",
+            facts = Seq(
+              Fact.RouteUnusedSegments
+            )
+          )
+        )
+      )
+    )
+
+    pendingRedesignNonAnalysis() // used in SubsetFactDetailsPageBuilder and FactCheckTool
+
+    val repository = new FactRepositoryImpl(database)
+    assertEqual(
+      repository.factsPerNetwork(Subset.beHiking, Fact.RouteUnusedSegments),
+      Seq(
+        NetworkFactRefs(
           1,
-          country = Some(Country.be),
-          summary = newNetworkSummary(
-            name = "network-1",
-            routeType = RouteType.hiking,
-          ),
-          routes = Seq(
-            newNetworkRouteDetail(
-              11,
-              "01-02",
-              facts = Seq(
-                Fact.RouteRedundantNodes,
-                Fact.RouteUnusedSegments
-              )
-            ),
-            newNetworkRouteDetail(
-              12,
-              "02-03",
-              facts = Seq(
-                Fact.RouteNodeMissingInWays,
-                Fact.RouteUnusedSegments
-              )
-            )
+          "network-1",
+          Seq(
+            Ref(11, "01-02"),
+            Ref(12, "02-03")
           )
-        )
-      )
-
-      networkRepository.save(
-        newNetworkDoc(
+        ),
+        NetworkFactRefs(
           2,
-          country = Some(Country.be),
-          summary = newNetworkSummary(
-            name = "network-2",
-            routeType = RouteType.hiking,
-          ),
-          routes = Seq(
-            newNetworkRouteDetail(
-              13,
-              "03-04",
-              facts = Seq(
-                Fact.RouteUnusedSegments
-              )
-            )
+          "network-2",
+          Seq(
+            Ref(13, "03-04")
           )
         )
       )
-
-      pendingRedesignNonAnalysis() // used in SubsetFactDetailsPageBuilder and FactCheckTool
-
-      val repository = new FactRepositoryImpl(database)
-      assertEqual(
-        repository.factsPerNetwork(Subset.beHiking, Fact.RouteUnusedSegments),
-        Seq(
-          NetworkFactRefs(
-            1,
-            "network-1",
-            Seq(
-              Ref(11, "01-02"),
-              Ref(12, "02-03")
-            )
-          ),
-          NetworkFactRefs(
-            2,
-            "network-2",
-            Seq(
-              Ref(13, "03-04")
-            )
-          )
-        )
-      )
-    }
+    )
   }
 
   test("nodeFacts") {
 
-    withDatabase { database =>
-
-      val networkRepository = new NetworkRepositoryImpl(database)
-      networkRepository.save(
-        newNetworkDoc(
-          1,
-          country = Some(Country.be),
-          summary = newNetworkSummary(
-            name = "network-1",
-            routeType = RouteType.hiking,
-          ),
-          facts = Seq(
-            NetworkFact(
-              Fact.IntegrityCheckFailed,
-              checks = Some(
-                Seq(
-                  Check(
-                    nodeId = 1001,
-                    nodeName = "01",
-                    actual = 2,
-                    expected = 3
-                  ),
-                  Check(
-                    nodeId = 1002,
-                    nodeName = "02",
-                    actual = 2,
-                    expected = 3
-                  )
+    val networkRepository = new NetworkRepositoryImpl(database)
+    networkRepository.save(
+      newNetworkDoc(
+        1,
+        country = Some(Country.be),
+        summary = newNetworkSummary(
+          name = "network-1",
+          routeType = RouteType.hiking,
+        ),
+        facts = Seq(
+          NetworkFact(
+            Fact.IntegrityCheckFailed,
+            checks = Some(
+              Seq(
+                Check(
+                  nodeId = 1001,
+                  nodeName = "01",
+                  actual = 2,
+                  expected = 3
+                ),
+                Check(
+                  nodeId = 1002,
+                  nodeName = "02",
+                  actual = 2,
+                  expected = 3
                 )
               )
             )
           )
         )
       )
+    )
 
-      pendingRedesignNonAnalysis() // used in SubsetFactDetailsPageBuilder and FactCheckTool
+    pendingRedesignNonAnalysis() // used in SubsetFactDetailsPageBuilder and FactCheckTool
 
-      val repository = new FactRepositoryImpl(database)
-      assertEqual(
-        repository.factsPerNetwork(Subset.beHiking, Fact.IntegrityCheckFailed),
-        Seq(
-          NetworkFactRefs(
-            1,
-            "network-1",
-            Seq(
-              Ref(1001, "01"),
-              Ref(1002, "02")
-            )
+    val repository = new FactRepositoryImpl(database)
+    assertEqual(
+      repository.factsPerNetwork(Subset.beHiking, Fact.IntegrityCheckFailed),
+      Seq(
+        NetworkFactRefs(
+          1,
+          "network-1",
+          Seq(
+            Ref(1001, "01"),
+            Ref(1002, "02")
           )
         )
       )
-    }
+    )
   }
 }

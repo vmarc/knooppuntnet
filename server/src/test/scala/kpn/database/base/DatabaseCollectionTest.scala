@@ -1,78 +1,60 @@
 package kpn.database.base
 
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
+import kpn.core.test.MongoTest
 
-class DatabaseCollectionTest extends UnitTest with SharedTestObjects {
+class DatabaseCollectionTest extends MongoTest {
 
   test("ids") {
-    withDatabase { database =>
-      database.networks.save(newNetworkDoc(1L))
-      database.networks.save(newNetworkDoc(2L))
-      database.networks.ids() should equal(Seq(1L, 2L))
-    }
+    database.networks.save(newNetworkDoc(1L))
+    database.networks.save(newNetworkDoc(2L))
+    database.networks.ids() should equal(Seq(1L, 2L))
   }
 
   test("ids from empty collection") {
-    withDatabase { database =>
-      database.networks.ids() should equal(Seq.empty)
-    }
+    database.networks.ids() should equal(Seq.empty)
   }
 
   test("stringIds") {
-    withDatabase { database =>
-      database.nodeChanges.save(newNodeChange(newChangeKey(elementId = 1001L)))
-      database.nodeChanges.save(newNodeChange(newChangeKey(elementId = 1002L)))
-      database.nodeChanges.stringIds() should equal(Seq("123:1:1001", "123:1:1002"))
-    }
+    database.nodeChanges.save(newNodeChange(newChangeKey(elementId = 1001L)))
+    database.nodeChanges.save(newNodeChange(newChangeKey(elementId = 1002L)))
+    database.nodeChanges.stringIds() should equal(Seq("123:1:1001", "123:1:1002"))
   }
 
   test("stringIds from empty collection") {
-    withDatabase { database =>
-      database.nodeChanges.stringIds() should equal(Seq.empty)
-    }
+    database.nodeChanges.stringIds() should equal(Seq.empty)
   }
 
   test("findById") {
-    withDatabase { database =>
-      val network = newNetworkDoc(1L)
-      database.networks.save(network)
-      database.networks.findById(1L) should equal(Some(network))
-    }
+    val network = newNetworkDoc(1L)
+    database.networks.save(network)
+    database.networks.findById(1L) should equal(Some(network))
   }
 
   test("findById - not found") {
-    withDatabase { database =>
-      database.networks.findById(1L) should equal(None)
-    }
+    database.networks.findById(1L) should equal(None)
   }
 
   test("findByIds") {
-    withDatabase { database =>
-      val network1 = newNetworkDoc(1L)
-      val network2 = newNetworkDoc(2L)
-      val network3 = newNetworkDoc(3L)
-      database.networks.insertMany(Seq(network1, network2, network3))
+    val network1 = newNetworkDoc(1L)
+    val network2 = newNetworkDoc(2L)
+    val network3 = newNetworkDoc(3L)
+    database.networks.insertMany(Seq(network1, network2, network3))
 
-      database.networks.findByIds(Seq(1L, 2L)) should equal(
-        Seq(
-          network1,
-          network2
-        )
+    database.networks.findByIds(Seq(1L, 2L)) should equal(
+      Seq(
+        network1,
+        network2
       )
-      database.networks.findByIds(Seq(2L, 3L)) should equal(
-        Seq(
-          network2,
-          network3
-        )
+    )
+    database.networks.findByIds(Seq(2L, 3L)) should equal(
+      Seq(
+        network2,
+        network3
       )
-    }
+    )
   }
 
   test("findByIds - not found") {
-    withDatabase { database =>
-      database.networks.findByIds(Seq(1L, 2L)) should equal(Seq.empty)
-    }
+    database.networks.findByIds(Seq(1L, 2L)) should equal(Seq.empty)
   }
 }

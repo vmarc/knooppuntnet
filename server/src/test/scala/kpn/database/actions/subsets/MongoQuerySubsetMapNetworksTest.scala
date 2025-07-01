@@ -6,49 +6,44 @@ import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.subset.SubsetMapNetwork
 import kpn.api.custom.Subset
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
+import kpn.core.test.MongoTest
 
-class MongoQuerySubsetMapNetworksTest extends UnitTest with SharedTestObjects {
+class MongoQuerySubsetMapNetworksTest extends MongoTest {
 
   test("subset map networks") {
-    withDatabase { database =>
 
-      network(database, Country.nl, 1L, "network1", active = true)
-      network(database, Country.nl, 2L, "network2", active = false)
-      network(database, Country.be, 3L, "network3", active = true)
+    network(Country.nl, 1L, "network1", active = true)
+    network(Country.nl, 2L, "network2", active = false)
+    network(Country.be, 3L, "network3", active = true)
 
-      new MongoQuerySubsetMapNetworks(database).execute(Subset.nlHiking) should equal(
-        Seq(
-          SubsetMapNetwork(
-            1L,
-            "network1",
-            101L,
-            10,
-            20,
-            LatLonImpl("1", "1")
-          )
+    new MongoQuerySubsetMapNetworks(database).execute(Subset.nlHiking) should equal(
+      Seq(
+        SubsetMapNetwork(
+          1L,
+          "network1",
+          101L,
+          10,
+          20,
+          LatLonImpl("1", "1")
         )
       )
+    )
 
-      new MongoQuerySubsetMapNetworks(database).execute(Subset.beHiking) should equal(
-        Seq(
-          SubsetMapNetwork(
-            3L,
-            "network3",
-            103L,
-            30,
-            60,
-            LatLonImpl("3", "3")
-          )
+    new MongoQuerySubsetMapNetworks(database).execute(Subset.beHiking) should equal(
+      Seq(
+        SubsetMapNetwork(
+          3L,
+          "network3",
+          103L,
+          30,
+          60,
+          LatLonImpl("3", "3")
         )
       )
-    }
+    )
   }
 
-  private def network(database: Database, country: Country, networkId: Long, name: String, active: Boolean): Unit = {
+  private def network(country: Country, networkId: Long, name: String, active: Boolean): Unit = {
     database.networks.save(
       newNetworkDoc(
         _id = networkId,

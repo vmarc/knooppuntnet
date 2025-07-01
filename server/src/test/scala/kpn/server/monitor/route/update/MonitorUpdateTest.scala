@@ -5,10 +5,10 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
+import kpn.core.test.MongoTest
 import kpn.core.test.OverpassData
-import kpn.core.test.SharedTestObjects
 
-abstract class MonitorUpdateTest extends MongoTest with SharedTestObjects {
+abstract class MonitorUpdateTest extends MongoTest {
 
   val ReferenceTimestamp = Timestamp(2022, 8, 1)
   val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)

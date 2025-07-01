@@ -6,108 +6,87 @@ import kpn.api.common.common.Ref
 import kpn.api.common.subset.SubsetFactRefs
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
+import kpn.core.test.MongoTest
 
-class FactRefRepositoryTest extends UnitTest with SharedTestObjects {
+class FactRefRepositoryTest extends MongoTest {
 
   test("routeFactRefs") {
 
-    withDatabase { database =>
+    setupRoute(101, Subset.nlHiking, Seq(Fact.RouteIncomplete, Fact.RouteWithoutWays))
+    setupRoute(102, Subset.nlHiking, Seq(Fact.RouteIncomplete, Fact.RouteWithoutNodes))
+    setupRoute(103, Subset.beHiking, Seq(Fact.RouteIncomplete))
 
-      setupRoute(database, 101, Subset.nlHiking, Seq(Fact.RouteIncomplete, Fact.RouteWithoutWays))
-      setupRoute(database, 102, Subset.nlHiking, Seq(Fact.RouteIncomplete, Fact.RouteWithoutNodes))
-      setupRoute(database, 103, Subset.beHiking, Seq(Fact.RouteIncomplete))
-
-      val subsetFactRefs = repo(database).factRefs(Subset.nlHiking, Fact.RouteIncomplete)
-      subsetFactRefs should equal(
-        SubsetFactRefs("relation", Seq(101, 102))
-      )
-    }
+    val subsetFactRefs = repo().factRefs(Subset.nlHiking, Fact.RouteIncomplete)
+    subsetFactRefs should equal(
+      SubsetFactRefs("relation", Seq(101, 102))
+    )
   }
 
   test("networkFactsWithElementIds NetworkExtraMemberNode") {
 
-    withDatabase { database =>
+    setupNetwork(1, Subset.nlHiking, Fact.NetworkExtraMemberNode, "node", Seq(1001, 1002))
+    setupNetwork(2, Subset.nlHiking, Fact.NetworkExtraMemberNode, "node", Seq(1003))
+    setupNetwork(3, Subset.beHiking, Fact.NetworkExtraMemberNode, "node", Seq(1004, 1005))
 
-      setupNetwork(database, 1, Subset.nlHiking, Fact.NetworkExtraMemberNode, "node", Seq(1001, 1002))
-      setupNetwork(database, 2, Subset.nlHiking, Fact.NetworkExtraMemberNode, "node", Seq(1003))
-      setupNetwork(database, 3, Subset.beHiking, Fact.NetworkExtraMemberNode, "node", Seq(1004, 1005))
-
-      val subsetFactRefs = repo(database).factRefs(Subset.nlHiking, Fact.NetworkExtraMemberNode)
-      subsetFactRefs should equal(
-        SubsetFactRefs("node", Seq(1001, 1002, 1003))
-      )
-    }
+    val subsetFactRefs = repo().factRefs(Subset.nlHiking, Fact.NetworkExtraMemberNode)
+    subsetFactRefs should equal(
+      SubsetFactRefs("node", Seq(1001, 1002, 1003))
+    )
   }
 
   test("networkFactsWithElementIds NetworkExtraMemberWay") {
 
-    withDatabase { database =>
+    setupNetwork(1, Subset.nlHiking, Fact.NetworkExtraMemberWay, "way", Seq(101, 102))
+    setupNetwork(2, Subset.nlHiking, Fact.NetworkExtraMemberWay, "way", Seq(103))
+    setupNetwork(3, Subset.beHiking, Fact.NetworkExtraMemberWay, "way", Seq(104, 105))
 
-      setupNetwork(database, 1, Subset.nlHiking, Fact.NetworkExtraMemberWay, "way", Seq(101, 102))
-      setupNetwork(database, 2, Subset.nlHiking, Fact.NetworkExtraMemberWay, "way", Seq(103))
-      setupNetwork(database, 3, Subset.beHiking, Fact.NetworkExtraMemberWay, "way", Seq(104, 105))
-
-      val subsetFactRefs = repo(database).factRefs(Subset.nlHiking, Fact.NetworkExtraMemberWay)
-      subsetFactRefs should equal(
-        SubsetFactRefs("way", Seq(101, 102, 103))
-      )
-    }
+    val subsetFactRefs = repo().factRefs(Subset.nlHiking, Fact.NetworkExtraMemberWay)
+    subsetFactRefs should equal(
+      SubsetFactRefs("way", Seq(101, 102, 103))
+    )
   }
 
   test("networkFactsWithElementIds NetworkExtraMemberRelation") {
 
-    withDatabase { database =>
+    setupNetwork(1, Subset.nlHiking, Fact.NetworkExtraMemberRelation, "relation", Seq(11, 12))
+    setupNetwork(2, Subset.nlHiking, Fact.NetworkExtraMemberRelation, "relation", Seq(13))
+    setupNetwork(3, Subset.beHiking, Fact.NetworkExtraMemberRelation, "relation", Seq(14, 15))
 
-      setupNetwork(database, 1, Subset.nlHiking, Fact.NetworkExtraMemberRelation, "relation", Seq(11, 12))
-      setupNetwork(database, 2, Subset.nlHiking, Fact.NetworkExtraMemberRelation, "relation", Seq(13))
-      setupNetwork(database, 3, Subset.beHiking, Fact.NetworkExtraMemberRelation, "relation", Seq(14, 15))
-
-      val subsetFactRefs = repo(database).factRefs(Subset.nlHiking, Fact.NetworkExtraMemberRelation)
-      subsetFactRefs should equal(
-        SubsetFactRefs("relation", Seq(11, 12, 13))
-      )
-    }
+    val subsetFactRefs = repo().factRefs(Subset.nlHiking, Fact.NetworkExtraMemberRelation)
+    subsetFactRefs should equal(
+      SubsetFactRefs("relation", Seq(11, 12, 13))
+    )
   }
 
   test("networkFactsWithRefs") {
 
-    withDatabase { database =>
+    setupNetworkNodeMemberMissing(1, Subset.nlHiking, Seq(1001, 1002))
+    setupNetworkNodeMemberMissing(2, Subset.nlHiking, Seq(1003))
+    setupNetworkNodeMemberMissing(3, Subset.beHiking, Seq(1004, 1005))
 
-      setupNetworkNodeMemberMissing(database, 1, Subset.nlHiking, Seq(1001, 1002))
-      setupNetworkNodeMemberMissing(database, 2, Subset.nlHiking, Seq(1003))
-      setupNetworkNodeMemberMissing(database, 3, Subset.beHiking, Seq(1004, 1005))
-
-      val subsetFactRefs = repo(database).factRefs(Subset.nlHiking, Fact.NodeMemberMissing)
-      subsetFactRefs should equal(
-        SubsetFactRefs("node", Seq(1001, 1002, 1003))
-      )
-    }
+    val subsetFactRefs = repo().factRefs(Subset.nlHiking, Fact.NodeMemberMissing)
+    subsetFactRefs should equal(
+      SubsetFactRefs("node", Seq(1001, 1002, 1003))
+    )
   }
 
   test("IntegrityCheckFailed") {
 
-    withDatabase { database =>
+    setupNodeIntegrityCheckFailed(1001, Subset.nlHiking)
+    setupNodeIntegrityCheckFailed(1002, Subset.nlHiking)
+    setupNodeIntegrityCheckFailed(1003, Subset.beHiking)
 
-      setupNodeIntegrityCheckFailed(database, 1001, Subset.nlHiking)
-      setupNodeIntegrityCheckFailed(database, 1002, Subset.nlHiking)
-      setupNodeIntegrityCheckFailed(database, 1003, Subset.beHiking)
-
-      val subsetFactRefs = repo(database).factRefs(Subset.nlHiking, Fact.IntegrityCheckFailed)
-      subsetFactRefs should equal(
-        SubsetFactRefs("node", Seq(1001, 1002))
-      )
-    }
+    val subsetFactRefs = repo().factRefs(Subset.nlHiking, Fact.IntegrityCheckFailed)
+    subsetFactRefs should equal(
+      SubsetFactRefs("node", Seq(1001, 1002))
+    )
   }
 
-  private def repo(database: Database): FactRefRepository = {
+  private def repo(): FactRefRepository = {
     new FactRefRepositoryImpl(database)
   }
 
-  private def setupRoute(database: Database, routeId: Long, subset: Subset, facts: Seq[Fact]): Unit = {
+  private def setupRoute(routeId: Long, subset: Subset, facts: Seq[Fact]): Unit = {
     database.routes.save(
       newRouteDoc(
         newRouteSummary(routeId),
@@ -120,7 +99,7 @@ class FactRefRepositoryTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  private def setupNodeIntegrityCheckFailed(database: Database, nodeId: Long, subset: Subset): Unit = {
+  private def setupNodeIntegrityCheckFailed(nodeId: Long, subset: Subset): Unit = {
     database.nodes.save(
       newNodeDoc(
         nodeId,
@@ -134,7 +113,6 @@ class FactRefRepositoryTest extends UnitTest with SharedTestObjects {
   }
 
   private def setupNetwork(
-    database: Database,
     networkId: Long,
     subset: Subset,
     fact: Fact,
@@ -160,7 +138,6 @@ class FactRefRepositoryTest extends UnitTest with SharedTestObjects {
   }
 
   private def setupNetworkNodeMemberMissing(
-    database: Database,
     networkId: Long,
     subset: Subset,
     nodeIds: Seq[Long]

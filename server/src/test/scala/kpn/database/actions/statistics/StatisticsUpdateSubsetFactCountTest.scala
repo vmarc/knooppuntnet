@@ -8,110 +8,98 @@ import kpn.api.common.NetworkFact
 import kpn.api.common.RouteType
 import kpn.api.common.RouteType.cycling
 import kpn.api.common.RouteType.hiking
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
+import kpn.core.test.MongoTest
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
-class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObjects {
+class StatisticsUpdateSubsetFactCountTest extends MongoTest {
 
   test("network fact counts") {
-    withDatabase { database =>
 
-      buildNetworks(database)
+    buildNetworks()
 
-      new StatisticsUpdater(database).execute()
-      val counts = new MongoQueryStatistics(database).execute()
+    new StatisticsUpdater(database).execute()
+    val counts = new MongoQueryStatistics(database).execute()
 
-      counts should contain(
-        StatisticLongValues(
-          "FactCount",
-          Seq(
-            StatisticLongValue(de, cycling, 1L),
-            StatisticLongValue(de, hiking, 2L),
-            StatisticLongValue(nl, hiking, 4L),
-          )
+    counts should contain(
+      StatisticLongValues(
+        "FactCount",
+        Seq(
+          StatisticLongValue(de, cycling, 1L),
+          StatisticLongValue(de, hiking, 2L),
+          StatisticLongValue(nl, hiking, 4L),
         )
       )
-    }
+    )
   }
 
   test("route fact counts") {
-    withDatabase { database =>
 
-      buildRoutes(database)
+    buildRoutes()
 
-      new StatisticsUpdater(database).execute()
-      val counts = new MongoQueryStatistics(database).execute()
+    new StatisticsUpdater(database).execute()
+    val counts = new MongoQueryStatistics(database).execute()
 
-      counts should contain(
-        StatisticLongValues(
-          "FactCount",
-          Seq(
-            StatisticLongValue(nl, hiking, 1L),
-          )
+    counts should contain(
+      StatisticLongValues(
+        "FactCount",
+        Seq(
+          StatisticLongValue(nl, hiking, 1L),
         )
       )
-    }
+    )
   }
 
   test("node fact counts") {
-    withDatabase { database =>
 
-      buildNodes(database)
+    buildNodes()
 
-      new StatisticsUpdater(database).execute()
-      val counts = new MongoQueryStatistics(database).execute()
+    new StatisticsUpdater(database).execute()
+    val counts = new MongoQueryStatistics(database).execute()
 
-      counts should contain(
-        StatisticLongValues(
-          "FactCount",
-          Seq(
-            StatisticLongValue(de, cycling, 1L),
-            StatisticLongValue(de, hiking, 2L),
-            StatisticLongValue(nl, hiking, 4L),
-          )
+    counts should contain(
+      StatisticLongValues(
+        "FactCount",
+        Seq(
+          StatisticLongValue(de, cycling, 1L),
+          StatisticLongValue(de, hiking, 2L),
+          StatisticLongValue(nl, hiking, 4L),
         )
       )
-    }
+    )
   }
 
   test("total fact counts") {
-    withDatabase { database =>
 
-      buildNetworks(database)
-      buildRoutes(database)
-      buildNodes(database)
+    buildNetworks()
+    buildRoutes()
+    buildNodes()
 
-      new StatisticsUpdater(database).execute()
-      val counts = new MongoQueryStatistics(database).execute()
+    new StatisticsUpdater(database).execute()
+    val counts = new MongoQueryStatistics(database).execute()
 
-      counts should contain(
-        StatisticLongValues(
-          "FactCount",
-          Seq(
-            StatisticLongValue(de, cycling, 2L),
-            StatisticLongValue(de, hiking, 4L),
-            StatisticLongValue(nl, hiking, 9L),
-          )
+    counts should contain(
+      StatisticLongValues(
+        "FactCount",
+        Seq(
+          StatisticLongValue(de, cycling, 2L),
+          StatisticLongValue(de, hiking, 4L),
+          StatisticLongValue(nl, hiking, 9L),
         )
       )
-    }
+    )
   }
 
-  private def buildNetworks(database: Database): Unit = {
-    buildNetwork(database, 1L, nl, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001))), NetworkFact(Fact.NetworkExtraMemberWay, elementIds = Some(Seq(1001)))))
-    buildNetwork(database, 2L, nl, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001))), NetworkFact(Fact.NetworkExtraMemberRelation, elementIds = Some(Seq(1001)))))
-    buildNetwork(database, 3L, nl, hiking, Seq.empty)
-    buildNetwork(database, 4L, de, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001)))))
-    buildNetwork(database, 5L, de, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001)))))
-    buildNetwork(database, 6L, de, cycling, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001)))))
-    buildNetwork(database, 7L, de, cycling, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001)))), active = false)
+  private def buildNetworks(): Unit = {
+    buildNetwork(1L, nl, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001))), NetworkFact(Fact.NetworkExtraMemberWay, elementIds = Some(Seq(1001)))))
+    buildNetwork(2L, nl, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001))), NetworkFact(Fact.NetworkExtraMemberRelation, elementIds = Some(Seq(1001)))))
+    buildNetwork(3L, nl, hiking, Seq.empty)
+    buildNetwork(4L, de, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001)))))
+    buildNetwork(5L, de, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001)))))
+    buildNetwork(6L, de, cycling, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001)))))
+    buildNetwork(7L, de, cycling, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001)))), active = false)
   }
 
   private def buildNetwork(
-    database: Database,
     networkId: Long,
     country: Country,
     routeType: RouteType,
@@ -129,18 +117,17 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
     )
   }
 
-  private def buildRoutes(database: Database): Unit = {
-    buildRoute(database, 11L, nl, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward, Fact.RouteInaccessible))
-    buildRoute(database, 12L, nl, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward, Fact.RouteNotBackward))
-    buildRoute(database, 13L, nl, hiking, Seq.empty)
-    buildRoute(database, 14L, de, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward))
-    buildRoute(database, 15L, de, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward))
-    buildRoute(database, 16L, de, cycling, Seq(Fact.RouteBroken, Fact.RouteNotForward))
-    buildRoute(database, 17L, de, cycling, Seq(Fact.RouteBroken, Fact.RouteNotForward), active = false)
+  private def buildRoutes(): Unit = {
+    buildRoute(11L, nl, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward, Fact.RouteInaccessible))
+    buildRoute(12L, nl, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward, Fact.RouteNotBackward))
+    buildRoute(13L, nl, hiking, Seq.empty)
+    buildRoute(14L, de, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward))
+    buildRoute(15L, de, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward))
+    buildRoute(16L, de, cycling, Seq(Fact.RouteBroken, Fact.RouteNotForward))
+    buildRoute(17L, de, cycling, Seq(Fact.RouteBroken, Fact.RouteNotForward), active = false)
   }
 
   private def buildRoute(
-    database: Database,
     routeId: Long,
     country: Country,
     routeType: RouteType,
@@ -160,18 +147,17 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
     )
   }
 
-  private def buildNodes(database: Database): Unit = {
-    buildNode(database, 1001L, nl, hiking, Seq(Fact.Added, Fact.IntegrityCheckFailed))
-    buildNode(database, 1002L, nl, hiking, Seq(Fact.Added, Fact.IntegrityCheckFailed))
-    buildNode(database, 1003L, nl, hiking, Seq.empty)
-    buildNode(database, 1004L, de, hiking, Seq(Fact.Added))
-    buildNode(database, 1005L, de, hiking, Seq(Fact.Added))
-    buildNode(database, 1006L, de, cycling, Seq(Fact.Added))
-    buildNode(database, 1007L, de, cycling, Seq(Fact.Added), active = false)
+  private def buildNodes(): Unit = {
+    buildNode(1001L, nl, hiking, Seq(Fact.Added, Fact.IntegrityCheckFailed))
+    buildNode(1002L, nl, hiking, Seq(Fact.Added, Fact.IntegrityCheckFailed))
+    buildNode(1003L, nl, hiking, Seq.empty)
+    buildNode(1004L, de, hiking, Seq(Fact.Added))
+    buildNode(1005L, de, hiking, Seq(Fact.Added))
+    buildNode(1006L, de, cycling, Seq(Fact.Added))
+    buildNode(1007L, de, cycling, Seq(Fact.Added), active = false)
   }
 
   private def buildNode(
-    database: Database,
     nodeId: Long,
     country: Country,
     routeType: RouteType,

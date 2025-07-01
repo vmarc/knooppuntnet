@@ -6,45 +6,40 @@ import kpn.api.common.Country.nl
 import kpn.api.common.RouteType
 import kpn.api.common.RouteType.cycling
 import kpn.api.common.RouteType.hiking
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
+import kpn.core.test.MongoTest
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
-class StatisticsUpdateSubsetNodeCountTest extends UnitTest with SharedTestObjects {
+class StatisticsUpdateSubsetNodeCountTest extends MongoTest {
 
   test("execute") {
-    withDatabase { database =>
 
-      buildNode(database, 1L, nl, hiking)
-      buildNode(database, 2L, nl, hiking)
-      buildNode(database, 3L, nl, cycling)
-      buildNode(database, 4L, de, hiking)
-      buildNode(database, 5L, de, hiking)
-      buildNode(database, 6L, de, cycling)
+    buildNode(1L, nl, hiking)
+    buildNode(2L, nl, hiking)
+    buildNode(3L, nl, cycling)
+    buildNode(4L, de, hiking)
+    buildNode(5L, de, hiking)
+    buildNode(6L, de, cycling)
 
-      // non-active networks are not included in the statistics
-      buildNode(database, 7L, de, cycling, active = false)
+    // non-active networks are not included in the statistics
+    buildNode(7L, de, cycling, active = false)
 
-      new StatisticsUpdater(database).execute()
-      val counts = new MongoQueryStatistics(database).execute()
+    new StatisticsUpdater(database).execute()
+    val counts = new MongoQueryStatistics(database).execute()
 
-      counts should contain(
-        StatisticLongValues(
-          "NodeCount",
-          Seq(
-            StatisticLongValue(de, cycling, 1L),
-            StatisticLongValue(de, hiking, 2L),
-            StatisticLongValue(nl, cycling, 1L),
-            StatisticLongValue(nl, hiking, 2L),
-          )
+    counts should contain(
+      StatisticLongValues(
+        "NodeCount",
+        Seq(
+          StatisticLongValue(de, cycling, 1L),
+          StatisticLongValue(de, hiking, 2L),
+          StatisticLongValue(nl, cycling, 1L),
+          StatisticLongValue(nl, hiking, 2L),
         )
       )
-    }
+    )
   }
 
-  private def buildNode(database: Database, nodeId: Long, country: Country, routeType: RouteType, active: Boolean = true): Unit = {
+  private def buildNode(nodeId: Long, country: Country, routeType: RouteType, active: Boolean = true): Unit = {
     database.nodes.save(
       newNodeDoc(
         nodeId,

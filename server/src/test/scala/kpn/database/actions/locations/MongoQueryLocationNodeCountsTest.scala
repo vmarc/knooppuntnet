@@ -1,13 +1,10 @@
 package kpn.database.actions.locations
 
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
+import kpn.core.test.MongoTest
 
-class MongoQueryLocationNodeCountsTest extends UnitTest with SharedTestObjects {
+class MongoQueryLocationNodeCountsTest extends MongoTest {
 
   test("node count") {
-    withDatabase { database =>
-    }
+    pending
   }
 }

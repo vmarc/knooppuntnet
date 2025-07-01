@@ -1,7 +1,6 @@
-package kpn.server.monitor.route.update
+package kpn.core.test
 
 import kpn.core.common.Time
-import kpn.core.test.TestSupport
 import kpn.core.util.UnitTest
 import kpn.database.base.Database
 import org.mongodb.scala.MongoClient
@@ -9,7 +8,7 @@ import org.scalatest.BeforeAndAfterEach
 
 import java.util.concurrent.atomic.AtomicInteger
 
-abstract class MongoTest extends UnitTest with BeforeAndAfterEach {
+abstract class MongoTest extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   private val count = new AtomicInteger(0)
 

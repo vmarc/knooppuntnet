@@ -20,21 +20,17 @@ import kpn.core.doc.NodeDoc
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
+import kpn.core.test.MongoTest
 import kpn.core.test.OverpassData
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
 import kpn.core.test.Timestamps
-import kpn.core.util.UnitTest
-import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.context.Watched
-import org.scalamock.scalatest.MockFactory
 
-class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
+class IntegrationTest extends MongoTest {
 
   private var contextOption: Option[IntegrationTestContext] = None
 
@@ -66,25 +62,19 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
     locationAnalyzer: LocationAnalyzer,
     keepDatabaseAfterTest: Boolean = false
   )(f: => Unit): Unit = {
-    withDatabase(keepDatabaseAfterTest) { database =>
-      contextOption = Some(new IntegrationTestContext(database, dataBefore, dataAfter, locationAnalyzer))
-      try {
-        context.mainFullAnalyzer.analyze(Timestamps.before, None)
-        context.analysisDataInitializer.load()
-        f
-      }
-      finally {
-        contextOption = None
-      }
+    contextOption = Some(new IntegrationTestContext(database, dataBefore, dataAfter, locationAnalyzer))
+    try {
+      context.mainFullAnalyzer.analyze(Timestamps.before, None)
+      context.analysisDataInitializer.load()
+      f
+    }
+    finally {
+      contextOption = None
     }
   }
 
   def context: IntegrationTestContext = {
     contextOption.get
-  }
-
-  def database: Database = {
-    context.database
   }
 
   def watched: Watched = {

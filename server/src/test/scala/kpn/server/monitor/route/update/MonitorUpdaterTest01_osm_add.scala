@@ -18,9 +18,9 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
 
   test("add non-super route with osm reference") {
 
-    val (reporter, group) = setup()
+    val (group, reporter) = setup()
 
-    executeMonitorUpdate(reporter, group)
+    executeAdd(group, reporter)
 
     verifyDocumentCounts()
     val monitorRoute = verifyMonitorRoute(group)
@@ -29,7 +29,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
     verifyReporterMessages(reporter)
   }
 
-  private def executeMonitorUpdate(reporter: MonitorUpdateReporterMock, group: MonitorGroup): Unit = {
+  private def executeAdd(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         "user",
@@ -166,7 +166,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
     val reporter = new MonitorUpdateReporterMock()
 
     Time.set(CurrentTimestamp)
-    (reporter, group)
+    (group, reporter)
   }
 
   private def setupBaseRouteDoc(): Unit = {

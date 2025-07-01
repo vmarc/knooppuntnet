@@ -1,9 +1,8 @@
 package kpn.server.repository
 
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
+import kpn.core.test.MongoTest
 
-class TaskRepositoryTest extends UnitTest {
+class TaskRepositoryTest extends MongoTest {
 
   test("add, list and delete tasks") {
     withRepository { repository =>
@@ -34,8 +33,6 @@ class TaskRepositoryTest extends UnitTest {
   }
 
   private def withRepository(f: TaskRepository => Unit): Unit = {
-    withDatabase { database =>
-      f(new TaskRepositoryImpl(database))
-    }
+    f(new TaskRepositoryImpl(database))
   }
 }

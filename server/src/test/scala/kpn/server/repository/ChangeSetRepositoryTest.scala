@@ -19,11 +19,9 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
-import kpn.core.test.SharedTestObjects
-import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.UnitTest
+import kpn.core.test.MongoTest
 
-class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
+class ChangeSetRepositoryTest extends MongoTest {
 
   test("change set not found") {
     withChangeSetRepository { repository =>
@@ -375,9 +373,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
   }
 
   private def withChangeSetRepository(f: ChangeSetRepository => Unit): Unit = {
-    withDatabase { database =>
-      val repository: ChangeSetRepository = new ChangeSetRepositoryImpl(database)
-      f(repository)
-    }
+    val repository: ChangeSetRepository = new ChangeSetRepositoryImpl(database)
+    f(repository)
   }
 }
