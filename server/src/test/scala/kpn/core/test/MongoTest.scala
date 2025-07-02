@@ -3,22 +3,28 @@ package kpn.core.test
 import kpn.core.common.Time
 import kpn.core.util.UnitTest
 import kpn.database.base.Database
+import kpn.database.util.Mongo
+import kpn.server.json.Json
 import org.mongodb.scala.MongoClient
 import org.scalatest.BeforeAndAfterEach
 
 import java.util.concurrent.atomic.AtomicInteger
 
-abstract class MongoTest extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
-
+object MongoTest {
   private val count = new AtomicInteger(0)
+  private val jsonWriter = Json.objectMapper.writerWithDefaultPrettyPrinter()
+}
+
+abstract class MongoTest extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   private var _mongoClient: MongoClient = _
   private var _database: Database = _
 
   override def beforeEach(): Unit = {
-    val (client, db) = TestSupport.newDatabase
-    _mongoClient = client
-    _database = db
+    val databaseName = s"unit-testdb-${MongoTest.count.incrementAndGet()}"
+    _mongoClient = MongoClient()
+    _database = Mongo.database(_mongoClient, databaseName)
+    database.dropDatabase()
   }
 
   override def afterEach(): Unit = {
