@@ -1,6 +1,8 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouteDetailsService } from '@app/route/route-details-service';
+import { RouteDetailsComponent } from '@app/route/route-details.component';
 import { DataComponent } from '@app/shared/components/data/data.component';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
@@ -10,7 +12,6 @@ import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-pag
 import { MonitorRouteDetailsAnalysisComponent } from './monitor-route-details-analysis.component';
 import { MonitorRouteDetailsPageService } from './monitor-route-details-page.service';
 import { MonitorRouteDetailsReferenceComponent } from './monitor-route-details-reference.component';
-import { MonitorRouteStructureComponent } from './monitor-route-structure.component';
 import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-summary.component';
 import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-timestamp.component';
 
@@ -36,6 +37,11 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
           }
 
           @if (response.result; as page) {
+            <ui-route-details
+              [situationOn]="response.situationOn"
+              [routeDetailsData]="page.details"
+            />
+
             <ui-data title="Summary" i18n-title="@@monitor.route.details.summary">
               <ui-monitor-route-details-summary [page]="page" />
             </ui-data>
@@ -58,19 +64,6 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
                 <markdown [data]="page.comment" />
               </ui-data>
             }
-
-            @if (page.details.structureRows) {
-              <ui-data title="Structure" i18n-title="@@monitor.route.details.structure" />
-              <div class="structure">
-                <ui-monitor-route-structure
-                  [admin]="service.admin()"
-                  [groupName]="page.groupName"
-                  [routeName]="page.routeName"
-                  [structureRows]="page.details.structureRows"
-                  [referenceType]="page.referenceType"
-                />
-              </div>
-            }
           }
         }
       </ui-page>
@@ -81,7 +74,7 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
       padding-top: 1em;
     }
   `,
-  providers: [MonitorRouteDetailsPageService, NavService],
+  providers: [RouteDetailsService, MonitorRouteDetailsPageService, NavService],
   imports: [
     DataComponent,
     MarkdownComponent,
@@ -91,8 +84,8 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
     MonitorRouteDetailsSummaryComponent,
     MonitorRouteDetailsTimestampComponent,
     MonitorRoutePageHeaderComponent,
-    MonitorRouteStructureComponent,
     PageComponent,
+    RouteDetailsComponent,
   ],
 })
 export class MonitorRouteDetailsPageComponent {

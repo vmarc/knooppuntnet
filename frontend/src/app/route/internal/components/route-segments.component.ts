@@ -1,10 +1,9 @@
-import { computed } from '@angular/core';
-import { inject } from '@angular/core';
+import { output } from '@angular/core';
+import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouteSegment } from '@api/common/route/route-segment';
 import { RouteSegmentComponent } from '@app/route/internal/components/route-segment.component';
-import { RouteDetailsPageService } from '@app/analysis/route/internal/details/route-details-page.service';
 import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { ListComponent } from '@app/shared/components/list/list.component';
 import { RouterService } from '@app/shared/services/router.service';
@@ -32,11 +31,11 @@ import { RouterService } from '@app/shared/services/router.service';
   imports: [ListComponent, ListItemComponent, RouteSegmentComponent],
 })
 export class RouteSegmentsComponent {
-  private readonly service = inject(RouteDetailsPageService);
-  protected readonly segments = computed(() => this.service.response()?.result?.data.segments);
-  protected readonly selectedSegment = this.service.selectedSegment;
+  readonly segments = input.required<RouteSegment[]>();
+  readonly selectedSegment = input.required<RouteSegment>();
+  readonly selectSegment = output<RouteSegment>();
 
   onSelectionChange(routeSegment: RouteSegment): void {
-    this.service.selectSegment(routeSegment);
+    this.selectSegment.emit(routeSegment);
   }
 }

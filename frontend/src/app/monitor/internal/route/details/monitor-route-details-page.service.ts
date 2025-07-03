@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { RouteDetailsService } from '@app/route/route-details-service';
 import { NavService } from '@app/shared/components/nav.service';
 import { MonitorService } from '../../monitor.service';
 import { MonitorRouteDetailsPageState } from './monitor-route-details-page.state';
@@ -9,6 +10,7 @@ import { initialState } from './monitor-route-details-page.state';
 @Injectable()
 export class MonitorRouteDetailsPageService {
   private readonly nav = inject(NavService);
+  private readonly routeDetailsService = inject(RouteDetailsService);
   private readonly monitorService = inject(MonitorService);
 
   private readonly _state = signal<MonitorRouteDetailsPageState>(initialState);
@@ -27,6 +29,7 @@ export class MonitorRouteDetailsPageService {
     }));
     this.monitorService.route(groupName, routeName).subscribe((response) => {
       const routeDescription = response.result?.routeDescription ?? this.state().routeDescription;
+      this.routeDetailsService.update(groupName, routeName, response?.result?.referenceType);
       this._state.update((state) => ({
         ...state,
         routeDescription,

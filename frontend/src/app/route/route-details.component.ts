@@ -35,6 +35,7 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let data = routeDetailsData();
+    <ui-route-structure [routeType]="data.summary.routeTypes[0]" [rows]="data.structureRows" />
     <div>
       <ui-route-summary [route]="data" />
       <ui-divider />
@@ -113,7 +114,11 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
             <span i18n="@@route.segments.title">Segments</span>
             <span class="kpn-brackets">{{ segmentCount() }}</span>
           </ng-template>
-          <ui-route-segments />
+          <ui-route-segments
+            [segments]="segments()"
+            [selectedSegment]="undefined"
+            (selectSegment)="selectSegment($event)"
+          />
         </nz-collapse-panel>
         <nz-collapse-panel [nzHeader]="pathsHeader">
           <ng-template #pathsHeader>
@@ -122,16 +127,16 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
           </ng-template>
           <ui-route-paths [paths]="paths()" />
         </nz-collapse-panel>
-        <nz-collapse-panel [nzHeader]="membersHeader">
-          <ng-template #membersHeader>
-            <span i18n="@@route.members.title">Route members</span>
-            <span class="kpn-brackets">{{ memberCount() }}</span>
-          </ng-template>
-          <ui-route-structure
-            [routeType]="data.summary.routeTypes[0]"
-            [rows]="data.structureRows"
-          />
-        </nz-collapse-panel>
+        <!--        <nz-collapse-panel [nzHeader]="membersHeader">-->
+        <!--          <ng-template #membersHeader>-->
+        <!--            <span i18n="@@route.members.title">Route members</span>-->
+        <!--            <span class="kpn-brackets">{{ memberCount() }}</span>-->
+        <!--          </ng-template>-->
+        <!--          <ui-route-structure-->
+        <!--            [routeType]="data.summary.routeTypes[0]"-->
+        <!--            [rows]="data.structureRows"-->
+        <!--          />-->
+        <!--        </nz-collapse-panel>-->
       </nz-collapse>
     </div>
   `,
@@ -166,6 +171,7 @@ export class RouteDetailsComponent {
 
   readonly segmentSelection = output<RouteSegment>();
 
+  protected readonly segments = computed(() => this.routeDetailsData().segments);
   protected readonly segmentCount = computed(() => this.routeDetailsData().segments.length);
   protected readonly paths = computed(() => this.routeDetailsData().paths);
   protected readonly pathCount = computed(() => this.paths().length);
@@ -194,6 +200,10 @@ export class RouteDetailsComponent {
       }
       return new FactInfo(fact);
     });
+  }
+
+  selectSegment(segment: RouteSegment): void {
+    this.segmentSelection.emit(segment);
   }
 
   zoomToFitRoute(): void {
