@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { RouteStructureRow } from '@api/common/route/route-structure-row';
+import { StructureRow } from '@api/common/route/structure-row';
 
 @Component({
   selector: 'ui-route-member-name',
@@ -88,5 +88,5 @@ import { RouteStructureRow } from '@api/common/route/route-structure-row';
   imports: [MatIconModule, RouterLink],
 })
 export class RouteMemberNameComponent {
-  readonly structureRow = input.required<RouteStructureRow>();
+  readonly structureRow = input.required<StructureRow>();
 }

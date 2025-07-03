@@ -20,7 +20,7 @@ import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
 import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouteEndNodesComponent } from './route-end-nodes.component';
-import { RouteMembersComponent } from './route-members.component';
+import { RouteStructureComponent } from './route-structure.component';
 import { RouteNetworkReferencesComponent } from './route-network-references.component';
 import { RouteParentsComponent } from './route-parents.component';
 import { RouteRedundantNodesComponent } from './route-redundant-nodes.component';
@@ -125,7 +125,7 @@ import { RouteDetailsPageService } from '../route-details-page.service';
             <span i18n="@@route.members.title">Route members</span>
             <span class="kpn-brackets">{{ memberCount() }}</span>
           </ng-template>
-          <ui-route-members
+          <ui-route-structure
             [routeType]="page.data.summary.routeTypes[0]"
             [rows]="page.data.structureRows"
           />
@@ -146,13 +146,13 @@ import { RouteDetailsPageService } from '../route-details-page.service';
     NzCollapsePanelComponent,
     NzIconDirective,
     RouteEndNodesComponent,
-    RouteMembersComponent,
     RouteNetworkReferencesComponent,
     RouteParentsComponent,
     RoutePathsComponent,
     RouteRedundantNodesComponent,
     RouteSegmentsComponent,
     RouteStartNodesComponent,
+    RouteStructureComponent,
     RouteSummaryComponent,
     TagTableComponent,
     TimestampComponent,

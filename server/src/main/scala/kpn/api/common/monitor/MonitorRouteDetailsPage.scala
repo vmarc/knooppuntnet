@@ -1,5 +1,6 @@
 package kpn.api.common.monitor
 
+import kpn.api.common.route.StructureRow
 import kpn.api.custom.Timestamp
 
 case class MonitorRouteDetailsPage(
@@ -25,5 +26,5 @@ case class MonitorRouteDetailsPage(
   osmDistance: Long,
   relationCount: Long,
   relationLevels: Long,
-  structureRows: Option[Seq[MonitorRouteRelationStructureRow]]
+  structureRows: Seq[StructureRow]
 )

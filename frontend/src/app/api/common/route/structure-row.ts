@@ -1,15 +1,29 @@
 // this file is generated, please do not modify
 
+import { MemberType } from '@api/common/data/member-type';
 import { Day } from '@api/custom/day';
 import { Timestamp } from '@api/custom/timestamp';
+import { Link } from './link';
+import { RouteStructureRelation } from './route-structure-relation';
+import { RouteStructureWay } from './route-structure-way';
 
-export interface MonitorRouteRelationStructureRow {
+export interface StructureRow {
+  readonly rowIndex: number;
   readonly level: number;
-  readonly physical: boolean;
+  readonly id: number;
+  readonly memberType: MemberType;
+  readonly role: string;
+  readonly link?: Link;
+  readonly distance: number;
   readonly name: string;
+  readonly poi: string;
+  readonly way?: RouteStructureWay;
+  readonly relation?: RouteStructureRelation;
+  readonly segmentIds: number[];
+  readonly pathIds: number[];
+  readonly physical: boolean;
   readonly relationId: number;
   readonly subRelationIndex: number;
-  readonly role: string;
   readonly survey?: Day;
   readonly symbol: string;
   readonly referenceTimestamp?: Timestamp;

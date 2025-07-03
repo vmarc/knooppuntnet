@@ -10,7 +10,7 @@ import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-pag
 import { MonitorRouteDetailsAnalysisComponent } from './monitor-route-details-analysis.component';
 import { MonitorRouteDetailsPageService } from './monitor-route-details-page.service';
 import { MonitorRouteDetailsReferenceComponent } from './monitor-route-details-reference.component';
-import { MonitorRouteDetailsStructureComponent } from './monitor-route-details-structure.component';
+import { MonitorRouteStructureComponent } from './monitor-route-structure.component';
 import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-summary.component';
 import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-timestamp.component';
 
@@ -62,7 +62,7 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
             @if (page.structureRows) {
               <ui-data title="Structure" i18n-title="@@monitor.route.details.structure" />
               <div class="structure">
-                <ui-monitor-route-details-structure
+                <ui-monitor-route-structure
                   [admin]="service.admin()"
                   [groupName]="page.groupName"
                   [routeName]="page.routeName"
@@ -88,10 +88,10 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
     MonitorAdminToggleComponent,
     MonitorRouteDetailsAnalysisComponent,
     MonitorRouteDetailsReferenceComponent,
-    MonitorRouteDetailsStructureComponent,
     MonitorRouteDetailsSummaryComponent,
     MonitorRouteDetailsTimestampComponent,
     MonitorRoutePageHeaderComponent,
+    MonitorRouteStructureComponent,
     PageComponent,
   ],
 })

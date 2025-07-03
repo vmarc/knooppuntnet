@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { MatLabel } from '@angular/material/form-field';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouteType } from '@api/common/route-type';
-import { RouteStructureRow } from '@api/common/route/route-structure-row';
+import { StructureRow } from '@api/common/route/structure-row';
 import { DayPipe } from '@app/shared/components/format/day.pipe';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { IconWarningComponent } from '@app/shared/components/icon/icon-warning.component';
@@ -17,7 +17,7 @@ import { RouteMemberImageComponent } from './route-member-image.component';
 import { RouteMemberNameComponent } from './route-member-name.component';
 
 @Component({
-  selector: 'ui-route-member',
+  selector: 'ui-route-structure-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
@@ -153,8 +153,8 @@ import { RouteMemberNameComponent } from './route-member-name.component';
     TagsTextComponent,
   ],
 })
-export class RouteMemberComponent {
+export class RouteStructureRowComponent {
   readonly routeType = input.required<RouteType>();
-  readonly structureRow = input.required<RouteStructureRow>();
+  readonly structureRow = input.required<StructureRow>();
   readonly rowIndex = input.required<number>();
 }

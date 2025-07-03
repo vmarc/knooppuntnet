@@ -11,8 +11,8 @@ import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteDetailsPageData
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteNodes
-import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.RouteStructureWay
+import kpn.api.common.route.StructureRow
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
@@ -82,7 +82,9 @@ object RouteDetailsPageExample {
       segments = Seq.empty,
       paths = Seq.empty,
       structureRows = Seq(
-        RouteStructureRow(
+        StructureRow(
+          rowIndex = 0,
+          level = 0,
           id = 1L,
           memberType = MemberType.Node,
           role = Some("connection"),
@@ -90,8 +92,30 @@ object RouteDetailsPageExample {
           distance = 0,
           name = None,
           poi = None,
+          way = None,
+          relation = None,
+          segmentIds = Seq.empty,
+          pathIds = Seq.empty,
+          physical = false,
+          relationId = 0,
+          subRelationIndex = None,
+          survey = None,
+          symbol = None,
+          referenceTimestamp = None,
+          referenceFilename = None,
+          referenceDistance = 0,
+          deviationDistance = None,
+          deviationCount = None,
+          osmSegmentCount = None,
+          osmDistance = 0,
+          osmDistanceSubRelations = 0,
+          gaps = None,
+          showMap = false,
+          happy = true
         ),
-        RouteStructureRow(
+        StructureRow(
+          rowIndex = 1,
+          level = 0,
           id = 1L,
           memberType = MemberType.Way,
           role = None,
@@ -113,7 +137,26 @@ object RouteDetailsPageExample {
                 "key3" -> "value3"
               ),
             )
-          )
+          ),
+          relation = None,
+          segmentIds = Seq.empty,
+          pathIds = Seq.empty,
+          physical = false,
+          relationId = 0,
+          subRelationIndex = None,
+          survey = None,
+          symbol = None,
+          referenceTimestamp = None,
+          referenceFilename = None,
+          referenceDistance = 0,
+          deviationDistance = None,
+          deviationCount = None,
+          osmSegmentCount = None,
+          osmDistance = 0,
+          osmDistanceSubRelations = 0,
+          gaps = None,
+          showMap = false,
+          happy = true
         )
       ),
       nameDerivedFromNodes = true,

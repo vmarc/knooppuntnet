@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { RouteStructureRow } from '@api/common/route/route-structure-row';
+import { StructureRow } from '@api/common/route/structure-row';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 
 @Component({
@@ -45,5 +45,5 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
   imports: [MatIconModule, DistancePipe, MatTooltip, DistancePipe],
 })
 export class RouteDistanceComponent {
-  readonly structureRow = input.required<RouteStructureRow>();
+  readonly structureRow = input.required<StructureRow>();
 }

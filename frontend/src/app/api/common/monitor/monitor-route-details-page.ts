@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
+import { StructureRow } from '@api/common/route/structure-row';
 import { Timestamp } from '@api/custom/timestamp';
 import { MonitorReferenceType } from './monitor-reference-type';
-import { MonitorRouteRelationStructureRow } from './monitor-route-relation-structure-row';
 
 export interface MonitorRouteDetailsPage {
   readonly adminRole: boolean;
@@ -27,5 +27,5 @@ export interface MonitorRouteDetailsPage {
   readonly osmDistance: number;
   readonly relationCount: number;
   readonly relationLevels: number;
-  readonly structureRows?: MonitorRouteRelationStructureRow[];
+  readonly structureRows: StructureRow[];
 }

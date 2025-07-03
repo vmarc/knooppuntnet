@@ -5,6 +5,7 @@ import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteDetailsPageData
 import kpn.api.common.route.RouteInfo
+import kpn.api.common.route.StructureRow
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.ChangeSetRepository
@@ -50,6 +51,40 @@ class RouteDetailsPageBuilder(
         routeDoc.bounds
       )
 
+      val structureRows = routeDoc.structureRows.zipWithIndex.map { case (row, index) =>
+        StructureRow(
+          rowIndex = index,
+          level = 0,
+          id = row.id,
+          memberType = row.memberType,
+          role = row.role,
+          link = row.link,
+          distance = row.distance,
+          name = row.name,
+          poi = row.poi,
+          way = row.way,
+          relation = row.relation,
+          segmentIds = row.segmentIds,
+          pathIds = row.pathIds,
+          physical = false,
+          relationId = 0,
+          subRelationIndex = None,
+          survey = None,
+          symbol = None,
+          referenceTimestamp = None,
+          referenceFilename = None,
+          referenceDistance = 0,
+          deviationDistance = None,
+          deviationCount = None,
+          osmSegmentCount = Some(row.segmentIds.length),
+          osmDistance = row.distance,
+          osmDistanceSubRelations = 0,
+          gaps = None,
+          showMap = false,
+          happy = false
+        )
+      }
+
       // TODO add routeIds, parent routes (reverse subRelationTree), add children
       val data = RouteDetailsPageData(
         routeDoc._id,
@@ -66,7 +101,7 @@ class RouteDetailsPageBuilder(
         routeDoc.unexpectedRelationIds,
         routeDoc.segments,
         routeDoc.paths,
-        routeDoc.structureRows,
+        structureRows,
         routeDoc.nameDerivedFromNodes,
         routeDoc.nodes,
         routeDoc.bounds,

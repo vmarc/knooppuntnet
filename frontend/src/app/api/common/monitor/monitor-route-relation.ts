@@ -14,11 +14,6 @@ export interface MonitorRouteRelation {
   readonly referenceDistance: number;
   readonly deviationDistance: number;
   readonly deviationCount: number;
-  readonly osmWayCount: number;
-  readonly osmSegmentCount: number;
-  readonly osmDistance: number;
-  readonly osmDistanceSubRelations: number;
-  readonly gaps: string;
   readonly happy: boolean;
   readonly relations: MonitorRouteRelation[];
 }

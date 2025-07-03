@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouteType } from '@api/common/route-type';
-import { RouteStructureRow } from '@api/common/route/route-structure-row';
-import { RouteMemberComponent } from './route-member.component';
+import { StructureRow } from '@api/common/route/structure-row';
+import { RouteStructureRowComponent } from './route-structure-row.component';
 
 @Component({
-  selector: 'ui-route-members',
+  selector: 'ui-route-structure',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
@@ -19,7 +19,11 @@ import { RouteMemberComponent } from './route-member.component';
         <div class="members">
           @for (row of rows(); track row) {
             @defer (on viewport) {
-              <ui-route-member [routeType]="routeType()" [structureRow]="row" [rowIndex]="$index" />
+              <ui-route-structure-row
+                [routeType]="routeType()"
+                [structureRow]="row"
+                [rowIndex]="$index"
+              />
             } @placeholder {
               <div class="member-placeholder"></div>
             }
@@ -47,9 +51,9 @@ import { RouteMemberComponent } from './route-member.component';
       height: 3em;
     }
   `,
-  imports: [MatIconModule, RouteMemberComponent],
+  imports: [MatIconModule, RouteStructureRowComponent],
 })
-export class RouteMembersComponent {
+export class RouteStructureComponent {
   readonly routeType = input.required<RouteType>();
-  readonly rows = input.required<RouteStructureRow[]>();
+  readonly rows = input.required<StructureRow[]>();
 }

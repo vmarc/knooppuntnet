@@ -2,7 +2,7 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { RouteStructureRow } from '@api/common/route/route-structure-row';
+import { StructureRow } from '@api/common/route/structure-row';
 import { StructureCanvasWrapperComponent } from '@app/shared/components/structure/structure-canvas-wrapper.component';
 
 @Component({
@@ -36,6 +36,6 @@ import { StructureCanvasWrapperComponent } from '@app/shared/components/structur
   imports: [StructureCanvasWrapperComponent],
 })
 export class RouteMemberImageComponent {
-  readonly row = input.required<RouteStructureRow>();
+  readonly row = input.required<StructureRow>();
   protected readonly segmentIds = computed(() => this.row().segmentIds);
 }
