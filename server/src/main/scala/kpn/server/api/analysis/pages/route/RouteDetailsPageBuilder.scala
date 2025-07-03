@@ -2,8 +2,8 @@ package kpn.server.api.analysis.pages.route
 
 import kpn.api.common.Language
 import kpn.api.common.location.LocationCandidateInfo
+import kpn.api.common.route.RouteDetails
 import kpn.api.common.route.RouteDetailsPage
-import kpn.api.common.route.RouteDetailsPageData
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.StructureRow
 import kpn.core.util.Util
@@ -86,7 +86,7 @@ class RouteDetailsPageBuilder(
       }
 
       // TODO add routeIds, parent routes (reverse subRelationTree), add children
-      val data = RouteDetailsPageData(
+      val data = RouteDetails(
         routeDoc._id,
         routeDoc.active,
         routeDoc.summary,

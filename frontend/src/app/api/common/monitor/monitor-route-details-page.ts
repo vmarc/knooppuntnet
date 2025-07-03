@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { StructureRow } from '@api/common/route/structure-row';
+import { RouteDetails } from '@api/common/route/route-details';
 import { Timestamp } from '@api/custom/timestamp';
 import { MonitorReferenceType } from './monitor-reference-type';
 
@@ -27,5 +27,5 @@ export interface MonitorRouteDetailsPage {
   readonly osmDistance: number;
   readonly relationCount: number;
   readonly relationLevels: number;
-  readonly structureRows: StructureRow[];
+  readonly details: RouteDetails;
 }

@@ -23,6 +23,7 @@ export const sheriffConfig: SheriffConfig = {
     'src/app/monitor': 'noTag',
     'src/app/ol': 'noTag',
     'src/app/poi': 'noTag',
+    'src/app/route': 'noTag',
     'src/app/state': 'noTag',
     'src/app/symbol': 'noTag',
     'src/app/shared': 'noTag',

@@ -2,7 +2,7 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RoutePath } from '@api/common/route/route-path';
-import { RoutePathComponent } from '@app/analysis/route/internal/details/components/route-path.component';
+import { RoutePathComponent } from '@app/route/internal/components/route-path.component';
 import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { ListComponent } from '@app/shared/components/list/list.component';
 import { RouterService } from '@app/shared/services/router.service';

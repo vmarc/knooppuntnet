@@ -1,6 +1,7 @@
 package kpn.server.monitor
 
 import kpn.api.base.ObjectId
+import kpn.api.common.Language
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorGroupChangesPage
@@ -105,10 +106,10 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def route(groupName: String, routeName: String): ApiResponse[MonitorRouteDetailsPage] = {
+  override def route(language: Language, groupName: String, routeName: String): ApiResponse[MonitorRouteDetailsPage] = {
     val args = s"groupName=$groupName, routeName=$routeName"
     api.execute("monitor-route", args) {
-      reply(monitorRouteDetailsPageBuilder.build(groupName, routeName))
+      reply(monitorRouteDetailsPageBuilder.build(language, groupName, routeName))
     }
   }
 

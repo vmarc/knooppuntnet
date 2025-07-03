@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { StructureRow } from '@api/common/route/structure-row';
-import { ActionButtonNodeComponent } from '../../../../components/action/action-button-node.component';
-import { ActionButtonRelationComponent } from '../../../../components/action/action-button-relation.component';
-import { ActionButtonWayComponent } from '../../../../components/action/action-button-way.component';
+import { ActionButtonNodeComponent } from '../../../analysis/components/action/action-button-node.component';
+import { ActionButtonRelationComponent } from '../../../analysis/components/action/action-button-relation.component';
+import { ActionButtonWayComponent } from '../../../analysis/components/action/action-button-way.component';
 
 @Component({
   selector: 'ui-route-member-id',

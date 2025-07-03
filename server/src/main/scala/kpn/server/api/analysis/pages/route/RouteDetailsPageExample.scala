@@ -7,8 +7,8 @@ import kpn.api.common.RouteSummary
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
+import kpn.api.common.route.RouteDetails
 import kpn.api.common.route.RouteDetailsPage
-import kpn.api.common.route.RouteDetailsPageData
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteNodes
 import kpn.api.common.route.RouteStructureWay
@@ -33,11 +33,11 @@ object RouteDetailsPageExample {
     )
   }
 
-  private def data(): RouteDetailsPageData = {
+  private def data(): RouteDetails = {
 
     val nodes = RouteNodes()
 
-    RouteDetailsPageData(
+    RouteDetails(
       id = 1,
       active = true,
       summary = RouteSummary(

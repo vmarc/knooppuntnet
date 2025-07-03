@@ -59,14 +59,14 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
               </ui-data>
             }
 
-            @if (page.structureRows) {
+            @if (page.details.structureRows) {
               <ui-data title="Structure" i18n-title="@@monitor.route.details.structure" />
               <div class="structure">
                 <ui-monitor-route-structure
                   [admin]="service.admin()"
                   [groupName]="page.groupName"
                   [routeName]="page.routeName"
-                  [structureRows]="page.structureRows"
+                  [structureRows]="page.details.structureRows"
                   [referenceType]="page.referenceType"
                 />
               </div>

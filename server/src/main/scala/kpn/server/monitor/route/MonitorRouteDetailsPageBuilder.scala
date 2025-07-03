@@ -1,12 +1,17 @@
 package kpn.server.monitor.route
 
+import kpn.api.common.Language
+import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
+import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteRelation
+import kpn.api.common.route.RouteDetails
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.StructureRow
 import kpn.core.doc.RouteDoc
+import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.config.RequestContext
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -23,30 +28,32 @@ class MonitorRouteDetailsPageBuilder(
   routeRepository: RouteRepository,
   monitorRepository: MonitorRepository,
   monitorGroupRepository: MonitorGroupRepository,
-  monitorRouteRepository: MonitorRouteRepository
+  monitorRouteRepository: MonitorRouteRepository,
+  locationService: LocationService
 ) {
 
-  def build(groupName: String, routeName: String): Option[MonitorRouteDetailsPage] = {
+  def build(language: Language, groupName: String, routeName: String): Option[MonitorRouteDetailsPage] = {
     val admin = monitorRepository.isAdminUser(RequestContext.user)
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).flatMap { monitorRoute =>
         monitorRoute.relationId.flatMap(routeRepository.findRouteById).map { routeDoc =>
           val references = monitorRouteRepository.routeReferences(monitorRoute._id) // TODO limit query to only the info that is needed
           val states = monitorRouteRepository.routeStates(monitorRoute._id) // TODO limit query to only the info that is needed: deviationCount, deviationDistance
-          buildPage(admin, group, monitorRoute, routeDoc, references, states)
+          buildPage(language, admin, group, monitorRoute, routeDoc, references, states)
         }
       }
     }
   }
 
   private def buildPage(
+    language: Language,
     admin: Boolean,
     group: MonitorGroup,
     monitorRoute: MonitorRoute,
     routeDoc: RouteDoc,
     references: Seq[MonitorRouteReference],
     states: Seq[MonitorRouteState]
-  ) = {
+  ): MonitorRouteDetailsPage = {
 
     val structureRows = migrateRows(
       monitorRoute,
@@ -62,6 +69,39 @@ class MonitorRouteDetailsPageBuilder(
     val deviationCount = states.map(_.deviations.length).sum
     val osmSegmentCount = routeDoc.segments.length
     val happy = false // TODO redesign
+
+    val networkReferences: Seq[Reference] = monitorRoute.relationId.toSeq.flatMap(relationId => routeRepository.networkReferences(relationId))
+    val locationCandidateInfos = {
+      routeDoc.locationAnalysis.candidates.map { candidate =>
+        val locationNames = candidate.location.names
+        val locationInfos = locationService.toInfos(language, locationNames, locationNames)
+        LocationCandidateInfo(locationInfos, candidate.percentage)
+      }
+    }
+
+    val details = RouteDetails(
+      routeDoc._id,
+      routeDoc.active,
+      routeDoc.summary,
+      routeDoc.proposed,
+      routeDoc.version,
+      routeDoc.changeSetId,
+      routeDoc.lastUpdated,
+      routeDoc.lastSurvey,
+      routeDoc.facts,
+      locationCandidateInfos,
+      routeDoc.unexpectedNodeIds,
+      routeDoc.unexpectedRelationIds,
+      routeDoc.segments,
+      routeDoc.paths,
+      structureRows,
+      routeDoc.nameDerivedFromNodes,
+      routeDoc.nodes,
+      routeDoc.bounds,
+      routeDoc.routeIds,
+      routeDoc.parentRoutes,
+      networkReferences,
+    )
 
     MonitorRouteDetailsPage(
       admin,
@@ -88,7 +128,7 @@ class MonitorRouteDetailsPageBuilder(
       routeDoc.summary.meters,
       relationCount,
       relationLevels,
-      structureRows
+      details
     )
   }
 

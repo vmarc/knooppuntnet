@@ -8,7 +8,7 @@ import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 
-case class RouteDetailsPageData(
+case class RouteDetails(
   id: Long,
   active: Boolean,
   summary: RouteSummary,

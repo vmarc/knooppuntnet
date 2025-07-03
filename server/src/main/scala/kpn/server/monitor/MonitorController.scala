@@ -1,6 +1,7 @@
 package kpn.server.monitor
 
 import kpn.api.base.ObjectId
+import kpn.api.common.Language
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorGroupChangesPage
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -77,10 +79,11 @@ class MonitorController(facade: MonitorFacade) {
 
   @GetMapping(value = Array("groups/{groupName}/routes/{routeName}"))
   def route(
+    @RequestParam language: String,
     @PathVariable groupName: String,
     @PathVariable routeName: String
   ): ApiResponse[MonitorRouteDetailsPage] = {
-    facade.route(groupName, routeName)
+    facade.route(toLanguage(language), groupName, routeName)
   }
 
   @DeleteMapping(value = Array("groups/{groupName}/routes/{routeName}"))
@@ -156,5 +159,9 @@ class MonitorController(facade: MonitorFacade) {
   @GetMapping(value = Array("groups/{groupName}/route-names"))
   def routeNames(@PathVariable groupName: String): ApiResponse[Seq[String]] = {
     facade.routeNames(groupName)
+  }
+
+  private def toLanguage(language: String): Language = {
+    Language.withNameOption(language).getOrElse(Language.EN)
   }
 }

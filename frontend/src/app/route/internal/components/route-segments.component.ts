@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouteSegment } from '@api/common/route/route-segment';
-import { RouteSegmentComponent } from '@app/analysis/route/internal/details/components/route-segment.component';
+import { RouteSegmentComponent } from '@app/route/internal/components/route-segment.component';
 import { RouteDetailsPageService } from '@app/analysis/route/internal/details/route-details-page.service';
 import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { ListComponent } from '@app/shared/components/list/list.component';

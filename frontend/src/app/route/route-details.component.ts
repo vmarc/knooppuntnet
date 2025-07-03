@@ -1,14 +1,17 @@
+import { output } from '@angular/core';
+import { input } from '@angular/core';
 import { computed } from '@angular/core';
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouteDetailsPage } from '@api/common/route/route-details-page';
+import { RouteDetailsPageData } from '@api/common/route/route-details-page-data';
+import { RouteSegment } from '@api/common/route/route-segment';
+import { Timestamp } from '@api/custom/timestamp';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactsComponent } from '@app/analysis/fact/components/facts.component';
-import { MapModeComponent } from '@app/analysis/route/internal/details/components/map-mode.component';
-import { RoutePathsComponent } from '@app/analysis/route/internal/details/components/route-paths.component';
-import { RouteSegmentsComponent } from '@app/analysis/route/internal/details/components/route-segments.component';
+import { MapModeComponent } from '@app/route/internal/components/map-mode.component';
+import { RoutePathsComponent } from '@app/route/internal/components/route-paths.component';
+import { RouteSegmentsComponent } from '@app/route/internal/components/route-segments.component';
 import { DataComponent } from '@app/shared/components/data/data.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
@@ -19,29 +22,28 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
 import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { RouteEndNodesComponent } from './route-end-nodes.component';
-import { RouteStructureComponent } from './route-structure.component';
-import { RouteNetworkReferencesComponent } from './route-network-references.component';
-import { RouteParentsComponent } from './route-parents.component';
-import { RouteRedundantNodesComponent } from './route-redundant-nodes.component';
-import { RouteStartNodesComponent } from './route-start-nodes.component';
-import { RouteSummaryComponent } from './route-summary.component';
-import { RouteDetailsPageService } from '../route-details-page.service';
+import { RouteEndNodesComponent } from '@app/route/internal/components/route-end-nodes.component';
+import { RouteStructureComponent } from '@app/route/internal/components/route-structure.component';
+import { RouteNetworkReferencesComponent } from '@app/route/internal/components/route-network-references.component';
+import { RouteParentsComponent } from '@app/route/internal/components/route-parents.component';
+import { RouteRedundantNodesComponent } from '@app/route/internal/components/route-redundant-nodes.component';
+import { RouteStartNodesComponent } from '@app/route/internal/components/route-start-nodes.component';
+import { RouteSummaryComponent } from '@app/route/internal/components/route-summary.component';
 
 @Component({
   selector: 'ui-route-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @let page = response().result;
+    @let data = routeDetailsData();
     <div>
-      <ui-route-summary [route]="page.data" />
+      <ui-route-summary [route]="data" />
       <ui-divider />
       <div class="data2">
         <div class="title">
           <span i18n="@@route.situation-on">Situation on</span>
         </div>
         <div class="body">
-          <ui-timestamp [timestamp]="response().situationOn" />
+          <ui-timestamp [timestamp]="situationOn()" />
         </div>
       </div>
       <div class="data2">
@@ -49,24 +51,24 @@ import { RouteDetailsPageService } from '../route-details-page.service';
           <span i18n="@@route.last-updated">Last updated</span>
         </div>
         <div class="body">
-          <ui-timestamp [timestamp]="page.data.lastUpdated" />
+          <ui-timestamp [timestamp]="data.lastUpdated" />
         </div>
       </div>
       <ui-data title="Relation last updated" i18n-title="@@route.relation-last-updated">
-        <ui-timestamp [timestamp]="page.data.summary.timestamp" />
+        <ui-timestamp [timestamp]="data.summary.timestamp" />
       </ui-data>
       <ui-data title="Network" i18n-title="@@route.network">
-        <ui-route-network-references [references]="page.data.networkReferences" />
+        <ui-route-network-references [references]="data.networkReferences" />
       </ui-data>
 
-      @if (page.data.parentRoutes.length > 0) {
+      @if (data.parentRoutes.length > 0) {
         <ui-data title="Part of" i18n-title="@@route.parent-routes">
-          <ui-route-parents [parentRoutes]="page.data.parentRoutes" />
+          <ui-route-parents [parentRoutes]="data.parentRoutes" />
         </ui-data>
       }
 
       <div>
-        @if (page.data.nodes; as nodes) {
+        @if (data.nodes; as nodes) {
           <ui-data title="Start node" i18n-title="@@route.start-node">
             <ui-route-start-nodes [nodes]="nodes" />
           </ui-data>
@@ -83,16 +85,16 @@ import { RouteDetailsPageService } from '../route-details-page.service';
           }
         }
         <ui-data title="Number of ways" i18n-title="@@route.number-of-ways">
-          {{ page.data.summary.wayCount }}
+          {{ data.summary.wayCount }}
         </ui-data>
       </div>
 
       <ui-divider />
       <p i18n="@@route.tags">Tags</p>
-      <ui-tag-table [tags]="routeTags(page)" />
+      <ui-tag-table [tags]="routeTags()" />
 
       <ui-divider />
-      <ui-facts [factInfos]="factInfos(page)" />
+      <ui-facts [factInfos]="factInfos()" />
 
       <ui-divider />
       <div class="kpn-button-group">
@@ -126,14 +128,14 @@ import { RouteDetailsPageService } from '../route-details-page.service';
             <span class="kpn-brackets">{{ memberCount() }}</span>
           </ng-template>
           <ui-route-structure
-            [routeType]="page.data.summary.routeTypes[0]"
-            [rows]="page.data.structureRows"
+            [routeType]="data.summary.routeTypes[0]"
+            [rows]="data.structureRows"
           />
         </nz-collapse-panel>
       </nz-collapse>
     </div>
   `,
-  styleUrl: '../../../../../shared/components/data/data.component.scss',
+  styleUrl: '../shared/components/data/data.component.scss',
   providers: [RouterService],
   imports: [
     DataComponent,
@@ -159,27 +161,28 @@ import { RouteDetailsPageService } from '../route-details-page.service';
   ],
 })
 export class RouteDetailsComponent {
-  private readonly service = inject(RouteDetailsPageService);
-  protected readonly response = computed(() => this.service.response());
-  protected readonly segmentCount = computed(() => this.response()?.result?.data.segments.length);
-  protected readonly paths = computed(() => this.response()?.result?.data.paths);
-  protected readonly pathCount = computed(() => this.paths().length);
-  protected readonly memberCount = computed(
-    () => this.response()?.result?.data.structureRows.length
-  );
+  readonly situationOn = input.required<Timestamp>();
+  readonly routeDetailsData = input.required<RouteDetailsPageData>();
 
-  routeTags(page: RouteDetailsPage) {
-    return InterpretedTags.routeTags(page.data.summary.tags);
+  readonly segmentSelection = output<RouteSegment>();
+
+  protected readonly segmentCount = computed(() => this.routeDetailsData().segments.length);
+  protected readonly paths = computed(() => this.routeDetailsData().paths);
+  protected readonly pathCount = computed(() => this.paths().length);
+  protected readonly memberCount = computed(() => this.routeDetailsData().structureRows.length);
+
+  routeTags() {
+    return InterpretedTags.routeTags(this.routeDetailsData().summary.tags);
   }
 
-  factInfos(page: RouteDetailsPage): FactInfo[] {
-    return page.data.facts.map((fact) => {
+  factInfos(): FactInfo[] {
+    return this.routeDetailsData().facts.map((fact) => {
       if (fact === 'RouteUnexpectedNode') {
-        const unexpectedNodeIds = page.data.unexpectedNodeIds;
+        const unexpectedNodeIds = this.routeDetailsData().unexpectedNodeIds;
         return new FactInfo(fact, undefined, undefined, undefined, unexpectedNodeIds);
       }
       if (fact === 'RouteUnexpectedRelation') {
-        const unexpectedRelationIds = page.data.unexpectedRelationIds;
+        const unexpectedRelationIds = this.routeDetailsData().unexpectedRelationIds;
         return new FactInfo(
           fact,
           undefined,
@@ -194,6 +197,6 @@ export class RouteDetailsComponent {
   }
 
   zoomToFitRoute(): void {
-    this.service.selectSegment(undefined);
+    this.segmentSelection.emit(undefined);
   }
 }

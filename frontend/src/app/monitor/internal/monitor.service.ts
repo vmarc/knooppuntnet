@@ -1,4 +1,6 @@
+import { HttpParams } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
+import { LOCALE_ID } from '@angular/core';
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
@@ -28,6 +30,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class MonitorService {
+  public readonly locale: string = inject(LOCALE_ID);
   private readonly http = inject(HttpClient);
   private readonly _admin = signal(false);
   private readonly _adminRole = signal(false);
@@ -96,13 +99,15 @@ export class MonitorService {
 
   route(groupName: string, routeName: string): Observable<ApiResponse<MonitorRouteDetailsPage>> {
     const url = `/api/monitor/groups/${groupName}/routes/${routeName}`;
-    return this.http.get<ApiResponse<MonitorRouteDetailsPage>>(url).pipe(
-      tap((response) => {
-        if (response.result) {
-          this._adminRole.set(response.result.adminRole);
-        }
-      })
-    );
+    return this.http
+      .get<ApiResponse<MonitorRouteDetailsPage>>(url, { params: this.languageParams() })
+      .pipe(
+        tap((response) => {
+          if (response.result) {
+            this._adminRole.set(response.result.adminRole);
+          }
+        })
+      );
   }
 
   routeDelete(groupName: string, routeName: string): Observable<void> {
@@ -190,5 +195,9 @@ export class MonitorService {
   routeNames(groupName: string): Observable<ApiResponse<Array<string>>> {
     const url = `/api/monitor/groups/${groupName}/route-names`;
     return this.http.get(url);
+  }
+
+  private languageParams(): HttpParams {
+    return new HttpParams().set('language', this.locale);
   }
 }

@@ -1,0 +1,38 @@
+// this file is generated, please do not modify
+
+import { Bounds } from '@api/common/bounds';
+import { Reference } from '@api/common/common/reference';
+import { Fact } from '@api/common/fact';
+import { LocationCandidateInfo } from '@api/common/location/location-candidate-info';
+import { RouteSummary } from '@api/common/route-summary';
+import { Day } from '@api/custom/day';
+import { Timestamp } from '@api/custom/timestamp';
+import { ParentRoute } from './parent-route';
+import { RouteNodes } from './route-nodes';
+import { RoutePath } from './route-path';
+import { RouteSegment } from './route-segment';
+import { StructureRow } from './structure-row';
+
+export interface RouteDetails {
+  readonly id: number;
+  readonly active: boolean;
+  readonly summary: RouteSummary;
+  readonly proposed: boolean;
+  readonly version: number;
+  readonly changeSetId: number;
+  readonly lastUpdated: Timestamp;
+  readonly lastSurvey?: Day;
+  readonly facts: Fact[];
+  readonly locationCandidateInfos: LocationCandidateInfo[];
+  readonly unexpectedNodeIds: number[];
+  readonly unexpectedRelationIds: number[];
+  readonly segments: RouteSegment[];
+  readonly paths: RoutePath[];
+  readonly structureRows: StructureRow[];
+  readonly nameDerivedFromNodes: boolean;
+  readonly nodes: RouteNodes;
+  readonly bounds?: Bounds;
+  readonly routeIds: number[];
+  readonly parentRoutes: ParentRoute[];
+  readonly networkReferences: Reference[];
+}
