@@ -6,6 +6,8 @@ import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteRelationStructureRow
 import kpn.server.config.RequestContext
 import kpn.server.monitor.domain.MonitorRoute
+import kpn.server.monitor.domain.MonitorRouteReference
+import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
@@ -24,25 +26,22 @@ class MonitorRouteDetailsPageBuilder(
     val admin = monitorRepository.isAdminUser(RequestContext.user)
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).map { monitorRoute =>
+
+        val references = monitorRouteRepository.routeReferences(monitorRoute._id) // TODO limit query to only the info that is needed
+        val states = monitorRouteRepository.routeStates(monitorRoute._id) // TODO limit query to only the info that is needed: deviationCount, deviationDistance
+
         val routeDocOption = monitorRoute.relationId match {
           case None => None
           case Some(relationId) =>
             routeRepository.findRouteById(relationId)
         }
 
-        val treeRows = flattenRelationTree(monitorRoute, monitorRoute.relation)
-        var subRelationIndex = -1L
-        val structureRows = treeRows.map { rows =>
-          rows.map { row =>
-            if (row.osmDistance > 0) {
-              subRelationIndex = subRelationIndex + 1
-              row.copy(subRelationIndex = Some(subRelationIndex))
-            }
-            else {
-              row
-            }
-          }
-        }
+        val structureRows = flattenRelationTree(
+          monitorRoute,
+          monitorRoute.relation,
+          references,
+          states
+        )
         val relationCount = structureRows match {
           case Some(rows) => rows.size
           case None => 0
@@ -80,27 +79,53 @@ class MonitorRouteDetailsPageBuilder(
     }
   }
 
-  private def flattenRelationTree(route: MonitorRoute, relation: Option[MonitorRouteRelation]): Option[Seq[MonitorRouteRelationStructureRow]] = {
+  private def flattenRelationTree(
+    route: MonitorRoute,
+    relation: Option[MonitorRouteRelation],
+    references: Seq[MonitorRouteReference],
+    states: Seq[MonitorRouteState]
+  ): Option[Seq[MonitorRouteRelationStructureRow]] = {
     relation.flatMap { relationLevel1 =>
       val rowsLevel2 = relationLevel1.relations.flatMap { relationLevel2 =>
         val rowsLevel3 = relationLevel2.relations.flatMap { relationLevel3 =>
           val rowsLevel4 = relationLevel3.relations.flatMap { relationLevel4 =>
             val rowsLevel5 = relationLevel4.relations.map { relationLevel5 =>
-              toRow(route, 5, relationLevel5)
+              toRow(route, 5, relationLevel5, references, states)
             }
-            toRow(route, 4, relationLevel4) +: rowsLevel5
+            toRow(route, 4, relationLevel4, references, states) +: rowsLevel5
           }
-          toRow(route, 3, relationLevel3) +: rowsLevel4
+          toRow(route, 3, relationLevel3, references, states) +: rowsLevel4
         }
-        toRow(route, 2, relationLevel2) +: rowsLevel3
+        toRow(route, 2, relationLevel2, references, states) +: rowsLevel3
       }
       Option.when(rowsLevel2.nonEmpty) {
-        toRow(route, 1, relationLevel1) +: rowsLevel2
+        toRow(route, 1, relationLevel1, references, states) +: rowsLevel2
       }
     }
   }
 
-  private def toRow(route: MonitorRoute, level: Long, monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelationStructureRow = {
+  private def toRow(
+    route: MonitorRoute,
+    level: Long,
+    monitorRouteRelation: MonitorRouteRelation,
+    references: Seq[MonitorRouteReference],
+    states: Seq[MonitorRouteState]
+  ): MonitorRouteRelationStructureRow = {
+
+    val reference = if (route.referenceType == MonitorReferenceType.multiGpx) {
+      references.find(_.relationId.contains(monitorRouteRelation.relationId))
+    }
+    else {
+      None
+    }
+
+    val state = if (route.referenceType == MonitorReferenceType.multiGpx) {
+      states.find(_.relationId == monitorRouteRelation.relationId)
+    }
+    else {
+      None
+    }
+
     val physical = monitorRouteRelation.referenceFilename.isDefined
 
     val visible = if (route.referenceType == MonitorReferenceType.gpx) {
@@ -123,11 +148,11 @@ class MonitorRouteDetailsPageBuilder(
       role = monitorRouteRelation.role,
       survey = monitorRouteRelation.survey,
       symbol = monitorRouteRelation.symbol,
-      referenceTimestamp = monitorRouteRelation.referenceTimestamp,
-      referenceFilename = monitorRouteRelation.referenceFilename,
-      referenceDistance = monitorRouteRelation.referenceDistance,
-      deviationDistance = deviationDistance,
-      deviationCount = deviationCount,
+      referenceTimestamp = reference.map(_.referenceTimestamp),
+      referenceFilename = reference.flatMap(_.referenceFilename),
+      referenceDistance = reference.map(_.referenceDistance).getOrElse(0),
+      deviationDistance = state.map(_.deviations.map(_.distance).sum),
+      deviationCount = state.map(_.deviations.length),
       osmSegmentCount = Some(-1),
       osmDistance = -1,
       osmDistanceSubRelations = -1,

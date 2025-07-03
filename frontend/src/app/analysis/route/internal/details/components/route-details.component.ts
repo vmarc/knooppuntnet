@@ -118,7 +118,7 @@ import { RouteDetailsPageService } from '../route-details-page.service';
             <span i18n="@@route.paths.title">Paths</span>
             <span class="kpn-brackets">{{ pathCount() }}</span>
           </ng-template>
-          <ui-route-paths />
+          <ui-route-paths [paths]="paths()" />
         </nz-collapse-panel>
         <nz-collapse-panel [nzHeader]="membersHeader">
           <ng-template #membersHeader>
@@ -162,7 +162,8 @@ export class RouteDetailsComponent {
   private readonly service = inject(RouteDetailsPageService);
   protected readonly response = computed(() => this.service.response());
   protected readonly segmentCount = computed(() => this.response()?.result?.data.segments.length);
-  protected readonly pathCount = computed(() => this.response()?.result?.data.paths.length);
+  protected readonly paths = computed(() => this.response()?.result?.data.paths);
+  protected readonly pathCount = computed(() => this.paths().length);
   protected readonly memberCount = computed(
     () => this.response()?.result?.data.structureRows.length
   );
