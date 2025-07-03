@@ -19,11 +19,7 @@ import { RouteStructureRowComponent } from './route-structure-row.component';
         <div class="members">
           @for (row of rows(); track row) {
             @defer (on viewport) {
-              <ui-route-structure-row
-                [routeType]="routeType()"
-                [structureRow]="row"
-                [rowIndex]="$index"
-              />
+              <ui-route-structure-row [routeType]="routeType()" [structureRow]="row" />
             } @placeholder {
               <div class="member-placeholder"></div>
             }

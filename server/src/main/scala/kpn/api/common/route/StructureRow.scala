@@ -5,7 +5,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 
 case class StructureRow(
-  rowIndex: Long, // from MonitorRouteRelationStructureRow
+  rowNumber: String,
   level: Long, // from MonitorRouteRelationStructureRow also included in RouteStructureRelation.level
   id: Long, // from RouteStructureRow
   memberType: MemberType, // from RouteStructureRow

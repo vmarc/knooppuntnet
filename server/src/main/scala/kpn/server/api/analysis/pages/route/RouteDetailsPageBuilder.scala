@@ -51,9 +51,9 @@ class RouteDetailsPageBuilder(
         routeDoc.bounds
       )
 
-      val structureRows = routeDoc.structureRows.zipWithIndex.map { case (row, index) =>
+      val structureRows = routeDoc.structureRows.map { row =>
         StructureRow(
-          rowIndex = index,
+          rowNumber = row.rowNumber,
           level = 0,
           id = row.id,
           memberType = row.memberType,

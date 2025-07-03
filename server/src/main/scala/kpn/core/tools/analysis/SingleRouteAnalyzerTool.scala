@@ -3,10 +3,11 @@ package kpn.core.tools.analysis
 import kpn.core.tools.support.RawDataTool
 import kpn.core.util.Log
 import kpn.server.analyzer.full.analyzers.SingleBaseRouteAnalyzer
+import kpn.server.analyzer.full.analyzers.SingleRouteAnalyzer
 
-object SingleBaseRouteAnalyzerTool {
+object SingleRouteAnalyzerTool {
 
-  private val log = Log(classOf[SingleBaseRouteAnalyzerTool])
+  private val log = Log(classOf[SingleRouteAnalyzerTool])
 
   def main(args: Array[String]): Unit = {
     log.info("Start")
@@ -14,7 +15,7 @@ object SingleBaseRouteAnalyzerTool {
     val configuration = new InitialAnalysisConfiguration(options)
     try {
       val tool = buildTool(configuration)
-      tool.analyze(13844575)
+      tool.analyze(10879005)
     }
     finally {
       configuration.shutdown()
@@ -22,16 +23,21 @@ object SingleBaseRouteAnalyzerTool {
     log.info(s"Done")
   }
 
-  private def buildTool(configuration: InitialAnalysisConfiguration): SingleBaseRouteAnalyzerTool = {
-    new SingleBaseRouteAnalyzerTool(
+  private def buildTool(configuration: InitialAnalysisConfiguration): SingleRouteAnalyzerTool = {
+    new SingleRouteAnalyzerTool(
       configuration.singleBaseRouteAnalyzer,
+      configuration.singleRouteAnalyzer,
     )
   }
 }
 
-class SingleBaseRouteAnalyzerTool(singleBaseRouteAnalyzer: SingleBaseRouteAnalyzer) {
+class SingleRouteAnalyzerTool(
+  singleBaseRouteAnalyzer: SingleBaseRouteAnalyzer,
+  singleRouteAnalyzer: SingleRouteAnalyzer
+) {
 
   def analyze(routeId: Long): Unit = {
     singleBaseRouteAnalyzer.processRoute(RawDataTool.timestamp, None, routeId)
+    singleRouteAnalyzer.processRoute(routeId)
   }
 }

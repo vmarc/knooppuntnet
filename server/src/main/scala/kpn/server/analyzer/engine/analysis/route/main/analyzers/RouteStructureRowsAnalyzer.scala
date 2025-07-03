@@ -29,11 +29,11 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
   }
 
   private def buildRows(context: RouteAnalysisContext): Seq[RouteStructureRow] = {
-    context.route.members.flatMap { member =>
+    context.route.members.zipWithIndex.flatMap { case (member, index) =>
       member.memberType match {
-        case MemberType.Relation => buildRelationRows(1, member, Seq.empty)
-        case MemberType.Way => Seq(buildWayRow(member))
-        case MemberType.Node => Seq(buildNodeRow(member))
+        case MemberType.Relation => buildRelationRows(1, Seq(index + 1), member, Seq.empty)
+        case MemberType.Way => Seq(buildWayRow(member, index + 1))
+        case MemberType.Node => Seq(buildNodeRow(member, index + 1))
       }
     }
   }
@@ -65,8 +65,9 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
     rows.map(_.distance).sum
   }
 
-  private def buildNodeRow(member: RouteMemberInfo): RouteStructureRow = {
+  private def buildNodeRow(member: RouteMemberInfo, rowNumber: Int): RouteStructureRow = {
     RouteStructureRow(
+      s"$rowNumber",
       member.id,
       member.memberType,
       member.role,
@@ -79,8 +80,9 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
     )
   }
 
-  private def buildWayRow(member: RouteMemberInfo): RouteStructureRow = {
+  private def buildWayRow(member: RouteMemberInfo, rowNumber: Int): RouteStructureRow = {
     RouteStructureRow(
+      s"$rowNumber",
       member.id,
       member.memberType,
       member.role,
@@ -109,6 +111,7 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
 
   private def buildRelationRows(
     level: Int,
+    rowNumbers: Seq[Int],
     member: RouteMemberInfo,
     processedRelationIds: Seq[Long]
   ): Seq[RouteStructureRow] = {
@@ -120,13 +123,14 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
     routeRepository.subRouteData(member.id) match {
       case None => Seq.empty
       case Some(subRouteData) =>
-        val subRows = buildSubRelationRows(level, member, processedRelationIds, subRouteData)
-        buildStructureRow(level, member, subRouteData, subRows) +: subRows
+        val subRows = buildSubRelationRows(level, rowNumbers, member, processedRelationIds, subRouteData)
+        buildStructureRow(level, rowNumbers, member, subRouteData, subRows) +: subRows
     }
   }
 
   private def buildStructureRow(
     level: Int,
+    rowNumbers: Seq[Int],
     member: RouteMemberInfo,
     subRouteData: SubRouteData,
     subRows: Seq[RouteStructureRow]
@@ -134,7 +138,9 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
     val distance = subRouteData.distance
     val subRowsDistance = subRows.flatMap(_.relation.map(_.totalDistance)).sum
     val totalDistance = distance + subRowsDistance
+    val rowNumber = rowNumbers.mkString(".")
     RouteStructureRow(
+      rowNumber = rowNumber,
       id = member.id,
       memberType = member.memberType,
       role = member.role,
@@ -160,10 +166,10 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
     )
   }
 
-  private def buildSubRelationRows(level: Int, member: RouteMemberInfo, processedRelationIds: Seq[Long], subRouteData: SubRouteData): Seq[RouteStructureRow] = {
+  private def buildSubRelationRows(level: Int, rowNumbers: Seq[Int], member: RouteMemberInfo, processedRelationIds: Seq[Long], subRouteData: SubRouteData): Seq[RouteStructureRow] = {
     val subRelationMembers = subRouteData.members.filter(_.memberType == MemberType.Relation)
-    subRelationMembers.flatMap(subRelationMember =>
-      buildRelationRows(level + 1, subRelationMember, processedRelationIds :+ member.id)
-    )
+    subRelationMembers.zipWithIndex.flatMap { case (subRelationMember, index) =>
+      buildRelationRows(level + 1, rowNumbers :+ (index + 1), subRelationMember, processedRelationIds :+ member.id)
+    }
   }
 }

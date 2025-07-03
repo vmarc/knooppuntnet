@@ -303,6 +303,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         bounds = Some(Bounds()),
         structureRows = Seq(
           RouteStructureRow(
+            "1",
             id = 101,
             memberType = MemberType.Way,
             role = None,

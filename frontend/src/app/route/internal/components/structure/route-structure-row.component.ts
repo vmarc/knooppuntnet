@@ -7,13 +7,11 @@ import { MatLabel } from '@angular/material/form-field';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouteType } from '@api/common/route-type';
 import { StructureRow } from '@api/common/route/structure-row';
-import {
-  RouteStructureDeviationsComponent
-} from '@app/route/internal/components/structure/route-structure-deviations.component';
+import { RouteMemberNameComponent } from '@app/route/internal/components/structure/route-member-name.component';
+import { RouteStructureDeviationsComponent } from '@app/route/internal/components/structure/route-structure-deviations.component';
 import { RouteStructureReferenceComponent } from '@app/route/internal/components/structure/route-structure-reference.component';
 import { RouteDetailsService } from '@app/route/route-details-service';
 import { DayPipe } from '@app/shared/components/format/day.pipe';
-import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { IconWarningComponent } from '@app/shared/components/icon/icon-warning.component';
 import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
@@ -22,7 +20,6 @@ import { SymbolComponent } from '@app/symbol/symbol.component';
 import { RouteDistanceComponent } from './route-distance.component';
 import { RouteMemberIdComponent } from './route-member-id.component';
 import { RouteMemberImageComponent } from './route-member-image.component';
-import { RouteMemberNameComponent } from './route-member-name.component';
 
 @Component({
   selector: 'ui-route-structure-row',
@@ -31,12 +28,10 @@ import { RouteMemberNameComponent } from './route-member-name.component';
     <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @let row = structureRow();
     <div class="member">
-      <div class="member-number">
-        {{ rowIndex() + 1 }}
-      </div>
       <ui-route-member-image [row]="row" />
       <div class="member-details">
         <div class="first-line">
+          <span>{{ row.rowNumber }}.</span>
           <ui-route-member-id [structureRow]="row" />
           @if (row.role) {
             <span class="role" matTooltip="role" matTooltipPosition="after">
@@ -149,14 +144,6 @@ import { RouteMemberNameComponent } from './route-member-name.component';
       display: flex;
     }
 
-    .member-number {
-      flex-grow: 0;
-      flex-shrink: 0;
-      flex-basis: 2em;
-      padding: 0.5em;
-      border-right: 1px solid lightgray;
-    }
-
     .member-details {
       flex-grow: 1;
       border-left: 1px solid lightgray;
@@ -185,7 +172,6 @@ import { RouteMemberNameComponent } from './route-member-name.component';
   `,
   imports: [
     DayPipe,
-    DistancePipe,
     IconHappyComponent,
     IconWarningComponent,
     LinkNodeComponent,
@@ -195,17 +181,16 @@ import { RouteMemberNameComponent } from './route-member-name.component';
     RouteDistanceComponent,
     RouteMemberIdComponent,
     RouteMemberImageComponent,
-    RouteMemberNameComponent,
     RouteStructureReferenceComponent,
     SymbolComponent,
     TagsTextComponent,
     RouteStructureDeviationsComponent,
+    RouteMemberNameComponent,
   ],
 })
 export class RouteStructureRowComponent {
   readonly routeType = input.required<RouteType>();
   readonly structureRow = input.required<StructureRow>();
-  readonly rowIndex = input.required<number>();
 
   private readonly routeDetailsService = inject(RouteDetailsService);
 

@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -24,55 +25,12 @@ import { StructureRow } from '@api/common/route/structure-row';
       </span>
     }
     @if (row.relation) {
-      @switch (row.relation.level) {
-        @case (1) {
-          <div class="level-1 name">
-            <a [routerLink]="'/analysis/route/' + row.id">{{ row.relation.name }}</a>
-          </div>
-        }
-        @case (2) {
-          <div class="level-2 name">
-            <a [routerLink]="'/analysis/route/' + row.id">{{ row.relation.name }}</a>
-          </div>
-        }
-        @case (3) {
-          <div class="level-3 name">
-            <a [routerLink]="'/analysis/route/' + row.id">{{ row.relation.name }}</a>
-          </div>
-        }
-        @case (4) {
-          <div class="level-4 name">
-            <a [routerLink]="'/analysis/route/' + row.id">{{ row.relation.name }}</a>
-          </div>
-        }
-        @case (5) {
-          <div class="level-5 name">
-            <a [routerLink]="'/analysis/route/' + row.id">{{ row.relation.name }}</a>
-          </div>
-        }
-      }
+      <div>
+        <a [routerLink]="link()">{{ row.relation.name }}</a>
+      </div>
     }
   `,
   styles: `
-    .level-1 {
-    }
-
-    .level-2 {
-      margin-left: 1.5em;
-    }
-
-    .level-3 {
-      margin-left: 3em;
-    }
-
-    .level-4 {
-      margin-left: 4.5em;
-    }
-
-    .level-5 {
-      margin-left: 6em;
-    }
-
     .way-type {
       font-style: italic;
       padding: 0.3em 0.8em 0.3em 0.5em;
@@ -89,4 +47,5 @@ import { StructureRow } from '@api/common/route/structure-row';
 })
 export class RouteMemberNameComponent {
   readonly structureRow = input.required<StructureRow>();
+  protected readonly link = computed(() => '/analysis/route/' + this.structureRow().id);
 }

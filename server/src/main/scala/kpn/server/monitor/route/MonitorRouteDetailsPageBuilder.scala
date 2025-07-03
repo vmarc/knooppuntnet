@@ -137,11 +137,10 @@ class MonitorRouteDetailsPageBuilder(
     references: Seq[MonitorRouteReference],
     states: Seq[MonitorRouteState]
   ): Seq[StructureRow] = {
-    routeDoc.structureRows.zipWithIndex.map { case (row, index) => toRow(index, row, route, 1, references, states) }
+    routeDoc.structureRows.map { row => toRow(row, route, 1, references, states) }
   }
 
   private def toRow(
-    rowIndex: Long,
     row: RouteStructureRow,
     route: MonitorRoute,
     level: Long,
@@ -177,7 +176,7 @@ class MonitorRouteDetailsPageBuilder(
     val deviationCount = 0 // TODO redesign - if (visible) Some(monitorRouteRelation.deviationCount) else None
 
     StructureRow(
-      rowIndex = rowIndex,
+      rowNumber = row.rowNumber,
       level = level,
       id = row.id,
       memberType = row.memberType,

@@ -83,7 +83,7 @@ object RouteDetailsPageExample {
       paths = Seq.empty,
       structureRows = Seq(
         StructureRow(
-          rowIndex = 0,
+          rowNumber = "1",
           level = 0,
           id = 1L,
           memberType = MemberType.Node,
@@ -114,7 +114,7 @@ object RouteDetailsPageExample {
           happy = true
         ),
         StructureRow(
-          rowIndex = 1,
+          rowNumber = "2",
           level = 0,
           id = 1L,
           memberType = MemberType.Way,
