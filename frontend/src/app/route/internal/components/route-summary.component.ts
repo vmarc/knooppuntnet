@@ -8,7 +8,7 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { IconWarningComponent } from '@app/shared/components/icon/icon-warning.component';
 import { SymbolComponent } from '@app/symbol/symbol.component';
 import { MarkdownComponent } from 'ngx-markdown';
-import { ActionButtonRouteComponent } from '../../../analysis/components/action/action-button-route.component';
+import { ActionButtonRouteComponent } from '@app/analysis/components/action/action-button-route.component';
 import { RouteLocationComponent } from './route-location.component';
 
 @Component({

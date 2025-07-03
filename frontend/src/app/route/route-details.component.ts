@@ -23,7 +23,7 @@ import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
 import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouteEndNodesComponent } from '@app/route/internal/components/route-end-nodes.component';
-import { RouteStructureComponent } from '@app/route/internal/components/route-structure.component';
+import { RouteStructureComponent } from '@app/route/internal/components/structure/route-structure.component';
 import { RouteNetworkReferencesComponent } from '@app/route/internal/components/route-network-references.component';
 import { RouteParentsComponent } from '@app/route/internal/components/route-parents.component';
 import { RouteRedundantNodesComponent } from '@app/route/internal/components/route-redundant-nodes.component';

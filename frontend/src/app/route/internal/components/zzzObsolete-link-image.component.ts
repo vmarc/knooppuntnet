@@ -25,7 +25,7 @@ import { fromEvent } from 'rxjs';
     </div>
   `,
 })
-export class LinkImageComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class zzzObsoleteLinkImageComponent implements OnInit, OnDestroy, AfterViewChecked {
   readonly linkName = input.required<string>();
   private readonly imageRef = viewChild<ElementRef>('image');
   private readonly divRef = viewChild<ElementRef>('imageWrapper');

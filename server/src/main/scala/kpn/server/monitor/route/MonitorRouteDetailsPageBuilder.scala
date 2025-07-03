@@ -118,12 +118,10 @@ class MonitorRouteDetailsPageBuilder(
       monitorRoute.referenceTimestamp,
       monitorRoute.referenceFilename,
       monitorRoute.referenceDistance,
-
       deviationDistance,
       deviationCount,
       osmSegmentCount,
       happy,
-
       routeDoc.summary.wayCount,
       routeDoc.summary.meters,
       relationCount,
