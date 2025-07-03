@@ -6,6 +6,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteBoundsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteGapAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteIdsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteLabelsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteNetworkReferencesAnalyzer
@@ -30,6 +31,7 @@ class RouteMainAnalyzer(
         RouteIdsAnalyzer,
         boundsAnalyzer,
         structureRowsAnalyzer,
+        RouteGapAnalyzer,
         parentAnalyzer,
         networkReferencesAnalyzer,
         RouteLabelsAnalyzer, // this always should be the last analyzer

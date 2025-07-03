@@ -157,7 +157,7 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
           subRelationIndex = None,
           survey = None,
           symbol = None,
-          osmSegmentCount = None, //Some(subRouteData.segments.size),
+          segments = subRouteData.segments,
           totalDistance = totalDistance,
           gaps = None,
           happy = false,

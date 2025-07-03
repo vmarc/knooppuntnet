@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { StructureRow } from '@api/common/route/structure-row';
+import { RouteGapComponent } from '@app/route/internal/components/structure/route-gap.component';
 import { StructureCanvasWrapperComponent } from '@app/shared/components/structure/structure-canvas-wrapper.component';
 
 @Component({
@@ -20,10 +21,11 @@ import { StructureCanvasWrapperComponent } from '@app/shared/components/structur
       />
     } @else if (r.memberType === 'relation') {
       <!--      @if (r.relation) {-->
-      <ui-structure-canvas-wrapper [memberType]="r.memberType" [link]="null" />
-      <!--        @if (r.relation.gaps !== undefined) {-->
-      <!--          <ui-monitor-route-gap [description]="" [osmSegmentCount]="r.relation.osmSegmentCount" />-->
-      <!--        }-->
+      <!--      {{ r.relation.gaps }}-->
+      <!--      <ui-structure-canvas-wrapper [memberType]="r.memberType" [link]="null" />-->
+      @if (r.relation.gaps !== undefined) {
+        <ui-route-gap [description]="r.relation.gaps" [osmSegmentCount]="r.osmSegmentCount" />
+      }
     }
     <!--    }-->
   `,
@@ -33,7 +35,7 @@ import { StructureCanvasWrapperComponent } from '@app/shared/components/structur
       flex-direction: row;
     }
   `,
-  imports: [StructureCanvasWrapperComponent],
+  imports: [StructureCanvasWrapperComponent, RouteGapComponent],
 })
 export class RouteMemberImageComponent {
   readonly row = input.required<StructureRow>();

@@ -41,6 +41,7 @@ class MongoQuerySubRouteData(database: Database) {
           computed("name", "$summary.name"),
           include("members"),
           computed("distance", "$summary.meters"),
+          include("segments"),
         )
       )
     )

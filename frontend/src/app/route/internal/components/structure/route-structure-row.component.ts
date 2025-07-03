@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -119,19 +118,6 @@ import { RouteMemberImageComponent } from './route-member-image.component';
           <ui-route-structure-deviations [structureRow]="row" />
         }
 
-        <div>
-          <span i18n="@@monitor.group.route-table.segments" class="kpn-label"> Segments </span>
-          <span [ngClass]="{ 'no-route-gap': row.gaps === undefined }">
-            @if (row.gaps !== undefined) {
-              GAP
-              <!--              <ui-monitor-route-gap-->
-              <!--                [description]="row.gaps"-->
-              <!--                [osmSegmentCount]="row.osmSegmentCount"-->
-              <!--              />-->
-            }
-          </span>
-        </div>
-
         <!--      {{ 'surface=' + row.way?.surface }}-->
         <!--      {{ 'pathIds=' + row.pathIds }}-->
         <!--      {{ 'segmentIds=' + row.segmentIds }}-->
@@ -177,15 +163,14 @@ import { RouteMemberImageComponent } from './route-member-image.component';
     LinkNodeComponent,
     MatLabel,
     MatTooltip,
-    NgClass,
     RouteDistanceComponent,
     RouteMemberIdComponent,
     RouteMemberImageComponent,
+    RouteMemberNameComponent,
+    RouteStructureDeviationsComponent,
     RouteStructureReferenceComponent,
     SymbolComponent,
     TagsTextComponent,
-    RouteStructureDeviationsComponent,
-    RouteMemberNameComponent,
   ],
 })
 export class RouteStructureRowComponent {

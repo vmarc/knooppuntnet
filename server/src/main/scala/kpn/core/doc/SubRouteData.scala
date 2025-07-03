@@ -7,6 +7,6 @@ case class SubRouteData(
   _id: Long, // routeId
   name: String,
   members: Seq[RouteMemberInfo],
-  distance: Long
-) extends WithId {
-}
+  distance: Long,
+  segments: Seq[BaseRouteSegment],
+) extends WithId

@@ -11,7 +11,7 @@ import { ListComponent } from '@app/shared/components/list/list.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-list>
-      @for (structureRow of structureRows(); track structureRow.rowIndex) {
+      @for (structureRow of structureRows(); track structureRow.rowNumber) {
         <ui-list-item>
           <ui-monitor-route-structure-row
             [admin]="admin()"

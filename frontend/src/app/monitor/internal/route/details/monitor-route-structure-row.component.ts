@@ -22,7 +22,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
-    {{ structureRow().rowIndex + 1 }}
+    {{ structureRow().rowNumber }}
 
     <div>
       <span i18n="@@monitor.route.relation-table.name" class="kpn-label">Name</span>

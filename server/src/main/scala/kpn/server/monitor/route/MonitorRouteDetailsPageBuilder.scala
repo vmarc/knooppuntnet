@@ -199,10 +199,10 @@ class MonitorRouteDetailsPageBuilder(
       referenceDistance = reference.map(_.referenceDistance).getOrElse(0),
       deviationDistance = state.map(_.deviations.map(_.distance).sum),
       deviationCount = state.map(_.deviations.length),
-      osmSegmentCount = Some(-1),
+      osmSegmentCount = row.relation.map(_.segments.length),
       osmDistance = -1,
       osmDistanceSubRelations = -1,
-      gaps = None, // TODO redesign cleanup - gaps = monitorRouteRelation.gaps,
+      gaps = row.relation.flatMap(_.gaps),
       showMap = showMap,
       happy = false // TODO redesign - monitorRouteRelation.happy
     )

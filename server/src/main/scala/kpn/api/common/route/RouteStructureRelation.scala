@@ -1,6 +1,7 @@
 package kpn.api.common.route
 
 import kpn.api.custom.Day
+import kpn.core.doc.BaseRouteSegment
 
 case class RouteStructureRelation(
   level: Long,
@@ -9,7 +10,7 @@ case class RouteStructureRelation(
   subRelationIndex: Option[Long],
   survey: Option[Day],
   symbol: Option[String],
-  osmSegmentCount: Option[Long],
+  segments: Seq[BaseRouteSegment],
   totalDistance: Long,
   gaps: Option[String],
   happy: Boolean
