@@ -14,7 +14,6 @@ import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteGpxPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
-import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -92,23 +91,6 @@ class MonitorController(facade: MonitorFacade) {
     @PathVariable routeName: String
   ): Unit = {
     facade.routeDelete(groupName, routeName)
-  }
-
-  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map"))
-  def routeMap(
-    @PathVariable groupName: String,
-    @PathVariable routeName: String,
-  ): ApiResponse[MonitorRouteMapPage] = {
-    facade.routeMap(groupName, routeName, None)
-  }
-
-  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map/{subRelationIndex}"))
-  def routeRelationMap(
-    @PathVariable groupName: String,
-    @PathVariable routeName: String,
-    @PathVariable subRelationIndex: Long,
-  ): ApiResponse[MonitorRouteMapPage] = {
-    facade.routeMap(groupName, routeName, Some(subRelationIndex.toInt))
   }
 
   @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/gpx/{subRelationId}"))

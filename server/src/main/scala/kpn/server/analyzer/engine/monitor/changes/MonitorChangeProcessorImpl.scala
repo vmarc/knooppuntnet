@@ -196,6 +196,7 @@ class MonitorChangeProcessorImpl(
         null, // TODO routeId,
         1L, // TODO relationId
         afterRouteAnalysis.relation.timestamp,
+        afterRouteAnalysis.matchesDistance,
         afterRouteAnalysis.matchesGeometry,
         afterRouteAnalysis.deviations,
       )
@@ -217,6 +218,7 @@ class MonitorChangeProcessorImpl(
       Bounds(),
       osmRouteSegments.map(_.segment),
       None,
+      0L,
       None,
       Seq.empty,
       Seq.empty

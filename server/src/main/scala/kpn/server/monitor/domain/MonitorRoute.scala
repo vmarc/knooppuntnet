@@ -73,6 +73,8 @@ case class MonitorRoute(
    */
   osmSegmentCount: Long,
 
+  osmDistance: Long,
+
   /*
     The structure of the route. Value "None" if the relationId has not been defined yet.
     A single MonitorRouteRelation object when reference type is "osm" or "gpx".

@@ -15,6 +15,7 @@ case class MonitorRouteAnalysis(
   bounds: Bounds,
   osmSegments: Seq[MonitorRouteSegment],
   gpxGeometry: Option[String],
+  matchesDistance: Long,
   matchesGeometry: Option[String],
   deviations: Seq[MonitorRouteDeviation],
   relations: Seq[MonitorRouteAnalysisRelation]

@@ -8,12 +8,16 @@ import kpn.core.common.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
 import kpn.core.util.Haversine
 import kpn.core.util.Log
+import kpn.core.util.Util
 import kpn.core.util.ValidationException
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
+import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteReferenceSummary
+import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorRouteRepository
+import kpn.server.repository.RouteRepository
+import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonReader
@@ -23,23 +27,17 @@ import org.xml.sax.SAXParseException
 import scala.xml.XML
 
 @Component
-class MonitorGpxUpload(
+class MonitorMultiGpxUpload(
+  routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
-  monitorRouteRelationRepository: MonitorRouteRelationRepository,
-  monitorUpdateAnalyzeReference: MonitorUpdateAnalyzeReference,
   monitorUpdateCommon: MonitorUpdateCommon,
-  monitorUpdateSave: MonitorUpdateSave,
-  monitorMultiGpxUpload: MonitorMultiGpxUpload
+  monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer
 ) {
 
-  private val log = Log(classOf[MonitorGpxUpload])
+  private val log = Log(classOf[MonitorMultiGpxUpload])
+  private val geometryFactory = new GeometryFactory
 
   def execute(context: MonitorContext): Unit = {
-
-    if (context.value.isReferenceTypeMultiGpx) {
-      monitorMultiGpxUpload.execute(context)
-      return
-    }
 
     context.report(
       MonitorRouteUpdateStatusMessage(
@@ -53,15 +51,6 @@ class MonitorGpxUpload(
 
     monitorUpdateCommon.findGroup(context)
     monitorUpdateCommon.findRoute(context)
-
-    val oldReferenceIds = monitorRouteRepository.routeReferenceIds(context.value.routeId)
-    val oldStateIds = monitorRouteRepository.routeStateIds(context.value.routeId)
-    context.set(
-      context.value.copy(
-        oldReferenceIds = oldReferenceIds,
-        oldStateIds = oldStateIds
-      )
-    )
 
     val now = Time.now
     val referenceTimestamp = context.value.update.referenceTimestamp.getOrElse(throw new RuntimeException("reference timestamp missing in update"))
@@ -114,47 +103,63 @@ class MonitorGpxUpload(
     context.upsertRouteReference(reference)
     monitorRouteRepository.saveRouteReference(reference)
 
-    context.set(
-      context.value.copy(
-        newReferenceSummaries = context.value.newReferenceSummaries :+ MonitorRouteReferenceSummary.from(reference),
+    val routeCoordinateArrays = routeRepository.coordinatesArrays(Seq(relationId))
+    val routeLines = routeCoordinateArrays.map { coordinateArray =>
+      val flipped = coordinateArray.map(c => new Coordinate(c.y, c.x))
+      geometryFactory.createLineString(flipped)
+    }
+
+    val referenceLines = {
+      val referenceGeometry = new GeoJsonReader().read(reference.referenceGeoJson)
+      MonitorRouteReferenceUtil.toLineStrings(referenceGeometry)
+    }
+
+    val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
+
+    val stateId = monitorRouteRepository.routeState(context.value.routeId, relationId) match {
+      case Some(routeState) => routeState._id
+      case None => ObjectId()
+    }
+
+    monitorRouteRepository.saveRouteState(
+      MonitorRouteState(
+        stateId,
+        context.value.routeId,
+        relationId,
+        now,
+        deviationAnalysis.matchesDistance,
+        deviationAnalysis.matchesGeometry,
+        deviationAnalysis.deviations,
       )
     )
 
-    if (context.value.isReferenceTypeMultiGpx) { // TODO referenceType will always be "multi-gpx" ?
-      context.set(
-        context.value.copy(
-          newRoute = context.value.oldRoute
-        )
-      )
-    }
-    else {
-      context.set(
-        context.value.copy(
-          newRoute = Some(
-            context.value.oldRoute.get.copy(
-              referenceDistance = reference.referenceDistance
-            )
-          )
-        )
-      )
+    val references = monitorRouteRepository.routeReferences(context.value.routeId)
+    val referenceDistance = references.map(_.referenceDistance).sum
+    val states = monitorRouteRepository.routeStates(context.value.routeId)
+    val deviationCount = states.map(_.deviations.length).sum
+    val deviationDistance = states.map(_.deviations.length).sum
+    val matchesDistance = states.map(_.matchesDistance).sum
+
+    val (superSegmentCount: Long, osmDistance: Long) = context.value.relationId.flatMap(routeRepository.findRouteById) match {
+      case Some(routeDoc) =>
+        val sc = routeDoc.superSegments.length.toLong
+        val di = routeDoc.superSegments.map(_.segments.map(_.relationSegment.meters).sum).sum
+        (sc, di)
+      case None => (0L, 0L)
     }
 
-    monitorRouteRelationRepository.loadTopLevel(None, relationId) match {
-      case None =>
-      case Some(relation) =>
-        monitorUpdateAnalyzeReference.analyzeReference(context, reference, Some(relation)) match {
-          case None =>
-          case Some(state) =>
-            monitorRouteRepository.saveRouteState(state)
-            context.set(
-              context.value.copy(
-                stateChanged = true
-              )
-            )
-            context.stepActive("save")
-            monitorUpdateSave.save(context)
-            context.stepDone("save")
-        }
-    }
+    val happy = Util.isWithinTolerance(matchesDistance.toDouble, osmDistance.toDouble) && deviationCount == 0 && superSegmentCount == 1
+
+    val updatedRoute = context.value.route.copy(
+      analysisTimestamp = Some(now),
+      referenceDistance = referenceDistance,
+      deviationCount = deviationCount,
+      deviationDistance = deviationDistance,
+      osmSegmentCount = superSegmentCount,
+      happy = happy
+    )
+    context.stepActive("save")
+    monitorRouteRepository.saveRoute(updatedRoute)
+    context.stepDone("save")
   }
 }

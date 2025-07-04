@@ -89,7 +89,7 @@ class MonitorRouteRepositoryTest extends MongoTest {
     val group = newMonitorGroup("group")
     val route = newMonitorRoute(group._id, "route", "description")
     val reference = newMonitorRouteReference(route._id, Some(1))
-    val state = newMonitorRouteState(route._id, 1)
+    val state = newMonitorRouteState(routeId = route._id, relationId = 1)
 
     database.monitorGroups.save(group)
     database.monitorRoutes.save(route)
@@ -237,7 +237,7 @@ class MonitorRouteRepositoryTest extends MongoTest {
     )
 
     val state1 = newMonitorRouteState(
-      route._id,
+      routeId = route._id,
       relationId = 11,
       deviations = Seq(
         MonitorRouteDeviation(
@@ -257,7 +257,7 @@ class MonitorRouteRepositoryTest extends MongoTest {
       )
     )
     val state2 = newMonitorRouteState(
-      route._id,
+      routeId = route._id,
       relationId = 12,
       deviations = Seq(
         MonitorRouteDeviation(

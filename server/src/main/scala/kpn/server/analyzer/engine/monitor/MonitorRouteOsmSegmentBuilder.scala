@@ -1,15 +1,15 @@
 package kpn.server.analyzer.engine.monitor
 
-import kpn.api.common.monitor.MonitorRouteSegmentInfo
-import kpn.server.analyzer.engine.monitor.domain.SuperSegment
-import kpn.server.analyzer.engine.monitor.domain.SuperSegmentElement
+import kpn.core.doc.SuperSegment
+import kpn.core.doc.SuperSegmentElement
+import kpn.core.doc.SuperSegmentElementInfo
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
 
 import scala.annotation.tailrec
 
 object MonitorRouteOsmSegmentBuilder {
-  def build(segments: Seq[MonitorRouteSegmentInfo]): Seq[MonitorRouteOsmSegment] = {
+  def build(segments: Seq[SuperSegmentElementInfo]): Seq[MonitorRouteOsmSegment] = {
     val segmentMap = segments.map(s => s.id -> s).toMap
     val segmentIds = segments.map(_.id)
     val superSegments = new MonitorRouteOsmSegmentBuilder(segmentMap).build(segmentIds)
@@ -29,7 +29,7 @@ object MonitorRouteOsmSegmentBuilder {
   }
 }
 
-class MonitorRouteOsmSegmentBuilder(segmentMap: Map[Long, MonitorRouteSegmentInfo]) {
+class MonitorRouteOsmSegmentBuilder(segmentMap: Map[Long, SuperSegmentElementInfo]) {
 
   private val traceEnabled = false
   private val trace = new StringBuilder()
@@ -236,5 +236,4 @@ ${
   private def indent(level: Int): String = {
     0.to(level).map(_ => "  ").mkString
   }
-
 }

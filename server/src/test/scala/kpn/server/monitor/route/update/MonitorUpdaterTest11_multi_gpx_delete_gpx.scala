@@ -181,16 +181,16 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
 
   private def setupState11(route: MonitorRoute): MonitorRouteState = {
     newMonitorRouteState(
-      route._id,
-      11,
+      routeId = route._id,
+      relationId = 11,
       timestamp = Timestamp(2022, 8, 11),
     )
   }
 
   private def setupState111(route: MonitorRoute): MonitorRouteState = {
     newMonitorRouteState(
-      route._id,
-      111,
+      routeId = route._id,
+      relationId = 111,
       timestamp = Timestamp(2022, 8, 11),
       matchesGeometry = Some("matches"),
       deviations = Seq(
@@ -207,8 +207,8 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
 
   private def setupState112(route: MonitorRoute): MonitorRouteState = {
     newMonitorRouteState(
-      route._id,
-      112,
+      routeId = route._id,
+      relationId = 112,
       timestamp = Timestamp(2022, 8, 11),
     )
   }

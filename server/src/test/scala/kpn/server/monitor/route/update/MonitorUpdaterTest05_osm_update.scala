@@ -69,13 +69,8 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 0,
-        relation = Some(
-          newMonitorRouteRelation(
-            relationId = 1,
-            name = "route",
-            happy = true,
-          )
-        ),
+        osmDistance = 181,
+        relation = None,
         happy = false
       )
     )
@@ -157,8 +152,8 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
       referenceTimestamp = Timestamp(2022, 8, 11),
     )
     val state = newMonitorRouteState(
-      route._id,
-      1,
+      routeId = route._id,
+      relationId = 1,
       timestamp = Timestamp(2022, 8, 11),
     )
 

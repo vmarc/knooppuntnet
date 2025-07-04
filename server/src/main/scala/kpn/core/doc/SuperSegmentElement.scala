@@ -1,8 +1,6 @@
-package kpn.server.analyzer.engine.monitor.domain
+package kpn.core.doc
 
-import kpn.api.common.monitor.MonitorRouteSegmentInfo
-
-case class SuperSegmentElement(relationSegment: MonitorRouteSegmentInfo, reversed: Boolean = false) {
+case class SuperSegmentElement(relationSegment: SuperSegmentElementInfo, reversed: Boolean = false) {
 
   def summary: String = s"${relationSegment.id} start=${relationSegment.startNodeId}, end=${relationSegment.endNodeId}, reversed=$reversed"
 

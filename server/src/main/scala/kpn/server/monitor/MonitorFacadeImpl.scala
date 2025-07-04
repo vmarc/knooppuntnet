@@ -14,7 +14,6 @@ import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteGpxPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
-import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
@@ -32,7 +31,6 @@ import kpn.server.monitor.route.MonitorRouteChangesPageBuilder
 import kpn.server.monitor.route.MonitorRouteDetailsPageBuilder
 import kpn.server.monitor.route.MonitorRouteGpxPageBuilder
 import kpn.server.monitor.route.MonitorRouteInfoBuilder
-import kpn.server.monitor.route.MonitorRouteMapPageBuilder
 import kpn.server.monitor.route.MonitorRouteUpdatePageBuilder
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.stereotype.Component
@@ -45,7 +43,6 @@ class MonitorFacadeImpl(
   monitorGroupPageBuilder: MonitorGroupPageBuilder,
   monitorRouteUpdatePageBuilder: MonitorRouteUpdatePageBuilder,
   monitorRouteDetailsPageBuilder: MonitorRouteDetailsPageBuilder,
-  monitorRouteMapPageBuilder: MonitorRouteMapPageBuilder,
   monitorRouteGpxPageBuilder: MonitorRouteGpxPageBuilder,
   monitorRouteChangesPageBuilder: MonitorRouteChangesPageBuilder,
   monitorRouteChangePageBuilder: MonitorRouteChangePageBuilder,
@@ -110,16 +107,6 @@ class MonitorFacadeImpl(
     val args = s"groupName=$groupName, routeName=$routeName"
     api.execute("monitor-route", args) {
       reply(monitorRouteDetailsPageBuilder.build(language, groupName, routeName))
-    }
-  }
-
-  override def routeMap(groupName: String, routeName: String, subRelationIndex: Option[Int]): ApiResponse[MonitorRouteMapPage] = {
-    val args = subRelationIndex match {
-      case Some(index) => s"$groupName:$routeName:$index"
-      case None => s"$groupName:$routeName"
-    }
-    api.execute("monitor-route-map", args) {
-      reply(monitorRouteMapPageBuilder.build(groupName, routeName, subRelationIndex))
     }
   }
 

@@ -10,7 +10,6 @@ import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
-import org.locationtech.jts.geom.MultiLineString
 import org.locationtech.jts.io.geojson.GeoJsonWriter
 
 import scala.annotation.tailrec
@@ -57,11 +56,6 @@ object MonitorRouteAnalysisSupport {
         val segment = list.takeWhile(_._1 == head._1)
         segment +: split(list.drop(segment.length))
     }
-  }
-
-  def toMultiLineString(sampleCoordinates: Seq[Coordinate], sequences: Seq[ReferenceCoordinateSequence]): MultiLineString = {
-    val lineStrings = sequences.map(sequence => toLineString(sampleCoordinates, sequence))
-    geometryFactory.createMultiLineString(lineStrings.toArray)
   }
 
   def toLineString(osmCoordinates: Seq[Coordinate], sequence: ReferenceCoordinateSequence): LineString = {

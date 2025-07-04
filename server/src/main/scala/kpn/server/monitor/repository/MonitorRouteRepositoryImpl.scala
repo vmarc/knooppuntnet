@@ -4,7 +4,7 @@ import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
-import kpn.api.common.monitor.MonitorRouteSegmentInfo
+import kpn.core.doc.SuperSegmentElementInfo
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.NameRow
@@ -195,7 +195,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorRouteStates.aggregate[MonitorRouteCount](pipeline, log).map(_.count).sum
   }
 
-  override def routeStateSegments(routeId: ObjectId): Seq[MonitorRouteSegmentInfo] = {
+  override def routeStateSegments(routeId: ObjectId): Seq[SuperSegmentElementInfo] = {
     val pipeline = Seq(
       filter(
         equal("routeId", routeId.raw),
@@ -221,7 +221,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       ),
     )
 
-    val segments = database.monitorRouteStates.aggregate[MonitorRouteSegmentInfo](pipeline, log)
+    val segments = database.monitorRouteStates.aggregate[SuperSegmentElementInfo](pipeline, log)
     segments.zipWithIndex.map { case (segment, index) =>
       segment.copy(id = index + 1)
     }

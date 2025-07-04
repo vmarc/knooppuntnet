@@ -82,13 +82,8 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 1,
-        relation = Some(
-          newMonitorRouteRelation(
-            relationId = NewRelationId,
-            name = "route-name",
-            happy = true,
-          )
-        ),
+        osmDistance = 181,
+        relation = None,
         happy = true
       )
     )
@@ -125,7 +120,8 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
         relationId = NewRelationId,
         timestamp = UpdateTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
+        matchesDistance = 181,
+        matchesGeometry = Some(routeGeometry),
         deviations = Seq.empty,
       )
     )
@@ -218,8 +214,8 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
 
   private def setupState(route: MonitorRoute): MonitorRouteState = {
     newMonitorRouteState(
-      route._id,
-      OriginalRelationId,
+      routeId = route._id,
+      relationId = OriginalRelationId,
       timestamp = Timestamp(2022, 8, 11),
     )
   }

@@ -2,9 +2,9 @@ package kpn.server.monitor.route
 
 import kpn.api.common.monitor.MonitorRouteGpxPage
 import kpn.core.common.Time
+import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
-import kpn.server.monitor.MonitorUtil
 import org.springframework.stereotype.Component
 
 @Component

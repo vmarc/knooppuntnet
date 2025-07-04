@@ -106,6 +106,7 @@ import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
+import kpn.core.doc.SuperSegment
 import kpn.database.actions.statistics.ChangeSetCount2
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
@@ -915,6 +916,7 @@ trait SharedTestObjects extends MockFactory {
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
     segments: Seq[RouteSegment] = Seq.empty,
+    superSegments: Seq[SuperSegment] = Seq.empty,
     paths: Seq[RoutePath] = Seq.empty,
     routeIds: Seq[Long] = Seq.empty,
     bounds: Option[Bounds] = None,
@@ -942,6 +944,7 @@ trait SharedTestObjects extends MockFactory {
       analysis,
       locationAnalysis,
       segments,
+      superSegments,
       paths,
       routeIds,
       bounds,
@@ -1108,6 +1111,7 @@ trait SharedTestObjects extends MockFactory {
       deviationDistance,
       deviationCount,
       osmSegmentCount,
+      osmDistance,
       relation,
       happy
     )
@@ -1201,17 +1205,20 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newMonitorRouteState(
+    _id: ObjectId = ObjectId(),
     routeId: ObjectId,
     relationId: Long,
     timestamp: Timestamp = Timestamps.default,
+    matchesDistance: Long = 0,
     matchesGeometry: Option[String] = None,
     deviations: Seq[MonitorRouteDeviation] = Seq.empty,
   ): MonitorRouteState = {
     MonitorRouteState(
-      ObjectId(),
+      _id,
       routeId,
       relationId,
       timestamp,
+      matchesDistance,
       matchesGeometry,
       deviations,
     )

@@ -38,6 +38,7 @@ case class RouteDoc(
   analysis: RouteInfoAnalysis,
   locationAnalysis: RouteLocationAnalysis,
   segments: Seq[RouteSegment],
+  superSegments: Seq[SuperSegment],
   paths: Seq[RoutePath],
   routeIds: Seq[Long],
   bounds: Option[Bounds],

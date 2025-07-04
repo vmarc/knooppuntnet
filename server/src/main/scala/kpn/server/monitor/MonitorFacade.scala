@@ -14,7 +14,6 @@ import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteGpxPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
-import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 
@@ -37,8 +36,6 @@ trait MonitorFacade {
   def groupChanges(groupName: String, parameters: MonitorChangesParameters): ApiResponse[MonitorGroupChangesPage]
 
   def route(language: Language, groupName: String, routeName: String): ApiResponse[MonitorRouteDetailsPage]
-
-  def routeMap(groupName: String, routeName: String, subRelationIndex: Option[Int]): ApiResponse[MonitorRouteMapPage]
 
   def routeGpx(groupName: String, routeName: String, subRelationId: Long): ApiResponse[MonitorRouteGpxPage]
 

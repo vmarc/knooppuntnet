@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.Bounds
-import kpn.api.common.monitor.MonitorRouteSegmentInfo
+import kpn.core.doc.SuperSegmentElementInfo
 import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
@@ -16,7 +16,7 @@ class MonitorRouteOsmSegmentBuilderTest extends UnitTest with SharedTestObjects 
   test("single segment") {
 
     val segments = Seq(
-      MonitorRouteSegmentInfo(1, 11, 1, 1001, 1002, 100, Bounds(1, 1, 1, 1)),
+      SuperSegmentElementInfo(1, 11, 1, 1001, 1002, 100, Bounds(1, 1, 1, 1)),
     )
 
     assertEqual(
@@ -34,8 +34,8 @@ class MonitorRouteOsmSegmentBuilderTest extends UnitTest with SharedTestObjects 
   test("two directly adjecent segments") {
 
     val segments = Seq(
-      MonitorRouteSegmentInfo(1, 11, 1, 1001, 1002, 100, Bounds(1, 1, 1, 1)),
-      MonitorRouteSegmentInfo(2, 12, 1, 1002, 1003, 200, Bounds(2, 2, 2, 2)),
+      SuperSegmentElementInfo(1, 11, 1, 1001, 1002, 100, Bounds(1, 1, 1, 1)),
+      SuperSegmentElementInfo(2, 12, 1, 1002, 1003, 200, Bounds(2, 2, 2, 2)),
     )
 
     assertEqual(
@@ -54,9 +54,9 @@ class MonitorRouteOsmSegmentBuilderTest extends UnitTest with SharedTestObjects 
   test("three directly adjecent segments, but not in sorted order") {
 
     val segments = Seq(
-      MonitorRouteSegmentInfo(1, 11, 1, 1001, 1002, 100, Bounds(1, 1, 1, 1)),
-      MonitorRouteSegmentInfo(2, 12, 1, 1003, 1004, 200, Bounds(2, 2, 2, 2)),
-      MonitorRouteSegmentInfo(3, 13, 1, 1002, 1003, 300, Bounds(3, 3, 3, 3)),
+      SuperSegmentElementInfo(1, 11, 1, 1001, 1002, 100, Bounds(1, 1, 1, 1)),
+      SuperSegmentElementInfo(2, 12, 1, 1003, 1004, 200, Bounds(2, 2, 2, 2)),
+      SuperSegmentElementInfo(3, 13, 1, 1002, 1003, 300, Bounds(3, 3, 3, 3)),
     )
 
     assertEqual(
@@ -76,10 +76,10 @@ class MonitorRouteOsmSegmentBuilderTest extends UnitTest with SharedTestObjects 
   test("two super segments, one with a reversed segment in the middle") {
 
     val segments = Seq(
-      MonitorRouteSegmentInfo(1, 11, 1, 1001, 1002, 100, Bounds(1, 1, 1, 1)),
-      MonitorRouteSegmentInfo(2, 11, 2, 1003, 1004, 200, Bounds(2, 2, 2, 2)),
-      MonitorRouteSegmentInfo(3, 12, 1, 1005, 1002, 300, Bounds(3, 3, 3, 3)),
-      MonitorRouteSegmentInfo(4, 12, 2, 1005, 1006, 400, Bounds(4, 4, 4, 4)),
+      SuperSegmentElementInfo(1, 11, 1, 1001, 1002, 100, Bounds(1, 1, 1, 1)),
+      SuperSegmentElementInfo(2, 11, 2, 1003, 1004, 200, Bounds(2, 2, 2, 2)),
+      SuperSegmentElementInfo(3, 12, 1, 1005, 1002, 300, Bounds(3, 3, 3, 3)),
+      SuperSegmentElementInfo(4, 12, 2, 1005, 1006, 400, Bounds(4, 4, 4, 4)),
     )
 
     assertEqual(

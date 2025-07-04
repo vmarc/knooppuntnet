@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.monitor.domain
+package kpn.core.doc
 
 case class SuperSegment(
   segments: Seq[SuperSegmentElement]

@@ -127,8 +127,8 @@ class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
 
   private def setupState(route: MonitorRoute): MonitorRouteState = {
     newMonitorRouteState(
-      route._id,
-      1,
+      routeId = route._id,
+      relationId = 1,
       timestamp = Timestamp(2022, 8, 11),
     )
   }

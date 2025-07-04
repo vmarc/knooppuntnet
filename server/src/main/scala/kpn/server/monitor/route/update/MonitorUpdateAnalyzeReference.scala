@@ -59,6 +59,7 @@ class MonitorUpdateAnalyzeReference(
         context.value.routeId,
         relationId,
         Time.now,
+        deviationAnalysis.matchesDistance,
         deviationAnalysis.matchesGeometry,
         deviationAnalysis.deviations,
       )

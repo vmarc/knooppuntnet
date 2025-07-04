@@ -19,9 +19,6 @@ import kpn.server.monitor.domain.MonitorRouteState
 
 class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
 
-  private val GpxUpload1Timestamp = Timestamp(2022, 8, 12, 12, 0, 0)
-  private val GpxUpload2Timestamp = Timestamp(2022, 8, 13, 12, 0, 0)
-
   test("add route with gpx references per sub-relation") {
 
     val (group, routeAddReporter) = setup()
@@ -228,23 +225,9 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         referenceFilename = None,
         deviationDistance = 0,
         deviationCount = 0,
-        osmSegmentCount = 0,
-        relation = Some(
-          newMonitorRouteRelation(
-            relationId = 1,
-            name = "main-relation",
-            relations = Seq(
-              newMonitorRouteRelation(
-                relationId = 11,
-                name = "sub-relation-1",
-              ),
-              newMonitorRouteRelation(
-                relationId = 12,
-                name = "sub-relation-2",
-              )
-            )
-          )
-        ),
+        osmSegmentCount = 1,
+        osmDistance = 181,
+        relation = None,
         happy = false,
       )
     )
@@ -261,6 +244,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         relationId = 11,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+        matchesDistance = 181,
         matchesGeometry = None,
         deviations = Seq.empty,
       )
@@ -278,6 +262,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         relationId = 12,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
+        matchesDistance = 181,
         matchesGeometry = None,
         deviations = Seq.empty,
       )
@@ -327,7 +312,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-1"),
-        referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+        referenceGeoJson = sameRouteGeometryWithLineString
       )
     )
     reference
@@ -339,7 +324,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
       state,
       state11.copy(
         timestamp = GpxUpload1Timestamp,
-        matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
+        matchesGeometry = Some(routeGeometry),
       )
     )
   }

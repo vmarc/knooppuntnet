@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.monitor
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.core.util.Haversine
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toLineString
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteDeviationAnalysis
 import org.locationtech.jts.geom.Coordinate
@@ -35,12 +36,14 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
     val analysisResults = analyzeDeviations(tree, referenceLines)
     val allMatches = geometryFactory.createGeometryCollection(analysisResults.map(_.matches).toArray)
     val referenceDistance = Math.round(referenceLines.map(Haversine.meters).sum)
+    val matchesDistance = analysisResults.map(_.matchesDistance).sum
     val matchesGeometry = Some(MonitorRouteAnalysisSupport.toGeoJson(allMatches))
     val deviations = organizeDeviations(analysisResults)
 
     MonitorRouteDeviationAnalysis(
       analysisResults,
       referenceDistance,
+      matchesDistance,
       matchesGeometry,
       deviations
     )
@@ -73,12 +76,11 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
     val referenceSampleCoordinates = MonitorRouteAnalysisSupport.toSampleCoordinates(SampleDistanceMeters, referenceLine)
     val distances = analyzeDistances(tree, referenceSampleCoordinates)
     val (matchingSequences, deviationSequences) = calculateDeviations(distances, referenceSampleCoordinates)
-    val matches = MonitorRouteAnalysisSupport.toMultiLineString(
-      referenceSampleCoordinates,
-      matchingSequences
-    )
+    val lineStrings = matchingSequences.map(sequence => toLineString(referenceSampleCoordinates, sequence))
+    val matches = geometryFactory.createMultiLineString(lineStrings.toArray)
+    val matchesDistance = Math.round(lineStrings.map(lineString => Haversine.meters(lineString)).sum)
     val deviations = buildDeviations(deviationSequences, distances, referenceSampleCoordinates)
-    DeviationAnalysisResult(deviations, matches)
+    DeviationAnalysisResult(deviations, matchesDistance, matches)
   }
 
   private def buildDeviations(

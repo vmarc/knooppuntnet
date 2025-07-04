@@ -1,8 +1,8 @@
-package kpn.api.common.monitor
+package kpn.core.doc
 
 import kpn.api.common.Bounds
 
-case class MonitorRouteSegmentInfo(
+case class SuperSegmentElementInfo(
   id: Long,
   relationId: Long,
   osmSegmentId: Long,

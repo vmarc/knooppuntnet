@@ -71,6 +71,7 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 0,
+        osmDistance = 0,
         relation = None,
         happy = false
       )
@@ -155,8 +156,8 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
 
   private def setupState(route: MonitorRoute): MonitorRouteState = {
     newMonitorRouteState(
-      route._id,
-      1,
+      routeId = route._id,
+      relationId = 1,
       timestamp = Timestamp(2022, 8, 11),
     )
   }

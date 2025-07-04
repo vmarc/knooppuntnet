@@ -85,6 +85,11 @@ object Util {
     }
   }
 
+  def isWithinTolerance(value1: Double, value2: Double, tolerance: Double = 0.98): Boolean = {
+    val ratio = Math.min(value1, value2) / Math.max(value1, value2)
+    ratio >= tolerance
+  }
+
   def split[T](separator: T, list: Seq[T]): Seq[Seq[T]] = {
     split(separator, list, Seq.empty)
   }

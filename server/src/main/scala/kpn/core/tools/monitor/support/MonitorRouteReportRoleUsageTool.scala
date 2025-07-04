@@ -5,13 +5,12 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelationTopLevel
 import kpn.database.util.Mongo
+import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
-import kpn.server.monitor.MonitorUtil.subRelationsIn
-import kpn.server.monitor.domain.MonitorGroup
 
 import scala.xml.XML
 
@@ -41,9 +40,6 @@ class MonitorRouteReportRoleUsageTool(
           case None =>
           case Some(relationId) =>
             reportRoles(group, route, relationId)
-            subRelationsIn(route).foreach { monitorRouteSubRelation =>
-              reportRoles(group, route, monitorRouteSubRelation.relationId)
-            }
         }
       }
     }

@@ -79,13 +79,8 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 1,
-        relation = Some(
-          newMonitorRouteRelation(
-            relationId = 1,
-            name = "route-name",
-            happy = true,
-          )
-        ),
+        osmDistance = 181,
+        relation = None,
         happy = true
       )
     )
@@ -108,7 +103,7 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),
-        referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+        referenceGeoJson = sameRouteGeometryWithLineString
       )
     )
   }
@@ -123,7 +118,8 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         relationId = 1,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
+        matchesDistance = 181,
+        matchesGeometry = Some(routeGeometry),
         deviations = Seq.empty,
       )
     )

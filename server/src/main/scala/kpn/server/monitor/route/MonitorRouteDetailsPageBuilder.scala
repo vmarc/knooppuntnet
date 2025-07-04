@@ -6,7 +6,6 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteDetailsPage
-import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.route.RouteDetails
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.StructureRow
@@ -55,10 +54,9 @@ class MonitorRouteDetailsPageBuilder(
     states: Seq[MonitorRouteState]
   ): MonitorRouteDetailsPage = {
 
-    val structureRows = migrateRows(
+    val structureRows = convertRows(
       monitorRoute,
       routeDoc,
-      monitorRoute.relation,
       references,
       states
     )
@@ -130,10 +128,9 @@ class MonitorRouteDetailsPageBuilder(
     )
   }
 
-  private def migrateRows(
+  private def convertRows(
     route: MonitorRoute,
     routeDoc: RouteDoc,
-    relation: Option[MonitorRouteRelation],
     references: Seq[MonitorRouteReference],
     states: Seq[MonitorRouteState]
   ): Seq[StructureRow] = {

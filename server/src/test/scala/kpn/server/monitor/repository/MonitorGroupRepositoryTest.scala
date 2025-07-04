@@ -72,8 +72,8 @@ class MonitorGroupRepositoryTest extends MongoTest {
     val route2 = newMonitorRoute(group._id, "route2")
     val reference1 = newMonitorRouteReference(route1._id, Some(1))
     val reference2 = newMonitorRouteReference(route2._id, Some(2))
-    val state1 = newMonitorRouteState(route1._id, 1)
-    val state2 = newMonitorRouteState(route2._id, 2)
+    val state1 = newMonitorRouteState(routeId = route1._id, relationId = 1)
+    val state2 = newMonitorRouteState(routeId = route2._id, relationId = 2)
 
     database.monitorGroups.save(group)
     database.monitorRoutes.save(route1)

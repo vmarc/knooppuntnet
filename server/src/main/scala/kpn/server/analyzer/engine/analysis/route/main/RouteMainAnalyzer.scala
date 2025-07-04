@@ -68,6 +68,7 @@ class RouteMainAnalyzer(
           context.route.analysis,
           context.route.locationAnalysis,
           context.segments,
+          Seq.empty, // TODO redesign - implement superSegment analysis
           context.paths,
           context.routeIds,
           context.bounds,

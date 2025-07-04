@@ -7,5 +7,6 @@ import scala.collection.Seq
 
 case class DeviationAnalysisResult(
   deviations: Seq[MonitorRouteDeviation],
+  matchesDistance: Long,
   matches: MultiLineString
 )

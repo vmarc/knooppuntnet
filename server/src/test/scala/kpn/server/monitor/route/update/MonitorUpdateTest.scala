@@ -14,6 +14,9 @@ abstract class MonitorUpdateTest extends MongoTest {
   val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
   val UpdateTimestamp = Timestamp(2022, 8, 12, 12, 0, 0)
 
+  val GpxUpload1Timestamp = Timestamp(2022, 8, 12, 12, 0, 0)
+  val GpxUpload2Timestamp = Timestamp(2022, 8, 13, 12, 0, 0)
+
   private var _configuration: MonitorUpdaterConfiguration = _
 
   override def beforeEach(): Unit = {
@@ -36,5 +39,18 @@ abstract class MonitorUpdateTest extends MongoTest {
 
   def command(action: String, stepId: String, description: Option[String] = None): MonitorRouteUpdateStatusCommand = {
     MonitorRouteUpdateStatusCommand(action, stepId, description)
+  }
+
+  val routeGeometry = """{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+  val sameRouteGeometryWithLineString = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+
+  val subroute12Geometry = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+  val sameSubroute12Geometry = """{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+
+  def setupSuperRoute(): Unit = {
+    configuration.routeRepository.saveBaseRoute(TestSuperRoute.baseRouteDoc)
+    configuration.routeRepository.saveBaseRoute(TestSuperRoute.baseRouteDoc11)
+    configuration.routeRepository.saveBaseRoute(TestSuperRoute.baseRouteDoc12)
+    configuration.routeRepository.saveRoute(TestSuperRoute.routeDoc1)
   }
 }
