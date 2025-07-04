@@ -282,7 +282,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
           relation.copy(
             relations = Seq(
               relation.relations.head.copy(
-                referenceTimestamp = Some(ReferenceTimestamp),
+                referenceTimestamp = Some(ReferenceTimestamp1),
                 referenceFilename = Some("filename-1"),
                 referenceDistance = 181,
                 happy = true,
@@ -308,7 +308,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         user = "user2",
         referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         referenceType = MonitorReferenceType.gpx, // the route reference type is "multi-gpx", but the invidual reference is "gpx"
-        referenceTimestamp = ReferenceTimestamp,
+        referenceTimestamp = ReferenceTimestamp1,
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-1"),
@@ -342,7 +342,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
             happy = true,
             relations = Seq(
               relation.relations.head.copy(
-                referenceTimestamp = Some(ReferenceTimestamp),
+                referenceTimestamp = Some(ReferenceTimestamp1),
                 referenceFilename = Some("filename-1"),
                 referenceDistance = 181,
                 happy = true,

@@ -76,7 +76,7 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
       relationId = Some(1),
       timestamp = CurrentTimestamp,
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = Some(ReferenceTimestamp),
+      referenceTimestamp = Some(ReferenceTimestamp1),
       referenceFilename = None,
     )
   }
@@ -87,7 +87,7 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
       relationId = Some(1),
       timestamp = CurrentTimestamp,
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = ReferenceTimestamp,
+      referenceTimestamp = ReferenceTimestamp1,
     )
   }
 

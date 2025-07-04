@@ -42,7 +42,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
       routeName = "route-name",
       referenceType = MonitorReferenceType.osm,
       description = Some(""),
-      referenceTimestamp = Some(ReferenceTimestamp),
+      referenceTimestamp = Some(ReferenceTimestamp1),
     )
 
     configuration.monitorRouteUpdateExecutor.execute(
@@ -114,7 +114,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         analysisTimestamp = Some(CurrentTimestamp),
         analysisDuration = None,
         referenceType = MonitorReferenceType.osm,
-        referenceTimestamp = Some(ReferenceTimestamp),
+        referenceTimestamp = Some(ReferenceTimestamp1),
         referenceFilename = None,
         referenceDistance = 0,
         deviationDistance = 0,
@@ -145,7 +145,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         analysisTimestamp = Some(UpdateTimestamp),
         analysisDuration = None,
         referenceType = MonitorReferenceType.osm,
-        referenceTimestamp = Some(ReferenceTimestamp),
+        referenceTimestamp = Some(ReferenceTimestamp1),
         referenceFilename = None,
         referenceDistance = 181,
         deviationDistance = 0,
@@ -170,7 +170,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         user = "user",
         referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         referenceType = MonitorReferenceType.osm,
-        referenceTimestamp = ReferenceTimestamp,
+        referenceTimestamp = ReferenceTimestamp1,
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = None,
@@ -233,7 +233,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
       )
     val relation = new DataBuilder(overpassData.rawData).data.relations(1)
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp), 1).returns(Some(relation))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), 1).returns(Some(relation))
   }
 
   private def setupBaseRouteDoc(): Unit = {

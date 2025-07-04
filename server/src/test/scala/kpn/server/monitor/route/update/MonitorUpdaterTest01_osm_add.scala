@@ -42,7 +42,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
           description = Some("route-description"),
           comment = Some("route-comment"),
           relationId = Some(1),
-          referenceTimestamp = Some(ReferenceTimestamp),
+          referenceTimestamp = Some(ReferenceTimestamp1),
         )
       )
     )
@@ -71,7 +71,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
         analysisTimestamp = Some(CurrentTimestamp),
         analysisDuration = None,
         referenceType = MonitorReferenceType.osm,
-        referenceTimestamp = Some(ReferenceTimestamp),
+        referenceTimestamp = Some(ReferenceTimestamp1),
         referenceFilename = None,
         referenceDistance = 181,
         deviationDistance = 0,
@@ -97,7 +97,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
         user = "user",
         referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         referenceType = MonitorReferenceType.osm,
-        referenceTimestamp = ReferenceTimestamp,
+        referenceTimestamp = ReferenceTimestamp1,
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = None,
@@ -210,6 +210,6 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
       )
     val relation = new DataBuilder(overpassData.rawData).data.relations(1)
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp), 1).returns(Some(relation))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), 1).returns(Some(relation))
   }
 }

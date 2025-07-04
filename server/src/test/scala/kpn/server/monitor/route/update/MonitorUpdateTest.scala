@@ -10,7 +10,8 @@ import kpn.core.test.OverpassData
 
 abstract class MonitorUpdateTest extends MongoTest {
 
-  val ReferenceTimestamp = Timestamp(2022, 8, 1)
+  val ReferenceTimestamp1 = Timestamp(2022, 8, 1)
+  val ReferenceTimestamp2 = Timestamp(2022, 8, 2)
   val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
   val UpdateTimestamp = Timestamp(2022, 8, 12, 12, 0, 0)
 

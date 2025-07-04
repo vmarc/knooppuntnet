@@ -58,10 +58,18 @@ class MonitorUpdaterConfiguration(
     monitorUpdateMultiGpxUpload
   )
 
+  private val monitorMultiGpxDelete = new MonitorMultiGpxDelete(
+    routeRepository,
+    monitorRouteRepository,
+    monitorUpdateCommon,
+    monitorUpdateSave,
+  )
+
   private val monitorUpdateGpxDelete = new MonitorGpxDelete(
     monitorRouteRepository,
     monitorUpdateCommon,
-    monitorUpdateSave
+    monitorUpdateSave,
+    monitorMultiGpxDelete
   )
 
   private val monitorUpdateUpdate = new MonitorUpdate(

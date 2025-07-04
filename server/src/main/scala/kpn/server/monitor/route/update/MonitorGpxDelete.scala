@@ -10,12 +10,18 @@ import org.springframework.stereotype.Component
 class MonitorGpxDelete(
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
-  monitorUpdateSave: MonitorUpdateSave
+  monitorUpdateSave: MonitorUpdateSave,
+  monitorMultiGpxDelete: MonitorMultiGpxDelete
 ) {
 
   private val log = Log(classOf[MonitorGpxDelete])
 
   def execute(context: MonitorContext): Unit = {
+
+    if (context.value.isReferenceTypeMultiGpx) {
+      monitorMultiGpxDelete.execute(context)
+      return
+    }
 
     initReporter(context)
 
@@ -49,18 +55,9 @@ class MonitorGpxDelete(
     context.report(
       MonitorRouteUpdateStatusMessage(
         commands = Seq(
-          MonitorRouteUpdateStatusCommand(
-            "step-add",
-            "delete",
-          ),
-          MonitorRouteUpdateStatusCommand(
-            "step-add",
-            "save"
-          ),
-          MonitorRouteUpdateStatusCommand(
-            "step-active",
-            "delete",
-          ),
+          MonitorRouteUpdateStatusCommand("step-add", "delete"),
+          MonitorRouteUpdateStatusCommand("step-add", "save"),
+          MonitorRouteUpdateStatusCommand("step-active", "delete"),
         )
       )
     )

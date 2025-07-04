@@ -10,6 +10,12 @@ import kpn.core.test.SharedTestObjects
 
 object TestSuperRoute extends SharedTestObjects {
 
+  val MainRelationId = 1
+  val SubRelationId1 = 11
+  val SubRelationId2 = 12
+  val SubRelationDistance1 = 181
+  val SubRelationDistance2 = 93
+
   val gpx1: String =
     """
       |<gpx>
@@ -35,18 +41,18 @@ object TestSuperRoute extends SharedTestObjects {
       |""".stripMargin
 
   val baseRouteDoc: BaseRouteDoc = newBaseRouteDoc(
-    newRouteSummary(1),
+    newRouteSummary(MainRelationId),
     subRelationTree = Some(
       newRouteRelation(
-        relationId = 1,
+        relationId = MainRelationId,
         name = "main-relation",
         relations = Seq(
           newRouteRelation(
-            relationId = 11,
+            relationId = SubRelationId1,
             name = "sub-relation-1",
           ),
           newRouteRelation(
-            relationId = 12,
+            relationId = SubRelationId2,
             name = "sub-relation-2",
           )
         )
@@ -55,9 +61,9 @@ object TestSuperRoute extends SharedTestObjects {
   )
 
   val baseRouteDoc11: BaseRouteDoc = newBaseRouteDoc(
-    newRouteSummary(11),
+    newRouteSummary(SubRelationId1),
     segments = Seq(
-      newBaseRouteSegment(1, meters = 181)
+      newBaseRouteSegment(1, meters = SubRelationDistance1)
     ),
     segmentElements = Seq(
       newBaseRouteSegmentElement(
@@ -69,9 +75,9 @@ object TestSuperRoute extends SharedTestObjects {
   )
 
   val baseRouteDoc12: BaseRouteDoc = newBaseRouteDoc(
-    newRouteSummary(12),
+    newRouteSummary(SubRelationId2),
     segments = Seq(
-      newBaseRouteSegment(1, meters = 93)
+      newBaseRouteSegment(1, meters = SubRelationDistance2)
     ),
     segmentElements = Seq(
       newBaseRouteSegmentElement(
@@ -83,7 +89,7 @@ object TestSuperRoute extends SharedTestObjects {
   )
 
   val routeDoc1: RouteDoc = newRouteDoc(
-    newRouteSummary(1),
+    newRouteSummary(MainRelationId),
     superSegments = Seq(
       SuperSegment(
         Seq(
@@ -94,7 +100,7 @@ object TestSuperRoute extends SharedTestObjects {
               osmSegmentId = 0,
               startNodeId = 0,
               endNodeId = 0,
-              meters = 181 + 93,
+              meters = SubRelationDistance1 + SubRelationDistance2,
               bounds = Bounds(),
             )
           )

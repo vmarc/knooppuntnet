@@ -18,39 +18,27 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
 
     val (group, route, reference11, reference112, state11, state111, state112, reporter) = setup()
 
+    database.monitorRoutes.countDocuments() should equal(1)
+    database.monitorRouteReferences.countDocuments() should equal(3)
+    database.monitorRouteStates.countDocuments() should equal(3)
+
     executeGpxDelete(group, reporter)
 
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(2)
-    database.monitorRouteStates.countDocuments() should equal(3)
+    database.monitorRouteStates.countDocuments() should equal(2)
 
     val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-    val subrelation111 = updatedRoute.relation.get.relations.head.relations.head
 
-    subrelation111.referenceTimestamp should equal(None)
-    subrelation111.referenceFilename should equal(None)
-    subrelation111.deviationDistance should equal(0)
-    subrelation111.deviationCount should equal(0)
-
-    val subrelation112 = updatedRoute.relation.get.relations.head.relations(1)
-
-    subrelation112.referenceTimestamp should equal(Some(Timestamp(2022, 8, 11)))
-    subrelation112.referenceFilename should equal(Some("filename-112"))
-    subrelation112.deviationDistance should equal(0)
-    subrelation112.deviationCount should equal(0)
+    updatedRoute.referenceDistance should equal(200)
+    updatedRoute.deviationCount should equal(0)
+    updatedRoute.deviationDistance should equal(0)
 
     configuration.monitorRouteRepository.routeReference(route._id, Some(11)) should equal(Some(reference11))
     configuration.monitorRouteRepository.routeState(route._id, 11) should equal(Some(state11))
 
     configuration.monitorRouteRepository.routeReference(route._id, Some(111)) should equal(None)
-    configuration.monitorRouteRepository.routeState(route._id, 111) should equal(
-      Some(
-        state111.copy(
-          matchesGeometry = None,
-          deviations = Seq.empty,
-        )
-      )
-    )
+    configuration.monitorRouteRepository.routeState(route._id, 111) should equal(None)
 
     configuration.monitorRouteRepository.routeReference(route._id, Some(112)) should equal(Some(reference112))
     configuration.monitorRouteRepository.routeState(route._id, 112) should equal(Some(state112))
@@ -72,7 +60,16 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
     )
   }
 
-  private def setup() = {
+  private def setup(): (
+    MonitorGroup,
+      MonitorRoute,
+      MonitorRouteReference,
+      MonitorRouteReference,
+      MonitorRouteState,
+      MonitorRouteState,
+      MonitorRouteState,
+      MonitorUpdateReporterMock
+    ) = {
 
     val group = newMonitorGroup("group")
     val route = setupRoute(group)
@@ -107,45 +104,10 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
       referenceType = MonitorReferenceType.osm,
       referenceTimestamp = Some(Timestamp(2022, 8, 11)),
       referenceFilename = None,
-      relation = Some(
-        newMonitorRouteRelation(
-          relationId = 1,
-          name = "super-route",
-          happy = true,
-          relations = Seq(
-            newMonitorRouteRelation(
-              relationId = 11,
-              name = "sub-route-11",
-              referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-              referenceFileName = Some("filename-11"),
-              referenceDistance = 11,
-              happy = true,
-              relations = Seq(
-                newMonitorRouteRelation(
-                  relationId = 111,
-                  name = "sub-route-111",
-                  referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-                  referenceFileName = Some("filename-111"),
-                  referenceDistance = 1110,
-                  deviationDistance = 111,
-                  deviationCount = 3,
-                  happy = true,
-                ),
-                newMonitorRouteRelation(
-                  relationId = 112,
-                  name = "sub-route-112",
-                  referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-                  referenceFileName = Some("filename-112"),
-                  referenceDistance = 1120,
-                  deviationDistance = 112,
-                  deviationCount = 5,
-                  happy = true,
-                )
-              )
-            )
-          )
-        )
-      )
+      referenceDistance = 300,
+      deviationCount = 1,
+      deviationDistance = 50,
+      relation = None
     )
   }
 
@@ -155,6 +117,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
       relationId = Some(11),
       referenceType = MonitorReferenceType.gpx,
       referenceTimestamp = Timestamp(2022, 8, 11),
+      distance = 100,
       filename = Some("filename-11"),
     )
   }
@@ -165,6 +128,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
       relationId = Some(111),
       referenceType = MonitorReferenceType.gpx,
       referenceTimestamp = Timestamp(2022, 8, 11),
+      distance = 100,
       filename = Some("filename-111"),
     )
   }
@@ -175,6 +139,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
       relationId = Some(112),
       referenceType = MonitorReferenceType.gpx,
       referenceTimestamp = Timestamp(2022, 8, 11),
+      distance = 100,
       filename = Some("filename-112"),
     )
   }
@@ -184,6 +149,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
       routeId = route._id,
       relationId = 11,
       timestamp = Timestamp(2022, 8, 11),
+      matchesDistance = 100
     )
   }
 
@@ -192,11 +158,12 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
       routeId = route._id,
       relationId = 111,
       timestamp = Timestamp(2022, 8, 11),
+      matchesDistance = 100,
       matchesGeometry = Some("matches"),
       deviations = Seq(
         MonitorRouteDeviation(
           id = 1,
-          meters = 100,
+          meters = 50,
           distance = 12,
           bounds = Bounds(1, 1, 1, 1),
           geoJson = "geoJson"
@@ -210,6 +177,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
       routeId = route._id,
       relationId = 112,
       timestamp = Timestamp(2022, 8, 11),
+      matchesDistance = 100,
     )
   }
 }

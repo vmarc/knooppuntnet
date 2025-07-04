@@ -40,7 +40,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
           description = Some("route-description"),
           comment = Some("route-comment"),
           relationId = Some(1),
-          referenceTimestamp = Some(ReferenceTimestamp),
+          referenceTimestamp = Some(ReferenceTimestamp1),
           referenceFilename = Some("filename"),
           referenceGpx = Some(gpx)
         )
@@ -107,7 +107,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
         analysisTimestamp = Some(CurrentTimestamp),
         analysisDuration = None,
         referenceType = MonitorReferenceType.gpx,
-        referenceTimestamp = Some(ReferenceTimestamp),
+        referenceTimestamp = Some(ReferenceTimestamp1),
         referenceFilename = Some("filename"),
         referenceDistance = 181,
         deviationDistance = 0,
@@ -133,7 +133,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
         user = "user1",
         referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         referenceType = MonitorReferenceType.gpx,
-        referenceTimestamp = ReferenceTimestamp,
+        referenceTimestamp = ReferenceTimestamp1,
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),

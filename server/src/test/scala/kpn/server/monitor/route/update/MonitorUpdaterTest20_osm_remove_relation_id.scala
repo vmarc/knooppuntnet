@@ -42,7 +42,7 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
           referenceType = MonitorReferenceType.osm,
           description = Some("route description"),
           relationId = None,
-          referenceTimestamp = Some(ReferenceTimestamp),
+          referenceTimestamp = Some(ReferenceTimestamp1),
         )
       )
     )
@@ -65,7 +65,7 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
         analysisTimestamp = Some(CurrentTimestamp),
         analysisDuration = None,
         referenceType = MonitorReferenceType.osm,
-        referenceTimestamp = Some(ReferenceTimestamp),
+        referenceTimestamp = Some(ReferenceTimestamp1),
         referenceFilename = None,
         referenceDistance = 0,
         deviationDistance = 0,

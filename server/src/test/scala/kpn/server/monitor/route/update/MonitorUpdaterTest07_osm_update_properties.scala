@@ -39,7 +39,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
           description = Some("description-changed"), // <-- changed
           comment = Some("comment-changed"), // <-- changed
           relationId = Some(1),
-          referenceTimestamp = Some(ReferenceTimestamp),
+          referenceTimestamp = Some(ReferenceTimestamp1),
           newRouteName = Some("route-name-changed") // <-- changed
         )
       )
@@ -130,7 +130,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
       analysisTimestamp = None,
       analysisDuration = None,
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = Some(ReferenceTimestamp),
+      referenceTimestamp = Some(ReferenceTimestamp1),
       referenceFilename = None,
       referenceDistance = 196,
       deviationDistance = 0,
@@ -164,7 +164,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
       user = "user1",
       referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = ReferenceTimestamp,
+      referenceTimestamp = ReferenceTimestamp1,
       referenceDistance = 196,
       referenceSegmentCount = 1,
       referenceFilename = None,
