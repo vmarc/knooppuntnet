@@ -17,7 +17,7 @@ class MonitorAdd(
   monitorUpdate: MonitorUpdate,
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorUpdateSave: MonitorUpdateSave,
-  monitorAddMultigpx: MonitorAddMultigpx
+  monitorAddMultigpx: MonitorAddMultiGpx
 ) {
 
   private val log = Log(classOf[MonitorAdd])
@@ -30,7 +30,7 @@ class MonitorAdd(
     else {
       initReporter(context)
 
-      monitorUpdateCommon.findGroup(context)
+      monitorUpdateCommon.oldFindGroup(context)
       verifyNewRoute(context)
 
       val referenceTimestamp = determineReferenceTimestamp(context)

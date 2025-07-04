@@ -2,7 +2,6 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
-import kpn.core.common.Time
 import kpn.core.util.Log
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
@@ -19,48 +18,36 @@ class MonitorMultiGpxDelete(
   private val log = Log(classOf[MonitorMultiGpxDelete])
 
   def execute(context: MonitorContext): Unit = {
-
-    initReporter(context)
-
-    monitorUpdateCommon.findGroup(context)
-    monitorUpdateCommon.findRoute(context)
-
-    val relationId = context.value.update.relationId.getOrElse(throw new RuntimeException("subrelation id needed for gpx-delete"))
-
-    monitorRouteRepository.deleteRouteReference(context.value.routeId, relationId)
-    monitorRouteRepository.deleteRouteState(context.value.routeId, relationId)
-
-    // duplicated from MonitorMultiGpxUpload
-    val references = monitorRouteRepository.routeReferences(context.value.routeId)
-    val referenceDistance = references.map(_.referenceDistance).sum
-    val states = monitorRouteRepository.routeStates(context.value.routeId)
-    val deviationCount = states.map(_.deviations.length).sum
-    val deviationDistance = states.map(_.deviations.length).sum
-    val matchesDistance = states.map(_.matchesDistance).sum
-
-    val (superSegmentCount: Long, osmDistance: Long) = context.value.relationId.flatMap(routeRepository.findRouteById) match {
-      case Some(routeDoc) =>
-        val sc = routeDoc.superSegments.length.toLong
-        val di = routeDoc.superSegments.map(_.segments.map(_.relationSegment.meters).sum).sum
-        (sc, di)
-      case None => (0L, 0L)
-    }
-
-    val updatedRoute = context.value.route.copy(
-      analysisTimestamp = Some(Time.now),
-      referenceDistance = referenceDistance,
-      deviationCount = deviationCount,
-      deviationDistance = deviationDistance,
-      osmSegmentCount = superSegmentCount,
-      happy = false
+    val args = MonitorUpdateArgs(
+      context.value.user,
+      context.value.reporter,
+      context.value.update,
     )
-    context.stepActive("save")
-    monitorRouteRepository.saveRoute(updatedRoute)
-    context.stepDone("save")
+    newExecute(args)
   }
 
-  private def initReporter(context: MonitorContext): Unit = {
-    context.report(
+  private def newExecute(args: MonitorUpdateArgs): Unit = {
+
+    initReporter(args)
+
+    val group = monitorUpdateCommon.findGroup(args)
+    val route = monitorUpdateCommon.findRoute(args, group)
+
+    val superRelationId = route.relationId.getOrElse(throw new RuntimeException("route relation id needed for gpx-delete"))
+    val subRelationId = args.update.relationId.getOrElse(throw new RuntimeException("subrelation id needed for gpx-delete"))
+
+    monitorRouteRepository.deleteRouteReference(route._id, subRelationId)
+    monitorRouteRepository.deleteRouteState(route._id, subRelationId)
+
+    val updatedRoute = monitorUpdateCommon.updateSuperRoute(route)
+
+    args.reporter.stepActive("save")
+    monitorRouteRepository.saveRoute(updatedRoute)
+    args.reporter.stepDone("save")
+  }
+
+  private def initReporter(args: MonitorUpdateArgs): Unit = {
+    args.reporter.report(
       MonitorRouteUpdateStatusMessage(
         commands = Seq(
           MonitorRouteUpdateStatusCommand("step-add", "delete"),

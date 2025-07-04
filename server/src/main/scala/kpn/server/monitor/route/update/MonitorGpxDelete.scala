@@ -25,8 +25,8 @@ class MonitorGpxDelete(
 
     initReporter(context)
 
-    monitorUpdateCommon.findGroup(context)
-    monitorUpdateCommon.findRoute(context)
+    monitorUpdateCommon.oldFindGroup(context)
+    monitorUpdateCommon.oldFindRoute(context)
 
     val relationId = context.value.update.relationId.getOrElse(throw new RuntimeException("subrelation id needed for gpx-delete"))
     context.deleteRouteReference(context.value.routeId, Some(relationId))

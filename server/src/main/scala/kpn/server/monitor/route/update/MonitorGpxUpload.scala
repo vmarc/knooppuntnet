@@ -51,8 +51,8 @@ class MonitorGpxUpload(
       )
     )
 
-    monitorUpdateCommon.findGroup(context)
-    monitorUpdateCommon.findRoute(context)
+    monitorUpdateCommon.oldFindGroup(context)
+    monitorUpdateCommon.oldFindRoute(context)
 
     val oldReferenceIds = monitorRouteRepository.routeReferenceIds(context.value.routeId)
     val oldStateIds = monitorRouteRepository.routeStateIds(context.value.routeId)

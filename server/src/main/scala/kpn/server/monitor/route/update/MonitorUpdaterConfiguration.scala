@@ -25,6 +25,7 @@ class MonitorUpdaterConfiguration(
   private val monitorRouteGapAnalyzer = new MonitorRouteGapAnalyzer()
 
   private val monitorUpdateCommon = new MonitorUpdateCommon(
+    routeRepository,
     monitorGroupRepository,
     monitorRouteRepository,
   )
@@ -83,7 +84,7 @@ class MonitorUpdaterConfiguration(
     monitorUpdateSave
   )
 
-  private val monitorUpdateAddMultiGpx = new MonitorAddMultigpx(
+  private val monitorUpdateAddMultiGpx = new MonitorAddMultiGpx(
     routeRepository,
     monitorRouteRepository,
     monitorUpdateCommon,

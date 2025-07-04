@@ -44,8 +44,8 @@ class MonitorUpdate(
 
     initReporter(context)
 
-    monitorUpdateCommon.findGroup(context)
-    val oldRoute = monitorUpdateCommon.findRoute(context)
+    monitorUpdateCommon.oldFindGroup(context)
+    val oldRoute = monitorUpdateCommon.oldFindRoute(context)
 
     if (context.value.isRouteChanged) {
 
