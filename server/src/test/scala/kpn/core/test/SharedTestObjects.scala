@@ -916,6 +916,7 @@ trait SharedTestObjects extends MockFactory {
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
     segments: Seq[RouteSegment] = Seq.empty,
+    superDistance: Long = 0,
     superSegments: Seq[SuperSegment] = Seq.empty,
     paths: Seq[RoutePath] = Seq.empty,
     routeIds: Seq[Long] = Seq.empty,
@@ -944,6 +945,7 @@ trait SharedTestObjects extends MockFactory {
       analysis,
       locationAnalysis,
       segments,
+      superDistance,
       superSegments,
       paths,
       routeIds,
@@ -1591,6 +1593,7 @@ trait SharedTestObjects extends MockFactory {
     segmentElementId: Long,
     surface: String = "",
     memberIndexes: Seq[Long] = Seq.empty,
+    meters: Long = 0,
     coordinates: String = ""
   ): BaseRouteSegmentElement = {
     BaseRouteSegmentElement(
@@ -1598,6 +1601,7 @@ trait SharedTestObjects extends MockFactory {
       segmentElementId,
       surface,
       memberIndexes,
+      meters,
       coordinates
     )
   }

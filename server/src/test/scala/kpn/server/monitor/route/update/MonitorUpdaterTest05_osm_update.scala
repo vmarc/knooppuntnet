@@ -95,28 +95,28 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
       reporter.messages,
       Seq(
         message(
-          command("step-add", "prepare"),
-          command("step-add", "analyze-route-structure"),
-          command("step-active", "prepare")
+          add("prepare"),
+          add("analyze-route-structure"),
+          active("prepare")
         ),
         message(
-          command("step-active", "analyze-route-structure")
+          active("analyze-route-structure")
         ),
         message(
-          command("step-add", "1", Some("1/1 route")),
-          command("step-add", "save")
+          add("1", Some("1/1 route")),
+          add("save")
         ),
         message(
-          command("step-active", "1")
+          active("1")
         ),
         MonitorRouteUpdateStatusMessage(
           errors = Some(Seq("Could not load relation 1 at 2022-08-01 00:00:00"))
         ),
         message(
-          command("step-active", "save")
+          active("save")
         ),
         message(
-          command("step-done", "save")
+          done("save")
         )
       )
     )

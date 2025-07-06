@@ -47,9 +47,9 @@ class MonitorUpdaterTest15_add_error extends MonitorUpdateTest {
       reporter.messages,
       Seq(
         message(
-          command("step-add", "prepare"),
-          command("step-add", "analyze-route-structure"),
-          command("step-active", "prepare")
+          add("prepare"),
+          add("analyze-route-structure"),
+          active("prepare")
         ),
         MonitorRouteUpdateStatusMessage(
           exception = Some(s"""Could not add route with name "route-name": already exists (_id=${route._id.oid}) in group with name "group-name"""")

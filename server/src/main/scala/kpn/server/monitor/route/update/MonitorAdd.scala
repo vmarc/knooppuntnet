@@ -1,6 +1,7 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
@@ -17,42 +18,54 @@ class MonitorAdd(
   monitorUpdate: MonitorUpdate,
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorUpdateSave: MonitorUpdateSave,
-  monitorAddMultigpx: MonitorAddMultiGpx
+  monitorAddMultiGpx: MonitorAddMultiGpx,
+  monitorAddOsmNow: MonitorAddOsmNow
 ) {
 
   private val log = Log(classOf[MonitorAdd])
 
   def execute(context: MonitorContext): Unit = {
+    {
+      val args = MonitorUpdateArgs(
+        context.value.user,
+        context.value.reporter,
+        context.value.update,
+      )
 
-    if (context.value.isReferenceTypeMultiGpx) {
-      monitorAddMultigpx.execute(context)
+      if (args.update.referenceType == MonitorReferenceType.multiGpx) {
+        monitorAddMultiGpx.execute(args)
+        return
+      }
+      if (args.update.referenceType == MonitorReferenceType.osm && args.update.referenceNow.contains(true)) {
+        monitorAddOsmNow.execute(args)
+        return
+      }
+    }
+
+    initReporter(context)
+
+    monitorUpdateCommon.oldFindGroup(context)
+    verifyNewRoute(context)
+
+    val referenceTimestamp = determineReferenceTimestamp(context)
+
+    buildMonitorRoute(context, referenceTimestamp)
+
+    context.stepActive("analyze-route-structure")
+    context.set(monitorUpdateStructure.update(context.value))
+
+    if (context.value.isReferenceTypeGpx) {
+      monitorUpdate.updateRouteWithGpxReference(context)
+    }
+    else if (context.value.isReferenceTypeMultiGpx) {
     }
     else {
-      initReporter(context)
-
-      monitorUpdateCommon.oldFindGroup(context)
-      verifyNewRoute(context)
-
-      val referenceTimestamp = determineReferenceTimestamp(context)
-
-      buildMonitorRoute(context, referenceTimestamp)
-
-      context.stepActive("analyze-route-structure")
-      context.set(monitorUpdateStructure.update(context.value))
-
-      if (context.value.isReferenceTypeGpx) {
-        monitorUpdate.updateRouteWithGpxReference(context)
-      }
-      else if (context.value.isReferenceTypeMultiGpx) {
-      }
-      else {
-        monitorUpdate.updateSubRelationOsmReferences(context)
-      }
-
-      context.stepActive("save")
-      monitorUpdateSave.save(context)
-      context.stepDone("save")
+      monitorUpdate.updateSubRelationOsmReferences(context)
     }
+
+    context.stepActive("save")
+    monitorUpdateSave.save(context)
+    context.stepDone("save")
   }
 
   private def buildMonitorRoute(context: MonitorContext, referenceTimestamp: Option[Timestamp]): Unit = {

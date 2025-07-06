@@ -546,33 +546,33 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
       messages,
       Seq(
         message(
-          command("step-add", "prepare"),
-          command("step-add", "analyze-route-structure"),
-          command("step-active", "prepare")
+          add("prepare"),
+          add("analyze-route-structure"),
+          active("prepare")
         ),
         message(
-          command("step-active", "analyze-route-structure")
+          active("analyze-route-structure")
         ),
         message(
-          command("step-add", "11", Some("1/3 sub-relation-1")),
-          command("step-add", "12", Some("2/3 sub-relation-2")),
-          command("step-add", "1", Some("3/3 main-relation")),
-          command("step-add", "save")
+          add("11", Some("1/3 sub-relation-1")),
+          add("12", Some("2/3 sub-relation-2")),
+          add("1", Some("3/3 main-relation")),
+          add("save")
         ),
         message(
-          command("step-active", "11")
+          active("11")
         ),
         message(
-          MonitorRouteUpdateStatusCommand("step-active", "12")
+          active("12")
         ),
         message(
-          MonitorRouteUpdateStatusCommand("step-active", "1")
+          active("1")
         ),
         message(
-          MonitorRouteUpdateStatusCommand("step-active", "save")
+          active("save")
         ),
         message(
-          MonitorRouteUpdateStatusCommand("step-done", "save")
+          done("save")
         )
       )
     )
@@ -583,15 +583,15 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
       messages,
       Seq(
         message(
-          MonitorRouteUpdateStatusCommand("step-add", "upload"),
-          MonitorRouteUpdateStatusCommand("step-add", "save"),
-          MonitorRouteUpdateStatusCommand("step-active", "upload")
+          add("upload"),
+          add("save"),
+          active("upload")
         ),
         message(
-          MonitorRouteUpdateStatusCommand("step-active", "save")
+          active("save")
         ),
         message(
-          MonitorRouteUpdateStatusCommand("step-done", "save")
+          done("save")
         )
       )
     )
@@ -604,13 +604,13 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         message(
           MonitorRouteUpdateStatusCommand("step-add", "upload"),
           MonitorRouteUpdateStatusCommand("step-add", "save"),
-          MonitorRouteUpdateStatusCommand("step-active", "upload"),
+          add("upload"),
         ),
         message(
-          MonitorRouteUpdateStatusCommand("step-active", "save")
+          add("save")
         ),
         message(
-          MonitorRouteUpdateStatusCommand("step-done", "save")
+          done("save")
         )
       )
     )

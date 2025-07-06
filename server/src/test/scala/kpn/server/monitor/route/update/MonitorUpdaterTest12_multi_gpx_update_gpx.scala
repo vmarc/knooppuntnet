@@ -55,10 +55,10 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
           groupName = group.name,
           routeName = "route-name",
           referenceType = MonitorReferenceType.multiGpx,
-          relationId = Some(TestSuperRoute.SubRelationId1),
+          relationId = Some(TestSuperRoute.subRoute11.relationId),
           referenceTimestamp = Some(ReferenceTimestamp1),
           referenceFilename = Some("filename-1"),
-          referenceGpx = Some(TestSuperRoute.gpx1)
+          referenceGpx = Some(TestSuperRoute.subRoute11.gpx)
         )
       )
     )
@@ -75,10 +75,10 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
           groupName = group.name,
           routeName = "route-name",
           referenceType = MonitorReferenceType.multiGpx,
-          relationId = Some(TestSuperRoute.SubRelationId2),
+          relationId = Some(TestSuperRoute.subRoute12.relationId),
           referenceTimestamp = Some(ReferenceTimestamp2),
           referenceFilename = Some("filename-2"),
-          referenceGpx = Some(TestSuperRoute.gpx2)
+          referenceGpx = Some(TestSuperRoute.subRoute12.gpx)
         )
       )
     )
@@ -114,7 +114,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 1,
-        osmDistance = TestSuperRoute.SubRelationDistance1 + TestSuperRoute.SubRelationDistance2,
+        osmDistance = TestSuperRoute.subRoute11.meters + TestSuperRoute.subRoute12.meters,
         relation = None,
         happy = false,
       )
@@ -140,7 +140,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
       route.copy(
         analysisTimestamp = Some(GpxUpload1Timestamp),
         analysisDuration = None,
-        referenceDistance = TestSuperRoute.SubRelationDistance1,
+        referenceDistance = TestSuperRoute.subRoute11.meters,
         happy = false
       )
     )
@@ -153,13 +153,13 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
       MonitorRouteReference(
         reference._id,
         routeId = route._id,
-        relationId = Some(TestSuperRoute.SubRelationId1),
+        relationId = Some(TestSuperRoute.subRoute11.relationId),
         timestamp = GpxUpload1Timestamp,
         user = "user2",
         referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         referenceType = MonitorReferenceType.gpx, // the route reference type is "multi-gpx", but the invidual reference is "gpx"
         referenceTimestamp = ReferenceTimestamp1,
-        referenceDistance = TestSuperRoute.SubRelationDistance1,
+        referenceDistance = TestSuperRoute.subRoute11.meters,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-1"),
         referenceGeoJson = sameRouteGeometryWithLineString
@@ -174,9 +174,9 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
       newMonitorRouteState(
         state._id,
         route._id,
-        TestSuperRoute.SubRelationId1,
+        TestSuperRoute.subRoute11.relationId,
         GpxUpload1Timestamp,
-        matchesDistance = TestSuperRoute.SubRelationDistance1,
+        matchesDistance = TestSuperRoute.subRoute11.meters,
         matchesGeometry = Some(routeGeometry)
       )
     )
@@ -202,7 +202,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
       route.copy(
         analysisTimestamp = Some(GpxUpload2Timestamp),
         analysisDuration = None,
-        referenceDistance = TestSuperRoute.SubRelationDistance1 + TestSuperRoute.SubRelationDistance2,
+        referenceDistance = TestSuperRoute.subRoute11.meters + TestSuperRoute.subRoute12.meters,
         relation = None,
         happy = true
       )
@@ -210,13 +210,13 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
   }
 
   private def verifyGpxUpload2_reference12(route: MonitorRoute): Unit = {
-    val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(TestSuperRoute.SubRelationId2)).get
+    val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(TestSuperRoute.subRoute12.relationId)).get
     assertEqual(
       reference,
       MonitorRouteReference(
         reference._id,
         routeId = route._id,
-        relationId = Some(TestSuperRoute.SubRelationId2),
+        relationId = Some(TestSuperRoute.subRoute12.relationId),
         timestamp = GpxUpload2Timestamp,
         user = "user3",
         referenceBounds = Bounds(
@@ -227,7 +227,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
         ),
         referenceType = MonitorReferenceType.gpx, // the route reference type is "multi-gpx", but the invidual reference is "gpx"
         referenceTimestamp = ReferenceTimestamp2,
-        referenceDistance = TestSuperRoute.SubRelationDistance2,
+        referenceDistance = TestSuperRoute.subRoute12.meters,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-2"),
         referenceGeoJson = subroute12Geometry
@@ -236,15 +236,15 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
   }
 
   private def verifyGpxUpload2_state12(route: MonitorRoute): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(route._id, TestSuperRoute.SubRelationId2).get
+    val state = configuration.monitorRouteRepository.routeState(route._id, TestSuperRoute.subRoute12.relationId).get
     assertEqual(
       state,
       newMonitorRouteState(
         state._id,
         route._id,
-        TestSuperRoute.SubRelationId2,
+        TestSuperRoute.subRoute12.relationId,
         GpxUpload2Timestamp,
-        matchesDistance = TestSuperRoute.SubRelationDistance2,
+        matchesDistance = TestSuperRoute.subRoute12.meters,
         matchesGeometry = Some(sameSubroute12Geometry)
       )
     )

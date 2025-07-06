@@ -1,0 +1,231 @@
+package kpn.server.monitor.route.update
+
+import kpn.api.base.ObjectId
+import kpn.api.common.Bounds
+import kpn.api.common.monitor.MonitorReferenceType
+import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
+import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
+import kpn.api.custom.Timestamp
+import kpn.core.common.Time
+import kpn.core.doc.BaseRouteDoc
+import kpn.core.doc.RouteDoc
+import kpn.core.util.Log
+import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
+import kpn.server.json.Json
+import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorRoute
+import kpn.server.monitor.domain.MonitorRouteReference
+import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.repository.MonitorRouteRepository
+import kpn.server.repository.RouteRepository
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryCollection
+import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.io.geojson.GeoJsonWriter
+import org.springframework.stereotype.Component
+
+@Component
+class MonitorAddOsmNow(
+  routeRepository: RouteRepository,
+  monitorRouteRepository: MonitorRouteRepository,
+  monitorUpdateCommon: MonitorUpdateCommon,
+) {
+
+  private val log = Log(classOf[MonitorAddOsmNow])
+  val geometryFactory = new GeometryFactory
+
+  def execute(args: MonitorUpdateArgs): Unit = {
+
+    val now = Time.now
+    val analysisStartMillis = System.currentTimeMillis()
+
+    initReporter(args)
+
+    val group = monitorUpdateCommon.findGroup(args)
+    monitorUpdateCommon.verifyNewRoute(group, args)
+
+    val monitorRouteId = ObjectId()
+
+    args.reporter.stepActive("analyze-route-structure")
+
+    val routeDoc = routeRepository.findRouteById(args.relationId).getOrElse(throw new RuntimeException(s"Could not find RouteDoc with id ${args.relationId}"))
+
+    updateReporterSteps(args, routeDoc)
+
+    processRelations(args, now, monitorRouteId, routeDoc)
+
+    val distance = routeDoc.superDistance
+
+    val analysisDuration = System.currentTimeMillis() - analysisStartMillis
+
+    val route = buildRoute(args, now, group, monitorRouteId, routeDoc, distance, analysisDuration)
+
+    args.reporter.stepActive("save")
+    monitorRouteRepository.saveRoute(route)
+    args.reporter.stepDone("save")
+  }
+
+  private def processRelations(args: MonitorUpdateArgs, now: Timestamp, monitorRouteId: ObjectId, routeDoc: RouteDoc): Unit = {
+    routeDoc.routeIds.foreach { routeId =>
+      updateReporterActiveStep(args, routeId)
+      processRelation(args, now, monitorRouteId, routeId)
+    }
+  }
+
+  private def processRelation(args: MonitorUpdateArgs, now: Timestamp, monitorRouteId: ObjectId, routeId: Long): Unit = {
+    val baseRouteDoc = routeRepository.findBaseRouteById(routeId).getOrElse(throw new RuntimeException(s"Could not find BaseRouteDoc with id $routeId"))
+    if (baseRouteDoc.segmentElements.nonEmpty) {
+      val distance = baseRouteDoc.segmentElements.map(_.meters).sum
+      val bounds = baseRouteDoc.bounds.get
+      val geoJson = buildGeoJson(baseRouteDoc)
+      buildReference(args.user, now, monitorRouteId, baseRouteDoc, geoJson, bounds, distance)
+      buildState(now, monitorRouteId, baseRouteDoc, geoJson, distance)
+    }
+  }
+
+  private def buildGeoJson(baseRouteDoc: BaseRouteDoc) = {
+    val lineStrings = baseRouteDoc.segmentElements.map { segmentElement =>
+      val coordinates = Json.value(segmentElement.coordinates, classOf[CoordinateArray]).coordinates
+      val flipped = coordinates.map(c => new Coordinate(c.y, c.x))
+      geometryFactory.createLineString(flipped)
+    }
+    val geometryCollection = new GeometryCollection(lineStrings.toArray, geometryFactory)
+    val geoJsonWriter = new GeoJsonWriter()
+    geoJsonWriter.setEncodeCRS(false)
+    val geoJson = geoJsonWriter.write(geometryCollection)
+    geoJson
+  }
+
+  private def updateReporterActiveStep(args: MonitorUpdateArgs, routeId: Long): Unit = {
+    args.reporter.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = Seq(
+          MonitorRouteUpdateStatusCommand(
+            "step-active",
+            routeId.toString
+          )
+        )
+      )
+    )
+  }
+
+  private def updateReporterSteps(args: MonitorUpdateArgs, routeDoc: RouteDoc): Unit = {
+    val mainRelationInfo = (args.relationId.toString, routeDoc.summary.name)
+    val subRelationInfos = routeDoc.structureRows.filter(_.relation.isDefined).map(row => (row.id.toString, row.name.getOrElse("")))
+    val relationInfos = mainRelationInfo +: subRelationInfos
+
+    val subRelationSteps = relationInfos.zipWithIndex.map { case ((relationId: String, description: String), index) =>
+      val desc = s"${index + 1}/${relationInfos.length} $description"
+      MonitorRouteUpdateStatusCommand(
+        "step-add",
+        relationId,
+        Some(desc)
+      )
+    }
+
+    val saveStep = MonitorRouteUpdateStatusCommand(
+      "step-add",
+      "save"
+    )
+
+    args.reporter.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = subRelationSteps :+ saveStep
+      )
+    )
+  }
+
+  private def buildRoute(
+    args: MonitorUpdateArgs,
+    now: Timestamp,
+    group: MonitorGroup,
+    monitorRouteId: ObjectId,
+    routeDoc: RouteDoc,
+    distance: Long,
+    analysisDuration: Long
+  ) = {
+
+    MonitorRoute(
+      _id = monitorRouteId,
+      groupId = group._id,
+      name = args.update.routeName,
+      description = args.update.description.getOrElse(""),
+      comment = args.update.comment,
+      relationId = args.update.relationId,
+      user = args.user,
+      timestamp = now,
+      symbol = None,
+      analysisTimestamp = Some(now),
+      analysisDuration = Some(analysisDuration),
+      referenceType = MonitorReferenceType.osm,
+      referenceTimestamp = Some(now),
+      referenceFilename = None,
+      referenceDistance = distance,
+      deviationDistance = 0,
+      deviationCount = 0,
+      osmSegmentCount = routeDoc.superSegments.size,
+      osmDistance = distance,
+      relation = None,
+      happy = true, // always true because reference will automatically match current state
+    )
+  }
+
+  private def buildReference(
+    user: String,
+    now: Timestamp,
+    monitorRouteId: ObjectId,
+    baseRouteDoc: BaseRouteDoc,
+    geoJson: String,
+    bounds: Bounds,
+    distance: Long
+  ): Unit = {
+
+    val reference = MonitorRouteReference(
+      _id = ObjectId(),
+      routeId = monitorRouteId,
+      relationId = Some(baseRouteDoc._id),
+      timestamp = now,
+      user = user,
+      referenceBounds = bounds,
+      referenceType = MonitorReferenceType.osm,
+      referenceTimestamp = now,
+      referenceDistance = distance,
+      referenceSegmentCount = baseRouteDoc.segments.length,
+      referenceFilename = None,
+      referenceGeoJson = geoJson
+    )
+    monitorRouteRepository.saveRouteReference(reference)
+  }
+
+  private def buildState(
+    now: Timestamp,
+    monitorRouteId: ObjectId,
+    baseRouteDoc: BaseRouteDoc,
+    geoJson: String,
+    distance: Long
+  ): Unit = {
+
+    val state = MonitorRouteState(
+      _id = ObjectId(),
+      routeId = monitorRouteId,
+      relationId = baseRouteDoc._id,
+      timestamp = now, // time of most recent analysis
+      matchesDistance = distance,
+      matchesGeometry = Some(geoJson),
+      deviations = Seq.empty,
+    )
+    monitorRouteRepository.saveRouteState(state)
+  }
+
+  private def initReporter(args: MonitorUpdateArgs): Unit = {
+    args.reporter.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = Seq(
+          MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+          MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+          MonitorRouteUpdateStatusCommand("step-active", "prepare"),
+        )
+      )
+    )
+  }
+}

@@ -82,18 +82,18 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
       reporter.messages,
       Seq(
         message(
-          command("step-add", "prepare"),
-          command("step-add", "analyze-route-structure"),
-          command("step-active", "prepare")
+          add("prepare"),
+          add("analyze-route-structure"),
+          add("prepare")
         ),
         message(
-          command("step-active", "analyze-route-structure")
+          active("analyze-route-structure")
         ),
         message(
-          command("step-active", "save")
+          active("save")
         ),
         message(
-          command("step-done", "save")
+          done("save")
         )
       )
     )

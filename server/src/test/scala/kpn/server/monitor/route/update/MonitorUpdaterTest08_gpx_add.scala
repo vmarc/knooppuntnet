@@ -205,26 +205,26 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
       reporter.messages,
       Seq(
         message(
-          command("step-add", "prepare"),
-          command("step-add", "analyze-route-structure"),
-          command("step-active", "prepare")
+          add("prepare"),
+          add("analyze-route-structure"),
+          active("prepare")
         ),
         message(
-          command("step-active", "analyze-route-structure")
+          active("analyze-route-structure")
         ),
         message(
-          command("step-add", "load-gpx"),
-          command("step-add", "analyze"),
-          command("step-active", "load-gpx")
+          add("load-gpx"),
+          add("analyze"),
+          active("load-gpx")
         ),
         message(
-          command("step-active", "analyze")
+          active("analyze")
         ),
         message(
-          command("step-active", "save")
+          active("save")
         ),
         message(
-          command("step-done", "save")
+          done("save")
         )
       )
     )

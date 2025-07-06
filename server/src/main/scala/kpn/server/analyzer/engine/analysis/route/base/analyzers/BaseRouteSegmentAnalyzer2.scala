@@ -4,6 +4,7 @@ import kpn.api.common.Bounds
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.BaseRouteSegment
 import kpn.core.doc.BaseRouteSegmentElement
+import kpn.core.util.Haversine
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.domain.StructurePath
 
@@ -54,6 +55,7 @@ class BaseRouteSegmentAnalyzer2(context: BaseRouteAnalysisContext) {
       segment.elements.flatMap { element =>
         element.fragmentGroups.map { fragmentGroup =>
           val coordinates = fragmentGroup.nodes.map(node => s"[${node.longitude},${node.latitude}]").mkString("[", ",", "]")
+          val meters = Haversine.meters(fragmentGroup.nodes)
           val fragmentIds = fragmentGroup.fragments.map(_.id)
           val wayIds = fragmentGroup.fragments.map(_.way.id)
           val memberIndexes = fragmentGroup.fragments.map { fragment => fragment.link.memberIndex }
@@ -62,6 +64,7 @@ class BaseRouteSegmentAnalyzer2(context: BaseRouteAnalysisContext) {
             element.id,
             fragmentGroup.surface,
             memberIndexes,
+            meters,
             coordinates
           )
         }

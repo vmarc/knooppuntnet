@@ -5,7 +5,6 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.custom.Tags
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
@@ -228,26 +227,26 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
       reporter.messages,
       Seq(
         message(
-          command("step-add", "prepare"),
-          command("step-add", "analyze-route-structure"),
-          command("step-active", "prepare")
+          add("prepare"),
+          add("analyze-route-structure"),
+          active("prepare")
         ),
         message(
-          command("step-active", "analyze-route-structure")
+          active("analyze-route-structure")
         ),
         message(
-          command("step-add", "load-gpx"),
-          command("step-add", "analyze"),
-          command("step-active", "load-gpx")
+          add("load-gpx"),
+          add("analyze"),
+          active("load-gpx")
         ),
         message(
-          command("step-active", "analyze")
+          active("analyze")
         ),
         message(
-          command("step-active", "save")
+          active("save")
         ),
         message(
-          command("step-done", "save")
+          done("save")
         )
       )
     )
@@ -258,26 +257,26 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
       reporter.messages,
       Seq(
         message(
-          command("step-add", "prepare"),
-          command("step-add", "analyze-route-structure"),
-          command("step-active", "prepare")
+          add("prepare"),
+          add("analyze-route-structure"),
+          active("prepare")
         ),
         message(
-          command("step-active", "analyze-route-structure")
+          active("analyze-route-structure")
         ),
         message(
-          command("step-add", "load-gpx"),
-          MonitorRouteUpdateStatusCommand("step-add", "analyze"),
-          MonitorRouteUpdateStatusCommand("step-active", "load-gpx")
+          add("load-gpx"),
+          add("analyze"),
+          active("load-gpx")
         ),
         message(
-          MonitorRouteUpdateStatusCommand("step-active", "analyze")
+          active("analyze")
         ),
         message(
-          MonitorRouteUpdateStatusCommand("step-active", "save")
+          active("save")
         ),
         message(
-          MonitorRouteUpdateStatusCommand("step-done", "save")
+          done("save")
         )
       )
     )

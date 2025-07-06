@@ -5,5 +5,6 @@ case class BaseRouteSegmentElement(
   segmentElementId: Long,
   surface: String,
   memberIndexes: Seq[Long],
-  coordinates: String
+  meters: Long,
+  coordinates: String,
 )

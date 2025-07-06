@@ -38,7 +38,19 @@ abstract class MonitorUpdateTest extends MongoTest {
     )
   }
 
-  def command(action: String, stepId: String, description: Option[String] = None): MonitorRouteUpdateStatusCommand = {
+  def add(stepId: String, description: Option[String] = None): MonitorRouteUpdateStatusCommand = {
+    command("step-add", stepId, description)
+  }
+
+  def active(stepId: String): MonitorRouteUpdateStatusCommand = {
+    command("step-active", stepId)
+  }
+
+  def done(stepId: String): MonitorRouteUpdateStatusCommand = {
+    command("step-done", stepId)
+  }
+
+  private def command(action: String, stepId: String, description: Option[String] = None): MonitorRouteUpdateStatusCommand = {
     MonitorRouteUpdateStatusCommand(action, stepId, description)
   }
 

@@ -38,9 +38,10 @@ case class RouteDoc(
   analysis: RouteInfoAnalysis,
   locationAnalysis: RouteLocationAnalysis,
   segments: Seq[RouteSegment],
+  superDistance: Long,
   superSegments: Seq[SuperSegment],
   paths: Seq[RoutePath],
-  routeIds: Seq[Long],
+  routeIds: Seq[Long], // routeId of this route plus all other routes in the entire tree
   bounds: Option[Bounds],
   structureRows: Seq[RouteStructureRow],
   parentRoutes: Seq[ParentRoute],

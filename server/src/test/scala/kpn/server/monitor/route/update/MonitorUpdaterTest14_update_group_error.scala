@@ -104,9 +104,9 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
       reporter.messages,
       Seq(
         message(
-          command("step-add", "prepare"),
-          command("step-add", "analyze-route-structure"),
-          command("step-active", "prepare")
+          add("prepare"),
+          add("analyze-route-structure"),
+          active("prepare")
         ),
         MonitorRouteUpdateStatusMessage(
           exception = Some("""Could not find group with name "group2"""")

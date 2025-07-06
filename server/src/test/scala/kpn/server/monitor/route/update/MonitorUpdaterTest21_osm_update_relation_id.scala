@@ -132,25 +132,25 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
       reporter.messages,
       Seq(
         message(
-          command("step-add", "prepare"),
-          command("step-add", "analyze-route-structure"),
-          command("step-active", "prepare")
+          add("prepare"),
+          add("analyze-route-structure"),
+          active("prepare")
         ),
         message(
-          command("step-active", "analyze-route-structure")
+          active("analyze-route-structure")
         ),
         message(
-          command("step-add", "2", Some("1/1 route-name")),
-          command("step-add", "save", None),
+          add("2", Some("1/1 route-name")),
+          add("save", None),
         ),
         message(
-          command("step-active", "2")
+          active("2")
         ),
         message(
-          command("step-active", "save")
+          active("save")
         ),
         message(
-          command("step-done", "save")
+          done("save")
         )
       )
     )

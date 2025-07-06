@@ -41,9 +41,9 @@ class MonitorUpdaterTest17_route_not_found extends MonitorUpdateTest {
       reporter.messages,
       Seq(
         message(
-          command("step-add", "prepare"),
-          command("step-add", "analyze-route-structure"),
-          command("step-active", "prepare")
+          add("prepare"),
+          add("analyze-route-structure"),
+          active("prepare")
         ),
         MonitorRouteUpdateStatusMessage(
           exception = Some("""Could not find route with name "unknown-route-name" in group "group-name"""")
