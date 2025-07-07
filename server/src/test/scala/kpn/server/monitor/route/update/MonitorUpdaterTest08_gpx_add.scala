@@ -177,7 +177,7 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
           "name" -> "route-name"
         )
       )
-    setupRouteStructure(overpassData, 1)
+    setupRouteStructure(Some(ReferenceTimestamp1), overpassData, 1)
   }
 
   private def setupLoadRelation(): Unit = {

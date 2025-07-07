@@ -19,7 +19,8 @@ class MonitorAdd(
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorUpdateSave: MonitorUpdateSave,
   monitorAddMultiGpx: MonitorAddMultiGpx,
-  monitorAddOsmNow: MonitorAddOsmNow
+  monitorAddOsmNow: MonitorAddOsmNow,
+  monitorAddOsm: MonitorAddOsm,
 ) {
 
   private val log = Log(classOf[MonitorAdd])
@@ -38,6 +39,10 @@ class MonitorAdd(
       }
       if (args.update.referenceType == MonitorReferenceType.osm && args.update.referenceNow.contains(true)) {
         monitorAddOsmNow.execute(args)
+        return
+      }
+      if (args.update.referenceType == MonitorReferenceType.osm) {
+        monitorAddOsm.execute(args)
         return
       }
     }

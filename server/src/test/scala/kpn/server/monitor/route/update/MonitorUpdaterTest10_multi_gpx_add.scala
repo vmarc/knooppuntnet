@@ -495,7 +495,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         ),
       )
 
-    setupRouteStructure(overpassData, 1)
+    setupRouteStructure(Some(ReferenceTimestamp1), overpassData, 1)
   }
 
   private def setupLoadTopLevel(): Unit = {

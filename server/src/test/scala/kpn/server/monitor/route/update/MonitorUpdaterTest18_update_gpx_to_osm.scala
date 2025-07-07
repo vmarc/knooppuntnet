@@ -282,7 +282,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
           "name" -> "route-name"
         )
       )
-    setupRouteStructure(overpassData, 1)
+    setupRouteStructure(Some(ReferenceTimestamp1), overpassData, 1)
   }
 
   private def setupLoadRelation(): Unit = {

@@ -181,7 +181,7 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
         ),
       )
 
-    setupRouteStructure(overpassData, 1)
+    setupRouteStructure(Some(ReferenceTimestamp1), overpassData, 1)
   }
 
   private def setupLoadTopLevel(): Unit = {

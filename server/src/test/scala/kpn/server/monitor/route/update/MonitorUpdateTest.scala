@@ -27,9 +27,9 @@ abstract class MonitorUpdateTest extends MongoTest {
 
   def configuration: MonitorUpdaterConfiguration = _configuration
 
-  def setupRouteStructure(overpassData: OverpassData, relationId: Long): Unit = {
+  def setupRouteStructure(timestamp: Option[Timestamp], overpassData: OverpassData, relationId: Long): Unit = {
     val monitorRouteRelation = MonitorRouteRelation.from(new DataBuilder(overpassData.rawData).data.relations(relationId), None)
-    (configuration.monitorRouteStructureLoader.load _).when(None, relationId).returns(Some(monitorRouteRelation))
+    (configuration.monitorRouteStructureLoader.load _).when(timestamp, relationId).returns(Some(monitorRouteRelation))
   }
 
   def message(commands: MonitorRouteUpdateStatusCommand*): MonitorRouteUpdateStatusMessage = {

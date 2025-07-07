@@ -143,7 +143,7 @@ class MonitorAddOsmNow(
     routeDoc: RouteDoc,
     distance: Long,
     analysisDuration: Long
-  ) = {
+  ): MonitorRoute = {
 
     MonitorRoute(
       _id = monitorRouteId,

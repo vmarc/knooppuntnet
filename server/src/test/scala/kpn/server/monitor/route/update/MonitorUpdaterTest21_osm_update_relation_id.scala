@@ -246,7 +246,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
           "name" -> "route-name"
         )
       )
-    setupRouteStructure(overpassData, NewRelationId)
+    setupRouteStructure(Some(ReferenceTimestamp1), overpassData, NewRelationId)
   }
 
   private def setupLoadTopLevel(): Unit = {

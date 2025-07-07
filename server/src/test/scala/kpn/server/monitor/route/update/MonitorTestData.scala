@@ -29,6 +29,10 @@ object MonitorTestData {
   private def buildMonitorTestRoute(relationId: Long, meters: Long, lat1: String, lon1: String, lat2: String, lon2: String): MonitorTestRoute = {
     MonitorTestRoute(
       relationId = relationId,
+      lat1 = lat1,
+      lon1 = lon1,
+      lat2 = lat2,
+      lon2 = lon2,
       meters = meters,
       coordinates = Array(Array(lon1, lat1), Array(lon2, lat2)),
       geoJson = s"""{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[$lon1,$lat1],[$lon2,$lat2]]}]}""",
