@@ -49,7 +49,7 @@ object CaseStudy extends MockFactory {
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
 
-    val rawData = new Parser(full = false).parse(xml)
+    val rawData = new Parser(includeMetadata = false).parse(xml)
     if (rawData.relations.isEmpty) {
       throw new IllegalArgumentException(s"No route relation found in file $filename")
     }

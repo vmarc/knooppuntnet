@@ -83,7 +83,7 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
     val stream = getClass.getResourceAsStream(s"/case-studies/$routeId.xml")
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
-    new Parser(full = false).parse(xml)
+    new Parser(includeMetadata = false).parse(xml)
   }
 
   private def withoutConnectionNode(rawData: RawData, connectingNodeName: String): RawData = {

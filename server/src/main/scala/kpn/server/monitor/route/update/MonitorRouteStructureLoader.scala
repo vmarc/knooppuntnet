@@ -14,13 +14,36 @@ import scala.xml.XML
 class MonitorRouteStructureLoader(overpassQueryExecutor: OverpassQueryExecutor) {
 
   def load(timestamp: Option[Timestamp], relationId: Long): Option[MonitorRouteRelation] = {
-    val xmlString = overpassQueryExecutor.executeQuery(timestamp, QueryRelationStructure(relationId))
-    val filteredXmlString = xmlString.linesIterator.filter { line =>
-      !(line.contains("<node id") || line.contains("<way id") || line.contains("<member type=\"node\"") || line.contains("<member type=\"way\""))
+    val xmlString = fetchRelationStructureFromOverpass(timestamp, relationId)
+    val filteredXmlString = removeIrrelevantElementsFromXml(xmlString)
+    val parsedRelation = parseRelationFromXml(filteredXmlString)
+
+    convertToMonitorRouteRelation(parsedRelation, relationId)
+  }
+
+  private def fetchRelationStructureFromOverpass(timestamp: Option[Timestamp], relationId: Long): String = {
+    overpassQueryExecutor.executeQuery(timestamp, QueryRelationStructure(relationId))
+  }
+
+  private def removeIrrelevantElementsFromXml(xmlString: String): String = {
+    // Filter out nodes, ways, and their references as we only need relation structure
+    xmlString.linesIterator.filter { line =>
+      !(line.contains("<node id") ||
+        line.contains("<way id") ||
+        line.contains("<member type=\"node\"") ||
+        line.contains("<member type=\"way\""))
     }.mkString("\n")
+  }
+
+  private def parseRelationFromXml(filteredXmlString: String): scala.xml.Node = {
     val xml = XML.loadString(filteredXmlString)
-    val rawData = new Parser().parse(xml.head)
+    xml.head
+  }
+
+  private def convertToMonitorRouteRelation(xmlNode: scala.xml.Node, relationId: Long): Option[MonitorRouteRelation] = {
+    val rawData = new Parser().parse(xmlNode)
     val data = new DataBuilder(rawData).data
+
     data.relations.get(relationId).map { relation =>
       MonitorRouteRelation.from(relation, None)
     }

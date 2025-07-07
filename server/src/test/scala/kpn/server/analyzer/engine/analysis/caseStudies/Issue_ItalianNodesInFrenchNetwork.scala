@@ -19,7 +19,7 @@ class Issue_ItalianNodesInFrenchNetwork extends IntegrationTest {
     val stream = getClass.getResourceAsStream(filename)
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
-    val rawData = new Parser(full = false).parse(xml)
+    val rawData = new Parser(includeMetadata = false).parse(xml)
 
     val dataBefore = OverpassData(rawData.nodes, rawData.ways, rawData.relations)
     val dataAfter = dataBefore

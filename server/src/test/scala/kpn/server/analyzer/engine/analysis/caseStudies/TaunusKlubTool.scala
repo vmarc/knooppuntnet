@@ -190,7 +190,7 @@ class TaunusKlubTool(configuration: MonitorUpdaterConfiguration) {
     val stream = getClass.getResourceAsStream("/case-studies/taunus-klub.xml")
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
-    val rawData = new Parser(full = false).parse(xml)
+    val rawData = new Parser(includeMetadata = false).parse(xml)
     val infos: Seq[Seq[String]] = rawData.relations.map { relation =>
       Seq(relation.tagValue("name").get, relation.id.toString, relation.tagValue("ref").toString)
     }

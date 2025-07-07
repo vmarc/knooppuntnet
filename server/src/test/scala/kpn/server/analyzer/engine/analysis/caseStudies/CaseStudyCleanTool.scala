@@ -28,7 +28,7 @@ class CaseStudyCleanTool {
 
   private def readFile(filename: String): RawData = {
     val xml = XML.loadFile(filename)
-    new Parser(full = false).parse(xml)
+    new Parser(includeMetadata = false).parse(xml)
   }
 
   private def writeFile(data: RawData, filename: String): Unit = {

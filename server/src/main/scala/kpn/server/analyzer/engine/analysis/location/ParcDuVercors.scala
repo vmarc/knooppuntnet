@@ -123,7 +123,7 @@ object ParcDuVercors {
     val stream = getClass.getResourceAsStream(filename)
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
-    val rawData = new Parser(full = false).parse(xml.head)
+    val rawData = new Parser(includeMetadata = false).parse(xml.head)
     val data = new DataBuilder(rawData).data
     val relation = data.relations(relationId)
     val polygons = RelationPolygonBuilder.toPolygons(data, relation)

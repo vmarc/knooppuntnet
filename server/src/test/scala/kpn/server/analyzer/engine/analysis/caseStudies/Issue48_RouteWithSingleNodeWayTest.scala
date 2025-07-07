@@ -48,7 +48,7 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest with MockFactory {
     val stream = getClass.getResourceAsStream("/case-studies/network-2243640.xml")
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
-    val rawData = new Parser(full = false).parse(xml)
+    val rawData = new Parser(includeMetadata = false).parse(xml)
     new DataBuilder(rawData).data
   }
 }
