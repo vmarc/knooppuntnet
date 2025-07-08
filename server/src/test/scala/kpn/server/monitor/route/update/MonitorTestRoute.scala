@@ -4,15 +4,13 @@ import kpn.api.common.Bounds
 
 case class MonitorTestRoute(
   relationId: Long,
-  lat1: String,
   lon1: String,
-  lat2: String,
+  lat1: String,
   lon2: String,
+  lat2: String,
   meters: Long,
   coordinates: Array[Array[String]],
-  geoJson: String,
-  multiLinestringGeoJson: String,
-
+  lines: Seq[String],
   bounds: Bounds,
   gpx: String,
 ) {

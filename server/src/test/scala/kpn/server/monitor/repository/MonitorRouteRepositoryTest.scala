@@ -245,14 +245,14 @@ class MonitorRouteRepositoryTest extends MongoTest {
           meters = 20,
           distance = 0,
           bounds = Bounds(),
-          geoJson = ""
+          lines = Seq.empty
         ),
         MonitorRouteDeviation(
           2,
           meters = 30,
           distance = 0,
           bounds = Bounds(),
-          geoJson = ""
+          lines = Seq.empty
         )
       )
     )
@@ -265,7 +265,7 @@ class MonitorRouteRepositoryTest extends MongoTest {
           meters = 40,
           distance = 0,
           bounds = Bounds(),
-          geoJson = ""
+          lines = Seq.empty
         ),
       )
     )

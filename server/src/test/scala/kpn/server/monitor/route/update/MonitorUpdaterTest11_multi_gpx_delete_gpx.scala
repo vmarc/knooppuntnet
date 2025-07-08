@@ -158,17 +158,17 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
       routeId = route._id,
       relationId = 111,
       timestamp = Timestamp(2022, 8, 11),
-      matchesDistance = 100,
-      matchesGeometry = Some("matches"),
       deviations = Seq(
         MonitorRouteDeviation(
           id = 1,
           meters = 50,
           distance = 12,
           bounds = Bounds(1, 1, 1, 1),
-          geoJson = "geoJson"
+          lines = Seq.empty
         )
       ),
+      matchesDistance = 100,
+      matchesLines = Seq("matches"),
     )
   }
 

@@ -8,6 +8,7 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.common.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
+import kpn.core.util.CoordinateUtil
 import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorFilter
@@ -18,10 +19,8 @@ import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteReferenceSummary
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
-import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonReader
-import org.locationtech.jts.io.geojson.GeoJsonWriter
 import org.springframework.stereotype.Component
 
 import scala.xml.XML
@@ -149,6 +148,7 @@ class MonitorUpdate(
             val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
             val referenceDistance = Math.round(referenceLineStrings.map(Haversine.meters).sum)
             val referenceSegmentCount = geometryCollection.getNumGeometries
+            val referenceLines = referenceLineStrings.map(CoordinateUtil.lineStringToCoordinates)
 
             val reference = MonitorRouteReference(
               ObjectId(),
@@ -162,7 +162,7 @@ class MonitorUpdate(
               referenceDistance = referenceDistance,
               referenceSegmentCount = referenceSegmentCount,
               referenceFilename = context.value.update.referenceFilename,
-              referenceGeoJson = Some(referenceGeoJson)
+              referenceLines = referenceLines
             )
 
             context.upsertRouteReference(reference)
@@ -231,7 +231,7 @@ class MonitorUpdate(
         val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
         val referenceDistance = Math.round(referenceLineStrings.map(Haversine.meters).sum)
         val referenceSegmentCount = geometryCollection.getNumGeometries
-
+        val referenceLines = referenceLineStrings.map(CoordinateUtil.lineStringToCoordinates)
         val objectId = context.value.oldReferenceIds.filter(_.relationId == context.value.relationId).map(_._id).headOption.getOrElse(ObjectId())
 
         val reference = MonitorRouteReference(
@@ -246,7 +246,7 @@ class MonitorUpdate(
           referenceDistance = referenceDistance,
           referenceSegmentCount = referenceSegmentCount,
           referenceFilename = context.value.update.referenceFilename,
-          referenceGeoJson = Some(referenceGeoJson)
+          referenceLines = referenceLines
         )
 
         context.upsertRouteReference(reference)
@@ -333,11 +333,7 @@ class MonitorUpdate(
           val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
           val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
 
-          val geomFactory = new GeometryFactory
-          val geometryCollection = new GeometryCollection(analysis.routeSegments.flatMap(_.lineStrings).toArray, geomFactory)
-          val geoJsonWriter = new GeoJsonWriter()
-          geoJsonWriter.setEncodeCRS(false)
-          val geometry = geoJsonWriter.write(geometryCollection)
+          val referenceLines = analysis.routeSegments.flatMap(_.lineStrings).map(CoordinateUtil.lineStringToCoordinates)
 
           val id = if (context.value.isActionUpdate || context.value.isActionGpxUpload) {
             monitorRouteRepository.routeRelationReferenceId(context.value.routeId, Some(subRelation.id)) match {
@@ -361,7 +357,7 @@ class MonitorUpdate(
             analysis.osmDistance,
             analysis.routeSegments.size,
             None,
-            Some(geometry)
+            referenceLines
           )
 
           context.upsertRouteReference(ref)

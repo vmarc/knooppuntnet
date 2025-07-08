@@ -157,7 +157,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceGeoJson = Some("""{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}""")
+        referenceLines = Seq("[[4.4553911,51.4633666],[4.4562458,51.4618272]]")
       )
     )
     reference
@@ -173,9 +173,9 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         relationId = 1,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        matchesDistance = 181,
-        matchesGeometry = Some(route1.multiLinestringGeoJson),
         deviations = Seq.empty,
+        matchesDistance = 181,
+        matchesLines = route1.lines,
       )
     )
     state
@@ -228,7 +228,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),
-        referenceGeoJson = Some(route1.geoJson)
+        referenceLines = route1.lines
       )
     )
   }
@@ -243,9 +243,9 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         relationId = 1,
         timestamp = UpdateTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        matchesDistance = 181,
-        matchesGeometry = Some(route1.multiLinestringGeoJson),
         deviations = Seq.empty,
+        matchesDistance = 181,
+        matchesLines = route1.lines,
       )
     )
   }

@@ -8,10 +8,10 @@ object MonitorTestData {
     buildMonitorTestRoute(
       relationId = 1,
       meters = 181,
-      lat1 = "51.4633666",
       lon1 = "4.4553911",
-      lat2 = "51.4618272",
-      lon2 = "4.4562458"
+      lat1 = "51.4633666",
+      lon2 = "4.4562458",
+      lat2 = "51.4618272"
     )
   }
 
@@ -19,24 +19,27 @@ object MonitorTestData {
     buildMonitorTestRoute(
       relationId = 2,
       meters = 93,
-      lat1 = "51.4618272",
       lon1 = "4.4562458",
-      lat2 = "51.4614496",
-      lon2 = "4.4550560"
+      lat1 = "51.4618272",
+      lon2 = "4.4550560",
+      lat2 = "51.4614496"
     )
   }
 
-  private def buildMonitorTestRoute(relationId: Long, meters: Long, lat1: String, lon1: String, lat2: String, lon2: String): MonitorTestRoute = {
+  private def buildMonitorTestRoute(relationId: Long, meters: Long, lon1: String, lat1: String, lon2: String, lat2: String): MonitorTestRoute = {
+    val coordinates = Array(Array(lon1, lat1), Array(lon2, lat2))
+    val coordinateString: String = {
+      coordinates.map(c => c.mkString("[", ",", "]")).mkString("[", ",", "]")
+    }
     MonitorTestRoute(
       relationId = relationId,
-      lat1 = lat1,
       lon1 = lon1,
-      lat2 = lat2,
+      lat1 = lat1,
       lon2 = lon2,
+      lat2 = lat2,
       meters = meters,
-      coordinates = Array(Array(lon1, lat1), Array(lon2, lat2)),
-      geoJson = s"""{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[$lon1,$lat1],[$lon2,$lat2]]}]}""",
-      multiLinestringGeoJson = s"""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[$lon1,$lat1],[$lon2,$lat2]]]}]}""",
+      coordinates = coordinates,
+      lines = Seq(coordinateString),
       bounds = Bounds(lat2.toDouble, lon1.toDouble, lat1.toDouble, lon2.toDouble),
       gpx =
         s"""

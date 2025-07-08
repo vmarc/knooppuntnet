@@ -6,6 +6,7 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.common.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
+import kpn.core.util.CoordinateUtil
 import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.core.util.ValidationException
@@ -92,6 +93,7 @@ class MonitorMultiGpxUpload(
     val segmentCount = geometryCollection.getNumGeometries
 
     val objectId = monitorRouteRepository.routeRelationReferenceId(route._id, Some(relationId)).getOrElse(ObjectId())
+    val referenceLines1 = referenceLineStrings.map(CoordinateUtil.lineStringToCoordinates)
 
     val reference = MonitorRouteReference(
       objectId,
@@ -105,7 +107,7 @@ class MonitorMultiGpxUpload(
       referenceDistance = distance,
       referenceSegmentCount = segmentCount,
       referenceFilename = args.update.referenceFilename,
-      referenceGeoJson = Some(geoJson)
+      referenceLines = referenceLines1
     )
 
     monitorRouteRepository.saveRouteReference(reference)
@@ -134,9 +136,9 @@ class MonitorMultiGpxUpload(
         route._id,
         relationId,
         now,
-        deviationAnalysis.matchesDistance,
-        deviationAnalysis.matchesGeometry,
         deviationAnalysis.deviations,
+        deviationAnalysis.matchesDistance,
+        deviationAnalysis.matchesLines,
       )
     )
 

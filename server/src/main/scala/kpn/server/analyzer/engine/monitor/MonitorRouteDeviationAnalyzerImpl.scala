@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.monitor.MonitorRouteDeviation
+import kpn.core.util.CoordinateUtil
 import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toLineString
@@ -34,17 +35,16 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
     val tree = buildRTree(routeLines)
 
     val analysisResults = analyzeDeviations(tree, referenceLines)
-    val allMatches = geometryFactory.createGeometryCollection(analysisResults.map(_.matches).toArray)
+    val allMatchesLines = analysisResults.flatMap(_.matchesLines)
     val referenceDistance = Math.round(referenceLines.map(Haversine.meters).sum)
     val matchesDistance = analysisResults.map(_.matchesDistance).sum
-    val matchesGeometry = Some(MonitorRouteAnalysisSupport.toGeoJson(allMatches))
     val deviations = organizeDeviations(analysisResults)
 
     MonitorRouteDeviationAnalysis(
       analysisResults,
       referenceDistance,
       matchesDistance,
-      matchesGeometry,
+      allMatchesLines,
       deviations
     )
   }
@@ -77,10 +77,11 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
     val distances = analyzeDistances(tree, referenceSampleCoordinates)
     val (matchingSequences, deviationSequences) = calculateDeviations(distances, referenceSampleCoordinates)
     val lineStrings = matchingSequences.map(sequence => toLineString(referenceSampleCoordinates, sequence))
+    val matchesLines = lineStrings.map(CoordinateUtil.lineStringToCoordinates)
     val matches = geometryFactory.createMultiLineString(lineStrings.toArray)
     val matchesDistance = Math.round(lineStrings.map(lineString => Haversine.meters(lineString)).sum)
     val deviations = buildDeviations(deviationSequences, distances, referenceSampleCoordinates)
-    DeviationAnalysisResult(deviations, matchesDistance, matches)
+    DeviationAnalysisResult(deviations, matchesDistance, matchesLines)
   }
 
   private def buildDeviations(
@@ -91,6 +92,7 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
     deviationSequences.zipWithIndex.flatMap { case (sequence, sequenceIndex) =>
       val maxDistance = sequence.indexes.map(index => distances(index)).max
       val lineString = MonitorRouteAnalysisSupport.toLineString(referenceSampleCoordinates, sequence)
+      val line = CoordinateUtil.lineStringToCoordinates(lineString)
       val meters = Math.round(Haversine.meters(lineString))
       if (meters == 0L) {
         None
@@ -104,7 +106,7 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
             meters,
             maxDistance.toLong,
             bounds,
-            geoJson
+            Seq(line)
           )
         )
       }

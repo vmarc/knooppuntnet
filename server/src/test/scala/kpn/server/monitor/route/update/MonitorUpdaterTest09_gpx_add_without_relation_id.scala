@@ -157,7 +157,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),
-        referenceGeoJson = Some(route1.geoJson)
+        referenceLines = route1.lines
       )
     )
     reference
@@ -207,7 +207,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),
-        referenceGeoJson = Some(route1.geoJson)
+        referenceLines = route1.lines
       )
     )
   }
@@ -222,9 +222,9 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         relationId = 1,
         timestamp = UpdateTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        matchesDistance = 181,
-        matchesGeometry = Some(route1.multiLinestringGeoJson),
         deviations = Seq.empty,
+        matchesDistance = 181,
+        matchesLines = route1.lines,
       )
     )
   }

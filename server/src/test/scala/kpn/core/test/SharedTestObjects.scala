@@ -1188,7 +1188,7 @@ trait SharedTestObjects extends MockFactory {
     distance: Long = 0,
     segmentCount: Long = 0,
     filename: Option[String] = None,
-    geoJson: String = ""
+    referenceLines: Seq[String] = Seq.empty
   ): MonitorRouteReference = {
     MonitorRouteReference(
       ObjectId(),
@@ -1202,7 +1202,8 @@ trait SharedTestObjects extends MockFactory {
       distance,
       segmentCount,
       filename,
-      Some(geoJson)
+      referenceLines,
+      None,
     )
   }
 
@@ -1211,18 +1212,18 @@ trait SharedTestObjects extends MockFactory {
     routeId: ObjectId,
     relationId: Long,
     timestamp: Timestamp = Timestamps.default,
-    matchesDistance: Long = 0,
-    matchesGeometry: Option[String] = None,
     deviations: Seq[MonitorRouteDeviation] = Seq.empty,
+    matchesDistance: Long = 0,
+    matchesLines: Seq[String] = Seq.empty,
   ): MonitorRouteState = {
     MonitorRouteState(
       _id,
       routeId,
       relationId,
       timestamp,
-      matchesDistance,
-      matchesGeometry,
       deviations,
+      matchesDistance,
+      matchesLines,
     )
   }
 

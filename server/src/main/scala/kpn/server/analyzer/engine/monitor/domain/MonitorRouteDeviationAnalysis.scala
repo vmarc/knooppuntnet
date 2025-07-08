@@ -7,6 +7,6 @@ case class MonitorRouteDeviationAnalysis(
   results: Seq[DeviationAnalysisResult],
   referenceDistance: Long,
   matchesDistance: Long,
-  matchesGeometry: Option[String],
+  matchesLines: Seq[String],
   deviations: Seq[MonitorRouteDeviation]
 )

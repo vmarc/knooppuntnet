@@ -137,7 +137,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceGeoJson = Some("""{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}""")
+        referenceLines = Seq("[[4.4553911,51.4633666],[4.4562458,51.4618272]]")
       )
     )
   }
@@ -158,7 +158,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         referenceDistance = 93,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceGeoJson = Some("""{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}]}""")
+        referenceLines = Seq("[[4.4562458,51.4618272],[4.455056,51.4614496]]")
       )
     )
   }
@@ -178,9 +178,9 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         relationId = 11,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        matchesDistance = 181,
-        matchesGeometry = Some(route1.multiLinestringGeoJson),
         deviations = Seq.empty,
+        matchesDistance = 181,
+        matchesLines = route1.lines,
       )
     )
   }
@@ -195,9 +195,9 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         relationId = 12,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
-        matchesDistance = 181,
-        matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}]}"""),
         deviations = Seq.empty,
+        matchesDistance = 181,
+        matchesLines = Seq("[[4.4562458,51.4618272],[4.455056,51.4614496]]"),
       )
     )
   }

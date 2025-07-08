@@ -11,11 +11,11 @@ import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
+import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
-import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
 import kpn.server.json.Json
 import kpn.server.monitor.MonitorUtil
@@ -28,7 +28,6 @@ import kpn.server.repository.RouteRepository
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.io.geojson.GeoJsonReader
 import org.locationtech.jts.io.geojson.GeoJsonWriter
 import org.springframework.stereotype.Component
 
@@ -98,6 +97,7 @@ class MonitorAddOsm(
       case Some(reference) =>
 
         val routeCoordinateArrays = routeRepository.coordinatesArrays(Seq(relation.relationId))
+        val lines = routeCoordinateArrays.map(CoordinateUtil.coordinatesToString)
         if (routeCoordinateArrays.isEmpty) {
           // the relation does not exist anymore or does not contain ways, the entire reference becomes a deviation
           val deviation = MonitorRouteDeviation(
@@ -105,17 +105,16 @@ class MonitorAddOsm(
             meters = reference.referenceDistance,
             distance = reference.referenceDistance,
             bounds = reference.referenceBounds,
-            reference.referenceGeoJson.get
-
+            lines
           )
           val state = MonitorRouteState(
             _id = ObjectId(),
             routeId = monitorRouteId,
             relationId = relation.relationId,
             timestamp = now,
-            matchesDistance = 0,
-            matchesGeometry = None,
             deviations = Seq(deviation),
+            matchesDistance = 0,
+            matchesLines = Seq.empty,
           )
           monitorRouteRepository.saveRouteState(state)
           Some(
@@ -129,14 +128,10 @@ class MonitorAddOsm(
         }
         else {
           val routeLines = routeCoordinateArrays.map { coordinateArray =>
-            val flipped = coordinateArray.map(c => new Coordinate(c.y, c.x))
-            geometryFactory.createLineString(flipped)
+            geometryFactory.createLineString(coordinateArray)
           }
 
-          val referenceLines = {
-            val referenceGeometry = new GeoJsonReader().read(reference.referenceGeoJson.get)
-            MonitorRouteReferenceUtil.toLineStrings(referenceGeometry)
-          }
+          val referenceLines = reference.referenceLines.map(CoordinateUtil.coordinatesToLineString)
 
           val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
 
@@ -145,9 +140,9 @@ class MonitorAddOsm(
             monitorRouteId,
             relation.relationId,
             now,
-            deviationAnalysis.matchesDistance,
-            deviationAnalysis.matchesGeometry,
             deviationAnalysis.deviations,
+            deviationAnalysis.matchesDistance,
+            deviationAnalysis.matchesLines,
           )
           monitorRouteRepository.saveRouteState(state)
 
@@ -182,11 +177,7 @@ class MonitorAddOsm(
           val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
           val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
 
-          val geomFactory = new GeometryFactory
-          val geometryCollection = new GeometryCollection(analysis.routeSegments.flatMap(_.lineStrings).toArray, geomFactory)
-          val geoJsonWriter = new GeoJsonWriter()
-          geoJsonWriter.setEncodeCRS(false)
-          val geometry = geoJsonWriter.write(geometryCollection)
+          val referenceLines = analysis.routeSegments.flatMap(_.lineStrings.map(CoordinateUtil.lineStringToCoordinates))
 
           val ref = MonitorRouteReference(
             ObjectId(),
@@ -200,7 +191,7 @@ class MonitorAddOsm(
             analysis.osmDistance,
             analysis.routeSegments.size,
             None,
-            Some(geometry)
+            referenceLines
           )
 
           monitorRouteRepository.saveRouteReference(ref)

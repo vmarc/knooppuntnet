@@ -187,7 +187,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceGeoJson = Some(route1.geoJson)
+        referenceLines = route1.lines
       )
     )
   }
@@ -202,9 +202,9 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         relationId = route1.relationId,
         timestamp = UpdateTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        matchesDistance = route1.meters,
-        matchesGeometry = Some(route1.multiLinestringGeoJson),
         deviations = Seq.empty,
+        matchesDistance = route1.meters,
+        matchesLines = route1.lines,
       )
     )
   }

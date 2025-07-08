@@ -7,5 +7,9 @@ case class MonitorRouteDeviation(
   meters: Long,
   distance: Long,
   bounds: Bounds,
-  geoJson: String
-)
+  lines: Seq[String]
+) {
+  def sameAs(other: MonitorRouteDeviation): Boolean = {
+    lines.toSet == other.lines.toSet
+  }
+}

@@ -171,7 +171,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
         referenceDistance = subRoute11.meters,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-1"),
-        referenceGeoJson = Some(subRoute11.geoJson)
+        referenceLines = subRoute11.lines
       )
     )
   }
@@ -186,7 +186,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
         subRoute11.relationId,
         GpxUpload1Timestamp,
         matchesDistance = subRoute11.meters,
-        matchesGeometry = Some(subRoute11.multiLinestringGeoJson)
+        matchesLines = subRoute11.lines
       )
     )
   }
@@ -239,7 +239,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
         referenceDistance = subRoute12.meters,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-2"),
-        referenceGeoJson = Some(subRoute12.geoJson)
+        referenceLines = subRoute12.lines
       )
     )
   }
@@ -254,7 +254,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
         subRoute12.relationId,
         GpxUpload2Timestamp,
         matchesDistance = subRoute12.meters,
-        matchesGeometry = Some(subRoute12.multiLinestringGeoJson)
+        matchesLines = subRoute12.lines
       )
     )
   }

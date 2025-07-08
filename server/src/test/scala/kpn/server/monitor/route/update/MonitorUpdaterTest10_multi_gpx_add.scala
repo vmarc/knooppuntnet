@@ -251,9 +251,9 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         relationId = 11,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        matchesDistance = 181,
-        matchesGeometry = None,
         deviations = Seq.empty,
+        matchesDistance = 181,
+        matchesLines = Seq.empty, // TODO redesign - this cannot be correct if distance is 181
       )
     )
     state
@@ -269,9 +269,9 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         relationId = 12,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
-        matchesDistance = 181,
-        matchesGeometry = None,
         deviations = Seq.empty,
+        matchesDistance = 181,
+        matchesLines = Seq.empty, // TODO redesign - this cannot be correct if distance is 181
       )
     )
     state
@@ -319,7 +319,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-1"),
-        referenceGeoJson = Some(route1.geoJson)
+        referenceLines = route1.lines
       )
     )
     reference
@@ -331,7 +331,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
       state,
       state11.copy(
         timestamp = GpxUpload1Timestamp,
-        matchesGeometry = Some(route1.multiLinestringGeoJson),
+        matchesLines = route1.lines,
       )
     )
   }
@@ -384,7 +384,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         referenceDistance = 93,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-2"),
-        referenceGeoJson = Some("""{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}]}""")
+        referenceLines = Seq("[[4.4562458,51.4618272],[4.455056,51.4614496]]")
       )
     )
   }

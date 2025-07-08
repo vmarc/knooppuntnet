@@ -44,7 +44,7 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
           referenceType = MonitorReferenceType.osm,
           description = Some("route-description"),
           comment = Some("route-comment"),
-          relationId = Some(1),
+          relationId = Some(route1.relationId),
           referenceNow = Some(true),
         )
       )
@@ -104,7 +104,7 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
         referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceGeoJson = Some(route1.geoJson)
+        referenceLines = route1.lines
       )
     )
   }
@@ -119,9 +119,9 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
         relationId = 1,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        matchesDistance = route1.meters,
-        matchesGeometry = Some(route1.geoJson),
         deviations = Seq.empty,
+        matchesDistance = route1.meters,
+        matchesLines = route1.lines,
       )
     )
   }

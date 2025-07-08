@@ -2,9 +2,13 @@ package kpn.core.util
 
 import kpn.api.common.LatLon
 import kpn.api.common.planner.PlanCoordinate
+import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
+import kpn.server.json.Json
 import org.geotools.geometry.jts.JTS
 import org.geotools.referencing.CRS
 import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.geom.LineString
 
 import java.text.DecimalFormat
 
@@ -14,6 +18,7 @@ object CoordinateUtil {
   private val targetCRS = CRS.decode("EPSG:3857")
   private val transform = CRS.findMathTransform(sourceCRS, targetCRS, false)
   private val coordinateFormatter = new DecimalFormat("#.########")
+  private val geometryFactory = new GeometryFactory
 
   def toCoordinate(lat: Double, lon: Double): PlanCoordinate = {
     val coordinate = new Coordinate(lat, lon)
@@ -40,5 +45,18 @@ object CoordinateUtil {
       case "-0" => "0"
       case other => other
     }
+  }
+
+  def lineStringToCoordinates(lineString: LineString): String = {
+    lineString.getCoordinates.map(c => s"[${c.x},${c.y}]").mkString("[", ",", "]")
+  }
+
+  def coordinatesToLineString(string: String): LineString = {
+    val coordinates = Json.value(string, classOf[CoordinateArray]).coordinates
+    geometryFactory.createLineString(coordinates)
+  }
+
+  def coordinatesToString(coordinates: Array[Coordinate]): String = {
+    coordinates.map(c => s"[${c.x},${c.y}]").mkString("[", ",", "]")
   }
 }

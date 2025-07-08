@@ -10,7 +10,8 @@ case class MonitorRouteState(
   routeId: ObjectId,
   relationId: Long,
   timestamp: Timestamp, // time of most recent analysis
-  matchesDistance: Long,
-  matchesGeometry: Option[String],
   deviations: Seq[MonitorRouteDeviation],
+  matchesDistance: Long,
+  matchesLines: Seq[String],
+  matchesGeometry: Option[String] = None,
 ) extends WithObjectId

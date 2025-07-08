@@ -109,13 +109,13 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
         referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceGeoJson = Some(route1.geoJson)
+        referenceLines = route1.lines
       )
     )
   }
 
   private def verifyRouteState(monitorRoute: MonitorRoute): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(monitorRoute._id, 1).get
+    val state = configuration.monitorRouteRepository.routeState(monitorRoute._id, route1.relationId).get
     assertEqual(
       state,
       MonitorRouteState(
@@ -124,9 +124,9 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
         relationId = route1.relationId,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        matchesDistance = route1.meters,
-        matchesGeometry = Some(route1.multiLinestringGeoJson),
         deviations = Seq.empty,
+        matchesDistance = route1.meters,
+        matchesLines = route1.lines,
       )
     )
   }

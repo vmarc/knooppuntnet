@@ -12,8 +12,8 @@ class CoordinateArrayJsonDeserializer extends JsonDeserializer[CoordinateArray] 
     val node: ArrayNode = jsonParser.getCodec.readTree(jsonParser)
     val coordinates = (0 until node.size()).toArray.map { index =>
       val latlon = node.get(index)
-      val lat = latlon.get(0).asDouble()
-      val lon = latlon.get(1).asDouble()
+      val lon = latlon.get(0).asDouble()
+      val lat = latlon.get(1).asDouble()
       new Coordinate(lon, lat)
     }
     CoordinateArray(coordinates)

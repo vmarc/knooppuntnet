@@ -16,7 +16,7 @@ case class MonitorRouteAnalysis(
   osmSegments: Seq[MonitorRouteSegment],
   gpxGeometry: Option[String],
   matchesDistance: Long,
-  matchesGeometry: Option[String],
+  matchesLines: Seq[String],
   deviations: Seq[MonitorRouteDeviation],
   relations: Seq[MonitorRouteAnalysisRelation]
 )

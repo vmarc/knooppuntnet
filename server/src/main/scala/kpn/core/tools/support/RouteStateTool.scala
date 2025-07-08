@@ -45,7 +45,7 @@ class RouteStateTool(database: Database) {
 
     println(s"${routeState.deviations.size} deviations")
     routeState.deviations.foreach { deviation =>
-      println(s"  ${deviation.id} ${Util.humanReadableBytes(deviation.geoJson.length)}")
+      println(s"  ${deviation.id} ${Util.humanReadableBytes(deviation.lines.map(_.length).sum)}")
     }
   }
 }

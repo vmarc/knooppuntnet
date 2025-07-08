@@ -10,18 +10,13 @@ import kpn.core.common.Time
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
-import kpn.server.json.Json
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
-import org.locationtech.jts.geom.Coordinate
-import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.io.geojson.GeoJsonWriter
 import org.springframework.stereotype.Component
 
 @Component
@@ -77,23 +72,14 @@ class MonitorAddOsmNow(
     if (baseRouteDoc.segmentElements.nonEmpty) {
       val distance = baseRouteDoc.segmentElements.map(_.meters).sum
       val bounds = baseRouteDoc.bounds.get
-      val geoJson = buildGeoJson(baseRouteDoc)
-      buildReference(args.user, now, monitorRouteId, baseRouteDoc, geoJson, bounds, distance)
-      buildState(now, monitorRouteId, baseRouteDoc, geoJson, distance)
+      val lines = buildLines(baseRouteDoc)
+      buildReference(args.user, now, monitorRouteId, baseRouteDoc, lines, bounds, distance)
+      buildState(now, monitorRouteId, baseRouteDoc, lines, distance)
     }
   }
 
-  private def buildGeoJson(baseRouteDoc: BaseRouteDoc) = {
-    val lineStrings = baseRouteDoc.segmentElements.map { segmentElement =>
-      val coordinates = Json.value(segmentElement.coordinates, classOf[CoordinateArray]).coordinates
-      val flipped = coordinates.map(c => new Coordinate(c.y, c.x))
-      geometryFactory.createLineString(flipped)
-    }
-    val geometryCollection = new GeometryCollection(lineStrings.toArray, geometryFactory)
-    val geoJsonWriter = new GeoJsonWriter()
-    geoJsonWriter.setEncodeCRS(false)
-    val geoJson = geoJsonWriter.write(geometryCollection)
-    geoJson
+  private def buildLines(baseRouteDoc: BaseRouteDoc): Seq[String] = {
+    baseRouteDoc.segmentElements.map(_.coordinates)
   }
 
   private def updateReporterActiveStep(args: MonitorUpdateArgs, routeId: Long): Unit = {
@@ -175,7 +161,7 @@ class MonitorAddOsmNow(
     now: Timestamp,
     monitorRouteId: ObjectId,
     baseRouteDoc: BaseRouteDoc,
-    geoJson: String,
+    referenceLines: Seq[String],
     bounds: Bounds,
     distance: Long
   ): Unit = {
@@ -192,7 +178,7 @@ class MonitorAddOsmNow(
       referenceDistance = distance,
       referenceSegmentCount = baseRouteDoc.segments.length,
       referenceFilename = None,
-      referenceGeoJson = Some(geoJson)
+      referenceLines = referenceLines
     )
     monitorRouteRepository.saveRouteReference(reference)
   }
@@ -201,7 +187,7 @@ class MonitorAddOsmNow(
     now: Timestamp,
     monitorRouteId: ObjectId,
     baseRouteDoc: BaseRouteDoc,
-    geoJson: String,
+    matchesLines: Seq[String],
     distance: Long
   ): Unit = {
 
@@ -211,8 +197,8 @@ class MonitorAddOsmNow(
       relationId = baseRouteDoc._id,
       timestamp = now, // time of most recent analysis
       matchesDistance = distance,
-      matchesGeometry = Some(geoJson),
       deviations = Seq.empty,
+      matchesLines = matchesLines
     )
     monitorRouteRepository.saveRouteState(state)
   }

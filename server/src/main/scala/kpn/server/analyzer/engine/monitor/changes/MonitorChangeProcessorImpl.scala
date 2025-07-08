@@ -139,23 +139,23 @@ class MonitorChangeProcessorImpl(
       log.info("No geometry changes, no further analysis")
     }
     else {
-      val beforeGeoJons = beforeRouteAnalysis.deviations.map(_.geoJson)
-      val afterGeoJons = afterRouteAnalysis.deviations.map(_.geoJson)
+      val beforeDeviations = beforeRouteAnalysis.deviations
+      val afterDeviations = afterRouteAnalysis.deviations
 
-      val newSegments = afterRouteAnalysis.deviations.filterNot(nokSegment => beforeGeoJons.contains(nokSegment.geoJson))
-      val resolvedSegments = beforeRouteAnalysis.deviations.filterNot(nokSegment => afterGeoJons.contains(nokSegment.geoJson))
+      val newDeviations = afterRouteAnalysis.deviations.filterNot(deviation => beforeDeviations.exists(_.sameAs(deviation)))
+      val resolvedDeviations = beforeRouteAnalysis.deviations.filterNot(deviation => afterDeviations.exists(_.sameAs(deviation)))
 
       val message = s"ways=${afterRouteAnalysis.wayCount} $wayIdsAdded/$wayIdsRemoved/$wayIdsUpdated," ++
         s" osm=${afterRouteAnalysis.osmDistance}," ++
         s" gpx=${afterRouteAnalysis.gpxDistance}," ++
         s" osmSegments=${afterRouteAnalysis.osmSegments.size}," ++
         s" nokSegments=${afterRouteAnalysis.deviations.size}," ++
-        s" new=${newSegments.size}," ++
-        s" resolved=${resolvedSegments.size}"
+        s" new=${newDeviations.size}," ++
+        s" resolved=${resolvedDeviations.size}"
 
       val key = context.buildChangeKey(routeId)
 
-      val routeSegments = if (newSegments.nonEmpty || resolvedSegments.nonEmpty) {
+      val routeSegments = if (newDeviations.nonEmpty || resolvedDeviations.nonEmpty) {
         afterRouteAnalysis.osmSegments
       }
       else {
@@ -173,20 +173,20 @@ class MonitorChangeProcessorImpl(
         afterRouteAnalysis.osmDistance,
         afterRouteAnalysis.osmSegments.size,
         afterRouteAnalysis.deviations.size,
-        resolvedSegments.size,
-        happy = resolvedSegments.nonEmpty,
-        investigate = newSegments.nonEmpty
+        resolvedDeviations.size,
+        happy = resolvedDeviations.nonEmpty,
+        investigate = newDeviations.nonEmpty
       )
 
       monitorRouteRepository.saveRouteChange(change)
 
       val routeChangeGeometry = MonitorRouteChangeGeometry(
-        ObjectId(),
-        ObjectId("TODO"), // key.toId,
-        key,
-        routeSegments,
-        newSegments,
-        resolvedSegments,
+        _id = ObjectId(),
+        routeId = ObjectId("TODO"), // key.toId,
+        key = key,
+        routeSegments = routeSegments,
+        newDeviations = newDeviations,
+        resolvedDeviations = resolvedDeviations,
       )
       monitorRouteRepository.saveRouteChangeGeometry(routeChangeGeometry)
 
@@ -196,9 +196,9 @@ class MonitorChangeProcessorImpl(
         null, // TODO routeId,
         1L, // TODO relationId
         afterRouteAnalysis.relation.timestamp,
-        afterRouteAnalysis.matchesDistance,
-        afterRouteAnalysis.matchesGeometry,
         afterRouteAnalysis.deviations,
+        afterRouteAnalysis.matchesDistance,
+        afterRouteAnalysis.matchesLines
       )
 
       monitorRouteRepository.saveRouteState(routeState)
@@ -209,19 +209,19 @@ class MonitorChangeProcessorImpl(
 
   private def analyzeChange(reference: MonitorRouteReference, routeRelation: Relation, osmRouteSegments: Seq[MonitorRouteSegmentData]): MonitorRouteAnalysis = {
     MonitorRouteAnalysis(
-      routeRelation,
-      routeRelation.wayMembers.size,
-      None, // TODO
-      None, // TODO
-      0,
-      0,
-      Bounds(),
-      osmRouteSegments.map(_.segment),
-      None,
-      0L,
-      None,
-      Seq.empty,
-      Seq.empty
+      relation = routeRelation,
+      wayCount = routeRelation.wayMembers.size,
+      startNodeId = None, // TODO
+      endNodeId = None, // TODO
+      osmDistance = 0,
+      gpxDistance = 0,
+      bounds = Bounds(),
+      osmSegments = osmRouteSegments.map(_.segment),
+      gpxGeometry = None,
+      matchesDistance = 0L,
+      matchesLines = Seq.empty,
+      deviations = Seq.empty,
+      relations = Seq.empty
     )
   }
 }
