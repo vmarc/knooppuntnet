@@ -29,7 +29,7 @@ object MonitorTestData {
   private def buildMonitorTestRoute(relationId: Long, meters: Long, lon1: String, lat1: String, lon2: String, lat2: String): MonitorTestRoute = {
     val coordinates = Array(Array(lon1, lat1), Array(lon2, lat2))
     val coordinateString: String = {
-      coordinates.map(c => c.mkString("[", ",", "]")).mkString("[", ",", "]")
+      coordinates.map(c => c.map(_.toDouble).mkString("[", ",", "]")).mkString("[", ",", "]")
     }
     MonitorTestRoute(
       relationId = relationId,
@@ -40,7 +40,12 @@ object MonitorTestData {
       meters = meters,
       coordinates = coordinates,
       lines = Seq(coordinateString),
-      bounds = Bounds(lat2.toDouble, lon1.toDouble, lat1.toDouble, lon2.toDouble),
+      bounds = Bounds(
+        Math.min(lat1.toDouble, lat2.toDouble),
+        Math.min(lon1.toDouble, lon2.toDouble),
+        Math.max(lat1.toDouble, lat2.toDouble),
+        Math.max(lon1.toDouble, lon2.toDouble),
+      ),
       gpx =
         s"""
            |<gpx>
