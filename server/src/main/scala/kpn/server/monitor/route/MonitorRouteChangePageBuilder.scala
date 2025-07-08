@@ -67,7 +67,7 @@ class MonitorRouteChangePageBuilder(
       routeReference.referenceTimestamp,
       routeReference.referenceSegmentCount,
       routeReference.referenceFilename,
-      routeReference.referenceGeoJson
+      routeReference.referenceGeoJson.get
     )
 
     Some(

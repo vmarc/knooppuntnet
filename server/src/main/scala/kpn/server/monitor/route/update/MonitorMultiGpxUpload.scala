@@ -105,7 +105,7 @@ class MonitorMultiGpxUpload(
       referenceDistance = distance,
       referenceSegmentCount = segmentCount,
       referenceFilename = args.update.referenceFilename,
-      referenceGeoJson = geoJson
+      referenceGeoJson = Some(geoJson)
     )
 
     monitorRouteRepository.saveRouteReference(reference)
@@ -117,7 +117,7 @@ class MonitorMultiGpxUpload(
     }
 
     val referenceLines = {
-      val referenceGeometry = new GeoJsonReader().read(reference.referenceGeoJson)
+      val referenceGeometry = new GeoJsonReader().read(reference.referenceGeoJson.get)
       MonitorRouteReferenceUtil.toLineStrings(referenceGeometry)
     }
 

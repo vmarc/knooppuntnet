@@ -319,7 +319,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-1"),
-        referenceGeoJson = route1.geoJson
+        referenceGeoJson = Some(route1.geoJson)
       )
     )
     reference
@@ -384,7 +384,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         referenceDistance = 93,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-2"),
-        referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}]}"""
+        referenceGeoJson = Some("""{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}]}""")
       )
     )
   }

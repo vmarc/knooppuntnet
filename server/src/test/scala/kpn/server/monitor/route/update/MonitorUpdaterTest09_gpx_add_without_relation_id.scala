@@ -157,7 +157,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),
-        referenceGeoJson = route1.geoJson
+        referenceGeoJson = Some(route1.geoJson)
       )
     )
     reference
@@ -207,7 +207,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),
-        referenceGeoJson = route1.geoJson
+        referenceGeoJson = Some(route1.geoJson)
       )
     )
   }

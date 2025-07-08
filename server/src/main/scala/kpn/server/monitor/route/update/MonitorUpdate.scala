@@ -162,7 +162,7 @@ class MonitorUpdate(
               referenceDistance = referenceDistance,
               referenceSegmentCount = referenceSegmentCount,
               referenceFilename = context.value.update.referenceFilename,
-              referenceGeoJson = referenceGeoJson
+              referenceGeoJson = Some(referenceGeoJson)
             )
 
             context.upsertRouteReference(reference)
@@ -246,7 +246,7 @@ class MonitorUpdate(
           referenceDistance = referenceDistance,
           referenceSegmentCount = referenceSegmentCount,
           referenceFilename = context.value.update.referenceFilename,
-          referenceGeoJson = referenceGeoJson
+          referenceGeoJson = Some(referenceGeoJson)
         )
 
         context.upsertRouteReference(reference)
@@ -361,7 +361,7 @@ class MonitorUpdate(
             analysis.osmDistance,
             analysis.routeSegments.size,
             None,
-            geometry
+            Some(geometry)
           )
 
           context.upsertRouteReference(ref)

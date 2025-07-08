@@ -110,7 +110,7 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),
-        referenceGeoJson = route1.geoJson
+        referenceGeoJson = Some(route1.geoJson)
       )
     )
   }

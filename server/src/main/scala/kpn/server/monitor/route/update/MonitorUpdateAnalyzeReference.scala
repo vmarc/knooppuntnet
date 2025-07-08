@@ -37,7 +37,7 @@ class MonitorUpdateAnalyzeReference(
 
     val routeLines = routeLinesFromBaseRouteDocs(context, relationId)
     val referenceLines = {
-      val referenceGeometry = new GeoJsonReader().read(reference.referenceGeoJson)
+      val referenceGeometry = new GeoJsonReader().read(reference.referenceGeoJson.get)
       MonitorRouteReferenceUtil.toLineStrings(referenceGeometry)
     }
 

@@ -187,7 +187,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceGeoJson = route1.geoJson
+        referenceGeoJson = Some(route1.geoJson)
       )
     )
   }

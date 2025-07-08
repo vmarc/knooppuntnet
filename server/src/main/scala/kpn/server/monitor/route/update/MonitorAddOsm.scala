@@ -105,7 +105,7 @@ class MonitorAddOsm(
             meters = reference.referenceDistance,
             distance = reference.referenceDistance,
             bounds = reference.referenceBounds,
-            reference.referenceGeoJson
+            reference.referenceGeoJson.get
 
           )
           val state = MonitorRouteState(
@@ -134,7 +134,7 @@ class MonitorAddOsm(
           }
 
           val referenceLines = {
-            val referenceGeometry = new GeoJsonReader().read(reference.referenceGeoJson)
+            val referenceGeometry = new GeoJsonReader().read(reference.referenceGeoJson.get)
             MonitorRouteReferenceUtil.toLineStrings(referenceGeometry)
           }
 
@@ -200,7 +200,7 @@ class MonitorAddOsm(
             analysis.osmDistance,
             analysis.routeSegments.size,
             None,
-            geometry
+            Some(geometry)
           )
 
           monitorRouteRepository.saveRouteReference(ref)

@@ -108,7 +108,7 @@ class MonitorGpxUpload(
       referenceDistance = distance,
       referenceSegmentCount = segmentCount,
       referenceFilename = context.value.update.referenceFilename,
-      referenceGeoJson = geoJson
+      referenceGeoJson = Some(geoJson)
     )
 
     context.upsertRouteReference(reference)

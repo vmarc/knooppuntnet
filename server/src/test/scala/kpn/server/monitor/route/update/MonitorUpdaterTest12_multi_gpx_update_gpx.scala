@@ -171,7 +171,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
         referenceDistance = subRoute11.meters,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-1"),
-        referenceGeoJson = subRoute11.geoJson
+        referenceGeoJson = Some(subRoute11.geoJson)
       )
     )
   }
@@ -239,7 +239,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
         referenceDistance = subRoute12.meters,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-2"),
-        referenceGeoJson = subRoute12.geoJson
+        referenceGeoJson = Some(subRoute12.geoJson)
       )
     )
   }

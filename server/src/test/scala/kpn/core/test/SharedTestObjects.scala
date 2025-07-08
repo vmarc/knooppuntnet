@@ -1202,7 +1202,7 @@ trait SharedTestObjects extends MockFactory {
       distance,
       segmentCount,
       filename,
-      geoJson
+      Some(geoJson)
     )
   }
 

@@ -104,7 +104,7 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
         referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceGeoJson = route1.geoJson
+        referenceGeoJson = Some(route1.geoJson)
       )
     )
   }

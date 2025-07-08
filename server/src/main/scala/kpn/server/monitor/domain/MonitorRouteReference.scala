@@ -18,5 +18,5 @@ case class MonitorRouteReference(
   referenceDistance: Long,
   referenceSegmentCount: Long,
   referenceFilename: Option[String],
-  referenceGeoJson: String
+  referenceGeoJson: Option[String],
 ) extends WithObjectId

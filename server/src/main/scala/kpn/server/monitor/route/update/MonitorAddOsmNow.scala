@@ -192,7 +192,7 @@ class MonitorAddOsmNow(
       referenceDistance = distance,
       referenceSegmentCount = baseRouteDoc.segments.length,
       referenceFilename = None,
-      referenceGeoJson = geoJson
+      referenceGeoJson = Some(geoJson)
     )
     monitorRouteRepository.saveRouteReference(reference)
   }
