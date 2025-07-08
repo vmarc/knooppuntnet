@@ -173,4 +173,35 @@ class MonitorUpdateCommon(
       subs :+ monitorRouteRelation
     }
   }
+
+  def isRouteChanged(route: MonitorRoute, args: MonitorUpdateArgs): Boolean = {
+    val update = args.update
+    update.newGroupName.nonEmpty ||
+      update.newRouteName.nonEmpty ||
+      !update.description.contains(route.description) ||
+      route.comment != update.comment ||
+      route.relationId != update.relationId ||
+      route.referenceType != update.referenceType ||
+      route.referenceTimestamp != update.referenceTimestamp ||
+      route.referenceFilename != update.referenceFilename
+  }
+
+  def isReferenceChanged(route: MonitorRoute, args: MonitorUpdateArgs): Boolean = {
+    val update = args.update
+    if (route.referenceType != update.referenceType) {
+      true
+    }
+    else {
+      if (update.referenceType == MonitorReferenceType.osm) {
+        route.relationId != update.relationId ||
+          route.referenceTimestamp != update.referenceTimestamp
+      }
+      else if (update.referenceType == MonitorReferenceType.gpx) {
+        update.referenceGpx.nonEmpty
+      }
+      else {
+        false
+      }
+    }
+  }
 }

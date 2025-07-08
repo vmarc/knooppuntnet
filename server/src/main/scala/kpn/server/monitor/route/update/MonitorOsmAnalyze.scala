@@ -19,7 +19,6 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
 import kpn.server.json.Json
 import kpn.server.monitor.MonitorUtil
-import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
@@ -32,7 +31,7 @@ import org.locationtech.jts.io.geojson.GeoJsonWriter
 import org.springframework.stereotype.Component
 
 @Component
-class MonitorAddOsm(
+class MonitorOsmAnalyze(
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorRouteStructureLoader: MonitorRouteStructureLoader,
@@ -42,22 +41,15 @@ class MonitorAddOsm(
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
 ) {
 
-  private val log = Log(classOf[MonitorAddOsm])
+  private val log = Log(classOf[MonitorOsmAnalyze])
   val geometryFactory = new GeometryFactory
 
-  def execute(args: MonitorUpdateArgs): Unit = {
-
-    val now = Time.now
-    val analysisStartMillis = System.currentTimeMillis()
-
-    initReporter(args)
-
-    val group = monitorUpdateCommon.findGroup(args)
-    monitorUpdateCommon.verifyNewRoute(group, args)
-
-    val monitorRouteId = ObjectId()
-
-    args.reporter.stepActive("analyze-route-structure")
+  def execute(
+    route: MonitorRoute,
+    now: Timestamp,
+    args: MonitorUpdateArgs,
+    analysisStartMillis: Long
+  ): Unit = {
 
     val monitorRouteRelation = monitorRouteStructureLoader.load(Some(args.referenceTimestamp), args.relationId).getOrElse(throw new RuntimeException("could not load route structure"))
     val relations = MonitorUtil.subRelationsInRouteRelation(monitorRouteRelation)
@@ -66,7 +58,7 @@ class MonitorAddOsm(
 
     updateReporterSteps(args, relations)
 
-    val summaries = processRelations(args, now, monitorRouteId, relations)
+    val summaries = processRelations(args, now, route._id, relations)
     // TODO redesign - do not forget to add analysis results for relationsIds in RouteDoc that are not in included in the overpass query result
 
     val referenceDistance = summaries.map(_.referenceDistance).sum
@@ -77,10 +69,20 @@ class MonitorAddOsm(
 
     val analysisDuration = System.currentTimeMillis() - analysisStartMillis
 
-    val route = buildRoute(args, now, group, monitorRouteId, routeDoc, osmDistance, analysisDuration)
+    val updatedRoute = buildRoute(
+      route,
+      args,
+      now,
+      routeDoc,
+      osmDistance,
+      referenceDistance,
+      deviationDistance,
+      deviationCount,
+      analysisDuration
+    )
 
     args.reporter.stepActive("save")
-    monitorRouteRepository.saveRoute(route)
+    monitorRouteRepository.saveRoute(updatedRoute)
     args.reporter.stepDone("save")
   }
 
@@ -252,33 +254,24 @@ class MonitorAddOsm(
   }
 
   private def buildRoute(
+    route: MonitorRoute,
     args: MonitorUpdateArgs,
     now: Timestamp,
-    group: MonitorGroup,
-    monitorRouteId: ObjectId,
     routeDoc: RouteDoc,
     distance: Long,
+    referenceDistance: Long,
+    deviationDistance: Long,
+    deviationCount: Long,
     analysisDuration: Long
   ): MonitorRoute = {
 
-    MonitorRoute(
-      _id = monitorRouteId,
-      groupId = group._id,
-      name = args.update.routeName,
-      description = args.update.description.getOrElse(""),
-      comment = args.update.comment,
-      relationId = args.update.relationId,
-      user = args.user,
+    route.copy(
       timestamp = now,
-      symbol = None,
       analysisTimestamp = Some(now),
       analysisDuration = Some(analysisDuration),
-      referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = Some(args.referenceTimestamp),
-      referenceFilename = None,
-      referenceDistance = distance,
-      deviationDistance = 0,
-      deviationCount = 0,
+      referenceDistance = referenceDistance,
+      deviationDistance = deviationDistance,
+      deviationCount = deviationCount,
       osmSegmentCount = routeDoc.superSegments.size,
       osmDistance = distance,
       relation = None,

@@ -34,12 +34,34 @@ class MonitorUpdate(
   monitorRouteOsmSegmentAnalyzer: MonitorRouteOsmSegmentAnalyzer,
   monitorUpdateAnalyzeReference: MonitorUpdateAnalyzeReference,
   monitorUpdateCommon: MonitorUpdateCommon,
-  monitorUpdateSave: MonitorUpdateSave
+  monitorUpdateSave: MonitorUpdateSave,
+  monitorOsmUpdate: MonitorOsmUpdate,
 ) {
 
   private val log = Log(classOf[MonitorUpdate])
 
   def execute(context: MonitorContext): Unit = {
+
+    {
+      val args = MonitorUpdateArgs(
+        context.value.user,
+        context.value.reporter,
+        context.value.update,
+      )
+
+      //      if (args.update.referenceType == MonitorReferenceType.multiGpx) {
+      //        monitorAddMultiGpx.execute(args)
+      //        return
+      //      }
+      //      if (args.update.referenceType == MonitorReferenceType.osm && args.update.referenceNow.contains(true)) {
+      //        monitorUpdateOsmNow.execute(args)
+      //        return
+      //      }
+      if (args.update.referenceType == MonitorReferenceType.osm) {
+        monitorOsmUpdate.execute(args)
+        return
+      }
+    }
 
     initReporter(context)
 

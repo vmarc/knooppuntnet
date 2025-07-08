@@ -20,7 +20,7 @@ class MonitorAdd(
   monitorUpdateSave: MonitorUpdateSave,
   monitorAddMultiGpx: MonitorAddMultiGpx,
   monitorAddOsmNow: MonitorAddOsmNow,
-  monitorAddOsm: MonitorAddOsm,
+  monitorAddOsm: MonitorOsmAdd,
 ) {
 
   private val log = Log(classOf[MonitorAdd])
