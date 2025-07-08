@@ -36,7 +36,7 @@ object MonitorTestData {
       meters = meters,
       coordinates = Array(Array(lon1, lat1), Array(lon2, lat2)),
       geoJson = s"""{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[$lon1,$lat1],[$lon2,$lat2]]}]}""",
-      multiLinestringGeoJson = s"""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[$lon1,$lat1],[$lon2,$lat2]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}""",
+      multiLinestringGeoJson = s"""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[$lon1,$lat1],[$lon2,$lat2]]]}]}""",
       bounds = Bounds(lat2.toDouble, lon1.toDouble, lat1.toDouble, lon2.toDouble),
       gpx =
         s"""

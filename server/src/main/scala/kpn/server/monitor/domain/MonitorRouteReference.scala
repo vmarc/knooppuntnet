@@ -13,7 +13,7 @@ case class MonitorRouteReference(
   timestamp: Timestamp,
   user: String,
   referenceBounds: Bounds,
-  referenceType: MonitorReferenceType, // "osm" | "gpx" (subrelation references for "multi-gpx" routes also have reference type"gpx")
+  referenceType: MonitorReferenceType,
   referenceTimestamp: Timestamp,
   referenceDistance: Long,
   referenceSegmentCount: Long,

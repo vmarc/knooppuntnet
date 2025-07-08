@@ -54,11 +54,7 @@ abstract class MonitorUpdateTest extends MongoTest {
     MonitorRouteUpdateStatusCommand(action, stepId, description)
   }
 
-  val routeGeometry = """{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
-  val sameRouteGeometryWithLineString = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
-
-  val subroute12Geometry = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
-  val sameSubroute12Geometry = """{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+  val sameSubroute12Geometry = """{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}]}"""
 
   def setupSuperRoute(): Unit = {
     configuration.routeRepository.saveBaseRoute(TestSuperRoute.baseRouteDoc)

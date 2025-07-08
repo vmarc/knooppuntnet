@@ -13,6 +13,13 @@ import kpn.server.monitor.domain.MonitorRouteState
 
 class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
 
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1
+  }
+
   test("update name, description and comment (state and reference unchanged, no analysis)") {
 
     val (group, route, state, reference, reporter) = setup()
@@ -150,7 +157,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
       timestamp = CurrentTimestamp,
       // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
       matchesDistance = 181,
-      matchesGeometry = Some(routeGeometry),
+      matchesGeometry = Some(route1.multiLinestringGeoJson),
       deviations = Seq.empty,
     )
   }

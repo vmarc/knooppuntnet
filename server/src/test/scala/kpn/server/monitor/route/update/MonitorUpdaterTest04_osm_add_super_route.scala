@@ -17,6 +17,13 @@ import kpn.server.monitor.domain.MonitorRouteState
 
 class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
 
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1
+  }
+
   test("add superroute osm reference") {
 
     val referenceTimestamp = Timestamp(2022, 8, 11)
@@ -172,7 +179,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         matchesDistance = 181,
-        matchesGeometry = Some(routeGeometry),
+        matchesGeometry = Some(route1.multiLinestringGeoJson),
         deviations = Seq.empty,
       )
     )
@@ -189,7 +196,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
         matchesDistance = 181,
-        matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
+        matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}]}"""),
         deviations = Seq.empty,
       )
     )

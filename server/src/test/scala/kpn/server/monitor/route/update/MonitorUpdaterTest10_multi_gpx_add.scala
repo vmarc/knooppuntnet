@@ -19,6 +19,13 @@ import kpn.server.monitor.domain.MonitorRouteState
 
 class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
 
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1
+  }
+
   test("add route with gpx references per sub-relation") {
 
     val (group, routeAddReporter) = setup()
@@ -312,7 +319,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-1"),
-        referenceGeoJson = sameRouteGeometryWithLineString
+        referenceGeoJson = route1.geoJson
       )
     )
     reference
@@ -324,7 +331,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
       state,
       state11.copy(
         timestamp = GpxUpload1Timestamp,
-        matchesGeometry = Some(routeGeometry),
+        matchesGeometry = Some(route1.multiLinestringGeoJson),
       )
     )
   }
@@ -377,7 +384,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         referenceDistance = 93,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-2"),
-        referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+        referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}]}"""
       )
     )
   }
@@ -388,7 +395,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
       state,
       state12.copy(
         timestamp = GpxUpload2Timestamp,
-        matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
+        matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}]}"""),
       )
     )
   }

@@ -17,11 +17,11 @@ import kpn.server.monitor.domain.MonitorRouteState
 
 class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
 
-  private var route: MonitorTestRoute = _
+  private var route1: MonitorTestRoute = _
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    route = MonitorTestData.route1
+    route1 = MonitorTestData.route1
   }
 
   test("add non-super route with osm reference") {
@@ -49,7 +49,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
           referenceType = MonitorReferenceType.osm,
           description = Some("route-description"),
           comment = Some("route-comment"),
-          relationId = Some(route.relationId),
+          relationId = Some(route1.relationId),
           referenceTimestamp = Some(ReferenceTimestamp1),
         )
       )
@@ -72,7 +72,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
         name = "route-name",
         description = "route-description",
         comment = Some("route-comment"),
-        relationId = Some(route.relationId),
+        relationId = Some(route1.relationId),
         user = "user",
         timestamp = CurrentTimestamp,
         symbol = None,
@@ -81,11 +81,11 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
         referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Some(ReferenceTimestamp1),
         referenceFilename = None,
-        referenceDistance = route.meters,
+        referenceDistance = route1.meters,
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 1,
-        osmDistance = route.meters,
+        osmDistance = route1.meters,
         relation = None,
         happy = true
       )
@@ -100,16 +100,16 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
       MonitorRouteReference(
         _id = reference._id,
         routeId = monitorRoute._id,
-        relationId = Some(route.relationId),
+        relationId = Some(route1.relationId),
         timestamp = CurrentTimestamp,
         user = "user",
         referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         referenceType = MonitorReferenceType.osm,
         referenceTimestamp = ReferenceTimestamp1,
-        referenceDistance = route.meters,
+        referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceGeoJson = route.geoJson
+        referenceGeoJson = route1.geoJson
       )
     )
   }
@@ -121,11 +121,11 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
       MonitorRouteState(
         state._id,
         routeId = monitorRoute._id,
-        relationId = route.relationId,
+        relationId = route1.relationId,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        matchesDistance = route.meters,
-        matchesGeometry = Some(routeGeometry),
+        matchesDistance = route1.meters,
+        matchesGeometry = Some(route1.multiLinestringGeoJson),
         deviations = Seq.empty,
       )
     )
@@ -177,7 +177,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
   private def setupBaseRouteDoc(): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(route.relationId),
+        newRouteSummary(route1.relationId),
         segments = Seq(
           newBaseRouteSegment(1)
         ),
@@ -185,7 +185,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
           newBaseRouteSegmentElement(
             segmentId = 1,
             segmentElementId = 1,
-            coordinates = route.coordinateString
+            coordinates = route1.coordinateString
           )
         )
       )
@@ -195,7 +195,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
   private def setupLoadStructure(): Unit = {
     val overpassData = OverpassData()
       .relation(
-        route.relationId,
+        route1.relationId,
         tags = Tags.from(
           "name" -> "route-name"
         ),
@@ -205,11 +205,11 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
 
   private def setupLoadTopLevel(): Unit = {
     val overpassData = OverpassData()
-      .node(1001, latitude = route.lat1, longitude = route.lon1)
-      .node(1002, latitude = route.lat2, longitude = route.lon2)
+      .node(1001, latitude = route1.lat1, longitude = route1.lon1)
+      .node(1002, latitude = route1.lat2, longitude = route1.lon2)
       .way(101, 1001, 1002)
       .relation(
-        route.relationId,
+        route1.relationId,
         tags = Tags.from(
           "name" -> "route-name"
         ),
@@ -217,20 +217,20 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
           newMember(MemberType.Way, 101),
         )
       )
-    val relation = new DataBuilder(overpassData.rawData).data.relations(route.relationId)
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, route.relationId).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), route.relationId).returns(Some(relation))
+    val relation = new DataBuilder(overpassData.rawData).data.relations(route1.relationId)
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, route1.relationId).returns(Some(relation))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(relation))
   }
 
   private def setupRouteDoc(): Unit = {
     configuration.routeRepository.saveRoute(
       newRouteDoc(
         newRouteSummary(
-          route.relationId,
+          route1.relationId,
           name = "route-name"
         ),
-        superDistance = route.meters,
-        routeIds = Seq(route.relationId),
+        superDistance = route1.meters,
+        routeIds = Seq(route1.relationId),
         superSegments = Seq(
           SuperSegment(
             Seq.empty

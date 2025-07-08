@@ -14,7 +14,7 @@ object MonitorReferenceType extends Enum[MonitorReferenceType] {
 
   final case object osmPast extends MonitorReferenceType
 
-  final case object gpx extends MonitorReferenceType
+  final case object gpx extends MonitorReferenceType // subrelation references for "multi-gpx" routes also have reference type "gpx"
 
   final case object multiGpx extends MonitorReferenceType
 }

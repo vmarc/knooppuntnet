@@ -1,6 +1,5 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
@@ -16,26 +15,25 @@ import kpn.server.monitor.domain.MonitorRouteState
 
 class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest {
 
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1
+  }
+
   test("add route with osm reference, initially with relationId unknown") {
 
     val (group, reporter) = setup()
 
-    val update = executeMonitorUpdateWithoutRelationId(group, reporter)
+    val update = executeAddWithoutRelationId(group, reporter)
+    val route = verifyAdd(group)
 
-    verifyDocumentCounts()
-    val route = verifyRoute(group)
-    verifyNoReference(route)
-    verifyNoState(route)
-
-    executeMonitorUpdateWithRelationId(reporter, update)
-
-    verifyUpdatedDocumentCounts()
-    verifyUpdatedRoute(group, route)
-    verifyReference(route)
-    verifyState(route)
+    executeUpdateWithRelationId(reporter, update)
+    verifyUpdate(group, route)
   }
 
-  private def executeMonitorUpdateWithoutRelationId(group: MonitorGroup, reporter: MonitorUpdateReporterMock): MonitorRouteUpdate = {
+  private def executeAddWithoutRelationId(group: MonitorGroup, reporter: MonitorUpdateReporterMock): MonitorRouteUpdate = {
     val update = MonitorRouteUpdate(
       action = MonitorAction.add,
       groupName = group.name,
@@ -55,14 +53,14 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
     update
   }
 
-  private def executeMonitorUpdateWithRelationId(reporter: MonitorUpdateReporterMock, update: MonitorRouteUpdate): Unit = {
+  private def executeUpdateWithRelationId(reporter: MonitorUpdateReporterMock, update: MonitorRouteUpdate): Unit = {
     setupLoadStructure()
     setupLoadTopLevel()
     setupBaseRouteDoc()
 
     val updatedUpdate = update.copy(
       action = MonitorAction.update,
-      relationId = Some(1)
+      relationId = Some(route1.relationId)
     )
 
     Time.set(UpdateTimestamp)
@@ -77,27 +75,21 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
     )
   }
 
-  private def verifyNoState(route: MonitorRoute): Unit = {
-    configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
+  private def verifyAdd(group: MonitorGroup) = {
+    verifyAdd_documentCounts()
+    val route = verifyAdd_route(group)
+    verifyAdd_noReference(route)
+    verifyAdd_noState(route)
+    route
   }
 
-  private def verifyNoReference(route: MonitorRoute): Unit = {
-    configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
-  }
-
-  private def verifyDocumentCounts(): Unit = {
+  private def verifyAdd_documentCounts(): Unit = {
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(0)
     database.monitorRouteStates.countDocuments() should equal(0)
   }
 
-  private def verifyUpdatedDocumentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
-  }
-
-  private def verifyRoute(group: MonitorGroup): MonitorRoute = {
+  private def verifyAdd_route(group: MonitorGroup): MonitorRoute = {
     val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
       route.copy(analysisDuration = None),
@@ -120,7 +112,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 0,
-        osmDistance = 181,
+        osmDistance = route1.meters,
         happy = false,
         relation = None // route structure not known yet
       )
@@ -128,7 +120,28 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
     route
   }
 
-  private def verifyUpdatedRoute(group: MonitorGroup, route: MonitorRoute): Unit = {
+  private def verifyAdd_noReference(route: MonitorRoute): Unit = {
+    configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)) should equal(None)
+  }
+
+  private def verifyAdd_noState(route: MonitorRoute): Unit = {
+    configuration.monitorRouteRepository.routeState(route._id, route1.relationId) should equal(None)
+  }
+
+  private def verifyUpdate(group: MonitorGroup, route: MonitorRoute): Unit = {
+    verifyUpdate_documentCounts()
+    verifyUpdate_route(group, route)
+    verifyUpdate_reference(route)
+    verifyUpdate_state(route)
+  }
+
+  private def verifyUpdate_documentCounts(): Unit = {
+    database.monitorRoutes.countDocuments() should equal(1)
+    database.monitorRouteReferences.countDocuments() should equal(1)
+    database.monitorRouteStates.countDocuments() should equal(1)
+  }
+
+  private def verifyUpdate_route(group: MonitorGroup, route: MonitorRoute): Unit = {
     val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
       route.copy(analysisDuration = None),
@@ -138,7 +151,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         name = "route-name",
         description = "",
         comment = None,
-        relationId = Some(1), // relationId filled in
+        relationId = Some(route1.relationId), // relationId filled in
         user = "user",
         timestamp = UpdateTimestamp,
         symbol = None,
@@ -147,56 +160,56 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Some(ReferenceTimestamp1),
         referenceFilename = None,
-        referenceDistance = 181,
+        referenceDistance = route1.meters,
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 1,
-        osmDistance = 181,
+        osmDistance = route1.meters,
         happy = true,
         relation = None
       )
     )
   }
 
-  private def verifyReference(route: MonitorRoute): Unit = {
-    val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
+  private def verifyUpdate_reference(route: MonitorRoute): Unit = {
+    val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)).get
     assertEqual(
       reference,
       MonitorRouteReference(
         reference._id,
         routeId = route._id,
-        relationId = Some(1),
+        relationId = Some(route1.relationId),
         timestamp = UpdateTimestamp,
         user = "user",
-        referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+        referenceBounds = route1.bounds,
         referenceType = MonitorReferenceType.osm,
         referenceTimestamp = ReferenceTimestamp1,
-        referenceDistance = 181,
+        referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}"""
+        referenceGeoJson = route1.geoJson
       )
     )
   }
 
-  private def verifyState(route: MonitorRoute): Unit = {
+  private def verifyUpdate_state(route: MonitorRoute): Unit = {
     val state = configuration.monitorRouteRepository.routeState(route._id, 1).get
     assertEqual(
       state,
       MonitorRouteState(
         state._id,
         routeId = route._id,
-        relationId = 1,
+        relationId = route1.relationId,
         timestamp = UpdateTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-        matchesDistance = 181,
-        matchesGeometry = Some(routeGeometry),
+        matchesDistance = route1.meters,
+        matchesGeometry = Some(route1.multiLinestringGeoJson),
         deviations = Seq.empty,
       )
     )
   }
 
-  private def setup() = {
+  private def setup(): (MonitorGroup, MonitorUpdateReporterMock) = {
 
     val group = newMonitorGroup("group")
     configuration.monitorGroupRepository.saveGroup(group)

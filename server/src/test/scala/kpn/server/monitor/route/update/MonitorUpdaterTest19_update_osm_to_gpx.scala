@@ -17,6 +17,13 @@ import kpn.server.monitor.domain.MonitorRouteState
 
 class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
 
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1
+  }
+
   test("add route with osm reference, and change to reference type gpx afterwards") {
 
     val (group, reporter) = setup()
@@ -167,7 +174,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         matchesDistance = 181,
-        matchesGeometry = Some(routeGeometry),
+        matchesGeometry = Some(route1.multiLinestringGeoJson),
         deviations = Seq.empty,
       )
     )
@@ -221,7 +228,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),
-        referenceGeoJson = sameRouteGeometryWithLineString
+        referenceGeoJson = route1.geoJson
       )
     )
   }
@@ -237,7 +244,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         timestamp = UpdateTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         matchesDistance = 181,
-        matchesGeometry = Some(routeGeometry),
+        matchesGeometry = Some(route1.multiLinestringGeoJson),
         deviations = Seq.empty,
       )
     )

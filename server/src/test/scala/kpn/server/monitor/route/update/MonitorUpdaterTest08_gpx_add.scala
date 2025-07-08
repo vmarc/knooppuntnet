@@ -16,6 +16,13 @@ import kpn.server.monitor.domain.MonitorRouteState
 
 class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
 
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1
+  }
+
   test("add non-super route with single gpx reference") {
 
     val (group, gpx, reporter) = setup()
@@ -103,7 +110,7 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         referenceDistance = 181,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),
-        referenceGeoJson = sameRouteGeometryWithLineString
+        referenceGeoJson = route1.geoJson
       )
     )
   }
@@ -119,7 +126,7 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         matchesDistance = 181,
-        matchesGeometry = Some(routeGeometry),
+        matchesGeometry = Some(route1.multiLinestringGeoJson),
         deviations = Seq.empty,
       )
     )

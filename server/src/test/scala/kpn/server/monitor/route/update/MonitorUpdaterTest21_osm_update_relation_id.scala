@@ -20,6 +20,13 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
   private val OriginalRelationId = 1
   private val NewRelationId = 2
 
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1.copy(relationId = OriginalRelationId)
+  }
+
   test("osm reference, update relation id - delete obsolete reference and state") {
 
     val (group, route, reporter) = setup()
@@ -121,7 +128,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
         timestamp = UpdateTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         matchesDistance = 181,
-        matchesGeometry = Some(routeGeometry),
+        matchesGeometry = Some(route1.multiLinestringGeoJson),
         deviations = Seq.empty,
       )
     )
