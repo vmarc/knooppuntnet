@@ -4,20 +4,26 @@ import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
-import kpn.api.custom.Timestamp
 
 class MonitorUpdaterTest17_route_not_found extends MonitorUpdateTest {
 
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1
+  }
+
   test("update/upload - route not found") {
 
-    val (reporter) = setup()
+    val reporter = setup()
 
-    executeMonitorUpdate(reporter)
+    executeUpdate(reporter)
 
     verifyReporterMessages(reporter)
   }
 
-  private def executeMonitorUpdate(reporter: MonitorUpdateReporterMock): Unit = {
+  private def executeUpdate(reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         "user",
@@ -28,9 +34,9 @@ class MonitorUpdaterTest17_route_not_found extends MonitorUpdateTest {
           routeName = "unknown-route-name",
           description = Some("description"),
           comment = Some("comment"),
-          relationId = Some(1),
+          relationId = Some(route1.relationId),
           referenceType = MonitorReferenceType.osm,
-          referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+          referenceTimestamp = Some(ReferenceTimestamp1),
         )
       )
     )
@@ -42,7 +48,6 @@ class MonitorUpdaterTest17_route_not_found extends MonitorUpdateTest {
       Seq(
         message(
           add("prepare"),
-          add("analyze-route-structure"),
           active("prepare")
         ),
         MonitorRouteUpdateStatusMessage(
@@ -52,12 +57,11 @@ class MonitorUpdaterTest17_route_not_found extends MonitorUpdateTest {
     )
   }
 
-  private def setup() = {
+  private def setup(): MonitorUpdateReporterMock = {
 
     val group = newMonitorGroup("group-name")
     configuration.monitorGroupRepository.saveGroup(group)
 
-    val reporter = new MonitorUpdateReporterMock()
-    (reporter)
+    new MonitorUpdateReporterMock()
   }
 }

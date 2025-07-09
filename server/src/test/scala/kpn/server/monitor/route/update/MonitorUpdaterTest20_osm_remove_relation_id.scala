@@ -3,7 +3,6 @@ package kpn.server.monitor.route.update
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -11,6 +10,13 @@ import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 
 class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
+
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1
+  }
 
   test("osm reference, remove relation id - delete obsolete reference and state") {
 
@@ -60,9 +66,9 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
         comment = None,
         relationId = None,
         user = "user",
-        timestamp = CurrentTimestamp,
+        timestamp = UpdateTimestamp,
         symbol = None,
-        analysisTimestamp = Some(CurrentTimestamp),
+        analysisTimestamp = None,
         analysisDuration = None,
         referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Some(ReferenceTimestamp1),
@@ -84,13 +90,10 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
       Seq(
         message(
           add("prepare"),
-          add("analyze-route-structure"),
           active("prepare")
         ),
         message(
-          active("analyze-route-structure")
-        ),
-        message(
+          add("save"),
           active("save")
         ),
         message(
@@ -101,6 +104,8 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
   }
 
   private def setup() = {
+
+    Time.set(CurrentTimestamp)
 
     val group = newMonitorGroup("group")
     configuration.monitorGroupRepository.saveGroup(group)
@@ -114,7 +119,7 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
     configuration.monitorRouteRepository.saveRouteReference(reference)
     configuration.monitorRouteRepository.saveRouteState(state)
 
-    Time.set(CurrentTimestamp)
+    Time.set(UpdateTimestamp)
     val reporter = new MonitorUpdateReporterMock()
     (group, route, reporter)
   }
@@ -123,11 +128,11 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
     newMonitorRoute(
       group._id,
       name = "route",
-      relationId = Some(1),
+      relationId = Some(route1.relationId),
       user = "user",
       symbol = Some("red:red:white_bar"),
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+      referenceTimestamp = Some(ReferenceTimestamp1),
       referenceFilename = None,
       referenceDistance = 1000,
       deviationDistance = 100,
@@ -135,30 +140,24 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
       osmWayCount = 30,
       osmDistance = 1010,
       osmSegmentCount = 1,
-      relation = Some(
-        newMonitorRouteRelation(
-          relationId = 1,
-          name = "route"
-        )
-      ),
-      happy = true
+      relation = None,
     )
   }
 
   private def setupReference(route: MonitorRoute): MonitorRouteReference = {
     newMonitorRouteReference(
       routeId = route._id,
-      relationId = Some(1),
+      relationId = Some(route1.relationId),
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = Timestamp(2022, 8, 11),
+      referenceTimestamp = ReferenceTimestamp1,
     )
   }
 
   private def setupState(route: MonitorRoute): MonitorRouteState = {
     newMonitorRouteState(
       routeId = route._id,
-      relationId = 1,
-      timestamp = Timestamp(2022, 8, 11),
+      relationId = route1.relationId,
+      timestamp = CurrentTimestamp,
     )
   }
 }

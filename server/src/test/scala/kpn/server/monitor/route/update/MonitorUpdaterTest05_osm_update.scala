@@ -6,14 +6,21 @@ import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
+import kpn.core.doc.SuperSegment
 import kpn.core.test.OverpassData
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 
 class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
+
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1
+  }
 
   test("route with osm reference - delete previous reference if route not found at referenceTimestamp") {
 
@@ -23,8 +30,6 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
 
     verifyDocumentCounts()
     verifyRoute(group, route)
-    verifyReferenceDeleted(route)
-    verifyStateDeleted(route)
     verifyReporterMessages(reporter)
   }
 
@@ -39,8 +44,8 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
           routeName = "route",
           referenceType = MonitorReferenceType.osm,
           description = Some("route description"),
-          relationId = Some(1),
-          referenceTimestamp = Some(ReferenceTimestamp1),
+          relationId = Some(route1.relationId),
+          referenceTimestamp = Some(ReferenceTimestamp2),
         )
       )
     )
@@ -56,20 +61,20 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
         name = "route",
         description = "route description",
         comment = None,
-        relationId = Some(1),
+        relationId = Some(route1.relationId),
         user = "user",
         timestamp = CurrentTimestamp,
         symbol = None,
         analysisTimestamp = Some(CurrentTimestamp),
         analysisDuration = None,
         referenceType = MonitorReferenceType.osm,
-        referenceTimestamp = Some(ReferenceTimestamp1),
+        referenceTimestamp = Some(ReferenceTimestamp2),
         referenceFilename = None,
         referenceDistance = 0,
         deviationDistance = 0,
         deviationCount = 0,
-        osmSegmentCount = 0,
-        osmDistance = 181,
+        osmSegmentCount = 1,
+        osmDistance = route1.meters,
         relation = None,
         happy = false
       )
@@ -82,24 +87,16 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
     database.monitorRouteStates.countDocuments() should equal(0)
   }
 
-  private def verifyReferenceDeleted(route: MonitorRoute): Unit = {
-    configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
-  }
-
-  private def verifyStateDeleted(route: MonitorRoute): Unit = {
-    configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
-  }
-
   private def verifyReporterMessages(reporter: MonitorUpdateReporterMock): Unit = {
     assertEqual(
       reporter.messages,
       Seq(
         message(
           add("prepare"),
-          add("analyze-route-structure"),
           active("prepare")
         ),
         message(
+          add("analyze-route-structure"),
           active("analyze-route-structure")
         ),
         message(
@@ -110,7 +107,7 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
           active("1")
         ),
         MonitorRouteUpdateStatusMessage(
-          errors = Some(Seq("Could not load relation 1 at 2022-08-01 00:00:00"))
+          errors = Some(Seq("Could not load relation 1 at 2022-08-02 00:00:00"))
         ),
         message(
           active("save")
@@ -122,10 +119,11 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
     )
   }
 
-  private def setup() = {
+  private def setup(): (MonitorGroup, MonitorRoute, MonitorUpdateReporterMock) = {
 
     setupStructureLoader()
     setupLoadTopLevel()
+    setupRouteDoc()
 
     val group = newMonitorGroup("group")
     configuration.monitorGroupRepository.saveGroup(group)
@@ -133,28 +131,23 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
     val route = newMonitorRoute(
       group._id,
       name = "route",
-      relationId = Some(1),
+      relationId = Some(route1.relationId),
       user = "user",
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+      referenceTimestamp = Some(ReferenceTimestamp1),
       referenceFilename = None,
-      relation = Some(
-        newMonitorRouteRelation(
-          relationId = 1,
-          name = "route"
-        )
-      )
+      relation = None
     )
     val reference = newMonitorRouteReference(
       routeId = route._id,
-      relationId = Some(1),
+      relationId = Some(route1.relationId),
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = Timestamp(2022, 8, 11),
+      referenceTimestamp = ReferenceTimestamp1,
     )
     val state = newMonitorRouteState(
       routeId = route._id,
-      relationId = 1,
-      timestamp = Timestamp(2022, 8, 11),
+      relationId = route1.relationId,
+      timestamp = ReferenceTimestamp1,
     )
 
     configuration.monitorGroupRepository.saveGroup(group)
@@ -175,13 +168,13 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
 
     val overpassData = OverpassData()
       .relation(
-        1,
+        route1.relationId,
         tags = Tags.from(
           "name" -> "route"
         ),
       )
 
-    setupRouteStructure(Some(ReferenceTimestamp1), overpassData, 1)
+    setupRouteStructure(Some(ReferenceTimestamp2), overpassData, route1.relationId)
   }
 
   private def setupLoadTopLevel(): Unit = {
@@ -191,7 +184,7 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
       .node(1002, latitude = "51.4618272", longitude = "4.4562458")
       .way(101, 1001, 1002)
       .relation(
-        1,
+        route1.relationId,
         tags = Tags.from(
           "name" -> "route"
         ),
@@ -200,8 +193,25 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
         )
       )
 
-    val relation = new DataBuilder(overpassData.rawData).data.relations(1)
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), 1).returns(None)
+    val relation = new DataBuilder(overpassData.rawData).data.relations(route1.relationId)
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp2), route1.relationId).returns(None)
+  }
+
+  private def setupRouteDoc(): Unit = {
+    configuration.routeRepository.saveRoute(
+      newRouteDoc(
+        newRouteSummary(
+          route1.relationId,
+          name = "route-name"
+        ),
+        superDistance = route1.meters,
+        routeIds = Seq(route1.relationId),
+        superSegments = Seq(
+          SuperSegment(
+            Seq.empty
+          )
+        )
+      )
+    )
   }
 }

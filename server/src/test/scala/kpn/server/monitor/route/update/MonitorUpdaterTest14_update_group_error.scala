@@ -4,18 +4,24 @@ import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
-import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 
 class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
 
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1
+  }
+
   test("route update - move to group that does not exist") {
 
     val (group1, route, state, reference, reporter) = setup()
 
-    executeMonitorUpdate(reporter)
+    executeUpdate(reporter)
 
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(1)
@@ -32,7 +38,7 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
     verifyReporterMessages(reporter)
   }
 
-  private def executeMonitorUpdate(reporter: MonitorUpdateReporterMock): Unit = {
+  private def executeUpdate(reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         "user",
@@ -45,8 +51,8 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
           referenceType = MonitorReferenceType.osm,
           description = Some(""),
           comment = None,
-          relationId = Some(1),
-          referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+          relationId = Some(route1.relationId),
+          referenceTimestamp = Some(ReferenceTimestamp1),
         )
       )
     )
@@ -73,7 +79,7 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
     newMonitorRoute(
       group._id,
       name = "route",
-      relationId = Some(1),
+      relationId = Some(route1.relationId),
       timestamp = CurrentTimestamp,
       referenceType = MonitorReferenceType.osm,
       referenceTimestamp = Some(ReferenceTimestamp1),
@@ -84,7 +90,7 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
   private def setupReference(route: MonitorRoute) = {
     newMonitorRouteReference(
       routeId = route._id,
-      relationId = Some(1),
+      relationId = Some(route1.relationId),
       timestamp = CurrentTimestamp,
       referenceType = MonitorReferenceType.osm,
       referenceTimestamp = ReferenceTimestamp1,
@@ -94,7 +100,7 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
   private def setupState(route: MonitorRoute) = {
     newMonitorRouteState(
       routeId = route._id,
-      relationId = 1,
+      relationId = route1.relationId,
       timestamp = CurrentTimestamp,
     )
   }
@@ -105,7 +111,6 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
       Seq(
         message(
           add("prepare"),
-          add("analyze-route-structure"),
           active("prepare")
         ),
         MonitorRouteUpdateStatusMessage(

@@ -35,43 +35,50 @@ class MonitorOsmUpdate(
     val group = monitorUpdateCommon.findGroup(args)
     val route = monitorUpdateCommon.findRoute(args, group)
 
-    val updatedRoute = if (monitorUpdateCommon.isRouteChanged(route, args)) {
+    if (!monitorUpdateCommon.isRouteChanged(route, args)) {
 
-      val groupId = args.update.newGroupName match {
-        case None => group._id
-        case Some(newGroupName) =>
-          monitorGroupRepository.groupByName(newGroupName).map(_._id) match {
-            case Some(id) => id
-            case None =>
-              throw new IllegalArgumentException(
-                s"""Could not find group with name "$newGroupName""""
-              )
-          }
-      }
-
-      route.copy(
-        groupId = groupId,
-        name = args.update.newRouteName.getOrElse(route.name),
-        description = args.update.description.getOrElse(""),
-        comment = args.update.comment,
-        relationId = args.update.relationId,
-        user = args.user,
-        timestamp = Time.now,
-        referenceType = args.update.referenceType, // TODO hard code osm?
-        referenceTimestamp = args.update.referenceTimestamp,
-        referenceFilename = args.update.referenceFilename, // TODO hard code None?
+      args.reporter.report(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-done", "prepare"),
+          )
+        )
       )
-    }
-    else {
-      route
+
+      return
     }
 
-    args.reporter.stepActive("analyze-route-structure")
+    val groupId = args.update.newGroupName match {
+      case None => group._id
+      case Some(newGroupName) =>
+        monitorGroupRepository.groupByName(newGroupName).map(_._id) match {
+          case Some(id) => id
+          case None =>
+            throw new IllegalArgumentException(
+              s"""Could not find group with name "$newGroupName""""
+            )
+        }
+    }
+
+    val updatedRoute = route.copy(
+      groupId = groupId,
+      name = args.update.newRouteName.getOrElse(route.name),
+      description = args.update.description.getOrElse(""),
+      comment = args.update.comment,
+      relationId = args.update.relationId,
+      user = args.user,
+      timestamp = Time.now,
+      referenceType = args.update.referenceType,
+      referenceTimestamp = args.update.referenceTimestamp,
+      referenceFilename = args.update.referenceFilename,
+    )
+
     //    context.set(monitorUpdateStructure.update(context.value))
 
-    val oldReferences = monitorRouteRepository.routeReferences(route._id)
-    val oldReferenceIds = monitorRouteRepository.routeReferenceIds(route._id)
-    val oldStateIds = monitorRouteRepository.routeStateIds(route._id)
+    //    val oldReferences = monitorRouteRepository.routeReferences(route._id)
+    //    val oldReferenceIds = monitorRouteRepository.routeReferenceIds(route._id)
+    //    val oldStateIds = monitorRouteRepository.routeStateIds(route._id)
+
     //    context.set(
     //      context.value.copy(
     //        oldReferenceIds = oldReferenceIds,
@@ -87,15 +94,71 @@ class MonitorOsmUpdate(
       if (route.referenceTimestamp != args.update.referenceTimestamp || route.relationId != args.update.relationId) {
         // perform reference update and reanalyze deviations
         //        updateSubRelationOsmReferences(context)
-        monitorOsmAnalyze.execute(
-          updatedRoute,
-          now,
-          args,
-          analysisStartMillis
-        )
+
+        if (args.update.relationId.isEmpty) {
+
+          args.reporter.report(
+            MonitorRouteUpdateStatusMessage(
+              commands = Seq(
+                MonitorRouteUpdateStatusCommand("step-add", "save"),
+                MonitorRouteUpdateStatusCommand("step-active", "save"),
+              )
+            )
+          )
+
+          monitorRouteRepository.deleteRouteReferences(route._id)
+          monitorRouteRepository.deleteRouteStates(route._id)
+
+          val cleanedUpRoute = updatedRoute.copy(
+            analysisTimestamp = None,
+            symbol = None,
+            referenceDistance = 0,
+            deviationDistance = 0,
+            deviationCount = 0,
+            osmSegmentCount = 0,
+            osmDistance = 0,
+            relation = None,
+            happy = false,
+          )
+          monitorRouteRepository.saveRoute(cleanedUpRoute)
+
+          args.reporter.stepDone("save")
+        }
+        else {
+          args.reporter.report(
+            MonitorRouteUpdateStatusMessage(
+              commands = Seq(
+                MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+                MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure"),
+              )
+            )
+          )
+
+          if (route.relationId != args.update.relationId) {
+            monitorRouteRepository.deleteRouteReferences(route._id)
+            monitorRouteRepository.deleteRouteStates(route._id)
+          }
+
+          monitorOsmAnalyze.execute(
+            updatedRoute,
+            now,
+            args,
+            analysisStartMillis
+          )
+        }
       }
       else {
         // nothing to do, but saving updatedRoute?
+        args.reporter.report(
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-add", "save"),
+              MonitorRouteUpdateStatusCommand("step-active", "save"),
+            )
+          )
+        )
+        monitorRouteRepository.saveRoute(updatedRoute)
+        args.reporter.stepDone("save")
       }
     }
     else {
@@ -108,7 +171,6 @@ class MonitorOsmUpdate(
       MonitorRouteUpdateStatusMessage(
         commands = Seq(
           MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-          MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
           MonitorRouteUpdateStatusCommand("step-active", "prepare"),
         )
       )

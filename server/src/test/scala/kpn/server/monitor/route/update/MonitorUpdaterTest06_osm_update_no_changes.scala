@@ -3,7 +3,6 @@ package kpn.server.monitor.route.update
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -11,6 +10,13 @@ import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 
 class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
+
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1
+  }
 
   test("route update - no changes") {
 
@@ -35,9 +41,9 @@ class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
           groupName = group.name,
           routeName = "route",
           description = Some(""),
-          relationId = Some(1),
+          relationId = Some(route1.relationId),
           referenceType = MonitorReferenceType.osm,
-          referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+          referenceTimestamp = Some(ReferenceTimestamp1),
         )
       )
     )
@@ -55,12 +61,12 @@ class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
   }
 
   private def verifyReferenceNotChanged(route: MonitorRoute, reference: MonitorRouteReference): Unit = {
-    val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
+    val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)).get
     updatedReference should equal(reference)
   }
 
   private def verifyStateNotChanged(route: MonitorRoute, state: MonitorRouteState): Unit = {
-    val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
+    val updatedState = configuration.monitorRouteRepository.routeState(route._id, route1.relationId).get
     updatedState should equal(state)
   }
 
@@ -70,24 +76,17 @@ class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
       Seq(
         message(
           add("prepare"),
-          add("analyze-route-structure"),
           active("prepare")
         ),
         message(
-          active("analyze-route-structure")
-        ),
-        message(
-          active("save")
-        ),
-        message(
-          done("save"))
+          done("prepare"))
       )
     )
   }
 
   private def setup() = {
 
-    Time.set(Timestamp(2023, 1, 1))
+    Time.set(CurrentTimestamp)
 
     val group = newMonitorGroup("group")
     val route = setupRoute(group)
@@ -99,7 +98,7 @@ class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
     configuration.monitorRouteRepository.saveRouteReference(reference)
     configuration.monitorRouteRepository.saveRouteState(state)
 
-    Time.set(Timestamp(2023, 1, 2))
+    Time.set(UpdateTimestamp)
     val reporter = new MonitorUpdateReporterMock()
     (group, route, reference, state, reporter)
   }
@@ -108,10 +107,10 @@ class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
     newMonitorRoute(
       group._id,
       name = "route",
-      relationId = Some(1),
+      relationId = Some(route1.relationId),
       user = "user",
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+      referenceTimestamp = Some(ReferenceTimestamp1),
       referenceFilename = None,
     )
   }
@@ -119,17 +118,17 @@ class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
   private def setupReference(route: MonitorRoute): MonitorRouteReference = {
     newMonitorRouteReference(
       routeId = route._id,
-      relationId = Some(1),
+      relationId = Some(route1.relationId),
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = Timestamp(2022, 8, 11),
+      referenceTimestamp = ReferenceTimestamp1
     )
   }
 
   private def setupState(route: MonitorRoute): MonitorRouteState = {
     newMonitorRouteState(
       routeId = route._id,
-      relationId = 1,
-      timestamp = Timestamp(2022, 8, 11),
+      relationId = route1.relationId,
+      timestamp = CurrentTimestamp,
     )
   }
 }

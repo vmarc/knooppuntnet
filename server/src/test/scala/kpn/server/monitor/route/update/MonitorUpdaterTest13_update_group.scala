@@ -3,7 +3,6 @@ package kpn.server.monitor.route.update
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -12,11 +11,18 @@ import kpn.server.monitor.domain.MonitorRouteState
 
 class MonitorUpdaterTest13_update_group extends MonitorUpdateTest {
 
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1
+  }
+
   test("route update - change group") {
 
     val (group1, group2, route, reference, state, reporter) = setup()
 
-    executeMonitorUpdate(group1, group2, reporter)
+    executeUpdate(group1, group2, reporter)
 
     verifyDocumentCounts()
     verifyRoute(group2)
@@ -25,7 +31,7 @@ class MonitorUpdaterTest13_update_group extends MonitorUpdateTest {
     verifyReporterMessages(reporter)
   }
 
-  private def executeMonitorUpdate(group1: MonitorGroup, group2: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
+  private def executeUpdate(group1: MonitorGroup, group2: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         "user",
@@ -37,8 +43,8 @@ class MonitorUpdaterTest13_update_group extends MonitorUpdateTest {
           routeName = "route",
           referenceType = MonitorReferenceType.osm,
           description = Some(""),
-          relationId = Some(1),
-          referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+          relationId = Some(route1.relationId),
+          referenceTimestamp = Some(ReferenceTimestamp1),
         )
       )
     )
@@ -56,12 +62,12 @@ class MonitorUpdaterTest13_update_group extends MonitorUpdateTest {
   }
 
   private def verifyReference(route: MonitorRoute, reference: MonitorRouteReference): Unit = {
-    val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
+    val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)).get
     reference should equal(reference)
   }
 
   private def verifyState(route: MonitorRoute, state: MonitorRouteState): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(route._id, 1).get
+    val state = configuration.monitorRouteRepository.routeState(route._id, route1.relationId).get
     state should equal(state)
   }
 
@@ -71,13 +77,10 @@ class MonitorUpdaterTest13_update_group extends MonitorUpdateTest {
       Seq(
         message(
           add("prepare"),
-          add("analyze-route-structure"),
           active("prepare")
         ),
         message(
-          active("analyze-route-structure")
-        ),
-        message(
+          add("save"),
           active("save")
         ),
         message(
@@ -87,7 +90,14 @@ class MonitorUpdaterTest13_update_group extends MonitorUpdateTest {
     )
   }
 
-  private def setup() = {
+  private def setup(): (
+    MonitorGroup,
+      MonitorGroup,
+      MonitorRoute,
+      MonitorRouteReference,
+      MonitorRouteState,
+      MonitorUpdateReporterMock
+    ) = {
 
     val group1 = newMonitorGroup("group1")
     val group2 = newMonitorGroup("group2")
@@ -101,7 +111,7 @@ class MonitorUpdaterTest13_update_group extends MonitorUpdateTest {
     configuration.monitorRouteRepository.saveRouteReference(reference)
     configuration.monitorRouteRepository.saveRouteState(state)
 
-    Time.set(Timestamp(2023, 1, 1))
+    Time.set(CurrentTimestamp)
     val reporter = new MonitorUpdateReporterMock()
     (group1, group2, route, reference, state, reporter)
   }
@@ -110,9 +120,9 @@ class MonitorUpdaterTest13_update_group extends MonitorUpdateTest {
     newMonitorRoute(
       group._id,
       name = "route",
-      relationId = Some(1),
+      relationId = Some(route1.relationId),
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+      referenceTimestamp = Some(ReferenceTimestamp1),
       referenceFilename = None,
     )
   }
@@ -120,16 +130,16 @@ class MonitorUpdaterTest13_update_group extends MonitorUpdateTest {
   private def setupReference(route: MonitorRoute) = {
     newMonitorRouteReference(
       routeId = route._id,
-      relationId = Some(1),
+      relationId = Some(route1.relationId),
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = Timestamp(2022, 8, 11),
+      referenceTimestamp = ReferenceTimestamp1,
     )
   }
 
   private def setupState(route: MonitorRoute) = {
     newMonitorRouteState(
       routeId = route._id,
-      relationId = 1,
+      relationId = route1.relationId,
     )
   }
 }

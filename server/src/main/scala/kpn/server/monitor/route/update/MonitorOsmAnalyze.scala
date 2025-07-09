@@ -171,6 +171,10 @@ class MonitorOsmAnalyze(
             errors = Some(Seq(error))
           )
         )
+
+        monitorRouteRepository.deleteRouteReference(monitorRouteId, relation.relationId)
+        monitorRouteRepository.deleteRouteState(monitorRouteId, relation.relationId)
+
         None
 
       case Some(subRelation) =>
@@ -265,6 +269,8 @@ class MonitorOsmAnalyze(
     analysisDuration: Long
   ): MonitorRoute = {
 
+    val happy = distance > 0 && deviationDistance == 0 && referenceDistance > 0
+
     route.copy(
       timestamp = now,
       analysisTimestamp = Some(now),
@@ -275,7 +281,7 @@ class MonitorOsmAnalyze(
       osmSegmentCount = routeDoc.superSegments.size,
       osmDistance = distance,
       relation = None,
-      happy = true, // always true because reference will automatically match current state
+      happy = happy
     )
   }
 

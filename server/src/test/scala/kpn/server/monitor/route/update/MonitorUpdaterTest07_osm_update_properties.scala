@@ -1,7 +1,6 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
-import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -90,13 +89,10 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
       Seq(
         message(
           add("prepare"),
-          add("analyze-route-structure"),
-          add("prepare")
+          active("prepare")
         ),
         message(
-          active("analyze-route-structure")
-        ),
-        message(
+          add("save"),
           active("save")
         ),
         message(
@@ -130,7 +126,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
       name = "route-name",
       description = "route-description",
       comment = Some("route-comment"),
-      relationId = Some(1),
+      relationId = Some(route1.relationId),
       user = "user1",
       timestamp = CurrentTimestamp,
       symbol = None,
@@ -139,11 +135,11 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
       referenceType = MonitorReferenceType.osm,
       referenceTimestamp = Some(ReferenceTimestamp1),
       referenceFilename = None,
-      referenceDistance = 196,
+      referenceDistance = route1.meters,
       deviationDistance = 0,
       deviationCount = 0,
       osmSegmentCount = 1,
-      osmDistance = 181,
+      osmDistance = route1.meters,
       happy = true,
       relation = None
     )
@@ -153,11 +149,11 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
     MonitorRouteState(
       ObjectId(),
       routeId = route._id,
-      relationId = 1,
+      relationId = route1.relationId,
       timestamp = CurrentTimestamp,
       // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
       deviations = Seq.empty,
-      matchesDistance = 181,
+      matchesDistance = route1.meters,
       matchesLines = route1.lines,
     )
   }
@@ -166,16 +162,16 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
     MonitorRouteReference(
       ObjectId(),
       routeId = route._id,
-      relationId = Some(1),
+      relationId = Some(route1.relationId),
       timestamp = CurrentTimestamp,
       user = "user1",
-      referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+      referenceBounds = route1.bounds,
       referenceType = MonitorReferenceType.osm,
       referenceTimestamp = ReferenceTimestamp1,
-      referenceDistance = 196,
+      referenceDistance = route1.meters,
       referenceSegmentCount = 1,
       referenceFilename = None,
-      referenceLines = Seq("[[4.4553911,51.4633666],[4.4562458,51.4618272]]")
+      referenceLines = route1.lines
     )
   }
 }
