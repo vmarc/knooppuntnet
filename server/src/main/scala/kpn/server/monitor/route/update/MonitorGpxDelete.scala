@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.util.Log
@@ -11,48 +12,36 @@ class MonitorGpxDelete(
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorUpdateSave: MonitorUpdateSave,
-  monitorMultiGpxDelete: MonitorMultiGpxDelete
 ) {
 
   private val log = Log(classOf[MonitorGpxDelete])
 
-  def execute(context: MonitorContext): Unit = {
+  def execute(args: MonitorUpdateArgs): Unit = {
 
-    if (context.value.isReferenceTypeMultiGpx) {
-      monitorMultiGpxDelete.execute(context)
-      return
+    if (args.update.referenceType != MonitorReferenceType.multiGpx) {
+      throw new RuntimeException(s"invalid reference type ${args.update.referenceType} for gpx upload")
     }
 
-    initReporter(context)
+    initReporter(args)
 
-    monitorUpdateCommon.oldFindGroup(context)
-    monitorUpdateCommon.oldFindRoute(context)
+    val group = monitorUpdateCommon.findGroup(args)
+    val route = monitorUpdateCommon.findRoute(args, group)
 
-    val relationId = context.value.update.relationId.getOrElse(throw new RuntimeException("subrelation id needed for gpx-delete"))
-    context.deleteRouteReference(context.value.routeId, Some(relationId))
-    monitorRouteRepository.deleteRouteReference(context.value.routeId, relationId)
-    monitorRouteRepository.routeState(context.value.routeId, relationId) match {
-      case None =>
-      case Some(state) =>
-        val updatedState = state.copy(
-          matchesGeometry = None,
-          deviations = Seq.empty,
-        )
-        monitorRouteRepository.saveRouteState(updatedState)
-        context.set(
-          context.value.copy(
-            stateChanged = true
-          )
-        )
-    }
+    val superRelationId = route.relationId.getOrElse(throw new RuntimeException("route relation id needed for gpx-delete"))
+    val subRelationId = args.update.relationId.getOrElse(throw new RuntimeException("subrelation id needed for gpx-delete"))
 
-    context.stepActive("save")
-    monitorUpdateSave.save(context)
-    context.stepDone("save")
+    monitorRouteRepository.deleteRouteReference(route._id, subRelationId)
+    monitorRouteRepository.deleteRouteState(route._id, subRelationId)
+
+    val updatedRoute = monitorUpdateCommon.updateSuperRoute(route)
+
+    args.reporter.stepActive("save")
+    monitorRouteRepository.saveRoute(updatedRoute)
+    args.reporter.stepDone("save")
   }
 
-  private def initReporter(context: MonitorContext): Unit = {
-    context.report(
+  private def initReporter(args: MonitorUpdateArgs): Unit = {
+    args.reporter.report(
       MonitorRouteUpdateStatusMessage(
         commands = Seq(
           MonitorRouteUpdateStatusCommand("step-add", "delete"),

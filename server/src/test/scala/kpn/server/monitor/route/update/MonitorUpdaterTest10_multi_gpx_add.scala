@@ -51,7 +51,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     )
 
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user1",
         reporter,
         route
@@ -63,7 +63,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     Time.set(GpxUpload1Timestamp)
     val reporter = new MonitorUpdateReporterMock()
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user2",
         reporter,
         MonitorRouteUpdate(
@@ -85,7 +85,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     Time.set(GpxUpload2Timestamp)
     val uploadGpxReporter2 = new MonitorUpdateReporterMock()
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user3",
         uploadGpxReporter2,
         MonitorRouteUpdate(

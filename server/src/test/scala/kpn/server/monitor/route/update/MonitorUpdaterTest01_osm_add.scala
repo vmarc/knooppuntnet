@@ -39,7 +39,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
 
   private def executeAdd(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user",
         reporter,
         MonitorRouteUpdate(

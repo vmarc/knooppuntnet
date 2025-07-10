@@ -9,7 +9,7 @@ import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.monitor.route.update.MonitorRouteRelationRepository
 import kpn.server.monitor.route.update.MonitorRouteStructureLoader
-import kpn.server.monitor.route.update.MonitorUpdateContext
+import kpn.server.monitor.route.update.MonitorUpdateArgs
 import kpn.server.monitor.route.update.MonitorUpdateReporterLogger
 import kpn.server.monitor.route.update.MonitorUpdaterConfiguration
 
@@ -35,7 +35,7 @@ class MonitorPerformanceAnalysisTool(database: Database) {
 
   def update(): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user",
         new MonitorUpdateReporterLogger(),
         MonitorRouteUpdate(

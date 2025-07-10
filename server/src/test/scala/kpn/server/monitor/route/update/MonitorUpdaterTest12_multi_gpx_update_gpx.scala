@@ -37,7 +37,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
   private def executeAdd(group: MonitorGroup): Unit = {
     Time.set(CurrentTimestamp)
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user1",
         new MonitorUpdateReporterMock(),
         MonitorRouteUpdate(
@@ -56,7 +56,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
   private def executeGpxUpload1(group: MonitorGroup): Unit = {
     Time.set(GpxUpload1Timestamp)
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user2",
         new MonitorUpdateReporterMock(),
         MonitorRouteUpdate(
@@ -76,7 +76,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
   private def executeGpxUpload2(group: MonitorGroup): Unit = {
     Time.set(GpxUpload2Timestamp)
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user3",
         new MonitorUpdateReporterMock(),
         MonitorRouteUpdate(

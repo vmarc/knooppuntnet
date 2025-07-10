@@ -25,7 +25,7 @@ class MonitorUpdaterTest15_add_error extends MonitorUpdateTest {
 
   private def executeMonitorUpdate(reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user",
         reporter,
         MonitorRouteUpdate(

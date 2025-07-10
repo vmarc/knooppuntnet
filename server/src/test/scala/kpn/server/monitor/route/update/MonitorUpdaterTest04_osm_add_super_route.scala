@@ -43,7 +43,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
 
   private def executeAdd(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user",
         reporter,
         MonitorRouteUpdate(

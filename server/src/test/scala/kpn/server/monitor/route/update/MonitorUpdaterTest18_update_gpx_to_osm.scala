@@ -36,7 +36,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
 
   private def executeAddRouteWithGpxReference(group: MonitorGroup, gpx: String, reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user1",
         reporter,
         MonitorRouteUpdate(
@@ -59,7 +59,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
     Time.set(UpdateTimestamp)
 
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user2",
         reporter,
         MonitorRouteUpdate(

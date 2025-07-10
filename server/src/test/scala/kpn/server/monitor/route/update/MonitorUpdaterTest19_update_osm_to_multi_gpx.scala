@@ -37,7 +37,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
 
   private def executeAdd(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user1",
         reporter,
         MonitorRouteUpdate(
@@ -57,7 +57,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
   private def executeUpdate(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
     Time.set(UpdateTimestamp)
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user2",
         reporter,
         MonitorRouteUpdate(

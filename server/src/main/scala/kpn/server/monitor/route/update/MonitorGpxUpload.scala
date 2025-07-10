@@ -11,10 +11,12 @@ import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.core.util.ValidationException
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
+import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteReferenceSummary
+import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorRouteRepository
+import kpn.server.repository.RouteRepository
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonReader
@@ -25,24 +27,22 @@ import scala.xml.XML
 
 @Component
 class MonitorGpxUpload(
+  routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
-  monitorRouteRelationRepository: MonitorRouteRelationRepository,
-  monitorUpdateAnalyzeReference: MonitorUpdateAnalyzeReference,
   monitorUpdateCommon: MonitorUpdateCommon,
-  monitorUpdateSave: MonitorUpdateSave,
-  monitorMultiGpxUpload: MonitorMultiGpxUpload
+  monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer
 ) {
 
   private val log = Log(classOf[MonitorGpxUpload])
+  private val geometryFactory = new GeometryFactory
 
-  def execute(context: MonitorContext): Unit = {
+  def execute(args: MonitorUpdateArgs): Unit = {
 
-    if (context.value.isReferenceTypeMultiGpx) {
-      monitorMultiGpxUpload.execute(context)
-      return
+    if (args.update.referenceType != MonitorReferenceType.multiGpx) {
+      throw new RuntimeException(s"invalid reference type ${args.update.referenceType} for gpx upload")
     }
 
-    context.report(
+    args.reporter.report(
       MonitorRouteUpdateStatusMessage(
         commands = Seq(
           MonitorRouteUpdateStatusCommand("step-add", "upload"),
@@ -52,28 +52,19 @@ class MonitorGpxUpload(
       )
     )
 
-    monitorUpdateCommon.oldFindGroup(context)
-    monitorUpdateCommon.oldFindRoute(context)
-
-    val oldReferenceIds = monitorRouteRepository.routeReferenceIds(context.value.routeId)
-    val oldStateIds = monitorRouteRepository.routeStateIds(context.value.routeId)
-    context.set(
-      context.value.copy(
-        oldReferenceIds = oldReferenceIds,
-        oldStateIds = oldStateIds
-      )
-    )
+    val group = monitorUpdateCommon.findGroup(args)
+    val route = monitorUpdateCommon.findRoute(args, group)
 
     val now = Time.now
-    val referenceTimestamp = context.value.update.referenceTimestamp.getOrElse(throw new RuntimeException("reference timestamp missing in update"))
-    val relationId = context.value.update.relationId.getOrElse(throw new RuntimeException("relationId missing in update"))
+    val referenceTimestamp = args.update.referenceTimestamp.getOrElse(throw new RuntimeException("reference timestamp missing in update"))
+    val relationId = args.update.relationId.getOrElse(throw new RuntimeException("relationId missing in update"))
 
-    val geometryCollection: GeometryCollection = context.value.update.migrationGeojson match {
+    val geometryCollection: GeometryCollection = args.update.migrationGeojson match {
       case Some(migrationGeojson) =>
         val geometryFactory = new GeometryFactory
         new GeoJsonReader(geometryFactory).read(migrationGeojson).asInstanceOf[GeometryCollection]
       case None =>
-        val referenceGpx = context.value.update.referenceGpx.getOrElse(throw new RuntimeException("reference gpx missing in update"))
+        val referenceGpx = args.update.referenceGpx.getOrElse(throw new RuntimeException("reference gpx missing in update"))
         val xml = try {
           XML.loadString(referenceGpx)
         }
@@ -86,7 +77,7 @@ class MonitorGpxUpload(
     }
 
     val bounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
-    val geoJson = context.value.update.migrationGeojson match {
+    val geoJson = args.update.migrationGeojson match {
       case Some(migrationGeojson) => migrationGeojson
       case None => MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
     }
@@ -95,69 +86,56 @@ class MonitorGpxUpload(
     val distance = Math.round(referenceLineStrings.map(Haversine.meters).sum)
     val segmentCount = geometryCollection.getNumGeometries
 
-    val objectId = context.value.oldReferenceIds.filter(_.relationId.contains(relationId)).map(_._id).headOption.getOrElse(ObjectId())
-
-    val referenceLines = referenceLineStrings.map(CoordinateUtil.lineStringToCoordinates)
+    val objectId = monitorRouteRepository.routeRelationReferenceId(route._id, Some(relationId)).getOrElse(ObjectId())
+    val referenceLines1 = referenceLineStrings.map(CoordinateUtil.lineStringToCoordinates)
 
     val reference = MonitorRouteReference(
       objectId,
-      routeId = context.value.routeId,
+      routeId = route._id,
       relationId = Some(relationId),
       timestamp = now,
-      user = context.value.user,
+      user = args.user,
       referenceBounds = bounds,
       referenceType = MonitorReferenceType.gpx,
       referenceTimestamp = referenceTimestamp,
       referenceDistance = distance,
       referenceSegmentCount = segmentCount,
-      referenceFilename = context.value.update.referenceFilename,
-      referenceLines = referenceLines,
+      referenceFilename = args.update.referenceFilename,
+      referenceLines = referenceLines1
     )
 
-    context.upsertRouteReference(reference)
     monitorRouteRepository.saveRouteReference(reference)
 
-    context.set(
-      context.value.copy(
-        newReferenceSummaries = context.value.newReferenceSummaries :+ MonitorRouteReferenceSummary.from(reference),
+    val routeCoordinateArrays = routeRepository.coordinatesArrays(Seq(relationId))
+    val routeLines = routeCoordinateArrays.map { coordinateArray =>
+      geometryFactory.createLineString(coordinateArray)
+    }
+
+    val referenceLines = reference.referenceLines.map(CoordinateUtil.coordinatesToLineString)
+
+    val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
+
+    val stateId = monitorRouteRepository.routeState(route._id, relationId) match {
+      case Some(routeState) => routeState._id
+      case None => ObjectId()
+    }
+
+    monitorRouteRepository.saveRouteState(
+      MonitorRouteState(
+        stateId,
+        route._id,
+        relationId,
+        now,
+        deviationAnalysis.deviations,
+        deviationAnalysis.matchesDistance,
+        deviationAnalysis.matchesLines,
       )
     )
 
-    if (context.value.isReferenceTypeMultiGpx) { // TODO referenceType will always be "multi-gpx" ?
-      context.set(
-        context.value.copy(
-          newRoute = context.value.oldRoute
-        )
-      )
-    }
-    else {
-      context.set(
-        context.value.copy(
-          newRoute = Some(
-            context.value.oldRoute.get.copy(
-              referenceDistance = reference.referenceDistance
-            )
-          )
-        )
-      )
-    }
+    val updatedRoute = monitorUpdateCommon.updateSuperRoute(route)
 
-    monitorRouteRelationRepository.loadTopLevel(None, relationId) match {
-      case None =>
-      case Some(relation) =>
-        monitorUpdateAnalyzeReference.analyzeReference(context, reference, Some(relation)) match {
-          case None =>
-          case Some(state) =>
-            monitorRouteRepository.saveRouteState(state)
-            context.set(
-              context.value.copy(
-                stateChanged = true
-              )
-            )
-            context.stepActive("save")
-            monitorUpdateSave.save(context)
-            context.stepDone("save")
-        }
-    }
+    args.reporter.stepActive("save")
+    monitorRouteRepository.saveRoute(updatedRoute)
+    args.reporter.stepDone("save")
   }
 }

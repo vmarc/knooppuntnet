@@ -4,7 +4,7 @@ import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.core.util.Log
 import kpn.server.json.Json
 import kpn.server.monitor.route.update.MonitorRouteUpdateExecutor
-import kpn.server.monitor.route.update.MonitorUpdateContext
+import kpn.server.monitor.route.update.MonitorUpdateArgs
 import kpn.server.monitor.route.update.MonitorUpdateReporterWebsocket
 import org.springframework.context.ApplicationContext
 import org.springframework.stereotype.Component
@@ -32,13 +32,13 @@ class ServerWebSocketHandler(
     val reporter = new MonitorUpdateReporterWebsocket(session)
     Log.context(Seq("route-update", s"group=${command.groupName}", s"route=${command.routeName}")) {
       log.info(s"${command.printable()}")
-      val context = MonitorUpdateContext(
+      val args = MonitorUpdateArgs(
         user,
         reporter,
         command,
       )
       try {
-        applicationContext.getBean(classOf[MonitorRouteUpdateExecutor]).execute(context)
+        applicationContext.getBean(classOf[MonitorRouteUpdateExecutor]).execute(args)
       }
       finally {
         session.close()

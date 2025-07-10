@@ -25,7 +25,7 @@ class MonitorUpdaterTest17_route_not_found extends MonitorUpdateTest {
 
   private def executeUpdate(reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user",
         reporter,
         MonitorRouteUpdate(

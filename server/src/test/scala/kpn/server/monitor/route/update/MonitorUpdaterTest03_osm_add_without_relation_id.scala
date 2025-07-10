@@ -45,7 +45,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
     )
 
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user",
         reporter,
         update
@@ -69,7 +69,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
 
     val reporter2 = new MonitorUpdateReporterMock()
     configuration.monitorRouteUpdateExecutor.execute(
-      MonitorUpdateContext(
+      MonitorUpdateArgs(
         "user",
         reporter,
         updatedUpdate

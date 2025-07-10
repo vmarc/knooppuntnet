@@ -10,7 +10,7 @@ import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.monitor.route.update.MonitorRouteRelationRepository
 import kpn.server.monitor.route.update.MonitorRouteStructureLoader
-import kpn.server.monitor.route.update.MonitorUpdateContext
+import kpn.server.monitor.route.update.MonitorUpdateArgs
 import kpn.server.monitor.route.update.MonitorUpdateReporterLogger
 import kpn.server.monitor.route.update.MonitorUpdaterConfiguration
 
@@ -168,7 +168,7 @@ class TaunusKlubTool(configuration: MonitorUpdaterConfiguration) {
   def createRoutes(routeInfos: Seq[TaunusKlubRoute]): Unit = {
     routeInfos.drop(1).foreach { routeInfo =>
       configuration.monitorRouteUpdateExecutor.execute(
-        MonitorUpdateContext(
+        MonitorUpdateArgs(
           "create-taunusklub-routes",
           new MonitorUpdateReporterLogger(),
           MonitorRouteUpdate(

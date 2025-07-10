@@ -18,49 +18,37 @@ class MonitorRouteUpdateExecutor(
 
   private val log = Log(classOf[MonitorRouteUpdateExecutor])
 
-  private val actionStrategies: Map[MonitorAction, MonitorContext => Unit] = Map(
+  private val actionStrategies: Map[MonitorAction, MonitorUpdateArgs => Unit] = Map(
     MonitorAction.add -> monitorAdd.execute,
     MonitorAction.update -> monitorUpdate.execute,
     MonitorAction.gpxUpload -> monitorGpxUpload.execute,
     MonitorAction.gpxDelete -> monitorGpxDelete.execute
   )
 
-  def execute(originalContext: MonitorUpdateContext): Unit = {
-    val context = initContext(originalContext)
+  def execute(args: MonitorUpdateArgs): Unit = {
     try {
-      val action = originalContext.update.action
+      val action = args.update.action
       actionStrategies.get(action) match {
-        case Some(strategy) => strategy(context)
+        case Some(strategy) => strategy(args)
         case None => throw new IllegalArgumentException(s"Unknown action type: $action")
       }
     }
     catch {
       case e: RuntimeException =>
-        handleException(context, e)
+        handleException(args, e)
     }
     finally {
       Time.clear()
     }
   }
 
-  private def initContext(originalContext: MonitorUpdateContext): MonitorContext = {
-    val context = new MonitorContext()
-    context.set(
-      originalContext.copy(
-        referenceType = Some(originalContext.update.referenceType),
-        analysisStartMillis = Some(System.currentTimeMillis())
-      )
-    )
-    context
-  }
-
-  private def handleException(context: MonitorContext, e: RuntimeException): Unit = {
-    val update = Json.string(context.value.update.printable())
+  private def handleException(args: MonitorUpdateArgs, e: RuntimeException): Unit = {
+    val update = Json.string(args.update.printable())
     e match {
       case ve: ValidationException => log.info(s"ValidationException(${ve.getMessage}) $update")
       case _ => log.error(s"Could not update route: $update", e)
     }
-    context.value.reporter.report(
+    args.reporter.report(
       MonitorRouteUpdateStatusMessage(
         exception = Some(e.getMessage)
       )

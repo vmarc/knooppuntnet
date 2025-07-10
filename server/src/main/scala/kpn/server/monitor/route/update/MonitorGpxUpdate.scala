@@ -227,8 +227,6 @@ class MonitorGpxUpdate(
     }
     else {
       //throw new IllegalStateException(s"reference type change from ${route.referenceType} to ${args.update.referenceType} not implemented yet")
-      println("xxxx")
-
       if (args.update.referenceGpx.nonEmpty) {
         monitorGpxAnalyze.execute(args, route, now)
       }
