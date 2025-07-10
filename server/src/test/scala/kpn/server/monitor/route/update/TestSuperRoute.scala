@@ -65,6 +65,7 @@ object TestSuperRoute extends SharedTestObjects {
 
   val routeDoc1: RouteDoc = newRouteDoc(
     newRouteSummary(MainRelationId),
+    superDistance = subRoute11.meters + subRoute12.meters,
     superSegments = Seq(
       SuperSegment(
         Seq(

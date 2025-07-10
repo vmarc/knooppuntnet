@@ -15,4 +15,8 @@ case class MonitorUpdateArgs(
   def referenceTimestamp: Timestamp = {
     update.referenceTimestamp.getOrElse(throw new RuntimeException("referenceTimestamp is required"))
   }
+
+  def referenceGpx: String = {
+    update.referenceGpx.getOrElse(throw new RuntimeException("referenceGpx is required"))
+  }
 }

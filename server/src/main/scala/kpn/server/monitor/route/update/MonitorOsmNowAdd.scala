@@ -20,13 +20,13 @@ import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
 
 @Component
-class MonitorAddOsmNow(
+class MonitorOsmNowAdd(
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
 ) {
 
-  private val log = Log(classOf[MonitorAddOsmNow])
+  private val log = Log(classOf[MonitorOsmNowAdd])
   val geometryFactory = new GeometryFactory
 
   def execute(args: MonitorUpdateArgs): Unit = {

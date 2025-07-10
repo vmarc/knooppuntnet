@@ -72,7 +72,7 @@ class MonitorUpdaterConfiguration(
     monitorUpdateSave,
     monitorMultiGpxDelete
   )
-  
+
   private val monitorOsmAnalyze = new MonitorOsmAnalyze(
     routeRepository,
     monitorRouteRepository,
@@ -101,6 +101,28 @@ class MonitorUpdaterConfiguration(
     monitorOsmAnalyze
   )
 
+  private val monitorGpxAnalyze = new MonitorGpxAnalyze(
+    routeRepository,
+    monitorRouteRepository,
+    monitorUpdateCommon,
+    monitorOsmAnalyze,
+    monitorRouteDeviationAnalyzer
+  )
+
+  private val monitorGpxUpdate = new MonitorGpxUpdate(
+    routeRepository,
+    monitorGroupRepository,
+    monitorRouteRepository,
+    monitorUpdateStructure,
+    monitorRouteRelationRepository,
+    monitorRouteOsmSegmentAnalyzer,
+    monitorUpdateAnalyzeReference,
+    monitorUpdateCommon,
+    monitorUpdateSave,
+    monitorGpxAnalyze,
+    monitorRouteDeviationAnalyzer
+  )
+
   private val monitorUpdateUpdate = new MonitorUpdate(
     monitorGroupRepository,
     monitorRouteRepository,
@@ -111,18 +133,28 @@ class MonitorUpdaterConfiguration(
     monitorUpdateCommon,
     monitorUpdateSave,
     monitorOsmUpdate,
+    monitorGpxUpdate,
+
   )
 
-  private val monitorUpdateAddMultiGpx = new MonitorAddMultiGpx(
+  private val monitorUpdateAddMultiGpx = new MonitorMultiGpxAdd(
     routeRepository,
     monitorRouteRepository,
     monitorUpdateCommon,
   )
 
-  private val monitorUpdateAddOsmNow = new MonitorAddOsmNow(
+  private val monitorUpdateAddOsmNow = new MonitorOsmNowAdd(
     routeRepository,
     monitorRouteRepository,
     monitorUpdateCommon,
+  )
+
+  private val monitorGpxAdd = new MonitorGpxAdd(
+    routeRepository,
+    monitorRouteRepository,
+    monitorUpdateCommon,
+    monitorGpxAnalyze,
+    monitorRouteDeviationAnalyzer
   )
 
   private val monitorUpdateAdd = new MonitorAdd(
@@ -134,6 +166,7 @@ class MonitorUpdaterConfiguration(
     monitorUpdateAddMultiGpx,
     monitorUpdateAddOsmNow,
     monitorOsmAdd,
+    monitorGpxAdd,
   )
 
   val monitorUpdateAnalysis = new MonitorUpdateAnalysis(

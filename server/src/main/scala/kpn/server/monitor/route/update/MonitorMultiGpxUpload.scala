@@ -17,7 +17,6 @@ import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
-import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonReader
@@ -114,14 +113,10 @@ class MonitorMultiGpxUpload(
 
     val routeCoordinateArrays = routeRepository.coordinatesArrays(Seq(relationId))
     val routeLines = routeCoordinateArrays.map { coordinateArray =>
-      val flipped = coordinateArray.map(c => new Coordinate(c.y, c.x))
-      geometryFactory.createLineString(flipped)
+      geometryFactory.createLineString(coordinateArray)
     }
 
-    val referenceLines = {
-      val referenceGeometry = new GeoJsonReader().read(reference.referenceGeoJson.get)
-      MonitorRouteReferenceUtil.toLineStrings(referenceGeometry)
-    }
+    val referenceLines = reference.referenceLines.map(CoordinateUtil.coordinatesToLineString)
 
     val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
 

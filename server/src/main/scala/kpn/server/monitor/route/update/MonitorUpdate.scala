@@ -36,6 +36,7 @@ class MonitorUpdate(
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorUpdateSave: MonitorUpdateSave,
   monitorOsmUpdate: MonitorOsmUpdate,
+  monitorGpxUpdate: MonitorGpxUpdate,
 ) {
 
   private val log = Log(classOf[MonitorUpdate])
@@ -59,6 +60,10 @@ class MonitorUpdate(
       //      }
       if (args.update.referenceType == MonitorReferenceType.osm) {
         monitorOsmUpdate.execute(args)
+        return
+      }
+      if (args.update.referenceType == MonitorReferenceType.gpx) {
+        monitorGpxUpdate.execute(args)
         return
       }
     }

@@ -12,13 +12,13 @@ import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
-class MonitorAddMultiGpx(
+class MonitorMultiGpxAdd(
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
 ) {
 
-  private val log = Log(classOf[MonitorAddMultiGpx])
+  private val log = Log(classOf[MonitorMultiGpxAdd])
 
   def execute(args: MonitorUpdateArgs): Unit = {
 
@@ -27,7 +27,7 @@ class MonitorAddMultiGpx(
     val group = monitorUpdateCommon.findGroup(args)
     monitorUpdateCommon.verifyNewRoute(group, args)
 
-    val (superSegmentCount: Long, osmDistance: Long) = getRouteInfo(args)
+    val (superSegmentCount, osmDistance) = getRouteInfo(args)
     val route = buildRoute(args, group, superSegmentCount, osmDistance)
 
     monitorRouteRepository.saveRoute(route)
@@ -38,7 +38,7 @@ class MonitorAddMultiGpx(
     routeRepository.findRouteById(args.relationId) match {
       case Some(routeDoc) =>
         val sc: Long = routeDoc.superSegments.length
-        val di: Long = routeDoc.superSegments.map(_.segments.map(_.relationSegment.meters).sum).sum
+        val di: Long = routeDoc.superDistance
         (sc, di)
       case None => (0L, 0L)
     }

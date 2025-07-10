@@ -7,6 +7,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
 import kpn.core.test.MongoTest
 import kpn.core.test.OverpassData
+import kpn.server.monitor.domain.MonitorRoute
 
 abstract class MonitorUpdateTest extends MongoTest {
 
@@ -55,6 +56,14 @@ abstract class MonitorUpdateTest extends MongoTest {
   }
 
   val sameSubroute12Geometry = """{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}]}"""
+
+  def verifyNoReference(route: MonitorRoute, relationId: Option[Long]): Unit = {
+    configuration.monitorRouteRepository.routeReference(route._id, relationId) should equal(None)
+  }
+
+  def verifyNoState(route: MonitorRoute, relationId: Long): Unit = {
+    configuration.monitorRouteRepository.routeState(route._id, relationId) should equal(None)
+  }
 
   def setupSuperRoute(): Unit = {
     configuration.routeRepository.saveBaseRoute(TestSuperRoute.baseRouteDoc)

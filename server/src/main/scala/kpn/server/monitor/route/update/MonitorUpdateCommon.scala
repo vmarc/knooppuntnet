@@ -62,7 +62,7 @@ class MonitorUpdateCommon(
     val (superSegmentCount: Long, osmDistance: Long) = routeRepository.findRouteById(route.relationId.get) match {
       case Some(routeDoc) =>
         val sc = routeDoc.superSegments.length.toLong
-        val di = routeDoc.superSegments.map(_.segments.map(_.relationSegment.meters).sum).sum
+        val di = routeDoc.superDistance
         (sc, di)
       case None => (0L, 0L)
     }

@@ -1,14 +1,10 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.common.Bounds
-import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.custom.Tags
 import kpn.core.common.Time
-import kpn.core.data.DataBuilder
-import kpn.core.test.OverpassData
+import kpn.core.doc.SuperSegment
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
@@ -25,9 +21,9 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
 
   test("add non-super route with single gpx reference") {
 
-    val (group, gpx, reporter) = setup()
+    val (group, reporter) = setup()
 
-    executeMonitorUpdate(group, gpx, reporter)
+    executeAdd(group, reporter)
 
     verifyDocumentCounts()
     val route = verifyRoute(group)
@@ -36,7 +32,7 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
     verifyReporterMessages(reporter)
   }
 
-  private def executeMonitorUpdate(group: MonitorGroup, gpx: String, reporter: MonitorUpdateReporterMock): Unit = {
+  private def executeAdd(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         "user",
@@ -48,10 +44,10 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
           referenceType = MonitorReferenceType.gpx,
           description = Some("route-description"),
           comment = Some("route-comment"),
-          relationId = Some(1),
+          relationId = Some(route1.relationId),
           referenceTimestamp = Some(ReferenceTimestamp1),
           referenceFilename = Some("filename"),
-          referenceGpx = Some(gpx)
+          referenceGpx = Some(route1.gpx)
         )
       )
     )
@@ -73,7 +69,7 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         name = "route-name",
         description = "route-description",
         comment = Some("route-comment"),
-        relationId = Some(1),
+        relationId = Some(route1.relationId),
         user = "user",
         timestamp = CurrentTimestamp,
         symbol = None,
@@ -82,11 +78,11 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         referenceType = MonitorReferenceType.gpx,
         referenceTimestamp = Some(ReferenceTimestamp1),
         referenceFilename = Some("filename"),
-        referenceDistance = 181,
+        referenceDistance = route1.meters,
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 1,
-        osmDistance = 181,
+        osmDistance = route1.meters,
         relation = None,
         happy = true
       )
@@ -95,19 +91,19 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
   }
 
   private def verifyReference(monitorRoute: MonitorRoute): Unit = {
-    val reference = configuration.monitorRouteRepository.routeReference(monitorRoute._id, Some(1)).get
+    val reference = configuration.monitorRouteRepository.routeReference(monitorRoute._id, Some(route1.relationId)).get
     assertEqual(
       reference,
       MonitorRouteReference(
         reference._id,
         routeId = monitorRoute._id,
-        relationId = Some(1),
+        relationId = Some(route1.relationId),
         timestamp = CurrentTimestamp,
         user = "user",
-        referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+        referenceBounds = route1.bounds,
         referenceType = MonitorReferenceType.gpx,
         referenceTimestamp = ReferenceTimestamp1,
-        referenceDistance = 181,
+        referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),
         referenceLines = route1.lines
@@ -116,17 +112,17 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
   }
 
   private def verifyState(monitorRoute: MonitorRoute): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(monitorRoute._id, 1).get
+    val state = configuration.monitorRouteRepository.routeState(monitorRoute._id, route1.relationId).get
     assertEqual(
       state,
       MonitorRouteState(
         state._id,
         routeId = monitorRoute._id,
-        relationId = 1,
+        relationId = route1.relationId,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         deviations = Seq.empty,
-        matchesDistance = 181,
+        matchesDistance = route1.meters,
         matchesLines = route1.lines,
       )
     )
@@ -135,7 +131,7 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
   private def setupBaseRouteDoc(): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(1),
+        newRouteSummary(route1.relationId),
         segments = Seq(
           newBaseRouteSegment(1)
         ),
@@ -143,68 +139,11 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
           newBaseRouteSegmentElement(
             segmentId = 1,
             segmentElementId = 1,
-            coordinates = "[[4.4553911, 51.4633666],[4.4562458,51.4618272]]"
+            coordinates = route1.coordinateString
           )
         )
       )
     )
-  }
-
-  private def setup() = {
-
-    setupLoadStructure()
-    setupLoadRelation()
-    setupBaseRouteDoc()
-
-    val group = newMonitorGroup("group")
-    configuration.monitorGroupRepository.saveGroup(group)
-
-    val gpx =
-      """
-        |<gpx>
-        |  <trk>
-        |    <trkseg>
-        |      <trkpt lat="51.4633666" lon="4.4553911"></trkpt>
-        |      <trkpt lat="51.4618272" lon="4.4562458"></trkpt>
-        |    </trkseg>
-        |  </trk>
-        |</gpx>
-        |""".stripMargin
-
-    Time.set(CurrentTimestamp)
-    val reporter = new MonitorUpdateReporterMock()
-    (group, gpx, reporter)
-  }
-
-  private def setupLoadStructure(): Unit = {
-    val overpassData = OverpassData()
-      .relation(
-        1,
-        tags = Tags.from(
-          "name" -> "route-name"
-        )
-      )
-    setupRouteStructure(Some(ReferenceTimestamp1), overpassData, 1)
-  }
-
-  private def setupLoadRelation(): Unit = {
-
-    val overpassData = OverpassData()
-      .node(1001, latitude = "51.4633666", longitude = "4.4553911")
-      .node(1002, latitude = "51.4618272", longitude = "4.4562458")
-      .way(101, 1001, 1002)
-      .relation(
-        1,
-        tags = Tags.from(
-          "name" -> "route-name"
-        ),
-        members = Seq(
-          newMember(MemberType.Way, 101),
-        )
-      )
-
-    val relation = new DataBuilder(overpassData.rawData).data.relations(1)
-    (configuration.monitorRouteRelationRepository.load _).when(None, 1).returns(Some(relation))
   }
 
   private def verifyReporterMessages(reporter: MonitorUpdateReporterMock): Unit = {
@@ -220,18 +159,41 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
           active("analyze-route-structure")
         ),
         message(
-          add("load-gpx"),
-          add("analyze"),
-          active("load-gpx")
-        ),
-        message(
-          active("analyze")
-        ),
-        message(
           active("save")
         ),
         message(
           done("save")
+        )
+      )
+    )
+  }
+
+  private def setup(): (MonitorGroup, MonitorUpdateReporterMock) = {
+
+    setupBaseRouteDoc()
+    setupRouteDoc()
+
+    val group = newMonitorGroup("group")
+    configuration.monitorGroupRepository.saveGroup(group)
+
+    Time.set(CurrentTimestamp)
+    val reporter = new MonitorUpdateReporterMock()
+    (group, reporter)
+  }
+
+  private def setupRouteDoc(): Unit = {
+    configuration.routeRepository.saveRoute(
+      newRouteDoc(
+        newRouteSummary(
+          route1.relationId,
+          name = "route-name"
+        ),
+        superDistance = route1.meters,
+        routeIds = Seq(route1.relationId),
+        superSegments = Seq(
+          SuperSegment(
+            Seq.empty
+          )
         )
       )
     )

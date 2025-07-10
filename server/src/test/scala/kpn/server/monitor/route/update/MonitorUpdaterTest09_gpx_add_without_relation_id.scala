@@ -1,14 +1,10 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.common.Bounds
-import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.custom.Tags
 import kpn.core.common.Time
-import kpn.core.data.DataBuilder
-import kpn.core.test.OverpassData
+import kpn.core.doc.SuperSegment
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
@@ -25,27 +21,34 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
 
   test("add non-super route with single gpx reference, but initially with relationId unknown") {
 
-    val (group, gpx, reporter) = setup()
+    val (group, reporter) = setup()
 
-    val update = executeAddWithoutRelationId(group, gpx, reporter)
+    val update = executeAddWithoutRelationId(group, reporter)
+    val (route, reference) = verifyAdd(group, reporter)
 
-    verifyDocumentCounts()
-    val route = verifyRoute(group)
-    verifyNoReference(route)
-    verifyNoState(route)
-    val reference = verifyReference(route)
-    verifyReporterMessagesAdd(reporter)
-
-    executeMonitorUpdateWithRelationId(update)
-
-    verifyUpdatedReporterMessages(reporter)
-    verifyUpdatedDocumentCounts()
-    verifyUpdatedRoute(group, route)
-    verifyUpdatedReference(route, reference)
-    verifyUpdatedState(route)
+    executeUpdateWithRelationId(update)
+    verifyUpdate(group, reporter, route, reference)
   }
 
-  private def executeAddWithoutRelationId(group: MonitorGroup, gpx: String, reporter: MonitorUpdateReporterMock): MonitorRouteUpdate = {
+  private def verifyAdd(group: MonitorGroup, reporter: MonitorUpdateReporterMock) = {
+    verifyAdd_documentCounts()
+    val route = verifyAdd_route(group)
+    verifyAdd_noReference(route)
+    verifyAdd_noState(route)
+    val reference = verifyAdd_reference(route)
+    verifyAdd_reporterMessages(reporter)
+    (route, reference)
+  }
+
+  private def verifyUpdate(group: MonitorGroup, reporter: MonitorUpdateReporterMock, route: MonitorRoute, reference: MonitorRouteReference): Unit = {
+    verifyUpdate_documentCounts()
+    verifyUpdate_route(group, route)
+    verifyUpdate_reference(route, reference)
+    verifyUpdate_state(route)
+    verifyUpdate_reporterMessages(reporter)
+  }
+
+  private def executeAddWithoutRelationId(group: MonitorGroup, reporter: MonitorUpdateReporterMock): MonitorRouteUpdate = {
 
     val update = MonitorRouteUpdate(
       action = MonitorAction.add,
@@ -57,7 +60,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
       relationId = None, // <-- no relationId yet
       referenceTimestamp = Some(ReferenceTimestamp1),
       referenceFilename = Some("filename"),
-      referenceGpx = Some(gpx)
+      referenceGpx = Some(route1.gpx)
     )
 
     configuration.monitorRouteUpdateExecutor.execute(
@@ -70,13 +73,13 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
     update
   }
 
-  private def executeMonitorUpdateWithRelationId(update: MonitorRouteUpdate): Unit = {
+  private def executeUpdateWithRelationId(update: MonitorRouteUpdate): Unit = {
 
     Time.set(UpdateTimestamp)
 
     val update2 = update.copy(
       action = MonitorAction.update,
-      relationId = Some(1),
+      relationId = Some(route1.relationId),
       referenceGpx = None
     )
 
@@ -90,27 +93,27 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
     )
   }
 
-  private def verifyUpdatedDocumentCounts(): Unit = {
+  private def verifyUpdate_documentCounts(): Unit = {
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(1)
     database.monitorRouteStates.countDocuments() should equal(1)
   }
 
-  private def verifyDocumentCounts(): Unit = {
+  private def verifyAdd_documentCounts(): Unit = {
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(1)
     database.monitorRouteStates.countDocuments() should equal(0)
   }
 
-  private def verifyNoState(route: MonitorRoute): Unit = {
-    configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
+  private def verifyAdd_noState(route: MonitorRoute): Unit = {
+    configuration.monitorRouteRepository.routeState(route._id, route1.relationId) should equal(None)
   }
 
-  private def verifyNoReference(route: MonitorRoute): Unit = {
-    configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
+  private def verifyAdd_noReference(route: MonitorRoute): Unit = {
+    configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)) should equal(None)
   }
 
-  private def verifyRoute(group: MonitorGroup): MonitorRoute = {
+  private def verifyAdd_route(group: MonitorGroup): MonitorRoute = {
     val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
       route.copy(analysisDuration = None),
@@ -129,7 +132,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         referenceType = MonitorReferenceType.gpx,
         referenceTimestamp = Some(ReferenceTimestamp1),
         referenceFilename = Some("filename"),
-        referenceDistance = 181,
+        referenceDistance = route1.meters,
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 0,
@@ -141,7 +144,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
     route
   }
 
-  private def verifyReference(route: MonitorRoute): MonitorRouteReference = {
+  private def verifyAdd_reference(route: MonitorRoute): MonitorRouteReference = {
     val reference = configuration.monitorRouteRepository.routeReference(route._id, None).get
     assertEqual(
       reference,
@@ -151,10 +154,10 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         relationId = None, // <-- not filled in
         timestamp = CurrentTimestamp,
         user = "user1",
-        referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+        referenceBounds = route1.bounds,
         referenceType = MonitorReferenceType.gpx,
         referenceTimestamp = ReferenceTimestamp1,
-        referenceDistance = 181,
+        referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),
         referenceLines = route1.lines
@@ -163,48 +166,43 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
     reference
   }
 
-  private def verifyUpdatedRoute(group: MonitorGroup, route: MonitorRoute): Unit = {
+  private def verifyUpdate_route(group: MonitorGroup, route: MonitorRoute): Unit = {
     val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
       updatedRoute.copy(analysisDuration = None),
       route.copy(
-        relationId = Some(1),
+        relationId = Some(route1.relationId),
         user = "user2",
         timestamp = UpdateTimestamp,
         analysisTimestamp = Some(UpdateTimestamp),
         analysisDuration = None,
         referenceTimestamp = Some(ReferenceTimestamp1),
         referenceFilename = Some("filename"),
-        referenceDistance = 181,
+        referenceDistance = route1.meters,
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 1,
-        relation = Some(
-          newMonitorRouteRelation(
-            relationId = 1,
-            name = "route-name",
-            happy = true,
-          )
-        ),
+        osmDistance = route1.meters,
+        relation = None,
         happy = true
       )
     )
   }
 
-  private def verifyUpdatedReference(route: MonitorRoute, reference: MonitorRouteReference): Unit = {
-    val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
+  private def verifyUpdate_reference(route: MonitorRoute, reference: MonitorRouteReference): Unit = {
+    val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)).get
     assertEqual(
       updatedReference,
       MonitorRouteReference(
         reference._id,
         routeId = route._id,
-        relationId = Some(1), // <-- filled in
+        relationId = Some(route1.relationId), // <-- filled in
         timestamp = CurrentTimestamp, // <-- date that reference was added, not latest change by "user2"
         user = "user1", // <-- not "user2" who provided the relationId, the reference was still added by "user1"
-        referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+        referenceBounds = route1.bounds,
         referenceType = MonitorReferenceType.gpx,
         referenceTimestamp = ReferenceTimestamp1,
-        referenceDistance = 181,
+        referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),
         referenceLines = route1.lines
@@ -212,24 +210,24 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
     )
   }
 
-  private def verifyUpdatedState(route: MonitorRoute): Unit = {
+  private def verifyUpdate_state(route: MonitorRoute): Unit = {
     val state = configuration.monitorRouteRepository.routeState(route._id, 1).get
     assertEqual(
       state,
       MonitorRouteState(
         state._id,
         routeId = route._id,
-        relationId = 1,
+        relationId = route1.relationId,
         timestamp = UpdateTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         deviations = Seq.empty,
-        matchesDistance = 181,
+        matchesDistance = route1.meters,
         matchesLines = route1.lines,
       )
     )
   }
 
-  private def verifyReporterMessagesAdd(reporter: MonitorUpdateReporterMock): Unit = {
+  private def verifyAdd_reporterMessages(reporter: MonitorUpdateReporterMock): Unit = {
     assertEqual(
       reporter.messages,
       Seq(
@@ -240,14 +238,6 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         ),
         message(
           active("analyze-route-structure")
-        ),
-        message(
-          add("load-gpx"),
-          add("analyze"),
-          active("load-gpx")
-        ),
-        message(
-          active("analyze")
         ),
         message(
           active("save")
@@ -259,7 +249,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
     )
   }
 
-  private def verifyUpdatedReporterMessages(reporter: MonitorUpdateReporterMock): Unit = {
+  private def verifyUpdate_reporterMessages(reporter: MonitorUpdateReporterMock): Unit = {
     assertEqual(
       reporter.messages,
       Seq(
@@ -270,14 +260,6 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         ),
         message(
           active("analyze-route-structure")
-        ),
-        message(
-          add("load-gpx"),
-          add("analyze"),
-          active("load-gpx")
-        ),
-        message(
-          active("analyze")
         ),
         message(
           active("save")
@@ -291,76 +273,50 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
 
   private def setup() = {
 
-    setupLoadStructure()
-    setupLoadRelation()
     setupBaseRouteDoc()
+    setupRouteDoc()
 
     val group = newMonitorGroup("group")
     configuration.monitorGroupRepository.saveGroup(group)
 
-    val gpx =
-      """
-        |<gpx>
-        |  <trk>
-        |    <trkseg>
-        |      <trkpt lat="51.4633666" lon="4.4553911"></trkpt>
-        |      <trkpt lat="51.4618272" lon="4.4562458"></trkpt>
-        |    </trkseg>
-        |  </trk>
-        |</gpx>
-        |""".stripMargin
-
     Time.set(CurrentTimestamp)
     val reporter = new MonitorUpdateReporterMock()
-    (group, gpx, reporter)
+    (group, reporter)
   }
 
   private def setupBaseRouteDoc(): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(1),
+        newRouteSummary(route1.relationId),
         segments = Seq(
-          newBaseRouteSegment(1)
+          newBaseRouteSegment(route1.relationId)
         ),
         segmentElements = Seq(
           newBaseRouteSegmentElement(
             segmentId = 1,
             segmentElementId = 1,
-            coordinates = "[[4.4553911, 51.4633666],[4.4562458,51.4618272]]"
+            coordinates = route1.coordinateString
           )
         )
       )
     )
   }
 
-  private def setupLoadStructure(): Unit = {
-    val overpassData = OverpassData()
-      .relation(
-        1,
-        tags = Tags.from(
-          "name" -> "route-name"
-        )
-      )
-    setupRouteStructure(Some(ReferenceTimestamp1), overpassData, 1)
-  }
-
-  private def setupLoadRelation(): Unit = {
-
-    val overpassData = OverpassData()
-      .node(1001, latitude = "51.4633666", longitude = "4.4553911")
-      .node(1002, latitude = "51.4618272", longitude = "4.4562458")
-      .way(101, 1001, 1002)
-      .relation(
-        1,
-        tags = Tags.from(
-          "name" -> "route-name"
+  private def setupRouteDoc(): Unit = {
+    configuration.routeRepository.saveRoute(
+      newRouteDoc(
+        newRouteSummary(
+          route1.relationId,
+          name = "route-name"
         ),
-        members = Seq(
-          newMember(MemberType.Way, 101),
+        superDistance = route1.meters,
+        routeIds = Seq(route1.relationId),
+        superSegments = Seq(
+          SuperSegment(
+            Seq.empty
+          )
         )
       )
-
-    val relation = new DataBuilder(overpassData.rawData).data.relations(1)
-    (configuration.monitorRouteRelationRepository.load _).when(None, 1).returns(Some(relation))
+    )
   }
 }
