@@ -48,10 +48,11 @@ class MonitorOsmAnalyze(
     route: MonitorRoute,
     now: Timestamp,
     args: MonitorUpdateArgs,
+    referenceTimestamp: Timestamp,
     analysisStartMillis: Long
   ): Unit = {
 
-    val monitorRouteRelation = monitorRouteStructureLoader.load(Some(args.referenceTimestamp), args.relationId).getOrElse(throw new RuntimeException("could not load route structure"))
+    val monitorRouteRelation = monitorRouteStructureLoader.load(Some(referenceTimestamp), args.relationId).getOrElse(throw new RuntimeException("could not load route structure"))
     val relations = MonitorUtil.subRelationsInRouteRelation(monitorRouteRelation)
 
     val routeDoc = routeRepository.findRouteById(args.relationId).getOrElse(throw new RuntimeException(s"Could not find RouteDoc with id ${args.relationId}"))

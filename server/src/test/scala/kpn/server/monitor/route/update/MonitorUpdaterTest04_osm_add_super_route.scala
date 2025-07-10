@@ -311,9 +311,9 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
   private def setupLoadTopLevel(): Unit = {
 
     val overpassData = OverpassData()
-      .node(1001, latitude = "51.4633666", longitude = "4.4553911")
-      .node(1002, latitude = "51.4618272", longitude = "4.4562458")
-      .node(1003, latitude = "51.4614496", longitude = "4.4550560")
+      .node(1001, latitude = subRoute11.lat1, longitude = subRoute11.lon1)
+      .node(1002, latitude = subRoute11.lat2, longitude = subRoute11.lon2)
+      .node(1003, latitude = subRoute12.lat2, longitude = subRoute12.lon2)
       .way(101, 1001, 1002)
       .way(102, 1002, 1003)
       .relation(

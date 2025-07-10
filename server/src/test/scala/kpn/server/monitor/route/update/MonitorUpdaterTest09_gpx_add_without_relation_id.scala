@@ -77,18 +77,16 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
 
     Time.set(UpdateTimestamp)
 
-    val update2 = update.copy(
-      action = MonitorAction.update,
-      relationId = Some(route1.relationId),
-      referenceGpx = None
-    )
-
     val reporter = new MonitorUpdateReporterMock()
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateArgs(
         "user2",
         reporter,
-        update2
+        update.copy(
+          action = MonitorAction.update,
+          relationId = Some(route1.relationId),
+          referenceGpx = None
+        )
       )
     )
   }

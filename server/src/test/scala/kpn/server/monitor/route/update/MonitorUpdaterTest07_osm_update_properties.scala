@@ -23,7 +23,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
 
     val (group, route, state, reference, reporter) = setup()
 
-    executeMonitorUpdate(group, reporter)
+    executeUpdate(group, reporter)
 
     verifyDocumentCounts()
     verifyRoute(group, route)
@@ -32,7 +32,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
     verifyReporterMessages(reporter)
   }
 
-  private def executeMonitorUpdate(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
+  private def executeUpdate(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateArgs(
         "user2",
@@ -44,7 +44,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
           referenceType = MonitorReferenceType.osm,
           description = Some("description-changed"), // <-- changed
           comment = Some("comment-changed"), // <-- changed
-          relationId = Some(1),
+          relationId = Some(route1.relationId),
           referenceTimestamp = Some(ReferenceTimestamp1),
           newRouteName = Some("route-name-changed") // <-- changed
         )

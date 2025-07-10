@@ -67,7 +67,7 @@ class MonitorOsmAdd(
       return
     }
 
-    monitorOsmAnalyze.execute(route, now, args, analysisStartMillis)
+    monitorOsmAnalyze.execute(route, now, args, args.referenceTimestamp, analysisStartMillis)
   }
 
   private def initReporter(args: MonitorUpdateArgs): Unit = {

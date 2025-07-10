@@ -1,14 +1,13 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
+import kpn.core.doc.SuperSegment
 import kpn.core.test.OverpassData
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -47,7 +46,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
           referenceType = MonitorReferenceType.osm,
           description = Some("route-description"),
           comment = Some("route-comment"),
-          relationId = Some(1),
+          relationId = Some(route1.relationId),
           referenceTimestamp = Some(ReferenceTimestamp1),
         )
       )
@@ -67,7 +66,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
           referenceType = MonitorReferenceType.multiGpx,
           description = Some("route-description"),
           comment = Some("route-comment"),
-          relationId = Some(1),
+          relationId = Some(route1.relationId),
         )
       )
     )
@@ -87,24 +86,9 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
   private def verifyUpdate(group: MonitorGroup, addedRoute: MonitorRoute, addedState: MonitorRouteState): Unit = {
     database.monitorRoutes.countDocuments() should equal(1)
     database.monitorRouteReferences.countDocuments() should equal(0)
-    database.monitorRouteStates.countDocuments() should equal(1)
+    database.monitorRouteStates.countDocuments() should equal(0)
 
-    val updatedRoute = verifyUpdatedRoute(group, addedRoute)
-    assertUpdatedState(addedRoute, addedState, updatedRoute)
-  }
-
-  private def setup() = {
-
-    setupLoadStructure()
-    setupLoadRelation()
-    setupBaseRouteDoc()
-
-    val group = newMonitorGroup("group")
-    configuration.monitorGroupRepository.saveGroup(group)
-
-    Time.set(CurrentTimestamp)
-    val reporter = new MonitorUpdateReporterMock()
-    (group, reporter)
+    verifyUpdatedRoute(group, addedRoute)
   }
 
   private def assertAddedRoute(group: MonitorGroup): MonitorRoute = {
@@ -117,7 +101,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
         name = "route-name",
         description = "route-description",
         comment = Some("route-comment"),
-        relationId = Some(1),
+        relationId = Some(route1.relationId),
         user = "user1",
         timestamp = CurrentTimestamp,
         symbol = None,
@@ -126,11 +110,11 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
         referenceType = MonitorReferenceType.osm,
         referenceTimestamp = Some(ReferenceTimestamp1),
         referenceFilename = None,
-        referenceDistance = 181,
+        referenceDistance = route1.meters,
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 1,
-        osmDistance = 181,
+        osmDistance = route1.meters,
         relation = None,
         happy = true
       )
@@ -145,39 +129,39 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
       MonitorRouteReference(
         reference._id,
         routeId = addedRoute._id,
-        relationId = Some(1),
+        relationId = Some(route1.relationId),
         timestamp = CurrentTimestamp,
         user = "user1",
-        referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+        referenceBounds = route1.bounds,
         referenceType = MonitorReferenceType.osm,
         referenceTimestamp = ReferenceTimestamp1,
-        referenceDistance = 181,
+        referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceLines = Seq("[[4.4553911,51.4633666],[4.4562458,51.4618272]]")
+        referenceLines = route1.lines
       )
     )
   }
 
   private def assertAddedState(addedRoute: MonitorRoute): MonitorRouteState = {
-    val state = configuration.monitorRouteRepository.routeState(addedRoute._id, 1).get
+    val state = configuration.monitorRouteRepository.routeState(addedRoute._id, route1.relationId).get
     assertEqual(
       state,
       MonitorRouteState(
         state._id,
         routeId = addedRoute._id,
-        relationId = 1,
+        relationId = route1.relationId,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         deviations = Seq.empty,
-        matchesDistance = 181,
+        matchesDistance = route1.meters,
         matchesLines = route1.lines,
       )
     )
     state
   }
 
-  private def verifyUpdatedRoute(group: MonitorGroup, addedRoute: MonitorRoute): MonitorRoute = {
+  private def verifyUpdatedRoute(group: MonitorGroup, addedRoute: MonitorRoute): Unit = {
     val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
     assertEqual(
       route.copy(analysisDuration = None),
@@ -187,7 +171,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
         name = "route-name",
         description = "route-description",
         comment = Some("route-comment"),
-        relationId = Some(1),
+        relationId = Some(route1.relationId),
         user = "user2",
         timestamp = UpdateTimestamp,
         symbol = None,
@@ -200,12 +184,11 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 1,
-        osmDistance = 181,
+        osmDistance = route1.meters,
         relation = None,
         happy = false
       )
     )
-    route
   }
 
   private def assertUpdatedState(addedRoute: MonitorRoute, addedState: MonitorRouteState, updatedRoute: MonitorRoute): Unit = {
@@ -215,38 +198,35 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
       MonitorRouteState(
         addedState._id,
         routeId = addedRoute._id,
-        relationId = 1,
+        relationId = route1.relationId,
         timestamp = CurrentTimestamp,
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         deviations = Seq.empty,
-        matchesDistance = 181,
+        matchesDistance = route1.meters,
         matchesLines = route1.lines,
       )
     )
   }
 
-  private def setupBaseRouteDoc(): Unit = {
-    configuration.routeRepository.saveBaseRoute(
-      newBaseRouteDoc(
-        newRouteSummary(1),
-        segments = Seq(
-          newBaseRouteSegment(1)
-        ),
-        segmentElements = Seq(
-          newBaseRouteSegmentElement(
-            segmentId = 1,
-            segmentElementId = 1,
-            coordinates = "[[4.4553911, 51.4633666],[4.4562458,51.4618272]]"
-          )
-        )
-      )
-    )
+  private def setup(): (MonitorGroup, MonitorUpdateReporterMock) = {
+
+    setupLoadStructure()
+    setupLoadRelation()
+    setupBaseRouteDoc()
+    setupRouteDoc()
+
+    val group = newMonitorGroup("group")
+    configuration.monitorGroupRepository.saveGroup(group)
+
+    Time.set(CurrentTimestamp)
+    val reporter = new MonitorUpdateReporterMock()
+    (group, reporter)
   }
 
   private def setupLoadStructure(): Unit = {
     val overpassData = OverpassData()
       .relation(
-        1,
+        route1.relationId,
         tags = Tags.from(
           "name" -> "route-name"
         )
@@ -257,11 +237,11 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
   private def setupLoadRelation(): Unit = {
 
     val overpassData = OverpassData()
-      .node(1001, latitude = "51.4633666", longitude = "4.4553911")
-      .node(1002, latitude = "51.4618272", longitude = "4.4562458")
+      .node(1001, latitude = route1.lat1, longitude = route1.lon1)
+      .node(1002, latitude = route1.lat2, longitude = route1.lon2)
       .way(101, 1001, 1002)
       .relation(
-        1,
+        route1.relationId,
         tags = Tags.from(
           "name" -> "route-name"
         ),
@@ -270,16 +250,44 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
         )
       )
 
-    val relation = new DataBuilder(overpassData.rawData).data.relations(1)
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.load _).when(None, 1).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(
-      Some(Timestamp(2022, 8, 1, 0, 0, 0))
-      , 1
-    ).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(
-      Some(UpdateTimestamp)
-      , 1
-    ).returns(Some(relation))
+    val relation = new DataBuilder(overpassData.rawData).data.relations(route1.relationId)
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(relation))
+    (configuration.monitorRouteRelationRepository.load _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(relation))
+  }
+
+  private def setupBaseRouteDoc(): Unit = {
+    configuration.routeRepository.saveBaseRoute(
+      newBaseRouteDoc(
+        newRouteSummary(route1.relationId),
+        segments = Seq(
+          newBaseRouteSegment(1)
+        ),
+        segmentElements = Seq(
+          newBaseRouteSegmentElement(
+            segmentId = 1,
+            segmentElementId = 1,
+            coordinates = route1.coordinateString
+          )
+        )
+      )
+    )
+  }
+
+  private def setupRouteDoc(): Unit = {
+    configuration.routeRepository.saveRoute(
+      newRouteDoc(
+        newRouteSummary(
+          route1.relationId,
+          name = "route-name"
+        ),
+        superDistance = route1.meters,
+        routeIds = Seq(route1.relationId),
+        superSegments = Seq(
+          SuperSegment(
+            Seq.empty
+          )
+        )
+      )
+    )
   }
 }

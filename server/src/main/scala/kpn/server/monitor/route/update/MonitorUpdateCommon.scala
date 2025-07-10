@@ -31,7 +31,7 @@ class MonitorUpdateCommon(
     }
   }
 
-  def findRoute(args: MonitorUpdateArgs, group: MonitorGroup): MonitorRoute = {
+  def findRoute(group: MonitorGroup, args: MonitorUpdateArgs): MonitorRoute = {
     val routeName = args.update.routeName
     monitorRouteRepository.routeByName(group._id, routeName).getOrElse {
       throw new IllegalArgumentException(
@@ -76,35 +76,6 @@ class MonitorUpdateCommon(
       osmSegmentCount = superSegmentCount,
       happy = happy
     )
-  }
-
-  def oldFindGroup(context: MonitorContext): Unit = {
-    val groupName = context.value.update.groupName
-    val group = monitorGroupRepository.groupByName(groupName).getOrElse {
-      throw new IllegalArgumentException(
-        s"""Could not find group with name "$groupName""""
-      )
-    }
-    context.set(
-      context.value.copy(
-        group = Some(group)
-      )
-    )
-  }
-
-  def oldFindRoute(context: MonitorContext): MonitorRoute = {
-    val routeName = context.value.update.routeName
-    val route = monitorRouteRepository.routeByName(context.value.group.get._id, routeName).getOrElse {
-      throw new IllegalArgumentException(
-        s"""Could not find route with name "$routeName" in group "${context.value.group.get.name}""""
-      )
-    }
-    context.set(
-      context.value.copy(
-        oldRoute = Some(route)
-      )
-    )
-    route
   }
 
   def removeObsoleteReferences(context: MonitorContext): MonitorUpdateContext = {

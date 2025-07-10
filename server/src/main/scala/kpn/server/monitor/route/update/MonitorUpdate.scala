@@ -1,27 +1,205 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorReferenceType
+import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
+import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
+import kpn.core.common.Time
 import kpn.core.util.Log
+import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorRoute
+import kpn.server.monitor.repository.MonitorGroupRepository
+import kpn.server.monitor.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class MonitorUpdate(
+  monitorGroupRepository: MonitorGroupRepository,
+  monitorRouteRepository: MonitorRouteRepository,
+  monitorUpdateCommon: MonitorUpdateCommon,
   monitorOsmUpdate: MonitorOsmUpdate,
+  monitorOsmNowUpdate: MonitorOsmNowUpdate,
   monitorGpxUpdate: MonitorGpxUpdate,
+  monitorMultiGpxUpdate: MonitorMultiGpxUpdate,
 ) {
 
   private val log = Log(classOf[MonitorUpdate])
 
   def execute(args: MonitorUpdateArgs): Unit = {
 
+    initReporter(args)
+
+    val now = Time.now
+    val analysisStartMillis = System.currentTimeMillis()
+
+    val group = monitorUpdateCommon.findGroup(args)
+    val route = monitorUpdateCommon.findRoute(group, args)
+
+    if (!monitorUpdateCommon.isRouteChanged(route, args)) {
+      args.reporter.report(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-done", "prepare"),
+          )
+        )
+      )
+      return
+    }
+
+    val routeUpdatedProperties = updateRouteProperties(group, route, args)
+    val updatedRoute = if (isCleanupNeeded(route, args)) {
+      cleanup(routeUpdatedProperties, args)
+    }
+    else {
+      routeUpdatedProperties
+    }
+
+    if (!isAnalysisNeeded(route, args)) {
+      args.reporter.report(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "save"),
+            MonitorRouteUpdateStatusCommand("step-active", "save"),
+          )
+        )
+      )
+      monitorRouteRepository.saveRoute(updatedRoute)
+      stepSaveDone(args)
+      return
+    }
+
     if (args.update.referenceType == MonitorReferenceType.osm) {
-      monitorOsmUpdate.execute(args)
+      if (args.update.referenceNow.contains(true)) {
+        monitorOsmNowUpdate.execute(group, args, route, updatedRoute, now, analysisStartMillis)
+      }
+      else {
+        monitorOsmUpdate.execute(args, route, updatedRoute, now, analysisStartMillis)
+      }
+    }
+    if (args.update.referenceType == MonitorReferenceType.gpx) {
+      monitorGpxUpdate.execute(args, route, updatedRoute, now)
+    }
+    if (args.update.referenceType == MonitorReferenceType.multiGpx) {
+      monitorMultiGpxUpdate.execute(args, route, updatedRoute, now)
+    }
+  }
+
+  private def updateRoute(args: MonitorUpdateArgs, group: MonitorGroup, route: MonitorRoute) = {
+    val groupId = updateGroupIdIfNeeded(args, group)
+    route.copy(
+      groupId = groupId,
+      name = args.update.newRouteName.getOrElse(route.name),
+      description = args.update.description.getOrElse(""),
+      comment = args.update.comment,
+      relationId = args.update.relationId,
+      user = args.user,
+      timestamp = Time.now,
+      referenceType = args.update.referenceType,
+      referenceTimestamp = args.update.referenceTimestamp,
+      referenceFilename = args.update.referenceFilename,
+    )
+  }
+
+  private def updateGroupIdIfNeeded(args: MonitorUpdateArgs, group: MonitorGroup): ObjectId = {
+    args.update.newGroupName match {
+      case None => group._id
+      case Some(newGroupName) =>
+        monitorGroupRepository.groupByName(newGroupName).map(_._id) match {
+          case Some(id) => id
+          case None =>
+            throw new IllegalArgumentException(
+              s"""Could not find group with name "$newGroupName""""
+            )
+        }
+    }
+  }
+
+  private def initReporter(args: MonitorUpdateArgs): Unit = {
+    val message = if (args.update.referenceType == MonitorReferenceType.osm) {
+      monitorOsmUpdate.initialMessage
     }
     else if (args.update.referenceType == MonitorReferenceType.gpx) {
-      monitorGpxUpdate.execute(args)
+      monitorGpxUpdate.initialMessage
+    }
+    else if (args.update.referenceType == MonitorReferenceType.multiGpx) {
+      monitorMultiGpxUpdate.initialMessage
     }
     else {
       throw new RuntimeException(s"invalid reference type ${args.update.referenceType} for update")
     }
+    args.reporter.report(message)
+  }
+
+  private def stepSaveDone(args: MonitorUpdateArgs): Unit = {
+    args.reporter.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = Seq(
+          MonitorRouteUpdateStatusCommand("step-done", "save"),
+        )
+      )
+    )
+  }
+
+  private def cleanup(route: MonitorRoute, args: MonitorUpdateArgs): MonitorRoute = {
+    monitorRouteRepository.deleteRouteReferences(route._id)
+    monitorRouteRepository.deleteRouteStates(route._id)
+    val symbol = args.update.relationId.flatMap(relationId => route.symbol)
+    val osmSegmentCount = args.update.relationId.map(relationId => route.osmSegmentCount).getOrElse(0L)
+    val osmDistance = args.update.relationId.map(relationId => route.osmDistance).getOrElse(0L)
+    route.copy(
+      analysisTimestamp = None,
+      symbol = symbol,
+      referenceDistance = 0,
+      deviationDistance = 0,
+      deviationCount = 0,
+      osmSegmentCount = osmSegmentCount,
+      osmDistance = osmDistance,
+      relation = None,
+      happy = false,
+    )
+  }
+
+  private def isCleanupNeeded(route: MonitorRoute, args: MonitorUpdateArgs): Boolean = {
+
+    if (route.referenceType != args.update.referenceType) {
+      return true
+    }
+
+    if (args.update.referenceType == MonitorReferenceType.osm) {
+      if (route.referenceTimestamp != args.update.referenceTimestamp || route.relationId != args.update.relationId) {
+        return true
+      }
+    }
+    false
+  }
+
+  private def isAnalysisNeeded(route: MonitorRoute, args: MonitorUpdateArgs): Boolean = {
+
+    if (args.update.referenceType == MonitorReferenceType.osm) {
+      if (args.update.relationId.isEmpty) {
+        return false
+      }
+      if (route.referenceTimestamp == args.update.referenceTimestamp && route.relationId == args.update.relationId) {
+        return false
+      }
+    }
+
+    true
+  }
+
+  private def updateRouteProperties(group: MonitorGroup, route: MonitorRoute, args: MonitorUpdateArgs): MonitorRoute = {
+    val groupId = updateGroupIdIfNeeded(args, group)
+    route.copy(
+      groupId = groupId,
+      name = args.update.newRouteName.getOrElse(route.name),
+      description = args.update.description.getOrElse(""),
+      comment = args.update.comment,
+      relationId = args.update.relationId,
+      user = args.user,
+      timestamp = Time.now,
+      referenceType = args.update.referenceType,
+      referenceTimestamp = args.update.referenceTimestamp,
+      referenceFilename = args.update.referenceFilename,
+    )
   }
 }

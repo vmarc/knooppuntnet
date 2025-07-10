@@ -4,11 +4,12 @@ import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
-import kpn.core.common.Time
+import kpn.api.custom.Timestamp
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
+import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
@@ -34,53 +35,16 @@ class MonitorGpxUpdate(
   private val log = Log(classOf[MonitorGpxUpdate])
   private val geometryFactory = new GeometryFactory()
 
-  def execute(args: MonitorUpdateArgs): Unit = {
-
-    val now = Time.now
-    val analysisStartMillis = System.currentTimeMillis()
-
-    initReporter(args)
-
-    val group = monitorUpdateCommon.findGroup(args)
-    val route = monitorUpdateCommon.findRoute(args, group)
-
-    if (!monitorUpdateCommon.isRouteChanged(route, args)) {
-
-      args.reporter.report(
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-done", "prepare"),
-          )
-        )
+  def initialMessage: MonitorRouteUpdateStatusMessage = {
+    MonitorRouteUpdateStatusMessage(
+      commands = Seq(
+        MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+        MonitorRouteUpdateStatusCommand("step-active", "prepare"),
       )
-
-      return
-    }
-
-    val groupId = args.update.newGroupName match {
-      case None => group._id
-      case Some(newGroupName) =>
-        monitorGroupRepository.groupByName(newGroupName).map(_._id) match {
-          case Some(id) => id
-          case None =>
-            throw new IllegalArgumentException(
-              s"""Could not find group with name "$newGroupName""""
-            )
-        }
-    }
-
-    val updatedRoute = route.copy(
-      groupId = groupId,
-      name = args.update.newRouteName.getOrElse(route.name),
-      description = args.update.description.getOrElse(""),
-      comment = args.update.comment,
-      relationId = args.update.relationId,
-      user = args.user,
-      timestamp = Time.now,
-      referenceType = args.update.referenceType,
-      referenceTimestamp = args.update.referenceTimestamp,
-      referenceFilename = args.update.referenceFilename,
     )
+  }
+
+  def execute(args: MonitorUpdateArgs, route: MonitorRoute, updatedRoute: MonitorRoute, now: Timestamp): Unit = {
 
     if (route.relationId.isEmpty && args.update.relationId.nonEmpty && args.update.referenceGpx.isEmpty) {
       // the relationId that was previously unknown is now filled in, and no new reference is given
@@ -228,19 +192,8 @@ class MonitorGpxUpdate(
     else {
       //throw new IllegalStateException(s"reference type change from ${route.referenceType} to ${args.update.referenceType} not implemented yet")
       if (args.update.referenceGpx.nonEmpty) {
-        monitorGpxAnalyze.execute(args, route, now)
+        monitorGpxAnalyze.execute(args, updatedRoute, now)
       }
     }
-  }
-
-  private def initReporter(args: MonitorUpdateArgs): Unit = {
-    args.reporter.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-          MonitorRouteUpdateStatusCommand("step-active", "prepare"),
-        )
-      )
-    )
   }
 }

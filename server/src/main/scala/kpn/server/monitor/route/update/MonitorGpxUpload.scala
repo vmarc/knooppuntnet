@@ -53,7 +53,7 @@ class MonitorGpxUpload(
     )
 
     val group = monitorUpdateCommon.findGroup(args)
-    val route = monitorUpdateCommon.findRoute(args, group)
+    val route = monitorUpdateCommon.findRoute(group, args)
 
     val now = Time.now
     val referenceTimestamp = args.update.referenceTimestamp.getOrElse(throw new RuntimeException("reference timestamp missing in update"))

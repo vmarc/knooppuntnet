@@ -180,8 +180,8 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
   private def setupLoadTopLevel(): Unit = {
 
     val overpassData = OverpassData()
-      .node(1001, latitude = "51.4633666", longitude = "4.4553911")
-      .node(1002, latitude = "51.4618272", longitude = "4.4562458")
+      .node(1001, latitude = route1.lat1, longitude = route1.lon1)
+      .node(1002, latitude = route1.lat2, longitude = route1.lon2)
       .way(101, 1001, 1002)
       .relation(
         route1.relationId,

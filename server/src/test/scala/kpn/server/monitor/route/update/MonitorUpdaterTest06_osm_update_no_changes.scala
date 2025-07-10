@@ -57,7 +57,10 @@ class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
 
   private def verifyRouteNotChanged(group: MonitorGroup, route: MonitorRoute): Unit = {
     val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
-    updatedRoute.copy(analysisTimestamp = None, analysisDuration = None) should equal(route)
+    assertEqual(
+      route,
+      updatedRoute
+    )
   }
 
   private def verifyReferenceNotChanged(route: MonitorRoute, reference: MonitorRouteReference): Unit = {
@@ -84,7 +87,13 @@ class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
     )
   }
 
-  private def setup() = {
+  private def setup(): (
+    MonitorGroup,
+      MonitorRoute,
+      MonitorRouteReference,
+      MonitorRouteState,
+      MonitorUpdateReporterMock
+    ) = {
 
     Time.set(CurrentTimestamp)
 

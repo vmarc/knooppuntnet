@@ -4,19 +4,20 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
+import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
-class MonitorOsmUpdate(
+class MonitorOsmNowUpdate(
   monitorRouteRepository: MonitorRouteRepository,
-  monitorOsmAnalyze: MonitorOsmAnalyze
+  monitorOsmNowAnalyze: MonitorOsmNowAnalyze
 ) {
 
-  private val log = Log(classOf[MonitorOsmUpdate])
+  private val log = Log(classOf[MonitorOsmNowUpdate])
 
-  def initialMessage: MonitorRouteUpdateStatusMessage = {
+  def initialMessage(): MonitorRouteUpdateStatusMessage = {
     MonitorRouteUpdateStatusMessage(
       commands = Seq(
         MonitorRouteUpdateStatusCommand("step-add", "prepare"),
@@ -26,6 +27,7 @@ class MonitorOsmUpdate(
   }
 
   def execute(
+    group: MonitorGroup,
     args: MonitorUpdateArgs,
     route: MonitorRoute,
     updatedRoute: MonitorRoute,
@@ -55,13 +57,7 @@ class MonitorOsmUpdate(
         )
       )
 
-      monitorOsmAnalyze.execute(
-        updatedRoute,
-        now,
-        args,
-        args.referenceTimestamp,
-        analysisStartMillis
-      )
+      monitorOsmNowAnalyze.execute(group, args, now, route._id, analysisStartMillis)
     }
   }
 }
