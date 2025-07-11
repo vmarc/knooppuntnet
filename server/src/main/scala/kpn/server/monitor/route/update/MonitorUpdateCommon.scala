@@ -40,17 +40,6 @@ class MonitorUpdateCommon(
     }
   }
 
-  def verifyNewRoute(group: MonitorGroup, args: MonitorUpdateArgs): Unit = {
-    val routeName = args.update.routeName
-    monitorRouteRepository.routeByName(group._id, routeName) match {
-      case None => // OK: no route with this name yet
-      case Some(route) =>
-        throw new IllegalStateException(
-          s"""Could not add route with name "$routeName": already exists (_id=${route._id.oid}) in group with name "${group.name}""""
-        )
-    }
-  }
-
   def updateSuperRoute(route: MonitorRoute): MonitorRoute = {
     val references = monitorRouteRepository.routeReferences(route._id)
     val referenceDistance = references.map(_.referenceDistance).sum

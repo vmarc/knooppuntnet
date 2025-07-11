@@ -2,6 +2,8 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.core.common.Time
+import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
@@ -11,6 +13,7 @@ class MonitorAdd(
   monitorGpxAdd: MonitorGpxAdd,
   monitorMultiGpxAdd: MonitorMultiGpxAdd,
   monitorUpdateCommon: MonitorUpdateCommon,
+  monitorRouteRepository: MonitorRouteRepository
 ) {
   def execute(args: MonitorUpdateArgs): Unit = {
 
@@ -20,7 +23,7 @@ class MonitorAdd(
     val analysisStartMillis = System.currentTimeMillis()
 
     val group = monitorUpdateCommon.findGroup(args)
-    monitorUpdateCommon.verifyNewRoute(group, args)
+    verifyNewRoute(group, args)
 
     args.update.referenceType match {
       case MonitorReferenceType.osm => monitorOsmAdd.execute(group, args, now, analysisStartMillis)
@@ -40,5 +43,16 @@ class MonitorAdd(
     args.reporter.report(
       initialMessage
     )
+  }
+
+  private def verifyNewRoute(group: MonitorGroup, args: MonitorUpdateArgs): Unit = {
+    val routeName = args.update.routeName
+    monitorRouteRepository.routeByName(group._id, routeName) match {
+      case None => // OK: no route with this name yet
+      case Some(route) =>
+        throw new IllegalStateException(
+          s"""Could not add route with name "$routeName": already exists (_id=${route._id.oid}) in group with name "${group.name}""""
+        )
+    }
   }
 }

@@ -148,6 +148,7 @@ class MonitorUpdaterConfiguration(
     monitorGpxAdd,
     monitorUpdateAddMultiGpx,
     monitorUpdateCommon,
+    monitorRouteRepository,
   )
 
   val monitorUpdateAnalysis = new MonitorUpdateAnalysis(
