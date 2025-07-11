@@ -117,6 +117,76 @@ import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 
+/*
+
+import kpn.core.test.TestObjects.newRawNode
+import kpn.core.test.TestObjects.newBaseNodeDoc
+import kpn.core.test.TestObjects.newNodeWithName
+import kpn.core.test.TestObjects.newRouteNode
+import kpn.core.test.TestObjects.newForeignRawNode
+import kpn.core.test.TestObjects.newRawWay
+import kpn.core.test.TestObjects.newWayInfo
+import kpn.core.test.TestObjects.newRelation
+import kpn.core.test.TestObjects.newRawRelation
+import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newNetworkTags
+import kpn.core.test.TestObjects.newRouteTags
+import kpn.core.test.TestObjects.newNodeTags
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newRouteChange
+import kpn.core.test.TestObjects.newBaseRouteChange
+import kpn.core.test.TestObjects.newRouteData
+import kpn.core.test.TestObjects.newNode
+import kpn.core.test.TestObjects.newWay
+import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newRouteTileInfo
+import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newNetworkAttributes
+import kpn.core.test.TestObjects.newIntegrity
+import kpn.core.test.TestObjects.newRouteLocationAnalysis
+import kpn.core.test.TestObjects.newRouteInfoAnalysis
+import kpn.core.test.TestObjects.newRouteSummary
+import kpn.core.test.TestObjects.newRouteNetworkNodeInfo
+import kpn.core.test.TestObjects.newChangeSet
+import kpn.core.test.TestObjects.newNodeChange
+import kpn.core.test.TestObjects.newRouteNodeChange
+import kpn.core.test.TestObjects.newNetworkChange
+import kpn.core.test.TestObjects.newRefChanges
+import kpn.core.test.TestObjects.newChangeSetSummary
+import kpn.core.test.TestObjects.newChangeSetNetwork
+import kpn.core.test.TestObjects.newLocationChanges
+import kpn.core.test.TestObjects.newChangeSetElementRef
+import kpn.core.test.TestObjects.newRouteDoc
+import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newNodeRouteReferenceDiffs
+import kpn.core.test.TestObjects.newPoi
+import kpn.core.test.TestObjects.legEndRoute
+import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorRoute
+import kpn.core.test.TestObjects.newMonitorRouteRelation
+import kpn.core.test.TestObjects.newMonitorRouteChange
+import kpn.core.test.TestObjects.newMonitorRouteReference
+import kpn.core.test.TestObjects.newMonitorRouteState
+import kpn.core.test.TestObjects.newNodeName
+import kpn.core.test.TestObjects.newNetworkData
+import kpn.core.test.TestObjects.newNetworkDoc
+import kpn.core.test.TestObjects.newNetworkSummary
+import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
+import kpn.core.test.TestObjects.newNetworkRouteDetail
+import kpn.core.test.TestObjects.newNetworkDetail
+import kpn.core.test.TestObjects.newOrphanNodeDoc
+import kpn.core.test.TestObjects.newOrphanRouteDoc
+import kpn.core.test.TestObjects.newChangeSetCount
+import kpn.core.test.TestObjects.newRouteRelation
+import kpn.core.test.TestObjects.newBaseRouteSegmentElement
+import kpn.core.test.TestObjects.newLink
+import kpn.core.test.TestObjects.newChangeSetContext
+import kpn.core.test.TestObjects.newRouteTileData
+import kpn.core.test.TestObjects.newRouteNodeAnalysis
+import kpn.core.test.TestObjects.newBaseRouteSegment
+ */
+
 object TestObjects {
 
   def newRawNode(
@@ -1473,6 +1543,24 @@ object TestObjects {
     )
   }
 
+  def newBaseRouteSegmentElement(
+    segmentId: Long,
+    segmentElementId: Long,
+    surface: String = "",
+    memberIndexes: Seq[Long] = Seq.empty,
+    meters: Long = 0,
+    coordinates: String = ""
+  ): BaseRouteSegmentElement = {
+    BaseRouteSegmentElement(
+      segmentId,
+      segmentElementId,
+      surface,
+      memberIndexes,
+      meters,
+      coordinates
+    )
+  }
+
   def newLink(
     memberIndex: Long,
     direction: LinkDirection = LinkDirection.Unconnected,
@@ -1556,24 +1644,6 @@ object TestObjects {
       meters,
       bounds,
       elementIds
-    )
-  }
-
-  def newBaseRouteSegmentElement(
-    segmentId: Long,
-    segmentElementId: Long,
-    surface: String = "",
-    memberIndexes: Seq[Long] = Seq.empty,
-    meters: Long = 0,
-    coordinates: String = ""
-  ): BaseRouteSegmentElement = {
-    BaseRouteSegmentElement(
-      segmentId,
-      segmentElementId,
-      surface,
-      memberIndexes,
-      meters,
-      coordinates
     )
   }
 }

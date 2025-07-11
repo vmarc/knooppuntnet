@@ -4,6 +4,8 @@ import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSetSummary
 
 class MongoQuerySubsetChangesTest extends MongoTest {
 

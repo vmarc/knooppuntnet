@@ -7,6 +7,8 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newNodeName
+import kpn.core.test.TestObjects.newRawNode
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
 
 class Issue183_DeletedNode3 extends IntegrationTest {

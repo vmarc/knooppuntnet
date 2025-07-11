@@ -12,6 +12,13 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSetElementRef
+import kpn.core.test.TestObjects.newChangeSetSummary
+import kpn.core.test.TestObjects.newLocationChanges
+import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNodeChange
+import kpn.core.test.TestObjects.newNodeDoc
 
 class OrphanNodeDeleteTest04 extends IntegrationTest {
 

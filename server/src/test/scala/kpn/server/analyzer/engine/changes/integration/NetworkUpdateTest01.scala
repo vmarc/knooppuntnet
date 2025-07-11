@@ -21,6 +21,22 @@ import kpn.api.common.diff.route.RouteNameDiff
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newBaseRouteChange
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSetElementRef
+import kpn.core.test.TestObjects.newChangeSetNetwork
+import kpn.core.test.TestObjects.newChangeSetSummary
+import kpn.core.test.TestObjects.newLocationChanges
+import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNetworkChange
+import kpn.core.test.TestObjects.newNodeChange
+import kpn.core.test.TestObjects.newNodeWithName
+import kpn.core.test.TestObjects.newRouteChange
+import kpn.core.test.TestObjects.newRouteData
+import kpn.core.test.TestObjects.newRouteNode
+import kpn.core.test.TestObjects.newRouteNodeChange
+import kpn.core.test.TestObjects.newRouteTags
 
 class NetworkUpdateTest01 extends IntegrationTest {
 

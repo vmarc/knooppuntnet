@@ -7,6 +7,9 @@ import kpn.api.common.RouteType
 import kpn.api.common.subset.SubsetMapNetwork
 import kpn.api.custom.Subset
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNetworkDetail
+import kpn.core.test.TestObjects.newNetworkDoc
+import kpn.core.test.TestObjects.newNetworkSummary
 
 class MongoQuerySubsetMapNetworksTest extends MongoTest {
 

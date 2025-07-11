@@ -6,6 +6,9 @@ import kpn.api.common.RouteType
 import kpn.api.common.RouteType.hiking
 import kpn.api.common.common.Reference
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNetworkDoc
+import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
+import kpn.core.test.TestObjects.newNetworkSummary
 
 class MongoQueryNodeNetworkReferencesTest extends MongoTest {
 

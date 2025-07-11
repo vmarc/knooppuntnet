@@ -15,7 +15,7 @@ object MongoTest {
   private val jsonWriter = Json.objectMapper.writerWithDefaultPrettyPrinter()
 }
 
-abstract class MongoTest extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+abstract class MongoTest extends UnitTest with BeforeAndAfterEach {
 
   private var _mongoClient: MongoClient = _
   private var _database: Database = _

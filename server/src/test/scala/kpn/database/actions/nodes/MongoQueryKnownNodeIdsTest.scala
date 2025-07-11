@@ -1,6 +1,7 @@
 package kpn.database.actions.nodes
 
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNodeDoc
 
 import scala.language.postfixOps
 

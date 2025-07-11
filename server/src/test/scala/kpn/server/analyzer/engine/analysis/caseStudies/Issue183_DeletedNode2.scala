@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 import kpn.api.common.Fact
 import kpn.api.common.changes.ChangeAction
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newRawNode
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
 
 class Issue183_DeletedNode2 extends IntegrationTest {

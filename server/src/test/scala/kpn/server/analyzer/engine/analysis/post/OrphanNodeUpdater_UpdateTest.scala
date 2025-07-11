@@ -7,6 +7,9 @@ import kpn.api.common.RouteType
 import kpn.api.custom.Day
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newNodeName
+import kpn.core.test.TestObjects.newOrphanNodeDoc
 import kpn.core.test.Timestamps
 import kpn.core.util.MockLog
 

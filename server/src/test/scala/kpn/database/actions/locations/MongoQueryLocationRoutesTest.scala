@@ -11,6 +11,8 @@ import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newRouteDoc
+import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.Timestamps
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 

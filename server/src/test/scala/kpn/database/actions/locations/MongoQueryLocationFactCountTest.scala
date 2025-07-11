@@ -5,6 +5,10 @@ import kpn.api.common.Fact
 import kpn.api.common.RouteType
 import kpn.core.doc.Label
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newNodeName
+import kpn.core.test.TestObjects.newRouteDoc
+import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 
 class MongoQueryLocationFactCountTest extends MongoTest {

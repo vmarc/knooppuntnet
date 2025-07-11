@@ -5,6 +5,13 @@ import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.custom.Timestamp
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorRoute
+import kpn.core.test.TestObjects.newMonitorRouteChange
+import kpn.core.test.TestObjects.newMonitorRouteReference
+import kpn.core.test.TestObjects.newMonitorRouteRelation
+import kpn.core.test.TestObjects.newMonitorRouteState
 import kpn.server.monitor.domain.MonitorRouteChange
 
 class MonitorRouteRepositoryTest extends MongoTest {

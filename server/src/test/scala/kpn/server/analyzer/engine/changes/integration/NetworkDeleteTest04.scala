@@ -15,6 +15,14 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newChangeSetElementRef
+import kpn.core.test.TestObjects.newChangeSetSummary
+import kpn.core.test.TestObjects.newLocationChanges
+import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newNetworkDetail
+import kpn.core.test.TestObjects.newNetworkDoc
+import kpn.core.test.TestObjects.newNetworkSummary
 
 class NetworkDeleteTest04 extends IntegrationTest {
 

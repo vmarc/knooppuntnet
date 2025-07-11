@@ -8,6 +8,7 @@ import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newBaseNetworkDoc
 
 class MongoQueryNodeBaseNetworkReferencesTest extends MongoTest {
 

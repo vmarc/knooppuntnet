@@ -4,6 +4,8 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.WayUpdate
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newMetaData
 
 class RouteUpdateTest04 extends IntegrationTest {
 

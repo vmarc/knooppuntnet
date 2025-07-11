@@ -9,6 +9,12 @@ import kpn.api.common.RouteType
 import kpn.api.common.RouteType.cycling
 import kpn.api.common.RouteType.hiking
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNetworkDoc
+import kpn.core.test.TestObjects.newNetworkSummary
+import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newNodeName
+import kpn.core.test.TestObjects.newRouteDoc
+import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
 class StatisticsUpdateSubsetFactCountTest extends MongoTest {

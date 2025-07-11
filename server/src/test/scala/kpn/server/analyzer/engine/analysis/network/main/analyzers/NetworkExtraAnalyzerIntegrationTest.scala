@@ -5,6 +5,7 @@ import kpn.api.common.data.MemberType
 import kpn.api.custom.Change
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newMember
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
 
 class NetworkExtraAnalyzerIntegrationTest extends IntegrationTest {

@@ -1,6 +1,9 @@
 package kpn.database.base
 
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newNetworkDoc
+import kpn.core.test.TestObjects.newNodeChange
 
 class DatabaseCollectionTest extends MongoTest {
 

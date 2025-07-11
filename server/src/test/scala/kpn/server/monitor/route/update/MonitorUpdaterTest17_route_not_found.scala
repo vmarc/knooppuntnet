@@ -4,6 +4,7 @@ import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
+import kpn.core.test.TestObjects.newMonitorGroup
 
 class MonitorUpdaterTest17_route_not_found extends MonitorUpdateTest {
 

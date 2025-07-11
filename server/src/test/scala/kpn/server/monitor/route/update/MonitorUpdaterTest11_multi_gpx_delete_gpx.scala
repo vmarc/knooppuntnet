@@ -7,6 +7,10 @@ import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
+import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorRoute
+import kpn.core.test.TestObjects.newMonitorRouteReference
+import kpn.core.test.TestObjects.newMonitorRouteState
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference

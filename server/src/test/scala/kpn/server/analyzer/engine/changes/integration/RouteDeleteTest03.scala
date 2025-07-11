@@ -12,6 +12,18 @@ import kpn.api.common.data.MemberType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSetElementRef
+import kpn.core.test.TestObjects.newChangeSetSummary
+import kpn.core.test.TestObjects.newLocationChanges
+import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNodeChange
+import kpn.core.test.TestObjects.newOrphanNodeDoc
+import kpn.core.test.TestObjects.newRouteChange
+import kpn.core.test.TestObjects.newRouteData
+import kpn.core.test.TestObjects.newRouteNode
+import kpn.core.test.TestObjects.newRouteNodeChange
 
 class RouteDeleteTest03 extends IntegrationTest {
 

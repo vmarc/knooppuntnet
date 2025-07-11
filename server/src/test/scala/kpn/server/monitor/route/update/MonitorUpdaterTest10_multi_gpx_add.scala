@@ -7,6 +7,13 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.common.Time
 import kpn.core.doc.SuperSegment
+import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newBaseRouteSegment
+import kpn.core.test.TestObjects.newBaseRouteSegmentElement
+import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newRouteDoc
+import kpn.core.test.TestObjects.newRouteRelation
+import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference

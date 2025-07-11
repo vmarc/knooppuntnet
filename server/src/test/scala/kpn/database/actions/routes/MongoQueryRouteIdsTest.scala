@@ -1,6 +1,8 @@
 package kpn.database.actions.routes
 
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newRouteDoc
+import kpn.core.test.TestObjects.newRouteSummary
 
 class MongoQueryRouteIdsTest extends MongoTest {
 

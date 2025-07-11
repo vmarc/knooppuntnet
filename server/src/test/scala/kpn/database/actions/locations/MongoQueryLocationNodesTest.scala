@@ -10,6 +10,8 @@ import kpn.api.common.location.SurveyParameter
 import kpn.api.custom.Day
 import kpn.core.doc.Label
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newNodeName
 import kpn.core.test.Timestamps
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 

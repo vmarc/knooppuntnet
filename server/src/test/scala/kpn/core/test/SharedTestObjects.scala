@@ -262,7 +262,7 @@ trait SharedTestObjects {
   }
 
   def newNetworkTags(name: String = "name"): Seq[Tag] = {
-    TestObjects.newNetworkTags()
+    TestObjects.newNetworkTags(name)
   }
 
   def newRouteTags(name: String = ""): Seq[Tag] = {

@@ -6,6 +6,7 @@ import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.route.RouteNameDiff
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newMember
 
 class RouteUpdateTest05 extends IntegrationTest {
 

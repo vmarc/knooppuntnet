@@ -2,6 +2,8 @@ package kpn.database.actions.nodes
 
 import kpn.api.common.RouteType
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newBaseNodeDoc
+import kpn.core.test.TestObjects.newNodeName
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
 

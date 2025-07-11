@@ -4,6 +4,8 @@ import kpn.api.common.Country
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newNetworkDoc
 
 class MongoQueryRouteCountryTest extends MongoTest {
 

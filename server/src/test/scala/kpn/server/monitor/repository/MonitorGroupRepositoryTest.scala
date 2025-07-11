@@ -1,6 +1,10 @@
 package kpn.server.monitor.repository
 
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorRoute
+import kpn.core.test.TestObjects.newMonitorRouteReference
+import kpn.core.test.TestObjects.newMonitorRouteState
 
 class MonitorGroupRepositoryTest extends MongoTest {
 

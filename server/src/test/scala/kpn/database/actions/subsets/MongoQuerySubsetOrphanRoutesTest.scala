@@ -8,6 +8,7 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newOrphanRouteDoc
 
 class MongoQuerySubsetOrphanRoutesTest extends MongoTest {
 

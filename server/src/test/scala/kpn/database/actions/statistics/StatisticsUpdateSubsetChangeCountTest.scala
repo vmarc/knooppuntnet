@@ -9,6 +9,8 @@ import kpn.api.custom.Subset.deHiking
 import kpn.api.custom.Subset.nlBicycle
 import kpn.api.custom.Subset.nlHiking
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
 class StatisticsUpdateSubsetChangeCountTest extends MongoTest {

@@ -22,6 +22,7 @@ import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.test.MongoTest
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newChangeSet
 import kpn.core.test.Timestamps
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerMock

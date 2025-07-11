@@ -2,6 +2,8 @@ package kpn.database.actions.routes
 
 import kpn.api.common.Bounds
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newRouteSummary
 
 class MongoQueryRouteBoundsTest extends MongoTest {
 

@@ -2,6 +2,8 @@ package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
 import kpn.api.common.route.ParentRoute
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteRepositoryImpl
 

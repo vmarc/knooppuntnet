@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.changes.ChangeAction
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newRawNode
 
 class OrphanNodeDeleteTest03 extends IntegrationTest {
 

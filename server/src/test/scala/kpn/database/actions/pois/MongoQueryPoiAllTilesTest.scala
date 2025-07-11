@@ -1,6 +1,7 @@
 package kpn.database.actions.pois
 
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newPoi
 
 class MongoQueryPoiAllTilesTest extends MongoTest {
 

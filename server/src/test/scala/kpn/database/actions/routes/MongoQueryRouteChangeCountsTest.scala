@@ -2,6 +2,9 @@ package kpn.database.actions.routes
 
 import kpn.api.custom.Timestamp
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSetCount
+import kpn.core.test.TestObjects.newRouteChange
 import kpn.database.actions.statistics.ChangeSetCounts
 
 class MongoQueryRouteChangeCountsTest extends MongoTest {

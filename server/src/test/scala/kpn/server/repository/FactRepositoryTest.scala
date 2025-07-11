@@ -9,6 +9,9 @@ import kpn.api.common.common.Ref
 import kpn.api.common.subset.NetworkFactRefs
 import kpn.api.custom.Subset
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNetworkDoc
+import kpn.core.test.TestObjects.newNetworkRouteDetail
+import kpn.core.test.TestObjects.newNetworkSummary
 
 class FactRepositoryTest extends MongoTest {
 

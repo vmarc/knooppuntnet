@@ -4,6 +4,8 @@ import kpn.api.common.RouteType.hiking
 import kpn.api.common.route.RouteInfo
 import kpn.core.doc.RouteDoc
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newRouteDoc
+import kpn.core.test.TestObjects.newRouteSummary
 
 class MongoQueryRouteInfoTest extends MongoTest {
 

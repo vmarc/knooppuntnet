@@ -7,6 +7,11 @@ import kpn.api.common.subset.SubsetFactRefs
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNetworkDoc
+import kpn.core.test.TestObjects.newNetworkSummary
+import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newRouteDoc
+import kpn.core.test.TestObjects.newRouteSummary
 
 class FactRefRepositoryTest extends MongoTest {
 

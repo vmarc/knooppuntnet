@@ -8,6 +8,8 @@ import kpn.api.custom.Tags
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference

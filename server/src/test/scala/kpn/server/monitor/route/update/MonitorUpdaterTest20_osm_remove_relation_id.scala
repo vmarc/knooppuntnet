@@ -4,6 +4,10 @@ import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.core.common.Time
+import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorRoute
+import kpn.core.test.TestObjects.newMonitorRouteReference
+import kpn.core.test.TestObjects.newMonitorRouteState
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
@@ -130,7 +134,6 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
       referenceDistance = 1000,
       deviationDistance = 100,
       deviationCount = 2,
-      osmWayCount = 30,
       osmDistance = 1010,
       osmSegmentCount = 1,
       relation = None,

@@ -15,6 +15,9 @@ import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newNodeName
+import kpn.core.test.TestObjects.newRawNode
 import kpn.database.actions.locations.MongoQueryLocationNodes
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanNodes
 import kpn.server.analyzer.engine.analysis.location.LocationSubset

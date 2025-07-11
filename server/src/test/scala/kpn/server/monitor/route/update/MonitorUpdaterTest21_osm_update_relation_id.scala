@@ -9,6 +9,16 @@ import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.doc.SuperSegment
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newBaseRouteSegment
+import kpn.core.test.TestObjects.newBaseRouteSegmentElement
+import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorRoute
+import kpn.core.test.TestObjects.newMonitorRouteReference
+import kpn.core.test.TestObjects.newMonitorRouteState
+import kpn.core.test.TestObjects.newRouteDoc
+import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
@@ -195,7 +205,6 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
       referenceDistance = 1000,
       deviationDistance = 100,
       deviationCount = 2,
-      osmWayCount = 30,
       osmDistance = 1010,
       osmSegmentCount = 1,
       relation = None,

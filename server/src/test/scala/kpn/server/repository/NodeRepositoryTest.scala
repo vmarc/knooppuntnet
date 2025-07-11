@@ -2,6 +2,7 @@ package kpn.server.repository
 
 import kpn.api.custom.Tags
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNodeDoc
 
 class NodeRepositoryTest extends MongoTest {
 
