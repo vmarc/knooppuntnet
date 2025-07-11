@@ -1,7 +1,7 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorAction
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
+import kpn.api.common.monitor.MonitorMessage
 import kpn.core.common.Time
 import kpn.core.util.Log
 import kpn.core.util.ValidationException
@@ -49,7 +49,7 @@ class MonitorRouteUpdateExecutor(
       case _ => log.error(s"Could not update route: $update", e)
     }
     args.reporter.report(
-      MonitorRouteUpdateStatusMessage(
+      MonitorMessage(
         exception = Some(e.getMessage)
       )
     )

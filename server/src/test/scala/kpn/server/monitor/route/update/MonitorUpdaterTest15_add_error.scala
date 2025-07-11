@@ -1,9 +1,9 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorAction
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newMonitorRoute
@@ -51,7 +51,7 @@ class MonitorUpdaterTest15_add_error extends MonitorUpdateTest {
           add("analyze-route-structure"),
           active("prepare")
         ),
-        MonitorRouteUpdateStatusMessage(
+        MonitorMessage(
           exception = Some(s"""Could not add route with name "route-name": already exists (_id=${route._id.oid}) in group with name "group-name"""")
         )
       )

@@ -1,8 +1,8 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
+import kpn.api.common.monitor.MonitorCommand
+import kpn.api.common.monitor.MonitorMessage
 import kpn.core.common.Time
 import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorGroup
@@ -29,12 +29,10 @@ class MonitorMultiGpxAdd(
     args.reporter.stepDone("save")
   }
 
-  def initialMessage: MonitorRouteUpdateStatusMessage = {
-    MonitorRouteUpdateStatusMessage(
-      commands = Seq(
-        MonitorRouteUpdateStatusCommand("step-add", "save"),
-        MonitorRouteUpdateStatusCommand("step-active", "save"),
-      )
+  def initialMessage: MonitorMessage = {
+    MonitorMessage(
+      MonitorCommand.add("save"),
+      MonitorCommand.active("save"),
     )
   }
 

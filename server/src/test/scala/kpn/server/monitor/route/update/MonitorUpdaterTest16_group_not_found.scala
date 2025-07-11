@@ -1,9 +1,9 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorAction
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 
 class MonitorUpdaterTest16_group_not_found extends MonitorUpdateTest {
@@ -46,7 +46,7 @@ class MonitorUpdaterTest16_group_not_found extends MonitorUpdateTest {
           add("analyze-route-structure"),
           active("prepare")
         ),
-        MonitorRouteUpdateStatusMessage(
+        MonitorMessage(
           exception = Some("""Could not find group with name "unknown-group"""")
         )
       )

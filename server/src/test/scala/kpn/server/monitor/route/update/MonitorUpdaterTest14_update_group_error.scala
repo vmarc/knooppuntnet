@@ -1,9 +1,9 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorAction
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.common.Time
 import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newMonitorRoute
@@ -115,7 +115,7 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
           add("prepare"),
           active("prepare")
         ),
-        MonitorRouteUpdateStatusMessage(
+        MonitorMessage(
           exception = Some("""Could not find group with name "group2"""")
         )
       )

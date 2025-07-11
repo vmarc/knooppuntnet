@@ -1,8 +1,8 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorCommand
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.util.Log
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
@@ -42,12 +42,10 @@ class MonitorGpxDelete(
 
   private def initReporter(args: MonitorUpdateArgs): Unit = {
     args.reporter.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand("step-add", "delete"),
-          MonitorRouteUpdateStatusCommand("step-add", "save"),
-          MonitorRouteUpdateStatusCommand("step-active", "delete"),
-        )
+      MonitorMessage(
+        MonitorCommand.add("delete"),
+        MonitorCommand.add("save"),
+        MonitorCommand.active("delete"),
       )
     )
   }

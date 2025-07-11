@@ -1,8 +1,9 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorCommand
+import kpn.api.common.monitor.MonitorCommandAction
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
 import kpn.core.test.MongoTest
@@ -34,26 +35,24 @@ abstract class MonitorUpdateTest extends MongoTest with MockFactory {
     (configuration.monitorRouteStructureLoader.load _).when(timestamp, relationId).returns(Some(monitorRouteRelation))
   }
 
-  def message(commands: MonitorRouteUpdateStatusCommand*): MonitorRouteUpdateStatusMessage = {
-    MonitorRouteUpdateStatusMessage(
-      commands = commands
-    )
+  def message(commands: MonitorCommand*): MonitorMessage = {
+    MonitorMessage(commands)
   }
 
-  def add(stepId: String, description: Option[String] = None): MonitorRouteUpdateStatusCommand = {
-    command("step-add", stepId, description)
+  def add(stepId: String, description: Option[String] = None): MonitorCommand = {
+    command(MonitorCommandAction.stepAdd, stepId, description)
   }
 
-  def active(stepId: String): MonitorRouteUpdateStatusCommand = {
-    command("step-active", stepId)
+  def active(stepId: String): MonitorCommand = {
+    command(MonitorCommandAction.stepActive, stepId)
   }
 
-  def done(stepId: String): MonitorRouteUpdateStatusCommand = {
-    command("step-done", stepId)
+  def done(stepId: String): MonitorCommand = {
+    command(MonitorCommandAction.stepDone, stepId)
   }
 
-  private def command(action: String, stepId: String, description: Option[String] = None): MonitorRouteUpdateStatusCommand = {
-    MonitorRouteUpdateStatusCommand(action, stepId, description)
+  private def command(action: MonitorCommandAction, stepId: String, description: Option[String] = None): MonitorCommand = {
+    MonitorCommand(action, stepId, description)
   }
 
   val sameSubroute12Geometry = """{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}]}"""

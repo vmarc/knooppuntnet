@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
-import { MonitorRouteUpdateStatusMessage } from '@api/common/monitor/monitor-route-update-status-message';
+import { MonitorMessage } from '@api/common/monitor/monitor-message';
 import { WebSocketSubject } from 'rxjs/webSocket';
 import { webSocket } from 'rxjs/webSocket';
 import { MonitorRouteSaveStep } from './route/monitor-route-save-step';
@@ -52,7 +52,7 @@ export class MonitorWebsocketService {
       next: (msg) => {
         this.logArgs(['websocket message received', msg]);
 
-        const message: MonitorRouteUpdateStatusMessage = JSON.parse(msg);
+        const message: MonitorMessage = JSON.parse(msg);
 
         if (message.exception) {
           this._errors.set([message.exception]);

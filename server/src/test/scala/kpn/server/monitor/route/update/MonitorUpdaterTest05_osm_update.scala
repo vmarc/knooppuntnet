@@ -1,9 +1,9 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorAction
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.common.Time
 import kpn.core.doc.SuperSegment
 import kpn.core.test.TestObjects.newMonitorGroup
@@ -102,7 +102,7 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
         message(
           active("1")
         ),
-        MonitorRouteUpdateStatusMessage(
+        MonitorMessage(
           errors = Some(Seq("Could not load relation 1 at 2022-08-02 00:00:00"))
         ),
         message(

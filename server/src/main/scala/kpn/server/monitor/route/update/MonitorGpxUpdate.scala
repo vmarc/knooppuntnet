@@ -1,8 +1,8 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
+import kpn.api.common.monitor.MonitorCommand
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.custom.Timestamp
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
@@ -34,12 +34,10 @@ class MonitorGpxUpdate(
   private val log = Log(classOf[MonitorGpxUpdate])
   private val geometryFactory = new GeometryFactory()
 
-  def initialMessage: MonitorRouteUpdateStatusMessage = {
-    MonitorRouteUpdateStatusMessage(
-      commands = Seq(
-        MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-        MonitorRouteUpdateStatusCommand("step-active", "prepare"),
-      )
+  def initialMessage: MonitorMessage = {
+    MonitorMessage(
+      MonitorCommand.add("prepare"),
+      MonitorCommand.active("prepare"),
     )
   }
 

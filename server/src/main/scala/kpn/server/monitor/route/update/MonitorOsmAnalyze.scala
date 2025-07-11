@@ -2,11 +2,11 @@ package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
+import kpn.api.common.monitor.MonitorCommand
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteSubRelation
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.doc.RouteDoc
@@ -160,7 +160,7 @@ class MonitorOsmAnalyze(
       case None =>
         val error = s"Could not load relation ${relation.relationId} at ${args.referenceTimestamp.yyyymmddhhmmss}"
         args.reporter.report( // TODO redesign - should do try/catch at higher level??
-          MonitorRouteUpdateStatusMessage(
+          MonitorMessage(
             errors = Some(Seq(error))
           )
         )
@@ -204,13 +204,8 @@ class MonitorOsmAnalyze(
 
   private def updateReporterActiveStep(args: MonitorUpdateArgs, routeId: Long): Unit = {
     args.reporter.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand(
-            "step-active",
-            routeId.toString
-          )
-        )
+      MonitorMessage(
+        MonitorCommand.active(routeId.toString)
       )
     )
   }
@@ -218,22 +213,13 @@ class MonitorOsmAnalyze(
   private def updateReporterSteps(args: MonitorUpdateArgs, relations: Seq[MonitorRouteSubRelation]): Unit = {
     val subRelationSteps = relations.zipWithIndex.map { case (relation, index) =>
       val desciption = s"${index + 1}/${relations.length} ${relation.name}"
-      MonitorRouteUpdateStatusCommand(
-        "step-add",
-        relation.relationId.toString,
-        Some(desciption)
-      )
+      MonitorCommand.add(relation.relationId.toString, Some(desciption))
     }
 
-    val saveStep = MonitorRouteUpdateStatusCommand(
-      "step-add",
-      "save"
-    )
+    val saveStep = MonitorCommand.add("save")
 
     args.reporter.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = subRelationSteps :+ saveStep
-      )
+      MonitorMessage(subRelationSteps :+ saveStep)
     )
   }
 

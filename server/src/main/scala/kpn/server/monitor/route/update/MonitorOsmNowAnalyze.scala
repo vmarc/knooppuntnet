@@ -2,9 +2,9 @@ package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
+import kpn.api.common.monitor.MonitorCommand
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
@@ -73,13 +73,8 @@ class MonitorOsmNowAnalyze(
 
   private def updateReporterActiveStep(args: MonitorUpdateArgs, routeId: Long): Unit = {
     args.reporter.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand(
-            "step-active",
-            routeId.toString
-          )
-        )
+      MonitorMessage(
+        MonitorCommand.active(routeId.toString)
       )
     )
   }
@@ -91,22 +86,13 @@ class MonitorOsmNowAnalyze(
 
     val subRelationSteps = relationInfos.zipWithIndex.map { case ((relationId: String, description: String), index) =>
       val desc = s"${index + 1}/${relationInfos.length} $description"
-      MonitorRouteUpdateStatusCommand(
-        "step-add",
-        relationId,
-        Some(desc)
-      )
+      MonitorCommand.add(relationId, Some(desc))
     }
 
-    val saveStep = MonitorRouteUpdateStatusCommand(
-      "step-add",
-      "save"
-    )
+    val saveStep = MonitorCommand.add("save")
 
     args.reporter.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = subRelationSteps :+ saveStep
-      )
+      MonitorMessage(subRelationSteps :+ saveStep)
     )
   }
 
@@ -194,12 +180,10 @@ class MonitorOsmNowAnalyze(
 
   private def initReporter(args: MonitorUpdateArgs): Unit = {
     args.reporter.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-          MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-          MonitorRouteUpdateStatusCommand("step-active", "prepare"),
-        )
+      MonitorMessage(
+        MonitorCommand.add("prepare"),
+        MonitorCommand.add("analyze-route-structure"),
+        MonitorCommand.active("prepare"),
       )
     )
   }

@@ -1,50 +1,37 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorCommand
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 
 trait MonitorUpdateReporter {
 
-  def report(message: MonitorRouteUpdateStatusMessage): Unit
+  def report(message: MonitorMessage): Unit
 
   def processList(processList: Seq[MonitorRouteRelation]): Unit = {
     val processListSize = processList.size
     val commands = processList.zipWithIndex.map { case (monitorRouteRelation, index) =>
       val description = s"${index + 1}/$processListSize ${monitorRouteRelation.name}"
-      MonitorRouteUpdateStatusCommand(
-        "step-add",
-        monitorRouteRelation.relationId.toString,
-        Some(description)
-      )
-    } :+ MonitorRouteUpdateStatusCommand(
-      "step-add",
-      "save"
-    )
+      MonitorCommand.add(monitorRouteRelation.relationId.toString, Some(description))
+    } :+ MonitorCommand.add("save")
 
     report(
-      MonitorRouteUpdateStatusMessage(
-        commands = commands
-      )
+      MonitorMessage(commands)
     )
   }
 
   def stepActive(stepId: String): Unit = {
     report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand("step-active", stepId)
-        )
+      MonitorMessage(
+        MonitorCommand.active(stepId)
       )
     )
   }
 
   def stepDone(stepId: String): Unit = {
     report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand("step-done", stepId)
-        )
+      MonitorMessage(
+        MonitorCommand.done(stepId)
       )
     )
   }

@@ -1,7 +1,7 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
+import kpn.api.common.monitor.MonitorMessage
 import kpn.server.monitor.domain.MonitorRouteReference
 
 class MonitorContext {
@@ -15,7 +15,7 @@ class MonitorContext {
     privateContext
   }
 
-  def report(message: MonitorRouteUpdateStatusMessage): Unit = {
+  def report(message: MonitorMessage): Unit = {
     privateContext.reporter.report(message)
   }
 

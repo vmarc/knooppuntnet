@@ -1,10 +1,9 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorAction
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.common.Time
 import kpn.core.doc.SuperSegment
 import kpn.core.test.TestObjects.newBaseRouteDoc
@@ -279,7 +278,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     )
   }
 
-  private def verifyAdd_messages(messages: Seq[MonitorRouteUpdateStatusMessage]): Unit = {
+  private def verifyAdd_messages(messages: Seq[MonitorMessage]): Unit = {
     assertEqual(
       messages,
       Seq(
@@ -294,7 +293,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     )
   }
 
-  private def verifyGpxUpload1_messages(messages: Seq[MonitorRouteUpdateStatusMessage]): Unit = {
+  private def verifyGpxUpload1_messages(messages: Seq[MonitorMessage]): Unit = {
     assertEqual(
       messages,
       Seq(
@@ -313,13 +312,13 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     )
   }
 
-  private def verifyGpxUpload2_messages(messages: Seq[MonitorRouteUpdateStatusMessage]): Unit = {
+  private def verifyGpxUpload2_messages(messages: Seq[MonitorMessage]): Unit = {
     assertEqual(
       messages,
       Seq(
         message(
-          MonitorRouteUpdateStatusCommand("step-add", "upload"),
-          MonitorRouteUpdateStatusCommand("step-add", "save"),
+          add("upload"),
+          add("save"),
           active("upload"),
         ),
         message(

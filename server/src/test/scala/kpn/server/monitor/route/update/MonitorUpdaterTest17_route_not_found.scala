@@ -1,9 +1,9 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorAction
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.test.TestObjects.newMonitorGroup
 
 class MonitorUpdaterTest17_route_not_found extends MonitorUpdateTest {
@@ -51,7 +51,7 @@ class MonitorUpdaterTest17_route_not_found extends MonitorUpdateTest {
           add("prepare"),
           active("prepare")
         ),
-        MonitorRouteUpdateStatusMessage(
+        MonitorMessage(
           exception = Some("""Could not find route with name "unknown-route-name" in group "group-name"""")
         )
       )

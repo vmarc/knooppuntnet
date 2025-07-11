@@ -1,9 +1,9 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
+import kpn.api.common.monitor.MonitorCommand
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.common.Time
 import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorGroup
@@ -37,10 +37,8 @@ class MonitorUpdate(
 
     if (!monitorUpdateCommon.isRouteChanged(route, args)) {
       args.reporter.report(
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-done", "prepare"),
-          )
+        MonitorMessage(
+          MonitorCommand.done("prepare"),
         )
       )
       return
@@ -56,11 +54,9 @@ class MonitorUpdate(
 
     if (!isAnalysisNeeded(route, args)) {
       args.reporter.report(
-        MonitorRouteUpdateStatusMessage(
-          commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-add", "save"),
-            MonitorRouteUpdateStatusCommand("step-active", "save"),
-          )
+        MonitorMessage(
+          MonitorCommand.add("save"),
+          MonitorCommand.active("save"),
         )
       )
       monitorRouteRepository.saveRoute(updatedRoute)
@@ -118,10 +114,8 @@ class MonitorUpdate(
 
   private def stepSaveDone(args: MonitorUpdateArgs): Unit = {
     args.reporter.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand("step-done", "save"),
-        )
+      MonitorMessage(
+        MonitorCommand.done("save"),
       )
     )
   }

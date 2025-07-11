@@ -1,17 +1,17 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorRouteUpdateStatus
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 
 class MonitorUpdateReporterMock extends MonitorUpdateReporter {
 
-  private var _messages: Seq[MonitorRouteUpdateStatusMessage] = Seq.empty
+  private var _messages: Seq[MonitorMessage] = Seq.empty
 
-  override def report(message: MonitorRouteUpdateStatusMessage): Unit = {
+  override def report(message: MonitorMessage): Unit = {
     _messages = _messages :+ message
   }
 
-  def messages: Seq[MonitorRouteUpdateStatusMessage] = _messages
+  def messages: Seq[MonitorMessage] = _messages
 
   def statusses: Seq[MonitorRouteUpdateStatus] = {
     throw new RuntimeException("deprecated")

@@ -1,9 +1,9 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
+import kpn.api.common.monitor.MonitorCommand
+import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
-import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -30,13 +30,11 @@ class MonitorOsmAdd(
     }
   }
 
-  def initialMessage: MonitorRouteUpdateStatusMessage = {
-    MonitorRouteUpdateStatusMessage(
-      commands = Seq(
-        MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-        MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-        MonitorRouteUpdateStatusCommand("step-active", "prepare"),
-      )
+  def initialMessage: MonitorMessage = {
+    MonitorMessage(
+      MonitorCommand.add("prepare"),
+      MonitorCommand.add("analyze-route-structure"),
+      MonitorCommand.active("prepare"),
     )
   }
 
