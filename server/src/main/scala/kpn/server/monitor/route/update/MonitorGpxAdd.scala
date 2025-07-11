@@ -4,40 +4,34 @@ import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
-import kpn.core.common.Time
-import kpn.core.util.Log
-import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
+import kpn.api.custom.Timestamp
+import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.repository.MonitorRouteRepository
-import kpn.server.repository.RouteRepository
-import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
 
 @Component
 class MonitorGpxAdd(
-  routeRepository: RouteRepository,
-  monitorRouteRepository: MonitorRouteRepository,
-  monitorUpdateCommon: MonitorUpdateCommon,
   monitorGpxAnalyze: MonitorGpxAnalyze,
-  monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer
 ) {
 
-  private val log = Log(classOf[MonitorGpxAdd])
-  val geometryFactory = new GeometryFactory
+  def execute(group: MonitorGroup, args: MonitorUpdateArgs, now: Timestamp): Unit = {
+    val route = buildRoute(group, args, now)
+    monitorGpxAnalyze.execute(args, route, now)
+  }
 
-  def execute(args: MonitorUpdateArgs): Unit = {
+  def initialMessage: MonitorRouteUpdateStatusMessage = {
+    MonitorRouteUpdateStatusMessage(
+      commands = Seq(
+        MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+        MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+        MonitorRouteUpdateStatusCommand("step-active", "prepare"),
+      )
+    )
+  }
 
-    val now = Time.now
-    val analysisStartMillis = System.currentTimeMillis()
-
-    initReporter(args)
-
-    val group = monitorUpdateCommon.findGroup(args)
-    monitorUpdateCommon.verifyNewRoute(group, args)
-
-    val monitorRouteId = ObjectId()
-    val route = MonitorRoute(
-      _id = monitorRouteId,
+  private def buildRoute(group: MonitorGroup, args: MonitorUpdateArgs, now: Timestamp): MonitorRoute = {
+    MonitorRoute(
+      _id = ObjectId(),
       groupId = group._id,
       name = args.update.routeName,
       description = args.update.description.getOrElse(""),
@@ -58,20 +52,6 @@ class MonitorGpxAdd(
       osmDistance = 0,
       relation = None,
       happy = false,
-    )
-
-    monitorGpxAnalyze.execute(args, route, now)
-  }
-
-  private def initReporter(args: MonitorUpdateArgs): Unit = {
-    args.reporter.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-          MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-          MonitorRouteUpdateStatusCommand("step-active", "prepare"),
-        )
-      )
     )
   }
 }

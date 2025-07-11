@@ -20,18 +20,22 @@ class MonitorMultiGpxAdd(
 
   private val log = Log(classOf[MonitorMultiGpxAdd])
 
-  def execute(args: MonitorUpdateArgs): Unit = {
-
-    initReporter(args)
-
-    val group = monitorUpdateCommon.findGroup(args)
-    monitorUpdateCommon.verifyNewRoute(group, args)
+  def execute(group: MonitorGroup, args: MonitorUpdateArgs): Unit = {
 
     val (superSegmentCount, osmDistance) = getRouteInfo(args)
     val route = buildRoute(args, group, superSegmentCount, osmDistance)
 
     monitorRouteRepository.saveRoute(route)
     args.reporter.stepDone("save")
+  }
+
+  def initialMessage: MonitorRouteUpdateStatusMessage = {
+    MonitorRouteUpdateStatusMessage(
+      commands = Seq(
+        MonitorRouteUpdateStatusCommand("step-add", "save"),
+        MonitorRouteUpdateStatusCommand("step-active", "save"),
+      )
+    )
   }
 
   private def getRouteInfo(args: MonitorUpdateArgs) = {
@@ -67,17 +71,6 @@ class MonitorMultiGpxAdd(
       osmDistance = osmDistance,
       relation = None,
       happy = false, // cannot be happy yet, there are no gpx references yet
-    )
-  }
-
-  private def initReporter(args: MonitorUpdateArgs): Unit = {
-    args.reporter.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand("step-add", "save"),
-          MonitorRouteUpdateStatusCommand("step-active", "save"),
-        )
-      )
     )
   }
 }

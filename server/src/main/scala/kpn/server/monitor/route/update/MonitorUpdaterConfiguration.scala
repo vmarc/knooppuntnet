@@ -68,7 +68,6 @@ class MonitorUpdaterConfiguration(
 
   private val monitorOsmAdd = new MonitorOsmAdd(
     monitorRouteRepository,
-    monitorUpdateCommon,
     monitorOsmAnalyze
   )
 
@@ -140,18 +139,15 @@ class MonitorUpdaterConfiguration(
   )
 
   private val monitorGpxAdd = new MonitorGpxAdd(
-    routeRepository,
-    monitorRouteRepository,
-    monitorUpdateCommon,
     monitorGpxAnalyze,
-    monitorRouteDeviationAnalyzer
   )
 
   private val monitorUpdateAdd = new MonitorAdd(
-    monitorUpdateAddMultiGpx,
-    monitorUpdateAddOsmNow,
     monitorOsmAdd,
+    monitorUpdateAddOsmNow,
     monitorGpxAdd,
+    monitorUpdateAddMultiGpx,
+    monitorUpdateCommon,
   )
 
   val monitorUpdateAnalysis = new MonitorUpdateAnalysis(

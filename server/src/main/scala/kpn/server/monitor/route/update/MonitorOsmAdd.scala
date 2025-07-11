@@ -4,35 +4,45 @@ import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
-import kpn.core.common.Time
-import kpn.core.util.Log
+import kpn.api.custom.Timestamp
+import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorRouteRepository
-import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
 
 @Component
 class MonitorOsmAdd(
   monitorRouteRepository: MonitorRouteRepository,
-  monitorUpdateCommon: MonitorUpdateCommon,
   monitorOsmAnalyze: MonitorOsmAnalyze
 ) {
 
-  private val log = Log(classOf[MonitorOsmAdd])
-  val geometryFactory = new GeometryFactory
+  def execute(group: MonitorGroup, args: MonitorUpdateArgs, now: Timestamp, analysisStartMillis: Long): Unit = {
 
-  def execute(args: MonitorUpdateArgs): Unit = {
+    val route = buildRoute(group, args, now)
 
-    val now = Time.now
-    val analysisStartMillis = System.currentTimeMillis()
+    args.reporter.stepActive("analyze-route-structure")
 
-    initReporter(args)
+    if (args.update.relationId.isEmpty) {
+      saveRouteWithoutRelationId(args, route)
+    }
+    else {
+      monitorOsmAnalyze.execute(route, now, args, args.referenceTimestamp, analysisStartMillis)
+    }
+  }
 
-    val group = monitorUpdateCommon.findGroup(args)
-    monitorUpdateCommon.verifyNewRoute(group, args)
+  def initialMessage: MonitorRouteUpdateStatusMessage = {
+    MonitorRouteUpdateStatusMessage(
+      commands = Seq(
+        MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+        MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+        MonitorRouteUpdateStatusCommand("step-active", "prepare"),
+      )
+    )
+  }
 
+  private def buildRoute(group: MonitorGroup, args: MonitorUpdateArgs, now: Timestamp): MonitorRoute = {
     val monitorRouteId = ObjectId()
-    val route = MonitorRoute(
+    MonitorRoute(
       _id = monitorRouteId,
       groupId = group._id,
       name = args.update.routeName,
@@ -55,30 +65,11 @@ class MonitorOsmAdd(
       relation = None,
       happy = false,
     )
-
-    args.reporter.stepActive("analyze-route-structure")
-
-    if (args.update.relationId.isEmpty) {
-
-      args.reporter.stepActive("save")
-      monitorRouteRepository.saveRoute(route)
-      args.reporter.stepDone("save")
-
-      return
-    }
-
-    monitorOsmAnalyze.execute(route, now, args, args.referenceTimestamp, analysisStartMillis)
   }
 
-  private def initReporter(args: MonitorUpdateArgs): Unit = {
-    args.reporter.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-          MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-          MonitorRouteUpdateStatusCommand("step-active", "prepare"),
-        )
-      )
-    )
+  private def saveRouteWithoutRelationId(args: MonitorUpdateArgs, route: MonitorRoute): Unit = {
+    args.reporter.stepActive("save")
+    monitorRouteRepository.saveRoute(route)
+    args.reporter.stepDone("save")
   }
 }
