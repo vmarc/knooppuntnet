@@ -105,7 +105,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
 
   private def verifyGpxUpload2(group: MonitorGroup, route: MonitorRoute, reference11: MonitorRouteReference, uploadGpxReporter2: MonitorUpdateReporterMock): Unit = {
     verifyGpxUpload2_messages(uploadGpxReporter2.messages)
-    verifyGpxUpload2_documentCounts()
+    verifyDocumentCounts(1, 2, 2)
     verifyGpxUpload2_route(group, route)
     verifyNoReference(route, None)
     assertEqual(
@@ -116,14 +116,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     verifyGpxUpload2_state12(route)
   }
 
-  private def verifyGpxUpload2_documentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(2)
-    database.monitorRouteStates.countDocuments() should equal(2)
-  }
-
   private def verifyGpxUpload1(group: MonitorGroup, route: MonitorRoute, reporter: MonitorUpdateReporterMock): MonitorRouteReference = {
-    verifyGpxUpload1_documentCounts()
+    verifyDocumentCounts(1, 1, 1)
     verifyGpxUpload1_route(group, route)
     val reference11 = verifyReference11(route)
     verifyNoReference(route, None)
@@ -137,28 +131,10 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
   }
 
   private def verifyAdd(group: MonitorGroup, routeAddReporter: MonitorUpdateReporterMock): MonitorRoute = {
-    verifyAdd_documentCounts()
+    verifyDocumentCounts(1, 0, 0)
     val route = verifyAdd_route(group)
-    verifyNoReference(route, None)
-    verifyNoReference(route, Some(subRoute11.relationId))
-    verifyNoReference(route, Some(subRoute12.relationId))
-    verifyNoState(route, MainrelationId)
-    verifyNoState(route, subRoute11.relationId)
-    verifyNoState(route, subRoute12.relationId)
     verifyAdd_messages(routeAddReporter.messages)
     route
-  }
-
-  private def verifyGpxUpload1_documentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
-  }
-
-  private def verifyAdd_documentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(0)
-    database.monitorRouteStates.countDocuments() should equal(0)
   }
 
   private def verifyAdd_route(group: MonitorGroup): MonitorRoute = {

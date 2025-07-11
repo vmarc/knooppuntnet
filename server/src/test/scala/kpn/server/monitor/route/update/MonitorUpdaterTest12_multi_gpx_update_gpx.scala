@@ -94,9 +94,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
   }
 
   private def verifyAdd(group: MonitorGroup): MonitorRoute = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(0)
-    database.monitorRouteStates.countDocuments() should equal(0)
+    verifyDocumentCounts(1, 0, 0)
     verifyAdd_route(group)
   }
 
@@ -192,9 +190,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
   }
 
   private def verifyGpxUpload2(group: MonitorGroup, route: MonitorRoute): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(2)
-    database.monitorRouteStates.countDocuments() should equal(2)
+    verifyDocumentCounts(1, 2, 2)
 
     verifyGpxUpload2_route(group, route)
     configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)

@@ -28,7 +28,7 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
 
     executeMonitorUpdate(group, reporter)
 
-    verifyDocumentCounts()
+    verifyDocumentCounts(1, 0, 0)
     verifyRoute(group, route)
     verifyReporterMessages(reporter)
   }
@@ -79,12 +79,6 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
         happy = false
       )
     )
-  }
-
-  private def verifyDocumentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(0)
-    database.monitorRouteStates.countDocuments() should equal(0)
   }
 
   private def verifyReporterMessages(reporter: MonitorUpdateReporterMock): Unit = {
@@ -155,9 +149,7 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
     configuration.monitorRouteRepository.saveRouteReference(reference)
     configuration.monitorRouteRepository.saveRouteState(state)
 
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
+    verifyDocumentCounts(1, 1, 1)
 
     Time.set(CurrentTimestamp)
     val reporter = new MonitorUpdateReporterMock()

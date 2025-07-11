@@ -24,7 +24,7 @@ class MonitorUpdaterTest13_update_group extends MonitorUpdateTest {
 
     executeUpdate(group1, group2, reporter)
 
-    verifyDocumentCounts()
+    verifyDocumentCounts(1, 1, 1)
     verifyRoute(group2)
     verifyReference(route, reference)
     verifyState(route, state)
@@ -48,12 +48,6 @@ class MonitorUpdaterTest13_update_group extends MonitorUpdateTest {
         )
       )
     )
-  }
-
-  private def verifyDocumentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
   }
 
   private def verifyRoute(group2: MonitorGroup): Unit = {

@@ -78,7 +78,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
   }
 
   private def verifyAdd(group: MonitorGroup): MonitorRoute = {
-    verifyDocumentCounts()
+    verifyDocumentCounts(1, 1, 1)
     val route = verifyAddedRoute(group)
     verifyAddedReference(route)
     val state = verifyAddedState(route)
@@ -86,16 +86,10 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
   }
 
   private def verifyUpdate(group: MonitorGroup, addedRoute: MonitorRoute): Unit = {
-    verifyDocumentCounts()
+    verifyDocumentCounts(1, 1, 1)
     val updatedRoute = verifyUpdatedRoute(group, addedRoute)
     verifyUpdatedReference(addedRoute, updatedRoute)
     verifyUpdatedState(addedRoute, updatedRoute)
-  }
-
-  private def verifyDocumentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
   }
 
   private def verifyAddedRoute(group: MonitorGroup) = {

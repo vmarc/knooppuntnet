@@ -20,8 +20,9 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
+import org.scalamock.scalatest.MockFactory
 
-class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects {
+class BaseRouteChangeCreateProcessorTest extends UnitTest with SharedTestObjects with MockFactory {
 
   private class Setup {
     val log: MockLog = Log.mock

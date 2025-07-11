@@ -31,7 +31,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
   }
 
   private def verifyAdd(group: MonitorGroup, reporter: MonitorUpdateReporterMock) = {
-    verifyAdd_documentCounts()
+    verifyDocumentCounts(1, 1, 0)
     val route = verifyAdd_route(group)
     verifyAdd_noReference(route)
     verifyAdd_noState(route)
@@ -41,7 +41,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
   }
 
   private def verifyUpdate(group: MonitorGroup, reporter: MonitorUpdateReporterMock, route: MonitorRoute, reference: MonitorRouteReference): Unit = {
-    verifyUpdate_documentCounts()
+    verifyDocumentCounts(1, 1, 1)
     verifyUpdate_route(group, route)
     verifyUpdate_reference(route, reference)
     verifyUpdate_state(route)
@@ -89,18 +89,6 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         )
       )
     )
-  }
-
-  private def verifyUpdate_documentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
-  }
-
-  private def verifyAdd_documentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(0)
   }
 
   private def verifyAdd_noState(route: MonitorRoute): Unit = {

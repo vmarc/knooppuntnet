@@ -77,9 +77,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
   }
 
   private def verifyAdd(group: MonitorGroup) = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
+    verifyDocumentCounts(1, 1, 1)
 
     val addedRoute = verifyAddedRoute(group)
     verifyAddedReference(addedRoute)

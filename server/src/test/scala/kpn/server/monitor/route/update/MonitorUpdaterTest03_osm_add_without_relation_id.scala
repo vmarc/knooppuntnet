@@ -7,7 +7,6 @@ import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Tags
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
-import kpn.core.doc.SuperSegment
 import kpn.core.test.OverpassData
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -57,8 +56,8 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
   private def executeUpdateWithRelationId(reporter: MonitorUpdateReporterMock, update: MonitorRouteUpdate): Unit = {
     setupLoadStructure()
     setupLoadTopLevel()
-    setupBaseRouteDoc()
-    setupRouteDoc()
+    configuration.routeRepository.saveBaseRoute(route1.baseRouteDoc)
+    configuration.routeRepository.saveRoute(route1.routeDoc)
 
     val updatedUpdate = update.copy(
       action = MonitorAction.update,
@@ -78,17 +77,11 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
   }
 
   private def verifyAdd(group: MonitorGroup) = {
-    verifyAdd_documentCounts()
+    verifyDocumentCounts(1, 0, 0)
     val route = verifyAdd_route(group)
     verifyAdd_noReference(route)
     verifyAdd_noState(route)
     route
-  }
-
-  private def verifyAdd_documentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(0)
-    database.monitorRouteStates.countDocuments() should equal(0)
   }
 
   private def verifyAdd_route(group: MonitorGroup): MonitorRoute = {
@@ -131,16 +124,10 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
   }
 
   private def verifyUpdate(group: MonitorGroup, route: MonitorRoute): Unit = {
-    verifyUpdate_documentCounts()
+    verifyDocumentCounts(1, 1, 1)
     verifyUpdate_route(group, route)
     verifyUpdate_reference(route)
     verifyUpdate_state(route)
-  }
-
-  private def verifyUpdate_documentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
   }
 
   private def verifyUpdate_route(group: MonitorGroup, route: MonitorRoute): Unit = {
@@ -249,41 +236,5 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
     val relation = new DataBuilder(overpassData.rawData).data.relations(route1.relationId)
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, route1.relationId).returns(Some(relation))
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(relation))
-  }
-
-  private def setupBaseRouteDoc(): Unit = {
-    configuration.routeRepository.saveBaseRoute(
-      newBaseRouteDoc(
-        newRouteSummary(route1.relationId),
-        segments = Seq(
-          newBaseRouteSegment(1)
-        ),
-        segmentElements = Seq(
-          newBaseRouteSegmentElement(
-            segmentId = 1,
-            segmentElementId = 1,
-            coordinates = route1.coordinateString
-          )
-        )
-      )
-    )
-  }
-
-  private def setupRouteDoc(): Unit = {
-    configuration.routeRepository.saveRoute(
-      newRouteDoc(
-        newRouteSummary(
-          route1.relationId,
-          name = "route-name"
-        ),
-        superDistance = route1.meters,
-        routeIds = Seq(route1.relationId),
-        superSegments = Seq(
-          SuperSegment(
-            Seq.empty
-          )
-        )
-      )
-    )
   }
 }

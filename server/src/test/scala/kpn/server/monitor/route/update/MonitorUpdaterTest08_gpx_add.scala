@@ -25,7 +25,7 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
 
     executeAdd(group, reporter)
 
-    verifyDocumentCounts()
+    verifyDocumentCounts(1, 1, 1)
     val route = verifyRoute(group)
     verifyReference(route)
     verifyState(route)
@@ -51,12 +51,6 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         )
       )
     )
-  }
-
-  private def verifyDocumentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
   }
 
   private def verifyRoute(group: MonitorGroup): MonitorRoute = {

@@ -8,8 +8,9 @@ import kpn.core.data.DataBuilder
 import kpn.core.test.MongoTest
 import kpn.core.test.OverpassData
 import kpn.server.monitor.domain.MonitorRoute
+import org.scalamock.scalatest.MockFactory
 
-abstract class MonitorUpdateTest extends MongoTest {
+abstract class MonitorUpdateTest extends MongoTest with MockFactory {
 
   val ReferenceTimestamp1 = Timestamp(2022, 8, 1)
   val ReferenceTimestamp2 = Timestamp(2022, 8, 2)
@@ -56,6 +57,16 @@ abstract class MonitorUpdateTest extends MongoTest {
   }
 
   val sameSubroute12Geometry = """{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}]}"""
+
+  def verifyDocumentCounts(
+    expectedMonitorRouteCount: Int,
+    expectedMonitorReferenceCount: Int,
+    expectedMonitorStateCount: Int,
+  ): Unit = {
+    database.monitorRoutes.countDocuments() should equal(expectedMonitorRouteCount)
+    database.monitorRouteReferences.countDocuments() should equal(expectedMonitorReferenceCount)
+    database.monitorRouteStates.countDocuments() should equal(expectedMonitorStateCount)
+  }
 
   def verifyNoReference(route: MonitorRoute, relationId: Option[Long]): Unit = {
     configuration.monitorRouteRepository.routeReference(route._id, relationId) should equal(None)

@@ -9,25 +9,19 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
-import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
-import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
-import kpn.server.json.Json
 import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
-import org.locationtech.jts.geom.Coordinate
-import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.io.geojson.GeoJsonWriter
 import org.springframework.stereotype.Component
 
 @Component
@@ -65,9 +59,7 @@ class MonitorOsmAnalyze(
     val referenceDistance = summaries.map(_.referenceDistance).sum
     val deviationDistance = summaries.map(_.deviationDistance).sum
     val deviationCount = summaries.map(_.deviationCount).sum
-
     val osmDistance = routeDoc.superDistance
-
     val analysisDuration = System.currentTimeMillis() - analysisStartMillis
 
     val updatedRoute = buildRoute(
@@ -210,19 +202,6 @@ class MonitorOsmAnalyze(
     }
   }
 
-  private def buildGeoJson(baseRouteDoc: BaseRouteDoc) = {
-    val lineStrings = baseRouteDoc.segmentElements.map { segmentElement =>
-      val coordinates = Json.value(segmentElement.coordinates, classOf[CoordinateArray]).coordinates
-      val flipped = coordinates.map(c => new Coordinate(c.y, c.x))
-      geometryFactory.createLineString(flipped)
-    }
-    val geometryCollection = new GeometryCollection(lineStrings.toArray, geometryFactory)
-    val geoJsonWriter = new GeoJsonWriter()
-    geoJsonWriter.setEncodeCRS(false)
-    val geoJson = geoJsonWriter.write(geometryCollection)
-    geoJson
-  }
-
   private def updateReporterActiveStep(args: MonitorUpdateArgs, routeId: Long): Unit = {
     args.reporter.report(
       MonitorRouteUpdateStatusMessage(
@@ -283,18 +262,6 @@ class MonitorOsmAnalyze(
       osmDistance = distance,
       relation = None,
       happy = happy
-    )
-  }
-
-  private def initReporter(args: MonitorUpdateArgs): Unit = {
-    args.reporter.report(
-      MonitorRouteUpdateStatusMessage(
-        commands = Seq(
-          MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-          MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-          MonitorRouteUpdateStatusCommand("step-active", "prepare"),
-        )
-      )
     )
   }
 }

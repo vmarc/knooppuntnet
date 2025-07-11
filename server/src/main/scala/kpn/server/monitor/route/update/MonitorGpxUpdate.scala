@@ -1,7 +1,6 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
-import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
@@ -100,100 +99,8 @@ class MonitorGpxUpdate(
       }
     }
 
-
-    //    context.set(monitorUpdateStructure.update(context.value))
-
-    //    val oldReferences = monitorRouteRepository.routeReferences(route._id)
-    //    val oldReferenceIds = monitorRouteRepository.routeReferenceIds(route._id)
-    //    val oldStateIds = monitorRouteRepository.routeStateIds(route._id)
-
-    //    context.set(
-    //      context.value.copy(
-    //        oldReferenceIds = oldReferenceIds,
-    //        oldStateIds = oldStateIds,
-    //        references = oldReferences,
-    //      )
-    //    )
-
-    //    context.set(monitorUpdateCommon.removeObsoleteReferences(context))
-    //    monitorUpdateCommon.removeObsoleteStates(context)
-
-    if (route.referenceType == MonitorReferenceType.osm && args.update.referenceType == MonitorReferenceType.osm) {
-      if (route.referenceTimestamp != args.update.referenceTimestamp || route.relationId != args.update.relationId) {
-        // perform reference update and reanalyze deviations
-        //        updateSubRelationOsmReferences(context)
-
-        if (args.update.relationId.isEmpty) {
-
-          args.reporter.report(
-            MonitorRouteUpdateStatusMessage(
-              commands = Seq(
-                MonitorRouteUpdateStatusCommand("step-add", "save"),
-                MonitorRouteUpdateStatusCommand("step-active", "save"),
-              )
-            )
-          )
-
-          monitorRouteRepository.deleteRouteReferences(route._id)
-          monitorRouteRepository.deleteRouteStates(route._id)
-
-          val cleanedUpRoute = updatedRoute.copy(
-            analysisTimestamp = None,
-            symbol = None,
-            referenceDistance = 0,
-            deviationDistance = 0,
-            deviationCount = 0,
-            osmSegmentCount = 0,
-            osmDistance = 0,
-            relation = None,
-            happy = false,
-          )
-          monitorRouteRepository.saveRoute(cleanedUpRoute)
-
-          args.reporter.stepDone("save")
-        }
-        else {
-          args.reporter.report(
-            MonitorRouteUpdateStatusMessage(
-              commands = Seq(
-                MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-                MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure"),
-              )
-            )
-          )
-
-          if (route.relationId != args.update.relationId) {
-            monitorRouteRepository.deleteRouteReferences(route._id)
-            monitorRouteRepository.deleteRouteStates(route._id)
-          }
-
-          //          monitorOsmAnalyze.execute(
-          //            updatedRoute,
-          //            now,
-          //            args,
-          //            analysisStartMillis
-          //          )
-        }
-      }
-      else {
-        // nothing to do, but saving updatedRoute?
-        args.reporter.report(
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-add", "save"),
-              MonitorRouteUpdateStatusCommand("step-active", "save"),
-            )
-          )
-        )
-        monitorRouteRepository.saveRoute(updatedRoute)
-        args.reporter.stepDone("save")
-      }
-    }
-    else {
-      //throw new IllegalStateException(s"reference type change from ${route.referenceType} to ${args.update.referenceType} not implemented yet")
-      if (args.update.referenceGpx.nonEmpty) {
-        monitorGpxAnalyze.execute(args, updatedRoute, now)
-      }
+    if (args.update.referenceGpx.nonEmpty) {
+      monitorGpxAnalyze.execute(args, updatedRoute, now)
     }
   }
 }

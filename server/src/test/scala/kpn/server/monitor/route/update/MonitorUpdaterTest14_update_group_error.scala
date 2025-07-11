@@ -23,9 +23,7 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
 
     executeUpdate(reporter)
 
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
+    verifyDocumentCounts(1, 1, 1)
 
     val updatedRoute = configuration.monitorRouteRepository.routeByName(group1._id, "route").get
     val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get

@@ -16,9 +16,7 @@ class MonitorUpdaterTest15_add_error extends MonitorUpdateTest {
 
     executeMonitorUpdate(reporter)
 
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(0)
-    database.monitorRouteStates.countDocuments() should equal(0)
+    verifyDocumentCounts(1, 0, 0)
 
     verifyReporterMessages(route, reporter)
   }

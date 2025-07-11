@@ -31,7 +31,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
 
     executeAdd(group, reporter)
 
-    verifyDocumentCounts()
+    verifyDocumentCounts(1, 2, 2)
     val route = verifyRoute(group)
     verifyReference1(route)
     verifyReference11(route)
@@ -58,12 +58,6 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         )
       )
     )
-  }
-
-  private def verifyDocumentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(2)
-    database.monitorRouteStates.countDocuments() should equal(2)
   }
 
   private def verifyRoute(group: MonitorGroup): MonitorRoute = {

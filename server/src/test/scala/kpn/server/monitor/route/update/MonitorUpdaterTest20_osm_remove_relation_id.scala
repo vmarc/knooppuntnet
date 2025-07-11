@@ -24,16 +24,9 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
 
     executeMonitorUpdate(group, reporter)
 
-    verifyReporterMessages(reporter)
-
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(0)
-    database.monitorRouteStates.countDocuments() should equal(0)
-
+    verifyDocumentCounts(1, 0, 0)
     verifyUpdatedRoute(group, route)
-
-    configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
-    configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
+    verifyReporterMessages(reporter)
   }
 
   private def executeMonitorUpdate(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {

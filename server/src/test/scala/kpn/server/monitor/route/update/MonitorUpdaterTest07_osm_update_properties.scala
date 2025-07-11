@@ -25,7 +25,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
 
     executeUpdate(group, reporter)
 
-    verifyDocumentCounts()
+    verifyDocumentCounts(1, 1, 1)
     verifyRoute(group, route)
     verifyReference(route, reference)
     verifyState(route, state)
@@ -50,12 +50,6 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
         )
       )
     )
-  }
-
-  private def verifyDocumentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
   }
 
   private def verifyRoute(group: MonitorGroup, route: MonitorRoute): Unit = {

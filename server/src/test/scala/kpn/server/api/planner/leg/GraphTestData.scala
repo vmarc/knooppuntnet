@@ -9,6 +9,7 @@ import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.core.test.SharedTestObjects
 import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
+import org.scalamock.scalatest.MockFactory
 
 /*
         1m          2m          5m
@@ -17,7 +18,7 @@ import kpn.server.repository.RouteRepository
     ---------r4---------
              4m
 */
-class GraphTestData extends SharedTestObjects {
+class GraphTestData extends SharedTestObjects with MockFactory {
 
   val node1: RouteNetworkNodeInfo = newRouteNetworkNodeInfo(id = 1001L, name = "01", lat = "1", lon = "1")
   val node2: RouteNetworkNodeInfo = newRouteNetworkNodeInfo(id = 1002L, name = "02", lat = "2", lon = "2")

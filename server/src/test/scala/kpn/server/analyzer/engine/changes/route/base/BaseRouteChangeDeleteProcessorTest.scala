@@ -3,8 +3,9 @@ package kpn.server.analyzer.engine.changes.route.base
 import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import org.scalamock.scalatest.MockFactory
 
-class BaseRouteChangeDeleteProcessorTest extends UnitTest with SharedTestObjects {
+class BaseRouteChangeDeleteProcessorTest extends UnitTest with SharedTestObjects with MockFactory {
 
   private class Setup {
     val baseRouteDeleter: BaseRouteChangeDeleterImpl = stub[BaseRouteChangeDeleterImpl]

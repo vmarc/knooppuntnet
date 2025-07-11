@@ -17,16 +17,11 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
   test("add route with gpx references per subrelation - delete subrelation gpx reference") {
 
     val (group, route, reference11, reference112, state11, state111, state112, reporter) = setup()
-
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(3)
-    database.monitorRouteStates.countDocuments() should equal(3)
+    verifyDocumentCounts(1, 3, 3)
 
     executeGpxDelete(group, reporter)
 
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(2)
-    database.monitorRouteStates.countDocuments() should equal(2)
+    verifyDocumentCounts(1, 2, 2)
 
     val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
 

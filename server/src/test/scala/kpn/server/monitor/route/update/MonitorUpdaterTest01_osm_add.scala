@@ -8,7 +8,6 @@ import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Tags
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
-import kpn.core.doc.SuperSegment
 import kpn.core.test.OverpassData
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -30,7 +29,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
 
     executeAdd(group, reporter)
 
-    verifyDocumentCounts()
+    verifyDocumentCounts(1, 1, 1)
     val monitorRoute = verifyMonitorRoute(group)
     verifyRouteReference(monitorRoute)
     verifyRouteState(monitorRoute)
@@ -54,12 +53,6 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
         )
       )
     )
-  }
-
-  private def verifyDocumentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
   }
 
   private def verifyMonitorRoute(group: MonitorGroup): MonitorRoute = {
@@ -160,11 +153,11 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
     )
   }
 
-  private def setup() = {
+  private def setup(): (MonitorGroup, MonitorUpdateReporterMock) = {
     setupLoadStructure()
     setupLoadTopLevel()
-    setupBaseRouteDoc()
-    setupRouteDoc()
+    configuration.routeRepository.saveBaseRoute(route1.baseRouteDoc)
+    configuration.routeRepository.saveRoute(route1.routeDoc)
 
     val group = newMonitorGroup("group")
     configuration.monitorGroupRepository.saveGroup(group)
@@ -172,24 +165,6 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
 
     Time.set(CurrentTimestamp)
     (group, reporter)
-  }
-
-  private def setupBaseRouteDoc(): Unit = {
-    configuration.routeRepository.saveBaseRoute(
-      newBaseRouteDoc(
-        newRouteSummary(route1.relationId),
-        segments = Seq(
-          newBaseRouteSegment(1)
-        ),
-        segmentElements = Seq(
-          newBaseRouteSegmentElement(
-            segmentId = 1,
-            segmentElementId = 1,
-            coordinates = route1.coordinateString
-          )
-        )
-      )
-    )
   }
 
   private def setupLoadStructure(): Unit = {
@@ -220,23 +195,5 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
     val relation = new DataBuilder(overpassData.rawData).data.relations(route1.relationId)
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, route1.relationId).returns(Some(relation))
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(relation))
-  }
-
-  private def setupRouteDoc(): Unit = {
-    configuration.routeRepository.saveRoute(
-      newRouteDoc(
-        newRouteSummary(
-          route1.relationId,
-          name = "route-name"
-        ),
-        superDistance = route1.meters,
-        routeIds = Seq(route1.relationId),
-        superSegments = Seq(
-          SuperSegment(
-            Seq.empty
-          )
-        )
-      )
-    )
   }
 }

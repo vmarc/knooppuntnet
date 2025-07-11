@@ -31,11 +31,9 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
 
     executeUpdate(group, reporter)
 
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
+    verifyDocumentCounts(1, 1, 1)
 
-    //verifyUpdatedRoute(group, route)
+    verifyUpdatedRoute(group, route)
 
     configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)) should equal(None)
     configuration.monitorRouteRepository.routeState(route._id, route1.relationId) should equal(None)

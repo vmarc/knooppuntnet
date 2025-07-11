@@ -18,6 +18,7 @@ import kpn.api.common.LocationChanges
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkFact
 import kpn.api.common.NodeName
+import kpn.api.common.ReplicationId
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteScope
@@ -33,6 +34,7 @@ import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
+import kpn.api.common.common.TrackPathKey
 import kpn.api.common.data.Member
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
@@ -84,6 +86,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Relation
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag
+import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.doc.BaseNetworkDoc
@@ -114,7 +117,7 @@ import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 
-trait SharedTestObjects {
+object TestObjects {
 
   def newRawNode(
     id: Long = 1,
@@ -125,7 +128,7 @@ trait SharedTestObjects {
     changeSetId: Long = 0,
     tags: Seq[Tag] = Seq.empty
   ): RawNode = {
-    TestObjects.newRawNode(
+    RawNode(
       id,
       latitude,
       longitude,
@@ -153,7 +156,7 @@ trait SharedTestObjects {
     locations: Seq[String] = Seq.empty,
     tiles: Seq[String] = Seq.empty,
   ): BaseNodeDoc = {
-    TestObjects.newBaseNodeDoc(
+    BaseNodeDoc(
       _id,
       active,
       name,
@@ -173,18 +176,22 @@ trait SharedTestObjects {
   }
 
   def newNodeWithName(nodeId: Long, name: String, extraTags: Seq[Tag] = Seq.empty): Node = {
-    TestObjects.newNodeWithName(nodeId, name, extraTags)
+    newNode(nodeId, tags = newNodeTags(name) ++ extraTags)
   }
 
   def newRouteNode(nodeId: Long, name: String): RouteNode = {
-    TestObjects.newRouteNode(
+    RouteNode(
       nodeId = nodeId,
+      latitude = "0",
+      longitude = "0",
       name = name,
+      alternateName = name,
+      isInWay = true,
     )
   }
 
   def newForeignRawNode(nodeId: Long, name: String): RawNode = {
-    TestObjects.newForeignRawNode(nodeId, name)
+    newRawNode(nodeId, latitude = "99", longitude = "99", tags = newNodeTags(name))
   }
 
   def newRawWay(
@@ -195,7 +202,7 @@ trait SharedTestObjects {
     nodeIds: Vector[Long] = Vector.empty,
     tags: Seq[Tag] = Seq.empty
   ): RawWay = {
-    TestObjects.newRawWay(
+    RawWay(
       id,
       version,
       timestamp,
@@ -212,7 +219,7 @@ trait SharedTestObjects {
     timestamp: Timestamp = Timestamps.default,
     tags: Seq[Tag] = Seq.empty
   ): WayInfo = {
-    TestObjects.newWayInfo(
+    WayInfo(
       id,
       version,
       changeSetId,
@@ -229,7 +236,7 @@ trait SharedTestObjects {
     tags: Seq[Tag] = Seq.empty,
     members: Seq[Member] = Seq.empty,
   ): Relation = {
-    TestObjects.newRelation(
+    Relation(
       id,
       version,
       timestamp,
@@ -247,7 +254,7 @@ trait SharedTestObjects {
     members: Seq[RawMember] = Seq.empty,
     tags: Seq[Tag] = Seq.empty
   ): RawRelation = {
-    TestObjects.newRawRelation(
+    RawRelation(
       id,
       version,
       timestamp,
@@ -258,19 +265,33 @@ trait SharedTestObjects {
   }
 
   def newMember(memberType: MemberType, ref: Long, role: String = ""): RawMember = {
-    TestObjects.newMember(memberType, ref, role)
+    RawMember(memberType, ref, if (role.nonEmpty) Some(role) else None)
   }
 
   def newNetworkTags(name: String = "name"): Seq[Tag] = {
-    TestObjects.newNetworkTags()
+    Tags.from(
+      "network:type" -> "node_network",
+      "type" -> "network",
+      "network" -> "rwn",
+      "name" -> name,
+    )
   }
 
   def newRouteTags(name: String = ""): Seq[Tag] = {
-    TestObjects.newRouteTags(name)
+    Tags.from(
+      "network" -> "rwn",
+      "type" -> "route",
+      "route" -> "foot",
+      "ref" -> name,
+      "network:type" -> "node_network"
+    )
   }
 
   def newNodeTags(name: String = ""): Seq[Tag] = {
-    TestObjects.newNodeTags(name)
+    Tags.from(
+      "rwn_ref" -> name,
+      "network:type" -> "node_network"
+    )
   }
 
   def newChangeKey(
@@ -279,7 +300,7 @@ trait SharedTestObjects {
     changeSetId: Long = 123,
     elementId: Long = 0
   ): ChangeKey = {
-    TestObjects.newChangeKey(
+    ChangeKey(
       replicationNumber,
       timestamp,
       changeSetId,
@@ -292,7 +313,7 @@ trait SharedTestObjects {
     timestamp: Timestamp = Timestamps.default,
     changeSetId: Long = 0
   ): MetaData = {
-    TestObjects.newMetaData(
+    MetaData(
       version,
       timestamp,
       changeSetId
@@ -318,7 +339,8 @@ trait SharedTestObjects {
     locationInvestigate: Boolean = false,
     locationImpact: Boolean = false
   ): RouteChange = {
-    TestObjects.newRouteChange(
+    RouteChange(
+      key.toId,
       key,
       changeType,
       name,
@@ -347,7 +369,7 @@ trait SharedTestObjects {
     geometryDiff: Option[GeometryDiff] = None,
     bounds: Option[Bounds] = None,
   ): BaseRouteChange = {
-    TestObjects.newBaseRouteChange(
+    BaseRouteChange(
       _id,
       key,
       changeType,
@@ -369,7 +391,7 @@ trait SharedTestObjects {
     locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
     tags: Seq[Tag] = Seq.empty,
   ): RouteData = {
-    TestObjects.newRouteData(
+    RouteData(
       relationId,
       meta,
       countries,
@@ -378,7 +400,7 @@ trait SharedTestObjects {
       networkNodes,
       facts,
       meters: Long,
-      locationAnalysis,
+      locationAnalysis: RouteLocationAnalysis,
       tags: Seq[Tag]
     )
   }
@@ -392,7 +414,7 @@ trait SharedTestObjects {
     changeSetId: Long = 0,
     tags: Seq[Tag] = Seq.empty
   ): Node = {
-    TestObjects.newNode(
+    Node(
       id,
       latitude,
       longitude,
@@ -412,15 +434,7 @@ trait SharedTestObjects {
     tags: Seq[Tag] = Seq.empty,
     length: Int = 0
   ): Way = {
-    TestObjects.newWay(
-      id,
-      version,
-      timestamp,
-      changeSetId,
-      nodes,
-      tags,
-      length
-    )
+    Way(id, version, timestamp, changeSetId, tags, nodes, length)
   }
 
   def newNodeDoc(
@@ -445,7 +459,7 @@ trait SharedTestObjects {
     networkReferences: Seq[Reference] = Seq.empty,
   ): NodeDoc = {
 
-    TestObjects.newNodeDoc(
+    NodeDoc(
       id,
       active,
       labels,
@@ -461,10 +475,10 @@ trait SharedTestObjects {
       tags,
       facts,
       locations,
-      tiles,
       integrity,
       routeReferences,
       networkReferences,
+      None
     )
   }
 
@@ -472,9 +486,20 @@ trait SharedTestObjects {
     _id: String,
     routeId: Long,
   ): RouteTileInfo = {
-    TestObjects.newRouteTileInfo(
+    RouteTileInfo(
       _id,
       routeId,
+      routeName = "",
+      routeTypes = Seq.empty,
+      z = 0,
+      x = 0,
+      y = 0,
+      layer = FeatureLayer.route,
+      scope = None,
+      survey = None,
+      error = None,
+      proposed = false,
+      segments = Seq.empty
     )
   }
 
@@ -492,7 +517,7 @@ trait SharedTestObjects {
     nodeIds: Seq[Long] = Seq.empty,
     relationIds: Seq[Long] = Seq.empty,
   ): BaseNetworkDoc = {
-    TestObjects.newBaseNetworkDoc(
+    BaseNetworkDoc(
       _id,
       active,
       routeType,
@@ -527,7 +552,7 @@ trait SharedTestObjects {
     relationLastUpdated: Timestamp = Timestamps.default,
     center: Option[LatLonImpl] = None
   ): NetworkAttributes = {
-    TestObjects.newNetworkAttributes(
+    NetworkAttributes(
       id,
       country,
       routeType,
@@ -558,7 +583,7 @@ trait SharedTestObjects {
     okRate: String = "",
     nokRate: String = ""
   ): Integrity = {
-    TestObjects.newIntegrity(
+    Integrity(
       isOk,
       hasChecks,
       count,
@@ -575,7 +600,7 @@ trait SharedTestObjects {
     candidates: Seq[LocationCandidate] = Seq.empty,
     locationNames: Seq[String] = Seq.empty
   ): RouteLocationAnalysis = {
-    TestObjects.newRouteLocationAnalysis(
+    RouteLocationAnalysis(
       location,
       candidates,
       locationNames
@@ -585,7 +610,7 @@ trait SharedTestObjects {
   def newRouteInfoAnalysis(
     expectedName: String = ""
   ): RouteInfoAnalysis = {
-    TestObjects.newRouteInfoAnalysis(
+    RouteInfoAnalysis(
       expectedName
     )
   }
@@ -604,7 +629,7 @@ trait SharedTestObjects {
     timestamp: Timestamp = Timestamps.default,
     tags: Seq[Tag] = Seq.empty
   ): RouteSummary = {
-    TestObjects.newRouteSummary(
+    RouteSummary(
       id,
       countries,
       nodeNetwork,
@@ -628,7 +653,7 @@ trait SharedTestObjects {
     lat: String = "0",
     lon: String = "0"
   ): RouteNetworkNodeInfo = {
-    TestObjects.newRouteNetworkNodeInfo(
+    RouteNetworkNodeInfo(
       id,
       name,
       alternateName,
@@ -647,7 +672,7 @@ trait SharedTestObjects {
     timestampAfter: Timestamp = Timestamps.after,
     changes: Seq[Change] = Seq.empty
   ): ChangeSet = {
-    TestObjects.newChangeSet(
+    ChangeSet(
       id,
       timestamp,
       timestampFrom,
@@ -686,7 +711,8 @@ trait SharedTestObjects {
     locationInvestigate: Boolean = false,
     locationImpact: Boolean = false
   ): NodeChange = {
-    TestObjects.newNodeChange(
+    NodeChange(
+      key.toId,
       key,
       changeType,
       subsets,
@@ -722,7 +748,7 @@ trait SharedTestObjects {
     longitude: String = "0",
     changeType: ElementChangeType = ElementChangeType.Unchanged
   ): RouteNodeChange = {
-    TestObjects.newRouteNodeChange(
+    RouteNodeChange(
       id,
       latitude,
       longitude,
@@ -749,8 +775,10 @@ trait SharedTestObjects {
     investigate: Boolean = false,
     impact: Boolean = false,
   ): NetworkChange = {
-    TestObjects.newNetworkChange(
+    NetworkChange(
+      key.toId,
       key,
+      key.elementId,
       networkName,
       changeType,
       country,
@@ -774,7 +802,7 @@ trait SharedTestObjects {
     oldRefs: Seq[Ref] = Seq.empty,
     newRefs: Seq[Ref] = Seq.empty
   ): RefChanges = {
-    TestObjects.newRefChanges(
+    RefChanges(
       oldRefs,
       newRefs
     )
@@ -794,7 +822,8 @@ trait SharedTestObjects {
     happy: Boolean = false,
     investigate: Boolean = false
   ): ChangeSetSummary = {
-    TestObjects.newChangeSetSummary(
+    ChangeSetSummary(
+      key.toShortId,
       key,
       subsets,
       locations,
@@ -807,6 +836,7 @@ trait SharedTestObjects {
       locationChanges,
       happy,
       investigate,
+      happy || investigate
     )
   }
 
@@ -820,7 +850,7 @@ trait SharedTestObjects {
     happy: Boolean = false,
     investigate: Boolean = false
   ): ChangeSetNetwork = {
-    TestObjects.newChangeSetNetwork(
+    ChangeSetNetwork(
       country,
       routeType,
       networkId,
@@ -840,7 +870,7 @@ trait SharedTestObjects {
     happy: Boolean = false,
     investigate: Boolean = false
   ): LocationChanges = {
-    TestObjects.newLocationChanges(
+    LocationChanges(
       routeType,
       locationNames,
       routeChanges,
@@ -856,7 +886,7 @@ trait SharedTestObjects {
     happy: Boolean = false,
     investigate: Boolean = false
   ): ChangeSetElementRef = {
-    TestObjects.newChangeSetElementRef(
+    ChangeSetElementRef(
       id,
       name,
       happy,
@@ -892,10 +922,11 @@ trait SharedTestObjects {
     networkReferences: Seq[Reference] = Seq.empty,
     edges: Seq[RouteEdge] = Seq.empty,
   ): RouteDoc = {
-    TestObjects.newRouteDoc(
-      summary,
+    RouteDoc(
+      summary.id,
       active,
       labels,
+      summary,
       proposed,
       version,
       changeSetId,
@@ -919,6 +950,7 @@ trait SharedTestObjects {
       parentRoutes,
       networkReferences,
       edges,
+      None,
     )
   }
 
@@ -950,9 +982,10 @@ trait SharedTestObjects {
     bounds: Option[Bounds] = None,
     subRouteIds: Seq[Long] = Seq.empty
   ): BaseRouteDoc = {
-    TestObjects.newBaseRouteDoc(
-      summary,
+    BaseRouteDoc(
+      summary.id,
       active,
+      summary,
       proposed,
       version,
       changeSetId,
@@ -985,7 +1018,7 @@ trait SharedTestObjects {
     added: Seq[Ref] = Seq.empty,
     remaining: Seq[Ref] = Seq.empty
   ): NodeRouteReferenceDiffs = {
-    TestObjects.newNodeRouteReferenceDiffs(
+    NodeRouteReferenceDiffs(
       removed,
       added,
       remaining
@@ -1002,7 +1035,8 @@ trait SharedTestObjects {
     location: Location = Location.empty,
     tiles: Seq[String] = Seq.empty
   ): Poi = {
-    TestObjects.newPoi(
+    Poi(
+      s"$elementType:$elementId",
       elementType,
       elementId,
       latitude,
@@ -1011,18 +1045,23 @@ trait SharedTestObjects {
       tags,
       location,
       tiles,
+      None,
+      None,
+      link = false,
+      image = false
     )
   }
 
   def legEndRoute(routeId: Long, pathId: Long): LegEndRoute = {
-    TestObjects.legEndRoute(routeId, pathId)
+    LegEndRoute(List(TrackPathKey(routeId, pathId)), None)
   }
 
   def newMonitorGroup(
     name: String,
     description: String = ""
   ): MonitorGroup = {
-    TestObjects.newMonitorGroup(
+    MonitorGroup(
+      ObjectId(),
       name,
       description
     )
@@ -1050,7 +1089,8 @@ trait SharedTestObjects {
     relation: Option[MonitorRouteRelation] = None,
     happy: Boolean = false
   ): MonitorRoute = {
-    TestObjects.newMonitorRoute(
+    MonitorRoute(
+      ObjectId(),
       groupId,
       name,
       description,
@@ -1063,8 +1103,8 @@ trait SharedTestObjects {
       analysisDuration,
       referenceType,
       referenceTimestamp,
-      referenceDistance,
       referenceFilename,
+      referenceDistance,
       deviationDistance,
       deviationCount,
       osmSegmentCount,
@@ -1088,7 +1128,7 @@ trait SharedTestObjects {
     happy: Boolean = false,
     relations: Seq[MonitorRouteRelation] = Seq.empty
   ): MonitorRouteRelation = {
-    TestObjects.newMonitorRouteRelation(
+    MonitorRouteRelation(
       relationId,
       name,
       role,
@@ -1117,7 +1157,7 @@ trait SharedTestObjects {
     happy: Boolean = false,
     investigate: Boolean = false
   ): MonitorRouteChange = {
-    TestObjects.newMonitorRouteChange(
+    MonitorRouteChange(
       key,
       wayCount,
       waysAdded,
@@ -1145,7 +1185,8 @@ trait SharedTestObjects {
     filename: Option[String] = None,
     referenceLines: Seq[String] = Seq.empty
   ): MonitorRouteReference = {
-    TestObjects.newMonitorRouteReference(
+    MonitorRouteReference(
+      ObjectId(),
       routeId,
       relationId,
       timestamp,
@@ -1157,6 +1198,7 @@ trait SharedTestObjects {
       segmentCount,
       filename,
       referenceLines,
+      None,
     )
   }
 
@@ -1169,7 +1211,7 @@ trait SharedTestObjects {
     matchesDistance: Long = 0,
     matchesLines: Seq[String] = Seq.empty,
   ): MonitorRouteState = {
-    TestObjects.newMonitorRouteState(
+    MonitorRouteState(
       _id,
       routeId,
       relationId,
@@ -1187,7 +1229,7 @@ trait SharedTestObjects {
     longName: Option[String] = None,
     proposed: Boolean = false
   ): NodeName = {
-    TestObjects.newNodeName(
+    NodeName(
       routeType,
       routeScope,
       name,
@@ -1202,12 +1244,7 @@ trait SharedTestObjects {
     changeSetId: Long = 1,
     name: String
   ): NetworkData = {
-    TestObjects.newNetworkData(
-      version,
-      timestamp,
-      changeSetId,
-      name
-    )
+    NetworkData(MetaData(version, timestamp, changeSetId), name)
   }
 
   def newNetworkDoc(
@@ -1224,7 +1261,7 @@ trait SharedTestObjects {
     extraRelationIds: Seq[Long] = Seq.empty,
     members: Seq[RawMember] = Seq.empty
   ): NetworkDoc = {
-    TestObjects.newNetworkDoc(
+    NetworkDoc(
       _id,
       active,
       country,
@@ -1236,7 +1273,8 @@ trait SharedTestObjects {
       extraNodeIds,
       extraWayIds,
       extraRelationIds,
-      members
+      members,
+      None
     )
   }
 
@@ -1248,7 +1286,7 @@ trait SharedTestObjects {
     nodeCount: Long = 0,
     routeCount: Long = 0,
   ): NetworkSummary = {
-    TestObjects.newNetworkSummary(
+    NetworkSummary(
       name,
       routeType,
       routeScope,
@@ -1273,7 +1311,7 @@ trait SharedTestObjects {
     expectedRouteCount: Option[Long] = None,
     facts: Seq[Fact] = Seq.empty
   ): NetworkInfoNodeDetail = {
-    TestObjects.newNetworkInfoNodeDetail(
+    NetworkInfoNodeDetail(
       id,
       name,
       longName,
@@ -1305,7 +1343,7 @@ trait SharedTestObjects {
     tags: Seq[Tag] = Seq.empty,
     nodeRefs: Seq[Long] = Seq.empty
   ): NetworkRouteDetail = {
-    TestObjects.newNetworkRouteDetail(
+    NetworkRouteDetail(
       id,
       name,
       length,
@@ -1338,7 +1376,7 @@ trait SharedTestObjects {
     connectionCount: Long = 0,
     center: Option[LatLonImpl] = None
   ): NetworkDetail = {
-    TestObjects.newNetworkDetail(
+    NetworkDetail(
       km,
       meters,
       version,
@@ -1367,7 +1405,9 @@ trait SharedTestObjects {
     lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty
   ): OrphanNodeDoc = {
-    TestObjects.newOrphanNodeDoc(
+    val _id = s"${country.entryName}:${routeType.entryName}:$nodeId"
+    OrphanNodeDoc(
+      _id,
       country,
       routeType,
       nodeId,
@@ -1390,10 +1430,10 @@ trait SharedTestObjects {
     lastSurvey: Option[Day] = None,
     lastUpdated: Timestamp = Timestamps.default
   ): OrphanRouteDoc = {
-    TestObjects.newOrphanRouteDoc(
+    OrphanRouteDoc(
       _id,
       country,
-      routeType,
+      Seq(routeType),
       name,
       meters,
       facts,
@@ -1410,10 +1450,10 @@ trait SharedTestObjects {
     impact: Long,
     total: Long
   ): ChangeSetCount2 = {
-    TestObjects.newChangeSetCount(
+    ChangeSetCount2(
       year,
       month,
-      day)(
+      day,
       impact,
       total
     )
@@ -1425,11 +1465,11 @@ trait SharedTestObjects {
     role: Option[String] = None,
     relations: Seq[RouteRelation] = Seq.empty
   ): RouteRelation = {
-    TestObjects.newRouteRelation(
+    RouteRelation(
       relationId,
       name,
       role,
-      relations
+      if (relations.nonEmpty) Some(relations) else None
     )
   }
 
@@ -1444,7 +1484,7 @@ trait SharedTestObjects {
     isOnewayHead: Boolean = false,
     isOnewayTail: Boolean = false,
   ): Link = {
-    TestObjects.newLink(
+    Link(
       memberIndex,
       direction,
       hasPrev,
@@ -1458,7 +1498,11 @@ trait SharedTestObjects {
   }
 
   def newChangeSetContext(): ChangeSetContext = {
-    TestObjects.newChangeSetContext()
+    ChangeSetContext(
+      ReplicationId(1),
+      newChangeSet(),
+      ElementIds()
+    )
   }
 
   def newRouteTileData(
@@ -1472,7 +1516,7 @@ trait SharedTestObjects {
     proposed: Boolean = false,
     segments: Seq[RouteTileSegment] = Seq.empty
   ): RouteTileData = {
-    TestObjects.newRouteTileData(
+    RouteTileData(
       z,
       x,
       y,
@@ -1489,9 +1533,11 @@ trait SharedTestObjects {
     id: Long = 0,
     name: String = "",
   ): RouteNodeAnalysis = {
-    TestObjects.newRouteNodeAnalysis(
-      id,
-      name
+    RouteNodeAnalysis(
+      node = newNode(id),
+      name = name,
+      alternateName = "",
+      isInWay = false,
     )
   }
 
@@ -1503,7 +1549,7 @@ trait SharedTestObjects {
     bounds: Bounds = Bounds(),
     elementIds: Seq[Long] = Seq.empty,
   ): BaseRouteSegment = {
-    TestObjects.newBaseRouteSegment(
+    BaseRouteSegment(
       id,
       startNodeId,
       endNodeId,
@@ -1521,7 +1567,7 @@ trait SharedTestObjects {
     meters: Long = 0,
     coordinates: String = ""
   ): BaseRouteSegmentElement = {
-    TestObjects.newBaseRouteSegmentElement(
+    BaseRouteSegmentElement(
       segmentId,
       segmentElementId,
       surface,

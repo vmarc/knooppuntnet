@@ -9,8 +9,9 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.repository.RouteRepository
 import org.scalamock.handlers.CallHandler1
+import org.scalamock.scalatest.MockFactory
 
-class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with SharedTestObjects {
+class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with SharedTestObjects with MockFactory {
 
   test("process tile updates") {
     // setup

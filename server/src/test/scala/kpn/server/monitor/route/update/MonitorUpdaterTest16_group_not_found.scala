@@ -14,7 +14,7 @@ class MonitorUpdaterTest16_group_not_found extends MonitorUpdateTest {
 
     executeMonitorUpdate(reporter)
 
-    verifyDocumentCounts()
+    verifyDocumentCounts(0, 0, 0)
     verifyReporterMessages(reporter)
   }
 
@@ -35,12 +35,6 @@ class MonitorUpdaterTest16_group_not_found extends MonitorUpdateTest {
         )
       )
     )
-  }
-
-  private def verifyDocumentCounts() = {
-    database.monitorRoutes.countDocuments() should equal(0)
-    database.monitorRouteReferences.countDocuments() should equal(0)
-    database.monitorRouteStates.countDocuments() should equal(0)
   }
 
   private def verifyReporterMessages(reporter: MonitorUpdateReporterMock): Unit = {

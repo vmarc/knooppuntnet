@@ -4,7 +4,6 @@ import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.core.common.Time
-import kpn.core.doc.SuperSegment
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
@@ -25,7 +24,7 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
 
     executeAdd(group, reporter)
 
-    verifyDocumentCounts()
+    verifyDocumentCounts(1, 1, 1)
     val route = verifyRoute(group)
     verifyReference(route)
     verifyState(route)
@@ -49,12 +48,6 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
         )
       )
     )
-  }
-
-  private def verifyDocumentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
   }
 
   private def verifyRoute(group: MonitorGroup): MonitorRoute = {
@@ -156,8 +149,8 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
   }
 
   private def setup(): (MonitorGroup, MonitorUpdateReporterMock) = {
-    setupBaseRouteDoc()
-    setupRouteDoc()
+    configuration.routeRepository.saveBaseRoute(route1.baseRouteDoc)
+    configuration.routeRepository.saveRoute(route1.routeDoc)
 
     val group = newMonitorGroup("group")
     configuration.monitorGroupRepository.saveGroup(group)
@@ -166,40 +159,5 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
 
     val reporter = new MonitorUpdateReporterMock()
     (group, reporter)
-  }
-
-  private def setupBaseRouteDoc(): Unit = {
-    configuration.routeRepository.saveBaseRoute(
-      newBaseRouteDoc(
-        newRouteSummary(route1.relationId),
-        segments = Seq(
-          newBaseRouteSegment(1)
-        ),
-        segmentElements = Seq(
-          newBaseRouteSegmentElement(
-            segmentId = 1,
-            segmentElementId = 1,
-            meters = route1.meters,
-            coordinates = route1.coordinateString
-          )
-        ),
-        bounds = Some(route1.bounds)
-      )
-    )
-  }
-
-  private def setupRouteDoc(): Unit = {
-    configuration.routeRepository.saveRoute(
-      newRouteDoc(
-        newRouteSummary(1, name = "route-name"),
-        superDistance = route1.meters,
-        routeIds = Seq(route1.relationId),
-        superSegments = Seq(
-          SuperSegment(
-            Seq.empty
-          )
-        )
-      )
-    )
   }
 }

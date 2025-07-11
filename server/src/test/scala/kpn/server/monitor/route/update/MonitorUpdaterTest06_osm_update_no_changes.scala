@@ -24,7 +24,7 @@ class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
 
     executeMonitorUpdate(group, reporter)
 
-    verifyDocumentCounts()
+    verifyDocumentCounts(1, 1, 1)
     verifyRouteNotChanged(group, route)
     verifyReferenceNotChanged(route, reference)
     verifyStateNotChanged(route, state)
@@ -47,12 +47,6 @@ class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
         )
       )
     )
-  }
-
-  private def verifyDocumentCounts(): Unit = {
-    database.monitorRoutes.countDocuments() should equal(1)
-    database.monitorRouteReferences.countDocuments() should equal(1)
-    database.monitorRouteStates.countDocuments() should equal(1)
   }
 
   private def verifyRouteNotChanged(group: MonitorGroup, route: MonitorRoute): Unit = {
