@@ -1,16 +1,11 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
-import kpn.api.custom.Tags
 import kpn.core.common.Time
-import kpn.core.data.DataBuilder
 import kpn.core.doc.SuperSegment
-import kpn.core.test.OverpassData
-import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newMonitorRoute
 import kpn.core.test.TestObjects.newMonitorRouteReference
@@ -101,7 +96,7 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
           active("analyze-route-structure")
         ),
         message(
-          add("1", Some("1/1 route")),
+          add("1", Some("1/1 route-name")),
           add("save")
         ),
         message(
@@ -164,35 +159,12 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
   }
 
   private def setupStructureLoader(): Unit = {
-
-    val overpassData = OverpassData()
-      .relation(
-        route1.relationId,
-        tags = Tags.from(
-          "name" -> "route"
-        ),
-      )
-
-    setupRouteStructure(Some(ReferenceTimestamp2), overpassData, route1.relationId)
+    val monitorRouteRelation = route1.overpassStructure
+    (configuration.monitorRouteStructureLoader.load _).when(Some(ReferenceTimestamp2), route1.relationId).returns(Some(monitorRouteRelation))
   }
 
   private def setupLoadTopLevel(): Unit = {
-
-    val overpassData = OverpassData()
-      .node(1001, latitude = route1.lat1, longitude = route1.lon1)
-      .node(1002, latitude = route1.lat2, longitude = route1.lon2)
-      .way(101, 1001, 1002)
-      .relation(
-        route1.relationId,
-        tags = Tags.from(
-          "name" -> "route"
-        ),
-        members = Seq(
-          newMember(MemberType.Way, 101),
-        )
-      )
-
-    val relation = new DataBuilder(overpassData.rawData).data.relations(route1.relationId)
+    val relation = route1.overpassTopLevel
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp2), route1.relationId).returns(None)
   }
 

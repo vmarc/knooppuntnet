@@ -1,18 +1,13 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.custom.Tags
 import kpn.core.common.Time
-import kpn.core.data.DataBuilder
 import kpn.core.doc.SuperSegment
-import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteSegment
 import kpn.core.test.TestObjects.newBaseRouteSegmentElement
-import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newMonitorRoute
 import kpn.core.test.TestObjects.newMonitorRouteReference
@@ -247,33 +242,12 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
   }
 
   private def setupLoadStructure(): Unit = {
-    val overpassData = OverpassData()
-      .relation(
-        route2.relationId,
-        tags = Tags.from(
-          "name" -> "route-name"
-        )
-      )
-    setupRouteStructure(Some(ReferenceTimestamp1), overpassData, route2.relationId)
+    val monitorRouteRelation = route2.overpassStructure
+    (configuration.monitorRouteStructureLoader.load _).when(Some(ReferenceTimestamp1), route2.relationId).returns(Some(monitorRouteRelation))
   }
 
   private def setupLoadTopLevel(): Unit = {
-
-    val overpassData = OverpassData()
-      .node(1001, latitude = route2.lat1, longitude = route2.lon1)
-      .node(1002, latitude = route2.lat2, longitude = route2.lon2)
-      .way(101, 1001, 1002)
-      .relation(
-        route2.relationId,
-        tags = Tags.from(
-          "name" -> "route-name"
-        ),
-        members = Seq(
-          newMember(MemberType.Way, 101),
-        )
-      )
-
-    val relation = new DataBuilder(overpassData.rawData).data.relations(route2.relationId)
+    val relation = route2.overpassTopLevel
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), route2.relationId).returns(Some(relation))
   }
 

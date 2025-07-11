@@ -1,14 +1,9 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.custom.Tags
 import kpn.core.common.Time
-import kpn.core.data.DataBuilder
-import kpn.core.test.OverpassData
-import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -211,31 +206,12 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
   }
 
   private def setupLoadStructure(): Unit = {
-    val overpassData = OverpassData()
-      .relation(
-        route1.relationId,
-        tags = Tags.from(
-          "name" -> "route-name"
-        ),
-      )
-    setupRouteStructure(Some(ReferenceTimestamp1), overpassData, route1.relationId)
+    val monitorRouteRelation = route1.overpassStructure
+    (configuration.monitorRouteStructureLoader.load _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(monitorRouteRelation))
   }
 
   private def setupLoadTopLevel(): Unit = {
-    val overpassData = OverpassData()
-      .node(1001, latitude = route1.lat1, longitude = route1.lon1)
-      .node(1002, latitude = route1.lat2, longitude = route1.lon2)
-      .way(101, 1001, 1002)
-      .relation(
-        route1.relationId,
-        tags = Tags.from(
-          "name" -> "route-name"
-        ),
-        members = Seq(
-          newMember(MemberType.Way, 101),
-        )
-      )
-    val relation = new DataBuilder(overpassData.rawData).data.relations(route1.relationId)
+    val relation = route1.overpassTopLevel
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, route1.relationId).returns(Some(relation))
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(relation))
   }

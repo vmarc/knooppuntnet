@@ -1,12 +1,19 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
+import kpn.api.common.data.MemberType
+import kpn.api.common.monitor.MonitorRouteRelation
+import kpn.api.custom.Relation
+import kpn.api.custom.Tags
+import kpn.core.data.DataBuilder
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.SuperSegment
+import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteSegment
 import kpn.core.test.TestObjects.newBaseRouteSegmentElement
+import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
 
@@ -63,5 +70,33 @@ case class MonitorTestRoute(
         )
       )
     )
+  }
+
+  def overpassStructure: MonitorRouteRelation = {
+    val overpassData = OverpassData()
+      .relation(
+        relationId,
+        tags = Tags.from(
+          "name" -> "route-name"
+        ),
+      )
+    MonitorRouteRelation.from(new DataBuilder(overpassData.rawData).data.relations(relationId), None)
+  }
+
+  def overpassTopLevel: Relation = {
+    val overpassData = OverpassData()
+      .node(1001, latitude = lat1, longitude = lon1)
+      .node(1002, latitude = lat2, longitude = lon2)
+      .way(101, 1001, 1002)
+      .relation(
+        relationId,
+        tags = Tags.from(
+          "name" -> "route-name"
+        ),
+        members = Seq(
+          newMember(MemberType.Way, 101),
+        )
+      )
+    new DataBuilder(overpassData.rawData).data.relations(relationId)
   }
 }

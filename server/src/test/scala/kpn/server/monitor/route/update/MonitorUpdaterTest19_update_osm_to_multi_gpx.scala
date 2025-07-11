@@ -225,14 +225,8 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
   }
 
   private def setupLoadStructure(): Unit = {
-    val overpassData = OverpassData()
-      .relation(
-        route1.relationId,
-        tags = Tags.from(
-          "name" -> "route-name"
-        )
-      )
-    setupRouteStructure(Some(ReferenceTimestamp1), overpassData, 1)
+    val monitorRouteRelation = route1.overpassStructure
+    (configuration.monitorRouteStructureLoader.load _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(monitorRouteRelation))
   }
 
   private def setupLoadRelation(): Unit = {
