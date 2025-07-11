@@ -68,6 +68,7 @@ import kpn.api.common.network.NetworkSummary
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.poi.Poi
+import kpn.api.common.route.BaseRouteSegment
 import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.Link
 import kpn.api.common.route.LinkDirection
@@ -93,7 +94,6 @@ import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.BaseRoutePath
-import kpn.core.doc.BaseRouteSegment
 import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail

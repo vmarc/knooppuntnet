@@ -8,12 +8,12 @@ import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.data.Node
+import kpn.api.common.route.BaseRouteSegment
 import kpn.api.common.route.RouteEdge
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedRouteType
 import kpn.core.doc.BaseRoutePath
-import kpn.core.doc.BaseRouteSegment
 import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.doc.RouteRelation
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisSegment

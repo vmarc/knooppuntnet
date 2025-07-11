@@ -68,19 +68,11 @@ class MonitorUpdate(
       return
     }
 
-    if (args.update.referenceType == MonitorReferenceType.osm) {
-      if (args.update.referenceNow.contains(true)) {
-        monitorOsmNowUpdate.execute(group, args, route, updatedRoute, now, analysisStartMillis)
-      }
-      else {
-        monitorOsmUpdate.execute(args, route, updatedRoute, now, analysisStartMillis)
-      }
-    }
-    if (args.update.referenceType == MonitorReferenceType.gpx) {
-      monitorGpxUpdate.execute(args, route, updatedRoute, now)
-    }
-    if (args.update.referenceType == MonitorReferenceType.multiGpx) {
-      monitorMultiGpxUpdate.execute(args, route, updatedRoute, now)
+    args.update.referenceType match {
+      case MonitorReferenceType.osmNow => monitorOsmNowUpdate.execute(group, args, route, updatedRoute, now, analysisStartMillis)
+      case MonitorReferenceType.osm => monitorOsmUpdate.execute(args, route, updatedRoute, now, analysisStartMillis)
+      case MonitorReferenceType.gpx => monitorGpxUpdate.execute(args, route, updatedRoute, now)
+      case MonitorReferenceType.multiGpx => monitorMultiGpxUpdate.execute(args, route, updatedRoute, now)
     }
   }
 
@@ -115,17 +107,11 @@ class MonitorUpdate(
   }
 
   private def initReporter(args: MonitorUpdateArgs): Unit = {
-    val message = if (args.update.referenceType == MonitorReferenceType.osm) {
-      monitorOsmUpdate.initialMessage
-    }
-    else if (args.update.referenceType == MonitorReferenceType.gpx) {
-      monitorGpxUpdate.initialMessage
-    }
-    else if (args.update.referenceType == MonitorReferenceType.multiGpx) {
-      monitorMultiGpxUpdate.initialMessage
-    }
-    else {
-      throw new RuntimeException(s"invalid reference type ${args.update.referenceType} for update")
+    val message = args.update.referenceType match {
+      case MonitorReferenceType.osmNow => monitorOsmNowUpdate.initialMessage
+      case MonitorReferenceType.osm => monitorOsmUpdate.initialMessage
+      case MonitorReferenceType.gpx => monitorGpxUpdate.initialMessage
+      case MonitorReferenceType.multiGpx => monitorMultiGpxUpdate.initialMessage
     }
     args.reporter.report(message)
   }

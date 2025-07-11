@@ -1,7 +1,6 @@
 package kpn.api.common.route
 
 import kpn.api.custom.Day
-import kpn.core.doc.BaseRouteSegment
 
 case class RouteStructureRelation(
   level: Long,

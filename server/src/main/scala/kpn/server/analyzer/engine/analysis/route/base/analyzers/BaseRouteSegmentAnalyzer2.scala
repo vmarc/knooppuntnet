@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.common.Bounds
+import kpn.api.common.route.BaseRouteSegment
 import kpn.core.doc.BaseRoutePath
-import kpn.core.doc.BaseRouteSegment
 import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.util.Haversine
 import kpn.core.util.Util

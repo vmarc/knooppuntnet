@@ -128,10 +128,7 @@ export class MonitorRouteForm {
         relationIdKnown: !!this.initialProperties.relationId,
         relationId: this.initialProperties.relationId,
       });
-      let referenceType = this.initialProperties.referenceType;
-      if (referenceType === 'osm') {
-        referenceType = 'osm-past';
-      }
+      const referenceType = this.initialProperties.referenceType;
       this.referenceTypeForm.setValue({
         referenceType: referenceType,
       });
@@ -182,12 +179,10 @@ export class MonitorRouteForm {
     }
 
     let referenceType: MonitorReferenceType = undefined;
-    let referenceNow = false;
     let referenceTimestamp: Timestamp = null;
     if (this.referenceType.value === 'osm-now') {
-      referenceType = 'osm';
-      referenceNow = true;
-    } else if (this.referenceType.value === 'osm-past') {
+      referenceType = 'osm-now';
+    } else if (this.referenceType.value === 'osm') {
       referenceType = 'osm';
       referenceTimestamp = TimestampUtil.toTimestamp(this.osmReferenceDate.value);
     } else if (this.referenceType.value === 'gpx') {
@@ -217,7 +212,6 @@ export class MonitorRouteForm {
       description: this.description.value,
       comment: this.comment.value,
       relationId,
-      referenceNow,
       referenceTimestamp,
       referenceFilename: this.referenceFilename.value,
       referenceGpx,

@@ -2,6 +2,6 @@
 
 export type MonitorReferenceType =
   | 'osm'
-  | 'osm-past'
+  | 'osm-now'
   | 'gpx'
   | 'multi-gpx';

@@ -28,7 +28,7 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
         </p>
       </div>
 
-      <div [ngClass]="{ hidden: referenceType.value !== 'osm-past' }">
+      <div [ngClass]="{ hidden: referenceType.value !== 'osm' }">
         @if (oldReferenceTimestamp) {
           <p class="kpn-spacer-below">
             <span

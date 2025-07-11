@@ -10,7 +10,6 @@ case class MonitorRouteUpdate(
   description: Option[String] = None,
   comment: Option[String] = None,
   relationId: Option[Long] = None,
-  referenceNow: Option[Boolean] = None,
   referenceTimestamp: Option[Timestamp] = None,
   referenceFilename: Option[String] = None,
   referenceGpx: Option[String] = None,

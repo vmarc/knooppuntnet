@@ -41,11 +41,10 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
           action = MonitorAction.add,
           groupName = group.name,
           routeName = "route-name",
-          referenceType = MonitorReferenceType.osm,
+          referenceType = MonitorReferenceType.osmNow,
           description = Some("route-description"),
           comment = Some("route-comment"),
           relationId = Some(route1.relationId),
-          referenceNow = Some(true),
         )
       )
     )

@@ -12,7 +12,6 @@ export interface MonitorRouteUpdate {
   readonly description?: string;
   readonly comment?: string;
   readonly relationId?: number;
-  readonly referenceNow?: boolean;
   readonly referenceTimestamp?: Timestamp;
   readonly referenceFilename?: string;
   readonly referenceGpx?: string;

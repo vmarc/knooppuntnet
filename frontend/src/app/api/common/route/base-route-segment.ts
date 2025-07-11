@@ -2,10 +2,11 @@
 
 import { Bounds } from '@api/common/bounds';
 
-export interface MonitorRouteDeviation {
+export interface BaseRouteSegment {
   readonly id: number;
+  readonly startNodeId: number;
+  readonly endNodeId: number;
   readonly meters: number;
-  readonly distance: number;
   readonly bounds: Bounds;
-  readonly lines: string[];
+  readonly elementIds: number[];
 }

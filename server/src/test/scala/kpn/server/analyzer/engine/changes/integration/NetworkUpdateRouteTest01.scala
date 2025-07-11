@@ -19,6 +19,7 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
+import kpn.api.common.route.BaseRouteSegment
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.RouteNodes
@@ -31,7 +32,6 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseRoutePath
-import kpn.core.doc.BaseRouteSegment
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseRouteDoc

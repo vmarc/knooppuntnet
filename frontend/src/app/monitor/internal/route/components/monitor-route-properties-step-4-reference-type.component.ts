@@ -44,10 +44,10 @@ import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
         </label>
         <label
           nz-radio
-          id="reference-type.osm-past"
+          id="reference-type.osm"
           class="answer"
-          nzValue="osm-past"
-          i18n="@@monitor.route.properties.reference-type.osm-past"
+          nzValue="osm"
+          i18n="@@monitor.route.properties.reference-type.osm"
         >
           The OSM relation at a given moment in the past
         </label>

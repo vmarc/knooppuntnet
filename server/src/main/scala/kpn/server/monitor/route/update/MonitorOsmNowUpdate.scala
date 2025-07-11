@@ -17,7 +17,7 @@ class MonitorOsmNowUpdate(
 
   private val log = Log(classOf[MonitorOsmNowUpdate])
 
-  def initialMessage(): MonitorRouteUpdateStatusMessage = {
+  def initialMessage: MonitorRouteUpdateStatusMessage = {
     MonitorRouteUpdateStatusMessage(
       commands = Seq(
         MonitorRouteUpdateStatusCommand("step-add", "prepare"),
