@@ -152,11 +152,9 @@ class MonitorUpdaterConfiguration(
   )
 
   val monitorUpdateAnalysis = new MonitorUpdateAnalysis(
+    routeRepository,
     monitorRouteRepository,
-    monitorUpdateStructure,
-    monitorUpdateAnalyzeReference,
-    monitorUpdateCommon,
-    monitorUpdateSave
+    monitorRouteDeviationAnalyzer,
   )
 
   val monitorRouteUpdateExecutor = new MonitorRouteUpdateExecutor(

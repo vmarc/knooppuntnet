@@ -105,23 +105,6 @@ class MonitorUpdateCommon(
     }
   }
 
-  def removeObsoleteStates(context: MonitorContext): Unit = {
-    context.value.newRoute match {
-      case None =>
-      case Some(newRoute) =>
-        val allRelationIds = newRoute.relationId.toSeq ++ MonitorUtil.subRelationsIn(newRoute).map(_.relationId)
-        if (allRelationIds.isEmpty) {
-          monitorRouteRepository.deleteRouteStates(newRoute._id)
-        }
-        else {
-          val obsoleteStateIds = context.value.oldStateIds.filterNot(id => allRelationIds.contains(id.relationId))
-          obsoleteStateIds.foreach { stateId =>
-            monitorRouteRepository.deleteRouteStateById(stateId._id)
-          }
-        }
-    }
-  }
-
   def composeProcessList(monitorRouteRelation: MonitorRouteRelation): Seq[MonitorRouteRelation] = {
     if (monitorRouteRelation.relations.isEmpty) {
       Seq(monitorRouteRelation)

@@ -3,6 +3,7 @@ package kpn.core.tools.monitor
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
+import kpn.core.tools.monitor.MonitorUpdateTool.log
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Options
@@ -58,10 +59,10 @@ class MonitorUpdateTool(
 
   def testUpdate(groupName: String, routeName: String): Unit = {
     configuration.monitorGroupRepository.groupByName(groupName) match {
-      case None => MonitorUpdateTool.log.error(s"group not found: $groupName")
+      case None => log.error(s"group not found: $groupName")
       case Some(group) =>
         configuration.monitorRouteRepository.routeByName(group._id, routeName) match {
-          case None => MonitorUpdateTool.log.error(s"route not found: $groupName, $routeName")
+          case None => log.error(s"route not found: $groupName, $routeName")
           case Some(route) => updateAnalysis(group, route)
         }
     }
@@ -77,6 +78,11 @@ class MonitorUpdateTool(
   }
 
   private def updateAnalysis(group: MonitorGroup, route: MonitorRoute): Unit = {
-    configuration.monitorUpdateAnalysis.updateAnalysis(group, route)
+    Log.context(s"${group.name}, ${route.name}") {
+      log.infoElapsed {
+        configuration.monitorUpdateAnalysis.updateAnalysis(route)
+        ("analysis completed", ())
+      }
+    }
   }
 }
