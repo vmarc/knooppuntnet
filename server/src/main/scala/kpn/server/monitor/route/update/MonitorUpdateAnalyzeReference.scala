@@ -21,6 +21,7 @@ class MonitorUpdateAnalyzeReference(
   monitorRouteRelationRepository: MonitorRouteRelationRepository,
   monitorRouteOsmSegmentAnalyzer: MonitorRouteOsmSegmentAnalyzer,
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
+  monitorStateBuilder: MonitorStateBuilder
 ) {
 
   private val log = Log(classOf[MonitorUpdateAnalyzeReference])
@@ -45,14 +46,17 @@ class MonitorUpdateAnalyzeReference(
     }
 
     Some(
-      MonitorState(
-        id,
-        context.value.routeId,
-        relationId,
-        Time.now,
-        deviationAnalysis.deviations,
-        deviationAnalysis.matchesDistance,
-        deviationAnalysis.matchesLines,
+      monitorStateBuilder.build(
+        MonitorState(
+          id,
+          context.value.routeId,
+          relationId,
+          Time.now,
+          deviationAnalysis.deviations,
+          deviationAnalysis.matchesDistance,
+          deviationAnalysis.matchesLines,
+          Seq.empty
+        )
       )
     )
   }

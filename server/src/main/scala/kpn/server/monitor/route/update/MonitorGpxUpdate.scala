@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class MonitorGpxUpdate(
-  monitorStore: MonitorStore,
   routeRepository: RouteRepository,
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
@@ -30,6 +29,8 @@ class MonitorGpxUpdate(
   monitorUpdateSave: MonitorUpdateSave,
   monitorGpxAnalyze: MonitorGpxAnalyze,
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
+  monitorReferenceBuilder: MonitorReferenceBuilder,
+  monitorStateBuilder: MonitorStateBuilder
 ) {
 
   private val log = Log(classOf[MonitorGpxUpdate])
@@ -51,10 +52,13 @@ class MonitorGpxUpdate(
         case None => throw new RuntimeException(s"Could not find reference for route ${route._id}")
         case Some(reference) =>
 
-          val updatedReference = reference.copy(
-            relationId = Some(args.relationId),
+          monitorRouteRepository.saveReference(
+            monitorReferenceBuilder.build(
+              reference.copy(
+                relationId = Some(args.relationId),
+              )
+            )
           )
-          monitorStore.saveReference(updatedReference)
 
           val referenceLines = reference.referenceLines.map(CoordinateUtil.coordinatesToLineString)
 
@@ -68,16 +72,20 @@ class MonitorGpxUpdate(
 
           val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
 
-          val state = MonitorState(
-            ObjectId(),
-            route._id,
-            args.relationId,
-            now,
-            deviationAnalysis.deviations,
-            deviationAnalysis.matchesDistance,
-            deviationAnalysis.matchesLines,
+          monitorRouteRepository.saveState(
+            monitorStateBuilder.build(
+              MonitorState(
+                ObjectId(),
+                route._id,
+                args.relationId,
+                now,
+                deviationAnalysis.deviations,
+                deviationAnalysis.matchesDistance,
+                deviationAnalysis.matchesLines,
+                Seq.empty
+              )
+            )
           )
-          monitorStore.saveState(state)
 
           val happy = deviationAnalysis.deviations.isEmpty && routeDoc.superDistance == reference.referenceDistance && routeDoc.superDistance > 0
 

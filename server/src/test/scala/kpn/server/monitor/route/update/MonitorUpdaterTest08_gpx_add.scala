@@ -106,7 +106,8 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename"),
-        referenceLines = route1.lines
+        referenceLines = route1.lines,
+        tiles = route1.referenceTiles
       )
     )
   }
@@ -124,6 +125,7 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = route1.meters,
         matchesLines = route1.lines,
+        tiles = route1.stateTiles
       )
     )
   }

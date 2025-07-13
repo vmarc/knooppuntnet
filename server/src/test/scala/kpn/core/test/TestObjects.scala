@@ -113,9 +113,11 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
+import kpn.server.monitor.domain.MonitorReferenceTile
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorState
+import kpn.server.monitor.domain.MonitorStateTile
 
 object TestObjects {
 
@@ -1183,7 +1185,8 @@ object TestObjects {
     distance: Long = 0,
     segmentCount: Long = 0,
     filename: Option[String] = None,
-    referenceLines: Seq[String] = Seq.empty
+    referenceLines: Seq[String] = Seq.empty,
+    tiles: Seq[MonitorReferenceTile] = Seq.empty,
   ): MonitorReference = {
     MonitorReference(
       ObjectId(),
@@ -1197,7 +1200,8 @@ object TestObjects {
       distance,
       segmentCount,
       filename,
-      referenceLines
+      referenceLines,
+      tiles
     )
   }
 
@@ -1209,6 +1213,7 @@ object TestObjects {
     deviations: Seq[MonitorRouteDeviation] = Seq.empty,
     matchesDistance: Long = 0,
     matchesLines: Seq[String] = Seq.empty,
+    tiles: Seq[MonitorStateTile] = Seq.empty
   ): MonitorState = {
     MonitorState(
       _id,
@@ -1218,6 +1223,7 @@ object TestObjects {
       deviations,
       matchesDistance,
       matchesLines,
+      tiles
     )
   }
 

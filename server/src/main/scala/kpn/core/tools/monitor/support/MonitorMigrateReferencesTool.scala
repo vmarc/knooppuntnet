@@ -4,9 +4,11 @@ import kpn.api.base.ObjectId
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
-import kpn.server.monitor.route.update.MonitorStore
+import kpn.server.monitor.route.update.MonitorReferenceBuilder
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.LineString
@@ -23,9 +25,9 @@ object MonitorMigrateReferencesTool {
 class MonitorMigrateReferencesTool(database: Database) {
   private val log = Log(classOf[MonitorMigrateReferencesTool])
   private val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
-  private val monitorStore = new MonitorStore(
-    monitorRouteRepository,
-  )
+  private val routeTileCache = new RouteTileCache()
+  private val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
+  private val referenceBuilder = new MonitorReferenceBuilder(lineSegmentTileCalculator)
 
   def migrate(): Unit = {
     val routeIds = database.monitorRoutes.objectIds()
@@ -40,21 +42,25 @@ class MonitorMigrateReferencesTool(database: Database) {
     monitorRouteRepository.oldReferences(routeId).foreach { oldReference =>
       val referenceGeometry = new GeoJsonReader().read(oldReference.referenceGeoJson.get)
       val referenceLines = toReferenceLines(referenceGeometry)
-      val reference = MonitorReference(
-        _id = oldReference._id,
-        routeId = oldReference.routeId,
-        relationId = oldReference.relationId,
-        timestamp = oldReference.timestamp,
-        user = oldReference.user,
-        referenceBounds = oldReference.referenceBounds,
-        referenceType = oldReference.referenceType,
-        referenceTimestamp = oldReference.referenceTimestamp,
-        referenceDistance = oldReference.referenceDistance,
-        referenceSegmentCount = oldReference.referenceSegmentCount,
-        referenceFilename = oldReference.referenceFilename,
-        referenceLines = referenceLines
+      monitorRouteRepository.saveReference(
+        referenceBuilder.build(
+          MonitorReference(
+            _id = oldReference._id,
+            routeId = oldReference.routeId,
+            relationId = oldReference.relationId,
+            timestamp = oldReference.timestamp,
+            user = oldReference.user,
+            referenceBounds = oldReference.referenceBounds,
+            referenceType = oldReference.referenceType,
+            referenceTimestamp = oldReference.referenceTimestamp,
+            referenceDistance = oldReference.referenceDistance,
+            referenceSegmentCount = oldReference.referenceSegmentCount,
+            referenceFilename = oldReference.referenceFilename,
+            referenceLines = referenceLines,
+            Seq.empty
+          )
+        )
       )
-      monitorStore.saveReference(reference)
     }
   }
 

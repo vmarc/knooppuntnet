@@ -97,7 +97,8 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
         referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceLines = route1.lines
+        referenceLines = route1.lines,
+        tiles = route1.referenceTiles
       )
     )
   }
@@ -115,6 +116,7 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = route1.meters,
         matchesLines = route1.lines,
+        tiles = route1.stateTiles
       )
     )
   }

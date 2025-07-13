@@ -121,6 +121,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         referenceSegmentCount = 1,
         referenceFilename = None,
         referenceLines = subRoute11.lines,
+        tiles = subRoute11.referenceTiles
       )
     )
   }
@@ -141,7 +142,8 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         referenceDistance = subRoute12.meters,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceLines = subRoute12.lines
+        referenceLines = subRoute12.lines,
+        tiles = subRoute12.referenceTiles
       )
     )
   }
@@ -164,6 +166,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = subRoute11.meters,
         matchesLines = subRoute11.lines,
+        tiles = subRoute11.stateTiles
       )
     )
   }
@@ -181,6 +184,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = subRoute12.meters,
         matchesLines = subRoute12.lines,
+        tiles = subRoute12.stateTiles
       )
     )
   }

@@ -1,6 +1,8 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
+import kpn.server.monitor.domain.MonitorReferenceTile
+import kpn.server.monitor.domain.MonitorStateTile
 
 object MonitorTestData {
 
@@ -11,7 +13,19 @@ object MonitorTestData {
       lon1 = "4.4553911",
       lat1 = "51.4633666",
       lon2 = "4.4562458",
-      lat2 = "51.4618272"
+      lat2 = "51.4618272",
+      referenceTiles = Seq(
+        MonitorReferenceTile(10, 524, 340, Seq("[[172,181],[172,182]]")),
+        MonitorReferenceTile(11, 1049, 681, Seq("[[88,106],[89,109]]")),
+        MonitorReferenceTile(12, 2098, 1362, Seq("[[177,212],[179,219]]")),
+        MonitorReferenceTile(13, 4197, 2725, Seq("[[1576,2695],[1656,2926]]"))
+      ),
+      stateTiles = Seq(
+        MonitorStateTile(10, 524, 340, Seq.empty, Seq("[[172,181],[172,182]]")),
+        MonitorStateTile(11, 1049, 681, Seq.empty, Seq("[[88,106],[89,109]]")),
+        MonitorStateTile(12, 2098, 1362, Seq.empty, Seq("[[177,212],[179,219]]")),
+        MonitorStateTile(13, 4197, 2725, Seq.empty, Seq("[[1576,2695],[1656,2926]]"))
+      )
     )
   }
 
@@ -22,11 +36,30 @@ object MonitorTestData {
       lon1 = "4.4562458",
       lat1 = "51.4618272",
       lon2 = "4.4550560",
-      lat2 = "51.4614496"
+      lat2 = "51.4614496",
+      referenceTiles = Seq(
+        MonitorReferenceTile(11, 1049, 681, Seq("[[89,109],[88,110]]")),
+        MonitorReferenceTile(12, 2098, 1362, Seq("[[179,219],[176,221]]")),
+        MonitorReferenceTile(13, 4197, 2725, Seq("[[1656,2926],[1545,2982]]")),
+      ),
+      stateTiles = Seq(
+        MonitorStateTile(11, 1049, 681, Seq.empty, Seq("[[89,109],[88,110]]")),
+        MonitorStateTile(12, 2098, 1362, Seq.empty, Seq("[[179,219],[176,221]]")),
+        MonitorStateTile(13, 4197, 2725, Seq.empty, Seq("[[1656,2926],[1545,2982]]")),
+      )
     )
   }
 
-  private def buildMonitorTestRoute(relationId: Long, meters: Long, lon1: String, lat1: String, lon2: String, lat2: String): MonitorTestRoute = {
+  private def buildMonitorTestRoute(
+    relationId: Long,
+    meters: Long,
+    lon1: String,
+    lat1: String,
+    lon2: String,
+    lat2: String,
+    referenceTiles: Seq[MonitorReferenceTile],
+    stateTiles: Seq[MonitorStateTile],
+  ): MonitorTestRoute = {
     val coordinates = Array(Array(lon1, lat1), Array(lon2, lat2))
     val coordinateString: String = {
       coordinates.map(c => c.map(_.toDouble).mkString("[", ",", "]")).mkString("[", ",", "]")
@@ -56,7 +89,9 @@ object MonitorTestData {
            |    </trkseg>
            |  </trk>
            |</gpx>
-           |""".stripMargin
+           |""".stripMargin,
+      referenceTiles = referenceTiles,
+      stateTiles = stateTiles
     )
   }
 }

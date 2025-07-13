@@ -19,4 +19,5 @@ case class MonitorReference(
   referenceSegmentCount: Long,
   referenceFilename: Option[String],
   referenceLines: Seq[String],
+  tiles: Seq[MonitorReferenceTile]
 ) extends WithObjectId

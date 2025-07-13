@@ -13,6 +13,5 @@ case class MonitorRouteAnalysisRelation(
   bounds: Bounds,
   osmSegments: Seq[MonitorRouteSegment],
   referenceGeometry: Option[String],
-  matchesGeometry: Option[String],
   deviations: Seq[MonitorRouteDeviation]
 )

@@ -16,6 +16,8 @@ import kpn.core.test.TestObjects.newBaseRouteSegmentElement
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
+import kpn.server.monitor.domain.MonitorReferenceTile
+import kpn.server.monitor.domain.MonitorStateTile
 
 case class MonitorTestRoute(
   relationId: Long,
@@ -28,6 +30,8 @@ case class MonitorTestRoute(
   lines: Seq[String],
   bounds: Bounds,
   gpx: String,
+  referenceTiles: Seq[MonitorReferenceTile],
+  stateTiles: Seq[MonitorStateTile],
 ) {
   def coordinateString: String = {
     coordinates.map(c => c.map(d => d).mkString("[", ",", "]")).mkString("[", ",", "]")

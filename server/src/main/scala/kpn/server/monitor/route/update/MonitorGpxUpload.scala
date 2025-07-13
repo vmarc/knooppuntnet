@@ -27,11 +27,12 @@ import scala.xml.XML
 
 @Component
 class MonitorGpxUpload(
-  monitorStore: MonitorStore,
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
+  monitorReferenceBuilder: MonitorReferenceBuilder,
+  monitorStateBuilder: MonitorStateBuilder,
 ) {
 
   private val log = Log(classOf[MonitorGpxUpload])
@@ -88,22 +89,25 @@ class MonitorGpxUpload(
     val objectId = monitorRouteRepository.routeRelationReferenceId(route._id, Some(relationId)).getOrElse(ObjectId())
     val referenceLines1 = referenceLineStrings.map(CoordinateUtil.lineStringToCoordinates)
 
-    val reference = MonitorReference(
-      objectId,
-      routeId = route._id,
-      relationId = Some(relationId),
-      timestamp = now,
-      user = args.user,
-      referenceBounds = bounds,
-      referenceType = MonitorReferenceType.gpx,
-      referenceTimestamp = referenceTimestamp,
-      referenceDistance = distance,
-      referenceSegmentCount = segmentCount,
-      referenceFilename = args.update.referenceFilename,
-      referenceLines = referenceLines1
+    val reference = monitorReferenceBuilder.build(
+      MonitorReference(
+        objectId,
+        routeId = route._id,
+        relationId = Some(relationId),
+        timestamp = now,
+        user = args.user,
+        referenceBounds = bounds,
+        referenceType = MonitorReferenceType.gpx,
+        referenceTimestamp = referenceTimestamp,
+        referenceDistance = distance,
+        referenceSegmentCount = segmentCount,
+        referenceFilename = args.update.referenceFilename,
+        referenceLines = referenceLines1,
+        Seq.empty
+      )
     )
 
-    monitorStore.saveReference(reference)
+    monitorRouteRepository.saveReference(reference)
 
     val routeCoordinateArrays = routeRepository.coordinatesArrays(Seq(relationId))
     val routeLines = routeCoordinateArrays.map { coordinateArray =>
@@ -119,15 +123,18 @@ class MonitorGpxUpload(
       case None => ObjectId()
     }
 
-    monitorStore.saveState(
-      MonitorState(
-        stateId,
-        route._id,
-        relationId,
-        now,
-        deviationAnalysis.deviations,
-        deviationAnalysis.matchesDistance,
-        deviationAnalysis.matchesLines,
+    monitorRouteRepository.saveState(
+      monitorStateBuilder.build(
+        MonitorState(
+          stateId,
+          route._id,
+          relationId,
+          now,
+          deviationAnalysis.deviations,
+          deviationAnalysis.matchesDistance,
+          deviationAnalysis.matchesLines,
+          Seq.empty
+        )
       )
     )
 

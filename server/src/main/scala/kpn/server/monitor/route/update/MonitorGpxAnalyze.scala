@@ -22,12 +22,13 @@ import scala.xml.XML
 
 @Component
 class MonitorGpxAnalyze(
-  monitorStore: MonitorStore,
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorOsmAnalyze: MonitorOsmAnalyze,
-  monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer
+  monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
+  monitorReferenceBuilder: MonitorReferenceBuilder,
+  monitorStateBuilder: MonitorStateBuilder,
 ) {
 
   private val log = Log(classOf[MonitorGpxAnalyze])
@@ -55,22 +56,25 @@ class MonitorGpxAnalyze(
     val referenceSegmentCount = geometryCollection.getNumGeometries
     val referenceLines = referenceLineStrings.map(CoordinateUtil.lineStringToCoordinates)
 
-    val reference = MonitorReference(
-      ObjectId(),
-      routeId = route._id,
-      relationId = args.update.relationId,
-      timestamp = now,
-      user = args.user,
-      referenceBounds = referenceBounds,
-      referenceType = MonitorReferenceType.gpx,
-      referenceTimestamp = args.referenceTimestamp,
-      referenceDistance = referenceDistance,
-      referenceSegmentCount = referenceSegmentCount,
-      referenceFilename = args.update.referenceFilename,
-      referenceLines = referenceLines
+    monitorRouteRepository.saveReference(
+      monitorReferenceBuilder.build(
+        MonitorReference(
+          ObjectId(),
+          routeId = route._id,
+          relationId = args.update.relationId,
+          timestamp = now,
+          user = args.user,
+          referenceBounds = referenceBounds,
+          referenceType = MonitorReferenceType.gpx,
+          referenceTimestamp = args.referenceTimestamp,
+          referenceDistance = referenceDistance,
+          referenceSegmentCount = referenceSegmentCount,
+          referenceFilename = args.update.referenceFilename,
+          referenceLines = referenceLines,
+          Seq.empty
+        )
+      )
     )
-
-    monitorStore.saveReference(reference)
 
     args.update.relationId match {
       case Some(relationId) =>
@@ -85,16 +89,20 @@ class MonitorGpxAnalyze(
 
         val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLineStrings)
 
-        val state = MonitorState(
-          ObjectId(),
-          route._id,
-          args.relationId,
-          now,
-          deviationAnalysis.deviations,
-          deviationAnalysis.matchesDistance,
-          deviationAnalysis.matchesLines,
+        monitorRouteRepository.saveState(
+          monitorStateBuilder.build(
+            MonitorState(
+              ObjectId(),
+              route._id,
+              args.relationId,
+              now,
+              deviationAnalysis.deviations,
+              deviationAnalysis.matchesDistance,
+              deviationAnalysis.matchesLines,
+              Seq.empty
+            )
+          )
         )
-        monitorStore.saveState(state)
 
         val happy = deviationAnalysis.deviations.isEmpty && routeDoc.superDistance == referenceDistance && routeDoc.superDistance > 0
 

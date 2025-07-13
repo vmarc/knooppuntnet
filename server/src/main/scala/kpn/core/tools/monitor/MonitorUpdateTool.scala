@@ -7,11 +7,13 @@ import kpn.database.base.Options
 import kpn.database.base.Tool
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzerImpl
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
-import kpn.server.monitor.route.update.MonitorStore
+import kpn.server.monitor.route.update.MonitorStateBuilder
 import kpn.server.monitor.route.update.MonitorUpdateAnalysis
 import kpn.server.repository.RouteRepositoryImpl
 
@@ -37,13 +39,15 @@ class MonitorUpdateTool(database: Database) {
   private val routeRepository = new RouteRepositoryImpl(database)
   private val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
   private val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
-  private val monitorStore = new MonitorStore(monitorRouteRepository)
+  private val routeTileCache = new RouteTileCache()
+  private val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
+  private val monitorStateBuilder = new MonitorStateBuilder(lineSegmentTileCalculator)
   private val monitorRouteDeviationAnalyzer = new MonitorRouteDeviationAnalyzerImpl()
   val monitorUpdateAnalysis = new MonitorUpdateAnalysis(
-    monitorStore,
     routeRepository,
     monitorRouteRepository,
-    monitorRouteDeviationAnalyzer
+    monitorRouteDeviationAnalyzer,
+    monitorStateBuilder
   )
 
   def testUpdate(groupName: String, routeName: String): Unit = {

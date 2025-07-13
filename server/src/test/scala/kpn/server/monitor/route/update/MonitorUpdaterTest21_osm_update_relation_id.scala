@@ -113,7 +113,8 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
         referenceDistance = route2.meters,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceLines = route2.lines
+        referenceLines = route2.lines,
+        tiles = route2.referenceTiles
       )
     )
   }
@@ -131,6 +132,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = route2.meters,
         matchesLines = route2.lines,
+        tiles = route2.stateTiles
       )
     )
   }

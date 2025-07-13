@@ -150,6 +150,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
       deviations = Seq.empty,
       matchesDistance = route1.meters,
       matchesLines = route1.lines,
+      tiles = route1.stateTiles
     )
   }
 
@@ -166,7 +167,8 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
       referenceDistance = route1.meters,
       referenceSegmentCount = 1,
       referenceFilename = None,
-      referenceLines = route1.lines
+      referenceLines = route1.lines,
+      tiles = route1.referenceTiles
     )
   }
 }

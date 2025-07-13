@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class MonitorUpdate(
-  monitorStore: MonitorStore,
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
@@ -122,8 +121,8 @@ class MonitorUpdate(
   }
 
   private def cleanup(route: MonitorRoute, args: MonitorUpdateArgs): MonitorRoute = {
-    monitorStore.deleteReferences(route._id)
-    monitorStore.deleteStates(route._id)
+    monitorRouteRepository.deleteReferences(route._id)
+    monitorRouteRepository.deleteStates(route._id)
     val symbol = args.update.relationId.flatMap(relationId => route.symbol)
     val osmSegmentCount = args.update.relationId.map(relationId => route.osmSegmentCount).getOrElse(0L)
     val osmDistance = args.update.relationId.map(relationId => route.osmDistance).getOrElse(0L)

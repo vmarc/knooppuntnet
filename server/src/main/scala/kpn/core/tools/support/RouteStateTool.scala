@@ -41,8 +41,6 @@ class RouteStateTool(database: Database) {
       ("state", result)
     }
 
-    println(s"matchesGeometry=${Util.humanReadableBytes(routeState.matchesGeometry.map(_.length.toLong).getOrElse(0L))}")
-
     println(s"${routeState.deviations.size} deviations")
     routeState.deviations.foreach { deviation =>
       println(s"  ${deviation.id} ${Util.humanReadableBytes(deviation.lines.map(_.length).sum)}")

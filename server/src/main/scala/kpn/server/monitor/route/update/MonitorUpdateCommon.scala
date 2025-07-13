@@ -5,7 +5,6 @@ import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.core.common.Time
 import kpn.core.util.Log
 import kpn.core.util.Util
-import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorGroupRepository
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class MonitorUpdateCommon(
-  monitorStore: MonitorStore,
   routeRepository: RouteRepository,
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
@@ -66,44 +64,6 @@ class MonitorUpdateCommon(
       osmSegmentCount = superSegmentCount,
       happy = happy
     )
-  }
-
-  def removeObsoleteReferences(context: MonitorContext): MonitorUpdateContext = {
-    context.value.newRoute match {
-      case None => context.value
-      case Some(newRoute) =>
-        val oldReferenceType = context.value.oldRoute.map(_.referenceType)
-        if (newRoute.referenceType == MonitorReferenceType.multiGpx && !oldReferenceType.contains(MonitorReferenceType.multiGpx)) {
-          context.value.oldReferenceIds.foreach { referenceId =>
-            context.deleteRouteReferenceById(referenceId._id)
-            monitorStore.deleteReferenceById(referenceId._id)
-          }
-          context.value.copy(
-            newRoute = Some(newRoute.copy(referenceDistance = 0))
-          )
-        }
-        else {
-          if (newRoute.referenceType == MonitorReferenceType.osm) {
-            val allRelationIds = newRoute.relationId.toSeq ++ MonitorUtil.subRelationsIn(newRoute).map(_.relationId)
-            if (allRelationIds.isEmpty) {
-              monitorStore.deleteReferences(newRoute._id)
-            }
-            else {
-              val obsoleteReferenceIds = context.value.oldReferenceIds.filter { oldReferenceId =>
-                oldReferenceId.relationId match {
-                  case Some(relationId) => !allRelationIds.contains(relationId)
-                  case None => true
-                }
-              }
-              obsoleteReferenceIds.foreach { referenceId =>
-                context.deleteRouteReferenceById(referenceId._id)
-                monitorStore.deleteReferenceById(referenceId._id)
-              }
-            }
-          }
-          context.value
-        }
-    }
   }
 
   def composeProcessList(monitorRouteRelation: MonitorRouteRelation): Seq[MonitorRouteRelation] = {

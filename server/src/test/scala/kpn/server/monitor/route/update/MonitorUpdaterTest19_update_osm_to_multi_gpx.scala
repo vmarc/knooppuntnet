@@ -139,7 +139,8 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
         referenceDistance = route1.meters,
         referenceSegmentCount = 1,
         referenceFilename = None,
-        referenceLines = route1.lines
+        referenceLines = route1.lines,
+        tiles = route1.referenceTiles
       )
     )
   }
@@ -157,6 +158,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = route1.meters,
         matchesLines = route1.lines,
+        tiles = route1.stateTiles
       )
     )
     state
@@ -205,6 +207,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = route1.meters,
         matchesLines = route1.lines,
+        tiles = route1.stateTiles
       )
     )
   }

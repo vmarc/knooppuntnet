@@ -26,7 +26,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class MonitorOsmAnalyze(
-  monitorStore: MonitorStore,
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorRouteStructureLoader: MonitorRouteStructureLoader,
@@ -34,6 +33,8 @@ class MonitorOsmAnalyze(
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorRouteOsmSegmentAnalyzer: MonitorRouteOsmSegmentAnalyzer,
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
+  monitorReferenceBuilder: MonitorReferenceBuilder,
+  monitorStateBuilder: MonitorStateBuilder,
 ) {
 
   private val log = Log(classOf[MonitorOsmAnalyze])
@@ -103,16 +104,20 @@ class MonitorOsmAnalyze(
             bounds = reference.referenceBounds,
             lines
           )
-          val state = MonitorState(
-            _id = ObjectId(),
-            routeId = monitorRouteId,
-            relationId = relation.relationId,
-            timestamp = now,
-            deviations = Seq(deviation),
-            matchesDistance = 0,
-            matchesLines = Seq.empty,
+          val state = monitorStateBuilder.build(
+            MonitorState(
+              _id = ObjectId(),
+              routeId = monitorRouteId,
+              relationId = relation.relationId,
+              timestamp = now,
+              deviations = Seq(deviation),
+              matchesDistance = 0,
+              matchesLines = Seq.empty,
+              tiles = Seq.empty
+            )
           )
-          monitorStore.saveState(state)
+
+          monitorRouteRepository.saveState(state)
           Some(
             MonitorRouteDeviationAnalysisSummary(
               relation.relationId,
@@ -131,16 +136,19 @@ class MonitorOsmAnalyze(
 
           val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
 
-          val state = MonitorState(
-            ObjectId(),
-            monitorRouteId,
-            relation.relationId,
-            now,
-            deviationAnalysis.deviations,
-            deviationAnalysis.matchesDistance,
-            deviationAnalysis.matchesLines,
+          val state = monitorStateBuilder.build(
+            MonitorState(
+              ObjectId(),
+              monitorRouteId,
+              relation.relationId,
+              now,
+              deviationAnalysis.deviations,
+              deviationAnalysis.matchesDistance,
+              deviationAnalysis.matchesLines,
+              Seq.empty
+            )
           )
-          monitorStore.saveState(state)
+          monitorRouteRepository.saveState(state)
 
           Some(
             MonitorRouteDeviationAnalysisSummary(
@@ -166,8 +174,8 @@ class MonitorOsmAnalyze(
           )
         )
 
-        monitorStore.deleteReference(monitorRouteId, relation.relationId)
-        monitorStore.deleteState(monitorRouteId, relation.relationId)
+        monitorRouteRepository.deleteReference(monitorRouteId, relation.relationId)
+        monitorRouteRepository.deleteState(monitorRouteId, relation.relationId)
 
         None
 
@@ -179,22 +187,25 @@ class MonitorOsmAnalyze(
 
           val referenceLines = analysis.routeSegments.flatMap(_.lineStrings.map(CoordinateUtil.lineStringToCoordinates))
 
-          val ref = MonitorReference(
-            ObjectId(),
-            monitorRouteId,
-            Some(subRelation.id),
-            Time.now,
-            args.user,
-            bounds,
-            MonitorReferenceType.osm,
-            args.referenceTimestamp,
-            analysis.osmDistance,
-            analysis.routeSegments.size,
-            None,
-            referenceLines
+          val ref = monitorReferenceBuilder.build(
+            MonitorReference(
+              ObjectId(),
+              monitorRouteId,
+              Some(subRelation.id),
+              Time.now,
+              args.user,
+              bounds,
+              MonitorReferenceType.osm,
+              args.referenceTimestamp,
+              analysis.osmDistance,
+              analysis.routeSegments.size,
+              None,
+              referenceLines,
+              Seq.empty,
+            )
           )
 
-          monitorStore.saveReference(ref)
+          monitorRouteRepository.saveReference(ref)
           Some(ref)
         }
         else {

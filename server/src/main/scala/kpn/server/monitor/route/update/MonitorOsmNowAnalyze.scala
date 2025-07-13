@@ -20,10 +20,11 @@ import org.springframework.stereotype.Component
 
 @Component
 class MonitorOsmNowAnalyze(
-  monitorStore: MonitorStore,
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
+  monitorReferenceBuilder: MonitorReferenceBuilder,
+  monitorStateBuilder: MonitorStateBuilder,
 ) {
 
   private val log = Log(classOf[MonitorOsmNowAnalyze])
@@ -142,21 +143,24 @@ class MonitorOsmNowAnalyze(
     distance: Long
   ): Unit = {
 
-    val reference = MonitorReference(
-      _id = ObjectId(),
-      routeId = monitorRouteId,
-      relationId = Some(baseRouteDoc._id),
-      timestamp = now,
-      user = user,
-      referenceBounds = bounds,
-      referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = now,
-      referenceDistance = distance,
-      referenceSegmentCount = baseRouteDoc.segments.length,
-      referenceFilename = None,
-      referenceLines = referenceLines
+    val reference = monitorReferenceBuilder.build(
+      MonitorReference(
+        _id = ObjectId(),
+        routeId = monitorRouteId,
+        relationId = Some(baseRouteDoc._id),
+        timestamp = now,
+        user = user,
+        referenceBounds = bounds,
+        referenceType = MonitorReferenceType.osm,
+        referenceTimestamp = now,
+        referenceDistance = distance,
+        referenceSegmentCount = baseRouteDoc.segments.length,
+        referenceFilename = None,
+        referenceLines = referenceLines,
+        tiles = Seq.empty,
+      )
     )
-    monitorStore.saveReference(reference)
+    monitorRouteRepository.saveReference(reference)
   }
 
   private def buildState(
@@ -167,16 +171,20 @@ class MonitorOsmNowAnalyze(
     distance: Long
   ): Unit = {
 
-    val state = MonitorState(
-      _id = ObjectId(),
-      routeId = monitorRouteId,
-      relationId = baseRouteDoc._id,
-      timestamp = now, // time of most recent analysis
-      matchesDistance = distance,
-      deviations = Seq.empty,
-      matchesLines = matchesLines
+    val state = monitorStateBuilder.build(
+      MonitorState(
+        _id = ObjectId(),
+        routeId = monitorRouteId,
+        relationId = baseRouteDoc._id,
+        timestamp = now, // time of most recent analysis
+        matchesDistance = distance,
+        deviations = Seq.empty,
+        matchesLines = matchesLines,
+        tiles = Seq.empty
+      )
+
     )
-    monitorStore.saveState(state)
+    monitorRouteRepository.saveState(state)
   }
 
   private def initReporter(args: MonitorUpdateArgs): Unit = {

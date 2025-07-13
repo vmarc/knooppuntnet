@@ -204,7 +204,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         referenceDistance = subRoute11.meters,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-1"),
-        referenceLines = subRoute11.lines
+        referenceLines = subRoute11.lines,
+        tiles = subRoute11.referenceTiles
       )
     )
     reference
@@ -223,6 +224,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = subRoute11.meters,
         matchesLines = subRoute11.lines, // TODO redesign - this cannot be correct if distance is 181
+        tiles = subRoute11.stateTiles
       )
     )
   }
@@ -256,7 +258,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         referenceDistance = subRoute12.meters,
         referenceSegmentCount = 1,
         referenceFilename = Some("filename-2"),
-        referenceLines = subRoute12.lines
+        referenceLines = subRoute12.lines,
+        tiles = subRoute12.referenceTiles
       )
     )
   }
@@ -273,7 +276,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         // TODO redesign cleanup - bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
         deviations = Seq.empty,
         matchesDistance = subRoute12.meters,
-        matchesLines = subRoute12.lines
+        matchesLines = subRoute12.lines,
+        tiles = subRoute12.stateTiles
       )
     )
   }
