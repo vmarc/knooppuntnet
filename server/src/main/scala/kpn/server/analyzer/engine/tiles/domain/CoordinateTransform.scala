@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.tiles.domain
 
 import kpn.api.common.data.Way
+import kpn.server.json.Json
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.LineString
 
@@ -74,5 +75,16 @@ object CoordinateTransform {
 
   def latLonCoordinatesToWorldCoordinatesSeq(coordinates: Seq[Coordinate]): Seq[Double] = {
     coordinates.flatMap(coordinate => Seq(lonToWorldX(coordinate.y), latToWorldY(coordinate.x)))
+  }
+
+  def toWorldCoordinate(c: Coordinate): Coordinate = {
+    val x = lonToWorldX(c.getX)
+    val y = latToWorldY(c.getY)
+    new Coordinate(x, y)
+  }
+
+  def lineToWorldCoordinates(line: String): Seq[Coordinate] = {
+    val coordinates = Json.value(line, classOf[CoordinateArray]).coordinates
+    coordinates.toSeq.map(CoordinateTransform.toWorldCoordinate)
   }
 }

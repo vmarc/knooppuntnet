@@ -1,6 +1,8 @@
 package kpn.server.analyzer.engine.tile
 
+import kpn.api.common.tiles.ZoomLevel
 import kpn.server.analyzer.engine.tiles.domain.Tile
+import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.LineSegment
 import org.springframework.stereotype.Component
 
@@ -23,6 +25,18 @@ class LineSegmentTileCalculatorImpl(routeTileCache: RouteTileCache) extends Line
   override def tiles(z: Int, lineSegments: Seq[LineSegment]): Seq[Tile] = {
     val initialTiles = findEndpointTiles(z, lineSegments)
     findItermediateTiles(initialTiles, lineSegments)
+  }
+
+  def tilesForLines(worldCoordinateReferenceLines: Seq[Seq[Coordinate]]): Seq[Tile] = {
+    worldCoordinateReferenceLines.flatMap { worldCoordinates =>
+      val lineSegments = worldCoordinates
+        .sliding(2)
+        .map { case Seq(c1, c2) => new LineSegment(c1, c2) }
+        .toSeq
+      (ZoomLevel.newMinZoom to ZoomLevel.newMaxZoom).flatMap { z =>
+        tiles(z, lineSegments)
+      }
+    }
   }
 
   /**

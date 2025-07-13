@@ -69,4 +69,18 @@ object TileUtil {
         geometry
     }
   }
+
+  def toTileLine(tile: Tile, worldCoordinates: Seq[Coordinate]): Option[String] = {
+    val tileCoordinates = TileUtil.routeTileCoordinates(tile, worldCoordinates)
+    if (tileCoordinates.nonEmpty) {
+      Some(tileCoordinates
+        .map(coordinate => s"[${coordinate.x},${coordinate.y}]")
+        .mkString("[", ",", "]")
+      )
+    }
+    else {
+      None
+    }
+  }
 }
+
