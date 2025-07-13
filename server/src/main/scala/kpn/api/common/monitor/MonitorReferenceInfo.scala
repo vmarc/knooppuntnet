@@ -11,6 +11,5 @@ case class MonitorReferenceInfo(
   referenceType: MonitorReferenceType,
   referenceTimestamp: Timestamp,
   referenceSegmentCount: Long,
-  referenceFilename: Option[String],
-  referenceGeoJson: String
+  referenceFilename: Option[String]
 )

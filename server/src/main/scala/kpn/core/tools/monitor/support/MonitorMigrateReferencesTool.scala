@@ -4,22 +4,23 @@ import kpn.api.base.ObjectId
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.io.geojson.GeoJsonReader
 
-object MonitorMigrateReferenceGeojsonsTool {
+object MonitorMigrateReferencesTool {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-laptop") { database =>
-      new MonitorMigrateReferenceGeojsonsTool(database).migrate()
+      new MonitorMigrateReferencesTool(database).migrate()
     }
   }
 }
 
-class MonitorMigrateReferenceGeojsonsTool(database: Database) {
-  private val log = Log(classOf[MonitorMigrateReferenceGeojsonsTool])
+class MonitorMigrateReferencesTool(database: Database) {
+  private val log = Log(classOf[MonitorMigrateReferencesTool])
   private val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
 
   def migrate(): Unit = {
@@ -32,13 +33,24 @@ class MonitorMigrateReferenceGeojsonsTool(database: Database) {
   }
 
   private def migrateRoute(routeId: ObjectId): Unit = {
-    monitorRouteRepository.routeReferences(routeId).foreach { reference =>
-      val referenceGeometry = new GeoJsonReader().read(reference.referenceGeoJson.get)
+    monitorRouteRepository.oldReferences(routeId).foreach { oldReference =>
+      val referenceGeometry = new GeoJsonReader().read(oldReference.referenceGeoJson.get)
       val referenceLines = toReferenceLines(referenceGeometry)
-      val updatedReference = reference.copy(
+      val reference = MonitorReference(
+        _id = oldReference._id,
+        routeId = oldReference.routeId,
+        relationId = oldReference.relationId,
+        timestamp = oldReference.timestamp,
+        user = oldReference.user,
+        referenceBounds = oldReference.referenceBounds,
+        referenceType = oldReference.referenceType,
+        referenceTimestamp = oldReference.referenceTimestamp,
+        referenceDistance = oldReference.referenceDistance,
+        referenceSegmentCount = oldReference.referenceSegmentCount,
+        referenceFilename = oldReference.referenceFilename,
         referenceLines = referenceLines
       )
-      monitorRouteRepository.saveRouteReference(updatedReference)
+      monitorRouteRepository.saveRouteReference(reference)
     }
   }
 

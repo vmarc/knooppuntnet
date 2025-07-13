@@ -1197,8 +1197,7 @@ object TestObjects {
       distance,
       segmentCount,
       filename,
-      referenceLines,
-      None,
+      referenceLines
     )
   }
 

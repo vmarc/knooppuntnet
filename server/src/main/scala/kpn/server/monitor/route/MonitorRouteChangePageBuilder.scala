@@ -57,17 +57,16 @@ class MonitorRouteChangePageBuilder(
     }
   }
 
-  private def buildPage(comment: Option[String], routeChange: MonitorRouteChange, routeChangeGeometry: MonitorRouteChangeGeometry, group: MonitorGroup, routeReference: MonitorReference) = {
-    val reference = MonitorReferenceInfo(
-      routeReference.timestamp,
-      routeReference.user,
-      routeReference.referenceBounds,
-      0, // TODO distance
-      routeReference.referenceType,
-      routeReference.referenceTimestamp,
-      routeReference.referenceSegmentCount,
-      routeReference.referenceFilename,
-      routeReference.referenceGeoJson.get
+  private def buildPage(comment: Option[String], routeChange: MonitorRouteChange, routeChangeGeometry: MonitorRouteChangeGeometry, group: MonitorGroup, reference: MonitorReference) = {
+    val referenceInfo = MonitorReferenceInfo(
+      reference.timestamp,
+      reference.user,
+      reference.referenceBounds,
+      reference.referenceDistance,
+      reference.referenceType,
+      reference.referenceTimestamp,
+      reference.referenceSegmentCount,
+      reference.referenceFilename,
     )
 
     Some(
@@ -81,12 +80,12 @@ class MonitorRouteChangePageBuilder(
         routeChange.waysRemoved,
         routeChange.waysUpdated,
         routeChange.osmDistance,
-        routeReference.referenceBounds,
+        referenceInfo.referenceBounds,
         routeChange.routeSegmentCount,
         routeChangeGeometry.routeSegments,
         routeChangeGeometry.newDeviations,
         routeChangeGeometry.resolvedDeviations,
-        reference,
+        referenceInfo,
         routeChange.happy,
         routeChange.investigate
       )

@@ -30,12 +30,15 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
+import kpn.server.monitor.domain.MonitorReferenceTile
 import kpn.server.monitor.domain.MonitorRelation
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorState
+import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.MonitorTask
+import kpn.server.monitor.domain.OldMonitorReference
 import kpn.server.sync.Transaction
 import org.mongodb.scala.MongoCollection
 
@@ -93,7 +96,13 @@ trait Database {
 
   def monitorReferences: DatabaseCollection[MonitorReference]
 
+  def oldMonitorReferences: DatabaseCollection[OldMonitorReference]
+
+  def monitorReferenceTiles: DatabaseCollection[MonitorReferenceTile]
+
   def monitorStates: DatabaseCollection[MonitorState]
+
+  def monitorStateTiles: DatabaseCollection[MonitorStateTile]
 
   def monitorRouteChanges: DatabaseCollection[MonitorRouteChange]
 

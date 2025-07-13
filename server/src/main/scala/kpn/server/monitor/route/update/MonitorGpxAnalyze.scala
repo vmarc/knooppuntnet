@@ -48,7 +48,6 @@ class MonitorGpxAnalyze(
     val xml = XML.loadString(args.referenceGpx)
     val geometryCollection = new MonitorRouteGpxReader().read(xml)
     val referenceBounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
-    val referenceGeoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
 
     val referenceLineStrings = MonitorReferenceUtil.toLineStrings(geometryCollection)
     val referenceDistance = Math.round(referenceLineStrings.map(Haversine.meters).sum)

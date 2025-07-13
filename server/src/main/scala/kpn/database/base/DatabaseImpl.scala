@@ -30,12 +30,15 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
+import kpn.server.monitor.domain.MonitorReferenceTile
 import kpn.server.monitor.domain.MonitorRelation
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorState
+import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.MonitorTask
+import kpn.server.monitor.domain.OldMonitorReference
 import kpn.server.sync.Transaction
 import org.mongodb.scala.*
 import org.mongodb.scala.MongoCollection
@@ -145,11 +148,23 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
   }
 
   override def monitorReferences: DatabaseCollection[MonitorReference] = {
-    new DatabaseCollectionImpl(database.getCollection[MonitorReference]("monitor-route-references"))
+    new DatabaseCollectionImpl(database.getCollection[MonitorReference]("monitor-references"))
+  }
+
+  override def oldMonitorReferences: DatabaseCollection[OldMonitorReference] = {
+    new DatabaseCollectionImpl(database.getCollection[OldMonitorReference]("monitor-route-references"))
+  }
+
+  override def monitorReferenceTiles: DatabaseCollection[MonitorReferenceTile] = {
+    new DatabaseCollectionImpl(database.getCollection[MonitorReferenceTile]("monitor-reference-tiles"))
   }
 
   override def monitorStates: DatabaseCollection[MonitorState] = {
-    new DatabaseCollectionImpl(database.getCollection[MonitorState]("monitor-route-states"))
+    new DatabaseCollectionImpl(database.getCollection[MonitorState]("monitor-states"))
+  }
+
+  override def monitorStateTiles: DatabaseCollection[MonitorStateTile] = {
+    new DatabaseCollectionImpl(database.getCollection[MonitorStateTile]("monitor-state-tiles"))
   }
 
   override def monitorRouteChanges: DatabaseCollection[MonitorRouteChange] = {

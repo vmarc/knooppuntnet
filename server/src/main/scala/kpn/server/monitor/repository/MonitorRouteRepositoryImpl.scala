@@ -15,6 +15,7 @@ import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorState
+import kpn.server.monitor.domain.OldMonitorReference
 import kpn.server.repository.Distance
 import kpn.server.repository.NetworkRepositoryImpl
 import org.mongodb.scala.Document
@@ -274,6 +275,15 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       )
     )
     database.monitorReferences.aggregate[MonitorReference](pipeline, log)
+  }
+
+  override def oldReferences(routeId: ObjectId): Seq[OldMonitorReference] = {
+    val pipeline = Seq(
+      filter(
+        equal("routeId", routeId.raw),
+      )
+    )
+    database.oldMonitorReferences.aggregate[OldMonitorReference](pipeline, log)
   }
 
   override def routeReferenceIds(routeId: ObjectId): Seq[MonitorReferenceId] = {
