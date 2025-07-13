@@ -7,10 +7,8 @@ import kpn.api.custom.Timestamp
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
-import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
-import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
 import org.locationtech.jts.geom.GeometryFactory
@@ -19,14 +17,7 @@ import org.springframework.stereotype.Component
 @Component
 class MonitorGpxUpdate(
   routeRepository: RouteRepository,
-  monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
-  monitorUpdateStructure: MonitorUpdateStructure,
-  monitorRouteRelationRepository: MonitorRouteRelationRepository,
-  monitorRouteOsmSegmentAnalyzer: MonitorRouteOsmSegmentAnalyzer,
-  monitorUpdateAnalyzeReference: MonitorUpdateAnalyzeReference,
-  monitorUpdateCommon: MonitorUpdateCommon,
-  monitorUpdateSave: MonitorUpdateSave,
   monitorGpxAnalyze: MonitorGpxAnalyze,
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
   monitorReferenceBuilder: MonitorReferenceBuilder,
@@ -96,7 +87,6 @@ class MonitorGpxUpdate(
             deviationCount = deviationAnalysis.deviations.length,
             osmSegmentCount = routeDoc.superSegments.size,
             osmDistance = routeDoc.superDistance,
-            relation = None,
             happy = happy,
           )
 

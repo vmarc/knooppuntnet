@@ -105,8 +105,7 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
       referenceFilename = None,
       referenceDistance = 300,
       deviationCount = 1,
-      deviationDistance = 50,
-      relation = None
+      deviationDistance = 50
     )
   }
 

@@ -77,7 +77,6 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route1.meters,
-        relation = None,
         happy = false
       )
     )
@@ -131,19 +130,18 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
       user = "user",
       referenceType = MonitorReferenceType.osm,
       referenceTimestamp = Some(ReferenceTimestamp1),
-      referenceFilename = None,
-      relation = None
+      referenceFilename = None
     )
     val reference = newMonitorReference(
       routeId = route._id,
       relationId = Some(route1.relationId),
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = ReferenceTimestamp1,
+      referenceTimestamp = ReferenceTimestamp1
     )
     val state = newMonitorState(
       routeId = route._id,
       relationId = route1.relationId,
-      timestamp = ReferenceTimestamp1,
+      timestamp = ReferenceTimestamp1
     )
 
     configuration.monitorGroupRepository.saveGroup(group)

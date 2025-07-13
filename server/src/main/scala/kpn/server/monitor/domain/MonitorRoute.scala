@@ -3,7 +3,6 @@ package kpn.server.monitor.domain
 import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.custom.Timestamp
 
 case class MonitorRoute(
@@ -74,14 +73,6 @@ case class MonitorRoute(
   osmSegmentCount: Long,
 
   osmDistance: Long,
-
-  /*
-    The structure of the route. Value "None" if the relationId has not been defined yet.
-    A single MonitorRouteRelation object when reference type is "osm" or "gpx".
-    For reference type "multi-gpx" there is a tree of MonitorRouteRelation objects
-    with the super route at the top of the tree.
-   */
-  relation: Option[MonitorRouteRelation],
 
   /*
     Overall route status. True if "happy" is true in the entire route structure (all MonitorRouteRelation objects).

@@ -113,7 +113,6 @@ class MonitorGpxAnalyze(
           deviationCount = deviationAnalysis.deviations.length,
           osmSegmentCount = routeDoc.superSegments.size,
           osmDistance = routeDoc.superDistance,
-          relation = None,
           happy = happy,
         )
 
@@ -155,7 +154,6 @@ class MonitorGpxAnalyze(
           deviationCount = 0,
           osmSegmentCount = 0,
           osmDistance = 0,
-          relation = None,
           happy = false,
         )
 

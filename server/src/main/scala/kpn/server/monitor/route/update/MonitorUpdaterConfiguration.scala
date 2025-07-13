@@ -22,10 +22,6 @@ class MonitorUpdaterConfiguration(
   private val routeTileCache = new RouteTileCache()
   private val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
 
-  private val monitorUpdateStructure = new MonitorUpdateStructureImpl(
-    monitorRouteRelationRepository,
-    monitorRouteStructureLoader
-  )
   private val monitorRouteOsmSegmentAnalyzer = new MonitorRouteOsmSegmentAnalyzerImpl()
   private val monitorRouteDeviationAnalyzer = new MonitorRouteDeviationAnalyzerImpl()
   private val monitorRouteGapAnalyzer = new MonitorRouteGapAnalyzer()
@@ -34,12 +30,6 @@ class MonitorUpdaterConfiguration(
     routeRepository,
     monitorGroupRepository,
     monitorRouteRepository
-  )
-
-  private val monitorUpdateSave = new MonitorUpdateSave(
-    routeRepository,
-    monitorRouteRepository,
-    monitorRouteGapAnalyzer
   )
 
   private val monitorReferenceBuilder = new MonitorReferenceBuilder(lineSegmentTileCalculator)
@@ -65,8 +55,7 @@ class MonitorUpdaterConfiguration(
 
   private val monitorUpdateGpxDelete = new MonitorGpxDelete(
     monitorRouteRepository,
-    monitorUpdateCommon,
-    monitorUpdateSave
+    monitorUpdateCommon
   )
 
   private val monitorOsmAnalyze = new MonitorOsmAnalyze(
@@ -103,14 +92,7 @@ class MonitorUpdaterConfiguration(
 
   private val monitorGpxUpdate = new MonitorGpxUpdate(
     routeRepository,
-    monitorGroupRepository,
     monitorRouteRepository,
-    monitorUpdateStructure,
-    monitorRouteRelationRepository,
-    monitorRouteOsmSegmentAnalyzer,
-    monitorUpdateAnalyzeReference,
-    monitorUpdateCommon,
-    monitorUpdateSave,
     monitorGpxAnalyze,
     monitorRouteDeviationAnalyzer,
     monitorReferenceBuilder,

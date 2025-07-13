@@ -423,7 +423,6 @@ class ApplicationTest extends EndToEndTest {
     route.referenceType should equal(MonitorReferenceType.multiGpx)
     route.referenceTimestamp should equal(None)
     route.referenceFilename should equal(None)
-    route.relation should equal(None)
     route.happy should equal(false)
 
     routeStates.size should equal(0)

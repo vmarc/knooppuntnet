@@ -1,8 +1,6 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.monitor.MonitorRouteGpxPage
-import kpn.core.common.Time
-import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
@@ -16,19 +14,15 @@ class MonitorRouteGpxPageBuilder(
   def build(groupName: String, routeName: String, subRelationId: Long): Option[MonitorRouteGpxPage] = {
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).flatMap { route =>
-        MonitorUtil.subRelation(route, subRelationId).map { monitorRouteRelation =>
-          val referenceTimestamp = monitorRouteRelation.referenceTimestamp match {
-            case None => Time.now
-            case Some(timestamp) => timestamp
-          }
+        monitorRouteRepository.reference(route._id, Some(subRelationId)).map { reference =>
           MonitorRouteGpxPage(
             group.name,
             route.name,
             subRelationId,
-            monitorRouteRelation.name,
-            referenceTimestamp,
-            monitorRouteRelation.referenceFilename,
-            monitorRouteRelation.referenceDistance
+            "TODO",
+            reference.referenceTimestamp,
+            reference.referenceFilename,
+            reference.referenceDistance
           )
         }
       }

@@ -258,7 +258,6 @@ class MonitorOsmAnalyze(
       deviationCount = deviationCount,
       osmSegmentCount = routeDoc.superSegments.size,
       osmDistance = distance,
-      relation = None,
       happy = happy
     )
   }

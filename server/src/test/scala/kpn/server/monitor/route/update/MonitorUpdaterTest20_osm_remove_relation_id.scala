@@ -75,7 +75,6 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 0,
         osmDistance = 0,
-        relation = None,
         happy = false
       )
     )
@@ -135,8 +134,7 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
       deviationDistance = 100,
       deviationCount = 2,
       osmDistance = 1010,
-      osmSegmentCount = 1,
-      relation = None,
+      osmSegmentCount = 1
     )
   }
 

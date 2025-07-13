@@ -74,7 +74,6 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route1.meters,
-        relation = None,
         happy = true
       )
     )

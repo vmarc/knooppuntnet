@@ -124,7 +124,6 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = subRoute11.meters + subRoute12.meters,
-        relation = None,
         happy = false,
       )
     )
@@ -212,7 +211,6 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
         analysisTimestamp = Some(GpxUpload2Timestamp),
         analysisDuration = None,
         referenceDistance = subRoute11.meters + subRoute12.meters,
-        relation = None,
         happy = true
       )
     )

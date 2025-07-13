@@ -92,8 +92,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = subRoute11.meters + subRoute12.meters,
-        relation = None,
-        happy = true,
+        happy = true
       )
     )
     route

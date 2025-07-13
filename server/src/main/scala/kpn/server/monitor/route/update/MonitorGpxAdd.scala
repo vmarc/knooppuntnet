@@ -48,7 +48,6 @@ class MonitorGpxAdd(
       deviationCount = 0,
       osmSegmentCount = 0,
       osmDistance = 0,
-      relation = None,
       happy = false,
     )
   }

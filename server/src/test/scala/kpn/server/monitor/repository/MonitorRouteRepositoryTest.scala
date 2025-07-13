@@ -10,7 +10,6 @@ import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newMonitorReference
 import kpn.core.test.TestObjects.newMonitorRoute
 import kpn.core.test.TestObjects.newMonitorRouteChange
-import kpn.core.test.TestObjects.newMonitorRouteRelation
 import kpn.core.test.TestObjects.newMonitorState
 import kpn.server.monitor.domain.MonitorRouteChange
 
@@ -115,45 +114,6 @@ class MonitorRouteRepositoryTest extends MongoTest {
     database.monitorStates.findByObjectId(state._id) should equal(None)
   }
 
-  test("route with nested sub-relations") {
-
-    val group = newMonitorGroup("group")
-    val route = newMonitorRoute(
-      group._id,
-      "route",
-      "description",
-      relation = Some(
-        newMonitorRouteRelation(
-          1,
-          "1",
-          relations = Seq(
-            newMonitorRouteRelation(
-              11,
-              "11",
-              relations = Seq(
-                newMonitorRouteRelation(111, "111"),
-                newMonitorRouteRelation(112, "112")
-              )
-            ),
-            newMonitorRouteRelation(
-              12,
-              "12",
-              relations = Seq(
-                newMonitorRouteRelation(121, "121"),
-                newMonitorRouteRelation(122, "122")
-              )
-            )
-          )
-        )
-      )
-    )
-
-    database.monitorGroups.save(group)
-    database.monitorRoutes.save(route)
-
-    database.monitorRoutes.findByObjectId(route._id) should equal(Some(route))
-  }
-
   test("superRouteRelationSummary") {
 
     val group = newMonitorGroup("group")
@@ -161,30 +121,6 @@ class MonitorRouteRepositoryTest extends MongoTest {
       group._id,
       "route",
       "description",
-      relation = Some(
-        newMonitorRouteRelation(
-          1,
-          "1",
-          relations = Seq(
-            newMonitorRouteRelation(
-              11,
-              "11",
-              relations = Seq(
-                newMonitorRouteRelation(111, "111"),
-                newMonitorRouteRelation(112, "112")
-              )
-            ),
-            newMonitorRouteRelation(
-              12,
-              "12",
-              relations = Seq(
-                newMonitorRouteRelation(121, "121"),
-                newMonitorRouteRelation(122, "122")
-              )
-            )
-          )
-        )
-      )
     )
 
     val reference1 = newMonitorReference(
@@ -217,30 +153,6 @@ class MonitorRouteRepositoryTest extends MongoTest {
       group._id,
       "route",
       "description",
-      relation = Some(
-        newMonitorRouteRelation(
-          1,
-          "1",
-          relations = Seq(
-            newMonitorRouteRelation(
-              11,
-              "11",
-              relations = Seq(
-                newMonitorRouteRelation(111, "111"),
-                newMonitorRouteRelation(112, "112")
-              )
-            ),
-            newMonitorRouteRelation(
-              12,
-              "12",
-              relations = Seq(
-                newMonitorRouteRelation(121, "121"),
-                newMonitorRouteRelation(122, "122")
-              )
-            )
-          )
-        )
-      )
     )
 
     val state1 = newMonitorState(

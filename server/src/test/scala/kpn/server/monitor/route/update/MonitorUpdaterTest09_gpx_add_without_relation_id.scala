@@ -129,8 +129,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         deviationCount = 0,
         osmSegmentCount = 0,
         osmDistance = 0,
-        happy = false,
-        relation = None
+        happy = false
       )
     )
     route
@@ -176,7 +175,6 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route1.meters,
-        relation = None,
         happy = true
       )
     )

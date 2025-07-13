@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component
 class MonitorGpxDelete(
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
-  monitorUpdateSave: MonitorUpdateSave,
 ) {
 
   private val log = Log(classOf[MonitorGpxDelete])

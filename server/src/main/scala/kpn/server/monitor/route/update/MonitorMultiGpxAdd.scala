@@ -67,7 +67,6 @@ class MonitorMultiGpxAdd(
       deviationCount = 0,
       osmSegmentCount = superSegmentCount,
       osmDistance = osmDistance,
-      relation = None,
       happy = false, // cannot be happy yet, there are no gpx references yet
     )
   }

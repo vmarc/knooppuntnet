@@ -134,7 +134,6 @@ class MonitorUpdate(
       deviationCount = 0,
       osmSegmentCount = osmSegmentCount,
       osmDistance = osmDistance,
-      relation = None,
       happy = false,
     )
   }

@@ -106,7 +106,6 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         osmSegmentCount = 0,
         osmDistance = 0,
         happy = false,
-        relation = None // route structure not known yet
       )
     )
     route
@@ -151,8 +150,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route1.meters,
-        happy = true,
-        relation = None
+        happy = true
       )
     )
   }

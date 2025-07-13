@@ -91,7 +91,6 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route2.meters,
-        relation = None,
         happy = true
       )
     )
@@ -203,8 +202,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
       deviationDistance = 100,
       deviationCount = 2,
       osmDistance = 1010,
-      osmSegmentCount = 1,
-      relation = None,
+      osmSegmentCount = 1
     )
   }
 
