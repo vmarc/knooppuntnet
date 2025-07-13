@@ -16,6 +16,9 @@ class MonitorUpdaterConfiguration(
 
   val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
   val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
+
+  val monitorStore = new MonitorStore(monitorRouteRepository)
+
   private val monitorUpdateStructure = new MonitorUpdateStructureImpl(
     monitorRouteRelationRepository,
     monitorRouteStructureLoader
@@ -25,25 +28,27 @@ class MonitorUpdaterConfiguration(
   private val monitorRouteGapAnalyzer = new MonitorRouteGapAnalyzer()
 
   private val monitorUpdateCommon = new MonitorUpdateCommon(
+    monitorStore,
     routeRepository,
     monitorGroupRepository,
-    monitorRouteRepository,
+    monitorRouteRepository
   )
 
   private val monitorUpdateSave = new MonitorUpdateSave(
     routeRepository,
     monitorRouteRepository,
-    monitorRouteGapAnalyzer,
+    monitorRouteGapAnalyzer
   )
 
   private val monitorUpdateAnalyzeReference = new MonitorUpdateAnalyzeReference(
     routeRepository,
     monitorRouteRelationRepository,
     monitorRouteOsmSegmentAnalyzer,
-    monitorRouteDeviationAnalyzer,
+    monitorRouteDeviationAnalyzer
   )
 
   private val monitorUpdateGpxUpload = new MonitorGpxUpload(
+    monitorStore,
     routeRepository,
     monitorRouteRepository,
     monitorUpdateCommon,
@@ -51,19 +56,21 @@ class MonitorUpdaterConfiguration(
   )
 
   private val monitorUpdateGpxDelete = new MonitorGpxDelete(
+    monitorStore,
     monitorRouteRepository,
     monitorUpdateCommon,
-    monitorUpdateSave,
+    monitorUpdateSave
   )
 
   private val monitorOsmAnalyze = new MonitorOsmAnalyze(
+    monitorStore,
     routeRepository,
     monitorRouteRepository,
     monitorRouteStructureLoader,
     monitorRouteRelationRepository,
     monitorUpdateCommon,
     monitorRouteOsmSegmentAnalyzer,
-    monitorRouteDeviationAnalyzer,
+    monitorRouteDeviationAnalyzer
   )
 
   private val monitorOsmAdd = new MonitorOsmAdd(
@@ -76,15 +83,10 @@ class MonitorUpdaterConfiguration(
     monitorOsmAnalyze
   )
 
-  private val monitorGpxAnalyze = new MonitorGpxAnalyze(
-    routeRepository,
-    monitorRouteRepository,
-    monitorUpdateCommon,
-    monitorOsmAnalyze,
-    monitorRouteDeviationAnalyzer
-  )
+  private val monitorGpxAnalyze = new MonitorGpxAnalyze(monitorStore, routeRepository, monitorRouteRepository, monitorUpdateCommon, monitorOsmAnalyze, monitorRouteDeviationAnalyzer)
 
   private val monitorGpxUpdate = new MonitorGpxUpdate(
+    monitorStore,
     routeRepository,
     monitorGroupRepository,
     monitorRouteRepository,
@@ -99,9 +101,10 @@ class MonitorUpdaterConfiguration(
   )
 
   private val monitorOsmNowAnalyze = new MonitorOsmNowAnalyze(
+    monitorStore,
     routeRepository,
     monitorRouteRepository,
-    monitorUpdateCommon,
+    monitorUpdateCommon
   )
 
   private val monitorOsmNowUpdate = new MonitorOsmNowUpdate(
@@ -112,10 +115,11 @@ class MonitorUpdaterConfiguration(
   private val monitorMultiGpxUpdate = new MonitorMultiGpxUpdate(
     routeRepository,
     monitorRouteRepository,
-    monitorUpdateCommon,
+    monitorUpdateCommon
   )
 
   private val monitorUpdateUpdate = new MonitorUpdate(
+    monitorStore,
     monitorGroupRepository,
     monitorRouteRepository,
     monitorUpdateCommon,
@@ -128,7 +132,7 @@ class MonitorUpdaterConfiguration(
   private val monitorUpdateAddMultiGpx = new MonitorMultiGpxAdd(
     routeRepository,
     monitorRouteRepository,
-    monitorUpdateCommon,
+    monitorUpdateCommon
   )
 
   private val monitorUpdateAddOsmNow = new MonitorOsmNowAdd(
@@ -139,7 +143,7 @@ class MonitorUpdaterConfiguration(
   )
 
   private val monitorGpxAdd = new MonitorGpxAdd(
-    monitorGpxAnalyze,
+    monitorGpxAnalyze
   )
 
   private val monitorUpdateAdd = new MonitorAdd(
@@ -148,19 +152,20 @@ class MonitorUpdaterConfiguration(
     monitorGpxAdd,
     monitorUpdateAddMultiGpx,
     monitorUpdateCommon,
-    monitorRouteRepository,
+    monitorRouteRepository
   )
 
   val monitorUpdateAnalysis = new MonitorUpdateAnalysis(
+    monitorStore,
     routeRepository,
     monitorRouteRepository,
-    monitorRouteDeviationAnalyzer,
+    monitorRouteDeviationAnalyzer
   )
 
   val monitorRouteUpdateExecutor = new MonitorRouteUpdateExecutor(
     monitorUpdateAdd,
     monitorUpdateUpdate,
     monitorUpdateGpxUpload,
-    monitorUpdateGpxDelete,
+    monitorUpdateGpxDelete
   )
 }

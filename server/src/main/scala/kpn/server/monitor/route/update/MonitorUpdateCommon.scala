@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class MonitorUpdateCommon(
+  monitorStore: MonitorStore,
   routeRepository: RouteRepository,
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
@@ -41,9 +42,9 @@ class MonitorUpdateCommon(
   }
 
   def updateSuperRoute(route: MonitorRoute): MonitorRoute = {
-    val references = monitorRouteRepository.routeReferences(route._id)
+    val references = monitorRouteRepository.references(route._id)
     val referenceDistance = references.map(_.referenceDistance).sum
-    val states = monitorRouteRepository.routeStates(route._id)
+    val states = monitorRouteRepository.states(route._id)
     val deviationCount = states.map(_.deviations.length).sum
     val deviationDistance = states.map(_.deviations.length).sum
     val matchesDistance = states.map(_.matchesDistance).sum
@@ -75,7 +76,7 @@ class MonitorUpdateCommon(
         if (newRoute.referenceType == MonitorReferenceType.multiGpx && !oldReferenceType.contains(MonitorReferenceType.multiGpx)) {
           context.value.oldReferenceIds.foreach { referenceId =>
             context.deleteRouteReferenceById(referenceId._id)
-            monitorRouteRepository.deleteRouteReferenceById(referenceId._id)
+            monitorStore.deleteReferenceById(referenceId._id)
           }
           context.value.copy(
             newRoute = Some(newRoute.copy(referenceDistance = 0))
@@ -85,7 +86,7 @@ class MonitorUpdateCommon(
           if (newRoute.referenceType == MonitorReferenceType.osm) {
             val allRelationIds = newRoute.relationId.toSeq ++ MonitorUtil.subRelationsIn(newRoute).map(_.relationId)
             if (allRelationIds.isEmpty) {
-              monitorRouteRepository.deleteRouteReferences(newRoute._id)
+              monitorStore.deleteReferences(newRoute._id)
             }
             else {
               val obsoleteReferenceIds = context.value.oldReferenceIds.filter { oldReferenceId =>
@@ -96,7 +97,7 @@ class MonitorUpdateCommon(
               }
               obsoleteReferenceIds.foreach { referenceId =>
                 context.deleteRouteReferenceById(referenceId._id)
-                monitorRouteRepository.deleteRouteReferenceById(referenceId._id)
+                monitorStore.deleteReferenceById(referenceId._id)
               }
             }
           }

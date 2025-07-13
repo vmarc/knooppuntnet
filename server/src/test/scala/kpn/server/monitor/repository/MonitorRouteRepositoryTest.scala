@@ -317,12 +317,12 @@ class MonitorRouteRepositoryTest extends MongoTest {
     val routeRepository = new MonitorRouteRepositoryImpl(database)
 
     assertEqual(
-      routeRepository.routeReference(route._id, None),
+      routeRepository.reference(route._id, None),
       Some(reference1)
     )
 
     assertEqual(
-      routeRepository.routeReference(route._id, Some(1)),
+      routeRepository.reference(route._id, Some(1)),
       Some(reference2)
     )
 

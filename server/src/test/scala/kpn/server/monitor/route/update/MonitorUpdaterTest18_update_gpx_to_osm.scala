@@ -130,7 +130,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
   }
 
   private def verifyAddedReference(addedRoute: MonitorRoute) = {
-    val reference = configuration.monitorRouteRepository.routeReference(addedRoute._id, Some(1)).get
+    val reference = configuration.monitorRouteRepository.reference(addedRoute._id, Some(1)).get
     assertEqual(
       reference,
       MonitorReference(
@@ -152,7 +152,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
   }
 
   private def verifyAddedState(addedRoute: MonitorRoute) = {
-    val state = configuration.monitorRouteRepository.routeState(addedRoute._id, 1).get
+    val state = configuration.monitorRouteRepository.state(addedRoute._id, 1).get
     assertEqual(
       state,
       MonitorState(
@@ -201,7 +201,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
   }
 
   private def verifyUpdatedReference(addedRoute: MonitorRoute, updatedRoute: MonitorRoute): Unit = {
-    val reference = configuration.monitorRouteRepository.routeReference(updatedRoute._id, Some(route1.relationId)).get
+    val reference = configuration.monitorRouteRepository.reference(updatedRoute._id, Some(route1.relationId)).get
     assertEqual(
       reference,
       MonitorReference(
@@ -222,7 +222,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
   }
 
   private def verifyUpdatedState(addedRoute: MonitorRoute, updatedRoute: MonitorRoute): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(updatedRoute._id, route1.relationId).get
+    val state = configuration.monitorRouteRepository.state(updatedRoute._id, route1.relationId).get
     assertEqual(
       state,
       MonitorState(

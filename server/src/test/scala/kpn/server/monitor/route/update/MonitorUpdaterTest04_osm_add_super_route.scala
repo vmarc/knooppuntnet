@@ -100,12 +100,12 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
   }
 
   private def verifyReference1(route: MonitorRoute): Unit = {
-    val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(TestSuperRoute.MainRelationId))
+    val reference = configuration.monitorRouteRepository.reference(route._id, Some(TestSuperRoute.MainRelationId))
     reference should equal(None)
   }
 
   private def verifyReference11(route: MonitorRoute): Unit = {
-    val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(subRoute11.relationId)).get
+    val reference = configuration.monitorRouteRepository.reference(route._id, Some(subRoute11.relationId)).get
     assertEqual(
       reference,
       MonitorReference(
@@ -126,7 +126,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
   }
 
   private def verifyReference12(route: MonitorRoute): Unit = {
-    val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(subRoute12.relationId)).get
+    val reference = configuration.monitorRouteRepository.reference(route._id, Some(subRoute12.relationId)).get
     assertEqual(
       reference,
       MonitorReference(
@@ -147,12 +147,12 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
   }
 
   private def verifyState1(route: MonitorRoute): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(route._id, TestSuperRoute.MainRelationId)
+    val state = configuration.monitorRouteRepository.state(route._id, TestSuperRoute.MainRelationId)
     state should equal(None)
   }
 
   private def verifyState11(route: MonitorRoute): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(route._id, subRoute11.relationId).get
+    val state = configuration.monitorRouteRepository.state(route._id, subRoute11.relationId).get
     assertEqual(
       state,
       MonitorState(
@@ -169,7 +169,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
   }
 
   private def verifyState12(route: MonitorRoute): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(route._id, subRoute12.relationId).get
+    val state = configuration.monitorRouteRepository.state(route._id, subRoute12.relationId).get
     assertEqual(
       state,
       MonitorState(

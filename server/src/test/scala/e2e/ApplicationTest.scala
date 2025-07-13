@@ -294,8 +294,8 @@ class ApplicationTest extends EndToEndTest {
 
     val group = groupRepository.groupByName("group1").get
     val route = routeRepository.routeByName(group._id, "route1").get
-    val routeStates = routeRepository.routeStates(route._id)
-    val routeReferences = routeRepository.routeReferences(route._id)
+    val routeStates = routeRepository.states(route._id)
+    val routeReferences = routeRepository.references(route._id)
 
     println(route)
 
@@ -349,8 +349,8 @@ class ApplicationTest extends EndToEndTest {
 
     val group = groupRepository.groupByName("group1").get
     val route = routeRepository.routeByName(group._id, "route1").get
-    val routeStates = routeRepository.routeStates(route._id)
-    val routeReferences = routeRepository.routeReferences(route._id)
+    val routeStates = routeRepository.states(route._id)
+    val routeReferences = routeRepository.references(route._id)
 
     println(route)
 
@@ -412,8 +412,8 @@ class ApplicationTest extends EndToEndTest {
 
     val group = groupRepository.groupByName("group1").get
     val route = routeRepository.routeByName(group._id, "route1").get
-    val routeStates = routeRepository.routeStates(route._id)
-    val routeReferences = routeRepository.routeReferences(route._id)
+    val routeStates = routeRepository.states(route._id)
+    val routeReferences = routeRepository.references(route._id)
 
     route.name should equal("route1")
     route.description should equal("route one")

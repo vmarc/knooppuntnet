@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class MonitorUpdateAnalysis(
+  monitorStore: MonitorStore,
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
@@ -33,8 +34,8 @@ class MonitorUpdateAnalysis(
 
   private def analyze(route: MonitorRoute, routeDoc: RouteDoc): Unit = {
     val analysisStartMillis = System.currentTimeMillis()
-    val references = monitorRouteRepository.routeReferences(route._id)
-    val oldStateIds = monitorRouteRepository.routeStateIds(route._id)
+    val references = monitorRouteRepository.references(route._id)
+    val oldStateIds = monitorRouteRepository.stateIds(route._id)
 
     removeObsoleteStates(routeDoc.routeIds, oldStateIds)
 
@@ -45,7 +46,7 @@ class MonitorUpdateAnalysis(
 
   private def removeObsoleteStates(allRelationIds: Seq[Long], oldStateIds: Seq[MonitorStateId]): Unit = {
     val obsoleteStateIds = oldStateIds.filterNot(id => allRelationIds.contains(id.relationId))
-    obsoleteStateIds.map(_._id).foreach(monitorRouteRepository.deleteRouteStateById)
+    obsoleteStateIds.map(_._id).foreach(monitorStore.deleteStateById)
   }
 
   private def analyzeReferences(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorReference], oldStateIds: Seq[MonitorStateId]) = {
@@ -144,7 +145,7 @@ class MonitorUpdateAnalysis(
       deviationAnalysis.matchesLines,
     )
 
-    monitorRouteRepository.saveRouteState(state)
+    monitorStore.saveState(state)
 
     MonitorStateSummary(
       relationId = relationId,

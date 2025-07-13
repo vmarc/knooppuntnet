@@ -124,7 +124,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
   }
 
   private def assertAddedReference(addedRoute: MonitorRoute): Unit = {
-    val reference = configuration.monitorRouteRepository.routeReference(addedRoute._id, Some(1)).get
+    val reference = configuration.monitorRouteRepository.reference(addedRoute._id, Some(1)).get
     assertEqual(
       reference,
       MonitorReference(
@@ -145,7 +145,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
   }
 
   private def assertAddedState(addedRoute: MonitorRoute): MonitorState = {
-    val state = configuration.monitorRouteRepository.routeState(addedRoute._id, route1.relationId).get
+    val state = configuration.monitorRouteRepository.state(addedRoute._id, route1.relationId).get
     assertEqual(
       state,
       MonitorState(
@@ -193,7 +193,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
   }
 
   private def assertUpdatedState(addedRoute: MonitorRoute, addedState: MonitorState, updatedRoute: MonitorRoute): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(updatedRoute._id, 1).get
+    val state = configuration.monitorRouteRepository.state(updatedRoute._id, 1).get
     assertEqual(
       state,
       MonitorState(

@@ -15,63 +15,75 @@ import kpn.server.monitor.domain.OldMonitorReference
 
 trait MonitorRouteRepository {
 
+  // *** MonitorRoute ***
+
   def allRouteIds: Seq[Long]
 
-  def saveRoute(route: MonitorRoute): Unit
-
-  def deleteRoute(routeId: ObjectId): Unit
-
-  def deleteRouteReferences(routeId: ObjectId): Unit
-
-  def deleteRouteReference(routeId: ObjectId, subRelationId: Long): Unit
-
-  def deleteRouteReferenceById(objectId: ObjectId): Unit
-
-  def deleteRouteStates(routeId: ObjectId): Unit
-
-  def deleteRouteState(routeId: ObjectId, subRelationId: Long): Unit
-
-  def deleteRouteStateById(objectId: ObjectId): Unit
-
-  def saveRouteState(routeState: MonitorState): Unit
-
-  def saveRouteReference(routeReference: MonitorReference): Unit
-
-  def saveRouteChange(routeChange: MonitorRouteChange): Unit
-
-  def saveRouteChangeGeometry(routeChangeGeometry: MonitorRouteChangeGeometry): Unit
+  def routes(): Seq[MonitorRoute]
 
   def routeById(routeId: ObjectId): Option[MonitorRoute]
 
   def routeByName(groupId: ObjectId, routeName: String): Option[MonitorRoute]
 
-  def routeState(routeId: ObjectId, relationId: Long): Option[MonitorState]
+  def saveRoute(route: MonitorRoute): Unit
 
-  def routeStates(routeId: ObjectId): Seq[MonitorState]
+  def deleteRoute(routeId: ObjectId): Unit
 
-  def routeStateCount(routeId: ObjectId): Long
+  def routeNames(groupId: ObjectId): Seq[String]
 
-  def routeStateSize(routeId: ObjectId): Long
+  // *** MonitorReference ***
 
-  def routeStateSegments(routeId: ObjectId): Seq[SuperSegmentElementInfo]
+  def reference(routeId: ObjectId, relationId: Option[Long]): Option[MonitorReference]
 
-  def routeReference(routeId: ObjectId, relationId: Option[Long]): Option[MonitorReference]
+  def saveReference(reference: MonitorReference): Unit
 
-  def routeRelationReferenceId(routeId: ObjectId, relationId: Option[Long]): Option[ObjectId]
-
-  def routeReferences(routeId: ObjectId): Seq[MonitorReference]
+  def references(routeId: ObjectId): Seq[MonitorReference]
 
   def oldReferences(routeId: ObjectId): Seq[OldMonitorReference]
 
-  def routeReferenceIds(routeId: ObjectId): Seq[MonitorReferenceId]
+  def deleteReferences(routeId: ObjectId): Unit
+
+  def deleteReference(routeId: ObjectId, subRelationId: Long): Unit
+
+  def deleteReferenceById(objectId: ObjectId): Unit
+
+  def routeRelationReferenceId(routeId: ObjectId, relationId: Option[Long]): Option[ObjectId]
+
+  def referenceIds(routeId: ObjectId): Seq[MonitorReferenceId]
 
   def superRouteReferenceSummary(routeId: ObjectId): Option[Long]
 
+  // *** MonitorState ***
+
+  def saveState(state: MonitorState): Unit
+
+  def deleteStates(routeId: ObjectId): Unit
+
+  def deleteState(routeId: ObjectId, subRelationId: Long): Unit
+
+  def deleteStateById(objectId: ObjectId): Unit
+
+  def state(routeId: ObjectId, relationId: Long): Option[MonitorState]
+
+  def states(routeId: ObjectId): Seq[MonitorState]
+
+  def stateCount(routeId: ObjectId): Long
+
+  def stateSize(routeId: ObjectId): Long
+
+  def stateSegments(routeId: ObjectId): Seq[SuperSegmentElementInfo]
+
   def superRouteStateSummary(routeId: ObjectId): Option[MonitorStateSummary]
 
-  def routeStateSummaries(routeId: ObjectId): Seq[MonitorStateSummary]
+  def stateSummaries(routeId: ObjectId): Seq[MonitorStateSummary]
 
-  def routeStateIds(routeId: ObjectId): Seq[MonitorStateId]
+  def stateIds(routeId: ObjectId): Seq[MonitorStateId]
+
+  // *** changes ***
+
+  def saveRouteChange(routeChange: MonitorRouteChange): Unit
+
+  def saveRouteChangeGeometry(routeChangeGeometry: MonitorRouteChangeGeometry): Unit
 
   def routeChange(monitorRouteId: String, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange]
 
@@ -93,13 +105,9 @@ trait MonitorRouteRepository {
 
   def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
 
-  def routes(): Seq[MonitorRoute]
-
   def routeChange(changeKey: ChangeKey): Option[MonitorRouteChange]
 
   def routeChangeGeometry(changeKey: ChangeKey): Option[MonitorRouteChangeGeometry]
 
   def routeReferenceKey(monitorRouteId: String): Option[String]
-
-  def routeNames(groupId: ObjectId): Seq[String]
 }

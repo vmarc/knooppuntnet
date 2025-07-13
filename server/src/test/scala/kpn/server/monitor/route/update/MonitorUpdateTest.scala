@@ -68,11 +68,11 @@ abstract class MonitorUpdateTest extends MongoTest with MockFactory {
   }
 
   def verifyNoReference(route: MonitorRoute, relationId: Option[Long]): Unit = {
-    configuration.monitorRouteRepository.routeReference(route._id, relationId) should equal(None)
+    configuration.monitorRouteRepository.reference(route._id, relationId) should equal(None)
   }
 
   def verifyNoState(route: MonitorRoute, relationId: Long): Unit = {
-    configuration.monitorRouteRepository.routeState(route._id, relationId) should equal(None)
+    configuration.monitorRouteRepository.state(route._id, relationId) should equal(None)
   }
 
   def setupSuperRoute(): Unit = {

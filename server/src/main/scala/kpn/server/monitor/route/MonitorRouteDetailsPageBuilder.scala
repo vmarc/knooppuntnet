@@ -17,27 +17,27 @@ import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorGroupRepository
-import kpn.server.monitor.repository.MonitorRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
+import kpn.server.monitor.repository.MonitorUserRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class MonitorRouteDetailsPageBuilder(
   routeRepository: RouteRepository,
-  monitorRepository: MonitorRepository,
+  monitorUserRepository: MonitorUserRepository,
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
   locationService: LocationService
 ) {
 
   def build(language: Language, groupName: String, routeName: String): Option[MonitorRouteDetailsPage] = {
-    val admin = monitorRepository.isAdminUser(RequestContext.user)
+    val admin = monitorUserRepository.isAdminUser(RequestContext.user)
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).flatMap { monitorRoute =>
         monitorRoute.relationId.flatMap(routeRepository.findRouteById).map { routeDoc =>
-          val references = monitorRouteRepository.routeReferences(monitorRoute._id) // TODO limit query to only the info that is needed
-          val states = monitorRouteRepository.routeStates(monitorRoute._id) // TODO limit query to only the info that is needed: deviationCount, deviationDistance
+          val references = monitorRouteRepository.references(monitorRoute._id) // TODO limit query to only the info that is needed
+          val states = monitorRouteRepository.states(monitorRoute._id) // TODO limit query to only the info that is needed: deviationCount, deviationDistance
           buildPage(language, admin, group, monitorRoute, routeDoc, references, states)
         }
       }

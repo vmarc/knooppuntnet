@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class MonitorOsmNowAnalyze(
+  monitorStore: MonitorStore,
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
@@ -155,7 +156,7 @@ class MonitorOsmNowAnalyze(
       referenceFilename = None,
       referenceLines = referenceLines
     )
-    monitorRouteRepository.saveRouteReference(reference)
+    monitorStore.saveReference(reference)
   }
 
   private def buildState(
@@ -175,7 +176,7 @@ class MonitorOsmNowAnalyze(
       deviations = Seq.empty,
       matchesLines = matchesLines
     )
-    monitorRouteRepository.saveRouteState(state)
+    monitorStore.saveState(state)
   }
 
   private def initReporter(args: MonitorUpdateArgs): Unit = {

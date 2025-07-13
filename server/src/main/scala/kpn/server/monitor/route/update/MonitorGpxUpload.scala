@@ -27,10 +27,11 @@ import scala.xml.XML
 
 @Component
 class MonitorGpxUpload(
+  monitorStore: MonitorStore,
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
-  monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer
+  monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
 ) {
 
   private val log = Log(classOf[MonitorGpxUpload])
@@ -102,7 +103,7 @@ class MonitorGpxUpload(
       referenceLines = referenceLines1
     )
 
-    monitorRouteRepository.saveRouteReference(reference)
+    monitorStore.saveReference(reference)
 
     val routeCoordinateArrays = routeRepository.coordinatesArrays(Seq(relationId))
     val routeLines = routeCoordinateArrays.map { coordinateArray =>
@@ -113,12 +114,12 @@ class MonitorGpxUpload(
 
     val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
 
-    val stateId = monitorRouteRepository.routeState(route._id, relationId) match {
+    val stateId = monitorRouteRepository.state(route._id, relationId) match {
       case Some(routeState) => routeState._id
       case None => ObjectId()
     }
 
-    monitorRouteRepository.saveRouteState(
+    monitorStore.saveState(
       MonitorState(
         stateId,
         route._id,

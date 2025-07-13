@@ -24,8 +24,8 @@ import kpn.server.monitor.group.MonitorGroupNamesBuilder
 import kpn.server.monitor.group.MonitorGroupPageBuilder
 import kpn.server.monitor.group.MonitorGroupsPageBuilder
 import kpn.server.monitor.repository.MonitorGroupRepository
-import kpn.server.monitor.repository.MonitorRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
+import kpn.server.monitor.repository.MonitorUserRepository
 import kpn.server.monitor.route.MonitorRouteChangePageBuilder
 import kpn.server.monitor.route.MonitorRouteChangesPageBuilder
 import kpn.server.monitor.route.MonitorRouteDetailsPageBuilder
@@ -47,7 +47,7 @@ class MonitorFacadeImpl(
   monitorRouteChangesPageBuilder: MonitorRouteChangesPageBuilder,
   monitorRouteChangePageBuilder: MonitorRouteChangePageBuilder,
   monitorRouteInfoBuilder: MonitorRouteInfoBuilder,
-  monitorRepository: MonitorRepository,
+  monitorUserRepository: MonitorUserRepository,
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository
 ) extends MonitorFacade {
@@ -186,7 +186,7 @@ class MonitorFacadeImpl(
   }
 
   private def assertAdminUser(user: Option[String]): Unit = {
-    if (!monitorRepository.isAdminUser(user)) {
+    if (!monitorUserRepository.isAdminUser(user)) {
       throw new AccessDeniedException("403 returned")
     }
   }

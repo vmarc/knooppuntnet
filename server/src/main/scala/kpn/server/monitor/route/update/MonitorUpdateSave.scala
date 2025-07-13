@@ -75,11 +75,11 @@ class MonitorUpdateSave(
 
     if (context.value.structureChanged || context.value.stateChanged) {
 
-      val stateSummaries = monitorRouteRepository.routeStateSummaries(context.value.routeId)
+      val stateSummaries = monitorRouteRepository.stateSummaries(context.value.routeId)
       val relation = context.value.route.relation.map(relation => updatedMonitorRouteRelation(context, relation, stateSummaries))
       val relationWithDistances = relation.map(updatedMonitorRouteRelationCumulativeDistance)
 
-      val monitorRouteSegmentInfos = monitorRouteRepository.routeStateSegments(context.value.routeId)
+      val monitorRouteSegmentInfos = monitorRouteRepository.stateSegments(context.value.routeId)
       val superRouteSuperSegments = MonitorRouteOsmSegmentBuilder.build(monitorRouteSegmentInfos)
 
       val relationWithGaps = relationWithDistances.map { monitorRouteRelation =>

@@ -115,7 +115,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     verifyGpxUpload2_route(group, route)
     verifyNoReference(route, None)
     assertEqual(
-      configuration.monitorRouteRepository.routeReference(route._id, Some(11)),
+      configuration.monitorRouteRepository.reference(route._id, Some(11)),
       Some(reference11)
     )
     verifyGpxUpload2_reference(route)
@@ -189,7 +189,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
   }
 
   private def verifyReference11(route: MonitorRoute) = {
-    val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(subRoute11.relationId)).get
+    val reference = configuration.monitorRouteRepository.reference(route._id, Some(subRoute11.relationId)).get
     assertEqual(
       reference,
       MonitorReference(
@@ -211,7 +211,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
   }
 
   private def verifyGpxUploadState11(route: MonitorRoute): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(route._id, 11).get
+    val state = configuration.monitorRouteRepository.state(route._id, 11).get
     assertEqual(
       state,
       MonitorState(
@@ -241,7 +241,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
   }
 
   private def verifyGpxUpload2_reference(route: MonitorRoute): Unit = {
-    val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(subRoute12.relationId)).get
+    val reference = configuration.monitorRouteRepository.reference(route._id, Some(subRoute12.relationId)).get
     assertEqual(
       reference,
       MonitorReference(
@@ -262,7 +262,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
   }
 
   private def verifyGpxUpload2_state12(route: MonitorRoute): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(route._id, subRoute12.relationId).get
+    val state = configuration.monitorRouteRepository.state(route._id, subRoute12.relationId).get
     assertEqual(
       state,
       MonitorState(

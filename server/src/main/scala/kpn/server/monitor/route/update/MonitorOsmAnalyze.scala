@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class MonitorOsmAnalyze(
+  monitorStore: MonitorStore,
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorRouteStructureLoader: MonitorRouteStructureLoader,
@@ -111,7 +112,7 @@ class MonitorOsmAnalyze(
             matchesDistance = 0,
             matchesLines = Seq.empty,
           )
-          monitorRouteRepository.saveRouteState(state)
+          monitorStore.saveState(state)
           Some(
             MonitorRouteDeviationAnalysisSummary(
               relation.relationId,
@@ -139,7 +140,7 @@ class MonitorOsmAnalyze(
             deviationAnalysis.matchesDistance,
             deviationAnalysis.matchesLines,
           )
-          monitorRouteRepository.saveRouteState(state)
+          monitorStore.saveState(state)
 
           Some(
             MonitorRouteDeviationAnalysisSummary(
@@ -165,8 +166,8 @@ class MonitorOsmAnalyze(
           )
         )
 
-        monitorRouteRepository.deleteRouteReference(monitorRouteId, relation.relationId)
-        monitorRouteRepository.deleteRouteState(monitorRouteId, relation.relationId)
+        monitorStore.deleteReference(monitorRouteId, relation.relationId)
+        monitorStore.deleteState(monitorRouteId, relation.relationId)
 
         None
 
@@ -193,7 +194,7 @@ class MonitorOsmAnalyze(
             referenceLines
           )
 
-          monitorRouteRepository.saveRouteReference(ref)
+          monitorStore.saveReference(ref)
           Some(ref)
         }
         else {

@@ -113,11 +113,11 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
   }
 
   private def verifyAdd_noReference(route: MonitorRoute): Unit = {
-    configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)) should equal(None)
+    configuration.monitorRouteRepository.reference(route._id, Some(route1.relationId)) should equal(None)
   }
 
   private def verifyAdd_noState(route: MonitorRoute): Unit = {
-    configuration.monitorRouteRepository.routeState(route._id, route1.relationId) should equal(None)
+    configuration.monitorRouteRepository.state(route._id, route1.relationId) should equal(None)
   }
 
   private def verifyUpdate(group: MonitorGroup, route: MonitorRoute): Unit = {
@@ -158,7 +158,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
   }
 
   private def verifyUpdate_reference(route: MonitorRoute): Unit = {
-    val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)).get
+    val reference = configuration.monitorRouteRepository.reference(route._id, Some(route1.relationId)).get
     assertEqual(
       reference,
       MonitorReference(
@@ -179,7 +179,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
   }
 
   private def verifyUpdate_state(route: MonitorRoute): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(route._id, route1.relationId).get
+    val state = configuration.monitorRouteRepository.state(route._id, route1.relationId).get
     assertEqual(
       state,
       MonitorState(

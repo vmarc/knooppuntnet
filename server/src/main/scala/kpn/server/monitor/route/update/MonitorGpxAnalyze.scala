@@ -22,6 +22,7 @@ import scala.xml.XML
 
 @Component
 class MonitorGpxAnalyze(
+  monitorStore: MonitorStore,
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
@@ -69,7 +70,7 @@ class MonitorGpxAnalyze(
       referenceLines = referenceLines
     )
 
-    monitorRouteRepository.saveRouteReference(reference)
+    monitorStore.saveReference(reference)
 
     args.update.relationId match {
       case Some(relationId) =>
@@ -93,7 +94,7 @@ class MonitorGpxAnalyze(
           deviationAnalysis.matchesDistance,
           deviationAnalysis.matchesLines,
         )
-        monitorRouteRepository.saveRouteState(state)
+        monitorStore.saveState(state)
 
         val happy = deviationAnalysis.deviations.isEmpty && routeDoc.superDistance == referenceDistance && routeDoc.superDistance > 0
 

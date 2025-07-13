@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class MonitorGpxUpdate(
+  monitorStore: MonitorStore,
   routeRepository: RouteRepository,
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
@@ -28,7 +29,7 @@ class MonitorGpxUpdate(
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorUpdateSave: MonitorUpdateSave,
   monitorGpxAnalyze: MonitorGpxAnalyze,
-  monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer
+  monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
 ) {
 
   private val log = Log(classOf[MonitorGpxUpdate])
@@ -46,14 +47,14 @@ class MonitorGpxUpdate(
     if (route.relationId.isEmpty && args.update.relationId.nonEmpty && args.update.referenceGpx.isEmpty) {
       // the relationId that was previously unknown is now filled in, and no new reference is given
 
-      monitorRouteRepository.routeReference(route._id, None) match {
+      monitorRouteRepository.reference(route._id, None) match {
         case None => throw new RuntimeException(s"Could not find reference for route ${route._id}")
         case Some(reference) =>
 
           val updatedReference = reference.copy(
             relationId = Some(args.relationId),
           )
-          monitorRouteRepository.saveRouteReference(updatedReference)
+          monitorStore.saveReference(updatedReference)
 
           val referenceLines = reference.referenceLines.map(CoordinateUtil.coordinatesToLineString)
 
@@ -76,7 +77,7 @@ class MonitorGpxUpdate(
             deviationAnalysis.matchesDistance,
             deviationAnalysis.matchesLines,
           )
-          monitorRouteRepository.saveRouteState(state)
+          monitorStore.saveState(state)
 
           val happy = deviationAnalysis.deviations.isEmpty && routeDoc.superDistance == reference.referenceDistance && routeDoc.superDistance > 0
 

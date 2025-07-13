@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class MonitorGpxDelete(
+  monitorStore: MonitorStore,
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorUpdateSave: MonitorUpdateSave,
@@ -30,8 +31,8 @@ class MonitorGpxDelete(
     val superRelationId = route.relationId.getOrElse(throw new RuntimeException("route relation id needed for gpx-delete"))
     val subRelationId = args.update.relationId.getOrElse(throw new RuntimeException("subrelation id needed for gpx-delete"))
 
-    monitorRouteRepository.deleteRouteReference(route._id, subRelationId)
-    monitorRouteRepository.deleteRouteState(route._id, subRelationId)
+    monitorStore.deleteReference(route._id, subRelationId)
+    monitorStore.deleteState(route._id, subRelationId)
 
     val updatedRoute = monitorUpdateCommon.updateSuperRoute(route)
 

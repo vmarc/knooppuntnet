@@ -30,8 +30,8 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
     verifyDocumentCounts(1, 1, 1)
 
     val updatedRoute = configuration.monitorRouteRepository.routeByName(group1._id, "route").get
-    val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
-    val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
+    val updatedState = configuration.monitorRouteRepository.state(route._id, 1).get
+    val updatedReference = configuration.monitorRouteRepository.reference(route._id, Some(1)).get
 
     updatedRoute should equal(route)
     updatedState should equal(state)
@@ -69,8 +69,8 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
 
     configuration.monitorGroupRepository.saveGroup(group)
     configuration.monitorRouteRepository.saveRoute(route)
-    configuration.monitorRouteRepository.saveRouteReference(reference)
-    configuration.monitorRouteRepository.saveRouteState(state)
+    configuration.monitorRouteRepository.saveReference(reference)
+    configuration.monitorRouteRepository.saveState(state)
 
     Time.set(UpdateTimestamp)
     val reporter = new MonitorUpdateReporterMock()

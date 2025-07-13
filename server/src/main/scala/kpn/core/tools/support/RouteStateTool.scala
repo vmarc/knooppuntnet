@@ -37,7 +37,7 @@ class RouteStateTool(database: Database) {
     }
 
     val routeState = log.infoElapsed {
-      val result = monitorRouteRepository.routeState(route._id, route.relationId.get).get
+      val result = monitorRouteRepository.state(route._id, route.relationId.get).get
       ("state", result)
     }
 

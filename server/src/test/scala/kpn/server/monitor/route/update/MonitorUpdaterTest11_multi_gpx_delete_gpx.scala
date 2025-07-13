@@ -33,14 +33,14 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
     updatedRoute.deviationCount should equal(0)
     updatedRoute.deviationDistance should equal(0)
 
-    configuration.monitorRouteRepository.routeReference(route._id, Some(11)) should equal(Some(reference11))
-    configuration.monitorRouteRepository.routeState(route._id, 11) should equal(Some(state11))
+    configuration.monitorRouteRepository.reference(route._id, Some(11)) should equal(Some(reference11))
+    configuration.monitorRouteRepository.state(route._id, 11) should equal(Some(state11))
 
-    configuration.monitorRouteRepository.routeReference(route._id, Some(111)) should equal(None)
-    configuration.monitorRouteRepository.routeState(route._id, 111) should equal(None)
+    configuration.monitorRouteRepository.reference(route._id, Some(111)) should equal(None)
+    configuration.monitorRouteRepository.state(route._id, 111) should equal(None)
 
-    configuration.monitorRouteRepository.routeReference(route._id, Some(112)) should equal(Some(reference112))
-    configuration.monitorRouteRepository.routeState(route._id, 112) should equal(Some(state112))
+    configuration.monitorRouteRepository.reference(route._id, Some(112)) should equal(Some(reference112))
+    configuration.monitorRouteRepository.state(route._id, 112) should equal(Some(state112))
   }
 
   private def executeGpxDelete(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
@@ -82,12 +82,12 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
 
     configuration.monitorGroupRepository.saveGroup(group)
     configuration.monitorRouteRepository.saveRoute(route)
-    configuration.monitorRouteRepository.saveRouteReference(reference11)
-    configuration.monitorRouteRepository.saveRouteReference(reference111)
-    configuration.monitorRouteRepository.saveRouteReference(reference112)
-    configuration.monitorRouteRepository.saveRouteState(state11)
-    configuration.monitorRouteRepository.saveRouteState(state111)
-    configuration.monitorRouteRepository.saveRouteState(state112)
+    configuration.monitorRouteRepository.saveReference(reference11)
+    configuration.monitorRouteRepository.saveReference(reference111)
+    configuration.monitorRouteRepository.saveReference(reference112)
+    configuration.monitorRouteRepository.saveState(state11)
+    configuration.monitorRouteRepository.saveState(state111)
+    configuration.monitorRouteRepository.saveState(state112)
 
     Time.set(CurrentTimestamp)
     val reporter = new MonitorUpdateReporterMock()

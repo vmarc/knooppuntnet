@@ -84,7 +84,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
   }
 
   private def verifyRouteReference(monitorRoute: MonitorRoute): Unit = {
-    val reference = configuration.monitorRouteRepository.routeReference(monitorRoute._id, Some(1)).get
+    val reference = configuration.monitorRouteRepository.reference(monitorRoute._id, Some(1)).get
     assertEqual(
       reference,
       MonitorReference(
@@ -105,7 +105,7 @@ class MonitorUpdaterTest01_osm_add extends MonitorUpdateTest {
   }
 
   private def verifyRouteState(monitorRoute: MonitorRoute): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(monitorRoute._id, route1.relationId).get
+    val state = configuration.monitorRouteRepository.state(monitorRoute._id, route1.relationId).get
     assertEqual(
       state,
       MonitorState(

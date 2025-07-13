@@ -11,6 +11,7 @@ import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
+import kpn.server.monitor.route.update.MonitorStore
 import kpn.server.monitor.route.update.MonitorUpdateAnalysis
 import kpn.server.repository.RouteRepositoryImpl
 
@@ -36,8 +37,10 @@ class MonitorUpdateTool(database: Database) {
   private val routeRepository = new RouteRepositoryImpl(database)
   private val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
   private val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
+  private val monitorStore = new MonitorStore(monitorRouteRepository)
   private val monitorRouteDeviationAnalyzer = new MonitorRouteDeviationAnalyzerImpl()
   val monitorUpdateAnalysis = new MonitorUpdateAnalysis(
+    monitorStore,
     routeRepository,
     monitorRouteRepository,
     monitorRouteDeviationAnalyzer

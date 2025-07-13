@@ -60,12 +60,12 @@ class MonitorUpdaterTest13_update_group extends MonitorUpdateTest {
   }
 
   private def verifyReference(route: MonitorRoute, reference: MonitorReference): Unit = {
-    val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)).get
+    val reference = configuration.monitorRouteRepository.reference(route._id, Some(route1.relationId)).get
     reference should equal(reference)
   }
 
   private def verifyState(route: MonitorRoute, state: MonitorState): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(route._id, route1.relationId).get
+    val state = configuration.monitorRouteRepository.state(route._id, route1.relationId).get
     state should equal(state)
   }
 
@@ -106,8 +106,8 @@ class MonitorUpdaterTest13_update_group extends MonitorUpdateTest {
     configuration.monitorGroupRepository.saveGroup(group1)
     configuration.monitorGroupRepository.saveGroup(group2)
     configuration.monitorRouteRepository.saveRoute(route)
-    configuration.monitorRouteRepository.saveRouteReference(reference)
-    configuration.monitorRouteRepository.saveRouteState(state)
+    configuration.monitorRouteRepository.saveReference(reference)
+    configuration.monitorRouteRepository.saveState(state)
 
     Time.set(CurrentTimestamp)
     val reporter = new MonitorUpdateReporterMock()

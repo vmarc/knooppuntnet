@@ -98,11 +98,11 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
   }
 
   private def verifyAdd_noState(route: MonitorRoute): Unit = {
-    configuration.monitorRouteRepository.routeState(route._id, route1.relationId) should equal(None)
+    configuration.monitorRouteRepository.state(route._id, route1.relationId) should equal(None)
   }
 
   private def verifyAdd_noReference(route: MonitorRoute): Unit = {
-    configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)) should equal(None)
+    configuration.monitorRouteRepository.reference(route._id, Some(route1.relationId)) should equal(None)
   }
 
   private def verifyAdd_route(group: MonitorGroup): MonitorRoute = {
@@ -137,7 +137,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
   }
 
   private def verifyAdd_reference(route: MonitorRoute): MonitorReference = {
-    val reference = configuration.monitorRouteRepository.routeReference(route._id, None).get
+    val reference = configuration.monitorRouteRepository.reference(route._id, None).get
     assertEqual(
       reference,
       MonitorReference(
@@ -182,7 +182,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
   }
 
   private def verifyUpdate_reference(route: MonitorRoute, reference: MonitorReference): Unit = {
-    val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)).get
+    val updatedReference = configuration.monitorRouteRepository.reference(route._id, Some(route1.relationId)).get
     assertEqual(
       updatedReference,
       MonitorReference(
@@ -203,7 +203,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
   }
 
   private def verifyUpdate_state(route: MonitorRoute): Unit = {
-    val state = configuration.monitorRouteRepository.routeState(route._id, 1).get
+    val state = configuration.monitorRouteRepository.state(route._id, 1).get
     assertEqual(
       state,
       MonitorState(

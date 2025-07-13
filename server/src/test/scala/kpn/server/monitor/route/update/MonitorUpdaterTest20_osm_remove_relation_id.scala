@@ -113,8 +113,8 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
 
     configuration.monitorGroupRepository.saveGroup(group)
     configuration.monitorRouteRepository.saveRoute(route)
-    configuration.monitorRouteRepository.saveRouteReference(reference)
-    configuration.monitorRouteRepository.saveRouteState(state)
+    configuration.monitorRouteRepository.saveReference(reference)
+    configuration.monitorRouteRepository.saveState(state)
 
     Time.set(UpdateTimestamp)
     val reporter = new MonitorUpdateReporterMock()

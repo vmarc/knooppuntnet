@@ -6,6 +6,7 @@ import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
+import kpn.server.monitor.route.update.MonitorStore
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.LineString
@@ -22,6 +23,9 @@ object MonitorMigrateReferencesTool {
 class MonitorMigrateReferencesTool(database: Database) {
   private val log = Log(classOf[MonitorMigrateReferencesTool])
   private val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
+  private val monitorStore = new MonitorStore(
+    monitorRouteRepository,
+  )
 
   def migrate(): Unit = {
     val routeIds = database.monitorRoutes.objectIds()
@@ -50,7 +54,7 @@ class MonitorMigrateReferencesTool(database: Database) {
         referenceFilename = oldReference.referenceFilename,
         referenceLines = referenceLines
       )
-      monitorRouteRepository.saveRouteReference(reference)
+      monitorStore.saveReference(reference)
     }
   }
 

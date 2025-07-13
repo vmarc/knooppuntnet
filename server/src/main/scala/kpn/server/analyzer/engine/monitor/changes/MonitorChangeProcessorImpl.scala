@@ -16,6 +16,7 @@ import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
+import kpn.server.monitor.route.update.MonitorStore
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
 
@@ -23,7 +24,8 @@ import org.springframework.stereotype.Component
 class MonitorChangeProcessorImpl(
   monitorRouteRepository: MonitorRouteRepository,
   monitorRouteLoader: MonitorRouteLoader,
-  monitorChangeImpactAnalyzer: MonitorChangeImpactAnalyzer
+  monitorChangeImpactAnalyzer: MonitorChangeImpactAnalyzer,
+  monitorStore: MonitorStore
 ) extends MonitorChangeProcessor {
 
   private val log = Log(classOf[MonitorChangeProcessorImpl])
@@ -71,7 +73,7 @@ class MonitorChangeProcessorImpl(
       case None => log.warn(s"$routeId TODO routeReferenceKey not available ")
       case Some(referenceKey) =>
 
-        val referenceOption = monitorRouteRepository.routeReference(ObjectId("TODO MON") /*, routeId, referenceKey*/ , None)
+        val referenceOption = monitorRouteRepository.reference(ObjectId("TODO MON") /*, routeId, referenceKey*/ , None)
         monitorRouteLoader.loadBefore(changeSetContext.changeSet.id, changeSetContext.changeSet.timestampBefore, routeId) match {
           case None => log.warn(s"$routeId TODO route did not exist before --> create change ???")
           case Some(beforeRelation) =>
@@ -191,7 +193,7 @@ class MonitorChangeProcessorImpl(
       monitorRouteRepository.saveRouteChangeGeometry(routeChangeGeometry)
 
       val happy = false
-      val routeState = MonitorState(
+      val state = MonitorState(
         ObjectId(),
         null, // TODO routeId,
         1L, // TODO relationId
@@ -201,7 +203,7 @@ class MonitorChangeProcessorImpl(
         afterRouteAnalysis.matchesLines
       )
 
-      monitorRouteRepository.saveRouteState(routeState)
+      monitorStore.saveState(state)
 
       log.info(message)
     }
