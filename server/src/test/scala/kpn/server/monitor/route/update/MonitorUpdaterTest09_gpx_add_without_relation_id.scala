@@ -12,9 +12,9 @@ import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 
 class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest {
 
@@ -46,7 +46,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
     (route, reference)
   }
 
-  private def verifyUpdate(group: MonitorGroup, reporter: MonitorUpdateReporterMock, route: MonitorRoute, reference: MonitorRouteReference): Unit = {
+  private def verifyUpdate(group: MonitorGroup, reporter: MonitorUpdateReporterMock, route: MonitorRoute, reference: MonitorReference): Unit = {
     verifyDocumentCounts(1, 1, 1)
     verifyUpdate_route(group, route)
     verifyUpdate_reference(route, reference)
@@ -136,11 +136,11 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
     route
   }
 
-  private def verifyAdd_reference(route: MonitorRoute): MonitorRouteReference = {
+  private def verifyAdd_reference(route: MonitorRoute): MonitorReference = {
     val reference = configuration.monitorRouteRepository.routeReference(route._id, None).get
     assertEqual(
       reference,
-      MonitorRouteReference(
+      MonitorReference(
         reference._id,
         routeId = route._id,
         relationId = None, // <-- not filled in
@@ -181,11 +181,11 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
     )
   }
 
-  private def verifyUpdate_reference(route: MonitorRoute, reference: MonitorRouteReference): Unit = {
+  private def verifyUpdate_reference(route: MonitorRoute, reference: MonitorReference): Unit = {
     val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)).get
     assertEqual(
       updatedReference,
-      MonitorRouteReference(
+      MonitorReference(
         reference._id,
         routeId = route._id,
         relationId = Some(route1.relationId), // <-- filled in
@@ -206,7 +206,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
     val state = configuration.monitorRouteRepository.routeState(route._id, 1).get
     assertEqual(
       state,
-      MonitorRouteState(
+      MonitorState(
         state._id,
         routeId = route._id,
         relationId = route1.relationId,

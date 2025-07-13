@@ -8,13 +8,13 @@ import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorReference
 import kpn.core.test.TestObjects.newMonitorRoute
-import kpn.core.test.TestObjects.newMonitorRouteReference
-import kpn.core.test.TestObjects.newMonitorRouteState
+import kpn.core.test.TestObjects.newMonitorState
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 
 class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
 
@@ -62,11 +62,11 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
   private def setup(): (
     MonitorGroup,
       MonitorRoute,
-      MonitorRouteReference,
-      MonitorRouteReference,
-      MonitorRouteState,
-      MonitorRouteState,
-      MonitorRouteState,
+      MonitorReference,
+      MonitorReference,
+      MonitorState,
+      MonitorState,
+      MonitorState,
       MonitorUpdateReporterMock
     ) = {
 
@@ -110,8 +110,8 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
     )
   }
 
-  private def setupReference11(route: MonitorRoute): MonitorRouteReference = {
-    newMonitorRouteReference(
+  private def setupReference11(route: MonitorRoute): MonitorReference = {
+    newMonitorReference(
       routeId = route._id,
       relationId = Some(11),
       referenceType = MonitorReferenceType.gpx,
@@ -121,8 +121,8 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
     )
   }
 
-  private def setupReference111(route: MonitorRoute): MonitorRouteReference = {
-    newMonitorRouteReference(
+  private def setupReference111(route: MonitorRoute): MonitorReference = {
+    newMonitorReference(
       routeId = route._id,
       relationId = Some(111),
       referenceType = MonitorReferenceType.gpx,
@@ -132,8 +132,8 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
     )
   }
 
-  private def setupReference112(route: MonitorRoute): MonitorRouteReference = {
-    newMonitorRouteReference(
+  private def setupReference112(route: MonitorRoute): MonitorReference = {
+    newMonitorReference(
       routeId = route._id,
       relationId = Some(112),
       referenceType = MonitorReferenceType.gpx,
@@ -143,8 +143,8 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
     )
   }
 
-  private def setupState11(route: MonitorRoute): MonitorRouteState = {
-    newMonitorRouteState(
+  private def setupState11(route: MonitorRoute): MonitorState = {
+    newMonitorState(
       routeId = route._id,
       relationId = 11,
       timestamp = Timestamp(2022, 8, 11),
@@ -152,8 +152,8 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
     )
   }
 
-  private def setupState111(route: MonitorRoute): MonitorRouteState = {
-    newMonitorRouteState(
+  private def setupState111(route: MonitorRoute): MonitorState = {
+    newMonitorState(
       routeId = route._id,
       relationId = 111,
       timestamp = Timestamp(2022, 8, 11),
@@ -171,8 +171,8 @@ class MonitorUpdaterTest11_multi_gpx_delete_gpx extends MonitorUpdateTest {
     )
   }
 
-  private def setupState112(route: MonitorRoute): MonitorRouteState = {
-    newMonitorRouteState(
+  private def setupState112(route: MonitorRoute): MonitorState = {
+    newMonitorState(
       routeId = route._id,
       relationId = 112,
       timestamp = Timestamp(2022, 8, 11),

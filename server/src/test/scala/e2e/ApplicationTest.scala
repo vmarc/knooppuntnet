@@ -446,8 +446,8 @@ class ApplicationTest extends EndToEndTest {
     database.users.drop()
     database.monitorGroups.drop()
     database.monitorRoutes.drop()
-    database.monitorRouteStates.drop()
-    database.monitorRouteReferences.drop()
+    database.monitorStates.drop()
+    database.monitorReferences.drop()
     database.monitorRouteChanges.drop()
     database.monitorRouteChangeGeometries.drop()
   }

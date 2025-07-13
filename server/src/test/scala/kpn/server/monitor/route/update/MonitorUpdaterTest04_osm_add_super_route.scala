@@ -18,9 +18,9 @@ import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteRelation
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 
 class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
 
@@ -108,7 +108,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
     val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(subRoute11.relationId)).get
     assertEqual(
       reference,
-      MonitorRouteReference(
+      MonitorReference(
         reference._id,
         routeId = route._id,
         relationId = Some(subRoute11.relationId),
@@ -129,7 +129,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
     val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(subRoute12.relationId)).get
     assertEqual(
       reference,
-      MonitorRouteReference(
+      MonitorReference(
         reference._id,
         routeId = route._id,
         relationId = Some(subRoute12.relationId),
@@ -155,7 +155,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
     val state = configuration.monitorRouteRepository.routeState(route._id, subRoute11.relationId).get
     assertEqual(
       state,
-      MonitorRouteState(
+      MonitorState(
         state._id,
         routeId = route._id,
         relationId = subRoute11.relationId,
@@ -172,7 +172,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
     val state = configuration.monitorRouteRepository.routeState(route._id, subRoute12.relationId).get
     assertEqual(
       state,
-      MonitorRouteState(
+      MonitorState(
         state._id,
         routeId = route._id,
         relationId = subRoute12.relationId,

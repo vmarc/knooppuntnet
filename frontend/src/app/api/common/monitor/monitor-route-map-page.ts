@@ -4,7 +4,7 @@ import { Bounds } from '@api/common/bounds';
 import { Timestamp } from '@api/custom/timestamp';
 import { MonitorReferenceType } from './monitor-reference-type';
 import { MonitorRouteDeviation } from './monitor-route-deviation';
-import { MonitorRouteReferenceInfo } from './monitor-route-reference-info';
+import { MonitorReferenceInfo } from './monitor-reference-info';
 import { MonitorRouteSegment } from './monitor-route-segment';
 import { MonitorRouteSubRelation } from './monitor-route-sub-relation';
 
@@ -23,6 +23,6 @@ export interface MonitorRouteMapPage {
   readonly osmSegments: MonitorRouteSegment[];
   readonly matchesGeoJson: string;
   readonly deviations: MonitorRouteDeviation[];
-  readonly reference?: MonitorRouteReferenceInfo;
+  readonly reference?: MonitorReferenceInfo;
   readonly subRelations: MonitorRouteSubRelation[];
 }

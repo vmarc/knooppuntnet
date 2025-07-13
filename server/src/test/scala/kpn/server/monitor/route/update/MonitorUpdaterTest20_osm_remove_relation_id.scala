@@ -5,13 +5,13 @@ import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.core.common.Time
 import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorReference
 import kpn.core.test.TestObjects.newMonitorRoute
-import kpn.core.test.TestObjects.newMonitorRouteReference
-import kpn.core.test.TestObjects.newMonitorRouteState
+import kpn.core.test.TestObjects.newMonitorState
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 
 class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
 
@@ -140,8 +140,8 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
     )
   }
 
-  private def setupReference(route: MonitorRoute): MonitorRouteReference = {
-    newMonitorRouteReference(
+  private def setupReference(route: MonitorRoute): MonitorReference = {
+    newMonitorReference(
       routeId = route._id,
       relationId = Some(route1.relationId),
       referenceType = MonitorReferenceType.osm,
@@ -149,8 +149,8 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends MonitorUpdateTest {
     )
   }
 
-  private def setupState(route: MonitorRoute): MonitorRouteState = {
-    newMonitorRouteState(
+  private def setupState(route: MonitorRoute): MonitorState = {
+    newMonitorState(
       routeId = route._id,
       relationId = route1.relationId,
       timestamp = CurrentTimestamp,

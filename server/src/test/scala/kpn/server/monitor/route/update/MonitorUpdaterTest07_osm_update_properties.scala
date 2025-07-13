@@ -7,9 +7,9 @@ import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.core.common.Time
 import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 
 class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
 
@@ -67,12 +67,12 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
     )
   }
 
-  private def verifyReference(route: MonitorRoute, reference: MonitorRouteReference): Unit = {
+  private def verifyReference(route: MonitorRoute, reference: MonitorReference): Unit = {
     val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
     updatedReference should equal(reference) // no change
   }
 
-  private def verifyState(route: MonitorRoute, state: MonitorRouteState): Unit = {
+  private def verifyState(route: MonitorRoute, state: MonitorState): Unit = {
     val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
     updatedState should equal(state) // no change
   }
@@ -141,7 +141,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
   }
 
   private def setupState(route: MonitorRoute) = {
-    MonitorRouteState(
+    MonitorState(
       ObjectId(),
       routeId = route._id,
       relationId = route1.relationId,
@@ -154,7 +154,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
   }
 
   private def setupReference(route: MonitorRoute) = {
-    MonitorRouteReference(
+    MonitorReference(
       ObjectId(),
       routeId = route._id,
       relationId = Some(route1.relationId),

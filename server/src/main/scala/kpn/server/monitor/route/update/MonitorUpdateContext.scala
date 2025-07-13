@@ -6,11 +6,11 @@ import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatus
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorReference
+import kpn.server.monitor.domain.MonitorReferenceSummary
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteReferenceSummary
-import kpn.server.monitor.repository.MonitorRouteReferenceId
-import kpn.server.monitor.repository.MonitorRouteStateId
+import kpn.server.monitor.repository.MonitorReferenceId
+import kpn.server.monitor.repository.MonitorStateId
 
 case class MonitorUpdateContext(
   user: String,
@@ -20,14 +20,14 @@ case class MonitorUpdateContext(
   status: MonitorRouteUpdateStatus = MonitorRouteUpdateStatus(),
   group: Option[MonitorGroup] = None,
   oldRoute: Option[MonitorRoute] = None,
-  oldReferenceIds: Seq[MonitorRouteReferenceId] = Seq.empty,
-  oldStateIds: Seq[MonitorRouteStateId] = Seq.empty,
+  oldReferenceIds: Seq[MonitorReferenceId] = Seq.empty,
+  oldStateIds: Seq[MonitorStateId] = Seq.empty,
   newRoute: Option[MonitorRoute] = None,
-  newReferenceSummaries: Seq[MonitorRouteReferenceSummary] = Seq.empty,
+  newReferenceSummaries: Seq[MonitorReferenceSummary] = Seq.empty,
   analysisStartMillis: Option[Long] = None,
   structureChanged: Boolean = false,
   stateChanged: Boolean = false,
-  references: Seq[MonitorRouteReference] = Seq.empty,
+  references: Seq[MonitorReference] = Seq.empty,
 ) {
 
   def routeId: ObjectId = {

@@ -5,7 +5,7 @@ import kpn.api.base.WithObjectId
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.custom.Timestamp
 
-case class MonitorRouteState(
+case class MonitorState(
   _id: ObjectId,
   routeId: ObjectId,
   relationId: Long,

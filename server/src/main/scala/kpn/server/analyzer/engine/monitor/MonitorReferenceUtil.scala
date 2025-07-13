@@ -5,7 +5,7 @@ import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 
-object MonitorRouteReferenceUtil {
+object MonitorReferenceUtil {
 
   private val geometryFactory = new GeometryFactory
 

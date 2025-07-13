@@ -7,12 +7,12 @@ import kpn.core.tools.monitor.MonitorRouteGpxReader
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Haversine
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.monitor.MonitorReferenceUtil
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
-import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
 import org.locationtech.jts.geom.GeometryFactory
@@ -50,12 +50,12 @@ class MonitorGpxAnalyze(
     val referenceBounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
     val referenceGeoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
 
-    val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
+    val referenceLineStrings = MonitorReferenceUtil.toLineStrings(geometryCollection)
     val referenceDistance = Math.round(referenceLineStrings.map(Haversine.meters).sum)
     val referenceSegmentCount = geometryCollection.getNumGeometries
     val referenceLines = referenceLineStrings.map(CoordinateUtil.lineStringToCoordinates)
 
-    val reference = MonitorRouteReference(
+    val reference = MonitorReference(
       ObjectId(),
       routeId = route._id,
       relationId = args.update.relationId,
@@ -85,7 +85,7 @@ class MonitorGpxAnalyze(
 
         val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLineStrings)
 
-        val state = MonitorRouteState(
+        val state = MonitorState(
           ObjectId(),
           route._id,
           args.relationId,

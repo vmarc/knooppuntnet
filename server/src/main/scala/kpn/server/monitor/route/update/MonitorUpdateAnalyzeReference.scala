@@ -8,8 +8,8 @@ import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorReference
+import kpn.server.monitor.domain.MonitorState
 import kpn.server.repository.RouteRepository
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
@@ -26,13 +26,13 @@ class MonitorUpdateAnalyzeReference(
   private val log = Log(classOf[MonitorUpdateAnalyzeReference])
   private val geometryFactory = new GeometryFactory
 
-  def analyzeReference(context: MonitorContext, reference: MonitorRouteReference, currentRelation: Option[Relation]): Option[MonitorRouteState] = {
+  def analyzeReference(context: MonitorContext, reference: MonitorReference, currentRelation: Option[Relation]): Option[MonitorState] = {
     reference.relationId.flatMap { relationId =>
       compareReferenceAndRelation(context, reference, currentRelation, relationId)
     }
   }
 
-  private def compareReferenceAndRelation(context: MonitorContext, reference: MonitorRouteReference, currentRelation: Option[Relation], relationId: Long): Option[MonitorRouteState] = {
+  private def compareReferenceAndRelation(context: MonitorContext, reference: MonitorReference, currentRelation: Option[Relation], relationId: Long): Option[MonitorState] = {
 
     val routeLines = routeLinesFromBaseRouteDocs(context, relationId)
     val referenceLines = reference.referenceLines.map(CoordinateUtil.coordinatesToLineString)
@@ -45,7 +45,7 @@ class MonitorUpdateAnalyzeReference(
     }
 
     Some(
-      MonitorRouteState(
+      MonitorState(
         id,
         context.value.routeId,
         relationId,

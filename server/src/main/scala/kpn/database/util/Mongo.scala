@@ -5,8 +5,6 @@ import kpn.core.tools.next.database.NextDatabase
 import kpn.core.tools.next.database.NextDatabaseImpl
 import kpn.database.base.Database
 import kpn.database.base.DatabaseImpl
-import kpn.database.base.OldDatabase
-import kpn.database.base.OldDatabaseImpl
 import kpn.database.base.Types.MongoPipeline
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.configuration.CodecRegistry
@@ -48,10 +46,6 @@ object Mongo {
 
   def nextDatabase(mongoClient: MongoClient, databaseName: String): NextDatabase = {
     new NextDatabaseImpl(mongoClient.getDatabase(databaseName).withCodecRegistry(codecRegistry))
-  }
-
-  def oldDatabase(mongoClient: MongoClient, databaseName: String): OldDatabase = {
-    new OldDatabaseImpl(mongoClient.getDatabase(databaseName).withCodecRegistry(codecRegistry))
   }
 
   def url: String = {

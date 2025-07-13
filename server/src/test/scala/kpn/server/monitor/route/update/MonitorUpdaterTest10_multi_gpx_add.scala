@@ -14,9 +14,9 @@ import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteRelation
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 
 class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
 
@@ -109,7 +109,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     uploadGpxReporter2
   }
 
-  private def verifyGpxUpload2(group: MonitorGroup, route: MonitorRoute, reference11: MonitorRouteReference, uploadGpxReporter2: MonitorUpdateReporterMock): Unit = {
+  private def verifyGpxUpload2(group: MonitorGroup, route: MonitorRoute, reference11: MonitorReference, uploadGpxReporter2: MonitorUpdateReporterMock): Unit = {
     verifyGpxUpload2_messages(uploadGpxReporter2.messages)
     verifyDocumentCounts(1, 2, 2)
     verifyGpxUpload2_route(group, route)
@@ -122,7 +122,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     verifyGpxUpload2_state12(route)
   }
 
-  private def verifyGpxUpload1(group: MonitorGroup, route: MonitorRoute, reporter: MonitorUpdateReporterMock): MonitorRouteReference = {
+  private def verifyGpxUpload1(group: MonitorGroup, route: MonitorRoute, reporter: MonitorUpdateReporterMock): MonitorReference = {
     verifyDocumentCounts(1, 1, 1)
     verifyGpxUpload1_route(group, route)
     val reference11 = verifyReference11(route)
@@ -192,7 +192,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(subRoute11.relationId)).get
     assertEqual(
       reference,
-      MonitorRouteReference(
+      MonitorReference(
         reference._id,
         routeId = route._id,
         relationId = Some(subRoute11.relationId),
@@ -214,7 +214,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     val state = configuration.monitorRouteRepository.routeState(route._id, 11).get
     assertEqual(
       state,
-      MonitorRouteState(
+      MonitorState(
         state._id,
         routeId = route._id,
         relationId = subRoute11.relationId,
@@ -244,7 +244,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(subRoute12.relationId)).get
     assertEqual(
       reference,
-      MonitorRouteReference(
+      MonitorReference(
         reference._id,
         routeId = route._id,
         relationId = Some(subRoute12.relationId),
@@ -265,7 +265,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
     val state = configuration.monitorRouteRepository.routeState(route._id, subRoute12.relationId).get
     assertEqual(
       state,
-      MonitorRouteState(
+      MonitorState(
         state._id,
         routeId = route._id,
         relationId = subRoute12.relationId,

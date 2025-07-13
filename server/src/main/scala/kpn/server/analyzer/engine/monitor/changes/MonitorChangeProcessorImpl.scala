@@ -11,10 +11,10 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerHelper
 import kpn.server.analyzer.engine.context.ElementIdMap
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteAnalysis
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
@@ -104,7 +104,7 @@ class MonitorChangeProcessorImpl(
     routeId: Long,
     beforeRelation: Relation,
     afterRelation: Relation,
-    reference: MonitorRouteReference
+    reference: MonitorReference
   ): Unit = {
 
     val beforeRouteSegments = log.infoElapsed {
@@ -191,7 +191,7 @@ class MonitorChangeProcessorImpl(
       monitorRouteRepository.saveRouteChangeGeometry(routeChangeGeometry)
 
       val happy = false
-      val routeState = MonitorRouteState(
+      val routeState = MonitorState(
         ObjectId(),
         null, // TODO routeId,
         1L, // TODO relationId
@@ -207,7 +207,7 @@ class MonitorChangeProcessorImpl(
     }
   }
 
-  private def analyzeChange(reference: MonitorRouteReference, routeRelation: Relation, osmRouteSegments: Seq[MonitorRouteSegmentData]): MonitorRouteAnalysis = {
+  private def analyzeChange(reference: MonitorReference, routeRelation: Relation, osmRouteSegments: Seq[MonitorRouteSegmentData]): MonitorRouteAnalysis = {
     MonitorRouteAnalysis(
       relation = routeRelation,
       wayCount = routeRelation.wayMembers.size,

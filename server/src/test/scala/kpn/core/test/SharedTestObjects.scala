@@ -109,10 +109,10 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 
 trait SharedTestObjects {
 
@@ -1132,7 +1132,7 @@ trait SharedTestObjects {
     )
   }
 
-  def newMonitorRouteReference(
+  def newMonitorReference(
     routeId: ObjectId,
     relationId: Option[Long],
     timestamp: Timestamp = Time.now,
@@ -1144,8 +1144,8 @@ trait SharedTestObjects {
     segmentCount: Long = 0,
     filename: Option[String] = None,
     referenceLines: Seq[String] = Seq.empty
-  ): MonitorRouteReference = {
-    TestObjects.newMonitorRouteReference(
+  ): MonitorReference = {
+    TestObjects.newMonitorReference(
       routeId,
       relationId,
       timestamp,
@@ -1160,7 +1160,7 @@ trait SharedTestObjects {
     )
   }
 
-  def newMonitorRouteState(
+  def newMonitorState(
     _id: ObjectId = ObjectId(),
     routeId: ObjectId,
     relationId: Long,
@@ -1168,8 +1168,8 @@ trait SharedTestObjects {
     deviations: Seq[MonitorRouteDeviation] = Seq.empty,
     matchesDistance: Long = 0,
     matchesLines: Seq[String] = Seq.empty,
-  ): MonitorRouteState = {
-    TestObjects.newMonitorRouteState(
+  ): MonitorState = {
+    TestObjects.newMonitorState(
       _id,
       routeId,
       relationId,

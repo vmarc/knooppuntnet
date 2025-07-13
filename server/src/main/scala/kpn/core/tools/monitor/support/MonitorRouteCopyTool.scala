@@ -20,14 +20,14 @@ object MonitorRouteCopyTool {
 
       targetDatabase.monitorGroups.drop()
       targetDatabase.monitorRoutes.drop()
-      targetDatabase.monitorRouteReferences.drop()
-      targetDatabase.monitorRouteStates.drop()
+      targetDatabase.monitorReferences.drop()
+      targetDatabase.monitorStates.drop()
       targetDatabase.monitorRouteChanges.drop()
 
       copyCollection("groups", sourceDatabase.monitorGroups, targetDatabase.monitorGroups)
       copyCollection("routes", sourceDatabase.monitorRoutes, targetDatabase.monitorRoutes)
-      copyCollection("route-references", sourceDatabase.monitorRouteReferences, targetDatabase.monitorRouteReferences)
-      copyCollection("route-states", sourceDatabase.monitorRouteStates, targetDatabase.monitorRouteStates)
+      copyCollection("route-references", sourceDatabase.monitorReferences, targetDatabase.monitorReferences)
+      copyCollection("route-states", sourceDatabase.monitorStates, targetDatabase.monitorStates)
       copyCollection("route-changes", sourceDatabase.monitorRouteChanges, targetDatabase.monitorRouteChanges)
     }
 

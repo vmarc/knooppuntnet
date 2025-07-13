@@ -4,7 +4,7 @@ import { Bounds } from '@api/common/bounds';
 import { Timestamp } from '@api/custom/timestamp';
 import { MonitorReferenceType } from './monitor-reference-type';
 
-export interface MonitorRouteReferenceInfo {
+export interface MonitorReferenceInfo {
   readonly created: Timestamp;
   readonly user: string;
   readonly referenceBounds: Bounds;

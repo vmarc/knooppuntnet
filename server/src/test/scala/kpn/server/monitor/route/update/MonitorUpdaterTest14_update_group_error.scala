@@ -6,9 +6,9 @@ import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.core.common.Time
 import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorReference
 import kpn.core.test.TestObjects.newMonitorRoute
-import kpn.core.test.TestObjects.newMonitorRouteReference
-import kpn.core.test.TestObjects.newMonitorRouteState
+import kpn.core.test.TestObjects.newMonitorState
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 
@@ -90,7 +90,7 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
   }
 
   private def setupReference(route: MonitorRoute) = {
-    newMonitorRouteReference(
+    newMonitorReference(
       routeId = route._id,
       relationId = Some(route1.relationId),
       timestamp = CurrentTimestamp,
@@ -100,7 +100,7 @@ class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
   }
 
   private def setupState(route: MonitorRoute) = {
-    newMonitorRouteState(
+    newMonitorState(
       routeId = route._id,
       relationId = route1.relationId,
       timestamp = CurrentTimestamp,

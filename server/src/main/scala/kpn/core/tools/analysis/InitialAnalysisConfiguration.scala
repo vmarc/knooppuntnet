@@ -5,7 +5,6 @@ import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.next.database.NextRepository
 import kpn.core.tools.next.database.NextRepositoryImpl
-import kpn.database.base.OldDatabase
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
@@ -79,7 +78,6 @@ class InitialAnalysisConfiguration(options: InitialAnalysisToolOptions) {
 
   private val database = Mongo.database(Mongo.client, options.databaseName)
   private val nextDatabase = Mongo.nextDatabase(Mongo.client, options.databaseName)
-  private val oldDatabase: OldDatabase = Mongo.oldDatabase(Mongo.client, options.databaseName)
 
   private val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
   private val routeRepository: RouteRepository = new RouteRepositoryImpl(database)

@@ -1,6 +1,6 @@
 package kpn.server.monitor.route.update
 
-case class MonitorRouteStateSummary(
+case class MonitorStateSummary(
   relationId: Long,
   deviationCount: Long,
   deviationDistance: Long,

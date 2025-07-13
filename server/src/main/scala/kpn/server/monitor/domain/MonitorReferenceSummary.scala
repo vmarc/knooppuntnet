@@ -2,9 +2,9 @@ package kpn.server.monitor.domain
 
 import kpn.api.custom.Timestamp
 
-object MonitorRouteReferenceSummary {
-  def from(reference: MonitorRouteReference): MonitorRouteReferenceSummary = {
-    MonitorRouteReferenceSummary(
+object MonitorReferenceSummary {
+  def from(reference: MonitorReference): MonitorReferenceSummary = {
+    MonitorReferenceSummary(
       reference.relationId,
       reference.referenceTimestamp,
       reference.referenceDistance,
@@ -13,7 +13,7 @@ object MonitorRouteReferenceSummary {
   }
 }
 
-case class MonitorRouteReferenceSummary(
+case class MonitorReferenceSummary(
   relationId: Option[Long],
   referenceTimestamp: Timestamp,
   referenceDistance: Long,

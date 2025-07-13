@@ -6,7 +6,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.custom.Timestamp
 
-case class MonitorRouteReference(
+case class MonitorReference(
   _id: ObjectId,
   routeId: ObjectId,
   relationId: Option[Long], // None when route with referenceType "gpx" and osm relationId not known yet

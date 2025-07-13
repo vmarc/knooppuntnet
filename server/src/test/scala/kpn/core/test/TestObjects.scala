@@ -112,13 +112,12 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 
 /*
-
 import kpn.core.test.TestObjects.newRawNode
 import kpn.core.test.TestObjects.newBaseNodeDoc
 import kpn.core.test.TestObjects.newNodeWithName
@@ -166,8 +165,8 @@ import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newMonitorRoute
 import kpn.core.test.TestObjects.newMonitorRouteRelation
 import kpn.core.test.TestObjects.newMonitorRouteChange
-import kpn.core.test.TestObjects.newMonitorRouteReference
-import kpn.core.test.TestObjects.newMonitorRouteState
+import kpn.core.test.TestObjects.newMonitorReference
+import kpn.core.test.TestObjects.newMonitorState
 import kpn.core.test.TestObjects.newNodeName
 import kpn.core.test.TestObjects.newNetworkData
 import kpn.core.test.TestObjects.newNetworkDoc
@@ -1242,7 +1241,7 @@ object TestObjects {
     )
   }
 
-  def newMonitorRouteReference(
+  def newMonitorReference(
     routeId: ObjectId,
     relationId: Option[Long],
     timestamp: Timestamp = Time.now,
@@ -1254,8 +1253,8 @@ object TestObjects {
     segmentCount: Long = 0,
     filename: Option[String] = None,
     referenceLines: Seq[String] = Seq.empty
-  ): MonitorRouteReference = {
-    MonitorRouteReference(
+  ): MonitorReference = {
+    MonitorReference(
       ObjectId(),
       routeId,
       relationId,
@@ -1272,7 +1271,7 @@ object TestObjects {
     )
   }
 
-  def newMonitorRouteState(
+  def newMonitorState(
     _id: ObjectId = ObjectId(),
     routeId: ObjectId,
     relationId: Long,
@@ -1280,8 +1279,8 @@ object TestObjects {
     deviations: Seq[MonitorRouteDeviation] = Seq.empty,
     matchesDistance: Long = 0,
     matchesLines: Seq[String] = Seq.empty,
-  ): MonitorRouteState = {
-    MonitorRouteState(
+  ): MonitorState = {
+    MonitorState(
       _id,
       routeId,
       relationId,

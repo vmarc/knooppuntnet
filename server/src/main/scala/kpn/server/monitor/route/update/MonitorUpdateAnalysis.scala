@@ -7,11 +7,11 @@ import kpn.core.doc.RouteDoc
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
-import kpn.server.monitor.repository.MonitorRouteStateId
+import kpn.server.monitor.repository.MonitorStateId
 import kpn.server.repository.RouteRepository
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
@@ -43,12 +43,12 @@ class MonitorUpdateAnalysis(
     saveRoute(route, routeDoc, analysisStartMillis, stateSummaries)
   }
 
-  private def removeObsoleteStates(allRelationIds: Seq[Long], oldStateIds: Seq[MonitorRouteStateId]): Unit = {
+  private def removeObsoleteStates(allRelationIds: Seq[Long], oldStateIds: Seq[MonitorStateId]): Unit = {
     val obsoleteStateIds = oldStateIds.filterNot(id => allRelationIds.contains(id.relationId))
     obsoleteStateIds.map(_._id).foreach(monitorRouteRepository.deleteRouteStateById)
   }
 
-  private def analyzeReferences(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorRouteReference], oldStateIds: Seq[MonitorRouteStateId]) = {
+  private def analyzeReferences(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorReference], oldStateIds: Seq[MonitorStateId]) = {
     if (route.referenceType == MonitorReferenceType.osm || route.referenceType == MonitorReferenceType.multiGpx) {
       analyzeRouteReferences(route, routeDoc, references, oldStateIds)
     }
@@ -60,7 +60,7 @@ class MonitorUpdateAnalysis(
     }
   }
 
-  private def analyzeRouteReferences(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorRouteReference], oldStateIds: Seq[MonitorRouteStateId]) = {
+  private def analyzeRouteReferences(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorReference], oldStateIds: Seq[MonitorStateId]) = {
     references.flatMap { reference =>
       reference.relationId.map { relationId =>
         compareReferenceAndRelation(
@@ -75,7 +75,7 @@ class MonitorUpdateAnalysis(
     }
   }
 
-  private def analyzeGpxReference(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorRouteReference], oldStateIds: Seq[MonitorRouteStateId]) = {
+  private def analyzeGpxReference(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorReference], oldStateIds: Seq[MonitorStateId]) = {
     if (references.sizeIs != 1) {
       throw new IllegalStateException(s"expected one 'gpx' reference, but found ${references.length}")
     }
@@ -91,7 +91,7 @@ class MonitorUpdateAnalysis(
     )
   }
 
-  private def saveRoute(route: MonitorRoute, routeDoc: RouteDoc, analysisStartMillis: Long, stateSummaries: Seq[MonitorRouteStateSummary]): Unit = {
+  private def saveRoute(route: MonitorRoute, routeDoc: RouteDoc, analysisStartMillis: Long, stateSummaries: Seq[MonitorStateSummary]): Unit = {
     val analysisDuration = System.currentTimeMillis() - analysisStartMillis
     val deviationDistance = stateSummaries.map(_.deviationDistance).sum
     val deviationCount = stateSummaries.map(_.deviationCount).sum
@@ -115,11 +115,11 @@ class MonitorUpdateAnalysis(
   private def compareReferenceAndRelation(
     route: MonitorRoute,
     routeDoc: RouteDoc,
-    reference: MonitorRouteReference,
+    reference: MonitorReference,
     relationId: Long,
     relationIds: Seq[Long],
-    oldStateIds: Seq[MonitorRouteStateId]
-  ): MonitorRouteStateSummary = {
+    oldStateIds: Seq[MonitorStateId]
+  ): MonitorStateSummary = {
 
     val routeLines = {
       val routeCoordinateArrays = routeRepository.coordinatesArrays(relationIds)
@@ -134,7 +134,7 @@ class MonitorUpdateAnalysis(
       case None => ObjectId()
     }
 
-    val state = MonitorRouteState(
+    val state = MonitorState(
       id,
       route._id,
       relationId,
@@ -146,7 +146,7 @@ class MonitorUpdateAnalysis(
 
     monitorRouteRepository.saveRouteState(state)
 
-    MonitorRouteStateSummary(
+    MonitorStateSummary(
       relationId = relationId,
       deviationCount = deviationAnalysis.deviations.length,
       deviationDistance = deviationAnalysis.deviations.map(_.meters).sum,

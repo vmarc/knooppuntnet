@@ -3,7 +3,7 @@ package kpn.api.common.monitor
 import kpn.api.common.Bounds
 import kpn.api.custom.Timestamp
 
-case class MonitorRouteReferenceInfo(
+case class MonitorReferenceInfo(
   created: Timestamp,
   user: String,
   referenceBounds: Bounds,

@@ -5,7 +5,7 @@ import kpn.core.common.Time
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentBuilder
 import kpn.server.monitor.repository.MonitorRouteRepository
-import kpn.server.monitor.repository.MonitorRouteStateSummary
+import kpn.server.monitor.repository.MonitorStateSummary
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
@@ -162,7 +162,7 @@ class MonitorUpdateSave(
     }
   }
 
-  private def updatedMonitorRouteRelation(context: MonitorContext, monitorRouteRelation: MonitorRouteRelation, stateSummaries: Seq[MonitorRouteStateSummary]): MonitorRouteRelation = {
+  private def updatedMonitorRouteRelation(context: MonitorContext, monitorRouteRelation: MonitorRouteRelation, stateSummaries: Seq[MonitorStateSummary]): MonitorRouteRelation = {
 
     val updatedWithState = if (context.value.isReferenceTypeGpx) {
       stateSummaries.headOption match {

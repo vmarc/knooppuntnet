@@ -18,6 +18,6 @@ case class MonitorRouteMapPage(
   osmSegments: Seq[MonitorRouteSegment],
   matchesGeoJson: Option[String],
   deviations: Seq[MonitorRouteDeviation],
-  reference: Option[MonitorRouteReferenceInfo],
+  reference: Option[MonitorReferenceInfo],
   subRelations: Seq[MonitorRouteSubRelation]
 )

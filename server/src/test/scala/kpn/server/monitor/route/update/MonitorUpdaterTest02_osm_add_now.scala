@@ -6,9 +6,9 @@ import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.core.common.Time
 import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 
 class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
 
@@ -85,7 +85,7 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
     val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(route1.relationId)).get
     assertEqual(
       reference,
-      MonitorRouteReference(
+      MonitorReference(
         _id = reference._id,
         routeId = route._id,
         relationId = Some(route1.relationId),
@@ -106,7 +106,7 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
     val state = configuration.monitorRouteRepository.routeState(route._id, 1).get
     assertEqual(
       state,
-      MonitorRouteState(
+      MonitorState(
         state._id,
         routeId = route._id,
         relationId = 1,

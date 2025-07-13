@@ -7,11 +7,11 @@ import kpn.api.custom.Timestamp
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorReference
 import kpn.core.test.TestObjects.newMonitorRoute
 import kpn.core.test.TestObjects.newMonitorRouteChange
-import kpn.core.test.TestObjects.newMonitorRouteReference
 import kpn.core.test.TestObjects.newMonitorRouteRelation
-import kpn.core.test.TestObjects.newMonitorRouteState
+import kpn.core.test.TestObjects.newMonitorState
 import kpn.server.monitor.domain.MonitorRouteChange
 
 class MonitorRouteRepositoryTest extends MongoTest {
@@ -95,24 +95,24 @@ class MonitorRouteRepositoryTest extends MongoTest {
 
     val group = newMonitorGroup("group")
     val route = newMonitorRoute(group._id, "route", "description")
-    val reference = newMonitorRouteReference(route._id, Some(1))
-    val state = newMonitorRouteState(routeId = route._id, relationId = 1)
+    val reference = newMonitorReference(route._id, Some(1))
+    val state = newMonitorState(routeId = route._id, relationId = 1)
 
     database.monitorGroups.save(group)
     database.monitorRoutes.save(route)
-    database.monitorRouteReferences.save(reference)
-    database.monitorRouteStates.save(state)
+    database.monitorReferences.save(reference)
+    database.monitorStates.save(state)
 
     database.monitorRoutes.findByObjectId(route._id) should equal(Some(route))
-    database.monitorRouteReferences.findByObjectId(reference._id) should equal(Some(reference))
-    database.monitorRouteStates.findByObjectId(state._id) should equal(Some(state))
+    database.monitorReferences.findByObjectId(reference._id) should equal(Some(reference))
+    database.monitorStates.findByObjectId(state._id) should equal(Some(state))
 
     val routeRepository = new MonitorRouteRepositoryImpl(database)
     routeRepository.deleteRoute(route._id)
 
     database.monitorRoutes.findByObjectId(route._id) should equal(None)
-    database.monitorRouteReferences.findByObjectId(reference._id) should equal(None)
-    database.monitorRouteStates.findByObjectId(state._id) should equal(None)
+    database.monitorReferences.findByObjectId(reference._id) should equal(None)
+    database.monitorStates.findByObjectId(state._id) should equal(None)
   }
 
   test("route with nested sub-relations") {
@@ -187,12 +187,12 @@ class MonitorRouteRepositoryTest extends MongoTest {
       )
     )
 
-    val reference1 = newMonitorRouteReference(
+    val reference1 = newMonitorReference(
       route._id,
       Some(11),
       distance = 100
     )
-    val reference2 = newMonitorRouteReference(
+    val reference2 = newMonitorReference(
       route._id,
       Some(12),
       distance = 200
@@ -201,8 +201,8 @@ class MonitorRouteRepositoryTest extends MongoTest {
     database.monitorGroups.save(group)
     database.monitorRoutes.save(route)
 
-    database.monitorRouteReferences.save(reference1)
-    database.monitorRouteReferences.save(reference2)
+    database.monitorReferences.save(reference1)
+    database.monitorReferences.save(reference2)
 
     val routeRepository = new MonitorRouteRepositoryImpl(database)
     val distance = routeRepository.superRouteReferenceSummary(route._id)
@@ -243,7 +243,7 @@ class MonitorRouteRepositoryTest extends MongoTest {
       )
     )
 
-    val state1 = newMonitorRouteState(
+    val state1 = newMonitorState(
       routeId = route._id,
       relationId = 11,
       deviations = Seq(
@@ -263,7 +263,7 @@ class MonitorRouteRepositoryTest extends MongoTest {
         )
       )
     )
-    val state2 = newMonitorRouteState(
+    val state2 = newMonitorState(
       routeId = route._id,
       relationId = 12,
       deviations = Seq(
@@ -279,15 +279,15 @@ class MonitorRouteRepositoryTest extends MongoTest {
 
     database.monitorGroups.save(group)
     database.monitorRoutes.save(route)
-    database.monitorRouteStates.save(state1)
-    database.monitorRouteStates.save(state2)
+    database.monitorStates.save(state1)
+    database.monitorStates.save(state2)
 
     val routeRepository = new MonitorRouteRepositoryImpl(database)
     routeRepository.superRouteStateSummary(route._id) match {
       case None => fail("could not retrieve state summary")
-      case Some(monitorRouteStateSummary) =>
-        monitorRouteStateSummary.deviationDistance should equal(90L)
-        monitorRouteStateSummary.deviationCount should equal(3L)
+      case Some(monitorStateSummary) =>
+        monitorStateSummary.deviationDistance should equal(90L)
+        monitorStateSummary.deviationCount should equal(3L)
     }
   }
 
@@ -300,19 +300,19 @@ class MonitorRouteRepositoryTest extends MongoTest {
       "description",
     )
 
-    val reference1 = newMonitorRouteReference(
+    val reference1 = newMonitorReference(
       route._id,
       None
     )
-    val reference2 = newMonitorRouteReference(
+    val reference2 = newMonitorReference(
       route._id,
       Some(1)
     )
 
     database.monitorGroups.save(group)
     database.monitorRoutes.save(route)
-    database.monitorRouteReferences.save(reference1)
-    database.monitorRouteReferences.save(reference2)
+    database.monitorReferences.save(reference1)
+    database.monitorReferences.save(reference2)
 
     val routeRepository = new MonitorRouteRepositoryImpl(database)
 

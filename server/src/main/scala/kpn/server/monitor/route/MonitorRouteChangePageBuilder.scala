@@ -1,13 +1,13 @@
 package kpn.server.monitor.route
 
 import kpn.api.base.ObjectId
+import kpn.api.common.monitor.MonitorReferenceInfo
 import kpn.api.common.monitor.MonitorRouteChangePage
-import kpn.api.common.monitor.MonitorRouteReferenceInfo
 import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
-import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.ChangeSetInfoRepository
@@ -57,8 +57,8 @@ class MonitorRouteChangePageBuilder(
     }
   }
 
-  private def buildPage(comment: Option[String], routeChange: MonitorRouteChange, routeChangeGeometry: MonitorRouteChangeGeometry, group: MonitorGroup, routeReference: MonitorRouteReference) = {
-    val reference = MonitorRouteReferenceInfo(
+  private def buildPage(comment: Option[String], routeChange: MonitorRouteChange, routeChangeGeometry: MonitorRouteChangeGeometry, group: MonitorGroup, routeReference: MonitorReference) = {
+    val reference = MonitorReferenceInfo(
       routeReference.timestamp,
       routeReference.user,
       routeReference.referenceBounds,

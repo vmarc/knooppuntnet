@@ -3,7 +3,7 @@
 import { Bounds } from '@api/common/bounds';
 import { ChangeKey } from '@api/common/changes/details/change-key';
 import { MonitorRouteDeviation } from './monitor-route-deviation';
-import { MonitorRouteReferenceInfo } from './monitor-route-reference-info';
+import { MonitorReferenceInfo } from './monitor-reference-info';
 import { MonitorRouteSegment } from './monitor-route-segment';
 
 export interface MonitorRouteChangePage {
@@ -21,7 +21,7 @@ export interface MonitorRouteChangePage {
   readonly routeSegments: MonitorRouteSegment[];
   readonly newDeviations: MonitorRouteDeviation[];
   readonly resolvedDeviations: MonitorRouteDeviation[];
-  readonly reference: MonitorRouteReferenceInfo;
+  readonly reference: MonitorReferenceInfo;
   readonly happy: boolean;
   readonly investigate: boolean;
 }

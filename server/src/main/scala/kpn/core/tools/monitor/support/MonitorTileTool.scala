@@ -135,7 +135,7 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
         )
       )
     )
-    config.database.monitorRouteStates.aggregate[OsmSegments](pipeline)
+    config.database.monitorStates.aggregate[OsmSegments](pipeline)
   }
 
   private def loadTestRelations(): Map[Long, TileRelationData] = {

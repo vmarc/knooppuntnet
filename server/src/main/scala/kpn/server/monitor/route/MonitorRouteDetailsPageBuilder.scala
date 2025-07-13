@@ -13,9 +13,9 @@ import kpn.core.doc.RouteDoc
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.config.RequestContext
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
@@ -50,8 +50,8 @@ class MonitorRouteDetailsPageBuilder(
     group: MonitorGroup,
     monitorRoute: MonitorRoute,
     routeDoc: RouteDoc,
-    references: Seq[MonitorRouteReference],
-    states: Seq[MonitorRouteState]
+    references: Seq[MonitorReference],
+    states: Seq[MonitorState]
   ): MonitorRouteDetailsPage = {
 
     val structureRows = convertRows(
@@ -131,8 +131,8 @@ class MonitorRouteDetailsPageBuilder(
   private def convertRows(
     route: MonitorRoute,
     routeDoc: RouteDoc,
-    references: Seq[MonitorRouteReference],
-    states: Seq[MonitorRouteState]
+    references: Seq[MonitorReference],
+    states: Seq[MonitorState]
   ): Seq[StructureRow] = {
     routeDoc.structureRows.map { row => toRow(row, route, 1, references, states) }
   }
@@ -141,8 +141,8 @@ class MonitorRouteDetailsPageBuilder(
     row: RouteStructureRow,
     route: MonitorRoute,
     level: Long,
-    references: Seq[MonitorRouteReference],
-    states: Seq[MonitorRouteState]
+    references: Seq[MonitorReference],
+    states: Seq[MonitorState]
   ): StructureRow = {
 
     val reference = if (row.memberType == MemberType.Relation && route.referenceType == MonitorReferenceType.multiGpx) {

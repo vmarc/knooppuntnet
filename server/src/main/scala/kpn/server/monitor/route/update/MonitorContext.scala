@@ -2,7 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorMessage
-import kpn.server.monitor.domain.MonitorRouteReference
+import kpn.server.monitor.domain.MonitorReference
 
 class MonitorContext {
   private var privateContext: MonitorUpdateContext = _
@@ -27,7 +27,7 @@ class MonitorContext {
     privateContext.reporter.stepDone(stepId)
   }
 
-  def upsertRouteReference(reference: MonitorRouteReference): Unit = {
+  def upsertRouteReference(reference: MonitorReference): Unit = {
     val refs = referencesWithout(reference)
     val updatedRefs = refs :+ reference
     set(value.copy(references = updatedRefs))
@@ -38,7 +38,7 @@ class MonitorContext {
     set(value.copy(references = refs))
   }
 
-  def deleteRouteReference(reference: MonitorRouteReference): Unit = {
+  def deleteRouteReference(reference: MonitorReference): Unit = {
     val refs = referencesWithout(reference)
     set(value.copy(references = refs))
   }
@@ -48,7 +48,7 @@ class MonitorContext {
     set(value.copy(references = refs))
   }
 
-  private def referencesWithout(reference: MonitorRouteReference): Seq[MonitorRouteReference] = {
+  private def referencesWithout(reference: MonitorReference): Seq[MonitorReference] = {
     value.references.filterNot(_._id == reference._id)
   }
 }

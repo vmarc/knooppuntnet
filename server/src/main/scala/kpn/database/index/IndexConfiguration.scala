@@ -10,8 +10,8 @@ class IndexConfiguration(database: Database) {
       baseNetworks,
       baseRoutes,
       changes,
-      monitorRouteReferences,
-      monitorRouteStates,
+      monitorReferences,
+      monitorStates,
       monitorRoutes,
       networkChanges,
       networks,
@@ -377,10 +377,10 @@ class IndexConfiguration(database: Database) {
     )
   }
 
-  private def monitorRouteStates: Seq[Index] = {
+  private def monitorStates: Seq[Index] = {
     Seq(
       Index(
-        database.monitorRouteStates,
+        database.monitorStates,
         "routeId-timestamp",
         Indexes.compoundIndex(
           Indexes.ascending(
@@ -394,10 +394,10 @@ class IndexConfiguration(database: Database) {
     )
   }
 
-  private def monitorRouteReferences: Seq[Index] = {
+  private def monitorReferences: Seq[Index] = {
     Seq(
       Index(
-        database.monitorRouteReferences,
+        database.monitorReferences,
         "routeId-created",
         Indexes.compoundIndex(
           Indexes.ascending(

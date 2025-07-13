@@ -7,9 +7,9 @@ import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.core.common.Time
 import kpn.core.doc.SuperSegment
 import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorReference
 import kpn.core.test.TestObjects.newMonitorRoute
-import kpn.core.test.TestObjects.newMonitorRouteReference
-import kpn.core.test.TestObjects.newMonitorRouteState
+import kpn.core.test.TestObjects.newMonitorState
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.monitor.domain.MonitorGroup
@@ -134,13 +134,13 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
       referenceFilename = None,
       relation = None
     )
-    val reference = newMonitorRouteReference(
+    val reference = newMonitorReference(
       routeId = route._id,
       relationId = Some(route1.relationId),
       referenceType = MonitorReferenceType.osm,
       referenceTimestamp = ReferenceTimestamp1,
     )
-    val state = newMonitorRouteState(
+    val state = newMonitorState(
       routeId = route._id,
       relationId = route1.relationId,
       timestamp = ReferenceTimestamp1,

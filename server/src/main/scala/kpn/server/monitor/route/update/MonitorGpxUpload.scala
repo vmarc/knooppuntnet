@@ -10,11 +10,11 @@ import kpn.core.util.CoordinateUtil
 import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.core.util.ValidationException
+import kpn.server.analyzer.engine.monitor.MonitorReferenceUtil
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
-import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorReference
+import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
 import org.locationtech.jts.geom.GeometryCollection
@@ -80,14 +80,14 @@ class MonitorGpxUpload(
       case None => MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
     }
 
-    val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
+    val referenceLineStrings = MonitorReferenceUtil.toLineStrings(geometryCollection)
     val distance = Math.round(referenceLineStrings.map(Haversine.meters).sum)
     val segmentCount = geometryCollection.getNumGeometries
 
     val objectId = monitorRouteRepository.routeRelationReferenceId(route._id, Some(relationId)).getOrElse(ObjectId())
     val referenceLines1 = referenceLineStrings.map(CoordinateUtil.lineStringToCoordinates)
 
-    val reference = MonitorRouteReference(
+    val reference = MonitorReference(
       objectId,
       routeId = route._id,
       relationId = Some(relationId),
@@ -119,7 +119,7 @@ class MonitorGpxUpload(
     }
 
     monitorRouteRepository.saveRouteState(
-      MonitorRouteState(
+      MonitorState(
         stateId,
         route._id,
         relationId,

@@ -10,9 +10,9 @@ import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
 import org.locationtech.jts.geom.GeometryFactory
@@ -141,7 +141,7 @@ class MonitorOsmNowAnalyze(
     distance: Long
   ): Unit = {
 
-    val reference = MonitorRouteReference(
+    val reference = MonitorReference(
       _id = ObjectId(),
       routeId = monitorRouteId,
       relationId = Some(baseRouteDoc._id),
@@ -166,7 +166,7 @@ class MonitorOsmNowAnalyze(
     distance: Long
   ): Unit = {
 
-    val state = MonitorRouteState(
+    val state = MonitorState(
       _id = ObjectId(),
       routeId = monitorRouteId,
       relationId = baseRouteDoc._id,

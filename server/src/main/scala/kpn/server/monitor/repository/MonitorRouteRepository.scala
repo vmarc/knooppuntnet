@@ -6,11 +6,11 @@ import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
 import kpn.core.doc.SuperSegmentElementInfo
 import kpn.server.monitor.domain.MonitorGroupRouteCount
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 
 trait MonitorRouteRepository {
 
@@ -32,9 +32,9 @@ trait MonitorRouteRepository {
 
   def deleteRouteStateById(objectId: ObjectId): Unit
 
-  def saveRouteState(routeState: MonitorRouteState): Unit
+  def saveRouteState(routeState: MonitorState): Unit
 
-  def saveRouteReference(routeReference: MonitorRouteReference): Unit
+  def saveRouteReference(routeReference: MonitorReference): Unit
 
   def saveRouteChange(routeChange: MonitorRouteChange): Unit
 
@@ -44,9 +44,9 @@ trait MonitorRouteRepository {
 
   def routeByName(groupId: ObjectId, routeName: String): Option[MonitorRoute]
 
-  def routeState(routeId: ObjectId, relationId: Long): Option[MonitorRouteState]
+  def routeState(routeId: ObjectId, relationId: Long): Option[MonitorState]
 
-  def routeStates(routeId: ObjectId): Seq[MonitorRouteState]
+  def routeStates(routeId: ObjectId): Seq[MonitorState]
 
   def routeStateCount(routeId: ObjectId): Long
 
@@ -54,21 +54,21 @@ trait MonitorRouteRepository {
 
   def routeStateSegments(routeId: ObjectId): Seq[SuperSegmentElementInfo]
 
-  def routeReference(routeId: ObjectId, relationId: Option[Long]): Option[MonitorRouteReference]
+  def routeReference(routeId: ObjectId, relationId: Option[Long]): Option[MonitorReference]
 
   def routeRelationReferenceId(routeId: ObjectId, relationId: Option[Long]): Option[ObjectId]
 
-  def routeReferences(routeId: ObjectId): Seq[MonitorRouteReference]
+  def routeReferences(routeId: ObjectId): Seq[MonitorReference]
 
-  def routeReferenceIds(routeId: ObjectId): Seq[MonitorRouteReferenceId]
+  def routeReferenceIds(routeId: ObjectId): Seq[MonitorReferenceId]
 
   def superRouteReferenceSummary(routeId: ObjectId): Option[Long]
 
-  def superRouteStateSummary(routeId: ObjectId): Option[MonitorRouteStateSummary]
+  def superRouteStateSummary(routeId: ObjectId): Option[MonitorStateSummary]
 
-  def routeStateSummaries(routeId: ObjectId): Seq[MonitorRouteStateSummary]
+  def routeStateSummaries(routeId: ObjectId): Seq[MonitorStateSummary]
 
-  def routeStateIds(routeId: ObjectId): Seq[MonitorRouteStateId]
+  def routeStateIds(routeId: ObjectId): Seq[MonitorStateId]
 
   def routeChange(monitorRouteId: String, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange]
 

@@ -2,9 +2,9 @@ package kpn.server.monitor.repository
 
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorReference
 import kpn.core.test.TestObjects.newMonitorRoute
-import kpn.core.test.TestObjects.newMonitorRouteReference
-import kpn.core.test.TestObjects.newMonitorRouteState
+import kpn.core.test.TestObjects.newMonitorState
 
 class MonitorGroupRepositoryTest extends MongoTest {
 
@@ -74,29 +74,29 @@ class MonitorGroupRepositoryTest extends MongoTest {
     val group = newMonitorGroup("group")
     val route1 = newMonitorRoute(group._id, "route1")
     val route2 = newMonitorRoute(group._id, "route2")
-    val reference1 = newMonitorRouteReference(route1._id, Some(1))
-    val reference2 = newMonitorRouteReference(route2._id, Some(2))
-    val state1 = newMonitorRouteState(routeId = route1._id, relationId = 1)
-    val state2 = newMonitorRouteState(routeId = route2._id, relationId = 2)
+    val reference1 = newMonitorReference(route1._id, Some(1))
+    val reference2 = newMonitorReference(route2._id, Some(2))
+    val state1 = newMonitorState(routeId = route1._id, relationId = 1)
+    val state2 = newMonitorState(routeId = route2._id, relationId = 2)
 
     database.monitorGroups.save(group)
     database.monitorRoutes.save(route1)
     database.monitorRoutes.save(route2)
-    database.monitorRouteReferences.save(reference1)
-    database.monitorRouteReferences.save(reference2)
-    database.monitorRouteStates.save(state1)
-    database.monitorRouteStates.save(state2)
+    database.monitorReferences.save(reference1)
+    database.monitorReferences.save(reference2)
+    database.monitorStates.save(state1)
+    database.monitorStates.save(state2)
 
     database.monitorGroups.findByObjectId(group._id) should equal(Some(group))
 
     database.monitorRoutes.findByObjectId(route1._id) should equal(Some(route1))
     database.monitorRoutes.findByObjectId(route2._id) should equal(Some(route2))
 
-    database.monitorRouteReferences.findByObjectId(reference1._id) should equal(Some(reference1))
-    database.monitorRouteReferences.findByObjectId(reference2._id) should equal(Some(reference2))
+    database.monitorReferences.findByObjectId(reference1._id) should equal(Some(reference1))
+    database.monitorReferences.findByObjectId(reference2._id) should equal(Some(reference2))
 
-    database.monitorRouteStates.findByObjectId(state1._id) should equal(Some(state1))
-    database.monitorRouteStates.findByObjectId(state2._id) should equal(Some(state2))
+    database.monitorStates.findByObjectId(state1._id) should equal(Some(state1))
+    database.monitorStates.findByObjectId(state2._id) should equal(Some(state2))
 
     val groupRepository = new MonitorGroupRepositoryImpl(database)
     groupRepository.deleteGroup(group._id)
@@ -104,9 +104,9 @@ class MonitorGroupRepositoryTest extends MongoTest {
     database.monitorGroups.findByObjectId(group._id) should equal(None)
     database.monitorRoutes.findByObjectId(route1._id) should equal(None)
     database.monitorRoutes.findByObjectId(route2._id) should equal(None)
-    database.monitorRouteReferences.findByObjectId(reference1._id) should equal(None)
-    database.monitorRouteReferences.findByObjectId(reference2._id) should equal(None)
-    database.monitorRouteStates.findByObjectId(state1._id) should equal(None)
-    database.monitorRouteStates.findByObjectId(state2._id) should equal(None)
+    database.monitorReferences.findByObjectId(reference1._id) should equal(None)
+    database.monitorReferences.findByObjectId(reference2._id) should equal(None)
+    database.monitorStates.findByObjectId(state1._id) should equal(None)
+    database.monitorStates.findByObjectId(state2._id) should equal(None)
   }
 }

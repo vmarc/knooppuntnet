@@ -63,8 +63,8 @@ abstract class MonitorUpdateTest extends MongoTest with MockFactory {
     expectedMonitorStateCount: Int,
   ): Unit = {
     database.monitorRoutes.countDocuments() should equal(expectedMonitorRouteCount)
-    database.monitorRouteReferences.countDocuments() should equal(expectedMonitorReferenceCount)
-    database.monitorRouteStates.countDocuments() should equal(expectedMonitorStateCount)
+    database.monitorReferences.countDocuments() should equal(expectedMonitorReferenceCount)
+    database.monitorStates.countDocuments() should equal(expectedMonitorStateCount)
   }
 
   def verifyNoReference(route: MonitorRoute, relationId: Option[Long]): Unit = {

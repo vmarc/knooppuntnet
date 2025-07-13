@@ -16,9 +16,9 @@ import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.monitor.MonitorUtil
+import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
 import org.locationtech.jts.geom.GeometryFactory
@@ -102,7 +102,7 @@ class MonitorOsmAnalyze(
             bounds = reference.referenceBounds,
             lines
           )
-          val state = MonitorRouteState(
+          val state = MonitorState(
             _id = ObjectId(),
             routeId = monitorRouteId,
             relationId = relation.relationId,
@@ -130,7 +130,7 @@ class MonitorOsmAnalyze(
 
           val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
 
-          val state = MonitorRouteState(
+          val state = MonitorState(
             ObjectId(),
             monitorRouteId,
             relation.relationId,
@@ -153,7 +153,7 @@ class MonitorOsmAnalyze(
     }
   }
 
-  private def readReference(args: MonitorUpdateArgs, now: Timestamp, monitorRouteId: ObjectId, relation: MonitorRouteSubRelation): Option[MonitorRouteReference] = {
+  private def readReference(args: MonitorUpdateArgs, now: Timestamp, monitorRouteId: ObjectId, relation: MonitorRouteSubRelation): Option[MonitorReference] = {
 
     log.info(s"${relation.name}")
     monitorRouteRelationRepository.loadTopLevel(Some(args.referenceTimestamp), relation.relationId) match {
@@ -178,7 +178,7 @@ class MonitorOsmAnalyze(
 
           val referenceLines = analysis.routeSegments.flatMap(_.lineStrings.map(CoordinateUtil.lineStringToCoordinates))
 
-          val ref = MonitorRouteReference(
+          val ref = MonitorReference(
             ObjectId(),
             monitorRouteId,
             Some(subRelation.id),

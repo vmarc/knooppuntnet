@@ -18,7 +18,7 @@ case class MonitorRouteChangePage(
   routeSegments: Seq[MonitorRouteSegment],
   newDeviations: Seq[MonitorRouteDeviation],
   resolvedDeviations: Seq[MonitorRouteDeviation],
-  reference: MonitorRouteReferenceInfo,
+  reference: MonitorReferenceInfo,
   happy: Boolean,
   investigate: Boolean
 )

@@ -9,7 +9,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
@@ -67,7 +67,7 @@ class MonitorGpxUpdate(
 
           val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
 
-          val state = MonitorRouteState(
+          val state = MonitorState(
             ObjectId(),
             route._id,
             args.relationId,
