@@ -11,7 +11,6 @@ import kpn.api.common.planner.PlanNode
 import kpn.api.common.planner.PlanRoute
 import kpn.api.common.planner.PlanSegment
 import kpn.api.common.route.RouteNetworkNodeInfo
-import kpn.core.test.SharedTestObjects
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.UnitTest
 import org.scalamock.scalatest.MockFactory
@@ -23,7 +22,7 @@ import org.scalamock.scalatest.MockFactory
     ---------r4---------
              4m
  */
-class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
+class LegBuilderTest extends UnitTest with MockFactory {
 
   val data = new GraphTestData()
 

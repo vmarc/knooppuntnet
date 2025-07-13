@@ -1,10 +1,12 @@
 package kpn.server.monitor
 
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorRoute
+import kpn.core.test.TestObjects.newMonitorRouteRelation
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRoute
 
-class MonitorUtilTest extends UnitTest with SharedTestObjects {
+class MonitorUtilTest extends UnitTest {
 
   test("subRelation") {
 

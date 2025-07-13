@@ -5,11 +5,12 @@ import kpn.api.common.data.raw.RawData
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRawRelation
+import kpn.core.test.TestObjects.newRouteNodeAnalysis
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
 
-class BaseRouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseRouteNameAnalyzerTest extends UnitTest {
 
   test("route name based on 'ref' tag") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "01-02"))

@@ -7,7 +7,10 @@ import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Change
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newChangeSet
+import kpn.core.test.TestObjects.newRawNode
+import kpn.core.test.TestObjects.newRawRelation
+import kpn.core.test.TestObjects.newRawWay
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
@@ -22,7 +25,7 @@ import kpn.server.repository.BlacklistRepositoryMock
 import java.util.concurrent.Executors
 import scala.concurrent.ExecutionContext
 
-class BaseRouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseRouteChangeAnalyzerTest extends UnitTest {
 
   test("'Create' route") {
     val setup = new Setup()

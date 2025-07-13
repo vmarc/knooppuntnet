@@ -9,10 +9,10 @@ import kpn.api.common.diff.node.NodeMoved
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
 import kpn.core.util.UnitTest
 
-class NodeDataDiffAnalyzerTest extends UnitTest with SharedTestObjects {
+class NodeDataDiffAnalyzerTest extends UnitTest {
 
   test("no change") {
     val n1 = nodeData(1, "51.5291500", "4.297700", 3, Timestamp(2015, 8, 11, 0, 0, 0), 100, Tags.from("a" -> "1"))

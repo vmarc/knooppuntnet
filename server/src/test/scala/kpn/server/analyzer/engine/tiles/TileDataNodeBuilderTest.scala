@@ -7,12 +7,12 @@ import kpn.api.common.RouteType
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
 import kpn.core.doc.NodeDoc
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 
-class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
+class TileDataNodeBuilderTest extends UnitTest {
 
   test("rwn_ref") {
 

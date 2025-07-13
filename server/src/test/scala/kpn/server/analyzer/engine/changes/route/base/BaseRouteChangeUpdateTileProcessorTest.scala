@@ -1,7 +1,9 @@
 package kpn.server.analyzer.engine.changes.route.base
 
 import kpn.api.common.RouteType
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newChangeSetContext
+import kpn.core.test.TestObjects.newRelation
+import kpn.core.test.TestObjects.newRouteTileData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.RouteNameAnalysis
@@ -11,7 +13,7 @@ import kpn.server.repository.RouteRepository
 import org.scalamock.handlers.CallHandler1
 import org.scalamock.scalatest.MockFactory
 
-class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with SharedTestObjects with MockFactory {
+class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with MockFactory {
 
   test("process tile updates") {
     // setup

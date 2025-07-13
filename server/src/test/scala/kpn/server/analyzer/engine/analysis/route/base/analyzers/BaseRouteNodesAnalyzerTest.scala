@@ -4,6 +4,7 @@ import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
+import kpn.core.test.TestObjects.newRawNode
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNodesAnalysisFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteTestData

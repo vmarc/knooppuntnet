@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRouteNodeAnalysis
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
 
-class RouteNameFromNodesAnalyzerTest extends UnitTest with SharedTestObjects {
+class RouteNameFromNodesAnalyzerTest extends UnitTest {
 
   test("derive route name from node names") {
     val context = BaseRouteAnalysisContext(

@@ -2,11 +2,11 @@ package kpn.server.api.analysis.pages.poi.analyzers
 
 import kpn.api.common.PoiAnalysis
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newPoi
 import kpn.core.util.UnitTest
 import kpn.server.api.analysis.pages.poi.PoiAnalysisContext
 
-class PoiImageAnalyzerTest extends UnitTest with SharedTestObjects {
+class PoiImageAnalyzerTest extends UnitTest {
 
   test("image urls") {
 

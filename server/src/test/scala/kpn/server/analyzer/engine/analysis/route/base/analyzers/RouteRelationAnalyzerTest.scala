@@ -1,10 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
-import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 
-class RouteRelationAnalyzerTest extends UnitTest with SharedTestObjects {
+class RouteRelationAnalyzerTest extends UnitTest {
 
   test("ids from nodes in ways") {
     val d = new RouteTestData("01-02") {

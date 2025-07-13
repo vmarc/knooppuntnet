@@ -1,9 +1,9 @@
 package kpn.core.util
 
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRelation
 
-class RouteSymbolTest extends UnitTest with SharedTestObjects {
+class RouteSymbolTest extends UnitTest {
 
   test("no symbol if only waycolor is present in symbol description") {
     symbol("route-color:") should equal(None)

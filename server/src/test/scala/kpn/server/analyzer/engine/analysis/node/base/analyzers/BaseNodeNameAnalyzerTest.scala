@@ -5,10 +5,10 @@ import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRawNode
 import kpn.core.util.UnitTest
 
-class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseNodeNameAnalyzerTest extends UnitTest {
 
   test("rwn_ref") {
     val context = analyze(

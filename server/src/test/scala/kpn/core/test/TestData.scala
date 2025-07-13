@@ -9,6 +9,10 @@ import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
+import kpn.core.test.TestObjects.newNodeWithName
+import kpn.core.test.TestObjects.newRawNode
+import kpn.core.test.TestObjects.newRawRelation
+import kpn.core.test.TestObjects.newRawWay
 
 import scala.collection.mutable.ListBuffer
 
@@ -23,7 +27,7 @@ object TestData {
   }
 }
 
-class TestData extends SharedTestObjects {
+class TestData {
 
   private val nodes = ListBuffer[RawNode]()
   private val ways = ListBuffer[RawWay]()

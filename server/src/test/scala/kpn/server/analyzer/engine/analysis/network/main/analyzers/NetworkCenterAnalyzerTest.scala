@@ -2,10 +2,11 @@ package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.LatLonImpl
 import kpn.api.custom.Timestamp
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
 import kpn.core.util.UnitTest
 
-class NetworkCenterAnalyzerTest extends UnitTest with SharedTestObjects {
+class NetworkCenterAnalyzerTest extends UnitTest {
 
   test("center") {
     val initialContext = NetworkAnalysisContext(

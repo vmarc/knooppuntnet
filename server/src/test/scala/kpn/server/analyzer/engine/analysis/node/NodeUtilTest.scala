@@ -4,13 +4,13 @@ import kpn.api.common.Fact
 import kpn.api.common.data.Node
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 
 import scala.collection.mutable.ListBuffer
 
-class NodeUtilTest extends UnitTest with SharedTestObjects {
+class NodeUtilTest extends UnitTest {
 
   private val util = new NodeUtil(ScopedRouteType.rwn)
 

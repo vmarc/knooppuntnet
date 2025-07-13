@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newWay
 import kpn.core.util.UnitTest
 
-class MonitorRouteWayFilterTest extends UnitTest with SharedTestObjects {
+class MonitorRouteWayFilterTest extends UnitTest {
 
   test("filter") {
 
@@ -24,5 +24,4 @@ class MonitorRouteWayFilterTest extends UnitTest with SharedTestObjects {
 
     wayMembers.map(_.way.id) should equal(Seq(1, 6))
   }
-
 }

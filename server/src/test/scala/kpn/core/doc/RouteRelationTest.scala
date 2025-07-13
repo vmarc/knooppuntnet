@@ -1,9 +1,9 @@
 package kpn.core.doc
 
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRouteRelation
 import kpn.core.util.UnitTest
 
-class RouteRelationTest extends UnitTest with SharedTestObjects {
+class RouteRelationTest extends UnitTest {
   test("relationIds") {
     val root = newRouteRelation(
       1,

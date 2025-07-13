@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.Country
 import kpn.api.common.LatLon
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRawNode
 import kpn.core.util.UnitTest
 
 object LocationAnalyzerTest {
@@ -17,7 +17,7 @@ object LocationAnalyzerTest {
   }
 }
 
-class LocationAnalyzerTest extends UnitTest with SharedTestObjects {
+class LocationAnalyzerTest extends UnitTest {
 
   private val locationAnalyzer = LocationAnalyzerTest.locationAnalyzer
 

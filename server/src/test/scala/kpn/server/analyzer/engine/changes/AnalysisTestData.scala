@@ -5,12 +5,15 @@ import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.data.MemberType
 import kpn.api.custom.Change
-import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestData
+import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newRawNode
+import kpn.core.test.TestObjects.newRawRelation
+import kpn.core.test.TestObjects.newRawWay
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 
-class AnalysisTestData extends SharedTestObjects {
+class AnalysisTestData {
 
   val watchedNetwork = 1L
   val routeInWatchedNetwork = 11L

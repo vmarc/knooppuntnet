@@ -5,10 +5,12 @@ import kpn.api.common.data.RelationMember
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.api.custom.Tag
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
+import kpn.core.test.TestObjects.newRelation
+import kpn.core.test.TestObjects.newWay
 import kpn.core.util.UnitTest
 
-class RelationJsonDeserializerTest extends UnitTest with SharedTestObjects {
+class RelationJsonDeserializerTest extends UnitTest {
 
   test("deserializer") {
 

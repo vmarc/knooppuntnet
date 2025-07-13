@@ -8,10 +8,11 @@ import kpn.api.common.common.Reference
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newBaseNodeDoc
+import kpn.core.test.TestObjects.newNodeName
 import kpn.core.util.UnitTest
 
-class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
+class NodeIntegrityAnalyzerTest extends UnitTest {
 
   test("UnexpectedIntegrityCheck") {
 

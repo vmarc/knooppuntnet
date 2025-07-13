@@ -11,6 +11,12 @@ import kpn.api.custom.Timestamp
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
+import kpn.core.test.TestObjects.newNetworkTags
+import kpn.core.test.TestObjects.newNodeTags
+import kpn.core.test.TestObjects.newRawNode
+import kpn.core.test.TestObjects.newRawRelation
+import kpn.core.test.TestObjects.newRawWay
+import kpn.core.test.TestObjects.newRouteTags
 
 import scala.xml.InputSource
 import scala.xml.XML
@@ -37,7 +43,7 @@ case class OverpassData(
   nodes: Seq[RawNode] = Seq.empty,
   ways: Seq[RawWay] = Seq.empty,
   relations: Seq[RawRelation] = Seq.empty
-) extends SharedTestObjects {
+) {
 
   def networkNode(id: Long, name: String = "", extraTags: Seq[Tag] = Seq.empty, version: Long = 0): OverpassData = {
     val n = newRawNode(id, tags = newNodeTags(name) ++ extraTags, version = version)

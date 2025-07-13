@@ -3,10 +3,10 @@ package kpn.server.analyzer.engine.analysis.node.base.analyzers
 import kpn.api.common.Fact
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRawNode
 import kpn.core.util.UnitTest
 
-class BaseNodeSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseNodeSurveyAnalyzerTest extends UnitTest {
 
   test("survey date") {
     val context = analyze(

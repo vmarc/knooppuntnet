@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRawNode
 import kpn.core.util.Haversine
 import kpn.core.util.UnitTest
 
-class Issue153_distance extends UnitTest with SharedTestObjects {
+class Issue153_distance extends UnitTest {
 
   test("confirm the distance between 2 nodes") {
     val node1 = newRawNode(1, latitude = "51.7296532", longitude = "4.8611983") // "
@@ -12,5 +12,4 @@ class Issue153_distance extends UnitTest with SharedTestObjects {
     val length = Haversine.meters(Seq(node1, node2))
     length should equal(5)
   }
-
 }

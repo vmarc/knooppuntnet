@@ -2,12 +2,11 @@ package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.Bounds
 import kpn.core.doc.SuperSegmentElementInfo
-import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
 
-class MonitorRouteOsmSegmentBuilderTest extends UnitTest with SharedTestObjects {
+class MonitorRouteOsmSegmentBuilderTest extends UnitTest {
 
   test("no segments") {
     MonitorRouteOsmSegmentBuilder.build(Seq.empty) should equal(Seq.empty)

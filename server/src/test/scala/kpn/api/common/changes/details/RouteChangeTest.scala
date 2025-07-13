@@ -3,10 +3,11 @@ package kpn.api.common.changes.details
 import kpn.api.common.Country
 import kpn.api.common.RouteType
 import kpn.api.custom.Subset
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRouteChange
+import kpn.core.test.TestObjects.newRouteData
 import kpn.core.util.UnitTest
 
-class RouteChangeTest extends UnitTest with SharedTestObjects {
+class RouteChangeTest extends UnitTest {
 
   test("subsets are derived from both 'before' and 'after' situation") {
 

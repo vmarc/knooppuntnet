@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.network.base.analyzers
 
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRawRelation
 import kpn.core.util.UnitTest
 
-class BaseNetworkTagAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseNetworkTagAnalyzerTest extends UnitTest {
 
   test("all required tags are present") {
     val context = BaseNetworkAnalysisContext(

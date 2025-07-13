@@ -7,7 +7,10 @@ import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.poi.Poi
 import kpn.api.custom.Change
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newPoi
+import kpn.core.test.TestObjects.newRawNode
+import kpn.core.test.TestObjects.newRawRelation
+import kpn.core.test.TestObjects.newRawWay
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.OsmChange
@@ -21,7 +24,7 @@ import kpn.server.repository.TaskRepository
 import kpn.server.repository.TaskRepositoryMock
 import org.scalamock.scalatest.MockFactory
 
-class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects with MockFactory {
+class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
 
   test("node poi add") {
 

@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.core.doc.NodeDoc
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 
-class NodeTileChangeAnalyzerTest extends UnitTest with SharedTestObjects {
+class NodeTileChangeAnalyzerTest extends UnitTest {
 
   test("no tiles when no change with impact") {
     val before = buildNodeDoc()

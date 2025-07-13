@@ -3,10 +3,10 @@ package kpn.core.history
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
 import kpn.core.util.UnitTest
 
-class TagDiffAnalyzerTest extends UnitTest with SharedTestObjects {
+class TagDiffAnalyzerTest extends UnitTest {
 
   test("tag differences") {
 

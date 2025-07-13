@@ -3,11 +3,10 @@ package kpn.server.analyzer.engine.analysis.route.base.analyzers
 import kpn.api.custom.Day
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 
-class RouteLastSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
+class RouteLastSurveyAnalyzerTest extends UnitTest {
 
   test("no survey:date") {
     analyze(Seq.empty)

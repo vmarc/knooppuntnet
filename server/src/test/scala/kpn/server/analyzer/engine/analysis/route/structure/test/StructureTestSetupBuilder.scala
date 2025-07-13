@@ -10,11 +10,13 @@ import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRawNode
+import kpn.core.test.TestObjects.newRawRelation
+import kpn.core.test.TestObjects.newRawWay
 
 import scala.collection.mutable.ListBuffer
 
-class StructureTestSetupBuilder extends SharedTestObjects {
+class StructureTestSetupBuilder {
 
   private val nodeBuffer = ListBuffer[RawNode]()
   private val wayBuffer = ListBuffer[RawWay]()

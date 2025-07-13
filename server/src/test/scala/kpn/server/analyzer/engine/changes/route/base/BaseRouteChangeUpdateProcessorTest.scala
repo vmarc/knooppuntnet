@@ -6,7 +6,13 @@ import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Relation
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RawRouteDoc
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newChangeSetContext
+import kpn.core.test.TestObjects.newRelation
+import kpn.core.test.TestObjects.newRouteNode
+import kpn.core.test.TestObjects.newRouteNodeAnalysis
+import kpn.core.test.TestObjects.newRouteSummary
+import kpn.core.test.TestObjects.newRouteTileData
 import kpn.core.util.Log
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
@@ -22,7 +28,7 @@ import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
 
-class BaseRouteChangeUpdateProcessorTest extends UnitTest with SharedTestObjects with MockFactory {
+class BaseRouteChangeUpdateProcessorTest extends UnitTest with MockFactory {
 
   private class Setup {
     val log: MockLog = Log.mock

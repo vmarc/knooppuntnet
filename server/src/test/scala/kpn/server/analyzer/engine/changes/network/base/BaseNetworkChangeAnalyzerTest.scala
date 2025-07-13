@@ -7,7 +7,8 @@ import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Change
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newChangeSet
+import kpn.core.test.TestObjects.newRawRelation
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.AnalysisTestData
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -18,7 +19,7 @@ import kpn.server.analyzer.engine.changes.data.BlacklistEntry
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.BlacklistRepositoryMock
 
-class BaseNetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseNetworkChangeAnalyzerTest extends UnitTest {
 
   val d = new AnalysisTestData()
 

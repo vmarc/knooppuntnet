@@ -4,13 +4,17 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.RefDiffs
 import kpn.core.doc.NetworkDoc
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSet
+import kpn.core.test.TestObjects.newNetworkDoc
+import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
+import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.context.ElementIds
 
-class NetworkUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObjects {
+class NetworkUpdateNodeDiffsAnalyzerTest extends UnitTest {
 
   test("removed network node") {
 

@@ -6,10 +6,10 @@ import kpn.api.common.RouteType
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
 import kpn.api.custom.Tags.TagTuple
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
 import kpn.core.util.UnitTest
 
-class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
+class NodeNameAnalyzerTest extends UnitTest {
 
   test("rwn_ref") {
     assertEqual(

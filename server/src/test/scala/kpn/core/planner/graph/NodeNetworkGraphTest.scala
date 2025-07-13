@@ -1,10 +1,9 @@
 package kpn.core.planner.graph
 
 import kpn.api.common.common.TrackPathKey
-import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 
-class NodeNetworkGraphTest extends UnitTest with SharedTestObjects {
+class NodeNetworkGraphTest extends UnitTest {
 
   test("find shortest path when there are 2 paths with the same number of nodes") {
 

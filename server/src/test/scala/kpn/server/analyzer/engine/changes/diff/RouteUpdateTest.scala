@@ -4,10 +4,10 @@ import kpn.api.common.Country
 import kpn.api.common.RouteType
 import kpn.api.common.diff.RouteData
 import kpn.api.custom.Subset
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRouteData
 import kpn.core.util.UnitTest
 
-class RouteUpdateTest extends UnitTest with SharedTestObjects {
+class RouteUpdateTest extends UnitTest {
 
   test("subsets are derived from both the before and after situation") {
     RouteUpdate(routeAnalysis(None, RouteType.hiking), routeAnalysis(None, RouteType.hiking)).subsets shouldBe empty

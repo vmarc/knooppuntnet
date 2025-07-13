@@ -15,14 +15,20 @@ import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSet
+import kpn.core.test.TestObjects.newChangeSetElementRef
+import kpn.core.test.TestObjects.newNodeChange
+import kpn.core.test.TestObjects.newRouteChange
+import kpn.core.test.TestObjects.newRouteData
+import kpn.core.test.TestObjects.newRouteLocationAnalysis
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.node.main.NodeChangeStateAnalyzer
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeStateAnalyzer
 import kpn.server.analyzer.engine.context.ElementIds
 
-class ChangeSetSummaryBuilderTest extends UnitTest with SharedTestObjects {
+class ChangeSetSummaryBuilderTest extends UnitTest {
 
   test("node and routes removed/added/updated") {
 

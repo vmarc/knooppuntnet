@@ -7,11 +7,13 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSetSummary
+import kpn.core.test.TestObjects.newLocationChanges
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 
-class MongoQueryLocationChangesTestSetup(database: Database) extends SharedTestObjects {
+class MongoQueryLocationChangesTestSetup(database: Database) {
 
   val timestamp1: Timestamp = Timestamp(2015, 8, 11)
   val timestamp2: Timestamp = Timestamp(2015, 8, 12)

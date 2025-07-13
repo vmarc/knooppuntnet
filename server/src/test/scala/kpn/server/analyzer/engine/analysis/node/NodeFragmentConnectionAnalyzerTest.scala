@@ -4,11 +4,12 @@ import kpn.api.common.RouteType
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
+import kpn.core.test.TestObjects.newWay
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentDirection
 
-class NodeFragmentConnectionAnalyzerTest extends UnitTest with SharedTestObjects {
+class NodeFragmentConnectionAnalyzerTest extends UnitTest {
 
   private val node1 = newNode(1)
   private val node2 = newNode(2)

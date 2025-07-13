@@ -6,13 +6,14 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newRawNode
 import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
 import kpn.server.overpass.OverpassRepository
 import org.scalamock.scalatest.MockFactory
 
-class NetworkExtraAnalyzerTest extends UnitTest with MockFactory with SharedTestObjects {
+class NetworkExtraAnalyzerTest extends UnitTest with MockFactory {
 
   test("network relation without members") {
 

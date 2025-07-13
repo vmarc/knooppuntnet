@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.common.data.Node
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
 import kpn.core.util.UnitTest
 
-class GeometryDigestAnalyzerTest extends UnitTest with SharedTestObjects {
+class GeometryDigestAnalyzerTest extends UnitTest {
 
   test("calculate digest") {
 

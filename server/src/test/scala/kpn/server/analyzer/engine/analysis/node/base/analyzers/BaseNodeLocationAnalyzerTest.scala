@@ -3,11 +3,11 @@ package kpn.server.analyzer.engine.analysis.node.base.analyzers
 import kpn.api.common.LatLon
 import kpn.api.common.data.raw.RawNode
 import kpn.core.test.Locations
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRawNode
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
 
-class BaseNodeLocationAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseNodeLocationAnalyzerTest extends UnitTest {
 
   test("node locations - Essen") {
     val essen = buildNode(Locations.essen)

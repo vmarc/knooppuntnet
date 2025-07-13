@@ -2,14 +2,14 @@ package kpn.server.analyzer.engine.analysis.common
 
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
 import kpn.core.util.UnitTest
 
 import scala.util.Failure
 import scala.util.Success
 import scala.util.Try
 
-class SurveyDateAnalyzerTest extends UnitTest with SharedTestObjects {
+class SurveyDateAnalyzerTest extends UnitTest {
 
   test("no survey date") {
     analyze() should equal(Success(None))
@@ -46,6 +46,7 @@ class SurveyDateAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     )
   }
+
   test("source=survey + source:date") {
     analyze(
       "source" -> "survey",

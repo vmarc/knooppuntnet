@@ -7,12 +7,13 @@ import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.custom.Day
 import kpn.core.doc.Label
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
-class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
+class RouteLabelsAnalyzerTest extends UnitTest {
 
   test("labels") {
     val context = buildContext()

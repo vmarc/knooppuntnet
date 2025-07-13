@@ -1,10 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newRouteRelation
+import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
-class RouteIdsAnalyzerTest extends UnitTest with SharedTestObjects {
+class RouteIdsAnalyzerTest extends UnitTest {
 
   test("route id when there is no subRelationTree") {
     val baseRouteDoc = newBaseRouteDoc(newRouteSummary(11L))

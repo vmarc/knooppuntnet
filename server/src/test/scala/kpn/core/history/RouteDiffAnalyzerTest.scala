@@ -7,12 +7,12 @@ import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteNameDiff
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestData
+import kpn.core.test.TestObjects.newMember
 import kpn.core.util.UnitTest
 import org.scalamock.scalatest.MockFactory
 
-class RouteDiffAnalyzerTest extends UnitTest with MockFactory with SharedTestObjects {
+class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
 
   test("removed way") {
 

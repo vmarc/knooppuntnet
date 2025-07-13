@@ -6,7 +6,8 @@ import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Change
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newChangeSet
+import kpn.core.test.TestObjects.newRawNode
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.data.Blacklist
@@ -14,7 +15,7 @@ import kpn.server.analyzer.engine.changes.data.BlacklistEntry
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.BlacklistRepositoryMock
 
-class BaseNodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseNodeChangeAnalyzerTest extends UnitTest {
 
   test("'Create' new node") {
     val setup = new Setup()

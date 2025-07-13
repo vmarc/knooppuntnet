@@ -3,11 +3,11 @@ package kpn.server.analyzer.engine.analysis.route.base.analyzers
 import kpn.api.common.Fact.RouteWithoutWays
 import kpn.api.common.data.MemberType
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRelation
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 
-class BaseRouteWithoutWaysAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseRouteWithoutWaysAnalyzerTest extends UnitTest {
 
   test("route relation contains way(s)") {
 

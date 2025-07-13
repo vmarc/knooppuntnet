@@ -7,11 +7,13 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRawNode
+import kpn.core.test.TestObjects.newRawRelation
+import kpn.core.test.TestObjects.newRawWay
 import kpn.core.util.Log
 import kpn.core.util.UnitTest
 
-class DataBuilderTest extends UnitTest with SharedTestObjects {
+class DataBuilderTest extends UnitTest {
 
   test("happy data build") {
 

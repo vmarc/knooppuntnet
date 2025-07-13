@@ -14,7 +14,14 @@ import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.custom.Subset
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSet
+import kpn.core.test.TestObjects.newChangeSetNetwork
+import kpn.core.test.TestObjects.newChangeSetSummary
+import kpn.core.test.TestObjects.newNetworkChange
+import kpn.core.test.TestObjects.newNodeChange
+import kpn.core.test.TestObjects.newRouteChange
+import kpn.core.test.TestObjects.newRouteData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.context.ElementIds
@@ -22,7 +29,7 @@ import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkInfoRepository
 import org.scalamock.scalatest.MockFactory
 
-class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
+class ChangeSaverTest extends UnitTest with MockFactory {
 
   test("nothing to save") {
 

@@ -5,11 +5,12 @@ import kpn.api.common.RouteType
 import kpn.api.common.data.MemberType
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
 import kpn.core.test.TestData
+import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newRelation
 import kpn.core.util.UnitTest
 
-class RelationAnalyzerTest extends UnitTest with SharedTestObjects {
+class RelationAnalyzerTest extends UnitTest {
 
   test("scopedRouteType") {
     testscopedRouteType("rwn", RouteScope.regional, RouteType.hiking)

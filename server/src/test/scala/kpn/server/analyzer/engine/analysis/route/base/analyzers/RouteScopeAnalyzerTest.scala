@@ -3,10 +3,10 @@ package kpn.server.analyzer.engine.analysis.route.base.analyzers
 import kpn.api.common.RouteScope
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newRelation
 import kpn.core.util.UnitTest
 
-class RouteScopeAnalyzerTest extends UnitTest with SharedTestObjects {
+class RouteScopeAnalyzerTest extends UnitTest {
 
   test("network tag based scope") {
     testNetworkTag("iwn", RouteScope.international)

@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.common.Fact
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
 
-class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
+class ExpectedNameRouteAnalyzerTest extends UnitTest {
 
   test("no check for non nodenetwork route") {
     val newContext = doTest(Some("bla"), None, None, nodeNetwork = false)

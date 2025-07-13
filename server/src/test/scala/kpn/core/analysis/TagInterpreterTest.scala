@@ -5,11 +5,11 @@ import kpn.api.common.RouteType
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.context.AnalysisContext
 
-class TagInterpreterTest extends UnitTest with SharedTestObjects {
+class TagInterpreterTest extends UnitTest {
 
   test("isReferencedNetworkNode rwn") {
 

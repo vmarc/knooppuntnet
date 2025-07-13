@@ -1,12 +1,12 @@
 package kpn.core.poi
 
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newPoi
 import kpn.core.util.UnitTest
 
 import scala.xml.XML
 
-class PoiQueryResultParserTest extends UnitTest with SharedTestObjects {
+class PoiQueryResultParserTest extends UnitTest {
 
   test("parse nodes") {
 

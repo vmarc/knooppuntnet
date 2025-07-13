@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.common.Fact.RouteUnexpectedNode
 import kpn.api.custom.Tags
+import kpn.core.test.TestObjects.newRawNode
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 

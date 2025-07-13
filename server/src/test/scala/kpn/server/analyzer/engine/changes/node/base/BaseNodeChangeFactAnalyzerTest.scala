@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.changes.node.base
 
 import kpn.api.common.Fact
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
 import kpn.core.util.UnitTest
 
-class BaseNodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseNodeChangeFactAnalyzerTest extends UnitTest {
 
   test("no facts") {
     val before = newNode()

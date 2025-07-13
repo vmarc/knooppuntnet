@@ -6,9 +6,14 @@ import kpn.core.doc.RouteDoc
 import kpn.core.doc.SuperSegment
 import kpn.core.doc.SuperSegmentElement
 import kpn.core.doc.SuperSegmentElementInfo
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newBaseRouteSegment
+import kpn.core.test.TestObjects.newBaseRouteSegmentElement
+import kpn.core.test.TestObjects.newRouteDoc
+import kpn.core.test.TestObjects.newRouteRelation
+import kpn.core.test.TestObjects.newRouteSummary
 
-object TestSuperRoute extends SharedTestObjects {
+object TestSuperRoute {
 
   val MainRelationId = 1
 

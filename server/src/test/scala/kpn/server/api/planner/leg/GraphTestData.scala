@@ -6,7 +6,11 @@ import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.planner.graph.NodeNetworkGraphImpl
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.legEndRoute
+import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newRouteInfoAnalysis
+import kpn.core.test.TestObjects.newRouteNetworkNodeInfo
+import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
@@ -18,7 +22,7 @@ import org.scalamock.scalatest.MockFactory
     ---------r4---------
              4m
 */
-class GraphTestData extends SharedTestObjects with MockFactory {
+class GraphTestData extends MockFactory {
 
   val node1: RouteNetworkNodeInfo = newRouteNetworkNodeInfo(id = 1001L, name = "01", lat = "1", lon = "1")
   val node2: RouteNetworkNodeInfo = newRouteNetworkNodeInfo(id = 1002L, name = "02", lat = "2", lon = "2")

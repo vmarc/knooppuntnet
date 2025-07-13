@@ -9,11 +9,12 @@ import kpn.api.common.network.Integrity
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.ScopedRouteType
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
 
-class NetworkIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
+class NetworkIntegrityAnalyzerTest extends UnitTest {
 
   test("integrity") {
 

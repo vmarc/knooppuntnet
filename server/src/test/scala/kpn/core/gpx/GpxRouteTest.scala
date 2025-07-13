@@ -1,10 +1,11 @@
 package kpn.core.gpx
 
 import kpn.api.common.data.Node
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
+import kpn.core.test.TestObjects.newWay
 import kpn.core.util.UnitTest
 
-class GpxRouteTest extends UnitTest with SharedTestObjects {
+class GpxRouteTest extends UnitTest {
 
   test("test contiguous route") {
 

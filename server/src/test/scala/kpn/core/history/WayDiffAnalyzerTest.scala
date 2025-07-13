@@ -7,10 +7,11 @@ import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayUpdate
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
+import kpn.core.test.TestObjects.newWay
 import kpn.core.util.UnitTest
 
-class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {
+class WayDiffAnalyzerTest extends UnitTest {
 
   test("node removed") {
     val before = newWay(101, version = 2, nodes = Vector(newNode(1001), newNode(1002)))

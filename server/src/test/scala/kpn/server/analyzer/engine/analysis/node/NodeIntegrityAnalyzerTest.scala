@@ -8,11 +8,12 @@ import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
+import kpn.core.test.TestObjects.newRouteData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalysis
 
-class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
+class NodeIntegrityAnalyzerTest extends UnitTest {
 
   test("integrity check success") {
 

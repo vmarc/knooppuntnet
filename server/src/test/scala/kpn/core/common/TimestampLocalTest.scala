@@ -1,10 +1,10 @@
 package kpn.core.common
 
 import kpn.api.custom.Timestamp
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNode
 import kpn.core.util.UnitTest
 
-class TimestampLocalTest extends UnitTest with SharedTestObjects {
+class TimestampLocalTest extends UnitTest {
 
   test("test node object") {
     val node = newNode(timestamp = Timestamp(2018, 8, 11, 0, 0, 0))

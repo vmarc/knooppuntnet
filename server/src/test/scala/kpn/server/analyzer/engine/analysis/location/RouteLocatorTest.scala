@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.location
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
-import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy.load
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
@@ -12,7 +11,7 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteNodesAn
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteSegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTypeAnalyzer
 
-class RouteLocatorTest extends UnitTest with SharedTestObjects {
+class RouteLocatorTest extends UnitTest {
 
   private val essen = Location(Seq("be", "be-1-10000", "be-2-11016"))
   private val kalmthout = Location(Seq("be", "be-1-10000", "be-2-11022"))

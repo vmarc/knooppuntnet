@@ -3,10 +3,10 @@ package kpn.server.analyzer.engine.analysis.network.main.analyzers
 import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 import kpn.api.common.common.Ref
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
 import kpn.core.util.UnitTest
 
-class NetworkNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestObjects {
+class NetworkNodeMemberMissingAnalyzerTest extends UnitTest {
 
   test("error if node not defined in relation") {
     analyze(definedInRelation = false) should equal(

@@ -305,10 +305,6 @@ class MongoQueryLocationNodesTest extends MongoTest {
     )
   }
 
-  test("TODO route references") {
-    pending
-  }
-
   test("paging") {
     val setup = new MongoQueryLocationNodesTestSetup(database)
 

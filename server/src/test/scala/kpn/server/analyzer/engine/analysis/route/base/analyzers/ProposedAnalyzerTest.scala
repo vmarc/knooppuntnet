@@ -2,11 +2,10 @@ package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
-import kpn.core.test.SharedTestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 
-class ProposedAnalyzerTest extends UnitTest with SharedTestObjects {
+class ProposedAnalyzerTest extends UnitTest {
 
   test("proposed") {
     assert(!analyze(Seq.empty))

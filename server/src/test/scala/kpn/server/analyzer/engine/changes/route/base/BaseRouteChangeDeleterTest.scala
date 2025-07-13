@@ -2,7 +2,10 @@ package kpn.server.analyzer.engine.changes.route.base
 
 import kpn.api.common.route.RouteNodes
 import kpn.core.doc.BaseRouteDoc
-import kpn.core.test.SharedTestObjects
+import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newChangeSetContext
+import kpn.core.test.TestObjects.newRouteNode
+import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.util.Log
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
@@ -12,7 +15,7 @@ import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
 
-class BaseRouteChangeDeleterTest extends UnitTest with SharedTestObjects with MockFactory {
+class BaseRouteChangeDeleterTest extends UnitTest with MockFactory {
 
   private class Setup {
     val log: MockLog = Log.mock
