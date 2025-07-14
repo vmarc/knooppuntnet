@@ -36,6 +36,7 @@ import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteBoundsAnaly
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteSuperSegmentAnalyzer
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCache
@@ -136,11 +137,13 @@ class InitialAnalysisConfiguration(options: InitialAnalysisToolOptions) {
 
   private val routeMainAnalyzer: RouteMainAnalyzer = {
     val routeBoundsAnalyzer = new RouteBoundsAnalyzer(routeRepository)
+    val routeSuperSegmentAnalyzer = new RouteSuperSegmentAnalyzer(routeRepository)
     val routeStructureRowsAnalyzer = new RouteStructureRowsAnalyzer(routeRepository)
     val routeParentAnalyzer = new RouteParentAnalyzer(routeRepository)
     val networkReferencesAnalyzer = new RouteNetworkReferencesAnalyzer(networkRepository)
     new RouteMainAnalyzer(
       routeBoundsAnalyzer,
+      routeSuperSegmentAnalyzer,
       routeStructureRowsAnalyzer,
       routeParentAnalyzer,
       networkReferencesAnalyzer,

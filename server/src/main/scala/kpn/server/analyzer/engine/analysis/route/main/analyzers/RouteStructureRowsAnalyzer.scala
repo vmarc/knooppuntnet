@@ -134,7 +134,7 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
     member: RouteMemberInfo,
     subRouteData: SubRouteData,
     subRows: Seq[RouteStructureRow]
-  ) = {
+  ): RouteStructureRow = {
     val distance = subRouteData.distance
     val subRowsDistance = subRows.flatMap(_.relation.map(_.totalDistance)).sum
     val totalDistance = distance + subRowsDistance

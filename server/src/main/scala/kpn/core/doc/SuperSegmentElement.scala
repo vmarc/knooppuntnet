@@ -1,24 +1,22 @@
 package kpn.core.doc
 
-case class SuperSegmentElement(relationSegment: SuperSegmentElementInfo, reversed: Boolean = false) {
-
-  def summary: String = s"${relationSegment.id} start=${relationSegment.startNodeId}, end=${relationSegment.endNodeId}, reversed=$reversed"
+case class SuperSegmentElement(elementInfo: SuperSegmentElementInfo, reversed: Boolean = false) {
 
   def startNodeId: Long = {
     if (reversed) {
-      relationSegment.endNodeId
+      elementInfo.endNodeId
     }
     else {
-      relationSegment.startNodeId
+      elementInfo.startNodeId
     }
   }
 
   def endNodeId: Long = {
     if (reversed) {
-      relationSegment.startNodeId
+      elementInfo.startNodeId
     }
     else {
-      relationSegment.endNodeId
+      elementInfo.endNodeId
     }
   }
 }

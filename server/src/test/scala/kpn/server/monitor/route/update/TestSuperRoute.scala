@@ -78,7 +78,7 @@ object TestSuperRoute {
             SuperSegmentElementInfo(
               id = 0,
               relationId = 0,
-              osmSegmentId = 0,
+              segmentId = 0,
               startNodeId = 0,
               endNodeId = 0,
               meters = subRoute11.meters + subRoute12.meters,

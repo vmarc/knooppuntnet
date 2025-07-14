@@ -37,6 +37,7 @@ import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteBoundsAnaly
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteSuperSegmentAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessorPipeline
 import kpn.server.analyzer.engine.changes.ChangeSaver
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
@@ -137,11 +138,13 @@ class IntegrationTestContext(
   )
   private val routeMainAnalyzer = {
     val routeBoundsAnalyzer = new RouteBoundsAnalyzer(baseRouteRepository)
+    val routeSuperSegmentAnalyzer = new RouteSuperSegmentAnalyzer(routeRepository)
     val routeStructureRowsAnalyzer = new RouteStructureRowsAnalyzer(baseRouteRepository)
     val routeParentAnalyzer = new RouteParentAnalyzer(baseRouteRepository)
     val networkReferencesAnalyzer = new RouteNetworkReferencesAnalyzer(networkRepository)
     new RouteMainAnalyzer(
       routeBoundsAnalyzer,
+      routeSuperSegmentAnalyzer,
       routeStructureRowsAnalyzer,
       routeParentAnalyzer,
       networkReferencesAnalyzer,

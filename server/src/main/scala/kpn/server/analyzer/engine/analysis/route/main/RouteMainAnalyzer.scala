@@ -12,6 +12,7 @@ import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteLabelsAnaly
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteSuperSegmentAnalyzer
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
@@ -19,6 +20,7 @@ import scala.annotation.tailrec
 @Component
 class RouteMainAnalyzer(
   boundsAnalyzer: RouteBoundsAnalyzer,
+  routeSuperSegmentAnalyzer: RouteSuperSegmentAnalyzer,
   structureRowsAnalyzer: RouteStructureRowsAnalyzer,
   parentAnalyzer: RouteParentAnalyzer,
   networkReferencesAnalyzer: RouteNetworkReferencesAnalyzer,
@@ -29,6 +31,7 @@ class RouteMainAnalyzer(
       val context = RouteAnalysisContext(route)
       val analyzers: List[RouteAnalyzer] = List(
         RouteIdsAnalyzer,
+        routeSuperSegmentAnalyzer,
         boundsAnalyzer,
         structureRowsAnalyzer,
         RouteGapAnalyzer,
@@ -43,47 +46,47 @@ class RouteMainAnalyzer(
   @tailrec
   private def doAnalyze(analyzers: List[RouteAnalyzer], context: RouteAnalysisContext): Option[RouteDoc] = {
     if (analyzers.isEmpty) {
-
-      val summary = context.route.summary.copy(
-        meters = context.distance
-      )
-
       Some(
-        RouteDoc(
-          context.route._id, // routeId
-          context.route.active,
-          context.labels,
-          summary,
-          context.route.proposed,
-          context.route.version,
-          context.route.changeSetId,
-          context.route.lastUpdated,
-          context.route.lastSurvey,
-          context.route.facts,
-          context.route.unexpectedNodeIds,
-          context.route.unexpectedRelationIds,
-          context.route.members,
-          context.route.nameDerivedFromNodes,
-          context.route.nodes,
-          context.route.analysis,
-          context.route.locationAnalysis,
-          context.segments,
-          0, // TODO redesign - implement superDistance
-          Seq.empty, // TODO redesign - implement superSegment analysis
-          context.paths,
-          context.routeIds,
-          context.bounds,
-          context.structureRows,
-          context.parentRoutes,
-          context.networkReferences,
-          context.route.edges,
-          None
-        )
+        buildRouteDoc(context)
       )
     }
     else {
       val newContext = analyzers.head.analyze(context)
       doAnalyze(analyzers.tail, newContext)
     }
+  }
+
+  private def buildRouteDoc(context: RouteAnalysisContext): RouteDoc = {
+    val summary = context.route.summary.copy(meters = context.distance)
+    RouteDoc(
+      context.route._id, // routeId
+      context.route.active,
+      context.labels,
+      summary,
+      context.route.proposed,
+      context.route.version,
+      context.route.changeSetId,
+      context.route.lastUpdated,
+      context.route.lastSurvey,
+      context.route.facts,
+      context.route.unexpectedNodeIds,
+      context.route.unexpectedRelationIds,
+      context.route.members,
+      context.route.nameDerivedFromNodes,
+      context.route.nodes,
+      context.route.analysis,
+      context.route.locationAnalysis,
+      context.segments,
+      context.superSegments.map(_.elements.map(_.elementInfo.meters).sum).sum,
+      context.superSegments,
+      context.paths,
+      context.routeIds,
+      context.bounds,
+      context.structureRows,
+      context.parentRoutes,
+      context.networkReferences,
+      context.route.edges,
+      None
+    )
   }
 }

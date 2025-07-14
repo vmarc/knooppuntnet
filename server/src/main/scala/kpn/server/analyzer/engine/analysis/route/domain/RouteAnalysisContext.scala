@@ -7,6 +7,7 @@ import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.common.route.RouteStructureRow
 import kpn.core.doc.BaseRouteDoc
+import kpn.core.doc.SuperSegment
 import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 case class RouteAnalysisContext(
@@ -17,6 +18,7 @@ case class RouteAnalysisContext(
   _structureRows: Option[Seq[RouteStructureRow]] = None,
   _distance: Option[Long] = None,
   _segments: Option[Seq[RouteSegment]] = None,
+  _superSegments: Option[Seq[SuperSegment]] = None,
   _paths: Option[Seq[RoutePath]] = None,
   _parentRoutes: Option[Seq[ParentRoute]] = None,
   _networkReferences: Option[Seq[Reference]] = None,
@@ -32,6 +34,8 @@ case class RouteAnalysisContext(
   def distance: Long = _distance.getOrElse(throw new PreconditionMissingException)
 
   def segments: Seq[RouteSegment] = _segments.getOrElse(throw new PreconditionMissingException)
+
+  def superSegments: Seq[SuperSegment] = _superSegments.getOrElse(throw new PreconditionMissingException)
 
   def paths: Seq[RoutePath] = _paths.getOrElse(throw new PreconditionMissingException)
 
