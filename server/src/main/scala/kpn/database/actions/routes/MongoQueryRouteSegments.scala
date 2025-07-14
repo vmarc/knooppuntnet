@@ -1,6 +1,6 @@
 package kpn.database.actions.routes
 
-import kpn.core.doc.SuperSegmentElementInfo
+import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Types.MongoPipeline
@@ -21,10 +21,10 @@ object MongoQueryRouteSegments {
 
 class MongoQueryRouteSegments(database: Database) {
 
-  def execute(routeIds: Seq[Long], log: Log = MongoQueryRouteSegments.log): Seq[SuperSegmentElementInfo] = {
+  def execute(routeIds: Seq[Long], log: Log = MongoQueryRouteSegments.log): Seq[SuperSubSegmentInfo] = {
     log.debugElapsed {
       val pipeline = buildPipeline(routeIds)
-      val elements = database.baseRoutes.aggregate[SuperSegmentElementInfo](pipeline, log)
+      val elements = database.baseRoutes.aggregate[SuperSubSegmentInfo](pipeline, log)
       val updatedElements = elements.zipWithIndex.map { case (element, index) => element.copy(id = index + 1) }
       (s"${elements.size} segment elements", updatedElements)
     }
@@ -44,7 +44,7 @@ class MongoQueryRouteSegments(database: Database) {
           excludeId(),
           computed("id", 0),
           computed("relationId", "_id"),
-          computed("osmSegmentId", "id"),
+          computed("segmentId", "id"),
           include("startNodeId"),
           include("endNodeId"),
           include("meters"),

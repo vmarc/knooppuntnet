@@ -1,20 +1,20 @@
 package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
 import kpn.core.doc.SuperSegment
-import kpn.core.doc.SuperSegmentElement
-import kpn.core.doc.SuperSegmentElementInfo
+import kpn.core.doc.SuperSubSegment
+import kpn.core.doc.SuperSubSegmentInfo
 
 import scala.annotation.tailrec
 
 object SuperSegmentBuilder {
-  def build(segments: Seq[SuperSegmentElementInfo]): Seq[SuperSegment] = {
-    val segmentMap = segments.map(s => s.id -> s).toMap
-    val segmentIds = segments.map(_.id)
+  def build(segmentInfos: Seq[SuperSubSegmentInfo]): Seq[SuperSegment] = {
+    val segmentMap = segmentInfos.map(s => s.id -> s).toMap
+    val segmentIds = segmentInfos.map(_.id)
     new SuperSegmentBuilder(segmentMap).build(segmentIds)
   }
 }
 
-class SuperSegmentBuilder(segmentMap: Map[Long, SuperSegmentElementInfo]) {
+class SuperSegmentBuilder(segmentMap: Map[Long, SuperSubSegmentInfo]) {
 
   private val trace = new SuperSegmentBuilderTrace()
 
@@ -38,7 +38,7 @@ class SuperSegmentBuilder(segmentMap: Map[Long, SuperSegmentElementInfo]) {
     else {
       val newSuperSegment = buildSuperSegment(availableSegmentIds)
       val updatedFoundSuperSegments = foundSuperSegments :+ newSuperSegment
-      val updatedAvailableSegmentIds = stillAvailableSegmentIds(availableSegmentIds, newSuperSegment.elements)
+      val updatedAvailableSegmentIds = stillAvailableSegmentIds(availableSegmentIds, newSuperSegment.segments)
 
       // continue looking for more super segments
       findSuperSegments(updatedFoundSuperSegments, updatedAvailableSegmentIds)
@@ -47,54 +47,44 @@ class SuperSegmentBuilder(segmentMap: Map[Long, SuperSegmentElementInfo]) {
 
   private def buildSuperSegment(availableSegmentIds: Seq[Long]): SuperSegment = {
     // pick the first available segment as the first segment of a new super segment
-    val superSegmentElement = SuperSegmentElement(segmentMap(availableSegmentIds.head))
+    val superSubSegment = SuperSubSegment(segmentMap(availableSegmentIds.head))
 
     // the remaining segments are candidate to be the next segment
-    val remainingSegmentIds = availableSegmentIds.filterNot(id => id == superSegmentElement.elementInfo.id)
+    val remainingSegmentIds = availableSegmentIds.filterNot(id => id == superSubSegment.info.id)
 
-    // find further superSegmentElements that continue the segment after the current segment
-    val forwardElements = findSuperSegmentElements(
+    // find further sub segments that continue the segment after the current segment
+    val segments = findSuperSubSegments(
       0,
-      Seq(superSegmentElement),
+      Seq(superSubSegment),
       remainingSegmentIds,
-      superSegmentElement.endNodeId
+      superSubSegment.endNodeId
     )
 
-    // find further superSegmentElements that can be prepended before the current segment
-    val backwardElements = findSuperSegmentElements(
-      0,
-      Seq.empty,
-      stillAvailableSegmentIds(remainingSegmentIds, forwardElements),
-      superSegmentElement.startNodeId
-    )
-
-    val elements = reverse(backwardElements) ++ forwardElements
-
-    SuperSegment(elements)
+    SuperSegment(segments)
   }
 
-  private def findSuperSegmentElements(
+  private def findSuperSubSegments(
     level: Int,
-    foundSuperSegmentElements: Seq[SuperSegmentElement],
+    foundSuperSubSegments: Seq[SuperSubSegment],
     availableSegmentIds: Seq[Long],
-    connectingNodeId: Long // starting point for finding further super segment elements
-  ): Seq[SuperSegmentElement] = {
+    connectingNodeId: Long // starting point for finding further super sub segment
+  ): Seq[SuperSubSegment] = {
 
-    trace.traceFindSuperSegmentElements(level, foundSuperSegmentElements, availableSegmentIds, connectingNodeId)
+    trace.traceFindSuperSubSegments(level, foundSuperSubSegments, availableSegmentIds, connectingNodeId)
 
-    val visitedNodeIds = collectVisitedNodeIds(foundSuperSegmentElements)
+    val visitedNodeIds = collectVisitedNodeIds(foundSuperSubSegments)
     trace.traceVisitNodeIds(level, visitedNodeIds)
 
     val connectableSegmentIds = findConnectableSegments(level, availableSegmentIds, connectingNodeId, visitedNodeIds)
-    trace.traceConnectableSegmentIds(level, connectableSegmentIds)
+    trace.traceConnectableSegments(level, connectableSegmentIds)
 
     if (connectableSegmentIds.isEmpty) {
-      foundSuperSegmentElements
+      foundSuperSubSegments
     }
     else {
-      findLongestElementChain(
+      findLongestSegment(
         level,
-        foundSuperSegmentElements,
+        foundSuperSubSegments,
         availableSegmentIds,
         connectableSegmentIds,
         connectingNodeId
@@ -102,66 +92,75 @@ class SuperSegmentBuilder(segmentMap: Map[Long, SuperSegmentElementInfo]) {
     }
   }
 
-  private def findLongestElementChain(
+  private def findLongestSegment(
     level: Int,
-    foundSuperSegmentElements: Seq[SuperSegmentElement],
+    foundSuperSubSegments: Seq[SuperSubSegment],
     availableSegmentIds: Seq[Long],
     connectableSegmentIds: Seq[Long],
     connectingNodeId: Long
-  ): Seq[SuperSegmentElement] = {
+  ): Seq[SuperSubSegment] = {
 
-    val maxFragments = 5 //if (optimize) 5 else 1
-    val segments = connectableSegmentIds.take(maxFragments).map { segmentId =>
-      val relationSegment = segmentMap(segmentId)
-      val reversed = connectingNodeId == relationSegment.endNodeId
-      val segmentElement = SuperSegmentElement(relationSegment, reversed)
-      val newSegmentElements = foundSuperSegmentElements :+ segmentElement
-      val remainingElements = availableSegmentIds.filterNot(_ == segmentId)
-
-      findSuperSegmentElements(
+    val maxSegments = 5
+    val segments = connectableSegmentIds.take(maxSegments).map { segmentId =>
+      val subSegmentInfo = segmentMap(segmentId)
+      val reversed = connectingNodeId == subSegmentInfo.endNodeId
+      val subSegment = SuperSubSegment(subSegmentInfo, reversed)
+      val newSubSegments = foundSuperSubSegments :+ subSegment
+      val remainingSegmentIds = availableSegmentIds.filterNot(_ == segmentId)
+      findSuperSubSegments(
         level + 1,
-        newSegmentElements,
-        remainingElements,
-        segmentElement.endNodeId
+        newSubSegments,
+        remainingSegmentIds,
+        subSegment.endNodeId
       )
     }
 
     // usually 1 or 0, if more than 1 choose the longest (the other one will be picked up later)
-    segments.maxBy(length)
-  }
-
-  private def findConnectableSegments(level: Int, availableSegmentIds: Seq[Long], nodeId: Long, visitedNodeIds: Seq[Long]) = {
-    availableSegmentIds.filter { segmentId =>
-      canConnect(level, visitedNodeIds, nodeId, segmentId)
+    if (segments.nonEmpty) {
+      segments.maxBy(length)
+    }
+    else {
+      Seq.empty
     }
   }
 
-  private def collectVisitedNodeIds(foundSuperSegmentElements: Seq[SuperSegmentElement]) = {
-    foundSuperSegmentElements.flatMap { element =>
-      List(element.startNodeId, element.endNodeId)
+  private def findConnectableSegments(
+    level: Int,
+    availableSegmentIds: Seq[Long],
+    connectingNodeId: Long,
+    visitedNodeIds: Seq[Long]
+  ): Seq[Long] = {
+    availableSegmentIds.filter { segmentId =>
+      canConnect(level, visitedNodeIds, connectingNodeId, segmentId)
+    }
+  }
+
+  private def collectVisitedNodeIds(foundSuperSubSegments: Seq[SuperSubSegment]): Seq[Long] = {
+    foundSuperSubSegments.flatMap { subSegment =>
+      Seq(subSegment.startNodeId, subSegment.endNodeId)
     }.distinct.sorted
   }
 
   private def stillAvailableSegmentIds(
     availableSegmentIds: Seq[Long],
-    superSegmentElements: Seq[SuperSegmentElement]
+    superSubSegments: Seq[SuperSubSegment]
   ): Seq[Long] = {
-    val usedSegmentIds = superSegmentElements.map(_.elementInfo.id).toSet
+    val usedSegmentIds = superSubSegments.map(_.info.id).toSet
     availableSegmentIds.filterNot(usedSegmentIds.contains)
   }
 
-  private def length(elements: Seq[SuperSegmentElement]): Long = {
-    elements.map(_.elementInfo.meters).sum
+  private def length(subSegments: Seq[SuperSubSegment]): Long = {
+    subSegments.map(_.info.meters).sum
   }
 
-  private def reverse(elments: Seq[SuperSegmentElement]): Seq[SuperSegmentElement] = {
-    elments.reverse.map(sf => SuperSegmentElement(sf.elementInfo, !sf.reversed))
+  private def reverse(subSegments: Seq[SuperSubSegment]): Seq[SuperSubSegment] = {
+    subSegments.reverse.map(sf => SuperSubSegment(sf.info, !sf.reversed))
   }
 
   private def canConnect(level: Int, visitedNodeIds: Seq[Long], nodeId: Long, segmentId: Long): Boolean = {
-    val relationSegment = segmentMap(segmentId)
-    val startNodeId = relationSegment.startNodeId
-    val endNodeId = relationSegment.endNodeId
+    val subSegmentInfo = segmentMap(segmentId)
+    val startNodeId = subSegmentInfo.startNodeId
+    val endNodeId = subSegmentInfo.endNodeId
     val result = nodeId == startNodeId && (!visitedNodeIds.contains(endNodeId)) ||
       nodeId == endNodeId && (!visitedNodeIds.contains(startNodeId))
     trace.traceCanConnect(level, nodeId, segmentId, startNodeId, endNodeId, result)

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
 import kpn.core.doc.SuperSegment
-import kpn.core.doc.SuperSegmentElement
+import kpn.core.doc.SuperSubSegment
 
 class SuperSegmentBuilderTrace {
 
@@ -23,18 +23,18 @@ class SuperSegmentBuilderTrace {
     }
   }
 
-  def traceFindSuperSegmentElements(
+  def traceFindSuperSubSegments(
     level: Int,
-    foundSuperSegmentElements: Seq[SuperSegmentElement],
+    foundSuperSubSegments: Seq[SuperSubSegment],
     availableSegmentIds: Seq[Long],
-    connectingNodeId: Long // starting point for finding further super segment elements
+    connectingNodeId: Long // starting point for finding further super sub segments
   ): Unit = {
 
     if (traceEnabled) {
       trace.append(
-        contextFindSegmentElements(
+        contextFindSubSegments(
           level,
-          foundSuperSegmentElements,
+          foundSuperSubSegments,
           availableSegmentIds,
           connectingNodeId
         )
@@ -48,7 +48,7 @@ class SuperSegmentBuilderTrace {
     }
   }
 
-  def traceConnectableSegmentIds(level: Int, connectableSegmentIds: Seq[Long]): Unit = {
+  def traceConnectableSegments(level: Int, connectableSegmentIds: Seq[Long]): Unit = {
     if (traceEnabled) {
       trace.append(s"${indent(level)}  level=$level, connectableSegmentIds=[${connectableSegmentIds.mkString(",")}]\n")
     }
@@ -71,7 +71,7 @@ class SuperSegmentBuilderTrace {
       s"""
     superSegment(
 ${
-        superSegment.elements.map(segment =>
+        superSegment.segments.map(segment =>
           s"      ${segmentString(segment)}"
         ).mkString("\n")
       }
@@ -85,37 +85,37 @@ ${
        |)\n""".stripMargin
   }
 
-  private def contextFindSegmentElements(
+  private def contextFindSubSegments(
     level: Int,
-    foundSuperSegmentElements: Seq[SuperSegmentElement],
+    foundSuperSubSegments: Seq[SuperSubSegment],
     availableSegmentIds: Seq[Long],
     connectingNodeId: Long
   ): String = {
 
     val availableSegmentIdsString = availableSegmentIds.mkString(", ")
 
-    val foundSuperSegmentElementsString = foundSuperSegmentElements.map { element =>
-      val info = element.elementInfo
+    val foundSuperSubSegmentsString = foundSuperSubSegments.map { subSegment =>
+      val info = subSegment.info
       val infoString = s"${info.id} start=${info.startNodeId}, end=${info.endNodeId}"
-      s"\n${indent(level)}    superSegmentElement($infoString, reversed=${element.reversed})"
+      s"\n${indent(level)}    superSubSegment($infoString, reversed=${subSegment.reversed})"
     }.mkString
 
-    s"""${indent(level)}findSegmentElements(
+    s"""${indent(level)}findSubSegments(
        |${indent(level)}  level=$level,
        |${indent(level)}  nodeId=$connectingNodeId,
        |${indent(level)}  availableSegmentIds=[$availableSegmentIdsString],
-       |${indent(level)}  foundSuperSegmentElements=[$foundSuperSegmentElementsString
+       |${indent(level)}  foundSuperSubSegments=[$foundSuperSubSegmentsString
        |${indent(level)}  ]
        |${indent(level)})\n""".stripMargin
   }
 
-  private def segmentString(segment: SuperSegmentElement): String = {
-    val relationId = segment.elementInfo.relationId
-    val id = segment.elementInfo.id
-    val start = segment.startNodeId
-    val end = segment.endNodeId
-    val reversed = segment.reversed
-    s"segment(id=$id, relationId=$relationId, start=$start, end=$end, reversed=$reversed)"
+  private def segmentString(subSegment: SuperSubSegment): String = {
+    val relationId = subSegment.info.relationId
+    val id = subSegment.info.id
+    val start = subSegment.startNodeId
+    val end = subSegment.endNodeId
+    val reversed = subSegment.reversed
+    s"SuperSubSegment(id=$id, relationId=$relationId, start=$start, end=$end, reversed=$reversed)"
   }
 
   private def indent(level: Int): String = {

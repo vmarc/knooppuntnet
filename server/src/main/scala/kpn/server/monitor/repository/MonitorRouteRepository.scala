@@ -4,7 +4,6 @@ import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
-import kpn.core.doc.SuperSegmentElementInfo
 import kpn.server.monitor.domain.MonitorGroupRouteCount
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
@@ -70,8 +69,6 @@ trait MonitorRouteRepository {
   def stateCount(routeId: ObjectId): Long
 
   def stateSize(routeId: ObjectId): Long
-
-  def stateSegments(routeId: ObjectId): Seq[SuperSegmentElementInfo]
 
   def superRouteStateSummary(routeId: ObjectId): Option[MonitorStateSummary]
 

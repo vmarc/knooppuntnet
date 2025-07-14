@@ -13,7 +13,7 @@ import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.doc.SubRouteData
-import kpn.core.doc.SuperSegmentElementInfo
+import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryBaseRouteIds
 import kpn.database.actions.routes.MongoQueryKnownRouteIds
@@ -203,7 +203,7 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQueryRouteBounds(database).execute(routeIds, log)
   }
 
-  override def segments(routeIds: Seq[Long]): Seq[SuperSegmentElementInfo] = {
+  override def segments(routeIds: Seq[Long]): Seq[SuperSubSegmentInfo] = {
     new MongoQueryRouteSegments(database).execute(routeIds, log)
   }
 

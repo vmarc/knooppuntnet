@@ -13,7 +13,7 @@ import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.doc.SubRouteData
-import kpn.core.doc.SuperSegmentElementInfo
+import kpn.core.doc.SuperSubSegmentInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
@@ -74,7 +74,7 @@ trait RouteRepository {
 
   def bounds(routeIds: Seq[Long]): Option[Bounds]
 
-  def segments(routeIds: Seq[Long]): Seq[SuperSegmentElementInfo]
+  def segments(routeIds: Seq[Long]): Seq[SuperSubSegmentInfo]
 
   def subRouteData(routeId: Long): Option[SubRouteData]
 

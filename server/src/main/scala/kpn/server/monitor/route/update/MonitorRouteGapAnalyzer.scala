@@ -1,7 +1,7 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.core.doc.SuperSegmentElementInfo
+import kpn.core.doc.SuperSubSegmentInfo
 import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import org.springframework.stereotype.Component
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 class MonitorRouteGapAnalyzer {
 
   def calculate(
-    monitorRouteSegmentInfos: Seq[SuperSegmentElementInfo],
+    monitorRouteSegmentInfos: Seq[SuperSubSegmentInfo],
     superRouteSuperSegments: Seq[MonitorRouteOsmSegment],
     monitorRouteRelation: MonitorRouteRelation
   ): MonitorRouteRelation = {
@@ -67,7 +67,7 @@ class MonitorRouteGapAnalyzer {
     updatedMonitorRouteRelationGap(monitorRouteRelation, gapInfos)
   }
 
-  private def isConnecting(monitorRouteSegmentInfos: Seq[SuperSegmentElementInfo], relationId1: Long, relationId2: Long): Boolean = {
+  private def isConnecting(monitorRouteSegmentInfos: Seq[SuperSubSegmentInfo], relationId1: Long, relationId2: Long): Boolean = {
     val segments1 = monitorRouteSegmentInfos.filter(_.relationId == relationId1)
     val segments2 = monitorRouteSegmentInfos.find(_.relationId == relationId2)
     segments1.exists { segment1 =>

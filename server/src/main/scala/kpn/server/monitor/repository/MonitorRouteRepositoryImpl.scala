@@ -4,7 +4,6 @@ import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
-import kpn.core.doc.SuperSegmentElementInfo
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.NameRow
@@ -28,7 +27,6 @@ import org.mongodb.scala.model.Aggregates.limit
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.skip
 import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.or
@@ -36,7 +34,6 @@ import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.descending
 import org.mongodb.scala.model.Sorts.orderBy
 import org.springframework.stereotype.Component
@@ -284,38 +281,6 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       )
     )
     database.monitorStates.aggregate[MonitorRouteCount](pipeline, log).map(_.count).sum
-  }
-
-  override def stateSegments(routeId: ObjectId): Seq[SuperSegmentElementInfo] = {
-    val pipeline = Seq(
-      filter(
-        equal("routeId", routeId.raw),
-      ),
-      unwind("$osmSegments"),
-      project(
-        fields(
-          computed("id", "0"), // updated in Scala code below
-          include("relationId"),
-          computed("osmSegmentId", "$osmSegments.id"),
-          computed("startNodeId", "$osmSegments.startNodeId"),
-          computed("endNodeId", "$osmSegments.endNodeId"),
-          computed("meters", "$osmSegments.meters"),
-          computed("bounds", "$osmSegments.bounds"),
-        )
-      ),
-      sort(
-        orderBy(
-          ascending(
-            "relationId", "osmSegmentId"
-          )
-        )
-      ),
-    )
-
-    val segments = database.monitorStates.aggregate[SuperSegmentElementInfo](pipeline, log)
-    segments.zipWithIndex.map { case (segment, index) =>
-      segment.copy(id = index + 1)
-    }
   }
 
   override def superRouteStateSummary(routeId: ObjectId): Option[MonitorStateSummary] = {

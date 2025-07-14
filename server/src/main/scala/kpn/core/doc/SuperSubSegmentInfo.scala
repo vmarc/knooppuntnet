@@ -2,7 +2,7 @@ package kpn.core.doc
 
 import kpn.api.common.Bounds
 
-case class SuperSegmentElementInfo(
+case class SuperSubSegmentInfo(
   id: Long,
   relationId: Long,
   segmentId: Long,

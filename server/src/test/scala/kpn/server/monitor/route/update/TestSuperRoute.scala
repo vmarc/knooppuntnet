@@ -4,8 +4,8 @@ import kpn.api.common.Bounds
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.SuperSegment
-import kpn.core.doc.SuperSegmentElement
-import kpn.core.doc.SuperSegmentElementInfo
+import kpn.core.doc.SuperSubSegment
+import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteSegment
 import kpn.core.test.TestObjects.newBaseRouteSegmentElement
@@ -74,8 +74,8 @@ object TestSuperRoute {
     superSegments = Seq(
       SuperSegment(
         Seq(
-          SuperSegmentElement(
-            SuperSegmentElementInfo(
+          SuperSubSegment(
+            SuperSubSegmentInfo(
               id = 0,
               relationId = 0,
               segmentId = 0,
