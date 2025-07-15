@@ -7,17 +7,12 @@ import kpn.server.analyzer.full.analyzers.SingleRouteAnalyzer
 
 object SingleRouteAnalyzerTool {
 
-  private val log = Log(classOf[SingleRouteAnalyzerTool.type])
-
   def main(args: Array[String]): Unit = {
     SingleRouteAnalyzerToolOptions.parse(args).foreach(analyzeRoute)
   }
 
   private def analyzeRoute(options: SingleRouteAnalyzerToolOptions): Unit = {
-    log.info(s"Start analysis of route ${options.routeId}")
-    val configuration = new InitialAnalysisConfiguration(
-      InitialAnalysisToolOptions(options.databaseName)
-    )
+    val configuration = buildConfiguration(options)
     try {
       val tool = buildTool(configuration)
       tool.analyze(options.routeId)
@@ -25,7 +20,12 @@ object SingleRouteAnalyzerTool {
     finally {
       configuration.shutdown()
     }
-    log.info(s"Completed analysis of route ${options.routeId}")
+  }
+
+  private def buildConfiguration(options: SingleRouteAnalyzerToolOptions) = {
+    new InitialAnalysisConfiguration(
+      InitialAnalysisToolOptions(options.databaseName)
+    )
   }
 
   private def buildTool(configuration: InitialAnalysisConfiguration): SingleRouteAnalyzerTool = {
@@ -40,8 +40,20 @@ class SingleRouteAnalyzerTool(
   singleBaseRouteAnalyzer: SingleBaseRouteAnalyzer,
   singleRouteAnalyzer: SingleRouteAnalyzer
 ) {
+  private val log = Log(classOf[SingleRouteAnalyzerTool])
+
   def analyze(routeId: Long): Unit = {
+    log.info(s"Start analysis of route $routeId")
+    analyzeBaseRoute(routeId)
+    analyzeRoute(routeId)
+    log.info(s"Completed analysis of route $routeId")
+  }
+
+  private def analyzeBaseRoute(routeId: Long): Unit = {
     singleBaseRouteAnalyzer.processRoute(RawDataTool.timestamp, None, routeId)
+  }
+
+  private def analyzeRoute(routeId: Long): Unit = {
     singleRouteAnalyzer.processRoute(routeId)
   }
 }
