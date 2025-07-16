@@ -5,14 +5,22 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
 import kpn.core.util.Log
+import kpn.database.actions.monitor.MongoQueryMonitorReferenceTileIds
+import kpn.database.actions.monitor.MongoQueryMonitorReferenceTiles
+import kpn.database.actions.monitor.MongoQueryMonitorRouteInfos
+import kpn.database.actions.monitor.MongoQueryMonitorStateTileIds
+import kpn.database.actions.monitor.MongoQueryMonitorStateTiles
 import kpn.database.base.Database
 import kpn.database.base.NameRow
 import kpn.database.base.ObjectIdId
+import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.domain.MonitorGroupRouteCount
 import kpn.server.monitor.domain.MonitorReference
+import kpn.server.monitor.domain.MonitorReferenceTileInfo
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
+import kpn.server.monitor.domain.MonitorRouteInfo
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.OldMonitorReference
@@ -581,5 +589,25 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
 
   override def routes(): Seq[MonitorRoute] = {
     database.monitorRoutes.findAll(log)
+  }
+
+  override def stateTileIds(): Seq[TileId] = {
+    new MongoQueryMonitorStateTileIds(database).execute()
+  }
+
+  def referenceTileIds(): Seq[TileId] = {
+    new MongoQueryMonitorReferenceTileIds(database).execute()
+  }
+
+  override def stateTiles(tileId: TileId): Seq[MonitorStateTile] = {
+    new MongoQueryMonitorStateTiles(database).execute(tileId)
+  }
+
+  override def referenceTiles(tileId: TileId): Seq[MonitorReferenceTileInfo] = {
+    new MongoQueryMonitorReferenceTiles(database).execute(tileId)
+  }
+
+  override def routeInfos(): Seq[MonitorRouteInfo] = {
+    new MongoQueryMonitorRouteInfos(database).execute()
   }
 }

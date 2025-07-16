@@ -4,11 +4,14 @@ import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
+import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.domain.MonitorGroupRouteCount
 import kpn.server.monitor.domain.MonitorReference
+import kpn.server.monitor.domain.MonitorReferenceTileInfo
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
+import kpn.server.monitor.domain.MonitorRouteInfo
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.OldMonitorReference
@@ -114,4 +117,14 @@ trait MonitorRouteRepository {
   def routeChangeGeometry(changeKey: ChangeKey): Option[MonitorRouteChangeGeometry]
 
   def routeReferenceKey(monitorRouteId: String): Option[String]
+
+  def stateTileIds(): Seq[TileId]
+
+  def referenceTileIds(): Seq[TileId]
+
+  def stateTiles(tileId: TileId): Seq[MonitorStateTile]
+
+  def referenceTiles(tileId: TileId): Seq[MonitorReferenceTileInfo]
+
+  def routeInfos(): Seq[MonitorRouteInfo]
 }
