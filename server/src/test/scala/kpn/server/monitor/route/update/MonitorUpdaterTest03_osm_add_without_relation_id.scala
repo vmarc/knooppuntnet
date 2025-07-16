@@ -189,9 +189,13 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         deviations = Seq.empty,
         matchesDistance = route1.meters,
-        matchesLines = route1.lines,
-        tiles = route1.stateTiles
+        matchesLines = route1.lines
       )
+    )
+    val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, route1.relationId)
+    assertEqual(
+      stateTiles.map(MonitorStateTileInfo.from),
+      route1.stateTiles
     )
   }
 

@@ -10,6 +10,7 @@ import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorState
+import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.OldMonitorReference
 
 trait MonitorRouteRepository {
@@ -56,13 +57,19 @@ trait MonitorRouteRepository {
 
   def saveState(state: MonitorState): Unit
 
+  def saveStateTile(stateTile: MonitorStateTile): Unit
+
   def deleteStates(routeId: ObjectId): Unit
+
+  def deleteStateTiles(routeId: ObjectId): Unit
 
   def deleteState(routeId: ObjectId, subRelationId: Long): Unit
 
   def deleteStateById(objectId: ObjectId): Unit
 
   def state(routeId: ObjectId, relationId: Long): Option[MonitorState]
+
+  def stateTiles(routeId: ObjectId, relationId: Long): Seq[MonitorStateTile]
 
   def states(routeId: ObjectId): Seq[MonitorState]
 

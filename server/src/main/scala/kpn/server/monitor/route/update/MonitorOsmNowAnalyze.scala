@@ -9,6 +9,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
@@ -24,7 +25,7 @@ class MonitorOsmNowAnalyze(
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorReferenceBuilder: MonitorReferenceBuilder,
-  monitorStateBuilder: MonitorStateBuilder,
+  monitorStateStore: MonitorStateStore,
 ) {
 
   private val log = Log(classOf[MonitorOsmNowAnalyze])
@@ -170,20 +171,16 @@ class MonitorOsmNowAnalyze(
     distance: Long
   ): Unit = {
 
-    val state = monitorStateBuilder.build(
-      MonitorState(
-        _id = ObjectId(),
-        routeId = monitorRouteId,
-        relationId = baseRouteDoc._id,
-        timestamp = now, // time of most recent analysis
-        matchesDistance = distance,
-        deviations = Seq.empty,
-        matchesLines = matchesLines,
-        tiles = Seq.empty
-      )
-
+    val state = MonitorState(
+      _id = ObjectId(),
+      routeId = monitorRouteId,
+      relationId = baseRouteDoc._id,
+      timestamp = now, // time of most recent analysis
+      matchesDistance = distance,
+      deviations = Seq.empty,
+      matchesLines = matchesLines
     )
-    monitorRouteRepository.saveState(state)
+    monitorStateStore.saveState(state)
   }
 
   private def initReporter(args: MonitorUpdateArgs): Unit = {

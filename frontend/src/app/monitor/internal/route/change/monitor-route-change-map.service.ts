@@ -9,7 +9,9 @@ import { OldMapLayerRegistry } from '@app/ol/layers/old-map-layer-registry';
 import { OldOsmLayer } from '@app/ol/layers/old-osm-layer';
 import { OpenlayersMapService } from '@app/ol/services/openlayers-map-service';
 import { Util } from '@app/shared/components/util';
+import Feature from 'ol/Feature';
 import { GeoJSON } from 'ol/format';
+import { Geometry } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
 import Map from 'ol/Map';
 import VectorSource from 'ol/source/Vector';
@@ -75,9 +77,9 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
 
   private buildNokSegmentLayer(deviation: MonitorRouteDeviation): OldMapLayer {
     const layerStyle = this.fixedStyle('red', 4);
-    const features = new GeoJSON().readFeatures(deviation.geoJson, {
-      featureProjection: 'EPSG:3857',
-    });
+    const features: Feature<Geometry>[] = []; // new GeoJSON().readFeatures(deviation.geoJson, {
+    //   featureProjection: 'EPSG:3857',
+    // });
 
     const layer = new VectorLayer({
       zIndex: 70,

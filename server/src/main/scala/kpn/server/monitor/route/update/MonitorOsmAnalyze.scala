@@ -15,6 +15,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
+import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
@@ -34,7 +35,7 @@ class MonitorOsmAnalyze(
   monitorRouteOsmSegmentAnalyzer: MonitorRouteOsmSegmentAnalyzer,
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
   monitorReferenceBuilder: MonitorReferenceBuilder,
-  monitorStateBuilder: MonitorStateBuilder,
+  monitorStateStore: MonitorStateStore
 ) {
 
   private val log = Log(classOf[MonitorOsmAnalyze])
@@ -104,20 +105,17 @@ class MonitorOsmAnalyze(
             bounds = reference.referenceBounds,
             lines
           )
-          val state = monitorStateBuilder.build(
-            MonitorState(
-              _id = ObjectId(),
-              routeId = monitorRouteId,
-              relationId = relation.relationId,
-              timestamp = now,
-              deviations = Seq(deviation),
-              matchesDistance = 0,
-              matchesLines = Seq.empty,
-              tiles = Seq.empty
-            )
+          val state = MonitorState(
+            _id = ObjectId(),
+            routeId = monitorRouteId,
+            relationId = relation.relationId,
+            timestamp = now,
+            deviations = Seq(deviation),
+            matchesDistance = 0,
+            matchesLines = Seq.empty
           )
 
-          monitorRouteRepository.saveState(state)
+          monitorStateStore.saveState(state)
           Some(
             MonitorRouteDeviationAnalysisSummary(
               relation.relationId,
@@ -136,19 +134,16 @@ class MonitorOsmAnalyze(
 
           val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
 
-          val state = monitorStateBuilder.build(
-            MonitorState(
-              ObjectId(),
-              monitorRouteId,
-              relation.relationId,
-              now,
-              deviationAnalysis.deviations,
-              deviationAnalysis.matchesDistance,
-              deviationAnalysis.matchesLines,
-              Seq.empty
-            )
+          val state = MonitorState(
+            ObjectId(),
+            monitorRouteId,
+            relation.relationId,
+            now,
+            deviationAnalysis.deviations,
+            deviationAnalysis.matchesDistance,
+            deviationAnalysis.matchesLines
           )
-          monitorRouteRepository.saveState(state)
+          monitorStateStore.saveState(state)
 
           Some(
             MonitorRouteDeviationAnalysisSummary(

@@ -11,12 +11,12 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerHelper
 import kpn.server.analyzer.engine.context.ElementIdMap
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteAnalysis
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
+import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
-import kpn.server.monitor.route.update.MonitorStateBuilder
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
 
@@ -25,7 +25,7 @@ class MonitorChangeProcessorImpl(
   monitorRouteRepository: MonitorRouteRepository,
   monitorRouteLoader: MonitorRouteLoader,
   monitorChangeImpactAnalyzer: MonitorChangeImpactAnalyzer,
-  monitorStateBuilder: MonitorStateBuilder,
+  monitorStateStore: MonitorStateStore
 ) extends MonitorChangeProcessor {
 
   private val log = Log(classOf[MonitorChangeProcessorImpl])
@@ -193,18 +193,16 @@ class MonitorChangeProcessorImpl(
       monitorRouteRepository.saveRouteChangeGeometry(routeChangeGeometry)
 
       val happy = false
-      monitorRouteRepository.saveState(
-        monitorStateBuilder.build(
-          MonitorState(
-            ObjectId(),
-            null, // TODO routeId,
-            1L, // TODO relationId
-            afterRouteAnalysis.relation.timestamp,
-            afterRouteAnalysis.deviations,
-            afterRouteAnalysis.matchesDistance,
-            afterRouteAnalysis.matchesLines,
-            Seq.empty
-          )
+
+      monitorStateStore.saveState(
+        MonitorState(
+          ObjectId(),
+          null, // TODO routeId,
+          1L, // TODO relationId
+          afterRouteAnalysis.relation.timestamp,
+          afterRouteAnalysis.deviations,
+          afterRouteAnalysis.matchesDistance,
+          afterRouteAnalysis.matchesLines
         )
       )
 

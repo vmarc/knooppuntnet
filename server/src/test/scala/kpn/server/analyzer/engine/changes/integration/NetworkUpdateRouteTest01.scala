@@ -33,6 +33,9 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.Label
+import kpn.core.doc.SuperSegment
+import kpn.core.doc.SuperSubSegment
+import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteSegmentElement
@@ -308,6 +311,23 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             meters = 0,
             bounds = Bounds(),
             elementIds = Seq(1)
+          )
+        ),
+        superSegments = Seq(
+          SuperSegment(
+            segments = Seq(
+              SuperSubSegment(
+                SuperSubSegmentInfo(
+                  id = 1,
+                  relationId = 11,
+                  segmentId = 1,
+                  startNodeId = 1001,
+                  endNodeId = 1002,
+                  meters = 0,
+                  bounds = Bounds()
+                )
+              )
+            )
           )
         ),
         paths = Seq(

@@ -186,9 +186,13 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
         subRoute11.relationId,
         GpxUpload1Timestamp,
         matchesDistance = subRoute11.meters,
-        matchesLines = subRoute11.lines,
-        tiles = subRoute11.stateTiles
+        matchesLines = subRoute11.lines
       )
+    )
+    val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, subRoute11.relationId)
+    assertEqual(
+      stateTiles.map(MonitorStateTileInfo.from),
+      subRoute11.stateTiles
     )
   }
 
@@ -253,9 +257,13 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
         subRoute12.relationId,
         GpxUpload2Timestamp,
         matchesDistance = subRoute12.meters,
-        matchesLines = subRoute12.lines,
-        tiles = subRoute12.stateTiles
+        matchesLines = subRoute12.lines
       )
+    )
+    val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, subRoute12.relationId)
+    assertEqual(
+      stateTiles.map(MonitorStateTileInfo.from),
+      subRoute12.stateTiles
     )
   }
 

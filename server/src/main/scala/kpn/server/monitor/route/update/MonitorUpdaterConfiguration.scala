@@ -3,6 +3,8 @@ package kpn.server.monitor.route.update
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzerImpl
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzerImpl
+import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
+import kpn.server.analyzer.engine.monitor.state.MonitorStateTileBuilder
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
@@ -34,15 +36,8 @@ class MonitorUpdaterConfiguration(
 
   private val monitorReferenceBuilder = new MonitorReferenceBuilder(lineSegmentTileCalculator)
 
-  private val monitorStateBuilder = new MonitorStateBuilder(lineSegmentTileCalculator)
-
-  private val monitorUpdateAnalyzeReference = new MonitorUpdateAnalyzeReference(
-    routeRepository,
-    monitorRouteRelationRepository,
-    monitorRouteOsmSegmentAnalyzer,
-    monitorRouteDeviationAnalyzer,
-    monitorStateBuilder
-  )
+  private val monitorStateTileBuilder = new MonitorStateTileBuilder(lineSegmentTileCalculator)
+  private val monitorStateStore = new MonitorStateStore(monitorRouteRepository, monitorStateTileBuilder)
 
   private val monitorUpdateGpxUpload = new MonitorGpxUpload(
     routeRepository,
@@ -50,7 +45,7 @@ class MonitorUpdaterConfiguration(
     monitorUpdateCommon,
     monitorRouteDeviationAnalyzer,
     monitorReferenceBuilder,
-    monitorStateBuilder
+    monitorStateStore
   )
 
   private val monitorUpdateGpxDelete = new MonitorGpxDelete(
@@ -67,7 +62,7 @@ class MonitorUpdaterConfiguration(
     monitorRouteOsmSegmentAnalyzer,
     monitorRouteDeviationAnalyzer,
     monitorReferenceBuilder,
-    monitorStateBuilder
+    monitorStateStore
   )
 
   private val monitorOsmAdd = new MonitorOsmAdd(
@@ -87,7 +82,7 @@ class MonitorUpdaterConfiguration(
     monitorOsmAnalyze,
     monitorRouteDeviationAnalyzer,
     monitorReferenceBuilder,
-    monitorStateBuilder
+    monitorStateStore
   )
 
   private val monitorGpxUpdate = new MonitorGpxUpdate(
@@ -96,7 +91,7 @@ class MonitorUpdaterConfiguration(
     monitorGpxAnalyze,
     monitorRouteDeviationAnalyzer,
     monitorReferenceBuilder,
-    monitorStateBuilder
+    monitorStateStore
   )
 
   private val monitorOsmNowAnalyze = new MonitorOsmNowAnalyze(
@@ -104,7 +99,7 @@ class MonitorUpdaterConfiguration(
     monitorRouteRepository,
     monitorUpdateCommon,
     monitorReferenceBuilder,
-    monitorStateBuilder
+    monitorStateStore
   )
 
   private val monitorOsmNowUpdate = new MonitorOsmNowUpdate(
@@ -125,7 +120,8 @@ class MonitorUpdaterConfiguration(
     monitorOsmUpdate,
     monitorOsmNowUpdate,
     monitorGpxUpdate,
-    monitorMultiGpxUpdate
+    monitorMultiGpxUpdate,
+    monitorStateStore
   )
 
   private val monitorUpdateAddMultiGpx = new MonitorMultiGpxAdd(
@@ -158,7 +154,7 @@ class MonitorUpdaterConfiguration(
     routeRepository,
     monitorRouteRepository,
     monitorRouteDeviationAnalyzer,
-    monitorStateBuilder
+    monitorStateStore
   )
 
   val monitorRouteUpdateExecutor = new MonitorRouteUpdateExecutor(

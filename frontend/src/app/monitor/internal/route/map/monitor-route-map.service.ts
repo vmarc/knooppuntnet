@@ -111,11 +111,11 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     this.deviationsLayer.getSource().clear();
     if (page?.deviations) {
       const features = [];
-      page.deviations.forEach((segment) => {
-        new GeoJSON()
-          .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
-          .forEach((feature) => features.push(feature));
-      });
+      // page.deviations.forEach((segment) => {
+      //   new GeoJSON()
+      //     .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
+      //     .forEach((feature) => features.push(feature));
+      // });
       this.deviationsLayer.getSource().addFeatures(features);
     }
 

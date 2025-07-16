@@ -14,6 +14,7 @@ import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorState
+import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.OldMonitorReference
 import kpn.server.repository.Distance
 import kpn.server.repository.NetworkRepositoryImpl
@@ -202,6 +203,18 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorStates.optionAggregate[MonitorState](pipeline, log)
   }
 
+  override def stateTiles(routeId: ObjectId, relationId: Long): Seq[MonitorStateTile] = {
+    val pipeline = Seq(
+      filter(
+        and(
+          equal("routeId", routeId.raw),
+          equal("relationId", relationId),
+        ),
+      ),
+    )
+    database.monitorStateTiles.aggregate[MonitorStateTile](pipeline, log)
+  }
+
   override def states(routeId: ObjectId): Seq[MonitorState] = {
     val pipeline = Seq(
       filter(
@@ -222,9 +235,18 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorStates.save(state, log)
   }
 
+  override def saveStateTile(stateTile: MonitorStateTile): Unit = {
+    database.monitorStateTiles.save(stateTile, log)
+  }
+
   override def deleteStates(routeId: ObjectId): Unit = {
     val routeFilter = equal("routeId", routeId.raw)
     database.monitorStates.deleteMany(routeFilter, log)
+  }
+
+  override def deleteStateTiles(routeId: ObjectId): Unit = {
+    val routeFilter = equal("routeId", routeId.raw)
+    database.monitorStateTiles.deleteMany(routeFilter, log)
   }
 
   override def deleteState(routeId: ObjectId, subRelationId: Long): Unit = {

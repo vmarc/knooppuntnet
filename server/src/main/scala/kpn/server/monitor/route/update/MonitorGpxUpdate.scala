@@ -7,6 +7,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
+import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
@@ -21,7 +22,7 @@ class MonitorGpxUpdate(
   monitorGpxAnalyze: MonitorGpxAnalyze,
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
   monitorReferenceBuilder: MonitorReferenceBuilder,
-  monitorStateBuilder: MonitorStateBuilder
+  monitorStateStore: MonitorStateStore
 ) {
 
   private val log = Log(classOf[MonitorGpxUpdate])
@@ -63,18 +64,15 @@ class MonitorGpxUpdate(
 
           val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
 
-          monitorRouteRepository.saveState(
-            monitorStateBuilder.build(
-              MonitorState(
-                ObjectId(),
-                route._id,
-                args.relationId,
-                now,
-                deviationAnalysis.deviations,
-                deviationAnalysis.matchesDistance,
-                deviationAnalysis.matchesLines,
-                Seq.empty
-              )
+          monitorStateStore.saveState(
+            MonitorState(
+              ObjectId(),
+              route._id,
+              args.relationId,
+              now,
+              deviationAnalysis.deviations,
+              deviationAnalysis.matchesDistance,
+              deviationAnalysis.matchesLines
             )
           )
 

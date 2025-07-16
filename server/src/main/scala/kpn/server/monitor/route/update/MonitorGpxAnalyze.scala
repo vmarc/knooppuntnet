@@ -10,6 +10,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorReferenceUtil
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
+import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
@@ -28,7 +29,7 @@ class MonitorGpxAnalyze(
   monitorOsmAnalyze: MonitorOsmAnalyze,
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
   monitorReferenceBuilder: MonitorReferenceBuilder,
-  monitorStateBuilder: MonitorStateBuilder,
+  monitorStateStore: MonitorStateStore,
 ) {
 
   private val log = Log(classOf[MonitorGpxAnalyze])
@@ -89,18 +90,15 @@ class MonitorGpxAnalyze(
 
         val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLineStrings)
 
-        monitorRouteRepository.saveState(
-          monitorStateBuilder.build(
-            MonitorState(
-              ObjectId(),
-              route._id,
-              args.relationId,
-              now,
-              deviationAnalysis.deviations,
-              deviationAnalysis.matchesDistance,
-              deviationAnalysis.matchesLines,
-              Seq.empty
-            )
+        monitorStateStore.saveState(
+          MonitorState(
+            ObjectId(),
+            route._id,
+            args.relationId,
+            now,
+            deviationAnalysis.deviations,
+            deviationAnalysis.matchesDistance,
+            deviationAnalysis.matchesLines
           )
         )
 

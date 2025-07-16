@@ -6,6 +6,7 @@ import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.core.common.Time
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorGroupRepository
@@ -21,6 +22,7 @@ class MonitorUpdate(
   monitorOsmNowUpdate: MonitorOsmNowUpdate,
   monitorGpxUpdate: MonitorGpxUpdate,
   monitorMultiGpxUpdate: MonitorMultiGpxUpdate,
+  monitorStateStore: MonitorStateStore,
 ) {
 
   private val log = Log(classOf[MonitorUpdate])
@@ -122,7 +124,7 @@ class MonitorUpdate(
 
   private def cleanup(route: MonitorRoute, args: MonitorUpdateArgs): MonitorRoute = {
     monitorRouteRepository.deleteReferences(route._id)
-    monitorRouteRepository.deleteStates(route._id)
+    monitorStateStore.deleteStates(route._id)
     val symbol = args.update.relationId.flatMap(relationId => route.symbol)
     val osmSegmentCount = args.update.relationId.map(relationId => route.osmSegmentCount).getOrElse(0L)
     val osmDistance = args.update.relationId.map(relationId => route.osmDistance).getOrElse(0L)

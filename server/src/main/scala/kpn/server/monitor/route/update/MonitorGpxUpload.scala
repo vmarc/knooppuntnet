@@ -13,6 +13,7 @@ import kpn.core.util.ValidationException
 import kpn.server.analyzer.engine.monitor.MonitorReferenceUtil
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
+import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
@@ -32,7 +33,7 @@ class MonitorGpxUpload(
   monitorUpdateCommon: MonitorUpdateCommon,
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
   monitorReferenceBuilder: MonitorReferenceBuilder,
-  monitorStateBuilder: MonitorStateBuilder,
+  monitorStateStore: MonitorStateStore
 ) {
 
   private val log = Log(classOf[MonitorGpxUpload])
@@ -123,18 +124,15 @@ class MonitorGpxUpload(
       case None => ObjectId()
     }
 
-    monitorRouteRepository.saveState(
-      monitorStateBuilder.build(
-        MonitorState(
-          stateId,
-          route._id,
-          relationId,
-          now,
-          deviationAnalysis.deviations,
-          deviationAnalysis.matchesDistance,
-          deviationAnalysis.matchesLines,
-          Seq.empty
-        )
+    monitorStateStore.saveState(
+      MonitorState(
+        stateId,
+        route._id,
+        relationId,
+        now,
+        deviationAnalysis.deviations,
+        deviationAnalysis.matchesDistance,
+        deviationAnalysis.matchesLines
       )
     )
 

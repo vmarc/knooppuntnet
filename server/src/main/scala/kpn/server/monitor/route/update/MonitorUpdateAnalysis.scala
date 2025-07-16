@@ -7,6 +7,7 @@ import kpn.core.doc.RouteDoc
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
+import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
@@ -22,7 +23,7 @@ class MonitorUpdateAnalysis(
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer,
-  monitorStateBuilder: MonitorStateBuilder
+  monitorStateStore: MonitorStateStore
 ) {
 
   private val log = Log(classOf[MonitorUpdateAnalysis])
@@ -76,7 +77,7 @@ class MonitorUpdateAnalysis(
     }
   }
 
-  private def analyzeGpxReference(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorReference], oldStateIds: Seq[MonitorStateId]) = {
+  private def analyzeGpxReference(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorReference], oldStateIds: Seq[MonitorStateId]): Seq[MonitorStateSummary] = {
     if (references.sizeIs != 1) {
       throw new IllegalStateException(s"expected one 'gpx' reference, but found ${references.length}")
     }
@@ -135,20 +136,17 @@ class MonitorUpdateAnalysis(
       case None => ObjectId()
     }
 
-    val state = monitorStateBuilder.build(
-      MonitorState(
-        id,
-        route._id,
-        relationId,
-        Time.now,
-        deviationAnalysis.deviations,
-        deviationAnalysis.matchesDistance,
-        deviationAnalysis.matchesLines,
-        Seq.empty
-      )
+    val state = MonitorState(
+      id,
+      route._id,
+      relationId,
+      Time.now,
+      deviationAnalysis.deviations,
+      deviationAnalysis.matchesDistance,
+      deviationAnalysis.matchesLines
     )
 
-    monitorRouteRepository.saveState(state)
+    monitorStateStore.saveState(state)
 
     MonitorStateSummary(
       relationId = relationId,
