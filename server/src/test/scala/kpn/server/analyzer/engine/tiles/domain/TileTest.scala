@@ -48,9 +48,9 @@ class TileTest extends UnitTest {
     tile.bounds.yMin should equal(0)
     tile.bounds.yMax should equal(0.5)
 
-    tile.contains(Seq(0.2, 0.2, 0.4, 0.4)) should equal(true)
-    tile.contains(Seq(-0.25, 0.25, 0.25, 0.25)) should equal(true)
-    tile.contains(Seq(-0.25, -0.25, 0.75, 0.75)) should equal(true)
-    tile.contains(Seq(-0.25, 0.75, 0.25, 0.75)) should equal(false)
+    tile.contains(Seq(new Coordinate(0.2, 0.2), new Coordinate(0.4, 0.4))) should equal(true)
+    tile.contains(Seq(new Coordinate(-0.25, 0.25), new Coordinate(0.25, 0.25))) should equal(true)
+    tile.contains(Seq(new Coordinate(-0.25, -0.25), new Coordinate(0.75, 0.75))) should equal(true)
+    tile.contains(Seq(new Coordinate(-0.25, 0.75), new Coordinate(0.25, 0.75))) should equal(false)
   }
 }

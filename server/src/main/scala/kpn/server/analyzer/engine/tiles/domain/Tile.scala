@@ -1,5 +1,7 @@
 package kpn.server.analyzer.engine.tiles.domain
 
+import org.locationtech.jts.geom.Coordinate
+
 object Tile {
 
   // x part of the z-x-y tilename
@@ -34,16 +36,19 @@ case class Tile(
 
   def name: String = id.name
 
-  def contains(worldCoordinates: Seq[Double]): Boolean = {
-    var xmin = worldCoordinates.head
+  def contains(worldCoordinates: Seq[Coordinate]): Boolean = {
+    if (worldCoordinates.isEmpty) {
+      return false
+    }
+    var xmin = worldCoordinates.head.x
     var xmax = xmin
-    var ymin = worldCoordinates(1)
+    var ymin = worldCoordinates.head.y
     var ymax = ymin
-    worldCoordinates.sliding(2, 2).foreach { case Seq(x, y) =>
-      if (x < xmin) xmin = x
-      if (x > xmax) xmax = x
-      if (y < ymin) ymin = y
-      if (y > ymax) ymax = y
+    worldCoordinates.tail.foreach { c =>
+      if (c.x < xmin) xmin = c.x
+      if (c.x > xmax) xmax = c.x
+      if (c.y < ymin) ymin = c.y
+      if (c.y > ymax) ymax = c.y
     }
     boundsOverlapClipBounds(xmin, xmax, ymin, ymax)
   }

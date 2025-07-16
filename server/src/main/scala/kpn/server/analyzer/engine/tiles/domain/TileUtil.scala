@@ -15,6 +15,9 @@ object TileUtil {
   private val SimplificationTolerance = 1.0d
 
   def routeTileCoordinates(tile: Tile, worldCoordinates: Seq[Coordinate]): Seq[TileCoordinate] = {
+    if (!tile.contains(worldCoordinates)) {
+      return Seq.empty
+    }
     val scaledCoordinates = RouteTiles.toTileCoordinate(tile, worldCoordinates)
     val lineString = geometryFactory.createLineString(scaledCoordinates.toArray)
     val simplifiedLineString = if (RouteTiles.detailed(tile.z)) {

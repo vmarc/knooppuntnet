@@ -26,8 +26,8 @@ object MonitorUpdateTool extends Tool[MonitorUpdateToolOptions] {
     log.infoElapsed {
       Mongo.executeIn(options.databaseName) { database =>
         val tool = new MonitorUpdateTool(database)
-        // tool.update()
-        tool.testUpdate("BE-GRV", "p01")
+        tool.update()
+        //tool.testUpdate("BE-GRV", "p01")
       }
       ("update completed", ())
     }
