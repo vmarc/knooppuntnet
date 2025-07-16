@@ -15,7 +15,7 @@ import org.mongodb.scala.model.Sorts.orderBy
 class MongoQueryMonitorStateTiles(database: Database) {
   def execute(tileId: TileId): Seq[MonitorStateTile] = {
     val pipeline = buildPipeline(tileId)
-    log.infoElapsed {
+    log.debugElapsed {
       val tiles = database.monitorStateTiles.aggregate[MonitorStateTile](pipeline, log)
       (s"${tiles.length} state tiles", tiles)
     }

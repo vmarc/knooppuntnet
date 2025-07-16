@@ -28,7 +28,7 @@ class MonitorTileTool(database: Database) {
     val tileIdCount = tileIds.size
     val context = Log.contextMessages
     log.infoElapsed {
-      ThreadExecutor.stringExecute(25, tileIds) { (index, count, tileIdName) =>
+      ThreadExecutor.stringExecute(50, tileIds) { (index, count, tileIdName) =>
         Log.context(context) {
           Log.context(s"$index/$count $tileIdName") {
             log.infoElapsed {

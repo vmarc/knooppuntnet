@@ -6,4 +6,5 @@ export type LayerType =
   | 'grid'
   | 'flanders-open-data'
   | 'netherlands-open-data'
-  | 'france-open-data';
+  | 'france-open-data'
+  | 'monitor';

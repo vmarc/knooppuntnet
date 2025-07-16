@@ -16,7 +16,7 @@ import org.mongodb.scala.model.Sorts.orderBy
 class MongoQueryMonitorRouteInfos(database: Database) {
   def execute(): Seq[MonitorRouteInfo] = {
     val pipeline = buildPipeline()
-    log.infoElapsed {
+    log.debugElapsed {
       val routes = database.monitorRoutes.aggregate[MonitorRouteInfo](pipeline, log)
       (s"${routes.length} monitor routes", routes)
     }

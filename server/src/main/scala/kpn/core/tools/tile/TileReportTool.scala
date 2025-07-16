@@ -16,7 +16,7 @@ object TileReportTool {
   def main(args: Array[String]): Unit = {
     // new TileReportTool("/Users/marc/kpn/tiles/hiking").report()
     // new TileReportTool("/Users/marc/kpn/tiles/opendata/netherlands/hiking").report()
-    new TileReportTool("/Users/marc/kpn/tiles-old/poi").report()
+    new TileReportTool("/Users/marc/kpn/tiles/monitor").report()
     println("Done")
   }
 }

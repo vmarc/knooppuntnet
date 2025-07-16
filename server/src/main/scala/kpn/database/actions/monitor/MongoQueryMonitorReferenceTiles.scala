@@ -21,7 +21,7 @@ import org.mongodb.scala.model.Sorts.orderBy
 class MongoQueryMonitorReferenceTiles(database: Database) {
   def execute(tileId: TileId): Seq[MonitorReferenceTileInfo] = {
     val pipeline = buildPipeline(tileId)
-    log.infoElapsed {
+    log.debugElapsed {
       val tiles = database.monitorReferences.aggregate[MonitorReferenceTileInfo](pipeline, log)
       (s"${tiles.length} reference tiles", tiles)
     }
@@ -29,6 +29,13 @@ class MongoQueryMonitorReferenceTiles(database: Database) {
 
   private def buildPipeline(tileId: TileId): MongoPipeline = {
     Seq(
+      filter(
+        and(
+          equal("tiles.z", tileId.z),
+          equal("tiles.x", tileId.x),
+          equal("tiles.y", tileId.y),
+        )
+      ),
       unwind("$tiles"),
       filter(
         and(

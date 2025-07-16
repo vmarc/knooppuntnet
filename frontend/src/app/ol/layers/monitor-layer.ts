@@ -12,7 +12,7 @@ export class MonitorLayer {
   static build(): OldMapLayer {
     const source = new VectorTile({
       minZoom: 2,
-      maxZoom: 14,
+      maxZoom: 13,
       format: new MVT(),
       url: '/tiles/monitor/{z}/{x}/{y}.mvt',
     });

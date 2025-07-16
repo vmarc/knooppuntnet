@@ -36,7 +36,7 @@ class LineSegmentTileCalculatorImpl(routeTileCache: RouteTileCache) extends Line
       (ZoomLevel.newMinZoom to ZoomLevel.newMaxZoom).flatMap { z =>
         tiles(z, lineSegments)
       }
-    }
+    }.distinct
   }
 
   /**
