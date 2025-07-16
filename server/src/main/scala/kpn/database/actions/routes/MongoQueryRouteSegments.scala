@@ -4,7 +4,6 @@ import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Types.MongoPipeline
-import kpn.database.util.Mongo
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
@@ -23,9 +22,6 @@ class MongoQueryRouteSegments(database: Database) {
   def execute(routeIds: Seq[Long], log: Log = MongoQueryRouteSegments.log): Seq[SuperSubSegmentInfo] = {
     log.debugElapsed {
       val pipeline = buildPipeline(routeIds)
-
-      println(Mongo.pipelineString(pipeline))
-
       val elements = database.routes.aggregate[SuperSubSegmentInfo](pipeline, log)
       val updatedElements = elements.zipWithIndex.map { case (element, index) => element.copy(id = index + 1) }
       (s"${elements.size} segment elements", updatedElements)

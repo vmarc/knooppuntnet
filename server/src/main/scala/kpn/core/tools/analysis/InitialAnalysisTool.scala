@@ -25,7 +25,7 @@ object InitialAnalysisTool extends Tool[InitialAnalysisToolOptions] {
 
   override def execute(options: InitialAnalysisToolOptions): Unit = {
     log.info("Start")
-    val configuration = new InitialAnalysisConfiguration(options)
+    val configuration = new AnalysisConfiguration(options.databaseName)
     try {
       val tool = buildTool(configuration)
       tool.analyze()
@@ -36,7 +36,7 @@ object InitialAnalysisTool extends Tool[InitialAnalysisToolOptions] {
     log.info(s"Done")
   }
 
-  private def buildTool(configuration: InitialAnalysisConfiguration): InitialAnalysisTool = {
+  private def buildTool(configuration: AnalysisConfiguration): InitialAnalysisTool = {
     val changeSetContext = buildInitialContext()
     new InitialAnalysisTool(
       configuration.mainFullAnalyzer,

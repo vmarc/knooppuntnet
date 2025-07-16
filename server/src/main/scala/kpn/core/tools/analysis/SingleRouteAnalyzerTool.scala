@@ -2,17 +2,17 @@ package kpn.core.tools.analysis
 
 import kpn.core.tools.support.RawDataTool
 import kpn.core.util.Log
+import kpn.database.base.Options
+import kpn.database.base.Tool
 import kpn.server.analyzer.full.analyzers.SingleBaseRouteAnalyzer
 import kpn.server.analyzer.full.analyzers.SingleRouteAnalyzer
 
-object SingleRouteAnalyzerTool {
+object SingleRouteAnalyzerTool extends Tool[SingleRouteAnalyzerToolOptions] {
 
-  def main(args: Array[String]): Unit = {
-    SingleRouteAnalyzerToolOptions.parse(args).foreach(analyzeRoute)
-  }
+  override def options: Options[SingleRouteAnalyzerToolOptions] = SingleRouteAnalyzerToolOptions
 
-  private def analyzeRoute(options: SingleRouteAnalyzerToolOptions): Unit = {
-    val configuration = buildConfiguration(options)
+  override def execute(options: SingleRouteAnalyzerToolOptions): Unit = {
+    val configuration = new AnalysisConfiguration(options.databaseName)
     try {
       val tool = buildTool(configuration)
       tool.analyze(options.routeId)
@@ -22,13 +22,7 @@ object SingleRouteAnalyzerTool {
     }
   }
 
-  private def buildConfiguration(options: SingleRouteAnalyzerToolOptions) = {
-    new InitialAnalysisConfiguration(
-      InitialAnalysisToolOptions(options.databaseName)
-    )
-  }
-
-  private def buildTool(configuration: InitialAnalysisConfiguration): SingleRouteAnalyzerTool = {
+  private def buildTool(configuration: AnalysisConfiguration): SingleRouteAnalyzerTool = {
     new SingleRouteAnalyzerTool(
       configuration.singleBaseRouteAnalyzer,
       configuration.singleRouteAnalyzer
