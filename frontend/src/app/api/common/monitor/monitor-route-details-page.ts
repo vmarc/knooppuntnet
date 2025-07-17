@@ -1,5 +1,6 @@
 // this file is generated, please do not modify
 
+import { Bounds } from '@api/common/bounds';
 import { RouteDetails } from '@api/common/route/route-details';
 import { Timestamp } from '@api/custom/timestamp';
 import { MonitorReferenceType } from './monitor-reference-type';
@@ -10,6 +11,7 @@ export interface MonitorRouteDetailsPage {
   readonly groupDescription: string;
   readonly routeName: string;
   readonly routeDescription: string;
+  readonly routeId: string;
   readonly relationId: number;
   readonly comment: string;
   readonly symbol: string;
@@ -28,4 +30,5 @@ export interface MonitorRouteDetailsPage {
   readonly relationCount: number;
   readonly relationLevels: number;
   readonly details: RouteDetails;
+  readonly bounds?: Bounds;
 }

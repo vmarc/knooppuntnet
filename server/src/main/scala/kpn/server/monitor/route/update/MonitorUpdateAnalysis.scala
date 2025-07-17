@@ -6,6 +6,7 @@ import kpn.core.common.Time
 import kpn.core.doc.RouteDoc
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
+import kpn.core.util.Util.mergeBounds
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.monitor.domain.MonitorReference
@@ -42,7 +43,13 @@ class MonitorUpdateAnalysis(
 
     val stateSummaries = analyzeReferences(route, routeDoc, references, oldStateIds)
 
-    saveRoute(route, routeDoc, analysisStartMillis, stateSummaries)
+    saveRoute(
+      route,
+      routeDoc,
+      analysisStartMillis,
+      references,
+      stateSummaries
+    )
   }
 
   private def removeObsoleteStates(allRelationIds: Seq[Long], oldStateIds: Seq[MonitorStateId]): Unit = {
@@ -93,12 +100,30 @@ class MonitorUpdateAnalysis(
     )
   }
 
-  private def saveRoute(route: MonitorRoute, routeDoc: RouteDoc, analysisStartMillis: Long, stateSummaries: Seq[MonitorStateSummary]): Unit = {
+  private def saveRoute(
+    route: MonitorRoute,
+    routeDoc: RouteDoc,
+    analysisStartMillis: Long,
+    references: Seq[MonitorReference],
+    stateSummaries: Seq[MonitorStateSummary]
+  ): Unit = {
+
     val analysisDuration = System.currentTimeMillis() - analysisStartMillis
     val deviationDistance = stateSummaries.map(_.deviationDistance).sum
     val deviationCount = stateSummaries.map(_.deviationCount).sum
     val osmSegmentCount = routeDoc.superSegments.size
     val osmDistance = routeDoc.superDistance
+
+    val bounds = {
+      val allBounds = references.map(_.referenceBounds) ++ routeDoc.bounds.toSeq
+      if (allBounds.nonEmpty) {
+        Some(mergeBounds(allBounds))
+      }
+      else {
+        None
+      }
+    }
+
     val happy = deviationCount == 0 && osmDistance > 0 && osmSegmentCount == 1
 
     val updatedRoute = route.copy(
@@ -108,6 +133,7 @@ class MonitorUpdateAnalysis(
       deviationCount = deviationCount,
       osmSegmentCount = osmSegmentCount,
       osmDistance = osmDistance,
+      bounds = bounds,
       happy = happy,
     )
 

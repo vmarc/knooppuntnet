@@ -20,7 +20,7 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
-    @if (service.state(); as state) {
+    @if (service.pageState(); as state) {
       <ui-page>
         <ui-monitor-route-page-header
           pageName="details"

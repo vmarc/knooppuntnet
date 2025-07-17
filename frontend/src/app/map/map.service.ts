@@ -118,7 +118,7 @@ export class MapService {
     });
 
     effect(() => {
-      const monitorMapState = this.state.map.monitorMapState();
+      this.state.map.monitorMapState();
       this.layers.monitorLayerChanged();
     });
 
@@ -248,6 +248,13 @@ export class MapService {
         const extent = Util.toExtent(bounds, 0.1);
         this._map.getView().fit(extent);
       }
+    }
+  }
+
+  fitBounds(bounds: Bounds): void {
+    if (bounds !== null) {
+      const extent = Util.toExtent(bounds, 0.1);
+      this._map.getView().fit(extent);
     }
   }
 

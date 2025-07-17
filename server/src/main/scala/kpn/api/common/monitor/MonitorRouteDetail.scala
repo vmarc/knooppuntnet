@@ -1,5 +1,6 @@
 package kpn.api.common.monitor
 
+import kpn.api.common.Bounds
 import kpn.api.custom.Timestamp
 
 case class MonitorRouteDetail(
@@ -15,5 +16,6 @@ case class MonitorRouteDetail(
   deviationDistance: Long,
   deviationCount: Long,
   osmSegmentCount: Long,
+  bounds: Option[Bounds],
   happy: Boolean
 )

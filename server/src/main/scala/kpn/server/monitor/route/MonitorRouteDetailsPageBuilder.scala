@@ -107,6 +107,7 @@ class MonitorRouteDetailsPageBuilder(
       group.description,
       monitorRoute.name,
       monitorRoute.description,
+      monitorRoute._id.oid,
       monitorRoute.relationId,
       monitorRoute.comment,
       monitorRoute.symbol,
@@ -124,7 +125,8 @@ class MonitorRouteDetailsPageBuilder(
       routeDoc.summary.meters,
       relationCount,
       relationLevels,
-      details
+      details,
+      monitorRoute.bounds,
     )
   }
 

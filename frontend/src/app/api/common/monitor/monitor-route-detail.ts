@@ -1,5 +1,6 @@
 // this file is generated, please do not modify
 
+import { Bounds } from '@api/common/bounds';
 import { Timestamp } from '@api/custom/timestamp';
 
 export interface MonitorRouteDetail {
@@ -15,5 +16,6 @@ export interface MonitorRouteDetail {
   readonly deviationDistance: number;
   readonly deviationCount: number;
   readonly osmSegmentCount: number;
+  readonly bounds?: Bounds;
   readonly happy: boolean;
 }

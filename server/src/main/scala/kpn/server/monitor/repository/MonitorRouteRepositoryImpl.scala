@@ -502,6 +502,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
           include("deviationDistance"),
           include("deviationCount"),
           include("osmSegmentCount"),
+          include("bounds"),
           include("happy"),
         )
       )

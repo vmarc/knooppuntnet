@@ -1,5 +1,6 @@
 package kpn.api.common.monitor
 
+import kpn.api.common.Bounds
 import kpn.api.common.route.RouteDetails
 import kpn.api.custom.Timestamp
 
@@ -9,6 +10,7 @@ case class MonitorRouteDetailsPage(
   groupDescription: String,
   routeName: String,
   routeDescription: String,
+  routeId: String,
   relationId: Option[Long],
   comment: Option[String],
   symbol: Option[String],
@@ -26,5 +28,6 @@ case class MonitorRouteDetailsPage(
   osmDistance: Long,
   relationCount: Long,
   relationLevels: Long,
-  details: RouteDetails
+  details: RouteDetails,
+  bounds: Option[Bounds]
 )
