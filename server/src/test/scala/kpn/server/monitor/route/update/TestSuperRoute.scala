@@ -12,6 +12,7 @@ import kpn.core.test.TestObjects.newBaseRouteSegmentElement
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteRelation
 import kpn.core.test.TestObjects.newRouteSummary
+import kpn.core.util.Util.mergeBounds
 
 object TestSuperRoute {
 
@@ -37,7 +38,8 @@ object TestSuperRoute {
           )
         )
       )
-    )
+    ),
+    bounds = Some(mergeBounds(Seq(subRoute11.bounds, subRoute12.bounds))),
   )
 
   val baseRouteDoc11: BaseRouteDoc = newBaseRouteDoc(
@@ -52,6 +54,7 @@ object TestSuperRoute {
         coordinates = subRoute11.coordinateString
       )
     ),
+    bounds = Some(subRoute11.bounds),
   )
 
   val baseRouteDoc12: BaseRouteDoc = newBaseRouteDoc(
@@ -66,6 +69,7 @@ object TestSuperRoute {
         coordinates = subRoute12.coordinateString
       )
     ),
+    bounds = Some(subRoute12.bounds),
   )
 
   val routeDoc1: RouteDoc = newRouteDoc(
@@ -87,6 +91,7 @@ object TestSuperRoute {
           )
         )
       )
-    )
+    ),
+    bounds = Some(mergeBounds(Seq(subRoute11.bounds, subRoute12.bounds))),
   )
 }

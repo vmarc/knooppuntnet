@@ -13,6 +13,7 @@ import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteRelation
 import kpn.core.test.TestObjects.newRouteSummary
+import kpn.core.util.Util.mergeBounds
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
@@ -167,6 +168,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = subRoute11.meters + subRoute12.meters,
+        bounds = Some(mergeBounds(Seq(subRoute11.bounds, subRoute12.bounds))),
         happy = false,
       )
     )
@@ -375,7 +377,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
               )
             )
           )
-        )
+        ),
+        bounds = Some(mergeBounds(Seq(subRoute11.bounds, subRoute12.bounds))),
       )
     )
   }
@@ -393,7 +396,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
             segmentElementId = 1,
             coordinates = subRoute11.coordinateString
           )
-        )
+        ),
+        bounds = Some(subRoute11.bounds),
       )
     )
   }
@@ -411,7 +415,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
             segmentElementId = 1,
             coordinates = subRoute12.coordinateString
           )
-        )
+        ),
+        bounds = Some(subRoute11.bounds),
       )
     )
   }
@@ -429,7 +434,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
           SuperSegment(
             Seq.empty
           )
-        )
+        ),
+        bounds = Some(mergeBounds(Seq(subRoute11.bounds, subRoute12.bounds))),
       )
     )
   }

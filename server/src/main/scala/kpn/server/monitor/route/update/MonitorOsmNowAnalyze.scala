@@ -129,6 +129,7 @@ class MonitorOsmNowAnalyze(
       deviationCount = 0,
       osmSegmentCount = routeDoc.superSegments.size,
       osmDistance = distance,
+      bounds = routeDoc.bounds,
       happy = true, // always true because reference will automatically match current state
     )
   }

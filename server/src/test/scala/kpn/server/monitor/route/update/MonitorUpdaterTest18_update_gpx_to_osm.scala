@@ -122,6 +122,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route1.meters,
+        bounds = Some(route1.bounds),
         happy = true
       )
     )
@@ -193,6 +194,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route1.meters,
+        bounds = Some(route1.bounds),
         happy = true
       )
     )
@@ -317,7 +319,8 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
           SuperSegment(
             Seq.empty
           )
-        )
+        ),
+        bounds = Some(route1.bounds)
       )
     )
   }

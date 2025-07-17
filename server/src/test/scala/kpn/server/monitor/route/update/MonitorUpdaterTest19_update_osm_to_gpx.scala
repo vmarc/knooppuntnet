@@ -126,6 +126,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route1.meters,
+        bounds = Some(route1.bounds),
         happy = true
       )
     )
@@ -200,6 +201,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route1.meters,
+        bounds = Some(route1.bounds),
         happy = true
       )
     )

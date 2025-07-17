@@ -2,6 +2,7 @@ package kpn.server.monitor.domain
 
 import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
+import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.custom.Timestamp
 
@@ -74,6 +75,7 @@ case class MonitorRoute(
 
   osmDistance: Long,
 
+  bounds: Option[Bounds],
   /*
     Overall route status. True if "happy" is true in the entire route structure (all MonitorRouteRelation objects).
    */

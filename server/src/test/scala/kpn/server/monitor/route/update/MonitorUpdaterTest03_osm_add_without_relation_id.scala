@@ -105,6 +105,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         deviationCount = 0,
         osmSegmentCount = 0,
         osmDistance = 0,
+        bounds = None,
         happy = false,
       )
     )
@@ -150,6 +151,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route1.meters,
+        bounds = Some(route1.bounds),
         happy = true
       )
     )

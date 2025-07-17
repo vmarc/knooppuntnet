@@ -55,7 +55,6 @@ case class MonitorTestRoute(
         )
       ),
       bounds = Some(bounds)
-
     )
   }
 
@@ -71,7 +70,8 @@ case class MonitorTestRoute(
         SuperSegment(
           Seq.empty
         )
-      )
+      ),
+      bounds = Some(bounds)
     )
   }
 

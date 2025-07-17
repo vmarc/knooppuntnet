@@ -77,6 +77,7 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route1.meters,
+        bounds = Some(route1.bounds),
         happy = false
       )
     )
@@ -130,13 +131,15 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
       user = "user",
       referenceType = MonitorReferenceType.osm,
       referenceTimestamp = Some(ReferenceTimestamp1),
-      referenceFilename = None
+      referenceFilename = None,
+      bounds = Some(route1.bounds),
     )
     val reference = newMonitorReference(
       routeId = route._id,
       relationId = Some(route1.relationId),
       referenceType = MonitorReferenceType.osm,
-      referenceTimestamp = ReferenceTimestamp1
+      referenceTimestamp = ReferenceTimestamp1,
+      bounds = route1.bounds,
     )
     val state = newMonitorState(
       routeId = route._id,
@@ -179,7 +182,8 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
           SuperSegment(
             Seq.empty
           )
-        )
+        ),
+        bounds = Some(route1.bounds)
       )
     )
   }

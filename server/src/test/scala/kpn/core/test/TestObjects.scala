@@ -1087,6 +1087,7 @@ object TestObjects {
     deviationCount: Long = 0,
     osmDistance: Long = 0,
     osmSegmentCount: Long = 0,
+    bounds: Option[Bounds] = None,
     happy: Boolean = false
   ): MonitorRoute = {
     MonitorRoute(
@@ -1109,6 +1110,7 @@ object TestObjects {
       deviationCount,
       osmSegmentCount,
       osmDistance,
+      bounds,
       happy
     )
   }

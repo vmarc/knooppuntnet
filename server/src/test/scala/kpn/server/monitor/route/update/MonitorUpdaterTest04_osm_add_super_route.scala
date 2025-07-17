@@ -17,6 +17,7 @@ import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteRelation
 import kpn.core.test.TestObjects.newRouteSummary
+import kpn.core.util.Util.mergeBounds
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
@@ -92,6 +93,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = subRoute11.meters + subRoute12.meters,
+        bounds = Some(mergeBounds(Seq(subRoute11.bounds, subRoute12.bounds))),
         happy = true
       )
     )

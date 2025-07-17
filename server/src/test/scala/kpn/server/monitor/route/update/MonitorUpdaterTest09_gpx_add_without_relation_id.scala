@@ -129,6 +129,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         deviationCount = 0,
         osmSegmentCount = 0,
         osmDistance = 0,
+        bounds = Some(route1.bounds),
         happy = false
       )
     )
@@ -294,7 +295,8 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
             segmentElementId = 1,
             coordinates = route1.coordinateString
           )
-        )
+        ),
+        bounds = Some(route1.bounds)
       )
     )
   }
@@ -312,7 +314,8 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
           SuperSegment(
             Seq.empty
           )
-        )
+        ),
+        bounds = Some(route1.bounds)
       )
     )
   }

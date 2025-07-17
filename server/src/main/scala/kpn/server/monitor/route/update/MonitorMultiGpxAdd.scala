@@ -1,6 +1,7 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
+import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorCommand
 import kpn.api.common.monitor.MonitorMessage
 import kpn.core.common.Time
@@ -22,8 +23,8 @@ class MonitorMultiGpxAdd(
 
   def execute(group: MonitorGroup, args: MonitorUpdateArgs): Unit = {
 
-    val (superSegmentCount, osmDistance) = getRouteInfo(args)
-    val route = buildRoute(args, group, superSegmentCount, osmDistance)
+    val (superSegmentCount, osmDistance, bounds) = getRouteInfo(args)
+    val route = buildRoute(args, group, superSegmentCount, osmDistance, bounds)
 
     monitorRouteRepository.saveRoute(route)
     args.reporter.stepDone("save")
@@ -41,12 +42,19 @@ class MonitorMultiGpxAdd(
       case Some(routeDoc) =>
         val sc: Long = routeDoc.superSegments.length
         val di: Long = routeDoc.superDistance
-        (sc, di)
-      case None => (0L, 0L)
+        val bounds = routeDoc.bounds
+        (sc, di, bounds)
+      case None => (0L, 0L, None)
     }
   }
 
-  private def buildRoute(args: MonitorUpdateArgs, group: MonitorGroup, superSegmentCount: Long, osmDistance: Long) = {
+  private def buildRoute(
+    args: MonitorUpdateArgs,
+    group: MonitorGroup,
+    superSegmentCount: Long,
+    osmDistance: Long,
+    bounds: Option[Bounds]
+  ) = {
     MonitorRoute(
       ObjectId(),
       group._id,
@@ -67,6 +75,7 @@ class MonitorMultiGpxAdd(
       deviationCount = 0,
       osmSegmentCount = superSegmentCount,
       osmDistance = osmDistance,
+      bounds = bounds,
       happy = false, // cannot be happy yet, there are no gpx references yet
     )
   }

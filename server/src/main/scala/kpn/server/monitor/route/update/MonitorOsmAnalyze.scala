@@ -12,6 +12,7 @@ import kpn.core.common.Time
 import kpn.core.doc.RouteDoc
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
+import kpn.core.util.Util.mergeBounds
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
@@ -60,6 +61,7 @@ class MonitorOsmAnalyze(
     // TODO redesign - do not forget to add analysis results for relationsIds in RouteDoc that are not in included in the overpass query result
 
     val referenceDistance = summaries.map(_.referenceDistance).sum
+    val referenceBounds = if (summaries.nonEmpty) Some(mergeBounds(summaries.map(_.referenceBounds))) else None
     val deviationDistance = summaries.map(_.deviationDistance).sum
     val deviationCount = summaries.map(_.deviationCount).sum
     val osmDistance = routeDoc.superDistance
@@ -71,6 +73,7 @@ class MonitorOsmAnalyze(
       now,
       routeDoc,
       osmDistance,
+      referenceBounds,
       referenceDistance,
       deviationDistance,
       deviationCount,
@@ -119,6 +122,7 @@ class MonitorOsmAnalyze(
           Some(
             MonitorRouteDeviationAnalysisSummary(
               relation.relationId,
+              referenceBounds = reference.referenceBounds,
               referenceDistance = reference.referenceDistance,
               deviationDistance = deviation.distance,
               deviationCount = 1,
@@ -148,6 +152,7 @@ class MonitorOsmAnalyze(
           Some(
             MonitorRouteDeviationAnalysisSummary(
               relation.relationId,
+              referenceBounds = reference.referenceBounds,
               referenceDistance = reference.referenceDistance,
               deviationDistance = deviationAnalysis.deviations.map(_.distance).sum,
               deviationCount = deviationAnalysis.deviations.length,
@@ -236,12 +241,22 @@ class MonitorOsmAnalyze(
     now: Timestamp,
     routeDoc: RouteDoc,
     distance: Long,
+    referenceBounds: Option[Bounds],
     referenceDistance: Long,
     deviationDistance: Long,
     deviationCount: Long,
     analysisDuration: Long
   ): MonitorRoute = {
 
+    val bounds = {
+      val allBounds = routeDoc.bounds.toSeq ++ referenceBounds.toSeq
+      if (allBounds.isEmpty) {
+        None
+      }
+      else {
+        Some(mergeBounds(allBounds))
+      }
+    }
     val happy = distance > 0 && deviationDistance == 0 && referenceDistance > 0
 
     route.copy(
@@ -253,6 +268,7 @@ class MonitorOsmAnalyze(
       deviationCount = deviationCount,
       osmSegmentCount = routeDoc.superSegments.size,
       osmDistance = distance,
+      bounds = bounds,
       happy = happy
     )
   }
