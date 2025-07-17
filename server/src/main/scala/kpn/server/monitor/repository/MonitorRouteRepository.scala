@@ -11,7 +11,6 @@ import kpn.server.monitor.domain.MonitorReferenceTileInfo
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
-import kpn.server.monitor.domain.MonitorRouteInfo
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.OldMonitorReference
@@ -125,6 +124,4 @@ trait MonitorRouteRepository {
   def stateTiles(tileId: TileId): Seq[MonitorStateTile]
 
   def referenceTiles(tileId: TileId): Seq[MonitorReferenceTileInfo]
-
-  def routeInfos(): Seq[MonitorRouteInfo]
 }

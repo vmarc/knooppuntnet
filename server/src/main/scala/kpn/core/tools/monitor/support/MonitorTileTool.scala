@@ -57,7 +57,6 @@ class MonitorTileTool(database: Database) {
   }
 
   private def buildMonitorTileEncoder(): MonitorTileEncoder = {
-    val routeMap = monitorRouteRepository.routeInfos().groupBy(_._id.oid)
-    new MonitorTileEncoder(routeMap, log)
+    new MonitorTileEncoder(log)
   }
 }

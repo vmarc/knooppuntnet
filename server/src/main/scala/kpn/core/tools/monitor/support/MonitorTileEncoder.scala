@@ -7,7 +7,6 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.monitor.domain.MonitorReferenceTileInfo
-import kpn.server.monitor.domain.MonitorRouteInfo
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.MonitorStateTileDeviation
 import no.ecc.vectortile.VectorTileEncoder
@@ -16,7 +15,7 @@ import org.apache.commons.io.FileUtils
 import java.io.File
 import java.util
 
-class MonitorTileEncoder(routeMap: Map[String, Seq[MonitorRouteInfo]], log: Log) {
+class MonitorTileEncoder(log: Log) {
 
   def processTile(
     tile: Tile,
@@ -78,12 +77,8 @@ class MonitorTileEncoder(routeMap: Map[String, Seq[MonitorRouteInfo]], log: Log)
   }
 
   private def buildUserData(routeId: ObjectId): util.HashMap[String, String] = {
-    val routeInfo = routeMap.getOrElse(routeId.oid, Seq.empty).headOption
-    val groupName = routeInfo.map(_.groupName).get
-    val routeName = routeInfo.map(_.routeName).get
     val userData = new util.HashMap[String, String]()
-    userData.put("group", groupName)
-    userData.put("route", routeName)
+    userData.put("route", routeId.oid)
     userData
   }
 
