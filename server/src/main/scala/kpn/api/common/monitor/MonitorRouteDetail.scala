@@ -4,6 +4,7 @@ import kpn.api.custom.Timestamp
 
 case class MonitorRouteDetail(
   rowIndex: Long,
+  routeId: String,
   name: String,
   description: String,
   symbol: Option[String],

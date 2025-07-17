@@ -6,7 +6,7 @@ import { Bounds } from '@api/common/bounds';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
-import { MonitorMapMode } from './monitor-map-mode';
+import { OldMonitorMapMode } from './old-monitor-map-mode';
 import { initialState } from './monitor-route-map-state';
 import { MonitorRouteMapState } from './monitor-route-map-state';
 
@@ -28,26 +28,26 @@ export class MonitorRouteMapStateService {
   readonly selectedOsmSegment = computed(() => this._state().selectedOsmSegment);
   readonly referenceAvailable = computed(() => this._state().referenceAvailable);
   readonly referenceLayerVisible = computed(
-    () => this.mode() === MonitorMapMode.comparison && this.referenceVisible()
+    () => this.mode() === OldMonitorMapMode.comparison && this.referenceVisible()
   );
   readonly matchesLayerVisible = computed(
-    () => this.mode() === MonitorMapMode.comparison && this.matchesVisible()
+    () => this.mode() === OldMonitorMapMode.comparison && this.matchesVisible()
   );
   readonly deviationsLayerVisible = computed(
-    () => this.mode() === MonitorMapMode.comparison && this.deviationsVisible()
+    () => this.mode() === OldMonitorMapMode.comparison && this.deviationsVisible()
   );
   readonly osmRelationLayerVisible = computed(
     () =>
-      this.mode() === MonitorMapMode.osmSegments ||
-      (this.mode() === MonitorMapMode.comparison && this.osmRelationVisible())
+      this.mode() === OldMonitorMapMode.osmSegments ||
+      (this.mode() === OldMonitorMapMode.comparison && this.osmRelationVisible())
   );
   readonly analysisTimestamp = computed(() => this.page()?.analysisTimestamp);
 
   initialState(queryParams: ParamMap, page: MonitorRouteMapPage): void {
-    let mode = MonitorMapMode.comparison;
+    let mode = OldMonitorMapMode.comparison;
     const modeParam = queryParams.get('mode');
-    if (modeParam === MonitorMapMode.osmSegments) {
-      mode = MonitorMapMode.osmSegments;
+    if (modeParam === OldMonitorMapMode.osmSegments) {
+      mode = OldMonitorMapMode.osmSegments;
     }
 
     const matchesParam = queryParams.get('matches');
@@ -76,7 +76,7 @@ export class MonitorRouteMapStateService {
       selectedOsmSegment = page.osmSegments.find((segment) => segment.id === id);
     }
 
-    const referenceAvailable = (page.reference?.referenceGeoJson.length ?? 0) > 0;
+    const referenceAvailable = false; // removed: (page.reference?.referenceGeoJson.length ?? 0) > 0;
     const referenceParam = queryParams.get('reference');
     let referenceVisible =
       referenceAvailable && !(matchesVisible || deviationsVisible || osmRelationVisible);
@@ -101,7 +101,7 @@ export class MonitorRouteMapStateService {
   }
 
   pageChanged(page: MonitorRouteMapPage): void {
-    const referenceAvailable = (page.reference?.referenceGeoJson.length ?? 0) > 0;
+    const referenceAvailable = false; // removed: (page.reference?.referenceGeoJson.length ?? 0) > 0;
 
     this._state.update((state) => ({
       ...state,
@@ -143,7 +143,7 @@ export class MonitorRouteMapStateService {
     }
   }
 
-  modeChanged(mode: MonitorMapMode): void {
+  modeChanged(mode: OldMonitorMapMode): void {
     this._state.update((state) => ({
       ...state,
       mode,

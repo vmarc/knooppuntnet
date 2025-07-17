@@ -49,12 +49,13 @@ export class MapStateLayers {
         new Map([
           ['osm-background', this.osmBackgroundLayerEnabled()],
           ['standard-background', this.standardBackgroundLayerEnabled()],
-          ['route', this.routeLayerEnabled()],
+          ['route', false /* TODO undo temp change this.routeLayerEnabled()*/],
           ['poi', this.poiLayerEnabled()],
           ['grid', this.gridLayerEnabled()],
           ['flanders-open-data', this.flandersOpenDataLayerEnabled()],
           ['netherlands-open-data', this.netherlandsOpenDataLayerEnabled()],
           ['france-open-data', this.franceOpenDataLayerEnabled()],
+          ['monitor', true],
         ])
     );
   }

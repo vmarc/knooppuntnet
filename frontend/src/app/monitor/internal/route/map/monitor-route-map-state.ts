@@ -1,11 +1,11 @@
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
-import { MonitorMapMode } from './monitor-map-mode';
+import { OldMonitorMapMode } from './old-monitor-map-mode';
 
 export const initialState: MonitorRouteMapState = {
   page: null,
-  mode: MonitorMapMode.comparison,
+  mode: OldMonitorMapMode.comparison,
   referenceVisible: false,
   matchesVisible: false,
   deviationsVisible: false,
@@ -17,7 +17,7 @@ export const initialState: MonitorRouteMapState = {
 
 export interface MonitorRouteMapState {
   readonly page: MonitorRouteMapPage | null;
-  readonly mode: MonitorMapMode;
+  readonly mode: OldMonitorMapMode;
   readonly referenceVisible: boolean;
   readonly matchesVisible: boolean;
   readonly deviationsVisible: boolean;

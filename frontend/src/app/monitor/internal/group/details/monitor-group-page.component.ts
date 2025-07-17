@@ -21,7 +21,7 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
     <ui-page>
       <ui-monitor-group-breadcrumb />
 
-      @if (service.state(); as state) {
+      @if (service.pageState(); as state) {
         <ui-page-header [pageTitle]="pageTitle()">
           <span class="kpn-label">{{ state.groupName }}</span>
           <span>{{ state.groupDescription }}</span>
@@ -77,7 +77,7 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
 })
 export class MonitorGroupPageComponent {
   readonly service = inject(MonitorGroupPageService);
-  private groupName = computed(() => this.service.state().groupName);
+  private groupName = computed(() => this.service.pageState().groupName);
   protected pageTitle = computed(() => {
     const monitor = MonitorTranslations.get('monitor');
     return `${this.groupName()} | ${monitor}`;

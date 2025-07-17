@@ -1,4 +1,7 @@
+import { effect } from '@angular/core';
+import { Signal } from '@angular/core';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
+import { MonitorMapState } from '@app/state/monitor/monitor-map-state';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
@@ -8,6 +11,14 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class MonitorLayer {
+  private state: MonitorMapState; // local copy for performance reasons
+
+  constructor(stateSignal: Signal<MonitorMapState>) {
+    effect(() => {
+      this.state = stateSignal();
+    });
+  }
+
   private static readonly referenceStyle = new Style({
     zIndex: 1,
     stroke: new Stroke({
@@ -32,7 +43,7 @@ export class MonitorLayer {
     }),
   });
 
-  static build(): MapLayer {
+  build(): MapLayer {
     const source = new VectorTile({
       tileSize: 256,
       minZoom: ZoomLevel.newMinZoom,
@@ -60,22 +71,22 @@ export class MonitorLayer {
     };
   }
 
-  private static styleFunction(): StyleFunction {
+  private styleFunction(): StyleFunction {
     return (feature, resolution) => {
       const layer = feature.get('layer');
       const group = feature.get('group');
       const route = feature.get('route');
       const relationId = feature.get('relationId');
 
-      console.log(`${layer} ${group} ${route} ${relationId}`);
-      //
-      if (group === 'NL-LAW' && route === 'LAW 5' && relationId === '9174496') {
+      // console.log(`${layer} ${group} ${route} ${relationId}`);
+
+      if (this.state.routeIds.includes(route)) {
         if (layer === 'match') {
-          return this.matchStyle;
+          return MonitorLayer.matchStyle;
         } else if (layer === 'reference') {
-          return this.referenceStyle;
+          return MonitorLayer.referenceStyle;
         } else if (layer === 'deviation') {
-          return this.deviationStyle;
+          return MonitorLayer.deviationStyle;
         }
       }
       // console.log(`unknown monitor tile layer: ${layer}`);

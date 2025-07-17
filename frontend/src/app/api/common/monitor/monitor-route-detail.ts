@@ -4,6 +4,7 @@ import { Timestamp } from '@api/custom/timestamp';
 
 export interface MonitorRouteDetail {
   readonly rowIndex: number;
+  readonly routeId: string;
   readonly name: string;
   readonly description: string;
   readonly symbol: string;

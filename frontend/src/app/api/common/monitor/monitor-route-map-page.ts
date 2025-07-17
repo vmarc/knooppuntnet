@@ -2,9 +2,9 @@
 
 import { Bounds } from '@api/common/bounds';
 import { Timestamp } from '@api/custom/timestamp';
+import { MonitorReferenceInfo } from './monitor-reference-info';
 import { MonitorReferenceType } from './monitor-reference-type';
 import { MonitorRouteDeviation } from './monitor-route-deviation';
-import { MonitorReferenceInfo } from './monitor-reference-info';
 import { MonitorRouteSegment } from './monitor-route-segment';
 import { MonitorRouteSubRelation } from './monitor-route-sub-relation';
 

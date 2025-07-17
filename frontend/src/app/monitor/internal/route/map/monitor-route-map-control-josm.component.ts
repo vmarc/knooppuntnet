@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { EditService } from '@app/shared/components/edit.service';
-import { MonitorMapMode } from './monitor-map-mode';
+import { OldMonitorMapMode } from './old-monitor-map-mode';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
@@ -76,13 +76,13 @@ export class MonitorRouteMapControlJosmComponent {
 
   readonly josmZoomToSelectedDeviationDisabled = computed(
     () =>
-      this.stateService.mode() !== MonitorMapMode.comparison ||
+      this.stateService.mode() !== OldMonitorMapMode.comparison ||
       !this.stateService.selectedDeviation()
   );
 
   readonly josmZoomToSelectedOsmSegmentDisabled = computed(
     () =>
-      this.stateService.mode() !== MonitorMapMode.osmSegments ||
+      this.stateService.mode() !== OldMonitorMapMode.osmSegments ||
       !this.stateService.selectedOsmSegment()
   );
 

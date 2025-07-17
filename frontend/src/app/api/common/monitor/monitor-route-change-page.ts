@@ -2,8 +2,8 @@
 
 import { Bounds } from '@api/common/bounds';
 import { ChangeKey } from '@api/common/changes/details/change-key';
-import { MonitorRouteDeviation } from './monitor-route-deviation';
 import { MonitorReferenceInfo } from './monitor-reference-info';
+import { MonitorRouteDeviation } from './monitor-route-deviation';
 import { MonitorRouteSegment } from './monitor-route-segment';
 
 export interface MonitorRouteChangePage {

@@ -28,7 +28,7 @@ import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
 import View from 'ol/View';
-import { MonitorMapMode } from './monitor-map-mode';
+import { OldMonitorMapMode } from './old-monitor-map-mode';
 import { MonitorRouteMapState } from './monitor-route-map-state';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
@@ -93,12 +93,13 @@ export class MonitorRouteMapService extends OpenlayersMapService {
 
   pageChanged(page: MonitorRouteMapPage): void {
     this.referenceLayer.getSource().clear();
-    if (page?.reference?.referenceGeoJson) {
-      const features = new GeoJSON().readFeatures(page.reference.referenceGeoJson, {
-        featureProjection: 'EPSG:3857',
-      });
-      this.referenceLayer.getSource().addFeatures(features);
-    }
+    // removed referenceGeoJson
+    // if (page?.reference?.referenceGeoJson) {
+    //   const features = new GeoJSON().readFeatures(page.reference.referenceGeoJson, {
+    //     featureProjection: 'EPSG:3857',
+    //   });
+    //   this.referenceLayer.getSource().addFeatures(features);
+    // }
 
     this.matchesLayer.getSource().clear();
     if (page?.matchesGeoJson) {
@@ -216,7 +217,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     const thickStyle = this.fixedStyle('gold', 10);
 
     const styleFunction = (feature) => {
-      if (this.stateService.mode() === MonitorMapMode.osmSegments) {
+      if (this.stateService.mode() === OldMonitorMapMode.osmSegments) {
         const segmentId = feature.get('segmentId');
         return this.styleForSegmentId(segmentId);
       }

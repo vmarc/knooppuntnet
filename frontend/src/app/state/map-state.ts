@@ -3,6 +3,8 @@ import { signal } from '@angular/core';
 import { MapMode } from '@app/map/domain/map-mode';
 import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { MapLayerState } from '@app/ol/domain/map-layer-state';
+import { MonitorMapMode } from '@app/state/monitor/monitor-map-mode';
+import { MonitorMapState } from '@app/state/monitor/monitor-map-state';
 import { Coordinate } from 'ol/coordinate';
 import { FocusElements } from './focus-elements';
 import { PoiStyleMap } from './poi/poi-style-map';
@@ -29,6 +31,14 @@ export class MapState {
   private readonly _poiLayerStates = signal<ReadonlyArray<MapLayerState>>([]);
   private readonly _surveyDateValues = signal<SurveyDateValues | undefined>(undefined);
 
+  // monitor map state
+  private readonly _monitorMode = signal<MonitorMapMode>('route');
+  private readonly _monitorRouteIds = signal<string[]>([]);
+  private readonly _monitorDeviationIds = signal<string[]>([]);
+  private readonly _monitorReferenceEnabled = signal<boolean>(true);
+  private readonly _monitorMatchEnabled = signal<boolean>(true);
+  private readonly _monitorDeviationEnabled = signal<boolean>(true);
+
   readonly layers: MapStateLayers;
   readonly scopes: MapStateScopes;
 
@@ -44,6 +54,14 @@ export class MapState {
   readonly poiLayerStates = this._poiLayerStates.asReadonly();
   readonly surveyDateValues = this._surveyDateValues.asReadonly();
 
+  // monitor map state
+  readonly monitorMode = this._monitorMode.asReadonly();
+  readonly monitorRouteIds = this._monitorRouteIds.asReadonly();
+  readonly monitorDeviationIds = this._monitorDeviationIds.asReadonly();
+  readonly monitorReferenceEnabled = this._monitorReferenceEnabled.asReadonly();
+  readonly monitorMatchEnabled = this._monitorMatchEnabled.asReadonly();
+  readonly monitorDeviationEnabled = this._monitorDeviationEnabled.asReadonly();
+
   readonly mapStyleOptions = computed(() => {
     const options: MapStyleOptions = {
       zoom: this.zoom(),
@@ -58,6 +76,18 @@ export class MapState {
       focusElements: this.focusElements(),
     };
     return options;
+  });
+
+  readonly monitorMapState = computed(() => {
+    const state: MonitorMapState = {
+      mode: this.monitorMode(),
+      routeIds: this.monitorRouteIds(),
+      deviationIds: this.monitorDeviationIds(),
+      referenceEnabled: this.monitorReferenceEnabled(),
+      matchEnabled: this.monitorMatchEnabled(),
+      deviationEnabled: this.monitorDeviationEnabled(),
+    };
+    return state;
   });
 
   constructor() {
@@ -117,5 +147,26 @@ export class MapState {
 
   updateSurveyDateValues(surveyDateValues: SurveyDateValues): void {
     this._surveyDateValues.set(surveyDateValues);
+  }
+
+  updateMonitorMode(value: MonitorMapMode): void {
+    this._monitorMode.set(value);
+  }
+  updateMonitorRouteIds(value: string[]): void {
+    this._monitorRouteIds.set(value);
+  }
+  updateMonitorDeviationIds(value: string[]): void {
+    this._monitorDeviationIds.set(value);
+  }
+  updateMonitorReferenceEnabled(value: boolean): void {
+    this._monitorReferenceEnabled.set(value);
+  }
+
+  updateMonitorMatchEnabled(value: boolean): void {
+    this._monitorMatchEnabled.set(value);
+  }
+
+  updateMonitorDeviationEnabled(value: boolean): void {
+    this._monitorDeviationEnabled.set(value);
   }
 }

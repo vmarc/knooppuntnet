@@ -1,6 +1,8 @@
 import { computed } from '@angular/core';
 import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
+import { MonitorLayer } from '@app/map/layers/monitor-layer';
+import { MonitorMapState } from '@app/state/monitor/monitor-map-state';
 import { State } from '@app/state/state';
 import { LayersState } from '@app/state/layers-state';
 import { MapStyleOptions } from '@app/state/map-style-options';
@@ -23,6 +25,7 @@ export class Layers {
   constructor(
     state: State,
     styleOptions: Signal<MapStyleOptions>,
+    monitorMapState: Signal<MonitorMapState>,
     poiStyleMap: Signal<PoiStyleMap>,
     poiActive: Signal<ReadonlyMap<string, boolean>>
   ) {
@@ -43,6 +46,7 @@ export class Layers {
       OpendataTileLayer.build('netherlands-open-data', 'hiking', 'netherlands/hiking'),
       OpendataTileLayer.build('netherlands-open-data', 'cycling', 'netherlands/cycling'),
       OpendataTileLayer.build('france-open-data', 'hiking', 'france/hiking'),
+      new MonitorLayer(monitorMapState).build(),
     ];
 
     const layersState: Signal<LayersState> = computed(() => {
@@ -61,6 +65,14 @@ export class Layers {
   routeLayerChanged(): void {
     this.all.forEach((mapLayer) => {
       if (mapLayer.layerType === 'route' && mapLayer.layer.getVisible()) {
+        mapLayer.layer.changed();
+      }
+    });
+  }
+
+  monitorLayerChanged(): void {
+    this.all.forEach((mapLayer) => {
+      if (mapLayer.layerType === 'monitor' && mapLayer.layer.getVisible()) {
         mapLayer.layer.changed();
       }
     });

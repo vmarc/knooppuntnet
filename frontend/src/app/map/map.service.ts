@@ -62,6 +62,7 @@ export class MapService {
   private readonly layers = new Layers(
     this.state,
     this.state.map.mapStyleOptions,
+    this.state.map.monitorMapState,
     this.state.map.poiStyleMap,
     this.state.map.poiActive
   );
@@ -115,6 +116,12 @@ export class MapService {
       ];
       console.log(`mapStyleOptions ${options.join(' | ')}`);
     });
+
+    effect(() => {
+      const monitorMapState = this.state.map.monitorMapState();
+      this.layers.monitorLayerChanged();
+    });
+
     effect(() => {
       const xxx = this.state.map.poiActive();
       console.log('poiActive changed', xxx);

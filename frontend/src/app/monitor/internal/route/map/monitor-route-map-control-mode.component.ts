@@ -3,7 +3,7 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioModule } from '@angular/material/radio';
-import { MonitorMapMode } from './monitor-map-mode';
+import { OldMonitorMapMode } from './old-monitor-map-mode';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
@@ -33,9 +33,9 @@ export class MonitorRouteMapControlModeComponent {
     return this.service.page()?.osmSegments.length ?? 0;
   });
   readonly mode = this.service.mode;
-  readonly MonitorMapMode = MonitorMapMode;
+  readonly MonitorMapMode = OldMonitorMapMode;
 
-  modeChanged(value: MonitorMapMode): void {
+  modeChanged(value: OldMonitorMapMode): void {
     this.service.modeChanged(value);
   }
 }

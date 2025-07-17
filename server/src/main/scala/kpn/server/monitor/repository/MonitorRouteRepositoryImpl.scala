@@ -25,6 +25,7 @@ import kpn.server.monitor.domain.OldMonitorReference
 import kpn.server.repository.Distance
 import kpn.server.repository.NetworkRepositoryImpl
 import org.mongodb.scala.Document
+import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.BsonNull
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Accumulators.sum
@@ -490,6 +491,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       project(
         fields(
           excludeId(),
+          BsonDocument("""{"routeId": {"$toString": "$_id"}}"""),
           include("name"),
           include("description"),
           include("symbol"),

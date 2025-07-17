@@ -182,8 +182,9 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
                         <p>Deviation length: {{ segment.meters }}m</p>
                         <p>Maximum distance from reference: {{ segment.distance }}m</p>
 
+                        <!-- removed: [referenceJson]="page.reference.referenceGeoJson" -->
                         <ui-monitor-route-change-map
-                          [referenceJson]="page.reference.referenceGeoJson"
+                          [referenceJson]=""
                           [routeSegments]="page.routeSegments"
                           [deviation]="segment"
                         />
@@ -206,8 +207,9 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
                           Maximum distance from reference:
                           {{ deviation.distance }}m
                         </p>
+                        <!-- removed referenceGeoJson [referenceJson]="page.reference.referenceGeoJson"-->
                         <ui-monitor-route-change-map
-                          [referenceJson]="page.reference.referenceGeoJson"
+                          [referenceJson]=""
                           [routeSegments]="page.routeSegments"
                           [deviation]="deviation"
                         />

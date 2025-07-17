@@ -13,5 +13,4 @@ export interface MonitorReferenceInfo {
   readonly referenceTimestamp: Timestamp;
   readonly referenceSegmentCount: number;
   readonly referenceFilename: string;
-  readonly referenceGeoJson: string;
 }
