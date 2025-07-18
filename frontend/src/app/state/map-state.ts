@@ -34,8 +34,9 @@ export class MapState {
   // monitor map state
   private readonly _monitorMode = signal<MonitorMapMode>('route');
   private readonly _monitorRouteIds = signal<string[]>([]);
+  private readonly _monitorRelationIds = signal<number[]>([]);
   private readonly _monitorDeviationIds = signal<string[]>([]);
-  private readonly _monitorReferenceEnabled = signal<boolean>(true);
+  private readonly _monitorReferenceEnabled = signal<boolean>(false);
   private readonly _monitorMatchEnabled = signal<boolean>(true);
   private readonly _monitorDeviationEnabled = signal<boolean>(true);
 
@@ -57,6 +58,7 @@ export class MapState {
   // monitor map state
   readonly monitorMode = this._monitorMode.asReadonly();
   readonly monitorRouteIds = this._monitorRouteIds.asReadonly();
+  readonly monitorRelationIds = this._monitorRelationIds.asReadonly();
   readonly monitorDeviationIds = this._monitorDeviationIds.asReadonly();
   readonly monitorReferenceEnabled = this._monitorReferenceEnabled.asReadonly();
   readonly monitorMatchEnabled = this._monitorMatchEnabled.asReadonly();
@@ -82,6 +84,7 @@ export class MapState {
     const state: MonitorMapState = {
       mode: this.monitorMode(),
       routeIds: this.monitorRouteIds(),
+      relationIds: this.monitorRelationIds(),
       deviationIds: this.monitorDeviationIds(),
       referenceEnabled: this.monitorReferenceEnabled(),
       matchEnabled: this.monitorMatchEnabled(),
@@ -152,12 +155,19 @@ export class MapState {
   updateMonitorMode(value: MonitorMapMode): void {
     this._monitorMode.set(value);
   }
+
   updateMonitorRouteIds(value: string[]): void {
     this._monitorRouteIds.set(value);
   }
+
+  updateMonitorRelationIds(value: number[]): void {
+    this._monitorRelationIds.set(value);
+  }
+
   updateMonitorDeviationIds(value: string[]): void {
     this._monitorDeviationIds.set(value);
   }
+
   updateMonitorReferenceEnabled(value: boolean): void {
     this._monitorReferenceEnabled.set(value);
   }

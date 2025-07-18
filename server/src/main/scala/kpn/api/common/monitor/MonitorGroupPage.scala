@@ -8,5 +8,6 @@ case class MonitorGroupPage(
   groupDescription: String,
   adminRole: Boolean,
   bounds: Option[Bounds],
+  relationIds: Seq[Long],
   routes: Seq[MonitorRouteDetail]
 )

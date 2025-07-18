@@ -9,5 +9,6 @@ export interface MonitorGroupPage {
   readonly groupDescription: string;
   readonly adminRole: boolean;
   readonly bounds?: Bounds;
+  readonly relationIds: number[];
   readonly routes: MonitorRouteDetail[];
 }

@@ -49,7 +49,7 @@ export class MapStateLayers {
         new Map([
           ['osm-background', this.osmBackgroundLayerEnabled()],
           ['standard-background', this.standardBackgroundLayerEnabled()],
-          ['route', false /* TODO undo temp change this.routeLayerEnabled()*/],
+          ['route', this.routeLayerEnabled()],
           ['poi', this.poiLayerEnabled()],
           ['grid', this.gridLayerEnabled()],
           ['flanders-open-data', this.flandersOpenDataLayerEnabled()],

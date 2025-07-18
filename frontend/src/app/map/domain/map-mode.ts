@@ -4,4 +4,5 @@ export type MapMode =
   | 'survey'
   | 'analysis'
   | 'route-segments'
-  | 'route-paths';
+  | 'route-paths'
+  | 'monitor';

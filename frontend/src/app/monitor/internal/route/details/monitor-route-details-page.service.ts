@@ -31,19 +31,21 @@ export class MonitorRouteDetailsPageService {
       routeName,
       routeDescription,
     }));
+    this.state.map.updateMode('monitor');
     this.monitorService.route(groupName, routeName).subscribe((response) => {
-      const routeDescription =
-        response.result?.routeDescription ?? this.pageState().routeDescription;
+      const page = response.result;
+      const routeDescription = page?.routeDescription ?? this.pageState().routeDescription;
       this.routeDetailsService.update(groupName, routeName, response?.result?.referenceType);
       this._pageState.update((state) => ({
         ...state,
         routeDescription,
         response,
       }));
-      const routeId = response.result?.routeId;
-      const bounds = response.result?.bounds;
-      this.state.map.updateMonitorRouteIds([routeId]);
-      this.mapService.fitBounds(bounds);
+      if (page) {
+        this.state.map.updateMonitorRouteIds([page.routeId]);
+        this.state.map.updateMonitorRelationIds(page.relationIds);
+        this.mapService.fitBounds(page.bounds);
+      }
     });
   }
 }

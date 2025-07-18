@@ -12,6 +12,7 @@ case class MonitorRouteDetailsPage(
   routeDescription: String,
   routeId: String,
   relationId: Option[Long],
+  relationIds: Seq[Long],
   comment: Option[String],
   symbol: Option[String],
   analysisTimestamp: Option[Timestamp],

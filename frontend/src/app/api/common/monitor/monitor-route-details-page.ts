@@ -13,6 +13,7 @@ export interface MonitorRouteDetailsPage {
   readonly routeDescription: string;
   readonly routeId: string;
   readonly relationId: number;
+  readonly relationIds: number[];
   readonly comment: string;
   readonly symbol: string;
   readonly analysisTimestamp?: Timestamp;

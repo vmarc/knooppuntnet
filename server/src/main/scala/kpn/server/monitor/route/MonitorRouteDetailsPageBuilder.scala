@@ -109,6 +109,7 @@ class MonitorRouteDetailsPageBuilder(
       monitorRoute.description,
       monitorRoute._id.oid,
       monitorRoute.relationId,
+      monitorRoute.relationIds,
       monitorRoute.comment,
       monitorRoute.symbol,
       monitorRoute.analysisTimestamp,

@@ -2,21 +2,11 @@ package kpn.core.tools.monitor
 
 import kpn.core.tools.monitor.MonitorUpdateTool.log
 import kpn.core.util.Log
-import kpn.database.base.Database
 import kpn.database.base.Options
 import kpn.database.base.Tool
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzerImpl
-import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
-import kpn.server.analyzer.engine.monitor.state.MonitorStateTileBuilder
-import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
-import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
-import kpn.server.monitor.route.update.MonitorUpdateAnalysis
-import kpn.server.repository.RouteRepositoryImpl
 
 object MonitorUpdateTool extends Tool[MonitorUpdateToolOptions] {
   private val log = Log(classOf[MonitorUpdateTool])
@@ -26,37 +16,22 @@ object MonitorUpdateTool extends Tool[MonitorUpdateToolOptions] {
   override def execute(options: MonitorUpdateToolOptions): Unit = {
     log.infoElapsed {
       Mongo.executeIn(options.databaseName) { database =>
-        val tool = new MonitorUpdateTool(database)
+        val tool = new MonitorUpdateTool(new MonitorUpdateToolConfiguration(database))
         tool.update()
-        // tool.testUpdate("eu-icn-EV", "EV1-gpx")
+        // tool.testUpdate("BE-GRV", "p12")
       }
       ("update completed", ())
     }
   }
 }
 
-class MonitorUpdateTool(database: Database) {
-
-  private val routeRepository = new RouteRepositoryImpl(database)
-  private val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
-  private val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
-  private val routeTileCache = new RouteTileCache()
-  private val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
-  private val monitorStateTileBuilder = new MonitorStateTileBuilder(lineSegmentTileCalculator)
-  private val monitorStateStore = new MonitorStateStore(monitorRouteRepository, monitorStateTileBuilder)
-  private val monitorRouteDeviationAnalyzer = new MonitorRouteDeviationAnalyzerImpl()
-  val monitorUpdateAnalysis = new MonitorUpdateAnalysis(
-    routeRepository,
-    monitorRouteRepository,
-    monitorRouteDeviationAnalyzer,
-    monitorStateStore
-  )
+class MonitorUpdateTool(configuration: MonitorUpdateToolConfiguration) {
 
   def testUpdate(groupName: String, routeName: String): Unit = {
-    monitorGroupRepository.groupByName(groupName) match {
+    configuration.monitorGroupRepository.groupByName(groupName) match {
       case None => log.error(s"group not found: $groupName")
       case Some(group) =>
-        monitorRouteRepository.routeByName(group._id, routeName) match {
+        configuration.monitorRouteRepository.routeByName(group._id, routeName) match {
           case None => log.error(s"route not found: $groupName, $routeName")
           case Some(route) => updateAnalysis(group, route)
         }
@@ -64,9 +39,9 @@ class MonitorUpdateTool(database: Database) {
   }
 
   def update(): Unit = {
-    val groups = monitorGroupRepository.groups().sortBy(_.name)
+    val groups = configuration.monitorGroupRepository.groups().sortBy(_.name)
     groups.foreach { group =>
-      monitorGroupRepository.groupRoutes(group._id).sortBy(_.name).foreach { route =>
+      configuration.monitorGroupRepository.groupRoutes(group._id).sortBy(_.name).foreach { route =>
         updateAnalysis(group, route)
       }
     }
@@ -76,7 +51,7 @@ class MonitorUpdateTool(database: Database) {
     Log.context(s"${group.name}, ${route.name}") {
       log.infoElapsed {
         try {
-          monitorUpdateAnalysis.updateAnalysis(route)
+          configuration.monitorUpdateAnalysis.updateAnalysis(route)
         }
         catch {
           case e: Exception =>

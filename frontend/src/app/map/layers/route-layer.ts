@@ -1,7 +1,9 @@
 import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
+import { MonitorRouteStyle } from '@app/map/style/monitor-route-style';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
+import { MonitorMapState } from '@app/state/monitor/monitor-map-state';
 import { FeatureLike } from 'ol/Feature';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
@@ -13,11 +15,17 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class RouteLayer {
-  private styleOptions: MapStyleOptions; // local copy for performance reasons
+  // local copies for performance reasons
+  private styleOptions: MapStyleOptions;
+  private monitorMapState: MonitorMapState;
 
-  constructor(styleOptionsSignal: Signal<MapStyleOptions>) {
+  constructor(
+    styleOptionsSignal: Signal<MapStyleOptions>,
+    monitorMapStateSignal: Signal<MonitorMapState>
+  ) {
     effect(() => {
       this.styleOptions = styleOptionsSignal();
+      this.monitorMapState = monitorMapStateSignal();
     });
   }
 
@@ -46,6 +54,9 @@ export class RouteLayer {
 
   private styleFunction(): StyleFunction {
     return (feature: FeatureLike) => {
+      if (this.styleOptions.mode === 'monitor') {
+        return MonitorRouteStyle.style(this.monitorMapState, feature);
+      }
       return ExploreStyle.style(this.styleOptions, feature);
     };
   }

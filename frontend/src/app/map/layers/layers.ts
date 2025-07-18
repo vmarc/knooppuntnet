@@ -18,6 +18,7 @@ import { RouteLayer } from './route-layer';
 export class Layers {
   static readonly zIndexRouteLayer = 60;
   static readonly zIndexPoiLayer = 40;
+  static readonly zIndexMonitorLayer = 80;
 
   readonly poiLayer: MapLayer;
   readonly all: ReadonlyArray<MapLayer>;
@@ -34,12 +35,12 @@ export class Layers {
       StandardBackground.build(),
       OsmBackgroundLayer.build(),
       GridLayer.build(),
-      new RouteLayer(styleOptions).build('cycling'),
-      new RouteLayer(styleOptions).build('hiking'),
-      new RouteLayer(styleOptions).build('horse-riding'),
-      new RouteLayer(styleOptions).build('motorboat'),
-      new RouteLayer(styleOptions).build('canoe'),
-      new RouteLayer(styleOptions).build('inline-skating'),
+      new RouteLayer(styleOptions, monitorMapState).build('cycling'),
+      new RouteLayer(styleOptions, monitorMapState).build('hiking'),
+      new RouteLayer(styleOptions, monitorMapState).build('horse-riding'),
+      new RouteLayer(styleOptions, monitorMapState).build('motorboat'),
+      new RouteLayer(styleOptions, monitorMapState).build('canoe'),
+      new RouteLayer(styleOptions, monitorMapState).build('inline-skating'),
       this.poiLayer,
       OpendataTileLayer.build('flanders-open-data', 'hiking', 'flanders/hiking'),
       OpendataTileLayer.build('flanders-open-data', 'cycling', 'flanders/cycling'),

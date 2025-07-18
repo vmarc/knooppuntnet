@@ -1,11 +1,9 @@
 import { inject } from '@angular/core';
-import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { NavService } from '@app/shared/components/nav.service';
 import { OldPageComponent } from '@app/shared/components/page/old-page.component';
-import { EditGotoService } from '@app/analysis/components/edit/edit-goto.service';
 import { RouterService } from '@app/shared/services/router.service';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 import { MonitorRouteMapPageService } from './monitor-route-map-page.service';
@@ -25,11 +23,6 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
           [groupName]="state.groupName"
           [routeName]="state.routeName"
           [routeDescription]="state.routeDescription"
-          [subRelations]="subRelations()"
-          [previous]="previous()"
-          [next]="next()"
-          (selectSubRelation)="service.selectSubRelation($event)"
-          (goHereInJosm)="josm()"
         />
 
         @if (stateService.page(); as page) {
@@ -61,17 +54,6 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
 export class MonitorRouteMapPageComponent {
   readonly service = inject(MonitorRouteMapPageService);
   readonly stateService = inject(MonitorRouteMapStateService);
-  private readonly editGotoService = inject(EditGotoService);
-
-  readonly subRelations = computed(() => {
-    return this.stateService.page()?.subRelations ?? [];
-  });
-  readonly previous = computed(() => {
-    return this.stateService.page()?.previousSubRelation;
-  });
-  readonly next = computed(() => {
-    return this.stateService.page()?.nextSubRelation;
-  });
 
   canDisplayMap(page: MonitorRouteMapPage): boolean {
     return (
@@ -82,12 +64,5 @@ export class MonitorRouteMapPageComponent {
         page.bounds.maxLat !== 0 ||
         page.bounds.maxLon !== 0)
     );
-  }
-
-  josm(): void {
-    const bounds = this.service.mapBounds();
-    if (bounds !== null) {
-      this.editGotoService.gotoBoundsInJosm(bounds);
-    }
   }
 }

@@ -31,7 +31,31 @@ class MonitorUpdateAnalysis(
   private val geometryFactory = new GeometryFactory
 
   def updateAnalysis(route: MonitorRoute): Unit = {
-    route.relationId.flatMap(routeRepository.findRouteById).foreach(routeDoc => analyze(route, routeDoc))
+    route.relationId match {
+      case None => resetRoute(route)
+      case Some(relationId) =>
+        routeRepository.findRouteById(relationId) match {
+          case None => resetRoute(route)
+          case Some(routeDoc) => analyze(route, routeDoc)
+        }
+    }
+  }
+
+  private def resetRoute(route: MonitorRoute): Unit = {
+    val updatedRoute = route.copy(
+      symbol = None,
+      analysisTimestamp = None,
+      analysisDuration = None,
+      deviationDistance = 0,
+      deviationCount = 0,
+      osmSegmentCount = 0,
+      osmDistance = 0,
+      relationIds = Seq.empty,
+      bounds = None,
+      happy = false,
+    )
+    monitorRouteRepository.saveRoute(updatedRoute)
+    monitorRouteRepository.deleteStates(updatedRoute._id)
   }
 
   private def analyze(route: MonitorRoute, routeDoc: RouteDoc): Unit = {

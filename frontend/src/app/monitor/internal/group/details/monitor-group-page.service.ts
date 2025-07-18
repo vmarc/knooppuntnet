@@ -28,17 +28,21 @@ export class MonitorGroupPageService {
       groupDescription,
     }));
 
+    this.state.map.updateMode('monitor');
     this.monitorService.group(groupName).subscribe((response) => {
-      const groupDescription =
-        response.result?.groupDescription ?? this.pageState().groupDescription;
+      const page = response.result;
+      const groupDescription = page?.groupDescription ?? this.pageState().groupDescription;
       this._pageState.update((state) => ({
         ...state,
         groupDescription,
         response,
       }));
-      const routeIds = response.result?.routes.map((route) => route.routeId);
-      this.state.map.updateMonitorRouteIds(routeIds);
-      this.mapService.fitBounds(response.result?.bounds);
+      if (page) {
+        const routeIds = page.routes.map((route) => route.routeId);
+        this.state.map.updateMonitorRouteIds(routeIds);
+        this.state.map.updateMonitorRelationIds(page.relationIds);
+        this.mapService.fitBounds(page.bounds);
+      }
     });
   }
 }

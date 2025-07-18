@@ -22,6 +22,8 @@ class MonitorGroupPageBuilder(
       val routeDetails = monitorRouteRepository.groupRouteDetails(group._id)
       val sortedRouteDetails = NaturalSorting.sortBy(routeDetails)(s => s"${s.name}-")
 
+      val relationIds = sortedRouteDetails.flatMap(_.relationIds).distinct.sorted
+
       val routeBounds = sortedRouteDetails.flatMap(_.bounds)
       val bounds = if (routeBounds.nonEmpty) {
         Some(mergeBounds(routeBounds))
@@ -36,6 +38,7 @@ class MonitorGroupPageBuilder(
         group.description,
         admin,
         bounds,
+        relationIds,
         sortedRouteDetails.zipWithIndex.map { case (route, rowIndex) =>
           route.copy(rowIndex = rowIndex)
         }
