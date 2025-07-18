@@ -16,6 +16,7 @@ case class MonitorRouteDetail(
   deviationDistance: Long,
   deviationCount: Long,
   osmSegmentCount: Long,
+  relationIds: Seq[Long],
   bounds: Option[Bounds],
   happy: Boolean
 )

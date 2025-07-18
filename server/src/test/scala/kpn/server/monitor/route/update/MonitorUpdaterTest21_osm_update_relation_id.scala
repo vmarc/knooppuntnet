@@ -91,6 +91,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route2.meters,
+        relationIds = Seq(route2.relationId),
         bounds = Some(route2.bounds),
         happy = true
       )

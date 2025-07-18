@@ -114,6 +114,7 @@ class MonitorGpxAnalyze(
           deviationCount = deviationAnalysis.deviations.length,
           osmSegmentCount = routeDoc.superSegments.size,
           osmDistance = routeDoc.superDistance,
+          relationIds = routeDoc.routeIds,
           bounds = Some(bounds),
           happy = happy,
         )

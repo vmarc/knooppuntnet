@@ -1,10 +1,10 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
-import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorCommand
 import kpn.api.common.monitor.MonitorMessage
 import kpn.core.common.Time
+import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -23,8 +23,14 @@ class MonitorMultiGpxAdd(
 
   def execute(group: MonitorGroup, args: MonitorUpdateArgs): Unit = {
 
-    val (superSegmentCount, osmDistance, bounds) = getRouteInfo(args)
-    val route = buildRoute(args, group, superSegmentCount, osmDistance, bounds)
+    // TODO redesign - replace with query that hust picks up what is needed
+    //   superSegmentCount
+    //   superDistance
+    //   bounds
+    //   relationIds
+    val routeDoc = routeRepository.findRouteById(args.relationId)
+
+    val route = buildRoute(args, group, routeDoc)
 
     monitorRouteRepository.saveRoute(route)
     args.reporter.stepDone("save")
@@ -37,24 +43,17 @@ class MonitorMultiGpxAdd(
     )
   }
 
-  private def getRouteInfo(args: MonitorUpdateArgs) = {
-    routeRepository.findRouteById(args.relationId) match {
-      case Some(routeDoc) =>
-        val sc: Long = routeDoc.superSegments.length
-        val di: Long = routeDoc.superDistance
-        val bounds = routeDoc.bounds
-        (sc, di, bounds)
-      case None => (0L, 0L, None)
-    }
-  }
-
   private def buildRoute(
     args: MonitorUpdateArgs,
     group: MonitorGroup,
-    superSegmentCount: Long,
-    osmDistance: Long,
-    bounds: Option[Bounds]
+    routeDoc: Option[RouteDoc],
   ) = {
+
+    val superSegmentCount = routeDoc.map(_.superSegments.length.toLong).getOrElse(0L)
+    val superDistance = routeDoc.map(_.superDistance).getOrElse(0L)
+    val bounds = routeDoc.flatMap(_.bounds)
+    val relationIds = routeDoc.toSeq.flatMap(_.routeIds)
+
     MonitorRoute(
       ObjectId(),
       group._id,
@@ -74,7 +73,8 @@ class MonitorMultiGpxAdd(
       deviationDistance = 0,
       deviationCount = 0,
       osmSegmentCount = superSegmentCount,
-      osmDistance = osmDistance,
+      osmDistance = superDistance,
+      relationIds = relationIds,
       bounds = bounds,
       happy = false, // cannot be happy yet, there are no gpx references yet
     )

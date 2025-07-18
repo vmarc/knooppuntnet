@@ -133,6 +133,7 @@ class MonitorUpdateAnalysis(
       deviationCount = deviationCount,
       osmSegmentCount = osmSegmentCount,
       osmDistance = osmDistance,
+      relationIds = routeDoc.routeIds,
       bounds = bounds,
       happy = happy,
     )

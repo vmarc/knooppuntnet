@@ -92,6 +92,18 @@ object TestSuperRoute {
         )
       )
     ),
-    bounds = Some(mergeBounds(Seq(subRoute11.bounds, subRoute12.bounds))),
+    routeIds = Seq(
+      TestSuperRoute.MainRelationId,
+      subRoute11.relationId,
+      subRoute12.relationId
+    ),
+    bounds = Some(
+      mergeBounds(
+        Seq(
+          subRoute11.bounds,
+          subRoute12.bounds
+        )
+      )
+    ),
   )
 }

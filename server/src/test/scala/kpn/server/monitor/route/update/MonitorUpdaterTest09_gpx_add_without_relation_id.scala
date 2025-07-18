@@ -129,6 +129,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
         deviationCount = 0,
         osmSegmentCount = 0,
         osmDistance = 0,
+        relationIds = Seq.empty,
         bounds = Some(route1.bounds),
         happy = false
       )

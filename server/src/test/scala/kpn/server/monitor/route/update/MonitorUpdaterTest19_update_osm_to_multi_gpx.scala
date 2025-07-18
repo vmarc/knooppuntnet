@@ -116,6 +116,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route1.meters,
+        relationIds = Seq(route1.relationId),
         bounds = Some(route1.bounds),
         happy = true
       )
@@ -192,6 +193,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = route1.meters,
+        relationIds = Seq(route1.relationId),
         bounds = Some(route1.bounds),
         happy = false
       )

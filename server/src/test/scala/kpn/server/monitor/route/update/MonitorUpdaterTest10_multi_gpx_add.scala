@@ -168,6 +168,11 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = subRoute11.meters + subRoute12.meters,
+        relationIds = Seq(
+          TestSuperRoute.MainRelationId,
+          subRoute11.relationId,
+          subRoute12.relationId
+        ),
         bounds = Some(mergeBounds(Seq(subRoute11.bounds, subRoute12.bounds))),
         happy = false,
       )

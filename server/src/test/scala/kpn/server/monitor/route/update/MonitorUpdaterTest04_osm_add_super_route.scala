@@ -93,6 +93,11 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         deviationCount = 0,
         osmSegmentCount = 1,
         osmDistance = subRoute11.meters + subRoute12.meters,
+        relationIds = Seq(
+          TestSuperRoute.MainRelationId,
+          subRoute11.relationId,
+          subRoute12.relationId
+        ),
         bounds = Some(mergeBounds(Seq(subRoute11.bounds, subRoute12.bounds))),
         happy = true
       )
@@ -284,7 +289,11 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
           name = "route-name"
         ),
         superDistance = subRoute11.meters + subRoute12.meters,
-        routeIds = Seq(TestSuperRoute.MainRelationId, subRoute11.relationId, subRoute12.relationId),
+        routeIds = Seq(
+          TestSuperRoute.MainRelationId,
+          subRoute11.relationId,
+          subRoute12.relationId
+        ),
         superSegments = Seq(
           SuperSegment(
             Seq.empty

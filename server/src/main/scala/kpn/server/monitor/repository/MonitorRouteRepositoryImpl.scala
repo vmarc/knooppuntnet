@@ -116,10 +116,6 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   }
 
   override def routeRelationReferenceId(routeId: ObjectId, relationId: Option[Long]): Option[ObjectId] = {
-    val relationIdValue = relationId match {
-      case Some(value) => value
-      case None => BsonNull()
-    }
     val pipeline = Seq(
       routeReferenceFilter(routeId, relationId),
       project(
@@ -502,6 +498,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
           include("deviationDistance"),
           include("deviationCount"),
           include("osmSegmentCount"),
+          include("relationIds"),
           include("bounds"),
           include("happy"),
         )

@@ -75,6 +75,8 @@ case class MonitorRoute(
 
   osmDistance: Long,
 
+  relationIds: Seq[Long],
+
   bounds: Option[Bounds],
   /*
     Overall route status. True if "happy" is true in the entire route structure (all MonitorRouteRelation objects).
