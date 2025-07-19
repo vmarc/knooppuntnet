@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { MonitorGroupsPageGroup } from '@api/common/monitor/monitor-groups-page-group';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
@@ -36,7 +37,11 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
               <ui-monitor-admin-toggle />
             </div>
             @if (page.groups.length > 0) {
-              <ui-monitor-group-table [admin]="service.admin()" [groups]="page.groups" />
+              <ui-monitor-group-table
+                [admin]="service.admin()"
+                [groups]="page.groups"
+                (selectGroup)="selectGroup($event)"
+              />
             } @else {
               <div id="no-groups" i18n="@@monitor.groups.no-groups">No route groups</div>
             }
@@ -87,4 +92,8 @@ export class MonitorGroupsPageComponent {
     Breadcrumbs.home,
     { label: Breadcrumbs.monitorLabel },
   ];
+
+  selectGroup(group: MonitorGroupsPageGroup): void {
+    this.service.selectGroup(group);
+  }
 }

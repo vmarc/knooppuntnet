@@ -36,7 +36,7 @@ export class MapState {
   private readonly _monitorRouteIds = signal<string[]>([]);
   private readonly _monitorRelationIds = signal<number[]>([]);
   private readonly _monitorDeviationIds = signal<string[]>([]);
-  private readonly _monitorReferenceEnabled = signal<boolean>(false);
+  private readonly _monitorReferenceEnabled = signal<boolean>(true);
   private readonly _monitorMatchEnabled = signal<boolean>(true);
   private readonly _monitorDeviationEnabled = signal<boolean>(true);
 

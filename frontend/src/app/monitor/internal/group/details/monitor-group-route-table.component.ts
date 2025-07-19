@@ -1,3 +1,4 @@
+import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -28,7 +29,6 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
         <tr>
           <th i18n="@@monitor.group.route-table.nr">Nr</th>
           <th colspan="2" i18n="@@monitor.group.route-table.name">Name</th>
-          <th i18n="@@monitor.group.route-table.map">Map</th>
           <th i18n="@@monitor.group.route-table.relation">Relation</th>
           <th i18n="@@monitor.group.route-table.symbol">Symbol</th>
           <th i18n="@@monitor.group.route-table.description">Description</th>
@@ -42,7 +42,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
       </thead>
       <tbody>
         @for (route of routeTable.data; track route.rowIndex) {
-          <tr>
+          <tr (click)="onRouteClicked(route)">
             <td>
               {{ route.rowIndex + 1 }}
             </td>
@@ -58,16 +58,6 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
               @if (route.happy) {
                 <ui-icon-happy />
               }
-            </td>
-
-            <td>
-              <a
-                [routerLink]="routeMapLink(route)"
-                [state]="route"
-                i18n="@@monitor.group.route-table.map-link"
-              >
-                map
-              </a>
             </td>
 
             <td>
@@ -220,12 +210,10 @@ export class MonitorGroupRouteTableComponent {
   readonly groupName = input.required<string>();
   readonly routes = input.required<MonitorRouteDetail[]>();
 
+  readonly selectRoute = output<MonitorRouteDetail>();
+
   routeLink(route: MonitorRouteDetail): string {
     return this.buildUrl(route, '');
-  }
-
-  routeMapLink(route: MonitorRouteDetail): string {
-    return this.buildUrl(route, 'map');
   }
 
   routeUpdateLink(route: MonitorRouteDetail): string {
@@ -240,5 +228,9 @@ export class MonitorGroupRouteTableComponent {
     const prefix = isAdmin ? 'admin/' : '';
     const suffix = action.length > 0 ? `/${action}` : '';
     return `/monitor/${prefix}groups/${this.groupName()}/routes/${route.name}${suffix}`;
+  }
+
+  onRouteClicked(route: MonitorRouteDetail) {
+    this.selectRoute.emit(route);
   }
 }

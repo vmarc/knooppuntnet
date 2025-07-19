@@ -35,8 +35,35 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let data = routeDetailsData();
-    <ui-route-structure [routeType]="data.summary.routeTypes[0]" [rows]="data.structureRows" />
-    <div>
+    <nz-collapse nzGhost>
+      <nz-collapse-panel [nzHeader]="segmentsHeader">
+        <ng-template #segmentsHeader>
+          <span i18n="@@route.segments.title">Segments</span>
+          <span class="kpn-brackets">{{ segmentCount() }}</span>
+        </ng-template>
+        <ui-route-segments
+          [segments]="segments()"
+          [selectedSegment]="undefined"
+          (selectSegment)="selectSegment($event)"
+        />
+      </nz-collapse-panel>
+      <nz-collapse-panel [nzHeader]="pathsHeader">
+        <ng-template #pathsHeader>
+          <span i18n="@@route.paths.title">Paths</span>
+          <span class="kpn-brackets">{{ pathCount() }}</span>
+        </ng-template>
+        <ui-route-paths [paths]="paths()" />
+      </nz-collapse-panel>
+      <nz-collapse-panel [nzHeader]="membersHeader">
+        <ng-template #membersHeader>
+          <span i18n="@@route.members.title">Route members</span>
+          <span class="kpn-brackets">{{ memberCount() }}</span>
+        </ng-template>
+        <ui-route-structure [routeType]="data.summary.routeTypes[0]" [rows]="data.structureRows" />
+      </nz-collapse-panel>
+    </nz-collapse>
+
+    <div style="margin: 1em">
       <ui-route-summary [route]="data" />
       <ui-divider />
       <div class="data2">
@@ -107,37 +134,6 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
       </div>
 
       <ui-divider />
-
-      <nz-collapse>
-        <nz-collapse-panel [nzHeader]="segmentsHeader">
-          <ng-template #segmentsHeader>
-            <span i18n="@@route.segments.title">Segments</span>
-            <span class="kpn-brackets">{{ segmentCount() }}</span>
-          </ng-template>
-          <ui-route-segments
-            [segments]="segments()"
-            [selectedSegment]="undefined"
-            (selectSegment)="selectSegment($event)"
-          />
-        </nz-collapse-panel>
-        <nz-collapse-panel [nzHeader]="pathsHeader">
-          <ng-template #pathsHeader>
-            <span i18n="@@route.paths.title">Paths</span>
-            <span class="kpn-brackets">{{ pathCount() }}</span>
-          </ng-template>
-          <ui-route-paths [paths]="paths()" />
-        </nz-collapse-panel>
-        <!--        <nz-collapse-panel [nzHeader]="membersHeader">-->
-        <!--          <ng-template #membersHeader>-->
-        <!--            <span i18n="@@route.members.title">Route members</span>-->
-        <!--            <span class="kpn-brackets">{{ memberCount() }}</span>-->
-        <!--          </ng-template>-->
-        <!--          <ui-route-structure-->
-        <!--            [routeType]="data.summary.routeTypes[0]"-->
-        <!--            [rows]="data.structureRows"-->
-        <!--          />-->
-        <!--        </nz-collapse-panel>-->
-      </nz-collapse>
     </div>
   `,
   styleUrl: '../shared/components/data/data.component.scss',

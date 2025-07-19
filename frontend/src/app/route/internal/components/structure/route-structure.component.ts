@@ -30,7 +30,6 @@ import { RouteStructureRowComponent } from './route-structure-row.component';
   `,
   styles: `
     .members {
-      margin-top: 20px;
       border-top-color: lightgray;
       border-top-style: solid;
       border-top-width: 1px;

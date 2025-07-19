@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { MonitorGroupsPageGroup } from '@api/common/monitor/monitor-groups-page-group';
 import { MonitorService } from '../monitor.service';
 import { initialState } from './monitor-groups-page.state';
 import { MonitorGroupsPageState } from './monitor-groups-page.state';
@@ -17,5 +18,9 @@ export class MonitorGroupsPageService {
     this.monitorService
       .groups()
       .subscribe((response) => this._state.update((state) => ({ ...state, response })));
+  }
+
+  selectGroup(group: MonitorGroupsPageGroup): void {
+    console.log(group);
   }
 }

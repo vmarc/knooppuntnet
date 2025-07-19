@@ -1,9 +1,9 @@
+import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MonitorGroupsPageGroup } from '@api/common/monitor/monitor-groups-page-group';
-import { MonitorGroupDetail } from '@api/common/monitor/monitor-group-detail';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzTableModule } from 'ng-zorro-antd/table';
@@ -25,11 +25,9 @@ import { NzTableModule } from 'ng-zorro-antd/table';
       </thead>
       <tbody>
         @for (group of groupTable.data; track group) {
-          <tr>
+          <tr (click)="onGroupClicked(group)">
             <td>
-              <a [routerLink]="groupLink(group)" [state]="group">
-                {{ group.name }}
-              </a>
+              <a [routerLink]="groupLink(group)" [state]="group"> {{ group.name }} </a>
             </td>
             <td>
               {{ group.description }}
@@ -68,16 +66,21 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 export class MonitorGroupTableComponent {
   readonly admin = input.required<boolean>();
   readonly groups = input.required<MonitorGroupsPageGroup[]>();
+  readonly selectGroup = output<MonitorGroupsPageGroup>();
 
-  groupLink(group: MonitorGroupDetail): string {
+  groupLink(group: MonitorGroupsPageGroup): string {
     return `/monitor/groups/${group.name}`;
   }
 
-  updateLink(group: MonitorGroupDetail): string {
+  updateLink(group: MonitorGroupsPageGroup): string {
     return `/monitor/admin/groups/${group.name}`;
   }
 
-  deleteLink(group: MonitorGroupDetail): string {
+  deleteLink(group: MonitorGroupsPageGroup): string {
     return `/monitor/admin/groups/${group.name}/delete`;
+  }
+
+  onGroupClicked(group: MonitorGroupsPageGroup) {
+    this.selectGroup.emit(group);
   }
 }

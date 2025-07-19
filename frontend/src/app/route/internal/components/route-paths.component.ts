@@ -11,9 +11,6 @@ import { RouterService } from '@app/shared/services/router.service';
   selector: 'ui-route-paths',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p>
-      <span i18n="@@route.paths.title">Paths</span>
-    </p>
     <ui-list>
       @for (path of paths(); track path.id) {
         <ui-list-item>

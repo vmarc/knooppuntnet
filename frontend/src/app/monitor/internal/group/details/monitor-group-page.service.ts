@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
 import { MapService } from '@app/map/map.service';
 import { NavService } from '@app/shared/components/nav.service';
 import { State } from '@app/state/state';
@@ -44,5 +45,10 @@ export class MonitorGroupPageService {
         this.mapService.fitBounds(page.bounds);
       }
     });
+  }
+
+  selectRoute(route: MonitorRouteDetail) {
+    this.state.map.updateMonitorRouteIds([route.routeId]);
+    this.state.map.updateMonitorRelationIds(route.relationIds);
   }
 }

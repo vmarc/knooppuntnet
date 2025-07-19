@@ -12,9 +12,6 @@ import { RouterService } from '@app/shared/services/router.service';
   selector: 'ui-route-segments',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p>
-      <span i18n="@@route.segments.title">Segments</span>
-    </p>
     <ui-list>
       @for (segment of segments(); track segment.id) {
         <ui-list-item

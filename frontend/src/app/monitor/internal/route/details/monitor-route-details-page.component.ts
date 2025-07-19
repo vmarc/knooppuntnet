@@ -30,43 +30,43 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
         />
 
         <ui-monitor-admin-toggle />
+      </ui-page>
 
-        @if (state.response; as response) {
-          @if (!response.result) {
-            <div class="kpn-error" i18n="@@monitor.route.details.not-found">Route not found</div>
-          }
+      @if (state.response; as response) {
+        @if (!response.result) {
+          <div class="kpn-error" i18n="@@monitor.route.details.not-found">Route not found</div>
+        }
 
-          @if (response.result; as page) {
-            <ui-route-details
-              [situationOn]="response.situationOn"
-              [routeDetailsData]="page.details"
-            />
+        @if (response.result; as page) {
+          <ui-route-details
+            [situationOn]="response.situationOn"
+            [routeDetailsData]="page.details"
+          />
 
-            <ui-data title="Summary" i18n-title="@@monitor.route.details.summary">
-              <ui-monitor-route-details-summary [page]="page" />
-            </ui-data>
+          <ui-data title="Summary" i18n-title="@@monitor.route.details.summary">
+            <ui-monitor-route-details-summary [page]="page" />
+          </ui-data>
 
+          <ui-data title="Analysis" i18n-title="@@monitor.route.details.analysis">
+            <ui-monitor-route-details-timestamp [page]="page" />
+          </ui-data>
+
+          <ui-data title="Reference" i18n-title="@@monitor.route.details.reference">
+            <ui-monitor-route-details-reference [page]="page" />
+          </ui-data>
+
+          @if (page.relationId) {
             <ui-data title="Analysis" i18n-title="@@monitor.route.details.analysis">
-              <ui-monitor-route-details-timestamp [page]="page" />
+              <ui-monitor-route-details-analysis [page]="page" />
             </ui-data>
-
-            <ui-data title="Reference" i18n-title="@@monitor.route.details.reference">
-              <ui-monitor-route-details-reference [page]="page" />
+          }
+          @if (page.comment) {
+            <ui-data title="Comment" i18n-title="@@monitor.route.details.comment">
+              <markdown [data]="page.comment" />
             </ui-data>
-
-            @if (page.relationId) {
-              <ui-data title="Analysis" i18n-title="@@monitor.route.details.analysis">
-                <ui-monitor-route-details-analysis [page]="page" />
-              </ui-data>
-            }
-            @if (page.comment) {
-              <ui-data title="Comment" i18n-title="@@monitor.route.details.comment">
-                <markdown [data]="page.comment" />
-              </ui-data>
-            }
           }
         }
-      </ui-page>
+      }
     }
   `,
   styles: `

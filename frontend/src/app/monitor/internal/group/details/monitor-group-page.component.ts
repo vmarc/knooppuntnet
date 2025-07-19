@@ -3,6 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
 import { MonitorGroupBreadcrumbComponent } from '@app/monitor/internal/group/components/monitor-group-breadcrumb.component';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
@@ -39,6 +40,7 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
                   [admin]="service.admin()"
                   [groupName]="page.groupName"
                   [routes]="page.routes"
+                  (selectRoute)="selectRoute($event)"
                 />
               } @else {
                 <div id="no-routes" i18n="@@monitor.group.no-routes">No routes in group</div>
@@ -85,4 +87,8 @@ export class MonitorGroupPageComponent {
   protected addRouteLink = computed(() => {
     return `/monitor/admin/groups/${this.groupName()}/routes/add`;
   });
+
+  selectRoute(route: MonitorRouteDetail) {
+    this.service.selectRoute(route);
+  }
 }
