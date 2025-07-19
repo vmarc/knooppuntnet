@@ -252,7 +252,7 @@ export class MapService {
   }
 
   fitBounds(bounds: Bounds): void {
-    if (bounds !== null) {
+    if (bounds) {
       const extent = Util.toExtent(bounds, 0.1);
       this._map.getView().fit(extent);
     }

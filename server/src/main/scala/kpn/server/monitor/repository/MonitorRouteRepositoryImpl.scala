@@ -5,15 +5,18 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
 import kpn.core.util.Log
+import kpn.database.actions.monitor.MongoQueryMonitorGroupRouteInfos
 import kpn.database.actions.monitor.MongoQueryMonitorReferenceTileIds
 import kpn.database.actions.monitor.MongoQueryMonitorReferenceTiles
 import kpn.database.actions.monitor.MongoQueryMonitorStateTileIds
 import kpn.database.actions.monitor.MongoQueryMonitorStateTiles
 import kpn.database.base.Database
+import kpn.database.base.MongoProjections.objectIdToString
 import kpn.database.base.NameRow
 import kpn.database.base.ObjectIdId
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.domain.MonitorGroupRouteCount
+import kpn.server.monitor.domain.MonitorGroupRouteInfo
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorReferenceTileInfo
 import kpn.server.monitor.domain.MonitorRoute
@@ -25,7 +28,6 @@ import kpn.server.monitor.domain.OldMonitorReference
 import kpn.server.repository.Distance
 import kpn.server.repository.NetworkRepositoryImpl
 import org.mongodb.scala.Document
-import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.BsonNull
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Accumulators.sum
@@ -479,6 +481,10 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorRoutes.aggregate[MonitorGroupRouteCount](pipeline, log)
   }
 
+  override def groupRouteInfos(): Seq[MonitorGroupRouteInfo] = {
+    new MongoQueryMonitorGroupRouteInfos(database).execute()
+  }
+
   override def groupRouteDetails(groupId: ObjectId): Seq[MonitorRouteDetail] = {
     val pipeline = Seq(
       filter(
@@ -487,7 +493,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       project(
         fields(
           excludeId(),
-          BsonDocument("""{"routeId": {"$toString": "$_id"}}"""),
+          objectIdToString("routeId", "$_id"),
           include("name"),
           include("description"),
           include("symbol"),

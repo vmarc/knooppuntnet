@@ -31,7 +31,6 @@ export class MonitorRouteDetailsPageService {
       routeName,
       routeDescription,
     }));
-    this.state.map.updateMode('monitor');
     this.monitorService.route(groupName, routeName).subscribe((response) => {
       const page = response.result;
       const routeDescription = page?.routeDescription ?? this.pageState().routeDescription;
@@ -42,6 +41,7 @@ export class MonitorRouteDetailsPageService {
         response,
       }));
       if (page) {
+        this.state.map.updateMode('monitor');
         this.state.map.updateMonitorRouteIds([page.routeId]);
         this.state.map.updateMonitorRelationIds(page.relationIds);
         this.mapService.fitBounds(page.bounds);

@@ -6,6 +6,7 @@ import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.domain.MonitorGroupRouteCount
+import kpn.server.monitor.domain.MonitorGroupRouteInfo
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorReferenceTileInfo
 import kpn.server.monitor.domain.MonitorRoute
@@ -100,6 +101,8 @@ trait MonitorRouteRepository {
   def changes(parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
 
   def groupRouteCounts(): Seq[MonitorGroupRouteCount]
+
+  def groupRouteInfos(): Seq[MonitorGroupRouteInfo]
 
   def groupRouteDetails(groupId: ObjectId): Seq[MonitorRouteDetail]
 

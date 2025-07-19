@@ -8,4 +8,12 @@ object MongoProjections {
     val elementString = elements.map(element => s"\"$element\"").mkString("[", ",", "]")
     BsonDocument(s"""{"$fieldName": {"$$concat": $elementString}}""")
   }
+
+  def objectIdToString(fieldName: String): Bson = {
+    BsonDocument(s"""{"$fieldName": {"$$toString": "$$$fieldName"}}""")
+  }
+
+  def objectIdToString(fieldName: String, valueFieldName: String): Bson = {
+    BsonDocument(s"""{"$fieldName": {"$$toString": "$valueFieldName"}}""")
+  }
 }

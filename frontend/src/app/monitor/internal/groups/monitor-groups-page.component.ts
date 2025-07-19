@@ -27,7 +27,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
 
       <ui-error />
 
-      @if (service.state(); as state) {
+      @if (service.pageState(); as state) {
         @if (state.response; as response) {
           @if (response.result; as page) {
             <div class="header">

@@ -29,7 +29,6 @@ export class MonitorGroupPageService {
       groupDescription,
     }));
 
-    this.state.map.updateMode('monitor');
     this.monitorService.group(groupName).subscribe((response) => {
       const page = response.result;
       const groupDescription = page?.groupDescription ?? this.pageState().groupDescription;
@@ -40,6 +39,7 @@ export class MonitorGroupPageService {
       }));
       if (page) {
         const routeIds = page.routes.map((route) => route.routeId);
+        this.state.map.updateMode('monitor');
         this.state.map.updateMonitorRouteIds(routeIds);
         this.state.map.updateMonitorRelationIds(page.relationIds);
         this.mapService.fitBounds(page.bounds);
