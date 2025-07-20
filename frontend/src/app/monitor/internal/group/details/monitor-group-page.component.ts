@@ -13,7 +13,7 @@ import { MonitorAdminToggleComponent } from '../../components/monitor-admin-togg
 import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-menu.component';
 import { MonitorGroupPageService } from './monitor-group-page.service';
-import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.component';
+import { MonitorGroupRouteListComponent } from './monitor-group-route-list.component';
 
 @Component({
   selector: 'ui-monitor-group-page',
@@ -36,11 +36,11 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
           <div class="kpn-form">
             @if (response.result; as page) {
               @if (page.routes.length > 0) {
-                <ui-monitor-group-route-table
+                <ui-monitor-group-route-list
                   [admin]="service.admin()"
                   [groupName]="page.groupName"
                   [routes]="page.routes"
-                  (selectRoute)="selectRoute($event)"
+                  (selectionChange)="selectRoute($event)"
                 />
               } @else {
                 <div id="no-routes" i18n="@@monitor.group.no-routes">No routes in group</div>
@@ -70,7 +70,7 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
     MonitorAdminToggleComponent,
     MonitorGroupBreadcrumbComponent,
     MonitorGroupPageMenuComponent,
-    MonitorGroupRouteTableComponent,
+    MonitorGroupRouteListComponent,
     NzButtonComponent,
     PageComponent,
     PageHeaderComponent,

@@ -321,6 +321,10 @@ table.kpn-bordered-table {
   content: ':\00a0';
 }
 
+.kpn-dot::after {
+  content: '.\00a0';
+}
+
 .kpn-km::after {
   content: '\00a0km';
 }

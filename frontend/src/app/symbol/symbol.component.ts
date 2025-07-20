@@ -15,7 +15,7 @@ import { SymbolWheelComponent } from './internal/symbol-wheel.component';
   selector: 'ui-symbol',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div [style]="box" class="box">
+    <span [style]="box" class="box">
       <canvas #symbolCanvas [width]="width()" [height]="height()"></canvas>
       @if (isForegroundHiker()) {
         <ui-symbol-hiker [width]="width()" [height]="height()" [color]="foregroundColor()" />
@@ -29,7 +29,7 @@ import { SymbolWheelComponent } from './internal/symbol-wheel.component';
       @if (isForeground2Wheel()) {
         <ui-symbol-wheel [width]="width()" [height]="height()" [color]="foreground2Color()" />
       }
-    </div>
+    </span>
   `,
   styles: `
     .box {
