@@ -138,7 +138,7 @@ export class ListComponent {
   readonly pageSizeChange = output<number>();
   readonly pageIndexChange = output<number>();
 
-  filterEnabled = signal<boolean>(true);
+  readonly filterEnabled = signal<boolean>(this.filter());
 
   onPageSizeChange(pageSize: number): void {
     this.pageSizeChange.emit(+pageSize);

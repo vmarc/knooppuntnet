@@ -12,7 +12,7 @@ import { PageHeaderComponent } from '@app/shared/components/page/page-header.com
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { MonitorAdminToggleComponent } from '../components/monitor-admin-toggle.component';
-import { MonitorGroupTableComponent } from './monitor-group-table.component';
+import { MonitorGroupListComponent } from './monitor-group-list.component';
 import { MonitorGroupsPageService } from './monitor-groups-page.service';
 
 @Component({
@@ -37,10 +37,10 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
               <ui-monitor-admin-toggle />
             </div>
             @if (page.groups.length > 0) {
-              <ui-monitor-group-table
+              <ui-monitor-group-list
                 [admin]="service.admin()"
                 [groups]="page.groups"
-                (selectGroup)="selectGroup($event)"
+                (groupSelectChange)="selectGroup($event)"
               />
             } @else {
               <div id="no-groups" i18n="@@monitor.groups.no-groups">No route groups</div>
@@ -70,8 +70,8 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
       padding-bottom: 2em;
     }
 
-    kpn-monitor-admin-toggle {
-      flex-grow: 1;
+    ui-monitor-admin-toggle {
+      margin-left: auto;
     }
   `,
   providers: [MonitorGroupsPageService, NavService],
@@ -79,7 +79,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
     BreadcrumbComponent,
     ErrorComponent,
     MonitorAdminToggleComponent,
-    MonitorGroupTableComponent,
+    MonitorGroupListComponent,
     NzButtonComponent,
     PageComponent,
     PageHeaderComponent,

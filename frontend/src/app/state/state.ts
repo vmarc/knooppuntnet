@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SplitState } from '@app/state/split-state';
 import { ExploreState } from './explore-state';
 import { MapState } from './map-state';
 import { PageState } from './page-state';
@@ -14,4 +15,5 @@ export class State {
   readonly explore = new ExploreState();
   readonly planner = new PlannerState();
   readonly preferences = new PreferencesState();
+  readonly splitState = new SplitState();
 }
