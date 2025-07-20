@@ -27,6 +27,7 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
           [groupName]="state.groupName"
           [routeName]="state.routeName"
           [routeDescription]="state.routeDescription"
+          [memberCount]="state.memberCount"
         />
 
         <ui-monitor-admin-toggle />
@@ -67,11 +68,6 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
           }
         }
       }
-    }
-  `,
-  styles: `
-    .structure {
-      padding-top: 1em;
     }
   `,
   providers: [RouteDetailsService, MonitorRouteDetailsPageService, NavService],

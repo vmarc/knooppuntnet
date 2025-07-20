@@ -31,6 +31,15 @@ import { MonitorTranslations } from '../../components/monitor-translations';
       >
         Details
       </ui-page-menu-option>
+      <ui-page-menu-option
+        [link]="routeMembersLink()"
+        [active]="pageName() === 'members'"
+        [state]="routeLinkState()"
+        i18n="@@monitor.route.menu.members"
+        [elementCount]="memberCount()"
+      >
+        Members
+      </ui-page-menu-option>
     </ui-page-menu>
 
     <ui-error />
@@ -49,6 +58,7 @@ export class MonitorRoutePageHeaderComponent {
   readonly groupName = input.required<string>();
   readonly routeName = input.required<string>();
   readonly routeDescription = input.required<string>();
+  readonly memberCount = input.required<number>();
 
   protected readonly pageTitle = computed(() => {
     const monitor = MonitorTranslations.get('monitor');
@@ -74,6 +84,10 @@ export class MonitorRoutePageHeaderComponent {
 
   routeDetailLink(): string {
     return `/monitor/groups/${this.groupName()}/routes/${this.routeName()}`;
+  }
+
+  routeMembersLink(): string {
+    return `/monitor/groups/${this.groupName()}/routes/${this.routeName()}/members`;
   }
 
   routeLinkState() {

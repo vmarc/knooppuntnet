@@ -14,6 +14,7 @@ import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteGpxPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
+import kpn.api.common.monitor.MonitorRouteMembersPage
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
@@ -31,6 +32,7 @@ import kpn.server.monitor.route.MonitorRouteChangesPageBuilder
 import kpn.server.monitor.route.MonitorRouteDetailsPageBuilder
 import kpn.server.monitor.route.MonitorRouteGpxPageBuilder
 import kpn.server.monitor.route.MonitorRouteInfoBuilder
+import kpn.server.monitor.route.MonitorRouteMembersPageBuilder
 import kpn.server.monitor.route.MonitorRouteUpdatePageBuilder
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.stereotype.Component
@@ -43,6 +45,7 @@ class MonitorFacadeImpl(
   monitorGroupPageBuilder: MonitorGroupPageBuilder,
   monitorRouteUpdatePageBuilder: MonitorRouteUpdatePageBuilder,
   monitorRouteDetailsPageBuilder: MonitorRouteDetailsPageBuilder,
+  monitorRouteMembersPageBuilder: MonitorRouteMembersPageBuilder,
   monitorRouteGpxPageBuilder: MonitorRouteGpxPageBuilder,
   monitorRouteChangesPageBuilder: MonitorRouteChangesPageBuilder,
   monitorRouteChangePageBuilder: MonitorRouteChangePageBuilder,
@@ -107,6 +110,13 @@ class MonitorFacadeImpl(
     val args = s"groupName=$groupName, routeName=$routeName"
     api.execute("monitor-route", args) {
       reply(monitorRouteDetailsPageBuilder.build(language, groupName, routeName))
+    }
+  }
+
+  override def routeMembers(language: Language, groupName: String, routeName: String): ApiResponse[MonitorRouteMembersPage] = {
+    val args = s"groupName=$groupName, routeName=$routeName"
+    api.execute("monitor-route", args) {
+      reply(monitorRouteMembersPageBuilder.build(language, groupName, routeName))
     }
   }
 

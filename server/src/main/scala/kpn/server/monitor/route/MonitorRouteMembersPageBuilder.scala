@@ -1,12 +1,9 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.Language
-import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
-import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.api.common.monitor.MonitorRouteDetailsPage
-import kpn.api.common.route.RouteDetails
+import kpn.api.common.monitor.MonitorRouteMembersPage
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.StructureRow
 import kpn.core.doc.RouteDoc
@@ -23,7 +20,7 @@ import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
-class MonitorRouteDetailsPageBuilder(
+class MonitorRouteMembersPageBuilder(
   routeRepository: RouteRepository,
   monitorUserRepository: MonitorUserRepository,
   monitorGroupRepository: MonitorGroupRepository,
@@ -31,7 +28,7 @@ class MonitorRouteDetailsPageBuilder(
   locationService: LocationService
 ) {
 
-  def build(language: Language, groupName: String, routeName: String): Option[MonitorRouteDetailsPage] = {
+  def build(language: Language, groupName: String, routeName: String): Option[MonitorRouteMembersPage] = {
     val admin = monitorUserRepository.isAdminUser(RequestContext.user)
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).flatMap { monitorRoute =>
@@ -52,7 +49,7 @@ class MonitorRouteDetailsPageBuilder(
     routeDoc: RouteDoc,
     references: Seq[MonitorReference],
     states: Seq[MonitorState]
-  ): MonitorRouteDetailsPage = {
+  ): MonitorRouteMembersPage = {
 
     val structureRows = convertRows(
       monitorRoute,
@@ -60,47 +57,8 @@ class MonitorRouteDetailsPageBuilder(
       references,
       states
     )
-    val relationCount = structureRows.count(_.memberType == MemberType.Relation)
-    val relationLevels = structureRows.map(_.level).max
 
-    val deviationDistance = states.flatMap(_.deviations.map(_.distance)).sum
-    val deviationCount = states.map(_.deviations.length).sum
-    val osmSegmentCount = routeDoc.segments.length
-    val happy = false // TODO redesign
-
-    val networkReferences: Seq[Reference] = monitorRoute.relationId.toSeq.flatMap(relationId => routeRepository.networkReferences(relationId))
-    val locationCandidateInfos = {
-      routeDoc.locationAnalysis.candidates.map { candidate =>
-        val locationNames = candidate.location.names
-        val locationInfos = locationService.toInfos(language, locationNames, locationNames)
-        LocationCandidateInfo(locationInfos, candidate.percentage)
-      }
-    }
-
-    val details = RouteDetails(
-      routeDoc._id,
-      routeDoc.active,
-      routeDoc.summary,
-      routeDoc.proposed,
-      routeDoc.version,
-      routeDoc.changeSetId,
-      routeDoc.lastUpdated,
-      routeDoc.lastSurvey,
-      routeDoc.facts,
-      locationCandidateInfos,
-      routeDoc.unexpectedNodeIds,
-      routeDoc.unexpectedRelationIds,
-      routeDoc.segments,
-      routeDoc.paths,
-      routeDoc.nameDerivedFromNodes,
-      routeDoc.nodes,
-      routeDoc.bounds,
-      routeDoc.routeIds,
-      routeDoc.parentRoutes,
-      networkReferences,
-    )
-
-    MonitorRouteDetailsPage(
+    MonitorRouteMembersPage(
       admin,
       group.name,
       group.description,
@@ -109,23 +67,9 @@ class MonitorRouteDetailsPageBuilder(
       monitorRoute._id.oid,
       monitorRoute.relationId,
       monitorRoute.relationIds,
-      monitorRoute.comment,
-      monitorRoute.symbol,
-      monitorRoute.analysisTimestamp,
-      monitorRoute.analysisDuration,
       monitorRoute.referenceType,
-      monitorRoute.referenceTimestamp,
-      monitorRoute.referenceFilename,
-      monitorRoute.referenceDistance,
-      deviationDistance,
-      deviationCount,
-      osmSegmentCount,
-      happy,
-      routeDoc.summary.wayCount,
-      routeDoc.summary.meters,
-      relationCount,
-      relationLevels,
-      details,
+      routeDoc.summary.routeTypes,
+      structureRows,
       monitorRoute.bounds,
     )
   }

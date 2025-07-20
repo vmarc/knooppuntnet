@@ -19,6 +19,7 @@ import { MonitorRouteChangesPage } from '@api/common/monitor/monitor-route-chang
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
+import { MonitorRouteMembersPage } from '@api/common/monitor/monitor-route-members-page';
 import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { MonitorRouteGpxPage } from '@api/common/monitor/monitor-route-gpx-page';
 import { ApiResponse } from '@api/custom/api-response';
@@ -101,6 +102,22 @@ export class MonitorService {
     const url = `/api/monitor/groups/${groupName}/routes/${routeName}`;
     return this.http
       .get<ApiResponse<MonitorRouteDetailsPage>>(url, { params: this.languageParams() })
+      .pipe(
+        tap((response) => {
+          if (response.result) {
+            this._adminRole.set(response.result.adminRole);
+          }
+        })
+      );
+  }
+
+  routeMembers(
+    groupName: string,
+    routeName: string
+  ): Observable<ApiResponse<MonitorRouteMembersPage>> {
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/members`;
+    return this.http
+      .get<ApiResponse<MonitorRouteMembersPage>>(url, { params: this.languageParams() })
       .pipe(
         tap((response) => {
           if (response.result) {

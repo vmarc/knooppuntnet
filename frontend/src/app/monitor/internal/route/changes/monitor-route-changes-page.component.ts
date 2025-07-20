@@ -24,6 +24,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
           [groupName]="state.groupName"
           [routeName]="state.routeName"
           [routeDescription]="state.routeDescription"
+          [memberCount]="999"
         />
 
         @if (state.response; as response) {

@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouteType } from '@api/common/route-type';
 import { StructureRow } from '@api/common/route/structure-row';
-import { RouteStructureRowComponent } from './route-structure-row.component';
+import { RouteStructureRowComponent } from './internal/components/structure/route-structure-row.component';
 
 @Component({
   selector: 'ui-route-structure',

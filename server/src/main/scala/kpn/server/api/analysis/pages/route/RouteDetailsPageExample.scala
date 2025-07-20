@@ -6,14 +6,10 @@ import kpn.api.common.RouteScope
 import kpn.api.common.RouteSummary
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
-import kpn.api.common.data.MemberType
 import kpn.api.common.route.RouteDetails
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteNodes
-import kpn.api.common.route.RouteStructureWay
-import kpn.api.common.route.StructureRow
-import kpn.api.common.route.WayDirection
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -81,84 +77,6 @@ object RouteDetailsPageExample {
       unexpectedRelationIds = Seq(1, 2, 3),
       segments = Seq.empty,
       paths = Seq.empty,
-      structureRows = Seq(
-        StructureRow(
-          rowNumber = "1",
-          level = 0,
-          id = 1L,
-          memberType = MemberType.Node,
-          role = Some("connection"),
-          link = None,
-          distance = 0,
-          name = None,
-          poi = None,
-          way = None,
-          relation = None,
-          segmentIds = Seq.empty,
-          pathIds = Seq.empty,
-          physical = false,
-          relationId = 0,
-          subRelationIndex = None,
-          survey = None,
-          symbol = None,
-          referenceTimestamp = None,
-          referenceFilename = None,
-          referenceDistance = 0,
-          deviationDistance = None,
-          deviationCount = None,
-          osmSegmentCount = None,
-          osmDistance = 0,
-          osmDistanceSubRelations = 0,
-          gaps = None,
-          showMap = false,
-          happy = true
-        ),
-        StructureRow(
-          rowNumber = "2",
-          level = 0,
-          id = 1L,
-          memberType = MemberType.Way,
-          role = None,
-          link = None,
-          distance = 100,
-          name = Some("description"),
-          poi = None,
-          way = Some(
-            RouteStructureWay(
-              wayType = Some("path"),
-              nodes = Seq.empty,
-              surface = "unknown",
-              accessible = false,
-              nodeCount = "3",
-              oneWay = WayDirection.Both,
-              oneWayTags = Tags.from(
-                "key1" -> "value1",
-                "key2" -> "value2",
-                "key3" -> "value3"
-              ),
-            )
-          ),
-          relation = None,
-          segmentIds = Seq.empty,
-          pathIds = Seq.empty,
-          physical = false,
-          relationId = 0,
-          subRelationIndex = None,
-          survey = None,
-          symbol = None,
-          referenceTimestamp = None,
-          referenceFilename = None,
-          referenceDistance = 0,
-          deviationDistance = None,
-          deviationCount = None,
-          osmSegmentCount = None,
-          osmDistance = 0,
-          osmDistanceSubRelations = 0,
-          gaps = None,
-          showMap = false,
-          happy = true
-        )
-      ),
       nameDerivedFromNodes = true,
       nodes,
       None,

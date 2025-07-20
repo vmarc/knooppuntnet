@@ -4,7 +4,7 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouteDetailsPageData } from '@api/common/route/route-details-page-data';
+import { RouteDetails } from '@api/common/route/route-details';
 import { RouteSegment } from '@api/common/route/route-segment';
 import { Timestamp } from '@api/custom/timestamp';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
@@ -23,7 +23,6 @@ import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
 import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouteEndNodesComponent } from '@app/route/internal/components/route-end-nodes.component';
-import { RouteStructureComponent } from '@app/route/internal/components/structure/route-structure.component';
 import { RouteNetworkReferencesComponent } from '@app/route/internal/components/route-network-references.component';
 import { RouteParentsComponent } from '@app/route/internal/components/route-parents.component';
 import { RouteRedundantNodesComponent } from '@app/route/internal/components/route-redundant-nodes.component';
@@ -53,13 +52,6 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
           <span class="kpn-brackets">{{ pathCount() }}</span>
         </ng-template>
         <ui-route-paths [paths]="paths()" />
-      </nz-collapse-panel>
-      <nz-collapse-panel [nzHeader]="membersHeader">
-        <ng-template #membersHeader>
-          <span i18n="@@route.members.title">Route members</span>
-          <span class="kpn-brackets">{{ memberCount() }}</span>
-        </ng-template>
-        <ui-route-structure [routeType]="data.summary.routeTypes[0]" [rows]="data.structureRows" />
       </nz-collapse-panel>
     </nz-collapse>
 
@@ -155,7 +147,6 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
     RouteRedundantNodesComponent,
     RouteSegmentsComponent,
     RouteStartNodesComponent,
-    RouteStructureComponent,
     RouteSummaryComponent,
     TagTableComponent,
     TimestampComponent,
@@ -163,7 +154,7 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
 })
 export class RouteDetailsComponent {
   readonly situationOn = input.required<Timestamp>();
-  readonly routeDetailsData = input.required<RouteDetailsPageData>();
+  readonly routeDetailsData = input.required<RouteDetails>();
 
   readonly segmentSelection = output<RouteSegment>();
 
@@ -171,7 +162,6 @@ export class RouteDetailsComponent {
   protected readonly segmentCount = computed(() => this.routeDetailsData().segments.length);
   protected readonly paths = computed(() => this.routeDetailsData().paths);
   protected readonly pathCount = computed(() => this.paths().length);
-  protected readonly memberCount = computed(() => this.routeDetailsData().structureRows.length);
 
   routeTags() {
     return InterpretedTags.routeTags(this.routeDetailsData().summary.tags);

@@ -11,7 +11,6 @@ import { ParentRoute } from './parent-route';
 import { RouteNodes } from './route-nodes';
 import { RoutePath } from './route-path';
 import { RouteSegment } from './route-segment';
-import { StructureRow } from './structure-row';
 
 export interface RouteDetails {
   readonly id: number;
@@ -28,7 +27,6 @@ export interface RouteDetails {
   readonly unexpectedRelationIds: number[];
   readonly segments: RouteSegment[];
   readonly paths: RoutePath[];
-  readonly structureRows: StructureRow[];
   readonly nameDerivedFromNodes: boolean;
   readonly nodes: RouteNodes;
   readonly bounds?: Bounds;

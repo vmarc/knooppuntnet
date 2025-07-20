@@ -23,6 +23,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
           [groupName]="state.groupName"
           [routeName]="state.routeName"
           [routeDescription]="state.routeDescription"
+          [memberCount]="0"
         />
 
         @if (stateService.page(); as page) {

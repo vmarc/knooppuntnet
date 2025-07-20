@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { MonitorRouteMembersPageComponent } from '@app/monitor/internal/route/members/monitor-route-members-page.component';
 import { MonitorChangesPageComponent } from './internal/changes/monitor-changes-page.component';
 import { MonitorGroupAddPageComponent } from './internal/group/add/monitor-group-add-page.component';
 import { MonitorGroupChangesPageComponent } from './internal/group/changes/monitor-group-changes-page.component';
@@ -47,6 +48,10 @@ export const monitorRoutes: Routes = [
       {
         path: 'groups/:groupName/routes/:routeName',
         component: MonitorRouteDetailsPageComponent,
+      },
+      {
+        path: 'groups/:groupName/routes/:routeName/members',
+        component: MonitorRouteMembersPageComponent,
       },
       {
         path: 'groups/:groupName/routes/:routeName/map',

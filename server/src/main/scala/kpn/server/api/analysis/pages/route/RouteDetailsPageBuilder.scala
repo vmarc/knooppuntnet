@@ -101,7 +101,6 @@ class RouteDetailsPageBuilder(
         routeDoc.unexpectedRelationIds,
         routeDoc.segments,
         routeDoc.paths,
-        structureRows,
         routeDoc.nameDerivedFromNodes,
         routeDoc.nodes,
         routeDoc.bounds,

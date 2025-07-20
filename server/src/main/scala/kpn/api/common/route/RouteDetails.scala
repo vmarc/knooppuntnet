@@ -23,7 +23,6 @@ case class RouteDetails(
   unexpectedRelationIds: Seq[Long],
   segments: Seq[RouteSegment],
   paths: Seq[RoutePath],
-  structureRows: Seq[StructureRow],
   nameDerivedFromNodes: Boolean,
   nodes: RouteNodes,
   bounds: Option[Bounds],

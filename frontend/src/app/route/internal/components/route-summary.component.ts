@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { RouteDetailsPageData } from '@api/common/route/route-details-page-data';
+import { RouteDetails } from '@api/common/route/route-details';
 import { CountryNameComponent } from '@app/shared/components/country-name.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
@@ -101,7 +101,7 @@ import { RouteLocationComponent } from './route-location.component';
   ],
 })
 export class RouteSummaryComponent {
-  readonly route = input.required<RouteDetailsPageData>();
+  readonly route = input.required<RouteDetails>();
 
   isRouteBroken() {
     return this.route().facts.includes('RouteBroken');

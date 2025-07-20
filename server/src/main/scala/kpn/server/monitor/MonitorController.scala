@@ -14,6 +14,7 @@ import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteGpxPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
+import kpn.api.common.monitor.MonitorRouteMembersPage
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -83,6 +84,15 @@ class MonitorController(facade: MonitorFacade) {
     @PathVariable routeName: String
   ): ApiResponse[MonitorRouteDetailsPage] = {
     facade.route(toLanguage(language), groupName, routeName)
+  }
+
+  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/members"))
+  def routeMembers(
+    @RequestParam language: String,
+    @PathVariable groupName: String,
+    @PathVariable routeName: String
+  ): ApiResponse[MonitorRouteMembersPage] = {
+    facade.routeMembers(toLanguage(language), groupName, routeName)
   }
 
   @DeleteMapping(value = Array("groups/{groupName}/routes/{routeName}"))
