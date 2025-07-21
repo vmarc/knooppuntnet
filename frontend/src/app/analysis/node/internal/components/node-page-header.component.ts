@@ -7,7 +7,6 @@ import { input } from '@angular/core';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { MenuOption } from '@app/shared/components/menu/menu-option';
-import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { NodeService } from '../node.service';

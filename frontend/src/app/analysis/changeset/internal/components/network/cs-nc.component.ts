@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeSetDetail } from '@api/common/changes/change-set-detail';
 import { NetworkChangeInfo } from '@api/common/changes/details/network-change-info';
-import { List } from 'immutable';
 import { NodeDiffsData } from '../node-diffs/node-diffs-data';
 import { NodeDiffsComponent } from '../node-diffs/node-diffs.component';
 import { RouteDiffsData } from '../route-diffs/route-diffs-data';

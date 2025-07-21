@@ -6,7 +6,6 @@ import { ChangeSetSubsetElementRefs } from '@api/common/change-set-subset-elemen
 import { ChangeSetDetail } from '@api/common/changes/change-set-detail';
 import { Ref } from '@api/common/common/ref';
 import { RefDiffs } from '@api/common/diff/ref-diffs';
-import { List } from 'immutable';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NodeDiffsData } from './node-diffs/node-diffs-data';
 import { NodeDiffsComponent } from './node-diffs/node-diffs.component';

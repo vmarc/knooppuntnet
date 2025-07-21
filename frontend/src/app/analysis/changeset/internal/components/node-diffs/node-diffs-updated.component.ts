@@ -1,9 +1,7 @@
 import { computed } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { Ref } from '@api/common/common/ref';
 import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node/node-change-detail.component';
 import { LinkNodeRefHeaderComponent } from '@app/shared/components/link/link-node-ref-header';
 import { MetaDataComponent } from '@app/shared/components/meta-data.component';

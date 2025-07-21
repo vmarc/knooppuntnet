@@ -1,7 +1,6 @@
 import { List } from 'immutable';
 import { platformModifierKeyOnly } from 'ol/events/condition';
 import { Interaction } from 'ol/interaction';
-import Map from 'ol/Map';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
 import { MapFeature } from '../features/map-feature';
