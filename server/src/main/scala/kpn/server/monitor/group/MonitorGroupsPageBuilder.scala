@@ -18,7 +18,7 @@ class MonitorGroupsPageBuilder(
 ) {
 
   def build(): Option[MonitorGroupsPage] = {
-    val admin = monitorUserRepository.isAdminUser(RequestContext.user)
+    val adminUser = monitorUserRepository.isAdminUser(RequestContext.user)
     val groups = monitorGroupRepository.groups().sortBy(_.name)
     val groupRouteInfoMap = buildGroupRouteInfoMap()
     val routeCount = calculateTotalRouteCount(groupRouteInfoMap)
@@ -26,7 +26,7 @@ class MonitorGroupsPageBuilder(
 
     Some(
       MonitorGroupsPage(
-        admin,
+        adminUser,
         routeCount,
         pageGroups
       )

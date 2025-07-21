@@ -1,6 +1,6 @@
 package kpn.database.actions.routes
 
-import kpn.core.doc.SuperSubSegmentInfo
+import kpn.api.common.route.SuperSubSegmentInfo
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Types.MongoPipeline

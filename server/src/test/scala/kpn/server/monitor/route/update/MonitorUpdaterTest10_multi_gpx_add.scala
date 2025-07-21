@@ -4,8 +4,8 @@ import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.common.route.SuperSegment
 import kpn.core.common.Time
-import kpn.core.doc.SuperSegment
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteSegment
 import kpn.core.test.TestObjects.newBaseRouteSegmentElement

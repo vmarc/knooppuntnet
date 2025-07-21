@@ -10,7 +10,7 @@ import { ActionButtonRelationComponent } from '@app/analysis/components/action/a
   selector: 'ui-monitor-route-details-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (!page().relationId) {
+    @if (!page().summary.relationId) {
       <p i18n="@@monitor.route.details.relation-id-undefined">
         Route relation has not been defined yet
       </p>
@@ -29,8 +29,8 @@ import { ActionButtonRelationComponent } from '@app/analysis/components/action/a
       }
 
       <div class="kpn-align-center">
-        <span>{{ page().relationId }}</span>
-        <ui-action-button-relation [relationId]="page().relationId" />
+        <span>{{ page().summary.relationId }}</span>
+        <ui-action-button-relation [relationId]="page().summary.relationId" />
       </div>
 
       @if (page().symbol) {

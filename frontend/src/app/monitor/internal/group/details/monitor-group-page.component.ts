@@ -37,7 +37,7 @@ import { MonitorGroupRouteListComponent } from './monitor-group-route-list.compo
             @if (response.result; as page) {
               @if (page.routes.length > 0) {
                 <ui-monitor-group-route-list
-                  [admin]="service.admin()"
+                  [admin]="service.adminEnabled()"
                   [groupName]="page.groupName"
                   [routes]="page.routes"
                   (selectionChange)="selectRoute($event)"
@@ -45,7 +45,7 @@ import { MonitorGroupRouteListComponent } from './monitor-group-route-list.compo
               } @else {
                 <div id="no-routes" i18n="@@monitor.group.no-routes">No routes in group</div>
               }
-              @if (service.admin()) {
+              @if (service.adminEnabled()) {
                 <div class="kpn-form-buttons">
                   <button
                     nz-button

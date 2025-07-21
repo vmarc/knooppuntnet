@@ -19,32 +19,49 @@ export class MonitorRouteMembersPageService {
 
   private readonly _pageState = signal<MonitorRouteMembersPageState>(initialState);
   readonly pageState = this._pageState.asReadonly();
-  readonly admin = this.monitorService.admin;
+  readonly adminEnabled = this.monitorService.adminEnabled;
 
   constructor() {
     const groupName = this.nav.param('groupName');
     const routeName = this.nav.param('routeName');
     const routeDescription = this.nav.state('description');
+
+    const summary = {
+      adminUser: false,
+      groupName: groupName,
+      routeName: routeName,
+      routeDescription: routeDescription,
+      routeId: '',
+      relationId: 0,
+      relationIds: [],
+      memberCount: 0,
+      segmentCount: 0,
+      deviationCount: 0,
+      bounds: undefined,
+    };
+
     this._pageState.update((state) => ({
       ...state,
-      groupName,
-      routeName,
-      routeDescription,
+      summary,
     }));
-    this.monitorService.routeMembers(groupName, routeName).subscribe((response) => {
+    this.monitorService.routeMembers(summary.groupName, summary.routeName).subscribe((response) => {
       const page = response.result;
-      const routeDescription = page?.routeDescription ?? this.pageState().routeDescription;
-      this.routeDetailsService.update(groupName, routeName, response?.result?.referenceType);
+      const summary = page?.summary ?? this.pageState().summary;
+      this.routeDetailsService.update(
+        summary.groupName,
+        summary.routeName,
+        response?.result?.referenceType
+      );
       this._pageState.update((state) => ({
         ...state,
-        routeDescription,
+        summary,
         response,
       }));
       if (page) {
         this.state.map.updateMode('monitor');
-        this.state.map.updateMonitorRouteIds([page.routeId]);
-        this.state.map.updateMonitorRelationIds(page.relationIds);
-        this.mapService.fitBounds(page.bounds);
+        this.state.map.updateMonitorRouteIds([page.summary.routeId]);
+        this.state.map.updateMonitorRelationIds(page.summary.relationIds);
+        this.mapService.fitBounds(page.summary.bounds);
       }
     });
   }

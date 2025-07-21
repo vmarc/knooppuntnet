@@ -27,7 +27,7 @@ export class MonitorRouteDeletePageService {
       groupLink,
     }));
     this.monitorService.route(groupName, routeName).subscribe((response) => {
-      const routeDescription = response.result?.routeDescription ?? description;
+      const routeDescription = response.result?.summary.routeDescription ?? description;
       this._state.update((state) => ({
         ...state,
         routeDescription,

@@ -1,11 +1,11 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
+import kpn.api.common.route.SuperSegment
+import kpn.api.common.route.SuperSubSegment
+import kpn.api.common.route.SuperSubSegmentInfo
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
-import kpn.core.doc.SuperSegment
-import kpn.core.doc.SuperSubSegment
-import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteSegment
 import kpn.core.test.TestObjects.newBaseRouteSegmentElement

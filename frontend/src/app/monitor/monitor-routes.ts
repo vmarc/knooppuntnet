@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
+import { MonitorRouteDeviationsPageComponent } from '@app/monitor/internal/route/deviations/monitor-route-deviations-page.component';
 import { MonitorRouteMembersPageComponent } from '@app/monitor/internal/route/members/monitor-route-members-page.component';
+import { MonitorRouteSegmentsPageComponent } from '@app/monitor/internal/route/segments/monitor-route-segments-page.component';
 import { MonitorChangesPageComponent } from './internal/changes/monitor-changes-page.component';
 import { MonitorGroupAddPageComponent } from './internal/group/add/monitor-group-add-page.component';
 import { MonitorGroupChangesPageComponent } from './internal/group/changes/monitor-group-changes-page.component';
@@ -16,7 +18,6 @@ import { MonitorRouteDeletePageComponent } from './internal/route/delete/monitor
 import { MonitorRouteDetailsPageComponent } from './internal/route/details/monitor-route-details-page.component';
 import { MonitorRouteGpxDeleteComponent } from './internal/route/gpx/monitor-route-gpx-delete.component';
 import { MonitorRouteGpxComponent } from './internal/route/gpx/monitor-route-gpx.component';
-import { MonitorRouteMapPageComponent } from './internal/route/map/monitor-route-map-page.component';
 import { MonitorRouteGapsComponent } from './internal/route/monitor-route-gaps.component';
 import { MonitorRouteUpdatePageComponent } from './internal/route/update/monitor-route-update-page.component';
 
@@ -54,8 +55,12 @@ export const monitorRoutes: Routes = [
         component: MonitorRouteMembersPageComponent,
       },
       {
-        path: 'groups/:groupName/routes/:routeName/map',
-        component: MonitorRouteMapPageComponent,
+        path: 'groups/:groupName/routes/:routeName/segments',
+        component: MonitorRouteSegmentsPageComponent,
+      },
+      {
+        path: 'groups/:groupName/routes/:routeName/deviations',
+        component: MonitorRouteDeviationsPageComponent,
       },
       {
         path: 'groups/:groupName/routes/:routeName/gpx',

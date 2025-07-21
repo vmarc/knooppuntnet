@@ -17,9 +17,11 @@ import { MonitorRouteAddPage } from '@api/common/monitor/monitor-route-add-page'
 import { MonitorRouteChangePage } from '@api/common/monitor/monitor-route-change-page';
 import { MonitorRouteChangesPage } from '@api/common/monitor/monitor-route-changes-page';
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
+import { MonitorRouteDeviationsPage } from '@api/common/monitor/monitor-route-deviations-page';
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { MonitorRouteMembersPage } from '@api/common/monitor/monitor-route-members-page';
+import { MonitorRouteSegmentsPage } from '@api/common/monitor/monitor-route-segments-page';
 import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { MonitorRouteGpxPage } from '@api/common/monitor/monitor-route-gpx-page';
 import { ApiResponse } from '@api/custom/api-response';
@@ -33,14 +35,14 @@ import { map } from 'rxjs/operators';
 export class MonitorService {
   public readonly locale: string = inject(LOCALE_ID);
   private readonly http = inject(HttpClient);
-  private readonly _admin = signal(false);
-  private readonly _adminRole = signal(false);
+  private readonly _adminEnabled = signal(false);
+  private readonly _adminUser = signal(false);
 
-  readonly admin = this._admin.asReadonly();
-  readonly adminRole = this._adminRole.asReadonly();
+  readonly adminEnabled = this._adminEnabled.asReadonly();
+  readonly adminUser = this._adminUser.asReadonly();
 
   setAdmin(value: boolean): void {
-    this._admin.set(value);
+    this._adminEnabled.set(value);
   }
 
   groups(): Observable<ApiResponse<MonitorGroupsPage>> {
@@ -48,7 +50,7 @@ export class MonitorService {
     return this.http.get<ApiResponse<MonitorGroupsPage>>(url).pipe(
       tap((response) => {
         if (response.result) {
-          this._adminRole.set(response.result.adminRole);
+          this._adminUser.set(response.result.adminUser);
         }
       })
     );
@@ -64,7 +66,7 @@ export class MonitorService {
     return this.http.get<ApiResponse<MonitorGroupPage>>(url).pipe(
       tap((response) => {
         if (response.result) {
-          this._adminRole.set(response.result.adminRole);
+          this._adminUser.set(response.result.adminUser);
         }
       })
     );
@@ -105,7 +107,7 @@ export class MonitorService {
       .pipe(
         tap((response) => {
           if (response.result) {
-            this._adminRole.set(response.result.adminRole);
+            this._adminUser.set(response.result.summary.adminUser);
           }
         })
       );
@@ -121,7 +123,39 @@ export class MonitorService {
       .pipe(
         tap((response) => {
           if (response.result) {
-            this._adminRole.set(response.result.adminRole);
+            this._adminUser.set(response.result.summary.adminUser);
+          }
+        })
+      );
+  }
+
+  routeSegments(
+    groupName: string,
+    routeName: string
+  ): Observable<ApiResponse<MonitorRouteSegmentsPage>> {
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/members`;
+    return this.http
+      .get<ApiResponse<MonitorRouteSegmentsPage>>(url, { params: this.languageParams() })
+      .pipe(
+        tap((response) => {
+          if (response.result) {
+            this._adminUser.set(response.result.summary.adminUser);
+          }
+        })
+      );
+  }
+
+  routeDeviations(
+    groupName: string,
+    routeName: string
+  ): Observable<ApiResponse<MonitorRouteDeviationsPage>> {
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/members`;
+    return this.http
+      .get<ApiResponse<MonitorRouteDeviationsPage>>(url, { params: this.languageParams() })
+      .pipe(
+        tap((response) => {
+          if (response.result) {
+            this._adminUser.set(response.result.summary.adminUser);
           }
         })
       );

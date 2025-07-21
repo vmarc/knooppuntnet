@@ -6,6 +6,7 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteDetailsPage
+import kpn.api.common.monitor.MonitorRouteSummary
 import kpn.api.common.route.RouteDetails
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.StructureRow
@@ -32,13 +33,13 @@ class MonitorRouteDetailsPageBuilder(
 ) {
 
   def build(language: Language, groupName: String, routeName: String): Option[MonitorRouteDetailsPage] = {
-    val admin = monitorUserRepository.isAdminUser(RequestContext.user)
+    val adminUser = monitorUserRepository.isAdminUser(RequestContext.user)
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).flatMap { monitorRoute =>
         monitorRoute.relationId.flatMap(routeRepository.findRouteById).map { routeDoc =>
           val references = monitorRouteRepository.references(monitorRoute._id) // TODO limit query to only the info that is needed
           val states = monitorRouteRepository.states(monitorRoute._id) // TODO limit query to only the info that is needed: deviationCount, deviationDistance
-          buildPage(language, admin, group, monitorRoute, routeDoc, references, states)
+          buildPage(language, adminUser, group, monitorRoute, routeDoc, references, states)
         }
       }
     }
@@ -46,7 +47,7 @@ class MonitorRouteDetailsPageBuilder(
 
   private def buildPage(
     language: Language,
-    admin: Boolean,
+    adminUser: Boolean,
     group: MonitorGroup,
     monitorRoute: MonitorRoute,
     routeDoc: RouteDoc,
@@ -77,6 +78,20 @@ class MonitorRouteDetailsPageBuilder(
       }
     }
 
+    val summary = MonitorRouteSummary(
+      adminUser,
+      group.name,
+      monitorRoute.name,
+      monitorRoute.description,
+      monitorRoute._id.oid,
+      monitorRoute.relationId,
+      monitorRoute.relationIds,
+      memberCount = structureRows.length,
+      segmentCount = osmSegmentCount,
+      deviationCount = deviationCount,
+      monitorRoute.bounds,
+    )
+
     val details = RouteDetails(
       routeDoc._id,
       routeDoc.active,
@@ -101,14 +116,7 @@ class MonitorRouteDetailsPageBuilder(
     )
 
     MonitorRouteDetailsPage(
-      admin,
-      group.name,
-      group.description,
-      monitorRoute.name,
-      monitorRoute.description,
-      monitorRoute._id.oid,
-      monitorRoute.relationId,
-      monitorRoute.relationIds,
+      summary,
       monitorRoute.comment,
       monitorRoute.symbol,
       monitorRoute.analysisTimestamp,
@@ -118,15 +126,12 @@ class MonitorRouteDetailsPageBuilder(
       monitorRoute.referenceFilename,
       monitorRoute.referenceDistance,
       deviationDistance,
-      deviationCount,
-      osmSegmentCount,
       happy,
       routeDoc.summary.wayCount,
       routeDoc.summary.meters,
       relationCount,
       relationLevels,
       details,
-      monitorRoute.bounds,
     )
   }
 

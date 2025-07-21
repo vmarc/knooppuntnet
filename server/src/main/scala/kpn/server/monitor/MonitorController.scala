@@ -12,9 +12,11 @@ import kpn.api.common.monitor.MonitorRouteAddPage
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
+import kpn.api.common.monitor.MonitorRouteDeviationsPage
 import kpn.api.common.monitor.MonitorRouteGpxPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMembersPage
+import kpn.api.common.monitor.MonitorRouteSegmentsPage
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -93,6 +95,24 @@ class MonitorController(facade: MonitorFacade) {
     @PathVariable routeName: String
   ): ApiResponse[MonitorRouteMembersPage] = {
     facade.routeMembers(toLanguage(language), groupName, routeName)
+  }
+
+  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/segments"))
+  def routeSegments(
+    @RequestParam language: String,
+    @PathVariable groupName: String,
+    @PathVariable routeName: String
+  ): ApiResponse[MonitorRouteSegmentsPage] = {
+    facade.routeSegments(toLanguage(language), groupName, routeName)
+  }
+
+  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/deviations"))
+  def routeDeviations(
+    @RequestParam language: String,
+    @PathVariable groupName: String,
+    @PathVariable routeName: String
+  ): ApiResponse[MonitorRouteDeviationsPage] = {
+    facade.routeDeviations(toLanguage(language), groupName, routeName)
   }
 
   @DeleteMapping(value = Array("groups/{groupName}/routes/{routeName}"))

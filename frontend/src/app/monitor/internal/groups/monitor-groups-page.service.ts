@@ -16,7 +16,7 @@ export class MonitorGroupsPageService {
 
   private readonly _pageState = signal<MonitorGroupsPageState>(initialState);
   readonly pageState = this._pageState.asReadonly();
-  readonly admin = this.monitorService.admin;
+  readonly adminEnabled = this.monitorService.adminEnabled;
 
   constructor() {
     this.monitorService

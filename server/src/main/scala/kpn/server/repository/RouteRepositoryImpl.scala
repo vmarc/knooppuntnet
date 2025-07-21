@@ -5,6 +5,7 @@ import kpn.api.common.Country
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteInfo
+import kpn.api.common.route.SuperSubSegmentInfo
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
 import kpn.core.doc.BaseRouteDoc
@@ -13,7 +14,6 @@ import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.doc.SubRouteData
-import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryBaseRouteIds
 import kpn.database.actions.routes.MongoQueryKnownRouteIds

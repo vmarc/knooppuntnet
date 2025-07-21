@@ -17,14 +17,14 @@ import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.compo
     } @else {
       <p>
         <span class="kpn-space-separated">
-          <span>{{ page().deviationCount }}</span>
-          @if (page().deviationCount === 1) {
+          <span>{{ page().summary.deviationCount }}</span>
+          @if (page().summary.deviationCount === 1) {
             <span i18n="@@monitor.route.details.analysis.deviation"> deviation </span>
           }
-          @if (page().deviationCount !== 1) {
+          @if (page().summary.deviationCount !== 1) {
             <span i18n="@@monitor.route.details.analysis.deviations"> deviations </span>
           }
-          @if (page().deviationCount > 0) {
+          @if (page().summary.deviationCount > 0) {
             <span class="kpn-brackets">
               <span>{{ page().deviationDistance | distance }}</span>
             </span>
@@ -34,11 +34,11 @@ import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.compo
 
       <p>
         <span class="kpn-space-separated">
-          <span>{{ page().osmSegmentCount }}</span>
-          @if (page().osmSegmentCount === 1) {
+          <span>{{ page().summary.segmentCount }}</span>
+          @if (page().summary.segmentCount === 1) {
             <span i18n="@@monitor.route.details.analysis.osm-segment"> OSM segment </span>
           }
-          @if (page().osmSegmentCount !== 1) {
+          @if (page().summary.segmentCount !== 1) {
             <span i18n="@@monitor.route.details.analysis.osm-segments"> OSM segments </span>
           }
         </span>

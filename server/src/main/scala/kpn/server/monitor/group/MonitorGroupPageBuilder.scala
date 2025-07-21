@@ -17,7 +17,7 @@ class MonitorGroupPageBuilder(
 ) {
 
   def build(groupName: String): Option[MonitorGroupPage] = {
-    val admin = monitorUserRepository.isAdminUser(RequestContext.user)
+    val adminUser = monitorUserRepository.isAdminUser(RequestContext.user)
     monitorGroupRepository.groupByName(groupName).map { group =>
       val routeDetails = monitorRouteRepository.groupRouteDetails(group._id)
       val sortedRouteDetails = NaturalSorting.sortBy(routeDetails)(s => s"${s.name}-")
@@ -33,10 +33,10 @@ class MonitorGroupPageBuilder(
       }
 
       MonitorGroupPage(
+        adminUser,
         group._id.oid,
         groupName,
         group.description,
-        admin,
         bounds,
         relationIds,
         sortedRouteDetails.zipWithIndex.map { case (route, rowIndex) =>

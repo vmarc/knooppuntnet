@@ -19,13 +19,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
 
     @if (service.changesState(); as state) {
       <ui-page>
-        <ui-monitor-route-page-header
-          pageName="changes"
-          [groupName]="state.groupName"
-          [routeName]="state.routeName"
-          [routeDescription]="state.routeDescription"
-          [memberCount]="999"
-        />
+        <ui-monitor-route-page-header pageName="changes" [summary]="undefined" />
 
         @if (state.response; as response) {
           <div class="kpn-spacer-above">

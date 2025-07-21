@@ -42,5 +42,5 @@ export class PageMenuOptionComponent {
       }
     | undefined
   >();
-  readonly elementCount = input<number>();
+  readonly elementCount = input<number | undefined>();
 }

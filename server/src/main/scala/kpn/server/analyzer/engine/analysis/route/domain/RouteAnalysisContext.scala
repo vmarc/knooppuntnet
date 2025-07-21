@@ -6,8 +6,8 @@ import kpn.api.common.route.ParentRoute
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.common.route.RouteStructureRow
+import kpn.api.common.route.SuperSegment
 import kpn.core.doc.BaseRouteDoc
-import kpn.core.doc.SuperSegment
 import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 case class RouteAnalysisContext(

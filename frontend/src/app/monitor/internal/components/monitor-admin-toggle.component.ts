@@ -13,7 +13,7 @@ import { MonitorService } from '../monitor.service';
     <div class="toggle">
       <nz-switch
         nzSize="small"
-        [ngModel]="admin()"
+        [ngModel]="adminEnabled()"
         (ngModelChange)="adminChanged($event)"
         [nzDisabled]="adminDisabled()"
       />
@@ -36,8 +36,8 @@ import { MonitorService } from '../monitor.service';
 })
 export class MonitorAdminToggleComponent {
   private readonly service = inject(MonitorService);
-  readonly admin = this.service.admin;
-  readonly adminDisabled = computed(() => this.service.adminRole() === false);
+  readonly adminEnabled = this.service.adminEnabled;
+  readonly adminDisabled = computed(() => this.service.adminUser() === false);
 
   adminChanged(checked: boolean): void {
     this.service.setAdmin(checked);

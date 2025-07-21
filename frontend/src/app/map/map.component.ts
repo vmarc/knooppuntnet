@@ -57,7 +57,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private readonly mapService = inject(MapService);
   private readonly poiService = inject(PoiService);
   private readonly overlay = inject(Overlay);
-  private readonly elementRef = viewChild<ElementRef<HTMLDivElement>>('overlayOrigin');
+  private readonly elementRef = viewChild<ElementRef>('overlayOrigin');
   portal = viewChild(CdkPortal);
   overlayRef: OverlayRef;
   positionStrategy: FlexibleConnectedPositionStrategy;

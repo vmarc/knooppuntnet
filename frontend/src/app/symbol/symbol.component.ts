@@ -57,7 +57,7 @@ export class SymbolComponent implements OnInit, AfterViewInit {
   readonly width = input(50);
   readonly height = input(50);
   readonly grid = input(false);
-  private readonly canvas = viewChild<ElementRef<HTMLCanvasElement>>('symbolCanvas');
+  private readonly canvas = viewChild<ElementRef>('symbolCanvas');
 
   box = '';
   symbolDescription: SymbolDescription;

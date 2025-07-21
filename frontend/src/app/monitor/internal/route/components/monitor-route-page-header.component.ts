@@ -3,7 +3,7 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatMenuModule } from '@angular/material/menu';
+import { MonitorRouteSummary } from '@api/common/monitor/monitor-route-summary';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
@@ -24,7 +24,7 @@ import { MonitorTranslations } from '../../components/monitor-translations';
 
     <ui-page-menu>
       <ui-page-menu-option
-        [link]="routeDetailLink()"
+        [link]="routeLink()"
         [active]="pageName() === 'details'"
         [state]="routeLinkState()"
         i18n="@@monitor.route.menu.details"
@@ -36,9 +36,27 @@ import { MonitorTranslations } from '../../components/monitor-translations';
         [active]="pageName() === 'members'"
         [state]="routeLinkState()"
         i18n="@@monitor.route.menu.members"
-        [elementCount]="memberCount()"
+        [elementCount]="summary()?.memberCount"
       >
         Members
+      </ui-page-menu-option>
+      <ui-page-menu-option
+        [link]="routeSegmentsLink()"
+        [active]="pageName() === 'segments'"
+        [state]="routeLinkState()"
+        i18n="@@monitor.route.menu.segments"
+        [elementCount]="summary()?.segmentCount"
+      >
+        Segments
+      </ui-page-menu-option>
+      <ui-page-menu-option
+        [link]="routeDeviationsLink()"
+        [active]="pageName() === 'deviations'"
+        [state]="routeLinkState()"
+        i18n="@@monitor.route.menu.deviations"
+        [elementCount]="summary()?.deviationCount"
+      >
+        Deviations
       </ui-page-menu-option>
     </ui-page-menu>
 
@@ -47,7 +65,6 @@ import { MonitorTranslations } from '../../components/monitor-translations';
   imports: [
     BreadcrumbComponent,
     ErrorComponent,
-    MatMenuModule,
     PageHeaderComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
@@ -55,42 +72,39 @@ import { MonitorTranslations } from '../../components/monitor-translations';
 })
 export class MonitorRoutePageHeaderComponent {
   readonly pageName = input.required<string>();
-  readonly groupName = input.required<string>();
-  readonly routeName = input.required<string>();
-  readonly routeDescription = input.required<string>();
-  readonly memberCount = input.required<number>();
+  readonly summary = input.required<MonitorRouteSummary>();
 
   protected readonly pageTitle = computed(() => {
     const monitor = MonitorTranslations.get('monitor');
-    return `${this.routeName()} | ${this.groupName()} | ${monitor}`;
+    return `${this.summary().routeName} | ${this.summary().groupName} | ${monitor}`;
   });
 
   protected readonly pageHeader = computed(() => {
-    return `${this.routeName()}: ${this.routeDescription()}`;
+    return `${this.summary().routeName}: ${this.summary().routeDescription}`;
   });
 
   protected readonly breadcrumbItems: Signal<BreadcrumbItem[]> = computed(() => {
     return [
       Breadcrumbs.home,
       Breadcrumbs.monitor,
-      { routerLink: this.groupLink(), label: this.groupName() },
+      { routerLink: this.groupLink(), label: this.summary().groupName },
       { label: Breadcrumbs.monitorRouteLabel },
     ];
   });
 
-  groupLink(): string {
-    return `/monitor/groups/${this.groupName()}`;
-  }
+  protected readonly groupLink = computed(() => `/monitor/groups/${this.summary().groupName}`);
 
-  routeDetailLink(): string {
-    return `/monitor/groups/${this.groupName()}/routes/${this.routeName()}`;
-  }
+  protected readonly routeLink = computed(
+    () => `${this.groupLink()}/routes/${this.summary().routeName}`
+  );
 
-  routeMembersLink(): string {
-    return `/monitor/groups/${this.groupName()}/routes/${this.routeName()}/members`;
-  }
+  protected readonly routeMembersLink = computed(() => `${this.routeLink()}/members`);
+
+  protected readonly routeSegmentsLink = computed(() => `${this.routeLink()}/segments`);
+
+  protected readonly routeDeviationsLink = computed(() => `${this.routeLink()}/deviations`);
 
   routeLinkState() {
-    return { description: this.routeDescription() };
+    return { description: this.summary().routeDescription };
   }
 }

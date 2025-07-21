@@ -5,10 +5,10 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.common.route.SuperSegment
 import kpn.api.custom.Tags
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
-import kpn.core.doc.SuperSegment
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteSegment

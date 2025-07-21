@@ -4,6 +4,7 @@ import kpn.api.common.Language
 import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteMembersPage
+import kpn.api.common.monitor.MonitorRouteSummary
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.StructureRow
 import kpn.core.doc.RouteDoc
@@ -29,13 +30,13 @@ class MonitorRouteMembersPageBuilder(
 ) {
 
   def build(language: Language, groupName: String, routeName: String): Option[MonitorRouteMembersPage] = {
-    val admin = monitorUserRepository.isAdminUser(RequestContext.user)
+    val adminUser = monitorUserRepository.isAdminUser(RequestContext.user)
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).flatMap { monitorRoute =>
         monitorRoute.relationId.flatMap(routeRepository.findRouteById).map { routeDoc =>
           val references = monitorRouteRepository.references(monitorRoute._id) // TODO limit query to only the info that is needed
           val states = monitorRouteRepository.states(monitorRoute._id) // TODO limit query to only the info that is needed: deviationCount, deviationDistance
-          buildPage(language, admin, group, monitorRoute, routeDoc, references, states)
+          buildPage(language, adminUser, group, monitorRoute, routeDoc, references, states)
         }
       }
     }
@@ -43,7 +44,7 @@ class MonitorRouteMembersPageBuilder(
 
   private def buildPage(
     language: Language,
-    admin: Boolean,
+    adminUser: Boolean,
     group: MonitorGroup,
     monitorRoute: MonitorRoute,
     routeDoc: RouteDoc,
@@ -58,19 +59,25 @@ class MonitorRouteMembersPageBuilder(
       states
     )
 
-    MonitorRouteMembersPage(
-      admin,
+    val summary = MonitorRouteSummary(
+      adminUser,
       group.name,
-      group.description,
       monitorRoute.name,
       monitorRoute.description,
       monitorRoute._id.oid,
       monitorRoute.relationId,
       monitorRoute.relationIds,
-      monitorRoute.referenceType,
-      routeDoc.summary.routeTypes,
-      structureRows,
+      memberCount = structureRows.length,
+      segmentCount = monitorRoute.osmSegmentCount,
+      deviationCount = monitorRoute.deviationCount,
       monitorRoute.bounds,
+    )
+
+    MonitorRouteMembersPage(
+      summary,
+      referenceType = monitorRoute.referenceType,
+      routeTypes = routeDoc.summary.routeTypes,
+      structureRows,
     )
   }
 

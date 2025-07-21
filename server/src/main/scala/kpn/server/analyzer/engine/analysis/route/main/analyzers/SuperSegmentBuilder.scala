@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
-import kpn.core.doc.SuperSegment
-import kpn.core.doc.SuperSubSegment
-import kpn.core.doc.SuperSubSegmentInfo
+import kpn.api.common.route.SuperSegment
+import kpn.api.common.route.SuperSubSegment
+import kpn.api.common.route.SuperSubSegmentInfo
 
 import scala.annotation.tailrec
 

@@ -12,9 +12,11 @@ import kpn.api.common.monitor.MonitorRouteAddPage
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
+import kpn.api.common.monitor.MonitorRouteDeviationsPage
 import kpn.api.common.monitor.MonitorRouteGpxPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMembersPage
+import kpn.api.common.monitor.MonitorRouteSegmentsPage
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
@@ -30,9 +32,11 @@ import kpn.server.monitor.repository.MonitorUserRepository
 import kpn.server.monitor.route.MonitorRouteChangePageBuilder
 import kpn.server.monitor.route.MonitorRouteChangesPageBuilder
 import kpn.server.monitor.route.MonitorRouteDetailsPageBuilder
+import kpn.server.monitor.route.MonitorRouteDeviationsPageBuilder
 import kpn.server.monitor.route.MonitorRouteGpxPageBuilder
 import kpn.server.monitor.route.MonitorRouteInfoBuilder
 import kpn.server.monitor.route.MonitorRouteMembersPageBuilder
+import kpn.server.monitor.route.MonitorRouteSegmentsPageBuilder
 import kpn.server.monitor.route.MonitorRouteUpdatePageBuilder
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.stereotype.Component
@@ -46,6 +50,8 @@ class MonitorFacadeImpl(
   monitorRouteUpdatePageBuilder: MonitorRouteUpdatePageBuilder,
   monitorRouteDetailsPageBuilder: MonitorRouteDetailsPageBuilder,
   monitorRouteMembersPageBuilder: MonitorRouteMembersPageBuilder,
+  monitorRouteSegmentsPageBuilder: MonitorRouteSegmentsPageBuilder,
+  monitorRouteDeviationsPageBuilder: MonitorRouteDeviationsPageBuilder,
   monitorRouteGpxPageBuilder: MonitorRouteGpxPageBuilder,
   monitorRouteChangesPageBuilder: MonitorRouteChangesPageBuilder,
   monitorRouteChangePageBuilder: MonitorRouteChangePageBuilder,
@@ -115,8 +121,22 @@ class MonitorFacadeImpl(
 
   override def routeMembers(language: Language, groupName: String, routeName: String): ApiResponse[MonitorRouteMembersPage] = {
     val args = s"groupName=$groupName, routeName=$routeName"
-    api.execute("monitor-route", args) {
+    api.execute("monitor-route-members", args) {
       reply(monitorRouteMembersPageBuilder.build(language, groupName, routeName))
+    }
+  }
+
+  override def routeSegments(language: Language, groupName: String, routeName: String): ApiResponse[MonitorRouteSegmentsPage] = {
+    val args = s"groupName=$groupName, routeName=$routeName"
+    api.execute("monitor-route-segments", args) {
+      reply(monitorRouteSegmentsPageBuilder.build(language, groupName, routeName))
+    }
+  }
+
+  override def routeDeviations(language: Language, groupName: String, routeName: String): ApiResponse[MonitorRouteDeviationsPage] = {
+    val args = s"groupName=$groupName, routeName=$routeName"
+    api.execute("monitor-route-deviations", args) {
+      reply(monitorRouteDeviationsPageBuilder.build(language, groupName, routeName))
     }
   }
 

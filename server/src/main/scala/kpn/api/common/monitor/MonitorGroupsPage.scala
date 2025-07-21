@@ -1,7 +1,7 @@
 package kpn.api.common.monitor
 
 case class MonitorGroupsPage(
-  adminRole: Boolean,
+  adminUser: Boolean,
   routeCount: Long,
   groups: Seq[MonitorGroupsPageGroup]
 )

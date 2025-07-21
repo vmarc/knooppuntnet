@@ -38,7 +38,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
             </div>
             @if (page.groups.length > 0) {
               <ui-monitor-group-list
-                [admin]="service.admin()"
+                [admin]="service.adminEnabled()"
                 [groups]="page.groups"
                 (groupSelectChange)="selectGroup($event)"
               />
@@ -46,7 +46,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
               <div id="no-groups" i18n="@@monitor.groups.no-groups">No route groups</div>
             }
 
-            @if (service.admin()) {
+            @if (service.adminEnabled()) {
               <div>
                 <button
                   nz-button

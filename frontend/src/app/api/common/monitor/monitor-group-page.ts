@@ -4,10 +4,10 @@ import { Bounds } from '@api/common/bounds';
 import { MonitorRouteDetail } from './monitor-route-detail';
 
 export interface MonitorGroupPage {
+  readonly adminUser: boolean;
   readonly groupId: string;
   readonly groupName: string;
   readonly groupDescription: string;
-  readonly adminRole: boolean;
   readonly bounds?: Bounds;
   readonly relationIds: number[];
   readonly routes: MonitorRouteDetail[];

@@ -1,4 +1,4 @@
-package kpn.core.doc
+package kpn.api.common.route
 
 case class SuperSubSegment(info: SuperSubSegmentInfo, reversed: Boolean = false) {
 
