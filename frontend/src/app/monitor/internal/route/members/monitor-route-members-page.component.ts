@@ -15,7 +15,7 @@ import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-pag
   template: `
     @if (service.pageState(); as state) {
       <ui-page>
-        <ui-monitor-route-page-header pageName="members" [summary]="state.summary" />
+        <ui-monitor-route-page-header pageName="members" />
 
         <ui-monitor-admin-toggle />
       </ui-page>

@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MapService } from '@app/map/map.service';
+import { MonitorRouteService } from '@app/monitor/internal/route/monitor-route.service';
 import { RouteDetailsService } from '@app/route/route-details-service';
 import { NavService } from '@app/shared/components/nav.service';
 import { State } from '@app/state/state';
@@ -15,6 +16,7 @@ export class MonitorRouteDetailsPageService {
   private readonly nav = inject(NavService);
   private readonly routeDetailsService = inject(RouteDetailsService);
   private readonly monitorService = inject(MonitorService);
+  private readonly monitorRouteService = inject(MonitorRouteService);
   private readonly mapService = inject(MapService);
 
   private readonly _pageState = signal<MonitorRouteDetailsPageState>(initialState);
@@ -22,31 +24,15 @@ export class MonitorRouteDetailsPageService {
   readonly admin = this.monitorService.adminEnabled;
 
   constructor() {
-    const groupName = this.nav.param('groupName');
-    const routeName = this.nav.param('routeName');
-    const routeDescription = this.nav.state('description');
-
-    const summary = {
-      adminUser: false,
-      groupName: groupName,
-      routeName: routeName,
-      routeDescription: routeDescription,
-      routeId: '',
-      relationId: 0,
-      relationIds: [],
-      memberCount: 0,
-      segmentCount: 0,
-      deviationCount: 0,
-      bounds: undefined,
-    };
-
-    this._pageState.update((state) => ({
-      ...state,
-      summary,
-    }));
+    this.monitorRouteService.initPage(this.nav);
+    const groupName = this.monitorRouteService.summary().groupName;
+    const routeName = this.monitorRouteService.summary().routeName;
     this.monitorService.route(groupName, routeName).subscribe((response) => {
       const page = response.result;
       const summary = page?.summary ?? this.pageState().summary;
+      if (summary) {
+        this.monitorRouteService.update(summary);
+      }
       this.routeDetailsService.update(groupName, routeName, response?.result?.referenceType);
       this._pageState.update((state) => ({
         ...state,

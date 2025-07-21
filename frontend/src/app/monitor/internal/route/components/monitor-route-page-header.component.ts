@@ -1,9 +1,10 @@
+import { inject } from '@angular/core';
 import { Signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MonitorRouteSummary } from '@api/common/monitor/monitor-route-summary';
+import { MonitorRouteService } from '@app/monitor/internal/route/monitor-route.service';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
@@ -36,7 +37,7 @@ import { MonitorTranslations } from '../../components/monitor-translations';
         [active]="pageName() === 'members'"
         [state]="routeLinkState()"
         i18n="@@monitor.route.menu.members"
-        [elementCount]="summary()?.memberCount"
+        [elementCount]="memberCount()"
       >
         Members
       </ui-page-menu-option>
@@ -45,7 +46,7 @@ import { MonitorTranslations } from '../../components/monitor-translations';
         [active]="pageName() === 'segments'"
         [state]="routeLinkState()"
         i18n="@@monitor.route.menu.segments"
-        [elementCount]="summary()?.segmentCount"
+        [elementCount]="segmentCount()"
       >
         Segments
       </ui-page-menu-option>
@@ -54,7 +55,7 @@ import { MonitorTranslations } from '../../components/monitor-translations';
         [active]="pageName() === 'deviations'"
         [state]="routeLinkState()"
         i18n="@@monitor.route.menu.deviations"
-        [elementCount]="summary()?.deviationCount"
+        [elementCount]="deviationCount()"
       >
         Deviations
       </ui-page-menu-option>
@@ -72,7 +73,9 @@ import { MonitorTranslations } from '../../components/monitor-translations';
 })
 export class MonitorRoutePageHeaderComponent {
   readonly pageName = input.required<string>();
-  readonly summary = input.required<MonitorRouteSummary>();
+
+  private readonly monitorRouteService = inject(MonitorRouteService);
+  private readonly summary = computed(() => this.monitorRouteService.summary());
 
   protected readonly pageTitle = computed(() => {
     const monitor = MonitorTranslations.get('monitor');
@@ -83,6 +86,18 @@ export class MonitorRoutePageHeaderComponent {
     return `${this.summary().routeName}: ${this.summary().routeDescription}`;
   });
 
+  protected readonly memberCount = computed(() => this.summary().memberCount);
+  protected readonly segmentCount = computed(() => this.summary().segmentCount);
+  protected readonly deviationCount = computed(() => this.summary().deviationCount);
+
+  protected readonly groupLink = computed(() => `/monitor/groups/${this.summary().groupName}`);
+  protected readonly routeLink = computed(
+    () => `${this.groupLink()}/routes/${this.summary().routeName}`
+  );
+  protected readonly routeMembersLink = computed(() => `${this.routeLink()}/members`);
+  protected readonly routeSegmentsLink = computed(() => `${this.routeLink()}/segments`);
+  protected readonly routeDeviationsLink = computed(() => `${this.routeLink()}/deviations`);
+
   protected readonly breadcrumbItems: Signal<BreadcrumbItem[]> = computed(() => {
     return [
       Breadcrumbs.home,
@@ -91,18 +106,6 @@ export class MonitorRoutePageHeaderComponent {
       { label: Breadcrumbs.monitorRouteLabel },
     ];
   });
-
-  protected readonly groupLink = computed(() => `/monitor/groups/${this.summary().groupName}`);
-
-  protected readonly routeLink = computed(
-    () => `${this.groupLink()}/routes/${this.summary().routeName}`
-  );
-
-  protected readonly routeMembersLink = computed(() => `${this.routeLink()}/members`);
-
-  protected readonly routeSegmentsLink = computed(() => `${this.routeLink()}/segments`);
-
-  protected readonly routeDeviationsLink = computed(() => `${this.routeLink()}/deviations`);
 
   routeLinkState() {
     return { description: this.summary().routeDescription };

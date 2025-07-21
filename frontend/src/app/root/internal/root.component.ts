@@ -126,7 +126,7 @@ export class RootPageComponent implements AfterViewInit {
   readonly hideText = computed(() => this.state.page.activePanel() !== 'text');
   readonly hideMap = computed(() => this.state.page.activePanel() !== 'map');
 
-  private readonly leftPanel = viewChild<ElementRef<HTMLDivElement>>('leftPanel');
+  private readonly leftPanel = viewChild<ElementRef>('leftPanel');
 
   ngAfterViewInit(): void {
     const panelWidth = this.leftPanel()?.nativeElement.clientWidth;

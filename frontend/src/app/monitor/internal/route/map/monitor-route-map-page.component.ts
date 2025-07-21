@@ -18,7 +18,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   template: `
     @if (service.state(); as state) {
       <ui-old-page [showFooter]="false">
-        <ui-monitor-route-page-header pageName="map" [summary]="undefined" />
+        <ui-monitor-route-page-header pageName="map" />
 
         @if (stateService.page(); as page) {
           @if (!canDisplayMap(page)) {

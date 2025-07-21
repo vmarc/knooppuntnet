@@ -22,7 +22,7 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
     <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (service.pageState(); as state) {
       <ui-page>
-        <ui-monitor-route-page-header pageName="details" [summary]="state.summary" />
+        <ui-monitor-route-page-header pageName="details" />
 
         <ui-monitor-admin-toggle />
       </ui-page>

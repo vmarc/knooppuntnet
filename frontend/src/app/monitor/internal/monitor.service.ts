@@ -133,7 +133,7 @@ export class MonitorService {
     groupName: string,
     routeName: string
   ): Observable<ApiResponse<MonitorRouteSegmentsPage>> {
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/members`;
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/segments`;
     return this.http
       .get<ApiResponse<MonitorRouteSegmentsPage>>(url, { params: this.languageParams() })
       .pipe(
@@ -149,7 +149,7 @@ export class MonitorService {
     groupName: string,
     routeName: string
   ): Observable<ApiResponse<MonitorRouteDeviationsPage>> {
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/members`;
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/deviations`;
     return this.http
       .get<ApiResponse<MonitorRouteDeviationsPage>>(url, { params: this.languageParams() })
       .pipe(
