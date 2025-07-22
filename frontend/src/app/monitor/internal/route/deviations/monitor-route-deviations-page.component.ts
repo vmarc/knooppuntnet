@@ -13,9 +13,9 @@ import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-pag
   selector: 'ui-monitor-route-deviations-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (service.response(); as response) {
-      <ui-page>
-        <ui-monitor-route-page-header pageName="deviations" />
+    <ui-page>
+      <ui-monitor-route-page-header pageName="deviations" />
+      @if (service.response(); as response) {
         @if (!response.result) {
           <div class="kpn-error" i18n="@@monitor.route.details.not-found">Route not found</div>
         }
@@ -25,8 +25,8 @@ import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-pag
             (selectionChange)="selectDeviation($event)"
           />
         }
-      </ui-page>
-    }
+      }
+    </ui-page>
   `,
   providers: [MonitorRouteDeviationsPageService, NavService],
   imports: [MonitorRoutePageHeaderComponent, PageComponent, MonitorRouteDeviationListComponent],

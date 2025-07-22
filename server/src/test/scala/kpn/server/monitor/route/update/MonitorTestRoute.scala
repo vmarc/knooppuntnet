@@ -68,7 +68,9 @@ case class MonitorTestRoute(
       routeIds = Seq(relationId),
       superSegments = Seq(
         SuperSegment(
-          Seq.empty
+          id = 1,
+          bounds = None,
+          segments = Seq.empty
         )
       ),
       bounds = Some(bounds)

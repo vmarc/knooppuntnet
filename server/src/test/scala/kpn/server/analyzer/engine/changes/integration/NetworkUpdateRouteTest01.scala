@@ -315,6 +315,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         ),
         superSegments = Seq(
           SuperSegment(
+            id = 1,
+            bounds = Some(Bounds()),
             segments = Seq(
               SuperSubSegment(
                 SuperSubSegmentInfo(

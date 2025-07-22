@@ -268,7 +268,9 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
         routeIds = Seq(route1.relationId),
         superSegments = Seq(
           SuperSegment(
-            Seq.empty
+            id = 1,
+            bounds = None,
+            segments = Seq.empty
           )
         )
       )
@@ -286,7 +288,9 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
         routeIds = Seq(route2.relationId),
         superSegments = Seq(
           SuperSegment(
-            Seq.empty
+            id = 1,
+            bounds = None,
+            segments = Seq.empty
           )
         )
       )

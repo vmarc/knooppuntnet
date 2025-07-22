@@ -181,7 +181,9 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
         routeIds = Seq(route1.relationId),
         superSegments = Seq(
           SuperSegment(
-            Seq.empty
+            id = 1,
+            bounds = None,
+            segments = Seq.empty
           )
         ),
         bounds = Some(route1.bounds)

@@ -18,48 +18,53 @@ import { MonitorTranslations } from '../../components/monitor-translations';
   selector: 'ui-monitor-route-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-breadcrumb [breadcrumbItems]="breadcrumbItems()" />
-    <ui-page-header [pageTitle]="pageTitle()">
-      {{ pageHeader() }}
-    </ui-page-header>
+    @if (summary()) {
+      <ui-breadcrumb [breadcrumbItems]="breadcrumbItems()" />
+      <ui-page-header [pageTitle]="pageTitle()">
+        {{ pageHeader() }}
+      </ui-page-header>
 
-    <ui-page-menu>
-      <ui-page-menu-option
-        [link]="routeLink()"
-        [active]="pageName() === 'details'"
-        [state]="routeLinkState()"
-        i18n="@@monitor.route.menu.details"
-      >
-        Details
-      </ui-page-menu-option>
-      <ui-page-menu-option
-        [link]="routeMembersLink()"
-        [active]="pageName() === 'members'"
-        [state]="routeLinkState()"
-        i18n="@@monitor.route.menu.members"
-        [elementCount]="memberCount()"
-      >
-        Members
-      </ui-page-menu-option>
-      <ui-page-menu-option
-        [link]="routeSegmentsLink()"
-        [active]="pageName() === 'segments'"
-        [state]="routeLinkState()"
-        i18n="@@monitor.route.menu.segments"
-        [elementCount]="segmentCount()"
-      >
-        Segments
-      </ui-page-menu-option>
-      <ui-page-menu-option
-        [link]="routeDeviationsLink()"
-        [active]="pageName() === 'deviations'"
-        [state]="routeLinkState()"
-        i18n="@@monitor.route.menu.deviations"
-        [elementCount]="deviationCount()"
-      >
-        Deviations
-      </ui-page-menu-option>
-    </ui-page-menu>
+      <ui-page-menu>
+        <ui-page-menu-option
+          [link]="routeLink()"
+          [active]="pageName() === 'details'"
+          [state]="routeLinkState()"
+          i18n="@@monitor.route.menu.details"
+        >
+          Details
+        </ui-page-menu-option>
+
+        <ui-page-menu-option
+          [link]="routeMembersLink()"
+          [active]="pageName() === 'members'"
+          [state]="routeLinkState()"
+          i18n="@@monitor.route.menu.members"
+          [elementCount]="memberCount()"
+        >
+          Members
+        </ui-page-menu-option>
+
+        <ui-page-menu-option
+          [link]="routeSegmentsLink()"
+          [active]="pageName() === 'segments'"
+          [state]="routeLinkState()"
+          i18n="@@monitor.route.menu.segments"
+          [elementCount]="segmentCount()"
+        >
+          Segments
+        </ui-page-menu-option>
+
+        <ui-page-menu-option
+          [link]="routeDeviationsLink()"
+          [active]="pageName() === 'deviations'"
+          [state]="routeLinkState()"
+          i18n="@@monitor.route.menu.deviations"
+          [elementCount]="deviationCount()"
+        >
+          Deviations
+        </ui-page-menu-option>
+      </ui-page-menu>
+    }
 
     <ui-error />
   `,
@@ -72,10 +77,11 @@ import { MonitorTranslations } from '../../components/monitor-translations';
   ],
 })
 export class MonitorRoutePageHeaderComponent {
+  private readonly monitorRouteService = inject(MonitorRouteService);
+
   readonly pageName = input.required<string>();
 
-  private readonly monitorRouteService = inject(MonitorRouteService);
-  private readonly summary = computed(() => this.monitorRouteService.summary());
+  protected readonly summary = computed(() => this.monitorRouteService.summary());
 
   protected readonly pageTitle = computed(() => {
     const monitor = MonitorTranslations.get('monitor');

@@ -22,6 +22,8 @@ class SuperSegmentBuilderTest extends UnitTest {
       SuperSegmentBuilder.build(segments),
       Seq(
         SuperSegment(
+          1,
+          Some(Bounds(1, 1, 1, 1)),
           Seq(
             SuperSubSegment(info),
           )
@@ -41,6 +43,8 @@ class SuperSegmentBuilderTest extends UnitTest {
       SuperSegmentBuilder.build(segments),
       Seq(
         SuperSegment(
+          1,
+          Some(Bounds(1, 1, 2, 2)),
           Seq(
             SuperSubSegment(info1),
             SuperSubSegment(info2),
@@ -62,6 +66,8 @@ class SuperSegmentBuilderTest extends UnitTest {
       SuperSegmentBuilder.build(segments),
       Seq(
         SuperSegment(
+          1,
+          Some(Bounds(1, 1, 3, 3)),
           Seq(
             SuperSubSegment(info1),
             SuperSubSegment(info3),
@@ -85,6 +91,8 @@ class SuperSegmentBuilderTest extends UnitTest {
       SuperSegmentBuilder.build(segments),
       Seq(
         SuperSegment(
+          1,
+          Some(Bounds(1, 1, 4, 4)),
           Seq(
             SuperSubSegment(info1),
             SuperSubSegment(info3, reversed = true),
@@ -92,6 +100,8 @@ class SuperSegmentBuilderTest extends UnitTest {
           )
         ),
         SuperSegment(
+          2,
+          Some(Bounds(2, 2, 2, 2)),
           Seq(
             SuperSubSegment(info2)
           )
@@ -109,8 +119,20 @@ class SuperSegmentBuilderTest extends UnitTest {
     assertEqual(
       SuperSegmentBuilder.build(segments),
       Seq(
-        SuperSegment(Seq(SuperSubSegment(info1))),
-        SuperSegment(Seq(SuperSubSegment(info2)))
+        SuperSegment(
+          1,
+          Some(Bounds(1, 1, 1, 1)),
+          Seq(
+            SuperSubSegment(info1)
+          )
+        ),
+        SuperSegment(
+          2,
+          Some(Bounds(2, 2, 2, 2)),
+          Seq(
+            SuperSubSegment(info2)
+          )
+        )
       )
     )
   }
@@ -126,6 +148,8 @@ class SuperSegmentBuilderTest extends UnitTest {
       SuperSegmentBuilder.build(segments),
       Seq(
         SuperSegment(
+          1,
+          Some(Bounds(1, 1, 3, 3)),
           Seq(
             SuperSubSegment(info1),
             SuperSubSegment(info2),
@@ -147,12 +171,16 @@ class SuperSegmentBuilderTest extends UnitTest {
       SuperSegmentBuilder.build(segments),
       Seq(
         SuperSegment(
+          1,
+          Some(Bounds(1, 1, 2, 2)),
           Seq(
             SuperSubSegment(info1),
             SuperSubSegment(info2),
           )
         ),
         SuperSegment(
+          2,
+          Some(Bounds(3, 3, 3, 3)),
           Seq(
             SuperSubSegment(info3),
           )
@@ -172,12 +200,16 @@ class SuperSegmentBuilderTest extends UnitTest {
       SuperSegmentBuilder.build(segments),
       Seq(
         SuperSegment(
+          1,
+          Some(Bounds(1, 1, 2, 2)),
           Seq(
             SuperSubSegment(info1),
             SuperSubSegment(info2)
           )
         ),
         SuperSegment(
+          2,
+          Some(Bounds(3, 3, 3, 3)),
           Seq(
             SuperSubSegment(info3)
           )

@@ -199,7 +199,9 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         routeIds = Seq(route1.relationId),
         superSegments = Seq(
           SuperSegment(
-            Seq.empty
+            id = 1,
+            bounds = None,
+            segments = Seq.empty
           )
         ),
       )

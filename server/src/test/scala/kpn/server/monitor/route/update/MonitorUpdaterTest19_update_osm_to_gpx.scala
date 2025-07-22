@@ -325,7 +325,9 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         routeIds = Seq(route1.relationId),
         superSegments = Seq(
           SuperSegment(
-            Seq.empty
+            id = 1,
+            bounds = None,
+            segments = Seq.empty
           )
         )
       )

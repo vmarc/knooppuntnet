@@ -1,4 +1,3 @@
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -9,7 +8,6 @@ import { StructureRow } from '@api/common/route/structure-row';
 import { RouteMemberNameComponent } from '@app/route/internal/components/structure/route-member-name.component';
 import { RouteStructureDeviationsComponent } from '@app/route/internal/components/structure/route-structure-deviations.component';
 import { RouteStructureReferenceComponent } from '@app/route/internal/components/structure/route-structure-reference.component';
-import { RouteDetailsService } from '@app/route/route-details-service';
 import { DayPipe } from '@app/shared/components/format/day.pipe';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { IconWarningComponent } from '@app/shared/components/icon/icon-warning.component';
@@ -177,9 +175,7 @@ export class RouteStructureRowComponent {
   readonly routeType = input.required<RouteType>();
   readonly structureRow = input.required<StructureRow>();
 
-  private readonly routeDetailsService = inject(RouteDetailsService);
-
   hasReference(): boolean {
-    return this.routeDetailsService.referenceType() === 'multi-gpx';
+    return true; // this.routeDetailsService.referenceType() === 'multi-gpx';
   }
 }

@@ -10,12 +10,7 @@ import { MatRipple } from '@angular/material/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (clickable()) {
-      <div
-        class="kpn-list-item"
-        [ngClass]="{ 'kpn-list-item-selected': selected() }"
-        matRipple
-        matRippleColor="lightgray"
-      >
+      <div class="kpn-list-item" [ngClass]="{ 'kpn-list-item-selected': selected() }" matRipple>
         <ng-container *ngTemplateOutlet="item" />
       </div>
     } @else {

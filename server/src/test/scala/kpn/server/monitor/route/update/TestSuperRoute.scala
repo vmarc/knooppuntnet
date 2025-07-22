@@ -77,6 +77,8 @@ object TestSuperRoute {
     superDistance = subRoute11.meters + subRoute12.meters,
     superSegments = Seq(
       SuperSegment(
+        1,
+        bounds = None,
         Seq(
           SuperSubSegment(
             SuperSubSegmentInfo(

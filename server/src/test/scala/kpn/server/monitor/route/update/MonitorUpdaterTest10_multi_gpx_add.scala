@@ -437,7 +437,9 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         routeIds = Seq(MainrelationId, subRoute11.relationId, subRoute12.relationId),
         superSegments = Seq(
           SuperSegment(
-            Seq.empty
+            id = 1,
+            bounds = None,
+            segments = Seq.empty
           )
         ),
         bounds = Some(mergeBounds(Seq(subRoute11.bounds, subRoute12.bounds))),

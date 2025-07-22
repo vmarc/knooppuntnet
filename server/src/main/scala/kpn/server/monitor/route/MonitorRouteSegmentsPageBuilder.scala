@@ -59,7 +59,8 @@ class MonitorRouteSegmentsPageBuilder(
       routeDoc.summary.meters,
       routeDoc.segments,
       routeDoc.superDistance,
-      routeDoc.superSegments
+      // TODO redesign - remove temporary code to assign super segment ids
+      routeDoc.superSegments.zipWithIndex.map { case (segment, index) => segment.copy(id = index + 1) }
     )
   }
 }

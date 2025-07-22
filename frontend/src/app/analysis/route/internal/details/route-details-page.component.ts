@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { RouteDetailsPageContentsComponent } from '@app/analysis/route/internal/details/components/route-details-page-contents.component';
-import { RouteDetailsService } from '@app/route/route-details-service';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
@@ -27,7 +26,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
       }
     </ui-page>
   `,
-  providers: [RouteDetailsService, RouteDetailsPageService, RouterService],
+  providers: [RouteDetailsPageService, RouterService],
   imports: [PageComponent, RoutePageHeaderComponent, RouteDetailsPageContentsComponent],
 })
 export class RouteDetailsPageComponent implements OnInit {

@@ -296,7 +296,9 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         ),
         superSegments = Seq(
           SuperSegment(
-            Seq.empty
+            id = 1,
+            bounds = None,
+            segments = Seq.empty
           )
         )
       )
