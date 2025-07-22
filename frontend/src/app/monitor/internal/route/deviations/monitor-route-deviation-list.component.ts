@@ -23,12 +23,16 @@ import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 
     <ui-list [filter]="false">
       @for (deviation of deviations(); track deviation.id) {
-        <ui-list-item [clickable]="true" (click)="selectDeviation(deviation)">
-          <ui-monitor-route-deviation-list-item
-            [deviation]="deviation"
-            (popup)="popupMenu($event.event, $event.deviation, menu)"
-          />
-        </ui-list-item>
+        @defer (on viewport) {
+          <ui-list-item [clickable]="true" (click)="selectDeviation(deviation)">
+            <ui-monitor-route-deviation-list-item
+              [deviation]="deviation"
+              (popup)="popupMenu($event.event, $event.deviation, menu)"
+            />
+          </ui-list-item>
+        } @placeholder {
+          <div class="deviation-placeholder" aria-hidden="true"></div>
+        }
       }
     </ui-list>
 

@@ -6,6 +6,7 @@ import kpn.core.util.Log
 import kpn.database.actions.locations.MongoQueryLocationFactCount.log
 import kpn.database.base.CountResult
 import kpn.database.base.Database
+import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
@@ -78,7 +79,7 @@ class MongoQueryLocationFactCount(database: Database) {
       project(
         fields(
           excludeId(),
-          BsonDocument("""{"factCount": { "$size": "$facts" }}""")
+          arraySize("factCount", "$facts")
         )
       ),
       group(

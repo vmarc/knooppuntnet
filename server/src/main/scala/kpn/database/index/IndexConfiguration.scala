@@ -381,16 +381,9 @@ class IndexConfiguration(database: Database) {
     Seq(
       Index(
         database.monitorStates,
-        "routeId-timestamp",
-        Indexes.compoundIndex(
-          Indexes.ascending(
-            "routeId",
-          ),
-          Indexes.descending(
-            "timestamp"
-          )
-        )
-      ),
+        "routeId",
+        "routeId"
+      )
     )
   }
 

@@ -4,13 +4,17 @@ import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
+import kpn.api.common.monitor.MonitorRouteDeviationInfo
 import kpn.core.util.Log
+import kpn.database.actions.monitor.MongoQueryMonitorDeviations
 import kpn.database.actions.monitor.MongoQueryMonitorGroupRouteInfos
+import kpn.database.actions.monitor.MongoQueryMonitorMemberCount
 import kpn.database.actions.monitor.MongoQueryMonitorReferenceTileIds
 import kpn.database.actions.monitor.MongoQueryMonitorReferenceTiles
 import kpn.database.actions.monitor.MongoQueryMonitorStateTileIds
 import kpn.database.actions.monitor.MongoQueryMonitorStateTiles
 import kpn.database.base.Database
+import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.MongoProjections.objectIdToString
 import kpn.database.base.NameRow
 import kpn.database.base.ObjectIdId
@@ -319,7 +323,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         fields(
           excludeId(),
           computed("deviationDistance", Document("""{ $sum: "$deviations.meters" }""")),
-          computed("deviationCount", Document("""{ $size: "$deviations" }""")),
+          arraySize("deviationCount", "$deviations"),
           include("wayCount"),
           include("osmDistance"),
         )
@@ -346,7 +350,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
           excludeId(),
           include("relationId"),
           computed("deviationDistance", Document("""{ $sum: "$deviations.meters" }""")),
-          computed("deviationCount", Document("""{ $size: "$deviations" }""")),
+          arraySize("deviationCount", "$deviations")
         )
       ),
     )
@@ -609,5 +613,13 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
 
   override def referenceTiles(tileId: TileId): Seq[MonitorReferenceTileInfo] = {
     new MongoQueryMonitorReferenceTiles(database).execute(tileId)
+  }
+
+  override def routeDeviations(routeId: ObjectId): Seq[MonitorRouteDeviationInfo] = {
+    new MongoQueryMonitorDeviations(database).execute(routeId)
+  }
+
+  override def routeMemberCount(relationId: Long): Long = {
+    new MongoQueryMonitorMemberCount(database).execute(relationId)
   }
 }

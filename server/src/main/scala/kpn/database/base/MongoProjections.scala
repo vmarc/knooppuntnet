@@ -16,4 +16,8 @@ object MongoProjections {
   def objectIdToString(fieldName: String, valueFieldName: String): Bson = {
     BsonDocument(s"""{"$fieldName": {"$$toString": "$valueFieldName"}}""")
   }
+
+  def arraySize(fieldName: String, valueFieldName: String): Bson = {
+    BsonDocument(s"""{"$fieldName": {"$$size": "$valueFieldName"}}""")
+  }
 }

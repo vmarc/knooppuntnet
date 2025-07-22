@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.post
 import kpn.api.common.statistics.StatisticValue
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.MongoProjections.concat
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
@@ -245,7 +246,7 @@ class StatisticsUpdater(database: Database) {
           computed("factName", "$facts.fact"),
           include("country"),
           computed("routeType", "$summary.routeType"),
-          BsonDocument("""{"factCount": { "$size": "$facts.elementIds" }}""")
+          arraySize("factCount", "$facts.elementIds")
         )
       ),
       group(
@@ -300,7 +301,7 @@ class StatisticsUpdater(database: Database) {
           computed("factName", "$facts.fact"),
           include("country"),
           computed("routeType", "$summary.routeType"),
-          BsonDocument("""{"factCount": { "$size": "$facts.elements" }}""")
+          arraySize("factCount", "$facts.elements")
         )
       ),
       group(

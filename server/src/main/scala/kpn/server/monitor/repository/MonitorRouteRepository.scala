@@ -4,6 +4,7 @@ import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
+import kpn.api.common.monitor.MonitorRouteDeviationInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.domain.MonitorGroupRouteCount
 import kpn.server.monitor.domain.MonitorGroupRouteInfo
@@ -127,4 +128,8 @@ trait MonitorRouteRepository {
   def stateTiles(tileId: TileId): Seq[MonitorStateTile]
 
   def referenceTiles(tileId: TileId): Seq[MonitorReferenceTileInfo]
+
+  def routeDeviations(routeId: ObjectId): Seq[MonitorRouteDeviationInfo]
+
+  def routeMemberCount(relationId: Long): Long
 }
