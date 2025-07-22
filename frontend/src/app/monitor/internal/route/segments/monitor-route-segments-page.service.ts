@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteSegmentsPage } from '@api/common/monitor/monitor-route-segments-page';
-import { SuperSegment } from '@api/common/route/super-segment';
+import { SegmentInfo } from '@api/common/route/segment-info';
 import { ApiResponse } from '@api/custom/api-response';
 import { MapService } from '@app/map/map.service';
 import { MonitorRouteService } from '@app/monitor/internal/route/monitor-route.service';
@@ -39,8 +39,7 @@ export class MonitorRouteSegmentsPageService {
     });
   }
 
-  selectSegment(segment: SuperSegment): void {
-    // const xx = segment.segments.map((subSegment) => subSegment.info.id);
+  selectSegment(segment: SegmentInfo): void {
     this.mapService.fitBounds(segment.bounds);
     console.log(segment);
   }

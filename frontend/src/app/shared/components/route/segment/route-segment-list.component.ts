@@ -2,7 +2,7 @@ import { output } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { SuperSegment } from '@api/common/route/super-segment';
+import { SegmentInfo } from '@api/common/route/segment-info';
 import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { ListComponent } from '@app/shared/components/list/list.component';
 import { RouteSegmentListItemComponent } from '@app/shared/components/route/segment/route-segment-list-item.component';
@@ -26,11 +26,11 @@ import { RouteSegmentListItemComponent } from '@app/shared/components/route/segm
   imports: [ListComponent, ListItemComponent, RouteSegmentListItemComponent],
 })
 export class RouteSegmentListComponent {
-  readonly segments = input.required<SuperSegment[]>();
-  readonly selectedSegment = input.required<SuperSegment>();
-  readonly selectChange = output<SuperSegment>();
+  readonly segments = input.required<SegmentInfo[]>();
+  readonly selectedSegment = input.required<SegmentInfo>();
+  readonly selectChange = output<SegmentInfo>();
 
-  selectSegment(segment: SuperSegment): void {
+  selectSegment(segment: SegmentInfo): void {
     this.selectChange.emit(segment);
   }
 }

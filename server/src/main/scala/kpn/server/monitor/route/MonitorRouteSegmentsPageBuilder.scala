@@ -3,7 +3,10 @@ package kpn.server.monitor.route
 import kpn.api.common.Language
 import kpn.api.common.monitor.MonitorRouteSegmentsPage
 import kpn.api.common.monitor.MonitorRouteSummary
+import kpn.api.common.route.SegmentInfo
+import kpn.api.common.route.SegmentRouteInfo
 import kpn.core.doc.RouteDoc
+import kpn.core.util.Util.mergeBounds
 import kpn.server.config.RequestContext
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -40,7 +43,18 @@ class MonitorRouteSegmentsPageBuilder(
     routeDoc: RouteDoc,
   ): MonitorRouteSegmentsPage = {
 
-    val summary = MonitorRouteSummary(
+    val summary = buildSummary(adminUser, group, monitorRoute, routeDoc)
+    val segments = buildSegments(routeDoc)
+
+    MonitorRouteSegmentsPage(
+      summary,
+      routeDoc.summary.meters,
+      segments
+    )
+  }
+
+  private def buildSummary(adminUser: Boolean, group: MonitorGroup, monitorRoute: MonitorRoute, routeDoc: RouteDoc): MonitorRouteSummary = {
+    MonitorRouteSummary(
       adminUser,
       group.name,
       monitorRoute.name,
@@ -53,14 +67,30 @@ class MonitorRouteSegmentsPageBuilder(
       deviationCount = monitorRoute.deviationCount,
       monitorRoute.bounds,
     )
+  }
 
-    MonitorRouteSegmentsPage(
-      summary,
-      routeDoc.summary.meters,
-      routeDoc.segments,
-      routeDoc.superDistance,
-      // TODO redesign - remove temporary code to assign super segment ids
-      routeDoc.superSegments.zipWithIndex.map { case (segment, index) => segment.copy(id = index + 1) }
-    )
+  private def buildSegments(routeDoc: RouteDoc): Seq[SegmentInfo] = {
+    routeDoc.superSegments.zipWithIndex.map { case (superSegment, index) =>
+      val meters = superSegment.segments.map(_.info.meters).sum
+      val bounds = Option.when(superSegment.segments.nonEmpty) {
+        mergeBounds(superSegment.segments.map(_.info.bounds))
+      }
+      val routeInfos = {
+        val relationIds = superSegment.segments.map(_.info.relationId).distinct.sorted
+        relationIds.map { relationId =>
+          val segmentIds = superSegment.segments.filter(_.info.relationId == relationId).map(_.info.segmentId)
+          SegmentRouteInfo(
+            relationId,
+            segmentIds
+          )
+        }
+      }
+      SegmentInfo(
+        index + 1,
+        meters,
+        bounds,
+        routeInfos
+      )
+    }
   }
 }

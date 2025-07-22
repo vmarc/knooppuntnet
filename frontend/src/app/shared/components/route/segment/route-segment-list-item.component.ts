@@ -2,7 +2,7 @@ import { computed } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { SuperSegment } from '@api/common/route/super-segment';
+import { SegmentInfo } from '@api/common/route/segment-info';
 import { SegmentColors } from '@app/map/domain/segment-colors';
 import { LegendLineComponent } from '@app/shared/components/legend-line';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
@@ -12,7 +12,7 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="segment">
-      <span class="segment-id">{{ segment().id }}</span>
+      <span class="segment-id">{{ id() }}</span>
       <span class="segment-legend">
         <ui-legend-line [color]="segmentColor()" />
       </span>
@@ -35,14 +35,9 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
   imports: [DistancePipe, LegendLineComponent],
 })
 export class RouteSegmentListItemComponent {
-  readonly segment = input.required<SuperSegment>();
-  readonly meters = computed(() =>
-    this.segment()
-      .segments.map((segment) => segment.info.meters)
-      .reduce((sum, current) => sum + current, 0)
-  );
+  readonly segment = input.required<SegmentInfo>();
 
-  protected readonly segmentColor = computed(() =>
-    SegmentColors.colorForSegmentId(this.segment().id)
-  );
+  protected readonly id = computed(() => this.segment().id);
+  protected readonly meters = computed(() => this.segment().meters);
+  protected readonly segmentColor = computed(() => SegmentColors.colorForSegmentId(this.id()));
 }

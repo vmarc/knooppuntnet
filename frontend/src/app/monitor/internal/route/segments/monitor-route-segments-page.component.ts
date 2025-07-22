@@ -2,7 +2,7 @@ import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { SuperSegment } from '@api/common/route/super-segment';
+import { SegmentInfo } from '@api/common/route/segment-info';
 import { RouteSegmentListComponent } from '@app/shared/components/route/segment/route-segment-list.component';
 import { MonitorRouteSegmentsPageService } from './monitor-route-segments-page.service';
 import { NavService } from '@app/shared/components/nav.service';
@@ -22,7 +22,7 @@ import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-pag
           }
           @if (response.result; as page) {
             <ui-route-segment-list
-              [segments]="page.superSegments"
+              [segments]="page.segments"
               [selectedSegment]="selectedSegment()"
               (selectChange)="selectSegment($event)"
             />
@@ -36,9 +36,9 @@ import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-pag
 })
 export class MonitorRouteSegmentsPageComponent {
   readonly service = inject(MonitorRouteSegmentsPageService);
-  readonly selectedSegment = signal<SuperSegment | undefined>(undefined);
+  readonly selectedSegment = signal<SegmentInfo>(undefined);
 
-  selectSegment(segment: SuperSegment): void {
+  selectSegment(segment: SegmentInfo): void {
     this.service.selectSegment(segment);
   }
 }
