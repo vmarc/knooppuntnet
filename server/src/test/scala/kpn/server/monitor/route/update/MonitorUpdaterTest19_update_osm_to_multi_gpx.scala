@@ -4,7 +4,6 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.route.SuperSegment
 import kpn.api.custom.Tags
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
@@ -16,6 +15,7 @@ import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
+import kpn.core.test.TestObjects.newSuperSegment
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
@@ -289,11 +289,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
         superDistance = route1.meters,
         routeIds = Seq(route1.relationId),
         superSegments = Seq(
-          SuperSegment(
-            id = 1,
-            bounds = None,
-            segments = Seq.empty
-          )
+          newSuperSegment()
         )
       )
     )

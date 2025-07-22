@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
-import kpn.api.common.route.SuperSegment
-import kpn.api.common.route.SuperSubSegment
+import kpn.core.doc.SuperSegment
+import kpn.core.doc.SuperSubSegment
 
 class SuperSegmentBuilderTrace {
 

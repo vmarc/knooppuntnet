@@ -1,4 +1,4 @@
-package kpn.api.common.route
+package kpn.core.doc
 
 import kpn.api.common.Bounds
 

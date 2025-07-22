@@ -1,7 +1,7 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.route.SuperSubSegmentInfo
+import kpn.core.doc.SuperSubSegmentInfo
 import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import org.springframework.stereotype.Component

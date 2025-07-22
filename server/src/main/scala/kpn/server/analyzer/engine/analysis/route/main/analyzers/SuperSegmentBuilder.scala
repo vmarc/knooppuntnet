@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
-import kpn.api.common.route.SuperSegment
-import kpn.api.common.route.SuperSubSegment
-import kpn.api.common.route.SuperSubSegmentInfo
+import kpn.core.doc.SuperSegment
+import kpn.core.doc.SuperSubSegment
+import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.util.Util.mergeBounds
 
 import scala.annotation.tailrec
@@ -37,7 +37,7 @@ class SuperSegmentBuilder(segmentMap: Map[Long, SuperSubSegmentInfo]) {
       foundSuperSegments
     }
     else {
-      val newSuperSegment = buildSuperSegment(foundSuperSegments, availableSegmentIds)
+      val newSuperSegment = buildSuperSegment(availableSegmentIds)
       val updatedFoundSuperSegments = foundSuperSegments :+ newSuperSegment
       val updatedAvailableSegmentIds = stillAvailableSegmentIds(availableSegmentIds, newSuperSegment.segments)
 
@@ -46,7 +46,7 @@ class SuperSegmentBuilder(segmentMap: Map[Long, SuperSubSegmentInfo]) {
     }
   }
 
-  private def buildSuperSegment(foundSuperSegments: Seq[SuperSegment], availableSegmentIds: Seq[Long]): SuperSegment = {
+  private def buildSuperSegment(availableSegmentIds: Seq[Long]): SuperSegment = {
     // pick the first available segment as the first segment of a new super segment
     val superSubSegment = SuperSubSegment(segmentMap(availableSegmentIds.head))
 
@@ -67,8 +67,6 @@ class SuperSegmentBuilder(segmentMap: Map[Long, SuperSubSegmentInfo]) {
     }
 
     SuperSegment(
-      foundSuperSegments.length + 1,
-      bounds,
       segments
     )
   }

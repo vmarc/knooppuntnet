@@ -82,7 +82,6 @@ import kpn.api.common.route.RouteNodes
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.common.route.RouteStructureRow
-import kpn.api.common.route.SuperSegment
 import kpn.api.custom.Change
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
@@ -104,6 +103,8 @@ import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
+import kpn.core.doc.SuperSegment
+import kpn.core.doc.SuperSubSegment
 import kpn.database.actions.statistics.ChangeSetCount2
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
@@ -1579,5 +1580,11 @@ object TestObjects {
       bounds,
       elementIds
     )
+  }
+
+  def newSuperSegment(
+    segments: SuperSubSegment*
+  ): SuperSegment = {
+    SuperSegment(segments)
   }
 }

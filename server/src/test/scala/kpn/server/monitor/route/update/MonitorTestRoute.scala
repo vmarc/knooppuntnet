@@ -3,7 +3,6 @@ package kpn.server.monitor.route.update
 import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.route.SuperSegment
 import kpn.api.custom.Relation
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
@@ -16,6 +15,7 @@ import kpn.core.test.TestObjects.newBaseRouteSegmentElement
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
+import kpn.core.test.TestObjects.newSuperSegment
 import kpn.server.monitor.domain.MonitorReferenceTile
 
 case class MonitorTestRoute(
@@ -67,11 +67,7 @@ case class MonitorTestRoute(
       superDistance = meters,
       routeIds = Seq(relationId),
       superSegments = Seq(
-        SuperSegment(
-          id = 1,
-          bounds = None,
-          segments = Seq.empty
-        )
+        newSuperSegment()
       ),
       bounds = Some(bounds)
     )

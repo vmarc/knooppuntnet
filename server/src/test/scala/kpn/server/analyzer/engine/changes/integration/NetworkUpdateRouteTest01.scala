@@ -27,15 +27,14 @@ import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.RouteStructureWay
-import kpn.api.common.route.SuperSegment
-import kpn.api.common.route.SuperSubSegment
-import kpn.api.common.route.SuperSubSegmentInfo
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.Label
+import kpn.core.doc.SuperSubSegment
+import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteSegmentElement
@@ -59,6 +58,7 @@ import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeChange
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.TestObjects.newRouteTags
+import kpn.core.test.TestObjects.newSuperSegment
 import kpn.core.test.TestObjects.newWay
 import kpn.core.test.Timestamps
 import kpn.server.analyzer.engine.context.ElementIds
@@ -314,20 +314,16 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           )
         ),
         superSegments = Seq(
-          SuperSegment(
-            id = 1,
-            bounds = Some(Bounds()),
-            segments = Seq(
-              SuperSubSegment(
-                SuperSubSegmentInfo(
-                  id = 1,
-                  relationId = 11,
-                  segmentId = 1,
-                  startNodeId = 1001,
-                  endNodeId = 1002,
-                  meters = 0,
-                  bounds = Bounds()
-                )
+          newSuperSegment(
+            SuperSubSegment(
+              SuperSubSegmentInfo(
+                id = 1,
+                relationId = 11,
+                segmentId = 1,
+                startNodeId = 1001,
+                endNodeId = 1002,
+                meters = 0,
+                bounds = Bounds()
               )
             )
           )

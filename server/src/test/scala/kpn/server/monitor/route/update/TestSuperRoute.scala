@@ -1,17 +1,17 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
-import kpn.api.common.route.SuperSegment
-import kpn.api.common.route.SuperSubSegment
-import kpn.api.common.route.SuperSubSegmentInfo
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
+import kpn.core.doc.SuperSubSegment
+import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteSegment
 import kpn.core.test.TestObjects.newBaseRouteSegmentElement
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteRelation
 import kpn.core.test.TestObjects.newRouteSummary
+import kpn.core.test.TestObjects.newSuperSegment
 import kpn.core.util.Util.mergeBounds
 
 object TestSuperRoute {
@@ -76,20 +76,16 @@ object TestSuperRoute {
     newRouteSummary(MainRelationId),
     superDistance = subRoute11.meters + subRoute12.meters,
     superSegments = Seq(
-      SuperSegment(
-        1,
-        bounds = None,
-        Seq(
-          SuperSubSegment(
-            SuperSubSegmentInfo(
-              id = 0,
-              relationId = 0,
-              segmentId = 0,
-              startNodeId = 0,
-              endNodeId = 0,
-              meters = subRoute11.meters + subRoute12.meters,
-              bounds = Bounds(),
-            )
+      newSuperSegment(
+        SuperSubSegment(
+          SuperSubSegmentInfo(
+            id = 0,
+            relationId = 0,
+            segmentId = 0,
+            startNodeId = 0,
+            endNodeId = 0,
+            meters = subRoute11.meters + subRoute12.meters,
+            bounds = Bounds(),
           )
         )
       )

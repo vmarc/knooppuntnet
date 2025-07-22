@@ -3,7 +3,6 @@ package kpn.server.monitor.route.update
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.route.SuperSegment
 import kpn.core.common.Time
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteSegment
@@ -14,6 +13,7 @@ import kpn.core.test.TestObjects.newMonitorRoute
 import kpn.core.test.TestObjects.newMonitorState
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
+import kpn.core.test.TestObjects.newSuperSegment
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
@@ -267,11 +267,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
         superDistance = route1.meters,
         routeIds = Seq(route1.relationId),
         superSegments = Seq(
-          SuperSegment(
-            id = 1,
-            bounds = None,
-            segments = Seq.empty
-          )
+          newSuperSegment()
         )
       )
     )
@@ -287,11 +283,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
         superDistance = route2.meters,
         routeIds = Seq(route2.relationId),
         superSegments = Seq(
-          SuperSegment(
-            id = 1,
-            bounds = None,
-            segments = Seq.empty
-          )
+          newSuperSegment()
         )
       )
     )

@@ -4,7 +4,6 @@ import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.route.SuperSegment
 import kpn.core.common.Time
 import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newMonitorReference
@@ -12,6 +11,7 @@ import kpn.core.test.TestObjects.newMonitorRoute
 import kpn.core.test.TestObjects.newMonitorState
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
+import kpn.core.test.TestObjects.newSuperSegment
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 
@@ -180,11 +180,7 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
         superDistance = route1.meters,
         routeIds = Seq(route1.relationId),
         superSegments = Seq(
-          SuperSegment(
-            id = 1,
-            bounds = None,
-            segments = Seq.empty
-          )
+          newSuperSegment()
         ),
         bounds = Some(route1.bounds)
       )

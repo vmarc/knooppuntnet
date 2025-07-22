@@ -4,7 +4,6 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.route.SuperSegment
 import kpn.api.custom.Tags
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
@@ -17,6 +16,7 @@ import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteRelation
 import kpn.core.test.TestObjects.newRouteSummary
+import kpn.core.test.TestObjects.newSuperSegment
 import kpn.core.util.Util.mergeBounds
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
@@ -295,11 +295,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
           subRoute12.relationId
         ),
         superSegments = Seq(
-          SuperSegment(
-            id = 1,
-            bounds = None,
-            segments = Seq.empty
-          )
+          newSuperSegment()
         )
       )
     )
