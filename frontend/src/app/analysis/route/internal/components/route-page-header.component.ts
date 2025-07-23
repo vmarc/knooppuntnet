@@ -3,7 +3,6 @@ import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { input } from '@angular/core';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
@@ -60,8 +59,8 @@ import { RouteService } from '../route.service';
   ],
 })
 export class RoutePageHeaderComponent {
-  readonly pageName = input.required<string>();
   private readonly service = inject(RouteService);
+  protected pageName = this.service.pageName;
   protected readonly routeDisplayName = this.service.routeDisplayName;
 
   protected readonly breadcrumbItems: BreadcrumbItem[] = [

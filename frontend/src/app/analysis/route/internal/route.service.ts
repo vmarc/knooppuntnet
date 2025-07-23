@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
 import { RouteInfo } from '@api/common/route/route-info';
+import { RoutePageName } from '@app/analysis/route/internal/components/route-page-name';
 import { State } from '@app/state/state';
 import { RouterService } from '@app/shared/services/router.service';
 
@@ -21,11 +22,19 @@ export class RouteService {
   readonly changeCount = computed(() => this._routeInfo()?.changeCount);
   readonly routeDisplayName = computed(() => this.routeName() || '' + this.routeId());
 
+  private readonly _pageName = signal<RoutePageName>(undefined);
+  readonly pageName = this._pageName.asReadonly();
+
   private location = inject(Location);
 
-  initPage(routerService: RouterService): void {
-    const oldRouteId = '' + this.routeId();
-    const newRouteId = routerService.param('routeId');
+  onPage(pageName: RoutePageName): void {
+    this._pageName.set(pageName);
+  }
+
+  onInit(newRouteId: number): void {
+    console.log(`RouteService.onInit ${newRouteId}`);
+
+    const oldRouteId = this.routeId();
     if (!oldRouteId || oldRouteId !== newRouteId) {
       let newRouteName: string = undefined;
       let newRouteType: RouteType = undefined;
@@ -35,7 +44,7 @@ export class RouteService {
         newRouteType = state['routeType'];
       }
       const routeInfo: RouteInfo = {
-        routeId: +newRouteId,
+        routeId: newRouteId,
         routeName: newRouteName,
         routeTypes: [newRouteType],
         changeCount: 0,

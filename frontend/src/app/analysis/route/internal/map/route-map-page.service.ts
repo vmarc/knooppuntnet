@@ -20,7 +20,7 @@ export class RouteMapPageService {
   readonly response = this._response.asReadonly();
 
   onInit(): void {
-    this.routeService.initPage(this.routerService);
+    this.routeService.onPage('map');
     this.load();
   }
 

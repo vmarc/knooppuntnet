@@ -16,6 +16,7 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { withComponentInputBinding } from '@angular/router';
 import { provideRouter } from '@angular/router';
 import { Router } from '@angular/router';
 import { PreferencesService } from '@app/shared/core/preferences/preferences.service';
@@ -54,7 +55,8 @@ registerLocaleData(en);
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
-      appRoutes
+      appRoutes,
+      withComponentInputBinding()
       // withRouterConfig({
       //   onSameUrlNavigation: 'reload',
       // })

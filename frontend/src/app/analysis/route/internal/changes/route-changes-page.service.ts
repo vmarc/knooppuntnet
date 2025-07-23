@@ -40,7 +40,7 @@ export class RouteChangesPageService implements ChangesService {
   readonly changeCount = this.routeService.changeCount;
 
   onInit(): void {
-    this.routeService.initPage(this.routerService);
+    this.routeService.onPage('changes');
     const params = this.routerService.params();
     const queryParams = this.routerService.queryParams();
     const uniqueQueryParams = Util.uniqueParams(queryParams);
