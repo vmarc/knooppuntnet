@@ -45,7 +45,6 @@ export class MonitorRouteSegmentsPageService {
 
   selectSegment(segment: SegmentInfo): void {
     this.mapService.fitBounds(segment.bounds);
-    console.log(segment);
   }
 
   updateMonitorShowSegments(value: boolean): void {

@@ -10,8 +10,6 @@ import { Timestamp } from '@api/custom/timestamp';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactsComponent } from '@app/analysis/fact/components/facts.component';
 import { MapModeComponent } from '@app/route/internal/components/map-mode.component';
-import { RoutePathsComponent } from '@app/route/internal/components/route-paths.component';
-import { RouteSegmentsComponent } from '@app/route/internal/components/route-segments.component';
 import { DataComponent } from '@app/shared/components/data/data.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
@@ -19,8 +17,6 @@ import { TagTableComponent } from '@app/shared/components/tags/tag-table.compone
 import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
-import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouteEndNodesComponent } from '@app/route/internal/components/route-end-nodes.component';
 import { RouteNetworkReferencesComponent } from '@app/route/internal/components/route-network-references.component';
@@ -34,99 +30,76 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let data = routeDetailsData();
-    <nz-collapse nzGhost>
-      <nz-collapse-panel [nzHeader]="segmentsHeader">
-        <ng-template #segmentsHeader>
-          <span i18n="@@route.segments.title">Segments</span>
-          <span class="kpn-brackets">{{ segmentCount() }}</span>
-        </ng-template>
-        <ui-route-segments
-          [segments]="segments()"
-          [selectedSegment]="undefined"
-          (selectSegment)="selectSegment($event)"
-        />
-      </nz-collapse-panel>
-      <nz-collapse-panel [nzHeader]="pathsHeader">
-        <ng-template #pathsHeader>
-          <span i18n="@@route.paths.title">Paths</span>
-          <span class="kpn-brackets">{{ pathCount() }}</span>
-        </ng-template>
-        <ui-route-paths [paths]="paths()" />
-      </nz-collapse-panel>
-    </nz-collapse>
-
-    <div style="margin: 1em">
-      <ui-route-summary [route]="data" />
-      <ui-divider />
-      <div class="data2">
-        <div class="title">
-          <span i18n="@@route.situation-on">Situation on</span>
-        </div>
-        <div class="body">
-          <ui-timestamp [timestamp]="situationOn()" />
-        </div>
+    <ui-route-summary [route]="data" />
+    <ui-divider />
+    <div class="data2">
+      <div class="title">
+        <span i18n="@@route.situation-on">Situation on</span>
       </div>
-      <div class="data2">
-        <div class="title">
-          <span i18n="@@route.last-updated">Last updated</span>
-        </div>
-        <div class="body">
-          <ui-timestamp [timestamp]="data.lastUpdated" />
-        </div>
+      <div class="body">
+        <ui-timestamp [timestamp]="situationOn()" />
       </div>
-      <ui-data title="Relation last updated" i18n-title="@@route.relation-last-updated">
-        <ui-timestamp [timestamp]="data.summary.timestamp" />
-      </ui-data>
-      <ui-data title="Network" i18n-title="@@route.network">
-        <ui-route-network-references [references]="data.networkReferences" />
-      </ui-data>
-
-      @if (data.parentRoutes.length > 0) {
-        <ui-data title="Part of" i18n-title="@@route.parent-routes">
-          <ui-route-parents [parentRoutes]="data.parentRoutes" />
-        </ui-data>
-      }
-
-      <div>
-        @if (data.nodes; as nodes) {
-          <ui-data title="Start node" i18n-title="@@route.start-node">
-            <ui-route-start-nodes [nodes]="nodes" />
-          </ui-data>
-
-          <ui-data title="End node" i18n-title="@@route.end-node">
-            <ui-route-end-nodes [nodes]="nodes" />
-          </ui-data>
-          @if (nodes.redundantNodes.length > 0) {
-            <div>
-              <ui-data title="Redundant node" i18n-title="@@route.redundant-node">
-                <ui-route-redundant-nodes [nodes]="nodes.redundantNodes" />
-              </ui-data>
-            </div>
-          }
-        }
-        <ui-data title="Number of ways" i18n-title="@@route.number-of-ways">
-          {{ data.summary.wayCount }}
-        </ui-data>
-      </div>
-
-      <ui-divider />
-      <p i18n="@@route.tags">Tags</p>
-      <ui-tag-table [tags]="routeTags()" />
-
-      <ui-divider />
-      <ui-facts [factInfos]="factInfos()" />
-
-      <ui-divider />
-      <div class="kpn-button-group">
-        <button nz-button (click)="zoomToFitRoute()">
-          <nz-icon nzType="fullscreen-exit" />
-          <span>Zoom to fit entire route</span>
-        </button>
-        <ui-map-mode />
-      </div>
-
-      <ui-divider />
     </div>
+    <div class="data2">
+      <div class="title">
+        <span i18n="@@route.last-updated">Last updated</span>
+      </div>
+      <div class="body">
+        <ui-timestamp [timestamp]="data.lastUpdated" />
+      </div>
+    </div>
+    <ui-data title="Relation last updated" i18n-title="@@route.relation-last-updated">
+      <ui-timestamp [timestamp]="data.summary.timestamp" />
+    </ui-data>
+    <ui-data title="Network" i18n-title="@@route.network">
+      <ui-route-network-references [references]="data.networkReferences" />
+    </ui-data>
+
+    @if (data.parentRoutes.length > 0) {
+      <ui-data title="Part of" i18n-title="@@route.parent-routes">
+        <ui-route-parents [parentRoutes]="data.parentRoutes" />
+      </ui-data>
+    }
+
+    <div>
+      @if (data.nodes; as nodes) {
+        <ui-data title="Start node" i18n-title="@@route.start-node">
+          <ui-route-start-nodes [nodes]="nodes" />
+        </ui-data>
+
+        <ui-data title="End node" i18n-title="@@route.end-node">
+          <ui-route-end-nodes [nodes]="nodes" />
+        </ui-data>
+        @if (nodes.redundantNodes.length > 0) {
+          <div>
+            <ui-data title="Redundant node" i18n-title="@@route.redundant-node">
+              <ui-route-redundant-nodes [nodes]="nodes.redundantNodes" />
+            </ui-data>
+          </div>
+        }
+      }
+      <ui-data title="Number of ways" i18n-title="@@route.number-of-ways">
+        {{ data.summary.wayCount }}
+      </ui-data>
+    </div>
+
+    <ui-divider />
+    <p i18n="@@route.tags">Tags</p>
+    <ui-tag-table [tags]="routeTags()" />
+
+    <ui-divider />
+    <ui-facts [factInfos]="factInfos()" />
+
+    <ui-divider />
+    <div class="kpn-button-group">
+      <button nz-button (click)="zoomToFitRoute()">
+        <nz-icon nzType="fullscreen-exit" />
+        <span>Zoom to fit entire route</span>
+      </button>
+      <ui-map-mode />
+    </div>
+
+    <ui-divider />
   `,
   styleUrl: '../shared/components/data/data.component.scss',
   providers: [RouterService],
@@ -137,15 +110,11 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
     FormsModule,
     MapModeComponent,
     NzButtonComponent,
-    NzCollapseComponent,
-    NzCollapsePanelComponent,
     NzIconDirective,
     RouteEndNodesComponent,
     RouteNetworkReferencesComponent,
     RouteParentsComponent,
-    RoutePathsComponent,
     RouteRedundantNodesComponent,
-    RouteSegmentsComponent,
     RouteStartNodesComponent,
     RouteSummaryComponent,
     TagTableComponent,

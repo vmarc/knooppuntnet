@@ -38,6 +38,9 @@ import { MapRouteDetail } from '@api/common/route/map-route-detail';
 import { RouteChangesPage } from '@api/common/route/route-changes-page';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { RouteMapPage } from '@api/common/route/route-map-page';
+import { RouteMembersPage } from '@api/common/route/route-members-page';
+import { RoutePathsPage } from '@api/common/route/route-paths-page';
+import { RouteSegmentsPage } from '@api/common/route/route-segments-page';
 import { SearchResponse } from '@api/common/search-response';
 import { ConditionGroup } from '@api/common/search/condition-group';
 import { RouteList } from '@api/common/search/route-list';
@@ -172,6 +175,21 @@ export class ApiService {
 
   routeDetails(routeId: number): Observable<ApiResponse<RouteDetailsPage>> {
     const url = `/api/route/${routeId}`;
+    return this.http.get(url, { params: this.languageParams() });
+  }
+
+  routeMembers(routeId: number): Observable<ApiResponse<RouteMembersPage>> {
+    const url = `/api/route/${routeId}/members`;
+    return this.http.get(url, { params: this.languageParams() });
+  }
+
+  routePaths(routeId: number): Observable<ApiResponse<RoutePathsPage>> {
+    const url = `/api/route/${routeId}/paths`;
+    return this.http.get(url, { params: this.languageParams() });
+  }
+
+  routeSegments(routeId: number): Observable<ApiResponse<RouteSegmentsPage>> {
+    const url = `/api/route/${routeId}/segments`;
     return this.http.get(url, { params: this.languageParams() });
   }
 

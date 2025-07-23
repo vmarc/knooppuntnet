@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { SegmentInfo } from '@api/common/route/segment-info';
 import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { ListComponent } from '@app/shared/components/list/list.component';
-import { RouteSegmentListItemComponent } from '@app/shared/components/route/segment/route-segment-list-item.component';
+import { RouteSegmentListItemComponent } from './route-segment-list-item.component';
 
 @Component({
   selector: 'ui-route-segment-list',

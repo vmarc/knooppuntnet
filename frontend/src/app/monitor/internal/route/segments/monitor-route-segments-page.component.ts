@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SegmentInfo } from '@api/common/route/segment-info';
-import { RouteSegmentListComponent } from '@app/shared/components/route/segment/route-segment-list.component';
+import { RouteSegmentListComponent } from '@app/shared/components/route/segments/route-segment-list.component';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 import { MonitorRouteSegmentsPageService } from './monitor-route-segments-page.service';
 import { NavService } from '@app/shared/components/nav.service';
