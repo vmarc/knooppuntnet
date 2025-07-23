@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
+import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { MenuOption } from '@app/shared/components/menu/menu-option';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
@@ -41,6 +42,12 @@ import { RouteService } from '../route.service';
         <nz-icon nzType="arrows-alt" />
       </button>
     </div>
+
+    <ui-error />
+
+    @if (routeNotFound()) {
+      <div i18n="@@route.route-not-found" class="kpn-error">Route not found</div>
+    }
   `,
   styles: `
     .buttons {
@@ -50,6 +57,7 @@ import { RouteService } from '../route.service';
   `,
   imports: [
     BreadcrumbComponent,
+    ErrorComponent,
     NzButtonComponent,
     NzIconDirective,
     NzNoAnimationDirective,
@@ -60,6 +68,7 @@ import { RouteService } from '../route.service';
 })
 export class RoutePageHeaderComponent {
   private readonly service = inject(RouteService);
+  protected routeNotFound = this.service.routeNotFound;
   protected pageName = this.service.pageName;
   protected readonly routeDisplayName = this.service.routeDisplayName;
 

@@ -10,7 +10,7 @@ import { RouterService } from '@app/shared/services/router.service';
   selector: 'ui-route-members-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (members()) {
+    @if (response.hasValue()) {
       <ui-route-structure [routeType]="routeType()" [rows]="members()" />
     }
   `,
@@ -19,8 +19,9 @@ import { RouterService } from '@app/shared/services/router.service';
 })
 export class RouteMembersPageComponent {
   private readonly service = inject(RouteMembersPageService);
+  protected readonly response = this.service.response;
   protected readonly routeType = computed(
-    () => this.service.response().result.routeInfo.routeTypes[0]
+    () => this.response.value().result.routeInfo.routeTypes[0]
   );
-  protected readonly members = computed(() => this.service.response()?.result?.structureRows);
+  protected readonly members = computed(() => this.response.value()?.result?.structureRows);
 }

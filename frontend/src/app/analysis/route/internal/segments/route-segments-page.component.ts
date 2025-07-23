@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -9,7 +10,7 @@ import { RouterService } from '@app/shared/services/router.service';
   selector: 'ui-route-segments-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (segments()) {
+    @if (response.hasValue()) {
       <ui-route-segment-list [segments]="segments()" [selectedSegment]="undefined" />
     }
   `,
@@ -17,6 +18,7 @@ import { RouterService } from '@app/shared/services/router.service';
   imports: [RouteSegmentListComponent],
 })
 export class RouteSegmentsPageComponent {
-  private readonly service = inject(RouteSegmentsPageService);
-  protected readonly segments = () => this.service.response()?.result?.segments;
+  readonly service = inject(RouteSegmentsPageService);
+  protected readonly response = this.service.response;
+  protected readonly segments = computed(() => this.response.value()?.result?.segments);
 }

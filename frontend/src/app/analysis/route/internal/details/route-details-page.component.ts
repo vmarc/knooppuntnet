@@ -9,13 +9,9 @@ import { RouteDetailsPageService } from './route-details-page.service';
   selector: 'ui-route-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (service.response(); as response) {
+    @if (response.hasValue()) {
       <div class="kpn-spacer-above">
-        @if (!response.result) {
-          <div i18n="@@route.route-not-found">Route not found</div>
-        } @else {
-          <ui-route-details-page-contents />
-        }
+        <ui-route-details-page-contents />
       </div>
     }
   `,
@@ -23,5 +19,6 @@ import { RouteDetailsPageService } from './route-details-page.service';
   imports: [RouteDetailsPageContentsComponent],
 })
 export class RouteDetailsPageComponent {
-  readonly service = inject(RouteDetailsPageService);
+  private readonly service = inject(RouteDetailsPageService);
+  protected readonly response = this.service.response;
 }

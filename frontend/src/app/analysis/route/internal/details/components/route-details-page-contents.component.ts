@@ -21,7 +21,7 @@ import { RouteDetailsPageService } from '../route-details-page.service';
 })
 export class RouteDetailsPageContentsComponent {
   private readonly service = inject(RouteDetailsPageService);
-  protected readonly response = computed(() => this.service.response());
+  protected readonly response = computed(() => this.service.response.value());
 
   selectSegment(routeSegment: RouteSegment): void {
     this.service.selectSegment(routeSegment);

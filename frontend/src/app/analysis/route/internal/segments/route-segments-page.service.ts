@@ -1,3 +1,4 @@
+import { HttpResourceRef } from '@angular/common/http';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
@@ -15,20 +16,15 @@ export class RouteSegmentsPageService {
   private readonly routeService = inject(RouteService);
   private readonly mapService = inject(MapService);
 
-  private readonly _response = signal<ApiResponse<RouteSegmentsPage>>(null);
-  readonly response = this._response.asReadonly();
-
   private readonly _selectedSegment = signal<RouteSegment>(null);
   readonly selectedSegment = this._selectedSegment.asReadonly();
 
+  readonly response: HttpResourceRef<ApiResponse<RouteSegmentsPage>>;
+
   constructor() {
-    this.routeService.onPage('segments');
-    this.apiService.routeSegments(this.routeService.routeId()).subscribe((response) => {
-      if (response.result) {
-        this.routeService.updateRoute(response.result.routeInfo);
-      }
-      this._response.set(response);
-    });
+    this.response = this.routeService.request('segments', () =>
+      this.apiService.routeSegments(this.routeService.routeId())
+    );
   }
 
   selectSegment(routeSegment: RouteSegment): void {
@@ -40,7 +36,7 @@ export class RouteSegmentsPageService {
     if (routeSegment) {
       this.mapService.focusElements(routeSegment.bounds, elements);
     } else {
-      this.mapService.focusElements(this.response().result.routeInfo.bounds, elements);
+      this.mapService.focusElements(this.response.value().result.routeInfo.bounds, elements);
     }
     this._selectedSegment.set(routeSegment);
   }

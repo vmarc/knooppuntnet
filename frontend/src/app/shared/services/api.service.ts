@@ -1,3 +1,5 @@
+import { HttpResourceRef } from '@angular/common/http';
+import { httpResource } from '@angular/common/http';
 import { HttpContext } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
@@ -173,24 +175,32 @@ export class ApiService {
     return this.http.post(url, parameters);
   }
 
-  routeDetails(routeId: number): Observable<ApiResponse<RouteDetailsPage>> {
-    const url = `/api/route/${routeId}`;
-    return this.http.get(url, { params: this.languageParams() });
+  routeDetails(routeId: number): HttpResourceRef<ApiResponse<RouteDetailsPage>> {
+    return httpResource(() => ({
+      url: `/api/route/${routeId}`,
+      params: this.languageParams(),
+    }));
   }
 
-  routeMembers(routeId: number): Observable<ApiResponse<RouteMembersPage>> {
-    const url = `/api/route/${routeId}/members`;
-    return this.http.get(url, { params: this.languageParams() });
+  routeMembers(routeId: number): HttpResourceRef<ApiResponse<RouteMembersPage>> {
+    return httpResource(() => ({
+      url: `/api/route/${routeId}/members`,
+      params: this.languageParams(),
+    }));
   }
 
-  routePaths(routeId: number): Observable<ApiResponse<RoutePathsPage>> {
-    const url = `/api/route/${routeId}/paths`;
-    return this.http.get(url, { params: this.languageParams() });
+  routePaths(routeId: number): HttpResourceRef<ApiResponse<RoutePathsPage>> {
+    return httpResource(() => ({
+      url: `/api/route/${routeId}/paths`,
+      params: this.languageParams(),
+    }));
   }
 
-  routeSegments(routeId: number): Observable<ApiResponse<RouteSegmentsPage>> {
-    const url = `/api/route/${routeId}/segments`;
-    return this.http.get(url, { params: this.languageParams() });
+  routeSegments(routeId: number): HttpResourceRef<ApiResponse<RouteSegmentsPage>> {
+    return httpResource(() => ({
+      url: `/api/route/${routeId}/segments`,
+      params: this.languageParams(),
+    }));
   }
 
   routeMap(routeId: number): Observable<ApiResponse<RouteMapPage>> {

@@ -1,19 +1,24 @@
 import { Location } from '@angular/common';
+import { HttpResourceRef } from '@angular/common/http';
+import { effect } from '@angular/core';
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
 import { RouteInfo } from '@api/common/route/route-info';
+import { ApiResponse } from '@api/custom/api-response';
 import { RoutePageName } from '@app/analysis/route/internal/components/route-page-name';
 import { State } from '@app/state/state';
-import { RouterService } from '@app/shared/services/router.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RouteService {
   private readonly state = inject(State);
+
+  private readonly _routeNotFound = signal<boolean>(false);
+  readonly routeNotFound = this._routeNotFound.asReadonly();
 
   private readonly _routeInfo = signal<RouteInfo>(null);
   readonly routeId = computed(() => this._routeInfo()?.routeId);
@@ -32,8 +37,7 @@ export class RouteService {
   }
 
   onInit(newRouteId: number): void {
-    console.log(`RouteService.onInit ${newRouteId}`);
-
+    this.updateRouteNotFound(false);
     const oldRouteId = this.routeId();
     if (!oldRouteId || oldRouteId !== newRouteId) {
       let newRouteName: string = undefined;
@@ -58,7 +62,30 @@ export class RouteService {
     }
   }
 
+  request(
+    pageName: RoutePageName,
+    action: () => HttpResourceRef<ApiResponse<any>>
+  ): HttpResourceRef<ApiResponse<any>> {
+    this.onPage(pageName);
+    const response = action();
+    effect(() => {
+      if (response.hasValue()) {
+        const result = response.value()?.result;
+        if (result) {
+          this.updateRoute(result.routeInfo);
+        } else {
+          this.updateRouteNotFound(true);
+        }
+      }
+    });
+    return response;
+  }
+
   updateRoute(routeInfo: RouteInfo): void {
     this._routeInfo.set(routeInfo);
+  }
+
+  updateRouteNotFound(value: boolean): void {
+    this._routeNotFound.set(value);
   }
 }

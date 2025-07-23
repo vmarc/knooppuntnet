@@ -1,4 +1,4 @@
-import { signal } from '@angular/core';
+import { HttpResourceRef } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RoutePathsPage } from '@api/common/route/route-paths-page';
@@ -11,16 +11,11 @@ export class RoutePathsPageService {
   private readonly apiService = inject(ApiService);
   private readonly routeService = inject(RouteService);
 
-  private readonly _response = signal<ApiResponse<RoutePathsPage>>(null);
-  readonly response = this._response.asReadonly();
+  readonly response: HttpResourceRef<ApiResponse<RoutePathsPage>>;
 
   constructor() {
-    this.routeService.onPage('paths');
-    this.apiService.routePaths(this.routeService.routeId()).subscribe((response) => {
-      if (response.result) {
-        this.routeService.updateRoute(response.result.routeInfo);
-      }
-      this._response.set(response);
-    });
+    this.response = this.routeService.request('paths', () =>
+      this.apiService.routePaths(this.routeService.routeId())
+    );
   }
 }
