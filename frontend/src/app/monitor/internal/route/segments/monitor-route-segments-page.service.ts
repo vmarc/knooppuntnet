@@ -7,6 +7,7 @@ import { ApiResponse } from '@api/custom/api-response';
 import { MapService } from '@app/map/map.service';
 import { MonitorRouteService } from '@app/monitor/internal/route/monitor-route.service';
 import { NavService } from '@app/shared/components/nav.service';
+import { SegmentMap } from '@app/state/segment-map';
 import { State } from '@app/state/state';
 import { MonitorService } from '../../monitor.service';
 
@@ -21,6 +22,8 @@ export class MonitorRouteSegmentsPageService {
   private readonly _response = signal<ApiResponse<MonitorRouteSegmentsPage>>(undefined);
   readonly response = this._response.asReadonly();
 
+  readonly monitorShowSegments = this.state.map.monitorShowSegments;
+
   constructor() {
     this.monitorRouteService.initPage(this.nav);
     const groupName = this.monitorRouteService.summary().groupName;
@@ -31,9 +34,10 @@ export class MonitorRouteSegmentsPageService {
       const summary = page?.summary;
       if (summary) {
         this.monitorRouteService.update(summary);
-        this.state.map.updateMode('monitor');
-        this.state.map.updateMonitorRouteIds([summary.routeId]);
-        this.state.map.updateMonitorRelationIds(summary.relationIds);
+        this.state.map.updateMode('route-segments');
+        this.state.map.updateSegmentMap(SegmentMap.from(page.segments));
+        this.state.map.updateMonitorRouteIds([]);
+        this.state.map.updateMonitorRelationIds([]);
         this.mapService.fitBounds(summary.bounds);
       }
     });
@@ -42,5 +46,9 @@ export class MonitorRouteSegmentsPageService {
   selectSegment(segment: SegmentInfo): void {
     this.mapService.fitBounds(segment.bounds);
     console.log(segment);
+  }
+
+  updateMonitorShowSegments(value: boolean): void {
+    this.state.map.updateMonitorShowSegments(value);
   }
 }

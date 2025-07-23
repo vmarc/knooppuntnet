@@ -55,7 +55,7 @@ export class MapStateLayers {
           ['flanders-open-data', this.flandersOpenDataLayerEnabled()],
           ['netherlands-open-data', this.netherlandsOpenDataLayerEnabled()],
           ['france-open-data', this.franceOpenDataLayerEnabled()],
-          ['monitor', true],
+          ['monitor', false],
         ])
     );
   }

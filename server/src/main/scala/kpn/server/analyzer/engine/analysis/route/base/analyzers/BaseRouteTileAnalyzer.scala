@@ -148,15 +148,12 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
   private def buildSegmentsForTile(tile: Tile, tileSegments: Seq[TileSegment]): Seq[RouteTileSegment] = {
     tileSegments.flatMap { tileSegment =>
       tileSegmentToGeometry(tile, tileSegment).flatMap { geometry =>
-        val segmentId = Option.when(tile.z > 6) {
-          tileSegment.segmentId
-        }
         val segmentElementId = Option.when(RouteTiles.detailed(tile.z)) {
           tileSegment.segmentElementId
         }
         Some(
           RouteTileSegment(
-            segmentId,
+            Some(tileSegment.segmentId),
             segmentElementId,
             Seq(geometry)
           )

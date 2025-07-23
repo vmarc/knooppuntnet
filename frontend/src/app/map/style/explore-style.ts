@@ -29,15 +29,7 @@ export class ExploreStyle {
 
   private static nodeStyle(styleOptions: MapStyleOptions, feature: FeatureLike): Array<Style> {
     if (styleOptions.mode === 'route-segments') {
-      const ref = feature.get('ref');
-      const name = feature.get('name');
-      let title: string;
-      if (ref && ref !== 'o') {
-        title = ref;
-      } else {
-        title = name;
-      }
-      return [RouteSegmentStyle.nodeStyle(styleOptions.zoom, title)];
+      return undefined;
     }
 
     const baseStyle = this.baseNodeStyle(styleOptions, feature);
@@ -97,10 +89,13 @@ export class ExploreStyle {
     feature: FeatureLike
   ): Style | Array<Style> {
     if (styleOptions.mode === 'route-segments') {
-      const routeId = +feature.get('routeId');
-      const segmentId = +feature.get('segmentId');
-      const segmentElementId = +feature.get('segmentElementId');
-      return RouteSegmentStyle.routeStyle(styleOptions, routeId, segmentId, segmentElementId);
+      const routeId = feature.get('routeId');
+      const segmentId = feature.get('segmentId');
+      const color = styleOptions.segmentMap.color(routeId, segmentId);
+      if (color) {
+        return RouteSegmentStyle.routeStyle(color);
+      }
+      return undefined;
     }
 
     const baseStyle = this.baseRouteStyle(styleOptions, feature);

@@ -5,6 +5,7 @@ import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { MapLayerState } from '@app/ol/domain/map-layer-state';
 import { MonitorMapMode } from '@app/state/monitor/monitor-map-mode';
 import { MonitorMapState } from '@app/state/monitor/monitor-map-state';
+import { SegmentMap } from '@app/state/segment-map';
 import { Coordinate } from 'ol/coordinate';
 import { FocusElements } from './focus-elements';
 import { PoiStyleMap } from './poi/poi-style-map';
@@ -25,6 +26,7 @@ export class MapState {
   private readonly _mode = signal<MapMode>('analysis');
 
   private readonly _focusElements = signal<FocusElements | undefined>(undefined);
+  private readonly _segmentMap = signal<SegmentMap | undefined>(undefined);
   private readonly _selectedRoute = signal<number | undefined>(undefined);
   private readonly _poiStyleMap = signal<PoiStyleMap>(undefined);
   private readonly _poiActive = signal<ReadonlyMap<string, boolean>>(new Map());
@@ -39,6 +41,7 @@ export class MapState {
   private readonly _monitorReferenceEnabled = signal<boolean>(true);
   private readonly _monitorMatchEnabled = signal<boolean>(true);
   private readonly _monitorDeviationEnabled = signal<boolean>(true);
+  private readonly _monitorShowSegments = signal<boolean>(true);
 
   readonly layers: MapStateLayers;
   readonly scopes: MapStateScopes;
@@ -49,6 +52,7 @@ export class MapState {
   readonly routePopupState = this._routePopupState.asReadonly();
   readonly mode = this._mode.asReadonly();
   readonly focusElements = this._focusElements.asReadonly();
+  readonly segmentMap = this._segmentMap.asReadonly();
   readonly selectedRoute = this._selectedRoute.asReadonly();
   readonly poiStyleMap = this._poiStyleMap.asReadonly();
   readonly poiActive = this._poiActive.asReadonly();
@@ -63,6 +67,7 @@ export class MapState {
   readonly monitorReferenceEnabled = this._monitorReferenceEnabled.asReadonly();
   readonly monitorMatchEnabled = this._monitorMatchEnabled.asReadonly();
   readonly monitorDeviationEnabled = this._monitorDeviationEnabled.asReadonly();
+  readonly monitorShowSegments = this._monitorShowSegments.asReadonly();
 
   readonly mapStyleOptions = computed(() => {
     const options: MapStyleOptions = {
@@ -76,6 +81,7 @@ export class MapState {
       selectedRoute: this.selectedRoute(),
       surveyDateValues: this.surveyDateValues(),
       focusElements: this.focusElements(),
+      segmentMap: this.segmentMap(),
     };
     return options;
   });
@@ -89,6 +95,7 @@ export class MapState {
       referenceEnabled: this.monitorReferenceEnabled(),
       matchEnabled: this.monitorMatchEnabled(),
       deviationEnabled: this.monitorDeviationEnabled(),
+      monitorShowSegments: this.monitorShowSegments(),
     };
     return state;
   });
@@ -120,6 +127,10 @@ export class MapState {
 
   updateFocusElements(elements: FocusElements): void {
     this._focusElements.set(elements);
+  }
+
+  updateSegmentMap(value: SegmentMap): void {
+    this._segmentMap.set(value);
   }
 
   updateSelectedRoute(value: number | null): void {
@@ -178,5 +189,9 @@ export class MapState {
 
   updateMonitorDeviationEnabled(value: boolean): void {
     this._monitorDeviationEnabled.set(value);
+  }
+
+  updateMonitorShowSegments(value: boolean): void {
+    this._monitorShowSegments.set(value);
   }
 }

@@ -2,8 +2,10 @@ import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { SegmentInfo } from '@api/common/route/segment-info';
 import { RouteSegmentListComponent } from '@app/shared/components/route/segment/route-segment-list.component';
+import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 import { MonitorRouteSegmentsPageService } from './monitor-route-segments-page.service';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
@@ -20,6 +22,14 @@ import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-pag
           @if (!response.result) {
             <div class="kpn-error" i18n="@@monitor.route.details.not-found">Route not found</div>
           }
+          <label
+            nz-checkbox
+            [nzChecked]="service.monitorShowSegments()"
+            (nzCheckedChange)="updateMonitorShowSegments($event)"
+            class="kpn-spacer-above"
+          >
+            Show in map
+          </label>
           @if (response.result; as page) {
             <ui-route-segment-list
               [segments]="page.segments"
@@ -32,7 +42,13 @@ import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-pag
     </ui-page>
   `,
   providers: [MonitorRouteSegmentsPageService, NavService],
-  imports: [MonitorRoutePageHeaderComponent, PageComponent, RouteSegmentListComponent],
+  imports: [
+    FormsModule,
+    MonitorRoutePageHeaderComponent,
+    NzCheckboxComponent,
+    PageComponent,
+    RouteSegmentListComponent,
+  ],
 })
 export class MonitorRouteSegmentsPageComponent {
   readonly service = inject(MonitorRouteSegmentsPageService);
@@ -40,5 +56,9 @@ export class MonitorRouteSegmentsPageComponent {
 
   selectSegment(segment: SegmentInfo): void {
     this.service.selectSegment(segment);
+  }
+
+  updateMonitorShowSegments(value: boolean): void {
+    this.service.updateMonitorShowSegments(value);
   }
 }

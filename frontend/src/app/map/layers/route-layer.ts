@@ -8,6 +8,7 @@ import { FeatureLike } from 'ol/Feature';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
+import Style from 'ol/style/Style';
 import { StyleFunction } from 'ol/style/Style';
 import { MapStyleOptions } from '@app/state/map-style-options';
 import { ExploreStyle } from '../style/explore-style';
@@ -53,7 +54,7 @@ export class RouteLayer {
   }
 
   private styleFunction(): StyleFunction {
-    return (feature: FeatureLike) => {
+    return (feature: FeatureLike): Style | Style[] => {
       if (this.styleOptions.mode === 'monitor') {
         return MonitorRouteStyle.style(this.monitorMapState, feature);
       }

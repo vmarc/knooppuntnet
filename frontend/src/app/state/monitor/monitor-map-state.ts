@@ -8,4 +8,5 @@ export interface MonitorMapState {
   referenceEnabled: boolean;
   matchEnabled: boolean;
   deviationEnabled: boolean;
+  monitorShowSegments: boolean;
 }
