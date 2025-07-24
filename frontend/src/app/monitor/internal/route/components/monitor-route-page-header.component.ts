@@ -67,9 +67,9 @@ import { MonitorTranslations } from '../../components/monitor-translations';
 
     <ui-error />
 
-    <!--    @if (!response.result) {-->
-    <!--      <div class="kpn-error" i18n="@@monitor.route.details.not-found">Route not found</div>-->
-    <!--    }-->
+    @if (routeNotFound()) {
+      <div i18n="@@monitor.route.details.not-found" class="kpn-error">Route not found</div>
+    }
   `,
   imports: [
     BreadcrumbComponent,
@@ -84,7 +84,8 @@ export class MonitorRoutePageHeaderComponent {
 
   readonly pageName = this.monitorRouteService.pageName;
 
-  protected readonly summary = computed(() => this.monitorRouteService.summary());
+  protected readonly summary = this.monitorRouteService.summary;
+  protected readonly routeNotFound = this.monitorRouteService.routeNotFound;
 
   protected readonly pageTitle = computed(() => {
     const monitor = MonitorTranslations.get('monitor');

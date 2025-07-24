@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouteStructureComponent } from '@app/route/route-structure.component';
 import { MonitorRouteMembersPageService } from './monitor-route-members-page.service';
-import { NavService } from '@app/shared/components/nav.service';
 
 @Component({
   selector: 'ui-monitor-route-members-page',
@@ -15,7 +14,7 @@ import { NavService } from '@app/shared/components/nav.service';
       }
     }
   `,
-  providers: [MonitorRouteMembersPageService, NavService],
+  providers: [MonitorRouteMembersPageService],
   imports: [RouteStructureComponent],
 })
 export class MonitorRouteMembersPageComponent {

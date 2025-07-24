@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteDeviationsPageService } from './monitor-route-deviations-page.service';
 import { LegendLineComponent } from '@app/shared/components/legend-line';
-import { NavService } from '@app/shared/components/nav.service';
 
 @Component({
   selector: 'ui-monitor-route-deviation-list-header',
@@ -19,7 +18,7 @@ import { NavService } from '@app/shared/components/nav.service';
     </div>
   `,
   styleUrl: './monitor-route-deviation-list.scss',
-  providers: [MonitorRouteDeviationsPageService, NavService],
+  providers: [MonitorRouteDeviationsPageService],
   imports: [LegendLineComponent],
 })
 export class MonitorRouteDeviationListHeaderComponent {}

@@ -7,7 +7,6 @@ import { SegmentInfo } from '@api/common/route/segment-info';
 import { ApiResponse } from '@api/custom/api-response';
 import { MapService } from '@app/map/map.service';
 import { MonitorRouteService } from '@app/monitor/internal/route/monitor-route.service';
-import { NavService } from '@app/shared/components/nav.service';
 import { SegmentMap } from '@app/state/segment-map';
 import { State } from '@app/state/state';
 import { MonitorService } from '../../monitor.service';
@@ -15,7 +14,6 @@ import { MonitorService } from '../../monitor.service';
 @Injectable()
 export class MonitorRouteSegmentsPageService {
   private readonly state = inject(State);
-  private readonly nav = inject(NavService);
   private readonly monitorService = inject(MonitorService);
   private readonly monitorRouteService = inject(MonitorRouteService);
   private readonly mapService = inject(MapService);
@@ -25,10 +23,9 @@ export class MonitorRouteSegmentsPageService {
   readonly monitorShowSegments = this.state.map.monitorShowSegments;
 
   constructor() {
-    this.monitorRouteService.initPage(this.nav);
-    const groupName = this.monitorRouteService.summary().groupName;
-    const routeName = this.monitorRouteService.summary().routeName;
-    this.response = this.monitorService.routeSegments(groupName, routeName);
+    this.response = this.monitorRouteService.request('segments', (groupName, routeName) =>
+      this.monitorService.routeSegments(groupName, routeName)
+    );
     effect(() => {
       if (this.response.hasValue()) {
         const page = this.response.value().result;

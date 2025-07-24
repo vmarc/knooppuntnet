@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouteDetailsComponent } from '@app/route/route-details.component';
 import { DataComponent } from '@app/shared/components/data/data.component';
-import { NavService } from '@app/shared/components/nav.service';
 import { MarkdownComponent } from 'ngx-markdown';
 import { MonitorRouteDetailsAnalysisComponent } from './monitor-route-details-analysis.component';
 import { MonitorRouteDetailsPageService } from './monitor-route-details-page.service';
@@ -48,7 +47,7 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
       }
     }
   `,
-  providers: [MonitorRouteDetailsPageService, NavService],
+  providers: [MonitorRouteDetailsPageService],
   imports: [
     DataComponent,
     MarkdownComponent,

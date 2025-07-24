@@ -4,7 +4,7 @@ import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteSummary } from '@api/common/monitor/monitor-route-summary';
 import { ApiResponse } from '@api/custom/api-response';
-import { NavService } from '@app/shared/components/nav.service';
+import { MonitorRoutePageName } from '@app/monitor/internal/route/components/monitor-route-page-name';
 
 const emptySummary = {
   adminUser: false,
@@ -33,10 +33,7 @@ export class MonitorRouteService {
   private readonly _summary = signal<MonitorRouteSummary>(emptySummary);
   readonly summary = this._summary.asReadonly();
 
-  initPage(nav: NavService): void {
-    const groupName = nav.param('groupName');
-    const routeName = nav.param('routeName');
-    const routeDescription = nav.state('description');
+  onInit(groupName: string, routeName: string): void {
     if (this.summary().groupName === groupName && this.summary().routeName === routeName) {
       return;
     }
@@ -44,18 +41,17 @@ export class MonitorRouteService {
       ...emptySummary,
       groupName: groupName,
       routeName: routeName,
-      routeDescription: routeDescription,
     };
 
     this._summary.set(summary);
   }
 
   request(
-    pageName: string,
-    action: () => HttpResourceRef<ApiResponse<any>>
+    pageName: MonitorRoutePageName,
+    action: (groupName: string, routeName: string) => HttpResourceRef<ApiResponse<any>>
   ): HttpResourceRef<ApiResponse<any>> {
     this._pageName.set(pageName);
-    const response = action();
+    const response = action(this.summary().groupName, this.summary().routeName);
     effect(() => {
       if (response.hasValue()) {
         const result = response.value()?.result;

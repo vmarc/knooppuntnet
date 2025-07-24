@@ -6,14 +6,12 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
 import { ApiResponse } from '@api/custom/api-response';
 import { MapService } from '@app/map/map.service';
 import { MonitorRouteService } from '@app/monitor/internal/route/monitor-route.service';
-import { NavService } from '@app/shared/components/nav.service';
 import { State } from '@app/state/state';
 import { MonitorService } from '../../monitor.service';
 
 @Injectable()
 export class MonitorRouteDetailsPageService {
   private readonly state = inject(State);
-  private readonly nav = inject(NavService);
   private readonly monitorService = inject(MonitorService);
   private readonly monitorRouteService = inject(MonitorRouteService);
   private readonly mapService = inject(MapService);
@@ -23,10 +21,9 @@ export class MonitorRouteDetailsPageService {
   readonly admin = this.monitorService.adminEnabled;
 
   constructor() {
-    this.monitorRouteService.initPage(this.nav);
-    const groupName = this.monitorRouteService.summary().groupName;
-    const routeName = this.monitorRouteService.summary().routeName;
-    this.response = this.monitorService.route(groupName, routeName);
+    this.response = this.monitorRouteService.request('details', (groupName, routeName) =>
+      this.monitorService.route(groupName, routeName)
+    );
     effect(() => {
       if (this.response.hasValue()) {
         const summary = this.response.value().result.summary;

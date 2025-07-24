@@ -7,7 +7,6 @@ import { SegmentInfo } from '@api/common/route/segment-info';
 import { RouteSegmentListComponent } from '@app/shared/components/route/segments/route-segment-list.component';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 import { MonitorRouteSegmentsPageService } from './monitor-route-segments-page.service';
-import { NavService } from '@app/shared/components/nav.service';
 
 @Component({
   selector: 'ui-monitor-route-segments-page',
@@ -31,7 +30,7 @@ import { NavService } from '@app/shared/components/nav.service';
       }
     }
   `,
-  providers: [MonitorRouteSegmentsPageService, NavService],
+  providers: [MonitorRouteSegmentsPageService],
   imports: [FormsModule, NzCheckboxComponent, RouteSegmentListComponent],
 })
 export class MonitorRouteSegmentsPageComponent {

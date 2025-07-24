@@ -23,12 +23,8 @@ export class MonitorRouteComponent implements OnInit {
   private monitorRouteService = inject(MonitorRouteService);
   readonly groupName = input<string>();
   readonly routeName = input<string>();
-  readonly description = input<string>();
 
   ngOnInit(): void {
-    // this.routeService.onInit(this.routeId());
-    console.log(
-      `groupName= ${this.groupName()}, routeName= ${this.routeName()}, description= ${this.description()}`
-    );
+    this.monitorRouteService.onInit(this.groupName(), this.routeName());
   }
 }

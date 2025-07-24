@@ -11,7 +11,6 @@ import { MonitorRouteDeviationPopupComponent } from './monitor-route-deviation-p
 import { MonitorRouteDeviationsPageService } from './monitor-route-deviations-page.service';
 import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { ListComponent } from '@app/shared/components/list/list.component';
-import { NavService } from '@app/shared/components/nav.service';
 import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
 import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 
@@ -41,7 +40,7 @@ import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
     </nz-dropdown-menu>
   `,
   styleUrl: './monitor-route-deviation-list.scss',
-  providers: [MonitorRouteDeviationsPageService, NavService],
+  providers: [MonitorRouteDeviationsPageService, NzContextMenuService],
   imports: [
     ListComponent,
     ListItemComponent,

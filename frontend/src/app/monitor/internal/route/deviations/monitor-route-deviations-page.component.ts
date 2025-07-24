@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { MonitorRouteDeviationInfo } from '@api/common/monitor/monitor-route-deviation-info';
 import { MonitorRouteDeviationListComponent } from '@app/monitor/internal/route/deviations/monitor-route-deviation-list.component';
 import { MonitorRouteDeviationsPageService } from '@app/monitor/internal/route/deviations/monitor-route-deviations-page.service';
-import { NavService } from '@app/shared/components/nav.service';
 
 @Component({
   selector: 'ui-monitor-route-deviations-page',
@@ -18,7 +17,7 @@ import { NavService } from '@app/shared/components/nav.service';
       />
     }
   `,
-  providers: [MonitorRouteDeviationsPageService, NavService],
+  providers: [MonitorRouteDeviationsPageService],
   imports: [MonitorRouteDeviationListComponent],
 })
 export class MonitorRouteDeviationsPageComponent {
