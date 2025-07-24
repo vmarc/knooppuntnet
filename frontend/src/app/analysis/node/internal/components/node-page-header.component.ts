@@ -30,9 +30,8 @@ import { NodeService } from '../node.service';
   imports: [PageHeaderComponent, PageMenuComponent, BreadcrumbComponent],
 })
 export class NodePageHeaderComponent {
-  readonly pageName = input.required<string>();
-
   private readonly service = inject(NodeService);
+  protected readonly pageName = computed(() => this.service.pageName());
   protected readonly nodeName = computed(() => this.service.nodeName());
   protected readonly nodeId = computed(() => this.service.nodeId());
 

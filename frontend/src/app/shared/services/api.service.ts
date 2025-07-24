@@ -162,13 +162,13 @@ export class ApiService {
     return this.http.post(url, parameters);
   }
 
-  nodeDetails(nodeId: string): Observable<ApiResponse<NodeDetailsPage>> {
+  nodeDetails(nodeId: number): Observable<ApiResponse<NodeDetailsPage>> {
     const url = `/api/node/${nodeId}`;
     return this.http.get(url, { params: this.languageParams() });
   }
 
   nodeChanges(
-    nodeId: string,
+    nodeId: number,
     parameters: ChangesParameters
   ): Observable<ApiResponse<NodeChangesPage>> {
     const url = `/api/node/${nodeId}/changes`;

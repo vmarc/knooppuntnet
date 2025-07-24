@@ -8,14 +8,12 @@ import { ApiResponse } from '@api/custom/api-response';
 import { RouteTypes } from '@app/shared/kpn/common/route-types';
 import { ApiService } from '@app/shared/services/api.service';
 import { MapService } from '@app/map/map.service';
-import { RouterService } from '@app/shared/services/router.service';
 import { NodeService } from '../node.service';
 
 @Injectable()
 export class NodeDetailsPageService {
   private readonly apiService = inject(ApiService);
   private readonly nodeService = inject(NodeService);
-  private readonly routerService = inject(RouterService);
   private readonly mapService = inject(MapService);
 
   private readonly _response = signal<ApiResponse<NodeDetailsPage>>(null);
@@ -31,15 +29,14 @@ export class NodeDetailsPageService {
   });
 
   onInit(): void {
-    this.nodeService.initPage(this.routerService);
-    this.load();
-  }
-
-  private load(): void {
+    this.nodeService.updatePageName('details');
+    this.nodeService.updateNodeNotFound(false);
     this.apiService.nodeDetails(this.nodeService.nodeId()).subscribe((response) => {
       if (response.result) {
         this.nodeService.updateNode(response.result.nodeInfo.name, response.result.changeCount);
         this.focusOnNode(response.result.nodeInfo);
+      } else {
+        this.nodeService.updateNodeNotFound(true);
       }
       this._response.set(response);
     });
