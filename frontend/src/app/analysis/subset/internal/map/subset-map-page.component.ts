@@ -14,20 +14,12 @@ import { SubsetMapService } from './subset-map.service';
   selector: 'ui-subset-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-subset-page-header-block
-      pageName="map"
-      pageTitle="Map"
-      i18n-pageTitle="@@subset-map.title"
-    />
-
-    <ui-error />
-
-    @if (service.response(); as response) {
+    @if (service.response()) {
       <ui-subset-map />
     }
   `,
   providers: [SubsetMapService, SubsetMapPageService, AnalysisStrategyService],
-  imports: [ErrorComponent, SubsetMapComponent, SubsetPageHeaderBlockComponent],
+  imports: [SubsetMapComponent],
 })
 export class SubsetMapPageComponent implements OnInit, OnDestroy {
   protected readonly service = inject(SubsetMapPageService);

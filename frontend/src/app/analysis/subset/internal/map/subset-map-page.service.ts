@@ -19,6 +19,7 @@ export class SubsetMapPageService {
   readonly response = this._response.asReadonly();
 
   onInit(): void {
+    this.subsetService.setPageName('map');
     this.apiService.subsetMap(this.subsetService.subset()).subscribe((response) => {
       if (response.result) {
         this.subsetService.setSubsetInfo(response.result.subsetInfo);

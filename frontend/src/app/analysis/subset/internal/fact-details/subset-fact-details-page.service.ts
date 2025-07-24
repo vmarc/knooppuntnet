@@ -22,6 +22,7 @@ export class SubsetFactDetailsPageService {
   readonly factDefinition = computed(() => Facts.facts.get(this.subsetFact().fact));
 
   onInit(fact: Fact): void {
+    this.subsetService.setPageName('facts');
     this._subsetFact.set(new SubsetFact(this.subsetService.subset(), fact));
     this.apiService
       .subsetFactDetails(this.subsetService.subset(), this.subsetFact().fact)

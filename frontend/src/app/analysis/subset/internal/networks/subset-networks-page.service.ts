@@ -13,6 +13,7 @@ export class SubsetNetworksPageService {
   readonly response = this._response.asReadonly();
 
   onInit(): void {
+    this.subsetService.setPageName('networks');
     this.apiService.subsetNetworks(this.subsetService.subset()).subscribe((response) => {
       if (response.result) {
         this.subsetService.setSubsetInfo(response.result.subsetInfo);

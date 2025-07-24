@@ -14,7 +14,6 @@ import { FactDescriptionComponent } from '@app/analysis/fact/components/fact-des
 import { FactNameComponent } from '@app/analysis/fact/components/fact-name.component';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
-import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetFactDetailsSummaryComponent } from './components/subset-fact-details-summary.component';
 import { SubsetFactDetailsComponent } from './components/subset-fact-details.component';
 import { SubsetFactDetailsPageService } from './subset-fact-details-page.service';
@@ -23,11 +22,6 @@ import { SubsetFactDetailsPageService } from './subset-fact-details-page.service
   selector: 'ui-subset-fact-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-subset-page-header-block
-      pageName="facts"
-      pageTitle="Facts"
-      i18n-pageTitle="@@subset-facts.title"
-    />
     <mat-card class="kpn-spacer-above">
       <mat-card-header>
         <mat-card-title>
@@ -68,7 +62,6 @@ import { SubsetFactDetailsPageService } from './subset-fact-details-page.service
     MatCardTitle,
     SubsetFactDetailsComponent,
     SubsetFactDetailsSummaryComponent,
-    SubsetPageHeaderBlockComponent,
   ],
 })
 export class SubsetFactDetailsPageComponent implements OnInit {

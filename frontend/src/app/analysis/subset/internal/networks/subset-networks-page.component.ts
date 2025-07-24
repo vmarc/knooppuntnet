@@ -3,12 +3,10 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
-import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
 import { PageWidthService } from '@app/shared/components/page-width.service';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 import { MarkdownComponent } from 'ngx-markdown';
-import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetNetworkListComponent } from './components/subset-network-list.component';
 import { SubsetNetworkTableComponent } from './components/subset-network-table.component';
 import { SubsetNetworksPageService } from './subset-networks-page.service';
@@ -17,14 +15,6 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
   selector: 'ui-subset-networks-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-subset-page-header-block
-      pageName="networks"
-      pageTitle="Networks"
-      i18n-pageTitle="@@subset-networks.title"
-    />
-
-    <ui-error />
-
     @if (service.response(); as response) {
       <div class="kpn-spacer-above">
         @if (response.result.networks.length === 0) {
@@ -52,13 +42,11 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
   `,
   providers: [SubsetNetworksPageService, AnalysisStrategyService],
   imports: [
-    ErrorComponent,
     IntegerFormatPipe,
     MarkdownComponent,
     SituationOnComponent,
     SubsetNetworkListComponent,
     SubsetNetworkTableComponent,
-    SubsetPageHeaderBlockComponent,
     IntegerFormatPipe,
   ],
 })

@@ -14,26 +14,16 @@ import { FactDescriptionComponent } from '@app/analysis/fact/components/fact-des
 import { FactLevelComponent } from '@app/analysis/fact/components/fact-level.component';
 import { FactNameComponent } from '@app/analysis/fact/components/fact-name.component';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
-import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { ItemComponent } from '@app/shared/components/items/item.component';
 import { ItemsComponent } from '@app/shared/components/items/items.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
-import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetFactsPageService } from './subset-facts-page.service';
 
 @Component({
   selector: 'ui-subset-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-subset-page-header-block
-      pageName="facts"
-      pageTitle="Facts"
-      i18n-pageTitle="@@subset-facts.title"
-    />
-
-    <ui-error />
-
     @if (service.response(); as response) {
       <div class="kpn-spacer-above">
         <p>
@@ -67,7 +57,6 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
   `,
   providers: [SubsetFactsPageService, AnalysisStrategyService],
   imports: [
-    ErrorComponent,
     FactDescriptionComponent,
     FactLevelComponent,
     FactNameComponent,
@@ -76,7 +65,6 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
     ItemsComponent,
     RouterLink,
     SituationOnComponent,
-    SubsetPageHeaderBlockComponent,
   ],
 })
 export class SubsetFactsPageComponent implements OnInit {

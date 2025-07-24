@@ -2,9 +2,7 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
-import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetOrphanRouteListComponent } from './components/subset-orphan-route-list.component';
 import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.service';
 
@@ -12,14 +10,6 @@ import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.servi
   selector: 'ui-subset-orphan-routes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-subset-page-header-block
-      pageName="orphan-routes"
-      pageTitle="Free routes"
-      i18n-pageTitle="@@subset-orphan-routes.title"
-    />
-
-    <ui-error />
-
     @if (service.response(); as response) {
       <div class="kpn-spacer-above">
         <p>
@@ -36,12 +26,7 @@ import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.servi
     }
   `,
   providers: [SubsetOrphanRoutesPageService],
-  imports: [
-    ErrorComponent,
-    SituationOnComponent,
-    SubsetOrphanRouteListComponent,
-    SubsetPageHeaderBlockComponent,
-  ],
+  imports: [SituationOnComponent, SubsetOrphanRouteListComponent],
 })
 export class SubsetOrphanRoutesPageComponent implements OnInit {
   protected readonly service = inject(SubsetOrphanRoutesPageService);

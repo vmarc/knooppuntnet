@@ -37,7 +37,6 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
 })
 export class SubsetPageHeaderBlockComponent {
   readonly pageName = input.required<SubsetPageName>();
-  readonly pageTitle = input.required<string>();
 
   private readonly service = inject(SubsetService);
 
@@ -55,4 +54,27 @@ export class SubsetPageHeaderBlockComponent {
 
   protected readonly subsetPageTitle = computed(() => `${this.subsetName()} | ${this.pageTitle()}`);
   protected readonly subject = computed(() => `subset-${this.pageName()}-page`);
+
+  protected readonly pageTitle = computed(() => {
+    const page = this.pageName();
+    if (page === 'networks') {
+      return $localize`:@@subset-networks.title:Networks`;
+    }
+    if (page === 'facts') {
+      return $localize`:@@subset-facts.title:Facts`;
+    }
+    if (page === 'orphan-nodes') {
+      return $localize`:@@subset-orphan-nodes.title:Orphan nodes`;
+    }
+    if (page === 'orphan-routes') {
+      return $localize`:@@subset-orphan-routes.title:Free routes`;
+    }
+    if (page === 'map') {
+      return $localize`:@@subset-map.title:Map`;
+    }
+    if (page === 'changes') {
+      return $localize`:@@subset-changes.title:Changes`;
+    }
+    return null;
+  });
 }

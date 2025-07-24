@@ -14,6 +14,7 @@ export class SubsetFactsPageService {
   readonly response = this._response.asReadonly();
 
   onInit(): void {
+    this.subsetService.setPageName('facts');
     this.apiService.subsetFacts(this.subsetService.subset()).subscribe((response) => {
       if (response.result) {
         this.subsetService.setSubsetInfo(response.result.subsetInfo);

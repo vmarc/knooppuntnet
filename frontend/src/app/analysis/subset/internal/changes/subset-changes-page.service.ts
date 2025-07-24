@@ -35,6 +35,7 @@ export class SubsetChangesPageService implements ChangesService {
   readonly changeCount = computed(() => this.response().result.changeCount);
 
   onInit(): void {
+    this.subsetService.setPageName('changes');
     const params = this.routerService.params();
     const queryParams = this.routerService.queryParams();
     const uniqueQueryParams = Util.uniqueParams(queryParams);
