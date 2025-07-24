@@ -18,9 +18,7 @@ import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { ItemComponent } from '@app/shared/components/items/item.component';
 import { ItemsComponent } from '@app/shared/components/items/items.component';
-import { PageComponent } from '@app/shared/components/page/page.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
-import { RouterService } from '@app/shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetFactsPageService } from './subset-facts-page.service';
 
@@ -28,48 +26,46 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
   selector: 'ui-subset-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page>
-      <ui-subset-page-header-block
-        pageName="facts"
-        pageTitle="Facts"
-        i18n-pageTitle="@@subset-facts.title"
-      />
+    <ui-subset-page-header-block
+      pageName="facts"
+      pageTitle="Facts"
+      i18n-pageTitle="@@subset-facts.title"
+    />
 
-      <ui-error />
+    <ui-error />
 
-      @if (service.response(); as response) {
-        <div class="kpn-spacer-above">
-          <p>
-            <ui-situation-on [timestamp]="response.situationOn" />
+    @if (service.response(); as response) {
+      <div class="kpn-spacer-above">
+        <p>
+          <ui-situation-on [timestamp]="response.situationOn" />
+        </p>
+        @if (!hasFacts(response)) {
+          <p class="kpn-line">
+            <span i18n="@@subset-facts.no-facts">No facts</span>
+            <ui-icon-happy />
           </p>
-          @if (!hasFacts(response)) {
-            <p class="kpn-line">
-              <span i18n="@@subset-facts.no-facts">No facts</span>
-              <ui-icon-happy />
-            </p>
-          } @else {
-            <div class="kpn-line">
-              <ui-items>
-                @for (factCount of response.result.factCounts; track factCount) {
-                  <ui-item [index]="$index">
-                    <div class="kpn-line">
-                      <a [routerLink]="factCount.fact">
-                        <ui-fact-name [fact]="factCount.fact" />
-                      </a>
-                      <span>({{ factCount.count }})</span>
-                      <ui-fact-level [factLevel]="factLevel(factCount.fact)" />
-                    </div>
-                    <ui-fact-description [factInfo]="factInfo(factCount)" />
-                  </ui-item>
-                }
-              </ui-items>
-            </div>
-          }
-        </div>
-      }
-    </ui-page>
+        } @else {
+          <div class="kpn-line">
+            <ui-items>
+              @for (factCount of response.result.factCounts; track factCount) {
+                <ui-item [index]="$index">
+                  <div class="kpn-line">
+                    <a [routerLink]="factCount.fact">
+                      <ui-fact-name [fact]="factCount.fact" />
+                    </a>
+                    <span>({{ factCount.count }})</span>
+                    <ui-fact-level [factLevel]="factLevel(factCount.fact)" />
+                  </div>
+                  <ui-fact-description [factInfo]="factInfo(factCount)" />
+                </ui-item>
+              }
+            </ui-items>
+          </div>
+        }
+      </div>
+    }
   `,
-  providers: [SubsetFactsPageService, AnalysisStrategyService, RouterService],
+  providers: [SubsetFactsPageService, AnalysisStrategyService],
   imports: [
     ErrorComponent,
     FactDescriptionComponent,
@@ -78,7 +74,6 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
     IconHappyComponent,
     ItemComponent,
     ItemsComponent,
-    PageComponent,
     RouterLink,
     SituationOnComponent,
     SubsetPageHeaderBlockComponent,

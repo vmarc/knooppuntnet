@@ -52,8 +52,12 @@ export class SubsetOrphanNodesPageService {
   });
 
   onInit(): void {
-    this.subsetService.initPage(this.routerService);
-    this.load();
+    this.apiService.subsetOrphanNodes(this.subsetService.subset()).subscribe((response) => {
+      if (response.result) {
+        this.subsetService.setSubsetInfo(response.result.subsetInfo);
+      }
+      this._response.set(response);
+    });
   }
 
   updatePageIndex(pageIndex: number): void {
@@ -63,14 +67,5 @@ export class SubsetOrphanNodesPageService {
   updatePageSize(pageSize: number): void {
     this._pageIndex.set(0);
     this.state.preferences.updatePageSize(pageSize);
-  }
-
-  private load(): void {
-    this.apiService.subsetOrphanNodes(this.subsetService.subset()).subscribe((response) => {
-      if (response.result) {
-        this.subsetService.setSubsetInfo(response.result.subsetInfo);
-      }
-      this._response.set(response);
-    });
   }
 }

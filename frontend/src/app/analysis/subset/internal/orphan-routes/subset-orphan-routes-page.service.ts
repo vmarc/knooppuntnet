@@ -52,8 +52,12 @@ export class SubsetOrphanRoutesPageService {
   });
 
   onInit(): void {
-    this.subsetService.initPage(this.routerService);
-    this.load();
+    this.apiService.subsetOrphanRoutes(this.subsetService.subset()).subscribe((response) => {
+      if (response.result) {
+        this.subsetService.setSubsetInfo(response.result.subsetInfo);
+      }
+      this._response.set(response);
+    });
   }
 
   updatePageSize(pageSize: number): void {
@@ -63,14 +67,5 @@ export class SubsetOrphanRoutesPageService {
 
   updatePageIndex(pageIndex: number): void {
     this._pageIndex.set(pageIndex);
-  }
-
-  private load(): void {
-    this.apiService.subsetOrphanRoutes(this.subsetService.subset()).subscribe((response) => {
-      if (response.result) {
-        this.subsetService.setSubsetInfo(response.result.subsetInfo);
-      }
-      this._response.set(response);
-    });
   }
 }

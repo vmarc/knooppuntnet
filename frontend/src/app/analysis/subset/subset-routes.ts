@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
+import { SubsetComponent } from '@app/analysis/subset/internal/subset.component';
 import { SubsetChangesPageComponent } from './internal/changes/subset-changes-page.component';
 import { SubsetFactDetailsPageComponent } from './internal/fact-details/subset-fact-details-page.component';
 import { SubsetFactsPageComponent } from './internal/facts/subset-facts-page.component';
@@ -11,35 +12,36 @@ import { SubsetOrphanRoutesPageComponent } from './internal/orphan-routes/subset
 
 export const subsetRoutes: Routes = [
   {
-    path: '',
+    path: ':routeType/:country',
+    component: SubsetComponent,
     providers: [AnalysisStrategyService, SubsetMapService],
     children: [
       {
-        path: ':routeType/:country/networks',
+        path: 'networks',
         component: SubsetNetworksPageComponent,
       },
       {
-        path: ':routeType/:country/facts',
+        path: 'facts',
         component: SubsetFactsPageComponent,
       },
       {
-        path: ':routeType/:country/orphan-nodes',
+        path: 'orphan-nodes',
         component: SubsetOrphanNodesPageComponent,
       },
       {
-        path: ':routeType/:country/orphan-routes',
+        path: 'orphan-routes',
         component: SubsetOrphanRoutesPageComponent,
       },
       {
-        path: ':routeType/:country/map',
+        path: 'map',
         component: SubsetMapPageComponent,
       },
       {
-        path: ':routeType/:country/changes',
+        path: 'changes',
         component: SubsetChangesPageComponent,
       },
       {
-        path: ':routeType/:country/facts/:fact',
+        path: 'facts/:fact',
         component: SubsetFactDetailsPageComponent,
       },
     ],

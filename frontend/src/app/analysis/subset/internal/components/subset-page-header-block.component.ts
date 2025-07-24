@@ -3,6 +3,7 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
+import { SubsetPageName } from '@app/analysis/subset/internal/components/subset-page-name';
 import { Translations } from '@app/shared/i18n/translations';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
@@ -16,7 +17,7 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
   template: `
     <ui-subset-page-breadcrumb [subset]="subset()" [pageName]="pageName()" />
 
-    <ui-page-header [pageTitle]="subsetPageTitle()" [subject]="'subset-' + pageName() + '-page'">
+    <ui-page-header [pageTitle]="subsetPageTitle()" [subject]="subject()">
       <span class="header-route-type-icon">
         <nz-icon [nzType]="routeType()" />
       </span>
@@ -35,7 +36,7 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
   ],
 })
 export class SubsetPageHeaderBlockComponent {
-  readonly pageName = input.required<string>();
+  readonly pageName = input.required<SubsetPageName>();
   readonly pageTitle = input.required<string>();
 
   private readonly service = inject(SubsetService);
@@ -53,4 +54,5 @@ export class SubsetPageHeaderBlockComponent {
   });
 
   protected readonly subsetPageTitle = computed(() => `${this.subsetName()} | ${this.pageTitle()}`);
+  protected readonly subject = computed(() => `subset-${this.pageName()}-page`);
 }

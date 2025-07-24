@@ -1,8 +1,9 @@
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { Country } from '@api/common/country';
+import { RouteType } from '@api/common/route-type';
 import { SubsetInfo } from '@api/common/subset/subset-info';
 import { Subset } from '@api/custom/subset';
-import { RouterService } from '@app/shared/services/router.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,15 +15,10 @@ export class SubsetService {
   readonly subset = this._subset.asReadonly();
   readonly subsetInfo = this._subsetInfo.asReadonly();
 
-  initPage(routerService: RouterService): void {
-    const subset = routerService.paramSubset();
+  onInit(country: Country, routeType: RouteType): void {
     const oldSubset = this.subset();
-    if (
-      !oldSubset ||
-      oldSubset.country !== subset.country ||
-      oldSubset.routeType !== subset.routeType
-    ) {
-      this._subset.set(subset);
+    if (!oldSubset || oldSubset.country !== country || oldSubset.routeType !== routeType) {
+      this._subset.set({ country, routeType });
       this._subsetInfo.set(null);
     }
   }

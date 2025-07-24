@@ -5,8 +5,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
-import { PageComponent } from '@app/shared/components/page/page.component';
-import { RouterService } from '@app/shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetMapComponent } from './components/subset-map.component';
 import { SubsetMapPageService } from './subset-map-page.service';
@@ -16,22 +14,20 @@ import { SubsetMapService } from './subset-map.service';
   selector: 'ui-subset-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page>
-      <ui-subset-page-header-block
-        pageName="map"
-        pageTitle="Map"
-        i18n-pageTitle="@@subset-map.title"
-      />
+    <ui-subset-page-header-block
+      pageName="map"
+      pageTitle="Map"
+      i18n-pageTitle="@@subset-map.title"
+    />
 
-      <ui-error />
+    <ui-error />
 
-      @if (service.response(); as response) {
-        <ui-subset-map />
-      }
-    </ui-page>
+    @if (service.response(); as response) {
+      <ui-subset-map />
+    }
   `,
-  providers: [SubsetMapService, SubsetMapPageService, AnalysisStrategyService, RouterService],
-  imports: [ErrorComponent, SubsetMapComponent, SubsetPageHeaderBlockComponent, PageComponent],
+  providers: [SubsetMapService, SubsetMapPageService, AnalysisStrategyService],
+  imports: [ErrorComponent, SubsetMapComponent, SubsetPageHeaderBlockComponent],
 })
 export class SubsetMapPageComponent implements OnInit, OnDestroy {
   protected readonly service = inject(SubsetMapPageService);

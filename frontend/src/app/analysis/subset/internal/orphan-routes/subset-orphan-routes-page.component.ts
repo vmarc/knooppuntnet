@@ -3,9 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
-import { PageComponent } from '@app/shared/components/page/page.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
-import { RouterService } from '@app/shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetOrphanRouteListComponent } from './components/subset-orphan-route-list.component';
 import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.service';
@@ -14,35 +12,32 @@ import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.servi
   selector: 'ui-subset-orphan-routes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page>
-      <ui-subset-page-header-block
-        pageName="orphan-routes"
-        pageTitle="Free routes"
-        i18n-pageTitle="@@subset-orphan-routes.title"
-      />
+    <ui-subset-page-header-block
+      pageName="orphan-routes"
+      pageTitle="Free routes"
+      i18n-pageTitle="@@subset-orphan-routes.title"
+    />
 
-      <ui-error />
+    <ui-error />
 
-      @if (service.response(); as response) {
-        <div class="kpn-spacer-above">
-          <p>
-            <ui-situation-on [timestamp]="response.situationOn" />
+    @if (service.response(); as response) {
+      <div class="kpn-spacer-above">
+        <p>
+          <ui-situation-on [timestamp]="response.situationOn" />
+        </p>
+        @if (response.result.routes.length === 0) {
+          <p class="kpn-line">
+            <span i18n="@@subset-orphan-routes.no-routes">No free routes</span>
           </p>
-          @if (response.result.routes.length === 0) {
-            <p class="kpn-line">
-              <span i18n="@@subset-orphan-routes.no-routes">No free routes</span>
-            </p>
-          } @else {
-            <ui-subset-orphan-route-list />
-          }
-        </div>
-      }
-    </ui-page>
+        } @else {
+          <ui-subset-orphan-route-list />
+        }
+      </div>
+    }
   `,
-  providers: [SubsetOrphanRoutesPageService, RouterService],
+  providers: [SubsetOrphanRoutesPageService],
   imports: [
     ErrorComponent,
-    PageComponent,
     SituationOnComponent,
     SubsetOrphanRouteListComponent,
     SubsetPageHeaderBlockComponent,
