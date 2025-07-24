@@ -3,7 +3,6 @@ import { Signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { input } from '@angular/core';
 import { MonitorRouteService } from '@app/monitor/internal/route/monitor-route.service';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
@@ -67,6 +66,10 @@ import { MonitorTranslations } from '../../components/monitor-translations';
     }
 
     <ui-error />
+
+    <!--    @if (!response.result) {-->
+    <!--      <div class="kpn-error" i18n="@@monitor.route.details.not-found">Route not found</div>-->
+    <!--    }-->
   `,
   imports: [
     BreadcrumbComponent,
@@ -79,7 +82,7 @@ import { MonitorTranslations } from '../../components/monitor-translations';
 export class MonitorRoutePageHeaderComponent {
   private readonly monitorRouteService = inject(MonitorRouteService);
 
-  readonly pageName = input.required<string>();
+  readonly pageName = this.monitorRouteService.pageName;
 
   protected readonly summary = computed(() => this.monitorRouteService.summary());
 

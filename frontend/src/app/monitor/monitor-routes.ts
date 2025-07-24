@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
-import { MonitorRouteDeviationsPageComponent } from '@app/monitor/internal/route/deviations/monitor-route-deviations-page.component';
-import { MonitorRouteMembersPageComponent } from '@app/monitor/internal/route/members/monitor-route-members-page.component';
-import { MonitorRouteSegmentsPageComponent } from '@app/monitor/internal/route/segments/monitor-route-segments-page.component';
+import { MonitorRouteDeviationsPageComponent } from './internal/route/deviations/monitor-route-deviations-page.component';
+import { MonitorRouteMembersPageComponent } from './internal/route/members/monitor-route-members-page.component';
+import { MonitorRouteComponent } from './internal/route/monitor-route.component';
+import { MonitorRouteSegmentsPageComponent } from './internal/route/segments/monitor-route-segments-page.component';
 import { MonitorChangesPageComponent } from './internal/changes/monitor-changes-page.component';
 import { MonitorGroupAddPageComponent } from './internal/group/add/monitor-group-add-page.component';
 import { MonitorGroupChangesPageComponent } from './internal/group/changes/monitor-group-changes-page.component';
@@ -48,20 +49,27 @@ export const monitorRoutes: Routes = [
       },
       {
         path: 'groups/:groupName/routes/:routeName',
-        component: MonitorRouteDetailsPageComponent,
+        component: MonitorRouteComponent,
+        children: [
+          {
+            path: '',
+            component: MonitorRouteDetailsPageComponent,
+          },
+          {
+            path: 'members',
+            component: MonitorRouteMembersPageComponent,
+          },
+          {
+            path: 'segments',
+            component: MonitorRouteSegmentsPageComponent,
+          },
+          {
+            path: 'deviations',
+            component: MonitorRouteDeviationsPageComponent,
+          },
+        ],
       },
-      {
-        path: 'groups/:groupName/routes/:routeName/members',
-        component: MonitorRouteMembersPageComponent,
-      },
-      {
-        path: 'groups/:groupName/routes/:routeName/segments',
-        component: MonitorRouteSegmentsPageComponent,
-      },
-      {
-        path: 'groups/:groupName/routes/:routeName/deviations',
-        component: MonitorRouteDeviationsPageComponent,
-      },
+
       {
         path: 'groups/:groupName/routes/:routeName/gpx',
         component: MonitorRouteGpxComponent,

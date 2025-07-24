@@ -4,9 +4,7 @@ import { Component } from '@angular/core';
 import { RouteDetailsComponent } from '@app/route/route-details.component';
 import { DataComponent } from '@app/shared/components/data/data.component';
 import { NavService } from '@app/shared/components/nav.service';
-import { PageComponent } from '@app/shared/components/page/page.component';
 import { MarkdownComponent } from 'ngx-markdown';
-import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 import { MonitorRouteDetailsAnalysisComponent } from './monitor-route-details-analysis.component';
 import { MonitorRouteDetailsPageService } from './monitor-route-details-page.service';
 import { MonitorRouteDetailsReferenceComponent } from './monitor-route-details-reference.component';
@@ -18,17 +16,12 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
-    <ui-page>
-      <ui-monitor-route-page-header pageName="details" />
-    </ui-page>
-
-    @if (service.response(); as response) {
-      @if (!response.result) {
-        <div class="kpn-error" i18n="@@monitor.route.details.not-found">Route not found</div>
-      }
-
-      @if (response.result; as page) {
-        <ui-route-details [situationOn]="response.situationOn" [routeDetailsData]="page.details" />
+    @if (response.hasValue()) {
+      @if (response.value().result; as page) {
+        <ui-route-details
+          [situationOn]="response.value().situationOn"
+          [routeDetailsData]="page.details"
+        />
 
         <ui-data title="Summary" i18n-title="@@monitor.route.details.summary">
           <ui-monitor-route-details-summary [page]="page" />
@@ -63,11 +56,10 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
     MonitorRouteDetailsReferenceComponent,
     MonitorRouteDetailsSummaryComponent,
     MonitorRouteDetailsTimestampComponent,
-    MonitorRoutePageHeaderComponent,
-    PageComponent,
     RouteDetailsComponent,
   ],
 })
 export class MonitorRouteDetailsPageComponent {
   readonly service = inject(MonitorRouteDetailsPageService);
+  readonly response = this.service.response;
 }

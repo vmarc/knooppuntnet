@@ -1,5 +1,6 @@
+import { HttpResourceRef } from '@angular/common/http';
+import { effect } from '@angular/core';
 import { inject } from '@angular/core';
-import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteDeviationInfo } from '@api/common/monitor/monitor-route-deviation-info';
 import { MonitorRouteDeviationsPage } from '@api/common/monitor/monitor-route-deviations-page';
@@ -18,22 +19,23 @@ export class MonitorRouteDeviationsPageService {
   private readonly monitorRouteService = inject(MonitorRouteService);
   private readonly mapService = inject(MapService);
 
-  private readonly _response = signal<ApiResponse<MonitorRouteDeviationsPage>>(undefined);
-  readonly response = this._response.asReadonly();
+  readonly response: HttpResourceRef<ApiResponse<MonitorRouteDeviationsPage>>;
 
   constructor() {
     this.monitorRouteService.initPage(this.nav);
     const groupName = this.monitorRouteService.summary().groupName;
     const routeName = this.monitorRouteService.summary().routeName;
-    this.monitorService.routeDeviations(groupName, routeName).subscribe((response) => {
-      this._response.set(response);
-      const summary = response.result?.summary;
-      if (summary) {
-        this.monitorRouteService.update(summary);
-        this.state.map.updateMode('monitor');
-        this.state.map.updateMonitorRouteIds([summary.routeId]);
-        this.state.map.updateMonitorRelationIds(summary.relationIds);
-        this.mapService.fitBounds(summary.bounds);
+    this.response = this.monitorService.routeDeviations(groupName, routeName);
+    effect(() => {
+      if (this.response.hasValue()) {
+        const summary = this.response.value().result.summary;
+        if (summary) {
+          this.monitorRouteService.update(summary);
+          this.state.map.updateMode('monitor');
+          this.state.map.updateMonitorRouteIds([summary.routeId]);
+          this.state.map.updateMonitorRelationIds(summary.relationIds);
+          this.mapService.fitBounds(summary.bounds);
+        }
       }
     });
   }

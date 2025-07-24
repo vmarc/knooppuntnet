@@ -1,5 +1,6 @@
+import { HttpResourceRef } from '@angular/common/http';
+import { effect } from '@angular/core';
 import { inject } from '@angular/core';
-import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteMembersPage } from '@api/common/monitor/monitor-route-members-page';
 import { ApiResponse } from '@api/custom/api-response';
@@ -17,23 +18,23 @@ export class MonitorRouteMembersPageService {
   private readonly monitorRouteService = inject(MonitorRouteService);
   private readonly mapService = inject(MapService);
 
-  private readonly _response = signal<ApiResponse<MonitorRouteMembersPage>>(undefined);
-  readonly response = this._response.asReadonly();
+  readonly response: HttpResourceRef<ApiResponse<MonitorRouteMembersPage>>;
 
   constructor() {
     this.monitorRouteService.initPage(this.nav);
     const groupName = this.monitorRouteService.summary().groupName;
     const routeName = this.monitorRouteService.summary().routeName;
-    this.monitorService.routeMembers(groupName, routeName).subscribe((response) => {
-      this._response.set(response);
-      const page = response.result;
-      const summary = page?.summary;
-      if (summary) {
-        this.monitorRouteService.update(summary);
-        this.state.map.updateMode('monitor');
-        this.state.map.updateMonitorRouteIds([page.summary.routeId]);
-        this.state.map.updateMonitorRelationIds(page.summary.relationIds);
-        this.mapService.fitBounds(page.summary.bounds);
+    this.response = this.monitorService.routeMembers(groupName, routeName);
+    effect(() => {
+      if (this.response.hasValue()) {
+        const summary = this.response.value().result.summary;
+        if (summary) {
+          this.monitorRouteService.update(summary);
+          this.state.map.updateMode('monitor');
+          this.state.map.updateMonitorRouteIds([summary.routeId]);
+          this.state.map.updateMonitorRelationIds(summary.relationIds);
+          this.mapService.fitBounds(summary.bounds);
+        }
       }
     });
   }

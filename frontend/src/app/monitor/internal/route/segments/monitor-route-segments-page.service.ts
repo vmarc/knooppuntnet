@@ -1,5 +1,6 @@
+import { HttpResourceRef } from '@angular/common/http';
+import { effect } from '@angular/core';
 import { inject } from '@angular/core';
-import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteSegmentsPage } from '@api/common/monitor/monitor-route-segments-page';
 import { SegmentInfo } from '@api/common/route/segment-info';
@@ -19,8 +20,7 @@ export class MonitorRouteSegmentsPageService {
   private readonly monitorRouteService = inject(MonitorRouteService);
   private readonly mapService = inject(MapService);
 
-  private readonly _response = signal<ApiResponse<MonitorRouteSegmentsPage>>(undefined);
-  readonly response = this._response.asReadonly();
+  readonly response: HttpResourceRef<ApiResponse<MonitorRouteSegmentsPage>>;
 
   readonly monitorShowSegments = this.state.map.monitorShowSegments;
 
@@ -28,17 +28,19 @@ export class MonitorRouteSegmentsPageService {
     this.monitorRouteService.initPage(this.nav);
     const groupName = this.monitorRouteService.summary().groupName;
     const routeName = this.monitorRouteService.summary().routeName;
-    this.monitorService.routeSegments(groupName, routeName).subscribe((response) => {
-      this._response.set(response);
-      const page = response.result;
-      const summary = page?.summary;
-      if (summary) {
-        this.monitorRouteService.update(summary);
-        this.state.map.updateMode('route-segments');
-        this.state.map.updateSegmentMap(SegmentMap.from(page.segments));
-        this.state.map.updateMonitorRouteIds([]);
-        this.state.map.updateMonitorRelationIds([]);
-        this.mapService.fitBounds(summary.bounds);
+    this.response = this.monitorService.routeSegments(groupName, routeName);
+    effect(() => {
+      if (this.response.hasValue()) {
+        const page = this.response.value().result;
+        const summary = page.summary;
+        if (summary) {
+          this.monitorRouteService.update(summary);
+          this.state.map.updateMode('route-segments');
+          this.state.map.updateSegmentMap(SegmentMap.from(page.segments));
+          this.state.map.updateMonitorRouteIds([]);
+          this.state.map.updateMonitorRelationIds([]);
+          this.mapService.fitBounds(summary.bounds);
+        }
       }
     });
   }

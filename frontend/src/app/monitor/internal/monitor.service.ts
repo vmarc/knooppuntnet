@@ -1,3 +1,5 @@
+import { httpResource } from '@angular/common/http';
+import { HttpResourceRef } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { LOCALE_ID } from '@angular/core';
@@ -100,65 +102,85 @@ export class MonitorService {
     return this.http.post(url, parameters);
   }
 
-  route(groupName: string, routeName: string): Observable<ApiResponse<MonitorRouteDetailsPage>> {
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}`;
-    return this.http
-      .get<ApiResponse<MonitorRouteDetailsPage>>(url, { params: this.languageParams() })
-      .pipe(
-        tap((response) => {
-          if (response.result) {
-            this._adminUser.set(response.result.summary.adminUser);
-          }
-        })
-      );
+  route(
+    groupName: string,
+    routeName: string
+  ): HttpResourceRef<ApiResponse<MonitorRouteDetailsPage>> {
+    // const url = `/api/monitor/groups/${groupName}/routes/${routeName}`;
+    // return this.http
+    //   .get<ApiResponse<MonitorRouteDetailsPage>>(url, { params: this.languageParams() })
+    //   .pipe(
+    //     tap((response) => {
+    //       if (response.result) {
+    //         this._adminUser.set(response.result.summary.adminUser);
+    //       }
+    //     })
+    //   );
+    return httpResource(() => ({
+      url: `/api/monitor/groups/${groupName}/routes/${routeName}`,
+      params: this.languageParams(),
+    }));
   }
 
   routeMembers(
     groupName: string,
     routeName: string
-  ): Observable<ApiResponse<MonitorRouteMembersPage>> {
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/members`;
-    return this.http
-      .get<ApiResponse<MonitorRouteMembersPage>>(url, { params: this.languageParams() })
-      .pipe(
-        tap((response) => {
-          if (response.result) {
-            this._adminUser.set(response.result.summary.adminUser);
-          }
-        })
-      );
+  ): HttpResourceRef<ApiResponse<MonitorRouteMembersPage>> {
+    // const url = `/api/monitor/groups/${groupName}/routes/${routeName}/members`;
+    // return this.http
+    //   .get<ApiResponse<MonitorRouteMembersPage>>(url, { params: this.languageParams() })
+    //   .pipe(
+    //     tap((response) => {
+    //       if (response.result) {
+    //         this._adminUser.set(response.result.summary.adminUser);
+    //       }
+    //     })
+    //   );
+    return httpResource(() => ({
+      url: `/api/monitor/groups/${groupName}/routes/${routeName}/members`,
+      params: this.languageParams(),
+    }));
   }
 
   routeSegments(
     groupName: string,
     routeName: string
-  ): Observable<ApiResponse<MonitorRouteSegmentsPage>> {
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/segments`;
-    return this.http
-      .get<ApiResponse<MonitorRouteSegmentsPage>>(url, { params: this.languageParams() })
-      .pipe(
-        tap((response) => {
-          if (response.result) {
-            this._adminUser.set(response.result.summary.adminUser);
-          }
-        })
-      );
+  ): HttpResourceRef<ApiResponse<MonitorRouteSegmentsPage>> {
+    // const url = `/api/monitor/groups/${groupName}/routes/${routeName}/segments`;
+    // return this.http
+    //   .get<ApiResponse<MonitorRouteSegmentsPage>>(url, { params: this.languageParams() })
+    //   .pipe(
+    //     tap((response) => {
+    //       if (response.result) {
+    //         this._adminUser.set(response.result.summary.adminUser);
+    //       }
+    //     })
+    //   );
+    return httpResource(() => ({
+      url: `/api/monitor/groups/${groupName}/routes/${routeName}/segments`,
+      params: this.languageParams(),
+    }));
   }
 
   routeDeviations(
     groupName: string,
     routeName: string
-  ): Observable<ApiResponse<MonitorRouteDeviationsPage>> {
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/deviations`;
-    return this.http
-      .get<ApiResponse<MonitorRouteDeviationsPage>>(url, { params: this.languageParams() })
-      .pipe(
-        tap((response) => {
-          if (response.result) {
-            this._adminUser.set(response.result.summary.adminUser);
-          }
-        })
-      );
+  ): HttpResourceRef<ApiResponse<MonitorRouteDeviationsPage>> {
+    // const url = `/api/monitor/groups/${groupName}/routes/${routeName}/deviations`;
+    // return this.http
+    //   .get<ApiResponse<MonitorRouteDeviationsPage>>(url, { params: this.languageParams() })
+    //   .pipe(
+    //     tap((response) => {
+    //       if (response.result) {
+    //         this._adminUser.set(response.result.summary.adminUser);
+    //       }
+    //     })
+    //   );
+
+    return httpResource(() => ({
+      url: `/api/monitor/groups/${groupName}/routes/${routeName}/deviations`,
+      params: this.languageParams(),
+    }));
   }
 
   routeDelete(groupName: string, routeName: string): Observable<void> {
