@@ -4,14 +4,12 @@ import { NetworkFactsPage } from '@api/common/network/network-facts-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/shared/services/api.service';
 import { State } from '@app/state/state';
-import { RouterService } from '@app/shared/services/router.service';
 import { NetworkService } from '../network.service';
 
 export class NetworkFactsPageService {
   private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly networkService = inject(NetworkService);
-  private readonly routerService = inject(RouterService);
 
   private readonly _response = signal<ApiResponse<NetworkFactsPage>>(null);
   readonly response = this._response.asReadonly();
@@ -19,11 +17,7 @@ export class NetworkFactsPageService {
   readonly pageSize = this.state.preferences.pageSize;
 
   onInit(): void {
-    this.networkService.initPage(this.routerService);
-    this.load();
-  }
-
-  private load(): void {
+    this.networkService.updatePageName('facts');
     this.apiService.networkFacts(this.networkService.networkId()).subscribe((response) => {
       if (response.result) {
         this.networkService.setSummary(response.result.summary);

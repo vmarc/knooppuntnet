@@ -37,7 +37,29 @@ import { NetworkService } from '../network.service';
 })
 export class NetworkPageHeaderComponent {
   readonly pageName = input.required<NetworkPage>();
-  readonly pageTitle = input.required<string>();
+
+  readonly pageTitle = computed(() => {
+    const name = this.pageName();
+    if (name === 'details') {
+      return $localize`:@@network-details.title:Details`;
+    }
+    if (name === 'facts') {
+      return $localize`:@@network-facts.title:Facts`;
+    }
+    if (name === 'nodes') {
+      return $localize`:@@network-nodes.title:Nodes`;
+    }
+    if (name === 'routes') {
+      return $localize`:@@network-routes.title:Routes`;
+    }
+    if (name === 'map') {
+      return $localize`:@@network-map.title:Map`;
+    }
+    if (name === 'changes') {
+      return $localize`:@@network-changes.title:Changes`;
+    }
+    return undefined;
+  });
 
   private readonly service = inject(NetworkService);
   protected readonly summary = this.service.summary;

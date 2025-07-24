@@ -3,7 +3,7 @@ import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { NetworkSummary } from '@api/common/network/network-summary';
-import { RouterService } from '@app/shared/services/router.service';
+import { NetworkPage } from '@app/analysis/network/internal/components/network-page';
 
 const defaultSummary: NetworkSummary = {
   name: '',
@@ -23,19 +23,23 @@ export class NetworkService {
   private readonly _networkId = signal<number>(null);
   readonly networkId = this._networkId.asReadonly();
 
+  private readonly _networkNotFound = signal(false);
+  readonly networkNotFound = this._networkNotFound.asReadonly();
+
   private readonly _summary = signal<NetworkSummary>(defaultSummary);
   readonly summary = this._summary.asReadonly();
 
-  initPage(routerService: RouterService): void {
-    const networkIdString = routerService.param('networkId');
-    const networkId = +networkIdString;
+  private readonly _pageName = signal<NetworkPage>(null);
+  readonly pageName = this._pageName.asReadonly();
+
+  onInit(networkId: number) {
     const oldNetworkId = this.networkId();
     if (!oldNetworkId || oldNetworkId !== networkId) {
       let summary = defaultSummary;
       const state = this.location.getState();
       if (state) {
         const routeType = state['routeType'];
-        const name = state['networkName'];
+        const name = state['networkName'] ?? networkId.toString();
         summary = {
           ...defaultSummary,
           name,
@@ -45,6 +49,14 @@ export class NetworkService {
       this._networkId.set(networkId);
       this._summary.set(summary);
     }
+  }
+
+  updatePageName(pageName: NetworkPage): void {
+    this._pageName.set(pageName);
+  }
+
+  updateNetworkNotFound(networkNotFound: boolean): void {
+    this._networkNotFound.set(networkNotFound);
   }
 
   setSummary(summary: NetworkSummary): void {

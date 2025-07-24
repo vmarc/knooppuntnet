@@ -21,8 +21,13 @@ export class NetworkMapPageService {
   readonly networkId = this.networkService.networkId;
 
   onInit(): void {
-    this.networkService.initPage(this.routerService);
-    this.load();
+    this.networkService.updatePageName('map');
+    this.apiService.networkMap(this.networkService.networkId()).subscribe((response) => {
+      if (response.result) {
+        this.networkService.setSummary(response.result.summary);
+      }
+      this._response.set(response);
+    });
   }
 
   onDestroy(): void {
@@ -47,14 +52,5 @@ export class NetworkMapPageService {
       mapPositionFromUrl,
       this.routerService.urlLayerIds()
     );
-  }
-
-  private load() {
-    this.apiService.networkMap(this.networkService.networkId()).subscribe((response) => {
-      if (response.result) {
-        this.networkService.setSummary(response.result.summary);
-      }
-      this._response.set(response);
-    });
   }
 }

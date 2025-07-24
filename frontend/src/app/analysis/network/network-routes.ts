@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { NetworkComponent } from './internal/network.component';
 import { NetworkChangesPageComponent } from './internal/changes/network-changes-page.component';
 import { NetworkDetailsPageComponent } from './internal/details/network-details-page.component';
 import { NetworkFactsPageComponent } from './internal/facts/network-facts-page.component';
@@ -8,30 +9,31 @@ import { NetworkRoutesPageComponent } from './internal/routes/network-routes-pag
 
 export const networkRoutes: Routes = [
   {
-    path: '',
+    path: ':networkId',
+    component: NetworkComponent,
     children: [
       {
-        path: ':networkId',
+        path: '',
         component: NetworkDetailsPageComponent,
       },
       {
-        path: ':networkId/facts',
+        path: 'facts',
         component: NetworkFactsPageComponent,
       },
       {
-        path: ':networkId/nodes',
+        path: 'nodes',
         component: NetworkNodesPageComponent,
       },
       {
-        path: ':networkId/routes',
+        path: 'routes',
         component: NetworkRoutesPageComponent,
       },
       {
-        path: ':networkId/map',
+        path: 'map',
         component: NetworkMapPageComponent,
       },
       {
-        path: ':networkId/changes',
+        path: 'changes',
         component: NetworkChangesPageComponent,
       },
     ],

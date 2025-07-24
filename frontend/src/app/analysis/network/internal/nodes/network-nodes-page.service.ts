@@ -5,7 +5,6 @@ import { NetworkNodesPage } from '@api/common/network/network-nodes-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/shared/services/api.service';
 import { State } from '@app/state/state';
-import { RouterService } from '@app/shared/services/router.service';
 import { NetworkService } from '../network.service';
 import { NetworkNodeFilter } from './components/network-node-filter';
 import { NetworkNodeFilterCriteria } from './components/network-node-filter-criteria';
@@ -14,7 +13,6 @@ export class NetworkNodesPageService {
   private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly networkService = inject(NetworkService);
-  private readonly routerService = inject(RouterService);
 
   private readonly _response = signal<ApiResponse<NetworkNodesPage>>(null);
   readonly response = this._response.asReadonly();
@@ -49,8 +47,13 @@ export class NetworkNodesPageService {
   });
 
   onInit(): void {
-    this.networkService.initPage(this.routerService);
-    this.load();
+    this.networkService.updatePageName('nodes');
+    this.apiService.networkNodes(this.networkService.networkId()).subscribe((response) => {
+      if (response.result) {
+        this.networkService.setSummary(response.result.summary);
+      }
+      this._response.set(response);
+    });
   }
 
   updatePageSize(pageSize: number): void {
@@ -60,14 +63,5 @@ export class NetworkNodesPageService {
 
   updatePageIndex(pageIndex: number): void {
     this._pageIndex.set(pageIndex);
-  }
-
-  private load(): void {
-    this.apiService.networkNodes(this.networkService.networkId()).subscribe((response) => {
-      if (response.result) {
-        this.networkService.setSummary(response.result.summary);
-      }
-      this._response.set(response);
-    });
   }
 }

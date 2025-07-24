@@ -35,7 +35,7 @@ export class NetworkChangesPageService implements ChangesService {
   readonly situationOn = computed(() => this.response().situationOn);
 
   onInit(): void {
-    this.networkService.initPage(this.routerService);
+    this.networkService.updatePageName('changes');
     const params = this.routerService.params();
     const queryParams = this.routerService.queryParams();
     const uniqueQueryParams = Util.uniqueParams(queryParams);
