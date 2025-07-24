@@ -21,7 +21,8 @@ object SingleTileTool {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-laptop") { database =>
       val tool = buildTool(database, "/Users/marc/kpn/tiles")
-      tool.make(RouteType.cycling, 6, 32, 21)
+      tool.makeRouteTiles(3669758)
+      // tool.make(RouteType.cycling, 6, 32, 21)
     }
     log.info("Done")
   }
@@ -50,6 +51,15 @@ class SingleTileTool(
   routeRepository: RouteRepository,
   routeTileEncoder: RouteTileEncoder
 ) {
+
+  def makeRouteTiles(routeId: Long): Unit = {
+    val routeTileInfos = routeRepository.routeTiles(routeId)
+    routeTileInfos.foreach { routeTileInfo =>
+      routeTileInfo.routeTypes.foreach { routeType =>
+        make(routeType, routeTileInfo.z.toInt, routeTileInfo.x.toInt, routeTileInfo.y.toInt)
+      }
+    }
+  }
 
   def make(routeType: RouteType, z: Int, x: Int, y: Int): Unit = {
     val tileData = buildTileData(routeType, z, x, y)

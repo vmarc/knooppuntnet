@@ -6,6 +6,7 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
 import { ApiResponse } from '@api/custom/api-response';
 import { MapService } from '@app/map/map.service';
 import { MonitorRouteService } from '@app/monitor/internal/route/monitor-route.service';
+import { FocusElements } from '@app/state/focus-elements';
 import { State } from '@app/state/state';
 import { MonitorService } from '../../monitor.service';
 
@@ -29,9 +30,12 @@ export class MonitorRouteDetailsPageService {
         const summary = this.response.value().result.summary;
         if (summary) {
           this.monitorRouteService.update(summary);
-          this.state.map.updateMode('monitor');
-          this.state.map.updateMonitorRouteIds([summary.routeId]);
-          this.state.map.updateMonitorRelationIds(summary.relationIds);
+          this.state.map.updateMode('standard');
+          const focusElements: FocusElements = {
+            nodeIds: [],
+            routeIds: summary.relationIds.map((id) => id.toString()),
+          };
+          this.state.map.updateFocusElements(focusElements);
           this.mapService.fitBounds(summary.bounds);
         }
       }

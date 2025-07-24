@@ -92,8 +92,7 @@ class RouteTileEncoder(
 
   private def buildRouteLineString(geometryString: String): LineString = {
     val coordinates: Array[Coordinate] = Json.value(geometryString, classOf[CoordinateArray]).coordinates
-    val flipped = coordinates.map(c => new Coordinate(c.y, c.x))
-    geometryFactory.createLineString(flipped)
+    geometryFactory.createLineString(coordinates)
   }
 
   private def buildRouteUserData(zoomLevel: Int, routeTileInfo: RouteTileInfo, segment: RouteTileSegment): Map[String, String] = {
