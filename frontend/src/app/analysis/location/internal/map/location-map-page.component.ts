@@ -2,10 +2,6 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { ErrorComponent } from '@app/shared/components/error/error.component';
-import { PageComponent } from '@app/shared/components/page/page.component';
-import { RouterService } from '@app/shared/services/router.service';
-import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
 import { LocationMapComponent } from './components/location-map.component';
 import { LocationMapPageService } from './location-map-page.service';
@@ -14,30 +10,14 @@ import { LocationMapPageService } from './location-map-page.service';
   selector: 'ui-location-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page>
-      <ui-location-page-header
-        pageName="map"
-        pageTitle="Map"
-        i18n-pageTitle="@@location-map.title"
-      />
-
-      <ui-error />
-
-      @if (service.response(); as response) {
-        <ui-location-response [response]="response">
-          <ui-location-map />
-        </ui-location-response>
-      }
-    </ui-page>
+    @if (service.response(); as response) {
+      <ui-location-response [response]="response">
+        <ui-location-map />
+      </ui-location-response>
+    }
   `,
-  providers: [LocationMapPageService, RouterService],
-  imports: [
-    ErrorComponent,
-    LocationMapComponent,
-    LocationPageHeaderComponent,
-    LocationResponseComponent,
-    PageComponent,
-  ],
+  providers: [LocationMapPageService],
+  imports: [LocationMapComponent, LocationResponseComponent],
 })
 export class LocationMapPageComponent implements OnInit {
   protected readonly service = inject(LocationMapPageService);

@@ -5,7 +5,6 @@ import { ChangesParameters } from '@api/common/changes/filter/changes-parameters
 import { LocationChangesPage } from '@api/common/location/location-changes-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { ChangesService } from '@app/analysis/components/changes/changes.service';
-import { PreferencesService } from '@app/shared/core/preferences/preferences.service';
 import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ApiService } from '@app/shared/services/api.service';
 import { PageParams } from '@app/shared/base/page-params';
@@ -20,7 +19,6 @@ export class LocationChangesPageService implements ChangesService {
   private readonly apiService = inject(ApiService);
   private readonly locationService = inject(LocationService);
   private readonly routerService = inject(RouterService);
-  private readonly preferencesService = inject(PreferencesService);
   private readonly userService = inject(UserService);
 
   private readonly _response = signal<ApiResponse<LocationChangesPage> | null>(null);
@@ -38,7 +36,7 @@ export class LocationChangesPageService implements ChangesService {
   readonly changeCount = computed(() => this.response().result.changesCount);
 
   onInit() {
-    this.locationService.initPage(this.routerService);
+    this.locationService.updatePageName('changes');
     const uniqueQueryParams = Util.uniqueParams(this.routerService.queryParams());
     const pageParams = new PageParams(this.routerService.params(), uniqueQueryParams);
     const strategy = pageParams.strategy(this.state.preferences.strategy());

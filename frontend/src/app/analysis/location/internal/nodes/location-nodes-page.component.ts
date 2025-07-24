@@ -2,10 +2,6 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { ErrorComponent } from '@app/shared/components/error/error.component';
-import { PageComponent } from '@app/shared/components/page/page.component';
-import { RouterService } from '@app/shared/services/router.service';
-import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
 import { LocationNodesComponent } from './components/location-nodes.component';
 import { LocationNodesPageService } from './location-nodes-page.service';
@@ -14,31 +10,16 @@ import { LocationNodesPageService } from './location-nodes-page.service';
   selector: 'ui-location-nodes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page>
-      <ui-location-page-header
-        pageName="nodes"
-        pageTitle="Nodes"
-        i18n-pageTitle="@@location-nodes.title"
-      />
-
-      <ui-error />
-      @if (service.response(); as response) {
-        <div class="kpn-spacer-above">
-          <ui-location-response [response]="response">
-            <ui-location-nodes [page]="response.result" />
-          </ui-location-response>
-        </div>
-      }
-    </ui-page>
+    @if (service.response(); as response) {
+      <div class="kpn-spacer-above">
+        <ui-location-response [response]="response">
+          <ui-location-nodes [page]="response.result" />
+        </ui-location-response>
+      </div>
+    }
   `,
-  providers: [LocationNodesPageService, RouterService],
-  imports: [
-    ErrorComponent,
-    LocationNodesComponent,
-    LocationPageHeaderComponent,
-    LocationResponseComponent,
-    PageComponent,
-  ],
+  providers: [LocationNodesPageService],
+  imports: [LocationNodesComponent, LocationResponseComponent],
 })
 export class LocationNodesPageComponent implements OnInit {
   protected readonly service = inject(LocationNodesPageService);

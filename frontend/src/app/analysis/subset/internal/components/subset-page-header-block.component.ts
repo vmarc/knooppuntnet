@@ -3,13 +3,22 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { SubsetPageName } from '@app/analysis/subset/internal/components/subset-page-name';
+import { SubsetPageName } from './subset-page-name';
 import { Translations } from '@app/shared/i18n/translations';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { SubsetService } from '../subset.service';
 import { SubsetPageBreadcrumbComponent } from './subset-page-breadcrumb.component';
 import { SubsetPageMenuComponent } from './subset-page-menu.component';
+
+const PAGE_TITLE_MAP: Record<SubsetPageName, string> = {
+  networks: $localize`:@@subset-networks.title:Networks`,
+  facts: $localize`:@@subset-facts.title:Facts`,
+  'orphan-nodes': $localize`:@@subset-orphan-nodes.title:Orphan nodes`,
+  'orphan-routes': $localize`:@@subset-orphan-routes.title:Free routes`,
+  map: $localize`:@@subset-map.title:Map`,
+  changes: $localize`:@@subset-changes.title:Changes`,
+};
 
 @Component({
   selector: 'ui-subset-page-header-block',
@@ -56,25 +65,7 @@ export class SubsetPageHeaderBlockComponent {
   protected readonly subject = computed(() => `subset-${this.pageName()}-page`);
 
   protected readonly pageTitle = computed(() => {
-    const page = this.pageName();
-    if (page === 'networks') {
-      return $localize`:@@subset-networks.title:Networks`;
-    }
-    if (page === 'facts') {
-      return $localize`:@@subset-facts.title:Facts`;
-    }
-    if (page === 'orphan-nodes') {
-      return $localize`:@@subset-orphan-nodes.title:Orphan nodes`;
-    }
-    if (page === 'orphan-routes') {
-      return $localize`:@@subset-orphan-routes.title:Free routes`;
-    }
-    if (page === 'map') {
-      return $localize`:@@subset-map.title:Map`;
-    }
-    if (page === 'changes') {
-      return $localize`:@@subset-changes.title:Changes`;
-    }
-    return null;
+    const pageName = this.service.pageName();
+    return pageName ? PAGE_TITLE_MAP[pageName] : undefined;
   });
 }

@@ -22,8 +22,13 @@ export class LocationMapPageService {
   readonly bounds = computed(() => this.response()?.result?.bounds);
 
   onInit() {
-    this.locationService.initPage(this.routerService);
-    this.load();
+    this.locationService.updatePageName('map');
+    this.apiService.locationMap(this.locationService.key()).subscribe((response) => {
+      if (response.result) {
+        this.locationService.setSummary(response.result.summary);
+      }
+      this._response.set(response);
+    });
   }
 
   afterViewInit() {
@@ -44,14 +49,5 @@ export class LocationMapPageService {
       mapPositionFromUrl,
       this.routerService.urlLayerIds()
     );
-  }
-
-  private load() {
-    this.apiService.locationMap(this.locationService.key()).subscribe((response) => {
-      if (response.result) {
-        this.locationService.setSummary(response.result.summary);
-      }
-      this._response.set(response);
-    });
   }
 }

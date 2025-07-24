@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { LocationComponent } from '@app/analysis/location/internal/location.component';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { LocationChangesPageComponent } from './internal/changes/location-changes-page.component';
 import { LocationDetailsPageComponent } from './internal/details/location-details-page.component';
@@ -27,32 +28,38 @@ export const locationRoutes: Routes = [
         component: LocationSelectionPageComponent,
       },
       {
-        path: ':routeType/:country/:location/details',
-        component: LocationDetailsPageComponent,
-      },
-      {
-        path: ':routeType/:country/:location/nodes',
-        component: LocationNodesPageComponent,
-      },
-      {
-        path: ':routeType/:country/:location/routes',
-        component: LocationRoutesPageComponent,
-      },
-      {
-        path: ':routeType/:country/:location/facts',
-        component: LocationFactsPageComponent,
-      },
-      {
-        path: ':routeType/:country/:location/map',
-        component: LocationMapPageComponent,
-      },
-      {
-        path: ':routeType/:country/:location/changes',
-        component: LocationChangesPageComponent,
-      },
-      {
-        path: ':routeType/:country/:location/edit',
-        component: LocationEditPageComponent,
+        path: ':routeType/:country/:location',
+        component: LocationComponent,
+        children: [
+          {
+            path: 'details',
+            component: LocationDetailsPageComponent,
+          },
+          {
+            path: 'nodes',
+            component: LocationNodesPageComponent,
+          },
+          {
+            path: 'routes',
+            component: LocationRoutesPageComponent,
+          },
+          {
+            path: 'facts',
+            component: LocationFactsPageComponent,
+          },
+          {
+            path: 'map',
+            component: LocationMapPageComponent,
+          },
+          {
+            path: 'changes',
+            component: LocationChangesPageComponent,
+          },
+          {
+            path: 'edit',
+            component: LocationEditPageComponent,
+          },
+        ],
       },
     ],
   },

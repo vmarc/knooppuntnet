@@ -36,7 +36,7 @@ export class LocationNodesPageService {
   readonly pageSize = this.state.preferences.pageSize;
 
   onInit(): void {
-    this.locationService.initPage(this.routerService);
+    this.locationService.updatePageName('nodes');
     const uniqueQueryParams = Util.uniqueParams(this.routerService.queryParams());
 
     const integrityCheck = uniqueQueryParams['integrityCheck'];

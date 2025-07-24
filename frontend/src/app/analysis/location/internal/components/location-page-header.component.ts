@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { LocationKey } from '@api/custom/location-key';
+import { LocationPageName } from '@app/analysis/location/internal/components/location-page';
 import { LocationPipe } from '@app/shared/components/format/location.pipe';
 import { MenuOption } from '@app/shared/components/menu/menu-option';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
@@ -13,6 +14,16 @@ import { RouteTypeNameComponent } from '@app/shared/components/route-type-name.c
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { LocationService } from '../location.service';
 import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.component';
+
+const PAGE_TITLE_MAP: Record<LocationPageName, string> = {
+  details: $localize`:@@location-details.title:Details`,
+  nodes: $localize`:@@location-nodes.title:Nodes`,
+  routes: $localize`:@@location-routes.title:Routes`,
+  facts: $localize`:@@location-facts.title:Facts`,
+  map: $localize`:@@location-map.title:Map`,
+  changes: $localize`:@@location-changes.title:Changes`,
+  edit: $localize`:@@location-edit.title:Load in editor`,
+};
 
 @Component({
   selector: 'ui-location-page-header',
@@ -41,15 +52,20 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
   ],
 })
 export class LocationPageHeaderComponent {
-  readonly pageName = input.required<string>();
-  readonly pageTitle = input.required<string>();
+  readonly pageName = input.required<LocationPageName>();
 
   private readonly service = inject(LocationService);
+
   protected readonly locationKey = this.service.key;
 
   protected readonly fullPageTitle = computed(
     () => `${this.service.key().name} | ${this.pageTitle()}`
   );
+
+  protected readonly pageTitle = computed(() => {
+    const pageName = this.service.pageName();
+    return pageName ? PAGE_TITLE_MAP[pageName] : undefined;
+  });
 
   protected readonly menuOptions: Signal<MenuOption[]> = computed(() => {
     const summary = this.service.summary();

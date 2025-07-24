@@ -2,10 +2,6 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { ErrorComponent } from '@app/shared/components/error/error.component';
-import { PageComponent } from '@app/shared/components/page/page.component';
-import { RouterService } from '@app/shared/services/router.service';
-import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
 import { LocationFactsComponent } from './components/location-facts.component';
 import { LocationFactsPageService } from './location-facts-page.service';
@@ -14,32 +10,16 @@ import { LocationFactsPageService } from './location-facts-page.service';
   selector: 'ui-location-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-page>
-      <ui-location-page-header
-        pageName="facts"
-        i18n-pageTitle="@@location-facts.title"
-        pageTitle="Facts"
-      />
-
-      <ui-error />
-
-      @if (service.response(); as response) {
-        <div class="kpn-spacer-above">
-          <ui-location-response [response]="response">
-            <ui-location-facts [locationFacts]="response.result.locationFacts" />
-          </ui-location-response>
-        </div>
-      }
-    </ui-page>
+    @if (service.response(); as response) {
+      <div class="kpn-spacer-above">
+        <ui-location-response [response]="response">
+          <ui-location-facts [locationFacts]="response.result.locationFacts" />
+        </ui-location-response>
+      </div>
+    }
   `,
-  providers: [LocationFactsPageService, RouterService],
-  imports: [
-    ErrorComponent,
-    LocationFactsComponent,
-    LocationPageHeaderComponent,
-    LocationResponseComponent,
-    PageComponent,
-  ],
+  providers: [LocationFactsPageService],
+  imports: [LocationFactsComponent, LocationResponseComponent],
 })
 export class LocationFactsPageComponent implements OnInit {
   protected readonly service = inject(LocationFactsPageService);

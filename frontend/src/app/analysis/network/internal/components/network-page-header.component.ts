@@ -14,6 +14,15 @@ import { PageHeaderComponent } from '@app/shared/components/page/page-header.com
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NetworkService } from '../network.service';
 
+const PAGE_TITLE_MAP: Record<NetworkPage, string> = {
+  details: $localize`:@@network-details.title:Details`,
+  facts: $localize`:@@network-facts.title:Facts`,
+  nodes: $localize`:@@network-nodes.title:Nodes`,
+  routes: $localize`:@@network-routes.title:Routes`,
+  map: $localize`:@@network-map.title:Map`,
+  changes: $localize`:@@network-changes.title:Changes`,
+};
+
 @Component({
   selector: 'ui-network-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,26 +48,8 @@ export class NetworkPageHeaderComponent {
   readonly pageName = input.required<NetworkPage>();
 
   readonly pageTitle = computed(() => {
-    const name = this.pageName();
-    if (name === 'details') {
-      return $localize`:@@network-details.title:Details`;
-    }
-    if (name === 'facts') {
-      return $localize`:@@network-facts.title:Facts`;
-    }
-    if (name === 'nodes') {
-      return $localize`:@@network-nodes.title:Nodes`;
-    }
-    if (name === 'routes') {
-      return $localize`:@@network-routes.title:Routes`;
-    }
-    if (name === 'map') {
-      return $localize`:@@network-map.title:Map`;
-    }
-    if (name === 'changes') {
-      return $localize`:@@network-changes.title:Changes`;
-    }
-    return undefined;
+    const pageName = this.service.pageName();
+    return pageName ? PAGE_TITLE_MAP[pageName] : undefined;
   });
 
   private readonly service = inject(NetworkService);

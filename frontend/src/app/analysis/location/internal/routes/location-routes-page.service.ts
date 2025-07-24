@@ -34,7 +34,7 @@ export class LocationRoutesPageService {
   readonly pageSize = computed(() => this.state.preferences.pageSize());
 
   onInit(): void {
-    this.locationService.initPage(this.routerService);
+    this.locationService.updatePageName('routes');
 
     const uniqueQueryParams = Util.uniqueParams(this.routerService.queryParams());
 
