@@ -46,8 +46,7 @@ class MonitorTileTool(database: Database) {
   private def processTile(encoder: MonitorTileEncoder, tileId: TileId): Unit = {
     val tile = RouteTiles.tile(tileId)
     val stateTileInfos = monitorRouteRepository.stateTiles(tileId)
-    val referenceTileInfos = monitorRouteRepository.referenceTiles(tileId)
-    encoder.processTile(tile, referenceTileInfos, stateTileInfos)
+    encoder.processTile(tile, stateTileInfos)
   }
 
   private def collectTileIds(): Seq[TileId] = {

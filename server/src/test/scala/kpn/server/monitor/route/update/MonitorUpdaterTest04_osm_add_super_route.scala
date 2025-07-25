@@ -171,7 +171,8 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         deviations = Seq.empty,
         matchesDistance = subRoute11.meters,
-        matchesLines = subRoute11.lines
+        matchesLines = subRoute11.lines,
+        actualLines = Seq.empty
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, subRoute11.relationId)
@@ -193,7 +194,8 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         // TODO redesign cleanup - bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
         deviations = Seq.empty,
         matchesDistance = subRoute12.meters,
-        matchesLines = subRoute12.lines
+        matchesLines = subRoute12.lines,
+        actualLines = Seq.empty
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, subRoute12.relationId)

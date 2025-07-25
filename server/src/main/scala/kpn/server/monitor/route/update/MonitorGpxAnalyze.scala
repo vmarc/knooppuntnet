@@ -8,9 +8,9 @@ import kpn.core.util.CoordinateUtil
 import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.core.util.Util.mergeBounds
-import kpn.server.analyzer.engine.monitor.MonitorReferenceUtil
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
-import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
+import kpn.server.analyzer.engine.monitor.analysis.MonitorReferenceUtil
+import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteAnalysisSupport
+import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
@@ -99,7 +99,8 @@ class MonitorGpxAnalyze(
             now,
             deviationAnalysis.deviations,
             deviationAnalysis.matchesDistance,
-            deviationAnalysis.matchesLines
+            deviationAnalysis.matchesLines,
+            deviationAnalysis.actualLines,
           )
         )
 

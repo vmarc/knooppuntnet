@@ -6,7 +6,7 @@ import kpn.api.common.monitor.MonitorMessage
 import kpn.api.custom.Timestamp
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
+import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
@@ -72,7 +72,8 @@ class MonitorGpxUpdate(
               now,
               deviationAnalysis.deviations,
               deviationAnalysis.matchesDistance,
-              deviationAnalysis.matchesLines
+              deviationAnalysis.matchesLines,
+              deviationAnalysis.actualLines
             )
           )
 

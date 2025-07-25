@@ -202,7 +202,8 @@ class MonitorChangeProcessorImpl(
           afterRouteAnalysis.relation.timestamp,
           afterRouteAnalysis.deviations,
           afterRouteAnalysis.matchesDistance,
-          afterRouteAnalysis.matchesLines
+          afterRouteAnalysis.matchesLines,
+          Seq.empty,
         )
       )
 

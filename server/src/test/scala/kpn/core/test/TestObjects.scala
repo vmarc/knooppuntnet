@@ -1214,7 +1214,8 @@ object TestObjects {
     timestamp: Timestamp = Timestamps.default,
     deviations: Seq[MonitorRouteDeviation] = Seq.empty,
     matchesDistance: Long = 0,
-    matchesLines: Seq[String] = Seq.empty
+    matchesLines: Seq[String] = Seq.empty,
+    actualLines: Seq[String] = Seq.empty,
   ): MonitorState = {
     MonitorState(
       _id,
@@ -1223,7 +1224,8 @@ object TestObjects {
       timestamp,
       deviations,
       matchesDistance,
-      matchesLines
+      matchesLines,
+      actualLines
     )
   }
 

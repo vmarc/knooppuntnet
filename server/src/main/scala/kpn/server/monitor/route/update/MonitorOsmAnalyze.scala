@@ -14,8 +14,8 @@ import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
 import kpn.core.util.Util.mergeBounds
 import kpn.server.analyzer.engine.monitor.MonitorFilter
-import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
+import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorReference
@@ -115,7 +115,8 @@ class MonitorOsmAnalyze(
             timestamp = now,
             deviations = Seq(deviation),
             matchesDistance = 0,
-            matchesLines = Seq.empty
+            matchesLines = Seq.empty,
+            actualLines = Seq.empty,
           )
 
           monitorStateStore.saveState(state)
@@ -145,7 +146,8 @@ class MonitorOsmAnalyze(
             now,
             deviationAnalysis.deviations,
             deviationAnalysis.matchesDistance,
-            deviationAnalysis.matchesLines
+            deviationAnalysis.matchesLines,
+            deviationAnalysis.actualLines
           )
           monitorStateStore.saveState(state)
 

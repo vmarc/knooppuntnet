@@ -57,4 +57,8 @@ object Haversine {
       km * 1000
     }
   }
+
+  def meters(lineStrings: Seq[LineString]): Long = {
+    Math.round(lineStrings.map(line => Haversine.meters(line)).sum)
+  }
 }

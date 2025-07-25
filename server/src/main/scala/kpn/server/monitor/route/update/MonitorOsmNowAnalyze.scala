@@ -180,7 +180,8 @@ class MonitorOsmNowAnalyze(
       timestamp = now, // time of most recent analysis
       matchesDistance = distance,
       deviations = Seq.empty,
-      matchesLines = matchesLines
+      matchesLines = matchesLines,
+      actualLines = Seq.empty
     )
     monitorStateStore.saveState(state)
   }

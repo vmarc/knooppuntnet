@@ -1,7 +1,7 @@
 package kpn.core.tools.monitor
 
 import kpn.database.base.Database
-import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzerImpl
+import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzerImpl
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.analyzer.engine.monitor.state.MonitorStateTileBuilder
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl

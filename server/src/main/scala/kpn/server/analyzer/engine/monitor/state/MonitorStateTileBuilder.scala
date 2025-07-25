@@ -19,13 +19,15 @@ class MonitorStateTileBuilder(
 
   def build(state: MonitorState): Seq[MonitorStateTile] = {
     val worldCoordinateMatchesLines = buildWorldCoordinateMatchesLines(state)
+    val worldCoordinateActualLines = buildWorldCoordinateActualLines(state)
     val deviations = buildDeviations(state)
-    val allWorldCoordinateReferenceLines = worldCoordinateMatchesLines ++ deviations.flatMap(_.worldCoordinateLines)
+    val allWorldCoordinateReferenceLines = worldCoordinateMatchesLines ++ worldCoordinateActualLines ++ deviations.flatMap(_.worldCoordinateLines)
     val tiles = lineSegmentTileCalculator.tilesForLines(allWorldCoordinateReferenceLines)
     tiles.flatMap { tile =>
       buildTile(
         state,
         worldCoordinateMatchesLines,
+        worldCoordinateActualLines,
         deviations,
         tile
       )
@@ -35,11 +37,13 @@ class MonitorStateTileBuilder(
   private def buildTile(
     state: MonitorState,
     worldCoordinateMatchesLines: Seq[Seq[Coordinate]],
+    worldCoordinateActualLines: Seq[Seq[Coordinate]],
     deviations: Seq[MonitorStateDeviationWorldCoordinates],
     tile: Tile
   ): Option[MonitorStateTile] = {
 
     val matchesLines = worldCoordinateMatchesLines.flatMap(worldCoordinates => TileUtil.toTileLine(tile, worldCoordinates))
+    val actualLines = worldCoordinateActualLines.flatMap(worldCoordinates => TileUtil.toTileLine(tile, worldCoordinates))
     val tileDeviations = buildTileDeviations(tile, deviations)
 
     if (matchesLines.isEmpty && tileDeviations.isEmpty) {
@@ -55,7 +59,8 @@ class MonitorStateTileBuilder(
           tile.x,
           tile.y,
           tileDeviations,
-          matchesLines
+          matchesLines,
+          actualLines
         )
       )
     }
@@ -80,6 +85,10 @@ class MonitorStateTileBuilder(
 
   private def buildWorldCoordinateMatchesLines(state: MonitorState): Seq[Seq[Coordinate]] = {
     state.matchesLines.map(CoordinateTransform.lineToWorldCoordinates)
+  }
+
+  private def buildWorldCoordinateActualLines(state: MonitorState): Seq[Seq[Coordinate]] = {
+    state.actualLines.map(CoordinateTransform.lineToWorldCoordinates)
   }
 
   private def buildDeviations(state: MonitorState): Seq[MonitorStateDeviationWorldCoordinates] = {

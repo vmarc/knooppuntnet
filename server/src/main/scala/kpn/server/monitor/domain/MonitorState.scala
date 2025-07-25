@@ -12,5 +12,6 @@ case class MonitorState(
   timestamp: Timestamp, // time of most recent analysis
   deviations: Seq[MonitorRouteDeviation],
   matchesDistance: Long,
-  matchesLines: Seq[String]
+  matchesLines: Seq[String],
+  actualLines: Seq[String],
 ) extends WithObjectId

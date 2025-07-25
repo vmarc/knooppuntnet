@@ -30,7 +30,6 @@ import { PageService } from '@app/shared/components/page.service';
 import { SpinnerInterceptor } from '@app/shared/spinner/spinner-interceptor';
 import { SpinnerService } from '@app/shared/spinner/spinner.service';
 import * as Sentry from '@sentry/angular';
-import { AngularSplitModule } from 'angular-split';
 import { provideMarkdown } from 'ngx-markdown';
 import { appRoutes } from './app-routes';
 import { MapInteractionsService } from './map/map-interactions.service';
@@ -70,8 +69,7 @@ export const appConfig: ApplicationConfig = {
       MatIconModule,
       MatSidenavModule,
       MatButtonModule,
-      MatDialogModule,
-      AngularSplitModule
+      MatDialogModule
     ),
     {
       provide: ErrorHandler,

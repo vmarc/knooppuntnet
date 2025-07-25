@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.monitor
+package kpn.server.analyzer.engine.monitor.analysis
 
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryCollection

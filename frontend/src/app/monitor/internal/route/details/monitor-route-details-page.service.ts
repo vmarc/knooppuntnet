@@ -30,12 +30,15 @@ export class MonitorRouteDetailsPageService {
         const summary = this.response.value().result.summary;
         if (summary) {
           this.monitorRouteService.update(summary);
-          this.state.map.updateMode('standard');
-          const focusElements: FocusElements = {
-            nodeIds: [],
-            routeIds: summary.relationIds.map((id) => id.toString()),
-          };
-          this.state.map.updateFocusElements(focusElements);
+          this.state.map.updateMode('monitor');
+          this.state.map.updateMonitorRouteIds([summary.routeId]);
+          this.state.map.updateMonitorRelationIds(summary.relationIds);
+          // this.state.map.updateMode('standard');
+          // const focusElements: FocusElements = {
+          //   nodeIds: [],
+          //   routeIds: summary.relationIds.map((id) => id.toString()),
+          // };
+          // this.state.map.updateFocusElements(focusElements);
           this.mapService.fitBounds(summary.bounds);
         }
       }

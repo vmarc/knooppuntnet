@@ -22,25 +22,29 @@ export class MonitorLayerStyle {
   private static readonly referenceStyle = new Style({
     zIndex: 1,
     stroke: new Stroke({
-      color: '#ffff00',
-      width: 8,
+      color: '#000000',
+      width: 3,
     }),
   });
 
   static style(monitorMapState: MonitorMapState, feature: FeatureLike): Style | Array<Style> {
-    const layer = feature.get('layer');
-    const route = feature.get('route');
+    const layer: string = feature.get('layer');
+    const route: string = feature.get('route');
+    const relationId: string = feature.get('relationId');
 
-    if (monitorMapState.routeIds.includes(route)) {
-      if (layer === 'match') {
+    if (
+      monitorMapState.routeIds.includes(route) &&
+      monitorMapState.relationIds.includes(+relationId)
+    ) {
+      if (layer == 'match') {
         if (monitorMapState.matchEnabled) {
           return this.matchStyle;
         }
-      } else if (layer === 'reference') {
+      } else if (layer == 'actual') {
         if (monitorMapState.referenceEnabled) {
           return this.referenceStyle;
         }
-      } else if (layer === 'deviation') {
+      } else if (layer == 'deviation') {
         if (monitorMapState.deviationEnabled) {
           return this.deviationStyle;
         }

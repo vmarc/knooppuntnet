@@ -7,6 +7,7 @@ import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.domain.ElementDirection
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
+import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteOsmSegmentAnalysis
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
 import org.locationtech.jts.geom.Coordinate

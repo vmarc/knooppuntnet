@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.monitor
+package kpn.server.analyzer.engine.monitor.analysis
 
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteDeviationAnalysis
 import org.locationtech.jts.geom.LineString

@@ -6,7 +6,6 @@ import kpn.core.util.CoordinateUtil.coordinatesToLineString
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.monitor.domain.MonitorReferenceTileInfo
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.MonitorStateTileDeviation
 import no.ecc.vectortile.VectorTileEncoder
@@ -19,39 +18,25 @@ class MonitorTileEncoder(log: Log) {
 
   def processTile(
     tile: Tile,
-    referenceTileInfos: Seq[MonitorReferenceTileInfo],
     stateTileInfos: Seq[MonitorStateTile],
   ): Unit = {
     val extent = RouteTiles.extent(tile.z)
     val clipBufferSize = RouteTiles.clipBufferSize(tile.z)
     val encoder = new VectorTileEncoder(extent, clipBufferSize, false)
     encodeStateTileInfos(stateTileInfos, encoder)
-    encodeReferenceTileInfos(referenceTileInfos, encoder)
     val tileBytes = encoder.encode()
     if (tileBytes.nonEmpty) {
       writeTile(tile, tileBytes)
     }
   }
 
-  private def encodeReferenceTileInfos(referenceTileInfos: Seq[MonitorReferenceTileInfo], encoder: VectorTileEncoder): Unit = {
-    referenceTileInfos.foreach { tileInfo =>
-      tileInfo.lines.foreach { line =>
-        encodeReference(encoder, tileInfo, line)
-      }
-    }
-  }
-
-  private def encodeReference(encoder: VectorTileEncoder, tileInfo: MonitorReferenceTileInfo, line: String): Unit = {
-    val lineString = coordinatesToLineString(line)
-    val userData = buildUserData(tileInfo.routeId)
-    tileInfo.relationId.foreach(relationId => userData.put("relationId", relationId.toString))
-    encoder.addFeature("reference", userData, lineString)
-  }
-
   private def encodeStateTileInfos(stateTileInfos: Seq[MonitorStateTile], encoder: VectorTileEncoder): Unit = {
     stateTileInfos.foreach { tileInfo =>
       tileInfo.matchesLines.foreach { line =>
         encodeStateTileMatches(encoder, tileInfo, line)
+      }
+      tileInfo.actualLines.foreach { line =>
+        encodeStateTileActual(encoder, tileInfo, line)
       }
       tileInfo.deviations.foreach { deviation =>
         deviation.lines.foreach { line =>
@@ -74,6 +59,13 @@ class MonitorTileEncoder(log: Log) {
     val userData = buildUserData(tileInfo.routeId)
     userData.put("relationId", tileInfo.relationId.toString)
     encoder.addFeature("match", userData, lineString)
+  }
+
+  private def encodeStateTileActual(encoder: VectorTileEncoder, tileInfo: MonitorStateTile, line: String): Unit = {
+    val lineString = coordinatesToLineString(line)
+    val userData = buildUserData(tileInfo.routeId)
+    userData.put("relationId", tileInfo.relationId.toString)
+    encoder.addFeature("actual", userData, lineString)
   }
 
   private def buildUserData(routeId: ObjectId): util.HashMap[String, String] = {

@@ -1,18 +1,15 @@
-package kpn.server.analyzer.engine.monitor
+package kpn.server.analyzer.engine.monitor.analysis
 
 import kpn.api.common.Bounds
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.core.common.RelationUtil
-import kpn.core.util.Haversine
-import org.locationtech.jts.densify.Densifier
+import kpn.server.analyzer.engine.monitor.MonitorFilter
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.io.geojson.GeoJsonWriter
-
-import scala.annotation.tailrec
 
 object MonitorRouteAnalysisSupport {
 
@@ -49,6 +46,9 @@ object MonitorRouteAnalysisSupport {
     )
   }
 
+  /*
+    Groups consecutive elements with the same boolean flag value.
+   */
   def split(list: List[(Boolean, Int)]): List[List[(Boolean, Int)]] = {
     list match {
       case Nil => Nil
@@ -63,49 +63,9 @@ object MonitorRouteAnalysisSupport {
       Seq(osmCoordinates.head, osmCoordinates.head) // TODO investigate why this is useful
     }
     else {
-      simplifyCoordinates(sequence.indexes.map(index => osmCoordinates(index)).toList)
+      LineSimplifier.simplify(sequence.indexes.map(index => osmCoordinates(index)).toList)
     }
     geometryFactory.createLineString(coordinates.toArray)
-  }
-
-  def simplifyCoordinates(coordinates: List[Coordinate]): List[Coordinate] = {
-    if (coordinates.sizeIs < 3) {
-      coordinates
-    }
-    else {
-      simplify2(List(coordinates.head), coordinates.head, coordinates.tail).reverse
-    }
-  }
-
-  @tailrec
-  private def simplify2(selectedCoordinates: List[Coordinate], currentCoordinate: Coordinate, remainder: List[Coordinate]): List[Coordinate] = {
-    remainder.headOption match {
-      case None => selectedCoordinates
-      case Some(middleCoordinate) =>
-        val newRemainder = remainder.tail
-        newRemainder.headOption match {
-          case None => middleCoordinate :: selectedCoordinates
-          case Some(nextCoordinate) =>
-            val lineString = geometryFactory.createLineString(Array(currentCoordinate, nextCoordinate))
-            val point = geometryFactory.createPoint(middleCoordinate)
-            val distance = toMeters(lineString.distance(point))
-            if (distance < 0.5d) {
-              // swallow the  middle coordinate
-              simplify2(selectedCoordinates, currentCoordinate, newRemainder)
-            }
-            else {
-              // keep the  middle coordinate, and continue simplifying
-              simplify2(middleCoordinate :: selectedCoordinates, middleCoordinate, newRemainder)
-            }
-        }
-    }
-  }
-
-  def toSampleCoordinates(sampleDistanceMeters: Int, lineString: LineString): Seq[Coordinate] = {
-    val referenceMeters = Haversine.meters(lineString)
-    val distanceBetweenSamples = sampleDistanceMeters.toDouble * lineString.getLength / referenceMeters
-    val densifiedLineString = Densifier.densify(lineString, distanceBetweenSamples)
-    densifiedLineString.getCoordinates.toSeq
   }
 
   def filteredWayMembers(relation: Relation): Seq[WayMember] = {

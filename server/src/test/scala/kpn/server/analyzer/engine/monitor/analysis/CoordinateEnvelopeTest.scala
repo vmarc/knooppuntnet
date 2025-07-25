@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.monitor
+package kpn.server.analyzer.engine.monitor.analysis
 
 import kpn.core.util.Haversine
 import kpn.core.util.UnitTest
