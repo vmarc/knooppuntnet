@@ -26,7 +26,7 @@ object MongoQueryRouteCoordinateArrays {
 class MongoQueryRouteCoordinateArrays(database: Database) {
 
   def execute(routeIds: Seq[Long]): Seq[Array[Coordinate]] = {
-    log.infoElapsed {
+    log.debugElapsed {
       val pipeline = buildPipeline(routeIds)
       val docs = database.baseRoutes.aggregate[CoordinateArrayDoc](pipeline, log)
       val coordinateArrays = docs.map { doc =>

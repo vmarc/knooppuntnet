@@ -19,11 +19,11 @@ export class MonitorLayerStyle {
     }),
   });
 
-  private static readonly referenceStyle = new Style({
+  private static readonly routeStyle = new Style({
     zIndex: 1,
     stroke: new Stroke({
-      color: '#000000',
-      width: 3,
+      color: '#ff0',
+      width: 8,
     }),
   });
 
@@ -40,9 +40,9 @@ export class MonitorLayerStyle {
         if (monitorMapState.matchEnabled) {
           return this.matchStyle;
         }
-      } else if (layer == 'actual') {
+      } else if (layer == 'route') {
         if (monitorMapState.referenceEnabled) {
-          return this.referenceStyle;
+          return this.routeStyle;
         }
       } else if (layer == 'deviation') {
         if (monitorMapState.deviationEnabled) {

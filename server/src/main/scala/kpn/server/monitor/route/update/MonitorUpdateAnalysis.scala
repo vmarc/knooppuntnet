@@ -195,7 +195,7 @@ class MonitorUpdateAnalysis(
       deviationAnalysis.deviations,
       deviationAnalysis.matchesDistance,
       deviationAnalysis.matchesLines,
-      deviationAnalysis.actualLines
+      deviationAnalysis.routeLines
     )
 
     monitorStateStore.saveState(state)

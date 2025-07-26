@@ -36,7 +36,7 @@ class MongoQueryMonitorStateTileIdsTest extends MongoTest {
         y = 13,
         deviations = Seq.empty,
         matchesLines = Seq.empty,
-        actualLines = Seq.empty,
+        routeLines = Seq.empty,
       )
     )
 
@@ -50,7 +50,7 @@ class MongoQueryMonitorStateTileIdsTest extends MongoTest {
         y = 23,
         deviations = Seq.empty,
         matchesLines = Seq.empty,
-        actualLines = Seq.empty,
+        routeLines = Seq.empty,
       )
     )
   }

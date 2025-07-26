@@ -35,8 +35,8 @@ class MonitorTileEncoder(log: Log) {
       tileInfo.matchesLines.foreach { line =>
         encodeStateTileMatches(encoder, tileInfo, line)
       }
-      tileInfo.actualLines.foreach { line =>
-        encodeStateTileActual(encoder, tileInfo, line)
+      tileInfo.routeLines.foreach { line =>
+        encodeStateTileRoute(encoder, tileInfo, line)
       }
       tileInfo.deviations.foreach { deviation =>
         deviation.lines.foreach { line =>
@@ -61,11 +61,11 @@ class MonitorTileEncoder(log: Log) {
     encoder.addFeature("match", userData, lineString)
   }
 
-  private def encodeStateTileActual(encoder: VectorTileEncoder, tileInfo: MonitorStateTile, line: String): Unit = {
+  private def encodeStateTileRoute(encoder: VectorTileEncoder, tileInfo: MonitorStateTile, line: String): Unit = {
     val lineString = coordinatesToLineString(line)
     val userData = buildUserData(tileInfo.routeId)
     userData.put("relationId", tileInfo.relationId.toString)
-    encoder.addFeature("actual", userData, lineString)
+    encoder.addFeature("route", userData, lineString)
   }
 
   private def buildUserData(routeId: ObjectId): util.HashMap[String, String] = {

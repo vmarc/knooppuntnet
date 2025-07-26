@@ -126,7 +126,7 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = route1.meters,
         matchesLines = route1.lines,
-        actualLines = Seq.empty
+        routeLines = route1.lines
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(monitorRoute._id, route1.relationId)

@@ -100,7 +100,7 @@ class MonitorGpxAnalyze(
             deviationAnalysis.deviations,
             deviationAnalysis.matchesDistance,
             deviationAnalysis.matchesLines,
-            deviationAnalysis.actualLines,
+            deviationAnalysis.routeLines,
           )
         )
 

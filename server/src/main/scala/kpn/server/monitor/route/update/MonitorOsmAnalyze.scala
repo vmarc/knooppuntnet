@@ -116,7 +116,7 @@ class MonitorOsmAnalyze(
             deviations = Seq(deviation),
             matchesDistance = 0,
             matchesLines = Seq.empty,
-            actualLines = Seq.empty,
+            routeLines = Seq.empty,
           )
 
           monitorStateStore.saveState(state)
@@ -147,7 +147,7 @@ class MonitorOsmAnalyze(
             deviationAnalysis.deviations,
             deviationAnalysis.matchesDistance,
             deviationAnalysis.matchesLines,
-            deviationAnalysis.actualLines
+            deviationAnalysis.routeLines
           )
           monitorStateStore.saveState(state)
 

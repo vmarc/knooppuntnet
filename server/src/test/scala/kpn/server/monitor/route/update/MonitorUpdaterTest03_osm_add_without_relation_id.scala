@@ -194,7 +194,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         deviations = Seq.empty,
         matchesDistance = route1.meters,
         matchesLines = route1.lines,
-        actualLines = Seq.empty
+        routeLines = route1.lines
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, route1.relationId)

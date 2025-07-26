@@ -12,16 +12,14 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
 
   def analyze(routeLines: Seq[LineString], referenceLines: Seq[LineString]): MonitorRouteDeviationAnalysis = {
 
-    val routeAnalysis = MonitorAnalyzer.analyze(routeLines, referenceLines)
     val referenceAnalysis = MonitorAnalyzer.analyze(referenceLines, routeLines)
 
-    val actualLines = routeAnalysis.deviationLines.map(_.line)
     val matchesLines = referenceAnalysis.matchesLines
     val deviationLines = referenceAnalysis.deviationLines
 
     buildResult(
       referenceLines,
-      actualLines,
+      routeLines,
       matchesLines,
       deviationLines,
     )
@@ -29,7 +27,7 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
 
   private def buildResult(
     referenceLines: Seq[LineString],
-    actualLines: Seq[LineString],
+    routeLines: Seq[LineString],
     matchesLines: Seq[LineString],
     deviationLines: Seq[DistanceLineString],
   ): MonitorRouteDeviationAnalysis = {
@@ -37,7 +35,7 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
     val referenceDistance = Haversine.meters(referenceLines)
     val matchesDistance = Haversine.meters(matchesLines)
     val matchesLineStrings = matchesLines.map(CoordinateUtil.lineStringToCoordinates)
-    val actualLineStrings = actualLines.map(CoordinateUtil.lineStringToCoordinates)
+    val routeLineStrings = routeLines.map(CoordinateUtil.lineStringToCoordinates)
     val deviations = buildDeviations(deviationLines)
 
     MonitorRouteDeviationAnalysis(
@@ -45,7 +43,7 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
       matchesDistance,
       matchesLineStrings,
       deviations,
-      actualLineStrings,
+      routeLineStrings,
     )
   }
 

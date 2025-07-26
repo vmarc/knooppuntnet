@@ -1215,7 +1215,7 @@ object TestObjects {
     deviations: Seq[MonitorRouteDeviation] = Seq.empty,
     matchesDistance: Long = 0,
     matchesLines: Seq[String] = Seq.empty,
-    actualLines: Seq[String] = Seq.empty,
+    routeLines: Seq[String] = Seq.empty,
   ): MonitorState = {
     MonitorState(
       _id,
@@ -1225,7 +1225,7 @@ object TestObjects {
       deviations,
       matchesDistance,
       matchesLines,
-      actualLines
+      routeLines
     )
   }
 

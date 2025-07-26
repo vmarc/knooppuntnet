@@ -151,7 +151,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
       deviations = Seq.empty,
       matchesDistance = route1.meters,
       matchesLines = route1.lines,
-      actualLines = Seq.empty
+      routeLines = Seq.empty
     )
   }
 

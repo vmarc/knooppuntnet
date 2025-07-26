@@ -7,8 +7,8 @@ export class MonitorRouteStyle {
   private static readonly routeStyle = new Style({
     zIndex: 1,
     stroke: new Stroke({
-      color: '#ff0',
-      width: 12,
+      color: '#fff',
+      width: 16,
     }),
   });
 

@@ -172,7 +172,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = subRoute11.meters,
         matchesLines = subRoute11.lines,
-        actualLines = Seq.empty
+        routeLines = subRoute11.lines
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, subRoute11.relationId)
@@ -195,7 +195,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = subRoute12.meters,
         matchesLines = subRoute12.lines,
-        actualLines = Seq.empty
+        routeLines = subRoute12.lines
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, subRoute12.relationId)

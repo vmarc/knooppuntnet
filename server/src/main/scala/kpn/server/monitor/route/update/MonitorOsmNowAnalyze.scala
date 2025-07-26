@@ -181,7 +181,7 @@ class MonitorOsmNowAnalyze(
       matchesDistance = distance,
       deviations = Seq.empty,
       matchesLines = matchesLines,
-      actualLines = Seq.empty
+      routeLines = Seq.empty
     )
     monitorStateStore.saveState(state)
   }

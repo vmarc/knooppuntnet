@@ -117,7 +117,7 @@ class MonitorUpdaterTest02_osm_add_now extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = route1.meters,
         matchesLines = route1.lines,
-        actualLines = Seq.empty
+        routeLines = Seq.empty
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, route1.relationId)

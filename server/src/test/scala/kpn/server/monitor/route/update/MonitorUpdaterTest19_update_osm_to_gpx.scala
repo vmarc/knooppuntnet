@@ -169,7 +169,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = route1.meters,
         matchesLines = route1.lines,
-        actualLines = Seq.empty
+        routeLines = route1.lines
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(addedRoute._id, route1.relationId)
@@ -246,7 +246,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = route1.meters,
         matchesLines = route1.lines,
-        actualLines = Seq.empty
+        routeLines = route1.lines
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(addedRoute._id, route1.relationId)
