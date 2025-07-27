@@ -8,6 +8,8 @@ import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
+import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
+import kpn.server.json.Json
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
@@ -56,10 +58,11 @@ class MonitorGpxUpdate(
 
           val routeDoc = routeRepository.findRouteById(args.relationId).getOrElse(throw new RuntimeException(s"Could not find RouteDoc with id ${args.relationId}"))
 
-          val routeCoordinateArrays = routeRepository.coordinatesArrays(routeDoc.routeIds)
+          val segmentCoordinates = routeRepository.segmentCoordinates(routeDoc.routeIds)
 
-          val routeLines = routeCoordinateArrays.map { coordinateArray =>
-            geometryFactory.createLineString(coordinateArray)
+          val routeLines = segmentCoordinates.map { segment =>
+            val coordinates = Json.value(segment.coordinates, classOf[CoordinateArray]).coordinates
+            geometryFactory.createLineString(coordinates)
           }
 
           val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
@@ -73,7 +76,7 @@ class MonitorGpxUpdate(
               deviationAnalysis.deviations,
               deviationAnalysis.matchesDistance,
               deviationAnalysis.matchesLines,
-              deviationAnalysis.routeLines
+              segmentCoordinates
             )
           )
 

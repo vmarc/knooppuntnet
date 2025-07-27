@@ -117,6 +117,7 @@ import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorReferenceTile
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
+import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorState
 
 object TestObjects {
@@ -1215,7 +1216,7 @@ object TestObjects {
     deviations: Seq[MonitorRouteDeviation] = Seq.empty,
     matchesDistance: Long = 0,
     matchesLines: Seq[String] = Seq.empty,
-    routeLines: Seq[String] = Seq.empty,
+    segments: Seq[MonitorSegment] = Seq.empty,
   ): MonitorState = {
     MonitorState(
       _id,
@@ -1225,7 +1226,7 @@ object TestObjects {
       deviations,
       matchesDistance,
       matchesLines,
-      routeLines
+      segments
     )
   }
 

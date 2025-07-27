@@ -34,7 +34,7 @@ object MonitorTestData {
       meters = 93,
       lon1 = "4.4562458",
       lat1 = "51.4618272",
-      lon2 = "4.4550560",
+      lon2 = "4.455056",
       lat2 = "51.4614496",
       referenceTiles = Seq(
         MonitorReferenceTile(11, 1049, 681, Seq("[[89,109],[88,110]]")),

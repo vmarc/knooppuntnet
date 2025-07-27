@@ -88,7 +88,7 @@ class MonitorStateTileBuilder(
   }
 
   private def buildWorldCoordinateRouteLines(state: MonitorState): Seq[Seq[Coordinate]] = {
-    state.routeLines.map(CoordinateTransform.lineToWorldCoordinates)
+    state.segments.map(_.coordinates).map(CoordinateTransform.lineToWorldCoordinates)
   }
 
   private def buildDeviations(state: MonitorState): Seq[MonitorStateDeviationWorldCoordinates] = {

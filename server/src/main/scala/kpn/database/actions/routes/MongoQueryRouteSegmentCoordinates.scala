@@ -1,14 +1,13 @@
 package kpn.database.actions.routes
 
 import kpn.core.util.Log
-import kpn.database.actions.routes.MongoQueryRouteCoordinateArrays.log
+import kpn.database.actions.routes.MongoQueryRouteSegmentCoordinates.log
 import kpn.database.base.Database
 import kpn.database.base.Types.MongoPipeline
-import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
-import kpn.server.json.Json
-import org.locationtech.jts.geom.Coordinate
+import kpn.server.monitor.domain.MonitorSegment
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
@@ -16,23 +15,20 @@ import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Sorts.ascending
+import org.mongodb.scala.model.Sorts.orderBy
 
-case class CoordinateArrayDoc(coordinates: String)
-
-object MongoQueryRouteCoordinateArrays {
-  private val log = Log(classOf[MongoQueryRouteCoordinateArrays])
+object MongoQueryRouteSegmentCoordinates {
+  private val log = Log(classOf[MongoQueryRouteSegmentCoordinates])
 }
 
-class MongoQueryRouteCoordinateArrays(database: Database) {
+class MongoQueryRouteSegmentCoordinates(database: Database) {
 
-  def execute(routeIds: Seq[Long]): Seq[Array[Coordinate]] = {
+  def execute(routeIds: Seq[Long]): Seq[MonitorSegment] = {
     log.debugElapsed {
       val pipeline = buildPipeline(routeIds)
-      val docs = database.baseRoutes.aggregate[CoordinateArrayDoc](pipeline, log)
-      val coordinateArrays = docs.map { doc =>
-        Json.value(doc.coordinates, classOf[CoordinateArray]).coordinates
-      }
-      (s"${coordinateArrays.size} coordinateArrays", coordinateArrays)
+      val segments = database.baseRoutes.aggregate[MonitorSegment](pipeline, log)
+      (s"${segments.size} segments", segments)
     }
   }
 
@@ -48,9 +44,17 @@ class MongoQueryRouteCoordinateArrays(database: Database) {
       project(
         fields(
           excludeId(),
+          computed("relationId", "$_id"),
+          computed("segmentId", "$segmentElements.segmentId"),
           computed("coordinates", "$segmentElements.coordinates"),
         )
-      )
+      ),
+      sort(
+        orderBy(
+          ascending("relationId"),
+          ascending("segmentId"),
+        )
+      ),
     )
   }
 }

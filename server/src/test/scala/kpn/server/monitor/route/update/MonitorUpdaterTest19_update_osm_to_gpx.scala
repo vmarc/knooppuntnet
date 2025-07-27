@@ -19,6 +19,7 @@ import kpn.core.test.TestObjects.newSuperSegment
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
+import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorState
 
 class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
@@ -169,7 +170,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = route1.meters,
         matchesLines = route1.lines,
-        routeLines = route1.lines
+        segments = Seq(MonitorSegment(1, 1, route1.lines.head))
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(addedRoute._id, route1.relationId)
@@ -246,7 +247,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = route1.meters,
         matchesLines = route1.lines,
-        routeLines = route1.lines
+        segments = Seq(MonitorSegment(1, 1, route1.lines.head))
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(addedRoute._id, route1.relationId)

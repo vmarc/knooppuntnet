@@ -7,5 +7,4 @@ case class MonitorRouteDeviationAnalysis(
   matchesDistance: Long,
   matchesLines: Seq[String], // reference line segments within tolerance distance of route line segments
   deviations: Seq[MonitorRouteDeviation], // reference line segments NOT within tolerance distance of route line segments
-  routeLines: Seq[String], // route line segments NOT within tolerance distance of reference line segments
 )

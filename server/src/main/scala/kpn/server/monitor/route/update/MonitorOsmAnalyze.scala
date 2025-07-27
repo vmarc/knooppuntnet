@@ -17,6 +17,8 @@ import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
+import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
+import kpn.server.json.Json
 import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
@@ -97,16 +99,21 @@ class MonitorOsmAnalyze(
       case None => None
       case Some(reference) =>
 
-        val routeCoordinateArrays = routeRepository.coordinatesArrays(Seq(relation.relationId))
-        val lines = routeCoordinateArrays.map(CoordinateUtil.coordinatesToString)
-        if (routeCoordinateArrays.isEmpty) {
+        val segmentCoordinates = routeRepository.segmentCoordinates(Seq(relation.relationId))
+
+        val routeLines = segmentCoordinates.map { segment =>
+          val coordinates = Json.value(segment.coordinates, classOf[CoordinateArray]).coordinates
+          geometryFactory.createLineString(coordinates)
+        }
+
+        if (routeLines.isEmpty) {
           // the relation does not exist anymore or does not contain ways, the entire reference becomes a deviation
           val deviation = MonitorRouteDeviation(
             id = 1,
             meters = reference.referenceDistance,
             distance = reference.referenceDistance,
             bounds = reference.referenceBounds,
-            lines
+            segmentCoordinates.map(_.coordinates)
           )
           val state = MonitorState(
             _id = ObjectId(),
@@ -116,7 +123,7 @@ class MonitorOsmAnalyze(
             deviations = Seq(deviation),
             matchesDistance = 0,
             matchesLines = Seq.empty,
-            routeLines = Seq.empty,
+            segments = Seq.empty,
           )
 
           monitorStateStore.saveState(state)
@@ -131,10 +138,6 @@ class MonitorOsmAnalyze(
           )
         }
         else {
-          val routeLines = routeCoordinateArrays.map { coordinateArray =>
-            geometryFactory.createLineString(coordinateArray)
-          }
-
           val referenceLines = reference.referenceLines.map(CoordinateUtil.coordinatesToLineString)
 
           val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(routeLines, referenceLines)
@@ -147,7 +150,7 @@ class MonitorOsmAnalyze(
             deviationAnalysis.deviations,
             deviationAnalysis.matchesDistance,
             deviationAnalysis.matchesLines,
-            deviationAnalysis.routeLines
+            segmentCoordinates
           )
           monitorStateStore.saveState(state)
 

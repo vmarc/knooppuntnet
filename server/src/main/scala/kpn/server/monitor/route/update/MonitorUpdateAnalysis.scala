@@ -9,6 +9,8 @@ import kpn.core.util.Log
 import kpn.core.util.Util.mergeBounds
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
+import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
+import kpn.server.json.Json
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
@@ -16,7 +18,6 @@ import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.repository.MonitorStateId
 import kpn.server.repository.RouteRepository
 import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.geom.LineString
 import org.springframework.stereotype.Component
 
 @Component
@@ -174,9 +175,11 @@ class MonitorUpdateAnalysis(
     oldStateIds: Seq[MonitorStateId]
   ): MonitorStateSummary = {
 
-    val routeLines = {
-      val routeCoordinateArrays = routeRepository.coordinatesArrays(relationIds)
-      routeCoordinateArrays.map(geometryFactory.createLineString)
+    val segmentCoordinates = routeRepository.segmentCoordinates(routeDoc.routeIds)
+
+    val routeLines = segmentCoordinates.map { segment =>
+      val coordinates = Json.value(segment.coordinates, classOf[CoordinateArray]).coordinates
+      geometryFactory.createLineString(coordinates)
     }
     val referenceLines = reference.referenceLines.map(CoordinateUtil.coordinatesToLineString)
 
@@ -195,7 +198,7 @@ class MonitorUpdateAnalysis(
       deviationAnalysis.deviations,
       deviationAnalysis.matchesDistance,
       deviationAnalysis.matchesLines,
-      deviationAnalysis.routeLines
+      segmentCoordinates
     )
 
     monitorStateStore.saveState(state)
@@ -206,10 +209,5 @@ class MonitorUpdateAnalysis(
       deviationDistance = deviationAnalysis.deviations.map(_.meters).sum,
       matchesDistance = deviationAnalysis.matchesDistance
     )
-  }
-
-  private def routeLinesFromBaseRouteDocs(relationIds: Seq[Long], relationId: Long): Seq[LineString] = {
-    val routeCoordinateArrays = routeRepository.coordinatesArrays(relationIds)
-    routeCoordinateArrays.map(geometryFactory.createLineString)
   }
 }

@@ -14,6 +14,8 @@ import kpn.server.analyzer.engine.monitor.analysis.MonitorReferenceUtil
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
+import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
+import kpn.server.json.Json
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
@@ -110,9 +112,11 @@ class MonitorGpxUpload(
 
     monitorRouteRepository.saveReference(reference)
 
-    val routeCoordinateArrays = routeRepository.coordinatesArrays(Seq(relationId))
-    val routeLines = routeCoordinateArrays.map { coordinateArray =>
-      geometryFactory.createLineString(coordinateArray)
+    val segmentCoordinates = routeRepository.segmentCoordinates(Seq(relationId))
+
+    val routeLines = segmentCoordinates.map { segment =>
+      val coordinates = Json.value(segment.coordinates, classOf[CoordinateArray]).coordinates
+      geometryFactory.createLineString(coordinates)
     }
 
     val referenceLines = reference.referenceLines.map(CoordinateUtil.coordinatesToLineString)
@@ -133,7 +137,7 @@ class MonitorGpxUpload(
         deviationAnalysis.deviations,
         deviationAnalysis.matchesDistance,
         deviationAnalysis.matchesLines,
-        deviationAnalysis.routeLines
+        segmentCoordinates
       )
     )
 

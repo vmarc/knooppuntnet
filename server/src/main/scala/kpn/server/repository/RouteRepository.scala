@@ -18,7 +18,7 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.api.analysis.pages.route.RouteMapData
-import org.locationtech.jts.geom.Coordinate
+import kpn.server.monitor.domain.MonitorSegment
 
 trait RouteRepository {
 
@@ -84,5 +84,5 @@ trait RouteRepository {
 
   def subRelationTree(routeId: Long): Option[RouteRelation]
 
-  def coordinatesArrays(routeIds: Seq[Long]): Seq[Array[Coordinate]]
+  def segmentCoordinates(routeIds: Seq[Long]): Seq[MonitorSegment]
 }

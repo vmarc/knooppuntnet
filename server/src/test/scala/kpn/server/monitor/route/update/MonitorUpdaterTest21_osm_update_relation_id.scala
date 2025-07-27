@@ -17,6 +17,7 @@ import kpn.core.test.TestObjects.newSuperSegment
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
+import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorState
 
 class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
@@ -133,7 +134,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = route2.meters,
         matchesLines = route2.lines,
-        routeLines = route2.lines
+        segments = Seq(MonitorSegment(route2.relationId, 1, route2.lines.head))
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, route2.relationId)

@@ -21,6 +21,7 @@ import kpn.core.util.Util.mergeBounds
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
+import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorState
 
 class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
@@ -172,7 +173,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = subRoute11.meters,
         matchesLines = subRoute11.lines,
-        routeLines = subRoute11.lines
+        segments = Seq(MonitorSegment(subRoute11.relationId, 1, subRoute11.lines.head))
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, subRoute11.relationId)
@@ -195,7 +196,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = subRoute12.meters,
         matchesLines = subRoute12.lines,
-        routeLines = subRoute12.lines
+        segments = Seq(MonitorSegment(subRoute12.relationId, 1, subRoute12.lines.head))
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, subRoute12.relationId)

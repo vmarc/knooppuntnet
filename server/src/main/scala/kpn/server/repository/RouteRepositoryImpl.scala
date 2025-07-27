@@ -20,7 +20,6 @@ import kpn.database.actions.routes.MongoQueryKnownRouteIds
 import kpn.database.actions.routes.MongoQueryNetworkRouteDetails
 import kpn.database.actions.routes.MongoQueryParentRoutes
 import kpn.database.actions.routes.MongoQueryRouteBounds
-import kpn.database.actions.routes.MongoQueryRouteCoordinateArrays
 import kpn.database.actions.routes.MongoQueryRouteCountry
 import kpn.database.actions.routes.MongoQueryRouteElementIds
 import kpn.database.actions.routes.MongoQueryRouteIds
@@ -28,6 +27,7 @@ import kpn.database.actions.routes.MongoQueryRouteInfo
 import kpn.database.actions.routes.MongoQueryRouteMapData
 import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.database.actions.routes.MongoQueryRouteSearchResults
+import kpn.database.actions.routes.MongoQueryRouteSegmentCoordinates
 import kpn.database.actions.routes.MongoQueryRouteSegmentCount
 import kpn.database.actions.routes.MongoQueryRouteSegments
 import kpn.database.actions.routes.MongoQueryRouteTileIds
@@ -41,8 +41,8 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.api.analysis.pages.route.RouteMapData
+import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.sync.Transaction
-import org.locationtech.jts.geom.Coordinate
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.equal
@@ -223,7 +223,7 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQuerySubRelationTree(database).execute(routeId)
   }
 
-  override def coordinatesArrays(routeIds: Seq[Long]): Seq[Array[Coordinate]] = {
-    new MongoQueryRouteCoordinateArrays(database).execute(routeIds)
+  override def segmentCoordinates(routeIds: Seq[Long]): Seq[MonitorSegment] = {
+    new MongoQueryRouteSegmentCoordinates(database).execute(routeIds)
   }
 }

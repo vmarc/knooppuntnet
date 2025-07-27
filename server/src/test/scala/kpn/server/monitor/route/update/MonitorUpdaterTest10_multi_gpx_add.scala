@@ -17,6 +17,7 @@ import kpn.core.util.Util.mergeBounds
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
+import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorState
 
 class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
@@ -229,7 +230,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = subRoute11.meters,
         matchesLines = subRoute11.lines, // TODO redesign - this cannot be correct if distance is 181
-        routeLines = subRoute11.lines
+        segments = Seq(MonitorSegment(subRoute11.relationId, 1, subRoute11.lines.head))
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, subRoute11.relationId)
@@ -287,7 +288,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         deviations = Seq.empty,
         matchesDistance = subRoute12.meters,
         matchesLines = subRoute12.lines,
-        routeLines = subRoute12.lines
+        segments = Seq(MonitorSegment(subRoute12.relationId, 1, subRoute12.lines.head))
       )
     )
     val stateTiles = configuration.monitorRouteRepository.stateTiles(route._id, subRoute12.relationId)
