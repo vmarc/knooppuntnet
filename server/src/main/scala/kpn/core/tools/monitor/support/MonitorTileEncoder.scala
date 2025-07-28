@@ -6,6 +6,7 @@ import kpn.core.util.CoordinateUtil.coordinatesToLineString
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.MonitorStateTileDeviation
 import no.ecc.vectortile.VectorTileEncoder
@@ -35,13 +36,13 @@ class MonitorTileEncoder(log: Log) {
       tileInfo.matchesLines.foreach { line =>
         encodeStateTileMatches(encoder, tileInfo, line)
       }
-      tileInfo.routeLines.foreach { line =>
-        encodeStateTileRoute(encoder, tileInfo, line)
-      }
       tileInfo.deviations.foreach { deviation =>
         deviation.lines.foreach { line =>
           encodeDeviation(encoder, tileInfo, deviation, line)
         }
+      }
+      tileInfo.segments.foreach { segment =>
+        encodeStateTileSegment(encoder, tileInfo, segment)
       }
     }
   }
@@ -61,10 +62,11 @@ class MonitorTileEncoder(log: Log) {
     encoder.addFeature("match", userData, lineString)
   }
 
-  private def encodeStateTileRoute(encoder: VectorTileEncoder, tileInfo: MonitorStateTile, line: String): Unit = {
-    val lineString = coordinatesToLineString(line)
+  private def encodeStateTileSegment(encoder: VectorTileEncoder, tileInfo: MonitorStateTile, segment: MonitorSegment): Unit = {
+    val lineString = coordinatesToLineString(segment.coordinates)
     val userData = buildUserData(tileInfo.routeId)
-    userData.put("relationId", tileInfo.relationId.toString)
+    userData.put("relationId", segment.relationId.toString)
+    userData.put("segmentId", segment.segmentId.toString)
     encoder.addFeature("route", userData, lineString)
   }
 

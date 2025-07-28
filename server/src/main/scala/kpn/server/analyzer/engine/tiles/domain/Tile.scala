@@ -61,7 +61,7 @@ case class Tile(
     boundsOverlapClipBounds(xmin, xmax, ymin, ymax)
   }
 
-  private def boundsOverlapClipBounds(xmin: Double, xmax: Double, ymin: Double, ymax: Double): Boolean = {
+  def boundsOverlapClipBounds(xmin: Double, xmax: Double, ymin: Double, ymax: Double): Boolean = {
     xmin < clipBounds.xMax &&
       clipBounds.xMin < xmax &&
       ymin < clipBounds.yMax &&

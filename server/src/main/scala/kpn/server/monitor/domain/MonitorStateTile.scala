@@ -12,5 +12,5 @@ case class MonitorStateTile(
   y: Long,
   deviations: Seq[MonitorStateTileDeviation],
   matchesLines: Seq[String],
-  routeLines: Seq[String],
+  segments: Seq[MonitorSegment],
 ) extends WithObjectId
