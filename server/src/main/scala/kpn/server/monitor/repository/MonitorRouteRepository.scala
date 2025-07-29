@@ -132,4 +132,6 @@ trait MonitorRouteRepository {
   def routeDeviations(routeId: ObjectId): Seq[MonitorRouteDeviationInfo]
 
   def routeMemberCount(relationId: Long): Long
+
+  def stateDeviationInfos(routeId: ObjectId): Seq[MonitorStateDeviationInfo]
 }

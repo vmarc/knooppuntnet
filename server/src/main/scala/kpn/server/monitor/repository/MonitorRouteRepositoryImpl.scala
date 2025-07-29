@@ -11,6 +11,7 @@ import kpn.database.actions.monitor.MongoQueryMonitorGroupRouteInfos
 import kpn.database.actions.monitor.MongoQueryMonitorMemberCount
 import kpn.database.actions.monitor.MongoQueryMonitorReferenceTileIds
 import kpn.database.actions.monitor.MongoQueryMonitorReferenceTiles
+import kpn.database.actions.monitor.MongoQueryMonitorStateDeviationInfos
 import kpn.database.actions.monitor.MongoQueryMonitorStateTileIds
 import kpn.database.actions.monitor.MongoQueryMonitorStateTiles
 import kpn.database.base.Database
@@ -621,5 +622,9 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
 
   override def routeMemberCount(relationId: Long): Long = {
     new MongoQueryMonitorMemberCount(database).execute(relationId)
+  }
+
+  override def stateDeviationInfos(routeId: ObjectId): Seq[MonitorStateDeviationInfo] = {
+    new MongoQueryMonitorStateDeviationInfos(database).execute(routeId)
   }
 }

@@ -16,9 +16,9 @@ import kpn.server.config.RequestContext
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
+import kpn.server.monitor.repository.MonitorStateDeviationInfo
 import kpn.server.monitor.repository.MonitorUserRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
@@ -38,8 +38,8 @@ class MonitorRouteDetailsPageBuilder(
       monitorRouteRepository.routeByName(group._id, routeName).flatMap { monitorRoute =>
         monitorRoute.relationId.flatMap(routeRepository.findRouteById).map { routeDoc =>
           val references = monitorRouteRepository.references(monitorRoute._id) // TODO limit query to only the info that is needed
-          val states = monitorRouteRepository.states(monitorRoute._id) // TODO limit query to only the info that is needed: deviationCount, deviationDistance
-          buildPage(language, adminUser, group, monitorRoute, routeDoc, references, states)
+          val stateDeviationInfos = monitorRouteRepository.stateDeviationInfos(monitorRoute._id)
+          buildPage(language, adminUser, group, monitorRoute, routeDoc, references, stateDeviationInfos)
         }
       }
     }
@@ -52,20 +52,20 @@ class MonitorRouteDetailsPageBuilder(
     monitorRoute: MonitorRoute,
     routeDoc: RouteDoc,
     references: Seq[MonitorReference],
-    states: Seq[MonitorState]
+    stateDeviationInfos: Seq[MonitorStateDeviationInfo]
   ): MonitorRouteDetailsPage = {
 
     val structureRows = convertRows(
       monitorRoute,
       routeDoc,
       references,
-      states
+      stateDeviationInfos
     )
     val relationCount = structureRows.count(_.memberType == MemberType.Relation)
     val relationLevels = structureRows.map(_.level).max
 
-    val deviationDistance = states.flatMap(_.deviations.map(_.distance)).sum
-    val deviationCount = states.map(_.deviations.length).sum
+    val deviationDistance = stateDeviationInfos.map(_.deviationDistance).sum
+    val deviationCount = stateDeviationInfos.map(_.deviationCount).sum
     val osmSegmentCount = routeDoc.segments.length
     val happy = false // TODO redesign
 
@@ -139,9 +139,9 @@ class MonitorRouteDetailsPageBuilder(
     route: MonitorRoute,
     routeDoc: RouteDoc,
     references: Seq[MonitorReference],
-    states: Seq[MonitorState]
+    stateDeviationInfos: Seq[MonitorStateDeviationInfo]
   ): Seq[StructureRow] = {
-    routeDoc.structureRows.map { row => toRow(row, route, 1, references, states) }
+    routeDoc.structureRows.map { row => toRow(row, route, 1, references, stateDeviationInfos) }
   }
 
   private def toRow(
@@ -149,7 +149,7 @@ class MonitorRouteDetailsPageBuilder(
     route: MonitorRoute,
     level: Long,
     references: Seq[MonitorReference],
-    states: Seq[MonitorState]
+    stateDeviationInfos: Seq[MonitorStateDeviationInfo]
   ): StructureRow = {
 
     val reference = if (row.memberType == MemberType.Relation && route.referenceType == MonitorReferenceType.multiGpx) {
@@ -159,8 +159,8 @@ class MonitorRouteDetailsPageBuilder(
       None
     }
 
-    val state = if (row.memberType == MemberType.Relation && route.referenceType == MonitorReferenceType.multiGpx) {
-      states.find(_.relationId == row.id)
+    val stateDeviationInfo = if (row.memberType == MemberType.Relation && route.referenceType == MonitorReferenceType.multiGpx) {
+      stateDeviationInfos.find(_.relationId == row.id)
     }
     else {
       None
@@ -201,8 +201,8 @@ class MonitorRouteDetailsPageBuilder(
       referenceTimestamp = reference.map(_.referenceTimestamp),
       referenceFilename = reference.flatMap(_.referenceFilename),
       referenceDistance = reference.map(_.referenceDistance).getOrElse(0),
-      deviationDistance = state.map(_.deviations.map(_.distance).sum),
-      deviationCount = state.map(_.deviations.length),
+      deviationDistance = stateDeviationInfo.map(_.deviationDistance),
+      deviationCount = stateDeviationInfo.map(_.deviationCount),
       osmSegmentCount = row.relation.map(_.segments.length),
       osmDistance = -1,
       osmDistanceSubRelations = -1,
