@@ -12,6 +12,7 @@ class IndexConfiguration(database: Database) {
       changes,
       monitorReferences,
       monitorStates,
+      monitorStateTiles,
       monitorRoutes,
       networkChanges,
       networks,
@@ -383,6 +384,19 @@ class IndexConfiguration(database: Database) {
         database.monitorStates,
         "routeId",
         "routeId"
+      )
+    )
+  }
+
+  private def monitorStateTiles: Seq[Index] = {
+    Seq(
+      Index(
+        database.monitorStateTiles,
+        "z",
+        "x",
+        "y",
+        "routeId",
+        "relationId"
       )
     )
   }

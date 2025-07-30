@@ -175,7 +175,7 @@ class MonitorUpdateAnalysis(
     oldStateIds: Seq[MonitorStateId]
   ): MonitorStateSummary = {
 
-    val segmentCoordinates = routeRepository.segmentCoordinates(routeDoc.routeIds)
+    val segmentCoordinates = routeRepository.segmentCoordinates(relationIds)
 
     val routeLines = segmentCoordinates.map { segment =>
       val coordinates = Json.value(segment.coordinates, classOf[CoordinateArray]).coordinates
