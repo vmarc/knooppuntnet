@@ -33,7 +33,8 @@ export class MonitorRouteSegmentsPageService {
         if (summary) {
           this.monitorRouteService.update(summary);
           this.state.map.updateMode('route-segments');
-          this.state.map.updateSegmentMap(SegmentMap.from(page.segments));
+          const segmentMap = SegmentMap.from(page.segments);
+          this.state.map.updateSegmentMap(segmentMap);
           this.state.map.updateMonitorMode('segments');
           this.state.map.updateMonitorRouteIds([page.summary.routeId]);
           this.state.map.updateMonitorRelationIds(page.summary.relationIds);

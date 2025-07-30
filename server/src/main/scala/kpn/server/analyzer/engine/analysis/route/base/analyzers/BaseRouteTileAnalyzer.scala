@@ -14,6 +14,7 @@ import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.wayToWorldCoordinates
 import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.TileCoordinate
 import kpn.server.analyzer.engine.tiles.domain.TileUtil
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
@@ -146,20 +147,62 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
   }
 
   private def buildSegmentsForTile(tile: Tile, tileSegments: Seq[TileSegment]): Seq[RouteTileSegment] = {
-    tileSegments.flatMap { tileSegment =>
-      tileSegmentToGeometry(tile, tileSegment).flatMap { geometry =>
-        val segmentElementId = Option.when(RouteTiles.detailed(tile.z)) {
-          tileSegment.segmentElementId
-        }
-        Some(
+
+    // TODO redesign - further refactor and test
+
+    if (RouteTiles.detailed(tile.z)) {
+      tileSegments.flatMap { tileSegment =>
+        tileSegmentToGeometry(tile, tileSegment).map { geometry =>
           RouteTileSegment(
             Some(tileSegment.segmentId),
-            segmentElementId,
+            Some(tileSegment.segmentElementId),
             Seq(geometry)
           )
-        )
+        }
       }
     }
+    else {
+      val segmentIds = tileSegments.map(_.segmentId).distinct.sorted
+      segmentIds.flatMap { segmentId =>
+        val segments = tileSegments.filter(_.segmentId == segmentId)
+        val tileCoordinateSeqs = segments.map(_.worldCoordinates).map(wc => TileUtil.routeTileCoordinates(tile, wc))
+        if (tileCoordinateSeqs.nonEmpty) {
+          val aaa = yyyyy(tileCoordinateSeqs)
+          val xxx = aaa.map(tileCoordinates => tileCoordinates.map(coordinate => s"[${coordinate.x},${coordinate.y}]").mkString("[", ",", "]"))
+          Some(
+            RouteTileSegment(
+              Some(segmentId),
+              None,
+              xxx
+            )
+          )
+        }
+        else {
+          None
+        }
+      }
+    }
+  }
+
+  private def yyyyy(coordinateSeqs: Seq[Seq[TileCoordinate]]): Seq[Seq[TileCoordinate]] = {
+    if (coordinateSeqs.isEmpty) {
+      return Seq.empty
+    }
+
+    val result = scala.collection.mutable.ArrayBuffer[Seq[TileCoordinate]]()
+    var current = coordinateSeqs.head
+
+    coordinateSeqs.tail.foreach { seq =>
+      if (current.last == seq.head) {
+        current = current ++ seq.tail
+      } else {
+        result += current
+        current = seq
+      }
+    }
+    result += current
+
+    result.toSeq
   }
 
   private def tileSegmentToGeometry(tile: Tile, tileSegment: TileSegment): Option[String] = {

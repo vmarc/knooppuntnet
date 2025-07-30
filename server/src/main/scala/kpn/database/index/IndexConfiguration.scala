@@ -5,6 +5,13 @@ import org.mongodb.scala.model.Indexes
 
 class IndexConfiguration(database: Database) {
 
+  def stateIndexes: Seq[Index] = {
+    Seq(
+      monitorStates,
+      monitorStateTiles,
+    ).flatten
+  }
+
   def indexes: Seq[Index] = {
     Seq(
       baseNetworks,

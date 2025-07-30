@@ -7,14 +7,14 @@ import Style from 'ol/style/Style';
 
 export class MonitorLayerStyle {
   private static readonly matchStyle = new Style({
-    zIndex: 2,
+    zIndex: 3,
     stroke: new Stroke({
       color: '#00aa00',
       width: 3,
     }),
   });
   private static readonly deviationStyle = new Style({
-    zIndex: 2,
+    zIndex: 3,
     stroke: new Stroke({
       color: '#ff0000',
       width: 3,
@@ -22,7 +22,7 @@ export class MonitorLayerStyle {
   });
 
   private static readonly routeStyle = new Style({
-    zIndex: 1,
+    zIndex: 2,
     stroke: new Stroke({
       color: '#ff0',
       width: 8,

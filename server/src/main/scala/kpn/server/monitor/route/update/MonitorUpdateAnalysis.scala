@@ -82,7 +82,7 @@ class MonitorUpdateAnalysis(
     obsoleteStateIds.map(_._id).foreach(monitorRouteRepository.deleteStateById)
   }
 
-  private def analyzeReferences(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorReference], oldStateIds: Seq[MonitorStateId]) = {
+  private def analyzeReferences(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorReference], oldStateIds: Seq[MonitorStateId]): Seq[MonitorStateSummary] = {
     if (route.referenceType == MonitorReferenceType.osm || route.referenceType == MonitorReferenceType.multiGpx) {
       analyzeRouteReferences(route, routeDoc, references, oldStateIds)
     }
@@ -94,8 +94,8 @@ class MonitorUpdateAnalysis(
     }
   }
 
-  private def analyzeRouteReferences(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorReference], oldStateIds: Seq[MonitorStateId]) = {
-    references.flatMap { reference =>
+  private def analyzeRouteReferences(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorReference], oldStateIds: Seq[MonitorStateId]): Seq[MonitorStateSummary] = {
+    val xx = references.flatMap { reference =>
       reference.relationId.map { relationId =>
         compareReferenceAndRelation(
           route,
@@ -107,6 +107,39 @@ class MonitorUpdateAnalysis(
         )
       }
     }
+
+    val referenceRelationIds = references.flatMap(_.relationId).toSet
+    val routeRelationIds = routeDoc.routeIds.toSet
+    val relationsWithoutReferenceIds = (routeRelationIds -- referenceRelationIds).toSeq.sorted
+
+    val yy = relationsWithoutReferenceIds.map { relationId =>
+      val segmentCoordinates = routeRepository.segmentCoordinates(Seq(relationId))
+      val id = oldStateIds.find(_.relationId == relationId) match {
+        case Some(oldStateId) => oldStateId._id
+        case None => ObjectId()
+      }
+      val state = MonitorState(
+        id,
+        route._id,
+        relationId,
+        Time.now,
+        Seq.empty,
+        0,
+        Seq.empty,
+        segmentCoordinates
+      )
+
+      monitorStateStore.saveState(state)
+
+      MonitorStateSummary(
+        relationId = relationId,
+        deviationCount = 0,
+        deviationDistance = 0,
+        matchesDistance = 0
+      )
+    }
+
+    xx ++ yy
   }
 
   private def analyzeGpxReference(route: MonitorRoute, routeDoc: RouteDoc, references: Seq[MonitorReference], oldStateIds: Seq[MonitorStateId]): Seq[MonitorStateSummary] = {

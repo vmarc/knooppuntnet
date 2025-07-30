@@ -4,6 +4,7 @@ import kpn.api.base.ObjectId
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform
 import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.TileCoordinate
 import kpn.server.analyzer.engine.tiles.domain.TileUtil
 import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorState
@@ -52,18 +53,18 @@ class MonitorStateTileBuilder(
     tiles.flatMap { tile =>
       val matchesLines = worldCoordinateMatchesLines.flatMap(worldCoordinates => TileUtil.toTileLine(tile, worldCoordinates))
       val tileDeviations = buildTileDeviations(tile, deviations)
-      val segments = worldCoordinateSegments.flatMap { segment =>
-        if (tile.boundsOverlapClipBounds(segment.xmin, segment.xmax, segment.ymin, segment.ymax)) {
-          TileUtil.toTileLine(tile, segment.coordinates).map { coordinates =>
-            MonitorSegment(
-              relationId = segment.relationId,
-              segmentId = segment.segmentId,
-              coordinates = coordinates
-            )
-          }
-        }
-        else {
-          None
+      val segmentIds = worldCoordinateSegments.map(_.segmentId).distinct.sorted
+      val segments = segmentIds.flatMap { segmentId =>
+        val segs = worldCoordinateSegments.filter(_.segmentId == segmentId)
+        val tileCoordinateSeqs = segs.map(segment => TileUtil.routeTileCoordinates(tile, segment.coordinates)).filter(_.nonEmpty)
+        val simplified = simplifyCoordinateSeqs(tileCoordinateSeqs)
+        val coordinateStrings = simplified.map(tileCoordinates => tileCoordinates.map(coordinate => s"[${coordinate.x},${coordinate.y}]").mkString("[", ",", "]"))
+        coordinateStrings.map { coordinateStrings =>
+          MonitorSegment(
+            relationId = segs.head.relationId,
+            segmentId = segmentId,
+            coordinates = coordinateStrings
+          )
         }
       }
 
@@ -86,6 +87,32 @@ class MonitorStateTileBuilder(
         )
       }
     }
+  }
+
+  private def simplifyCoordinateSeqs(coordinateSeqs: Seq[Seq[TileCoordinate]]): Seq[Seq[TileCoordinate]] = {
+    if (coordinateSeqs.isEmpty) {
+      return Seq.empty
+    }
+
+    val result = scala.collection.mutable.ArrayBuffer[Seq[TileCoordinate]]()
+    var current = coordinateSeqs.head
+
+    coordinateSeqs.tail.foreach { seq =>
+
+      if (current.isEmpty) {
+        println("stop")
+      }
+
+      if (current.last == seq.head) {
+        current = current ++ seq.tail
+      } else {
+        result += current
+        current = seq
+      }
+    }
+    result += current
+
+    result.toSeq
   }
 
   private def buildTileDeviations(tile: Tile, deviations: Seq[MonitorStateDeviationWorldCoordinates]): Seq[MonitorStateTileDeviation] = {

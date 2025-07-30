@@ -11,7 +11,7 @@ import org.locationtech.jts.simplify.DouglasPeuckerSimplifier
 
 object TileUtil {
   private val geometryFactory = new GeometryFactory
-  private val MinimumGeometryLength = 1.5d
+  private val MinimumGeometryLength = 1.0d
   private val SimplificationTolerance = 1.0d
 
   def routeTileCoordinates(tile: Tile, worldCoordinates: Seq[Coordinate]): Seq[TileCoordinate] = {
@@ -42,7 +42,7 @@ object TileUtil {
           Seq.empty
         }
         else {
-          clippedGeometry.getCoordinates.toSeq.map(coordinate => TileCoordinate(Math.floor(coordinate.x).toInt, Math.floor(coordinate.y).toInt))
+          clippedGeometry.getCoordinates.toSeq.map(coordinate => TileCoordinate(Math.round(coordinate.x).toInt, Math.round(coordinate.y).toInt))
         }
       }
     }
