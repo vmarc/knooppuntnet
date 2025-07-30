@@ -7,7 +7,7 @@ export class RouteSegmentStyle {
     zIndex: ExploreStyleConstants.zIndexStandard,
     stroke: new Stroke({
       color: '#ffff00',
-      width: 4,
+      width: 3,
     }),
   });
 

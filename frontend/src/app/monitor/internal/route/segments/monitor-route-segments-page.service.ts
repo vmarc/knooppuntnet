@@ -34,8 +34,9 @@ export class MonitorRouteSegmentsPageService {
           this.monitorRouteService.update(summary);
           this.state.map.updateMode('route-segments');
           this.state.map.updateSegmentMap(SegmentMap.from(page.segments));
-          this.state.map.updateMonitorRouteIds([]);
-          this.state.map.updateMonitorRelationIds([]);
+          this.state.map.updateMonitorMode('segments');
+          this.state.map.updateMonitorRouteIds([page.summary.routeId]);
+          this.state.map.updateMonitorRelationIds(page.summary.relationIds);
           this.mapService.fitBounds(summary.bounds);
         }
       }

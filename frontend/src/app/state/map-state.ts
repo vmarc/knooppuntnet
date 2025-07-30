@@ -92,7 +92,7 @@ export class MapState {
       routeIds: this.monitorRouteIds(),
       relationIds: this.monitorRelationIds(),
       deviationIds: this.monitorDeviationIds(),
-      referenceEnabled: this.monitorReferenceEnabled(),
+      routeEnabled: this.monitorReferenceEnabled(),
       matchEnabled: this.monitorMatchEnabled(),
       deviationEnabled: this.monitorDeviationEnabled(),
       monitorShowSegments: this.monitorShowSegments(),

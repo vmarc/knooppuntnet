@@ -2,6 +2,7 @@ import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
 import { MonitorLayerStyle } from '@app/map/style/monitor-layer-style';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
+import { MapStyleOptions } from '@app/state/map-style-options';
 import { MonitorMapState } from '@app/state/monitor/monitor-map-state';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
@@ -11,11 +12,16 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class MonitorLayer {
+  private styleOptions: MapStyleOptions; // local copy for performance reasons
   private monitorMapState: MonitorMapState; // local copy for performance reasons
 
-  constructor(stateSignal: Signal<MonitorMapState>) {
+  constructor(
+    styleOptionsSignal: Signal<MapStyleOptions>,
+    monitorMapStateSignal: Signal<MonitorMapState>
+  ) {
     effect(() => {
-      this.monitorMapState = stateSignal();
+      this.styleOptions = styleOptionsSignal();
+      this.monitorMapState = monitorMapStateSignal();
     });
   }
 
@@ -49,7 +55,7 @@ export class MonitorLayer {
 
   private styleFunction(): StyleFunction {
     return (feature, resolution) => {
-      return MonitorLayerStyle.style(this.monitorMapState, feature);
+      return MonitorLayerStyle.style(this.styleOptions, this.monitorMapState, feature);
     };
   }
 }

@@ -5,7 +5,7 @@ export interface MonitorMapState {
   routeIds: string[];
   relationIds: number[];
   deviationIds: string[];
-  referenceEnabled: boolean;
+  routeEnabled: boolean;
   matchEnabled: boolean;
   deviationEnabled: boolean;
   monitorShowSegments: boolean;

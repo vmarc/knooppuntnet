@@ -28,6 +28,7 @@ export class MonitorRouteMembersPageService {
         if (summary) {
           this.monitorRouteService.update(summary);
           this.state.map.updateMode('monitor');
+          this.state.map.updateMonitorMode('route');
           this.state.map.updateMonitorRouteIds([summary.routeId]);
           this.state.map.updateMonitorRelationIds(summary.relationIds);
           this.mapService.fitBounds(summary.bounds);

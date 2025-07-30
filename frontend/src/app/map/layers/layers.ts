@@ -47,7 +47,7 @@ export class Layers {
       OpendataTileLayer.build('netherlands-open-data', 'hiking', 'netherlands/hiking'),
       OpendataTileLayer.build('netherlands-open-data', 'cycling', 'netherlands/cycling'),
       OpendataTileLayer.build('france-open-data', 'hiking', 'france/hiking'),
-      new MonitorLayer(monitorMapState).build(),
+      new MonitorLayer(styleOptions, monitorMapState).build(),
     ];
 
     const layersState: Signal<LayersState> = computed(() => {
