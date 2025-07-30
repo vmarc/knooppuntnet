@@ -1,6 +1,7 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.Language
+import kpn.api.common.monitor.MonitorRouteRelationInfo
 import kpn.api.common.monitor.MonitorRouteSegmentsPage
 import kpn.api.common.monitor.MonitorRouteSummary
 import kpn.api.common.route.SegmentInfo
@@ -29,7 +30,8 @@ class MonitorRouteSegmentsPageBuilder(
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).flatMap { monitorRoute =>
         monitorRoute.relationId.flatMap(routeRepository.findRouteById).map { routeDoc =>
-          buildPage(language, adminUser, group, monitorRoute, routeDoc)
+          val routeRelationInfos = monitorRouteRepository.routeRelationInfos(routeDoc.routeIds)
+          buildPage(language, adminUser, group, monitorRoute, routeDoc, routeRelationInfos)
         }
       }
     }
@@ -41,6 +43,7 @@ class MonitorRouteSegmentsPageBuilder(
     group: MonitorGroup,
     monitorRoute: MonitorRoute,
     routeDoc: RouteDoc,
+    routeRelationInfos: Seq[MonitorRouteRelationInfo]
   ): MonitorRouteSegmentsPage = {
 
     val summary = buildSummary(adminUser, group, monitorRoute, routeDoc)
@@ -49,6 +52,7 @@ class MonitorRouteSegmentsPageBuilder(
     MonitorRouteSegmentsPage(
       summary,
       routeDoc.summary.meters,
+      routeRelationInfos,
       segments
     )
   }

@@ -5,12 +5,14 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
 import kpn.api.common.monitor.MonitorRouteDeviationInfo
+import kpn.api.common.monitor.MonitorRouteRelationInfo
 import kpn.core.util.Log
 import kpn.database.actions.monitor.MongoQueryMonitorDeviations
 import kpn.database.actions.monitor.MongoQueryMonitorGroupRouteInfos
 import kpn.database.actions.monitor.MongoQueryMonitorMemberCount
 import kpn.database.actions.monitor.MongoQueryMonitorReferenceTileIds
 import kpn.database.actions.monitor.MongoQueryMonitorReferenceTiles
+import kpn.database.actions.monitor.MongoQueryMonitorRouteRelationInfos
 import kpn.database.actions.monitor.MongoQueryMonitorStateDeviationInfos
 import kpn.database.actions.monitor.MongoQueryMonitorStateTileIds
 import kpn.database.actions.monitor.MongoQueryMonitorStateTiles
@@ -626,5 +628,9 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
 
   override def stateDeviationInfos(routeId: ObjectId): Seq[MonitorStateDeviationInfo] = {
     new MongoQueryMonitorStateDeviationInfos(database).execute(routeId)
+  }
+
+  override def routeRelationInfos(relationIds: Seq[Long]): Seq[MonitorRouteRelationInfo] = {
+    new MongoQueryMonitorRouteRelationInfos(database).execute(relationIds)
   }
 }

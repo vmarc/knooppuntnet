@@ -24,6 +24,7 @@ import { MonitorRouteSegmentsPageService } from './monitor-route-segments-page.s
         </label>
         <ui-route-segment-list
           [segments]="page.segments"
+          [relations]="page.relations"
           [selectedSegment]="selectedSegment()"
           (selectChange)="selectSegment($event)"
         />

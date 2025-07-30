@@ -11,7 +11,11 @@ import { RouterService } from '@app/shared/services/router.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (response.hasValue()) {
-      <ui-route-segment-list [segments]="segments()" [selectedSegment]="undefined" />
+      <ui-route-segment-list
+        [segments]="segments()"
+        [relations]="[]"
+        [selectedSegment]="undefined"
+      />
     }
   `,
   providers: [RouteSegmentsPageService, RouterService],

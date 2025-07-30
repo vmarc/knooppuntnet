@@ -2,6 +2,7 @@ import { output } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MonitorRouteRelationInfo } from '@api/common/monitor/monitor-route-relation-info';
 import { SegmentInfo } from '@api/common/route/segment-info';
 import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { ListComponent } from '@app/shared/components/list/list.component';
@@ -18,7 +19,7 @@ import { RouteSegmentListItemComponent } from './route-segment-list-item.compone
           [selected]="selectedSegment()?.id == segment.id"
           (click)="selectSegment(segment)"
         >
-          <ui-route-segment-list-item [segment]="segment" />
+          <ui-route-segment-list-item [segment]="segment" [relations]="relations()" />
         </ui-list-item>
       }
     </ui-list>
@@ -27,6 +28,7 @@ import { RouteSegmentListItemComponent } from './route-segment-list-item.compone
 })
 export class RouteSegmentListComponent {
   readonly segments = input.required<SegmentInfo[]>();
+  readonly relations = input.required<MonitorRouteRelationInfo[]>();
   readonly selectedSegment = input.required<SegmentInfo>();
   readonly selectChange = output<SegmentInfo>();
 

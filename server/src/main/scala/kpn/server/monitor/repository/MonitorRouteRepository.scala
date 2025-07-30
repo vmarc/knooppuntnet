@@ -5,6 +5,7 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
 import kpn.api.common.monitor.MonitorRouteDeviationInfo
+import kpn.api.common.monitor.MonitorRouteRelationInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.domain.MonitorGroupRouteCount
 import kpn.server.monitor.domain.MonitorGroupRouteInfo
@@ -134,4 +135,6 @@ trait MonitorRouteRepository {
   def routeMemberCount(relationId: Long): Long
 
   def stateDeviationInfos(routeId: ObjectId): Seq[MonitorStateDeviationInfo]
+
+  def routeRelationInfos(relationIds: Seq[Long]): Seq[MonitorRouteRelationInfo]
 }
