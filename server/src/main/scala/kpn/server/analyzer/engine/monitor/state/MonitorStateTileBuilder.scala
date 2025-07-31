@@ -90,29 +90,7 @@ class MonitorStateTileBuilder(
   }
 
   private def simplifyCoordinateSeqs(coordinateSeqs: Seq[Seq[TileCoordinate]]): Seq[Seq[TileCoordinate]] = {
-    if (coordinateSeqs.isEmpty) {
-      return Seq.empty
-    }
-
-    val result = scala.collection.mutable.ArrayBuffer[Seq[TileCoordinate]]()
-    var current = coordinateSeqs.head
-
-    coordinateSeqs.tail.foreach { seq =>
-
-      if (current.isEmpty) {
-        println("stop")
-      }
-
-      if (current.last == seq.head) {
-        current = current ++ seq.tail
-      } else {
-        result += current
-        current = seq
-      }
-    }
-    result += current
-
-    result.toSeq
+    MonitorStateTileCoordinateSimplifier.simplify(coordinateSeqs)
   }
 
   private def buildTileDeviations(tile: Tile, deviations: Seq[MonitorStateDeviationWorldCoordinates]): Seq[MonitorStateTileDeviation] = {
