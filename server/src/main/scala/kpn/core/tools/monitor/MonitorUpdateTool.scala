@@ -6,8 +6,6 @@ import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Options
 import kpn.database.base.Tool
-import kpn.database.index.IndexConfiguration
-import kpn.database.index.Indexer
 import kpn.database.util.Mongo
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -23,9 +21,6 @@ object MonitorUpdateTool extends Tool[MonitorUpdateToolOptions] {
   override def execute(options: MonitorUpdateToolOptions): Unit = {
     log.infoElapsed {
       Mongo.executeIn(options.databaseName) { database =>
-
-        removeStateDocsWhileUpdateLogicNotReadyYet(database)
-
         val tool = new MonitorUpdateTool(new MonitorUpdateToolConfiguration(database))
         tool.update()
         //tool.testUpdate("eu-icn-EV", "EV1")
@@ -40,13 +35,6 @@ object MonitorUpdateTool extends Tool[MonitorUpdateToolOptions] {
     FileUtils.cleanDirectory(new File("/Users/marc/kpn/tiles/monitor"))
     val tileTool = new MonitorTileTool(database)
     tileTool.generate()
-  }
-
-  private def removeStateDocsWhileUpdateLogicNotReadyYet(database: Database): Unit = {
-    database.monitorStates.drop()
-    database.monitorStateTiles.drop()
-    val indexer = new Indexer(database)
-    new IndexConfiguration(database).stateIndexes.foreach(indexer.createIndex)
   }
 }
 
