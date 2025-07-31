@@ -27,8 +27,8 @@ object MonitorUpdateTool extends Tool[MonitorUpdateToolOptions] {
         removeStateDocsWhileUpdateLogicNotReadyYet(database)
 
         val tool = new MonitorUpdateTool(new MonitorUpdateToolConfiguration(database))
-        // tool.update()
-        tool.testUpdate("eu-icn-EV", "EV1")
+        tool.update()
+        //tool.testUpdate("eu-icn-EV", "EV1")
 
         regenerateTiles(database)
       }

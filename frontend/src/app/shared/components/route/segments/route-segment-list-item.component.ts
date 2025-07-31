@@ -1,3 +1,4 @@
+import { output } from '@angular/core';
 import { computed } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -7,6 +8,8 @@ import { SegmentInfo } from '@api/common/route/segment-info';
 import { SegmentColors } from '@app/map/domain/segment-colors';
 import { LegendLineComponent } from '@app/shared/components/legend-line';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
+import { SegmentPopupEvent } from '@app/shared/components/route/segments/segment-popup-event';
+import { SegmentRelationPopupEvent } from '@app/shared/components/route/segments/segment-relation-popup-event';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 
@@ -20,13 +23,13 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
         <ui-legend-line [color]="segmentColor()" />
       </span>
       <span class="segment-meters">{{ meters() | distance }}</span>
-      <button nz-button nzShape="circle">
+      <button nz-button nzShape="circle" (click)="openSegmentPopup($event)">
         <nz-icon nzType="ellipsis" />
       </button>
     </div>
     @for (relationId of relationIds(); track relationId) {
       <div class="segment-relation">
-        <button nz-button nzShape="circle">
+        <button nz-button nzShape="circle" (click)="openRelationPopup($event, relationId)">
           <nz-icon nzType="ellipsis" />
         </button>
         <span class="kpn-separated">
@@ -70,6 +73,8 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 export class RouteSegmentListItemComponent {
   readonly segment = input.required<SegmentInfo>();
   readonly relations = input.required<MonitorRouteRelationInfo[]>();
+  readonly relationPopup = output<SegmentRelationPopupEvent>();
+  readonly segmentPopup = output<SegmentPopupEvent>();
 
   protected readonly id = computed(() => this.segment().id);
   protected readonly meters = computed(() => this.segment().meters);
@@ -85,5 +90,22 @@ export class RouteSegmentListItemComponent {
       return info.name;
     }
     return '';
+  }
+
+  openSegmentPopup(mouseEvent: MouseEvent): void {
+    const event: SegmentPopupEvent = {
+      event: mouseEvent,
+      segment: this.segment(),
+    };
+    this.segmentPopup.emit(event);
+  }
+
+  openRelationPopup(mouseEvent: MouseEvent, relationId: number): void {
+    const event: SegmentRelationPopupEvent = {
+      event: mouseEvent,
+      segment: this.segment(),
+      relationId: relationId,
+    };
+    this.relationPopup.emit(event);
   }
 }

@@ -1,11 +1,10 @@
-import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SegmentInfo } from '@api/common/route/segment-info';
-import { RouteSegmentListComponent } from '@app/shared/components/route/segments/route-segment-list.component';
-import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
+import { RouteSegmentsComponent } from '@app/shared/components/route/segments/route-segments.component';
+import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
 import { MonitorRouteSegmentsPageService } from './monitor-route-segments-page.service';
 
 @Component({
@@ -14,37 +13,34 @@ import { MonitorRouteSegmentsPageService } from './monitor-route-segments-page.s
   template: `
     @if (response.hasValue()) {
       @if (response.value().result; as page) {
-        <label
-          nz-checkbox
-          [nzChecked]="service.monitorShowSegments()"
-          (nzCheckedChange)="updateMonitorShowSegments($event)"
-          class="kpn-spacer-above"
-        >
-          Show in map
-        </label>
-        <ui-route-segment-list
+        <ui-route-segments
           [segments]="page.segments"
           [relations]="page.relations"
-          [selectedSegment]="selectedSegment()"
+          [showSegments]="showSegments()"
           (selectChange)="selectSegment($event)"
+          (showSegmentsChange)="showSegmentsChanged($event)"
+          (zoomToFitRoute)="zoomToFitRoute()"
         />
       }
     }
   `,
-  providers: [MonitorRouteSegmentsPageService],
-  imports: [FormsModule, NzCheckboxComponent, RouteSegmentListComponent],
+  providers: [MonitorRouteSegmentsPageService, NzContextMenuService],
+  imports: [FormsModule, RouteSegmentsComponent],
 })
 export class MonitorRouteSegmentsPageComponent {
   readonly service = inject(MonitorRouteSegmentsPageService);
   readonly response = this.service.response;
-
-  readonly selectedSegment = signal<SegmentInfo>(undefined);
+  readonly showSegments = this.service.monitorShowSegments;
 
   selectSegment(segment: SegmentInfo): void {
     this.service.selectSegment(segment);
   }
 
-  updateMonitorShowSegments(value: boolean): void {
+  showSegmentsChanged(value: boolean): void {
     this.service.updateMonitorShowSegments(value);
+  }
+
+  zoomToFitRoute(): void {
+    this.service.zoomToFitRoute();
   }
 }

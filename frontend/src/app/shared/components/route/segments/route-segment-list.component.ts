@@ -6,6 +6,8 @@ import { MonitorRouteRelationInfo } from '@api/common/monitor/monitor-route-rela
 import { SegmentInfo } from '@api/common/route/segment-info';
 import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { ListComponent } from '@app/shared/components/list/list.component';
+import { SegmentPopupEvent } from '@app/shared/components/route/segments/segment-popup-event';
+import { SegmentRelationPopupEvent } from '@app/shared/components/route/segments/segment-relation-popup-event';
 import { RouteSegmentListItemComponent } from './route-segment-list-item.component';
 
 @Component({
@@ -14,12 +16,14 @@ import { RouteSegmentListItemComponent } from './route-segment-list-item.compone
   template: `
     <ui-list>
       @for (segment of segments(); track segment.id) {
-        <ui-list-item
-          [clickable]="true"
-          [selected]="selectedSegment()?.id == segment.id"
-          (click)="selectSegment(segment)"
-        >
-          <ui-route-segment-list-item [segment]="segment" [relations]="relations()" />
+        <ui-list-item [clickable]="true">
+          <ui-route-segment-list-item
+            [segment]="segment"
+            [relations]="relations()"
+            (click)="selectSegment(segment)"
+            (segmentPopup)="openSegmentPopup($event)"
+            (relationPopup)="openRelationPopup($event)"
+          />
         </ui-list-item>
       }
     </ui-list>
@@ -31,8 +35,18 @@ export class RouteSegmentListComponent {
   readonly relations = input.required<MonitorRouteRelationInfo[]>();
   readonly selectedSegment = input.required<SegmentInfo>();
   readonly selectChange = output<SegmentInfo>();
+  readonly relationPopup = output<SegmentRelationPopupEvent>();
+  readonly segmentPopup = output<SegmentPopupEvent>();
 
   selectSegment(segment: SegmentInfo): void {
     this.selectChange.emit(segment);
+  }
+
+  openSegmentPopup(event: SegmentPopupEvent): void {
+    this.segmentPopup.emit(event);
+  }
+
+  openRelationPopup(event: SegmentRelationPopupEvent): void {
+    this.relationPopup.emit(event);
   }
 }

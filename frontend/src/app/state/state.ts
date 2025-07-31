@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SegmentMap } from '@app/state/segment-map';
 import { SplitState } from '@app/state/split-state';
 import { ExploreState } from './explore-state';
 import { MapState } from './map-state';
@@ -16,4 +17,20 @@ export class State {
   readonly planner = new PlannerState();
   readonly preferences = new PreferencesState();
   readonly splitState = new SplitState();
+
+  monitorSegmentsPageOpened(routeId: string, relationIds: number[], segmentMap: SegmentMap): void {
+    this.map.updateMode('route-segments');
+    this.map.updateSegmentMap(segmentMap);
+    this.map.updateMonitorMode('segments');
+    this.map.updateMonitorRouteIds([routeId]);
+    this.map.updateMonitorRelationIds(relationIds);
+  }
+
+  monitorDeviationsPageOpened(routeId: string, relationIds: number[]): void {
+    this.map.updateMode('monitor');
+    this.map.updateMonitorMode('route');
+    this.map.updateSubject('explore');
+    this.map.updateMonitorRouteIds([routeId]);
+    this.map.updateMonitorRelationIds(relationIds);
+  }
 }

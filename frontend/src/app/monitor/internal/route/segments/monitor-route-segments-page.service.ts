@@ -32,12 +32,12 @@ export class MonitorRouteSegmentsPageService {
         const summary = page.summary;
         if (summary) {
           this.monitorRouteService.update(summary);
-          this.state.map.updateMode('route-segments');
           const segmentMap = SegmentMap.from(page.segments);
-          this.state.map.updateSegmentMap(segmentMap);
-          this.state.map.updateMonitorMode('segments');
-          this.state.map.updateMonitorRouteIds([page.summary.routeId]);
-          this.state.map.updateMonitorRelationIds(page.summary.relationIds);
+          this.state.monitorSegmentsPageOpened(
+            page.summary.routeId,
+            page.summary.relationIds,
+            segmentMap
+          );
           this.mapService.fitBounds(summary.bounds);
         }
       }
@@ -50,5 +50,9 @@ export class MonitorRouteSegmentsPageService {
 
   updateMonitorShowSegments(value: boolean): void {
     this.state.map.updateMonitorShowSegments(value);
+  }
+
+  zoomToFitRoute() {
+    this.mapService.fitBounds(this.response.value().result.summary.bounds);
   }
 }
