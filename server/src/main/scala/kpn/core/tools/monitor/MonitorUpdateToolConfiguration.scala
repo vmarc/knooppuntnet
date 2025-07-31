@@ -3,7 +3,7 @@ package kpn.core.tools.monitor
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzerImpl
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
-import kpn.server.analyzer.engine.monitor.state.MonitorStateTileBuilder
+import kpn.server.analyzer.engine.monitor.state.MonitorStateTileBuilderImpl
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.monitor.repository.MonitorGroupRepository
@@ -22,7 +22,7 @@ class MonitorUpdateToolConfiguration(database: Database) {
     val routeRepository = new RouteRepositoryImpl(database)
     val routeTileCache = new RouteTileCache()
     val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
-    val monitorStateTileBuilder = new MonitorStateTileBuilder(lineSegmentTileCalculator)
+    val monitorStateTileBuilder = new MonitorStateTileBuilderImpl(lineSegmentTileCalculator)
     val monitorStateStore = new MonitorStateStore(monitorRouteRepository, monitorStateTileBuilder)
     val monitorRouteDeviationAnalyzer = new MonitorRouteDeviationAnalyzerImpl()
     new MonitorUpdateAnalysis(

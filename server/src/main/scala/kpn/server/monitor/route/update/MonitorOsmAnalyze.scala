@@ -152,6 +152,7 @@ class MonitorOsmAnalyze(
             deviationAnalysis.matchesLines,
             segmentCoordinates
           )
+
           monitorStateStore.saveState(state)
 
           Some(

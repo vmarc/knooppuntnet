@@ -13,4 +13,9 @@ case class MonitorStateTile(
   deviations: Seq[MonitorStateTileDeviation],
   matchesLines: Seq[String],
   segments: Seq[MonitorSegment],
-) extends WithObjectId
+) extends WithObjectId {
+
+  def key: String = {
+    s"$relationId-$z-$x-$y"
+  }
+}

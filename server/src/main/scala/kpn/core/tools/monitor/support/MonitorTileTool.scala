@@ -45,7 +45,7 @@ class MonitorTileTool(database: Database) {
 
   private def processTile(encoder: MonitorTileEncoder, tileId: TileId): Unit = {
     val tile = RouteTiles.tile(tileId)
-    val stateTileInfos = monitorRouteRepository.stateTiles(tileId)
+    val stateTileInfos = monitorRouteRepository.stateTilesBytTileId(tileId)
     encoder.processTile(tile, stateTileInfos)
   }
 

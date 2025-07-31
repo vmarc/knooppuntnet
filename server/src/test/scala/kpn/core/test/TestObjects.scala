@@ -119,6 +119,8 @@ import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorState
+import kpn.server.monitor.domain.MonitorStateTile
+import kpn.server.monitor.domain.MonitorStateTileDeviation
 
 object TestObjects {
 
@@ -1227,6 +1229,30 @@ object TestObjects {
       matchesDistance,
       matchesLines,
       segments
+    )
+  }
+
+  def newMonitorStateTile(
+    _id: ObjectId = ObjectId(),
+    routeId: ObjectId = ObjectId(),
+    relationId: Long = 0,
+    z: Long = 0,
+    x: Long = 0,
+    y: Long = 0,
+    deviations: Seq[MonitorStateTileDeviation] = Seq.empty,
+    matchesLines: Seq[String] = Seq.empty,
+    segments: Seq[MonitorSegment] = Seq.empty,
+  ): MonitorStateTile = {
+    MonitorStateTile(
+      _id: ObjectId,
+      routeId: ObjectId,
+      relationId: Long,
+      z: Long,
+      x: Long,
+      y: Long,
+      deviations: Seq[MonitorStateTileDeviation],
+      matchesLines: Seq[String],
+      segments: Seq[MonitorSegment],
     )
   }
 

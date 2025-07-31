@@ -261,6 +261,10 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorStateTiles.deleteMany(routeFilter, log)
   }
 
+  override def deleteStateTile(tileId: ObjectId): Unit = {
+    database.monitorStateTiles.deleteByObjectId(tileId)
+  }
+
   override def deleteState(routeId: ObjectId, subRelationId: Long): Unit = {
     val routeReferenceFilter = and(
       equal("routeId", routeId.raw),
@@ -610,7 +614,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     new MongoQueryMonitorReferenceTileIds(database).execute()
   }
 
-  override def stateTiles(tileId: TileId): Seq[MonitorStateTile] = {
+  override def stateTilesBytTileId(tileId: TileId): Seq[MonitorStateTile] = {
     new MongoQueryMonitorStateTiles(database).execute(tileId)
   }
 

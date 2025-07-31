@@ -68,6 +68,8 @@ trait MonitorRouteRepository {
 
   def deleteStateTiles(routeId: ObjectId): Unit
 
+  def deleteStateTile(tileId: ObjectId): Unit
+
   def deleteState(routeId: ObjectId, subRelationId: Long): Unit
 
   def deleteStateById(objectId: ObjectId): Unit
@@ -126,7 +128,7 @@ trait MonitorRouteRepository {
 
   def referenceTileIds(): Seq[TileId]
 
-  def stateTiles(tileId: TileId): Seq[MonitorStateTile]
+  def stateTilesBytTileId(tileId: TileId): Seq[MonitorStateTile]
 
   def referenceTiles(tileId: TileId): Seq[MonitorReferenceTileInfo]
 

@@ -4,7 +4,7 @@ import kpn.database.base.Database
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzerImpl
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzerImpl
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
-import kpn.server.analyzer.engine.monitor.state.MonitorStateTileBuilder
+import kpn.server.analyzer.engine.monitor.state.MonitorStateTileBuilderImpl
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
@@ -36,7 +36,7 @@ class MonitorUpdaterConfiguration(
 
   private val monitorReferenceBuilder = new MonitorReferenceBuilder(lineSegmentTileCalculator)
 
-  private val monitorStateTileBuilder = new MonitorStateTileBuilder(lineSegmentTileCalculator)
+  private val monitorStateTileBuilder = new MonitorStateTileBuilderImpl(lineSegmentTileCalculator)
   private val monitorStateStore = new MonitorStateStore(monitorRouteRepository, monitorStateTileBuilder)
 
   private val monitorUpdateGpxUpload = new MonitorGpxUpload(
