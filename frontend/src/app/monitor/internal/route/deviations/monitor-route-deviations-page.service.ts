@@ -28,7 +28,7 @@ export class MonitorRouteDeviationsPageService {
         const summary = this.response.value().result.summary;
         if (summary) {
           this.monitorRouteService.update(summary);
-          this.state.monitorDeviationsPageOpened(summary.routeId, summary.relationIds);
+          this.state.monitorPageOpened(summary.routeId, summary.relationIds);
           this.mapService.fitBounds(summary.bounds);
         }
       }

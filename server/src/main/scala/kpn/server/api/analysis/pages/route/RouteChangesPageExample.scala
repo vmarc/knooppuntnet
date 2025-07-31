@@ -32,9 +32,11 @@ object RouteChangesPageExample {
         route.id,
         route.summary.name,
         route.summary.routeTypes,
-        3,
-        3,
-        None
+        memberCount = 3,
+        pathCount = 3,
+        segmentCount = 3,
+        changeCount = 3,
+        bounds = None
       ),
       Seq.empty,
       changes(),

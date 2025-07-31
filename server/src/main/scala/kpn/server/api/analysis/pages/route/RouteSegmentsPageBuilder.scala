@@ -28,9 +28,11 @@ class RouteSegmentsPageBuilder(
         routeDoc._id,
         routeDoc.summary.name,
         routeDoc.summary.routeTypes,
-        changeCount,
-        segmentCount,
-        routeDoc.bounds
+        memberCount = routeDoc.structureRows.size,
+        pathCount = routeDoc.paths.size,
+        segmentCount = routeDoc.segments.size,
+        changeCount = changeCount,
+        bounds = routeDoc.bounds,
       )
 
       val segments = buildSegments(routeDoc)

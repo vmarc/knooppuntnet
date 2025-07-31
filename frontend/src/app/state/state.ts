@@ -19,6 +19,8 @@ export class State {
   readonly splitState = new SplitState();
 
   monitorSegmentsPageOpened(routeId: string, relationIds: number[], segmentMap: SegmentMap): void {
+    this.map.layers.updateRouteLayerEnabled(false);
+    this.map.layers.updateMonitorLayerEnabled(true);
     this.map.updateMode('route-segments');
     this.map.updateSegmentMap(segmentMap);
     this.map.updateMonitorMode('segments');
@@ -26,11 +28,19 @@ export class State {
     this.map.updateMonitorRelationIds(relationIds);
   }
 
-  monitorDeviationsPageOpened(routeId: string, relationIds: number[]): void {
+  monitorPageOpened(routeId: string, relationIds: number[]): void {
+    this.map.layers.updateRouteLayerEnabled(false);
+    this.map.layers.updateMonitorLayerEnabled(true);
     this.map.updateMode('monitor');
     this.map.updateMonitorMode('route');
     this.map.updateSubject('explore');
     this.map.updateMonitorRouteIds([routeId]);
     this.map.updateMonitorRelationIds(relationIds);
+  }
+
+  routePageOpened(routeId: number): void {
+    this.map.layers.updateRouteLayerEnabled(true);
+    this.map.layers.updateMonitorLayerEnabled(false);
+    this.map.updateSelectedRoute(routeId);
   }
 }

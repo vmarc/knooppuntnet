@@ -13,6 +13,7 @@ export class MapStateLayers {
   private readonly _flandersOpenDataLayerEnabled: WritableSignal<boolean>;
   private readonly _netherlandsOpenDataLayerEnabled: WritableSignal<boolean>;
   private readonly _franceOpenDataLayerEnabled: WritableSignal<boolean>;
+  private readonly _monitorLayerEnabled: WritableSignal<boolean>;
 
   readonly standardBackgroundLayerEnabled: Signal<boolean>;
   readonly osmBackgroundLayerEnabled: Signal<boolean>;
@@ -22,6 +23,7 @@ export class MapStateLayers {
   readonly flandersOpenDataLayerEnabled: Signal<boolean>;
   readonly netherlandsOpenDataLayerEnabled: Signal<boolean>;
   readonly franceOpenDataLayerEnabled: Signal<boolean>;
+  readonly monitorLayerEnabled: Signal<boolean>;
 
   readonly layerEnabledMap: Signal<ReadonlyMap<LayerType, boolean>>;
 
@@ -35,6 +37,7 @@ export class MapStateLayers {
     this._flandersOpenDataLayerEnabled = signal<boolean>(false);
     this._netherlandsOpenDataLayerEnabled = signal<boolean>(false);
     this._franceOpenDataLayerEnabled = signal<boolean>(false);
+    this._monitorLayerEnabled = signal<boolean>(false);
 
     this.standardBackgroundLayerEnabled = computed(() => this._backgroundLayer() === 'standard');
     this.osmBackgroundLayerEnabled = computed(() => this._backgroundLayer() === 'osm');
@@ -44,6 +47,8 @@ export class MapStateLayers {
     this.flandersOpenDataLayerEnabled = this._flandersOpenDataLayerEnabled.asReadonly();
     this.netherlandsOpenDataLayerEnabled = this._netherlandsOpenDataLayerEnabled.asReadonly();
     this.franceOpenDataLayerEnabled = this._franceOpenDataLayerEnabled.asReadonly();
+    this.monitorLayerEnabled = this._monitorLayerEnabled.asReadonly();
+
     this.layerEnabledMap = computed(
       () =>
         new Map([
@@ -55,7 +60,7 @@ export class MapStateLayers {
           ['flanders-open-data', this.flandersOpenDataLayerEnabled()],
           ['netherlands-open-data', this.netherlandsOpenDataLayerEnabled()],
           ['france-open-data', this.franceOpenDataLayerEnabled()],
-          ['monitor', true],
+          ['monitor', this.monitorLayerEnabled()],
         ])
     );
   }
@@ -90,5 +95,9 @@ export class MapStateLayers {
 
   updateFranceOpenDataLayerEnabled(value: boolean): void {
     this._franceOpenDataLayerEnabled.set(value);
+  }
+
+  updateMonitorLayerEnabled(value: boolean): void {
+    this._monitorLayerEnabled.set(value);
   }
 }

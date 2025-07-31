@@ -7,7 +7,9 @@ export interface RouteInfo {
   readonly routeId: number;
   readonly routeName: string;
   readonly routeTypes: RouteType[];
-  readonly changeCount: number;
+  readonly memberCount: number;
+  readonly pathCount: number;
   readonly segmentCount: number;
+  readonly changeCount: number;
   readonly bounds?: Bounds;
 }

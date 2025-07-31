@@ -9,10 +9,12 @@ import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/shared/services/api.service';
 import { FocusElements } from '@app/state/focus-elements';
 import { MapService } from '@app/map/map.service';
+import { State } from '@app/state/state';
 import { RouteService } from '../route.service';
 
 @Injectable()
 export class RouteDetailsPageService {
+  private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly routeService = inject(RouteService);
   private readonly mapService = inject(MapService);
@@ -52,8 +54,10 @@ export class RouteDetailsPageService {
             nodeIds,
             routeIds,
           };
-          this.mapService.updateSelectedRoute(this.routeService.routeId());
-          this.mapService.focusElements(data.bounds, elements);
+
+          this.state.routePageOpened(this.routeService.routeId());
+          this.state.map.updateFocusElements(elements);
+          this.mapService.fitBounds(this.routeService.bounds());
         }
       }
     });

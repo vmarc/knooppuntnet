@@ -100,21 +100,8 @@ export class MapService {
     });
 
     effect(() => {
-      const styleOptions = this.state.map.mapStyleOptions();
+      this.state.map.mapStyleOptions();
       this.layers.routeLayerChanged();
-      const options = [
-        'zoom=' + styleOptions.zoom,
-        'mode=' + styleOptions.mode,
-        'international=' + styleOptions.scopeInternational,
-        'national=' + styleOptions.scopeNational,
-        'regional=' + styleOptions.scopeRegional,
-        'local=' + styleOptions.scopeLocal,
-        'nodeRoutes=' + styleOptions.scopeNodeRoutes,
-        'route=' + styleOptions.selectedRoute,
-        'focusNodeIds=' + styleOptions.focusElements?.nodeIds.join(','),
-        'focusRouteIds=' + styleOptions.focusElements?.routeIds.join(','),
-      ];
-      console.log(`mapStyleOptions ${options.join(' | ')}`);
     });
 
     effect(() => {
@@ -162,11 +149,6 @@ export class MapService {
         zoom: 6,
       }),
     });
-
-    const essen: LatLonImpl = { latitude: '51.46774', longitude: '4.46839' };
-    const center = OlUtil.latLonToCoordinate(essen);
-    this._map.getView().setCenter(center);
-    this._map.getView().setZoom(15);
 
     const view = this._map.getView();
     view.on('change:resolution', this.updateResolution);
@@ -226,10 +208,6 @@ export class MapService {
     this.state.map.updateMode(mapMode);
     this.state.planner.updateMapMode(mapMode);
     // this.plannerMapService.updateLayerVisibility();
-  }
-
-  updateSelectedRoute(routeId: number): void {
-    this.state.map.updateSelectedRoute(routeId);
   }
 
   mouseleave() {

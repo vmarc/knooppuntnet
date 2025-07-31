@@ -14,6 +14,7 @@ import { SearchRouteComponent } from './search-route.component';
   selector: 'ui-search-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     <div>{{ rowCount() }} routes</div>
     @let list = routeList();
     @if (list?.international) {

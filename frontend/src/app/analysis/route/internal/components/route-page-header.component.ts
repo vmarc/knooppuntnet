@@ -90,24 +90,19 @@ export class RoutePageHeaderComponent {
         pageName: 'members',
         pageLink: link + '/members',
         label: $localize`:@@route.menu.members:Members`,
-        elementCount: 1,
+        elementCount: this.service.memberCount(),
       },
       {
         pageName: 'paths',
         pageLink: link + '/paths',
         label: $localize`:@@route.menu.paths:Paths`,
-        elementCount: 2,
+        elementCount: this.service.pathCount(),
       },
       {
         pageName: 'segments',
         pageLink: link + '/segments',
         label: $localize`:@@route.menu.segments:Segments`,
-        elementCount: 3,
-      },
-      {
-        pageName: 'map',
-        pageLink: link + '/map',
-        label: $localize`:@@route.menu.map:Map`,
+        elementCount: this.service.segmentCount(),
       },
       {
         pageName: 'changes',

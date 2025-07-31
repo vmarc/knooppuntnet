@@ -39,7 +39,15 @@ class MonitorRouteDetailsPageBuilder(
         monitorRoute.relationId.flatMap(routeRepository.findRouteById).map { routeDoc =>
           val references = monitorRouteRepository.references(monitorRoute._id) // TODO limit query to only the info that is needed
           val stateDeviationInfos = monitorRouteRepository.stateDeviationInfos(monitorRoute._id)
-          buildPage(language, adminUser, group, monitorRoute, routeDoc, references, stateDeviationInfos)
+          buildPage(
+            language,
+            adminUser,
+            group,
+            monitorRoute,
+            routeDoc,
+            references,
+            stateDeviationInfos
+          )
         }
       }
     }
@@ -87,8 +95,8 @@ class MonitorRouteDetailsPageBuilder(
       monitorRoute.relationId,
       monitorRoute.relationIds,
       memberCount = structureRows.length,
-      segmentCount = osmSegmentCount,
-      deviationCount = deviationCount,
+      segmentCount = monitorRoute.osmSegmentCount,
+      deviationCount = monitorRoute.deviationCount,
       monitorRoute.bounds,
     )
 

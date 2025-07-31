@@ -24,8 +24,14 @@ export class RouteService {
   readonly routeId = computed(() => this._routeInfo()?.routeId);
   readonly routeName = computed(() => this._routeInfo()?.routeName);
   readonly routeTypes = computed(() => this._routeInfo()?.routeTypes);
+
+  readonly memberCount = computed(() => this._routeInfo()?.memberCount);
+  readonly pathCount = computed(() => this._routeInfo()?.pathCount);
+  readonly segmentCount = computed(() => this._routeInfo()?.segmentCount);
   readonly changeCount = computed(() => this._routeInfo()?.changeCount);
+
   readonly routeDisplayName = computed(() => this.routeName() || '' + this.routeId());
+  readonly bounds = computed(() => this._routeInfo()?.bounds);
 
   private readonly _pageName = signal<RoutePageName>(undefined);
   readonly pageName = this._pageName.asReadonly();
@@ -51,8 +57,10 @@ export class RouteService {
         routeId: newRouteId,
         routeName: newRouteName,
         routeTypes: [newRouteType],
-        changeCount: 0,
+        memberCount: 0,
+        pathCount: 0,
         segmentCount: 0,
+        changeCount: 0,
       };
 
       this._routeInfo.set(routeInfo);

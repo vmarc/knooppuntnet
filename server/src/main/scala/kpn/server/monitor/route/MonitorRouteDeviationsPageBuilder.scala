@@ -25,7 +25,14 @@ class MonitorRouteDeviationsPageBuilder(
       monitorRouteRepository.routeByName(group._id, routeName).flatMap { monitorRoute =>
         monitorRoute.relationId.map(relationId => monitorRouteRepository.routeMemberCount(relationId)).map { memberCount =>
           val deviations = monitorRouteRepository.routeDeviations(monitorRoute._id)
-          buildPage(language, adminUser, group, monitorRoute, memberCount, deviations)
+          buildPage(
+            language,
+            adminUser,
+            group,
+            monitorRoute,
+            memberCount,
+            deviations
+          )
         }
       }
     }

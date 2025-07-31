@@ -17,7 +17,6 @@ import kpn.core.doc.SuperSubSegmentInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
-import kpn.server.api.analysis.pages.route.RouteMapData
 import kpn.server.monitor.domain.MonitorSegment
 
 trait RouteRepository {
@@ -49,8 +48,6 @@ trait RouteRepository {
   def bulkSaveRoutes(routes: Seq[RouteDoc]): Unit
 
   def findRouteById(routeId: Long): Option[RouteDoc]
-
-  def mapData(routeId: Long): Option[RouteMapData]
 
   def routeInfo(routeId: Long): Option[RouteInfo]
 

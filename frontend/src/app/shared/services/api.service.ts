@@ -39,7 +39,6 @@ import { LinkInfo } from '@api/common/route/link-info';
 import { MapRouteDetail } from '@api/common/route/map-route-detail';
 import { RouteChangesPage } from '@api/common/route/route-changes-page';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
-import { RouteMapPage } from '@api/common/route/route-map-page';
 import { RouteMembersPage } from '@api/common/route/route-members-page';
 import { RoutePathsPage } from '@api/common/route/route-paths-page';
 import { RouteSegmentsPage } from '@api/common/route/route-segments-page';
@@ -201,11 +200,6 @@ export class ApiService {
       url: `/api/route/${routeId}/segments`,
       params: this.languageParams(),
     }));
-  }
-
-  routeMap(routeId: number): Observable<ApiResponse<RouteMapPage>> {
-    const url = `/api/route/${routeId}/map`;
-    return this.http.get(url);
   }
 
   routeChanges(

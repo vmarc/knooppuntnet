@@ -21,9 +21,11 @@ object RouteDetailsPageExample {
         routeId = 1,
         routeName = "01-02",
         routeTypes = Seq(RouteType.hiking),
-        changeCount = 5,
+        memberCount = 3,
+        pathCount = 3,
         segmentCount = 3,
-        None
+        changeCount = 3,
+        bounds = None
       ),
       data(),
     )

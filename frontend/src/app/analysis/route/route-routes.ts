@@ -5,7 +5,6 @@ import { RouteSegmentsPageComponent } from '@app/analysis/route/internal/segment
 import { RouteComponent } from '@app/analysis/route/internal/route.component';
 import { RouteChangesPageComponent } from './internal/changes/route-changes-page.component';
 import { RouteDetailsPageComponent } from './internal/details/route-details-page.component';
-import { RouteMapPageComponent } from './internal/map/route-map-page.component';
 
 export const routeRoutes: Routes = [
   {
@@ -27,10 +26,6 @@ export const routeRoutes: Routes = [
       {
         path: 'segments',
         component: RouteSegmentsPageComponent,
-      },
-      {
-        path: 'map',
-        component: RouteMapPageComponent,
       },
       {
         path: 'changes',

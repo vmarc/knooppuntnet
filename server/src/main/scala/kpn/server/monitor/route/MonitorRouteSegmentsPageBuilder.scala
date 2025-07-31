@@ -31,7 +31,14 @@ class MonitorRouteSegmentsPageBuilder(
       monitorRouteRepository.routeByName(group._id, routeName).flatMap { monitorRoute =>
         monitorRoute.relationId.flatMap(routeRepository.findRouteById).map { routeDoc =>
           val routeRelationInfos = monitorRouteRepository.routeRelationInfos(routeDoc.routeIds)
-          buildPage(language, adminUser, group, monitorRoute, routeDoc, routeRelationInfos)
+          buildPage(
+            language,
+            adminUser,
+            group,
+            monitorRoute,
+            routeDoc,
+            routeRelationInfos
+          )
         }
       }
     }

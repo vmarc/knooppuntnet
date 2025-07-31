@@ -6,7 +6,6 @@ import kpn.api.common.route.RouteDetails
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.StructureRow
-import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.RouteRepository
@@ -30,7 +29,6 @@ class RouteDetailsPageBuilder(
   private def doBuildDetailsPage(language: Language, routeId: Long): Option[RouteDetailsPage] = {
     routeRepository.findRouteById(routeId).map { routeDoc =>
       val changeCount = changeSetRepository.routeChangesCount(routeId)
-      val segmentCount = routeDoc.segments.size
       val networkReferences = routeRepository.networkReferences(routeId)
       val locationCandidateInfos = {
         routeDoc.locationAnalysis.candidates.map { candidate =>
@@ -40,15 +38,15 @@ class RouteDetailsPageBuilder(
         }
       }
 
-      val routeBounds = Util.mergeBounds(routeDoc.segments.map(_.bounds))
-
       val routeInfo = RouteInfo(
         routeDoc._id,
         routeDoc.summary.name,
         routeDoc.summary.routeTypes,
-        changeCount,
-        segmentCount,
-        routeDoc.bounds
+        memberCount = routeDoc.structureRows.size,
+        pathCount = routeDoc.paths.size,
+        segmentCount = routeDoc.segments.size,
+        changeCount = changeCount,
+        bounds = routeDoc.bounds,
       )
 
       val structureRows = routeDoc.structureRows.map { row =>

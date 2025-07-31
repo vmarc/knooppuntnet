@@ -24,7 +24,6 @@ import kpn.database.actions.routes.MongoQueryRouteCountry
 import kpn.database.actions.routes.MongoQueryRouteElementIds
 import kpn.database.actions.routes.MongoQueryRouteIds
 import kpn.database.actions.routes.MongoQueryRouteInfo
-import kpn.database.actions.routes.MongoQueryRouteMapData
 import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.database.actions.routes.MongoQueryRouteSearchResults
 import kpn.database.actions.routes.MongoQueryRouteSegmentCoordinates
@@ -40,7 +39,6 @@ import kpn.database.base.StringId
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
-import kpn.server.api.analysis.pages.route.RouteMapData
 import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.sync.Transaction
 import org.mongodb.scala.model.Aggregates.filter
@@ -152,10 +150,6 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
 
   override def findRouteById(routeId: Long): Option[RouteDoc] = {
     database.routes.findById(routeId, log)
-  }
-
-  override def mapData(routeId: Long): Option[RouteMapData] = {
-    new MongoQueryRouteMapData(database).execute(routeId, log)
   }
 
   override def routeInfo(routeId: Long): Option[RouteInfo] = {
