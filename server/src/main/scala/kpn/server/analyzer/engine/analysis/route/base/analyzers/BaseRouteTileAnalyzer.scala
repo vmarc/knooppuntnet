@@ -165,7 +165,7 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
       val segmentIds = tileSegments.map(_.segmentId).distinct.sorted
       segmentIds.flatMap { segmentId =>
         val segments = tileSegments.filter(_.segmentId == segmentId)
-        val tileCoordinateSeqs = segments.map(_.worldCoordinates).map(wc => TileUtil.routeTileCoordinates(tile, wc))
+        val tileCoordinateSeqs = segments.map(_.worldCoordinates).map(wc => TileUtil.routeTileCoordinates(tile, wc)).filter(_.nonEmpty)
         if (tileCoordinateSeqs.nonEmpty) {
           val aaa = yyyyy(tileCoordinateSeqs)
           val xxx = aaa.map(tileCoordinates => tileCoordinates.map(coordinate => s"[${coordinate.x},${coordinate.y}]").mkString("[", ",", "]"))
