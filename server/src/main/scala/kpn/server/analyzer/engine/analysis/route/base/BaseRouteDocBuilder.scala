@@ -58,7 +58,6 @@ class BaseRouteDocBuilder {
     )
 
     val subRelationIds = context.routeMembers.flatMap { member =>
-      // TODO redesign - exclude subrelations that are not routes
       member.memberType match {
         case Relation => Some(member.id)
         case _ => None

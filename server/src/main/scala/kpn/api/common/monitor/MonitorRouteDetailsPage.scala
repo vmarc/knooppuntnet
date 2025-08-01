@@ -15,9 +15,5 @@ case class MonitorRouteDetailsPage(
   referenceDistance: Long,
   deviationDistance: Long,
   happy: Boolean,
-  wayCount: Long,
-  osmDistance: Long,
-  relationCount: Long,
-  relationLevels: Long,
-  details: RouteDetails,
+  details: Option[RouteDetails],
 )

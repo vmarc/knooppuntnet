@@ -84,6 +84,8 @@ class RouteMainAnalyzer(
       context.routeIds,
       context.bounds,
       context.structureRows,
+      context.structureRows.count(_.relation.nonEmpty),
+      context.structureRows.map(_.level).max,
       context.parentRoutes,
       context.networkReferences,
       context.route.edges,

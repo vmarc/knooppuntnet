@@ -1,38 +1,40 @@
 package kpn.api.common.route
 
 import kpn.api.common.data.MemberType
+import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 
 case class StructureRow(
   rowNumber: String,
-  level: Long, // from MonitorRouteRelationStructureRow also included in RouteStructureRelation.level
-  id: Long, // from RouteStructureRow
-  memberType: MemberType, // from RouteStructureRow
-  role: Option[String], // from RouteStructureRow and  MonitorRouteRelationStructureRow
-  link: Option[Link], // from RouteStructureRow
-  distance: Long, // from RouteStructureRow
-  name: Option[String], // from RouteStructureRow and as non-option in MonitorRouteRelationStructureRow
-  poi: Option[String], // from RouteStructureRow
-  way: Option[RouteStructureWay], // from RouteStructureRow
-  relation: Option[RouteStructureRelation], // from RouteStructureRow
-  segmentIds: Seq[Long], // from RouteStructureRow
-  pathIds: Seq[Long], // from RouteStructureRow
+  level: Long,
+  id: Long,
+  memberType: MemberType,
+  role: Option[String],
+  link: Option[Link],
+  distance: Long,
+  name: Option[String],
+  poi: Option[String],
+  way: Option[RouteStructureWay],
+  relation: Option[RouteStructureRelation],
+  segmentIds: Seq[Long],
+  pathIds: Seq[Long],
 
-  physical: Boolean, // from MonitorRouteRelationStructureRow
+  physical: Boolean,
   relationId: Long, // from MonitorRouteRelationStructureRow also included in 'id' when MemberType.Relation
   subRelationIndex: Option[Long], // from MonitorRouteRelationStructureRow OBSOLETE?
-  survey: Option[Day], // from MonitorRouteRelationStructureRow
-  symbol: Option[String], // from MonitorRouteRelationStructureRow
-  referenceTimestamp: Option[Timestamp], // from MonitorRouteRelationStructureRow
-  referenceFilename: Option[String], // from MonitorRouteRelationStructureRow
-  referenceDistance: Long, // from MonitorRouteRelationStructureRow
-  deviationDistance: Option[Long], // from MonitorRouteRelationStructureRow
-  deviationCount: Option[Long], // from MonitorRouteRelationStructureRow
+  survey: Option[Day],
+  symbol: Option[String],
+  referenceType: Option[MonitorReferenceType],
+  referenceTimestamp: Option[Timestamp],
+  referenceFilename: Option[String],
+  referenceDistance: Long,
+  deviationDistance: Option[Long],
+  deviationCount: Option[Long],
   osmSegmentCount: Option[Long], // from MonitorRouteRelationStructureRow, should match segmentIds.length ???
   osmDistance: Long, // from MonitorRouteRelationStructureRow, should match 'distance' ???
   osmDistanceSubRelations: Long, // from MonitorRouteRelationStructureRow, matches RouteStructureRelation.totalDistance
-  gaps: Option[String], // from MonitorRouteRelationStructureRow
+  gaps: Option[String],
   showMap: Boolean, // from MonitorRouteRelationStructureRow OBSOLETE?
-  happy: Boolean // from MonitorRouteRelationStructureRow
+  happy: Boolean
 )

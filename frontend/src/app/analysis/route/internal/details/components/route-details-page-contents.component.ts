@@ -10,7 +10,7 @@ import { RouteDetailsPageService } from '../route-details-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let page = response().result;
-    <ui-route-details [situationOn]="response().situationOn" [routeDetailsData]="page.data" />
+    <ui-route-details [situationOn]="response().situationOn" [routeDetails]="page.details" />
   `,
   imports: [RouteDetailsComponent],
 })

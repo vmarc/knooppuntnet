@@ -5,5 +5,5 @@ import { RouteInfo } from './route-info';
 
 export interface RouteDetailsPage {
   readonly routeInfo: RouteInfo;
-  readonly data: RouteDetails;
+  readonly details: RouteDetails;
 }

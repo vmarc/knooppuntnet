@@ -1,6 +1,7 @@
 // this file is generated, please do not modify
 
 import { MemberType } from '@api/common/data/member-type';
+import { MonitorReferenceType } from '@api/common/monitor/monitor-reference-type';
 import { Day } from '@api/custom/day';
 import { Timestamp } from '@api/custom/timestamp';
 import { Link } from './link';
@@ -26,6 +27,7 @@ export interface StructureRow {
   readonly subRelationIndex: number;
   readonly survey?: Day;
   readonly symbol: string;
+  readonly referenceType?: MonitorReferenceType;
   readonly referenceTimestamp?: Timestamp;
   readonly referenceFilename: string;
   readonly referenceDistance: number;

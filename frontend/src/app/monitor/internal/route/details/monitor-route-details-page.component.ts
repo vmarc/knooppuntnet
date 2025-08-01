@@ -19,7 +19,7 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
       @if (response.value().result; as page) {
         <ui-route-details
           [situationOn]="response.value().situationOn"
-          [routeDetailsData]="page.details"
+          [routeDetails]="page.details"
         />
 
         <ui-data title="Summary" i18n-title="@@monitor.route.details.summary">

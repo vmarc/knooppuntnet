@@ -25,24 +25,24 @@ export class RouteDetailsPageService {
     );
     effect(() => {
       if (this.response.hasValue()) {
-        const data = this.response.value().result?.data;
+        const details = this.response.value().result?.details;
 
-        if (data) {
-          const routeIds = data.routeIds.map((id) => id.toString());
+        if (details) {
+          const routeIds = details.routeIds.map((id) => id.toString());
           const nodeIds = new Array<string>();
-          if (data.nodes.startNode) {
-            nodeIds.push(data.nodes.startNode.nodeId.toString());
+          if (details.nodes.startNode) {
+            nodeIds.push(details.nodes.startNode.nodeId.toString());
           }
-          if (data.nodes.endNode) {
-            nodeIds.push(data.nodes.endNode.nodeId.toString());
+          if (details.nodes.endNode) {
+            nodeIds.push(details.nodes.endNode.nodeId.toString());
           }
-          data.nodes.startTentacleNodes
+          details.nodes.startTentacleNodes
             .map((node) => node.nodeId.toString())
             .forEach((nodeId) => nodeIds.push(nodeId));
-          data.nodes.endTentacleNodes
+          details.nodes.endTentacleNodes
             .map((node) => node.nodeId.toString())
             .forEach((nodeId) => nodeIds.push(nodeId));
-          data.nodes.redundantNodes
+          details.nodes.redundantNodes
             .map((node) => node.nodeId.toString())
             .forEach((nodeId) => nodeIds.push(nodeId));
           const elements: FocusElements = {

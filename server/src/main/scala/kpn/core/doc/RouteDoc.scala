@@ -44,6 +44,8 @@ case class RouteDoc(
   routeIds: Seq[Long], // routeId of this route plus all other routes in the entire tree
   bounds: Option[Bounds],
   structureRows: Seq[RouteStructureRow],
+  relationCount: Long,
+  relationLevels: Long,
   parentRoutes: Seq[ParentRoute],
   networkReferences: Seq[Reference],
   edges: Seq[RouteEdge],

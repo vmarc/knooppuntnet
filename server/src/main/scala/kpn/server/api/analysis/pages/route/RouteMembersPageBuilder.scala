@@ -49,6 +49,7 @@ class RouteMembersPageBuilder(
           subRelationIndex = None,
           survey = None,
           symbol = None,
+          referenceType = None,
           referenceTimestamp = None,
           referenceFilename = None,
           referenceDistance = 0,

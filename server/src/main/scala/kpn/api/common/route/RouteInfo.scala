@@ -7,9 +7,9 @@ case class RouteInfo(
   routeId: Long,
   routeName: String,
   routeTypes: Seq[RouteType],
+  bounds: Option[Bounds],
   memberCount: Long,
   pathCount: Long,
   segmentCount: Long,
   changeCount: Long,
-  bounds: Option[Bounds],
 )

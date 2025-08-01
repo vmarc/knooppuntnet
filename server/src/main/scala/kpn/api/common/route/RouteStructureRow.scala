@@ -4,6 +4,7 @@ import kpn.api.common.data.MemberType
 
 case class RouteStructureRow(
   rowNumber: String,
+  level: Long,
   id: Long,
   memberType: MemberType,
   role: Option[String],

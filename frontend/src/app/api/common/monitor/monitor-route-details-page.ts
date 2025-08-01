@@ -17,9 +17,5 @@ export interface MonitorRouteDetailsPage {
   readonly referenceDistance: number;
   readonly deviationDistance: number;
   readonly happy: boolean;
-  readonly wayCount: number;
-  readonly osmDistance: number;
-  readonly relationCount: number;
-  readonly relationLevels: number;
-  readonly details: RouteDetails;
+  readonly details?: RouteDetails;
 }

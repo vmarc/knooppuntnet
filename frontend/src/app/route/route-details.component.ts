@@ -26,7 +26,7 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
   selector: 'ui-route-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @let data = routeDetailsData();
+    @let data = routeDetails();
     <ui-route-summary [route]="data" />
     <ui-divider />
     <div class="data2">
@@ -120,20 +120,20 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
 })
 export class RouteDetailsComponent {
   readonly situationOn = input.required<Timestamp>();
-  readonly routeDetailsData = input.required<RouteDetails>();
+  readonly routeDetails = input.required<RouteDetails>();
 
   routeTags() {
-    return InterpretedTags.routeTags(this.routeDetailsData().summary.tags);
+    return InterpretedTags.routeTags(this.routeDetails().summary.tags);
   }
 
   factInfos(): FactInfo[] {
-    return this.routeDetailsData().facts.map((fact) => {
+    return this.routeDetails().facts.map((fact) => {
       if (fact === 'RouteUnexpectedNode') {
-        const unexpectedNodeIds = this.routeDetailsData().unexpectedNodeIds;
+        const unexpectedNodeIds = this.routeDetails().unexpectedNodeIds;
         return new FactInfo(fact, undefined, undefined, undefined, unexpectedNodeIds);
       }
       if (fact === 'RouteUnexpectedRelation') {
-        const unexpectedRelationIds = this.routeDetailsData().unexpectedRelationIds;
+        const unexpectedRelationIds = this.routeDetails().unexpectedRelationIds;
         return new FactInfo(
           fact,
           undefined,

@@ -4,7 +4,6 @@ import { Day } from '@api/custom/day';
 import { BaseRouteSegment } from './base-route-segment';
 
 export interface RouteStructureRelation {
-  readonly level: number;
   readonly physical: boolean;
   readonly name: string;
   readonly subRelationIndex: number;

@@ -7,6 +7,7 @@ import { RouteStructureWay } from './route-structure-way';
 
 export interface RouteStructureRow {
   readonly rowNumber: string;
+  readonly level: number;
   readonly id: number;
   readonly memberType: MemberType;
   readonly role: string;

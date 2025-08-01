@@ -26,7 +26,7 @@ import kpn.api.custom.Timestamp
 object RouteChangesPageExample {
 
   val page: RouteChangesPage = {
-    val route = RouteDetailsPageExample.page.data
+    val route = RouteDetailsPageExample.page.details
     RouteChangesPage(
       RouteInfo(
         route.id,

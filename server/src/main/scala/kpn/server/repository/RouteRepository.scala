@@ -14,6 +14,7 @@ import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.doc.SubRouteData
 import kpn.core.doc.SuperSubSegmentInfo
+import kpn.database.actions.routes.RouteDetailsData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
@@ -84,4 +85,6 @@ trait RouteRepository {
   def subRelationTree(routeId: Long): Option[RouteRelation]
 
   def segmentCoordinates(routeIds: Seq[Long]): Seq[MonitorSegment]
+
+  def routeDetails(routeId: Long): Option[RouteDetailsData]
 }

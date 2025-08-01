@@ -22,15 +22,18 @@ export interface RouteDetails {
   readonly lastUpdated: Timestamp;
   readonly lastSurvey?: Day;
   readonly facts: Fact[];
-  readonly locationCandidateInfos: LocationCandidateInfo[];
   readonly unexpectedNodeIds: number[];
   readonly unexpectedRelationIds: number[];
+  readonly memberCount: number;
   readonly segments: RouteSegment[];
   readonly paths: RoutePath[];
   readonly nameDerivedFromNodes: boolean;
   readonly nodes: RouteNodes;
   readonly bounds?: Bounds;
   readonly routeIds: number[];
+  readonly relationCount: number;
+  readonly relationLevels: number;
   readonly parentRoutes: ParentRoute[];
   readonly networkReferences: Reference[];
+  readonly locationCandidateInfos: LocationCandidateInfo[];
 }

@@ -176,6 +176,6 @@ export class RouteStructureRowComponent {
   readonly structureRow = input.required<StructureRow>();
 
   hasReference(): boolean {
-    return true; // this.routeDetailsService.referenceType() === 'multi-gpx';
+    return this.structureRow().referenceType == 'gpx';
   }
 }

@@ -34,7 +34,7 @@ class MonitorRouteMembersPageBuilder(
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).flatMap { monitorRoute =>
         monitorRoute.relationId.flatMap(routeRepository.findRouteById).map { routeDoc =>
-          val references = monitorRouteRepository.references(monitorRoute._id) // TODO limit query to only the info that is needed
+          val references = monitorRouteRepository.references(monitorRoute._id) // TODO redesign - limit query to only the info that is needed
           val stateDeviationInfos = monitorRouteRepository.stateDeviationInfos(monitorRoute._id)
           buildPage(
             language,
@@ -152,6 +152,7 @@ class MonitorRouteMembersPageBuilder(
       subRelationIndex = None,
       survey = None, // TODO redesign - row.survey,
       symbol = None, // TODO redesign - row.symbol,
+      referenceType = reference.map(_.referenceType),
       referenceTimestamp = reference.map(_.referenceTimestamp),
       referenceFilename = reference.flatMap(_.referenceFilename),
       referenceDistance = reference.map(_.referenceDistance).getOrElse(0),

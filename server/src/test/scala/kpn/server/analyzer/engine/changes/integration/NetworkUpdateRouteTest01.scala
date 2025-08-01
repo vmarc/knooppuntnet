@@ -345,6 +345,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         structureRows = Seq(
           RouteStructureRow(
             "1",
+            level = 1,
             id = 101,
             memberType = MemberType.Way,
             role = None,
@@ -381,6 +382,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             pathIds = Seq(1, 2)
           ),
         ),
+        relationLevels = 1,
         edges = Seq(
           RouteEdge(1, 1001, 1002, 0),
           RouteEdge(2, 1002, 1001, 0),
