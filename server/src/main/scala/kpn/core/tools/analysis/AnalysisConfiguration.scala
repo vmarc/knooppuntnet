@@ -127,6 +127,7 @@ class AnalysisConfiguration(databaseName: String) {
   private def createRouteMainAnalyzer(): RouteMainAnalyzer = {
     val routeRepo = repositories.routeRepository
     val routeBoundsAnalyzer = new RouteBoundsAnalyzer(routeRepo)
+    val routeIdsAnalyzer = new RouteIdsAnalyzer(routeRepo)
     val routeSuperSegmentAnalyzer = new RouteSuperSegmentAnalyzer(routeRepo)
     val routeStructureRowsAnalyzer = new RouteStructureRowsAnalyzer(routeRepo)
     val routeParentAnalyzer = new RouteParentAnalyzer(routeRepo)
@@ -134,6 +135,7 @@ class AnalysisConfiguration(databaseName: String) {
 
     new RouteMainAnalyzer(
       routeBoundsAnalyzer,
+      routeIdsAnalyzer,
       routeSuperSegmentAnalyzer,
       routeStructureRowsAnalyzer,
       routeParentAnalyzer,

@@ -73,6 +73,8 @@ trait RouteRepository {
 
   def segments(routeIds: Seq[Long]): Seq[SuperSubSegmentInfo]
 
+  def routeActiveIds(routeIds: Seq[Long]): Seq[Long]
+
   def subRouteData(routeId: Long): Option[SubRouteData]
 
   def parentRoutes(routeId: Long): Seq[ParentRouteData]

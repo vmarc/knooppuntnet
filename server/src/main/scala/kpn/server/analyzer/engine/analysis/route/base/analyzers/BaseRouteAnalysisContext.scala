@@ -46,7 +46,6 @@ case class BaseRouteAnalysisContext(
   _bounds: Option[Option[Bounds]] = None,
   routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
   _unexpectedNodeIds: Option[Seq[Long]] = None,
-  _unexpectedRelationIds: Option[Seq[Long]] = None,
   _routeNameAnalysis: Option[RouteNameAnalysis] = None,
   _routeNodesAnalysis: Option[RouteNodesAnalysis] = None,
   expectedName: Option[String] = None,
@@ -137,8 +136,6 @@ case class BaseRouteAnalysisContext(
   def bounds: Option[Bounds] = _bounds.getOrElse(throw new PreconditionMissingException)
 
   def unexpectedNodeIds: Seq[Long] = _unexpectedNodeIds.getOrElse(throw new PreconditionMissingException)
-
-  def unexpectedRelationIds: Seq[Long] = _unexpectedRelationIds.getOrElse(throw new PreconditionMissingException)
 
   def routeNameAnalysis: RouteNameAnalysis = _routeNameAnalysis.getOrElse(throw new PreconditionMissingException)
 

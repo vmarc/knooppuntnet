@@ -19,6 +19,7 @@ import kpn.database.actions.routes.MongoQueryBaseRouteIds
 import kpn.database.actions.routes.MongoQueryKnownRouteIds
 import kpn.database.actions.routes.MongoQueryNetworkRouteDetails
 import kpn.database.actions.routes.MongoQueryParentRoutes
+import kpn.database.actions.routes.MongoQueryRouteActiveIds
 import kpn.database.actions.routes.MongoQueryRouteBounds
 import kpn.database.actions.routes.MongoQueryRouteCountry
 import kpn.database.actions.routes.MongoQueryRouteElementIds
@@ -199,6 +200,10 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
 
   override def segments(routeIds: Seq[Long]): Seq[SuperSubSegmentInfo] = {
     new MongoQueryRouteSegments(database).execute(routeIds, log)
+  }
+
+  override def routeActiveIds(routeIds: Seq[Long]): Seq[Long] = {
+    new MongoQueryRouteActiveIds(database).execute(routeIds, log)
   }
 
   override def subRouteData(routeId: Long): Option[SubRouteData] = {

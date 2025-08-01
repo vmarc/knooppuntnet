@@ -83,15 +83,15 @@ class RouteTileEncoder(
   private def buildRouteSegmentsFeatures(zoomLevel: Int, routeTileInfo: RouteTileInfo): Seq[Feature] = {
     routeTileInfo.segments.flatMap { segment =>
       val userData = buildRouteUserData(zoomLevel, routeTileInfo, segment)
-      segment.geometries.map { geometryString =>
-        val lineString = buildRouteLineString(geometryString)
+      segment.lines.map { line =>
+        val lineString = buildRouteLineString(line)
         Feature(routeTileInfo.layer, userData, lineString)
       }
     }
   }
 
-  private def buildRouteLineString(geometryString: String): LineString = {
-    val coordinates: Array[Coordinate] = Json.value(geometryString, classOf[CoordinateArray]).coordinates
+  private def buildRouteLineString(line: String): LineString = {
+    val coordinates: Array[Coordinate] = Json.value(line, classOf[CoordinateArray]).coordinates
     geometryFactory.createLineString(coordinates)
   }
 

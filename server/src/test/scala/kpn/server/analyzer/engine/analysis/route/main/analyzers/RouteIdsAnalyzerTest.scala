@@ -1,22 +1,42 @@
 package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
+import kpn.api.common.Fact.RouteUnexpectedRelation
+import kpn.api.common.data.MemberType
+import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newRouteMemberInfo
 import kpn.core.test.TestObjects.newRouteRelation
 import kpn.core.test.TestObjects.newRouteSummary
-import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.repository.RouteRepositoryImpl
 
-class RouteIdsAnalyzerTest extends UnitTest {
+class RouteIdsAnalyzerTest extends MongoTest {
 
   test("route id when there is no subRelationTree") {
+
+    // setup
+    val baseRouteRepository = new RouteRepositoryImpl(database)
+    val routeIdsAnalyzer = new RouteIdsAnalyzer(baseRouteRepository)
+
     val baseRouteDoc = newBaseRouteDoc(newRouteSummary(11L))
+    baseRouteRepository.saveBaseRoute(baseRouteDoc)
+
+    // execute
+    val context = routeIdsAnalyzer.analyze(RouteAnalysisContext(baseRouteDoc))
+
+    // verify
     assertEqual(
-      RouteIdsAnalyzer.analyze(RouteAnalysisContext(baseRouteDoc)).routeIds,
+      context.routeIds,
       Seq(11)
     )
   }
 
   test("route ids from subRelationTree") {
+
+    // setup
+    val baseRouteRepository = new RouteRepositoryImpl(database)
+    val routeIdsAnalyzer = new RouteIdsAnalyzer(baseRouteRepository)
+
     val baseRouteDoc = newBaseRouteDoc(
       newRouteSummary(11L),
       subRelationTree = Some(
@@ -35,14 +55,58 @@ class RouteIdsAnalyzerTest extends UnitTest {
       )
     )
 
+    baseRouteRepository.saveBaseRoute(baseRouteDoc)
+    baseRouteRepository.saveBaseRoute(newBaseRouteDoc(newRouteSummary(1L)))
+    baseRouteRepository.saveBaseRoute(newBaseRouteDoc(newRouteSummary(2L)))
+    baseRouteRepository.saveBaseRoute(newBaseRouteDoc(newRouteSummary(3L)))
+    baseRouteRepository.saveBaseRoute(newBaseRouteDoc(newRouteSummary(4L)))
+
+    // execute
+    val context = routeIdsAnalyzer.analyze(RouteAnalysisContext(baseRouteDoc))
+
+    // verify
     assertEqual(
-      RouteIdsAnalyzer.analyze(RouteAnalysisContext(baseRouteDoc)).routeIds,
+      context.routeIds,
       Seq(
         1,
         2,
         3,
-        4
+        4,
+        11
       )
+    )
+  }
+
+  test("relation ids from route members") {
+
+    // setup
+    val baseRouteRepository = new RouteRepositoryImpl(database)
+    val routeIdsAnalyzer = new RouteIdsAnalyzer(baseRouteRepository)
+
+    val baseRouteDoc = newBaseRouteDoc(
+      newRouteSummary(11L),
+      members = Seq(
+        newRouteMemberInfo(13, MemberType.Relation)
+      )
+    )
+
+    baseRouteRepository.saveBaseRoute(baseRouteDoc)
+
+    // execute
+    val context = routeIdsAnalyzer.analyze(RouteAnalysisContext(baseRouteDoc))
+
+    // verify
+    assertEqual(
+      context.routeIds,
+      Seq(11)
+    )
+    assertEqual(
+      context.facts,
+      Seq(RouteUnexpectedRelation)
+    )
+    assertEqual(
+      context.unexpectedRelationIds,
+      Seq(13)
     )
   }
 }

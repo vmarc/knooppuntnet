@@ -13,7 +13,6 @@ object RouteSummaryReport {
     val scopedRouteType = context.scopedRouteTypeOption.map(_.key).getOrElse("")
     val countries = context.countries.map(_.entryName).mkString(", ")
     val unexpectedNodeIds = context.unexpectedNodeIds.mkString(", ")
-    val unexpectedRelationIds = context.unexpectedRelationIds.mkString(", ")
 
     s"""
        |<table>
@@ -25,7 +24,6 @@ object RouteSummaryReport {
        |  <tr><td>scopedRouteType</td><td>$scopedRouteType</td></tr>
        |  <tr><td>countries</td><td>$countries</td></tr>
        |  <tr><td>unexpectedNodeIds</td><td>$unexpectedNodeIds</td></tr>
-       |  <tr><td>unexpectedRelationIds</td><td>$unexpectedRelationIds</td></tr>
        |</table>
        |""".stripMargin
   }

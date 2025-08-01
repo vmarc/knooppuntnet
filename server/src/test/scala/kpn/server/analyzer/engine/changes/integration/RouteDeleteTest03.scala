@@ -5,10 +5,13 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
+import kpn.api.common.Fact.RouteUnexpectedRelation
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
+import kpn.api.common.diff.common.FactDiffs
+import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
@@ -131,6 +134,9 @@ class RouteDeleteTest03 extends IntegrationTest {
               "route" -> "foot",
               "ref" -> "01-02",
               "network:type" -> "node_network"
+            ),
+            facts = Seq(
+              RouteUnexpectedRelation
             )
           )
         ),
@@ -138,6 +144,17 @@ class RouteDeleteTest03 extends IntegrationTest {
           newRouteNodeChange(1001),
           newRouteNodeChange(1002)
         ),
+        diffs = RouteDiff(
+          factDiffs = Some(
+            FactDiffs(
+              introduced = Seq(RouteUnexpectedRelation),
+            )
+          )
+        ),
+        investigate = true,
+        locationInvestigate = true,
+        impact = true,
+        locationImpact = true
       )
     )
   }
@@ -229,7 +246,7 @@ class RouteDeleteTest03 extends IntegrationTest {
             Subset.nlHiking,
             ChangeSetElementRefs(
               updated = Seq(
-                newChangeSetElementRef(11, "01-02" /*, investigate = true*/)
+                newChangeSetElementRef(11, "01-02", investigate = true)
               )
             )
           )

@@ -36,7 +36,6 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTagAnal
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTypeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteUnexpectedNodeAnalyzer
-import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteUnexpectedRelationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteWithoutWaysAnalyzer
 import org.springframework.stereotype.Component
 
@@ -70,7 +69,6 @@ class BaseRouteMainAnalyzer(
         BaseRouteIncompleteAnalyzer,
         BaseRouteFixmeTodoAnalyzer,
         BaseRouteUnexpectedNodeAnalyzer,
-        BaseRouteUnexpectedRelationAnalyzer, // TODO redesign - move to pass 2?
 
         //OldRouteNodeAnalyzer,
         // TODO RouteNameFromNodesAnalyzer,

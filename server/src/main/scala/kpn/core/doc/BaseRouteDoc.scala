@@ -27,7 +27,6 @@ case class BaseRouteDoc(
   lastSurvey: Option[Day],
   facts: Seq[Fact],
   unexpectedNodeIds: Seq[Long],
-  unexpectedRelationIds: Seq[Long],
   members: Seq[RouteMemberInfo],
   nameDerivedFromNodes: Boolean,
   nodes: RouteNodes,

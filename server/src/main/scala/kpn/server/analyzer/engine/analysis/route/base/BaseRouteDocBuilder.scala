@@ -76,7 +76,6 @@ class BaseRouteDocBuilder {
       context.lastSurvey,
       context.facts,
       context.unexpectedNodeIds,
-      context.unexpectedRelationIds,
       members,
       nameDerivedFromNodes,
       context.routeNodesAnalysis.toRouteNodes,

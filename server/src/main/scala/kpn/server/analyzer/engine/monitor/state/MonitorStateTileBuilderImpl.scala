@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.monitor.state
 
 import kpn.api.base.ObjectId
+import kpn.server.analyzer.engine.monitor.state.MonitorStateTileCoordinateSimplifier.simplify
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform
 import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.analyzer.engine.tiles.domain.TileCoordinate
 import kpn.server.analyzer.engine.tiles.domain.TileUtil
 import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorState
@@ -51,18 +51,13 @@ class MonitorStateTileBuilderImpl(
     val allWorldCoordinateReferenceLines = worldCoordinateMatchesLines ++ worldCoordinateSegments.map(_.coordinates) ++ deviations.flatMap(_.worldCoordinateLines)
     val tiles = lineSegmentTileCalculator.tilesForLines(allWorldCoordinateReferenceLines)
     tiles.flatMap { tile =>
-      val matchesLines = {
-        val tileCoordinateSeqs = worldCoordinateMatchesLines.map(coordinates => TileUtil.routeTileCoordinates(tile, coordinates)).filter(_.nonEmpty)
-        val simplified = simplifyCoordinateSeqs(tileCoordinateSeqs)
-        simplified.map(tileCoordinates => tileCoordinates.map(coordinate => s"[${coordinate.x},${coordinate.y}]").mkString("[", ",", "]"))
-      }
+      val matchesLines = toLines(tile, worldCoordinateMatchesLines)
       val tileDeviations = buildTileDeviations(tile, deviations)
       val segmentIds = worldCoordinateSegments.map(_.segmentId).distinct.sorted
       val segments = segmentIds.flatMap { segmentId =>
         val segs = worldCoordinateSegments.filter(_.segmentId == segmentId)
-        val tileCoordinateSeqs = segs.map(segment => TileUtil.routeTileCoordinates(tile, segment.coordinates)).filter(_.nonEmpty)
-        val simplified = simplifyCoordinateSeqs(tileCoordinateSeqs)
-        val coordinateStrings = simplified.map(tileCoordinates => tileCoordinates.map(coordinate => s"[${coordinate.x},${coordinate.y}]").mkString("[", ",", "]"))
+        val worldCoorinateLines = segs.map(_.coordinates)
+        val coordinateStrings = toLines(tile, worldCoorinateLines)
         coordinateStrings.map { coordinateStrings =>
           MonitorSegment(
             relationId = segs.head.relationId,
@@ -93,8 +88,10 @@ class MonitorStateTileBuilderImpl(
     }
   }
 
-  private def simplifyCoordinateSeqs(coordinateSeqs: Seq[Seq[TileCoordinate]]): Seq[Seq[TileCoordinate]] = {
-    MonitorStateTileCoordinateSimplifier.simplify(coordinateSeqs)
+  private def toLines(tile: Tile, worldCoordinateMatchesLines: Seq[Seq[Coordinate]]) = {
+    val tileCoordinateSeqs = worldCoordinateMatchesLines.map(coordinates => TileUtil.routeTileCoordinates(tile, coordinates)).filter(_.nonEmpty)
+    val simplified = simplify(tileCoordinateSeqs)
+    simplified.map(tileCoordinates => tileCoordinates.map(coordinate => s"[${coordinate.x},${coordinate.y}]").mkString("[", ",", "]"))
   }
 
   private def buildTileDeviations(tile: Tile, deviations: Seq[MonitorStateDeviationWorldCoordinates]): Seq[MonitorStateTileDeviation] = {

@@ -21,6 +21,7 @@ import kpn.api.common.NodeName
 import kpn.api.common.ReplicationId
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteMemberInfo
+import kpn.api.common.RouteMemberInfoWay
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteSummary
 import kpn.api.common.RouteType
@@ -969,7 +970,6 @@ object TestObjects {
     lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty,
     unexpectedNodeIds: Seq[Long] = Seq.empty,
-    unexpectedRelationIds: Seq[Long] = Seq.empty,
     members: Seq[RouteMemberInfo] = Seq.empty,
     nameDerivedFromNodes: Boolean = false,
     nodes: RouteNodes = RouteNodes(),
@@ -998,7 +998,6 @@ object TestObjects {
       lastSurvey,
       facts,
       unexpectedNodeIds,
-      unexpectedRelationIds,
       members,
       nameDerivedFromNodes,
       nodes,
@@ -1015,6 +1014,28 @@ object TestObjects {
       subRelationTree,
       bounds,
       subRouteIds
+    )
+  }
+
+  def newRouteMemberInfo(
+    id: Long = 0,
+    memberType: MemberType = MemberType.Node,
+    role: Option[String] = None,
+    name: Option[String] = None,
+    poi: Option[String] = None,
+    way: Option[RouteMemberInfoWay] = None,
+    segmentIds: Seq[Long] = Seq.empty,
+    pathIds: Seq[Long] = Seq.empty,
+  ): RouteMemberInfo = {
+    RouteMemberInfo(
+      id,
+      memberType,
+      role,
+      name,
+      poi,
+      way,
+      segmentIds,
+      pathIds,
     )
   }
 

@@ -20,6 +20,7 @@ import scala.annotation.tailrec
 @Component
 class RouteMainAnalyzer(
   boundsAnalyzer: RouteBoundsAnalyzer,
+  routeIdsAnalyzer: RouteIdsAnalyzer,
   routeSuperSegmentAnalyzer: RouteSuperSegmentAnalyzer,
   structureRowsAnalyzer: RouteStructureRowsAnalyzer,
   parentAnalyzer: RouteParentAnalyzer,
@@ -30,7 +31,7 @@ class RouteMainAnalyzer(
     Log.context(f"route=${route.summary.id}%07d") {
       val context = RouteAnalysisContext(route)
       val analyzers: List[RouteAnalyzer] = List(
-        RouteIdsAnalyzer,
+        routeIdsAnalyzer,
         routeSuperSegmentAnalyzer,
         boundsAnalyzer,
         structureRowsAnalyzer,
@@ -68,9 +69,9 @@ class RouteMainAnalyzer(
       context.route.changeSetId,
       context.route.lastUpdated,
       context.route.lastSurvey,
-      context.route.facts,
+      context.route.facts ++ context.facts,
       context.route.unexpectedNodeIds,
-      context.route.unexpectedRelationIds,
+      context.unexpectedRelationIds,
       context.route.members,
       context.route.nameDerivedFromNodes,
       context.route.nodes,

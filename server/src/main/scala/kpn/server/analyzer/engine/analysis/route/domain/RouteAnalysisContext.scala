@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
 import kpn.api.common.Bounds
+import kpn.api.common.Fact
 import kpn.api.common.common.Reference
 import kpn.api.common.route.ParentRoute
 import kpn.api.common.route.RoutePath
@@ -22,6 +23,9 @@ case class RouteAnalysisContext(
   _paths: Option[Seq[RoutePath]] = None,
   _parentRoutes: Option[Seq[ParentRoute]] = None,
   _networkReferences: Option[Seq[Reference]] = None,
+  _unexpectedRelationIds: Option[Seq[Long]] = None,
+  facts: Seq[Fact] = Seq.empty
+
 ) {
   def labels: Seq[String] = _labels.getOrElse(throw new PreconditionMissingException)
 
@@ -42,4 +46,6 @@ case class RouteAnalysisContext(
   def parentRoutes: Seq[ParentRoute] = _parentRoutes.getOrElse(throw new PreconditionMissingException)
 
   def networkReferences: Seq[Reference] = _networkReferences.getOrElse(throw new PreconditionMissingException)
+
+  def unexpectedRelationIds: Seq[Long] = _unexpectedRelationIds.getOrElse(throw new PreconditionMissingException)
 }

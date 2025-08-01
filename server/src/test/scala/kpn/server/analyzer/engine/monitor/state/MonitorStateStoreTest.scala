@@ -12,15 +12,15 @@ import org.scalamock.scalatest.MockFactory
 class MonitorStateStoreTest extends UnitTest with MockFactory {
 
   test("save monitor route state and state tiles") {
-    // Setup test data
+    // setup
     val testData = setupTestData()
     val dependencies = setupMocks(testData)
 
-    // Execute
+    // execute
     val store = new MonitorStateStore(dependencies.repository, dependencies.tileBuilder)
     store.saveState(testData.monitorState)
 
-    // Verify
+    // verify
     verifyRepositoryCalls(dependencies.repository, testData)
   }
 
@@ -86,16 +86,16 @@ class MonitorStateStoreTest extends UnitTest with MockFactory {
   }
 
   private def verifyRepositoryCalls(repository: MonitorRouteRepository, testData: TestData): Unit = {
-    // Verify state is saved
+    // verify state is saved
     (repository.saveState _).verify(testData.monitorState)
 
-    // Verify obsolete tile is deleted
+    // verify obsolete tile is deleted
     (repository.deleteStateTile _).verify(testData.tileToRemove._id)
 
-    // Verify updated tile keeps its original ID
+    // verify updated tile keeps its original ID
     (repository.saveStateTile _).verify(testData.updatedTile.copy(_id = testData.originalTileToUpdate._id))
 
-    // Verify new tile is saved
+    // verify new tile is saved
     (repository.saveStateTile _).verify(testData.newTile)
   }
 
