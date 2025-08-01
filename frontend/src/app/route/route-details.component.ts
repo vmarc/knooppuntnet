@@ -1,11 +1,8 @@
-import { output } from '@angular/core';
 import { input } from '@angular/core';
-import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouteDetails } from '@api/common/route/route-details';
-import { RouteSegment } from '@api/common/route/route-segment';
 import { Timestamp } from '@api/custom/timestamp';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactsComponent } from '@app/analysis/fact/components/facts.component';
@@ -125,13 +122,6 @@ export class RouteDetailsComponent {
   readonly situationOn = input.required<Timestamp>();
   readonly routeDetailsData = input.required<RouteDetails>();
 
-  readonly segmentSelection = output<RouteSegment>();
-
-  protected readonly segments = computed(() => this.routeDetailsData().segments);
-  protected readonly segmentCount = computed(() => this.routeDetailsData().segments.length);
-  protected readonly paths = computed(() => this.routeDetailsData().paths);
-  protected readonly pathCount = computed(() => this.paths().length);
-
   routeTags() {
     return InterpretedTags.routeTags(this.routeDetailsData().summary.tags);
   }
@@ -157,11 +147,7 @@ export class RouteDetailsComponent {
     });
   }
 
-  selectSegment(segment: RouteSegment): void {
-    this.segmentSelection.emit(segment);
-  }
-
   zoomToFitRoute(): void {
-    this.segmentSelection.emit(undefined);
+    // TODO redesign
   }
 }

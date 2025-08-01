@@ -5,10 +5,11 @@ import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RouteSegment } from '@api/common/route/route-segment';
 import { RouteSegmentsPage } from '@api/common/route/route-segments-page';
+import { SegmentInfo } from '@api/common/route/segment-info';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/shared/services/api.service';
-import { FocusElements } from '@app/state/focus-elements';
 import { MapService } from '@app/map/map.service';
+import { SegmentMap } from '@app/state/segment-map';
 import { State } from '@app/state/state';
 import { RouteService } from '../route.service';
 
@@ -30,50 +31,18 @@ export class RouteSegmentsPageService {
     );
     effect(() => {
       if (this.response.hasValue()) {
-        // const data = this.response.value().result?.data;
-        //
-        // if (data) {
-        //   const routeIds = data.routeIds.map((id) => id.toString());
-        //   const nodeIds = new Array<string>();
-        //   if (data.nodes.startNode) {
-        //     nodeIds.push(data.nodes.startNode.nodeId.toString());
-        //   }
-        //   if (data.nodes.endNode) {
-        //     nodeIds.push(data.nodes.endNode.nodeId.toString());
-        //   }
-        //   data.nodes.startTentacleNodes
-        //     .map((node) => node.nodeId.toString())
-        //     .forEach((nodeId) => nodeIds.push(nodeId));
-        //   data.nodes.endTentacleNodes
-        //     .map((node) => node.nodeId.toString())
-        //     .forEach((nodeId) => nodeIds.push(nodeId));
-        //   data.nodes.redundantNodes
-        //     .map((node) => node.nodeId.toString())
-        //     .forEach((nodeId) => nodeIds.push(nodeId));
-        //   const elements: FocusElements = {
-        //     nodeIds,
-        //     routeIds,
-        //   };
-
-        this.state.routePageOpened(this.routeService.routeId());
-        // this.state.map.updateFocusElements(elements);
+        const segments = this.response.value().result?.segments ?? [];
+        const relationIds = segments.flatMap((segment) =>
+          segment.routeInfos.map((routeInfo) => routeInfo.relationId)
+        );
+        const segmentMap = SegmentMap.from(segments);
+        this.state.routeSegmentsPageOpened(segmentMap, this.routeService.routeId(), relationIds);
         this.mapService.fitBounds(this.routeService.bounds());
-        // }
       }
     });
   }
 
-  selectSegment(routeSegment: RouteSegment): void {
-    this.mapService.setMapMode('route-segments');
-    const elements: FocusElements = {
-      nodeIds: [],
-      routeIds: [],
-    };
-    if (routeSegment) {
-      this.mapService.focusElements(routeSegment.bounds, elements);
-    } else {
-      this.mapService.focusElements(this.response.value().result.routeInfo.bounds, elements);
-    }
-    this._selectedSegment.set(routeSegment);
+  selectSegment(segment: SegmentInfo): void {
+    this.mapService.fitBounds(segment.bounds);
   }
 }

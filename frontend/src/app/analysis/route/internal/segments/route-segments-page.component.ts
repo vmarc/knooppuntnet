@@ -1,8 +1,11 @@
+import { signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { RouteSegmentListComponent } from '@app/shared/components/route/segments/route-segment-list.component';
+import { SegmentInfo } from '@api/common/route/segment-info';
+import { RouteSegmentsComponent } from '@app/shared/components/route/segments/route-segments.component';
+import { NzContextMenuService } from 'ng-zorro-antd/dropdown';
 import { RouteSegmentsPageService } from './route-segments-page.service';
 import { RouterService } from '@app/shared/services/router.service';
 
@@ -11,18 +14,35 @@ import { RouterService } from '@app/shared/services/router.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (response.hasValue()) {
-      <ui-route-segment-list
+      <ui-route-segments
         [segments]="segments()"
         [relations]="[]"
-        [selectedSegment]="undefined"
+        [showSegments]="showSegments()"
+        (selectChange)="selectSegment($event)"
+        (showSegmentsChange)="showSegmentsChanged($event)"
+        (zoomToFitRoute)="zoomToFitRoute()"
       />
     }
   `,
-  providers: [RouteSegmentsPageService, RouterService],
-  imports: [RouteSegmentListComponent],
+  providers: [RouteSegmentsPageService, RouterService, NzContextMenuService],
+  imports: [RouteSegmentsComponent],
 })
 export class RouteSegmentsPageComponent {
   readonly service = inject(RouteSegmentsPageService);
   protected readonly response = this.service.response;
   protected readonly segments = computed(() => this.response.value()?.result?.segments);
+
+  readonly showSegments = signal<boolean>(true); // TODO redesign - this.service.monitorShowSegments;
+
+  selectSegment(segment: SegmentInfo): void {
+    this.service.selectSegment(segment);
+  }
+
+  showSegmentsChanged(value: boolean): void {
+    // TODO redesign - this.service.updateMonitorShowSegments(value);
+  }
+
+  zoomToFitRoute(): void {
+    // TODO redesign - this.service.zoomToFitRoute();
+  }
 }

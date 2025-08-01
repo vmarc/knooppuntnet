@@ -28,9 +28,9 @@ import { MonitorRouteSegmentsPageService } from './monitor-route-segments-page.s
   imports: [FormsModule, RouteSegmentsComponent],
 })
 export class MonitorRouteSegmentsPageComponent {
-  readonly service = inject(MonitorRouteSegmentsPageService);
-  readonly response = this.service.response;
-  readonly showSegments = this.service.monitorShowSegments;
+  private readonly service = inject(MonitorRouteSegmentsPageService);
+  protected readonly response = this.service.response;
+  protected readonly showSegments = this.service.monitorShowSegments;
 
   selectSegment(segment: SegmentInfo): void {
     this.service.selectSegment(segment);

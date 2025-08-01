@@ -1,10 +1,8 @@
 import { HttpResourceRef } from '@angular/common/http';
 import { effect } from '@angular/core';
-import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
-import { RouteSegment } from '@api/common/route/route-segment';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/shared/services/api.service';
 import { FocusElements } from '@app/state/focus-elements';
@@ -20,9 +18,6 @@ export class RouteDetailsPageService {
   private readonly mapService = inject(MapService);
 
   readonly response: HttpResourceRef<ApiResponse<RouteDetailsPage>>;
-
-  private readonly _selectedSegment = signal<RouteSegment>(null);
-  readonly selectedSegment = this._selectedSegment.asReadonly();
 
   constructor() {
     this.response = this.routeService.request('details', () =>
@@ -55,25 +50,11 @@ export class RouteDetailsPageService {
             routeIds,
           };
 
-          this.state.routePageOpened(this.routeService.routeId());
+          this.state.routeDetailsPageOpened(this.routeService.routeId());
           this.state.map.updateFocusElements(elements);
           this.mapService.fitBounds(this.routeService.bounds());
         }
       }
     });
-  }
-
-  selectSegment(routeSegment: RouteSegment): void {
-    this.mapService.setMapMode('route-segments');
-    const elements: FocusElements = {
-      nodeIds: [],
-      routeIds: [],
-    };
-    if (routeSegment) {
-      this.mapService.focusElements(routeSegment.bounds, elements);
-    } else {
-      this.mapService.focusElements(this.response.value().result.routeInfo.bounds, elements);
-    }
-    this._selectedSegment.set(routeSegment);
   }
 }

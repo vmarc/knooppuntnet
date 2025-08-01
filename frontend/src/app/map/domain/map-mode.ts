@@ -3,6 +3,8 @@ export type MapMode =
   | 'surface'
   | 'survey'
   | 'analysis'
+  | 'route-details'
+  | 'route-members'
   | 'route-segments'
   | 'route-paths'
   | 'monitor';

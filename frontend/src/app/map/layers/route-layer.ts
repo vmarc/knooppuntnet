@@ -1,7 +1,8 @@
 import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
-import { MonitorRouteStyle } from '@app/map/style/monitor-route-style';
+import { RouteSegmentsStyle } from '@app/map/style/route-segments-style';
+import { RouteDetailStyle } from '@app/map/style/route-detail-style';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import { MonitorMapState } from '@app/state/monitor/monitor-map-state';
 import { FeatureLike } from 'ol/Feature';
@@ -56,7 +57,16 @@ export class RouteLayer {
   private styleFunction(): StyleFunction {
     return (feature: FeatureLike): Style | Style[] => {
       if (this.styleOptions.mode === 'monitor') {
-        return MonitorRouteStyle.style(this.monitorMapState, feature);
+        return undefined;
+      }
+      if (this.styleOptions.mode === 'route-segments') {
+        return RouteSegmentsStyle.style(this.styleOptions, feature);
+      }
+      if (
+        this.styleOptions.mode === 'route-details' ||
+        this.styleOptions.mode === 'route-members'
+      ) {
+        return RouteDetailStyle.style(this.styleOptions, feature);
       }
       return ExploreStyle.style(this.styleOptions, feature);
     };

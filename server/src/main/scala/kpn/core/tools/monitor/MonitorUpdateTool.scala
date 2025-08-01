@@ -23,8 +23,7 @@ object MonitorUpdateTool extends Tool[MonitorUpdateToolOptions] {
       Mongo.executeIn(options.databaseName) { database =>
         val tool = new MonitorUpdateTool(new MonitorUpdateToolConfiguration(database))
         tool.update()
-        //tool.testUpdate("eu-icn-EV", "EV1")
-
+        //tool.testUpdate("eu-icn-EV", "EV1-gpx")
         regenerateTiles(database)
       }
       ("update completed", ())

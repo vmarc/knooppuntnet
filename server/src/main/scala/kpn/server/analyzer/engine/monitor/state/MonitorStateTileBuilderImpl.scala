@@ -51,7 +51,11 @@ class MonitorStateTileBuilderImpl(
     val allWorldCoordinateReferenceLines = worldCoordinateMatchesLines ++ worldCoordinateSegments.map(_.coordinates) ++ deviations.flatMap(_.worldCoordinateLines)
     val tiles = lineSegmentTileCalculator.tilesForLines(allWorldCoordinateReferenceLines)
     tiles.flatMap { tile =>
-      val matchesLines = worldCoordinateMatchesLines.flatMap(worldCoordinates => TileUtil.toTileLine(tile, worldCoordinates))
+      val matchesLines = {
+        val tileCoordinateSeqs = worldCoordinateMatchesLines.map(coordinates => TileUtil.routeTileCoordinates(tile, coordinates)).filter(_.nonEmpty)
+        val simplified = simplifyCoordinateSeqs(tileCoordinateSeqs)
+        simplified.map(tileCoordinates => tileCoordinates.map(coordinate => s"[${coordinate.x},${coordinate.y}]").mkString("[", ",", "]"))
+      }
       val tileDeviations = buildTileDeviations(tile, deviations)
       val segmentIds = worldCoordinateSegments.map(_.segmentId).distinct.sorted
       val segments = segmentIds.flatMap { segmentId =>

@@ -13,7 +13,7 @@ export class Marker {
     return feature;
   }
 
-  private static createStyle(color: string): Style {
+  static createStyle(color: string): Style {
     const src = `assets/images/marker-icon-${color}.png`;
     return new Style({
       image: new Icon({
