@@ -25,66 +25,79 @@ class MonitorRouteDetailsPageBuilder(
   locationService: LocationService
 ) {
 
-  def build(language: Language, groupName: String, routeName: String): Option[MonitorRouteDetailsPage] = {
-    val adminUser = monitorUserRepository.isAdminUser(RequestContext.user)
-    monitorGroupRepository.groupByName(groupName).flatMap { group =>
-      monitorRouteRepository.routeByName(group._id, routeName).map { monitorRoute =>
-        val routeDetailsOption = monitorRoute.relationId.flatMap(routeRepository.routeDetails)
-        buildPage(
-          language,
-          adminUser,
-          group,
-          monitorRoute,
-          routeDetailsOption
-        )
-      }
-    }
-  }
-
-  private def buildPage(
+  case class PageBuildContext(
     language: Language,
-    adminUser: Boolean,
+    isAdmin: Boolean,
     group: MonitorGroup,
     monitorRoute: MonitorRoute,
-    routeDetailsOption: Option[RouteDetailsData]
-  ): MonitorRouteDetailsPage = {
+    routeDetails: Option[RouteDetailsData]
+  )
 
-    val details = routeDetailsOption.map { routeDetails =>
-      val locationCandidateInfos = routeDetails.locationAnalysis.candidates.map { candidate =>
-        val locationNames = candidate.location.names
-        val locationInfos = locationService.toInfos(language, locationNames, locationNames)
-        LocationCandidateInfo(locationInfos, candidate.percentage)
-      }
-      RouteDetails.from(routeDetails, locationCandidateInfos)
-    }
+  def build(language: Language, groupName: String, routeName: String): Option[MonitorRouteDetailsPage] = {
+    val isAdmin = monitorUserRepository.isAdminUser(RequestContext.user)
 
-    val summary = MonitorRouteSummary(
-      adminUser,
-      group.name,
-      monitorRoute.name,
-      monitorRoute.description,
-      monitorRoute._id.oid,
-      monitorRoute.relationId,
-      monitorRoute.relationIds,
-      details.map(_.memberCount).getOrElse(0L),
-      monitorRoute.osmSegmentCount,
-      monitorRoute.deviationCount,
-      monitorRoute.bounds,
-    )
+    for {
+      group <- monitorGroupRepository.groupByName(groupName)
+      monitorRoute <- monitorRouteRepository.routeByName(group._id, routeName)
+      routeDetails <- monitorRoute.relationId.map(routeRepository.routeDetails)
+      context = PageBuildContext(language, isAdmin, group, monitorRoute, routeDetails)
+    } yield buildDetailsPage(context)
+  }
+
+  private def buildDetailsPage(context: PageBuildContext): MonitorRouteDetailsPage = {
+    val routeDetails = buildRouteDetails(context)
+    val summary = buildRouteSummary(context, routeDetails)
 
     MonitorRouteDetailsPage(
       summary,
-      monitorRoute.comment,
-      monitorRoute.symbol,
-      monitorRoute.analysisTimestamp,
-      monitorRoute.analysisDuration,
-      monitorRoute.referenceType,
-      monitorRoute.referenceTimestamp,
-      monitorRoute.referenceFilename,
-      monitorRoute.referenceDistance,
-      monitorRoute.deviationDistance,
-      monitorRoute.happy,
-      details,
+      context.monitorRoute.comment,
+      context.monitorRoute.symbol,
+      context.monitorRoute.analysisTimestamp,
+      context.monitorRoute.analysisDuration,
+      context.monitorRoute.referenceType,
+      context.monitorRoute.referenceTimestamp,
+      context.monitorRoute.referenceFilename,
+      context.monitorRoute.referenceDistance,
+      context.monitorRoute.deviationDistance,
+      context.monitorRoute.happy,
+      routeDetails
+    )
+  }
+
+  private def buildRouteDetails(context: PageBuildContext): Option[RouteDetails] = {
+    context.routeDetails.map { routeDetailsData =>
+      val locationCandidateInfos = buildLocationCandidateInfos(context.language, routeDetailsData)
+      RouteDetails.from(routeDetailsData, locationCandidateInfos)
+    }
+  }
+
+  private def buildLocationCandidateInfos(
+    language: Language,
+    routeDetails: RouteDetailsData
+  ): Seq[LocationCandidateInfo] = {
+    routeDetails.locationAnalysis.candidates.map { candidate =>
+      val locationNames = candidate.location.names
+      val locationInfos = locationService.toInfos(language, locationNames, locationNames)
+      LocationCandidateInfo(locationInfos, candidate.percentage)
+    }
+  }
+
+  private def buildRouteSummary(
+    context: PageBuildContext,
+    routeDetails: Option[RouteDetails]
+  ): MonitorRouteSummary = {
+    MonitorRouteSummary(
+      context.isAdmin,
+      context.group.name,
+      context.monitorRoute.name,
+      context.monitorRoute.description,
+      context.monitorRoute._id.oid,
+      context.monitorRoute.relationId,
+      context.monitorRoute.relationIds,
+      routeDetails.map(_.memberCount).getOrElse(0L),
+      context.monitorRoute.osmSegmentCount,
+      context.monitorRoute.deviationCount,
+      context.monitorRoute.bounds
     )
   }
 }

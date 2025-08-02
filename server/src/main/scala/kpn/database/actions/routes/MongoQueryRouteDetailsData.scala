@@ -22,8 +22,8 @@ class MongoQueryRouteDetailsData(database: Database) {
   def execute(routeId: Long): Option[RouteDetailsData] = {
     log.debugElapsed {
       val pipeline = buildPipeline(routeId)
-      val segments = database.routes.optionAggregate[RouteDetailsData](pipeline, log)
-      (s"${segments.size} segments", segments)
+      val details = database.routes.optionAggregate[RouteDetailsData](pipeline, log)
+      ("details", details)
     }
   }
 
@@ -62,7 +62,7 @@ class MongoQueryRouteDetailsData(database: Database) {
           include("networkReferences"),
           include("locationAnalysis"),
         )
-      ),
+      )
     )
   }
 }
