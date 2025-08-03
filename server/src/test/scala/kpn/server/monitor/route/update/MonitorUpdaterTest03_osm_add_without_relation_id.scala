@@ -191,7 +191,6 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
         routeId = route._id,
         relationId = route1.relationId,
         timestamp = UpdateTimestamp,
-        // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         deviations = Seq.empty,
         matchesDistance = route1.meters,
         matchesLines = route1.lines,

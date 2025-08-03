@@ -226,7 +226,6 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         routeId = route._id,
         relationId = subRoute11.relationId,
         timestamp = GpxUpload1Timestamp,
-        // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         deviations = Seq.empty,
         matchesDistance = subRoute11.meters,
         matchesLines = subRoute11.lines, // TODO redesign - this cannot be correct if distance is 181
@@ -284,7 +283,6 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
         routeId = route._id,
         relationId = subRoute12.relationId,
         timestamp = GpxUpload2Timestamp,
-        // TODO redesign cleanup - bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
         deviations = Seq.empty,
         matchesDistance = subRoute12.meters,
         matchesLines = subRoute12.lines,

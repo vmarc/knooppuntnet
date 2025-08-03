@@ -123,7 +123,6 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
         routeId = monitorRoute._id,
         relationId = route1.relationId,
         timestamp = CurrentTimestamp,
-        // TODO redesign cleanup - bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         deviations = Seq.empty,
         matchesDistance = route1.meters,
         matchesLines = route1.lines,
