@@ -9,24 +9,7 @@ import java.io.PrintStream
 
 object CodecWriter {
   def main(args: Array[String]): Unit = {
-    val classInfo = ClassInfo(
-      "RawNode",
-      "kpn.api.common.data.raw",
-      Seq(
-        ClassField("id", ClassType(typeName = Some("Long"))),
-        ClassField("latitude", ClassType(typeName = Some("String"))),
-        ClassField("longitude", ClassType(typeName = Some("String"))),
-        ClassField("version", ClassType(typeName = Some("Long"))),
-        ClassField("timestamp", ClassType(typeName = Some("Timestamp"), packageName = Some("kpn.api.custom"))),
-        ClassField("changeSetId", ClassType(typeName = Some("Long"))),
-        ClassField("tags",
-          ClassType(arrayType = Some(
-            ClassType(typeName = Some("Tag"), packageName = Some("kpn.api.custom")))
-          )
-        )
-      )
-    )
-
+    val classInfo = new ScalaCaseClassReader().read(ClassId("RawNode", "kpn.api.common.data.raw"))
     new CodecWriter().write(classInfo)
   }
 }
