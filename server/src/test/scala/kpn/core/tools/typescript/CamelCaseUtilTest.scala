@@ -16,4 +16,15 @@ class CamelCaseUtilTest extends UnitTest {
     CamelCaseUtil.toDashed("textWITHSomeALLUppercaseWORDS") should equal("text-with-some-all-uppercase-words")
   }
 
+  test("mixed case single word") {
+    CamelCaseUtil.toDashed("camelCase") should equal("camel-case")
+  }
+
+  test("empty string") {
+    CamelCaseUtil.toDashed("") should equal("")
+  }
+
+  test("single character") {
+    CamelCaseUtil.toDashed("A") should equal("a")
+  }
 }
