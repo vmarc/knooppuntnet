@@ -1,15 +1,14 @@
 package kpn.core.tools.typescript
 
-case class ClassType(
+case class OldClassType(
   typeName: String,
   primitive: Boolean = false,
-  arrayType: Option[ClassType] = None,
-  mapTypes: Option[(ClassType, ClassType)] = None,
+  arrayType: Option[OldClassType] = None,
+  mapTypes: Option[(OldClassType, OldClassType)] = None,
   optional: Boolean = false
 ) {
 
   def isArray: Boolean = arrayType.isDefined
 
   def isMap: Boolean = mapTypes.isDefined
-
 }

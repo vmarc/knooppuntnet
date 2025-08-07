@@ -30,66 +30,66 @@ class ClassAnalyzerTest extends UnitTest {
     val classInfo = new ClassAnalyzer().analyze(caseClass)
     assertEqual(
       classInfo,
-      ClassInfo(
+      OldClassInfo(
         "TestClass",
         Seq(
-          ClassField(
+          OldClassField(
             "id",
-            ClassType("number", primitive = true)
+            OldClassType("number", primitive = true)
           ),
-          ClassField(
+          OldClassField(
             "version",
-            ClassType("number", primitive = true)
+            OldClassType("number", primitive = true)
           ),
-          ClassField(
+          OldClassField(
             "name",
-            ClassType("string", primitive = true)
+            OldClassType("string", primitive = true)
           ),
-          ClassField(
+          OldClassField(
             "value",
-            ClassType("number", primitive = true)
+            OldClassType("number", primitive = true)
           ),
-          ClassField(
+          OldClassField(
             "timestamp1",
-            ClassType("Timestamp")
+            OldClassType("Timestamp")
           ),
-          ClassField(
+          OldClassField(
             "timestamp2",
-            ClassType("Timestamp")
+            OldClassType("Timestamp")
           ),
-          ClassField(
+          OldClassField(
             "flagged",
-            ClassType("boolean", primitive = true)
+            OldClassType("boolean", primitive = true)
           ),
-          ClassField(
+          OldClassField(
             "options",
-            ClassType(
+            OldClassType(
               "Array<string>",
-              arrayType = Some(ClassType("string", primitive = true))
+              arrayType = Some(OldClassType("string", primitive = true))
             )
           ),
-          ClassField(
+          OldClassField(
             "map",
-            ClassType(
+            OldClassType(
               "Map<string, Timestamp>",
-              mapTypes = Some((ClassType("string", primitive = true), ClassType("Timestamp")))
+              mapTypes = Some((OldClassType("string", primitive = true), OldClassType("Timestamp")))
             )
           ),
-          ClassField(
+          OldClassField(
             "timestamps",
-            ClassType(
+            OldClassType(
               "Array<Timestamp>",
-              arrayType = Some(ClassType("Timestamp", optional = true)),
+              arrayType = Some(OldClassType("Timestamp", optional = true)),
               optional = true
             ),
           ),
-          ClassField(
+          OldClassField(
             "selfRef",
-            ClassType("TestClass")
+            OldClassType("TestClass")
           )
         ),
         Seq(
-          ClassDependency(
+          OldClassDependency(
             "Timestamp",
             "@api/custom/timestamp",
           )

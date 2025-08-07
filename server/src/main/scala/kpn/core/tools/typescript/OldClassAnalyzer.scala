@@ -24,7 +24,7 @@ class ClassAnalyzer {
   private val vectorSignature: Regex = """Vector\[([a-zA-Z0-9.]*)\]""".r
   private val optionSignature: Regex = """^Option\[(.*)\]$""".r
 
-  def analyze(caseClass: Type): ClassInfo = {
+  def analyze(caseClass: Type): OldClassInfo = {
 
     val className = caseClass.typeSymbol.name.toString
     val packageName = caseClass.typeSymbol.fullName.dropRight(className.length + 1)
@@ -35,7 +35,7 @@ class ClassAnalyzer {
         val fieldName = m.name.toString
         val fieldTypeString = m.typeSignature.toString
         val classType = buildClassType(fieldTypeString)
-        Some(ClassField(fieldName, classType))
+        Some(OldClassField(fieldName, classType))
 
       case _ => None
     }
@@ -80,7 +80,7 @@ class ClassAnalyzer {
               }
             }
             Some(
-              ClassDependency(
+              OldClassDependency(
                 withoutPackage,
                 fileName
               )
@@ -117,7 +117,7 @@ class ClassAnalyzer {
       }
     }
 
-    ClassInfo(
+    OldClassInfo(
       className,
       fields,
       sortedDependencies,
@@ -126,14 +126,14 @@ class ClassAnalyzer {
   }
 
   @scala.annotation.tailrec
-  private def buildClassType(fieldTypeString: String, optional: Boolean = false): ClassType = {
+  private def buildClassType(fieldTypeString: String, optional: Boolean = false): OldClassType = {
 
     fieldTypeString match {
 
       case mapSignature(type1, type2) =>
         val typescriptType1 = fieldTypeToTypescript(type1, optional)
         val typescriptType2 = fieldTypeToTypescript(type2, optional)
-        ClassType(
+        OldClassType(
           s"Map<${typescriptType1.typeName}, ${typescriptType2.typeName}>",
           mapTypes = Some((typescriptType1, typescriptType2)),
           optional = optional
@@ -141,7 +141,7 @@ class ClassAnalyzer {
 
       case setSignature(type1) =>
         val typescriptType1 = fieldTypeToTypescript(type1, optional)
-        ClassType(
+        OldClassType(
           s"List<${typescriptType1.typeName}>",
           arrayType = Some(typescriptType1),
           optional = optional
@@ -149,7 +149,7 @@ class ClassAnalyzer {
 
       case seqSignature(type1) =>
         val typescriptType1 = fieldTypeToTypescript(type1, optional)
-        ClassType(
+        OldClassType(
           s"Array<${typescriptType1.typeName}>",
           arrayType = Some(typescriptType1),
           optional = optional
@@ -157,7 +157,7 @@ class ClassAnalyzer {
 
       case vectorSignature(type1) =>
         val typescriptType1 = fieldTypeToTypescript(type1, optional)
-        ClassType(
+        OldClassType(
           s"Array<${typescriptType1.typeName}>",
           arrayType = Some(typescriptType1),
           optional = optional
@@ -165,7 +165,7 @@ class ClassAnalyzer {
 
       case arraySignature(type1) =>
         val typescriptType1 = fieldTypeToTypescript(type1, optional)
-        ClassType(
+        OldClassType(
           s"Array<${typescriptType1.typeName}>",
           arrayType = Some(typescriptType1),
           optional = optional
@@ -202,13 +202,13 @@ class ClassAnalyzer {
     }
   }
 
-  private def fieldTypeToTypescript(fieldType: String, optional: Boolean): ClassType = {
+  private def fieldTypeToTypescript(fieldType: String, optional: Boolean): OldClassType = {
     fieldType match {
-      case "Int" => ClassType("number", primitive = true)
-      case "Long" => ClassType("number", primitive = true)
-      case "Double" => ClassType("number", primitive = true)
-      case "String" => ClassType("string", primitive = true)
-      case "Boolean" => ClassType("boolean", primitive = true)
+      case "Int" => OldClassType("number", primitive = true)
+      case "Long" => OldClassType("number", primitive = true)
+      case "Double" => OldClassType("number", primitive = true)
+      case "String" => OldClassType("string", primitive = true)
+      case "Boolean" => OldClassType("boolean", primitive = true)
       case _ =>
         val classType = if (fieldType.contains(".")) {
           // field type without package name
@@ -217,7 +217,7 @@ class ClassAnalyzer {
         else {
           fieldType
         }
-        ClassType(classType, optional = optional)
+        OldClassType(classType, optional = optional)
     }
   }
 

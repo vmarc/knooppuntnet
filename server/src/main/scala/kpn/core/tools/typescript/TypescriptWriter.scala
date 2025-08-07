@@ -2,7 +2,7 @@ package kpn.core.tools.typescript
 
 import java.io.PrintStream
 
-class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
+class TypescriptWriter(out: PrintStream, classInfo: OldClassInfo) {
 
   def write(): Unit = {
     writeComment()
