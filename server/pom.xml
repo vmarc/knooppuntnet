@@ -21,6 +21,18 @@
     <nimbus.jwt.version>9.40</nimbus.jwt.version>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongodb-driver-bom</artifactId>
+        <version>5.5.1</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -291,33 +303,33 @@
     </dependency>
 
     <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongodb-driver-sync</artifactId>
+    </dependency>
+    
+    <dependency>
       <groupId>org.mongodb.scala</groupId>
       <artifactId>mongo-scala-driver_2.13</artifactId>
-      <version>5.1.1</version>
     </dependency>
 
     <dependency>
       <groupId>org.mongodb.scala</groupId>
       <artifactId>mongo-scala-bson_2.13</artifactId>
-      <version>5.1.0</version>
     </dependency>
 
     <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>bson</artifactId>
-      <version>5.1.1</version>
     </dependency>
 
     <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongodb-driver-reactivestreams</artifactId>
-      <version>5.1.0</version>
     </dependency>
 
     <dependency>
       <groupId>org.mongodb</groupId>
       <artifactId>mongodb-driver-core</artifactId>
-      <version>5.1.0</version>
     </dependency>
 
     <dependency>
