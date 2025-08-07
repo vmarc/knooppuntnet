@@ -15,6 +15,17 @@ export class MapRoutePopupHandler {
   constructor(readonly state: State) {}
 
   handle(features: Array<FeatureLike>, coordinate: Coordinate | null) {
+    for (let i = 0; i < features.length; i++) {
+      const feature = features[i];
+      const layer = feature.get('layer');
+      if (layer == 'match' || layer == 'route' || layer == 'deviation') {
+        const route = feature.get('route');
+        const relationId = feature.get('relationId');
+        const segmentId = feature.get('segmentId');
+        console.log('MapRoutePopupHandler.handle()', layer, route, relationId, segmentId);
+      }
+    }
+
     if (!this.containsRoutes(features) && this.state.map.routePopupState().routes.length === 0) {
       return true;
     }

@@ -1,8 +1,9 @@
-package kpn.tools.code.codecs
+package kpn.tools.code.codecs.generated
 
 import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
+import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
 import org.bson.BsonType
 import org.bson.BsonWriter
@@ -22,12 +23,12 @@ class RawNodeCodec(registry: CodecRegistry) extends Codec[RawNode] {
     bsonReader.readStartDocument()
 
     var id: Long = 0
-    var latitude: String = ""
-    var longitude: String = ""
+    var latitude: String = null
+    var longitude: String = null
     var version: Long = 0
     var timestamp: Timestamp = null
     var changeSetId: Long = 0
-    var tags: Seq[Tag] = Seq.empty
+    var tags: Seq[Tag] = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -59,7 +60,7 @@ class RawNodeCodec(registry: CodecRegistry) extends Codec[RawNode] {
         tags = valueBuffer.toSeq
       }
       else {
-        println(s"RawNodeCodec.decode() unknown fieldName $fieldName")
+        Codecs.log.warn(s"Unknown field name: $fieldName in RawNodeCodec.decode()")
         bsonReader.skipValue()
       }
     }
@@ -100,7 +101,6 @@ class RawNodeCodec(registry: CodecRegistry) extends Codec[RawNode] {
     bsonWriter.writeStartArray()
     value.tags.foreach(v => tagCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
-
     bsonWriter.writeEndDocument()
   }
 
