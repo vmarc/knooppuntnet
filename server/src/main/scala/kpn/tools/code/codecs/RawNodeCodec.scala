@@ -59,11 +59,13 @@ class RawNodeCodec(registry: CodecRegistry) extends Codec[RawNode] {
         tags = valueBuffer.toSeq
       }
       else {
-        println(s"RawNodeCodec.decode() unknown fieldName $fieldName")
+        Codecs.log.warn(s"Unknown field name: $fieldName in RawNodeCodec.decode()")
         bsonReader.skipValue()
       }
     }
+
     bsonReader.readEndDocument()
+
     RawNode(
       id,
       latitude,
