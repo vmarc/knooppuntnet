@@ -142,14 +142,19 @@ import kpn.server.monitor.domain.OldMonitorReference
 import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.DayCodec
 import kpn.tools.code.codecs.RelationCodec
+import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import org.bson.codecs.Codec
 import org.bson.codecs.configuration.CodecProvider
 import org.bson.codecs.configuration.CodecRegistry
 
-class _CodecProvider(registry: CodecRegistry) extends CodecProvider {
+class _CodecProvider extends CodecProvider {
   override def get[T](aClass: Class[T], codecRegistry: CodecRegistry): Codec[T] = {
+
+    if (aClass == classOf[Long]) {
+      return new ScalaLongCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
 
     if (aClass == classOf[RouteNetworkNodeInfo]) {
       return new RouteNetworkNodeInfoCodec(codecRegistry).asInstanceOf[Codec[T]]

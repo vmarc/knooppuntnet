@@ -20,7 +20,7 @@ class CodecProviderWriter {
       writeImports(out, classInfos)
 
       out.skipLine()
-      out.println(s"class _CodecProvider(registry: CodecRegistry) extends CodecProvider {")
+      out.println(s"class _CodecProvider extends CodecProvider {")
       out.indent {
         out.println(s"override def get[T](aClass: Class[T], codecRegistry: CodecRegistry): Codec[T] = {")
         out.indent {
@@ -57,6 +57,7 @@ class CodecProviderWriter {
       "kpn.tools.code.codecs.RelationCodec",
       "kpn.tools.code.codecs.TagCodec",
       "kpn.tools.code.codecs.TimestampCodec",
+      "kpn.tools.code.codecs.ScalaLongCodec",
     )
 
     val classInfosImportClasses = classInfos.map(classInfo => classInfo.key)
@@ -70,6 +71,12 @@ class CodecProviderWriter {
   }
 
   private def writeCodecs(out: IndentingPrintStream, classInfos: Seq[ClassInfo]): Unit = {
+    out.skipLine()
+    out.println(s"if (aClass == classOf[Long]) {")
+    out.indent {
+      out.println(s"return new ScalaLongCodec(codecRegistry).asInstanceOf[Codec[T]]")
+    }
+    out.println(s"}")
     out.skipLine()
     classInfos.foreach { classInfo =>
       out.println(s"if (aClass == classOf[${classInfo.className}]) {")

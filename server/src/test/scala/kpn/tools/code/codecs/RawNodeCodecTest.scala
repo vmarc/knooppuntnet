@@ -6,11 +6,11 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 import kpn.core.util.UnitTest
-import kpn.tools.code.codecs.generated._Provider
+import kpn.tools.code.codecs.generated._CodecProvider
 import org.bson.codecs.StringCodec
 import org.bson.codecs.configuration.CodecRegistries
 
-import scala.collection.convert.ImplicitConversions.`iterable AsScalaIterable`
+import scala.jdk.CollectionConverters.IterableHasAsScala
 
 class RawNodeCodecTest extends UnitTest {
 
@@ -23,7 +23,7 @@ class RawNodeCodecTest extends UnitTest {
           CodecRegistries.fromCodecs(
             new StringCodec(),
           ),
-          CodecRegistries.fromProviders(new _Provider),
+          CodecRegistries.fromProviders(new _CodecProvider),
           MongoClientSettings.getDefaultCodecRegistry
         )
         val database = mongoClient.getDatabase("test").withCodecRegistry(codecRegistry)
@@ -44,7 +44,7 @@ class RawNodeCodecTest extends UnitTest {
 
         collection.insertOne(node)
 
-        val nodes = collection.find().toSeq
+        val nodes = collection.find().asScala.toSeq
 
         println(nodes)
       } finally {
