@@ -11,7 +11,7 @@ case class Way(
   changeSetId: Long,
   tags: Seq[Tag],
   nodes: Vector[Node],
-  length: Long /* meters */
+  length: Long // meters
 ) extends Element {
   override def isWay: Boolean = true
 

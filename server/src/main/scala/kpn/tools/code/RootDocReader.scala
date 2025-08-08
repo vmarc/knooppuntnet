@@ -1,5 +1,6 @@
 package kpn.tools.code
 
+import kpn.tools.code.codecs.Codecs
 import kpn.tools.code.domain.ClassInfo
 
 import scala.collection.mutable
@@ -9,7 +10,8 @@ object RootDocReader {
   val scalaCaseClassReader = new ScalaCaseClassReader()
 
   def main(args: Array[String]): Unit = {
-    val rootClassIds = readClassIds()
+
+    val rootClassIds = readClassIds() ++ Codecs.customCodecs
     val rootClassInfos = rootClassIds.map(classId => scalaCaseClassReader.read(classId))
 
     val found = mutable.Map(rootClassInfos.map(classInfo => classInfo.key -> classInfo): _*)
@@ -19,10 +21,14 @@ object RootDocReader {
     }
 
     val codecWriter = new CodecWriter()
-    found.foreach { case (name, classInfo) =>
-      println(s"==> ${classInfo.className}")
-      codecWriter.write(classInfo)
+    found.values.foreach { classInfo =>
+      if (!Codecs.customCodecs.contains(ClassId(classInfo.className, classInfo.packageName))) {
+        codecWriter.write(classInfo)
+      }
     }
+
+    val codecProviderWriter = new CodecProviderWriter()
+    codecProviderWriter.write(found.values.toSeq)
   }
 
   private def collectDependencies(found: mutable.Map[String, ClassInfo], info: ClassInfo): Seq[ClassInfo] = {
@@ -43,8 +49,6 @@ object RootDocReader {
       val lines = source.getLines().toSeq
 
       val collectionPattern = """.*DatabaseCollection\[(\w+)\]""".r
-
-      //   def baseNetworks: DatabaseCollection[BaseNetworkDoc]
 
       val excludedNames = Seq("WithStringId")
 

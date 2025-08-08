@@ -1,5 +1,6 @@
 package kpn.tools.code
 
+import kpn.tools.code.codecs.Codecs
 import kpn.tools.code.domain.ClassField
 import kpn.tools.code.domain.ClassInfo
 import kpn.tools.code.domain.ClassType
@@ -15,7 +16,6 @@ object CodecWriter {
 }
 
 class CodecWriter {
-  private val OutputDir = "src/main/scala/kpn/tools/code/codecs/generated"
 
   def write(classInfo: ClassInfo): Unit = {
 
@@ -38,7 +38,7 @@ class CodecWriter {
   }
 
   private def createOutputFile(classInfo: ClassInfo): File = {
-    val file = new File(s"$OutputDir/${classInfo.className}Codec.scala")
+    val file = new File(s"${Codecs.OutputDir}/${classInfo.className}Codec.scala")
     file.getParentFile.mkdirs()
     file
   }
