@@ -71,7 +71,7 @@ class ScalaCaseClassReader {
         val importLines = cleanedLines.filter(_.startsWith("import "))
 
         val importMap = importLines.map { line =>
-          val pattern = """import ([a-zA-Z0-9.]*\.[a-zA-Z0-9]*)\.([a-zA-Z0-9]*)""".r
+          val pattern = """import ([a-zA-Z0-9.]*)\.([a-zA-Z0-9]*)""".r
           pattern.findFirstMatchIn(line) match {
             case Some(m) => m.group(2) -> m.group(1)
             case None => throw new RuntimeException(s"cannot parse import line: $line in $filename")
@@ -87,6 +87,7 @@ class ScalaCaseClassReader {
         val content = classLines.mkString.takeWhile(_ != '{')
 
         val caseClassPattern = """case class (\w+)\((.*?)\)""".r
+        val enumPattern = """sealed trait (\w+) extends EnumEntry""".r
         val fieldPattern = """\s*(\w+)\s*:\s*([\w\[\]\.]+)""".r
 
         caseClassPattern.findFirstMatchIn(content) match {
@@ -101,7 +102,13 @@ class ScalaCaseClassReader {
             }.toSeq
             ClassInfo(className, packageName, fields)
           case None =>
-            throw new IllegalStateException(s"could not parse case class $filename")
+            enumPattern.findFirstMatchIn(content) match {
+              case Some(m) =>
+                val className = m.group(1)
+                ClassInfo(className, packageName, Seq.empty, isEnum = true)
+              case None =>
+                throw new IllegalStateException(s"could not parse case class $filename")
+            }
         }
       } finally {
         source.close()
@@ -125,6 +132,7 @@ class ScalaCaseClassReader {
       case SetSignature(type1) =>
         val typescriptType1 = fieldTypeToTypescript(classId, importMap, type1, optional)
         ClassType(
+          arrayTypeClass = Some("Set"),
           arrayType = Some(typescriptType1),
           optional = optional
         )
@@ -132,6 +140,7 @@ class ScalaCaseClassReader {
       case SeqSignature(type1) =>
         val typescriptType1 = fieldTypeToTypescript(classId, importMap, type1, optional)
         ClassType(
+          arrayTypeClass = Some("Seq"),
           arrayType = Some(typescriptType1),
           optional = optional
         )
@@ -139,6 +148,7 @@ class ScalaCaseClassReader {
       case VectorSignature(type1) =>
         val typescriptType1 = fieldTypeToTypescript(classId, importMap, type1, optional)
         ClassType(
+          arrayTypeClass = Some("Vector"),
           arrayType = Some(typescriptType1),
           optional = optional
         )
@@ -146,6 +156,7 @@ class ScalaCaseClassReader {
       case ArraySignature(type1) =>
         val typescriptType1 = fieldTypeToTypescript(classId, importMap, type1, optional)
         ClassType(
+          arrayTypeClass = Some("Array"),
           arrayType = Some(typescriptType1),
           optional = optional
         )

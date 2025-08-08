@@ -94,7 +94,7 @@ class CodecWriter {
     out.skipLine()
     classTypes.foreach { typeName =>
       val codecName = codecVariableName(typeName)
-      out.println(s"  private val $codecName = registry.get(classOf[${typeName}])")
+      out.println(s"  private val $codecName = registry.get(classOf[$typeName])")
     }
   }
 
@@ -103,19 +103,24 @@ class CodecWriter {
     out.skipLine()
     out.indent {
 
-      out.println("override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): RawNode = {")
+      out.println(s"override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): ${classInfo.className} = {")
       out.indent {
 
-        out.println("bsonReader.readStartDocument()")
-        out.skipLine()
+        if (classInfo.isEnum) {
+          out.println(s"${classInfo.className}.withName(bsonReader.readString())")
+        }
+        else {
+          out.println("bsonReader.readStartDocument()")
+          out.skipLine()
 
-        writeDecodeMethodVariableDeclarations(out, classInfo)
-        writeDecodeMethodFields(out, classInfo)
+          writeDecodeMethodVariableDeclarations(out, classInfo)
+          writeDecodeMethodFields(out, classInfo)
 
-        out.skipLine()
-        out.println("bsonReader.readEndDocument()")
-        out.skipLine()
-        writeDecodeMethodClassInstanciation(out, classInfo)
+          out.skipLine()
+          out.println("bsonReader.readEndDocument()")
+          out.skipLine()
+          writeDecodeMethodClassInstanciation(out, classInfo)
+        }
       }
       out.println("}")
     }
@@ -166,7 +171,12 @@ class CodecWriter {
   private def writeDecodeMethodFieldDecode(out: IndentingPrintStream, field: ClassField, typeName: String): Unit = {
     val codecName = codecVariableName(typeName)
     val lowercaseTypeName = s"${typeName.head.toLower}${typeName.tail}"
-    out.println(s"${field.name} = $codecName.decode(bsonReader, decoderContext)")
+    if (field.classType.optional) {
+      out.println(s"${field.name} = Some($codecName.decode(bsonReader, decoderContext))")
+    }
+    else {
+      out.println(s"${field.name} = $codecName.decode(bsonReader, decoderContext)")
+    }
   }
 
   private def writeDecodeMethodArrayField(out: IndentingPrintStream, field: ClassField, typeName: String): Unit = {
@@ -179,7 +189,14 @@ class CodecWriter {
     }
     out.println(s"}")
     out.println(s"bsonReader.readEndArray()")
-    out.println(s"${field.name} = valueBuffer.toSeq")
+    val value = s"valueBuffer.to${field.classType.arrayTypeClass.get}"
+    val optionValue = if (field.classType.optional) {
+      s"Some($value)"
+    }
+    else {
+      value
+    }
+    out.println(s"${field.name} = $optionValue")
   }
 
   private def writeDecodeMethodClassInstanciation(out: IndentingPrintStream, classInfo: ClassInfo): Unit = {
@@ -205,10 +222,15 @@ class CodecWriter {
     out.indent {
       out.println(s"override def encode(bsonWriter: BsonWriter, value: ${classInfo.className}, encoderContext: EncoderContext): Unit = {")
       out.indent {
-        out.println("bsonWriter.writeStartDocument()")
-        writeEncodeMethodFields(out, classInfo)
-        out.skipLine()
-        out.println("bsonWriter.writeEndDocument()")
+        if (classInfo.isEnum) {
+          out.println("bsonWriter.writeString(value.entryName)")
+        }
+        else {
+          out.println("bsonWriter.writeStartDocument()")
+          writeEncodeMethodFields(out, classInfo)
+          out.skipLine()
+          out.println("bsonWriter.writeEndDocument()")
+        }
       }
       out.println("}")
     }
@@ -217,35 +239,60 @@ class CodecWriter {
   private def writeEncodeMethodFields(out: IndentingPrintStream, classInfo: ClassInfo): Unit = {
     classInfo.fields.foreach { field =>
       out.skipLine()
-      out.println(s"bsonWriter.writeName(\"${field.name}\")")
-
-      field.classType.arrayType match {
-        case Some(arrayType) =>
-
-          arrayType.typeName match {
-            case Some(typeName) =>
-              writeEncodeMethodArrayField(out, field, typeName)
-
-            case None =>
-              out.println(s"Codecs.log.warn(\"${field.name} is of unknown type\")")
-          }
-
-        case None =>
-          field.classType.typeName match {
-            case Some(typeName) =>
-              val codecName = codecVariableName(typeName)
-              out.println(s"$codecName.encode(bsonWriter, value.${field.name}, encoderContext)")
-            case None =>
-              out.println(s"Codecs.log.warn(\"${field.name} is of unknown type\")")
-          }
+      if (field.classType.optional) {
+        out.println(s"if (value.${field.name}.isDefined) {")
+        out.indent {
+          writeEncodeMethodField(out, field)
+        }
+        out.println("}")
       }
+      else {
+        writeEncodeMethodField(out, field)
+      }
+    }
+  }
+
+  private def writeEncodeMethodField(out: IndentingPrintStream, field: ClassField): Unit = {
+    out.println(s"bsonWriter.writeName(\"${field.name}\")")
+
+    field.classType.arrayType match {
+      case Some(arrayType) =>
+
+        arrayType.typeName match {
+          case Some(typeName) =>
+            writeEncodeMethodArrayField(out, field, typeName)
+
+          case None =>
+            out.println(s"Codecs.log.warn(\"${field.name} is of unknown type\")")
+        }
+
+      case None =>
+        field.classType.typeName match {
+          case Some(typeName) =>
+            val codecName = codecVariableName(typeName)
+            val value = if (field.classType.optional) {
+              s"value.${field.name}.get"
+            }
+            else {
+              s"value.${field.name}"
+            }
+            out.println(s"$codecName.encode(bsonWriter, $value, encoderContext)")
+          case None =>
+            out.println(s"Codecs.log.warn(\"${field.name} is of unknown type\")")
+        }
     }
   }
 
   private def writeEncodeMethodArrayField(out: IndentingPrintStream, field: ClassField, typeName: String): Unit = {
     val codecName = codecVariableName(typeName)
     out.println(s"bsonWriter.writeStartArray()")
-    out.println(s"value.${field.name}.foreach(v => $codecName.encode(bsonWriter, v, encoderContext))")
+    val value = if (field.classType.optional) {
+      s"value.${field.name}.get"
+    }
+    else {
+      s"value.${field.name}"
+    }
+    out.println(s"$value.foreach(v => $codecName.encode(bsonWriter, v, encoderContext))")
     out.println(s"bsonWriter.writeEndArray()")
   }
 
@@ -265,6 +312,22 @@ class CodecWriter {
   }
 
   private def defaultValueForType(classType: ClassType): String = {
-    if (classType.typeName.contains("Long")) "0" else "null"
+    if (classType.optional) {
+      "None"
+    }
+    else if (classType.typeName.contains("Long")) {
+      "0"
+    }
+    else if (classType.typeName.contains("Int")) {
+      "0"
+    }
+    else if (classType.typeName.contains("Double")) {
+      "0"
+    }
+    else if (classType.typeName.contains("Boolean")) {
+      "false"
+    } else {
+      "null"
+    }
   }
 }

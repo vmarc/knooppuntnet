@@ -7,7 +7,7 @@ import org.bson.codecs.Codec
 import org.bson.codecs.configuration.CodecProvider
 import org.bson.codecs.configuration.CodecRegistry
 
-class KpnCodecProvider extends CodecProvider {
+class _Provider extends CodecProvider {
   override def get[T](aClass: Class[T], codecRegistry: CodecRegistry): Codec[T] = {
     if (aClass == classOf[Long]) {
       return new ScalaLongCodec(codecRegistry).asInstanceOf[Codec[T]]

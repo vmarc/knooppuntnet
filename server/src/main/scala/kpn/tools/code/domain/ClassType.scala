@@ -5,6 +5,7 @@ case class ClassType(
   packageName: Option[String] = None,
   primitive: Boolean = false,
   arrayType: Option[ClassType] = None,
+  arrayTypeClass: Option[String] = None,
   mapTypes: Option[(ClassType, ClassType)] = None,
   optional: Boolean = false
 ) {

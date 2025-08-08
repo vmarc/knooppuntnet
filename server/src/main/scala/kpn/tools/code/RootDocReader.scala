@@ -2,6 +2,7 @@ package kpn.tools.code
 
 import kpn.tools.code.domain.ClassInfo
 
+import scala.collection.mutable
 import scala.io.Source
 
 object RootDocReader {
@@ -11,27 +12,27 @@ object RootDocReader {
     val rootClassIds = readClassIds()
     val rootClassInfos = rootClassIds.map(classId => scalaCaseClassReader.read(classId))
 
-    println(rootClassInfos)
-
-    val found = rootClassInfos.map(classInfo => classInfo.key -> classInfo).toMap
+    val found = mutable.Map(rootClassInfos.map(classInfo => classInfo.key -> classInfo): _*)
 
     val all = rootClassInfos.flatMap { classInfo =>
       collectDependencies(found, classInfo)
     }
 
-    all.foreach(classInfo =>
-      println(classInfo.className)
-    )
+    val codecWriter = new CodecWriter()
+    found.foreach { case (name, classInfo) =>
+      println(s"==> ${classInfo.className}")
+      codecWriter.write(classInfo)
+    }
   }
 
-  private def collectDependencies(found: Map[String, ClassInfo], info: ClassInfo): Seq[ClassInfo] = {
+  private def collectDependencies(found: mutable.Map[String, ClassInfo], info: ClassInfo): Seq[ClassInfo] = {
     println(info.className)
-    val missingClassIds = info.dependencies.filter(classId => !found.contains(classId.key))
+    val missingClassIds = info.dependencies.filter(classId => !found.contains(classId.key)).filterNot(_.className == "Member")
     val classInfos = missingClassIds.map(classId => scalaCaseClassReader.read(classId))
-    val newFound = found ++ classInfos.map(classInfo => classInfo.key -> classInfo).toMap
+    found.addAll(classInfos.map(classInfo => classInfo.key -> classInfo))
     classInfos.flatMap { classInfo =>
       println(s"  ${classInfo.className}")
-      collectDependencies(newFound, classInfo)
+      collectDependencies(found, classInfo)
     }
   }
 
