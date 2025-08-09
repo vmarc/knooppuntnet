@@ -9,8 +9,6 @@ import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo
 
-case class RouteColourTagValue(_id: Long, colour: String)
-
 object FindUnsupportedColours {
 
   def main(args: Array[String]): Unit = {

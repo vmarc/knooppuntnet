@@ -18,16 +18,6 @@ import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.repository.GraphEdges
 
-case class RouteGraphEdge(
-  routeType: RouteType,
-  proposed: Boolean,
-  _id: Long,
-  pathId: Long,
-  sourceNodeId: Long,
-  sinkNodeId: Long,
-  meters: Long
-)
-
 object MongoQueryGraphEdges {
   private val log = Log(classOf[MongoQueryGraphEdges])
 

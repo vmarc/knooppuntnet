@@ -27,7 +27,7 @@ class MongoQueryRouteCountry(database: Database) {
   def execute(routeId: Long): Option[Country] = {
     log.debugElapsed {
       val pipeline = buildPipeline(routeId)
-      val country = database.baseNetworks.optionAggregate[CountryResult](pipeline, classOf[CountryResult], log).map(_.country)
+      val country = database.baseNetworks.optionAggregate(pipeline, classOf[CountryResult], log).map(_.country)
       (s"route $routeId country: $country", country)
     }
   }

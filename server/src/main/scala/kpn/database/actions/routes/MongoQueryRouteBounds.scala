@@ -19,8 +19,6 @@ object MongoQueryRouteBounds {
   private val log = Log(classOf[MongoQueryRouteBounds])
 }
 
-case class BoundsResult(bounds: Bounds)
-
 class MongoQueryRouteBounds(database: Database) {
 
   def execute(routeIds: Seq[Long], log: Log = MongoQueryRouteBounds.log): Option[Bounds] = {

@@ -18,8 +18,6 @@ import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import org.mongodb.scala.bson.BsonDocument
 
-case class Period(year: Option[Long], month: Option[Long], day: Option[Long], count: Long)
-
 case class TestDoc(
   _id: String,
   timestamp: Timestamp2

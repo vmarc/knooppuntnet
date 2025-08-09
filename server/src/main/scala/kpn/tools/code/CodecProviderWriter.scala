@@ -72,12 +72,6 @@ class CodecProviderWriter {
 
   private def writeCodecs(out: IndentingPrintStream, classInfos: Seq[ClassInfo]): Unit = {
     out.skipLine()
-    out.println(s"if (aClass == classOf[Long]) {")
-    out.indent {
-      out.println(s"return new ScalaLongCodec(codecRegistry).asInstanceOf[Codec[T]]")
-    }
-    out.println(s"}")
-    out.skipLine()
     classInfos.foreach { classInfo =>
       out.println(s"if (aClass == classOf[${classInfo.className}]) {")
       out.indent {

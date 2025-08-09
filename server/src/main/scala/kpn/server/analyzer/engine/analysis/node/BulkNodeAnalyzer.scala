@@ -36,7 +36,8 @@ class BulkNodeAnalyzer(
         Log.context(s"${baseNodeDoc._id}") {
           log.info(s"Analyzing node ${baseNodeDoc._id}")
           nodeMainAnalyzer.analyze(baseNodeDoc) match {
-            case Some(nodeDoc) => Some(nodeDoc)
+            case Some(nodeDoc) =>
+              Some(nodeDoc)
             case None =>
               log.error(s"Could not analyze node ${baseNodeDoc._id}")
               None

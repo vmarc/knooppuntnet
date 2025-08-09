@@ -5,20 +5,20 @@ import org.bson.BsonWriter
 import org.bson.codecs.Codec
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
-import org.bson.codecs.configuration.CodecRegistry
+import org.bson.codecs.LongCodec
 
-class ScalaLongCodec(registry: CodecRegistry) extends Codec[Long] {
-  private val stringCodec = registry.get(classOf[String])
+class ScalaLongCodec extends Codec[java.lang.Long] {
+  private val longCodec = new LongCodec()
 
-  override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): Long = {
-    bsonReader.readInt64()
+  override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): java.lang.Long = {
+    longCodec.decode(bsonReader, decoderContext)
   }
 
-  override def encode(bsonWriter: BsonWriter, value: Long, encoderContext: EncoderContext): Unit = {
-    bsonWriter.writeInt64(value)
+  override def encode(bsonWriter: BsonWriter, value: java.lang.Long, encoderContext: EncoderContext): Unit = {
+    longCodec.encode(bsonWriter, value, encoderContext)
   }
 
-  override def getEncoderClass: Class[Long] = {
-    classOf[Long]
+  override def getEncoderClass: Class[java.lang.Long] = {
+    java.lang.Long.TYPE
   }
 }

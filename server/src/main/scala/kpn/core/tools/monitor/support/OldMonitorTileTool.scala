@@ -3,9 +3,10 @@ package kpn.core.tools.monitor.support
 import com.mongodb.client.model.Aggregates.limit
 import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Filters
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
-import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.core.tools.config.Dirs
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -24,8 +25,6 @@ import org.geotools.data.geojson.GeoJSONReader
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
-import com.mongodb.client.model.Filters.and
-import com.mongodb.client.model.Projections.excludeId
 
 import java.io.File
 
@@ -33,10 +32,6 @@ class OldMonitorTileToolConfig(val database: Database) {
   val routeRepository = new MonitorRouteRepositoryImpl(database)
   val relationRepository = new MonitorRelationRepositoryImpl(database)
 }
-
-case class OsmSegments(
-  osmSegments: Seq[MonitorRouteSegment],
-)
 
 case class TileRelationSegment(
   worldCoordinates: Seq[Coordinate]

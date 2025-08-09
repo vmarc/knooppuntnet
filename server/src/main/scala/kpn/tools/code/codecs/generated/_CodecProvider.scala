@@ -17,6 +17,7 @@ import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
 import kpn.api.common.FeatureLayer
 import kpn.api.common.LatLonImpl
+import kpn.api.common.LocationChangeSet
 import kpn.api.common.LocationChanges
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkFact
@@ -36,6 +37,8 @@ import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.changes.filter.ServerFilterGroup
+import kpn.api.common.changes.filter.ServerFilterOption
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
 import kpn.api.common.common.User
@@ -63,16 +66,23 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
 import kpn.api.common.diff.route.RouteNodeDiff
 import kpn.api.common.diff.route.RouteRoleDiff
+import kpn.api.common.location.Ids
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
+import kpn.api.common.location.LocationFact
 import kpn.api.common.monitor.MonitorReferenceType
+import kpn.api.common.monitor.MonitorRouteDetail
 import kpn.api.common.monitor.MonitorRouteDeviation
+import kpn.api.common.monitor.MonitorRouteDeviationInfo
+import kpn.api.common.monitor.MonitorRouteRelationInfo
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkDetail
 import kpn.api.common.network.NetworkSummary
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
+import kpn.api.common.poi.LocationPoiInfo
+import kpn.api.common.poi.LocationPoiLayerCount
 import kpn.api.common.poi.Poi
 import kpn.api.common.route.BaseRouteSegment
 import kpn.api.common.route.GeometryDiff
@@ -80,6 +90,7 @@ import kpn.api.common.route.Link
 import kpn.api.common.route.LinkDirection
 import kpn.api.common.route.ParentRoute
 import kpn.api.common.route.RouteEdge
+import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.RouteNode
@@ -91,6 +102,11 @@ import kpn.api.common.route.RouteStructureRelation
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.RouteStructureWay
 import kpn.api.common.route.WayDirection
+import kpn.api.common.search.RouteSearchResult
+import kpn.api.common.statistics.StatisticValue
+import kpn.api.common.status.ActionTimestamp
+import kpn.api.common.subset.NetworkFactRefs
+import kpn.api.common.subset.SubsetMapNetwork
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
 import kpn.api.custom.Subset
@@ -102,13 +118,16 @@ import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.doc.ChangeSetComment
+import kpn.core.doc.LocationNodeCount
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkRouteDetail
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
+import kpn.core.doc.NodeRouteRef
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
+import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RawNetworkDoc
 import kpn.core.doc.RawNodeDoc
 import kpn.core.doc.RawRouteDoc
@@ -119,16 +138,52 @@ import kpn.core.doc.SuperSegment
 import kpn.core.doc.SuperSubSegment
 import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.doc.Task
+import kpn.core.metrics.ApiAction
+import kpn.core.metrics.ApiActionDoc
+import kpn.core.poi.PoiInfo
+import kpn.core.tools.monitor.support.OsmSegments
+import kpn.core.tools.next.support.MembersDoc
+import kpn.core.tools.next.support.TagCount
+import kpn.core.tools.support.NodeImageTag
+import kpn.core.tools.support.SpecialNode
+import kpn.core.tools.support.location.RouteWithoutLocation
+import kpn.database.actions.graph.RouteGraphEdge
+import kpn.database.actions.locations.LocationNodeInfoDoc
+import kpn.database.actions.locations.LocationQueryResult
+import kpn.database.actions.locations.LocationRouteInfoData
+import kpn.database.actions.locations.NodeFilterOptionQueryResult
+import kpn.database.actions.locations.RouteFilterOptionQueryResult
+import kpn.database.actions.monitor.MonitorGroupRouteInfoData
+import kpn.database.actions.routes.BoundsResult
+import kpn.database.actions.routes.SearchQueryResult
+import kpn.database.actions.statistics.ChangeSetCount
+import kpn.database.actions.statistics.ChangeSetCount2
+import kpn.database.actions.statistics.ChangeSetCounts
+import kpn.database.actions.statistics.ChangeSetRef
 import kpn.database.actions.statistics.StatisticLongValue
 import kpn.database.actions.statistics.StatisticLongValues
+import kpn.database.base.CountResult
+import kpn.database.base.CountryResult
+import kpn.database.base.Id
+import kpn.database.base.NameRow
+import kpn.database.base.ObjectIdId
+import kpn.database.base.StringId
+import kpn.database.tools.NodeWithLongName
+import kpn.database.tools.Period
+import kpn.database.tools.RouteColourTagValue
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
+import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.data.BlacklistEntry
 import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
+import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorGroupRouteCount
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorReferenceTile
+import kpn.server.monitor.domain.MonitorReferenceTileInfo
 import kpn.server.monitor.domain.MonitorRelation
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
@@ -139,7 +194,17 @@ import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.MonitorStateTileDeviation
 import kpn.server.monitor.domain.MonitorTask
 import kpn.server.monitor.domain.OldMonitorReference
+import kpn.server.monitor.repository.MonitorReferenceId
+import kpn.server.monitor.repository.MonitorRouteCount
+import kpn.server.monitor.repository.MonitorStateDeviationInfo
+import kpn.server.monitor.repository.MonitorStateId
+import kpn.server.monitor.repository.MonitorStateSummary
+import kpn.server.monitor.repository.MonitorTileData
+import kpn.server.repository.NetworkElement
+import kpn.server.repository.NetworkFactElementIds
+import kpn.server.sync.StampDoc
 import kpn.server.sync.Transaction
+import kpn.tools.code.ClassId
 import kpn.tools.code.codecs.DayCodec
 import kpn.tools.code.codecs.RelationCodec
 import kpn.tools.code.codecs.ScalaLongCodec
@@ -152,12 +217,17 @@ import org.bson.codecs.configuration.CodecRegistry
 class _CodecProvider extends CodecProvider {
   override def get[T](aClass: Class[T], codecRegistry: CodecRegistry): Codec[T] = {
 
-    if (aClass == classOf[Long]) {
-      return new ScalaLongCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[RouteSearchResult]) {
+      return new RouteSearchResultCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-
     if (aClass == classOf[RouteNetworkNodeInfo]) {
       return new RouteNetworkNodeInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[OsmSegments]) {
+      return new OsmSegmentsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LocationNodeCount]) {
+      return new LocationNodeCountCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[Fact]) {
       return new FactCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -165,47 +235,38 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[Relation]) {
       return new RelationCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[RawRouteDoc]) {
-      return new RawRouteDocCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[RouteTileSegment]) {
       return new RouteTileSegmentCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[RouteType]) {
-      return new RouteTypeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[NodeWithLongName]) {
+      return new NodeWithLongNameCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ServerFilterGroup]) {
+      return new ServerFilterGroupCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[MonitorRouteChangeGeometry]) {
       return new MonitorRouteChangeGeometryCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[RouteChange]) {
-      return new RouteChangeCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[RouteInfoAnalysis]) {
-      return new RouteInfoAnalysisCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[MonitorReferenceTile]) {
-      return new MonitorReferenceTileCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[MonitorRouteDetail]) {
+      return new MonitorRouteDetailCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[RouteNameDiff]) {
       return new RouteNameDiffCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[Bounds]) {
-      return new BoundsCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[Poi]) {
       return new PoiCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[MonitorStateTile]) {
-      return new MonitorStateTileCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[RefDiffs]) {
       return new RefDiffsCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[Location]) {
-      return new LocationCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[RouteWithoutLocation]) {
+      return new RouteWithoutLocationCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[RouteTileInfo]) {
-      return new RouteTileInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[PoiInfo]) {
+      return new PoiInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[TileId]) {
+      return new TileIdCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[GeometryDiff]) {
       return new GeometryDiffCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -213,11 +274,8 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[RouteRoleDiff]) {
       return new RouteRoleDiffCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[SuperSubSegment]) {
-      return new SuperSubSegmentCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[RawNetworkDoc]) {
-      return new RawNetworkDocCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[LocationRouteInfoData]) {
+      return new LocationRouteInfoDataCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[ChangeKey]) {
       return new ChangeKeyCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -225,20 +283,8 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[StatisticLongValue]) {
       return new StatisticLongValueCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[Check]) {
-      return new CheckCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[RouteMemberInfo]) {
-      return new RouteMemberInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[Country]) {
-      return new CountryCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[RouteNodeChange]) {
       return new RouteNodeChangeCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[RouteNodeDiff]) {
-      return new RouteNodeDiffCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[Node]) {
       return new NodeCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -249,12 +295,6 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[ChangeSetSummary]) {
       return new ChangeSetSummaryCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[WayUpdate]) {
-      return new WayUpdateCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[FeatureLayer]) {
-      return new FeatureLayerCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[BaseRouteSegmentElement]) {
       return new BaseRouteSegmentElementCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
@@ -264,14 +304,284 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[ChangeSetNetwork]) {
       return new ChangeSetNetworkCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[NodeName]) {
+      return new NodeNameCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ChangeSetCounts]) {
+      return new ChangeSetCountsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteStructureRow]) {
+      return new RouteStructureRowCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteDoc]) {
+      return new RouteDocCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[SubsetMapNetwork]) {
+      return new SubsetMapNetworkCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MemberType]) {
+      return new MemberTypeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ChangeType]) {
+      return new ChangeTypeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[FactDiffs]) {
+      return new FactDiffsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[TagDiff]) {
+      return new TagDiffCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[PoiState]) {
+      return new PoiStateCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NameRow]) {
+      return new NameRowCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RawMember]) {
+      return new RawMemberCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NetworkFact]) {
+      return new NetworkFactCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MonitorRouteChange]) {
+      return new MonitorRouteChangeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NetworkChange]) {
+      return new NetworkChangeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteSegment]) {
+      return new RouteSegmentCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ObjectIdId]) {
+      return new ObjectIdIdCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Link]) {
+      return new LinkCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[CountResult]) {
+      return new CountResultCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ChangeSetRef]) {
+      return new ChangeSetRefCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteScope]) {
+      return new RouteScopeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MonitorGroupRouteInfoData]) {
+      return new MonitorGroupRouteInfoDataCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NodeChange]) {
+      return new NodeChangeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteRelation]) {
+      return new RouteRelationCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[StatisticValue]) {
+      return new StatisticValueCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ChangeSetCount2]) {
+      return new ChangeSetCount2Codec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ChangeSetInfo]) {
+      return new ChangeSetInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[IdDiffs]) {
+      return new IdDiffsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ParentRouteData]) {
+      return new ParentRouteDataCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[BlacklistEntry]) {
+      return new BlacklistEntryCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Task]) {
+      return new TaskCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ActionTimestamp]) {
+      return new ActionTimestampCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[WayDirection]) {
+      return new WayDirectionCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ChangeSetSubsetElementRefs]) {
+      return new ChangeSetSubsetElementRefsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MonitorReference]) {
+      return new MonitorReferenceCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NetworkDataUpdate]) {
+      return new NetworkDataUpdateCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NetworkSummary]) {
+      return new NetworkSummaryCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ChangeSetElementRef]) {
+      return new ChangeSetElementRefCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Integrity]) {
+      return new IntegrityCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[BaseNodeDoc]) {
+      return new BaseNodeDocCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LocationPoiLayerCount]) {
+      return new LocationPoiLayerCountCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ElementIds]) {
+      return new ElementIdsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LinkDirection]) {
+      return new LinkDirectionCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LocationChanges]) {
+      return new LocationChangesCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ApiAction]) {
+      return new ApiActionCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Ref]) {
+      return new RefCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LocationCandidate]) {
+      return new LocationCandidateCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[OldMonitorReference]) {
+      return new OldMonitorReferenceCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[OrphanRouteDoc]) {
+      return new OrphanRouteDocCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NetworkDetail]) {
+      return new NetworkDetailCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteSummary]) {
+      return new RouteSummaryCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Day]) {
+      return new DayCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MonitorRouteRelationInfo]) {
+      return new MonitorRouteRelationInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MonitorReferenceId]) {
+      return new MonitorReferenceIdCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Tag]) {
+      return new TagCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MonitorState]) {
+      return new MonitorStateCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteDiff]) {
+      return new RouteDiffCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[TimeKey]) {
+      return new TimeKeyCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MonitorGroupRouteCount]) {
+      return new MonitorGroupRouteCountCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MonitorRouteDeviation]) {
+      return new MonitorRouteDeviationCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LocationChangeSet]) {
+      return new LocationChangeSetCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteStructureRelation]) {
+      return new RouteStructureRelationCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteNodes]) {
+      return new RouteNodesCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ParentRoute]) {
+      return new ParentRouteCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[CountryResult]) {
+      return new CountryResultCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RawRouteDoc]) {
+      return new RawRouteDocCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteType]) {
+      return new RouteTypeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MonitorReferenceTileInfo]) {
+      return new MonitorReferenceTileInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteChange]) {
+      return new RouteChangeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteInfoAnalysis]) {
+      return new RouteInfoAnalysisCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MonitorReferenceTile]) {
+      return new MonitorReferenceTileCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Bounds]) {
+      return new BoundsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MonitorStateTile]) {
+      return new MonitorStateTileCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[TagCount]) {
+      return new TagCountCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Location]) {
+      return new LocationCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MonitorStateDeviationInfo]) {
+      return new MonitorStateDeviationInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteTileInfo]) {
+      return new RouteTileInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[StampDoc]) {
+      return new StampDocCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[SuperSubSegment]) {
+      return new SuperSubSegmentCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RawNetworkDoc]) {
+      return new RawNetworkDocCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteColourTagValue]) {
+      return new RouteColourTagValueCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Check]) {
+      return new CheckCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteMemberInfo]) {
+      return new RouteMemberInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Country]) {
+      return new CountryCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Id]) {
+      return new IdCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteNodeDiff]) {
+      return new RouteNodeDiffCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[StringId]) {
+      return new StringIdCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NetworkFactElementIds]) {
+      return new NetworkFactElementIdsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[WayUpdate]) {
+      return new WayUpdateCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[FeatureLayer]) {
+      return new FeatureLayerCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[MonitorRelation]) {
       return new MonitorRelationCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[RouteInfo]) {
+      return new RouteInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[RouteLocationAnalysis]) {
       return new RouteLocationAnalysisCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[NodeName]) {
-      return new NodeNameCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[SuperSubSegmentInfo]) {
       return new SuperSubSegmentInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -288,17 +598,11 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[MonitorRoute]) {
       return new MonitorRouteCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[RouteStructureRow]) {
-      return new RouteStructureRowCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[RouteDoc]) {
-      return new RouteDocCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[BaseRouteSegment]) {
       return new BaseRouteSegmentCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[MemberType]) {
-      return new MemberTypeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[NodeTileInfo]) {
+      return new NodeTileInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[MetaData]) {
       return new MetaDataCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -306,8 +610,8 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[NetworkData]) {
       return new NetworkDataCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[ChangeType]) {
-      return new ChangeTypeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[NetworkElement]) {
+      return new NetworkElementCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[MonitorStateTileDeviation]) {
       return new MonitorStateTileDeviationCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -318,9 +622,6 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[Transaction]) {
       return new TransactionCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[FactDiffs]) {
-      return new FactDiffsCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[NetworkDoc]) {
       return new NetworkDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
@@ -330,44 +631,35 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[SuperSegment]) {
       return new SuperSegmentCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[LocationPoiInfo]) {
+      return new LocationPoiInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[MonitorSegment]) {
       return new MonitorSegmentCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[ChangeSetSubsetAnalysis]) {
       return new ChangeSetSubsetAnalysisCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[TagDiff]) {
-      return new TagDiffCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[NodeDoc]) {
       return new NodeDocCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[PoiState]) {
-      return new PoiStateCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[MonitorRouteSegment]) {
       return new MonitorRouteSegmentCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[RawMember]) {
-      return new RawMemberCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[NetworkFact]) {
-      return new NetworkFactCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[MonitorRouteChange]) {
-      return new MonitorRouteChangeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[MembersDoc]) {
+      return new MembersDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[Reference]) {
       return new ReferenceCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[NetworkChange]) {
-      return new NetworkChangeCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[RouteNode]) {
       return new RouteNodeCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[RouteSegment]) {
-      return new RouteSegmentCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[SearchQueryResult]) {
+      return new SearchQueryResultCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteFilterOptionQueryResult]) {
+      return new RouteFilterOptionQueryResultCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[WayDiffsInfo]) {
       return new WayDiffsInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -375,35 +667,17 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[NetworkRouteDetail]) {
       return new NetworkRouteDetailCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[Link]) {
-      return new LinkCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[RouteScope]) {
-      return new RouteScopeCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[ObjectId]) {
       return new ObjectIdCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[NodeIntegrityDetail]) {
       return new NodeIntegrityDetailCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[NodeChange]) {
-      return new NodeChangeCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[RouteRelation]) {
-      return new RouteRelationCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[BaseRoutePath]) {
       return new BaseRoutePathCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[ChangeSetInfo]) {
-      return new ChangeSetInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[RouteNetworkRef]) {
       return new RouteNetworkRefCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[IdDiffs]) {
-      return new IdDiffsCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[StatisticLongValues]) {
       return new StatisticLongValuesCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -411,8 +685,14 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[MonitorReferenceType]) {
       return new MonitorReferenceTypeCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[BlacklistEntry]) {
-      return new BlacklistEntryCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[SpecialNode]) {
+      return new SpecialNodeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ChangeSetCount]) {
+      return new ChangeSetCountCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LocationQueryResult]) {
+      return new LocationQueryResultCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[RoutePath]) {
       return new RoutePathCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -420,14 +700,17 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[BaseRouteDoc]) {
       return new BaseRouteDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[MonitorTileData]) {
+      return new MonitorTileDataCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[NodeNetworkRef]) {
       return new NodeNetworkRefCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[Task]) {
-      return new TaskCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[BoundsResult]) {
+      return new BoundsResultCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[WayDirection]) {
-      return new WayDirectionCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[LocationFact]) {
+      return new LocationFactCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[NodeUpdate]) {
       return new NodeUpdateCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -435,8 +718,8 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[NodeMoved]) {
       return new NodeMovedCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[ChangeSetSubsetElementRefs]) {
-      return new ChangeSetSubsetElementRefsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[ReferencedElementIds]) {
+      return new ReferencedElementIdsCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[ElementChangeType]) {
       return new ElementChangeTypeCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -444,26 +727,32 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[MonitorGroup]) {
       return new MonitorGroupCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[MonitorRouteCount]) {
+      return new MonitorRouteCountCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[Timestamp]) {
       return new TimestampCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NodeFilterOptionQueryResult]) {
+      return new NodeFilterOptionQueryResultCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[BaseNetworkDoc]) {
       return new BaseNetworkDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[MonitorReference]) {
-      return new MonitorReferenceCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[Period]) {
+      return new PeriodCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[NetworkDataUpdate]) {
-      return new NetworkDataUpdateCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[RouteGraphEdge]) {
+      return new RouteGraphEdgeCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[NetworkSummary]) {
-      return new NetworkSummaryCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[NodeRouteRef]) {
+      return new NodeRouteRefCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[Subset]) {
       return new SubsetCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[ChangeSetElementRef]) {
-      return new ChangeSetElementRefCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[MonitorStateSummary]) {
+      return new MonitorStateSummaryCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[LatLonImpl]) {
       return new LatLonImplCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -471,17 +760,17 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[Blacklist]) {
       return new BlacklistCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[Integrity]) {
-      return new IntegrityCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[NetworkChanges]) {
       return new NetworkChangesCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[BaseNodeDoc]) {
-      return new BaseNodeDocCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[Ids]) {
+      return new IdsCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[TagDiffType]) {
       return new TagDiffTypeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ApiActionDoc]) {
+      return new ApiActionDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[RefBooleanChange]) {
       return new RefBooleanChangeCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -489,44 +778,23 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[RawRelation]) {
       return new RawRelationCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[ElementIds]) {
-      return new ElementIdsCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[LinkDirection]) {
-      return new LinkDirectionCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[LocationChanges]) {
-      return new LocationChangesCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[RawNode]) {
       return new RawNodeCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[Ref]) {
-      return new RefCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[LocationCandidate]) {
-      return new LocationCandidateCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[OldMonitorReference]) {
-      return new OldMonitorReferenceCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[OrphanRouteDoc]) {
-      return new OrphanRouteDocCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[NodeImageTag]) {
+      return new NodeImageTagCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[RouteData]) {
       return new RouteDataCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[NetworkDetail]) {
-      return new NetworkDetailCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[RouteSummary]) {
-      return new RouteSummaryCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[RawNodeDoc]) {
       return new RawNodeDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[Day]) {
-      return new DayCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[NetworkFactRefs]) {
+      return new NetworkFactRefsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MonitorStateId]) {
+      return new MonitorStateIdCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[NodeIntegrity]) {
       return new NodeIntegrityCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -534,41 +802,29 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[TagDiffs]) {
       return new TagDiffsCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[Tag]) {
-      return new TagCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[MonitorState]) {
-      return new MonitorStateCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[RouteDiff]) {
-      return new RouteDiffCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[OrphanNodeDoc]) {
       return new OrphanNodeDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[RouteMemberInfoWay]) {
       return new RouteMemberInfoWayCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[TimeKey]) {
-      return new TimeKeyCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[ChangeSetComment]) {
       return new ChangeSetCommentCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LocationNodeInfoDoc]) {
+      return new LocationNodeInfoDocCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ServerFilterOption]) {
+      return new ServerFilterOptionCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[MonitorTask]) {
       return new MonitorTaskCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[MonitorRouteDeviation]) {
-      return new MonitorRouteDeviationCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[ClassId]) {
+      return new ClassIdCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[RouteStructureRelation]) {
-      return new RouteStructureRelationCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[RouteNodes]) {
-      return new RouteNodesCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[ParentRoute]) {
-      return new ParentRouteCodec(codecRegistry).asInstanceOf[Codec[T]]
+    if (aClass == classOf[MonitorRouteDeviationInfo]) {
+      return new MonitorRouteDeviationInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     null
   }

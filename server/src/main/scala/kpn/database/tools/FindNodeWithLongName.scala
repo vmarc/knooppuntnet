@@ -11,8 +11,6 @@ import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 
-case class NodeWithLongName(id: Long, name: String, longName: String)
-
 object FindNodeWithLongName {
 
   def main(args: Array[String]): Unit = {

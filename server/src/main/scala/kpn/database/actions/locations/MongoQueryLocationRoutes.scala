@@ -15,17 +15,12 @@ import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.changes.filter.ServerFilterOption
-import kpn.api.common.data.Tagable
 import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRouteOptions
 import kpn.api.common.location.LocationRoutesParameters
-import kpn.api.custom.Day
-import kpn.api.custom.Tag
-import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.core.util.RouteSymbol
-import kpn.database.base.CountResult
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.ffacet
@@ -33,25 +28,6 @@ import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.conversions.Bson
-
-case class RouteFilterOptionQueryResult(
-  factsTotalRouteCount: Seq[CountResult],
-  facts: Seq[ServerFilterGroup],
-  proposed: Seq[ServerFilterGroup],
-  survey: Seq[ServerFilterGroup],
-  lastUpdated: Seq[ServerFilterGroup],
-)
-
-case class LocationRouteInfoData(
-  id: Long,
-  name: String,
-  meters: Long,
-  lastUpdated: Timestamp,
-  lastSurvey: Option[Day],
-  tags: Seq[Tag],
-  broken: Boolean,
-  inaccessible: Boolean
-) extends Tagable
 
 class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInfo) {
 

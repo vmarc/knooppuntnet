@@ -25,8 +25,6 @@ object FindNodesWithImagesTool {
   }
 }
 
-case class NodeImageTag(nodeId: Long, key: String, value: String)
-
 class FindNodesWithImagesTool(database: Database) {
 
   private val log = Log(classOf[FindSpecialNodesTool])

@@ -10,8 +10,6 @@ import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo
 
-case class TagCount(_id: String, count: Long)
-
 // report all values used for the "route" tag
 object RouteTagValuesTool {
   def main(args: Array[String]): Unit = {

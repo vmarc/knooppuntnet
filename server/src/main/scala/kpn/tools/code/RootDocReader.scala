@@ -11,7 +11,7 @@ object RootDocReader {
 
   def main(args: Array[String]): Unit = {
 
-    val rootClassIds = readClassIds() ++ Codecs.customCodecs
+    val rootClassIds = readClassIds() ++ Codecs.customCodecs ++ Codecs.extraCodecs
     val rootClassInfos = rootClassIds.map(classId => scalaCaseClassReader.read(classId))
 
     val found = mutable.Map(rootClassInfos.map(classInfo => classInfo.key -> classInfo): _*)

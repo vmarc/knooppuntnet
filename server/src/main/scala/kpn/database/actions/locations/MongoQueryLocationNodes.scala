@@ -33,21 +33,6 @@ import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.conversions.Bson
 
-case class NodeFilterOptionQueryResult(
-  factsTotalNodeCount: Seq[CountResult],
-  facts: Seq[ServerFilterGroup],
-  proposed: Seq[ServerFilterGroup],
-  survey: Seq[ServerFilterGroup],
-  lastUpdated: Seq[ServerFilterGroup],
-  integrityCheckCount: Seq[CountResult],
-  integrityCheckTotalNodeCount: Seq[CountResult],
-  integrityCheckFailedCount: Seq[CountResult],
-  integrityCheckFailedTotalNodeCount: Seq[CountResult],
-  referencedInRoutesCount: Seq[CountResult],
-  referencedInRoutesTotalNodeCount: Seq[CountResult],
-  totalNodeCount: Seq[CountResult],
-)
-
 class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo) {
   private val log = Log(classOf[MongoQueryLocationNodes])
 

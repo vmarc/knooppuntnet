@@ -169,8 +169,8 @@ class CodecWriter {
   }
 
   private def writeDecodeMethodFieldDecode(out: IndentingPrintStream, field: ClassField, typeName: String): Unit = {
-    val codecName = codecVariableName(typeName)
     val lowercaseTypeName = s"${typeName.head.toLower}${typeName.tail}"
+    val codecName = codecVariableName(typeName)
     if (field.classType.optional) {
       out.println(s"${field.name} = Some($codecName.decode(bsonReader, decoderContext))")
     }
@@ -180,11 +180,11 @@ class CodecWriter {
   }
 
   private def writeDecodeMethodArrayField(out: IndentingPrintStream, field: ClassField, typeName: String): Unit = {
-    val codecName = codecVariableName(typeName)
     out.println(s"bsonReader.readStartArray()")
     out.println(s"val valueBuffer = scala.collection.mutable.Buffer[$typeName]()")
     out.println(s"while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {")
     out.indent {
+      val codecName = codecVariableName(typeName)
       out.println(s"valueBuffer += $codecName.decode(bsonReader, decoderContext)")
     }
     out.println(s"}")

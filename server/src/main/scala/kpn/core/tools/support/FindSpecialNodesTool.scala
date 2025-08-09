@@ -5,8 +5,6 @@ import com.mongodb.client.model.Aggregates.unwind
 import com.mongodb.client.model.Projections.computed
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
-import kpn.api.common.Country
-import kpn.api.common.RouteType
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
@@ -20,8 +18,6 @@ object FindSpecialNodesTool {
     }
   }
 }
-
-case class SpecialNode(nodeId: Long, country: Country, routeType: RouteType)
 
 class FindSpecialNodesTool(database: Database) {
 

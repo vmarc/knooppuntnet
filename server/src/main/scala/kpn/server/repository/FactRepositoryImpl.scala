@@ -14,8 +14,6 @@ import kpn.database.actions.facts.MongoQuerySubsetNetworkFacts
 import kpn.database.base.Database
 import org.springframework.stereotype.Component
 
-case class NetworkFactElementIds(networkId: Long, networkName: String, elementIds: Seq[Long] = Seq.empty)
-
 @Component
 class FactRepositoryImpl(database: Database) extends FactRepository {
 
