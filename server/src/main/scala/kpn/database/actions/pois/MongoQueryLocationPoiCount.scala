@@ -1,11 +1,11 @@
 package kpn.database.actions.pois
 
+import com.mongodb.client.model.Filters.and
 import kpn.core.util.Log
 import kpn.database.actions.pois.MongoQueryLocationPoiCount.log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
 
 object MongoQueryLocationPoiCount {
   private val log = Log(classOf[MongoQueryLocationPoiCount])

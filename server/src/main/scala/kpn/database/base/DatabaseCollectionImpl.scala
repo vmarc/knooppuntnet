@@ -1,65 +1,63 @@
 package kpn.database.base
 
+import com.mongodb.client.MongoCollection
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Filters
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.ReplaceOneModel
+import com.mongodb.client.model.ReplaceOptions
 import kpn.api.base.ObjectId
 import kpn.api.base.WithId
 import kpn.api.base.WithObjectId
 import kpn.api.base.WithStringId
 import kpn.core.util.Log
+import kpn.core.util.Util.seqToList
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala.*
-import org.mongodb.scala.MongoCollection
-import org.mongodb.scala.bson.conversions.Bson
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.in
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.ReplaceOneModel
-import org.mongodb.scala.model.ReplaceOptions
+import org.bson.conversions.Bson
 
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.Awaitable
 import scala.concurrent.duration.Duration
-import scala.reflect.ClassTag
+import scala.jdk.CollectionConverters.IterableHasAsScala
 
-class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extends DatabaseCollection[T] {
+class DatabaseCollectionImpl[TDocument](collection: MongoCollection[TDocument]) extends DatabaseCollection[TDocument] {
 
-  override def native: MongoCollection[T] = collection
+  override def native: MongoCollection[TDocument] = collection
 
-  override def aggregate[R: ClassTag](
+  private val documentClass: Class[TDocument] = collection.getDocumentClass
+
+  override def aggregate[TResult](
     pipeline: MongoPipeline,
+    resultClass: Class[TResult],
     log: Log,
     allowDiskUse: Boolean,
     duration: Duration
-  ): Seq[R] = {
+  ): Seq[TResult] = {
     if (log.isTraceEnabled) {
       log.trace(Mongo.pipelineString(pipeline))
     }
-
-    val future = collection.aggregate[R](pipeline).allowDiskUse(allowDiskUse).toFuture()
-    awaitAggregateResult(future, duration, pipeline, log)
+    collection.aggregate(seqToList(pipeline), resultClass).allowDiskUse(allowDiskUse).asScala.toSeq
   }
 
-  override def optionAggregate[R: ClassTag](
+  override def optionAggregate[TResult](
     pipeline: MongoPipeline,
+    resultClass: Class[TResult],
     log: Log,
     duration: Duration
-  ): Option[R] = {
+  ): Option[TResult] = {
     if (log.isTraceEnabled) {
       log.trace(Mongo.pipelineString(pipeline))
     }
-    val future = collection.aggregate[R](pipeline).headOption()
-    awaitAggregateResult(future, duration, pipeline, log)
+    collection.aggregate(seqToList(pipeline), resultClass).asScala.headOption
   }
 
-  override def stringPipelineAggregate[R: ClassTag](
+  override def stringPipelineAggregate[TResult](
     pipelineString: String,
     pipelineArgs: Map[String, String],
+    resultClass: Class[TResult],
     log: Log,
     duration: Duration
-  ): Seq[R] = {
+  ): Seq[TResult] = {
 
     val pipelineStringWithArgs = pipelineArgs.foldLeft(pipelineString) { case (string, arg) =>
       string.replaceAll(arg._1, arg._2)
@@ -68,56 +66,67 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
     if (log.isTraceEnabled) {
       log.trace(Mongo.pipelineString(pipeline))
     }
-    val future = collection.aggregate[R](pipeline).toFuture()
-    awaitAggregateResult(future, duration, pipeline, log)
+    collection.aggregate(seqToList(pipeline), resultClass).asScala.toSeq
   }
 
-  override def findOne[R: ClassTag](filter: Bson, log: Log): Option[R] = {
+  override def findOne(
+    filter: Bson,
+    log: Log
+  ): Option[TDocument] = {
     log.debugElapsed {
-      val future = collection.find[R](filter).headOption()
-      val doc = awaitResult(future, Duration(120, TimeUnit.SECONDS), log)
+      val doc = collection.find(filter, documentClass).asScala.headOption
       (s"find - collection: '$collectionName'", doc)
     }
   }
 
-  override def find[R: ClassTag](filter: Bson, log: Log): Seq[R] = {
+  override def find(
+    filter: Bson,
+    log: Log
+  ): Seq[TDocument] = {
     log.debugElapsed {
-      val future = collection.find[R](filter).toFuture()
-      val docs = awaitResult(future, Duration(5, TimeUnit.MINUTES), log)
+      val docs = collection.find(filter, documentClass).asScala.toSeq
       (s"find - collection: '$collectionName', docs= ${docs.size}", docs)
     }
   }
 
-  override def findById(_id: Long, log: Log): Option[T] = {
+  override def findById(
+    _id: Long,
+    log: Log
+  ): Option[TDocument] = {
     log.debugElapsed {
-      val future = collection.find[T](equal("_id", _id)).headOption()
-      val doc = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      val doc = collection.find(Filters.eq("_id", _id), documentClass).asScala.headOption
       (s"findById - collection: '$collectionName', _id: ${_id}", doc)
     }
   }
 
-  override def findByStringId(_id: String, log: Log): Option[T] = {
+  override def findByStringId(
+    _id: String,
+    log: Log
+  ): Option[TDocument] = {
     log.debugElapsed {
-      val future = collection.find[T](equal("_id", _id)).headOption()
-      val doc = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      val doc = collection.find(Filters.eq("_id", _id), documentClass).asScala.headOption
       (s"findById - collection: '$collectionName', _id: ${_id}", doc)
     }
   }
 
-  override def findByObjectId(objectId: ObjectId, log: Log): Option[T] = {
+  override def findByObjectId(
+    objectId: ObjectId,
+    log: Log
+  ): Option[TDocument] = {
     log.debugElapsed {
-      val future = collection.find[T](equal("_id", objectId.raw)).headOption()
-      val doc = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      val doc = collection.find(Filters.eq("_id", objectId.raw), documentClass).asScala.headOption
       (s"findByObjectId - collection: '$collectionName', _id: $objectId", doc)
     }
   }
 
-  override def findByIds(ids: Seq[Long], log: Log): Seq[T] = {
+  override def findByIds(
+    ids: Seq[Long],
+    log: Log
+  ): Seq[TDocument] = {
     if (ids.nonEmpty) {
       log.debugElapsed {
-        val filter = in("_id", ids: _*)
-        val future = collection.find[T](filter).toFuture()
-        val docs = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+        val filter = Filters.in("_id", ids: _*)
+        val docs = collection.find(filter, documentClass).asScala.toSeq
         (s"findByIds - collection: '$collectionName', ids: ${ids.mkString(", ")}", docs)
       }
     }
@@ -126,100 +135,92 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
     }
   }
 
-  override def findAll(log: Log): Seq[T] = {
+  override def findAll(log: Log): Seq[TDocument] = {
     log.debugElapsed {
-      val future = collection.find[T]().toFuture()
-      val docs = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      val docs = collection.find(documentClass).asScala.toSeq
       (s"find - collection: '$collectionName', docs: ${docs.size}", docs)
     }
   }
 
-  override def save(doc: T, log: Log): Unit = {
+  override def save(doc: TDocument, log: Log): Unit = {
     log.debugElapsed {
 
       val (id, filter) = doc match {
-        case withId: WithId => (withId._id.toString, equal("_id", withId._id))
-        case withStringId: WithStringId => (withStringId._id, equal("_id", withStringId._id))
-        case withObjectId: WithObjectId => (withObjectId._id.oid, equal("_id", withObjectId._id.raw))
+        case withId: WithId => (withId._id.toString, Filters.eq("_id", withId._id))
+        case withStringId: WithStringId => (withStringId._id, Filters.eq("_id", withStringId._id))
+        case withObjectId: WithObjectId => (withObjectId._id.oid, Filters.eq("_id", withObjectId._id.raw))
         case _ => throw new IllegalArgumentException("document does not have een id")
       }
-      val future = collection.replaceOne(filter, doc, ReplaceOptions().upsert(true)).toFuture()
-      val result = awaitResult(future, Duration(5, TimeUnit.MINUTES), log)
+      val result = collection.replaceOne(filter, doc, new ReplaceOptions().upsert(true))
       (s"save - collection: '$collectionName', _id: $id", result)
     }
   }
 
-  override def bulkSave(docs: Seq[T], log: Log): Unit = {
+  override def bulkSave(docs: Seq[TDocument], log: Log): Unit = {
     if (docs.nonEmpty) {
       val requests = docs.map { doc =>
         val filter = doc match {
-          case withId: WithId => equal("_id", withId._id)
-          case withStringId: WithStringId => equal("_id", withStringId._id)
+          case withId: WithId => Filters.eq("_id", withId._id)
+          case withStringId: WithStringId => Filters.eq("_id", withStringId._id)
           case _ => throw new IllegalArgumentException("document does not have een id")
         }
-        ReplaceOneModel[T](filter, doc, ReplaceOptions().upsert(true))
+        new ReplaceOneModel[TDocument](filter, doc, new ReplaceOptions().upsert(true))
       }
-      val future = native.bulkWrite(requests).toFuture()
-      awaitResult(future, Duration(2, TimeUnit.MINUTES), log)
+      val result = native.bulkWrite(seqToList(requests))
+      // TODO interprete result?
     }
   }
 
   override def delete(_id: Long, log: Log): Unit = {
     log.debugElapsed {
-      val filter = equal("_id", _id)
-      val future = collection.deleteOne(filter).toFuture()
-      val result = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      val filter = Filters.eq("_id", _id)
+      val result = collection.deleteOne(filter)
       (s"delete - collection: '$collectionName', _id: ${_id}", result)
     }
   }
 
   override def deleteByStringId(_id: String, log: Log): Unit = {
     log.debugElapsed {
-      val filter = equal("_id", _id)
-      val future = collection.deleteOne(filter).toFuture()
-      val result = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      val filter = Filters.eq("_id", _id)
+      val result = collection.deleteOne(filter)
       (s"delete - collection: '$collectionName', _id: ${_id}", result)
     }
   }
 
   override def deleteByObjectId(objectId: ObjectId, log: Log): Unit = {
     log.debugElapsed {
-      val filter = equal("_id", objectId.raw)
-      val future = collection.deleteOne(filter).toFuture()
-      val result = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      val filter = Filters.eq("_id", objectId.raw)
+      val result = collection.deleteOne(filter)
       (s"delete - collection: '$collectionName', _id: ${objectId.oid}", result)
     }
   }
 
   override def deleteMany(filter: Bson, log: Log): Unit = {
     log.debugElapsed {
-      val future = collection.deleteMany(filter).toFuture()
-      val result = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      val result = collection.deleteMany(filter)
       (s"deleteMany - collection: '$collectionName'", result)
     }
   }
 
   override def ids(log: Log): Seq[Long] = {
     log.debugElapsed {
-      val future = collection.find[Id]().projection(fields(include("_id"))).toFuture()
-      val docs = awaitResult(future, Duration(15, TimeUnit.MINUTES), log)
+      val docs = collection.find(classOf[Id]).projection(fields(include("_id"))).asScala.toSeq
       (s"collection: '$collectionName', ids: ${docs.size}", docs.map(_._id))
     }
   }
 
   override def stringIds(log: Log): Seq[String] = {
     log.debugElapsed {
-      val future = collection.find[StringId]().projection(fields(include("_id"))).toFuture()
-      val docs = awaitResult(future, Duration(15, TimeUnit.MINUTES), log)
+      val docs = collection.find[StringId](classOf[StringId]).projection(fields(include("_id"))).asScala.toSeq
       (s"collection: '$collectionName', ids: ${docs.size}", docs.map(_._id))
     }
   }
 
   override def objectIds(log: Log): Seq[ObjectId] = {
-    aggregate[ObjectIdId](Seq(project(fields(include("_id"))))).map(_._id)
+    aggregate(Seq(project(fields(include("_id")))), classOf[ObjectIdId]).map(_._id)
   }
 
-  override def insertMany(docs: Seq[T], log: Log): Unit = {
+  override def insertMany(docs: Seq[TDocument], log: Log): Unit = {
     if (docs.nonEmpty) {
       log.debugElapsed {
         val ids = docs.map {
@@ -227,8 +228,8 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
           case withStringId: WithStringId => withStringId._id
           case _ => "?"
         }
-        val future = collection.insertMany(docs).toFuture()
-        val result = awaitResult(future, Duration(1, TimeUnit.MINUTES), log)
+
+        val result = collection.insertMany(seqToList(docs))
         val resultString = if (!result.wasAcknowledged()) {
           ", not acknowledged"
         }
@@ -246,8 +247,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
 
   override def countDocuments(log: Log): Long = {
     log.debugElapsed {
-      val future = collection.countDocuments().toFuture()
-      val count = awaitResult(future, Duration(1, TimeUnit.MINUTES), log)
+      val count = collection.countDocuments()
       val message = s"countDocuments - collection: '$collectionName' : $count"
       (message, count)
     }
@@ -255,49 +255,19 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
 
   override def countFilteredDocuments(filter: Bson, log: Log): Long = {
     log.debugElapsed {
-      val future = collection.countDocuments(filter).toFuture()
-      val count = awaitResult(future, Duration(1, TimeUnit.MINUTES), log)
+      val count = collection.countDocuments(filter)
       val message = s"countDocuments - collection: '$collectionName' : $count"
       (message, count)
     }
   }
 
-  override def updateOne(filter: Bson, update: MongoPipeline, log: Log): Unit = {
-    val future = collection.updateOne(filter, update).toFuture()
-    val updateResult = awaitResult(future, Duration(1, TimeUnit.MINUTES), log)
+  override def updateOne(filter: Bson, update: Bson, log: Log): Unit = {
+    collection.updateOne(filter, update)
   }
 
   override def drop(log: Log): Unit = {
-    val future = collection.drop().toFuture()
-    awaitResult(future, Duration(1, TimeUnit.MINUTES), log)
+    collection.drop()
   }
 
-  private def collectionName: String = collection.namespace.getCollectionName
-
-  private def awaitAggregateResult[A](awaitable: Awaitable[A], duration: Duration, pipeline: MongoPipeline, log: Log): A = {
-    try {
-      Await.result(awaitable, duration)
-    }
-    catch {
-      case e: Exception =>
-        val pipelineString = Mongo.pipelineString(pipeline)
-        val message = s"Error executing aggregation pipeline on collection '$collectionName'\n$pipelineString"
-        val wrapperException = new RuntimeException(message, e)
-        log.error("mongdb error", wrapperException)
-        throw wrapperException
-    }
-  }
-
-  private def awaitResult[A](awaitable: Awaitable[A], duration: Duration, log: Log): A = {
-    try {
-      Await.result(awaitable, duration)
-    }
-    catch {
-      case e: Exception =>
-        val message = s"Error in collection '$collectionName'"
-        val wrapperException = new RuntimeException(message, e)
-        log.error("mongdb error", wrapperException)
-        throw wrapperException
-    }
-  }
+  private def collectionName: String = collection.getNamespace.getCollectionName
 }

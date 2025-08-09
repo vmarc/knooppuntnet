@@ -1,14 +1,14 @@
 package kpn.database.actions.changes
 
+import com.mongodb.client.model.Filters.and
 import kpn.api.custom.Subset
 import kpn.core.util.Log
 import kpn.database.actions.base.ChangeCountPipeline
 import kpn.database.actions.changes.MongoQueryChangeSetCounts.log
 import kpn.database.actions.statistics.ChangeSetCounts
 import kpn.database.base.Database
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 
 object MongoQueryChangeSetCounts {
   private val log = Log(classOf[MongoQueryChangeSetCounts])

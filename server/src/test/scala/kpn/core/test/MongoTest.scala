@@ -1,11 +1,11 @@
 package kpn.core.test
 
+import com.mongodb.client.MongoClient
 import kpn.core.common.Time
 import kpn.core.util.UnitTest
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.json.Json
-import org.mongodb.scala.MongoClient
 import org.scalatest.BeforeAndAfterEach
 
 import java.util.concurrent.atomic.AtomicInteger
@@ -22,7 +22,7 @@ abstract class MongoTest extends UnitTest with BeforeAndAfterEach {
 
   override def beforeEach(): Unit = {
     val databaseName = s"unit-testdb-${MongoTest.count.incrementAndGet()}"
-    _mongoClient = MongoClient()
+    _mongoClient = Mongo.client
     _database = Mongo.database(_mongoClient, databaseName)
     database.dropDatabase()
   }

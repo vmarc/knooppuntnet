@@ -1,5 +1,18 @@
 package kpn.database.actions.locations
 
+import com.mongodb.client.model.Aggregates.count
+import com.mongodb.client.model.Aggregates.facet
+import com.mongodb.client.model.Aggregates.limit
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.skip
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.RouteScope
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.filter.ServerFilterGroup
@@ -13,25 +26,12 @@ import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.CountResult
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.ffacet
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.conversions.Bson
-import org.mongodb.scala.model.Aggregates.count
-import org.mongodb.scala.model.Aggregates.facet
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.limit
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.skip
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Facet
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 
 case class NodeFilterOptionQueryResult(
   factsTotalNodeCount: Seq[CountResult],
@@ -54,22 +54,22 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
   def filterOptions(subset: LocationSubset, parameters: LocationNodesParameters): LocationNodeOptions = {
     val pipeline = Seq(filter(and(subsetFilter(subset): _*))) ++ Seq(
       facet(
-        Facet("factsTotalNodeCount", factsTotalNodeCountPipeline(subset, parameters): _*),
-        Facet("facts", factsPipeline(subset, parameters): _*),
-        Facet("proposed", proposedPipeline(subset, parameters): _*),
-        Facet("survey", surveyPipeline(subset, parameters): _*),
-        Facet("lastUpdated", lastUpdatedPipeline(subset, parameters): _*),
-        Facet("integrityCheckCount", integrityCheckPipeline(subset, parameters): _*),
-        Facet("integrityCheckTotalNodeCount", integrityCheckTotalNodeCountPipeline(subset, parameters): _*),
-        Facet("integrityCheckFailedCount", integrityCheckFailedPipeline(subset, parameters): _*),
-        Facet("integrityCheckFailedTotalNodeCount", integrityCheckFailedTotalNodeCountPipeline(subset, parameters): _*),
-        Facet("referencedInRoutesCount", referencedInRoutesCountPipeline(subset, parameters): _*),
-        Facet("referencedInRoutesTotalNodeCount", referencedInRoutesTotalNodeCountPipeline(subset, parameters): _*),
-        Facet("totalNodeCount", totalNodeCountPipeline(subset, parameters): _*),
+        ffacet("factsTotalNodeCount", factsTotalNodeCountPipeline(subset, parameters)),
+        ffacet("facts", factsPipeline(subset, parameters)),
+        ffacet("proposed", proposedPipeline(subset, parameters)),
+        ffacet("survey", surveyPipeline(subset, parameters)),
+        ffacet("lastUpdated", lastUpdatedPipeline(subset, parameters)),
+        ffacet("integrityCheckCount", integrityCheckPipeline(subset, parameters)),
+        ffacet("integrityCheckTotalNodeCount", integrityCheckTotalNodeCountPipeline(subset, parameters)),
+        ffacet("integrityCheckFailedCount", integrityCheckFailedPipeline(subset, parameters)),
+        ffacet("integrityCheckFailedTotalNodeCount", integrityCheckFailedTotalNodeCountPipeline(subset, parameters)),
+        ffacet("referencedInRoutesCount", referencedInRoutesCountPipeline(subset, parameters)),
+        ffacet("referencedInRoutesTotalNodeCount", referencedInRoutesTotalNodeCountPipeline(subset, parameters)),
+        ffacet("totalNodeCount", totalNodeCountPipeline(subset, parameters)),
       )
     )
 
-    val groups = database.nodes.aggregate[NodeFilterOptionQueryResult](pipeline)
+    val groups = database.nodes.aggregate(pipeline, classOf[NodeFilterOptionQueryResult])
 
     val proposed = {
       val options = groups.flatMap(_.proposed).flatMap(_.options)
@@ -267,7 +267,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
   def countDocuments(subset: LocationSubset, parameters: LocationNodesParameters): Long = {
     val pipeline = Seq(filter(nodeFilter(subset, parameters))) ++ Seq(count())
     log.debugElapsed {
-      val result = database.nodes.aggregate[CountResult](pipeline, log).map(_.count).sum
+      val result = database.nodes.aggregate(pipeline, classOf[CountResult], log).map(_.count).sum
       ("node count", result)
     }
   }
@@ -299,7 +299,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
 
     log.debugElapsed {
-      val locationNodeInfoDocs = database.nodes.aggregate[LocationNodeInfoDoc](pipeline)
+      val locationNodeInfoDocs = database.nodes.aggregate(pipeline, classOf[LocationNodeInfoDoc], log)
       val locationNodeInfos = locationNodeInfoDocs.zipWithIndex.map { case (doc, index) =>
         val tagValues = RouteScope.all.map(scope => ScopedRouteType(subset.routeType, scope)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
           doc.tagValue(tagKey)

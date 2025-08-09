@@ -3,7 +3,7 @@ package kpn.server.monitor.repository
 import kpn.api.base.ObjectId
 import kpn.core.util.Log
 import kpn.database.base.Database
-import org.mongodb.scala.model.Filters.equal
+import kpn.database.base.MongoAggregates.equal
 
 class MonitorRouteDelete(database: Database) {
 

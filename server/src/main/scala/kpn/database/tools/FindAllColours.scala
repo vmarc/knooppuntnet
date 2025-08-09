@@ -1,11 +1,11 @@
 package kpn.database.tools
 
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.unwind
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.StringId
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.equal
 
 object FindAllColours {
 
@@ -22,7 +22,7 @@ object FindAllColours {
         )
       )
 
-      val colourTagValues = database.routes.aggregate[StringId](pipeline)
+      val colourTagValues = database.routes.aggregate(pipeline, classOf[StringId])
       val values = colourTagValues.map(_._id).flatMap(_.split(";").toSeq.flatMap(_.split("-"))).sorted.distinct
       values.foreach(println)
     }

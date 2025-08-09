@@ -1,15 +1,15 @@
 package kpn.server.analyzer.engine.poi.image
 
+import com.mongodb.client.model.Filters.in
 import kpn.api.common.PoiAnalysis
 import kpn.api.common.poi.Poi
 import kpn.core.tools.config.Dirs
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo
 import kpn.server.api.analysis.pages.poi.PoiAnalysisContext
 import kpn.server.api.analysis.pages.poi.analyzers.PoiImageAnalyzer
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Filters.in
 
 import java.io.FileWriter
 import java.io.PrintWriter
@@ -60,7 +60,7 @@ class PoiImageUrlExportTool(database: Database) {
         in("_id", poiIds: _*)
       )
     )
-    val pois = database.pois.aggregate[Poi](pipeline, log)
+    val pois = database.pois.aggregate(pipeline, classOf[Poi], log)
     pois.foreach(exportPoi)
   }
 

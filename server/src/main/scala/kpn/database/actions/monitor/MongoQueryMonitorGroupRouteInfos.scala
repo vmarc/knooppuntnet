@@ -1,5 +1,12 @@
 package kpn.database.actions.monitor
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.Bounds
 import kpn.core.util.DebugLogger.log
 import kpn.core.util.Util.mergeBounds
@@ -7,13 +14,6 @@ import kpn.database.base.Database
 import kpn.database.base.MongoProjections.objectIdToString
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.monitor.domain.MonitorGroupRouteInfo
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 
 case class MonitorGroupRouteInfoData(
   groupId: String,
@@ -25,7 +25,7 @@ class MongoQueryMonitorGroupRouteInfos(database: Database) {
   def execute(): Seq[MonitorGroupRouteInfo] = {
     val pipeline = buildPipeline()
     log.debugElapsed {
-      val routes = database.monitorRoutes.aggregate[MonitorGroupRouteInfoData](pipeline, log)
+      val routes = database.monitorRoutes.aggregate(pipeline, classOf[MonitorGroupRouteInfoData], log)
       val infos = routes.groupBy(_.groupId).toSeq.map { case (groupId, datas) =>
         val routeBounds = datas.flatMap(_.bounds)
         val bounds = Option.when(routeBounds.nonEmpty) {

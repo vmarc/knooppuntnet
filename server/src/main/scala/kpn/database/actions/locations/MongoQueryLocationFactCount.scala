@@ -1,28 +1,29 @@
 package kpn.database.actions.locations
 
+import com.mongodb.client.model.Accumulators.sum
+import com.mongodb.client.model.Aggregates.count
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.unionWith
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
 import kpn.api.common.RouteType
 import kpn.core.doc.Label
 import kpn.core.util.Log
+import kpn.core.util.Util.seqToList
 import kpn.database.actions.locations.MongoQueryLocationFactCount.log
 import kpn.database.base.CountResult
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
+import kpn.database.base.MongoAggregates.notEqual
 import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.model.Accumulators.sum
-import org.mongodb.scala.model.Aggregates.count
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.unionWith
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.notEqual
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
 
 object MongoQueryLocationFactCount {
 
@@ -47,7 +48,7 @@ class MongoQueryLocationFactCount(database: Database) {
   def execute(subset: LocationSubset): Long = {
     val pipeline = buildPipeline(subset)
     log.debugElapsed {
-      val countResults = database.nodes.aggregate[CountResult](pipeline, log)
+      val countResults = database.nodes.aggregate(pipeline, classOf[CountResult], log)
       val factCount = countResults.map(_.count).sum
       (s"fact count: $factCount", factCount)
     }
@@ -61,8 +62,8 @@ class MongoQueryLocationFactCount(database: Database) {
 
     Seq(
       nodeFactsPipeline,
-      Seq(unionWith("nodes", nodePipeline2: _*)),
-      Seq(unionWith("routes", routeFactPipeline: _*))
+      Seq(unionWith("nodes", seqToList(nodePipeline2))),
+      Seq(unionWith("routes", seqToList(routeFactPipeline)))
     ).flatten
   }
 

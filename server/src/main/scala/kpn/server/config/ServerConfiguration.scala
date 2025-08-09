@@ -1,6 +1,7 @@
 package kpn.server.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.mongodb.client.MongoClients
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
 import kpn.database.base.Database
 import kpn.database.base.DatabaseImpl
@@ -12,7 +13,6 @@ import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.json.Json
-import org.mongodb.scala.MongoClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -140,7 +140,7 @@ class ServerConfiguration {
     @Value("${app.database.url}") url: String,
     @Value("${app.database.name}") name: String,
   ): Database = {
-    val mongoClient = MongoClient(url)
+    val mongoClient = MongoClients.create(url)
     new DatabaseImpl(mongoClient.getDatabase(name).withCodecRegistry(Mongo.codecRegistry))
   }
 
@@ -149,7 +149,7 @@ class ServerConfiguration {
     @Value("${app.metrics-database.url}") url: String,
     @Value("${app.metrics-database.name}") name: String,
   ): MetricsDatabase = {
-    val mongoClient = MongoClient(url)
+    val mongoClient = MongoClients.create(url)
     new MetricsDatabaseImpl(mongoClient.getDatabase(name).withCodecRegistry(Mongo.codecRegistry))
   }
 

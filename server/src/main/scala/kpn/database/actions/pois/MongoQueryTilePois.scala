@@ -1,17 +1,17 @@
 package kpn.database.actions.pois
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.in
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.core.poi.PoiInfo
 import kpn.core.util.Log
 import kpn.database.actions.pois.MongoQueryTilePois.log
 import kpn.database.base.Database
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.in
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
+import kpn.database.base.MongoAggregates.filter
 
 object MongoQueryTilePois {
   private val log = Log(classOf[MongoQueryTilePois])
@@ -34,7 +34,7 @@ class MongoQueryTilePois(database: Database) {
           )
         )
       )
-      val poiInfos = database.pois.aggregate[PoiInfo](pipeline, log)
+      val poiInfos = database.pois.aggregate(pipeline, classOf[PoiInfo], log)
       (s"poiInfos: ${poiInfos.size}", poiInfos)
     }
   }

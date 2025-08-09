@@ -3,7 +3,7 @@ package kpn.database.actions.networks
 import kpn.core.util.Log
 import kpn.database.actions.networks.MongoQueryNetworkChangeCount.log
 import kpn.database.base.Database
-import org.mongodb.scala.model.Filters.equal
+import kpn.database.base.MongoAggregates.equal
 
 object MongoQueryNetworkChangeCount {
   private val log = Log(classOf[MongoQueryNetworkChangeCount])

@@ -1,5 +1,6 @@
 package kpn.core.replicate
 
+import com.mongodb.client.MongoClient
 import kpn.api.common.ReplicationId
 import kpn.api.common.status.ActionTimestamp
 import kpn.api.custom.Timestamp
@@ -19,7 +20,6 @@ import kpn.server.repository.MetricsRepository
 import kpn.server.repository.MetricsRepositoryImpl
 import org.apache.commons.io.FileUtils
 import org.apache.logging.log4j.ThreadContext
-import org.mongodb.scala.MongoClient
 
 import java.io.File
 import scala.annotation.tailrec

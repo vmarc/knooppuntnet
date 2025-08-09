@@ -1,14 +1,14 @@
 package kpn.server.monitor.tasks
 
+import com.mongodb.client.model.Aggregates.limit
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Exit
 import kpn.database.util.Mongo
 import kpn.server.monitor.domain.MonitorTask
-import org.mongodb.scala.model.Aggregates.limit
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 
 import java.lang.Thread.sleep
 
@@ -49,7 +49,7 @@ class MonitorTaskLoopTool(database: Database) {
       sort(orderBy(ascending("priority"), ascending("_id"))),
       limit(1)
     )
-    val taskOption = database.monitorTasks.optionAggregate[MonitorTask](pipeline, log)
+    val taskOption = database.monitorTasks.optionAggregate(pipeline, classOf[MonitorTask], log)
     taskOption match {
       case None => false // no more tasks to process
       case Some(task) =>
@@ -63,7 +63,8 @@ class MonitorTaskLoopTool(database: Database) {
     val observer = new MonitorTaskObserver()
     savedObserver = Some(observer)
     try {
-      database.monitorTasks.native.watch().first().subscribe(observer)
+      ???
+      // database.monitorTasks.native.watch().first().subscribe(observer)
       observer.await()
     }
     finally {

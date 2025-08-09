@@ -1,5 +1,6 @@
 package kpn.core.tools.next.support
 
+import com.mongodb.client.MongoClients
 import kpn.api.custom.Relation
 import kpn.core.tools.next.database.NextDatabase
 import kpn.core.tools.next.database.NextDatabaseImpl
@@ -13,11 +14,10 @@ import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.wayToWorldCoordinates
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.locationtech.jts.geom.LineSegment
-import org.mongodb.scala.MongoClient
 
 object NextCreateRouteStatesTool {
   def main(args: Array[String]): Unit = {
-    val client = MongoClient("mongodb://localhost:27017")
+    val client = MongoClients.create("mongodb://localhost:27017")
     try {
       val mongoDatabase = client.getDatabase("kpn-next").withCodecRegistry(codecRegistry)
       val database = new NextDatabaseImpl(mongoDatabase)

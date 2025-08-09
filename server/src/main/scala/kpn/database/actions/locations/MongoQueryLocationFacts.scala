@@ -1,29 +1,30 @@
 package kpn.database.actions.locations
 
+import com.mongodb.client.model.Accumulators.push
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.unionWith
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.api.common.RouteType
 import kpn.api.common.location.LocationFact
 import kpn.core.doc.Label
 import kpn.core.util.Log
+import kpn.core.util.Util.seqToList
 import kpn.database.actions.locations.MongoQueryLocationFacts.log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
+import kpn.database.base.MongoAggregates.notEqual
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.conversions.Bson
-import org.mongodb.scala.model.Accumulators.push
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.unionWith
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.notEqual
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
 
 object MongoQueryLocationFacts {
 
@@ -48,7 +49,7 @@ class MongoQueryLocationFacts(database: Database) {
   def execute(subset: LocationSubset): Seq[LocationFact] = {
     val pipeline = buildPipeline(subset)
     log.debugElapsed {
-      val locationFacts = database.nodes.aggregate[LocationFact](pipeline, log)
+      val locationFacts = database.nodes.aggregate(pipeline, classOf[LocationFact], log)
       val facts = locationFacts.map { locationFact =>
         val sortedRefs = locationFact.refs.sortBy(ref => (ref.name, ref.id))
         locationFact.copy(refs = sortedRefs)
@@ -64,8 +65,8 @@ class MongoQueryLocationFacts(database: Database) {
     val routePipeline = buildRouteFactPipeline(mainFilter)
     Seq(
       nodeFactPipeline, // node facts
-      Seq(unionWith("nodes", nodeIntegrityCheckFailedPipeline: _*)),
-      Seq(unionWith("routes", routePipeline: _*))
+      Seq(unionWith("nodes", seqToList(nodeIntegrityCheckFailedPipeline))),
+      Seq(unionWith("routes", seqToList(routePipeline)))
     ).flatten
   }
 

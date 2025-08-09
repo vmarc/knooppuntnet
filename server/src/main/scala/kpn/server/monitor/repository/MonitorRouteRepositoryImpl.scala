@@ -1,5 +1,19 @@
 package kpn.server.monitor.repository
 
+import com.mongodb.client.model.Accumulators.sum
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.limit
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.skip
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.or
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Sorts.descending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
@@ -17,6 +31,8 @@ import kpn.database.actions.monitor.MongoQueryMonitorStateDeviationInfos
 import kpn.database.actions.monitor.MongoQueryMonitorStateTileIds
 import kpn.database.actions.monitor.MongoQueryMonitorStateTiles
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.MongoProjections.objectIdToString
 import kpn.database.base.NameRow
@@ -37,22 +53,6 @@ import kpn.server.repository.NetworkRepositoryImpl
 import org.mongodb.scala.Document
 import org.mongodb.scala.bson.BsonNull
 import org.mongodb.scala.bson.conversions.Bson
-import org.mongodb.scala.model.Accumulators.sum
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.limit
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.skip
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.or
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.descending
-import org.mongodb.scala.model.Sorts.orderBy
 import org.springframework.stereotype.Component
 
 @Component
@@ -79,7 +79,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         )
       )
     )
-    database.monitorRoutes.optionAggregate[MonitorRoute](pipeline, log)
+    database.monitorRoutes.optionAggregate(pipeline, classOf[MonitorRoute], log)
   }
 
   override def saveRoute(route: MonitorRoute): Unit = {
@@ -121,7 +121,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     val pipeline = Seq(
       routeReferenceFilter(routeId, relationId)
     )
-    database.monitorReferences.optionAggregate[MonitorReference](pipeline, log)
+    database.monitorReferences.optionAggregate(pipeline, classOf[MonitorReference], log)
   }
 
   override def routeRelationReferenceId(routeId: ObjectId, relationId: Option[Long]): Option[ObjectId] = {
@@ -133,7 +133,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         )
       )
     )
-    database.monitorReferences.optionAggregate[ObjectIdId](pipeline, log).map(_._id)
+    database.monitorReferences.optionAggregate(pipeline, classOf[ObjectIdId], log).map(_._id)
   }
 
   private def routeReferenceFilter(routeId: ObjectId, relationId: Option[Long]): Bson = {
@@ -155,7 +155,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         equal("routeId", routeId.raw),
       )
     )
-    database.monitorReferences.aggregate[MonitorReference](pipeline, log)
+    database.monitorReferences.aggregate(pipeline, classOf[MonitorReference], log)
   }
 
   override def oldReferences(routeId: ObjectId): Seq[OldMonitorReference] = {
@@ -164,7 +164,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         equal("routeId", routeId.raw),
       )
     )
-    database.oldMonitorReferences.aggregate[OldMonitorReference](pipeline, log)
+    database.oldMonitorReferences.aggregate(pipeline, classOf[OldMonitorReference], log)
   }
 
   override def referenceIds(routeId: ObjectId): Seq[MonitorReferenceId] = {
@@ -179,7 +179,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       ),
     )
 
-    database.monitorReferences.aggregate[MonitorReferenceId](pipeline, log)
+    database.monitorReferences.aggregate(pipeline, classOf[MonitorReferenceId], log)
   }
 
   override def superRouteReferenceSummary(routeId: ObjectId): Option[Long] = {
@@ -199,7 +199,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       ),
     )
 
-    database.monitorReferences.optionAggregate[Distance](pipeline, log).map(_.referenceDistance)
+    database.monitorReferences.optionAggregate(pipeline, classOf[Distance], log).map(_.referenceDistance)
   }
   // *** MonitorState ***
 
@@ -212,7 +212,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         ),
       ),
     )
-    database.monitorStates.optionAggregate[MonitorState](pipeline, log)
+    database.monitorStates.optionAggregate(pipeline, classOf[MonitorState], log)
   }
 
   override def stateTiles(routeId: ObjectId, relationId: Long): Seq[MonitorStateTile] = {
@@ -224,7 +224,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         ),
       ),
     )
-    database.monitorStateTiles.aggregate[MonitorStateTile](pipeline, log)
+    database.monitorStateTiles.aggregate(pipeline, classOf[MonitorStateTile], log)
   }
 
   override def states(routeId: ObjectId): Seq[MonitorState] = {
@@ -240,7 +240,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         )
       )
     )
-    database.monitorStates.aggregate[MonitorState](pipeline, log)
+    database.monitorStates.aggregate(pipeline, classOf[MonitorState], log)
   }
 
   override def saveState(state: MonitorState): Unit = {
@@ -293,7 +293,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         )
       )
     )
-    database.monitorStates.aggregate[MonitorRouteCount](pipeline, log).map(_.count).sum
+    database.monitorStates.aggregate(pipeline, classOf[MonitorRouteCount], log).map(_.count).sum
   }
 
   override def stateSize(routeId: ObjectId): Long = {
@@ -318,7 +318,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         )
       )
     )
-    database.monitorStates.aggregate[MonitorRouteCount](pipeline, log).map(_.count).sum
+    database.monitorStates.aggregate(pipeline, classOf[MonitorRouteCount], log).map(_.count).sum
   }
 
   override def superRouteStateSummary(routeId: ObjectId): Option[MonitorStateSummary] = {
@@ -344,7 +344,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       ),
     )
 
-    database.monitorStates.optionAggregate[MonitorStateSummary](pipeline, log)
+    database.monitorStates.optionAggregate(pipeline, classOf[MonitorStateSummary], log)
   }
 
   override def stateSummaries(routeId: ObjectId): Seq[MonitorStateSummary] = {
@@ -362,7 +362,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       ),
     )
 
-    database.monitorStates.aggregate[MonitorStateSummary](pipeline, log)
+    database.monitorStates.aggregate(pipeline, classOf[MonitorStateSummary], log)
   }
 
   override def stateIds(routeId: ObjectId): Seq[MonitorStateId] = {
@@ -377,7 +377,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       ),
     )
 
-    database.monitorStates.aggregate[MonitorStateId](pipeline, log)
+    database.monitorStates.aggregate(pipeline, classOf[MonitorStateId], log)
   }
 
   // *** changes ***
@@ -418,12 +418,13 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
 
   override def routeReferenceKey(routeMonitorId: String): Option[String] = {
     // TODO MONGO should be looking for most recent entry here, instead of assuming there is always exactly 1 entry ???
-    database.monitorReferences.findOne(
-      filter(
-        equal("routeId", routeMonitorId),
-      ),
-      log
-    )
+    ???
+    //    database.monitorReferences.findOne(
+    //      filter(
+    //        equal("routeId", routeMonitorId),
+    //      ),
+    //      log
+    //    )
   }
 
   override def routeChange(monitorRouteId: String, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange] = {
@@ -468,7 +469,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     ).flatten
 
     log.debugElapsed {
-      val changes = database.monitorRouteChanges.aggregate[MonitorRouteChange](pipeline, log)
+      val changes = database.monitorRouteChanges.aggregate(pipeline, classOf[MonitorRouteChange], log)
       val result = s"changes: ${changes.size}"
       (result, changes)
     }
@@ -489,7 +490,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         )
       ),
     )
-    database.monitorRoutes.aggregate[MonitorGroupRouteCount](pipeline, log)
+    database.monitorRoutes.aggregate(pipeline, classOf[MonitorGroupRouteCount], log)
   }
 
   override def groupRouteInfos(): Seq[MonitorGroupRouteInfo] = {
@@ -521,7 +522,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         )
       )
     )
-    database.monitorRoutes.aggregate[MonitorRouteDetail](pipeline, log)
+    database.monitorRoutes.aggregate(pipeline, classOf[MonitorRouteDetail], log)
   }
 
   override def groupChangesCount(groupName: String, parameters: MonitorChangesParameters): Long = {
@@ -538,7 +539,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       skip((parameters.pageSize * parameters.pageIndex).toInt),
       limit(parameters.pageSize.toInt)
     )
-    database.monitorRouteChanges.aggregate[MonitorRouteChange](pipeline, log)
+    database.monitorRouteChanges.aggregate(pipeline, classOf[MonitorRouteChange], log)
   }
 
   override def routeChangesCount(id: String, parameters: MonitorChangesParameters): Long = {
@@ -555,7 +556,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       skip((parameters.pageSize * parameters.pageIndex).toInt),
       limit(parameters.pageSize.toInt)
     )
-    database.monitorRouteChanges.aggregate[MonitorRouteChange](pipeline, log)
+    database.monitorRouteChanges.aggregate(pipeline, classOf[MonitorRouteChange], log)
   }
 
   override def routeNames(groupId: ObjectId): Seq[String] = {
@@ -569,7 +570,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         )
       )
     )
-    database.monitorRoutes.aggregate[NameRow](pipeline, log).map(_.name)
+    database.monitorRoutes.aggregate(pipeline, classOf[NameRow], log).map(_.name)
   }
 
   private def groupChangesFilter(groupName: String, parameters: MonitorChangesParameters): Bson = {

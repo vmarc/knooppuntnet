@@ -1,36 +1,36 @@
 package kpn.database.actions.locations
 
+import com.mongodb.client.model.Accumulators.push
+import com.mongodb.client.model.Accumulators.sum
+import com.mongodb.client.model.Aggregates.count
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.elemMatch
+import com.mongodb.client.model.Filters.gte
+import com.mongodb.client.model.Filters.lt
+import com.mongodb.client.model.Filters.not
+import com.mongodb.client.model.Filters.or
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.Fact
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.location.BooleanParameter
 import kpn.api.common.location.LastUpdatedParameter
 import kpn.api.common.location.SurveyParameter
 import kpn.core.doc.Label
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.conversions.Bson
-import org.mongodb.scala.model.Accumulators.push
-import org.mongodb.scala.model.Accumulators.sum
-import org.mongodb.scala.model.Aggregates.count
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.elemMatch
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.gte
-import org.mongodb.scala.model.Filters.lt
-import org.mongodb.scala.model.Filters.not
-import org.mongodb.scala.model.Filters.or
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 
 object LocationQuery {
 

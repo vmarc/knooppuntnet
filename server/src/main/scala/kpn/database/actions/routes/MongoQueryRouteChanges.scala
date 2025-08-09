@@ -1,19 +1,19 @@
 package kpn.database.actions.routes
 
+import com.mongodb.client.model.Aggregates.limit
+import com.mongodb.client.model.Aggregates.skip
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Sorts.descending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.limit
-import org.mongodb.scala.model.Aggregates.skip
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Sorts.descending
-import org.mongodb.scala.model.Sorts.orderBy
 
 class MongoQueryRouteChanges(database: Database) {
 
@@ -25,7 +25,7 @@ class MongoQueryRouteChanges(database: Database) {
       log.trace(Mongo.pipelineString(pipeline))
     }
     log.debugElapsed {
-      val routeChanges = database.routeChanges.aggregate[RouteChange](pipeline)
+      val routeChanges = database.routeChanges.aggregate(pipeline, classOf[RouteChange])
       (s"${routeChanges.size} route changes", routeChanges)
     }
   }

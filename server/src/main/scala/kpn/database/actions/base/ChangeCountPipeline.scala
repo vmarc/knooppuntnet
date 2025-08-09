@@ -1,26 +1,26 @@
 package kpn.database.actions.base
 
+import com.mongodb.client.model.Accumulators.sum
+import com.mongodb.client.model.Aggregates.facet
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Facet
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Sorts.descending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.core.util.Log
 import kpn.database.actions.statistics.ChangeSetCounts
 import kpn.database.base.DatabaseCollection
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import org.mongodb.scala.Document
 import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.model.Accumulators.sum
-import org.mongodb.scala.model.Aggregates.facet
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Facet
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Sorts.descending
-import org.mongodb.scala.model.Sorts.orderBy
 
 object ChangeCountPipeline {
 
@@ -37,8 +37,8 @@ object ChangeCountPipeline {
         mainPipeline ++
           Seq(
             facet(
-              Facet("years", years(): _*),
-              Facet("months", months(year): _*),
+              new Facet("years", years(): _*),
+              new Facet("months", months(year): _*),
             )
           )
 
@@ -46,9 +46,9 @@ object ChangeCountPipeline {
         mainPipeline ++
           Seq(
             facet(
-              Facet("years", years(): _*),
-              Facet("months", months(year): _*),
-              Facet("days", days(year, month): _*),
+              new Facet("years", years(): _*),
+              new Facet("months", months(year): _*),
+              new Facet("days", days(year, month): _*),
             )
           )
     }
@@ -58,7 +58,7 @@ object ChangeCountPipeline {
     }
 
     log.debugElapsed {
-      val counts = collection.aggregate[ChangeSetCounts](pipeline).head
+      val counts = collection.aggregate(pipeline, classOf[ChangeSetCounts]).head
       val result = s"year: $year, month: ${monthOption.getOrElse('-')}, results: years: ${counts.years.size}, months: ${counts.months.size}, days: ${counts.days.size}"
       (result, counts)
     }

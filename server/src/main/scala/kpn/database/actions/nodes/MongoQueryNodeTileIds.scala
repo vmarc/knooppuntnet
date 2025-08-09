@@ -1,23 +1,23 @@
 package kpn.database.actions.nodes
 
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.regex
+import com.mongodb.client.model.Projections.exclude
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.RouteType
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.StringId
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.tiles.domain.TileId
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.regex
-import org.mongodb.scala.model.Projections.exclude
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 
 object MongoQueryNodeTileIds {
   private val log = Log(classOf[MongoQueryNodeTileIds])
@@ -28,7 +28,7 @@ class MongoQueryNodeTileIds(database: Database) {
   def execute(routeType: RouteType, log: Log = MongoQueryNodeTileIds.log): Seq[TileId] = {
     log.infoElapsed {
       val pipeline = buildPipeline(routeType)
-      val tileNames = database.baseNodes.aggregate[StringId](pipeline, log)
+      val tileNames = database.baseNodes.aggregate(pipeline, classOf[StringId], log)
       val tileIds = tileNames
         .map(_._id)
         .map { tileName =>

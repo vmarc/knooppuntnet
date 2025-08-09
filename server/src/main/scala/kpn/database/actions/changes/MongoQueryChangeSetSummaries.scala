@@ -1,23 +1,23 @@
 package kpn.database.actions.changes
 
+import com.mongodb.client.model.Aggregates.limit
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.skip
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Sorts.descending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.util.Log
 import kpn.database.actions.changes.MongoQueryChangeSetSummaries.log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.limit
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.skip
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Sorts.descending
-import org.mongodb.scala.model.Sorts.orderBy
 
 object MongoQueryChangeSetSummaries {
 
@@ -73,7 +73,7 @@ class MongoQueryChangeSetSummaries(database: Database) {
     }
 
     log.debugElapsed {
-      val summaries = database.changes.aggregate[ChangeSetSummary](pipeline)
+      val summaries = database.changes.aggregate(pipeline, classOf[ChangeSetSummary])
       (s"${summaries.size} changeset summaries", summaries)
     }
   }

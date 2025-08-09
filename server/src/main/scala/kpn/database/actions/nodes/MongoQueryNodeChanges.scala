@@ -3,15 +3,13 @@ package kpn.database.actions.nodes
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.util.Log
+import kpn.core.util.Util.seqToList
 import kpn.database.actions.base.ChangesPipeline
 import kpn.database.actions.nodes.MongoQueryNodeChanges.log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import org.mongodb.scala._
 
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
+import scala.jdk.CollectionConverters.IterableHasAsScala
 
 object MongoQueryNodeChanges {
 
@@ -41,8 +39,7 @@ class MongoQueryNodeChanges(database: Database) {
     }
     log.debugElapsed {
       val collection = database.getCollection("node-changes")
-      val future = collection.aggregate[NodeChange](pipeline).toFuture()
-      val nodeChanges = Await.result(future, Duration(60, TimeUnit.SECONDS))
+      val nodeChanges = collection.aggregate(seqToList(pipeline), classOf[NodeChange]).asScala.toSeq
       (s"${nodeChanges.size} node changes: nodeId=$nodeId, ${parameters.toDisplayString}", nodeChanges)
     }
   }

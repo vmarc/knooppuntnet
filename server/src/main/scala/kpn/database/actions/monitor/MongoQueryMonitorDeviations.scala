@@ -1,26 +1,26 @@
 package kpn.database.actions.monitor
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Sorts.descending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteDeviationInfo
 import kpn.core.util.DebugLogger.log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Sorts.descending
-import org.mongodb.scala.model.Sorts.orderBy
 
 class MongoQueryMonitorDeviations(database: Database) {
   def execute(routeId: ObjectId): Seq[MonitorRouteDeviationInfo] = {
     val pipeline = buildPipeline(routeId)
     log.debugElapsed {
-      val deviations = database.monitorStates.aggregate[MonitorRouteDeviationInfo](pipeline, log)
+      val deviations = database.monitorStates.aggregate(pipeline, classOf[MonitorRouteDeviationInfo], log)
       val sorted = deviations.zipWithIndex.map { case (deviation, index) => deviation.copy(id = index + 1) }
       (s"${sorted.length} deviations", sorted)
     }

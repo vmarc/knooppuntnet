@@ -1,5 +1,6 @@
 package kpn.database.actions.changes
 
+import com.mongodb.client.model.Filters.and
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
@@ -9,11 +10,10 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.core.util.Log
 import kpn.database.actions.changes.MongoQueryChangeSet.log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
 
 object MongoQueryChangeSet {
   private val log = Log(classOf[MongoQueryChangeSet])
@@ -57,28 +57,28 @@ class MongoQueryChangeSet(database: Database) {
     }
 
     log.debugElapsed {
-      val summary = database.changes.aggregate[ChangeSetSummary](pipeline)
+      val summary = database.changes.aggregate(pipeline, classOf[ChangeSetSummary])
       (s"changeset summary", summary)
     }
   }
 
   private def findNetworkChanges(changeSetId: Long, replicationNumber: Long): Seq[NetworkChange] = {
     findChanges(changeSetId, replicationNumber) { pipeline =>
-      val networkChanges = database.networkChanges.aggregate[NetworkChange](pipeline)
+      val networkChanges = database.networkChanges.aggregate(pipeline, classOf[NetworkChange])
       (s"${networkChanges.size} network changes", networkChanges)
     }
   }
 
   private def findRouteChanges(changeSetId: Long, replicationNumber: Long): Seq[RouteChange] = {
     findChanges(changeSetId, replicationNumber) { pipeline =>
-      val routeChanges = database.routeChanges.aggregate[RouteChange](pipeline)
+      val routeChanges = database.routeChanges.aggregate(pipeline, classOf[RouteChange])
       (s"${routeChanges.size} route changes", routeChanges)
     }
   }
 
   private def findNodeChanges(changeSetId: Long, replicationNumber: Long): Seq[NodeChange] = {
     findChanges(changeSetId, replicationNumber) { pipeline =>
-      val nodeChanges = database.nodeChanges.aggregate[NodeChange](pipeline)
+      val nodeChanges = database.nodeChanges.aggregate(pipeline, classOf[NodeChange])
       (s"${nodeChanges.size} node changes", nodeChanges)
     }
   }

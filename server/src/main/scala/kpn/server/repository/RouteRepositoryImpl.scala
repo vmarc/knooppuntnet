@@ -1,5 +1,8 @@
 package kpn.server.repository
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.api.common.Bounds
 import kpn.api.common.Country
 import kpn.api.common.RouteType
@@ -38,17 +41,14 @@ import kpn.database.actions.routes.MongoQuerySubRelationTree
 import kpn.database.actions.routes.MongoQuerySubRouteData
 import kpn.database.actions.routes.RouteDetailsData
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.StringId
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.sync.Transaction
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
 import org.springframework.stereotype.Component
 
 @Component
@@ -88,7 +88,7 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
           equal("routeId", routeId),
         )
       )
-      val docs = database.routeTiles.aggregate[RouteTileInfo](pipeline, log)
+      val docs = database.routeTiles.aggregate(pipeline, classOf[RouteTileInfo], log)
       (s"find tile docs route $routeId", docs)
     }
   }
@@ -105,7 +105,7 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
           )
         )
       )
-      val ids = database.routeTiles.aggregate[StringId](pipeline, log).map(_._id)
+      val ids = database.routeTiles.aggregate(pipeline, classOf[StringId], log).map(_._id)
       (s"found ${ids.size} tile doc ids for route $routeId", ids)
     }
   }
@@ -128,7 +128,7 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
           include("_id")
         )
       )
-      val tileDocIds = database.routeTiles.aggregate[StringId](pipeline, log)
+      val tileDocIds = database.routeTiles.aggregate(pipeline, classOf[StringId], log)
       tileDocIds.foreach { tileDocId =>
         database.routeTiles.deleteByStringId(tileDocId._id, log)
       }

@@ -1,5 +1,20 @@
 package kpn.database.actions.locations
 
+import com.mongodb.client.model.Accumulators.push
+import com.mongodb.client.model.Aggregates.count
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.limit
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.skip
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.or
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Sorts.descending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.LocationChangeSet
 import kpn.api.common.RouteType
 import kpn.api.common.changes.filter.ChangesParameters
@@ -10,29 +25,14 @@ import kpn.database.actions.locations.MongoQueryLocationChanges.log
 import kpn.database.actions.statistics.ChangeSetCounts
 import kpn.database.base.CountResult
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.bson.conversions.Bson
 import org.mongodb.scala.Document
 import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.model.Accumulators.push
-import org.mongodb.scala.model.Aggregates.count
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.limit
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.skip
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.or
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.descending
-import org.mongodb.scala.model.Sorts.orderBy
 
 object MongoQueryLocationChanges {
 
@@ -97,7 +97,7 @@ class MongoQueryLocationChanges(database: Database) {
     }
 
     log.debugElapsed {
-      val changes = database.changes.aggregate[LocationChangeSet](pipeline, allowDiskUse = true)
+      val changes = database.changes.aggregate(pipeline, classOf[LocationChangeSet], allowDiskUse = true)
       (s"${changes.size} location changes", changes)
     }
   }
@@ -111,7 +111,7 @@ class MongoQueryLocationChanges(database: Database) {
     }
 
     log.debugElapsed {
-      val countResults = database.changes.aggregate[CountResult](pipeline, allowDiskUse = true)
+      val countResults = database.changes.aggregate(pipeline, classOf[CountResult], allowDiskUse = true)
       val totalCount = countResults.map(_.count).sum
       (s"$totalCount total location changes counted", totalCount)
     }

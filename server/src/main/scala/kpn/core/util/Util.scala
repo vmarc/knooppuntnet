@@ -3,9 +3,17 @@ package kpn.core.util
 import kpn.api.common.Bounds
 
 import java.lang.management.ManagementFactory
+import java.util.stream.Collectors
+import java.util.stream.StreamSupport
 import scala.annotation.tailrec
+import scala.jdk.CollectionConverters.IterableHasAsJava
 
 object Util {
+
+  def seqToList[T](seq: Seq[T]): java.util.List[T] = {
+    StreamSupport.stream(seq.asJava.spliterator(), false)
+      .collect(Collectors.toList());
+  }
 
   def ids: Iterator[Long] = (1L to Int.MaxValue).iterator
 

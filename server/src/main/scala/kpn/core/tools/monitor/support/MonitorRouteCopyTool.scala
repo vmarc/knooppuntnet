@@ -2,8 +2,8 @@ package kpn.core.tools.monitor.support
 
 import kpn.database.base.Database
 import kpn.database.base.DatabaseCollection
+import kpn.database.base.MongoAggregates.equal
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Filters.equal
 
 object MonitorRouteCopyTool {
   def main(args: Array[String]): Unit = {

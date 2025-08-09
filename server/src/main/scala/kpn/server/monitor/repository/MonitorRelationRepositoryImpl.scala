@@ -1,18 +1,18 @@
 package kpn.server.monitor.repository
 
+import com.mongodb.client.model.Accumulators.addToSet
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.regex
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.filter
 import kpn.server.monitor.domain.MonitorRelation
-import org.mongodb.scala.model.Accumulators.addToSet
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.regex
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
 
 class MonitorRelationRepositoryImpl(database: Database) extends MonitorRelationRepository {
 
@@ -42,7 +42,7 @@ class MonitorRelationRepositoryImpl(database: Database) extends MonitorRelationR
         )
       ),
     )
-    database.monitorRelations.aggregate[MonitorTileData](pipeline, log)
+    database.monitorRelations.aggregate(pipeline, classOf[MonitorTileData], log)
   }
 
   def tilesZoomLevel(zoomLevel: Long): Seq[MonitorTileData] = {
@@ -69,6 +69,6 @@ class MonitorRelationRepositoryImpl(database: Database) extends MonitorRelationR
         )
       ),
     )
-    database.monitorRelations.aggregate[MonitorTileData](pipeline, log)
+    database.monitorRelations.aggregate(pipeline, classOf[MonitorTileData], log)
   }
 }

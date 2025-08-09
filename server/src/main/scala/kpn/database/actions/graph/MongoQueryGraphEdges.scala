@@ -1,22 +1,22 @@
 package kpn.database.actions.graph
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.api.common.RouteType
 import kpn.api.common.common.TrackPathKey
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.util.Log
 import kpn.database.actions.graph.MongoQueryGraphEdges.log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.repository.GraphEdges
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
 
 case class RouteGraphEdge(
   routeType: RouteType,
@@ -49,7 +49,7 @@ class MongoQueryGraphEdges(database: Database) {
   def execute(): Seq[GraphEdges] = {
     val pipeline = buildPipeline()
     log.infoElapsed {
-      val edges = database.routes.aggregate[RouteGraphEdge](pipeline, log)
+      val edges = database.routes.aggregate(pipeline, classOf[RouteGraphEdge], log)
       val edgesByRouteType = groupByRouteType(edges)
       val message = summary(edgesByRouteType)
       (message, edgesByRouteType)

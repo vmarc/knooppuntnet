@@ -1,19 +1,19 @@
 package kpn.database.actions.routes
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.search.ConditionGroup
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 
 object MongoQueryRoutes {
   private val log = Log(classOf[MongoQueryRoutes])
@@ -24,7 +24,7 @@ class MongoQueryRoutes(database: Database) {
   def execute(group: ConditionGroup, log: Log = MongoQueryRoutes.log): Seq[Long] = {
     log.debugElapsed {
       val pipeline = buildPipeline(group)
-      val results = database.routes.aggregate[SearchQueryResult](pipeline, log, allowDiskUse = true)
+      val results = database.routes.aggregate(pipeline, classOf[SearchQueryResult], log, allowDiskUse = true)
       val ids = SearchQueryPostProcessor.process(group, results).map(_._id)
       (s"${ids.size} routes", ids)
     }

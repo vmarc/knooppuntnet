@@ -1,6 +1,5 @@
 package kpn.tools.code.codecs
 
-import com.mongodb.MongoClientSettings
 import com.mongodb.client.MongoClients
 import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Tag
@@ -24,7 +23,7 @@ class RawNodeCodecTest extends UnitTest {
             new StringCodec(),
           ),
           CodecRegistries.fromProviders(new _CodecProvider),
-          MongoClientSettings.getDefaultCodecRegistry
+          //MongoClientSettings.getDefaultCodecRegistry
         )
         val database = mongoClient.getDatabase("test").withCodecRegistry(codecRegistry)
         val collection = database.getCollection("raw-nodes", classOf[RawNode])

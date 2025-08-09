@@ -1,20 +1,20 @@
 package kpn.server.analyzer.engine.analysis.post
 
+import com.mongodb.client.model.Accumulators.first
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.out
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.replaceRoot
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.in
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.filter
 import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.model.Accumulators.first
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.out
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.replaceRoot
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.in
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
 
 class OrphanNodeUpdater_Update(database: Database, log: Log) {
 
@@ -54,7 +54,7 @@ class OrphanNodeUpdater_Update(database: Database, log: Log) {
           database.orphanNodes.name
         )
       )
-      val orphanNodes = database.nodes.aggregate[OrphanNodeDoc](pipeline, log)
+      val orphanNodes = database.nodes.aggregate(pipeline, classOf[OrphanNodeDoc], log)
       (s"${orphanNodes.size} orphan nodes", ())
     }
   }

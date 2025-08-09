@@ -1,15 +1,15 @@
 package kpn.database.actions.routes
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.Types.MongoPipeline
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
 
 case class SegmentCountDoc(
   segmentCount: Long,
@@ -24,7 +24,7 @@ class MongoQueryRouteSegmentCount(database: Database) {
   def execute(routeId: Long, log: Log = MongoQueryRouteSegmentCount.log): Option[Long] = {
     log.debugElapsed {
       val pipeline = buildPipeline(routeId)
-      val segmentCount = database.baseRoutes.optionAggregate[SegmentCountDoc](pipeline, log).map(_.segmentCount)
+      val segmentCount = database.baseRoutes.optionAggregate(pipeline, classOf[SegmentCountDoc], log).map(_.segmentCount)
       (s"route segmentCount: $segmentCount", segmentCount)
     }
   }

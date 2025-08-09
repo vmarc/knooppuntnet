@@ -1,15 +1,15 @@
 package kpn.server.analyzer.engine.analysis.post
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.exists
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Id
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.exists
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 
 class OrphanRouteUpdater_AllRouteIds(database: Database, log: Log) {
 
@@ -29,7 +29,7 @@ class OrphanRouteUpdater_AllRouteIds(database: Database, log: Log) {
           )
         )
       )
-      val ids = database.routes.aggregate[Id](pipeline, log)
+      val ids = database.routes.aggregate(pipeline, classOf[Id], log)
       (s"${ids.size} routes in total", ids.map(_._id))
     }
   }

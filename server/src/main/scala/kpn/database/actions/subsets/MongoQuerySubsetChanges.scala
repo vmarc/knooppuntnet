@@ -1,21 +1,21 @@
 package kpn.database.actions.subsets
 
+import com.mongodb.client.model.Aggregates.limit
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.skip
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Sorts.descending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
 import kpn.core.util.Log
 import kpn.database.base.Database
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.limit
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.skip
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Sorts.descending
-import org.mongodb.scala.model.Sorts.orderBy
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 
 class MongoQuerySubsetChanges(database: Database) {
 
@@ -49,7 +49,7 @@ class MongoQuerySubsetChanges(database: Database) {
     )
 
     log.debugElapsed {
-      val changes = database.changes.aggregate[ChangeSetSummary](pipeline, log)
+      val changes = database.changes.aggregate(pipeline, classOf[ChangeSetSummary], log)
       val result = s"subset ${subset.name} changes: ${changes.size}"
       (result, changes)
     }

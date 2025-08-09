@@ -1,5 +1,15 @@
 package kpn.database.tools
 
+import com.mongodb.client.model.Accumulators.sum
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Sorts.descending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.base.WithStringId
 import kpn.api.custom.Timestamp2
 import kpn.database.base.Database
@@ -7,16 +17,6 @@ import kpn.database.base.DatabaseCollectionImpl
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.model.Accumulators.sum
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.descending
-import org.mongodb.scala.model.Sorts.orderBy
 
 case class Period(year: Option[Long], month: Option[Long], day: Option[Long], count: Long)
 
@@ -51,9 +51,9 @@ class TimestampDemo(database: Database) {
 
   def periods(): Unit = {
 
-    val years = collection.aggregate[Period](pipelineYears())
-    val months = collection.aggregate[Period](pipelineMonths())
-    val days = collection.aggregate[Period](pipelineDays())
+    val years = collection.aggregate(pipelineYears(), classOf[Period])
+    val months = collection.aggregate(pipelineMonths(), classOf[Period])
+    val days = collection.aggregate(pipelineDays(), classOf[Period])
 
     println("Years")
     years.foreach(println)

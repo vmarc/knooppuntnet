@@ -2,7 +2,7 @@ package kpn.database.index
 
 import kpn.database.base.DatabaseCollection
 import org.mongodb.scala.bson.conversions.Bson
-import org.mongodb.scala.model.Indexes
+import com.mongodb.client.model.Indexes
 
 object Index {
   def apply(

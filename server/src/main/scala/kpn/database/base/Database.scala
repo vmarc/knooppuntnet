@@ -1,5 +1,6 @@
 package kpn.database.base
 
+import com.mongodb.client.MongoCollection
 import kpn.api.base.WithStringId
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.PoiState
@@ -40,7 +41,6 @@ import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.MonitorTask
 import kpn.server.monitor.domain.OldMonitorReference
 import kpn.server.sync.Transaction
-import org.mongodb.scala.MongoCollection
 
 import scala.reflect.ClassTag
 

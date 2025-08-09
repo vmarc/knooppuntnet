@@ -1,14 +1,14 @@
 package kpn.database.actions.routes
 
+import com.mongodb.client.model.Filters.and
 import kpn.api.common.RouteType
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
 
 object MongoQueryRouteTileInfos {
   private val log = Log(classOf[MongoQueryRouteTileInfos])
@@ -19,7 +19,7 @@ class MongoQueryRouteTileInfos(database: Database) {
   def byZoomLevel(routeType: RouteType, zoomLevel: Int, log: Log = MongoQueryRouteTileInfos.log): Seq[RouteTileInfo] = {
     log.debugElapsed {
       val pipeline = buildByZoomLevelPipeline(routeType, zoomLevel)
-      val routeTileInfos = database.routeTiles.aggregate[RouteTileInfo](pipeline, log)
+      val routeTileInfos = database.routeTiles.aggregate(pipeline, classOf[RouteTileInfo], log)
       (s"${routeTileInfos.size} route tile infos", routeTileInfos)
     }
   }
@@ -27,7 +27,7 @@ class MongoQueryRouteTileInfos(database: Database) {
   def byTileId(routeType: RouteType, tileId: TileId, log: Log = MongoQueryRouteTileInfos.log): Seq[RouteTileInfo] = {
     log.debugElapsed {
       val pipeline = buildByTileIdPipeline(routeType, tileId)
-      val routeTileInfos = database.routeTiles.aggregate[RouteTileInfo](pipeline, log)
+      val routeTileInfos = database.routeTiles.aggregate(pipeline, classOf[RouteTileInfo], log)
       (s"${routeTileInfos.size} route tile infos", routeTileInfos)
     }
   }

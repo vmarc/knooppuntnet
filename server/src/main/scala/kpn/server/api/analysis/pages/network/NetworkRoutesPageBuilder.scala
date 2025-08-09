@@ -1,17 +1,17 @@
 package kpn.server.api.analysis.pages.network
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkRoutesPage
 import kpn.core.util.Log
 import kpn.core.util.RouteSymbol
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import kpn.server.api.analysis.pages.TimeInfoBuilder
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
 import org.springframework.stereotype.Component
 
 @Component
@@ -63,6 +63,6 @@ class NetworkRoutesPageBuilder(database: Database) {
         )
       )
     )
-    database.networks.optionAggregate[NetworkRoutesPageData](pipeline, log)
+    database.networks.optionAggregate(pipeline, classOf[NetworkRoutesPageData], log)
   }
 }

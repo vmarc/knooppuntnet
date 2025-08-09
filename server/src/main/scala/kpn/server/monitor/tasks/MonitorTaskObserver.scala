@@ -4,7 +4,7 @@ import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorTask
 import org.mongodb.scala.Observer
 import org.mongodb.scala.Subscription
-import org.mongodb.scala.model.changestream.ChangeStreamDocument
+import com.mongodb.client.model.changestream.ChangeStreamDocument
 
 import java.util.concurrent.CountDownLatch
 

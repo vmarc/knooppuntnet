@@ -1,13 +1,12 @@
 package kpn.database.actions.metrics
 
-import kpn.core.metrics.ReplicationActionDoc
-import kpn.database.actions.metrics.MongoQueryMetrics.log
-import kpn.database.base.Database
-import kpn.database.base.MetricsDatabase
 import kpn.core.doc.NetworkDoc
+import kpn.core.metrics.ReplicationActionDoc
 import kpn.core.util.Log
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Filters.equal
+import kpn.database.actions.metrics.MongoQueryMetrics.log
+import kpn.database.base.MetricsDatabase
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 
 object MongoQueryMetrics {
   private val log = Log(classOf[MongoQueryMetrics])
@@ -22,13 +21,10 @@ class MongoQueryMetrics(database: MetricsDatabase) {
           equal("_id", networkId)
         )
       )
-      val network = database.replication.optionAggregate[ReplicationActionDoc](pipeline, log)
+      val network = database.replication.optionAggregate(pipeline, classOf[ReplicationActionDoc], log)
       (s"network $networkId", network)
     }
 
-
     None
-
-
   }
 }

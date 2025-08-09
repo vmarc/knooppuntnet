@@ -1,15 +1,15 @@
 package kpn.server.analyzer.engine.analysis.post
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.fields
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Id
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.fields
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 
 class OrphanNodeUpdater_ReferencesInNetworks(database: Database, log: Log) {
 
@@ -29,7 +29,7 @@ class OrphanNodeUpdater_ReferencesInNetworks(database: Database, log: Log) {
           )
         )
       )
-      val ids = database.baseNetworks.aggregate[Id](pipeline, log).map(_._id).distinct
+      val ids = database.baseNetworks.aggregate(pipeline, classOf[Id], log).map(_._id).distinct
       (s"${ids.size} nodes referenced in networks", ids)
     }
   }

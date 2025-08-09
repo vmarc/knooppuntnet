@@ -1,8 +1,29 @@
 package kpn.server.analyzer.engine.analysis.post
 
+import com.mongodb.client.model.Accumulators.push
+import com.mongodb.client.model.Accumulators.sum
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.out
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Aggregates.unionWith
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.exists
+import com.mongodb.client.model.Filters.in
+import com.mongodb.client.model.Filters.not
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.statistics.StatisticValue
 import kpn.core.util.Log
+import kpn.core.util.Util.seqToList
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
+import kpn.database.base.MongoAggregates.notEqual
 import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.MongoProjections.concat
 import kpn.database.base.Types.MongoPipeline
@@ -10,26 +31,6 @@ import kpn.database.util.Mongo
 import org.mongodb.scala.Document
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.conversions.Bson
-import org.mongodb.scala.model.Accumulators.push
-import org.mongodb.scala.model.Accumulators.sum
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.out
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Aggregates.unionWith
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.exists
-import org.mongodb.scala.model.Filters.in
-import org.mongodb.scala.model.Filters.not
-import org.mongodb.scala.model.Filters.notEqual
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 import org.springframework.stereotype.Component
 
 object StatisticsUpdater {
@@ -48,27 +49,28 @@ class StatisticsUpdater(database: Database) {
   def execute(): Unit = {
 
     log.debugElapsed {
-      val pipeline = Seq(
-        pipelineNodeCount(),
-        Seq(unionWith(database.orphanNodes.name, pipelineOrphanNodeCount(): _*)),
-        Seq(unionWith(database.routes.name, pipelineRouteCount(): _*)),
-        Seq(unionWith(database.orphanRoutes.name, pipelineOrphanRouteCount(): _*)),
-        Seq(unionWith(database.nodes.name, pipelineNodeFacts(): _*)),
-        Seq(unionWith(database.nodes.name, pipelineNodeIntegrityCheckCount(): _*)),
-        Seq(unionWith(database.nodes.name, pipelineNodeIntegrityCheckFailedCount(): _*)),
-        Seq(unionWith(database.routes.name, pipelineRouteFacts(): _*)),
-        Seq(unionWith(database.routes.name, pipelineRouteDistance(): _*)),
-        Seq(unionWith(database.networks.name, pipelineNetworkCount(): _*)),
-        Seq(unionWith(database.networks.name, pipelineNetworkFacts(): _*)),
-        Seq(unionWith(database.networks.name, pipelineNetworkFacts2(): _*)),
-        Seq(unionWith(database.networks.name, pipelineNetworkFacts3(): _*)),
-        Seq(unionWith(database.networks.name, factCountPipeline(): _*)),
-        Seq(unionWith(database.networks.name, pipelineIntegrityCheckNetworkCount(): _*)),
-        Seq(unionWith(database.changes.name, pipelineChangeCount(): _*)),
-        Seq(out(database.statistics.name))
-      ).flatten
+      val pipeline =
+        pipelineNodeCount() ++
+          Seq(
+            unionWith(database.orphanNodes.name, seqToList(pipelineOrphanNodeCount())),
+            unionWith(database.routes.name, seqToList(pipelineRouteCount())),
+            unionWith(database.orphanRoutes.name, seqToList(pipelineOrphanRouteCount())),
+            unionWith(database.nodes.name, seqToList(pipelineNodeFacts())),
+            unionWith(database.nodes.name, seqToList(pipelineNodeIntegrityCheckCount())),
+            unionWith(database.nodes.name, seqToList(pipelineNodeIntegrityCheckFailedCount())),
+            unionWith(database.routes.name, seqToList(pipelineRouteFacts())),
+            unionWith(database.routes.name, seqToList(pipelineRouteDistance())),
+            unionWith(database.networks.name, seqToList(pipelineNetworkCount())),
+            unionWith(database.networks.name, seqToList(pipelineNetworkFacts())),
+            unionWith(database.networks.name, seqToList(pipelineNetworkFacts2())),
+            unionWith(database.networks.name, seqToList(pipelineNetworkFacts3())),
+            unionWith(database.networks.name, seqToList(factCountPipeline())),
+            unionWith(database.networks.name, seqToList(pipelineIntegrityCheckNetworkCount())),
+            unionWith(database.changes.name, seqToList(pipelineChangeCount())),
+            out(database.statistics.name)
+          )
 
-      val values = database.nodes.aggregate[StatisticValue](pipeline)
+      val values = database.nodes.aggregate(pipeline, classOf[StatisticValue])
       (s"${values.size} values", ())
     }
   }
@@ -457,12 +459,10 @@ class StatisticsUpdater(database: Database) {
   }
 
   private def factCountPipeline(): MongoPipeline = {
-    Seq(
-      networkFactCountPipeline(),
-      Seq(unionWith(database.nodes.name, nodeFactCountPipeline(): _*)),
-      Seq(unionWith(database.routes.name, routeFactCountPipeline(): _*)),
+    networkFactCountPipeline() ++
+      Seq(unionWith(database.nodes.name, seqToList(nodeFactCountPipeline()))) ++
+      Seq(unionWith(database.routes.name, seqToList(routeFactCountPipeline()))) ++
       combineFactCounts()
-    ).flatten
   }
 
   private def combineFactCounts(): MongoPipeline = {

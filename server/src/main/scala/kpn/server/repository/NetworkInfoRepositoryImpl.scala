@@ -1,5 +1,6 @@
 package kpn.server.repository
 
+import com.mongodb.client.model.Updates.set
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
@@ -8,8 +9,7 @@ import kpn.core.util.Log
 import kpn.database.actions.networks.MongoQueryNetworkChangeCounts
 import kpn.database.actions.networks.MongoQueryNetworkChanges
 import kpn.database.base.Database
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Updates.set
+import kpn.database.base.MongoAggregates.equal
 import org.springframework.stereotype.Component
 
 @Component
@@ -44,9 +44,7 @@ class NetworkInfoRepositoryImpl(database: Database) extends NetworkInfoRepositor
     }
 
     val filter = equal("_id", networkId)
-    val update = Seq(
-      set("summary.changeCount", changesCount)
-    )
+    val update = set("summary.changeCount", changesCount)
 
     database.networks.updateOne(filter, update, log)
   }

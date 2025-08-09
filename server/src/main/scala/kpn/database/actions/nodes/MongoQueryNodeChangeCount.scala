@@ -3,8 +3,8 @@ package kpn.database.actions.nodes
 import kpn.core.util.Log
 import kpn.database.actions.nodes.MongoQueryNodeChangeCount.log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Filters.equal
 
 object MongoQueryNodeChangeCount {
   private val log = Log(classOf[MongoQueryNodeChangeCount])

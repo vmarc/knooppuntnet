@@ -1,10 +1,16 @@
 package kpn.core.tools.monitor.support
 
+import com.mongodb.client.model.Aggregates.limit
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Filters
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.core.tools.config.Dirs
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Id
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.toWorldCoordinates
 import kpn.server.analyzer.engine.tiles.domain.RouteTiles
@@ -18,14 +24,8 @@ import org.geotools.data.geojson.GeoJSONReader
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.limit
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.excludeId
 
 import java.io.File
 
@@ -124,7 +124,7 @@ class OldMonitorTileTool(config: OldMonitorTileToolConfig) {
     val pipeline = Seq(
       filter(
         and(
-          equal("relationId", relationId),
+          Filters.eq("relationId", relationId),
         ),
       ),
       limit(1),
@@ -135,7 +135,7 @@ class OldMonitorTileTool(config: OldMonitorTileToolConfig) {
         )
       )
     )
-    config.database.monitorStates.aggregate[OsmSegments](pipeline)
+    config.database.monitorStates.aggregate(pipeline, classOf[OsmSegments])
   }
 
   private def loadTestRelations(): Map[Long, TileRelationData] = {
@@ -150,7 +150,7 @@ class OldMonitorTileTool(config: OldMonitorTileToolConfig) {
         )
       )
     )
-    val relationIds = config.database.monitorRelations.aggregate[Id](pipeline).map(_._id).sorted
+    val relationIds = config.database.monitorRelations.aggregate(pipeline, classOf[Id]).map(_._id).sorted
     log.info(s"loading ${relationIds.size} relations")
     loadRelations(relationIds)
   }

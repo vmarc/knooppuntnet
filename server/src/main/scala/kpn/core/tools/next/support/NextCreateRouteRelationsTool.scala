@@ -1,5 +1,6 @@
 package kpn.core.tools.next.support
 
+import com.mongodb.client.MongoClients
 import kpn.api.custom.Timestamp
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
@@ -16,14 +17,13 @@ import kpn.core.util.Log
 import kpn.database.util.Mongo.codecRegistry
 import kpn.server.monitor.route.update.RelationTopLevelDataBuilder
 import org.apache.commons.io.FileUtils
-import org.mongodb.scala.MongoClient
 
 import java.io.File
 import scala.xml.XML
 
 object NextCreateRouteRelationsTool {
   def main(args: Array[String]): Unit = {
-    val client = MongoClient("mongodb://localhost:27017")
+    val client = MongoClients.create("mongodb://localhost:27017")
     try {
       val mongoDatabase = client.getDatabase("kpn-next").withCodecRegistry(codecRegistry)
       val database = new NextDatabaseImpl(mongoDatabase)

@@ -1,21 +1,21 @@
 package kpn.database.actions.nodes
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.common.Reference
 import kpn.core.util.Log
 import kpn.database.actions.nodes.MongoQueryNodeBaseRouteReferences.log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 
 object MongoQueryNodeBaseRouteReferences {
   private val log = Log(classOf[MongoQueryNodeBaseRouteReferences])
@@ -25,7 +25,7 @@ class MongoQueryNodeBaseRouteReferences(database: Database) {
 
   def execute(nodeId: Long): Seq[Reference] = {
     log.infoElapsed {
-      val refs = database.baseRoutes.aggregate[Reference](pipeline(nodeId), log)
+      val refs = database.baseRoutes.aggregate(pipeline(nodeId), classOf[Reference], log)
       (s"node route refs: ${refs.size}", refs)
     }
   }

@@ -1,14 +1,14 @@
 package kpn.server.sync
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Projections.include
 import kpn.api.base.ObjectId
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo
 import kpn.server.sync.SyncTool.log
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.include
 
 object SyncTool {
   private val log = Log(classOf[SyncTool])
@@ -74,7 +74,7 @@ class SyncTool(sourceDatabase: Database, targetDatabase: Database) {
         include("stamp")
       )
     )
-    val docs = sourceDatabase.routes.aggregate[StampDoc](pipeline)
+    val docs = sourceDatabase.routes.aggregate(pipeline, classOf[StampDoc])
     val map = docs.map(e => e._id -> e.stamp).toMap
     log.info(s"$name routes: ${map.size}")
     map

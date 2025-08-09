@@ -1,13 +1,13 @@
 package kpn.core.tools.support.location
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.size
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.fields
 import kpn.database.base.Database
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.size
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.fields
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 
 class RoutesWithoutLocationQuery(database: Database) {
 
@@ -25,6 +25,6 @@ class RoutesWithoutLocationQuery(database: Database) {
         )
       )
     )
-    database.routes.aggregate[RouteWithoutLocation](pipeline)
+    database.routes.aggregate(pipeline, classOf[RouteWithoutLocation])
   }
 }

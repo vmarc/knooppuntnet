@@ -4,17 +4,17 @@ import kpn.core.util.Log
 import kpn.database.actions.statistics.MongoQueryStatistics.log
 import kpn.database.base.Database
 import kpn.database.base.Types.MongoPipeline
-import org.mongodb.scala.model.Accumulators.push
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.merge
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.MergeOptions
-import org.mongodb.scala.model.MergeOptions.WhenMatched
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
+import com.mongodb.client.model.Accumulators.push
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.merge
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.MergeOptions
+import com.mongodb.client.model.MergeOptions.WhenMatched
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 
 object MongoQueryStatistics {
 

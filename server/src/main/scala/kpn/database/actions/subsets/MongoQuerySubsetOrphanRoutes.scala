@@ -1,16 +1,16 @@
 package kpn.database.actions.subsets
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.api.custom.Subset
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Id
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 
 object MongoQuerySubsetOrphanRoutes {
   private val log = Log(classOf[MongoQuerySubsetOrphanRoutes])
@@ -28,7 +28,7 @@ class MongoQuerySubsetOrphanRoutes(database: Database) {
       )
     )
     log.debugElapsed {
-      val docs = database.orphanRoutes.aggregate[OrphanRouteDoc](pipeline, log)
+      val docs = database.orphanRoutes.aggregate(pipeline, classOf[OrphanRouteDoc], log)
       val message = s"subset ${subset.name} orphan routes: ${docs.size}"
       (message, docs)
     }
@@ -49,7 +49,7 @@ class MongoQuerySubsetOrphanRoutes(database: Database) {
       )
     )
     log.debugElapsed {
-      val ids = database.orphanRoutes.aggregate[Id](pipeline, log).map(_._id)
+      val ids = database.orphanRoutes.aggregate(pipeline, classOf[Id], log).map(_._id)
       val message = s"subset ${subset.name} orphan route ids: ${ids.size}"
       (message, ids)
     }

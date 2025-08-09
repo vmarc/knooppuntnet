@@ -1,26 +1,26 @@
 package kpn.database.actions.monitor
 
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.core.util.DebugLogger.log
 import kpn.database.base.Database
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import org.mongodb.scala.Document
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 
 class MongoQueryMonitorReferenceTileIds(database: Database) {
   def execute(): Seq[TileId] = {
     val pipeline = buildPipeline()
     log.debugElapsed {
-      val tileIds = database.monitorReferences.aggregate[TileId](pipeline, log)
+      val tileIds = database.monitorReferences.aggregate(pipeline, classOf[TileId], log)
       (s"${tileIds.length} reference tile ids", tileIds)
     }
   }

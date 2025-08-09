@@ -1,19 +1,19 @@
 package kpn.database.actions.routes
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.in
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.api.common.common.Reference
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.in
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
 
 object MongoQueryRouteNetworkReferences {
   private val log = Log(classOf[MongoQueryRouteNetworkReferences])
@@ -24,7 +24,7 @@ class MongoQueryRouteNetworkReferences(database: Database) {
   def execute(routeId: Long, log: Log = MongoQueryRouteNetworkReferences.log): Seq[Reference] = {
     log.infoElapsed {
       val pipeline = buildPipeline(routeId)
-      val references = database.baseNetworks.aggregate[Reference](pipeline, log)
+      val references = database.baseNetworks.aggregate(pipeline, classOf[Reference], log)
       (s"route network references: ${references.size}", references)
     }
   }

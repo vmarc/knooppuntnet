@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.poi.image
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.core.tools.config.Dirs
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.StringId
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
 
 import java.io.FileWriter
 import java.io.PrintWriter
@@ -33,7 +33,7 @@ class PoiKeyExportTool(database: Database) {
           )
         )
       )
-      val ids = database.pois.aggregate[StringId](pipeline, log).map(_._id)
+      val ids = database.pois.aggregate(pipeline, classOf[StringId], log).map(_._id)
       (s"${ids.size} pois", ids)
     }
     val out = new PrintWriter(new FileWriter(s"${Dirs.root}/pois/pois.txt"))

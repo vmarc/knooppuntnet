@@ -1,23 +1,23 @@
 package kpn.database.actions.monitor
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.in
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
 import kpn.api.common.monitor.MonitorRouteRelationInfo
 import kpn.core.util.DebugLogger.log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.in
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
 
 class MongoQueryMonitorRouteRelationInfos(database: Database) {
   def execute(relationIds: Seq[Long]): Seq[MonitorRouteRelationInfo] = {
     val pipeline = buildPipeline(relationIds)
     log.debugElapsed {
-      val infos = database.routes.aggregate[MonitorRouteRelationInfo](pipeline, log)
+      val infos = database.routes.aggregate(pipeline, classOf[MonitorRouteRelationInfo], log)
       (s"${infos.length} route infos", infos)
     }
   }

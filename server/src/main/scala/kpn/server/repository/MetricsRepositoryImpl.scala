@@ -1,5 +1,8 @@
 package kpn.server.repository
 
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.gte
+import com.mongodb.client.model.Filters.lt
 import kpn.api.common.status.NameValue
 import kpn.api.common.status.PeriodParameters
 import kpn.core.metrics.AnalysisAction
@@ -15,10 +18,7 @@ import kpn.core.metrics.SystemStatusDoc
 import kpn.core.metrics.UpdateAction
 import kpn.core.metrics.UpdateActionDoc
 import kpn.database.base.MetricsDatabase
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.gte
-import org.mongodb.scala.model.Filters.lt
+import kpn.database.base.MongoAggregates.filter
 import org.springframework.stereotype.Component
 
 import scala.util.Random
@@ -82,6 +82,6 @@ class MetricsRepositoryImpl(
         )
       )
     )
-    metricsDatabase.api.aggregate[ApiActionDoc](pipeline).map(_.api)
+    metricsDatabase.api.aggregate(pipeline, classOf[ApiActionDoc]).map(_.api)
   }
 }

@@ -4,6 +4,7 @@ import com.microsoft.playwright.Page
 import com.microsoft.playwright.assertions.LocatorAssertions
 import com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat
 import com.microsoft.playwright.options.AriaRole
+import com.mongodb.client.MongoClient
 import e2e.pages.Application
 import kpn.api.common.common.User
 import kpn.api.common.monitor.MonitorReferenceType
@@ -12,7 +13,6 @@ import kpn.database.base.DatabaseImpl
 import kpn.database.util.Mongo
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
-import org.mongodb.scala.MongoClient
 
 import java.nio.file.Paths
 import java.util.regex.Pattern

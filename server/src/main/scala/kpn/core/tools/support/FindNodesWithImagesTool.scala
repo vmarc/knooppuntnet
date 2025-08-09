@@ -1,21 +1,21 @@
 package kpn.core.tools.support
 
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.or
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.StringId
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.or
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 
 object FindNodesWithImagesTool {
   def main(args: Array[String]): Unit = {
@@ -62,7 +62,7 @@ class FindNodesWithImagesTool(database: Database) {
       ),
       sort(orderBy(ascending("key", "_id")))
     )
-    database.nodes.aggregate[NodeImageTag](pipeline, log)
+    database.nodes.aggregate(pipeline, classOf[NodeImageTag], log)
   }
 
   private def findNodeTagKeys(): Seq[String] = {
@@ -80,6 +80,6 @@ class FindNodesWithImagesTool(database: Database) {
       group("$key"),
       sort(orderBy(ascending("_id")))
     )
-    database.nodes.aggregate[StringId](pipeline, log).map(_._id).sorted
+    database.nodes.aggregate(pipeline, classOf[StringId], log).map(_._id).sorted
   }
 }

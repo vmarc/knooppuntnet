@@ -1,32 +1,35 @@
 package kpn.database.util
 
+import com.mongodb.client.MongoClient
+import com.mongodb.client.MongoClients
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.next.database.NextDatabase
 import kpn.core.tools.next.database.NextDatabaseImpl
 import kpn.database.base.Database
 import kpn.database.base.DatabaseImpl
 import kpn.database.base.Types.MongoPipeline
+import kpn.tools.code.codecs.generated._CodecProvider
+import org.bson.BsonDocument
+import org.bson.codecs.StringCodec
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.configuration.CodecRegistry
-import org.bson.json.JsonWriterSettings
-import org.mongodb.scala.MongoClient
-import org.mongodb.scala.MongoClient.DEFAULT_CODEC_REGISTRY
-import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.bson.conversions.Bson
+import org.bson.conversions.Bson
 
 import java.io.File
 import java.io.FileReader
 import java.util.Properties
 
 object Mongo {
-  private val jsonWriterSettings = JsonWriterSettings.builder().indent(true).build()
   val codecRegistry: CodecRegistry = CodecRegistries.fromRegistries(
-    DEFAULT_CODEC_REGISTRY,
-    CodecRegistries.fromProviders(new JacksonCodecProvider())
+    CodecRegistries.fromCodecs(
+      new StringCodec(),
+    ),
+    CodecRegistries.fromProviders(new _CodecProvider),
+    //MongoClientSettings.getDefaultCodecRegistry
   )
 
   def client: MongoClient = {
-    MongoClient(url)
+    MongoClients.create(url)
   }
 
   def executeIn(databaseName: String)(action: Database => Unit): Unit = {
@@ -57,7 +60,7 @@ object Mongo {
 
   def bsonString(bson: Bson): String = {
     val bsonDocument = bson.toBsonDocument(classOf[BsonDocument], codecRegistry)
-    bsonDocument.toJson(jsonWriterSettings)
+    bsonDocument.toJson()
   }
 
   def pipelineString(stages: MongoPipeline): String = {

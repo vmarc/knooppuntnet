@@ -1,14 +1,14 @@
 package kpn.core.tools.next.support
 
+import com.mongodb.client.model.Accumulators.sum
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Sorts.descending
+import com.mongodb.client.model.Sorts.orderBy
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Accumulators.sum
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Sorts.descending
-import org.mongodb.scala.model.Sorts.orderBy
 
 case class TagCount(_id: String, count: Long)
 
@@ -31,7 +31,7 @@ object RouteTagValuesTool {
         )
       )
     )
-    val tagCounts = nextDatabase.routeRelations.aggregate[TagCount](pipeline)
+    val tagCounts = nextDatabase.routeRelations.aggregate(pipeline, classOf[TagCount])
     tagCounts.foreach(println)
   }
 }

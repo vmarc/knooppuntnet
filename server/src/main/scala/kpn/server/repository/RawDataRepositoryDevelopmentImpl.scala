@@ -1,5 +1,6 @@
 package kpn.server.repository
 
+import com.mongodb.client.model.Filters.in
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Timestamp
@@ -8,8 +9,7 @@ import kpn.core.doc.RawNodeDoc
 import kpn.core.doc.RawRouteDoc
 import kpn.core.util.Log
 import kpn.database.base.Database
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Filters.in
+import kpn.database.base.MongoAggregates.filter
 
 class RawDataRepositoryDevelopmentImpl(
   database: Database
@@ -31,7 +31,7 @@ class RawDataRepositoryDevelopmentImpl(
         in("_id", nodeIds: _*),
       ),
     )
-    database.rawNodes.aggregate[RawNodeDoc](pipeline).map(_.node)
+    database.rawNodes.aggregate(pipeline, classOf[RawNodeDoc]).map(_.node)
   }
 
   override def networkIds(timestamp: Timestamp): Seq[Long] = {
@@ -48,7 +48,7 @@ class RawDataRepositoryDevelopmentImpl(
         in("_id", networkIds: _*),
       ),
     )
-    database.rawNetworks.aggregate[RawNetworkDoc](pipeline).map(_.relation)
+    database.rawNetworks.aggregate(pipeline, classOf[RawNetworkDoc]).map(_.relation)
   }
 
   override def routeIds(timestamp: Timestamp): Seq[Long] = {

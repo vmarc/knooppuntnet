@@ -1,19 +1,19 @@
 package kpn.database.actions.routes
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.in
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.exclude
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.api.common.RouteScope
 import kpn.api.common.search.RouteList
 import kpn.api.common.search.RouteListItem
 import kpn.api.common.search.RouteSearchResult
 import kpn.core.util.Log
 import kpn.database.base.Database
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.in
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.exclude
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
+import kpn.database.base.MongoAggregates.filter
 
 object MongoQueryRouteSearchResults {
   private val log = Log(classOf[MongoQueryRouteSearchResults])
@@ -41,7 +41,7 @@ class MongoQueryRouteSearchResults(database: Database) {
           )
         )
       )
-      val results = database.routes.aggregate[RouteSearchResult](pipeline, log)
+      val results = database.routes.aggregate(pipeline, classOf[RouteSearchResult], log)
       val (international, nonInternational) = results.partition(_.scopes.contains(RouteScope.international))
       val (national, nonNational) = nonInternational.partition(_.scopes.contains(RouteScope.national))
       val (regional, nonRegional) = nonNational.partition(_.scopes.contains(RouteScope.regional))

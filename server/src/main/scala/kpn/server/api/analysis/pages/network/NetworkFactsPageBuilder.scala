@@ -1,13 +1,13 @@
 package kpn.server.api.analysis.pages.network
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.api.common.network.NetworkFactsPage
 import kpn.core.util.Log
 import kpn.database.base.Database
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import org.springframework.stereotype.Component
 
 @Component
@@ -36,6 +36,6 @@ class NetworkFactsPageBuilder(database: Database) {
         )
       )
     )
-    database.networks.optionAggregate[NetworkFactsPage](pipeline, log)
+    database.networks.optionAggregate(pipeline, classOf[NetworkFactsPage], log)
   }
 }

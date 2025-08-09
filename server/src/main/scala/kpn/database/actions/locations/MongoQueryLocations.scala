@@ -1,28 +1,29 @@
 package kpn.database.actions.locations
 
+import com.mongodb.client.model.Accumulators.sum
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.unionWith
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.regex
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
 import kpn.core.util.Log
+import kpn.core.util.Util.seqToList
 import kpn.database.base.CountResult
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
+import kpn.database.base.MongoAggregates.notEqual
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.conversions.Bson
-import org.mongodb.scala.model.Accumulators.sum
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.unionWith
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.notEqual
-import org.mongodb.scala.model.Filters.regex
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
 
 class MongoQueryLocations(database: Database) {
   private val log = Log(classOf[MongoQueryLocations])
@@ -43,7 +44,7 @@ class MongoQueryLocations(database: Database) {
     )
 
     log.debugElapsed {
-      val meters = database.routes.aggregate[CountResult](pipeline, log).map(_.count).sum
+      val meters = database.routes.aggregate(pipeline, classOf[CountResult], log).map(_.count).sum
       (s"distance: $meters", meters)
     }
   }
@@ -53,9 +54,9 @@ class MongoQueryLocations(database: Database) {
     val pipeline = Seq(
       nodeCountPipeline(subset),
       Seq(
-        unionWith("nodes", nodeFactCountsPipeline(subset): _*),
-        unionWith("routes", routeCountPipeline(subset): _*),
-        unionWith("routes", routeFactCountPipeline(subset): _*),
+        unionWith("nodes", seqToList(nodeFactCountsPipeline(subset))),
+        unionWith("routes", seqToList(routeCountPipeline(subset))),
+        unionWith("routes", seqToList(routeFactCountPipeline(subset))),
       ),
       Seq(
         group(
@@ -77,7 +78,7 @@ class MongoQueryLocations(database: Database) {
     ).flatten
 
     log.debugElapsed {
-      val locations = database.nodes.aggregate[LocationQueryResult](pipeline, log)
+      val locations = database.nodes.aggregate(pipeline, classOf[LocationQueryResult], log)
       (s"locations: ${locations.size}", locations)
     }
   }

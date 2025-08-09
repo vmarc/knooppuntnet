@@ -1,17 +1,17 @@
 package kpn.database.actions.subsets
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.fields
 import kpn.api.custom.Subset
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.util.Log
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanNodes.log
 import kpn.database.base.Database
 import kpn.database.base.Id
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.fields
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 
 object MongoQuerySubsetOrphanNodes {
   private val log = Log(classOf[MongoQuerySubsetOrphanNodes])
@@ -31,7 +31,7 @@ class MongoQuerySubsetOrphanNodes(database: Database) {
     )
 
     log.debugElapsed {
-      val docs = database.orphanNodes.aggregate[OrphanNodeDoc](pipeline, log)
+      val docs = database.orphanNodes.aggregate(pipeline, classOf[OrphanNodeDoc], log)
       val message = s"subset ${subset.name} orphan nodes: ${docs.size}"
       (message, docs)
     }
@@ -54,7 +54,7 @@ class MongoQuerySubsetOrphanNodes(database: Database) {
     )
 
     log.debugElapsed {
-      val ids = database.orphanNodes.aggregate[Id](pipeline, log).map(_._id)
+      val ids = database.orphanNodes.aggregate(pipeline, classOf[Id], log).map(_._id)
       val message = s"subset ${subset.name} orphan node ids: ${ids.size}"
       (message, ids)
     }

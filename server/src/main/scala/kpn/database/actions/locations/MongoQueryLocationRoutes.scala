@@ -1,5 +1,17 @@
 package kpn.database.actions.locations
 
+import com.mongodb.client.model.Aggregates.facet
+import com.mongodb.client.model.Aggregates.limit
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.skip
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.changes.filter.ServerFilterOption
@@ -15,24 +27,12 @@ import kpn.core.util.Log
 import kpn.core.util.RouteSymbol
 import kpn.database.base.CountResult
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.ffacet
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.conversions.Bson
-import org.mongodb.scala.model.Aggregates.facet
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.limit
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.skip
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Facet
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 
 case class RouteFilterOptionQueryResult(
   factsTotalRouteCount: Seq[CountResult],
@@ -61,15 +61,15 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     val pipeline = Seq(
       filter(and(mainFilters(subset): _*)),
       facet(
-        Facet("factsTotalRouteCount", factsTotalRouteCountPipeline(parameters): _*),
-        Facet("facts", factsPipeline(parameters): _*),
-        Facet("proposed", proposedPipeline(parameters): _*),
-        Facet("survey", surveyPipeline(parameters): _*),
-        Facet("lastUpdated", lastUpdatedPipeline(parameters): _*),
+        ffacet("factsTotalRouteCount", factsTotalRouteCountPipeline(parameters)),
+        ffacet("facts", factsPipeline(parameters)),
+        ffacet("proposed", proposedPipeline(parameters)),
+        ffacet("survey", surveyPipeline(parameters)),
+        ffacet("lastUpdated", lastUpdatedPipeline(parameters)),
       )
     )
 
-    val groups = database.routes.aggregate[RouteFilterOptionQueryResult](pipeline)
+    val groups = database.routes.aggregate(pipeline, classOf[RouteFilterOptionQueryResult])
 
     val proposed = {
       val options = groups.flatMap(_.proposed).flatMap(_.options)
@@ -251,7 +251,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     )
 
     log.debugElapsed {
-      val docs = database.routes.aggregate[LocationRouteInfoData](pipeline).zipWithIndex.map { case (doc, index) =>
+      val docs = database.routes.aggregate(pipeline, classOf[LocationRouteInfoData]).zipWithIndex.map { case (doc, index) =>
         val rowIndex = parameters.pageSize * parameters.pageIndex + index
         val symbol = RouteSymbol.from(doc)
         LocationRouteInfo(

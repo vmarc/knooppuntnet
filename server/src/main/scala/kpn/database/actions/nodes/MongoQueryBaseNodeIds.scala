@@ -1,14 +1,14 @@
 package kpn.database.actions.nodes
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.core.util.Log
 import kpn.database.actions.nodes.MongoQueryBaseNodeIds.log
 import kpn.database.base.Database
 import kpn.database.base.Id
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 
 object MongoQueryBaseNodeIds {
   private val log = Log(classOf[MongoQueryBaseNodeIds])
@@ -26,7 +26,7 @@ class MongoQueryBaseNodeIds(database: Database) {
           )
         )
       )
-      val nodeIds = database.baseNodes.aggregate[Id](pipeline, log).map(_._id)
+      val nodeIds = database.baseNodes.aggregate(pipeline, classOf[Id], log).map(_._id)
       (s"${nodeIds.size} existing base nodes", nodeIds)
     }
   }

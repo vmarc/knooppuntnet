@@ -1,13 +1,13 @@
 package kpn.database.actions.subsets
 
+import com.mongodb.client.model.Filters.in
 import kpn.api.common.subset.SubsetInfo
 import kpn.api.custom.Subset
 import kpn.core.util.Log
 import kpn.database.actions.statistics.StatisticLongValues
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Filters.in
 
 object MongoQuerySubsetInfo {
 
@@ -40,7 +40,7 @@ class MongoQuerySubsetInfo(database: Database) {
         )
       )
 
-      val statisticValuess = database.statistics.aggregate[StatisticLongValues](pipeline)
+      val statisticValuess = database.statistics.aggregate(pipeline, classOf[StatisticLongValues])
       val networkCount = extractCount(subset, statisticValuess, "NetworkCount")
       val factCount = extractCount(subset, statisticValuess, "FactCount") +
         extractCount(subset, statisticValuess, "IntegrityCheckFailedCount")

@@ -1,17 +1,17 @@
 package kpn.database.actions.routes
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
 import kpn.api.common.route.RouteInfo
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.Types.MongoPipeline
 import org.mongodb.scala.Document
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
 
 object MongoQueryRouteInfo {
   private val log = Log(classOf[MongoQueryRouteInfo])
@@ -22,7 +22,7 @@ class MongoQueryRouteInfo(database: Database) {
   def execute(routeId: Long, log: Log = MongoQueryRouteInfo.log): Option[RouteInfo] = {
     log.debugElapsed {
       val pipeline = buildPipeline(routeId)
-      val routeInfo = database.routes.optionAggregate[RouteInfo](pipeline, log)
+      val routeInfo = database.routes.optionAggregate(pipeline, classOf[RouteInfo], log)
       (s"route info: $routeId", routeInfo)
     }
   }

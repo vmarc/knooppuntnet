@@ -1,5 +1,8 @@
 package kpn.database.actions.routes
 
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.or
+import com.mongodb.client.model.Filters.regex
 import kpn.api.common.search.Condition
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.ConditionGroupOperator.And
@@ -9,13 +12,10 @@ import kpn.api.common.search.ConditionName
 import kpn.api.common.search.ConditionOperator.Equals
 import kpn.api.common.search.ConditionTag
 import kpn.core.doc.Label
+import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.Types.MongoPipeline
 import org.bson.conversions.Bson
 import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.or
-import org.mongodb.scala.model.Filters.regex
 
 object SearchQueryBuilder {
 

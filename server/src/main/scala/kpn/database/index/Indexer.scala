@@ -1,13 +1,8 @@
 package kpn.database.index
 
+import com.mongodb.client.model.IndexOptions
 import kpn.core.util.Log
 import kpn.database.base.Database
-import org.mongodb.scala.ObservableFuture
-import org.mongodb.scala.model.IndexOptions
-
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
 
 class Indexer(database: Database) {
   private val log = Log(classOf[Indexer])
@@ -24,8 +19,7 @@ class Indexer(database: Database) {
       dropIndex(index)
       log.infoElapsed {
         val collection = database.getCollection(index.collection.name)
-        val future = collection.createIndex(index.index, IndexOptions().name(index.indexName)).toFuture()
-        Await.result(future, Duration(25, TimeUnit.MINUTES))
+        collection.createIndex(index.index, new IndexOptions().name(index.indexName))
         ("Created", ())
       }
     }
@@ -34,8 +28,7 @@ class Indexer(database: Database) {
   def dropIndex(index: Index): Unit = {
     val collection = database.getCollection(index.collection.name)
     try {
-      val future = collection.dropIndex(index.index).toFuture()
-      Await.result(future, Duration(25, TimeUnit.MINUTES))
+      collection.dropIndex(index.index)
       log.info("dropped")
     }
     catch {

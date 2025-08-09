@@ -1,17 +1,13 @@
 package kpn.database.tools
 
 import kpn.database.util.Mongo
-import org.mongodb.scala._
 
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
+import scala.jdk.CollectionConverters.IterableHasAsScala
 
 object ListDatabaseNames {
   def main(args: Array[String]): Unit = {
     val mongoClient = Mongo.client
-    val databaseNamesFuture = mongoClient.listDatabaseNames().toFuture()
-    val databaseNames = Await.result(databaseNamesFuture, Duration(10, TimeUnit.SECONDS))
+    val databaseNames = mongoClient.listDatabaseNames().asScala.toSeq
     println("Database names")
     databaseNames.foreach { databaseName =>
       println(s"  $databaseName")

@@ -1,18 +1,18 @@
 package kpn.database.actions.routes
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.in
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.core.doc.NetworkRouteDetail
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryNetworkRouteDetails.log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.in
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
 
 object MongoQueryNetworkRouteDetails {
   private val log = Log(classOf[MongoQueryNetworkRouteDetails])
@@ -32,7 +32,7 @@ class MongoQueryNetworkRouteDetails(database: Database) {
   private def executeQuery(routeIds: Seq[Long]): Seq[NetworkRouteDetail] = {
     log.debugElapsed {
       val pipeline = buildPipeline(routeIds)
-      val routeDetails = database.baseRoutes.aggregate[NetworkRouteDetail](pipeline, log)
+      val routeDetails = database.baseRoutes.aggregate(pipeline, classOf[NetworkRouteDetail], log)
       (s"routeDetails: ${routeDetails.size}", routeDetails)
     }
   }

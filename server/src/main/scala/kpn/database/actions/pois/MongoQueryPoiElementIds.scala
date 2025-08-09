@@ -1,15 +1,15 @@
 package kpn.database.actions.pois
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
 import kpn.core.util.Log
 import kpn.database.actions.pois.MongoQueryPoiElementIds.log
 import kpn.database.base.Database
 import kpn.database.base.Id
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 
 object MongoQueryPoiElementIds {
   private val log = Log(classOf[MongoQueryPoiElementIds])
@@ -27,7 +27,7 @@ class MongoQueryPoiElementIds(database: Database) {
           )
         )
       )
-      val idDocs = database.pois.aggregate[Id](pipeline, log)
+      val idDocs = database.pois.aggregate(pipeline, classOf[Id], log)
       val ids = idDocs.map(_._id).sorted
       (s"elementType '$elementType' ids: ${ids.size}", ids)
     }

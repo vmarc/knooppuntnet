@@ -1,11 +1,11 @@
 package kpn.database.actions.networks
 
-import kpn.database.actions.networks.MongoQueryNetwork.log
-import kpn.database.base.Database
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Filters.equal
+import kpn.database.actions.networks.MongoQueryNetwork.log
+import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 
 object MongoQueryNetwork {
   private val log = Log(classOf[MongoQueryNetwork])
@@ -20,7 +20,7 @@ class MongoQueryNetwork(database: Database) {
           equal("_id", networkId)
         )
       )
-      val network = database.networks.optionAggregate[NetworkDoc](pipeline, log)
+      val network = database.networks.optionAggregate(pipeline, classOf[NetworkDoc], log)
       (s"network $networkId", network)
     }
   }

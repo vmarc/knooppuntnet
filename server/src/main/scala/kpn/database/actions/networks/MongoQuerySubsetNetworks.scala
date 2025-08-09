@@ -1,20 +1,20 @@
 package kpn.database.actions.networks
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.custom.Subset
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
 import kpn.database.actions.networks.MongoQuerySubsetNetworks.log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 
 object MongoQuerySubsetNetworks {
   private val log = Log(classOf[MongoQuerySubsetNetworks])
@@ -25,7 +25,7 @@ class MongoQuerySubsetNetworks(database: Database) {
   def execute(subset: Subset): Seq[NetworkDoc] = {
     val pipeline = buildPipeline(subset)
     log.debugElapsed {
-      val networks = database.networks.aggregate[NetworkDoc](pipeline, log)
+      val networks = database.networks.aggregate(pipeline, classOf[NetworkDoc], log)
       val result = s"subset ${subset.name} networks: ${networks.size}"
       (result, networks)
     }

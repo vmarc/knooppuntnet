@@ -1,23 +1,23 @@
 package kpn.database.actions.pois
 
+import com.mongodb.client.model.Accumulators.sum
+import com.mongodb.client.model.Aggregates.group
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Aggregates.sort
+import com.mongodb.client.model.Aggregates.unwind
+import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Sorts.ascending
+import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.poi.LocationPoiLayerCount
 import kpn.core.util.Log
 import kpn.database.actions.pois.MongoQueryLocationPoiLayerCounts.log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Accumulators.sum
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.sort
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Sorts.ascending
-import org.mongodb.scala.model.Sorts.orderBy
 
 object MongoQueryLocationPoiLayerCounts {
   private val log = Log(classOf[MongoQueryLocationPois])
@@ -49,7 +49,7 @@ class MongoQueryLocationPoiLayerCounts(database: Database) {
           )
         )
       )
-      val layerCounts = database.pois.aggregate[LocationPoiLayerCount](pipeline, log)
+      val layerCounts = database.pois.aggregate(pipeline, classOf[LocationPoiLayerCount], log)
       (s"layerCounts: ${layerCounts.size}", layerCounts)
     }
   }

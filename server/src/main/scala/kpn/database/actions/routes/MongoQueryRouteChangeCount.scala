@@ -3,7 +3,7 @@ package kpn.database.actions.routes
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryRouteChangeCount.log
 import kpn.database.base.Database
-import org.mongodb.scala.model.Filters.equal
+import kpn.database.base.MongoAggregates.equal
 
 object MongoQueryRouteChangeCount {
   private val log = Log(classOf[MongoQueryRouteChangeCount])

@@ -1,12 +1,12 @@
 package kpn.database.actions.routes
 
+import com.mongodb.client.model.Filters.in
 import kpn.api.common.changes.details.BaseRouteChange
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Filters.in
 
 class MongoQueryBaseRouteChanges(database: Database) {
 
@@ -18,7 +18,7 @@ class MongoQueryBaseRouteChanges(database: Database) {
       log.trace(Mongo.pipelineString(pipeline))
     }
     log.debugElapsed {
-      val routeChanges = database.baseRouteChanges.aggregate[BaseRouteChange](pipeline)
+      val routeChanges = database.baseRouteChanges.aggregate(pipeline, classOf[BaseRouteChange])
       (s"${routeChanges.size} base route changes", routeChanges)
     }
   }

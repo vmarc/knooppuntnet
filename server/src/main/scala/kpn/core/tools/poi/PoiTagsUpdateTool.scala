@@ -1,15 +1,15 @@
 package kpn.core.tools.poi
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Filters
+import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
+import com.mongodb.client.model.Updates.set
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.StringId
 import kpn.database.util.Mongo
-import org.mongodb.scala.model.Aggregates
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.exists
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Updates.set
 
 object PoiTagsUpdateTool {
   def main(args: Array[String]): Unit = {
@@ -18,8 +18,8 @@ object PoiTagsUpdateTool {
       println("loading poi ids")
 
       val pipeline = Seq(
-        Aggregates.filter(
-          exists("tags.tags.0"),
+        filter(
+          Filters.exists("tags.tags.0"),
         ),
         project(
           fields(
@@ -28,7 +28,7 @@ object PoiTagsUpdateTool {
         )
       )
 
-      val poiIds = database.pois.aggregate[StringId](pipeline).map(_._id)
+      val poiIds = database.pois.aggregate(pipeline, classOf[StringId]).map(_._id)
       val poiCount = poiIds.size
 
       println(s"$poiCount poi ids loaded")
@@ -40,9 +40,7 @@ object PoiTagsUpdateTool {
         val filter = and(
           equal("_id", poiId)
         )
-        val update = Seq(
-          set("tags", "$tags.tags")
-        )
+        val update = set("tags", "$tags.tags")
         database.pois.updateOne(filter, update)
       }
     }
