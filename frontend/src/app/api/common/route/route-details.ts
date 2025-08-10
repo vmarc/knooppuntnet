@@ -9,8 +9,6 @@ import { Day } from '@api/custom/day';
 import { Timestamp } from '@api/custom/timestamp';
 import { ParentRoute } from './parent-route';
 import { RouteNodes } from './route-nodes';
-import { RoutePath } from './route-path';
-import { RouteSegment } from './route-segment';
 
 export interface RouteDetails {
   readonly id: number;
@@ -25,8 +23,8 @@ export interface RouteDetails {
   readonly unexpectedNodeIds: number[];
   readonly unexpectedRelationIds: number[];
   readonly memberCount: number;
-  readonly segments: RouteSegment[];
-  readonly paths: RoutePath[];
+  readonly segmentCount: number;
+  readonly pathCount: number;
   readonly nameDerivedFromNodes: boolean;
   readonly nodes: RouteNodes;
   readonly bounds?: Bounds;
