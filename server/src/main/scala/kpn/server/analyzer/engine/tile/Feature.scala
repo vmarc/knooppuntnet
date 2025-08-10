@@ -5,6 +5,6 @@ import org.locationtech.jts.geom.Geometry
 
 case class Feature(
   layer: FeatureLayer,
-  attributes: Map[String, _],
+  attributes: Map[String, ?],
   geometry: Geometry
 )

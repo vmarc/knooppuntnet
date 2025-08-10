@@ -40,7 +40,7 @@ class MongoQueryNetworkRoutes(database: Database) {
         )
       ),
       unwind("$routes"),
-      filter(in("routes.id", routeIds: _*)),
+      filter(in("routes.id", routeIds *)),
       project(
         fields(
           excludeId(),

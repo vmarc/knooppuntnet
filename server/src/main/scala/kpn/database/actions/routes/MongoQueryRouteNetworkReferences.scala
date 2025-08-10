@@ -61,7 +61,7 @@ class MongoQueryRouteNetworkReferences(database: Database) {
     Seq(
       filter(equal("active", true)),
       unwind("$relationMembers"),
-      filter(in("relationMembers.relationId", routeIds: _*)),
+      filter(in("relationMembers.relationId", routeIds *)),
       project(
         fields(
           include("_id")

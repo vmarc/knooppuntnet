@@ -27,6 +27,6 @@ case class RouteDiff(
   def investigate: Boolean = factDiffs.exists(_.investigate)
 
   def referencedElements: ReferencedElements = {
-    ReferencedElements.merge(nodeDiffs.map(_.referencedElements): _*)
+    ReferencedElements.merge(nodeDiffs.map(_.referencedElements) *)
   }
 }

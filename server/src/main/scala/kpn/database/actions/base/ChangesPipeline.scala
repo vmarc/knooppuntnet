@@ -32,7 +32,7 @@ object ChangesPipeline {
       allFilterElements.head
     }
     else {
-      and(allFilterElements: _*)
+      and(allFilterElements *)
     }
 
     Seq(

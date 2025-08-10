@@ -29,6 +29,6 @@ class BaseRouteFactCombinationAnalyzer(context: BaseRouteAnalysisContext) {
       case _ => false
     }
 
-    context.withoutFacts(excludedFacts: _*)
+    context.withoutFacts(excludedFacts *)
   }
 }

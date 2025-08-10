@@ -212,7 +212,7 @@ class MongoQueryLocationChanges(database: Database) {
             parameters.year.map(year => equal("key.time.year", year.toInt)),
             parameters.month.map(month => equal("key.time.month", month.toInt)),
             parameters.day.map(day => equal("key.time.day", day.toInt))
-          ).flatten: _*
+          ).flatten *
         )
       )
     }
@@ -231,7 +231,7 @@ class MongoQueryLocationChanges(database: Database) {
                 equal("locationChanges.investigate", true),
               )
             }
-          ).flatten: _*
+          ).flatten *
         )
       )
     }

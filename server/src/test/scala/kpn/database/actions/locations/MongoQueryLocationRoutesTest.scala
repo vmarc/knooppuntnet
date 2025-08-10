@@ -274,7 +274,7 @@ class MongoQueryLocationRoutesTest extends MongoTest {
   }
 
   private def route(id: Long, active: Boolean, labels: String*): Unit = {
-    routeWithTags(id, active, Seq.empty, labels: _*)
+    routeWithTags(id, active, Seq.empty, labels *)
   }
 
   private def routeWithTags(id: Long, active: Boolean, tags: Seq[Tag], labels: String*): Unit = {

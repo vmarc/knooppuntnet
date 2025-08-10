@@ -35,7 +35,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
 
   def filterOptions(subset: LocationSubset, parameters: LocationRoutesParameters): LocationRouteOptions = {
     val pipeline = Seq(
-      filter(and(mainFilters(subset): _*)),
+      filter(and(mainFilters(subset) *)),
       facet(
         ffacet("factsTotalRouteCount", factsTotalRouteCountPipeline(parameters)),
         ffacet("facts", factsPipeline(parameters)),
@@ -261,6 +261,6 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
       LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
       LocationQuery.proposedFilter(parameters.proposed)
     ).flatten
-    and(filters: _*)
+    and(filters *)
   }
 }

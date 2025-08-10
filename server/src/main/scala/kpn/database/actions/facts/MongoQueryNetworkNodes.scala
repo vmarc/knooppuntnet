@@ -39,7 +39,7 @@ class MongoQueryNetworkNodes(database: Database) {
         )
       ),
       unwind("$nodes"),
-      filter(in("nodes.id", nodeIds: _*)),
+      filter(in("nodes.id", nodeIds *)),
       project(
         fields(
           excludeId(),

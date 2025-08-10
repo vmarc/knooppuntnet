@@ -26,7 +26,7 @@ class MongoQueryRouteSearchResults(database: Database) {
       val pipeline = Seq(
         filter(
           and(
-            in("_id", routeIds: _*),
+            in("_id", routeIds *),
           )
         ),
         project(

@@ -25,7 +25,7 @@ class BaseNodeSurveyAnalyzerTest extends UnitTest {
   }
 
   private def analyze(tags: (String, String)*): BaseNodeAnalysisContext = {
-    val context = BaseNodeAnalysisContext(newRawNode(tags = Tags.from(tags: _*)))
+    val context = BaseNodeAnalysisContext(newRawNode(tags = Tags.from(tags *)))
     BaseNodeSurveyAnalyzer.analyze(context)
   }
 }

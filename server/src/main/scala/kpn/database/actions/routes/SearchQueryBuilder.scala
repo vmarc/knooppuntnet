@@ -22,8 +22,8 @@ object SearchQueryBuilder {
   def buildFilter(group: ConditionGroup): Bson = {
     val conditions: MongoPipeline = group.conditions.map(buildCondition)
     group.operator match {
-      case And => and(conditions: _*)
-      case Or => or(conditions: _*)
+      case And => and(conditions *)
+      case Or => or(conditions *)
     }
   }
 

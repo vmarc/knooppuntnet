@@ -27,7 +27,7 @@ class MongoQueryMonitorRouteRelationInfos(database: Database) {
       filter(
         and(
           equal("active", true),
-          in("_id", relationIds: _*)
+          in("_id", relationIds *)
         )
       ),
       project(

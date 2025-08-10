@@ -22,7 +22,7 @@ class BulkNodeAnalyzer(
       log.info(s"Analyzing ${nodeIds.size} nodes")
       log.infoElapsed {
         val nodeDocs = analyzeNodes(nodeIds)
-        nodeRepository.bulkSave(nodeDocs: _*)
+        nodeRepository.bulkSave(nodeDocs *)
         (s"Analyzed ${nodeDocs.size} nodes", nodeDocs)
       }
     }

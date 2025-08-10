@@ -10,7 +10,7 @@ object Index {
     indexName: String,
     fieldNames: String*
   ): Index = {
-    val index = Indexes.ascending(fieldNames: _*)
+    val index = Indexes.ascending(fieldNames *)
     new Index(
       collection: DatabaseCollection[?],
       indexName: String,

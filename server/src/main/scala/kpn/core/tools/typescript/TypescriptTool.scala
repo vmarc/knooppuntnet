@@ -8,11 +8,10 @@ import org.apache.commons.io.FileUtils
 
 import java.io.File
 import java.io.PrintStream
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 import scala.reflect.runtime.universe.ClassSymbol
-import scala.reflect.runtime.universe.runtimeMirror
 import scala.reflect.runtime.universe.MethodSymbol
-
+import scala.reflect.runtime.universe.runtimeMirror
 
 object TypescriptTool {
 

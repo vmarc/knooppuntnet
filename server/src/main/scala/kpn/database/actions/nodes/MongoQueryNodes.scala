@@ -28,7 +28,7 @@ class MongoQueryNodes(database: Database) {
       filter(
         and(
           equal("active", true),
-          in("_id", nodeIds: _*)
+          in("_id", nodeIds *)
         ),
       )
     )

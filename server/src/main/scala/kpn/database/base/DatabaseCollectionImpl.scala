@@ -126,7 +126,7 @@ class DatabaseCollectionImpl[TDocument](collection: MongoCollection[TDocument]) 
   ): Seq[TDocument] = {
     if (ids.nonEmpty) {
       log.debugElapsed {
-        val filter = Filters.in("_id", ids: _*)
+        val filter = Filters.in("_id", ids *)
         val docs = collection.find(filter, documentClass).asScala.toSeq
         (s"findByIds - collection: '$collectionName', ids: ${ids.mkString(", ")}", docs)
       }

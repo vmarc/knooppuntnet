@@ -49,7 +49,7 @@ class TranslationImportTool(root: String) {
     file
   }
 
-  private def transformTranslations(locale: String, translations: Map[String, String]): Map[String, _] = {
+  private def transformTranslations(locale: String, translations: Map[String, String]): Map[String, ?] = {
     val sortedTranslations = SortedMap[String, String]() ++ translations
     Map(
       "locale" -> locale,
@@ -57,7 +57,7 @@ class TranslationImportTool(root: String) {
     )
   }
 
-  private def writeTranslations(locale: String, transformed: Map[String, _]): Unit = {
+  private def writeTranslations(locale: String, transformed: Map[String, ?]): Unit = {
     val file = new File(s"$root/locale/translations.$locale.json")
     mapper.writerWithDefaultPrettyPrinter.writeValue(file, transformed)
   }

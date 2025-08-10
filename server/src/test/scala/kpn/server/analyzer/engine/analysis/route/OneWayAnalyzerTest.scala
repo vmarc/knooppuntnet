@@ -401,6 +401,6 @@ class OneWayAnalyzerTest extends UnitTest {
   }
 
   private def oneway(tags: (String, String)*): WayDirection = {
-    new OneWayAnalyzer(newWay(1, tags = Tags.from(tags: _*))).direction
+    new OneWayAnalyzer(newWay(1, tags = Tags.from(tags *))).direction
   }
 }

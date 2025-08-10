@@ -14,7 +14,7 @@ object RootDocReader {
     val rootClassIds = readClassIds().filterNot(_.className == "ObjectId") ++ Codecs.customCodecs ++ Codecs.extraCodecs
     val rootClassInfos = rootClassIds.map(classId => scalaCaseClassReader.read(classId))
 
-    val found = mutable.Map(rootClassInfos.map(classInfo => classInfo.key -> classInfo): _*)
+    val found = mutable.Map(rootClassInfos.map(classInfo => classInfo.key -> classInfo) *)
 
     val all = rootClassInfos.flatMap { classInfo =>
       collectDependencies(found, classInfo)

@@ -37,7 +37,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
   private val log = Log(classOf[MongoQueryLocationNodes])
 
   def filterOptions(subset: LocationSubset, parameters: LocationNodesParameters): LocationNodeOptions = {
-    val pipeline = Seq(filter(and(subsetFilter(subset): _*))) ++ Seq(
+    val pipeline = Seq(filter(and(subsetFilter(subset) *))) ++ Seq(
       facet(
         ffacet("factsTotalNodeCount", factsTotalNodeCountPipeline(subset, parameters)),
         ffacet("facts", factsPipeline(subset, parameters)),
@@ -319,7 +319,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
 
   private def nodeFilter(subset: LocationSubset, parameters: LocationNodesParameters): Bson = {
     val filters: MongoPipeline = subsetFilter(subset) ++ allFilters(subset, parameters).flatten
-    and(filters: _*)
+    and(filters *)
   }
 
   private def allFilters(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Option[Bson]] = {

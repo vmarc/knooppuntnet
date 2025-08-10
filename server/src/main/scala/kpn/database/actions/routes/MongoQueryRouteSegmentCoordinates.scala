@@ -36,7 +36,7 @@ class MongoQueryRouteSegmentCoordinates(database: Database) {
     Seq(
       filter(
         and(
-          in("_id", routeIds: _*),
+          in("_id", routeIds *),
           equal("active", true),
         )
       ),

@@ -4,7 +4,7 @@ import kpn.api.custom.Timestamp
 
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import scala.reflect.runtime.universe._
+import scala.reflect.runtime.universe.*
 
 object TimestampLocal {
 

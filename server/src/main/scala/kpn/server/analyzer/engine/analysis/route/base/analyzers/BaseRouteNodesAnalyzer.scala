@@ -75,7 +75,7 @@ class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
 
     context.copy(
       _routeNodesAnalysis = Some(routeNodeAnalysis)
-    ).withFacts(facts.toSeq: _*)
+    ).withFacts(facts.toSeq *)
   }
 
   private def analyzeFacts(routeNodeAnalysis: RouteNodesAnalysis) = {

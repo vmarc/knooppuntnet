@@ -47,7 +47,7 @@ class MongoQueryNetworkChanges(database: Database) {
 
     Seq(
       filter(
-        and(filterElements: _*)
+        and(filterElements *)
       ),
       sort(
         orderBy(

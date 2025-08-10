@@ -7,7 +7,7 @@ import org.jgrapht.alg.shortestpath.DijkstraShortestPath
 import org.jgrapht.graph.AsWeightedGraph
 import org.jgrapht.graph.DefaultDirectedWeightedGraph
 
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 class NodeNetworkGraphImpl extends NodeNetworkGraph {
 

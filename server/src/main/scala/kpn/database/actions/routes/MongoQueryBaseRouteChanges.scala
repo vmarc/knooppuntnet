@@ -26,7 +26,7 @@ class MongoQueryBaseRouteChanges(database: Database) {
   private def buildPipeline(ids: Seq[String]): MongoPipeline = {
     Seq(
       filter(
-        in("_id", ids: _*)
+        in("_id", ids *)
       )
     )
   }

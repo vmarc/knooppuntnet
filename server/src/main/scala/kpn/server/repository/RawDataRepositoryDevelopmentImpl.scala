@@ -28,7 +28,7 @@ class RawDataRepositoryDevelopmentImpl(
   override def nodes(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode] = {
     val pipeline = Seq(
       filter(
-        in("_id", nodeIds: _*),
+        in("_id", nodeIds *),
       ),
     )
     database.rawNodes.aggregate(pipeline, classOf[RawNodeDoc]).map(_.node)
@@ -45,7 +45,7 @@ class RawDataRepositoryDevelopmentImpl(
   override def networks(timestamp: Timestamp, networkIds: Seq[Long]): Seq[RawRelation] = {
     val pipeline = Seq(
       filter(
-        in("_id", networkIds: _*),
+        in("_id", networkIds *),
       ),
     )
     database.rawNetworks.aggregate(pipeline, classOf[RawNetworkDoc]).map(_.relation)

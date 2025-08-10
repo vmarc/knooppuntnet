@@ -34,13 +34,13 @@ class MongoQueryNodeRouteReferences(database: Database) {
         and(
           equal("active", true),
           equal("summary.nodeNetwork", true),
-          in("nodeRefs", nodeIds: _*),
+          in("nodeRefs", nodeIds *),
         )
       ),
       unwind("$nodeRefs"),
       filter(
         and(
-          in("nodeRefs", nodeIds: _*),
+          in("nodeRefs", nodeIds *),
         )
       ),
       unwind("$summary.routeTypes"),

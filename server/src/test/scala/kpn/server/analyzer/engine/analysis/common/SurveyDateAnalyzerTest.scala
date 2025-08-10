@@ -62,7 +62,7 @@ class SurveyDateAnalyzerTest extends UnitTest {
 
   private def analyze(tags: (String, String)*): Try[Option[Day]] = {
     SurveyDateAnalyzer.analyze(
-      newNode(tags = Tags.from(tags: _*))
+      newNode(tags = Tags.from(tags *))
     )
   }
 }

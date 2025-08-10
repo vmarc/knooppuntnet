@@ -103,17 +103,17 @@ class SurfaceAnalyzer(routeTypes: Seq[RouteType], way: Way) {
     surfaceBasedOnSurfaceTag() match {
       case Some(surface) => surface
       case None =>
-        if (way.hasTag("tracktype", wikiTracktypePaved: _*)) {
+        if (way.hasTag("tracktype", wikiTracktypePaved *)) {
           "paved"
         }
-        else if (way.hasTag("tracktype", wikiTracktypeUnpaved: _*)) {
+        else if (way.hasTag("tracktype", wikiTracktypeUnpaved *)) {
           "unpaved"
         }
-        else if (way.hasTag("smoothness", wikiUnpavedSmoothness: _*)) {
+        else if (way.hasTag("smoothness", wikiUnpavedSmoothness *)) {
           "unpaved"
         }
         else if (way.hasTag("highway", "footway")) {
-          if (way.hasTag("footway", footwayPaved: _*)) {
+          if (way.hasTag("footway", footwayPaved *)) {
             "paved"
           }
           else {
@@ -123,7 +123,7 @@ class SurfaceAnalyzer(routeTypes: Seq[RouteType], way: Way) {
         else if (way.hasTag("highway", "path")) {
           "unknown"
         }
-        else if (way.hasTag("highway", highwayUnpaved: _*)) {
+        else if (way.hasTag("highway", highwayUnpaved *)) {
           "unpaved"
         }
         else {
@@ -134,10 +134,10 @@ class SurfaceAnalyzer(routeTypes: Seq[RouteType], way: Way) {
 
   private def surfaceBasedOnSurfaceTag(): Option[String] = {
     val tagKey = preferredSurfaceTagKey()
-    if (way.hasTag(tagKey, wikiSurfacePaved: _*)) {
+    if (way.hasTag(tagKey, wikiSurfacePaved *)) {
       Some("paved")
     }
-    else if (way.hasTag(tagKey, wikiSurfaceUnpaved: _*)) {
+    else if (way.hasTag(tagKey, wikiSurfaceUnpaved *)) {
       Some("unpaved")
     }
     else {

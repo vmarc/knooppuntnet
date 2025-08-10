@@ -39,7 +39,7 @@ class BaseRouteTagAnalyzer(context: BaseRouteAnalysisContext) {
             superRoute = superRoute,
             nodeNetwork = nodeNetwork,
             scopedRouteTypeOption = scopedRouteTypeOption
-          ).withFacts(facts.toSeq: _*)
+          ).withFacts(facts.toSeq *)
       }
     }
   }
