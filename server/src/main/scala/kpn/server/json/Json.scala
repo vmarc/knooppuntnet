@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
-import kpn.api.base.ObjectId
 import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
@@ -81,6 +80,7 @@ import kpn.server.json.enumeratum.TagDiffTypeJsonDeserializer
 import kpn.server.json.enumeratum.TagDiffTypeJsonSerializer
 import kpn.server.json.enumeratum.WayDirectionJsonDeserializer
 import kpn.server.json.enumeratum.WayDirectionJsonSerializer
+import org.bson.types.ObjectId
 import org.locationtech.jts.geom.Geometry
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 

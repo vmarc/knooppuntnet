@@ -1,6 +1,5 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorCommand
 import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
@@ -8,6 +7,7 @@ import kpn.api.custom.Timestamp
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorRouteRepository
+import org.bson.types.ObjectId
 import org.springframework.stereotype.Component
 
 @Component
@@ -39,7 +39,7 @@ class MonitorOsmAdd(
   }
 
   private def buildRoute(group: MonitorGroup, args: MonitorUpdateArgs, now: Timestamp): MonitorRoute = {
-    val monitorRouteId = ObjectId()
+    val monitorRouteId = ObjectId.get()
     MonitorRoute(
       _id = monitorRouteId,
       groupId = group._id,

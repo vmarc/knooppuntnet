@@ -1,6 +1,5 @@
 package kpn.server.monitor
 
-import kpn.api.base.ObjectId
 import kpn.api.common.Language
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
@@ -19,6 +18,7 @@ import kpn.api.common.monitor.MonitorRouteMembersPage
 import kpn.api.common.monitor.MonitorRouteSegmentsPage
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
+import org.bson.types.ObjectId
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -63,12 +63,12 @@ class MonitorController(facade: MonitorFacade) {
     @PathVariable groupId: String,
     @RequestBody properties: MonitorGroupProperties
   ): Unit = {
-    facade.groupUpdate(ObjectId(groupId), properties)
+    facade.groupUpdate(new ObjectId(groupId), properties)
   }
 
   @DeleteMapping(value = Array("groups/{groupId}"))
   def groupDelete(@PathVariable groupId: String): Unit = {
-    facade.groupDelete(ObjectId(groupId))
+    facade.groupDelete(new ObjectId(groupId))
   }
 
   @PostMapping(value = Array("groups/{groupName}/changes"))

@@ -1,10 +1,10 @@
 package kpn.server.monitor.domain
 
-import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.custom.Timestamp
+import org.bson.types.ObjectId
 
 case class MonitorRoute(
   _id: ObjectId,

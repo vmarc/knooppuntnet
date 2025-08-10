@@ -1,6 +1,5 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -11,6 +10,7 @@ import kpn.server.monitor.domain.MonitorReferenceSummary
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorReferenceId
 import kpn.server.monitor.repository.MonitorStateId
+import org.bson.types.ObjectId
 
 case class MonitorUpdateContext(
   user: String,

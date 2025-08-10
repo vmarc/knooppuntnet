@@ -1,6 +1,5 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorCommand
 import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
@@ -20,6 +19,7 @@ import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
+import org.bson.types.ObjectId
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonReader
@@ -89,7 +89,7 @@ class MonitorGpxUpload(
     val distance = Math.round(referenceLineStrings.map(Haversine.meters).sum)
     val segmentCount = geometryCollection.getNumGeometries
 
-    val objectId = monitorRouteRepository.routeRelationReferenceId(route._id, Some(relationId)).getOrElse(ObjectId())
+    val objectId = monitorRouteRepository.routeRelationReferenceId(route._id, Some(relationId)).getOrElse(ObjectId.get())
     val referenceLines1 = referenceLineStrings.map(CoordinateUtil.lineStringToCoordinates)
 
     val reference = monitorReferenceBuilder.build(
@@ -125,7 +125,7 @@ class MonitorGpxUpload(
 
     val stateId = monitorRouteRepository.state(route._id, relationId) match {
       case Some(routeState) => routeState._id
-      case None => ObjectId()
+      case None => ObjectId.get()
     }
 
     monitorStateStore.saveState(

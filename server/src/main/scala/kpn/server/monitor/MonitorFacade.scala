@@ -1,6 +1,5 @@
 package kpn.server.monitor
 
-import kpn.api.base.ObjectId
 import kpn.api.common.Language
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
@@ -19,6 +18,7 @@ import kpn.api.common.monitor.MonitorRouteMembersPage
 import kpn.api.common.monitor.MonitorRouteSegmentsPage
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
+import org.bson.types.ObjectId
 
 trait MonitorFacade {
 

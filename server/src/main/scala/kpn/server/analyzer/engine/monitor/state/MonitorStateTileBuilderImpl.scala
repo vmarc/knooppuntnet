@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.monitor.state
 
-import kpn.api.base.ObjectId
 import kpn.server.analyzer.engine.monitor.state.MonitorStateTileCoordinateSimplifier.simplify
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform
@@ -11,6 +10,7 @@ import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.MonitorStateTileDeviation
 import kpn.server.monitor.route.update.MonitorStateDeviationWorldCoordinates
+import org.bson.types.ObjectId
 import org.locationtech.jts.geom.Coordinate
 import org.springframework.stereotype.Component
 
@@ -73,7 +73,7 @@ class MonitorStateTileBuilderImpl(
       else {
         Some(
           MonitorStateTile(
-            ObjectId(),
+            ObjectId.get(),
             state.routeId,
             state.relationId,
             tile.z,

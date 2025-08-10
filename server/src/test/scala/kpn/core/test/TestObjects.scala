@@ -1,6 +1,5 @@
 package kpn.core.test
 
-import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
@@ -122,6 +121,7 @@ import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.MonitorStateTileDeviation
+import org.bson.types.ObjectId
 
 object TestObjects {
 
@@ -1091,7 +1091,7 @@ object TestObjects {
     description: String = ""
   ): MonitorGroup = {
     MonitorGroup(
-      ObjectId(),
+      ObjectId.get(),
       name,
       description
     )
@@ -1121,7 +1121,7 @@ object TestObjects {
     happy: Boolean = false
   ): MonitorRoute = {
     MonitorRoute(
-      ObjectId(),
+      ObjectId.get(),
       groupId,
       name,
       description,
@@ -1219,7 +1219,7 @@ object TestObjects {
     tiles: Seq[MonitorReferenceTile] = Seq.empty,
   ): MonitorReference = {
     MonitorReference(
-      ObjectId(),
+      ObjectId.get(),
       routeId,
       relationId,
       timestamp,
@@ -1236,7 +1236,7 @@ object TestObjects {
   }
 
   def newMonitorState(
-    _id: ObjectId = ObjectId(),
+    _id: ObjectId = ObjectId.get(),
     routeId: ObjectId,
     relationId: Long,
     timestamp: Timestamp = Timestamps.default,
@@ -1258,8 +1258,8 @@ object TestObjects {
   }
 
   def newMonitorStateTile(
-    _id: ObjectId = ObjectId(),
-    routeId: ObjectId = ObjectId(),
+    _id: ObjectId = ObjectId.get(),
+    routeId: ObjectId = ObjectId.get(),
     relationId: Long = 0,
     z: Long = 0,
     x: Long = 0,

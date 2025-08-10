@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.monitor.state
 
-import kpn.api.base.ObjectId
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.repository.MonitorRouteRepository
+import org.bson.types.ObjectId
 import org.springframework.stereotype.Component
 
 @Component

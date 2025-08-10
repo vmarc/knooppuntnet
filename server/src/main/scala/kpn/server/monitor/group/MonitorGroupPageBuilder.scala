@@ -34,7 +34,7 @@ class MonitorGroupPageBuilder(
 
       MonitorGroupPage(
         adminUser,
-        group._id.oid,
+        group._id.toHexString,
         groupName,
         group.description,
         bounds,

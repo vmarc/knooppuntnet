@@ -1,11 +1,11 @@
 package kpn.database.actions.monitor
 
-import kpn.api.base.ObjectId
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newMonitorReference
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.domain.MonitorReferenceTile
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
+import org.bson.types.ObjectId
 
 class MongoQueryMonitorReferenceTileIdsTest extends MongoTest {
 
@@ -31,7 +31,7 @@ class MongoQueryMonitorReferenceTileIdsTest extends MongoTest {
 
     monitorRouteRepository.saveReference(
       newMonitorReference(
-        routeId = ObjectId(),
+        routeId = ObjectId.get(),
         relationId = None,
         tiles = Seq(
           MonitorReferenceTile(
@@ -46,7 +46,7 @@ class MongoQueryMonitorReferenceTileIdsTest extends MongoTest {
 
     monitorRouteRepository.saveReference(
       newMonitorReference(
-        routeId = ObjectId(),
+        routeId = ObjectId.get(),
         relationId = None,
         tiles = Seq(
           MonitorReferenceTile(

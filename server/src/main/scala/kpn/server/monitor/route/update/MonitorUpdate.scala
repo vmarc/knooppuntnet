@@ -1,6 +1,5 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorCommand
 import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
@@ -11,6 +10,7 @@ import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
+import org.bson.types.ObjectId
 import org.springframework.stereotype.Component
 
 @Component

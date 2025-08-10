@@ -2,12 +2,12 @@ package kpn.database.base
 
 import com.mongodb.client.ListIndexesIterable
 import com.mongodb.client.MongoCollection
-import kpn.api.base.ObjectId
 import kpn.core.util.Log
 import kpn.database.base.DatabaseCollection.collectionLog
 import kpn.database.base.Types.MongoPipeline
 import org.bson.Document
 import org.bson.conversions.Bson
+import org.bson.types.ObjectId
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.Duration

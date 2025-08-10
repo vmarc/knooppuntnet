@@ -2,7 +2,6 @@
 
 package kpn.tools.code.codecs.generated
 
-import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
@@ -202,12 +201,14 @@ import kpn.server.monitor.repository.MonitorStateDeviationInfo
 import kpn.server.monitor.repository.MonitorStateId
 import kpn.server.monitor.repository.MonitorStateSummary
 import kpn.server.monitor.repository.MonitorTileData
+import kpn.server.repository.Distance
 import kpn.server.repository.NetworkElement
 import kpn.server.repository.NetworkFactElementIds
 import kpn.server.sync.StampDoc
 import kpn.server.sync.Transaction
 import kpn.tools.code.ClassId
 import kpn.tools.code.codecs.DayCodec
+import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import org.bson.codecs.Codec
@@ -670,9 +671,6 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[NetworkRouteDetail]) {
       return new NetworkRouteDetailCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[ObjectId]) {
-      return new ObjectIdCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[NodeIntegrityDetail]) {
       return new NodeIntegrityDetailCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
@@ -825,6 +823,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[MonitorTask]) {
       return new MonitorTaskCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Distance]) {
+      return new DistanceCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[ClassId]) {
       return new ClassIdCodec(codecRegistry).asInstanceOf[Codec[T]]

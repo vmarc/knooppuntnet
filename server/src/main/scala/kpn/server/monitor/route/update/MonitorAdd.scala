@@ -51,7 +51,7 @@ class MonitorAdd(
       case None => // OK: no route with this name yet
       case Some(route) =>
         throw new IllegalStateException(
-          s"""Could not add route with name "$routeName": already exists (_id=${route._id.oid}) in group with name "${group.name}""""
+          s"""Could not add route with name "$routeName": already exists (_id=${route._id.toHexString}) in group with name "${group.name}""""
         )
     }
   }

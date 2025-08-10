@@ -1,6 +1,5 @@
 package kpn.core.tools.monitor.support
 
-import kpn.api.base.ObjectId
 import kpn.api.custom.Relation
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.util.RouteSymbol
@@ -8,6 +7,7 @@ import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.route.update.MonitorRouteRelationRepository
+import org.bson.types.ObjectId
 
 object MonitorMigrateSymbolsTool {
   def main(args: Array[String]): Unit = {

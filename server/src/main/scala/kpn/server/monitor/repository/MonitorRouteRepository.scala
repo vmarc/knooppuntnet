@@ -1,6 +1,5 @@
 package kpn.server.monitor.repository
 
-import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
@@ -17,6 +16,7 @@ import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.OldMonitorReference
+import org.bson.types.ObjectId
 
 trait MonitorRouteRepository {
 

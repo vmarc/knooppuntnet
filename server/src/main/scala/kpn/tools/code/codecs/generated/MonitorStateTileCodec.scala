@@ -2,7 +2,6 @@
 
 package kpn.tools.code.codecs.generated
 
-import kpn.api.base.ObjectId
 import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.MonitorStateTileDeviation
@@ -14,6 +13,7 @@ import org.bson.codecs.Codec
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
 import org.bson.codecs.configuration.CodecRegistry
+import org.bson.types.ObjectId
 
 class MonitorStateTileCodec(registry: CodecRegistry) extends Codec[MonitorStateTile] {
 

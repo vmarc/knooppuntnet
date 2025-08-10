@@ -1,6 +1,5 @@
 package kpn.server.monitor
 
-import kpn.api.base.ObjectId
 import kpn.api.common.Language
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
@@ -38,6 +37,7 @@ import kpn.server.monitor.route.MonitorRouteInfoBuilder
 import kpn.server.monitor.route.MonitorRouteMembersPageBuilder
 import kpn.server.monitor.route.MonitorRouteSegmentsPageBuilder
 import kpn.server.monitor.route.MonitorRouteUpdatePageBuilder
+import org.bson.types.ObjectId
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.stereotype.Component
 
@@ -100,7 +100,7 @@ class MonitorFacadeImpl(
   }
 
   override def groupDelete(groupId: ObjectId): Unit = {
-    api.execute("monitor-delete-group", groupId.oid) {
+    api.execute("monitor-delete-group", groupId.toHexString) {
       assertAdminUser(RequestContext.user)
       monitorGroupRepository.deleteGroup(groupId)
     }
@@ -178,7 +178,7 @@ class MonitorFacadeImpl(
       reply(
         monitorGroupRepository.groupByName(groupName).map { monitorGroup =>
           MonitorRouteAddPage(
-            monitorGroup._id.oid,
+            monitorGroup._id.toHexString,
             monitorGroup.name,
             monitorGroup.description
           )

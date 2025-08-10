@@ -1,6 +1,5 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorCommand
 import kpn.api.common.monitor.MonitorMessage
@@ -16,6 +15,7 @@ import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
+import org.bson.types.ObjectId
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
 
@@ -147,7 +147,7 @@ class MonitorOsmNowAnalyze(
 
     val reference = monitorReferenceBuilder.build(
       MonitorReference(
-        _id = ObjectId(),
+        _id = ObjectId.get(),
         routeId = monitorRouteId,
         relationId = Some(baseRouteDoc._id),
         timestamp = now,
@@ -174,7 +174,7 @@ class MonitorOsmNowAnalyze(
   ): Unit = {
 
     val state = MonitorState(
-      _id = ObjectId(),
+      _id = ObjectId.get(),
       routeId = monitorRouteId,
       relationId = baseRouteDoc._id,
       timestamp = now, // time of most recent analysis

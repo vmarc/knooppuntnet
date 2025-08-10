@@ -1,6 +1,5 @@
 package kpn.core.tools.monitor.support
 
-import kpn.api.base.ObjectId
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
@@ -9,6 +8,7 @@ import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 import kpn.server.monitor.route.update.MonitorReferenceBuilder
+import org.bson.types.ObjectId
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.LineString
@@ -33,7 +33,7 @@ class MonitorMigrateReferencesTool(database: Database) {
     val routeIds = database.monitorRoutes.objectIds()
     val routeIdsSize = routeIds.size
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
-      log.info(s"${index + 1}/$routeIdsSize ${routeId.oid}")
+      log.info(s"${index + 1}/$routeIdsSize ${routeId.toHexString}")
       migrateRoute(routeId)
     }
   }

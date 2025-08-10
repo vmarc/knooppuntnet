@@ -2,7 +2,6 @@
 
 package kpn.tools.code.codecs.generated
 
-import kpn.api.base.ObjectId
 import kpn.api.custom.Timestamp
 import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.Codecs
@@ -13,6 +12,7 @@ import org.bson.codecs.Codec
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
 import org.bson.codecs.configuration.CodecRegistry
+import org.bson.types.ObjectId
 
 class TransactionCodec(registry: CodecRegistry) extends Codec[Transaction] {
 

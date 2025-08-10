@@ -1,5 +1,5 @@
 package kpn.server.monitor.domain
 
-import kpn.api.base.ObjectId
+import org.bson.types.ObjectId
 
 case class MonitorGroupRouteCount(groupId: ObjectId, routeCount: Long)

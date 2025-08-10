@@ -2,7 +2,6 @@
 
 package kpn.tools.code.codecs.generated
 
-import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.Fact
 import kpn.api.common.RouteLocationAnalysis
@@ -28,6 +27,7 @@ import org.bson.codecs.Codec
 import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
 import org.bson.codecs.configuration.CodecRegistry
+import org.bson.types.ObjectId
 
 class RouteDocCodec(registry: CodecRegistry) extends Codec[RouteDoc] {
 

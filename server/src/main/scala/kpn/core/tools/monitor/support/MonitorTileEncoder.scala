@@ -1,6 +1,5 @@
 package kpn.core.tools.monitor.support
 
-import kpn.api.base.ObjectId
 import kpn.core.tools.config.Dirs
 import kpn.core.util.CoordinateUtil.coordinatesToLineString
 import kpn.core.util.Log
@@ -11,6 +10,7 @@ import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.MonitorStateTileDeviation
 import no.ecc.vectortile.VectorTileEncoder
 import org.apache.commons.io.FileUtils
+import org.bson.types.ObjectId
 
 import java.io.File
 import java.util
@@ -72,7 +72,7 @@ class MonitorTileEncoder(log: Log) {
 
   private def buildUserData(routeId: ObjectId): util.HashMap[String, String] = {
     val userData = new util.HashMap[String, String]()
-    userData.put("route", routeId.oid)
+    userData.put("route", routeId.toHexString)
     userData
   }
 

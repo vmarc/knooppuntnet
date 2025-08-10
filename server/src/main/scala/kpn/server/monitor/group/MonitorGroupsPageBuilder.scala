@@ -42,10 +42,10 @@ class MonitorGroupsPageBuilder(
   }
 
   private def toPageGroup(groupRouteInfoMap: Map[String, MonitorGroupRouteInfo], group: MonitorGroup): MonitorGroupsPageGroup = {
-    val groupId = group._id.oid
+    val groupId = group._id.toHexString
     val routeInfo = groupRouteInfoMap.get(groupId)
     MonitorGroupsPageGroup(
-      group._id.oid,
+      group._id.toHexString,
       group.name,
       group.description,
       routeInfo.map(_.monitorRouteIds.length.toLong).getOrElse(0L),

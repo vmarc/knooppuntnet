@@ -1,17 +1,17 @@
 package kpn.server.sync
 
-import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
+import org.bson.types.ObjectId
 
 object Transaction {
   def routeUpdate(routeId: Long): Transaction = {
-    Transaction(ObjectId(), Time.now, "routes", "update", routeId)
+    Transaction(ObjectId.get(), Time.now, "routes", "update", routeId)
   }
 
   def routeDelete(routeId: Long): Transaction = {
-    Transaction(ObjectId(), Time.now, "routes", "delete", routeId)
+    Transaction(ObjectId.get(), Time.now, "routes", "delete", routeId)
   }
 }
 

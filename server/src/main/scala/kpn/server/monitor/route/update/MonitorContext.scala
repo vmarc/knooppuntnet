@@ -1,8 +1,8 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorMessage
 import kpn.server.monitor.domain.MonitorReference
+import org.bson.types.ObjectId
 
 class MonitorContext {
   private var privateContext: MonitorUpdateContext = _

@@ -1,6 +1,5 @@
 package kpn.core.doc
 
-import kpn.api.base.ObjectId
 import kpn.api.base.WithId
 import kpn.api.common.Country
 import kpn.api.common.Fact
@@ -16,6 +15,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
+import org.bson.types.ObjectId
 
 case class NodeDoc(
   _id: Long,

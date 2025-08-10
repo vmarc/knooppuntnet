@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.monitor.changes
 
-import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.LatLonImpl
 import kpn.api.custom.Relation
@@ -17,6 +16,7 @@ import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
+import org.bson.types.ObjectId
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
 
@@ -73,7 +73,7 @@ class MonitorChangeProcessorImpl(
       case None => log.warn(s"$routeId TODO routeReferenceKey not available ")
       case Some(referenceKey) =>
 
-        val referenceOption = monitorRouteRepository.reference(ObjectId("TODO MON") /*, routeId, referenceKey*/ , None)
+        val referenceOption = monitorRouteRepository.reference(new ObjectId("TODO MON") /*, routeId, referenceKey*/ , None)
         monitorRouteLoader.loadBefore(changeSetContext.changeSet.id, changeSetContext.changeSet.timestampBefore, routeId) match {
           case None => log.warn(s"$routeId TODO route did not exist before --> create change ???")
           case Some(beforeRelation) =>
@@ -165,8 +165,8 @@ class MonitorChangeProcessorImpl(
       }
 
       val change = MonitorRouteChange(
-        ObjectId(),
-        ObjectId("TODO"), // key.toId,
+        ObjectId.get(),
+        new ObjectId("TODO"), // key.toId,
         key,
         afterRouteAnalysis.wayCount,
         wayIdsAdded,
@@ -183,8 +183,8 @@ class MonitorChangeProcessorImpl(
       monitorRouteRepository.saveRouteChange(change)
 
       val routeChangeGeometry = MonitorRouteChangeGeometry(
-        _id = ObjectId(),
-        routeId = ObjectId("TODO"), // key.toId,
+        _id = ObjectId.get(),
+        routeId = new ObjectId("TODO"), // key.toId,
         key = key,
         routeSegments = routeSegments,
         newDeviations = newDeviations,
@@ -196,7 +196,7 @@ class MonitorChangeProcessorImpl(
 
       monitorStateStore.saveState(
         MonitorState(
-          ObjectId(),
+          ObjectId.get(),
           null, // TODO routeId,
           1L, // TODO relationId
           afterRouteAnalysis.relation.timestamp,

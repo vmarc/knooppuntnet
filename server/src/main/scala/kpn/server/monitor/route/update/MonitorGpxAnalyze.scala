@@ -1,6 +1,5 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.custom.Timestamp
 import kpn.core.tools.monitor.MonitorRouteGpxReader
@@ -19,6 +18,7 @@ import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
+import org.bson.types.ObjectId
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
 
@@ -63,7 +63,7 @@ class MonitorGpxAnalyze(
     monitorRouteRepository.saveReference(
       monitorReferenceBuilder.build(
         MonitorReference(
-          ObjectId(),
+          ObjectId.get(),
           routeId = route._id,
           relationId = args.update.relationId,
           timestamp = now,
@@ -96,7 +96,7 @@ class MonitorGpxAnalyze(
 
         monitorStateStore.saveState(
           MonitorState(
-            ObjectId(),
+            ObjectId.get(),
             route._id,
             args.relationId,
             now,

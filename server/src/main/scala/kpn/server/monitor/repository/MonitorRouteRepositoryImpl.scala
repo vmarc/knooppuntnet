@@ -14,7 +14,6 @@ import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.Sorts.descending
 import com.mongodb.client.model.Sorts.orderBy
-import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorRouteDetail
@@ -50,6 +49,7 @@ import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.OldMonitorReference
 import kpn.server.repository.Distance
 import kpn.server.repository.NetworkRepositoryImpl
+import org.bson.types.ObjectId
 import org.mongodb.scala.Document
 import org.mongodb.scala.bson.BsonNull
 import org.mongodb.scala.bson.conversions.Bson
@@ -74,7 +74,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     val pipeline = Seq(
       filter(
         and(
-          equal("groupId", groupId.raw),
+          equal("groupId", groupId),
           equal("name", routeName),
         )
       )
@@ -97,13 +97,13 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   }
 
   override def deleteReferences(routeId: ObjectId): Unit = {
-    val routeFilter = equal("routeId", routeId.raw)
+    val routeFilter = equal("routeId", routeId)
     database.monitorReferences.deleteMany(routeFilter, log)
   }
 
   override def deleteReference(routeId: ObjectId, subRelationId: Long): Unit = {
     val routeReferenceFilter = and(
-      equal("routeId", routeId.raw),
+      equal("routeId", routeId),
       equal("relationId", subRelationId)
     )
     database.monitorReferences.deleteMany(routeReferenceFilter, log)
@@ -143,7 +143,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     }
     filter(
       and(
-        equal("routeId", routeId.raw),
+        equal("routeId", routeId),
         equal("relationId", relationIdValue),
       )
     )
@@ -152,7 +152,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def references(routeId: ObjectId): Seq[MonitorReference] = {
     val pipeline = Seq(
       filter(
-        equal("routeId", routeId.raw),
+        equal("routeId", routeId),
       )
     )
     database.monitorReferences.aggregate(pipeline, classOf[MonitorReference], log)
@@ -161,7 +161,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def oldReferences(routeId: ObjectId): Seq[OldMonitorReference] = {
     val pipeline = Seq(
       filter(
-        equal("routeId", routeId.raw),
+        equal("routeId", routeId),
       )
     )
     database.oldMonitorReferences.aggregate(pipeline, classOf[OldMonitorReference], log)
@@ -170,7 +170,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def referenceIds(routeId: ObjectId): Seq[MonitorReferenceId] = {
     val pipeline = Seq(
       filter(
-        equal("routeId", routeId.raw),
+        equal("routeId", routeId),
       ),
       project(
         fields(
@@ -185,7 +185,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def superRouteReferenceSummary(routeId: ObjectId): Option[Long] = {
     val pipeline = Seq(
       filter(
-        equal("routeId", routeId.raw),
+        equal("routeId", routeId),
       ),
       project(
         fields(
@@ -207,7 +207,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     val pipeline = Seq(
       filter(
         and(
-          equal("routeId", routeId.raw),
+          equal("routeId", routeId),
           equal("relationId", relationId),
         ),
       ),
@@ -219,7 +219,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     val pipeline = Seq(
       filter(
         and(
-          equal("routeId", routeId.raw),
+          equal("routeId", routeId),
           equal("relationId", relationId),
         ),
       ),
@@ -230,7 +230,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def states(routeId: ObjectId): Seq[MonitorState] = {
     val pipeline = Seq(
       filter(
-        equal("routeId", routeId.raw),
+        equal("routeId", routeId),
       ),
       sort(
         orderBy(
@@ -252,12 +252,12 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   }
 
   override def deleteStates(routeId: ObjectId): Unit = {
-    val routeFilter = equal("routeId", routeId.raw)
+    val routeFilter = equal("routeId", routeId)
     database.monitorStates.deleteMany(routeFilter, log)
   }
 
   override def deleteStateTiles(routeId: ObjectId): Unit = {
-    val routeFilter = equal("routeId", routeId.raw)
+    val routeFilter = equal("routeId", routeId)
     database.monitorStateTiles.deleteMany(routeFilter, log)
   }
 
@@ -267,7 +267,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
 
   override def deleteState(routeId: ObjectId, subRelationId: Long): Unit = {
     val routeReferenceFilter = and(
-      equal("routeId", routeId.raw),
+      equal("routeId", routeId),
       equal("relationId", subRelationId)
     )
     database.monitorStates.deleteMany(routeReferenceFilter, log)
@@ -280,7 +280,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def stateCount(routeId: ObjectId): Long = {
     val pipeline = Seq(
       filter(
-        equal("routeId", routeId.raw),
+        equal("routeId", routeId),
       ),
       group(
         "routeId",
@@ -299,7 +299,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def stateSize(routeId: ObjectId): Long = {
     val pipeline = Seq(
       filter(
-        equal("routeId", routeId.raw),
+        equal("routeId", routeId),
       ),
       project(
         fields(
@@ -324,7 +324,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def superRouteStateSummary(routeId: ObjectId): Option[MonitorStateSummary] = {
     val pipeline = Seq(
       filter(
-        equal("routeId", routeId.raw),
+        equal("routeId", routeId),
       ),
       project(
         fields(
@@ -350,7 +350,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def stateSummaries(routeId: ObjectId): Seq[MonitorStateSummary] = {
     val pipeline = Seq(
       filter(
-        equal("routeId", routeId.raw),
+        equal("routeId", routeId),
       ),
       project(
         fields(
@@ -368,7 +368,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def stateIds(routeId: ObjectId): Seq[MonitorStateId] = {
     val pipeline = Seq(
       filter(
-        equal("routeId", routeId.raw),
+        equal("routeId", routeId),
       ),
       project(
         fields(
@@ -500,7 +500,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def groupRouteDetails(groupId: ObjectId): Seq[MonitorRouteDetail] = {
     val pipeline = Seq(
       filter(
-        equal("groupId", groupId.raw)
+        equal("groupId", groupId)
       ),
       project(
         fields(
@@ -562,7 +562,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def routeNames(groupId: ObjectId): Seq[String] = {
     val pipeline = Seq(
       filter(
-        equal("groupId", groupId.raw)
+        equal("groupId", groupId)
       ),
       project(
         fields(

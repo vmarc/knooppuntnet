@@ -1,10 +1,10 @@
 package kpn.server.monitor.domain
 
-import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteSegment
+import org.bson.types.ObjectId
 
 case class MonitorRouteChangeGeometry(
   _id: ObjectId,

@@ -1,6 +1,5 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorCommand
 import kpn.api.common.monitor.MonitorMessage
 import kpn.core.common.Time
@@ -10,6 +9,7 @@ import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
+import org.bson.types.ObjectId
 import org.springframework.stereotype.Component
 
 @Component
@@ -55,7 +55,7 @@ class MonitorMultiGpxAdd(
     val relationIds = routeDoc.toSeq.flatMap(_.routeIds)
 
     MonitorRoute(
-      ObjectId(),
+      ObjectId.get(),
       group._id,
       args.update.routeName,
       args.update.description.getOrElse(""),

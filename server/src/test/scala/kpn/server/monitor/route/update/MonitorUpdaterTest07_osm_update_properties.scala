@@ -1,6 +1,5 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -10,6 +9,7 @@ import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
+import org.bson.types.ObjectId
 
 class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
 
@@ -116,7 +116,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
 
   private def setupRoute(group: MonitorGroup) = {
     MonitorRoute(
-      ObjectId(),
+      ObjectId.get(),
       groupId = group._id,
       name = "route-name",
       description = "route-description",
@@ -143,7 +143,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
 
   private def setupState(route: MonitorRoute) = {
     MonitorState(
-      ObjectId(),
+      ObjectId.get(),
       routeId = route._id,
       relationId = route1.relationId,
       timestamp = CurrentTimestamp,
@@ -156,7 +156,7 @@ class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
 
   private def setupReference(route: MonitorRoute) = {
     MonitorReference(
-      ObjectId(),
+      ObjectId.get(),
       routeId = route._id,
       relationId = Some(route1.relationId),
       timestamp = CurrentTimestamp,

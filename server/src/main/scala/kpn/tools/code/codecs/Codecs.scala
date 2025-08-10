@@ -14,6 +14,7 @@ object Codecs {
   )
 
   val extraCodecs: Seq[ClassId] = Seq(
+    ClassId("Distance", "kpn.server.repository"),
     ClassId("Member", "kpn.api.common.data"),
     ClassId("CountryResult", "kpn.database.base"),
     ClassId("RouteInfo", "kpn.api.common.route"),

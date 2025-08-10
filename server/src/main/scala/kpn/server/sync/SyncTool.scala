@@ -2,13 +2,13 @@ package kpn.server.sync
 
 import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Projections.include
-import kpn.api.base.ObjectId
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo
 import kpn.server.sync.SyncTool.log
+import org.bson.types.ObjectId
 
 object SyncTool {
   private val log = Log(classOf[SyncTool])

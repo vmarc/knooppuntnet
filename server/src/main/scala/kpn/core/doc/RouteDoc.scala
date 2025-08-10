@@ -1,6 +1,5 @@
 package kpn.core.doc
 
-import kpn.api.base.ObjectId
 import kpn.api.base.WithId
 import kpn.api.common.Bounds
 import kpn.api.common.Fact
@@ -18,6 +17,7 @@ import kpn.api.common.route.RouteSegment
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
+import org.bson.types.ObjectId
 
 case class RouteDoc(
   _id: Long, // routeId

@@ -1,5 +1,5 @@
 package kpn.database.base
 
-import kpn.api.base.ObjectId
+import org.bson.types.ObjectId
 
 case class ObjectIdId(_id: ObjectId)

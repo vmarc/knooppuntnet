@@ -1,8 +1,8 @@
 package kpn.server.monitor.domain
 
-import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
 import kpn.api.common.changes.details.ChangeKey
+import org.bson.types.ObjectId
 
 object MonitorRouteChange {
 
@@ -20,8 +20,8 @@ object MonitorRouteChange {
     investigate: Boolean
   ): MonitorRouteChange = {
     MonitorRouteChange(
-      ObjectId(),
-      ObjectId("TODO"),
+      ObjectId.get(),
+      new ObjectId("TODO"),
       key,
       wayCount,
       waysAdded,

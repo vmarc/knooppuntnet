@@ -1,6 +1,5 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.core.common.Time
 import kpn.core.doc.RouteDoc
@@ -17,6 +16,7 @@ import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.repository.MonitorStateId
 import kpn.server.repository.RouteRepository
+import org.bson.types.ObjectId
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
 
@@ -116,7 +116,7 @@ class MonitorUpdateAnalysis(
       val segmentCoordinates = routeRepository.segmentCoordinates(Seq(relationId))
       val id = oldStateIds.find(_.relationId == relationId) match {
         case Some(oldStateId) => oldStateId._id
-        case None => ObjectId()
+        case None => ObjectId.get()
       }
       val state = MonitorState(
         id,
@@ -220,7 +220,7 @@ class MonitorUpdateAnalysis(
 
     val id = oldStateIds.find(_.relationId == relationId) match {
       case Some(oldStateId) => oldStateId._id
-      case None => ObjectId()
+      case None => ObjectId.get()
     }
 
     val state = MonitorState(

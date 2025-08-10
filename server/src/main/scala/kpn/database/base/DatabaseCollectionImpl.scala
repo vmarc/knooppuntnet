@@ -7,7 +7,6 @@ import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.ReplaceOneModel
 import com.mongodb.client.model.ReplaceOptions
-import kpn.api.base.ObjectId
 import kpn.api.base.WithId
 import kpn.api.base.WithObjectId
 import kpn.api.base.WithStringId
@@ -17,6 +16,7 @@ import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import org.bson.conversions.Bson
+import org.bson.types.ObjectId
 
 import scala.concurrent.duration.Duration
 import scala.jdk.CollectionConverters.IterableHasAsScala
@@ -115,7 +115,7 @@ class DatabaseCollectionImpl[TDocument](collection: MongoCollection[TDocument]) 
     log: Log
   ): Option[TDocument] = {
     log.debugElapsed {
-      val doc = collection.find(equal("_id", objectId.raw), documentClass).asScala.headOption
+      val doc = collection.find(equal("_id", objectId), documentClass).asScala.headOption
       (s"findByObjectId - collection: '$collectionName', _id: $objectId", doc)
     }
   }
@@ -149,7 +149,7 @@ class DatabaseCollectionImpl[TDocument](collection: MongoCollection[TDocument]) 
       val (id, filter) = doc match {
         case withId: WithId => (withId._id.toString, equal("_id", withId._id))
         case withStringId: WithStringId => (withStringId._id, equal("_id", withStringId._id))
-        case withObjectId: WithObjectId => (withObjectId._id.oid, equal("_id", withObjectId._id))
+        case withObjectId: WithObjectId => (withObjectId._id, equal("_id", withObjectId._id))
         case _ => throw new IllegalArgumentException("document does not have een id")
       }
       val result = collection.replaceOne(filter, doc, new ReplaceOptions().upsert(true))
@@ -190,9 +190,9 @@ class DatabaseCollectionImpl[TDocument](collection: MongoCollection[TDocument]) 
 
   override def deleteByObjectId(objectId: ObjectId, log: Log): Unit = {
     log.debugElapsed {
-      val filter = equal("_id", objectId.raw)
+      val filter = equal("_id", objectId)
       val result = collection.deleteOne(filter)
-      (s"delete - collection: '$collectionName', _id: ${objectId.oid}", result)
+      (s"delete - collection: '$collectionName', _id: ${objectId.toHexString}", result)
     }
   }
 

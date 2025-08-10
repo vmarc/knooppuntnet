@@ -1,6 +1,5 @@
 package kpn.server.monitor.route
 
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorReferenceInfo
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.core.util.Log
@@ -11,6 +10,7 @@ import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.ChangeSetInfoRepository
+import org.bson.types.ObjectId
 import org.springframework.stereotype.Component
 
 @Component
@@ -38,13 +38,13 @@ class MonitorRouteChangePageBuilder(
             None
 
           case Some(routeChangeGeometry) =>
-            monitorGroupRepository.groupById(ObjectId("TODO MON") /*routeChange.groupId*/) match {
+            monitorGroupRepository.groupById(new ObjectId("TODO MON") /*routeChange.groupId*/) match {
               case None =>
                 log.warn(s"Could not read group TODO {routeChange.groupName}")
                 None
 
               case Some(group) =>
-                monitorRouteRepository.reference(ObjectId("TODO MON") /*"TODO KEY" + routeId , routeChange.referenceKey*/ , None) match {
+                monitorRouteRepository.reference(new ObjectId("TODO MON") /*"TODO KEY" + routeId , routeChange.referenceKey*/ , None) match {
                   case None =>
                     log.warn(s"Could not routeReference routeId=$routeId")
                     None

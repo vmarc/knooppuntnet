@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.node.main
 
-import kpn.api.base.ObjectId
 import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
@@ -10,6 +9,7 @@ import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeIntegrityAnal
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeLabelsAnalyzer
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeRouteReferencesAnalyzer
+import org.bson.types.ObjectId
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
@@ -56,7 +56,7 @@ class NodeMainAnalyzer(
           integrity = context.integrity,
           routeReferences = context.routeReferences,
           networkRelationReferences = context.networkRelationReferences,
-          Some(ObjectId())
+          Some(ObjectId.get())
         )
       )
     }

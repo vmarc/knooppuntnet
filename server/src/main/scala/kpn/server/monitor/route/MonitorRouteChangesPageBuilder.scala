@@ -1,15 +1,15 @@
 package kpn.server.monitor.route
 
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorGroupChangesPage
-import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteChangeSummary
+import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.ChangeSetInfoRepository
+import org.bson.types.ObjectId
 import org.springframework.stereotype.Component
 
 @Component
@@ -66,10 +66,10 @@ class MonitorRouteChangesPageBuilder(
   def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): Option[MonitorRouteChangesPage] = {
     val changes = build(monitorRouteRepository.routeChanges(monitorRouteId, parameters))
     val totalChangeCount = monitorRouteRepository.routeChangesCount(monitorRouteId, parameters)
-    monitorRouteRepository.routeById(ObjectId("TODO") /*monitorRouteId*/).flatMap { route =>
+    monitorRouteRepository.routeById(new ObjectId("TODO") /*monitorRouteId*/).flatMap { route =>
       monitorGroupRepository.groupById(route.groupId).map { group =>
         MonitorRouteChangesPage(
-          route._id.oid,
+          route._id.toHexString,
           route.name,
           group.name,
           group.description,

@@ -1,10 +1,10 @@
 package kpn.database.actions.monitor
 
-import kpn.api.base.ObjectId
 import kpn.core.test.MongoTest
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
+import org.bson.types.ObjectId
 
 class MongoQueryMonitorStateTileIdsTest extends MongoTest {
 
@@ -28,8 +28,8 @@ class MongoQueryMonitorStateTileIdsTest extends MongoTest {
 
     monitorRouteRepository.saveStateTile(
       MonitorStateTile(
-        _id = ObjectId(),
-        routeId = ObjectId(),
+        _id = ObjectId.get(),
+        routeId = ObjectId.get(),
         relationId = 1,
         z = 11,
         x = 12,
@@ -42,8 +42,8 @@ class MongoQueryMonitorStateTileIdsTest extends MongoTest {
 
     monitorRouteRepository.saveStateTile(
       MonitorStateTile(
-        _id = ObjectId(),
-        routeId = ObjectId(),
+        _id = ObjectId.get(),
+        routeId = ObjectId.get(),
         relationId = 1,
         z = 21,
         x = 22,

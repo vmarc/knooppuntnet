@@ -1,6 +1,6 @@
 package kpn.server.monitor.repository
 
-import kpn.api.base.ObjectId
+import org.bson.types.ObjectId
 
 case class MonitorStateId(
   _id: ObjectId,

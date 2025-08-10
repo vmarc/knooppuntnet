@@ -1,12 +1,12 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorCommand
 import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.custom.Timestamp
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
+import org.bson.types.ObjectId
 import org.springframework.stereotype.Component
 
 @Component
@@ -29,7 +29,7 @@ class MonitorGpxAdd(
 
   private def buildRoute(group: MonitorGroup, args: MonitorUpdateArgs, now: Timestamp): MonitorRoute = {
     MonitorRoute(
-      _id = ObjectId(),
+      _id = ObjectId.get(),
       groupId = group._id,
       name = args.update.routeName,
       description = args.update.description.getOrElse(""),

@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.monitor.state
 
-import kpn.api.base.ObjectId
 import kpn.core.test.TestObjects.newMonitorState
 import kpn.core.test.TestObjects.newMonitorStateTile
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.repository.MonitorRouteRepository
+import org.bson.types.ObjectId
 import org.scalamock.scalatest.MockFactory
 
 class MonitorStateStoreTest extends UnitTest with MockFactory {
@@ -43,11 +43,11 @@ class MonitorStateStoreTest extends UnitTest with MockFactory {
   )
 
   private def setupTestData(): TestData = {
-    val routeId = ObjectId("routeId")
+    val routeId = new ObjectId("123456789012345678901234")
     val relationId = 1L
 
     val monitorState = newMonitorState(
-      _id = ObjectId("state-id"),
+      _id = new ObjectId("state-id"),
       routeId = routeId,
       relationId = relationId
     )
@@ -55,7 +55,7 @@ class MonitorStateStoreTest extends UnitTest with MockFactory {
     val unchangedTile = createMonitorStateTile(1)
     val originalTileToUpdate = createMonitorStateTile(2)
     val tileToRemove = createMonitorStateTile(3)
-    val updatedTile = originalTileToUpdate.copy(_id = ObjectId("update-key"), matchesLines = Seq("match"))
+    val updatedTile = originalTileToUpdate.copy(_id = new ObjectId("update-key"), matchesLines = Seq("match"))
     val newTile = createMonitorStateTile(4)
 
     val existingTiles = Seq(unchangedTile, originalTileToUpdate, tileToRemove)
@@ -101,8 +101,8 @@ class MonitorStateStoreTest extends UnitTest with MockFactory {
 
   private def createMonitorStateTile(id: Int): MonitorStateTile = {
     newMonitorStateTile(
-      _id = ObjectId(id.toString),
-      routeId = ObjectId("routeId"),
+      _id = new ObjectId(id.toString),
+      routeId = new ObjectId("routeId"),
       relationId = 1L,
       z = id,
       x = id,

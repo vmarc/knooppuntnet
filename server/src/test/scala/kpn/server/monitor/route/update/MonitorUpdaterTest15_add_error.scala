@@ -52,7 +52,7 @@ class MonitorUpdaterTest15_add_error extends MonitorUpdateTest {
           active("prepare")
         ),
         MonitorMessage(
-          exception = Some(s"""Could not add route with name "route-name": already exists (_id=${route._id.oid}) in group with name "group-name"""")
+          exception = Some(s"""Could not add route with name "route-name": already exists (_id=${route._id.toHexString}) in group with name "group-name"""")
         )
       )
     )

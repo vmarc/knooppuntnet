@@ -91,7 +91,7 @@ class MonitorRouteDetailsPageBuilder(
       context.group.name,
       context.monitorRoute.name,
       context.monitorRoute.description,
-      context.monitorRoute._id.oid,
+      context.monitorRoute._id.toHexString,
       context.monitorRoute.relationId,
       context.monitorRoute.relationIds,
       routeDetails.map(_.memberCount).getOrElse(0L),

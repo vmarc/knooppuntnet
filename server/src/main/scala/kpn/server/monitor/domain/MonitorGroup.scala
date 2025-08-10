@@ -1,13 +1,13 @@
 package kpn.server.monitor.domain
 
-import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
 import kpn.api.common.monitor.MonitorGroupProperties
+import org.bson.types.ObjectId
 
 object MonitorGroup {
 
   def from(properties: MonitorGroupProperties): MonitorGroup = {
-    MonitorGroup(ObjectId(), properties.name, properties.description)
+    MonitorGroup(ObjectId.get(), properties.name, properties.description)
   }
 
   def from(id: ObjectId, properties: MonitorGroupProperties): MonitorGroup = {

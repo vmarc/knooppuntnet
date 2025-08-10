@@ -37,7 +37,7 @@ object MonitorRouteCopyTool {
       val idsSize = ids.size
       ids.zipWithIndex.foreach { case (id, index) =>
         println(s"  $name ${index + 1}/$idsSize")
-        if (target.countFilteredDocuments(equal("_id", id.raw)) == 0L) {
+        if (target.countFilteredDocuments(equal("_id", id)) == 0L) {
           source.findByObjectId(id).foreach { document =>
             target.save(document)
           }

@@ -11,7 +11,7 @@ object RootDocReader {
 
   def main(args: Array[String]): Unit = {
 
-    val rootClassIds = readClassIds() ++ Codecs.customCodecs ++ Codecs.extraCodecs
+    val rootClassIds = readClassIds().filterNot(_.className == "ObjectId") ++ Codecs.customCodecs ++ Codecs.extraCodecs
     val rootClassInfos = rootClassIds.map(classId => scalaCaseClassReader.read(classId))
 
     val found = mutable.Map(rootClassInfos.map(classInfo => classInfo.key -> classInfo): _*)
@@ -33,7 +33,7 @@ object RootDocReader {
 
   private def collectDependencies(found: mutable.Map[String, ClassInfo], info: ClassInfo): Seq[ClassInfo] = {
     println(info.className)
-    val missingClassIds = info.dependencies.filter(classId => !found.contains(classId.key)).filterNot(_.className == "Member")
+    val missingClassIds = info.dependencies.filter(classId => !found.contains(classId.key)).filterNot(_.className == "Member").filterNot(_.className == "ObjectId")
     val classInfos = missingClassIds.map(classId => scalaCaseClassReader.read(classId))
     found.addAll(classInfos.map(classInfo => classInfo.key -> classInfo))
     classInfos.flatMap { classInfo =>

@@ -72,7 +72,7 @@ class MonitorRouteMembersPageBuilder(
       group.name,
       monitorRoute.name,
       monitorRoute.description,
-      monitorRoute._id.oid,
+      monitorRoute._id.toHexString,
       monitorRoute.relationId,
       monitorRoute.relationIds,
       memberCount = structureRows.length,

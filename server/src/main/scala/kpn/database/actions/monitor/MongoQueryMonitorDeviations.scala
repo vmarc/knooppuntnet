@@ -8,13 +8,13 @@ import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Sorts.descending
 import com.mongodb.client.model.Sorts.orderBy
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteDeviationInfo
 import kpn.core.util.DebugLogger.log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
+import org.bson.types.ObjectId
 
 class MongoQueryMonitorDeviations(database: Database) {
   def execute(routeId: ObjectId): Seq[MonitorRouteDeviationInfo] = {
@@ -29,7 +29,7 @@ class MongoQueryMonitorDeviations(database: Database) {
   private def buildPipeline(routeId: ObjectId): MongoPipeline = {
     Seq(
       filter(
-        equal("routeId", routeId.raw)
+        equal("routeId", routeId)
       ),
       unwind("$deviations"),
       project(
