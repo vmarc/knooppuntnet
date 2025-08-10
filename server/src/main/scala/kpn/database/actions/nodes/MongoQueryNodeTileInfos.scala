@@ -15,8 +15,8 @@ import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
-import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.bson.conversions.Bson
+import org.bson.BsonDocument
+import org.bson.conversions.Bson
 
 object MongoQueryNodeTileInfos {
   private val log = Log(classOf[MongoQueryNodeTileInfos])
@@ -91,6 +91,6 @@ class MongoQueryNodeTileInfos(database: Database) {
   }
 
   private def tileName(routeType: RouteType): Bson = {
-    BsonDocument(s"""{$$substr: ["$$tiles", ${routeType.entryName.length + 1}, 99]}""")
+    BsonDocument.parse(s"""{$$substr: ["$$tiles", ${routeType.entryName.length + 1}, 99]}""")
   }
 }

@@ -30,9 +30,9 @@ import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
+import org.bson.BsonDocument
+import org.bson.Document
 import org.bson.conversions.Bson
-import org.mongodb.scala.Document
-import org.mongodb.scala.bson.BsonDocument
 
 object MongoQueryLocationChanges {
 
@@ -169,7 +169,7 @@ class MongoQueryLocationChanges(database: Database) {
             fields(
               computed("_id", "$_id.id"),
               computed("key", "$_id.key"),
-              BsonDocument("""{"impact": {$or: [{$in: [true, "$locationChanges.happy"]}, {$in: [true, "$locationChanges.investigate"]}]}}"""),
+              BsonDocument.parse("""{"impact": {$or: [{$in: [true, "$locationChanges.happy"]}, {$in: [true, "$locationChanges.investigate"]}]}}"""),
               include("locationChanges"),
             )
           )
@@ -188,9 +188,11 @@ class MongoQueryLocationChanges(database: Database) {
         unwind("$locationChanges"),
         locationChangesFilter(),
         group(
-          Document(
-            "id" -> "$_id",
-            "key" -> "$key"
+          new Document(
+            java.util.Map.of(
+              "id", "$_id",
+              "key", "$key"
+            )
           ),
           push("locationChanges", "$locationChanges")
         ),

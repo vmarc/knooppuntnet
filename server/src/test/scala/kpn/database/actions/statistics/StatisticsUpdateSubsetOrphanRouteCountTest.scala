@@ -24,15 +24,13 @@ class StatisticsUpdateSubsetOrphanRouteCountTest extends MongoTest {
     new StatisticsUpdater(database).execute()
     val counts = new MongoQueryStatistics(database).execute()
 
-    counts should contain(
-      StatisticLongValues(
-        "OrphanRouteCount",
-        Seq(
-          StatisticLongValue(de, cycling, 1L),
-          StatisticLongValue(de, hiking, 2L),
-          StatisticLongValue(nl, cycling, 1L),
-          StatisticLongValue(nl, hiking, 2L),
-        )
+    assertEqual(
+      counts.find(_._id == "OrphanRouteCount").get.values.toSet,
+      Set(
+        StatisticLongValue(de, cycling, 1L),
+        StatisticLongValue(de, hiking, 2L),
+        StatisticLongValue(nl, cycling, 1L),
+        StatisticLongValue(nl, hiking, 2L),
       )
     )
   }

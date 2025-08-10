@@ -1,23 +1,23 @@
 package kpn.database.base
 
-import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.bson.conversions.Bson
+import org.bson.BsonDocument
+import org.bson.conversions.Bson
 
 object MongoProjections {
   def concat(fieldName: String, elements: String*): Bson = {
     val elementString = elements.map(element => s"\"$element\"").mkString("[", ",", "]")
-    BsonDocument(s"""{"$fieldName": {"$$concat": $elementString}}""")
+    BsonDocument.parse(s"""{"$fieldName": {"$$concat": $elementString}}""")
   }
 
   def objectIdToString(fieldName: String): Bson = {
-    BsonDocument(s"""{"$fieldName": {"$$toString": "$$$fieldName"}}""")
+    BsonDocument.parse(s"""{"$fieldName": {"$$toString": "$$$fieldName"}}""")
   }
 
   def objectIdToString(fieldName: String, valueFieldName: String): Bson = {
-    BsonDocument(s"""{"$fieldName": {"$$toString": "$valueFieldName"}}""")
+    BsonDocument.parse(s"""{"$fieldName": {"$$toString": "$valueFieldName"}}""")
   }
 
   def arraySize(fieldName: String, valueFieldName: String): Bson = {
-    BsonDocument(s"""{"$fieldName": {"$$size": "$valueFieldName"}}""")
+    BsonDocument.parse(s"""{"$fieldName": {"$$size": "$valueFieldName"}}""")
   }
 }

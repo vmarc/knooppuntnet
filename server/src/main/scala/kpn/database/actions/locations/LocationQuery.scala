@@ -29,8 +29,8 @@ import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
-import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.bson.conversions.Bson
+import org.bson.BsonDocument
+import org.bson.conversions.Bson
 
 object LocationQuery {
 
@@ -149,7 +149,7 @@ object LocationQuery {
       project(
         fields(
           excludeId(),
-          computed("proposed", BsonDocument("""{ $cond: [ "$proposed", "yes", "no" ]}"""))
+          computed("proposed", BsonDocument.parse("""{ $cond: [ "$proposed", "yes", "no" ]}"""))
         )
       ),
       group(
@@ -183,7 +183,7 @@ object LocationQuery {
 
     prefilter(otherFilters) ++ Seq(
       project(
-        BsonDocument(lastUpdatedValue),
+        BsonDocument.parse(lastUpdatedValue),
       ),
       group(
         "$lastUpdatedValue",
@@ -193,7 +193,7 @@ object LocationQuery {
       project(
         fields(
           excludeId(),
-          computed("_id", BsonDocument("""{$substr: ["$_id", 2, 99]}""")),
+          computed("_id", BsonDocument.parse("""{$substr: ["$_id", 2, 99]}""")),
           include("count")
         )
       )
@@ -236,7 +236,7 @@ object LocationQuery {
 
     prefilter(otherFilters) ++ Seq(
       project(
-        BsonDocument(surveyValue),
+        BsonDocument.parse(surveyValue),
       ),
       group(
         "$survey",
@@ -246,7 +246,7 @@ object LocationQuery {
       project(
         fields(
           excludeId(),
-          computed("_id", BsonDocument("""{$substr: ["$_id", 2, 99]}""")),
+          computed("_id", BsonDocument.parse("""{$substr: ["$_id", 2, 99]}""")),
           include("count")
         )
       )
@@ -257,11 +257,11 @@ object LocationQuery {
     prefilter(otherFilters) ++ Seq(
       unwind("$labels"),
       filter(
-        BsonDocument("""{labels: {$regex: "fact-.*"}}""")
+        BsonDocument.parse("""{labels: {$regex: "fact-.*"}}""")
       ),
       project(
         fields(
-          BsonDocument("""{name: {$substr: ["$labels", 5, 99]}}""")
+          BsonDocument.parse("""{name: {$substr: ["$labels", 5, 99]}}""")
         )
       ),
       group(

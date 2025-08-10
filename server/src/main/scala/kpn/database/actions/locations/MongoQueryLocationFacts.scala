@@ -23,8 +23,8 @@ import kpn.database.base.MongoAggregates.notEqual
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
-import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.bson.conversions.Bson
+import org.bson.BsonDocument
+import org.bson.conversions.Bson
 
 object MongoQueryLocationFacts {
 
@@ -129,7 +129,7 @@ class MongoQueryLocationFacts(database: Database) {
       filter(
         and(
           equal("integrity.details.routeType", subset.routeType.entryName),
-          BsonDocument("""{$expr: { $ne: ["$integrity.details.expectedRouteCount", { "$size": "$integrity.details.routeRefs" }]}}""")
+          BsonDocument.parse("""{$expr: { $ne: ["$integrity.details.expectedRouteCount", { "$size": "$integrity.details.routeRefs" }]}}""")
         )
       ),
       project(

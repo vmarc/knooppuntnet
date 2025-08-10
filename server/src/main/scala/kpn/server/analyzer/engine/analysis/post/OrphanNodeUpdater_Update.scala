@@ -14,7 +14,7 @@ import kpn.core.doc.OrphanNodeDoc
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.filter
-import org.mongodb.scala.bson.BsonDocument
+import org.bson.BsonDocument
 
 class OrphanNodeUpdater_Update(database: Database, log: Log) {
 
@@ -28,7 +28,7 @@ class OrphanNodeUpdater_Update(database: Database, log: Log) {
         project(
           fields(
             excludeId(),
-            BsonDocument("""{"_id": {"$concat": ["$country",":","$names.routeType",":", {"$toString": "$_id"}]}}"""),
+            BsonDocument.parse("""{"_id": {"$concat": ["$country",":","$names.routeType",":", {"$toString": "$_id"}]}}"""),
             computed("country", "$country"),
             computed("routeType", "$names.routeType"),
             computed("nodeId", "$_id"),

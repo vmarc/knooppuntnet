@@ -65,7 +65,7 @@ class MonitorTaskLoopTool(database: Database) {
     try {
       ???
       // database.monitorTasks.native.watch().first().subscribe(observer)
-      observer.await()
+      //      observer.await()
     }
     finally {
       savedObserver = None
@@ -80,7 +80,7 @@ class MonitorTaskLoopTool(database: Database) {
         abort = true
         savedObserver match {
           case None => log.info("abort: no saved observer!")
-          case Some(observer) => observer.cancel()
+          case Some(observer) => // observer.cancel()
         }
       }
     }.start()

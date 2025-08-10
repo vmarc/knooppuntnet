@@ -12,7 +12,7 @@ import kpn.core.util.DebugLogger.log
 import kpn.database.base.Database
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.tiles.domain.TileId
-import org.mongodb.scala.Document
+import org.bson.Document
 
 class MongoQueryMonitorStateTileIds(database: Database) {
   def execute(): Seq[TileId] = {
@@ -26,10 +26,12 @@ class MongoQueryMonitorStateTileIds(database: Database) {
   private def buildPipeline(): MongoPipeline = {
     Seq(
       group(
-        Document(
-          "z" -> "$z",
-          "x" -> "$x",
-          "y" -> "$y"
+        new Document(
+          java.util.Map.of(
+            "z", "$z",
+            "x", "$x",
+            "y", "$y"
+          )
         ),
       ),
       project(

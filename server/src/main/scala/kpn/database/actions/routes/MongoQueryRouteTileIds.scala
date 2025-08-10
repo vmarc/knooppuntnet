@@ -16,7 +16,7 @@ import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.tiles.domain.TileId
-import org.mongodb.scala.Document
+import org.bson.Document
 
 object MongoQueryRouteTileIds {
   private val log = Log(classOf[MongoQueryRouteTileIds])
@@ -46,10 +46,12 @@ class MongoQueryRouteTileIds(database: Database) {
         )
       ),
       group(
-        Document(
-          "z" -> "$z",
-          "x" -> "$x",
-          "y" -> "$y"
+        new Document(
+          java.util.Map.of(
+            "z", "$z",
+            "x", "$x",
+            "y", "$y"
+          )
         ),
       ),
       project(

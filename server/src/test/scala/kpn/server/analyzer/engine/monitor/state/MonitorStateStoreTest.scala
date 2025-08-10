@@ -43,20 +43,20 @@ class MonitorStateStoreTest extends UnitTest with MockFactory {
   )
 
   private def setupTestData(): TestData = {
-    val routeId = new ObjectId("123456789012345678901234")
+    val routeId = new ObjectId("123456789012345678901001")
     val relationId = 1L
 
     val monitorState = newMonitorState(
-      _id = new ObjectId("state-id"),
+      _id = new ObjectId("123456789012345678901002"),
       routeId = routeId,
       relationId = relationId
     )
 
-    val unchangedTile = createMonitorStateTile(1)
-    val originalTileToUpdate = createMonitorStateTile(2)
-    val tileToRemove = createMonitorStateTile(3)
-    val updatedTile = originalTileToUpdate.copy(_id = new ObjectId("update-key"), matchesLines = Seq("match"))
-    val newTile = createMonitorStateTile(4)
+    val unchangedTile = createMonitorStateTile(new ObjectId("123456789012345678900001"), 1)
+    val originalTileToUpdate = createMonitorStateTile(new ObjectId("123456789012345678900002"), 2)
+    val tileToRemove = createMonitorStateTile(new ObjectId("123456789012345678900003"), 3)
+    val updatedTile = originalTileToUpdate.copy(_id = new ObjectId("123456789012345678900003"), matchesLines = Seq("match"))
+    val newTile = createMonitorStateTile(new ObjectId("123456789012345678900004"), 4)
 
     val existingTiles = Seq(unchangedTile, originalTileToUpdate, tileToRemove)
     val updatedTiles = Seq(unchangedTile, updatedTile, newTile)
@@ -99,10 +99,10 @@ class MonitorStateStoreTest extends UnitTest with MockFactory {
     (repository.saveStateTile _).verify(testData.newTile)
   }
 
-  private def createMonitorStateTile(id: Int): MonitorStateTile = {
+  private def createMonitorStateTile(_id: ObjectId, id: Int): MonitorStateTile = {
     newMonitorStateTile(
-      _id = new ObjectId(id.toString),
-      routeId = new ObjectId("routeId"),
+      _id = _id,
+      routeId = new ObjectId("123456789012345678901001"),
       relationId = 1L,
       z = id,
       x = id,

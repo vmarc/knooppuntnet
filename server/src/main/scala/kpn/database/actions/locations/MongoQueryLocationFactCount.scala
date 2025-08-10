@@ -23,7 +23,7 @@ import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
-import org.mongodb.scala.bson.BsonDocument
+import org.bson.BsonDocument
 
 object MongoQueryLocationFactCount {
 
@@ -112,7 +112,7 @@ class MongoQueryLocationFactCount(database: Database) {
       filter(
         and(
           equal("integrity.details.routeType", subset.routeType.entryName),
-          BsonDocument("""{$expr: { $ne: ["$integrity.details.expectedRouteCount", { "$size": "$integrity.details.routeRefs" }]}}""")
+          BsonDocument.parse("""{$expr: { $ne: ["$integrity.details.expectedRouteCount", { "$size": "$integrity.details.routeRefs" }]}}""")
         )
       ),
       count()
@@ -140,7 +140,7 @@ class MongoQueryLocationFactCount(database: Database) {
       project(
         fields(
           excludeId(),
-          BsonDocument("""{"factCount": {"$toInt": "1"}}""")
+          BsonDocument.parse("""{"factCount": {"$toInt": "1"}}""")
         )
       ),
       group(

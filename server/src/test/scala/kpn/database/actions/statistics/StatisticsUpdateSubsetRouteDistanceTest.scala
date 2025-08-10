@@ -26,15 +26,13 @@ class StatisticsUpdateSubsetRouteDistanceTest extends MongoTest {
     new StatisticsUpdater(database).execute()
     val counts = new MongoQueryStatistics(database).execute()
 
-    counts should contain(
-      StatisticLongValues(
-        "Distance",
-        Seq(
-          StatisticLongValue(de, cycling, 6L),
-          StatisticLongValue(de, hiking, 9L),
-          StatisticLongValue(nl, cycling, 3L),
-          StatisticLongValue(nl, hiking, 3L),
-        )
+    assertEqual(
+      counts.find(_._id == "Distance").get.values.toSet,
+      Set(
+        StatisticLongValue(de, cycling, 6L),
+        StatisticLongValue(de, hiking, 9L),
+        StatisticLongValue(nl, cycling, 3L),
+        StatisticLongValue(nl, hiking, 3L),
       )
     )
   }

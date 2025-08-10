@@ -14,8 +14,8 @@ import kpn.api.common.search.ConditionTag
 import kpn.core.doc.Label
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.Types.MongoPipeline
+import org.bson.BsonDocument
 import org.bson.conversions.Bson
-import org.mongodb.scala.bson.BsonDocument
 
 object SearchQueryBuilder {
 
@@ -49,7 +49,7 @@ object SearchQueryBuilder {
   private def buildConditionTag(condition: ConditionTag): Bson = {
     condition.operator match {
       case Equals =>
-        equal("summary.tags", BsonDocument(s"""{key: "${condition.key}", value: "${condition.value}"}"""))
+        equal("summary.tags", BsonDocument.parse(s"""{key: "${condition.key}", value: "${condition.value}"}"""))
       case _ =>
         and(
           equal("summary.tags.key", condition.key),

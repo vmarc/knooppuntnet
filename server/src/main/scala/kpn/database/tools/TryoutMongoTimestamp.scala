@@ -16,7 +16,7 @@ import kpn.database.base.Database
 import kpn.database.base.DatabaseCollectionImpl
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala.bson.BsonDocument
+import org.bson.BsonDocument
 
 case class TestDoc(
   _id: String,
@@ -71,7 +71,7 @@ class TimestampDemo(database: Database) {
 
     Seq(
       group(
-        BsonDocument(groupId),
+        BsonDocument.parse(groupId),
         sum("count", 1)
       ),
       sort(orderBy(descending("_id"))),
@@ -94,7 +94,7 @@ class TimestampDemo(database: Database) {
 
     Seq(
       group(
-        BsonDocument(groupId),
+        BsonDocument.parse(groupId),
         sum("count", 1)
       ),
       sort(orderBy(descending("_id"))),
@@ -119,7 +119,7 @@ class TimestampDemo(database: Database) {
 
     Seq(
       group(
-        BsonDocument(groupId),
+        BsonDocument.parse(groupId),
         sum("count", 1)
       ),
       sort(orderBy(descending("_id"))),

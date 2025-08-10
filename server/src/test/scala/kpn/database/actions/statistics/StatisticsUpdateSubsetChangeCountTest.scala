@@ -26,14 +26,12 @@ class StatisticsUpdateSubsetChangeCountTest extends MongoTest {
     new StatisticsUpdater(database).execute()
     val counts = new MongoQueryStatistics(database).execute()
 
-    counts should contain(
-      StatisticLongValues(
-        "ChangeCount",
-        Seq(
-          StatisticLongValue(de, hiking, 1L),
-          StatisticLongValue(nl, cycling, 2L),
-          StatisticLongValue(nl, hiking, 3L),
-        )
+    assertEqual(
+      counts.find(_._id == "ChangeCount").get.values.toSet,
+      Set(
+        StatisticLongValue(de, hiking, 1L),
+        StatisticLongValue(nl, cycling, 2L),
+        StatisticLongValue(nl, hiking, 3L),
       )
     )
   }

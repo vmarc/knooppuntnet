@@ -31,7 +31,7 @@ import kpn.database.base.MongoAggregates.ffacet
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
-import org.mongodb.scala.bson.conversions.Bson
+import org.bson.conversions.Bson
 
 class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo) {
   private val log = Log(classOf[MongoQueryLocationNodes])

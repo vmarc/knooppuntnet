@@ -12,8 +12,8 @@ import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.monitor.repository.MonitorStateDeviationInfo
+import org.bson.Document
 import org.bson.types.ObjectId
-import org.mongodb.scala.Document
 
 class MongoQueryMonitorStateDeviationInfos(database: Database) {
   def execute(routeId: ObjectId): Seq[MonitorStateDeviationInfo] = {
@@ -33,7 +33,7 @@ class MongoQueryMonitorStateDeviationInfos(database: Database) {
         fields(
           excludeId(),
           include("relationId"),
-          computed("deviationDistance", Document("""{ $sum: "$deviations.meters" }""")),
+          computed("deviationDistance", Document.parse("""{ $sum: "$deviations.meters" }""")),
           arraySize("deviationCount", "$deviations"),
         )
       )

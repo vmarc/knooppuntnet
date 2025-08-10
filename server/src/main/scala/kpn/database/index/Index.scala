@@ -1,8 +1,8 @@
 package kpn.database.index
 
-import kpn.database.base.DatabaseCollection
-import org.mongodb.scala.bson.conversions.Bson
 import com.mongodb.client.model.Indexes
+import kpn.database.base.DatabaseCollection
+import org.bson.conversions.Bson
 
 object Index {
   def apply(
@@ -11,7 +11,7 @@ object Index {
     fieldNames: String*
   ): Index = {
     val index = Indexes.ascending(fieldNames: _*)
-    Index(
+    new Index(
       collection: DatabaseCollection[?],
       indexName: String,
       index

@@ -306,31 +306,6 @@
       <groupId>org.mongodb</groupId>
       <artifactId>mongodb-driver-sync</artifactId>
     </dependency>
-    
-    <dependency>
-      <groupId>org.mongodb.scala</groupId>
-      <artifactId>mongo-scala-driver_2.13</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.mongodb.scala</groupId>
-      <artifactId>mongo-scala-bson_2.13</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.mongodb</groupId>
-      <artifactId>bson</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.mongodb</groupId>
-      <artifactId>mongodb-driver-reactivestreams</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.mongodb</groupId>
-      <artifactId>mongodb-driver-core</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>ch.poole</groupId>

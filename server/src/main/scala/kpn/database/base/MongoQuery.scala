@@ -2,7 +2,7 @@ package kpn.database.base
 
 import kpn.database.base.Types.MongoPipeline
 import org.apache.commons.io.IOUtils
-import org.mongodb.scala.bson.BsonDocument
+import org.bson.BsonDocument
 
 import java.io.InputStream
 import scala.io.Source
@@ -26,7 +26,7 @@ class MongoQuery {
     val lines = readPipelineFile(pipelineName)
     val strings = toStageStrings(lines)
     val stages = strings.map { string =>
-      BsonDocument(string)
+      BsonDocument.parse(string)
     }
     Pipeline(pipelineName, stages)
   }
@@ -35,7 +35,7 @@ class MongoQuery {
     val lines = Source.fromString(pipelineString).getLines().toList
     val strings = toStageStrings(lines)
     strings.map { string =>
-      BsonDocument(string)
+      BsonDocument.parse(string)
     }
   }
 

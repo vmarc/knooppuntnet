@@ -4,11 +4,11 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.tools.location.RelationPolygonBuilder
 import org.bson.RawBsonDocument
+import org.bson.conversions.Bson
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonWriter
-import org.mongodb.scala.bson.conversions.Bson
 
 import scala.xml.InputSource
 import scala.xml.XML

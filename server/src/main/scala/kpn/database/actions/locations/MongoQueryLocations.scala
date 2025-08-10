@@ -22,8 +22,8 @@ import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.MongoAggregates.notEqual
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
-import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.bson.conversions.Bson
+import org.bson.BsonDocument
+import org.bson.conversions.Bson
 
 class MongoQueryLocations(database: Database) {
   private val log = Log(classOf[MongoQueryLocations])
@@ -176,6 +176,6 @@ class MongoQueryLocations(database: Database) {
   }
 
   private def labelToLocation: Bson = {
-    BsonDocument(s"""{$$substr: ["$$_id", ${"location-".length}, 99]}""")
+    BsonDocument.parse(s"""{$$substr: ["$$_id", ${"location-".length}, 99]}""")
   }
 }

@@ -1,7 +1,7 @@
 package kpn.database.actions.pois
 
-import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.bson.conversions.Bson
+import org.bson.BsonDocument
+import org.bson.conversions.Bson
 
 object LayerFilter {
 
@@ -9,7 +9,7 @@ object LayerFilter {
     Option.when(layers.nonEmpty) {
       val quotedLayers = layers.map(l => s"\"$l\"").mkString(",")
       val elemMatch = s"""{"layers": {"$$elemMatch": { "$$in": [$quotedLayers]}}}}"""
-      BsonDocument(elemMatch)
+      BsonDocument.parse(elemMatch)
     }
   }
 }

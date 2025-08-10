@@ -28,9 +28,9 @@ import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.MongoProjections.concat
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala.Document
-import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.bson.conversions.Bson
+import org.bson.BsonDocument
+import org.bson.Document
+import org.bson.conversions.Bson
 import org.springframework.stereotype.Component
 
 object StatisticsUpdater {
@@ -86,9 +86,11 @@ class StatisticsUpdater(database: Database) {
       ),
       unwind("$names"),
       group(
-        Document(
-          "country" -> "$country",
-          "routeType" -> "$names.routeType"
+        new Document(
+          java.util.Map.of(
+            "country", "$country",
+            "routeType", "$names.routeType"
+          )
         ),
         sum("value", 1)
       )
@@ -99,9 +101,11 @@ class StatisticsUpdater(database: Database) {
     factPipeline(
       "OrphanNodeCount",
       group(
-        Document(
-          "country" -> "$country",
-          "routeType" -> "$routeType"
+        new Document(
+          java.util.Map.of(
+            "country", "$country",
+            "routeType", "$routeType"
+          )
         ),
         sum("value", 1)
       )
@@ -120,9 +124,11 @@ class StatisticsUpdater(database: Database) {
       unwind("$summary.countries"),
       unwind("$summary.routeTypes"),
       group(
-        Document(
-          "country" -> "$summary.countries",
-          "routeType" -> "$summary.routeTypes"
+        new Document(
+          java.util.Map.of(
+            "country", "$summary.countries",
+            "routeType", "$summary.routeTypes"
+          )
         ),
         sum("value", 1)
       )
@@ -134,9 +140,11 @@ class StatisticsUpdater(database: Database) {
       "OrphanRouteCount",
       unwind("$routeTypes"),
       group(
-        Document(
-          "country" -> "$country",
-          "routeType" -> "$routeTypes"
+        new Document(
+          java.util.Map.of(
+            "country", "$country",
+            "routeType", "$routeTypes"
+          )
         ),
         sum("value", 1)
       )
@@ -155,10 +163,12 @@ class StatisticsUpdater(database: Database) {
       unwind("$names"),
       unwind("$facts"),
       group(
-        Document(
-          "country" -> "$country",
-          "routeType" -> "$names.routeType",
-          "factName" -> "$facts"
+        new Document(
+          java.util.Map.of(
+            "country", "$country",
+            "routeType", "$names.routeType",
+            "factName", "$facts"
+          )
         ),
         sum("value", 1)
       ),
@@ -196,10 +206,12 @@ class StatisticsUpdater(database: Database) {
       unwind("$summary.countries"),
       unwind("$summary.routeTypes"),
       group(
-        Document(
-          "country" -> "$summary.countries",
-          "routeType" -> "$summary.routeTypes",
-          "factName" -> "$facts"
+        new Document(
+          java.util.Map.of(
+            "country", "$summary.countries",
+            "routeType", "$summary.routeTypes",
+            "factName", "$facts"
+          )
         ),
         sum("value", 1)
       ),
@@ -252,10 +264,12 @@ class StatisticsUpdater(database: Database) {
         )
       ),
       group(
-        Document(
-          "country" -> "$country",
-          "routeType" -> "$routeType",
-          "factName" -> "$factName"
+        new Document(
+          java.util.Map.of(
+            "country", "$country",
+            "routeType", "$routeType",
+            "factName", "$factName"
+          )
         ),
         sum("value", "$factCount")
       ),
@@ -307,10 +321,12 @@ class StatisticsUpdater(database: Database) {
         )
       ),
       group(
-        Document(
-          "country" -> "$country",
-          "routeType" -> "$routeType",
-          "factName" -> "$factName"
+        new Document(
+          java.util.Map.of(
+            "country", "$country",
+            "routeType", "$routeType",
+            "factName", "$factName"
+          )
         ),
         sum("value", "$factCount")
       ),
@@ -362,10 +378,12 @@ class StatisticsUpdater(database: Database) {
         )
       ),
       group(
-        Document(
-          "country" -> "$country",
-          "routeType" -> "$routeType",
-          "factName" -> "$factName"
+        new Document(
+          java.util.Map.of(
+            "country", "$country",
+            "routeType", "$routeType",
+            "factName", "$factName"
+          )
         ),
         sum("value", "$factCount")
       ),
@@ -402,16 +420,18 @@ class StatisticsUpdater(database: Database) {
       unwind("$summary.countries"),
       unwind("$summary.routeTypes"),
       group(
-        Document(
-          "country" -> "$summary.countries",
-          "routeType" -> "$summary.routeTypes"
+        new Document(
+          java.util.Map.of(
+            "country", "$summary.countries",
+            "routeType", "$summary.routeTypes"
+          )
         ),
         sum("value", "$summary.meters")
       ),
       project(
         fields(
           include("_id"),
-          computed("value", BsonDocument("""{$divide: ["$value", 1000]}"""))
+          computed("value", BsonDocument.parse("""{$divide: ["$value", 1000]}"""))
         )
       )
     )
@@ -428,9 +448,11 @@ class StatisticsUpdater(database: Database) {
         )
       ),
       group(
-        Document(
-          "country" -> "$country",
-          "routeType" -> "$summary.routeType"
+        new Document(
+          java.util.Map.of(
+            "country", "$country",
+            "routeType", "$summary.routeType"
+          )
         ),
         sum("value", 1)
       )
@@ -449,9 +471,11 @@ class StatisticsUpdater(database: Database) {
         )
       ),
       group(
-        Document(
-          "country" -> "$country",
-          "routeType" -> "$summary.routeType"
+        new Document(
+          java.util.Map.of(
+            "country", "$country",
+            "routeType", "$summary.routeType"
+          )
         ),
         sum("value", 1)
       )
@@ -508,9 +532,11 @@ class StatisticsUpdater(database: Database) {
       ),
       unwind("$facts"),
       group(
-        Document(
-          "country" -> "$country",
-          "routeType" -> "$summary.routeType"
+        new Document(
+          java.util.Map.of(
+            "country", "$country",
+            "routeType", "$summary.routeType"
+          )
         ),
         sum("factCount", 1)
       )
@@ -536,9 +562,11 @@ class StatisticsUpdater(database: Database) {
         )
       ),
       group(
-        Document(
-          "country" -> "$summary.countries",
-          "routeType" -> "$summary.routeTypes"
+        new Document(
+          java.util.Map.of(
+            "country", "$summary.countries",
+            "routeType", "$summary.routeTypes"
+          )
         ),
         sum("factCount", 1)
       )
@@ -555,9 +583,11 @@ class StatisticsUpdater(database: Database) {
       unwind("$names"),
       unwind("$facts"),
       group(
-        Document(
-          "country" -> "$country",
-          "routeType" -> "$names.routeType"
+        new Document(
+          java.util.Map.of(
+            "country", "$country",
+            "routeType", "$names.routeType"
+          )
         ),
         sum("factCount", 1)
       )
@@ -569,9 +599,11 @@ class StatisticsUpdater(database: Database) {
       "ChangeCount",
       unwind("$subsets"),
       group(
-        Document(
-          "country" -> "$subsets.country",
-          "routeType" -> "$subsets.routeType"
+        new Document(
+          java.util.Map.of(
+            "country", "$subsets.country",
+            "routeType", "$subsets.routeType"
+          )
         ),
         sum("value", 1)
       )
@@ -613,22 +645,24 @@ class StatisticsUpdater(database: Database) {
       unwind("$labels"),
       filter(
         and(
-          equal("labels", BsonDocument("""{"$regex": "^integrity-check-"}""")),
+          equal("labels", BsonDocument.parse("""{"$regex": "^integrity-check-"}""")),
           not(
-            equal("labels", BsonDocument("""{"$regex": "^integrity-check-failed"}"""))
+            equal("labels", BsonDocument.parse("""{"$regex": "^integrity-check-failed"}"""))
           )
         )
       ),
       project(
         fields(
           include("country"),
-          computed("routeType", BsonDocument("""{"$substr": ["$labels", 16, 99]}"""))
+          computed("routeType", BsonDocument.parse("""{"$substr": ["$labels", 16, 99]}"""))
         )
       ),
       group(
-        Document(
-          "country" -> "$country",
-          "routeType" -> "$routeType"
+        new Document(
+          java.util.Map.of(
+            "country", "$country",
+            "routeType", "$routeType"
+          )
         ),
         sum("value", 1)
       )
@@ -646,18 +680,20 @@ class StatisticsUpdater(database: Database) {
       ),
       unwind("$labels"),
       filter(
-        equal("labels", BsonDocument("""{"$regex": "^integrity-check-failed-"}"""))
+        equal("labels", BsonDocument.parse("""{"$regex": "^integrity-check-failed-"}"""))
       ),
       project(
         fields(
           include("country"),
-          computed("routeType", BsonDocument("""{"$substr": ["$labels", 23, 99]}"""))
+          computed("routeType", BsonDocument.parse("""{"$substr": ["$labels", 23, 99]}"""))
         )
       ),
       group(
-        Document(
-          "country" -> "$country",
-          "routeType" -> "$routeType"
+        new Document(
+          java.util.Map.of(
+            "country", "$country",
+            "routeType", "$routeType"
+          )
         ),
         sum("value", 1)
       )

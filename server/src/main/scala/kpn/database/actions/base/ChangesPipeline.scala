@@ -14,7 +14,7 @@ import kpn.api.common.changes.filter.ChangesParameters
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
-import org.mongodb.scala.bson.BsonDocument
+import org.bson.BsonDocument
 
 object ChangesPipeline {
 
@@ -46,14 +46,14 @@ object ChangesPipeline {
       ),
       skip((parameters.pageSize * parameters.pageIndex).toInt),
       limit(parameters.pageSize.toInt),
-      BsonDocument("""{"$set": { "changeSetId": "$key.changeSetId"}}"""),
+      BsonDocument.parse("""{"$set": { "changeSetId": "$key.changeSetId"}}"""),
       lookup(
         "changeset-comments",
         "changeSetId",
         "_id",
         "comments"
       ),
-      BsonDocument("""{"$set": { "comment": {$first: "$comments.comment"}}}"""),
+      BsonDocument.parse("""{"$set": { "comment": {$first: "$comments.comment"}}}"""),
       project(
         fields(
           excludeId()

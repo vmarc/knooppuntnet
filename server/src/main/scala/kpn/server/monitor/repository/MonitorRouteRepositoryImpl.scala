@@ -49,10 +49,10 @@ import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.domain.OldMonitorReference
 import kpn.server.repository.Distance
 import kpn.server.repository.NetworkRepositoryImpl
+import org.bson.BsonNull
+import org.bson.Document
+import org.bson.conversions.Bson
 import org.bson.types.ObjectId
-import org.mongodb.scala.Document
-import org.mongodb.scala.bson.BsonNull
-import org.mongodb.scala.bson.conversions.Bson
 import org.springframework.stereotype.Component
 
 @Component
@@ -116,7 +116,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def reference(routeId: ObjectId, relationId: Option[Long]): Option[MonitorReference] = {
     val relationIdValue = relationId match {
       case Some(value) => value
-      case None => BsonNull()
+      case None => new BsonNull()
     }
     val pipeline = Seq(
       routeReferenceFilter(routeId, relationId)
@@ -139,7 +139,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   private def routeReferenceFilter(routeId: ObjectId, relationId: Option[Long]): Bson = {
     val relationIdValue = relationId match {
       case Some(value) => value
-      case None => BsonNull()
+      case None => new BsonNull()
     }
     filter(
       and(
@@ -304,7 +304,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       project(
         fields(
           include("routeId"),
-          computed("size", Document("""{ $sum: { $bsonSize: "$$ROOT" } }"""))
+          computed("size", Document.parse("""{ $sum: { $bsonSize: "$$ROOT" } }"""))
         )
       ),
       group(
@@ -329,7 +329,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       project(
         fields(
           excludeId(),
-          computed("deviationDistance", Document("""{ $sum: "$deviations.meters" }""")),
+          computed("deviationDistance", Document.parse("""{ $sum: "$deviations.meters" }""")),
           arraySize("deviationCount", "$deviations"),
           include("wayCount"),
           include("osmDistance"),
@@ -356,7 +356,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         fields(
           excludeId(),
           include("relationId"),
-          computed("deviationDistance", Document("""{ $sum: "$deviations.meters" }""")),
+          computed("deviationDistance", Document.parse("""{ $sum: "$deviations.meters" }""")),
           arraySize("deviationCount", "$deviations")
         )
       ),
@@ -478,8 +478,10 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   override def groupRouteCounts(): Seq[MonitorGroupRouteCount] = {
     val pipeline = Seq(
       group(
-        Document(
-          "groupId" -> "$groupId"
+        new Document(
+          java.util.Map.of(
+            "groupId", "$groupId"
+          )
         ),
         sum("routeCount", 1)
       ),
