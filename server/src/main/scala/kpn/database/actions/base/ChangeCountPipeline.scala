@@ -5,7 +5,6 @@ import com.mongodb.client.model.Aggregates.facet
 import com.mongodb.client.model.Aggregates.group
 import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Aggregates.sort
-import com.mongodb.client.model.Facet
 import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Projections.computed
 import com.mongodb.client.model.Projections.excludeId
@@ -16,11 +15,12 @@ import kpn.core.util.Log
 import kpn.database.actions.statistics.ChangeSetCounts
 import kpn.database.base.DatabaseCollection
 import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.ffacet
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala.Document
-import org.mongodb.scala.bson.BsonDocument
+import org.bson.BsonDocument
+import org.bson.Document
 
 object ChangeCountPipeline {
 
@@ -37,8 +37,8 @@ object ChangeCountPipeline {
         mainPipeline ++
           Seq(
             facet(
-              new Facet("years", years(): _*),
-              new Facet("months", months(year): _*),
+              ffacet("years", years()),
+              ffacet("months", months(year)),
             )
           )
 
@@ -46,9 +46,9 @@ object ChangeCountPipeline {
         mainPipeline ++
           Seq(
             facet(
-              new Facet("years", years(): _*),
-              new Facet("months", months(year): _*),
-              new Facet("days", days(year, month): _*),
+              ffacet("years", years()),
+              ffacet("months", months(year)),
+              ffacet("days", days(year, month)),
             )
           )
     }
@@ -59,17 +59,25 @@ object ChangeCountPipeline {
 
     log.debugElapsed {
       val counts = collection.aggregate(pipeline, classOf[ChangeSetCounts]).head
-      val result = s"year: $year, month: ${monthOption.getOrElse('-')}, results: years: ${counts.years.size}, months: ${counts.months.size}, days: ${counts.days.size}"
-      (result, counts)
+      val updatedCounts = if (counts.days == null) {
+        counts.copy(days = Seq.empty)
+      }
+      else {
+        counts
+      }
+      val result = s"year: $year, month: ${monthOption.getOrElse('-')}, results: years: ${updatedCounts.years.size}, months: ${updatedCounts.months.size}, days: ${updatedCounts.days.size}"
+      (result, updatedCounts)
     }
   }
 
   private def years(): MongoPipeline = {
     Seq(
       group(
-        Document(
-          "year" -> "$key.time.year",
-          "impact" -> "$impact"
+        new Document(
+          java.util.Map.of(
+            "year", "$key.time.year",
+            "impact", "$impact"
+          )
         ),
         sum("count", 1)
       ),
@@ -77,13 +85,15 @@ object ChangeCountPipeline {
         fields(
           excludeId(),
           computed("year", "$_id.year"),
-          BsonDocument("""{"impact": {"$cond": {"if": "$_id.impact","then": "$count", "else": 0}}}"""),
+          BsonDocument.parse("""{"impact": {"$cond": {"if": "$_id.impact","then": "$count", "else": 0}}}"""),
           computed("total", "$count")
         )
       ),
       group(
-        Document(
-          "year" -> "$year"
+        new Document(
+          java.util.Map.of(
+            "year", "$year"
+          )
         ),
         sum("impact", "$impact"),
         sum("total", "$total")
@@ -110,10 +120,12 @@ object ChangeCountPipeline {
     Seq(
       filter(equal("key.time.year", year)),
       group(
-        Document(
-          "year" -> "$key.time.year",
-          "month" -> "$key.time.month",
-          "impact" -> "$impact"
+        new Document(
+          java.util.Map.of(
+            "year", "$key.time.year",
+            "month", "$key.time.month",
+            "impact", "$impact"
+          )
         ),
         sum("count", 1)
       ),
@@ -122,14 +134,16 @@ object ChangeCountPipeline {
           excludeId(),
           computed("year", "$_id.year"),
           computed("month", "$_id.month"),
-          BsonDocument("""{"impact": {"$cond": {"if": "$_id.impact","then": "$count", "else": 0}}}"""),
+          BsonDocument.parse("""{"impact": {"$cond": {"if": "$_id.impact","then": "$count", "else": 0}}}"""),
           computed("total", "$count")
         )
       ),
       group(
-        Document(
-          "year" -> "$year",
-          "month" -> "$month",
+        new Document(
+          java.util.Map.of(
+            "year", "$year",
+            "month", "$month",
+          )
         ),
         sum("impact", "$impact"),
         sum("total", "$total")
@@ -162,11 +176,13 @@ object ChangeCountPipeline {
         )
       ),
       group(
-        Document(
-          "year" -> "$key.time.year",
-          "month" -> "$key.time.month",
-          "day" -> "$key.time.day",
-          "impact" -> "$impact"
+        new Document(
+          java.util.Map.of(
+            "year", "$key.time.year",
+            "month", "$key.time.month",
+            "day", "$key.time.day",
+            "impact", "$impact"
+          )
         ),
         sum("count", 1)
       ),
@@ -176,15 +192,17 @@ object ChangeCountPipeline {
           computed("year", "$_id.year"),
           computed("month", "$_id.month"),
           computed("day", "$_id.day"),
-          BsonDocument("""{"impact": {"$cond": {"if": "$_id.impact","then": "$count", "else": 0}}}"""),
+          BsonDocument.parse("""{"impact": {"$cond": {"if": "$_id.impact","then": "$count", "else": 0}}}"""),
           computed("total", "$count")
         )
       ),
       group(
-        Document(
-          "year" -> "$year",
-          "month" -> "$month",
-          "day" -> "$day",
+        new Document(
+          java.util.Map.of(
+            "year", "$year",
+            "month", "$month",
+            "day", "$day",
+          )
         ),
         sum("impact", "$impact"),
         sum("total", "$total")

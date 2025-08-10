@@ -23,7 +23,15 @@ class MongoQueryNodeBaseNetworkReferences(database: Database) {
   def execute(nodeId: Long, log: Log = MongoQueryNodeBaseNetworkReferences.log): Seq[Reference] = {
     log.infoElapsed {
       val references = database.baseNetworks.aggregate(pipeline(nodeId), classOf[Reference], log)
-      (s"node network references: ${references.size}", references)
+      val updatedReferences = references.map { ref =>
+        if (ref.name == null) {
+          ref.copy(name = "") // needed because BaseNetworkDoc.name is Option[String]
+        }
+        else {
+          ref
+        }
+      }
+      (s"node network references: ${updatedReferences.size}", updatedReferences)
     }
   }
 

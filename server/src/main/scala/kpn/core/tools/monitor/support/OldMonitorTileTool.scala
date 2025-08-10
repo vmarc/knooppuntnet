@@ -2,7 +2,6 @@ package kpn.core.tools.monitor.support
 
 import com.mongodb.client.model.Aggregates.limit
 import com.mongodb.client.model.Aggregates.project
-import com.mongodb.client.model.Filters
 import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
@@ -11,6 +10,7 @@ import kpn.core.tools.config.Dirs
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Id
+import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.toWorldCoordinates
@@ -119,7 +119,7 @@ class OldMonitorTileTool(config: OldMonitorTileToolConfig) {
     val pipeline = Seq(
       filter(
         and(
-          Filters.eq("relationId", relationId),
+          equal("relationId", relationId),
         ),
       ),
       limit(1),

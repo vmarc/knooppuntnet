@@ -29,7 +29,7 @@ class MongoQueryChangeSetCountsTest extends MongoTest {
         months = Seq(
           newChangeSetCount(2021, 2)(0, 1),
           newChangeSetCount(2021, 1)(1, 3),
-        )
+        ),
       )
     )
 

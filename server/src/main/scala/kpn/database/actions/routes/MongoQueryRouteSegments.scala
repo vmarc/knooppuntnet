@@ -5,6 +5,7 @@ import com.mongodb.client.model.Aggregates.unwind
 import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Filters.in
 import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
 import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.util.Log
@@ -39,7 +40,7 @@ class MongoQueryRouteSegments(database: Database) {
       unwind("$segments"),
       project(
         fields(
-          computed("id", "0"),
+          excludeId(),
           computed("relationId", "$_id"),
           computed("segmentId", "$segments.id"),
           computed("startNodeId", "$segments.startNodeId"),

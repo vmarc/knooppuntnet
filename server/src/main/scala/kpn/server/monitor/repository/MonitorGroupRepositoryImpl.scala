@@ -45,7 +45,7 @@ class MonitorGroupRepositoryImpl(database: Database) extends MonitorGroupReposit
     database.monitorGroups.deleteByObjectId(groupId, log)
     val pipeline = Seq(
       filter(
-        equal("groupId", groupId.raw)
+        equal("groupId", groupId)
       ),
       project(
         include("_id")
