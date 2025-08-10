@@ -4,11 +4,7 @@ import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteMemberInfoWay
 import kpn.api.common.data.Member
 import kpn.api.common.data.MemberType
-import kpn.api.common.data.NodeMember
-import kpn.api.common.data.RelationIdMember
-import kpn.api.common.data.RelationMember
 import kpn.api.common.data.Way
-import kpn.api.common.data.WayMember
 import kpn.api.common.route.LinkDirection
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.core.analysis.TagInterpreter
@@ -42,21 +38,25 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
     val validRouteMembers: Seq[Member] = filterValidRouteMembers()
     val links = context.links.routeLinkWays
     val linkIterator = links.iterator
-    validRouteMembers.flatMap {
-      case nodeMember: NodeMember =>
-        Some(processNodeMember(nodeMap, nodeNumberIterator, nodeMember))
-      case wayMember: WayMember =>
-        Some(processWayMember(nodeMap, nodeNumberIterator, linkIterator, wayMember))
-      case relationIdMember: RelationIdMember =>
-        Some(processRelationIdMember(relationIdMember))
-      case relationMember: RelationMember =>
+    validRouteMembers.flatMap { member =>
+      if (member.isNode) {
+        Some(processNodeMember(nodeMap, nodeNumberIterator, member))
+      }
+      else if (member.isWay) {
+        Some(processWayMember(nodeMap, nodeNumberIterator, linkIterator, member))
+      }
+      else if (member.isRelationId) {
+        Some(processRelationIdMember(member))
+      }
+      else {
         // TODO redesign - process relationMember
         None
+      }
     }
   }
 
-  private def processNodeMember(nodeMap: mutable.Map[Long, Int], nodeNumberIterator: Iterator[Int], nodeMember: NodeMember): RouteMemberInfo = {
-    val node = nodeMember.node
+  private def processNodeMember(nodeMap: mutable.Map[Long, Int], nodeNumberIterator: Iterator[Int], nodeMember: Member): RouteMemberInfo = {
+    val node = nodeMember.node.get
 
     val name = context.routeNodeInfos.get(node.id).map(_.name).getOrElse("")
     val longName = context.routeNodeInfos.get(node.id).flatMap(_.longName)
@@ -67,7 +67,7 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
       .map(_.alternateName)
       .getOrElse(name)
 
-    val memberName = nodeMember.node.tagValue("name")
+    val memberName = node.tagValue("name")
     val poi = RouteMemberPoiAnalyzer.analyze(nodeMember)
 
     RouteMemberInfo(
@@ -86,11 +86,11 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
     nodeMap: mutable.Map[Long, Int],
     nodeNumberIterator: Iterator[Int],
     linkIterator: Iterator[RouteLinkWay],
-    wayMember: WayMember
+    wayMember: Member
   ): RouteMemberInfo = {
 
     val link = linkIterator.next()
-    val way = wayMember.way
+    val way = wayMember.way.get
     val wayNetworkNodes = getWayNetworkNodes(way)
 
     val name = way.tagValue("name").getOrElse("")
@@ -113,7 +113,7 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
 
     val routeNetworkNodeInfos = buildRouteNetworkNodeInfos(wayNetworkNodes)
     val wayType = new RouteWayTypeAnalyzer().analyze(wayMember)
-    val memberName = wayMember.way.tagValue("name")
+    val memberName = way.tagValue("name")
 
     val poi = wayType match {
       case None => RouteMemberPoiAnalyzer.analyze(wayMember)
@@ -168,9 +168,9 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
     }
   }
 
-  private def processRelationIdMember(relationIdMember: RelationIdMember): RouteMemberInfo = {
+  private def processRelationIdMember(relationIdMember: Member): RouteMemberInfo = {
     RouteMemberInfo(
-      relationIdMember.relationId,
+      relationIdMember.relationId.get,
       MemberType.Relation,
       relationIdMember.role,
       None,

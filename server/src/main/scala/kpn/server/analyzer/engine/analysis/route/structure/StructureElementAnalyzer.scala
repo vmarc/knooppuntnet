@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.api.common.data.Member
-import kpn.api.common.data.WayMember
 import kpn.api.common.route.RouteNodes
 import kpn.server.analyzer.engine.analysis.route.domain.ElementDirection
 import kpn.server.analyzer.engine.analysis.route.domain.StructureElement
@@ -14,18 +13,15 @@ import scala.collection.mutable
 
 object StructureElementAnalyzer {
   def analyze(routeNodeAnalysis: RouteNodes, members: Seq[Member], traceEnabled: Boolean = false): Seq[StructureElementGroup] = {
-    val wayMembers = members.flatMap {
-      case wayMember: WayMember => Some(wayMember)
-      case _ => None
-    }
-    if (wayMembers.exists(_.way.nodes.length < 2)) {
+    val wayMembers = members.filter(_.isWay)
+    if (wayMembers.exists(_.wayNodes.sizeIs < 2)) {
       throw new IllegalStateException("ways with less than 2 nodes should have been filtered out at this point")
     }
     new StructureElementAnalyzer(routeNodeAnalysis, wayMembers, traceEnabled).analyze()
   }
 }
 
-class StructureElementAnalyzer(routeNodeAnalysis: RouteNodes, wayMembers: Seq[WayMember], traceEnabled: Boolean = false) {
+class StructureElementAnalyzer(routeNodeAnalysis: RouteNodes, wayMembers: Seq[Member], traceEnabled: Boolean = false) {
 
   private var elementDirection: Option[ElementDirection.Value] = None
 
@@ -325,7 +321,7 @@ class StructureElementAnalyzer(routeNodeAnalysis: RouteNodes, wayMembers: Seq[Wa
     }
 
     val fragment = StructureFragment(
-      link.wayMember.way,
+      link.wayMember.way.get,
       bidirectional = false,
       link.nodeIds
     )
@@ -365,7 +361,7 @@ class StructureElementAnalyzer(routeNodeAnalysis: RouteNodes, wayMembers: Seq[Wa
                 finalizeCurrentElement()
                 elementDirection = Some(ElementDirection.Backward)
                 val fragment = StructureFragment(
-                  link.wayMember.way,
+                  link.wayMember.way.get,
                   bidirectional = false,
                   nodeIds
                 )
@@ -389,7 +385,7 @@ class StructureElementAnalyzer(routeNodeAnalysis: RouteNodes, wayMembers: Seq[Wa
   private def xxx(link: WayMemberLink, previousForwardFragment: StructureFragment): Unit = {
     if (link.nodeIds.head == previousForwardFragment.forwardEndNodeId) {
       val fragment = StructureFragment(
-        link.wayMember.way,
+        link.wayMember.way.get,
         bidirectional = false,
         link.nodeIds
       )
@@ -410,7 +406,7 @@ class StructureElementAnalyzer(routeNodeAnalysis: RouteNodes, wayMembers: Seq[Wa
                 finalizeCurrentElement()
                 elementDirection = Some(ElementDirection.Backward)
                 val fragment = StructureFragment(
-                  link.wayMember.way,
+                  link.wayMember.way.get,
                   bidirectional = false,
                   link.nodeIds
                 )
@@ -432,7 +428,7 @@ class StructureElementAnalyzer(routeNodeAnalysis: RouteNodes, wayMembers: Seq[Wa
             finalizeCurrentElement()
             elementDirection = Some(ElementDirection.Backward)
             val fragment = StructureFragment(
-              link.wayMember.way,
+              link.wayMember.way.get,
               bidirectional = false,
               link.nodeIds
             )
@@ -457,7 +453,7 @@ class StructureElementAnalyzer(routeNodeAnalysis: RouteNodes, wayMembers: Seq[Wa
       case Some(previousFragment) =>
         if (nodeIds.last == previousFragment.backwardStartNodeId) {
           val fragment = StructureFragment(
-            link.wayMember.way,
+            link.wayMember.way.get,
             bidirectional = false,
             nodeIds
           )
@@ -475,7 +471,7 @@ class StructureElementAnalyzer(routeNodeAnalysis: RouteNodes, wayMembers: Seq[Wa
               if (nodeIds.head == previousFragment.forwardEndNodeId) {
                 // switch direction
                 val fragment = StructureFragment(
-                  link.wayMember.way,
+                  link.wayMember.way.get,
                   bidirectional = false,
                   nodeIds
                 )
@@ -530,10 +526,10 @@ class StructureElementAnalyzer(routeNodeAnalysis: RouteNodes, wayMembers: Seq[Wa
     }
   }
 
-  private def addBidirectionalFragment(wayMember: WayMember, reversed: Boolean = false): Unit = {
-    val nodes = if (reversed) wayMember.way.nodes.reverse else wayMember.way.nodes
+  private def addBidirectionalFragment(wayMember: Member, reversed: Boolean = false): Unit = {
+    val nodes = if (reversed) wayMember.wayNodes.reverse else wayMember.wayNodes
     val nodeIds = nodes.map(_.id)
-    val fragment = StructureFragment(wayMember.way, bidirectional = true, nodeIds)
+    val fragment = StructureFragment(wayMember.way.get, bidirectional = true, nodeIds)
 
     // TODO redesign - split if needed
 
@@ -542,15 +538,15 @@ class StructureElementAnalyzer(routeNodeAnalysis: RouteNodes, wayMembers: Seq[Wa
     lastBackwardFragment = Some(fragment)
   }
 
-  private def addForwardElement(wayMember: WayMember, nodeIds: Seq[Long]): Unit = {
-    val fragment = StructureFragment(wayMember.way, bidirectional = false, nodeIds)
+  private def addForwardElement(wayMember: Member, nodeIds: Seq[Long]): Unit = {
+    val fragment = StructureFragment(wayMember.way.get, bidirectional = false, nodeIds)
     val element = StructureElement.from(Seq(fragment), Some(ElementDirection.Forward))
     elements.addOne(element)
     lastForwardFragment = Some(fragment)
   }
 
-  private def addBackwardElement(wayMember: WayMember, nodeIds: Seq[Long]): Unit = {
-    val fragment = StructureFragment(wayMember.way, bidirectional = false, nodeIds)
+  private def addBackwardElement(wayMember: Member, nodeIds: Seq[Long]): Unit = {
+    val fragment = StructureFragment(wayMember.way.get, bidirectional = false, nodeIds)
     val element = StructureElement.from(Seq(fragment), Some(ElementDirection.Backward))
     elements.addOne(element)
     lastBackwardFragment = Some(fragment)

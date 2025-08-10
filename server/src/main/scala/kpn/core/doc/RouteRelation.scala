@@ -37,8 +37,8 @@ object RouteRelation {
         }
     }
 
-    val relations = relation.relationMembers.filterNot(_.role.contains("place_of_worship")).map { member =>
-      RouteRelation.from(member.relation, member.role)
+    val relations = relation.relationMembers.filterNot(_.role.contains("place_of_worship")).flatMap { member =>
+      member.relation.toSeq.map(relation => RouteRelation.from(relation, member.role))
     }
 
     RouteRelation(

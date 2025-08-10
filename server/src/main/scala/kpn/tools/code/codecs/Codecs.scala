@@ -9,12 +9,12 @@ object Codecs {
 
   val customCodecs: Seq[ClassId] = Seq(
     ClassId("Day", "kpn.api.custom"),
-    ClassId("Relation", "kpn.api.custom"),
     ClassId("Tag", "kpn.api.custom"),
     ClassId("Timestamp", "kpn.api.custom"),
   )
 
   val extraCodecs: Seq[ClassId] = Seq(
+    ClassId("Member", "kpn.api.common.data"),
     ClassId("CountryResult", "kpn.database.base"),
     ClassId("RouteInfo", "kpn.api.common.route"),
     ClassId("ChangeSetSummary", "kpn.api.common"),

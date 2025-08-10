@@ -67,9 +67,9 @@ class DataBuilderTest extends UnitTest {
     data.ways(11).nodes.map(_.id) should equal(Seq(103, 104))
     data.ways(12).nodes.map(_.id) should equal(Seq(105, 106))
 
-    data.relations(3).nodeMembers.map(_.node.id) should equal(Seq(101, 102))
-    data.relations(3).wayMembers.map(_.way.id) should equal(Seq(11, 12))
-    data.relations(3).relationMembers.map(_.relation.id) should equal(Seq(1, 2))
+    data.relations(3).nodeMembers.map(_.memberId) should equal(Seq(101, 102))
+    data.relations(3).wayMembers.map(_.memberId) should equal(Seq(11, 12))
+    data.relations(3).relationMembers.map(_.memberId) should equal(Seq(1, 2))
   }
 
   test("recursive reference to relation") {
@@ -100,8 +100,8 @@ class DataBuilderTest extends UnitTest {
 
     parsedRelation1.id should equal(1)
     parsedRelation1.relationMembers.size should equal(1)
-    parsedRelation1.relationMembers.head.relation.id should equal(2)
-    parsedRelation1.relationMembers.head.relation.members.size should equal(0)
+    parsedRelation1.relationMembers.head.relation.get.id should equal(2)
+    parsedRelation1.relationMembers.head.relation.get.members.size should equal(0)
 
     parsedRelation2.id should equal(2)
     parsedRelation2.relationMembers.size should equal(0)
@@ -200,8 +200,8 @@ class DataBuilderTest extends UnitTest {
 
     //log.messages.size should equal(0)
 
-    data.relations(1).nodeMembers.map(_.node.id) should equal(Seq(101))
-    data.relations(1).wayMembers.map(_.way.id) should equal(Seq(11))
+    data.relations(1).nodeMembers.map(_.memberId) should equal(Seq(101))
+    data.relations(1).wayMembers.map(_.memberId) should equal(Seq(11))
     data.relations(1).relationMembers shouldBe empty
 
     log.messages.foreach(println)

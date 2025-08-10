@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.monitor
 
-import kpn.api.common.data.WayMember
+import kpn.api.common.data.Member
 import kpn.api.custom.Tags
 import kpn.core.test.TestObjects.newWay
 import kpn.core.util.UnitTest
@@ -11,17 +11,17 @@ class MonitorRouteWayFilterTest extends UnitTest {
 
     val wayMembers = MonitorFilter.filterWayMembers(
       Seq(
-        WayMember(newWay(1), None),
-        WayMember(newWay(2), Some("place_of_worship")),
-        WayMember(newWay(3), Some("guest_house")),
-        WayMember(newWay(4), Some("outer")),
-        WayMember(newWay(5), Some("inner")),
-        WayMember(newWay(6), Some("random_other_role")),
-        WayMember(newWay(7, tags = Tags.from("building" -> "yes")), None),
-        WayMember(newWay(8, tags = Tags.from("building" -> "church")), None),
+        Member(way = Some(newWay(1))),
+        Member(way = Some(newWay(2)), role = Some("place_of_worship")),
+        Member(way = Some(newWay(3)), role = Some("guest_house")),
+        Member(way = Some(newWay(4)), role = Some("outer")),
+        Member(way = Some(newWay(5)), role = Some("inner")),
+        Member(way = Some(newWay(6)), role = Some("random_other_role")),
+        Member(way = Some(newWay(7, tags = Tags.from("building" -> "yes")))),
+        Member(way = Some(newWay(8, tags = Tags.from("building" -> "church")))),
       )
     )
 
-    wayMembers.map(_.way.id) should equal(Seq(1, 6))
+    wayMembers.map(_.memberId) should equal(Seq(1, 6))
   }
 }

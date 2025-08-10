@@ -1,8 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
-import kpn.api.common.data.NodeMember
-import kpn.api.common.data.RelationIdMember
-import kpn.api.common.data.WayMember
+import kpn.api.common.data.Member
 import kpn.api.common.route.Link
 import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkNode
@@ -18,34 +16,35 @@ object JavaLinkConverter {
   def toScala(relation: Relation, javaLinks: java.util.List[JavaLink]): RouteLinks = {
     val javaWayLinks = javaLinks.asScala.iterator
     val linkIds = (1L to 10000L).iterator
-    val links = relation.members.collect {
-      case nodeMember: NodeMember => toRouteLinkNode(nodeMember)
-      case wayMember: WayMember => toRouteLinkWay(javaWayLinks, linkIds, wayMember)
-      case relationIdMember: RelationIdMember => toRouteLinkRelationId(relationIdMember)
+    val links = relation.members.flatMap {
+      case m if m.isNode => Some(toRouteLinkNode(m))
+      case m if m.isWay => Some(toRouteLinkWay(javaWayLinks, linkIds, m))
+      case m if m.isRelationId => Some(toRouteLinkRelationId(m))
+      case _ => None
     }
     RouteLinks(links)
   }
 
-  private def toRouteLinkRelationId(relationIdMember: RelationIdMember): RouteLinkRelationId = {
+  private def toRouteLinkRelationId(relationIdMember: Member): RouteLinkRelationId = {
     RouteLinkRelationId(
       relationIdMember.role,
-      relationIdMember.relationId
+      relationIdMember.relationId.get
     )
   }
 
-  private def toRouteLinkWay(javaWayLinks: Iterator[JavaLink], linkIds: Iterator[Long], wayMember: WayMember): RouteLinkWay = {
+  private def toRouteLinkWay(javaWayLinks: Iterator[JavaLink], linkIds: Iterator[Long], wayMember: Member): RouteLinkWay = {
     RouteLinkWay(
       linkIds.next(),
       toScalaLink(javaWayLinks.next()),
       wayMember.role,
-      wayMember.way
+      wayMember.way.get
     )
   }
 
-  private def toRouteLinkNode(nodeMember: NodeMember): RouteLinkNode = {
+  private def toRouteLinkNode(nodeMember: Member): RouteLinkNode = {
     RouteLinkNode(
       nodeMember.role,
-      nodeMember.node
+      nodeMember.node.get
     )
   }
 

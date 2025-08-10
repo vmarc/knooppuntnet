@@ -7,11 +7,7 @@ import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
 import kpn.api.common.data.Member
 import kpn.api.common.data.Node
-import kpn.api.common.data.NodeMember
-import kpn.api.common.data.RelationIdMember
-import kpn.api.common.data.RelationMember
 import kpn.api.common.data.Way
-import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
@@ -44,19 +40,19 @@ class RelationJsonDeserializer extends JsonDeserializer[Relation] {
     val role = readRole(memberNode)
     if (memberNode.has("way")) {
       val way = Json.objectMapper.treeToValue(memberNode.get("way"), classOf[Way])
-      WayMember(way, role)
+      Member(way = Some(way), role = role)
     }
     else if (memberNode.has("node")) {
       val node = Json.objectMapper.treeToValue(memberNode.get("node"), classOf[Node])
-      NodeMember(node, role)
+      Member(node = Some(node), role = role)
     }
     else if (memberNode.has("relation")) {
       val memberRelation = Json.objectMapper.treeToValue(memberNode.get("relation"), classOf[Relation])
-      RelationMember(memberRelation, role)
+      Member(relation = Some(memberRelation), role = role)
     }
     else if (memberNode.has("relationId")) {
       val relationId = memberNode.get("relationId").asLong
-      RelationIdMember(relationId, role)
+      Member(relationId = Some(relationId), role = role)
     }
     else {
       throw JsonMappingException.from(

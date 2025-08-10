@@ -188,7 +188,7 @@ class MonitorOsmAnalyze(
       case Some(subRelation) =>
         val wayMembers = MonitorFilter.filterWayMembers(subRelation.wayMembers)
         if (wayMembers.nonEmpty) {
-          val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
+          val bounds = Bounds.from(wayMembers.flatMap(_.wayNodes))
           val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
 
           val referenceLines = analysis.routeSegments.flatMap(_.lineStrings.map(CoordinateUtil.lineStringToCoordinates))

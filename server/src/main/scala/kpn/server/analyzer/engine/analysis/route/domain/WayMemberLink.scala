@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
-import kpn.api.common.data.WayMember
+import kpn.api.common.data.Member
 
 object WayMemberLink {
 
-  def from(wayMembers: Seq[WayMember]): Seq[WayMemberLink] = {
+  def from(wayMembers: Seq[Member]): Seq[WayMemberLink] = {
     var next: Option[WayMemberLink] = None
     val links = wayMembers.reverse.map { wayMember =>
       val link = WayMemberLink(wayMember, next)
@@ -14,13 +14,13 @@ object WayMemberLink {
     links.reverse
   }
 
-  def apply(wayMember: WayMember, next: Option[WayMemberLink]): WayMemberLink = {
+  def apply(wayMember: Member, next: Option[WayMemberLink]): WayMemberLink = {
     val nodeIds: Seq[Long] = {
       if (wayMember.role.contains("backward")) {
-        wayMember.way.nodes.reverse.map(_.id)
+        wayMember.wayNodes.reverse.map(_.id)
       }
       else {
-        wayMember.way.nodes.map(_.id)
+        wayMember.wayNodes.map(_.id)
       }
     }
     WayMemberLink(wayMember, next, nodeIds)
@@ -28,21 +28,21 @@ object WayMemberLink {
 }
 
 case class WayMemberLink(
-  wayMember: WayMember,
+  wayMember: Member,
   next: Option[WayMemberLink],
   nodeIds: Seq[Long]
 ) {
 
   def wayId: Long = {
-    wayMember.way.id
+    wayMember.memberId
   }
 
   def isClosedLoop: Boolean = {
-    val way = wayMember.way
-    way.nodes.size > 2 && way.nodes.head == way.nodes.last
+    val wayNodes = wayMember.wayNodes
+    wayNodes.sizeIs > 2 && wayNodes.head == wayNodes.last
   }
 
-  def isRoundabout: Boolean = wayMember.way.hasTag("junction", "roundabout")
+  def isRoundabout: Boolean = wayMember.hasTag("junction", "roundabout")
 
   def isUnidirectional: Boolean = {
     wayMember.role.contains("forward") || wayMember.role.contains("backward")

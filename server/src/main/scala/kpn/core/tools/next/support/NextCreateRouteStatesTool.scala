@@ -73,16 +73,16 @@ class NextCreateRouteStatesTool(
   }
 
   private def determineElementIds(relation: Relation): ElementIds = {
-    val memberNodeIds = relation.nodeMembers.map(_.node.id)
-    val wayNodeIds = relation.wayMembers.flatMap(member => member.way.nodes.map(_.id))
+    val memberNodeIds = relation.nodeMembers.map(_.memberId)
+    val wayNodeIds = relation.members.flatMap(_.wayNodes.map(_.id))
     val nodeIds = memberNodeIds.toSet ++ wayNodeIds.toSet
-    val wayIds = relation.wayMembers.map(_.way.id).toSet
-    val subRelationIds = relation.relationMembers.map(_.relation.id).toSet
+    val wayIds = relation.members.flatMap(_.way.map(_.id)).toSet
+    val subRelationIds = relation.members.flatMap(_.relation.map(_.id)).toSet
     ElementIds(nodeIds, wayIds, subRelationIds)
   }
 
   private def determineTiles(relation: Relation): Seq[Tile] = {
-    relation.wayMembers.map(_.way).flatMap { way =>
+    relation.members.flatMap(_.way).flatMap { way =>
       val worldCoordinates = wayToWorldCoordinates(way)
       val lineSegments = worldCoordinates.sliding(2).map { case Seq(c1, c2) =>
         new LineSegment(c1, c2)

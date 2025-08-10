@@ -4,8 +4,6 @@ import kpn.api.common.Fact
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.data.Node
-import kpn.api.common.data.NodeMember
-import kpn.api.common.data.WayMember
 import kpn.api.common.route.LinkDirection
 import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer
@@ -168,18 +166,24 @@ class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
   }
 
   private def orderedNodeIds(relation: Relation): Seq[Long] = {
-    val wayNodeIds = relation.wayMembers.flatMap(member => member.way.nodes).map(_.id).toSet
+    val wayNodeIds = relation.members.flatMap(_.wayNodes).map(_.id).toSet
     relation.members.flatMap {
-      case nodeMember: NodeMember =>
-        if (wayNodeIds.contains(nodeMember.node.id)) {
-          Seq.empty // we prefer the position of the node in the ways over the position in the route relation
+      case m if m.isNode =>
+        m.node.map(_.id) match {
+          case Some(nodeId) =>
+            if (wayNodeIds.contains(nodeId)) {
+              Seq.empty // we prefer the position of the node in the ways over the position in the route relation
+            }
+            else {
+              Seq(nodeId)
+            }
+          case None =>
+            Seq.empty
         }
-        else {
-          Seq(nodeMember.node.id)
-        }
-
-      case wayMember: WayMember => wayMember.way.nodes.map(_.id)
-      case _ => Seq.empty
+      case m if m.isWay =>
+        m.wayNodes.map(_.id)
+      case _ =>
+        Seq.empty
     }
   }
 

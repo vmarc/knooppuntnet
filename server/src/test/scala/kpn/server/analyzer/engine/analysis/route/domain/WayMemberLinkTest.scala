@@ -16,11 +16,11 @@ class WayMemberLinkTest extends UnitTest {
 
     val links = WayMemberLink.from(wayMembers)
     assertEqual(
-      links.map(_.wayMember.way.id),
+      links.map(_.wayMember.memberId),
       Seq(11, 12, 13, 14)
     )
     assertEqual(
-      links.map(_.next.map(_.wayMember.way.id)),
+      links.map(_.next.map(_.wayMember.memberId)),
       Seq(Some(12), Some(13), Some(14), None)
     )
   }
@@ -37,7 +37,7 @@ class WayMemberLinkTest extends UnitTest {
     val wayMembers = setup.data.relations(1).wayMembers
 
     val links = WayMemberLink.from(wayMembers)
-    assertEqual(links.map(_.wayMember.way.id), Seq(11))
-    assertEqual(links.map(_.next.map(_.wayMember.way.id)), Seq(None))
+    assertEqual(links.map(_.wayMember.memberId), Seq(11))
+    assertEqual(links.map(_.next.map(_.wayMember.memberId)), Seq(None))
   }
 }

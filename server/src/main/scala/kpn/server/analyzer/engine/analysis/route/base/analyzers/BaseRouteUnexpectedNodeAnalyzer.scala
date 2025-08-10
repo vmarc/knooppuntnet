@@ -29,6 +29,6 @@ class BaseRouteUnexpectedNodeAnalyzer(context: BaseRouteAnalysisContext) {
   }
 
   private def routeNodes: Seq[Node] = {
-    context.relation.nodeMembers.map(_.node)
+    context.relation.nodeMembers.flatMap(_.node)
   }
 }

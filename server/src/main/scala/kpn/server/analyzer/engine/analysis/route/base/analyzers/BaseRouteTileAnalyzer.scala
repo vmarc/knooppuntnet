@@ -69,7 +69,7 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
   }
 
   private def determineTiles(relation: Relation): Seq[Tile] = {
-    relation.wayMembers.map(_.way)
+    relation.wayMembers.flatMap(_.way)
       .flatMap(tilesForWay)
       .distinct.
       sortBy(_.name)

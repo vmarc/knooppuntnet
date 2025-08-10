@@ -56,7 +56,7 @@ class TryoutLoadRelationTool(overpassQueryExecutor: OverpassQueryExecutor) {
           print(s"|${allRelations.size}")
           print(s"|${allWayMembers.size}")
           print(s"|${t2 - t1}ms")
-          val nodeMap = allWayMembers.flatMap(_.way.nodes).map(node => node.id -> node).toMap
+          val nodeMap = allWayMembers.flatMap(_.wayNodes).map(node => node.id -> node).toMap
           val coordinateString = nodeMap.values.map(node => s"[${node.latitude},${node.longitude}]").mkString(",")
           print(s"|${xmlString.length / 1000}K")
           print(s"|${coordinateString.length / 1000}K|")

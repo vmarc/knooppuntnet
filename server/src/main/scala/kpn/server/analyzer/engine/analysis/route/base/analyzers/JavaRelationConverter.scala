@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.common.data.Member
-import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.analysis.route.structure.reference.JavaMember
 import kpn.server.analyzer.engine.analysis.route.structure.reference.JavaNode
@@ -27,19 +26,19 @@ class JavaRelationConverter {
   def toJava(relation: Relation): JavaRelation = {
     val wayMembers = relation.members.zipWithIndex.flatMap { case (member, index) =>
       member match {
-        case wayMember: WayMember => Some(toJavaMember(index, wayMember))
+        case m if m.isWay => Some(toJavaMember(index, m))
         case _ => None
       }
     }.asJava
     new JavaRelation(Collections.unmodifiableList(wayMembers))
   }
 
-  private def toJavaMember(memberIndex: Long, wayMember: WayMember): JavaMember = {
+  private def toJavaMember(memberIndex: Long, wayMember: Member): JavaMember = {
     val role = toJavaRole(wayMember)
     val nodes = toJavaNodes(wayMember)
     val tags = toJavaTags(wayMember)
     val referenceWay = new JavaWay(
-      wayMember.way.id,
+      wayMember.way.get.id,
       tags,
       nodes
     )
@@ -50,17 +49,17 @@ class JavaRelationConverter {
     member.role.getOrElse("")
   }
 
-  private def toJavaNodes(wayMember: WayMember): java.util.List[JavaNode] = {
+  private def toJavaNodes(wayMember: Member): java.util.List[JavaNode] = {
     Collections.unmodifiableList(
-      wayMember.way.nodes.
-        map(node => nodeMap.getOrElseUpdate(node.id, new JavaNode(node.id)))
+      wayMember.wayNodes
+        .map(node => nodeMap.getOrElseUpdate(node.id, new JavaNode(node.id)))
         .asJava
     )
   }
 
-  private def toJavaTags(wayMember: WayMember): java.util.Map[String, String] = {
+  private def toJavaTags(wayMember: Member): java.util.Map[String, String] = {
     Collections.unmodifiableMap(
-      wayMember.way.tags
+      wayMember.tags
         .map(tag => tag.key -> tag.value)
         .toMap
         .asJava

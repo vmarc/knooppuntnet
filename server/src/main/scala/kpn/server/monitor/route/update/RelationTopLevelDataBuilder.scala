@@ -2,10 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.data.Member
 import kpn.api.common.data.Node
-import kpn.api.common.data.NodeMember
-import kpn.api.common.data.RelationIdMember
 import kpn.api.common.data.Way
-import kpn.api.common.data.WayMember
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawRelation
@@ -66,7 +63,7 @@ class RelationTopLevelDataBuilder(rawData: RawData, relationIds: Seq[Long], log:
         buildWayMember(rawRelation.id, rawMember)
       }
       else if (rawMember.isRelation) {
-        Some(RelationIdMember(rawMember.ref, rawMember.role))
+        Some(Member(relationId = Some(rawMember.ref), role = rawMember.role))
       }
       else {
         //noinspection SideEffectsInMonadicTransformation
@@ -120,18 +117,18 @@ class RelationTopLevelDataBuilder(rawData: RawData, relationIds: Seq[Long], log:
     }
   }
 
-  private def buildNodeMember(parentId: Long, rawMember: RawMember): Option[NodeMember] = {
+  private def buildNodeMember(parentId: Long, rawMember: RawMember): Option[Member] = {
     nodes.get(rawMember.ref) match {
-      case Some(node) => Some(NodeMember(node, rawMember.role))
+      case Some(node) => Some(Member(node = Some(node), role = rawMember.role))
       case None =>
         inconsistant(s"node ${rawMember.ref} (referenced from relation $parentId) not found in data")
         None
     }
   }
 
-  private def buildWayMember(parentId: Long, rawMember: RawMember): Option[WayMember] = {
+  private def buildWayMember(parentId: Long, rawMember: RawMember): Option[Member] = {
     ways.get(rawMember.ref) match {
-      case Some(way) => Some(WayMember(way, rawMember.role))
+      case Some(way) => Some(Member(way = Some(way), role = rawMember.role))
       case None =>
         inconsistant(s"way ${rawMember.ref} (referenced from relation $parentId) not found in data")
         None

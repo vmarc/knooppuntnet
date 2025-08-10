@@ -42,9 +42,11 @@ import kpn.api.common.changes.filter.ServerFilterOption
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
 import kpn.api.common.common.User
+import kpn.api.common.data.Member
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.Node
+import kpn.api.common.data.Way
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
@@ -206,8 +208,6 @@ import kpn.server.sync.StampDoc
 import kpn.server.sync.Transaction
 import kpn.tools.code.ClassId
 import kpn.tools.code.codecs.DayCodec
-import kpn.tools.code.codecs.RelationCodec
-import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import org.bson.codecs.Codec
@@ -249,6 +249,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[MonitorRouteDetail]) {
       return new MonitorRouteDetailCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Member]) {
+      return new MemberCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[RouteNameDiff]) {
       return new RouteNameDiffCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -753,6 +756,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[MonitorStateSummary]) {
       return new MonitorStateSummaryCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Way]) {
+      return new WayCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[LatLonImpl]) {
       return new LatLonImplCodec(codecRegistry).asInstanceOf[Codec[T]]

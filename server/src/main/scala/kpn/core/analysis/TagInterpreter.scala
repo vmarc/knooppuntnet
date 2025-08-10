@@ -4,8 +4,6 @@ import kpn.api.common.RouteType
 import kpn.api.common.data.Element
 import kpn.api.common.data.Member
 import kpn.api.common.data.Node
-import kpn.api.common.data.NodeMember
-import kpn.api.common.data.RelationMember
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedRouteType
@@ -47,8 +45,8 @@ object TagInterpreter {
   }
 
   def isNetworkRelation(routeType: RouteType, member: Member): Boolean = {
-    member match {
-      case relationMember: RelationMember => isNetworkRelation(routeType, relationMember.relation)
+    member.relation match {
+      case Some(relation) => isNetworkRelation(routeType, relation)
       case _ => false
     }
   }
@@ -84,8 +82,8 @@ object TagInterpreter {
   }
 
   def isReferencedRouteRelation(scopedRouteType: ScopedRouteType, member: Member): Boolean = {
-    member match {
-      case relationMember: RelationMember => isReferencedRouteRelation(scopedRouteType, relationMember.relation)
+    member.relation match {
+      case Some(relation) => isReferencedRouteRelation(scopedRouteType, relation)
       case _ => false
     }
   }
@@ -97,8 +95,8 @@ object TagInterpreter {
   }
 
   def isValidNetworkMember(scopedRouteType: ScopedRouteType, member: Member): Boolean = {
-    val isNodeMember: Boolean = member match {
-      case nodeMember: NodeMember => isReferencedNetworkNode(scopedRouteType, nodeMember.node)
+    val isNodeMember: Boolean = member.node match {
+      case Some(node) => isReferencedNetworkNode(scopedRouteType, node)
       case _ => false
     }
     member.isWay || isNodeMember

@@ -32,7 +32,7 @@ class BaseRouteSegmentAnalyzer2(context: BaseRouteAnalysisContext) {
   }
 
   private def buildSegments: Seq[BaseRouteSegment] = {
-    val ways = context.relation.wayMembers.map(_.way)
+    val ways = context.relation.members.flatMap(_.way)
     context.analysisSegments.map { segment =>
       val segmentWayIds = segment.elements.flatMap(_.fragments).map(_.way.id)
       val segmentWays = segmentWayIds.flatMap(wayId => ways.find(_.id == wayId))

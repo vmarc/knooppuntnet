@@ -16,6 +16,6 @@ class BaseRouteSuspiciousWaysAnalyzer(context: BaseRouteAnalysisContext) {
   }
 
   private def findSuspiciousWayIds: Seq[Long] = {
-    context.relation.wayMembers.filter(_.way.nodes.size <= 1).map(_.way.id)
+    context.relation.wayMembers.filter(_.wayNodes.sizeIs <= 1).flatMap(_.way.map(_.id))
   }
 }

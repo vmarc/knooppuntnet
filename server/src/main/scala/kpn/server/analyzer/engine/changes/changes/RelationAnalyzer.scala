@@ -2,12 +2,8 @@ package kpn.server.analyzer.engine.changes.changes
 
 import kpn.api.common.RouteType
 import kpn.api.common.data.Node
-import kpn.api.common.data.NodeMember
-import kpn.api.common.data.RelationIdMember
-import kpn.api.common.data.RelationMember
 import kpn.api.common.data.Tagable
 import kpn.api.common.data.Way
-import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Timestamp
@@ -20,10 +16,7 @@ object RelationAnalyzerHelper {
     val nodeIds = referencedNodes(relation).map(_.id)
     val wayIds = referencedWays(relation).map(_.id)
     val relationIds = referencedRelations(relation).map(_.id)
-    val relationIds2 = relation.members.flatMap {
-      case relationIdMember: RelationIdMember => Some(relationIdMember.relationId)
-      case _ => None
-    }
+    val relationIds2 = relation.members.flatMap(_.relationId)
 
     ElementIds(
       nodeIds,
@@ -37,20 +30,21 @@ object RelationAnalyzerHelper {
   }
 
   def findReferencedNodes(relation: Relation, visitedRelationIds: Set[Long]): Set[Node] = {
-    relation.members.flatMap { member =>
-      member match {
-        case nodeMember: NodeMember => Set(nodeMember.node)
-        case wayMember: WayMember => wayMember.way.nodes
-        case relationIdMember: RelationIdMember => Seq.empty
-        case relationMember: RelationMember =>
-          val referencedRelation = relationMember.relation
-          if (visitedRelationIds.contains(referencedRelation.id)) {
-            Set()
-          }
-          else {
-            findReferencedNodes(referencedRelation, visitedRelationIds ++ Set(referencedRelation.id))
-          }
-      }
+    relation.members.flatMap {
+      case m if m.isNode =>
+        Set(m.node.get)
+      case m if m.isWay =>
+        m.wayNodes
+      case m if m.isRelation =>
+        val referencedRelation = m.relation.get
+        if (visitedRelationIds.contains(referencedRelation.id)) {
+          Set()
+        }
+        else {
+          findReferencedNodes(referencedRelation, visitedRelationIds ++ Set(referencedRelation.id))
+        }
+      case _ =>
+        Seq.empty
     }.toSet
   }
 
@@ -59,17 +53,20 @@ object RelationAnalyzerHelper {
   }
 
   private def findReferencedWays(relation: Relation, visitedRelationIds: Set[Long]): Set[Way] = {
-    relation.members.flatMap {
-      case wayMember: WayMember => Seq(wayMember.way)
-      case relationMember: RelationMember =>
-        val referencedRelation = relationMember.relation
+    relation.members.toSeq.flatMap {
+      case m if m.isWay =>
+        m.way.toSeq
+      case m if m.isRelation =>
+        val referencedRelation = m.relation.get
         if (visitedRelationIds.contains(referencedRelation.id)) {
-          Set()
+          Seq.empty
         }
         else {
-          findReferencedWays(referencedRelation, visitedRelationIds ++ Set(referencedRelation.id))
+          val updatedVisitedIds = visitedRelationIds + referencedRelation.id
+          findReferencedWays(referencedRelation, updatedVisitedIds).toSeq
         }
-      case _ => Set()
+      case _ =>
+        Seq.empty
     }.toSet
   }
 
@@ -78,18 +75,14 @@ object RelationAnalyzerHelper {
   }
 
   private def findReferencedRelations(relation: Relation, visitedRelationIds: Set[Long]): Set[Relation] = {
-    val refs = relation.members.flatMap {
-      case relationMember: RelationMember =>
-        val referencedRelation = relationMember.relation
-        if (visitedRelationIds.contains(referencedRelation.id)) {
-          Seq.empty
-        }
-        else {
-          findReferencedRelations(referencedRelation, visitedRelationIds ++ Set(referencedRelation.id)) + referencedRelation
-        }
-      case _ => Seq.empty
-    }
-    refs.toSet
+    relation.members.flatMap(_.relation).flatMap { referencedRelation =>
+      if (visitedRelationIds.contains(referencedRelation.id)) {
+        Set.empty
+      }
+      else {
+        findReferencedRelations(referencedRelation, visitedRelationIds ++ Set(referencedRelation.id)) ++ Set(referencedRelation)
+      }
+    }.toSet
   }
 }
 
@@ -132,28 +125,24 @@ object RelationAnalyzer {
   }
 
   private def findReferencedNonConnectionNodes(relation: Relation, visitedRelationIds: Set[Long]): Set[Node] = {
-    relation.members.flatMap { member =>
-      member.role match {
-        case Some("connection") => Set()
-        case _ =>
-          member match {
-            case nodeMember: NodeMember =>
-              member.role match {
-                case Some("connection") => Set()
-                case _ => Set(nodeMember.node)
-              }
-            case wayMember: WayMember => wayMember.way.nodes
-            case relationMember: RelationMember =>
-              val referencedRelation = relationMember.relation
-              if (visitedRelationIds.contains(referencedRelation.id)) {
-                Set()
-              }
-              else {
-                RelationAnalyzerHelper.findReferencedNodes(referencedRelation, visitedRelationIds ++ Set(referencedRelation.id))
-              }
+    relation.members
+      .filterNot(_.role.contains("connection"))
+      .flatMap {
+        case m if m.isNode =>
+          m.node.toSet
+        case m if m.isWay =>
+          m.wayNodes
+        case m if m.isRelation =>
+          m.relation match {
+            case Some(referencedRelation) if !visitedRelationIds.contains(referencedRelation.id) =>
+              val updatedVisitedIds = visitedRelationIds + referencedRelation.id
+              RelationAnalyzerHelper.findReferencedNodes(referencedRelation, updatedVisitedIds)
+            case _ =>
+              Set.empty
           }
-      }
-    }.toSet
+        case _ =>
+          Set.empty
+      }.toSet
   }
 
   def referencedWays(relation: Relation): Set[Way] = {

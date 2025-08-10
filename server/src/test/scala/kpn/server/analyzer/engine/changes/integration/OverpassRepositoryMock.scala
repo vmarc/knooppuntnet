@@ -1,8 +1,7 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.common.data.Member
 import kpn.api.common.data.Node
-import kpn.api.common.data.RelationIdMember
-import kpn.api.common.data.RelationMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Relation
@@ -72,7 +71,7 @@ class OverpassRepositoryMock extends OverpassRepository {
     dataAt(timestamp).relations.get(relationId).map { relation =>
       relation.copy(
         members = relation.members.map {
-          case m: RelationMember => RelationIdMember(m.relation.id, m.role)
+          case m if m.isRelation => Member(relationId = Some(m.memberId), role = m.role)
           case member => member
         }
       )

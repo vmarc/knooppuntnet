@@ -2,11 +2,7 @@ package kpn.api.custom
 
 import kpn.api.common.data.Element
 import kpn.api.common.data.Member
-import kpn.api.common.data.NodeMember
-import kpn.api.common.data.RelationIdMember
-import kpn.api.common.data.RelationMember
 import kpn.api.common.data.Way
-import kpn.api.common.data.WayMember
 import kpn.api.common.data.raw.RawRelation
 
 case class Relation(
@@ -20,40 +16,28 @@ case class Relation(
 
   override def isRelation: Boolean = true
 
-  def nodeMembers: Seq[NodeMember] = {
-    members.flatMap {
-      case nodeMember: NodeMember => Some(nodeMember)
-      case _ => None
-    }
+  def nodeMembers: Seq[Member] = {
+    members.filter(_.isNode)
   }
 
-  def wayMembers: Seq[WayMember] = {
-    members.flatMap {
-      case wayMember: WayMember => Some(wayMember)
-      case _ => None
-    }
+  def wayMembers: Seq[Member] = {
+    members.filter(_.isWay)
   }
 
-  def relationMembers: Seq[RelationMember] = {
-    members.flatMap {
-      case relationMember: RelationMember => Some(relationMember)
-      case _ => None
-    }
+  def relationMembers: Seq[Member] = {
+    members.filter(_.isRelation)
   }
 
-  def relationIdMembers: Seq[RelationIdMember] = {
-    members.flatMap {
-      case relationMember: RelationIdMember => Some(relationMember)
-      case _ => None
-    }
+  def relationIdMembers: Seq[Member] = {
+    members.filter(_.isRelationId)
   }
 
-  def relationMember(id: Long): RelationMember = {
-    relationMembers.find(m => m.relation.id == id).get
+  def relationMember(id: Long): Member = {
+    relationMembers.find(m => m.relation.map(_.id).contains(id)).get
   }
 
   def ways: Seq[Way] = {
-    wayMembers.map(_.way)
+    wayMembers.flatMap(_.way)
   }
 
   def toRaw: RawRelation = {

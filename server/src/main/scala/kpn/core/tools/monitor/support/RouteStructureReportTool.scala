@@ -26,14 +26,16 @@ class RouteStructureReportTool {
       case None =>
       case Some(rootRelation) =>
         rootRelation.relationMembers.foreach { subRelation =>
-          val relation = subRelation.relation
-          val startWay = relation.wayMembers.head
-          val endWay = relation.wayMembers.last
-          val startNodeId1 = startWay.way.nodes.head.id
-          val startNodeId2 = startWay.way.nodes.last.id
-          val endNodeId1 = endWay.way.nodes.last.id
-          val endNodeId2 = endWay.way.nodes.head.id
-          println(s"${relation.id} $startNodeId1  $startNodeId2 $endNodeId1 $endNodeId2")
+          subRelation.relation.foreach { relation =>
+            val wayMembers = relation.wayMembers
+            val startNodes = wayMembers.head.wayNodes
+            val endNodes = wayMembers.last.wayNodes
+            val startNodeId1 = startNodes.head.id
+            val startNodeId2 = startNodes.last.id
+            val endNodeId1 = endNodes.last.id
+            val endNodeId2 = endNodes.head.id
+            println(s"${relation.id} $startNodeId1  $startNodeId2 $endNodeId1 $endNodeId2")
+          }
         }
     }
   }

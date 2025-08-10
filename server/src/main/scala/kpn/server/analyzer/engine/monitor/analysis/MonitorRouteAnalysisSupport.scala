@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.monitor.analysis
 
 import kpn.api.common.Bounds
-import kpn.api.common.data.WayMember
+import kpn.api.common.data.Member
 import kpn.api.custom.Relation
 import kpn.core.common.RelationUtil
 import kpn.server.analyzer.engine.monitor.MonitorFilter
@@ -68,7 +68,7 @@ object MonitorRouteAnalysisSupport {
     geometryFactory.createLineString(coordinates.toArray)
   }
 
-  def filteredWayMembers(relation: Relation): Seq[WayMember] = {
+  def filteredWayMembers(relation: Relation): Seq[Member] = {
     val allRelations = RelationUtil.relationsInRelation(relation)
     val allWayMembers = allRelations.flatMap(relation => relation.wayMembers)
     MonitorFilter.filterWayMembers(allWayMembers)

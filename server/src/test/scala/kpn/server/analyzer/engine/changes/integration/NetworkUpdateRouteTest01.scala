@@ -12,9 +12,9 @@ import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
+import kpn.api.common.data.Member
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
-import kpn.api.common.data.WayMember
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
@@ -222,19 +222,20 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           newRelation(
             11,
             members = Seq(
-              WayMember(
-                newWay(
-                  101,
-                  nodes = Vector(
-                    newNodeWithName(1001, "01"),
-                    newNodeWithName(1002, "02"),
-                  ),
-                  tags = Tags.from(
-                    "highway" -> "unclassified"
+              Member(
+                way = Some(
+                  newWay(
+                    101,
+                    nodes = Vector(
+                      newNodeWithName(1001, "01"),
+                      newNodeWithName(1002, "02"),
+                    ),
+                    tags = Tags.from(
+                      "highway" -> "unclassified"
+                    )
                   )
-                ),
-                None
-              ),
+                )
+              )
             ),
             tags = Tags.from(
               "network" -> "rwn",

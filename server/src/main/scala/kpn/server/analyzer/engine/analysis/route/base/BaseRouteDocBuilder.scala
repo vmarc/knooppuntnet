@@ -27,7 +27,7 @@ class BaseRouteDocBuilder {
 
     val length: Long = context.structure.allPaths.map(_.meters).sum
 
-    val routeWays: Seq[Way] = context.relation.wayMembers.map(_.way)
+    val routeWays: Seq[Way] = context.relation.members.flatMap(_.way)
 
     val nameDerivedFromNodes = context.routeNameAnalysis.derivedFromNodes
 

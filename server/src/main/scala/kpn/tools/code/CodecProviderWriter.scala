@@ -54,7 +54,6 @@ class CodecProviderWriter {
       "org.bson.codecs.configuration.CodecProvider",
       "org.bson.codecs.configuration.CodecRegistry",
       "kpn.tools.code.codecs.DayCodec",
-      "kpn.tools.code.codecs.RelationCodec",
       "kpn.tools.code.codecs.TagCodec",
       "kpn.tools.code.codecs.TimestampCodec",
       "kpn.tools.code.codecs.ScalaLongCodec",

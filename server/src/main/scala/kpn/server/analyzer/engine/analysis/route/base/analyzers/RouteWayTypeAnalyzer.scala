@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
+import kpn.api.common.data.Member
 import kpn.api.common.data.Way
-import kpn.api.common.data.WayMember
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.RouteWayTypeAnalyzer.prefixes
 
@@ -36,8 +36,8 @@ object RouteWayTypeAnalyzer {
 
 class RouteWayTypeAnalyzer {
 
-  def analyze(member: WayMember): Option[String] = {
-    val way = member.way
+  def analyze(member: Member): Option[String] = {
+    val way = member.way.get
     if (way.tags.isEmpty) {
       None
     }

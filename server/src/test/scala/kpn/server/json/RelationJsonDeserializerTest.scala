@@ -1,8 +1,6 @@
 package kpn.server.json
 
-import kpn.api.common.data.NodeMember
-import kpn.api.common.data.RelationMember
-import kpn.api.common.data.WayMember
+import kpn.api.common.data.Member
 import kpn.api.custom.Relation
 import kpn.api.custom.Tag
 import kpn.core.test.TestObjects.newNode
@@ -43,9 +41,9 @@ class RelationJsonDeserializerTest extends UnitTest {
     val relation1 = newRelation(
       1,
       members = Seq(
-        NodeMember(node, Some("role1")),
-        WayMember(way, None),
-        RelationMember(subRelation, None),
+        Member(node = Some(node), role = Some("role1")),
+        Member(way = Some(way)),
+        Member(relation = Some(subRelation)),
       ),
       tags = Seq(
         Tag("key1", "value1"),

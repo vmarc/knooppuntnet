@@ -123,15 +123,15 @@ class MonitorChangeProcessorImpl(
       ("analyze change after", analyzeChange(reference, afterRelation, afterRouteSegments))
     }
 
-    val wayIdsBefore = beforeRelation.wayMembers.map(_.way.id).toSet
-    val wayIdsAfter = afterRelation.wayMembers.map(_.way.id).toSet
+    val wayIdsBefore = beforeRelation.wayMembers.map(_.memberId).toSet
+    val wayIdsAfter = afterRelation.wayMembers.map(_.memberId).toSet
 
     val wayIdsAdded = (wayIdsAfter -- wayIdsBefore).size
     val wayIdsRemoved = (wayIdsBefore -- wayIdsAfter).size
 
     val wayIdsUpdated = wayIdsAfter.intersect(wayIdsBefore).count { wayId =>
-      val wayBefore = beforeRelation.wayMembers.filter(_.way.id == wayId).head.way
-      val wayAfter = afterRelation.wayMembers.filter(_.way.id == wayId).head.way
+      val wayBefore = beforeRelation.wayMembers.filter(_.memberId == wayId).head.way.get
+      val wayAfter = afterRelation.wayMembers.filter(_.memberId == wayId).head.way.get
       val latLonsBefore = wayBefore.nodes.map(node => LatLonImpl(node.latitude, node.longitude))
       val latLonsAfter = wayAfter.nodes.map(node => LatLonImpl(node.latitude, node.longitude))
       !latLonsBefore.equals(latLonsAfter)

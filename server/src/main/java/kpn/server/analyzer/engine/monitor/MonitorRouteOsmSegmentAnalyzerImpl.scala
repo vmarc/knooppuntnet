@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.monitor
 
-import kpn.api.common.data.WayMember
+import kpn.api.common.data.Member
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.route.RouteNodes
 import kpn.core.util.Haversine
@@ -20,9 +20,9 @@ class MonitorRouteOsmSegmentAnalyzerImpl extends MonitorRouteOsmSegmentAnalyzer 
   private val geometryFactory = new GeometryFactory
   private val log = Log(classOf[MonitorRouteOsmSegmentAnalyzerImpl])
 
-  def analyze(wayMembers: Seq[WayMember]): MonitorRouteOsmSegmentAnalysis = {
+  def analyze(wayMembers: Seq[Member]): MonitorRouteOsmSegmentAnalysis = {
 
-    val nodes = wayMembers.flatMap(_.way.nodes).distinct
+    val nodes = wayMembers.flatMap(_.wayNodes).distinct
     val nodeMap = nodes.map(node => node.id -> new Coordinate(node.lon, node.lat)).toMap
 
     val elementGroups = try {
