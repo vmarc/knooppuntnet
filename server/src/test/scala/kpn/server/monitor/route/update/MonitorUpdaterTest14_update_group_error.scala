@@ -12,9 +12,11 @@ import kpn.core.test.TestObjects.newMonitorState
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 
+import scala.compiletime.uninitialized
+
 class MonitorUpdaterTest14_update_group_error extends MonitorUpdateTest {
 
-  private var route1: MonitorTestRoute = _
+  private var route1: MonitorTestRoute = uninitialized
 
   override def beforeEach(): Unit = {
     super.beforeEach()

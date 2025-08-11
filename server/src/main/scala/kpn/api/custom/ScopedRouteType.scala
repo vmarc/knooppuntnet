@@ -20,7 +20,7 @@ object ScopedRouteType {
   }
 
   val all: Seq[ScopedRouteType] = {
-    RouteType.values.flatMap { routeType =>
+    RouteType.values.toSeq.flatMap { routeType =>
       RouteScope.values.map(scope => ScopedRouteType(routeType, scope))
     }
   } 

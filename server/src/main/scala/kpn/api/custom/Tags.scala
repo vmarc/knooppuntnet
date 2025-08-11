@@ -37,6 +37,7 @@ object Tags {
   def splitAndNormalize(value: String): Seq[String] = {
     if (value.contains(ValueSeparator)) {
       value.split(ValueSeparator)
+        .toSeq
         .map(_.trim)
         .filter(_.nonEmpty)
         .sorted

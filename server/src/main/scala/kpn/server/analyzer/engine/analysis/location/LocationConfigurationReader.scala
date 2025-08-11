@@ -16,7 +16,7 @@ class LocationConfigurationReader {
   private val log = Log(classOf[LocationConfigurationReader])
 
   def read(): LocationConfiguration = {
-    val rootLocations = Country.values.map { country =>
+    val rootLocations = Country.values.toSeq.map { country =>
       log.info(s"Loading ${country.toString.toUpperCase}")
       val locationNameDefinitions = {
         val filename = s"${Dirs.root}/locations/${country.toString}/locations.json"

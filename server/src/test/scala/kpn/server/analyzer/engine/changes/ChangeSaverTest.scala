@@ -45,10 +45,10 @@ class ChangeSaverTest extends UnitTest with MockFactory {
 
     new ChangeSaver(changeSetRepository, networkInfoRepository).save(context)
 
-    (changeSetRepository.saveNetworkChange _).verify(*).never()
-    (changeSetRepository.saveRouteChange _).verify(*).never()
-    (changeSetRepository.saveNodeChange _).verify(*).never()
-    (changeSetRepository.saveChangeSetSummary _).verify(*).never()
+    changeSetRepository.saveNetworkChange.verify(*).never()
+    changeSetRepository.saveRouteChange.verify(*).never()
+    changeSetRepository.saveNodeChange.verify(*).never()
+    changeSetRepository.saveChangeSetSummary.verify(*).never()
   }
 
   test("save network changes") {
@@ -66,17 +66,17 @@ class ChangeSaverTest extends UnitTest with MockFactory {
 
     save(changeSetRepository, networkInfoRepository, changeSetChanges)
 
-    (changeSetRepository.saveRouteChange _).verify(*).never()
-    (changeSetRepository.saveNodeChange _).verify(*).never()
+    changeSetRepository.saveRouteChange.verify(*).never()
+    changeSetRepository.saveNodeChange.verify(*).never()
 
-    (changeSetRepository.saveNetworkChange _).verify(
+    changeSetRepository.saveNetworkChange.verify(
       where { (savedNetworkChange: NetworkChange) =>
         assertEqual(savedNetworkChange, networkChange)
         true
       }
     ).once()
 
-    (changeSetRepository.saveChangeSetSummary _).verify(
+    changeSetRepository.saveChangeSetSummary.verify(
       where { (changeSetSummary: ChangeSetSummary) =>
         assertEqual(
           changeSetSummary,
@@ -92,7 +92,7 @@ class ChangeSaverTest extends UnitTest with MockFactory {
       }
     ).once()
 
-    (networkInfoRepository.updateNetworkChangeCount _).verify(
+    networkInfoRepository.updateNetworkChangeCount.verify(
       where { (networkId: Long) =>
         networkId should equal(1)
         true
@@ -122,18 +122,18 @@ class ChangeSaverTest extends UnitTest with MockFactory {
 
     save(changeSetRepository, networkInfoRepository, changeSetChanges)
 
-    (changeSetRepository.saveNetworkChange _).verify(*).never()
-    (changeSetRepository.saveNodeChange _).verify(*).never()
-    (networkInfoRepository.updateNetworkChangeCount _).verify(*).never()
+    changeSetRepository.saveNetworkChange.verify(*).never()
+    changeSetRepository.saveNodeChange.verify(*).never()
+    networkInfoRepository.updateNetworkChangeCount.verify(*).never()
 
-    (changeSetRepository.saveRouteChange _).verify(
+    changeSetRepository.saveRouteChange.verify(
       where { (savedRouteChange: RouteChange) =>
         assertEqual(savedRouteChange, routeChange)
         true
       }
     ).once()
 
-    (changeSetRepository.saveChangeSetSummary _).verify(
+    changeSetRepository.saveChangeSetSummary.verify(
       where { (changeSetSummary: ChangeSetSummary) =>
         assertEqual(
           changeSetSummary,
@@ -177,18 +177,18 @@ class ChangeSaverTest extends UnitTest with MockFactory {
 
     save(changeSetRepository, networkInfoRepository, changeSetChanges)
 
-    (changeSetRepository.saveNetworkChange _).verify(*).never()
-    (changeSetRepository.saveRouteChange _).verify(*).never()
-    (networkInfoRepository.updateNetworkChangeCount _).verify(*).never()
+    changeSetRepository.saveNetworkChange.verify(*).never()
+    changeSetRepository.saveRouteChange.verify(*).never()
+    networkInfoRepository.updateNetworkChangeCount.verify(*).never()
 
-    (changeSetRepository.saveNodeChange _).verify(
+    changeSetRepository.saveNodeChange.verify(
       where { (savedNodeChange: NodeChange) =>
         assertEqual(savedNodeChange, nodeChange)
         true
       }
     ).once()
 
-    (changeSetRepository.saveChangeSetSummary _).verify(
+    changeSetRepository.saveChangeSetSummary.verify(
       where { (changeSetSummary: ChangeSetSummary) =>
         assertEqual(
           changeSetSummary,

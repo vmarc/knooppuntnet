@@ -80,7 +80,7 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with MockFactory {
     }
 
     def verifyTileSaved(tileId: String): CallHandler1[RouteTileInfo, Unit] = {
-      (routeRepository.saveRouteTile _).verify(
+      routeRepository.saveRouteTile.verify(
         where { (routeTileInfo: RouteTileInfo) =>
           routeTileInfo._id == tileId
         }

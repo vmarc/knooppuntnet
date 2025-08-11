@@ -13,10 +13,12 @@ import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorSegment
 
+import scala.compiletime.uninitialized
+
 class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
 
-  private var subRoute11: MonitorTestRoute = _
-  private var subRoute12: MonitorTestRoute = _
+  private var subRoute11: MonitorTestRoute = uninitialized
+  private var subRoute12: MonitorTestRoute = uninitialized
 
   override def beforeEach(): Unit = {
     super.beforeEach()

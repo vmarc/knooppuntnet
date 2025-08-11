@@ -10,11 +10,13 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers
 
+import scala.compiletime.uninitialized
+
 class EndToEndTest extends AnyFunSuite with BeforeAndAfterEach with Matchers {
 
-  private var playwright: Playwright = _
-  private var browser: Browser = _
-  protected var context: BrowserContext = _
+  private var playwright: Playwright = uninitialized
+  private var browser: Browser = uninitialized
+  protected var context: BrowserContext = uninitialized
   protected val applicationUrl = "http://localhost:4000"
 
   override def beforeEach(): Unit = {

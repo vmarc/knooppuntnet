@@ -71,7 +71,7 @@ class MongoQueryGraphEdges(database: Database) {
   }
 
   private def groupByRouteType(edges: Seq[RouteGraphEdge]): Seq[GraphEdges] = {
-    RouteType.values.map { routeType =>
+    RouteType.values.toSeq.map { routeType =>
       val routeTypeEdges = edges.filter(_.routeType == routeType).map { edge =>
         GraphEdge(
           edge.sourceNodeId: Long,

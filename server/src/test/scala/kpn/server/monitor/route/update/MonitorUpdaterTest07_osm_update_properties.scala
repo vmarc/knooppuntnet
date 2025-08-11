@@ -10,10 +10,11 @@ import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
 import org.bson.types.ObjectId
+import scala.compiletime.uninitialized
 
 class MonitorUpdaterTest07_osm_update_properties extends MonitorUpdateTest {
 
-  private var route1: MonitorTestRoute = _
+  private var route1: MonitorTestRoute = uninitialized
 
   override def beforeEach(): Unit = {
     super.beforeEach()

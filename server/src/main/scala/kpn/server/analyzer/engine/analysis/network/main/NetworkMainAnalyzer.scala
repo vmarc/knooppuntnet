@@ -68,7 +68,7 @@ class NetworkMainAnalyzer(
     if (analyzers.isEmpty) {
       val summary = buildSummary(context)
       val detail = buildDetail(context)
-      val facts = Fact.values.flatMap { fact => // use fact sorting order as defined in Fact class
+      val facts = Fact.values.toSeq.flatMap { fact => // use fact sorting order as defined in Fact class
         context.networkFacts.filter(_.fact == fact)
       }
       Some(
