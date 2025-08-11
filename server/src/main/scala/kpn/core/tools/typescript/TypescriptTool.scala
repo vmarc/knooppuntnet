@@ -12,8 +12,6 @@ import org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.PrintStream
 import scala.jdk.CollectionConverters.*
-import scala.reflect.runtime.universe.ClassSymbol
-import scala.reflect.runtime.universe.MethodSymbol
 
 object TypescriptTool {
 
@@ -76,15 +74,6 @@ class TypescriptTool {
     }
   }
 
-  private def isCaseClass(classSymbol: ClassSymbol): Boolean = {
-    classSymbol.typeSignature.typeSymbol.toString.contains("NetworkNameMissing") ||
-      classSymbol.typeSignature.members.collect({ case m: MethodSymbol if m.isCaseAccessor => m }).nonEmpty
-  }
-
-  private def isEnumeration(classSymbol: ClassSymbol): Boolean = {
-    classSymbol.baseClasses.exists(_.name.toString.contains("EnumEntry"))
-  }
-
   private def generateCaseClass(classInfo: ClassInfo): Unit = {
     val out = fileStream(classInfo)
     new TypescriptWriter(out, classInfo).write()
@@ -93,8 +82,6 @@ class TypescriptTool {
 
   private def generateEnumeration(classInfo: ClassInfo): Unit = {
     val out = fileStream(classInfo)
-    //    val enumMirror = mirror.reflectModule(enumeration.companion.asModule).instance.asInstanceOf[enumeratum.Enum[?]]
-    //    val values = enumMirror.values.map(_.asInstanceOf[enumeratum.EnumEntry].entryName)
     out.println("// this file is generated, please do not modify")
     out.println()
     out.println(s"export type ${classInfo.className} =")
@@ -102,10 +89,6 @@ class TypescriptTool {
       val lineEnd = if (index == classInfo.enumValues.length - 1) ";" else ""
       out.println(s"  | '$value'$lineEnd")
     }
-    //    values.zipWithIndex.foreach { case (value, index) =>
-    //      val lineEnd = if (index == values.length - 1) ";" else ""
-    //      out.println(s"  | '$value'$lineEnd")
-    //    }
     out.close()
   }
 

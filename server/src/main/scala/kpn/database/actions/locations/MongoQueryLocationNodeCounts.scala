@@ -55,7 +55,7 @@ class MongoQueryLocationNodeCounts(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("labels", Label.location(country.entryName)),
+          equal("labels", Label.location(country.toString)),
           equal("labels", Label.routeType(routeType))
         )
       ),

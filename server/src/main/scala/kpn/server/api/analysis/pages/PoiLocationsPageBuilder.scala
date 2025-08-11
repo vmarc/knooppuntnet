@@ -18,10 +18,10 @@ class PoiLocationsPageBuilder(
   private val log = Log(classOf[PoiLocationsPageBuilder])
 
   def build(country: Country, language: Language): PoiLocationsPage = {
-    val locationNode = locationConfiguration.locations.find(_.id == country.entryName) match {
+    val locationNode = locationConfiguration.locations.find(_.id == country.toString) match {
       case Some(locationDefinition) => Some(toLocationNode(language, locationDefinition))
       case None =>
-        log.error(s"No locations found for country ${country.entryName}")
+        log.error(s"No locations found for country ${country.toString}")
         None
     }
     PoiLocationsPage(locationNode)

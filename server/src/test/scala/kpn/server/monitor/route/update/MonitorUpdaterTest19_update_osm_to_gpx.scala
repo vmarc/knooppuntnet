@@ -291,7 +291,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
 
   private def setupLoadStructure(): Unit = {
     val monitorRouteRelation = route1.overpassStructure
-    (configuration.monitorRouteStructureLoader.load _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(monitorRouteRelation))
+    configuration.monitorRouteStructureLoader.load.when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(monitorRouteRelation))
   }
 
   private def setupLoadRelation(): Unit = {
@@ -311,8 +311,8 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
       )
 
     val relation = new DataBuilder(overpassData.rawData).data.relations(route1.relationId)
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.load _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(relation))
+    configuration.monitorRouteRelationRepository.loadTopLevel.when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(relation))
+    configuration.monitorRouteRelationRepository.load.when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(relation))
   }
 
   private def setupRouteDoc(): Unit = {

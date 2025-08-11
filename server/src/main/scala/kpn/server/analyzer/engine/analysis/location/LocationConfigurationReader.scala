@@ -17,14 +17,14 @@ class LocationConfigurationReader {
 
   def read(): LocationConfiguration = {
     val rootLocations = Country.values.map { country =>
-      log.info(s"Loading ${country.entryName.toUpperCase}")
+      log.info(s"Loading ${country.toString.toUpperCase}")
       val locationNameDefinitions = {
-        val filename = s"${Dirs.root}/locations/${country.entryName}/locations.json"
+        val filename = s"${Dirs.root}/locations/${country.toString}/locations.json"
         val string = FileUtils.readFileToString(new File(filename), "UTF-8")
         Json.objectMapper.readValue(string, classOf[LocationNameDefinitions])
       }
       val locationMap = locationNameDefinitions.locations.map(lnd => lnd.id -> lnd).toMap
-      val treeFilename = s"${Dirs.root}/locations/${country.entryName}/tree.json"
+      val treeFilename = s"${Dirs.root}/locations/${country.toString}/tree.json"
       val string = FileUtils.readFileToString(new File(treeFilename), "UTF-8")
       val tree = Json.objectMapper.readValue(string, classOf[LocationTree])
       toLocation(locationMap, tree)

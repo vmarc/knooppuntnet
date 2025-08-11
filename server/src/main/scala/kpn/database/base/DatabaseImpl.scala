@@ -43,11 +43,9 @@ import kpn.server.monitor.domain.MonitorTask
 import kpn.server.monitor.domain.OldMonitorReference
 import kpn.server.sync.Transaction
 
-import scala.reflect.ClassTag
-
 class DatabaseImpl(val database: MongoDatabase) extends Database {
 
-  override def getCollection[T: ClassTag](collectionName: String): MongoCollection[T] = {
+  override def getCollection[T](collectionName: String): MongoCollection[T] = {
     database.getCollection(collectionName).asInstanceOf[MongoCollection[T]]
   }
 

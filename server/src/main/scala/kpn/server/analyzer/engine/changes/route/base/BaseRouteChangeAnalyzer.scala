@@ -73,6 +73,6 @@ class BaseRouteChangeAnalyzer(
   }
 
   private def isBlackListed(routeId: Long): Boolean = {
-    blacklistRepository.get().containsRoute(routeId)
+    blacklistRepository.find().containsRoute(routeId)
   }
 }

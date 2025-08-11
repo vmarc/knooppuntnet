@@ -86,6 +86,6 @@ class MongoQueryGraphEdges(database: Database) {
   }
 
   private def summary(edgesByRouteType: Seq[GraphEdges]): String = {
-    edgesByRouteType.map(e => s"${e.routeType.entryName}: ${e.edges.size}").mkString(", ")
+    edgesByRouteType.map(e => s"${e.routeType.toString}: ${e.edges.size}").mkString(", ")
   }
 }

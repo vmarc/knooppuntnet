@@ -7,6 +7,6 @@ import kpn.api.common.monitor.MonitorCommandAction
 
 class MonitorCommandActionJsonSerializer extends JsonSerializer[MonitorCommandAction] {
   override def serialize(action: MonitorCommandAction, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(action.entryName)
+    jsonGenerator.writeString(action.toString)
   }
 }

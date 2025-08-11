@@ -24,7 +24,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
         1001L,
         labels = Seq(
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.entryName)
+          Label.location(Country.be.toString)
         ),
         names = Seq(
           newNodeName(name = "01")
@@ -37,7 +37,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
         1002L,
         labels = Seq(
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.entryName)
+          Label.location(Country.be.toString)
         ),
         names = Seq(
           newNodeName(name = "02")
@@ -90,7 +90,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
         1001L,
         labels = Seq(
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.entryName),
+          Label.location(Country.be.toString),
         ),
         names = Seq(
           newNodeName(name = "01")
@@ -105,7 +105,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
         active = false,
         labels = Seq(
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.entryName)
+          Label.location(Country.be.toString)
         ),
         names = Seq(
           newNodeName(name = "02")
@@ -130,7 +130,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
         labels = Seq(
           Label.survey,
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.entryName)
+          Label.location(Country.be.toString)
         ),
         names = Seq(
           newNodeName(name = "01")
@@ -144,7 +144,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
         1002L,
         labels = Seq(
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.entryName)
+          Label.location(Country.be.toString)
         ),
         names = Seq(
           newNodeName(name = "02")
@@ -185,7 +185,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
         1001L,
         labels = Seq(
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.entryName)
+          Label.location(Country.be.toString)
         ),
         names = Seq(
           newNodeName(name = "01")
@@ -198,7 +198,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
         1002L,
         labels = Seq(
           Label.routeType(RouteType.hiking),
-          Label.location(Country.nl.entryName)
+          Label.location(Country.nl.toString)
         ),
         names = Seq(
           newNodeName(name = "02")
@@ -221,7 +221,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
         1001L,
         labels = Seq(
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.entryName)
+          Label.location(Country.be.toString)
         ),
         names = Seq(
           newNodeName(name = "01")
@@ -234,7 +234,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
         1002L,
         labels = Seq(
           Label.routeType(RouteType.cycling),
-          Label.location(Country.be.entryName)
+          Label.location(Country.be.toString)
         ),
         names = Seq(
           newNodeName(name = "02")
@@ -257,7 +257,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
         1001L,
         labels = Seq(
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.entryName)
+          Label.location(Country.be.toString)
         ),
         names = Seq(
           newNodeName(name = "01")
@@ -272,7 +272,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
           Label.facts,
           Label.fact(Fact.NodeInvalidSurveyDate),
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.entryName)
+          Label.location(Country.be.toString)
         ),
         names = Seq(
           newNodeName(name = "02")
@@ -314,7 +314,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
           nodeId,
           labels = Seq(
             Label.routeType(RouteType.hiking),
-            Label.location(Country.be.entryName)
+            Label.location(Country.be.toString)
           ),
           names = Seq(
             newNodeName(name = name)

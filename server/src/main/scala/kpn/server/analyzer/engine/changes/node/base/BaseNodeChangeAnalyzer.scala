@@ -84,6 +84,6 @@ class BaseNodeChangeAnalyzer(
   }
 
   private def isBlackListed(node: RawNode): Boolean = {
-    blacklistRepository.get().containsNode(node.id)
+    blacklistRepository.find().containsNode(node.id)
   }
 }

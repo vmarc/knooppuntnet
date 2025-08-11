@@ -7,6 +7,6 @@ import kpn.api.common.diff.TagDiffType
 
 class TagDiffTypeJsonSerializer extends JsonSerializer[TagDiffType] {
   override def serialize(tagDiffType: TagDiffType, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(tagDiffType.entryName)
+    jsonGenerator.writeString(tagDiffType.toString)
   }
 }

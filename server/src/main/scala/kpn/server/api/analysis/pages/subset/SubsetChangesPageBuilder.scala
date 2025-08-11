@@ -38,7 +38,7 @@ class SubsetChangesPageBuilder(
       ChangeSetSummarySubsetFilter.filter(changeSetSummary, subset)
     }
     val changeSetSummaryInfos = changeSetSummaryInfosBuilder.toChangeSetSummaryInfos(
-      Language.EN,
+      Language.en,
       AnalysisStrategy.Network,
       parameters,
       changeSetSummariesWithSubsetRelatedChangesOnly

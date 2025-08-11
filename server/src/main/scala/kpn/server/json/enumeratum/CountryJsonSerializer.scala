@@ -7,6 +7,6 @@ import kpn.api.common.Country
 
 class CountryJsonSerializer extends JsonSerializer[Country] {
   override def serialize(country: Country, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(country.entryName)
+    jsonGenerator.writeString(country.toString)
   }
 }

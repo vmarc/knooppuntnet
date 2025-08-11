@@ -6,7 +6,7 @@ class BlacklistRepositoryMock extends BlacklistRepository {
 
   private var storedBlacklist = Blacklist()
 
-  def get(now: Long): Blacklist = storedBlacklist
+  def find(now: Long): Blacklist = storedBlacklist
 
   def save(blacklist: Blacklist, now: Long): Unit = {
     storedBlacklist = blacklist

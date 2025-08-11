@@ -1,9 +1,9 @@
 package kpn.server.monitor.route.update
 
 import kpn.database.base.Database
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stubs
 
-object MonitorUpdaterTestSupport extends MockFactory {
+object MonitorUpdaterTestSupport extends Stubs {
 
   def configuration(database: Database): MonitorUpdaterConfiguration = {
     val monitorRouteRelationRepository: MonitorRouteRelationRepository = stub[MonitorRouteRelationRepository]

@@ -9,6 +9,6 @@ import kpn.api.common.RouteScope
 class RouteScopeJsonDeserializer extends JsonDeserializer[RouteScope] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): RouteScope = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    RouteScope.withName(node.asText)
+    RouteScope.valueOf(node.asText)
   }
 }

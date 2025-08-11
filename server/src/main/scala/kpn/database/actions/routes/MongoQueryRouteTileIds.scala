@@ -35,7 +35,7 @@ class MongoQueryRouteTileIds(database: Database) {
   private def buildPipeline(routeType: RouteType): MongoPipeline = {
     Seq(
       filter(
-        equal("routeTypes", routeType.entryName)
+        equal("routeTypes", routeType.toString)
       ),
       project(
         fields(

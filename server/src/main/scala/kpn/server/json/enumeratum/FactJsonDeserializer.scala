@@ -9,6 +9,6 @@ import kpn.api.common.Fact
 class FactJsonDeserializer extends JsonDeserializer[Fact] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Fact = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    Fact.withName(node.asText)
+    Fact.valueOf(node.asText)
   }
 }

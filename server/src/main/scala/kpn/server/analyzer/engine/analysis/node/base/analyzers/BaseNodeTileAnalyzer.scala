@@ -12,7 +12,7 @@ class BaseNodeTileAnalyzer(nodeTileCalculator: NodeTileCalculator) extends BaseN
     }
     val tileNames = tiles.flatMap { tile =>
       context.names.map(_.routeType).distinct.map { routeType =>
-        s"${routeType.entryName}-${tile.name}"
+        s"$routeType-${tile.name}"
       }
     }.sorted
     context.copy(_tiles = Some(tileNames))

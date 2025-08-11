@@ -12,10 +12,7 @@ object TileName {
       "inline-skating"
     }
     else {
-      RouteType.withNameOption(tileName.split("-").head) match {
-        case Some(routeType) => routeType.entryName
-        case _ => ""
-      }
+      tileName.split("-").head
     }
   }
 

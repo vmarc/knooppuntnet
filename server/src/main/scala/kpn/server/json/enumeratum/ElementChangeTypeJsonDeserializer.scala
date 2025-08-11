@@ -9,6 +9,6 @@ import kpn.api.common.ElementChangeType
 class ElementChangeTypeJsonDeserializer extends JsonDeserializer[ElementChangeType] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): ElementChangeType = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    ElementChangeType.withName(node.asText)
+    ElementChangeType.valueOf(node.asText)
   }
 }

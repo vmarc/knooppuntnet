@@ -4,8 +4,10 @@ import kpn.api.common.monitor.MonitorMessage
 import kpn.server.monitor.domain.MonitorReference
 import org.bson.types.ObjectId
 
+import scala.compiletime.uninitialized
+
 class MonitorContext {
-  private var privateContext: MonitorUpdateContext = _
+  private var privateContext: MonitorUpdateContext = uninitialized
 
   def set(context: MonitorUpdateContext): Unit = {
     privateContext = context

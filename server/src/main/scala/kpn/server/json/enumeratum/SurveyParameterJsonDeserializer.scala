@@ -9,6 +9,6 @@ import kpn.api.common.location.SurveyParameter
 class SurveyParameterJsonDeserializer extends JsonDeserializer[SurveyParameter] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): SurveyParameter = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    SurveyParameter.withName(node.asText)
+    SurveyParameter.valueOf(node.asText)
   }
 }

@@ -7,6 +7,6 @@ import kpn.api.common.location.SurveyParameter
 
 class SurveyParameterJsonSerializer extends JsonSerializer[SurveyParameter] {
   override def serialize(surveyParameter: SurveyParameter, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(surveyParameter.entryName)
+    jsonGenerator.writeString(surveyParameter.toString)
   }
 }

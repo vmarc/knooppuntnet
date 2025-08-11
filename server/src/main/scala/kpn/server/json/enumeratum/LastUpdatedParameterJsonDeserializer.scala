@@ -9,6 +9,6 @@ import kpn.api.common.location.LastUpdatedParameter
 class LastUpdatedParameterJsonDeserializer extends JsonDeserializer[LastUpdatedParameter] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): LastUpdatedParameter = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    LastUpdatedParameter.withName(node.asText)
+    LastUpdatedParameter.valueOf(node.asText)
   }
 }

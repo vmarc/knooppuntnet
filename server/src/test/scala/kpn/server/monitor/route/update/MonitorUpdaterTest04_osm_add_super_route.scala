@@ -373,12 +373,12 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
     val subRelation1 = data.relations(subRoute11.relationId)
     val subRelation2 = data.relations(subRoute12.relationId)
 
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), TestSuperRoute.MainRelationId).returns(Some(mainRelation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), subRoute11.relationId).returns(Some(subRelation1))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), subRoute12.relationId).returns(Some(subRelation2))
+    configuration.monitorRouteRelationRepository.loadTopLevel.when(Some(ReferenceTimestamp1), TestSuperRoute.MainRelationId).returns(Some(mainRelation))
+    configuration.monitorRouteRelationRepository.loadTopLevel.when(Some(ReferenceTimestamp1), subRoute11.relationId).returns(Some(subRelation1))
+    configuration.monitorRouteRelationRepository.loadTopLevel.when(Some(ReferenceTimestamp1), subRoute12.relationId).returns(Some(subRelation2))
 
-    //    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(mainRelation))
-    //    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 11).returns(Some(subRelation1))
-    //    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 12).returns(Some(subRelation2))
+    //    configuration.monitorRouteRelationRepository.loadTopLevel.when(None, 1).returns(Some(mainRelation))
+    //    configuration.monitorRouteRelationRepository.loadTopLevel.when(None, 11).returns(Some(subRelation1))
+    //    configuration.monitorRouteRelationRepository.loadTopLevel.when(None, 12).returns(Some(subRelation2))
   }
 }

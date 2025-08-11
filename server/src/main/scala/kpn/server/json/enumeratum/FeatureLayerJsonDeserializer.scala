@@ -9,6 +9,6 @@ import kpn.api.common.FeatureLayer
 class FeatureLayerJsonDeserializer extends JsonDeserializer[FeatureLayer] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): FeatureLayer = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    FeatureLayer.withName(node.asText)
+    FeatureLayer.valueOf(node.asText)
   }
 }

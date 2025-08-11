@@ -223,7 +223,7 @@ class CodecWriter {
       out.println(s"override def encode(bsonWriter: BsonWriter, value: ${classInfo.className}, encoderContext: EncoderContext): Unit = {")
       out.indent {
         if (classInfo.isEnum) {
-          out.println("bsonWriter.writeString(value.entryName)")
+          out.println("bsonWriter.writeString(value.toString)")
         }
         else {
           out.println("bsonWriter.writeStartDocument()")

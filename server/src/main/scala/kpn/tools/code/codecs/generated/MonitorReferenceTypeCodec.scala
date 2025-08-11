@@ -16,11 +16,11 @@ class MonitorReferenceTypeCodec(registry: CodecRegistry) extends Codec[MonitorRe
 
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): MonitorReferenceType = {
-    MonitorReferenceType.withName(bsonReader.readString())
+    MonitorReferenceType.valueOf(bsonReader.readString())
   }
 
   override def encode(bsonWriter: BsonWriter, value: MonitorReferenceType, encoderContext: EncoderContext): Unit = {
-    bsonWriter.writeString(value.entryName)
+    bsonWriter.writeString(value.toString)
   }
 
   override def getEncoderClass: Class[MonitorReferenceType] = {

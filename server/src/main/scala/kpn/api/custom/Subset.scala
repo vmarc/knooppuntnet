@@ -56,7 +56,7 @@ object Subset {
   )
 
   def ofName(domain: String, routeTypeName: String): Option[Subset] = {
-    all.find(s => s.country.entryName == domain && s.routeType.entryName == routeTypeName)
+    all.find(s => s.country.toString == domain && s.routeType.toString == routeTypeName)
   }
 
   def of(country: Country, routeType: RouteType): Option[Subset] = {
@@ -66,13 +66,13 @@ object Subset {
 
 case class Subset(country: Country, routeType: RouteType) extends Ordered[Subset] {
 
-  def key: String = s"${country.entryName}:${routeType.entryName}"
+  def key: String = s"${country.toString}:${routeType.toString}"
 
-  def name: String = s"${country.entryName}-${routeType.entryName}"
+  def name: String = s"${country.toString}-${routeType.toString}"
 
-  def string: String = s"${country.entryName}/${routeType.entryName}"
+  def string: String = s"${country.toString}/${routeType.toString}"
 
   import scala.math.Ordered.orderingToOrdered
 
-  def compare(that: Subset): Int = (this.country.entryName, this.routeType.entryName).compare((that.country.entryName, that.routeType.entryName))
+  def compare(that: Subset): Int = (this.country.toString, this.routeType.toString).compare((that.country.toString, that.routeType.toString))
 }

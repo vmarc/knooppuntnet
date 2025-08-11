@@ -38,7 +38,7 @@ object MongoQueryLocationFacts {
       val subset = LocationSubset("", RouteType.hiking, Seq("fr"))
       val locationFacts = query.execute(subset)
       locationFacts.foreach { locationFact =>
-        log.info(s"${locationFact.elementType} ${locationFact.fact.entryName}: ${locationFact.refs.map(_.name).mkString(", ")}")
+        log.info(s"${locationFact.elementType} ${locationFact.fact.toString}: ${locationFact.refs.map(_.name).mkString(", ")}")
       }
     }
   }
@@ -86,7 +86,7 @@ class MongoQueryLocationFacts(database: Database) {
       mainFilter,
       unwind("$names"),
       filter(
-        equal("names.routeType", subset.routeType.entryName)
+        equal("names.routeType", subset.routeType.toString)
       ),
       unwind("$facts"),
       project(
@@ -123,12 +123,12 @@ class MongoQueryLocationFacts(database: Database) {
       ),
       unwind("$names"),
       filter(
-        equal("names.routeType", subset.routeType.entryName)
+        equal("names.routeType", subset.routeType.toString)
       ),
       unwind("$integrity.details"),
       filter(
         and(
-          equal("integrity.details.routeType", subset.routeType.entryName),
+          equal("integrity.details.routeType", subset.routeType.toString),
           BsonDocument.parse("""{$expr: { $ne: ["$integrity.details.expectedRouteCount", { "$size": "$integrity.details.routeRefs" }]}}""")
         )
       ),

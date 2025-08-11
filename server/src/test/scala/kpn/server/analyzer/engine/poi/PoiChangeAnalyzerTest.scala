@@ -30,12 +30,12 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
 
     val t = new TestSetup()
 
-    (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
-    (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
-    (t.poiTileCalculator.tileLonLat _).when(13, *, *).returns(PoiTiles.tile(TileId(13, 0, 0)))
-    (t.poiTileCalculator.tileLonLat _).when(14, *, *).returns(PoiTiles.tile(TileId(14, 0, 0)))
-    (t.poiTileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
-    (t.poiRepository.get _).when(PoiRef("node", 123)).returns(None)
+    t.knownPoiCache.contains.when(PoiRef("node", 123)).returns(false)
+    t.poiScopeAnalyzer.inScope.when(*).returns(true)
+    t.poiTileCalculator.tileLonLat.when(13, *, *).returns(PoiTiles.tile(TileId(13, 0, 0)))
+    t.poiTileCalculator.tileLonLat.when(14, *, *).returns(PoiTiles.tile(TileId(14, 0, 0)))
+    t.poiTileCalculator.poiTiles.when(*, *).returns(Seq("13-0-0", "14-0-0"))
+    t.poiRepository.get.when(PoiRef("node", 123)).returns(None)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -55,7 +55,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       )
     )
 
-    (t.poiRepository.save _).verify(
+    t.poiRepository.save.verify(
       where { (poi: Poi) =>
         poi.elementType should equal("node")
         poi.elementId should equal(123)
@@ -68,7 +68,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       }
     ).once()
 
-    (t.knownPoiCache.add _).verify(
+    t.knownPoiCache.add.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
@@ -88,8 +88,8 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
 
     val t = new TestSetup()
 
-    (t.poiRepository.get _).when(PoiRef("node", 123)).returns(Some(existingPoi()))
-    (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(true)
+    t.poiRepository.get.when(PoiRef("node", 123)).returns(Some(existingPoi()))
+    t.knownPoiCache.contains.when(PoiRef("node", 123)).returns(true)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -108,7 +108,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       )
     )
 
-    (t.poiRepository.delete _).verify(
+    t.poiRepository.delete.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
@@ -116,7 +116,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       }
     ).once()
 
-    (t.knownPoiCache.delete _).verify(
+    t.knownPoiCache.delete.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
@@ -136,12 +136,12 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
 
     val t = new TestSetup()
 
-    (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
-    (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
-    (t.poiTileCalculator.tileLonLat _).when(13, *, *).returns(PoiTiles.tile(TileId(13, 0, 0)))
-    (t.poiTileCalculator.tileLonLat _).when(14, *, *).returns(PoiTiles.tile(TileId(14, 0, 0)))
-    (t.poiTileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
-    (t.poiRepository.get _).when(PoiRef("node", 123)).returns(None)
+    t.knownPoiCache.contains.when(PoiRef("node", 123)).returns(false)
+    t.poiScopeAnalyzer.inScope.when(*).returns(true)
+    t.poiTileCalculator.tileLonLat.when(13, *, *).returns(PoiTiles.tile(TileId(13, 0, 0)))
+    t.poiTileCalculator.tileLonLat.when(14, *, *).returns(PoiTiles.tile(TileId(14, 0, 0)))
+    t.poiTileCalculator.poiTiles.when(*, *).returns(Seq("13-0-0", "14-0-0"))
+    t.poiRepository.get.when(PoiRef("node", 123)).returns(None)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -161,7 +161,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       )
     )
 
-    (t.poiRepository.save _).verify(
+    t.poiRepository.save.verify(
       where { (poi: Poi) =>
         poi.elementType should equal("node")
         poi.elementId should equal(123)
@@ -174,7 +174,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       }
     ).once()
 
-    (t.knownPoiCache.add _).verify(
+    t.knownPoiCache.add.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
@@ -194,13 +194,13 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
 
     val t = new TestSetup()
 
-    (t.poiRepository.get _).when(PoiRef("node", 123)).returns(Some(existingPoi()))
-    (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
-    (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
-    (t.poiTileCalculator.tileLonLat _).when(13, *, *).returns(PoiTiles.tile(TileId(13, 1, 1)))
-    (t.poiTileCalculator.tileLonLat _).when(14, *, *).returns(PoiTiles.tile(TileId(14, 1, 1)))
-    (t.poiTileCalculator.poiTiles _).when(*, *).returns(Seq("13-1-1", "14-1-1"))
-    (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(true)
+    t.poiRepository.get.when(PoiRef("node", 123)).returns(Some(existingPoi()))
+    t.knownPoiCache.contains.when(PoiRef("node", 123)).returns(false)
+    t.poiScopeAnalyzer.inScope.when(*).returns(true)
+    t.poiTileCalculator.tileLonLat.when(13, *, *).returns(PoiTiles.tile(TileId(13, 1, 1)))
+    t.poiTileCalculator.tileLonLat.when(14, *, *).returns(PoiTiles.tile(TileId(14, 1, 1)))
+    t.poiTileCalculator.poiTiles.when(*, *).returns(Seq("13-1-1", "14-1-1"))
+    t.knownPoiCache.contains.when(PoiRef("node", 123)).returns(true)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -220,7 +220,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       )
     )
 
-    (t.poiRepository.save _).verify(
+    t.poiRepository.save.verify(
       where { (poi: Poi) =>
         poi.elementType should equal("node")
         poi.elementId should equal(123)
@@ -233,7 +233,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       }
     ).once()
 
-    (t.knownPoiCache.add _).verify(
+    t.knownPoiCache.add.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
@@ -255,8 +255,8 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
 
     val t = new TestSetup()
 
-    (t.poiRepository.get _).when(PoiRef("node", 123)).returns(Some(existingPoi()))
-    (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(true)
+    t.poiRepository.get.when(PoiRef("node", 123)).returns(Some(existingPoi()))
+    t.knownPoiCache.contains.when(PoiRef("node", 123)).returns(true)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -275,7 +275,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       )
     )
 
-    (t.poiRepository.delete _).verify(
+    t.poiRepository.delete.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
@@ -283,7 +283,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       }
     ).once()
 
-    (t.knownPoiCache.delete _).verify(
+    t.knownPoiCache.delete.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
@@ -298,8 +298,8 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
 
     val t = new TestSetup()
 
-    (t.poiRepository.get _).when(PoiRef("node", 123)).returns(Some(existingPoi()))
-    (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
+    t.poiRepository.get.when(PoiRef("node", 123)).returns(Some(existingPoi()))
+    t.knownPoiCache.contains.when(PoiRef("node", 123)).returns(false)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -318,7 +318,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       )
     )
 
-    (t.poiRepository.delete _).verify(
+    t.poiRepository.delete.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
@@ -326,7 +326,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       }
     ).once()
 
-    (t.knownPoiCache.delete _).verify(
+    t.knownPoiCache.delete.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
@@ -341,8 +341,8 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
 
     val t = new TestSetup()
 
-    (t.poiRepository.get _).when(PoiRef("node", 123)).returns(None)
-    (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
+    t.poiRepository.get.when(PoiRef("node", 123)).returns(None)
+    t.knownPoiCache.contains.when(PoiRef("node", 123)).returns(false)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -361,9 +361,9 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       )
     )
 
-    (t.poiRepository.delete _).verify(*).never()
+    t.poiRepository.delete.verify(*).never()
 
-    (t.knownPoiCache.delete _).verify(
+    t.knownPoiCache.delete.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
@@ -378,9 +378,9 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
 
     val t = new TestSetup()
 
-    (t.poiRepository.get _).when(PoiRef("node", 123)).returns(Some(existingPoi()))
-    (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(true)
-    (t.poiScopeAnalyzer.inScope _).when(*).returns(false)
+    t.poiRepository.get.when(PoiRef("node", 123)).returns(Some(existingPoi()))
+    t.knownPoiCache.contains.when(PoiRef("node", 123)).returns(true)
+    t.poiScopeAnalyzer.inScope.when(*).returns(false)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -400,7 +400,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       )
     )
 
-    (t.poiRepository.delete _).verify(
+    t.poiRepository.delete.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
@@ -408,7 +408,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       }
     ).once()
 
-    (t.knownPoiCache.delete _).verify(
+    t.knownPoiCache.delete.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
@@ -423,9 +423,9 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
 
     val t = new TestSetup()
 
-    (t.poiRepository.get _).when(PoiRef("node", 123)).returns(None)
-    (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
-    (t.poiScopeAnalyzer.inScope _).when(*).returns(false)
+    t.poiRepository.get.when(PoiRef("node", 123)).returns(None)
+    t.knownPoiCache.contains.when(PoiRef("node", 123)).returns(false)
+    t.poiScopeAnalyzer.inScope.when(*).returns(false)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -445,10 +445,10 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       )
     )
 
-    (t.poiRepository.save _).verify(*).never()
-    (t.poiRepository.delete _).verify(*).never()
-    (t.knownPoiCache.add _).verify(*).never()
-    (t.knownPoiCache.delete _).verify(*).never()
+    t.poiRepository.save.verify(*).never()
+    t.poiRepository.delete.verify(*).never()
+    t.knownPoiCache.add.verify(*).never()
+    t.knownPoiCache.delete.verify(*).never()
     t.taskRepository.all(PoiTileTask.prefix) shouldBe empty
   }
 
@@ -456,13 +456,13 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
 
     val t = new TestSetup()
 
-    (t.knownPoiCache.contains _).when(PoiRef("way", 123)).returns(false)
-    (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
-    (t.poiTileCalculator.tileLonLat _).when(13, *, *).returns(PoiTiles.tile(TileId(13, 0, 0)))
-    (t.poiTileCalculator.tileLonLat _).when(14, *, *).returns(PoiTiles.tile(TileId(14, 0, 0)))
-    (t.poiTileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
-    (t.poiRepository.get _).when(PoiRef("way", 123)).returns(None)
-    (t.poiQueryExecutor.centers _).when("way", Seq(123L)).returns(
+    t.knownPoiCache.contains.when(PoiRef("way", 123)).returns(false)
+    t.poiScopeAnalyzer.inScope.when(*).returns(true)
+    t.poiTileCalculator.tileLonLat.when(13, *, *).returns(PoiTiles.tile(TileId(13, 0, 0)))
+    t.poiTileCalculator.tileLonLat.when(14, *, *).returns(PoiTiles.tile(TileId(14, 0, 0)))
+    t.poiTileCalculator.poiTiles.when(*, *).returns(Seq("13-0-0", "14-0-0"))
+    t.poiRepository.get.when(PoiRef("way", 123)).returns(None)
+    t.poiQueryExecutor.centers.when("way", Seq(123L)).returns(
       Seq(
         ElementCenter(123, LatLonImpl("1", "2"))
       )
@@ -484,7 +484,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       )
     )
 
-    (t.poiRepository.save _).verify(
+    t.poiRepository.save.verify(
       where { (poi: Poi) =>
         poi.elementType should equal("way")
         poi.elementId should equal(123)
@@ -497,7 +497,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       }
     ).once()
 
-    (t.knownPoiCache.add _).verify(
+    t.knownPoiCache.add.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("way")
         poiRef.elementId should equal(123)
@@ -517,9 +517,9 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
 
     val t = new TestSetup()
 
-    (t.knownPoiCache.contains _).when(PoiRef("way", 123)).returns(false)
-    (t.poiRepository.get _).when(PoiRef("way", 123)).returns(None)
-    (t.poiQueryExecutor.centers _).when("way", Seq(123L)).returns(Seq.empty)
+    t.knownPoiCache.contains.when(PoiRef("way", 123)).returns(false)
+    t.poiRepository.get.when(PoiRef("way", 123)).returns(None)
+    t.poiQueryExecutor.centers.when("way", Seq(123L)).returns(Seq.empty)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -537,7 +537,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       )
     )
 
-    (t.knownPoiCache.delete _).verify(
+    t.knownPoiCache.delete.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("way")
         poiRef.elementId should equal(123)
@@ -545,9 +545,9 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       }
     ).once()
 
-    (t.poiRepository.save _).verify(*).never()
-    (t.poiRepository.delete _).verify(*).never()
-    (t.knownPoiCache.add _).verify(*).never()
+    t.poiRepository.save.verify(*).never()
+    t.poiRepository.delete.verify(*).never()
+    t.knownPoiCache.add.verify(*).never()
     t.taskRepository.all(PoiTileTask.prefix) shouldBe empty
   }
 
@@ -555,13 +555,13 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
 
     val t = new TestSetup()
 
-    (t.knownPoiCache.contains _).when(PoiRef("relation", 123)).returns(false)
-    (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
-    (t.poiTileCalculator.tileLonLat _).when(13, *, *).returns(PoiTiles.tile(TileId(13, 0, 0)))
-    (t.poiTileCalculator.tileLonLat _).when(14, *, *).returns(PoiTiles.tile(TileId(14, 0, 0)))
-    (t.poiTileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
-    (t.poiRepository.get _).when(PoiRef("relation", 123)).returns(None)
-    (t.poiQueryExecutor.centers _).when("relation", Seq(123L)).returns(
+    t.knownPoiCache.contains.when(PoiRef("relation", 123)).returns(false)
+    t.poiScopeAnalyzer.inScope.when(*).returns(true)
+    t.poiTileCalculator.tileLonLat.when(13, *, *).returns(PoiTiles.tile(TileId(13, 0, 0)))
+    t.poiTileCalculator.tileLonLat.when(14, *, *).returns(PoiTiles.tile(TileId(14, 0, 0)))
+    t.poiTileCalculator.poiTiles.when(*, *).returns(Seq("13-0-0", "14-0-0"))
+    t.poiRepository.get.when(PoiRef("relation", 123)).returns(None)
+    t.poiQueryExecutor.centers.when("relation", Seq(123L)).returns(
       Seq(
         ElementCenter(123, LatLonImpl("1", "2"))
       )
@@ -583,7 +583,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       )
     )
 
-    (t.poiRepository.save _).verify(
+    t.poiRepository.save.verify(
       where { (poi: Poi) =>
         poi.elementType should equal("relation")
         poi.elementId should equal(123)
@@ -596,7 +596,7 @@ class PoiChangeAnalyzerTest extends UnitTest with MockFactory {
       }
     ).once()
 
-    (t.knownPoiCache.add _).verify(
+    t.knownPoiCache.add.verify(
       where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("relation")
         poiRef.elementId should equal(123)

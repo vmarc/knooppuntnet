@@ -31,7 +31,7 @@ class PlannerFacadeImpl(
 ) extends PlannerFacade {
 
   override def mapNodeDetail(routeType: RouteType, nodeId: Long): ApiResponse[MapNodeDetail] = {
-    val args = s"${routeType.entryName}, $nodeId"
+    val args = s"${routeType.toString}, $nodeId"
     execute("map-node-detail", args) {
       mapNodeDetailBuilder.build(routeType, nodeId)
     }
@@ -69,7 +69,7 @@ class PlannerFacadeImpl(
     planString: String,
     proposed: Boolean
   ): ApiResponse[Seq[PlanLegDetail]] = {
-    val args = s"${routeType.entryName}: $planString"
+    val args = s"${routeType.toString}: $planString"
     api.execute("plan", args) {
       val legs = legBuilder.plan(routeType, planString, proposed = proposed)
       ApiResponse(None, 1, legs)

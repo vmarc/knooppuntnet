@@ -37,8 +37,8 @@ class NodeLabelsAnalyzer(context: NodeAnalysisContext) {
         routeTypes.flatMap { routeType =>
           val failed = nodeIntegrity.details.filter(_.routeType == routeType).exists(_.failed)
           Seq(
-            Some(s"integrity-check-${routeType.entryName}"),
-            if (failed) Some(s"integrity-check-failed-${routeType.entryName}") else None
+            Some(s"integrity-check-${routeType.toString}"),
+            if (failed) Some(s"integrity-check-failed-${routeType.toString}") else None
           ).flatten
         }
     }

@@ -7,6 +7,6 @@ import kpn.api.common.Fact
 
 class FactJsonSerializer extends JsonSerializer[Fact] {
   override def serialize(fact: Fact, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(fact.entryName)
+    jsonGenerator.writeString(fact.toString)
   }
 }

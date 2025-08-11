@@ -69,14 +69,14 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with MockFactory {
     )
 
     private val beforeRouteTileInfos = RouteTileInfoBuilder.build(beforeContext)
-    (routeRepository.routeTiles _).when(*).returns(beforeRouteTileInfos)
+    routeRepository.routeTiles.when(*).returns(beforeRouteTileInfos)
 
     def process(): ChangeSetContext = {
       processor.process(newChangeSetContext(), afterContext)
     }
 
     def assertTileDeleted(tileId: String): Unit = {
-      (routeRepository.deleteRouteTile _).verify(tileId).once()
+      routeRepository.deleteRouteTile.verify(tileId).once()
     }
 
     def verifyTileSaved(tileId: String): CallHandler1[RouteTileInfo, Unit] = {

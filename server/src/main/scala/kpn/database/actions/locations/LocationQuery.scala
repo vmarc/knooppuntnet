@@ -120,12 +120,12 @@ object LocationQuery {
   }
 
   def integrityCheckFilter(subset: LocationSubset, integrityCheck: Option[BooleanParameter]): Option[Bson] = {
-    val condition = equal("labels", s"integrity-check-${subset.routeType.entryName}")
+    val condition = equal("labels", s"integrity-check-${subset.routeType.toString}")
     booleanFilter(integrityCheck, condition)
   }
 
   def integrityCheckFailedFilter(subset: LocationSubset, integrityCheckFailed: Option[BooleanParameter]): Option[Bson] = {
-    val condition = equal("labels", s"integrity-check-failed-${subset.routeType.entryName}")
+    val condition = equal("labels", s"integrity-check-failed-${subset.routeType.toString}")
     booleanFilter(integrityCheckFailed, condition)
   }
 
@@ -134,7 +134,7 @@ object LocationQuery {
   }
 
   private def referencedInRoutesCondition(subset: LocationSubset): Bson = {
-    elemMatch("routeReferences", equal("routeType", subset.routeType.entryName))
+    elemMatch("routeReferences", equal("routeType", subset.routeType.toString))
   }
 
   private def booleanFilter(booleanParameter: Option[BooleanParameter], condition: Bson): Option[Bson] = {
@@ -280,7 +280,7 @@ object LocationQuery {
   def integrityCheckPipeline(subset: LocationSubset, otherFilters: Seq[Option[Bson]]): MongoPipeline = {
     prefilter(otherFilters) ++ Seq(
       filter(
-        equal("labels", s"integrity-check-${subset.routeType.entryName}")
+        equal("labels", s"integrity-check-${subset.routeType.toString}")
       ),
       count()
     )
@@ -289,7 +289,7 @@ object LocationQuery {
   def integrityCheckFailedPipeline(subset: LocationSubset, otherFilters: Seq[Option[Bson]]): MongoPipeline = {
     prefilter(otherFilters) ++ Seq(
       filter(
-        equal("labels", s"integrity-check-failed-${subset.routeType.entryName}")
+        equal("labels", s"integrity-check-failed-${subset.routeType.toString}")
       ),
       count()
     )

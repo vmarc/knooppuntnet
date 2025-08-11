@@ -12,7 +12,7 @@ object RouteFactsReport {
          |      facts
          |    </td>
          |    <td>
-         |      ${context.facts.map(_.entryName).mkString(", ")}
+         |      ${context.facts.map(_.toString).mkString(", ")}
          |    </td>
          |  </tr>
          |</table>

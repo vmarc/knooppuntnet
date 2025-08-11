@@ -7,6 +7,6 @@ import kpn.api.common.ElementChangeType
 
 class ElementChangeTypeJsonSerializer extends JsonSerializer[ElementChangeType] {
   override def serialize(elementChangeType: ElementChangeType, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(elementChangeType.entryName)
+    jsonGenerator.writeString(elementChangeType.toString)
   }
 }

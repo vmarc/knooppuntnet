@@ -22,5 +22,5 @@ case class TagDiff(action: TagDiffType, key: String, valueBefore: Option[String]
 
   def name: String = action.toString.toLowerCase
 
-  def sortKey: String = s"${action.entryName} $key"
+  def sortKey: String = s"${action.toString} $key"
 }

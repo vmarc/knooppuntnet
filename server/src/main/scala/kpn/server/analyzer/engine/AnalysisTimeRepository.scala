@@ -8,7 +8,7 @@ import java.io.File
  * Stores the timestamp when the most recent full analysis was performed.
  */
 trait AnalysisTimeRepository {
-  def get: Option[String]
+  def now: Option[String]
 
   // hhmm format? make sure this works OK around midnight; will need date also ?
   def put(time: String): Unit
@@ -16,7 +16,7 @@ trait AnalysisTimeRepository {
 
 class AnalysisTimeRepositoryImpl(filename: String) extends AnalysisTimeRepository {
 
-  def get: Option[String] = {
+  def now: Option[String] = {
     val file = new File(filename)
     Option.when(file.exists) {
       FileUtils.readFileToString(file, "UTF-8")

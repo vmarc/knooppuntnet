@@ -13,7 +13,9 @@ import kpn.core.test.TestObjects.newRouteNetworkNodeInfo
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.clazz.Mock
+import org.scalamock.stubs.Stubs
+import org.scalatest.Assertions.pending
 
 /*
         1m          2m          5m
@@ -22,7 +24,7 @@ import org.scalamock.scalatest.MockFactory
     ---------r4---------
              4m
 */
-class GraphTestData extends MockFactory {
+class GraphTestData extends Stubs with Mock {
 
   val node1: RouteNetworkNodeInfo = newRouteNetworkNodeInfo(id = 1001L, name = "01", lat = "1", lon = "1")
   val node2: RouteNetworkNodeInfo = newRouteNetworkNodeInfo(id = 1002L, name = "02", lat = "2", lon = "2")
@@ -43,17 +45,17 @@ class GraphTestData extends MockFactory {
     graph.add(GraphEdge(node1.id, node3.id, 4, proposed = false, legEndRoute4.trackPathKeys.head))
 
     val graphRepository: GraphRepository = stub[GraphRepository]
-    (graphRepository.graph _).when(RouteType.hiking).returns(Some(graph))
+    // TODO scala3 - graphRepository.graph.when(RouteType.hiking).returns(Some(graph))
 
     graphRepository
   }
 
   val baseRouteRepository: RouteRepository = {
     val repository = stub[RouteRepository]
-    //    (routeRepository.findRouteDetailById _).when(legEndRoute1.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute1, node1, node2)))
-    //    (routeRepository.findRouteDetailById _).when(legEndRoute2.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute2, node2, node3)))
-    //    (routeRepository.findRouteDetailById _).when(legEndRoute3.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute3, node3, node4)))
-    //    (routeRepository.findRouteDetailById _).when(legEndRoute4.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute4, node1, node3)))
+    //    routeRepository.findRouteDetailById.when(legEndRoute1.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute1, node1, node2)))
+    //    routeRepository.findRouteDetailById.when(legEndRoute2.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute2, node2, node3)))
+    //    routeRepository.findRouteDetailById.when(legEndRoute3.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute3, node3, node4)))
+    //    routeRepository.findRouteDetailById.when(legEndRoute4.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute4, node1, node3)))
     repository
   }
 

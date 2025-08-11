@@ -63,7 +63,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
         parameters.proposed match {
           case None => "all"
           case Some(proposed) =>
-            oo.find(_.name == proposed.entryName) match {
+            oo.find(_.name == proposed.toString) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -78,7 +78,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
       val options = Seq(ServerFilterOption("all", totalCount)) ++ factOptions
       val selected = parameters.fact match {
         case None => "all"
-        case Some(f) => f.entryName
+        case Some(f) => f.toString
       }
       ServerFilterGroup(selected, options)
     }
@@ -99,7 +99,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
         parameters.survey match {
           case None => "all"
           case Some(value) =>
-            surveyOptions.find(_.name == value.entryName) match {
+            surveyOptions.find(_.name == value.toString) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -124,7 +124,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
         parameters.lastUpdated match {
           case None => "all"
           case Some(value) =>
-            options.find(_.name == value.entryName) match {
+            options.find(_.name == value.toString) match {
               case None => "all"
               case Some(value) => value.name
             }

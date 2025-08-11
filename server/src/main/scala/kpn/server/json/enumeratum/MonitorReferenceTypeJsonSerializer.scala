@@ -7,6 +7,6 @@ import kpn.api.common.monitor.MonitorReferenceType
 
 class MonitorReferenceTypeJsonSerializer extends JsonSerializer[MonitorReferenceType] {
   override def serialize(monitorReferenceType: MonitorReferenceType, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(monitorReferenceType.entryName)
+    jsonGenerator.writeString(monitorReferenceType.toString)
   }
 }

@@ -32,7 +32,7 @@ class RouteTileEncoder(
   def encode(tileData: TileData): Unit = {
     val tileBytes = encodeTile(tileData)
     if (tileBytes.nonEmpty) {
-      vectorTileRepository.saveOrUpdate(tileData.routeType.entryName, tileData.tile, tileBytes)
+      vectorTileRepository.saveOrUpdate(tileData.routeType.toString, tileData.tile, tileBytes)
     }
   }
 
@@ -107,7 +107,7 @@ class RouteTileEncoder(
         Some("name" -> routeTileInfo.routeName),
         segment.segmentId.map(segmentId => "segmentId" -> segmentId.toString),
         segment.segmentElementId.map(segmentElementId => "segmentElementId" -> segmentElementId.toString),
-        routeTileInfo.scope.map(scope => "scope" -> scope.entryName),
+        routeTileInfo.scope.map(scope => "scope" -> scope.toString),
         routeTileInfo.survey.map(survey => "survey" -> survey),
         routeTileInfo.error.map(error => "error" -> error)
       ).flatten.toMap

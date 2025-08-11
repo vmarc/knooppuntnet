@@ -11,13 +11,13 @@ object Label {
   val facts: String = "facts"
   val orphan: String = "orphan"
 
-  def routeType(routeType: RouteType): String = s"network-type-${routeType.entryName}"
+  def routeType(routeType: RouteType): String = s"network-type-${routeType.toString}"
 
   def location(locationName: String): String = s"location-$locationName"
 
-  def country(country: Country): String = location(country.entryName)
+  def country(country: Country): String = location(country.toString)
 
-  def fact(fact: Fact): String = s"fact-${fact.entryName}"
+  def fact(fact: Fact): String = s"fact-${fact.toString}"
 
-  def scope(routeScope: RouteScope): String = s"scope-${routeScope.entryName}"
+  def scope(routeScope: RouteScope): String = s"scope-${routeScope.toString}"
 }

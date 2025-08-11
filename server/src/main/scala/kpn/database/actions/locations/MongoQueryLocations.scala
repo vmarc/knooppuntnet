@@ -158,12 +158,12 @@ class MongoQueryLocations(database: Database) {
         and(
           equal("active", true),
           equal("labels", Label.routeType(subset.routeType)),
-          equal("labels", Label.location(subset.country.entryName)),
+          equal("labels", Label.location(subset.country.toString)),
         )
       ),
       unwind("$labels"),
       filter(
-        regex("labels", s"^location-${subset.country.entryName}"),
+        regex("labels", s"^location-${subset.country.toString}"),
       )
     )
   }

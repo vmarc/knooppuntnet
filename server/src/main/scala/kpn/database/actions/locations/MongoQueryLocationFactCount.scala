@@ -106,12 +106,12 @@ class MongoQueryLocationFactCount(database: Database) {
       ),
       unwind("$names"),
       filter(
-        equal("names.routeType", subset.routeType.entryName)
+        equal("names.routeType", subset.routeType.toString)
       ),
       unwind("$integrity.details"),
       filter(
         and(
-          equal("integrity.details.routeType", subset.routeType.entryName),
+          equal("integrity.details.routeType", subset.routeType.toString),
           BsonDocument.parse("""{$expr: { $ne: ["$integrity.details.expectedRouteCount", { "$size": "$integrity.details.routeRefs" }]}}""")
         )
       ),

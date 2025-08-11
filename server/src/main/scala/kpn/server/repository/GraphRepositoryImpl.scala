@@ -30,7 +30,7 @@ class GraphRepositoryImpl(
           graphEdges.map { edges =>
             val graph = new NodeNetworkGraphImpl()
             edges.edges.foreach(graph.add)
-            (edges.routeType.entryName, graph)
+            (edges.routeType.toString, graph)
           }.toMap
         }
         ("Loading graphs", ())
@@ -44,6 +44,6 @@ class GraphRepositoryImpl(
   }
 
   override def graph(routeType: RouteType): Option[NodeNetworkGraph] = {
-    graphs.get(routeType.entryName)
+    graphs.get(routeType.toString)
   }
 }

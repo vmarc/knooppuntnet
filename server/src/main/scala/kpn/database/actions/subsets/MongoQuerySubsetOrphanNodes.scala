@@ -24,8 +24,8 @@ class MongoQuerySubsetOrphanNodes(database: Database) {
     val pipeline = Seq(
       filter(
         and(
-          equal("country", subset.country.entryName),
-          equal("routeType", subset.routeType.entryName),
+          equal("country", subset.country.toString),
+          equal("routeType", subset.routeType.toString),
         )
       )
     )
@@ -42,8 +42,8 @@ class MongoQuerySubsetOrphanNodes(database: Database) {
     val pipeline = Seq(
       filter(
         and(
-          equal("country", subset.country.entryName),
-          equal("routeType", subset.routeType.entryName),
+          equal("country", subset.country.toString),
+          equal("routeType", subset.routeType.toString),
         )
       ),
       project(

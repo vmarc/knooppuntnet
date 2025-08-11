@@ -16,7 +16,7 @@ import kpn.core.util.Util.mergeBounds
 
 object TestSuperRoute {
 
-  val MainRelationId = 1
+  val MainRelationId: Long = 1
 
   val subRoute11: MonitorTestRoute = MonitorTestData.route1.copy(relationId = 11, stateTiles = MonitorTestData.route1.stateTiles.map(_.copy(relationId = 11)))
   val subRoute12: MonitorTestRoute = MonitorTestData.route2.copy(relationId = 12, stateTiles = MonitorTestData.route2.stateTiles.map(_.copy(relationId = 12)))

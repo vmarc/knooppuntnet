@@ -31,7 +31,7 @@ class MongoQueryNodesWithIntegrityCheckFailed(database: Database) {
   }
 
   private def buildPipeline(subset: Subset): MongoPipeline = {
-    val factLabel = s"integrity-check-failed-${subset.routeType.entryName}"
+    val factLabel = s"integrity-check-failed-${subset.routeType.toString}"
     Seq(
       filter(
         and(
@@ -42,7 +42,7 @@ class MongoQueryNodesWithIntegrityCheckFailed(database: Database) {
         )
       ),
       unwind("$names"),
-      filter(equal("names.routeType", subset.routeType.entryName)),
+      filter(equal("names.routeType", subset.routeType.toString)),
       project(
         fields(
           excludeId(),

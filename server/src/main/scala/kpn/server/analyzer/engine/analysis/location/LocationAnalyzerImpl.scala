@@ -20,7 +20,7 @@ class LocationAnalyzerImpl(analyzerEnabled: Boolean, development: Boolean) exten
 
   override def countries(latLon: LatLon): Seq[Country] = {
     locationStore.countries.filter { countryLocations =>
-      countryLocations.dataMap.get(countryLocations.country.entryName) match {
+      countryLocations.dataMap.get(countryLocations.country.toString) match {
         case Some(loc) => loc.contains(latLon.latitude, latLon.longitude)
         case None => // throw exception ? log error?
           false

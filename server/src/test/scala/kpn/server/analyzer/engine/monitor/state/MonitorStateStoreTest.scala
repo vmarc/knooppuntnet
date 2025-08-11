@@ -77,26 +77,26 @@ class MonitorStateStoreTest extends UnitTest with MockFactory {
 
   private def setupMocks(testData: TestData): TestDependencies = {
     val repository = stub[MonitorRouteRepository]
-    (repository.stateTiles _).when(*, *).returns(testData.existingTiles)
+    repository.stateTiles.when(*, *).returns(testData.existingTiles)
 
     val tileBuilder = stub[MonitorStateTileBuilder]
-    (tileBuilder.build _).when(testData.monitorState).returns(testData.updatedTiles)
+    tileBuilder.build.when(testData.monitorState).returns(testData.updatedTiles)
 
     TestDependencies(repository, tileBuilder)
   }
 
   private def verifyRepositoryCalls(repository: MonitorRouteRepository, testData: TestData): Unit = {
     // verify state is saved
-    (repository.saveState _).verify(testData.monitorState)
+    repository.saveState.verify(testData.monitorState)
 
     // verify obsolete tile is deleted
-    (repository.deleteStateTile _).verify(testData.tileToRemove._id)
+    repository.deleteStateTile.verify(testData.tileToRemove._id)
 
     // verify updated tile keeps its original ID
-    (repository.saveStateTile _).verify(testData.updatedTile.copy(_id = testData.originalTileToUpdate._id))
+    repository.saveStateTile.verify(testData.updatedTile.copy(_id = testData.originalTileToUpdate._id))
 
     // verify new tile is saved
-    (repository.saveStateTile _).verify(testData.newTile)
+    repository.saveStateTile.verify(testData.newTile)
   }
 
   private def createMonitorStateTile(_id: ObjectId, id: Int): MonitorStateTile = {

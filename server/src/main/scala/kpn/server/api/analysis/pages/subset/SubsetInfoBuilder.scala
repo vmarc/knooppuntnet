@@ -15,17 +15,17 @@ object SubsetInfoBuilder {
       case _ => 0L
     }
     val factCount = Facts.reportedFacts.map { f =>
-      figures.get(s"${f.entryName}Count") match {
+      figures.get(s"${f.toString}Count") match {
         case Some(figure: Figure) => figure.counts.getOrElse(subset, 0L)
         case _ => 0L
       }
     }.sum
 
-    val orphanNodeCount = figures.get(s"${Fact.OrphanNode.entryName}Count") match {
+    val orphanNodeCount = figures.get(s"${Fact.OrphanNode.toString}Count") match {
       case Some(figure: Figure) => figure.counts.getOrElse(subset, 0L)
       case _ => 0L
     }
-    val orphanRouteCount = figures.get(s"${Fact.OrphanRoute.entryName}Count") match {
+    val orphanRouteCount = figures.get(s"${Fact.OrphanRoute.toString}Count") match {
       case Some(figure: Figure) => figure.counts.getOrElse(subset, 0L)
       case _ => 0L
     }

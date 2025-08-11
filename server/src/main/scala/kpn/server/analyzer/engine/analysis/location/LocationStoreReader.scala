@@ -27,11 +27,11 @@ class LocationStoreReader(development: Boolean) {
       Seq(Country.nl, Country.be, Country.de)
     }
     else {
-      Country.values
+      Country.values.toSeq
     }
     val countries: Seq[LocationStoreCountry] = locationCounties.map { country =>
       val locationStoreCountry = loadCountry(country)
-      val filename = s"$root/${country.entryName}/tree.json"
+      val filename = s"$root/${country.toString}/tree.json"
       val string = FileUtils.readFileToString(new File(filename), "UTF-8")
       val tree = Json.objectMapper.readValue(string, classOf[LocationTree])
       val location = toLocation(locationStoreCountry.dataMap, tree)
@@ -41,15 +41,15 @@ class LocationStoreReader(development: Boolean) {
   }
 
   private def loadCountry(country: Country): LocationStoreCountry = {
-    log.info(s"Loading ${country.entryName.toUpperCase}")
+    log.info(s"Loading ${country.toString.toUpperCase}")
     val locationNameDefinitions = {
-      val filename = s"$root/${country.entryName}/locations.json"
+      val filename = s"$root/${country.toString}/locations.json"
       val string = FileUtils.readFileToString(new File(filename), "UTF-8")
       Json.objectMapper.readValue(string, classOf[LocationNameDefinitions])
     }
     val dataMap = locationNameDefinitions.locations.map { locationNameDefinition =>
       val locationGeometry = {
-        val filename = s"$root/${country.entryName}/geometries/${locationNameDefinition.id}.json"
+        val filename = s"$root/${country.toString}/geometries/${locationNameDefinition.id}.json"
         val string = FileUtils.readFileToString(new File(filename), "UTF-8")
         val geometry = Json.objectMapper.readValue(string, classOf[Geometry])
         LocationGeometry(geometry)
@@ -67,7 +67,7 @@ class LocationStoreReader(development: Boolean) {
     LocationStoreCountry(
       country,
       dataMap,
-      dataMap(country.entryName)
+      dataMap(country.toString)
     )
   }
 

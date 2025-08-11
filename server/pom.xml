@@ -125,32 +125,32 @@
 
     <dependency>
       <groupId>org.scala-lang</groupId>
-      <artifactId>scala-library</artifactId>
-      <version>2.13.15</version>
+      <artifactId>scala3-library_3</artifactId>
+      <version>3.7.2</version>
     </dependency>
 
     <dependency>
       <groupId>org.scala-lang.modules</groupId>
-      <artifactId>scala-xml_2.13</artifactId>
-      <version>2.3.0</version>
+      <artifactId>scala-xml_3</artifactId>
+      <version>2.4.0</version>
     </dependency>
 
     <dependency>
       <groupId>org.scala-lang.modules</groupId>
-      <artifactId>scala-parallel-collections_2.13</artifactId>
-      <version>1.0.4</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.beachape</groupId>
-      <artifactId>enumeratum_2.13</artifactId>
-      <version>1.7.3</version>
+      <artifactId>scala-parallel-collections_3</artifactId>
+      <version>1.2.0</version>
     </dependency>
 
     <dependency>
       <groupId>com.fasterxml.jackson.module</groupId>
-      <artifactId>jackson-module-scala_2.13</artifactId>
-      <version>2.15.3</version>
+      <artifactId>jackson-module-scala_3</artifactId>
+      <version>2.19.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.19.2</version>
     </dependency>
 
     <dependency>
@@ -282,16 +282,22 @@
     </dependency>
 
     <dependency>
+      <groupId>org.scalactic</groupId>
+      <artifactId>scalactic_3</artifactId>
+      <version>3.2.19</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.scalatest</groupId>
-      <artifactId>scalatest_2.13</artifactId>
-      <version>3.2.18</version>
+      <artifactId>scalatest_3</artifactId>
+      <version>3.2.19</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.scalamock</groupId>
-      <artifactId>scalamock_2.13</artifactId>
-      <version>5.2.0</version>
+      <artifactId>scalamock_3</artifactId>
+      <version>7.4.1</version>
       <scope>test</scope>
     </dependency>
 
@@ -364,26 +370,32 @@
         <enabled>true</enabled>
       </releases>
     </repository>
+
     <repository>
-      <id>osgeo-snapshot</id>
-      <name>OSGeo Snapshot Repository</name>
-      <url>https://repo.osgeo.org/repository/snapshot/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
+      <id>artima</id>
+      <name>Artima Maven Repository</name>
+      <url>https://repo.artima.com/releases</url>
     </repository>
-    <repository>
-      <id>ECC</id>
-      <url>https://maven.ecc.no/releases</url>
-    </repository>
-    <repository>
-      <id>maven_central</id>
-      <name>Maven Central</name>
-      <url>https://repo.maven.apache.org/maven2/</url>
-    </repository>
+    <!--    <repository>-->
+    <!--      <id>osgeo-snapshot</id>-->
+    <!--      <name>OSGeo Snapshot Repository</name>-->
+    <!--      <url>https://repo.osgeo.org/repository/snapshot/</url>-->
+    <!--      <snapshots>-->
+    <!--        <enabled>true</enabled>-->
+    <!--      </snapshots>-->
+    <!--      <releases>-->
+    <!--        <enabled>false</enabled>-->
+    <!--      </releases>-->
+    <!--    </repository>-->
+    <!--    <repository>-->
+    <!--      <id>ECC</id>-->
+    <!--      <url>https://maven.ecc.no/releases</url>-->
+    <!--    </repository>-->
+    <!--    <repository>-->
+    <!--      <id>maven_central</id>-->
+    <!--      <name>Maven Central</name>-->
+    <!--      <url>https://repo.maven.apache.org/maven2/</url>-->
+    <!--    </repository>-->
   </repositories>
 
   <build>
@@ -391,7 +403,7 @@
       <plugin>
         <groupId>net.alchim31.maven</groupId>
         <artifactId>scala-maven-plugin</artifactId>
-        <version>4.9.2</version>
+        <version>4.9.5</version>
         <executions>
           <execution>
             <goals>
@@ -410,7 +422,6 @@
           </jvmArgs>
           <args>
             <arg>-deprecation</arg>
-            <arg>-Xsource:3</arg>
             <!-- <arg>-Xmax-inlines:32</arg> -->
           </args>
         </configuration>

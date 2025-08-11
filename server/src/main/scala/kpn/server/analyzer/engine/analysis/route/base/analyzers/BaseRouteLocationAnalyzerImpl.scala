@@ -34,7 +34,7 @@ class BaseRouteLocationAnalyzerImpl(
   private def locate(context: BaseRouteAnalysisContext): BaseRouteAnalysisContext = {
     val routeLocationAnalysis = routeLocator.locate(context.analysisSegments)
     if (routeLocationAnalysis.location.isEmpty && context.countries.nonEmpty) {
-      val countries = context.countries.map(_.entryName)
+      val countries = context.countries.map(_.toString)
       context.copy(
         _locationAnalysis = Some(
           RouteLocationAnalysis(

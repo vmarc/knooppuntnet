@@ -7,6 +7,6 @@ import kpn.api.common.FeatureLayer
 
 class FeatureLayerJsonSerializer extends JsonSerializer[FeatureLayer] {
   override def serialize(layer: FeatureLayer, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(layer.entryName)
+    jsonGenerator.writeString(layer.toString)
   }
 }

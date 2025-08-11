@@ -16,11 +16,11 @@ class FactCodec(registry: CodecRegistry) extends Codec[Fact] {
 
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): Fact = {
-    Fact.withName(bsonReader.readString())
+    Fact.valueOf(bsonReader.readString())
   }
 
   override def encode(bsonWriter: BsonWriter, value: Fact, encoderContext: EncoderContext): Unit = {
-    bsonWriter.writeString(value.entryName)
+    bsonWriter.writeString(value.toString)
   }
 
   override def getEncoderClass: Class[Fact] = {

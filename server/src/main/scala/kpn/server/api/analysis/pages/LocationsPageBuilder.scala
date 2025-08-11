@@ -23,7 +23,7 @@ class LocationsPageBuilder(
   private val log = Log(classOf[LocationsPageBuilder])
 
   def build(language: Language, subset: Subset): Option[LocationsPage] = {
-    val locationNode = locationConfiguration.locations.find(_.id == subset.country.entryName) match {
+    val locationNode = locationConfiguration.locations.find(_.id == subset.country.toString) match {
       case Some(locationDefinition) =>
         val nodeCounts = log.infoElapsed {
           val result = locationRepository.countryLocations(subset).map(l => l.name -> l).toMap

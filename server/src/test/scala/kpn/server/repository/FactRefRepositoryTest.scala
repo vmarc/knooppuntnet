@@ -98,7 +98,7 @@ class FactRefRepositoryTest extends MongoTest {
         labels = Seq(
           Label.facts,
           Label.routeType(subset.routeType),
-          Label.location(subset.country.entryName),
+          Label.location(subset.country.toString),
         ) ++ facts.map(Label.fact)
       )
     )
@@ -110,8 +110,8 @@ class FactRefRepositoryTest extends MongoTest {
         nodeId,
         labels = Seq(
           Label.routeType(subset.routeType),
-          Label.location(subset.country.entryName),
-          s"integrity-check-failed-${subset.routeType.entryName}"
+          Label.location(subset.country.toString),
+          s"integrity-check-failed-${subset.routeType.toString}"
         )
       )
     )

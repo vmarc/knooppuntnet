@@ -33,12 +33,7 @@ class LegBuilderImpl(
   private val featureId = new FeatureId()
 
   override def leg(params: LegBuildParams): Option[PlanLegDetail] = {
-    RouteType.withNameOption(params.routeType) match {
-      case Some(routeType) => buildLeg(params, routeType)
-      case None =>
-        log.error(s"Unknown network type ${params.routeType}")
-        None
-    }
+    buildLeg(params, RouteType.valueOf(params.routeType))
   }
 
   override def plan(routeType: RouteType, planString: String, encoded: Boolean, proposed: Boolean): Option[Seq[PlanLegDetail]] = {
@@ -51,7 +46,7 @@ class LegBuilderImpl(
         }
 
       case None =>
-        log.error(s"Could not find graph for network type ${routeType.entryName}")
+        log.error(s"Could not find graph for network type ${routeType.toString}")
         None
     }
   }
@@ -72,7 +67,7 @@ class LegBuilderImpl(
         val source = legEnds.head
         val sink = legEnds.tail.head
         val params = LegBuildParams(
-          routeType.entryName,
+          routeType.toString,
           source,
           sink,
           proposed
@@ -91,7 +86,7 @@ class LegBuilderImpl(
         }
         else {
           val params = LegBuildParams(
-            routeType.entryName,
+            routeType.toString,
             source,
             sink,
             proposed
@@ -109,7 +104,7 @@ class LegBuilderImpl(
     graphRepository.graph(routeType) match {
       case Some(graph) => buildLeg(params, graph)
       case None =>
-        log.error(s"Could not find graph for network type ${routeType.entryName}")
+        log.error(s"Could not find graph for network type ${routeType.toString}")
         None
     }
   }

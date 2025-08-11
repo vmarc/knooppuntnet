@@ -16,11 +16,11 @@ class FeatureLayerCodec(registry: CodecRegistry) extends Codec[FeatureLayer] {
 
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): FeatureLayer = {
-    FeatureLayer.withName(bsonReader.readString())
+    FeatureLayer.valueOf(bsonReader.readString())
   }
 
   override def encode(bsonWriter: BsonWriter, value: FeatureLayer, encoderContext: EncoderContext): Unit = {
-    bsonWriter.writeString(value.entryName)
+    bsonWriter.writeString(value.toString)
   }
 
   override def getEncoderClass: Class[FeatureLayer] = {

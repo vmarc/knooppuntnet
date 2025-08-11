@@ -568,6 +568,6 @@ class BaseRouteNodesAnalyzerTest extends UnitTest {
         )
       )
     )
-    new RouteNodesAnalysisFormatter(context.routeNodesAnalysis).nodeStrings ++ context.facts.map(_.entryName)
+    new RouteNodesAnalysisFormatter(context.routeNodesAnalysis).nodeStrings ++ context.facts.map(_.toString)
   }
 }

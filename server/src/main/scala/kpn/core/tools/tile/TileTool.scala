@@ -63,7 +63,7 @@ class TileTool(
   def process(): Unit = {
     RouteType.values.foreach { routeType =>
       ZoomLevel.minZoom to ZoomLevel.maxZoom foreach { zoomLevel =>
-        Log.context(Seq(routeType.entryName, zoomLevel.toString)) {
+        Log.context(Seq(routeType.toString, zoomLevel.toString)) {
           processTiles(routeType, zoomLevel)
         }
       }

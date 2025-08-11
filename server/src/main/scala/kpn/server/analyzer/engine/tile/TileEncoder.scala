@@ -12,7 +12,7 @@ object TileEncoder {
     val clipBufferSize = RouteTiles.clipBufferSize(zoomLevel)
     val encoder = new VectorTileEncoder(extent, clipBufferSize, false)
     features.foreach { feature =>
-      encoder.addFeature(feature.layer.entryName, feature.attributes.asJava, feature.geometry)
+      encoder.addFeature(feature.layer.toString, feature.attributes.asJava, feature.geometry)
     }
     encoder.encode
   }

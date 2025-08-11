@@ -16,7 +16,7 @@ object LocationGeometryExplorationTool {
 class LocationGeometryExplorationTool {
   def printLocationsWithGeometryCollectionWithMultipleElements(): Unit = {
     Country.values.foreach { country =>
-      val dir = s"${Dirs.root}/locations/${country.entryName}/geometries"
+      val dir = s"${Dirs.root}/locations/${country.toString}/geometries"
       new File(dir).listFiles().foreach { file =>
         val geoJson = FileUtils.readFileToString(file, "UTF-8")
         val geometry = new GeoJsonReader().read(geoJson)
@@ -31,7 +31,7 @@ class LocationGeometryExplorationTool {
 
   def printLocationsWithWrongCoordinateReferenceSystem(): Unit = {
     val geoJsons = Country.values.flatMap { country =>
-      val dir = s"${Dirs.root}/locations/${country.entryName}/geometries"
+      val dir = s"${Dirs.root}/locations/${country.toString}/geometries"
       new File(dir).listFiles().flatMap { file =>
         val geoJson = FileUtils.readFileToString(file, "UTF-8")
         Option.when(geoJson.contains("EPSG:0")) {
@@ -41,12 +41,12 @@ class LocationGeometryExplorationTool {
       }
     }
     geoJsons.foreach(println)
-    println(s"${geoJsons.size} locations with wrong coordinate reference system")
+    println(s"${geoJsons.length} locations with wrong coordinate reference system")
   }
 
   def printRootGeometryTypes(): Unit = {
     val geometryTypeMap = Country.values.flatMap { country =>
-      val dir = s"${Dirs.root}/locations/${country.entryName}/geometries"
+      val dir = s"${Dirs.root}/locations/${country.toString}/geometries"
       new File(dir).listFiles().map { file =>
         val geoJson = FileUtils.readFileToString(file, "UTF-8")
         val geometryType = geoJson.takeWhile(_ != ',').drop("""{"type":"""".length).dropRight(1)
@@ -54,6 +54,6 @@ class LocationGeometryExplorationTool {
       }
     }.groupBy(_._1)
 
-    geometryTypeMap.foreach { case (key, values) => println(s"$key -> ${values.size}") }
+    geometryTypeMap.foreach { case (key, values) => println(s"$key -> ${values.length}") }
   }
 }

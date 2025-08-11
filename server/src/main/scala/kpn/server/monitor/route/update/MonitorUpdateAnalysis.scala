@@ -90,7 +90,7 @@ class MonitorUpdateAnalysis(
       analyzeGpxReference(route, routeDoc, references, oldStateIds)
     }
     else {
-      throw new IllegalArgumentException(s"unexpected reference type: '${route.referenceType.entryName}'")
+      throw new IllegalArgumentException(s"unexpected reference type: '${route.referenceType.toString}'")
     }
   }
 
