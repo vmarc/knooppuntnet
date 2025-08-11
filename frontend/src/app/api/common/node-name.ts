@@ -7,6 +7,6 @@ export interface NodeName {
   readonly routeType: RouteType;
   readonly routeScope: RouteScope;
   readonly name: string;
-  readonly longName: string;
+  readonly longName?: string;
   readonly proposed: boolean;
 }

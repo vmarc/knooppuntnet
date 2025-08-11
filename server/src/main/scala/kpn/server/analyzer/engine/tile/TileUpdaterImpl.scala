@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.RouteType
-import kpn.api.common.tiles.ZoomLevel
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.TileData

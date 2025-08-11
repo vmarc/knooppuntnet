@@ -7,7 +7,7 @@ import { MonitorRouteSegment } from './monitor-route-segment';
 
 export interface MonitorRouteChangeDetail {
   readonly key: ChangeKey;
-  readonly comment: string;
+  readonly comment?: string;
   readonly wayCount: number;
   readonly waysAdded: number;
   readonly waysRemoved: number;

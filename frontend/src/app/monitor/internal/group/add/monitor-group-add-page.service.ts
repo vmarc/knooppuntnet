@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { MonitorGroupProperties } from '@api/common/monitor/monitor-group-properties';
 import { NavService } from '@app/shared/components/nav.service';
 import { MonitorService } from '../../monitor.service';
 
@@ -28,7 +29,11 @@ export class MonitorGroupAddPageService {
 
   add(): void {
     if (this.form.valid) {
-      this.monitorService.groupAdd(this.form.value).subscribe(() => this.navService.go('/monitor'));
+      const properties: MonitorGroupProperties = {
+        name: this.form.value.name,
+        description: this.form.value.description,
+      };
+      this.monitorService.groupAdd(properties).subscribe(() => this.navService.go('/monitor'));
     }
   }
 }

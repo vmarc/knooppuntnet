@@ -9,7 +9,7 @@ import { MonitorRouteSegment } from './monitor-route-segment';
 import { MonitorRouteSubRelation } from './monitor-route-sub-relation';
 
 export interface MonitorRouteMapPage {
-  readonly relationId: number;
+  readonly relationId?: number;
   readonly routeName: string;
   readonly routeDescription: string;
   readonly groupName: string;
@@ -21,7 +21,7 @@ export interface MonitorRouteMapPage {
   readonly previousSubRelation?: MonitorRouteSubRelation;
   readonly nextSubRelation?: MonitorRouteSubRelation;
   readonly osmSegments: MonitorRouteSegment[];
-  readonly matchesGeoJson: string;
+  readonly matchesGeoJson?: string;
   readonly deviations: MonitorRouteDeviation[];
   readonly reference?: MonitorReferenceInfo;
   readonly subRelations: MonitorRouteSubRelation[];

@@ -8,8 +8,8 @@ export interface MonitorRouteDetail {
   readonly routeId: string;
   readonly name: string;
   readonly description: string;
-  readonly symbol: string;
-  readonly relationId: number;
+  readonly symbol?: string;
+  readonly relationId?: number;
   readonly referenceType: string;
   readonly referenceTimestamp?: Timestamp;
   readonly referenceDistance: number;

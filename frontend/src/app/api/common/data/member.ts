@@ -8,6 +8,6 @@ export interface Member {
   readonly node?: Node;
   readonly way?: Way;
   readonly relation?: Relation;
-  readonly relationId: number;
-  readonly role: string;
+  readonly relationId?: number;
+  readonly role?: string;
 }

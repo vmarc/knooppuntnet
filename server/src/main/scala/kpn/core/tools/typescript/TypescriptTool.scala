@@ -1,9 +1,12 @@
 package kpn.core.tools.typescript
 
-import kpn.api.common.data.raw.RawNode
 import kpn.api.common.monitor.MonitorGroupProperties
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.core.tools.typescript.TypescriptTool.excludedTraits
+import kpn.tools.code.ClassId
+import kpn.tools.code.ScalaCaseClassReader
+import kpn.tools.code.domain.ClassInfo
 import org.apache.commons.io.FileUtils
 
 import java.io.File
@@ -11,7 +14,6 @@ import java.io.PrintStream
 import scala.jdk.CollectionConverters.*
 import scala.reflect.runtime.universe.ClassSymbol
 import scala.reflect.runtime.universe.MethodSymbol
-import scala.reflect.runtime.universe.runtimeMirror
 
 object TypescriptTool {
 
@@ -19,6 +21,14 @@ object TypescriptTool {
     name(MonitorGroupProperties),
     name(MonitorRouteProperties),
     name(MonitorRouteUpdate),
+  )
+
+  val excludedTraits = Seq(
+    "LatLon",
+    "Tagable",
+    "Meta",
+    "Element",
+    "RawElement"
   )
 
   def main(args: Array[String]): Unit = {
@@ -40,29 +50,28 @@ class TypescriptTool {
     // following classes have been manually changed in Typescript after changing List to Array, enable again when switching to interfaces
   )
 
-  private val mirror = runtimeMirror(classOf[RawNode].getClassLoader)
-
   def generate(): Unit = {
+    val scalaCaseClassReader = new ScalaCaseClassReader()
+    val classInfos = scalaClassIds().filterNot(ci => excludedTraits.contains(ci.className)).map(scalaCaseClassReader.read)
 
-    val scalaClasses = {
-      scalaClassNames().map(className => mirror.staticClass(className))
-    }
-
-    scalaClasses.filter(isCaseClass).foreach(generateCaseClass)
-    scalaClasses.filter(isEnumeration).foreach(generateEnumeration)
+    classInfos.filterNot(_.isEnum).foreach(generateCaseClass)
+    classInfos.filter(_.isEnum).foreach(generateEnumeration)
 
     println("end")
   }
 
-  private def scalaClassNames(): Seq[String] = {
+  private def scalaClassIds(): Seq[ClassId] = {
     val files = FileUtils.listFiles(new File(root), Array("scala"), true).asScala.toSeq
     files.flatMap { file =>
       if (ignoredClasses.exists(n => file.getName.endsWith(s"$n.scala"))) {
         None
       }
       else {
-        val className = file.getAbsolutePath.drop(root.length - "kpn/api/common".length).dropRight(".scala".length).replace('/', '.')
-        Some(className)
+        val path = file.getAbsolutePath.dropRight(".scala".length)
+        val fullClassName = path.drop(root.length - "kpn/api/common".length).replace('/', '.')
+        val className = fullClassName.split("\\.").last
+        val packageName = fullClassName.dropRight(className.length + 1).replace('/', '.')
+        Some(ClassId(className, packageName))
       }
     }
   }
@@ -76,32 +85,33 @@ class TypescriptTool {
     classSymbol.baseClasses.exists(_.name.toString.contains("EnumEntry"))
   }
 
-  private def generateCaseClass(caseClass: ClassSymbol): Unit = {
-    val classInfo = new ClassAnalyzer().analyze(caseClass.typeSignature)
-    val out = fileStream(caseClass)
+  private def generateCaseClass(classInfo: ClassInfo): Unit = {
+    val out = fileStream(classInfo)
     new TypescriptWriter(out, classInfo).write()
     out.close()
   }
 
-  private def generateEnumeration(enumeration: ClassSymbol): Unit = {
-    val out = fileStream(enumeration)
-    val enumMirror = mirror.reflectModule(enumeration.companion.asModule).instance.asInstanceOf[enumeratum.Enum[?]]
-    val values = enumMirror.values.map(_.asInstanceOf[enumeratum.EnumEntry].entryName)
+  private def generateEnumeration(classInfo: ClassInfo): Unit = {
+    val out = fileStream(classInfo)
+    //    val enumMirror = mirror.reflectModule(enumeration.companion.asModule).instance.asInstanceOf[enumeratum.Enum[?]]
+    //    val values = enumMirror.values.map(_.asInstanceOf[enumeratum.EnumEntry].entryName)
     out.println("// this file is generated, please do not modify")
     out.println()
-    out.println(s"export type ${enumeration.name.toString} =")
-    values.zipWithIndex.foreach { case (value, index) =>
-      val lineEnd = if (index == values.length - 1) ";" else ""
+    out.println(s"export type ${classInfo.className} =")
+    classInfo.enumValues.zipWithIndex.foreach { case (value, index) =>
+      val lineEnd = if (index == classInfo.enumValues.length - 1) ";" else ""
       out.println(s"  | '$value'$lineEnd")
     }
+    //    values.zipWithIndex.foreach { case (value, index) =>
+    //      val lineEnd = if (index == values.length - 1) ";" else ""
+    //      out.println(s"  | '$value'$lineEnd")
+    //    }
     out.close()
   }
 
-  private def fileStream(classSymbol: ClassSymbol): PrintStream = {
-    val className = classSymbol.name.toString
-    val packageName = classSymbol.fullName.dropRight(className.length + 1)
-    val dirName = packageName.replaceAll("kpn.api.", "").replaceAll("\\.", "/")
-    val fileName = s"$dirName/${CamelCaseUtil.toDashed(className)}.ts"
+  private def fileStream(classInfo: ClassInfo): PrintStream = {
+    val dirName = classInfo.packageName.replaceAll("kpn.api.", "").replaceAll("\\.", "/")
+    val fileName = s"$dirName/${CamelCaseUtil.toDashed(classInfo.className)}.ts"
     val file = new File(s"$targetDir/$fileName")
     file.getParentFile.mkdirs()
     new PrintStream(file)

@@ -5,8 +5,8 @@ import { ChangeType } from '@api/common/change-type';
 import { ChangeSetInfo } from '@api/common/changes/change-set-info';
 import { ChangeKey } from '@api/common/changes/details/change-key';
 import { MetaData } from '@api/common/data/meta-data';
-import { RouteDiff } from '@api/common/diff/route/route-diff';
 import { WayDiffsInfo } from '@api/common/diff/way-diffs-info';
+import { RouteDiff } from '@api/common/diff/route/route-diff';
 import { GeometryDiff } from './geometry-diff';
 import { RouteNode } from './route-node';
 import { RouteNodeChange } from './route-node-change';
@@ -17,7 +17,7 @@ export interface RouteChangeInfo {
   readonly version: number;
   readonly changeKey: ChangeKey;
   readonly changeType: ChangeType;
-  readonly comment: string;
+  readonly comment?: string;
   readonly before?: MetaData;
   readonly after?: MetaData;
   readonly diffs: RouteDiff;

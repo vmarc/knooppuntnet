@@ -3,13 +3,13 @@ package kpn.server.analyzer.engine.analysis.route.base.analyzers
 import kpn.api.common.FeatureLayer
 import kpn.api.common.RouteScope
 import kpn.api.common.data.Way
-import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Relation
 import kpn.core.analysis.Facts
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
 import kpn.server.analyzer.engine.monitor.state.MonitorStateTileCoordinateSimplifier.simplify
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
+import kpn.server.analyzer.engine.tile.ZoomLevel
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.wayToWorldCoordinates

@@ -10,7 +10,7 @@ case class NetworkRefs(
   country: Country,
   routeType: RouteType,
   networkRef: Option[Ref],
-  refType: String /* "node" | "route" */ ,
+  refType: String,
   refs: Seq[Ref]
 ) {
   def factCount: Int = if (refs.isEmpty) 1 else refs.size

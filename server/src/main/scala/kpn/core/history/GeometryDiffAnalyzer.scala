@@ -1,4 +1,8 @@
-package kpn.api.common.route
+package kpn.core.history
+
+import kpn.api.common.route.GeometryDiff
+import kpn.api.common.route.PointSegment
+import kpn.api.common.route.WayGeometry
 
 class GeometryDiffAnalyzer {
 

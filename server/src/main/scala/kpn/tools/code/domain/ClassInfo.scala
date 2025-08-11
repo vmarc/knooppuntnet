@@ -7,6 +7,7 @@ case class ClassInfo(
   packageName: String,
   fields: Seq[ClassField],
   isEnum: Boolean = false,
+  enumValues: Seq[String] = Seq.empty
 ) {
   def dependencies: Seq[ClassId] = {
     fields

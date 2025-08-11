@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.common.tiles.ZoomLevel
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.LineSegment

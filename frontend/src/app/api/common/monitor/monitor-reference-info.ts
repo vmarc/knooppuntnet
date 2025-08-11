@@ -12,5 +12,5 @@ export interface MonitorReferenceInfo {
   readonly referenceType: MonitorReferenceType;
   readonly referenceTimestamp: Timestamp;
   readonly referenceSegmentCount: number;
-  readonly referenceFilename: string;
+  readonly referenceFilename?: string;
 }

@@ -8,7 +8,7 @@ export interface RouteSearchResult {
   readonly name: string;
   readonly scopes: RouteScope[];
   readonly distance: number;
-  readonly symbol: string;
+  readonly symbol?: string;
   readonly bounds?: Bounds;
   readonly routeIds: number[];
 }

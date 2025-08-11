@@ -6,5 +6,5 @@ export interface MonitorRouteUpdateStatus {
   readonly steps: MonitorRouteUpdateStep[];
   readonly done: boolean;
   readonly errors: string[];
-  readonly exception: string;
+  readonly exception?: string;
 }

@@ -6,11 +6,11 @@ import { BaseRouteSegment } from './base-route-segment';
 export interface RouteStructureRelation {
   readonly physical: boolean;
   readonly name: string;
-  readonly subRelationIndex: number;
+  readonly subRelationIndex?: number;
   readonly survey?: Day;
-  readonly symbol: string;
+  readonly symbol?: string;
   readonly segments: BaseRouteSegment[];
   readonly totalDistance: number;
-  readonly gaps: string;
+  readonly gaps?: string;
   readonly happy: boolean;
 }

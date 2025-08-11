@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.node.base.analyzers
 
-import kpn.api.common.tiles.ZoomLevel
 import kpn.server.analyzer.engine.tile.NodeTileCalculator
+import kpn.server.analyzer.engine.tile.ZoomLevel
 import org.springframework.stereotype.Component
 
 @Component

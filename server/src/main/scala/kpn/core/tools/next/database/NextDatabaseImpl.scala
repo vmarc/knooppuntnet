@@ -7,11 +7,9 @@ import kpn.core.tools.next.domain.NextRouteState
 import kpn.database.base.DatabaseCollection
 import kpn.database.base.DatabaseCollectionImpl
 
-import scala.reflect.ClassTag
-
 class NextDatabaseImpl(val database: MongoDatabase) extends NextDatabase {
 
-  override def getCollection[T: ClassTag](collectionName: String): MongoCollection[T] = {
+  override def getCollection[T](collectionName: String): MongoCollection[T] = {
     database.getCollection(collectionName).asInstanceOf[MongoCollection[T]]
   }
 

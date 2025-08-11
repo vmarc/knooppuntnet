@@ -8,7 +8,7 @@ import { ChangeSetSummaryNetworkInfo } from './change-set-summary-network-info';
 export interface ChangeSetSummaryInfo {
   readonly rowIndex: number;
   readonly key: ChangeKey;
-  readonly comment: string;
+  readonly comment?: string;
   readonly subsets: Subset[];
   readonly network?: ChangeSetSummaryNetworkInfo;
   readonly location?: ChangeSetSummaryLocationInfo;

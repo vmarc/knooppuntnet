@@ -8,6 +8,6 @@ export interface MonitorRouteGpxPage {
   readonly subRelationId: number;
   readonly subRelationDescription: string;
   readonly referenceTimestamp: Timestamp;
-  readonly referenceFilename: string;
+  readonly referenceFilename?: string;
   readonly referenceDistance: number;
 }

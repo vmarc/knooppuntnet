@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.FeatureLayer
 import kpn.api.common.RouteType
-import kpn.api.common.tiles.ZoomLevel
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
 import kpn.server.analyzer.engine.tiles.TileData

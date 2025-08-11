@@ -5,10 +5,10 @@ import { MonitorAction } from './monitor-action';
 import { MonitorReferenceType } from './monitor-reference-type';
 
 export interface MonitorRouteUpdate {
-  readonly action?: MonitorAction;
-  readonly groupName?: string;
-  readonly routeName?: string;
-  readonly referenceType?: MonitorReferenceType;
+  readonly action: MonitorAction;
+  readonly groupName: string;
+  readonly routeName: string;
+  readonly referenceType: MonitorReferenceType;
   readonly description?: string;
   readonly comment?: string;
   readonly relationId?: number;

@@ -10,11 +10,11 @@ export interface RouteStructureRow {
   readonly level: number;
   readonly id: number;
   readonly memberType: MemberType;
-  readonly role: string;
+  readonly role?: string;
   readonly link?: Link;
   readonly distance: number;
-  readonly name: string;
-  readonly poi: string;
+  readonly name?: string;
+  readonly poi?: string;
   readonly way?: RouteStructureWay;
   readonly relation?: RouteStructureRelation;
   readonly segmentIds: number[];

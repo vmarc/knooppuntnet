@@ -4,10 +4,10 @@ import { ChangeKey } from '@api/common/changes/details/change-key';
 
 export interface MonitorRouteChangeSummary {
   readonly key: ChangeKey;
-  readonly groupName: string;
-  readonly routeName: string;
-  readonly groupDescription: string;
-  readonly comment: string;
+  readonly groupName?: string;
+  readonly routeName?: string;
+  readonly groupDescription?: string;
+  readonly comment?: string;
   readonly wayCount: number;
   readonly waysAdded: number;
   readonly waysRemoved: number;

@@ -8,7 +8,7 @@ export interface MonitorRouteSummary {
   readonly routeName: string;
   readonly routeDescription: string;
   readonly routeId: string;
-  readonly relationId: number;
+  readonly relationId?: number;
   readonly relationIds: number[];
   readonly memberCount: number;
   readonly segmentCount: number;

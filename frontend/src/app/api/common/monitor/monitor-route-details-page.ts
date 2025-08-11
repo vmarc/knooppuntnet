@@ -7,13 +7,13 @@ import { MonitorRouteSummary } from './monitor-route-summary';
 
 export interface MonitorRouteDetailsPage {
   readonly summary: MonitorRouteSummary;
-  readonly comment: string;
-  readonly symbol: string;
+  readonly comment?: string;
+  readonly symbol?: string;
   readonly analysisTimestamp?: Timestamp;
-  readonly analysisDuration: number;
+  readonly analysisDuration?: number;
   readonly referenceType: MonitorReferenceType;
   readonly referenceTimestamp?: Timestamp;
-  readonly referenceFilename: string;
+  readonly referenceFilename?: string;
   readonly referenceDistance: number;
   readonly deviationDistance: number;
   readonly happy: boolean;

@@ -13,8 +13,8 @@ export interface Poi {
   readonly tags: Tag[];
   readonly location: Location;
   readonly tiles: string[];
-  readonly description: string;
-  readonly address: string;
+  readonly description?: string;
+  readonly address?: string;
   readonly link: boolean;
   readonly image: boolean;
 }

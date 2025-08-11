@@ -10,7 +10,7 @@ export interface MonitorRouteChangePage {
   readonly key: ChangeKey;
   readonly groupName: string;
   readonly groupDescription: string;
-  readonly comment: string;
+  readonly comment?: string;
   readonly wayCount: number;
   readonly waysAdded: number;
   readonly waysRemoved: number;

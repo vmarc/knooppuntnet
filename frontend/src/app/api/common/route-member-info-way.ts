@@ -7,7 +7,7 @@ import { Tag } from '@api/custom/tag';
 import { Timestamp } from '@api/custom/timestamp';
 
 export interface RouteMemberInfoWay {
-  readonly wayType: string;
+  readonly wayType?: string;
   readonly nodes: RouteNetworkNodeInfo[];
   readonly timestamp: Timestamp;
   readonly surface: string;

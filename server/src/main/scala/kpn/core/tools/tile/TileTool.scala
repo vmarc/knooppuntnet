@@ -1,7 +1,6 @@
 package kpn.core.tools.tile
 
 import kpn.api.common.RouteType
-import kpn.api.common.tiles.ZoomLevel
 import kpn.core.util.Log
 import kpn.core.util.ThreadExecutor
 import kpn.database.base.Database
@@ -9,6 +8,7 @@ import kpn.database.base.Options
 import kpn.database.base.Tool
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tile.RouteTileEncoder
+import kpn.server.analyzer.engine.tile.ZoomLevel
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.TilesData

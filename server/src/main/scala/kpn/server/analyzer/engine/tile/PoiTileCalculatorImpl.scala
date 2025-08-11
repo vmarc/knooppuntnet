@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.LatLon
-import kpn.api.common.tiles.ZoomLevel
 import kpn.core.poi.PoiDefinition
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX

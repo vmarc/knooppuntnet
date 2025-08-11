@@ -6,11 +6,11 @@ import { Timestamp } from '@api/custom/timestamp';
 export interface MonitorRouteRelation {
   readonly relationId: number;
   readonly name: string;
-  readonly role: string;
+  readonly role?: string;
   readonly survey?: Day;
-  readonly symbol: string;
+  readonly symbol?: string;
   readonly referenceTimestamp?: Timestamp;
-  readonly referenceFilename: string;
+  readonly referenceFilename?: string;
   readonly referenceDistance: number;
   readonly deviationDistance: number;
   readonly deviationCount: number;

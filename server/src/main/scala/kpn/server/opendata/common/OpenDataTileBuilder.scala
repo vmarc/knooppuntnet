@@ -1,10 +1,10 @@
 package kpn.server.opendata.common
 
-import kpn.api.common.tiles.ZoomLevel
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCache
+import kpn.server.analyzer.engine.tile.ZoomLevel
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.Tile

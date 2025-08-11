@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tiles.domain
 
-import kpn.api.common.tiles.ZoomLevel
+import kpn.server.analyzer.engine.tile.ZoomLevel
 
 object PoiTiles extends Tiles(
   (ZoomLevel.poiTileMinZoom to ZoomLevel.poiTileMaxZoom).map { zoomLevel =>

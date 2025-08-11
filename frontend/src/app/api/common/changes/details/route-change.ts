@@ -1,11 +1,11 @@
 // this file is generated, please do not modify
 
 import { ChangeType } from '@api/common/change-type';
+import { Fact } from '@api/common/fact';
+import { RouteLocationAnalysis } from '@api/common/route-location-analysis';
 import { Ref } from '@api/common/common/ref';
 import { RouteData } from '@api/common/diff/route-data';
 import { RouteDiff } from '@api/common/diff/route/route-diff';
-import { Fact } from '@api/common/fact';
-import { RouteLocationAnalysis } from '@api/common/route-location-analysis';
 import { RouteNodeChange } from '@api/common/route/route-node-change';
 import { ChangeKey } from './change-key';
 

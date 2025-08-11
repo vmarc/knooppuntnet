@@ -1,6 +1,6 @@
 package kpn.core.tools.tile
 
-import kpn.api.common.tiles.ZoomLevel
+import kpn.server.analyzer.engine.tile.ZoomLevel
 
 import java.io.File
 import java.io.FilenameFilter

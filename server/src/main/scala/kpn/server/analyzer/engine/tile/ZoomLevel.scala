@@ -1,4 +1,4 @@
-package kpn.api.common.tiles
+package kpn.server.analyzer.engine.tile
 
 object ZoomLevel {
 

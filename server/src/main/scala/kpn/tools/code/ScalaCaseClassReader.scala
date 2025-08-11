@@ -1,5 +1,6 @@
 package kpn.tools.code
 
+import kpn.core.tools.typescript.CamelCaseUtil
 import kpn.core.util.Log
 import kpn.tools.code.domain.ClassField
 import kpn.tools.code.domain.ClassInfo
@@ -89,12 +90,14 @@ class ScalaCaseClassReader {
         val caseClassPattern = """case class (\w+)\((.*?)\)""".r
         val enumPattern = """sealed trait (\w+) extends EnumEntry""".r
         val fieldPattern = """\s*(\w+)\s*:\s*([\w\[\]\.]+)""".r
+        val enumValuesPattern = """final case object (\w+) extends""".r
 
         caseClassPattern.findFirstMatchIn(content) match {
           case Some(m) =>
             val className = m.group(1)
             val fieldsString = m.group(2)
-            val fields = fieldsString.split(",").map(_.split("=").head.trim).map {
+
+            val fields = fieldsString.split(",").map(_.split("=").head.trim).filter(_.nonEmpty).map {
               case fieldPattern(fieldName, fieldTypeString) =>
                 ClassField(fieldName, buildClassType(classId, importMap, fieldTypeString))
               case _ =>
@@ -105,7 +108,30 @@ class ScalaCaseClassReader {
             enumPattern.findFirstMatchIn(content) match {
               case Some(m) =>
                 val className = m.group(1)
-                ClassInfo(className, packageName, Seq.empty, isEnum = true)
+
+                val enumValues = lines.flatMap { line =>
+                  enumValuesPattern.findFirstMatchIn(line) match {
+                    case Some(xxx) =>
+                      val g = xxx.group(1)
+                      if (classId.className == "Fact") {
+                        Some(g)
+                      }
+                      else {
+                        Some(CamelCaseUtil.toDashed(g))
+                      }
+
+                    case None => None
+                  }
+                }
+
+                ClassInfo(
+                  className,
+                  packageName,
+                  Seq.empty,
+                  isEnum = true,
+                  enumValues
+                )
+
               case None =>
                 throw new IllegalStateException(s"could not parse case class $filename")
             }
