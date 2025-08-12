@@ -12,12 +12,12 @@ object CountryBoundaryTool {
   def main(args: Array[String]): Unit = {
     Country.values.foreach { country =>
       val data = load(country)
-      val polygons = new PolygonBuilder(country.toString, data).polygons()
+      val polygons = new PolygonBuilder(country.entryName, data).polygons()
       log(polygons)
       val writer = new WKTWriter()
       polygons.zipWithIndex.foreach { case (polygon, index) =>
         val suffix = "%02d".format(index + 1)
-        val filename = s"${Dirs.root}/country/${country.toString}-$suffix.poly"
+        val filename = s"${Dirs.root}/country/${country.entryName}-$suffix.poly"
         val w = new FileWriter(filename)
         try {
           writer.writeFormatted(polygon, w)
@@ -30,7 +30,7 @@ object CountryBoundaryTool {
   }
 
   private def load(country: Country): SkeletonData = {
-    println(s"Collecting boundary information for ${country.toString}")
+    println(s"Collecting boundary information for ${country.entryName}")
     val loader = new CountryBoundaryLoader()
     val id = loader.countryId(country)
     val data = {

@@ -17,7 +17,7 @@ class CachingOverpassQueryExecutorTest extends UnitTest with MockFactory {
     }
     try {
       val executor = stub[OverpassQueryExecutor]
-      executor.execute.when(*).returns("result")
+      (executor.execute _).when(*).returns("result")
 
       val cachingExecutor = new CachingOverpassQueryExecutor(cacheRootDir, executor)
       cachingExecutor.executeQuery(Some(Timestamp(2015, 11, 8, 12, 13, 14)), QueryNode(1))

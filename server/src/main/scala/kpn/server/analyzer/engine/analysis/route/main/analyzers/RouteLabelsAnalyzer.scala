@@ -50,7 +50,7 @@ class RouteLabelsAnalyzer(context: RouteAnalysisContext) {
   private def buildLocationLabels(): Seq[String] = {
     val analysisLabels = context.route.locationAnalysis.locationNames.map(Label.location)
     if (analysisLabels.isEmpty) {
-      context.route.summary.countries.map(country => Label.location(country.toString))
+      context.route.summary.countries.map(country => Label.location(country.entryName))
     }
     else {
       analysisLabels

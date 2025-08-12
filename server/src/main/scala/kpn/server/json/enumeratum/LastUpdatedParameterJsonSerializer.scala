@@ -7,6 +7,6 @@ import kpn.api.common.location.LastUpdatedParameter
 
 class LastUpdatedParameterJsonSerializer extends JsonSerializer[LastUpdatedParameter] {
   override def serialize(lastUpdatedParameter: LastUpdatedParameter, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(lastUpdatedParameter.toString)
+    jsonGenerator.writeString(lastUpdatedParameter.entryName)
   }
 }

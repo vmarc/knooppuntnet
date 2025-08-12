@@ -16,11 +16,11 @@ class MemberTypeCodec(registry: CodecRegistry) extends Codec[MemberType] {
 
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): MemberType = {
-    MemberType.valueOf(bsonReader.readString())
+    MemberType.withName(bsonReader.readString())
   }
 
   override def encode(bsonWriter: BsonWriter, value: MemberType, encoderContext: EncoderContext): Unit = {
-    bsonWriter.writeString(value.toString)
+    bsonWriter.writeString(value.entryName)
   }
 
   override def getEncoderClass: Class[MemberType] = {

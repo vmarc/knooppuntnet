@@ -7,6 +7,6 @@ import kpn.api.common.route.WayDirection
 
 class WayDirectionJsonSerializer extends JsonSerializer[WayDirection] {
   override def serialize(wayDirection: WayDirection, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(wayDirection.toString)
+    jsonGenerator.writeString(wayDirection.entryName)
   }
 }

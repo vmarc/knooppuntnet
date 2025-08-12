@@ -7,6 +7,6 @@ import kpn.api.common.RouteScope
 
 class RouteScopeJsonSerializer extends JsonSerializer[RouteScope] {
   override def serialize(routeScope: RouteScope, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(routeScope.toString)
+    jsonGenerator.writeString(routeScope.entryName)
   }
 }

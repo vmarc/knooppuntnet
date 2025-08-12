@@ -28,7 +28,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends MongoTest {
 
     val legBuilder = new LegBuilderImpl(graphRepository, baseRouteRepository)
     val params = LegBuildParams(
-      RouteType.cycling.toString,
+      RouteType.cycling.entryName,
       LegEnd.node(7741683309L),
       LegEnd.node(42784896L),
       proposed = false

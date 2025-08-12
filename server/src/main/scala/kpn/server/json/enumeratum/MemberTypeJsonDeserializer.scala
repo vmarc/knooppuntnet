@@ -9,6 +9,6 @@ import kpn.api.common.data.MemberType
 class MemberTypeJsonDeserializer extends JsonDeserializer[MemberType] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): MemberType = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    MemberType.valueOf(node.asText)
+    MemberType.withName(node.asText)
   }
 }

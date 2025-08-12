@@ -7,6 +7,6 @@ import kpn.api.common.changes.ChangeAction
 
 class ChangeActionJsonSerializer extends JsonSerializer[ChangeAction] {
   override def serialize(changeAction: ChangeAction, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(changeAction.toString)
+    jsonGenerator.writeString(changeAction.entryName)
   }
 }

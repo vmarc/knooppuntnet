@@ -45,13 +45,13 @@ class MongoQueryNodeTileInfos(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("names.routeType", routeType.toString),
-          regex("tiles", s"^${routeType.toString}-$zoomLevel-"),
+          equal("names.routeType", routeType.entryName),
+          regex("tiles", s"^${routeType.entryName}-$zoomLevel-"),
         )
       ),
       unwind("$tiles"),
       filter(
-        regex("tiles", s"^${routeType.toString}-$zoomLevel-"),
+        regex("tiles", s"^${routeType.entryName}-$zoomLevel-"),
       ),
       project(
         fields(
@@ -72,8 +72,8 @@ class MongoQueryNodeTileInfos(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("names.routeType", routeType.toString),
-          equal("tiles", s"${routeType.toString}-${tileId.name}")
+          equal("names.routeType", routeType.entryName),
+          equal("tiles", s"${routeType.entryName}-${tileId.name}")
         )
       ),
       project(
@@ -91,6 +91,6 @@ class MongoQueryNodeTileInfos(database: Database) {
   }
 
   private def tileName(routeType: RouteType): Bson = {
-    BsonDocument.parse(s"""{$$substr: ["$$tiles", ${routeType.toString.length + 1}, 99]}""")
+    BsonDocument.parse(s"""{$$substr: ["$$tiles", ${routeType.entryName.length + 1}, 99]}""")
   }
 }

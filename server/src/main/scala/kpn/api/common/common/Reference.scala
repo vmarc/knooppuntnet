@@ -18,8 +18,8 @@ case class Reference(
   }
 
   def compare(that: Reference): Int = {
-    (this.routeScope.toString, this.routeType.toString, this.name, this.role).compare(
-      (that.routeScope.toString, that.routeType.toString, that.name, that.role)
+    (this.routeScope.entryName, this.routeType.entryName, this.name, this.role).compare(
+      (that.routeScope.entryName, that.routeType.entryName, that.name, that.role)
     )
   }
 }

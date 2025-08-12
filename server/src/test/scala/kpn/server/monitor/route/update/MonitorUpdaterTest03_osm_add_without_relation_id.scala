@@ -216,12 +216,12 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
 
   private def setupLoadStructure(): Unit = {
     val monitorRouteRelation = route1.overpassStructure
-    configuration.monitorRouteStructureLoader.load.when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(monitorRouteRelation))
+    (configuration.monitorRouteStructureLoader.load _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(monitorRouteRelation))
   }
 
   private def setupLoadTopLevel(): Unit = {
     val relation = route1.overpassTopLevel
-    configuration.monitorRouteRelationRepository.loadTopLevel.when(None, route1.relationId).returns(Some(relation))
-    configuration.monitorRouteRelationRepository.loadTopLevel.when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(relation))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, route1.relationId).returns(Some(relation))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(relation))
   }
 }

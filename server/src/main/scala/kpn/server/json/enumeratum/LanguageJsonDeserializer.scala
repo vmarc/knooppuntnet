@@ -9,6 +9,6 @@ import kpn.api.common.Language
 class LanguageJsonDeserializer extends JsonDeserializer[Language] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Language = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    Language.valueOf(node.asText)
+    Language.withName(node.asText)
   }
 }

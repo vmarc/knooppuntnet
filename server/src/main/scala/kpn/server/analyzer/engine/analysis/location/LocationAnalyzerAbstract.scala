@@ -34,7 +34,7 @@ abstract class LocationAnalyzerAbstract extends LocationAnalyzer {
       val countryCounts: Map[Country, Int] = c.groupBy(identity).map(e => e._1 -> e._2.size)
       val maxCountryCount = countryCounts.values.max
       val countriesWithMaxCount = countryCounts.filter(_._2 == maxCountryCount).keys
-      countriesWithMaxCount.minBy(_.toString)
+      countriesWithMaxCount.minBy(_.entryName)
     }
   }
 }

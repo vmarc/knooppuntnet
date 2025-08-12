@@ -69,7 +69,7 @@ case class Link(
     sb.append(s"   bp ${bool(isOnewayLoopBackwardPart)}")
     sb.append(s"   head ${bool(isOnewayHead)}")
     sb.append(s"   tail ${bool(isOnewayTail)}")
-    sb.append(s"   d ${direction.toString.toLowerCase}")
+    sb.append(s"   d ${direction.entryName.toLowerCase}")
     sb.toString
   }
 

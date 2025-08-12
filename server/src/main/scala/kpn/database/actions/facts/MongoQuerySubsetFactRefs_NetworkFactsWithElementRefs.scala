@@ -38,12 +38,12 @@ class MongoQuerySubsetFactRefs_NetworkFactsWithElementRefs(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("country", subset.country.toString),
-          equal("summary.routeType", subset.routeType.toString)
+          equal("country", subset.country.entryName),
+          equal("summary.routeType", subset.routeType.entryName)
         )
       ),
       unwind("$facts"),
-      filter(equal("facts.fact", fact.toString)),
+      filter(equal("facts.fact", fact.entryName)),
       unwind("$facts.elements"),
       project(
         fields(

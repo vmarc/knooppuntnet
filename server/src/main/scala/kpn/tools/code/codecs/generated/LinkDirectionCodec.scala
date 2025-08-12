@@ -16,11 +16,11 @@ class LinkDirectionCodec(registry: CodecRegistry) extends Codec[LinkDirection] {
 
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): LinkDirection = {
-    LinkDirection.valueOf(bsonReader.readString())
+    LinkDirection.withName(bsonReader.readString())
   }
 
   override def encode(bsonWriter: BsonWriter, value: LinkDirection, encoderContext: EncoderContext): Unit = {
-    bsonWriter.writeString(value.toString)
+    bsonWriter.writeString(value.entryName)
   }
 
   override def getEncoderClass: Class[LinkDirection] = {

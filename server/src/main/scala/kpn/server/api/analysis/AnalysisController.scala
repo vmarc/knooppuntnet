@@ -98,7 +98,10 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   ): ApiResponse[SubsetFactRefs] = {
     Subset.of(country, routeType) match {
       case Some(subset) =>
-          analysisFacade.subsetFactRefs(subset, Fact.valueOf(fact))
+        Fact.withNameOption(fact) match {
+          case Some(f) => analysisFacade.subsetFactRefs(subset, f)
+          case None => notFound()
+        }
       case None => notFound()
     }
   }
@@ -111,7 +114,10 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   ): ApiResponse[SubsetFactDetailsPage] = {
     Subset.of(country, routeType) match {
       case Some(subset) =>
-        analysisFacade.subsetFactDetails(subset, Fact.valueOf(fact))
+        Fact.withNameOption(fact) match {
+          case Some(f) => analysisFacade.subsetFactDetails(subset, f)
+          case None => notFound()
+        }
       case None => notFound()
     }
   }
@@ -386,11 +392,11 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   }
 
   private def toLanguage(language: String): Language = {
-    Language.valueOf(language)
+    Language.withNameOption(language).getOrElse(Language.EN)
   }
 
   private def toAnalysisStrategy(analysisStrategy: String): AnalysisStrategy = {
-    AnalysisStrategy.valueOf(analysisStrategy)
+    AnalysisStrategy.withNameOption(analysisStrategy).getOrElse(Location)
   }
 
   private def notFound[T](): ApiResponse[T] = {

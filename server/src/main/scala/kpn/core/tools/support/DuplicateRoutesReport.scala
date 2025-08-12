@@ -54,7 +54,7 @@ class DuplicateRoutesReport(database: Database) {
         val overlaps = findOverlaps(subsetRoutes)
         if (overlaps.nonEmpty) {
           println()
-          println(s"### ${country.toString}/${routeType.toString} ${subsetRoutes.size} routes, with ${overlaps.size} overlaps")
+          println(s"### ${country.entryName}/${routeType.entryName} ${subsetRoutes.size} routes, with ${overlaps.size} overlaps")
           println()
           printTableHeader()
           overlaps.sorted.foreach(printOverlap)

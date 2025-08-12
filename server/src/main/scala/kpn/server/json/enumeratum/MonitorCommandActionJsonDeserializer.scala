@@ -9,6 +9,6 @@ import kpn.api.common.monitor.MonitorCommandAction
 class MonitorCommandActionJsonDeserializer extends JsonDeserializer[MonitorCommandAction] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): MonitorCommandAction = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    MonitorCommandAction.valueOf(node.asText)
+    MonitorCommandAction.withName(node.asText)
   }
 }

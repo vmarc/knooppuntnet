@@ -9,6 +9,6 @@ import kpn.api.common.AnalysisStrategy
 class AnalysisStrategyJsonDeserializer extends JsonDeserializer[AnalysisStrategy] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): AnalysisStrategy = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    AnalysisStrategy.valueOf(node.asText)
+    AnalysisStrategy.withName(node.asText)
   }
 }

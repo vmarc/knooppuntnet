@@ -36,8 +36,8 @@ class BaseRouteChangeDeleterTest extends UnitTest with MockFactory {
 
     // setup
     val setup = new Setup()
-    setup.routeRepository.findBaseRouteById.when(11).returns(Some(buildBaseRouteDoc()))
-    setup.routeRepository.routeTileIds.when(11).returns(Seq("tile-1", "tile-2"))
+    (setup.routeRepository.findBaseRouteById _).when(11).returns(Some(buildBaseRouteDoc()))
+    (setup.routeRepository.routeTileIds _).when(11).returns(Seq("tile-1", "tile-2"))
 
     // execute
     val changeSetContext = setup.delete()
@@ -45,10 +45,10 @@ class BaseRouteChangeDeleterTest extends UnitTest with MockFactory {
     // verify
     setup.analysisContext.watched.routes.size should equal(0)
 
-    setup.routeRepository.deleteRouteTile.verify("tile-1").once()
-    setup.routeRepository.deleteRouteTile.verify("tile-2").once()
+    (setup.routeRepository.deleteRouteTile _).verify("tile-1").once()
+    (setup.routeRepository.deleteRouteTile _).verify("tile-2").once()
 
-    setup.routeRepository.saveBaseRoute.verify(
+    (setup.routeRepository.saveBaseRoute _).verify(
       where { (doc: BaseRouteDoc) =>
         !doc.active
       }
@@ -63,16 +63,16 @@ class BaseRouteChangeDeleterTest extends UnitTest with MockFactory {
 
     // setup
     val setup = new Setup()
-    setup.routeRepository.findBaseRouteById.when(11).returns(None)
-    setup.routeRepository.routeTileIds.when(11).returns(Seq.empty)
+    (setup.routeRepository.findBaseRouteById _).when(11).returns(None)
+    (setup.routeRepository.routeTileIds _).when(11).returns(Seq.empty)
 
     // execute
     val changeSetContext = setup.delete()
 
     // verify
     setup.analysisContext.watched.routes.size should equal(0)
-    setup.routeRepository.saveBaseRoute.verify(*).never()
-    setup.routeRepository.deleteRouteTile.verify(*).never()
+    (setup.routeRepository.saveBaseRoute _).verify(*).never()
+    (setup.routeRepository.deleteRouteTile _).verify(*).never()
     assertEqual(
       setup.log.messages,
       Seq(
@@ -87,17 +87,17 @@ class BaseRouteChangeDeleterTest extends UnitTest with MockFactory {
 
     // setup
     val setup = new Setup()
-    setup.routeRepository.findBaseRouteById.when(11).returns(None)
-    setup.routeRepository.routeTileIds.when(11).returns(Seq("tile-1", "tile-2"))
+    (setup.routeRepository.findBaseRouteById _).when(11).returns(None)
+    (setup.routeRepository.routeTileIds _).when(11).returns(Seq("tile-1", "tile-2"))
 
     // execute
     val changeSetContext = setup.delete()
 
     // verify
     setup.analysisContext.watched.routes.size should equal(0)
-    setup.routeRepository.saveBaseRoute.verify(*).never()
-    setup.routeRepository.deleteRouteTile.verify("tile-1").once()
-    setup.routeRepository.deleteRouteTile.verify("tile-2").once()
+    (setup.routeRepository.saveBaseRoute _).verify(*).never()
+    (setup.routeRepository.deleteRouteTile _).verify("tile-1").once()
+    (setup.routeRepository.deleteRouteTile _).verify("tile-2").once()
     assertEqual(
       setup.log.messages,
       Seq(

@@ -39,7 +39,7 @@ class LocationMapPageBuilder(
 
     if (locationKeyParam.name == ParcDuVercors.name) {
       val geometries = ParcDuVercors.communes.map { locationId =>
-        val filename = s"${Dirs.root}/locations/${locationKeyParam.country.toString}/geometries/$locationId.json"
+        val filename = s"${Dirs.root}/locations/${locationKeyParam.country.entryName}/geometries/$locationId.json"
         var geoJson = FileUtils.readFileToString(new File(filename), "UTF-8")
         geoJson = geoJson.replace("EPSG:0", "EPSG:4326")
         new GeoJsonReader().read(geoJson)
@@ -61,7 +61,7 @@ class LocationMapPageBuilder(
       )
     }
     else {
-      val filename = s"${Dirs.root}/locations/${locationKeyParam.country.toString}/geometries/${subset.locationIds.head}.json"
+      val filename = s"${Dirs.root}/locations/${locationKeyParam.country.entryName}/geometries/${subset.locationIds.head}.json"
       var geoJson = FileUtils.readFileToString(new File(filename), "UTF-8")
       geoJson = geoJson.replace("EPSG:0", "EPSG:4326")
       val geometry = new GeoJsonReader().read(geoJson)

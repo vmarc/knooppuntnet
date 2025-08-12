@@ -10,7 +10,7 @@ class BlacklistRepositoryTest extends MongoTest {
 
     val blacklistRepository = new BlacklistRepositoryImpl(database)
 
-    val emptyBlacklist = blacklistRepository.find()
+    val emptyBlacklist = blacklistRepository.get()
     emptyBlacklist.networks shouldBe empty
     emptyBlacklist.routes shouldBe empty
     emptyBlacklist.nodes shouldBe empty
@@ -32,7 +32,7 @@ class BlacklistRepositoryTest extends MongoTest {
 
     blacklistRepository.save(blacklist)
 
-    blacklistRepository.find() should equal(blacklist)
+    blacklistRepository.get() should equal(blacklist)
   }
 
   test("blacklist is cached for 30 seconds") {
@@ -44,7 +44,7 @@ class BlacklistRepositoryTest extends MongoTest {
     blacklistRepository.save(blacklist1, 1)
     database.blacklists.save(blacklist2)
 
-    blacklistRepository.find(2000) should equal(blacklist1)
-    blacklistRepository.find(31000) should equal(blacklist2)
+    blacklistRepository.get(2000) should equal(blacklist1)
+    blacklistRepository.get(31000) should equal(blacklist2)
   }
 }

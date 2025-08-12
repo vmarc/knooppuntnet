@@ -6,5 +6,5 @@ import org.springframework.stereotype.Component
 
 @Component
 class StringToRouteTypeConverter extends Converter[String, RouteType] {
-  override def convert(source: String): RouteType = RouteType.valueOf(source)
+  override def convert(source: String): RouteType = RouteType.withName(source)
 }

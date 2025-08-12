@@ -16,11 +16,11 @@ class CountryCodec(registry: CodecRegistry) extends Codec[Country] {
 
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): Country = {
-    Country.valueOf(bsonReader.readString())
+    Country.withName(bsonReader.readString())
   }
 
   override def encode(bsonWriter: BsonWriter, value: Country, encoderContext: EncoderContext): Unit = {
-    bsonWriter.writeString(value.toString)
+    bsonWriter.writeString(value.entryName)
   }
 
   override def getEncoderClass: Class[Country] = {

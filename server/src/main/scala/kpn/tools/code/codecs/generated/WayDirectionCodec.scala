@@ -16,11 +16,11 @@ class WayDirectionCodec(registry: CodecRegistry) extends Codec[WayDirection] {
 
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): WayDirection = {
-    WayDirection.valueOf(bsonReader.readString())
+    WayDirection.withName(bsonReader.readString())
   }
 
   override def encode(bsonWriter: BsonWriter, value: WayDirection, encoderContext: EncoderContext): Unit = {
-    bsonWriter.writeString(value.toString)
+    bsonWriter.writeString(value.entryName)
   }
 
   override def getEncoderClass: Class[WayDirection] = {

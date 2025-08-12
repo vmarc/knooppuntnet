@@ -42,7 +42,7 @@ class PoiQueryExecutorTest extends UnitTest with MockFactory {
         |""".stripMargin
 
     val overpassQueryExecutor: OverpassQueryExecutor = stub[OverpassQueryExecutor]
-    overpassQueryExecutor.executeQuery.when(*, *).returns(queryResult)
+    (overpassQueryExecutor.executeQuery _).when(*, *).returns(queryResult)
 
     val poiQueryExecutor: PoiQueryExecutor = new PoiQueryExecutorImpl(overpassQueryExecutor)
 
@@ -60,10 +60,11 @@ class PoiQueryExecutorTest extends UnitTest with MockFactory {
         |""".stripMargin
 
     val overpassQueryExecutor: OverpassQueryExecutor = stub[OverpassQueryExecutor]
-    overpassQueryExecutor.executeQuery.when(*, *).returns(queryResult)
+    (overpassQueryExecutor.executeQuery _).when(*, *).returns(queryResult)
 
     val poiQueryExecutor: PoiQueryExecutor = new PoiQueryExecutorImpl(overpassQueryExecutor)
 
     poiQueryExecutor.center(PoiRef("way", 179212052)) should equal(None)
   }
+
 }

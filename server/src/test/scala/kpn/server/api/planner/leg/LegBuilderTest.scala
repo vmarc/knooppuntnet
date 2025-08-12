@@ -30,7 +30,7 @@ class LegBuilderTest extends UnitTest with MockFactory {
     pendingRedesignRoutePlanning()
     val source = LegEnd.node(data.node1.id)
     val sink = LegEnd.node(data.node4.id)
-    val params = LegBuildParams(RouteType.hiking.toString, source, sink, proposed = false)
+    val params = LegBuildParams(RouteType.hiking.entryName, source, sink, proposed = false)
 
     assertEqual(
       legBuilder().leg(params),
@@ -53,7 +53,7 @@ class LegBuilderTest extends UnitTest with MockFactory {
 
     val source = LegEnd.node(data.node1.id)
     val sink = LegEnd.route(data.legEndRoute3)
-    val params = LegBuildParams(RouteType.hiking.toString, source, sink, proposed = false)
+    val params = LegBuildParams(RouteType.hiking.entryName, source, sink, proposed = false)
 
     assertEqual(
       legBuilder().leg(params),
@@ -76,7 +76,7 @@ class LegBuilderTest extends UnitTest with MockFactory {
 
     val source = LegEnd.route(data.legEndRoute1)
     val sink = LegEnd.route(data.legEndRoute3)
-    val params = LegBuildParams(RouteType.hiking.toString, source, sink, proposed = false)
+    val params = LegBuildParams(RouteType.hiking.entryName, source, sink, proposed = false)
 
     assertEqual(
       legBuilder().leg(params),
@@ -99,7 +99,7 @@ class LegBuilderTest extends UnitTest with MockFactory {
 
     val source = LegEnd.route(data.legEndRoute4)
     val sink = LegEnd.route(data.legEndRoute3)
-    val params = LegBuildParams(RouteType.hiking.toString, source, sink, proposed = false)
+    val params = LegBuildParams(RouteType.hiking.entryName, source, sink, proposed = false)
 
     assertEqual(
       legBuilder().leg(params),
@@ -121,7 +121,7 @@ class LegBuilderTest extends UnitTest with MockFactory {
 
     val source = LegEnd.node(data.node1.id)
     val sink = LegEnd.route(data.legEndRoute1)
-    val params = LegBuildParams(RouteType.hiking.toString, source, sink, proposed = false)
+    val params = LegBuildParams(RouteType.hiking.entryName, source, sink, proposed = false)
 
     assertEqual(
       legBuilder().leg(params),
@@ -142,7 +142,7 @@ class LegBuilderTest extends UnitTest with MockFactory {
 
     val source = LegEnd.node(data.node1.id)
     val sink = LegEnd.route(data.legEndRoute4)
-    val params = LegBuildParams(RouteType.hiking.toString, source, sink, proposed = false)
+    val params = LegBuildParams(RouteType.hiking.entryName, source, sink, proposed = false)
 
     assertEqual(
       legBuilder().leg(params),

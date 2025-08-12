@@ -9,6 +9,6 @@ import kpn.api.common.monitor.MonitorReferenceType
 class MonitorReferenceTypeJsonDeserializer extends JsonDeserializer[MonitorReferenceType] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): MonitorReferenceType = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    MonitorReferenceType.valueOf(node.asText)
+    MonitorReferenceType.withName(node.asText)
   }
 }

@@ -162,12 +162,12 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
 
   private def setupStructureLoader(): Unit = {
     val monitorRouteRelation = route1.overpassStructure
-    configuration.monitorRouteStructureLoader.load.when(Some(ReferenceTimestamp2), route1.relationId).returns(Some(monitorRouteRelation))
+    (configuration.monitorRouteStructureLoader.load _).when(Some(ReferenceTimestamp2), route1.relationId).returns(Some(monitorRouteRelation))
   }
 
   private def setupLoadTopLevel(): Unit = {
     val relation = route1.overpassTopLevel
-    configuration.monitorRouteRelationRepository.loadTopLevel.when(Some(ReferenceTimestamp2), route1.relationId).returns(None)
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp2), route1.relationId).returns(None)
   }
 
   private def setupRouteDoc(): Unit = {

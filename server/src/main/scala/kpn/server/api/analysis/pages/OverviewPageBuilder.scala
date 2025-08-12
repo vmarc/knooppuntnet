@@ -87,6 +87,6 @@ class OverviewPageBuilder(statisticsRepository: StatisticsRepository) {
 
   private def formatted(language: Language, value: Long): String = {
     val f = Formatter.number(value)
-    if (Language.fr == language) f.replaceAll("\\.", " ") else f
+    if (Language.FR == language) f.replaceAll("\\.", " ") else f
   }
 }

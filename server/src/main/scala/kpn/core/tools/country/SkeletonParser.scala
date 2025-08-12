@@ -33,7 +33,7 @@ class SkeletonParser {
     (xml \ "relation").map { r =>
       val id = (r \ "@id").text.toLong
       val members = (r \ "member").map { t =>
-        val memberType = MemberType.valueOf((t \ "@type").text)
+        val memberType = MemberType.withName((t \ "@type").text)
         val ref = (t \ "@ref").text.toLong
         val role = (t \ "@role").text
         val roleOption = if (role == "") None else Some(role)

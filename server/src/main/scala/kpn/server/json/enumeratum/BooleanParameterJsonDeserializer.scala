@@ -9,6 +9,6 @@ import kpn.api.common.location.BooleanParameter
 class BooleanParameterJsonDeserializer extends JsonDeserializer[BooleanParameter] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): BooleanParameter = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    BooleanParameter.valueOf(node.asText)
+    BooleanParameter.withName(node.asText)
   }
 }

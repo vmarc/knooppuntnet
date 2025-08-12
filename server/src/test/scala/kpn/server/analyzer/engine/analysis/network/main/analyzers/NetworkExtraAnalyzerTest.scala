@@ -38,7 +38,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory {
   test("networkExtraMemberNode") {
 
     val overpassRepository = stub[OverpassRepository]
-    overpassRepository.nodes.when(*, *).returns(Seq(newRawNode(1001)))
+    (overpassRepository.nodes _).when(*, *).returns(Seq(newRawNode(1001)))
 
     val contextBefore = NetworkAnalysisContext(
       newBaseNetworkDoc(
@@ -114,7 +114,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory {
     )
 
     val overpassRepository = stub[OverpassRepository]
-    overpassRepository.nodes.when(*, *).returns(
+    (overpassRepository.nodes _).when(*, *).returns(
       Seq(
         node,
         mapNode,
@@ -166,7 +166,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory {
   test("networkExtraMemberWay relation without members") {
 
     val overpassRepository = stub[OverpassRepository]
-    overpassRepository.nodes.when(*, *).returns(Seq.empty)
+    (overpassRepository.nodes _).when(*, *).returns(Seq.empty)
 
     val contextBefore = NetworkAnalysisContext(
       newBaseNetworkDoc(
@@ -203,7 +203,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory {
   test("networkExtraMemberRelation") {
 
     val overpassRepository = stub[OverpassRepository]
-    overpassRepository.nodes.when(*, *).returns(Seq.empty)
+    (overpassRepository.nodes _).when(*, *).returns(Seq.empty)
 
     val contextBefore = NetworkAnalysisContext(
       newBaseNetworkDoc(

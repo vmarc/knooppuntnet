@@ -7,6 +7,6 @@ import kpn.api.common.location.BooleanParameter
 
 class BooleanParameterJsonSerializer extends JsonSerializer[BooleanParameter] {
   override def serialize(booleanParameter: BooleanParameter, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(booleanParameter.toString)
+    jsonGenerator.writeString(booleanParameter.entryName)
   }
 }

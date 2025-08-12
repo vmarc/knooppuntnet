@@ -30,7 +30,7 @@ class FullAnalysisTrigger(analysisTime: AnalysisTimeRepository) {
   def shouldPerformFullAnalysis: Boolean = {
     val now = Time.now.yyyymmddhhmm
     val today = Time.now.yyyymmdd
-    analysisTime.now match {
+    analysisTime.get match {
       case Some(previous) =>
         val expectedPrevious = FullAnalysisTrigger.fullAnalysisTimes.reverse.map(hhmm => s"$today $hhmm").find { time => now >= time }.get
         if (previous >= expectedPrevious) {

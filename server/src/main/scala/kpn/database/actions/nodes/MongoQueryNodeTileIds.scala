@@ -32,7 +32,7 @@ class MongoQueryNodeTileIds(database: Database) {
       val tileIds = tileNames
         .map(_._id)
         .map { tileName =>
-          val splitted = tileName.drop(routeType.toString.length + 1).split("-")
+          val splitted = tileName.drop(routeType.entryName.length + 1).split("-")
           TileId(splitted(0).toInt, splitted(1).toInt, splitted(2).toInt)
         }
       (s"${tileIds.size} node tile ids", tileIds)
@@ -42,7 +42,7 @@ class MongoQueryNodeTileIds(database: Database) {
   private def buildPipeline(routeType: RouteType): MongoPipeline = {
     Seq(
       filter(
-        equal("names.routeType", routeType.toString),
+        equal("names.routeType", routeType.entryName),
       ),
       project(
         fields(
@@ -52,7 +52,7 @@ class MongoQueryNodeTileIds(database: Database) {
       ),
       unwind("$tiles"),
       filter(
-        regex("tiles", s"^${routeType.toString}-"),
+        regex("tiles", s"^${routeType.entryName}-"),
       ),
       group("$tiles"),
       sort(orderBy(ascending("_id"))),

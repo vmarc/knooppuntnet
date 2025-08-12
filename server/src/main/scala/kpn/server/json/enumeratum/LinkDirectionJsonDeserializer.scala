@@ -9,6 +9,6 @@ import kpn.api.common.route.LinkDirection
 class LinkDirectionJsonDeserializer extends JsonDeserializer[LinkDirection] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): LinkDirection = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    LinkDirection.valueOf(node.asText)
+    LinkDirection.withName(node.asText)
   }
 }

@@ -135,6 +135,18 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
                 case None =>
                   ???
               }
+
+
+
+            //      else if (typeName.startsWith("List<")) {
+            //        val arrayTypeName = s"${typeName.drop("List<".length).dropRight(1)}[]"
+            //        s"$fieldName: $arrayTypeName"
+            //      }
+            //      else if (typeName.startsWith("Array<")) {
+            //        val arrayTypeName = s"${typeName.drop("Array<".length).dropRight(1)}[]"
+            //        s"$fieldName: $arrayTypeName"
+            //      }
+
             case None =>
               ???
           }

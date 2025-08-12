@@ -9,6 +9,6 @@ import kpn.api.common.search.ConditionOperator
 class ConditionOperatorJsonDeserializer extends JsonDeserializer[ConditionOperator] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): ConditionOperator = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    ConditionOperator.valueOf(node.asText)
+    ConditionOperator.withName(node.asText)
   }
 }

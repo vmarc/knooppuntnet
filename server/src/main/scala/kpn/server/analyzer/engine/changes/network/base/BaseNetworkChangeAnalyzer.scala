@@ -65,6 +65,6 @@ class BaseNetworkChangeAnalyzer(
   }
 
   private def isBlackListed(relation: RawRelation): Boolean = {
-    blacklistRepository.find().containsNetwork(relation.id)
+    blacklistRepository.get().containsNetwork(relation.id)
   }
 }

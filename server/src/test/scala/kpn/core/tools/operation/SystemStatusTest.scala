@@ -92,13 +92,13 @@ class SystemStatusTest extends UnitTest with MockFactory {
     (() => statusRepository.analysisStatus2).when().returns(Some(ReplicationId(1, 1, 8)))
     (() => statusRepository.analysisStatus3).when().returns(Some(ReplicationId(1, 1, 9)))
 
-    replicationStateRepository.read.when(ReplicationId(1, 1, 1)).returns(Timestamp(2015, 8, 11, 1, 2, 3))
-    replicationStateRepository.read.when(ReplicationId(1, 1, 2)).returns(Timestamp(2015, 8, 11, 2, 2, 3))
-    replicationStateRepository.read.when(ReplicationId(1, 1, 3)).returns(Timestamp(2015, 8, 11, 3, 2, 3))
-    replicationStateRepository.read.when(ReplicationId(1, 1, 4)).returns(Timestamp(2015, 8, 11, 4, 2, 3))
-    replicationStateRepository.read.when(ReplicationId(1, 1, 7)).returns(Timestamp(2015, 8, 11, 7, 2, 3))
-    replicationStateRepository.read.when(ReplicationId(1, 1, 8)).returns(Timestamp(2015, 8, 11, 8, 2, 3))
-    replicationStateRepository.read.when(ReplicationId(1, 1, 9)).returns(Timestamp(2015, 8, 11, 9, 2, 3))
+    (replicationStateRepository.read _).when(ReplicationId(1, 1, 1)).returns(Timestamp(2015, 8, 11, 1, 2, 3))
+    (replicationStateRepository.read _).when(ReplicationId(1, 1, 2)).returns(Timestamp(2015, 8, 11, 2, 2, 3))
+    (replicationStateRepository.read _).when(ReplicationId(1, 1, 3)).returns(Timestamp(2015, 8, 11, 3, 2, 3))
+    (replicationStateRepository.read _).when(ReplicationId(1, 1, 4)).returns(Timestamp(2015, 8, 11, 4, 2, 3))
+    (replicationStateRepository.read _).when(ReplicationId(1, 1, 7)).returns(Timestamp(2015, 8, 11, 7, 2, 3))
+    (replicationStateRepository.read _).when(ReplicationId(1, 1, 8)).returns(Timestamp(2015, 8, 11, 8, 2, 3))
+    (replicationStateRepository.read _).when(ReplicationId(1, 1, 9)).returns(Timestamp(2015, 8, 11, 9, 2, 3))
 
     val status = new SystemStatus(processReporter, statusRepository, replicationStateRepository).status(web = false)
 

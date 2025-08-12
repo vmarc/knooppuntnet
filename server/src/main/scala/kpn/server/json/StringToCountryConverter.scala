@@ -6,5 +6,5 @@ import org.springframework.stereotype.Component
 
 @Component
 class StringToCountryConverter extends Converter[String, Country] {
-  override def convert(source: String): Country = Country.valueOf(source)
+  override def convert(source: String): Country = Country.withName(source)
 }

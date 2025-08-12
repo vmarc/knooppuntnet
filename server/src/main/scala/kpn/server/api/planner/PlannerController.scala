@@ -24,7 +24,7 @@ class PlannerController(plannerFacade: PlannerFacade) {
     @PathVariable routeType: String,
     @PathVariable nodeId: Long
   ): ApiResponse[MapNodeDetail] = {
-    val routeTypeValue = RouteType.valueOf(routeType)
+    val routeTypeValue = RouteType.withName(routeType)
     plannerFacade.mapNodeDetail(routeTypeValue, nodeId)
   }
 
@@ -54,7 +54,7 @@ class PlannerController(plannerFacade: PlannerFacade) {
   @PostMapping(path = Array("/api/plan"), consumes = Array("application/json"))
   def plan(@RequestBody params: PlanParams): ApiResponse[Seq[PlanLegDetail]] = {
     plannerFacade.plan(
-      RouteType.valueOf(params.routeType),
+      RouteType.withName(params.routeType),
       params.planString,
       proposed = false
     )

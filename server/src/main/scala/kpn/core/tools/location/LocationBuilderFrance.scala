@@ -47,8 +47,8 @@ class LocationBuilderFrance(dir: String) {
         countryLocationJson.relationId,
         "France",
         Seq(
-          LocationName(Language.nl, "Frankrijk"),
-          LocationName(Language.de, "Frankreich")
+          LocationName(Language.NL, "Frankrijk"),
+          LocationName(Language.DE, "Frankreich")
         ),
         Tags.from(countryLocationJson.tags),
         LocationGeometry(countryLocationJson.geometry)

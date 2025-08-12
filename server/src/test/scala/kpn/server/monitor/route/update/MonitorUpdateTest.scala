@@ -32,7 +32,7 @@ abstract class MonitorUpdateTest extends MongoTest with MockFactory {
 
   def setupRouteStructure(timestamp: Option[Timestamp], overpassData: OverpassData, relationId: Long): Unit = {
     val monitorRouteRelation = MonitorRouteRelation.from(new DataBuilder(overpassData.rawData).data.relations(relationId), None)
-    configuration.monitorRouteStructureLoader.load.when(timestamp, relationId).returns(Some(monitorRouteRelation))
+    (configuration.monitorRouteStructureLoader.load _).when(timestamp, relationId).returns(Some(monitorRouteRelation))
   }
 
   def message(commands: MonitorCommand*): MonitorMessage = {

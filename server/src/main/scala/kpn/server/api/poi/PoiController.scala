@@ -74,6 +74,6 @@ class PoiController(poiFacade: PoiFacade) {
   }
 
   private def toLanguage(language: String): Language = {
-    Language.valueOf(language)
+    Language.withNameOption(language).getOrElse(Language.EN)
   }
 }

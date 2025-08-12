@@ -8,14 +8,14 @@ class AnalysisTimeRepositoryTest extends UnitTest {
 
   test("return None when no file exists") {
     withRepository { repo =>
-      repo.now should equal(None)
+      repo.get should equal(None)
     }
   }
 
   test("put time") {
     withRepository { repo =>
       repo.put("12:34")
-      repo.now should equal(Some("12:34"))
+      repo.get should equal(Some("12:34"))
     }
   }
 

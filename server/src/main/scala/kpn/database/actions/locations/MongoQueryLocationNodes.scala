@@ -72,7 +72,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         parameters.proposed match {
           case None => "all"
           case Some(proposedValue) =>
-            oo.find(_.name == proposedValue.toString) match {
+            oo.find(_.name == proposedValue.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -87,7 +87,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       val options = Seq(ServerFilterOption("all", totalCount)) ++ factOptions
       val selected = parameters.fact match {
         case None => "all"
-        case Some(f) => f.toString
+        case Some(f) => f.entryName
       }
       ServerFilterGroup(selected, options)
     }
@@ -108,7 +108,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         parameters.survey match {
           case None => "all"
           case Some(surveyValue) =>
-            surveyOptions.find(_.name == surveyValue.toString) match {
+            surveyOptions.find(_.name == surveyValue.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -133,7 +133,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         parameters.lastUpdated match {
           case None => "all"
           case Some(lastUpdatedValue) =>
-            options.find(_.name == lastUpdatedValue.toString) match {
+            options.find(_.name == lastUpdatedValue.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -152,8 +152,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         val no = all - yes
         Seq(
           ServerFilterOption("all", all),
-          ServerFilterOption(BooleanParameter.Yes.toString, yes),
-          ServerFilterOption(BooleanParameter.No.toString, no),
+          ServerFilterOption(BooleanParameter.Yes.entryName, yes),
+          ServerFilterOption(BooleanParameter.No.entryName, no),
         )
       }
 
@@ -164,7 +164,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         parameters.proposed match {
           case None => "all"
           case Some(proposedValue) =>
-            options.find(_.name == proposedValue.toString) match {
+            options.find(_.name == proposedValue.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -183,8 +183,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       else {
         Seq(
           ServerFilterOption("all", all),
-          ServerFilterOption(BooleanParameter.Yes.toString, yes),
-          ServerFilterOption(BooleanParameter.No.toString, all - yes),
+          ServerFilterOption(BooleanParameter.Yes.entryName, yes),
+          ServerFilterOption(BooleanParameter.No.entryName, all - yes),
         )
       }
 
@@ -195,7 +195,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         parameters.proposed match {
           case None => "all"
           case Some(proposedValue) =>
-            options.find(_.name == proposedValue.toString) match {
+            options.find(_.name == proposedValue.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -214,8 +214,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       else {
         Seq(
           ServerFilterOption("all", all),
-          ServerFilterOption(BooleanParameter.Yes.toString, yes),
-          ServerFilterOption(BooleanParameter.No.toString, all - yes),
+          ServerFilterOption(BooleanParameter.Yes.entryName, yes),
+          ServerFilterOption(BooleanParameter.No.entryName, all - yes),
         )
       }
 
@@ -226,7 +226,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         parameters.proposed match {
           case None => "all"
           case Some(proposedValue) =>
-            options.find(_.name == proposedValue.toString) match {
+            options.find(_.name == proposedValue.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -286,7 +286,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     log.debugElapsed {
       val locationNodeInfoDocs = database.nodes.aggregate(pipeline, classOf[LocationNodeInfoDoc], log)
       val locationNodeInfos = locationNodeInfoDocs.zipWithIndex.map { case (doc, index) =>
-        val tagValues = RouteScope.values.map(scope => ScopedRouteType(subset.routeType, scope)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
+        val tagValues = RouteScope.all.map(scope => ScopedRouteType(subset.routeType, scope)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
           doc.tagValue(tagKey)
         }
         val expectedNodeCount = tagValues.headOption.getOrElse("-")

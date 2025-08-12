@@ -21,9 +21,9 @@ object ScopedRouteType {
 
   val all: Seq[ScopedRouteType] = {
     RouteType.values.flatMap { routeType =>
-      RouteScope.values.map(scope => ScopedRouteType(routeType, scope))
+      RouteScope.all.map(scope => ScopedRouteType(routeType, scope))
     }
-  } 
+  }
 
   def withKey(key: String): Option[ScopedRouteType] = {
     all.find(_.key == key)

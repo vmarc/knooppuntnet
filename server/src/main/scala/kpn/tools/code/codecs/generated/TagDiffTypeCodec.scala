@@ -16,11 +16,11 @@ class TagDiffTypeCodec(registry: CodecRegistry) extends Codec[TagDiffType] {
 
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): TagDiffType = {
-    TagDiffType.valueOf(bsonReader.readString())
+    TagDiffType.withName(bsonReader.readString())
   }
 
   override def encode(bsonWriter: BsonWriter, value: TagDiffType, encoderContext: EncoderContext): Unit = {
-    bsonWriter.writeString(value.toString)
+    bsonWriter.writeString(value.entryName)
   }
 
   override def getEncoderClass: Class[TagDiffType] = {

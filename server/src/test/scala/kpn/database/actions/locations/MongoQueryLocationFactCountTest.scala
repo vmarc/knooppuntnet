@@ -21,7 +21,7 @@ class MongoQueryLocationFactCountTest extends MongoTest {
         labels = Seq(
           Label.facts,
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.toString)
+          Label.location(Country.be.entryName)
         ),
         facts = Seq(Fact.NodeInvalidSurveyDate),
         names = Seq(
@@ -35,7 +35,7 @@ class MongoQueryLocationFactCountTest extends MongoTest {
         1002L,
         labels = Seq(
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.toString)
+          Label.location(Country.be.entryName)
         ),
         names = Seq(
           newNodeName(name = "02")
@@ -49,7 +49,7 @@ class MongoQueryLocationFactCountTest extends MongoTest {
         active = false,
         labels = Seq(
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.toString)
+          Label.location(Country.be.entryName)
         ),
         names = Seq(
           newNodeName(name = "03")
@@ -71,7 +71,7 @@ class MongoQueryLocationFactCountTest extends MongoTest {
         labels = Seq(
           Label.facts,
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.toString)
+          Label.location(Country.be.entryName)
         ),
         facts = Seq(Fact.RouteWithoutWays, Fact.RouteBroken),
       )
@@ -82,7 +82,7 @@ class MongoQueryLocationFactCountTest extends MongoTest {
         newRouteSummary(102L),
         labels = Seq(
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.toString)
+          Label.location(Country.be.entryName)
         )
       )
     )
@@ -94,7 +94,7 @@ class MongoQueryLocationFactCountTest extends MongoTest {
         labels = Seq(
           Label.facts,
           Label.routeType(RouteType.hiking),
-          Label.location(Country.be.toString)
+          Label.location(Country.be.entryName)
         ),
         facts = Seq(Fact.RouteWithoutWays, Fact.RouteBroken),
       )

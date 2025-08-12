@@ -52,7 +52,7 @@ class NetworkFactAnalyzer(context: NetworkAnalysisContext, nodeMemberMissingAnal
   }
 
   private def collectNodeFacts(context: NetworkAnalysisContext): Seq[NetworkFact] = {
-    val facts = context.nodeDetails.flatMap(_.facts).distinct.sortBy(_.toString)
+    val facts = context.nodeDetails.flatMap(_.facts).distinct.sortBy(_.entryName)
     facts.map { fact =>
       val nodeDetails = context.nodeDetails.filter(_.facts.contains(fact))
       val nodeIds = nodeDetails.map(_.id)
@@ -77,7 +77,7 @@ class NetworkFactAnalyzer(context: NetworkAnalysisContext, nodeMemberMissingAnal
   }
 
   private def collectRouteFacts(context: NetworkAnalysisContext): Seq[NetworkFact] = {
-    val facts = context.routeDetails.flatMap(_.facts).filterNot(isIgnoredFact).distinct.sortBy(_.toString)
+    val facts = context.routeDetails.flatMap(_.facts).filterNot(isIgnoredFact).distinct.sortBy(_.entryName)
     facts.map { fact =>
       val routes = context.routeDetails.filter(_.facts.contains(fact))
       val routeIds = routes.map(_.id)

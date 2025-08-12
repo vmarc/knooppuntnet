@@ -36,7 +36,7 @@ class MongoQueryRouteTileInfos(database: Database) {
     Seq(
       filter(
         and(
-          equal("routeTypes", routeType.toString),
+          equal("routeTypes", routeType.entryName),
           equal("z", zoomLevel)
         )
       )
@@ -47,7 +47,7 @@ class MongoQueryRouteTileInfos(database: Database) {
     Seq(
       filter(
         and(
-          equal("routeTypes", routeType.toString),
+          equal("routeTypes", routeType.entryName),
           equal("z", tileId.z),
           equal("x", tileId.x),
           equal("y", tileId.y),

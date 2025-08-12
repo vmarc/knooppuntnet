@@ -41,11 +41,11 @@ class FindSuspiciousExpectedRouteRelationsTags(database: Database) {
 
   private def report(nodes: Seq[NodeDoc]): Unit = {
     Country.values.foreach { country =>
-      println(s"** ${country.toString} ***")
+      println(s"** ${country.entryName} ***")
       val countryNodes = nodes.filter(_.country.contains(country))
       val countryNodesSize = countryNodes.size
       countryNodes.zipWithIndex.foreach { case (node, index) =>
-        println(s"${country.toString} ${index + 1}/$countryNodesSize [${node.name}](http://localhost:4000/analysis/node/${node._id})")
+        println(s"${country.entryName} ${index + 1}/$countryNodesSize [${node.name}](http://localhost:4000/analysis/node/${node._id})")
         reportNode(node)
       }
     }

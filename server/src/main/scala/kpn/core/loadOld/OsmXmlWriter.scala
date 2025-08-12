@@ -85,7 +85,7 @@ class OsmXmlWriter(out: PrintWriter, full: Boolean = true) {
 
   private def printMembers(members: Seq[RawMember]): Unit = {
     members.foreach { member =>
-      val memberType = member.memberType.toString
+      val memberType = member.memberType.entryName
       val ref = member.ref
       val role = Xml.escape(member.role.getOrElse(""))
       out.println(s"""    <member type="$memberType" ref="$ref" role="$role"/>""")

@@ -24,8 +24,8 @@ class MongoQuerySubsetChanges(database: Database) {
   def execute(subset: Subset, parameters: ChangesParameters): Seq[ChangeSetSummary] = {
 
     val filterElements = Seq(
-      Some(equal("subsets.country", subset.country.toString)),
-      Some(equal("subsets.routeType", subset.routeType.toString)),
+      Some(equal("subsets.country", subset.country.entryName)),
+      Some(equal("subsets.routeType", subset.routeType.entryName)),
       Option.when(parameters.impact) {
         equal("impact", true)
       },

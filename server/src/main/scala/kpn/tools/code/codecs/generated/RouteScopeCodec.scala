@@ -16,11 +16,11 @@ class RouteScopeCodec(registry: CodecRegistry) extends Codec[RouteScope] {
 
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): RouteScope = {
-    RouteScope.valueOf(bsonReader.readString())
+    RouteScope.withName(bsonReader.readString())
   }
 
   override def encode(bsonWriter: BsonWriter, value: RouteScope, encoderContext: EncoderContext): Unit = {
-    bsonWriter.writeString(value.toString)
+    bsonWriter.writeString(value.entryName)
   }
 
   override def getEncoderClass: Class[RouteScope] = {

@@ -16,11 +16,11 @@ class ChangeTypeCodec(registry: CodecRegistry) extends Codec[ChangeType] {
 
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): ChangeType = {
-    ChangeType.valueOf(bsonReader.readString())
+    ChangeType.withName(bsonReader.readString())
   }
 
   override def encode(bsonWriter: BsonWriter, value: ChangeType, encoderContext: EncoderContext): Unit = {
-    bsonWriter.writeString(value.toString)
+    bsonWriter.writeString(value.entryName)
   }
 
   override def getEncoderClass: Class[ChangeType] = {

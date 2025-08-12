@@ -1464,7 +1464,7 @@ object TestObjects {
     lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty
   ): OrphanNodeDoc = {
-    val _id = s"${country.toString}:${routeType.toString}:$nodeId"
+    val _id = s"${country.entryName}:${routeType.entryName}:$nodeId"
     OrphanNodeDoc(
       _id,
       country,

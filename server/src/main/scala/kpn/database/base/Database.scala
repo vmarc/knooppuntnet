@@ -42,9 +42,11 @@ import kpn.server.monitor.domain.MonitorTask
 import kpn.server.monitor.domain.OldMonitorReference
 import kpn.server.sync.Transaction
 
+import scala.reflect.ClassTag
+
 trait Database {
 
-  def getCollection[T](collectionName: String): MongoCollection[T]
+  def getCollection[T: ClassTag](collectionName: String): MongoCollection[T]
 
   def baseNetworks: DatabaseCollection[BaseNetworkDoc]
 

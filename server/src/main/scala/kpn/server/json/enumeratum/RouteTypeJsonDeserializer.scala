@@ -9,6 +9,6 @@ import kpn.api.common.RouteType
 class RouteTypeJsonDeserializer extends JsonDeserializer[RouteType] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): RouteType = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    RouteType.valueOf(node.asText)
+    RouteType.withName(node.asText)
   }
 }

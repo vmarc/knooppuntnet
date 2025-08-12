@@ -9,9 +9,9 @@ object RouteSummaryReport {
     val nodeNetwork = yes(context.nodeNetwork)
     val superRoute = yes(context.superRoute)
     val proposed = yes(context.proposed)
-    val routeType = context.routeTypes.map(_.toString).mkString(", ")
+    val routeType = context.routeTypes.map(_.entryName).mkString(", ")
     val scopedRouteType = context.scopedRouteTypeOption.map(_.key).getOrElse("")
-    val countries = context.countries.map(_.toString).mkString(", ")
+    val countries = context.countries.map(_.entryName).mkString(", ")
     val unexpectedNodeIds = context.unexpectedNodeIds.mkString(", ")
 
     s"""

@@ -76,7 +76,7 @@ class Parser(includeMetadata: Boolean = true) {
       val id = extractId(relation)
       val meta = extractMetadata(relation)
       val members = (relation \ "member").map { member =>
-        val memberType = MemberType.valueOf(extractAttribute(member, "@type"))
+        val memberType = MemberType.withName(extractAttribute(member, "@type"))
         val ref = extractLong(member, "@ref")
         val role = extractAttribute(member, "@role")
         val roleOption = if (role.isEmpty) None else Some(role)

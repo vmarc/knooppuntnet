@@ -7,6 +7,6 @@ import kpn.api.common.search.ConditionGroupOperator
 
 class ConditionGroupOperatorJsonSerializer extends JsonSerializer[ConditionGroupOperator] {
   override def serialize(operator: ConditionGroupOperator, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(operator.toString)
+    jsonGenerator.writeString(operator.entryName)
   }
 }

@@ -4,7 +4,7 @@ import kpn.server.analyzer.engine.changes.data.Blacklist
 
 trait BlacklistRepository {
 
-  def find(now: Long = System.currentTimeMillis()): Blacklist
+  def get(now: Long = System.currentTimeMillis()): Blacklist
 
   def save(blacklist: Blacklist, now: Long = System.currentTimeMillis()): Unit
 }
