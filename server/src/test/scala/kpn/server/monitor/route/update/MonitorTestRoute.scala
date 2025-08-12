@@ -1,9 +1,9 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
+import kpn.api.common.Relation
 import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.custom.Relation
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.core.doc.BaseRouteDoc

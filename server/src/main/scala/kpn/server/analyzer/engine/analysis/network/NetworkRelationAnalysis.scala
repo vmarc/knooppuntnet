@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.network
 
 import kpn.api.common.Country
+import kpn.api.common.Relation
 import kpn.api.common.data.Node
-import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.context.ElementIds
 

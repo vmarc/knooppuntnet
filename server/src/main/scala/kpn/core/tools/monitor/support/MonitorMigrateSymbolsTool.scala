@@ -1,6 +1,6 @@
 package kpn.core.tools.monitor.support
 
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.util.RouteSymbol
 import kpn.database.base.Database

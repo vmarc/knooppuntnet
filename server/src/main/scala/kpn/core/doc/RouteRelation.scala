@@ -1,6 +1,6 @@
 package kpn.core.doc
 
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 
 object RouteRelation {
 

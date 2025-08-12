@@ -1,10 +1,10 @@
 package kpn.api.common.poi
 
-import kpn.api.base.WithStringId
 import kpn.api.common.LatLon
 import kpn.api.common.data.Tagable
 import kpn.api.common.location.Location
 import kpn.api.custom.Tag
+import kpn.core.doc.WithStringId
 
 case class Poi(
   _id: String,

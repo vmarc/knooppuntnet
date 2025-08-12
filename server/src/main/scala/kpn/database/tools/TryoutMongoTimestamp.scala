@@ -10,8 +10,8 @@ import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.Sorts.descending
 import com.mongodb.client.model.Sorts.orderBy
-import kpn.api.base.WithStringId
 import kpn.api.custom.Timestamp2
+import kpn.core.doc.WithStringId
 import kpn.database.base.Database
 import kpn.database.base.DatabaseCollectionImpl
 import kpn.database.base.Types.MongoPipeline

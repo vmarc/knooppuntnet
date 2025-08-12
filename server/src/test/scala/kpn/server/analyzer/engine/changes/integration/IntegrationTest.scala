@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetSummary
+import kpn.api.common.Relation
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.ChangeSet
@@ -11,7 +12,6 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.data.Node
 import kpn.api.common.data.raw.RawElement
 import kpn.api.custom.Change
-import kpn.api.custom.Relation
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc

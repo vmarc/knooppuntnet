@@ -1,11 +1,11 @@
 package kpn.core.analysis
 
+import kpn.api.common.Relation
 import kpn.api.common.RouteType
 import kpn.api.common.data.Element
 import kpn.api.common.data.Member
 import kpn.api.common.data.Node
 import kpn.api.common.data.Tagable
-import kpn.api.custom.Relation
 import kpn.api.custom.ScopedRouteType
 
 object TagInterpreter {

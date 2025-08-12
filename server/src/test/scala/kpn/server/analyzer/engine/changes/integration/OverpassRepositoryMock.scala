@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.common.Relation
 import kpn.api.common.data.Member
 import kpn.api.common.data.Node
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
-import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.data.Data
 import kpn.core.doc.RouteRelation

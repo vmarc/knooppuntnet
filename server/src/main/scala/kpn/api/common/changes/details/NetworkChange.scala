@@ -1,6 +1,5 @@
 package kpn.api.common.changes.details
 
-import kpn.api.base.WithStringId
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.RouteType
@@ -9,6 +8,7 @@ import kpn.api.common.common.ReferencedElements
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
+import kpn.core.doc.WithStringId
 
 case class NetworkChange(
   _id: String,

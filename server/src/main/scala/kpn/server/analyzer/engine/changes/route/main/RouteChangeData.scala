@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.changes.route.main
 
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 
 case class RouteChangeData(
   routeId: Long,

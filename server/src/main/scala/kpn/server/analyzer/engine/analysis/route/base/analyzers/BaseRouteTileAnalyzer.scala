@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.common.FeatureLayer
+import kpn.api.common.Relation
 import kpn.api.common.RouteScope
 import kpn.api.common.data.Way
-import kpn.api.custom.Relation
 import kpn.core.analysis.Facts
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment

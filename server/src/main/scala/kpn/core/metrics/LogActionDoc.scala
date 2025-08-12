@@ -1,5 +1,5 @@
 package kpn.core.metrics
 
-import kpn.api.base.WithStringId
+import kpn.core.doc.WithStringId
 
 case class LogActionDoc(_id: String, log: LogAction) extends WithStringId

@@ -1,7 +1,6 @@
 package kpn.database.base
 
 import com.mongodb.client.MongoCollection
-import kpn.api.base.WithStringId
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.PoiState
 import kpn.api.common.changes.ChangeSetInfo
@@ -26,6 +25,7 @@ import kpn.core.doc.RawRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
+import kpn.core.doc.WithStringId
 import kpn.database.actions.statistics.StatisticLongValues
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.data.Blacklist

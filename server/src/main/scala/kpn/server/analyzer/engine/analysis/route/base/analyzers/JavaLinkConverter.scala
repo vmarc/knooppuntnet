@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
+import kpn.api.common.Relation
 import kpn.api.common.data.Member
 import kpn.api.common.route.Link
-import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkNode
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkRelationId
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkWay

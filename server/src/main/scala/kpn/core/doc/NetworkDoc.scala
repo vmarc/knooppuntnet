@@ -1,6 +1,5 @@
 package kpn.core.doc
 
-import kpn.api.base.WithId
 import kpn.api.common.Country
 import kpn.api.common.NetworkFact
 import kpn.api.common.data.MemberType

@@ -1,7 +1,7 @@
 package kpn.api.common.monitor
 
+import kpn.api.common.Relation
 import kpn.api.custom.Day
-import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.util.RouteSymbol
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer

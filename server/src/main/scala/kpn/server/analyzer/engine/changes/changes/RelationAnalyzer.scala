@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.changes.changes
 
+import kpn.api.common.Relation
 import kpn.api.common.RouteType
 import kpn.api.common.data.Node
 import kpn.api.common.data.Tagable
 import kpn.api.common.data.Way
-import kpn.api.custom.Relation
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.TagInterpreter

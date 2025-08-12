@@ -1,6 +1,5 @@
 package kpn.core.doc
 
-import kpn.api.base.WithStringId
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.RouteType

@@ -1,7 +1,6 @@
 package kpn.core.doc
 
-import kpn.api.base.WithId
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 
 case class RawRouteDoc(
   _id: Long,

@@ -1,7 +1,7 @@
 package kpn.core.tools.next.support
 
 import com.mongodb.client.MongoClients
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import kpn.core.tools.next.database.NextDatabase
 import kpn.core.tools.next.database.NextDatabaseImpl
 import kpn.core.tools.next.domain.NextRouteState

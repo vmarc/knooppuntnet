@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.route.base
 
 import kpn.api.common.Fact
+import kpn.api.common.Relation
 import kpn.api.common.RouteType
 import kpn.api.common.route.RouteNodes
-import kpn.api.custom.Relation
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RawRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteDoc

@@ -1,6 +1,5 @@
 package kpn.api.common.changes.details
 
-import kpn.api.base.WithStringId
 import kpn.api.common.ChangeType
 import kpn.api.common.Fact
 import kpn.api.common.LatLonImpl
@@ -11,6 +10,7 @@ import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag
+import kpn.core.doc.WithStringId
 
 /*
   Describes the changes made to a given network node in a given changeset.

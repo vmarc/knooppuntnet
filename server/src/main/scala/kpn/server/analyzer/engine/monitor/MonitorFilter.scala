@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.monitor
 
+import kpn.api.common.Relation
 import kpn.api.common.data.Member
-import kpn.api.custom.Relation
 
 object MonitorFilter {
 

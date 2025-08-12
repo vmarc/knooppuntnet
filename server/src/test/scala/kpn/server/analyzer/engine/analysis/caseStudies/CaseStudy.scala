@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import kpn.core.data.DataBuilder
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.loadOld.Parser

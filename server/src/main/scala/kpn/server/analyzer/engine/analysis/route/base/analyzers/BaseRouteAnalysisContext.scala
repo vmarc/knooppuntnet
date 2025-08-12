@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.base.analyzers
 import kpn.api.common.Bounds
 import kpn.api.common.Country
 import kpn.api.common.Fact
+import kpn.api.common.Relation
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteScope
@@ -11,7 +12,6 @@ import kpn.api.common.data.Node
 import kpn.api.common.route.BaseRouteSegment
 import kpn.api.common.route.RouteEdge
 import kpn.api.custom.Day
-import kpn.api.custom.Relation
 import kpn.api.custom.ScopedRouteType
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.BaseRouteSegmentElement

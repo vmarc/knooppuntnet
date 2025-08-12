@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
+import kpn.api.common.Relation
 import kpn.api.common.data.Member
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
-import kpn.api.custom.Relation
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 

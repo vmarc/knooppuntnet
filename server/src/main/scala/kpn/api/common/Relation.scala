@@ -1,9 +1,11 @@
-package kpn.api.custom
+package kpn.api.common
 
 import kpn.api.common.data.Element
 import kpn.api.common.data.Member
 import kpn.api.common.data.Way
 import kpn.api.common.data.raw.RawRelation
+import kpn.api.custom.Tag
+import kpn.api.custom.Timestamp
 
 case class Relation(
   id: Long,

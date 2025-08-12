@@ -1,8 +1,8 @@
 package kpn.core.tools.next.domain
 
-import kpn.api.base.WithId
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import kpn.core.doc.RouteRelation
+import kpn.core.doc.WithId
 
 case class NextRouteRelation(
   _id: Long,

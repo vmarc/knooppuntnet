@@ -1,6 +1,5 @@
 package kpn.core.doc
 
-import kpn.api.base.WithId
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.route.BaseRouteSegment
 

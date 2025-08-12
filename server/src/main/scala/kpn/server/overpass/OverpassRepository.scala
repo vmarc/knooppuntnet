@@ -1,8 +1,8 @@
 package kpn.server.overpass
 
+import kpn.api.common.Relation
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
-import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.doc.RouteRelation
 

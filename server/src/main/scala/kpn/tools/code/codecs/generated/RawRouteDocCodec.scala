@@ -2,7 +2,7 @@
 
 package kpn.tools.code.codecs.generated
 
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import kpn.core.doc.RawRouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.tools.code.codecs.Codecs

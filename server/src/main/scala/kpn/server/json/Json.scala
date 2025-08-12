@@ -16,6 +16,7 @@ import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
 import kpn.api.common.FeatureLayer
 import kpn.api.common.Language
+import kpn.api.common.Relation
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.data.MemberType
@@ -32,7 +33,6 @@ import kpn.api.common.route.WayDirection
 import kpn.api.common.search.ConditionGroupOperator
 import kpn.api.common.search.ConditionOperator
 import kpn.api.custom.Day
-import kpn.api.custom.Relation
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp

@@ -17,6 +17,7 @@ import kpn.api.common.LocationChanges
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkFact
 import kpn.api.common.NodeName
+import kpn.api.common.Relation
 import kpn.api.common.ReplicationId
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteMemberInfo
@@ -84,7 +85,6 @@ import kpn.api.common.route.RouteSegment
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.custom.Change
 import kpn.api.custom.Day
-import kpn.api.custom.Relation
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags

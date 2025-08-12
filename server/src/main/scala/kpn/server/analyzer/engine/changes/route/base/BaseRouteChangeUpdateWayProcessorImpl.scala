@@ -2,12 +2,12 @@ package kpn.server.analyzer.engine.changes.route.base
 
 import kpn.api.common.Bounds
 import kpn.api.common.ChangeType
+import kpn.api.common.Relation
 import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.WayInfo
 import kpn.api.common.diff.WayUpdate
 import kpn.api.common.route.GeometryDiff
-import kpn.api.custom.Relation
 import kpn.core.history.WayDiffAnalyzer
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext

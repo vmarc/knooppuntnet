@@ -1,8 +1,8 @@
 package kpn.server.sync
 
-import kpn.api.base.WithObjectId
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
+import kpn.core.doc.WithObjectId
 import org.bson.types.ObjectId
 
 object Transaction {

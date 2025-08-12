@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 
 object RouteRelationAnalyzer {
 

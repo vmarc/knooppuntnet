@@ -2,10 +2,10 @@
 
 package kpn.tools.code.codecs.generated
 
+import kpn.api.common.Relation
 import kpn.api.common.data.Member
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
-import kpn.api.custom.Relation
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
 import org.bson.BsonType

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
+import kpn.api.common.Relation
 import kpn.api.common.route.RouteNodes
-import kpn.api.custom.Relation
 import kpn.core.data.Data
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzerMock

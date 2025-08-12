@@ -1,6 +1,5 @@
 package kpn.api.common.changes.details
 
-import kpn.api.base.WithStringId
 import kpn.api.common.ChangeType
 import kpn.api.common.Fact
 import kpn.api.common.RouteLocationAnalysis
@@ -10,6 +9,7 @@ import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.RouteNodeChange
 import kpn.api.custom.Subset
+import kpn.core.doc.WithStringId
 
 /*
   Describes the changes made to a given route in a given changeset.

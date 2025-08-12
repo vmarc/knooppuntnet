@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.network
 
 import kpn.api.common.Bounds
+import kpn.api.common.Relation
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.network.NetworkShape
-import kpn.api.custom.Relation
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 

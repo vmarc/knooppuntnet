@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.monitor.changes
 
+import kpn.api.common.Relation
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawRelation
-import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser

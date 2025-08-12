@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.Relation
 import kpn.api.common.common.MapBounds
 import kpn.api.common.common.Ref
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteNetworkNodeInfo
-import kpn.api.custom.Relation
 import kpn.api.custom.Subset
 import kpn.core.analysis.RouteMember
 import kpn.core.doc.BaseRouteDoc

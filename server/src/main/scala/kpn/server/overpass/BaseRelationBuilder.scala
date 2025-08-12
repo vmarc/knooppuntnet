@@ -1,5 +1,6 @@
 package kpn.server.overpass
 
+import kpn.api.common.Relation
 import kpn.api.common.data.Member
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
@@ -7,7 +8,6 @@ import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
-import kpn.api.custom.Relation
 import kpn.core.util.Haversine
 import kpn.core.util.Log
 

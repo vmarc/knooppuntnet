@@ -7,9 +7,9 @@ import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.ReplaceOneModel
 import com.mongodb.client.model.ReplaceOptions
-import kpn.api.base.WithId
-import kpn.api.base.WithObjectId
-import kpn.api.base.WithStringId
+import kpn.core.doc.WithId
+import kpn.core.doc.WithObjectId
+import kpn.core.doc.WithStringId
 import kpn.core.util.Log
 import kpn.core.util.Util.seqToList
 import kpn.database.base.MongoAggregates.equal

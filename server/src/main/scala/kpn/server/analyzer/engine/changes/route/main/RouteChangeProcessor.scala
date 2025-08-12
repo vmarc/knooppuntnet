@@ -3,12 +3,12 @@ package kpn.server.analyzer.engine.changes.route.main
 import kpn.api.common.ChangeType
 import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
+import kpn.api.common.Relation
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.RouteNodeChange
-import kpn.api.custom.Relation
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.history.RouteDiffAnalyzer

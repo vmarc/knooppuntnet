@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network
 
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer

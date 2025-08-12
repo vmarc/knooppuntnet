@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.network
 
 import kpn.api.common.Bounds
+import kpn.api.common.Relation
 import kpn.api.common.data.Node
 import kpn.api.common.network.NetworkShape
-import kpn.api.custom.Relation
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import org.locationtech.jts.geom.Coordinate

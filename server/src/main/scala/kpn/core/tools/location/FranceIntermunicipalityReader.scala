@@ -1,6 +1,6 @@
 package kpn.core.tools.location
 
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import kpn.core.data.DataBuilder
 import kpn.core.doc.LocationNames
 import kpn.core.loadOld.OsmDataXmlReader

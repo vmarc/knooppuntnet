@@ -1,6 +1,5 @@
 package kpn.core.doc
 
-import kpn.api.base.WithId
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.data.Tagable

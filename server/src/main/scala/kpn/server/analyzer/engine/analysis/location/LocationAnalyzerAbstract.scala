@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.Country
 import kpn.api.common.LatLon
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
 abstract class LocationAnalyzerAbstract extends LocationAnalyzer {

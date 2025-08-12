@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.changes.route.base
 
 import kpn.api.common.Bounds
 import kpn.api.common.LatLonImpl
+import kpn.api.common.Relation
 import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.PointSegment
 import kpn.api.common.route.WayGeometry
-import kpn.api.custom.Relation
 
 class RouteGeometryAnalyzer {
 

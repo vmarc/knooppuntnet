@@ -3,11 +3,11 @@ package kpn.core.analysis
 import kpn.api.common.Country
 import kpn.api.common.Fact.RouteInaccessible
 import kpn.api.common.NetworkFacts
+import kpn.api.common.Relation
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
 import kpn.api.common.network.NetworkShape
-import kpn.api.custom.Relation
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.util.Formatter.percentage

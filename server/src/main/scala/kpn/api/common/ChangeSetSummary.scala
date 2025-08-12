@@ -1,9 +1,9 @@
 package kpn.api.common
 
-import kpn.api.base.WithStringId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
+import kpn.core.doc.WithStringId
 
 object ChangeSetSummary {
 

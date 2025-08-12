@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.Fact
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser

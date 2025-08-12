@@ -22,6 +22,7 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkFact
 import kpn.api.common.NodeName
 import kpn.api.common.PoiState
+import kpn.api.common.Relation
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteMemberInfoWay
@@ -109,7 +110,6 @@ import kpn.api.common.status.ActionTimestamp
 import kpn.api.common.subset.NetworkFactRefs
 import kpn.api.common.subset.SubsetMapNetwork
 import kpn.api.custom.Day
-import kpn.api.custom.Relation
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp

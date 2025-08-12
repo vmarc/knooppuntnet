@@ -1,7 +1,7 @@
 package kpn.server.json
 
+import kpn.api.common.Relation
 import kpn.api.common.data.Member
-import kpn.api.custom.Relation
 import kpn.api.custom.Tag
 import kpn.core.test.TestObjects.newNode
 import kpn.core.test.TestObjects.newRelation

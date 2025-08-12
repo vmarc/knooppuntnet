@@ -1,6 +1,6 @@
 package kpn.core.history
 
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.Network
 import kpn.core.data.Data

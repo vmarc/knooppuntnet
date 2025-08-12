@@ -1,6 +1,6 @@
 package kpn.core.common
 
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 
 object RelationUtil {
   def relationsInRelation(parentRelation: Relation): Seq[Relation] = {

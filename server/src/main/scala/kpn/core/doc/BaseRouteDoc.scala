@@ -1,8 +1,8 @@
 package kpn.core.doc
 
-import kpn.api.base.WithId
 import kpn.api.common.Bounds
 import kpn.api.common.Fact
+import kpn.api.common.Relation
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteSummary
@@ -12,7 +12,6 @@ import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Day
-import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.context.ElementIds
 

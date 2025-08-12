@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.monitor.analysis
 
 import kpn.api.common.Bounds
+import kpn.api.common.Relation
 import kpn.api.common.data.Member
-import kpn.api.custom.Relation
 import kpn.core.common.RelationUtil
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import org.locationtech.jts.geom.Coordinate

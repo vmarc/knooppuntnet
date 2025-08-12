@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.monitor.changes
 
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import kpn.api.custom.Timestamp
 
 trait MonitorRouteLoader {

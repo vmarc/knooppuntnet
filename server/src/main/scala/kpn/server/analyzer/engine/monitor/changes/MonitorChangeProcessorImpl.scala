@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.monitor.changes
 
 import kpn.api.common.Bounds
 import kpn.api.common.LatLonImpl
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext

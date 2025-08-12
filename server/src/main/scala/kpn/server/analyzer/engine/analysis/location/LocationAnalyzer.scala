@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.Country
 import kpn.api.common.LatLon
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import org.locationtech.jts.geom.Geometry
 
 trait LocationAnalyzer {

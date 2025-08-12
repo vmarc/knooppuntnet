@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.common.Fact
+import kpn.api.common.Relation
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.data.Node
 import kpn.api.common.route.LinkDirection
-import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis

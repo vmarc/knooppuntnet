@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.base
 
 import kpn.api.common.Fact
 import kpn.api.common.Fact.RouteBroken
-import kpn.api.custom.Relation
+import kpn.api.common.Relation
 import kpn.core.analysis.Facts
 import kpn.core.doc.RouteRelation
 import kpn.core.util.Log

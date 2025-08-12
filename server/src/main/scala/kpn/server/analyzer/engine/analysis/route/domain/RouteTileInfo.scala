@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
-import kpn.api.base.WithStringId
 import kpn.api.common.FeatureLayer
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
+import kpn.core.doc.WithStringId
 
 case class RouteTileInfo(
   _id: String,

@@ -1,7 +1,7 @@
 package kpn.api.common.data
 
+import kpn.api.common.Relation
 import kpn.api.common.data.raw.RawMember
-import kpn.api.custom.Relation
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 
