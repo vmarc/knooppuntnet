@@ -1,3 +1,5 @@
 package kpn.server.monitor.repository
 
-case class MonitorRouteCount(count: Long)
+import kpn.core.doc.Storable
+
+case class MonitorRouteCount(count: Long) extends Storable

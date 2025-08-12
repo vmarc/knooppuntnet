@@ -4,6 +4,13 @@ import kpn.core.util.Log
 import kpn.tools.code.ClassId
 
 object Codecs {
+  def main(args: Array[String]): Unit = {
+    extraCodecs
+      .filterNot(_.packageName.startsWith("kpn.api"))
+      .map(_.className)
+      .sorted
+      .foreach(println)
+  }
 
   val log: Log = Log(classOf[Codecs])
   val OutputDir = "src/main/scala/kpn/tools/code/codecs/generated"

@@ -1,3 +1,5 @@
 package kpn.database.base
 
-case class StringId(_id: String)
+import kpn.core.doc.Storable
+
+case class StringId(_id: String) extends Storable

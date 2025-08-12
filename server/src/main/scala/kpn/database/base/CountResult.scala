@@ -1,3 +1,5 @@
 package kpn.database.base
 
-case class CountResult(count: Long)
+import kpn.core.doc.Storable
+
+case class CountResult(count: Long) extends Storable

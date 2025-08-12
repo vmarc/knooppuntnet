@@ -1,3 +1,5 @@
 package kpn.database.base
 
-case class NameRow(name: String)
+import kpn.core.doc.Storable
+
+case class NameRow(name: String) extends Storable

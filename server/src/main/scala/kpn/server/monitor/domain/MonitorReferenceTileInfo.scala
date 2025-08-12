@@ -1,5 +1,6 @@
 package kpn.server.monitor.domain
 
+import kpn.core.doc.Storable
 import org.bson.types.ObjectId
 
 case class MonitorReferenceTileInfo(
@@ -9,4 +10,4 @@ case class MonitorReferenceTileInfo(
   x: Long,
   y: Long,
   lines: Seq[String]
-)
+) extends Storable

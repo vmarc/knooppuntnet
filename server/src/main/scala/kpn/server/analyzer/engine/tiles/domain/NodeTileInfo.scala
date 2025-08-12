@@ -5,6 +5,7 @@ import kpn.api.common.NodeName
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
 import kpn.api.custom.Tag
+import kpn.core.doc.Storable
 
 /*
    Information about node that is needed to build tiles.
@@ -18,4 +19,4 @@ case class NodeTileInfo(
   lastSurvey: Option[Day],
   tags: Seq[Tag],
   facts: Seq[Fact]
-) extends Tagable
+) extends Tagable with Storable

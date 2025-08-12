@@ -21,7 +21,7 @@ case class NetworkRouteDetail(
   facts: Seq[Fact],
   tags: Seq[Tag],
   nodeRefs: Seq[Long]
-) extends Tagable {
+) extends Tagable with Storable {
 
   def toRef: Ref = {
     Ref(id, name)

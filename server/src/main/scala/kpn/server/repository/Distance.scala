@@ -1,3 +1,5 @@
 package kpn.server.repository
 
-case class Distance(referenceDistance: Long)
+import kpn.core.doc.Storable
+
+case class Distance(referenceDistance: Long) extends Storable

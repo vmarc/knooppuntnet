@@ -1,3 +1,5 @@
 package kpn.database.base
 
-case class Id(_id: Long)
+import kpn.core.doc.Storable
+
+case class Id(_id: Long) extends Storable

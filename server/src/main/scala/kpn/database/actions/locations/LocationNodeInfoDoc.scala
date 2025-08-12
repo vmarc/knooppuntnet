@@ -8,6 +8,7 @@ import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
+import kpn.core.doc.Storable
 
 case class LocationNodeInfoDoc(
   id: Long,
@@ -20,7 +21,7 @@ case class LocationNodeInfoDoc(
   tags: Seq[Tag],
   facts: Seq[Fact],
   routeReferences: Seq[Reference]
-) extends Tagable {
+) extends Tagable with Storable {
 
   def routeTypeName(routeType: RouteType): String = {
     names.filter(_.routeType == routeType).map(_.name).mkString(" / ")

@@ -10,4 +10,4 @@ case class SuperSubSegmentInfo(
   endNodeId: Long,
   meters: Long,
   bounds: Bounds,
-)
+) extends Storable

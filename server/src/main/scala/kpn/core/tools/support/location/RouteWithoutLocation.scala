@@ -1,3 +1,5 @@
 package kpn.core.tools.support.location
 
-case class RouteWithoutLocation(_id: Long, name: String)
+import kpn.core.doc.Storable
+
+case class RouteWithoutLocation(_id: Long, name: String) extends Storable

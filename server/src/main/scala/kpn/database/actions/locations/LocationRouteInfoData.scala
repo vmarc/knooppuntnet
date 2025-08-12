@@ -4,6 +4,7 @@ import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
+import kpn.core.doc.Storable
 
 // TODO scala3 move back into using class
 case class LocationRouteInfoData(
@@ -15,4 +16,4 @@ case class LocationRouteInfoData(
   tags: Seq[Tag],
   broken: Boolean,
   inaccessible: Boolean
-) extends Tagable
+) extends Tagable with Storable
