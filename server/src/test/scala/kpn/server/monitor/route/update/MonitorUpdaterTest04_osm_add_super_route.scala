@@ -24,12 +24,10 @@ import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorState
 
-import scala.compiletime.uninitialized
-
 class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
 
-  private var subRoute11: MonitorTestRoute = uninitialized
-  private var subRoute12: MonitorTestRoute = uninitialized
+  private var subRoute11: MonitorTestRoute = _
+  private var subRoute12: MonitorTestRoute = _
 
   override def beforeEach(): Unit = {
     super.beforeEach()

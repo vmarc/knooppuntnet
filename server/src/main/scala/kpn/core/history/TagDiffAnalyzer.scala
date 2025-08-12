@@ -11,7 +11,7 @@ import kpn.api.custom.RouteTypeLetter
 
 object NodeTagDiffAnalyzer {
 
-  private val prefixes = RouteScope.values.toSeq.flatMap { routeScope =>
+  private val prefixes = RouteScope.values.flatMap { routeScope =>
     RouteType.values.map { routeType =>
       val routeTypeLetter = RouteTypeLetter.letter(routeType)
       val routeScopeLetter = RouteScopeLetter.letter(routeScope)

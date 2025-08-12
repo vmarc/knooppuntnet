@@ -14,6 +14,7 @@ class RawNodeCodecTest extends UnitTest {
 
   test("write and read ChangeSetCount2 to mongo") {
     val uri = "mongodb://localhost:27017"
+    try {
       val mongoClient = MongoClients.create(uri)
       try {
         val database = mongoClient.getDatabase("test").withCodecRegistry(Mongo.codecRegistry)
@@ -37,10 +38,12 @@ class RawNodeCodecTest extends UnitTest {
           mongoClient.close()
         }
       }
+    }
   }
 
   test("write and read RawNode to mongo") {
     val uri = "mongodb://localhost:27017"
+    try {
       val mongoClient = MongoClients.create(uri)
       try {
         val database = mongoClient.getDatabase("test").withCodecRegistry(Mongo.codecRegistry)
@@ -69,5 +72,6 @@ class RawNodeCodecTest extends UnitTest {
           mongoClient.close()
         }
       }
+    }
   }
 }

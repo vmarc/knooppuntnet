@@ -27,7 +27,7 @@ class BaseRouteChangeDeleteProcessorTest extends UnitTest with MockFactory {
     val updatedChangeSetContext = setup.process()
 
     // verify
-    setup.baseRouteDeleter.delete.verify(
+    (setup.baseRouteDeleter.delete _).verify(
       where { (context: ChangeSetContext, routeId: Long) =>
         routeId == 11
       }

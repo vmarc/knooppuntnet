@@ -16,7 +16,7 @@ object BaseRouteScopeAnalyzer extends BaseRouteAnalyzer {
   }
 
   private def tagValues(scope: RouteScope): Seq[String] = {
-    RouteType.values.toSeq.map { routeType =>
+    RouteType.values.map { routeType =>
       ScopedRouteType(routeType, scope).key
     }
   }

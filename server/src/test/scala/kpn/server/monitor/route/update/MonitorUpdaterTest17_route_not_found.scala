@@ -6,11 +6,9 @@ import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.core.test.TestObjects.newMonitorGroup
 
-import scala.compiletime.uninitialized
-
 class MonitorUpdaterTest17_route_not_found extends MonitorUpdateTest {
 
-  private var route1: MonitorTestRoute = uninitialized
+  private var route1: MonitorTestRoute = _
 
   override def beforeEach(): Unit = {
     super.beforeEach()

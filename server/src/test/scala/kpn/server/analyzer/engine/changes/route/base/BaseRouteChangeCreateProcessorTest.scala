@@ -74,15 +74,15 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with MockFactory {
       Some(ElementIds(nodeIds = Set(1001, 1002)))
     )
 
-    setup.routeRepository.saveBaseRoute.verify(
+    (setup.routeRepository.saveBaseRoute _).verify(
       where((doc: BaseRouteDoc) => doc._id == 11)
     ).once()
 
-    setup.routeRepository.saveRouteTile.verify(
+    (setup.routeRepository.saveRouteTile _).verify(
       where((routeTileInfo: RouteTileInfo) => routeTileInfo._id == "1-1-1-11")
     ).once()
 
-    setup.routeRepository.saveRouteTile.verify(
+    (setup.routeRepository.saveRouteTile _).verify(
       where((routeTileInfo: RouteTileInfo) => routeTileInfo._id == "2-2-2-11")
     ).once()
 

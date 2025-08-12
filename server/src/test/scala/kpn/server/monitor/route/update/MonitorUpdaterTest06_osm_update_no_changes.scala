@@ -13,11 +13,9 @@ import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
 
-import scala.compiletime.uninitialized
-
 class MonitorUpdaterTest06_osm_update_no_changes extends MonitorUpdateTest {
 
-  private var route1: MonitorTestRoute = uninitialized
+  private var route1: MonitorTestRoute = _
 
   override def beforeEach(): Unit = {
     super.beforeEach()

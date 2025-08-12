@@ -16,12 +16,11 @@ import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 
 import java.nio.file.Paths
 import java.util.regex.Pattern
-import scala.compiletime.uninitialized
 
 class ApplicationTest extends EndToEndTest {
 
-  private var mongoClient: MongoClient = uninitialized
-  private var database: Database = uninitialized
+  private var mongoClient: MongoClient = _
+  private var database: Database = _
 
   override def beforeEach(): Unit = {
     super.beforeEach()

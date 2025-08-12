@@ -20,13 +20,11 @@ import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorState
 
-import scala.compiletime.uninitialized
-
 class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
 
-  private var MainrelationId: Long = uninitialized
-  private var subRoute11: MonitorTestRoute = uninitialized
-  private var subRoute12: MonitorTestRoute = uninitialized
+  private var MainrelationId: Long = _
+  private var subRoute11: MonitorTestRoute = _
+  private var subRoute12: MonitorTestRoute = _
 
   override def beforeEach(): Unit = {
     super.beforeEach()

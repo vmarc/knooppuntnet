@@ -9,7 +9,6 @@ import kpn.server.json.Json
 import org.scalatest.BeforeAndAfterEach
 
 import java.util.concurrent.atomic.AtomicInteger
-import scala.compiletime.uninitialized
 
 object MongoTest {
   private val count = new AtomicInteger(0)
@@ -18,8 +17,8 @@ object MongoTest {
 
 abstract class MongoTest extends UnitTest with BeforeAndAfterEach {
 
-  private var _mongoClient: MongoClient = uninitialized
-  private var _database: Database = uninitialized
+  private var _mongoClient: MongoClient = _
+  private var _database: Database = _
 
   override def beforeEach(): Unit = {
     val databaseName = s"unit-testdb-${MongoTest.count.incrementAndGet()}"

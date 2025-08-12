@@ -130,10 +130,10 @@ object Facts {
   val networkFactsWithRefs: Seq[Fact] = Seq(Fact.NodeMemberMissing, Fact.UnexpectedIntegrityCheck)
 
   val reportedFacts: Seq[Fact] = {
-    val errorFacts: Seq[Fact] = Fact.values.toSeq.filter(Facts.isError).
+    val errorFacts: Seq[Fact] = Fact.values.filter(Facts.isError).
       filterNot(_ == Fact.RouteNotForward).
       filterNot(_ == Fact.RouteNotBackward)
-    val infoFacts: Seq[Fact] = Fact.values.toSeq.filter(Facts.isInfo)
+    val infoFacts: Seq[Fact] = Fact.values.filter(Facts.isInfo)
     errorFacts ++ infoFacts
   }
 }

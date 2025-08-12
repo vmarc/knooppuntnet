@@ -11,8 +11,6 @@ import kpn.core.test.OverpassData
 import kpn.server.monitor.domain.MonitorRoute
 import org.scalamock.scalatest.MockFactory
 
-import scala.compiletime.uninitialized
-
 abstract class MonitorUpdateTest extends MongoTest with MockFactory {
 
   val ReferenceTimestamp1 = Timestamp(2022, 8, 1)
@@ -23,7 +21,7 @@ abstract class MonitorUpdateTest extends MongoTest with MockFactory {
   val GpxUpload1Timestamp = Timestamp(2022, 8, 12, 12, 0, 0)
   val GpxUpload2Timestamp = Timestamp(2022, 8, 13, 12, 0, 0)
 
-  private var _configuration: MonitorUpdaterConfiguration = uninitialized
+  private var _configuration: MonitorUpdaterConfiguration = _
 
   override def beforeEach(): Unit = {
     super.beforeEach()

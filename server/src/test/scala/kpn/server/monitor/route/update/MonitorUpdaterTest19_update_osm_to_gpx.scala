@@ -22,11 +22,9 @@ import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.monitor.domain.MonitorState
 
-import scala.compiletime.uninitialized
-
 class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
 
-  private var route1: MonitorTestRoute = uninitialized
+  private var route1: MonitorTestRoute = _
 
   override def beforeEach(): Unit = {
     super.beforeEach()
