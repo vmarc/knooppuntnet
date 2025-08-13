@@ -2,7 +2,7 @@
 
 package kpn.tools.code.codecs.generated
 
-import kpn.database.tools.Period
+import kpn.database.tools.TimestampDemo.Period
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
 import org.bson.BsonType

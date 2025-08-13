@@ -170,8 +170,8 @@ import kpn.database.base.NameRow
 import kpn.database.base.ObjectIdId
 import kpn.database.base.StringId
 import kpn.database.tools.NodeWithLongName
-import kpn.database.tools.Period
 import kpn.database.tools.RouteColourTagValue
+import kpn.database.tools.TimestampDemo.Period
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
@@ -208,7 +208,6 @@ import kpn.server.sync.StampDoc
 import kpn.server.sync.Transaction
 import kpn.tools.code.ClassId
 import kpn.tools.code.codecs.DayCodec
-import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import org.bson.codecs.Codec

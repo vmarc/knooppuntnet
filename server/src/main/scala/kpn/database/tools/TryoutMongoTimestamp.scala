@@ -11,10 +11,12 @@ import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.Sorts.descending
 import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.custom.Timestamp2
+import kpn.core.doc.Storable
 import kpn.core.doc.WithStringId
 import kpn.database.base.Database
 import kpn.database.base.DatabaseCollectionImpl
 import kpn.database.base.Types.MongoPipeline
+import kpn.database.tools.TimestampDemo.Period
 import kpn.database.util.Mongo
 import org.bson.BsonDocument
 
@@ -24,6 +26,14 @@ case class TestDoc(
 ) extends WithStringId
 
 object TimestampDemo {
+
+  case class Period(
+    year: Option[Long],
+    month: Option[Long],
+    day: Option[Long],
+    count: Long
+  ) extends Storable
+
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn") { database =>
       // new TimestampDemo(database).populateCollection()
