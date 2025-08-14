@@ -1,6 +1,7 @@
 package kpn.tools.code
 
 import kpn.api.common.data.raw.RawNode
+import kpn.tools.code.codecs.Codecs
 import kpn.tools.code.domain.ClassInfo
 import org.apache.commons.io.FileUtils
 
@@ -53,14 +54,12 @@ class RootDocReader {
     println(updatedClassInfos.size)
     println()
 
-    // filter out kpn.database.tools.TestDoc
+    val codeClassInfos = updatedClassInfos.filterNot { classInfo =>
+      Codecs.customCodecs.contains(ClassId(classInfo.className, classInfo.packageName)) ||
+        classInfo.fullName == "kpn.database.tools.TestDoc"
+    }
 
-    //    found.values.foreach { classInfo =>
-    //      if (!Codecs.customCodecs.contains(ClassId(classInfo.className, classInfo.packageName))) {
-    //        codecWriter.write(classInfo)
-    //      }
-    //    }
-    updatedClassInfos.foreach(codecWriter.write)
+    codeClassInfos.foreach(codecWriter.write)
   }
 
   private def analyzeFile(file: File): Option[ClassInfo] = {

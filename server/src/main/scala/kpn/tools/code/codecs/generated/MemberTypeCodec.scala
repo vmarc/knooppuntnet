@@ -3,9 +3,7 @@
 package kpn.tools.code.codecs.generated
 
 import kpn.api.common.data.MemberType
-import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
-import org.bson.BsonType
 import org.bson.BsonWriter
 import org.bson.codecs.Codec
 import org.bson.codecs.DecoderContext
@@ -13,7 +11,6 @@ import org.bson.codecs.EncoderContext
 import org.bson.codecs.configuration.CodecRegistry
 
 class MemberTypeCodec(registry: CodecRegistry) extends Codec[MemberType] {
-
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): MemberType = {
     MemberType.withName(bsonReader.readString())

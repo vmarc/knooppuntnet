@@ -12,6 +12,7 @@ object Codecs {
     ClassId("Day", "kpn.api.custom"),
     ClassId("Tag", "kpn.api.custom"),
     ClassId("Timestamp", "kpn.api.custom"),
+    ClassId("ApiResponse", "kpn.api.custom"),
   )
 }
 
