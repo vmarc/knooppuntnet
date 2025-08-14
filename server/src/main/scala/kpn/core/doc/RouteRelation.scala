@@ -55,4 +55,4 @@ case class RouteRelation(
   name: String,
   role: Option[String],
   relations: Option[Seq[RouteRelation]]
-)
+) extends Storable

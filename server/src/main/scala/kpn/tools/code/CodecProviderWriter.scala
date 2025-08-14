@@ -1,14 +1,13 @@
 package kpn.tools.code
 
 import kpn.tools.code.codecs.Codecs
-import kpn.tools.code.domain.ClassInfo
 
 import java.io.File
 import java.io.PrintStream
 
 class CodecProviderWriter {
 
-  def write(classInfos: Seq[ClassInfo]): Unit = {
+  def write(classIds: Seq[ClassId]): Unit = {
 
     val file = new File(s"${Codecs.CodecDir}/_CodecProvider.scala")
     file.getParentFile.mkdirs()
@@ -17,14 +16,14 @@ class CodecProviderWriter {
 
     try {
       writeHeader(out)
-      writeImports(out, classInfos)
+      writeImports(out, classIds)
 
       out.skipLine()
       out.println(s"class _CodecProvider extends CodecProvider {")
       out.indent {
         out.println(s"override def get[T](aClass: Class[T], codecRegistry: CodecRegistry): Codec[T] = {")
         out.indent {
-          writeCodecs(out, classInfos)
+          writeCodecs(out, classIds)
           out.println("null")
         }
         out.println(s"}")
@@ -36,8 +35,8 @@ class CodecProviderWriter {
     }
   }
 
-  private def createOutputFile(classInfo: ClassInfo): File = {
-    val file = new File(s"${Codecs.CodecDir}/${classInfo.className}Codec.scala")
+  private def createOutputFile(classId: ClassId): File = {
+    val file = new File(s"${Codecs.CodecDir}/${classId.className}Codec.scala")
     file.getParentFile.mkdirs()
     file
   }
@@ -48,7 +47,7 @@ class CodecProviderWriter {
     out.println("package kpn.tools.code.codecs.generated")
   }
 
-  private def writeImports(out: IndentingPrintStream, classInfos: Seq[ClassInfo]): Unit = {
+  private def writeImports(out: IndentingPrintStream, classIds: Seq[ClassId]): Unit = {
     val fixedImportClasses = Seq(
       "org.bson.codecs.Codec",
       "org.bson.codecs.configuration.CodecProvider",
@@ -59,7 +58,7 @@ class CodecProviderWriter {
       "kpn.tools.code.codecs.ScalaLongCodec",
     )
 
-    val classInfosImportClasses = classInfos.map(classInfo => classInfo.fullName)
+    val classInfosImportClasses = classIds.map(classInfo => classInfo.fullName)
 
     val importClasses = (fixedImportClasses ++ classInfosImportClasses).sorted.distinct
 
@@ -69,9 +68,9 @@ class CodecProviderWriter {
     }
   }
 
-  private def writeCodecs(out: IndentingPrintStream, classInfos: Seq[ClassInfo]): Unit = {
+  private def writeCodecs(out: IndentingPrintStream, classIds: Seq[ClassId]): Unit = {
     out.skipLine()
-    classInfos.foreach { classInfo =>
+    classIds.foreach { classInfo =>
       out.println(s"if (aClass == classOf[${classInfo.className}]) {")
       out.indent {
         out.println(s"return new ${classInfo.className}Codec(codecRegistry).asInstanceOf[Codec[T]]")

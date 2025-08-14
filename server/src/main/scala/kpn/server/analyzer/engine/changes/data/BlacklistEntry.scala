@@ -1,3 +1,5 @@
 package kpn.server.analyzer.engine.changes.data
 
-case class BlacklistEntry(id: Long, name: String, reason: String)
+import kpn.core.doc.Storable
+
+case class BlacklistEntry(id: Long, name: String, reason: String) extends Storable

@@ -1,10 +1,12 @@
 package kpn.server.analyzer.engine.context
 
+import kpn.core.doc.Storable
+
 case class ElementIds(
   nodeIds: Set[Long] = Set.empty,
   wayIds: Set[Long] = Set.empty,
   relationIds: Set[Long] = Set.empty
-) {
+) extends Storable {
 
   def isEmpty: Boolean = nodeIds.isEmpty && wayIds.isEmpty && relationIds.isEmpty
 

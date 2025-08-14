@@ -1,6 +1,6 @@
 package kpn.core.doc
 
-case class SuperSubSegment(info: SuperSubSegmentInfo, reversed: Boolean = false) {
+case class SuperSubSegment(info: SuperSubSegmentInfo, reversed: Boolean = false) extends Storable {
 
   def startNodeId: Long = {
     if (reversed) {

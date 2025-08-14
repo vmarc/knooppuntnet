@@ -97,29 +97,36 @@ class ClazzTest extends UnitTest with BeforeAndAfterEach {
         ),
         ClassField(
           "timestamp1",
-          ClassType(typeName = Some("kpn.api.custom.Timestamp"))
+          ClassType(
+            typeName = Some("Timestamp"),
+            packageName = Some("kpn.api.custom"),
+          )
         ),
         ClassField(
           "timestamp2",
-          ClassType(typeName = Some("kpn.api.custom.Timestamp"))
+          ClassType(
+            typeName = Some("Timestamp"),
+            packageName = Some("kpn.api.custom"),
+          )
         ),
         ClassField(
           "flagged",
           ClassType(
             typeName = Some("Boolean"),
-            primitive = true
+            primitive = true,
+            optional = true
           )
         ),
         ClassField(
           "options",
           ClassType(
-            //            typeName = Some("Array<string>"),
             arrayType = Some(
               ClassType(
                 Some("String"),
                 primitive = true
               )
-            )
+            ),
+            arrayTypeClass = Some("Seq"),
           )
         ),
         ClassField(
@@ -132,7 +139,8 @@ class ClazzTest extends UnitTest with BeforeAndAfterEach {
                   primitive = true
                 ),
                 ClassType(
-                  Some("kpn.api.custom.Timestamp")
+                  typeName = Some("Timestamp"),
+                  packageName = Some("kpn.api.custom"),
                 )
               )
             )
@@ -143,16 +151,21 @@ class ClazzTest extends UnitTest with BeforeAndAfterEach {
           ClassType(
             arrayType = Some(
               ClassType(
-                Some("kpn.api.custom.Timestamp"),
+                typeName = Some("Timestamp"),
+                packageName = Some("kpn.api.custom"),
                 optional = true
               )
             ),
+            arrayTypeClass = Some("Seq"),
             optional = true
           ),
         ),
         ClassField(
           "selfRef",
-          ClassType(Some("kpn.tools.code.TestClass"))
+          ClassType(
+            typeName = Some("TestClass"),
+            packageName = Some("kpn.tools.code"),
+          )
         )
       )
     )

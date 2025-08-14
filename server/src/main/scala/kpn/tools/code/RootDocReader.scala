@@ -50,16 +50,16 @@ class RootDocReader {
       }
     }
 
-    updatedClassInfos.map(_.fullName).foreach(println)
-    println(updatedClassInfos.size)
-    println()
-
     val codeClassInfos = updatedClassInfos.filterNot { classInfo =>
       Codecs.customCodecs.contains(ClassId(classInfo.className, classInfo.packageName)) ||
         classInfo.fullName == "kpn.database.tools.TestDoc"
     }
 
     codeClassInfos.foreach(codecWriter.write)
+
+    val classIds = Codecs.customCodecs.filterNot(_.className == "ApiResponse") ++ codeClassInfos.map(classInfo => ClassId(classInfo.className, classInfo.packageName))
+
+    new CodecProviderWriter().write(classIds)
   }
 
   private def analyzeFile(file: File): Option[ClassInfo] = {

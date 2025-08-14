@@ -4,7 +4,7 @@ case class ClassId(
   className: String,
   packageName: String,
 ) {
-  def key: String = {
+  def fullName: String = {
     s"${packageName}.${className}"
   }
 }

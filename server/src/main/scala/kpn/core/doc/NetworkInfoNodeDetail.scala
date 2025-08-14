@@ -20,7 +20,7 @@ case class NetworkInfoNodeDetail(
   lastSurvey: Option[Day],
   expectedRouteCount: Option[Long],
   facts: Seq[Fact]
-) extends LatLon {
+) extends LatLon with Storable {
 
   def toRef: Ref = {
     Ref(id, name)

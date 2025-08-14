@@ -7,4 +7,4 @@ case class BaseRouteSegmentElement(
   memberIndexes: Seq[Long],
   meters: Long,
   coordinates: String,
-)
+) extends Storable
