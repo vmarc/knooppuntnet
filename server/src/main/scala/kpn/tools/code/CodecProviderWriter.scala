@@ -10,7 +10,7 @@ class CodecProviderWriter {
 
   def write(classInfos: Seq[ClassInfo]): Unit = {
 
-    val file = new File(s"${Codecs.OutputDir}/_CodecProvider.scala")
+    val file = new File(s"${Codecs.CodecDir}/_CodecProvider.scala")
     file.getParentFile.mkdirs()
 
     val out = new IndentingPrintStream(new PrintStream(file))
@@ -37,7 +37,7 @@ class CodecProviderWriter {
   }
 
   private def createOutputFile(classInfo: ClassInfo): File = {
-    val file = new File(s"${Codecs.OutputDir}/${classInfo.className}Codec.scala")
+    val file = new File(s"${Codecs.CodecDir}/${classInfo.className}Codec.scala")
     file.getParentFile.mkdirs()
     file
   }
@@ -59,7 +59,7 @@ class CodecProviderWriter {
       "kpn.tools.code.codecs.ScalaLongCodec",
     )
 
-    val classInfosImportClasses = classInfos.map(classInfo => classInfo.key)
+    val classInfosImportClasses = classInfos.map(classInfo => classInfo.fullName)
 
     val importClasses = (fixedImportClasses ++ classInfosImportClasses).sorted.distinct
 

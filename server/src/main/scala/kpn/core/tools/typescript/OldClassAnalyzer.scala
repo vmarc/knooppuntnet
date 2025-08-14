@@ -5,17 +5,17 @@ import kpn.api.common.data.raw.RawNode
 import scala.reflect.runtime.universe.*
 import scala.util.matching.Regex
 
-object ClassAnalyzer {
+object OldClassAnalyzer {
 
   def main(args: Array[String]): Unit = {
     val mirror = runtimeMirror(classOf[RawNode].getClassLoader)
     val caseClass: Type = mirror.staticClass("kpn.api.shared.statistics.Statistics").typeSignature
-    val classInfo = new ClassAnalyzer().analyze(caseClass)
+    val classInfo = new OldClassAnalyzer().analyze(caseClass)
     println(classInfo)
   }
 }
 
-class ClassAnalyzer {
+class OldClassAnalyzer {
 
   private val mapSignature: Regex = """Map\[([a-zA-Z0-9.]*),([a-zA-Z0-9.]*)\]""".r
   private val setSignature: Regex = """Set\[([a-zA-Z0-9.]*)\]""".r

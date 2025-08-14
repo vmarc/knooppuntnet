@@ -1,80 +1,116 @@
 package kpn.tools.code
 
-import kpn.tools.code.codecs.Codecs
+import kpn.api.common.data.raw.RawNode
 import kpn.tools.code.domain.ClassInfo
+import org.apache.commons.io.FileUtils
 
-import scala.collection.mutable
-import scala.io.Source
+import java.io.File
+import scala.jdk.CollectionConverters.CollectionHasAsScala
+import scala.reflect.runtime.universe.runtimeMirror
 
 object RootDocReader {
   val scalaCaseClassReader = new ScalaCaseClassReader()
 
   def main(args: Array[String]): Unit = {
+    new RootDocReader().read()
+  }
+}
 
-    val rootClassIds = readClassIds().filterNot(_.className == "ObjectId") ++ Codecs.customCodecs ++ Codecs.extraCodecs
-    val rootClassInfos = rootClassIds.map(classId => scalaCaseClassReader.read(classId))
+class RootDocReader {
 
-    val found = mutable.Map(rootClassInfos.map(classInfo => classInfo.key -> classInfo) *)
+  private val ignoreClassPatterns = Seq(
+    "AutoflushingFileHistory",
+    "Codec"
+  )
 
-    val all = rootClassInfos.flatMap { classInfo =>
-      collectDependencies(found, classInfo)
-    }
+  private val root = "target/classes"
+  private val mirror = runtimeMirror(classOf[RawNode].getClassLoader)
+
+  def read(): Unit = {
 
     val codecWriter = new CodecWriter()
-    found.values.foreach { classInfo =>
-      if (!Codecs.customCodecs.contains(ClassId(classInfo.className, classInfo.packageName))) {
-        codecWriter.write(classInfo)
+
+    val files = FileUtils.listFiles(new File(root), Array("class"), true).asScala.toSeq
+    val classInfos: Seq[ClassInfo] = files.flatMap(analyzeFile)
+
+    val enumEntries = classInfos.filter(_.isEnumEntry)
+
+    val updatedClassInfos = classInfos.flatMap { classInfo =>
+      if (classInfo.isEnumEntry) {
+        None
+      }
+      else if (classInfo.isEnum) {
+        val entries = enumEntries.filter(_.enumClassName == classInfo.enumClassName)
+        val enumValues = entries.flatMap(_.enumValue)
+        Some(classInfo.copy(enumValues = enumValues))
+      }
+      else {
+        Some(classInfo)
       }
     }
 
-    val codecProviderWriter = new CodecProviderWriter()
-    codecProviderWriter.write(found.values.toSeq)
+    updatedClassInfos.map(_.fullName).foreach(println)
+    println(updatedClassInfos.size)
+    println()
+
+    // filter out kpn.database.tools.TestDoc
+
+    //    found.values.foreach { classInfo =>
+    //      if (!Codecs.customCodecs.contains(ClassId(classInfo.className, classInfo.packageName))) {
+    //        codecWriter.write(classInfo)
+    //      }
+    //    }
+    updatedClassInfos.foreach(codecWriter.write)
   }
 
-  private def collectDependencies(found: mutable.Map[String, ClassInfo], info: ClassInfo): Seq[ClassInfo] = {
-    println(info.className)
-    val missingClassIds = info.dependencies.filter(classId => !found.contains(classId.key)).filterNot(_.className == "Member").filterNot(_.className == "ObjectId")
-    val classInfos = missingClassIds.map(classId => scalaCaseClassReader.read(classId))
-    found.addAll(classInfos.map(classInfo => classInfo.key -> classInfo))
-    classInfos.flatMap { classInfo =>
-      println(s"  ${classInfo.className}")
-      collectDependencies(found, classInfo)
+  private def analyzeFile(file: File): Option[ClassInfo] = {
+    val path = file.getPath.dropRight(".class".length)
+    val fullClassName = path.drop(root.length + 1).replace('/', '.')
+
+    if (ignoreClassPatterns.exists(fullClassName.contains)) {
+      None
     }
-  }
+    else {
+      val clazz = new Clazz(mirror.staticClass(fullClassName).typeSignature)
 
-  private def readClassIds(): Seq[ClassId] = {
-    val filename = "src/main/scala/kpn/database/base/Database.scala"
-    val source = Source.fromFile(filename)
-    try {
-      val lines = source.getLines().toSeq
-
-      val collectionPattern = """.*DatabaseCollection\[(\w+)\]""".r
-
-      val excludedNames = Seq("WithStringId")
-
-      val classNames = lines
-        .flatMap(collectionPattern.findFirstMatchIn)
-        .map(_.group(1))
-        .filterNot(excludedNames.contains)
-        .sorted
-        .distinct
-
-      val importLines = lines.filter(_.startsWith("import "))
-      val classIds = classNames.map { className =>
-        val pattern = s".*\\.$className$$".r
-        val packageLine = importLines.find(pattern.matches)
-        packageLine match {
-          case None => throw new RuntimeException(s"cannot find import for $className in $filename")
-          case Some(line) =>
-            val packageName = line.dropRight(className.length + 1).drop("import ".length)
-            ClassId(className, packageName)
+      if (clazz.isEnumEntry) {
+        Some(
+          ClassInfo(
+            className = clazz.className,
+            packageName = clazz.packageName,
+            fields = Seq.empty,
+            enumClassName = Some(clazz.enumClassName),
+            isEnumEntry = true,
+          )
+        )
+      }
+      else {
+        if (clazz.isEnum) {
+          Some(
+            ClassInfo(
+              className = clazz.className,
+              packageName = clazz.packageName,
+              fields = Seq.empty,
+              enumClassName = Some(clazz.enumClassName),
+              isEnum = true,
+            )
+          )
+        }
+        else {
+          if (clazz.isStorable || clazz.isApi) {
+            Some(
+              ClassInfo(
+                className = clazz.className,
+                packageName = clazz.packageName,
+                fields = clazz.fields,
+              )
+            )
+          }
+          else {
+            None
+          }
         }
       }
-
-      classIds
-    }
-    finally {
-      source.close()
     }
   }
 }

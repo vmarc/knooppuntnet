@@ -129,7 +129,7 @@ class ScalaCaseClassReader {
                   packageName,
                   Seq.empty,
                   isEnum = true,
-                  enumValues
+                  enumValues = enumValues
                 )
 
               case None =>

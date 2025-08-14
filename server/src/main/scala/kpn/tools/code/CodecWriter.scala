@@ -38,7 +38,7 @@ class CodecWriter {
   }
 
   private def createOutputFile(classInfo: ClassInfo): File = {
-    val file = new File(s"${Codecs.OutputDir}/${classInfo.className}Codec.scala")
+    val file = new File(s"${Codecs.CodecDir}/${classInfo.className}Codec.scala")
     file.getParentFile.mkdirs()
     file
   }

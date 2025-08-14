@@ -1,11 +1,28 @@
 package kpn.tools.code
 
 import kpn.api.common.data.raw.RawNode
+import kpn.api.custom.Timestamp
 import kpn.core.util.UnitTest
+import kpn.tools.code.domain.ClassField
+import kpn.tools.code.domain.ClassType
 import org.scalatest.BeforeAndAfterEach
 
 import scala.reflect.runtime.universe.Mirror
 import scala.reflect.runtime.universe.runtimeMirror
+
+case class TestClass(
+  id: Long,
+  version: Int,
+  name: String,
+  value: Double,
+  timestamp1: Timestamp,
+  timestamp2: Timestamp,
+  flagged: Option[Boolean],
+  options: Seq[String],
+  map: Map[String, Timestamp],
+  timestamps: Option[Seq[Timestamp]],
+  selfRef: TestClass
+)
 
 class ClazzTest extends UnitTest with BeforeAndAfterEach {
 
@@ -53,6 +70,92 @@ class ClazzTest extends UnitTest with BeforeAndAfterEach {
 
     assert(clazz1.isApi)
     assert(!clazz2.isApi)
+  }
+
+  test("fields") {
+
+    val clazz = newClazz("kpn.tools.code.TestClass")
+
+    assertEqual(
+      clazz.fields,
+      Seq(
+        ClassField(
+          "id",
+          ClassType(typeName = Some("Long"), primitive = true)
+        ),
+        ClassField(
+          "version",
+          ClassType(typeName = Some("Int"), primitive = true)
+        ),
+        ClassField(
+          "name",
+          ClassType(typeName = Some("String"), primitive = true)
+        ),
+        ClassField(
+          "value",
+          ClassType(typeName = Some("Double"), primitive = true)
+        ),
+        ClassField(
+          "timestamp1",
+          ClassType(typeName = Some("kpn.api.custom.Timestamp"))
+        ),
+        ClassField(
+          "timestamp2",
+          ClassType(typeName = Some("kpn.api.custom.Timestamp"))
+        ),
+        ClassField(
+          "flagged",
+          ClassType(
+            typeName = Some("Boolean"),
+            primitive = true
+          )
+        ),
+        ClassField(
+          "options",
+          ClassType(
+            //            typeName = Some("Array<string>"),
+            arrayType = Some(
+              ClassType(
+                Some("String"),
+                primitive = true
+              )
+            )
+          )
+        ),
+        ClassField(
+          "map",
+          ClassType(
+            mapTypes = Some(
+              (
+                ClassType(
+                  Some("String"),
+                  primitive = true
+                ),
+                ClassType(
+                  Some("kpn.api.custom.Timestamp")
+                )
+              )
+            )
+          )
+        ),
+        ClassField(
+          "timestamps",
+          ClassType(
+            arrayType = Some(
+              ClassType(
+                Some("kpn.api.custom.Timestamp"),
+                optional = true
+              )
+            ),
+            optional = true
+          ),
+        ),
+        ClassField(
+          "selfRef",
+          ClassType(Some("kpn.tools.code.TestClass"))
+        )
+      )
+    )
   }
 
   private def newClazz(fullName: String): Clazz = {
