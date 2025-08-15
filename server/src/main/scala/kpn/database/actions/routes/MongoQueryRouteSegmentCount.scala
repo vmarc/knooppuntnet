@@ -4,6 +4,7 @@ import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
+import kpn.core.doc.Storable
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
@@ -13,7 +14,7 @@ import kpn.database.base.Types.MongoPipeline
 
 case class SegmentCountDoc(
   segmentCount: Long,
-)
+) extends Storable
 
 object MongoQueryRouteSegmentCount {
   private val log = Log(classOf[MongoQueryRouteSegmentCount])

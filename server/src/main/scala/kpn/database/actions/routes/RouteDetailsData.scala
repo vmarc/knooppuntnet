@@ -9,6 +9,7 @@ import kpn.api.common.route.ParentRoute
 import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
+import kpn.core.doc.Storable
 
 case class RouteDetailsData(
   id: Long,
@@ -34,4 +35,4 @@ case class RouteDetailsData(
   parentRoutes: Seq[ParentRoute],
   networkReferences: Seq[Reference],
   locationAnalysis: RouteLocationAnalysis,
-)
+) extends Storable

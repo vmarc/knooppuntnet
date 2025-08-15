@@ -64,7 +64,7 @@ export class MonitorGroupUpdatePageService {
   update(groupId: string): void {
     if (this.form.valid) {
       this.monitorService
-        .groupUpdate(groupId, this.form.value)
+        .groupUpdate(groupId, null /* TODO this.form.value */)
         .subscribe(() => this.navService.go('/monitor'));
     }
   }

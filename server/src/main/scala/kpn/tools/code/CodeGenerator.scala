@@ -27,6 +27,18 @@ class CodeGenerator {
 
     val codeClassInfos = collectCodecClassInfos(classInfos)
 
+    codeClassInfos.foreach { classInfo =>
+      val fieldTypeNames = classInfo.fields.flatMap(_.classType.typeName)
+      val arrayFieldTypeNames = classInfo.fields.flatMap(_.classType.arrayType.flatMap(_.arrayType.flatMap(_.typeName)))
+      val mapKeyFieldTypeNames = classInfo.fields.flatMap(_.classType.mapTypes.toSeq.flatMap(a => a._1.typeName.toSeq ++ a._2.typeName.toSeq))
+      val typeNames = (fieldTypeNames ++ arrayFieldTypeNames ++ mapKeyFieldTypeNames).filterNot(typeName => Seq("Long", "Int", "String", "Boolean", "Timestamp", "Day", "Double", "ObjectId").contains(typeName)).sorted.distinct
+      typeNames.foreach { typeName =>
+        if (!codeClassInfos.exists(_.className == typeName)) {
+          println(s"${classInfo.fullName} > $typeName")
+        }
+      }
+    }
+
     val codecWriter = new CodecWriter()
     codeClassInfos.foreach(codecWriter.write)
 

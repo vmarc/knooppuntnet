@@ -32,10 +32,11 @@ import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
         <ui-monitor-route-form
           mode="add"
           [groupName]="state.groupName"
-          [initialProperties]="{
-            groupName: state.groupName,
-          }"
+          [initialProperties]="null"
         />
+        <!--        [initialProperties]="{-->
+        <!--        groupName: state.groupName,-->
+        <!--        }"-->
       </ui-page>
     }
   `,

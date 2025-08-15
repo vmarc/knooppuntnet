@@ -361,11 +361,18 @@ import kpn.core.doc.SuperSubSegment
 import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.doc.Task
 import kpn.core.gpx.GpxFile
+import kpn.core.metrics.AnalysisAction
 import kpn.core.metrics.AnalysisActionDoc
+import kpn.core.metrics.ApiAction
 import kpn.core.metrics.ApiActionDoc
+import kpn.core.metrics.LogAction
 import kpn.core.metrics.LogActionDoc
+import kpn.core.metrics.MinuteDiffInfo
+import kpn.core.metrics.ReplicationAction
 import kpn.core.metrics.ReplicationActionDoc
+import kpn.core.metrics.SystemStatus
 import kpn.core.metrics.SystemStatusDoc
+import kpn.core.metrics.UpdateAction
 import kpn.core.metrics.UpdateActionDoc
 import kpn.core.poi.PoiInfo
 import kpn.core.tools.monitor.support.OsmSegments
@@ -384,7 +391,9 @@ import kpn.database.actions.locations.NodeFilterOptionQueryResult
 import kpn.database.actions.locations.RouteFilterOptionQueryResult
 import kpn.database.actions.monitor.MonitorGroupRouteInfoData
 import kpn.database.actions.routes.BoundsResult
+import kpn.database.actions.routes.RouteDetailsData
 import kpn.database.actions.routes.SearchQueryResult
+import kpn.database.actions.routes.SegmentCountDoc
 import kpn.database.actions.statistics.ChangeSetCount
 import kpn.database.actions.statistics.ChangeSetCount2
 import kpn.database.actions.statistics.ChangeSetCounts
@@ -409,6 +418,8 @@ import kpn.server.analyzer.engine.changes.data.BlacklistEntry
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
+import kpn.server.api.analysis.pages.network.NetworkNodesPageData
+import kpn.server.api.analysis.pages.network.NetworkRoutesPageData
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorGroupRouteCount
 import kpn.server.monitor.domain.MonitorReference
@@ -500,6 +511,12 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[RouteFilterOptionQueryResult]) {
       return new RouteFilterOptionQueryResultCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[SegmentCountDoc]) {
+      return new SegmentCountDocCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[RouteDetailsData]) {
+      return new RouteDetailsDataCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[BoundsResult]) {
       return new BoundsResultCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
@@ -527,6 +544,9 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[ApiActionDoc]) {
       return new ApiActionDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[ApiAction]) {
+      return new ApiActionCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[ReplicationActionDoc]) {
       return new ReplicationActionDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
@@ -539,8 +559,26 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[LogActionDoc]) {
       return new LogActionDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[SystemStatus]) {
+      return new SystemStatusCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LogAction]) {
+      return new LogActionCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[MinuteDiffInfo]) {
+      return new MinuteDiffInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[AnalysisAction]) {
+      return new AnalysisActionCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ReplicationAction]) {
+      return new ReplicationActionCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[UpdateActionDoc]) {
       return new UpdateActionDocCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[UpdateAction]) {
+      return new UpdateActionCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[MembersDoc]) {
       return new MembersDocCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -727,6 +765,12 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[OldMonitorReference]) {
       return new OldMonitorReferenceCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NetworkNodesPageData]) {
+      return new NetworkNodesPageDataCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NetworkRoutesPageData]) {
+      return new NetworkRoutesPageDataCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[StampDoc]) {
       return new StampDocCodec(codecRegistry).asInstanceOf[Codec[T]]

@@ -1,3 +1,5 @@
 package kpn.api.common
 
-case class NetworkNameMissing()
+import kpn.core.doc.Storable
+
+case class NetworkNameMissing() extends Storable

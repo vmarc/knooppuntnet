@@ -1,6 +1,7 @@
 package kpn.core.metrics
 
 import kpn.api.common.status.ActionTimestamp
+import kpn.core.doc.Storable
 
 case class ApiAction(
   remoteAddress: String,
@@ -12,4 +13,4 @@ case class ApiAction(
   args: String,
   timestamp: ActionTimestamp,
   elapsed: Long
-)
+) extends Storable
