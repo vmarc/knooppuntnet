@@ -121,11 +121,11 @@ class Clazz(private val typeSignature: Type) {
 
   private def fieldTypeToTypescript(fieldTypeName: String, optional: Boolean): ClassType = {
     fieldTypeName match {
-      case "Int" => ClassType(Some(fieldTypeName), primitive = true, optional = optional)
-      case "Long" => ClassType(Some(fieldTypeName), primitive = true, optional = optional)
-      case "Double" => ClassType(Some(fieldTypeName), primitive = true, optional = optional)
-      case "String" => ClassType(Some(fieldTypeName), primitive = true, optional = optional)
-      case "Boolean" => ClassType(Some(fieldTypeName), primitive = true, optional = optional)
+      case "Int" => ClassType(Some(fieldTypeName), optional = optional)
+      case "Long" => ClassType(Some(fieldTypeName), optional = optional)
+      case "Double" => ClassType(Some(fieldTypeName), optional = optional)
+      case "String" => ClassType(Some(fieldTypeName), optional = optional)
+      case "Boolean" => ClassType(Some(fieldTypeName), optional = optional)
       case _ =>
         val className = fieldTypeName.split("\\.").last
         val packageName = fieldTypeName.dropRight(className.length + 1)

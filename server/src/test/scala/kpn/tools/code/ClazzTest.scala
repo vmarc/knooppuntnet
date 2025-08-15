@@ -81,19 +81,19 @@ class ClazzTest extends UnitTest with BeforeAndAfterEach {
       Seq(
         ClassField(
           "id",
-          ClassType(typeName = Some("Long"), primitive = true)
+          ClassType(typeName = Some("Long"))
         ),
         ClassField(
           "version",
-          ClassType(typeName = Some("Int"), primitive = true)
+          ClassType(typeName = Some("Int"))
         ),
         ClassField(
           "name",
-          ClassType(typeName = Some("String"), primitive = true)
+          ClassType(typeName = Some("String"))
         ),
         ClassField(
           "value",
-          ClassType(typeName = Some("Double"), primitive = true)
+          ClassType(typeName = Some("Double"))
         ),
         ClassField(
           "timestamp1",
@@ -113,8 +113,6 @@ class ClazzTest extends UnitTest with BeforeAndAfterEach {
           "flagged",
           ClassType(
             typeName = Some("Boolean"),
-            primitive = true,
-            optional = true
           )
         ),
         ClassField(
@@ -123,7 +121,6 @@ class ClazzTest extends UnitTest with BeforeAndAfterEach {
             arrayType = Some(
               ClassType(
                 Some("String"),
-                primitive = true
               )
             ),
             arrayTypeClass = Some("Seq"),
@@ -135,8 +132,7 @@ class ClazzTest extends UnitTest with BeforeAndAfterEach {
             mapTypes = Some(
               (
                 ClassType(
-                  Some("String"),
-                  primitive = true
+                  Some("String")
                 ),
                 ClassType(
                   typeName = Some("Timestamp"),
