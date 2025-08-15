@@ -1,7 +1,8 @@
 package kpn.tools.code
 
 import kpn.api.common.data.raw.RawNode
-import kpn.tools.code.codecs.Codecs
+import kpn.tools.code.ClassInfoReader.ignoreClassPatterns
+import kpn.tools.code.ClassInfoReader.root
 import kpn.tools.code.domain.ClassInfo
 import org.apache.commons.io.FileUtils
 
@@ -9,34 +10,31 @@ import java.io.File
 import scala.jdk.CollectionConverters.CollectionHasAsScala
 import scala.reflect.runtime.universe.runtimeMirror
 
-object RootDocReader {
-  val scalaCaseClassReader = new ScalaCaseClassReader()
-
-  def main(args: Array[String]): Unit = {
-    new RootDocReader().read()
-  }
-}
-
-class RootDocReader {
-
+object ClassInfoReader {
+  private val root = "target/classes"
   private val ignoreClassPatterns = Seq(
     "AutoflushingFileHistory",
     "Codec"
   )
 
-  private val root = "target/classes"
+  def collectClassInfos(): Seq[ClassInfo] = {
+    new ClassInfoReader().collectClassInfos()
+  }
+}
+
+class ClassInfoReader {
+
   private val mirror = runtimeMirror(classOf[RawNode].getClassLoader)
 
-  def read(): Unit = {
-
-    val codecWriter = new CodecWriter()
-
+  def collectClassInfos(): Seq[ClassInfo] = {
     val files = FileUtils.listFiles(new File(root), Array("class"), true).asScala.toSeq
-    val classInfos: Seq[ClassInfo] = files.flatMap(analyzeFile)
+    val classInfos = files.flatMap(analyzeFile)
+    assembleEnumClassInfos(classInfos)
+  }
 
+  private def assembleEnumClassInfos(classInfos: Seq[ClassInfo]): Seq[ClassInfo] = {
     val enumEntries = classInfos.filter(_.isEnumEntry)
-
-    val updatedClassInfos = classInfos.flatMap { classInfo =>
+    classInfos.flatMap { classInfo =>
       if (classInfo.isEnumEntry) {
         None
       }
@@ -49,17 +47,6 @@ class RootDocReader {
         Some(classInfo)
       }
     }
-
-    val codeClassInfos = updatedClassInfos.filterNot { classInfo =>
-      Codecs.customCodecs.contains(ClassId(classInfo.className, classInfo.packageName)) ||
-        classInfo.fullName == "kpn.database.tools.TestDoc"
-    }
-
-    codeClassInfos.foreach(codecWriter.write)
-
-    val classIds = Codecs.customCodecs.filterNot(_.className == "ApiResponse") ++ codeClassInfos.map(classInfo => ClassId(classInfo.className, classInfo.packageName))
-
-    new CodecProviderWriter().write(classIds)
   }
 
   private def analyzeFile(file: File): Option[ClassInfo] = {

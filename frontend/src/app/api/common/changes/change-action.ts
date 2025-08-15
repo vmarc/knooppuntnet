@@ -2,5 +2,5 @@
 
 export type ChangeAction =
   | 'create'
-  | 'modify'
-  | 'delete';
+  | 'delete'
+  | 'modify';

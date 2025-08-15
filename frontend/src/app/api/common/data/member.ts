@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Relation } from '@api/custom/relation';
+import { Relation } from '@api/common/relation';
 import { Node } from './node';
 import { Way } from './way';
 

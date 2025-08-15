@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
 export type TagDiffType =
-  | 'same'
+  | 'add'
   | 'delete'
-  | 'update'
-  | 'add';
+  | 'same'
+  | 'update';

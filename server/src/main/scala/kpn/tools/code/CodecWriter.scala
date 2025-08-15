@@ -8,13 +8,6 @@ import kpn.tools.code.domain.ClassType
 import java.io.File
 import java.io.PrintStream
 
-object CodecWriter {
-  def main(args: Array[String]): Unit = {
-    val classInfo = new ScalaCaseClassReader().read(ClassId("RawNode", "kpn.api.common.data.raw"))
-    new CodecWriter().write(classInfo)
-  }
-}
-
 class CodecWriter {
 
   def write(classInfo: ClassInfo): Unit = {
@@ -23,18 +16,22 @@ class CodecWriter {
     val out = new IndentingPrintStream(new PrintStream(file))
 
     try {
-      writeHeader(out)
-      writeImports(out, classInfo)
-      writeClassStart(out, classInfo)
-      writeCodecs(out, classInfo)
-      writeDecodeMethod(out, classInfo)
-      writeEncodeMethod(out, classInfo)
-      writeGetEncoderClassMethod(out, classInfo)
-      out.println("}")
+      writeCodec(classInfo, out)
     }
     finally {
       out.close()
     }
+  }
+
+  private def writeCodec(classInfo: ClassInfo, out: IndentingPrintStream): Unit = {
+    writeHeader(out)
+    writeImports(out, classInfo)
+    writeClassStart(out, classInfo)
+    writeCodecs(out, classInfo)
+    writeDecodeMethod(out, classInfo)
+    writeEncodeMethod(out, classInfo)
+    writeGetEncoderClassMethod(out, classInfo)
+    out.println("}")
   }
 
   private def createOutputFile(classInfo: ClassInfo): File = {
@@ -50,49 +47,52 @@ class CodecWriter {
   }
 
   private def writeImports(out: IndentingPrintStream, classInfo: ClassInfo): Unit = {
-
-    val fixedImportClasses = {
-      if (classInfo.isEnum) {
-        Seq(
-          "org.bson.BsonReader",
-          "org.bson.BsonWriter",
-          "org.bson.codecs.Codec",
-          "org.bson.codecs.DecoderContext",
-          "org.bson.codecs.EncoderContext",
-          "org.bson.codecs.configuration.CodecRegistry",
-        )
-      }
-      else {
-        Seq(
-          "kpn.tools.code.codecs.Codecs",
-          "org.bson.BsonReader",
-          "org.bson.BsonType",
-          "org.bson.BsonWriter",
-          "org.bson.codecs.Codec",
-          "org.bson.codecs.DecoderContext",
-          "org.bson.codecs.EncoderContext",
-          "org.bson.codecs.configuration.CodecRegistry",
-        )
-      }
+    val importClasses: Seq[String] = determineImportClasses(classInfo)
+    out.skipLine()
+    importClasses.foreach { className =>
+      out.println(s"import $className")
     }
+  }
 
+  private def determineImportClasses(classInfo: ClassInfo) = {
+    val fixedImportClasses = determineFixedImportClasses(classInfo)
     val importClass = s"${classInfo.packageName}.${classInfo.className}"
-    val classTypes = classInfo.fields.flatMap { field =>
-      Seq(field.classType) ++ field.classType.arrayType.toSeq ++ field.classType.mapTypes.toSeq.flatMap(ee => Seq(ee._1, ee._2))
-    }
+    val fieldImportClasses = determineFieldImportClasses(classInfo)
+    val importClasses = (Seq(importClass) ++ fixedImportClasses ++ fieldImportClasses).sorted.distinct
+    importClasses
+  }
 
-    val fieldImportClasses = classTypes.flatMap { classType =>
+  private def determineFieldImportClasses(classInfo: ClassInfo) = {
+    val classTypes = classInfo.fields.flatMap { field =>
+      Seq(field.classType) ++
+        field.classType.arrayType.toSeq ++
+        field.classType.mapTypes.toSeq.flatMap(ee => Seq(ee._1, ee._2))
+    }
+    classTypes.flatMap { classType =>
       for {
         packageName <- classType.packageName
         typeName <- classType.typeName
       } yield s"$packageName.$typeName"
     }
+  }
 
-    val importClasses = (Seq(importClass) ++ fixedImportClasses ++ fieldImportClasses).sorted.distinct
-
-    out.skipLine()
-    importClasses.foreach { className =>
-      out.println(s"import $className")
+  private def determineFixedImportClasses(classInfo: ClassInfo) = {
+    val bsonImports = Seq(
+      "org.bson.BsonReader",
+      "org.bson.BsonWriter",
+      "org.bson.codecs.Codec",
+      "org.bson.codecs.DecoderContext",
+      "org.bson.codecs.EncoderContext",
+      "org.bson.codecs.configuration.CodecRegistry",
+    )
+    if (classInfo.isEnum) {
+      bsonImports
+    }
+    else {
+      bsonImports ++ Seq(
+        "kpn.tools.code.codecs.Codecs",
+        "org.bson.BsonType",
+      )
     }
   }
 
@@ -105,9 +105,11 @@ class CodecWriter {
     val classTypes = classInfo.fields.flatMap { field =>
       field.classType.typeName.toSeq ++ field.classType.arrayType.toSeq.flatMap(_.typeName)
     }.sorted.distinct
+
     if (classTypes.nonEmpty) {
       out.skipLine()
     }
+
     classTypes.foreach { typeName =>
       val codecName = codecVariableName(typeName)
       out.println(s"  private val $codecName = registry.get(classOf[$typeName])")
@@ -118,28 +120,34 @@ class CodecWriter {
 
     out.skipLine()
     out.indent {
-
       out.println(s"override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): ${classInfo.className} = {")
       out.indent {
-
         if (classInfo.isEnum) {
-          out.println(s"${classInfo.className}.withName(bsonReader.readString())")
+          writeEnumDecodeMethod(out, classInfo)
         }
         else {
-          out.println("bsonReader.readStartDocument()")
-          out.skipLine()
-
-          writeDecodeMethodVariableDeclarations(out, classInfo)
-          writeDecodeMethodFields(out, classInfo)
-
-          out.skipLine()
-          out.println("bsonReader.readEndDocument()")
-          out.skipLine()
-          writeDecodeMethodClassInstanciation(out, classInfo)
+          writeCaseClassDecodeMethod(out, classInfo)
         }
       }
       out.println("}")
     }
+  }
+
+  private def writeEnumDecodeMethod(out: IndentingPrintStream, classInfo: ClassInfo): Unit = {
+    out.println(s"${classInfo.className}.withName(bsonReader.readString())")
+  }
+
+  private def writeCaseClassDecodeMethod(out: IndentingPrintStream, classInfo: ClassInfo): Unit = {
+    out.println("bsonReader.readStartDocument()")
+    out.skipLine()
+
+    writeDecodeMethodVariableDeclarations(out, classInfo)
+    writeDecodeMethodFields(out, classInfo)
+
+    out.skipLine()
+    out.println("bsonReader.readEndDocument()")
+    out.skipLine()
+    writeDecodeMethodClassInstanciation(out, classInfo)
   }
 
   private def writeDecodeMethodFields(out: IndentingPrintStream, classInfo: ClassInfo): Unit = {
@@ -330,17 +338,11 @@ class CodecWriter {
   private def defaultValueForType(classType: ClassType): String = {
     if (classType.optional) {
       "None"
-    }
-    else if (classType.typeName.contains("Long")) {
+    } else if (classType.typeName.contains("Long") ||
+      classType.typeName.contains("Int") ||
+      classType.typeName.contains("Double")) {
       "0"
-    }
-    else if (classType.typeName.contains("Int")) {
-      "0"
-    }
-    else if (classType.typeName.contains("Double")) {
-      "0"
-    }
-    else if (classType.typeName.contains("Boolean")) {
+    } else if (classType.typeName.contains("Boolean")) {
       "false"
     } else {
       "null"

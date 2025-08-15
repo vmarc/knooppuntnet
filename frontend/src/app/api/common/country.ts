@@ -1,10 +1,10 @@
 // this file is generated, please do not modify
 
 export type Country =
-  | 'nl'
+  | 'at'
   | 'be'
   | 'de'
-  | 'fr'
-  | 'at'
+  | 'dk'
   | 'es'
-  | 'dk';
+  | 'fr'
+  | 'nl';

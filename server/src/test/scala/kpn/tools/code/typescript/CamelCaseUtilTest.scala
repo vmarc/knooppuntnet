@@ -1,4 +1,4 @@
-package kpn.core.tools.typescript
+package kpn.tools.code.typescript
 
 import kpn.core.util.UnitTest
 

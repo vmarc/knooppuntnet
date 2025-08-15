@@ -2,6 +2,6 @@
 
 export type MonitorAction =
   | 'add'
-  | 'update'
+  | 'gpx-delete'
   | 'gpx-upload'
-  | 'gpx-delete';
+  | 'update';

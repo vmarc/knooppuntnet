@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
 export type LinkDirection =
-  | 'forward'
   | 'backward'
+  | 'forward'
   | 'roundabout-left'
   | 'roundabout-right'
   | 'unconnected';

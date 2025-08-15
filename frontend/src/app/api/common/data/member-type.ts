@@ -2,5 +2,5 @@
 
 export type MemberType =
   | 'node'
-  | 'way'
-  | 'relation';
+  | 'relation'
+  | 'way';

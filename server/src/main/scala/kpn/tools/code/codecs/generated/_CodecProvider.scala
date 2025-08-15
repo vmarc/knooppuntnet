@@ -436,6 +436,7 @@ import kpn.server.repository.NetworkFactElementIds
 import kpn.server.sync.StampDoc
 import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.DayCodec
+import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import org.bson.codecs.Codec
