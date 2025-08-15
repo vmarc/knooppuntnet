@@ -113,6 +113,7 @@ class ClazzTest extends UnitTest with BeforeAndAfterEach {
           "flagged",
           ClassType(
             typeName = Some("Boolean"),
+            optional = true
           )
         ),
         ClassField(

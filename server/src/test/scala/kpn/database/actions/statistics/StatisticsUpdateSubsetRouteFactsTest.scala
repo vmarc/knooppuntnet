@@ -31,7 +31,8 @@ class StatisticsUpdateSubsetRouteFactsTest extends MongoTest {
     new StatisticsUpdater(database).execute()
     val counts = new MongoQueryStatistics(database).execute()
 
-    counts should contain(
+    assertEqual(
+      counts.find(_._id == "RouteBrokenCount").get,
       StatisticLongValues(
         "RouteBrokenCount",
         Seq(
@@ -42,7 +43,8 @@ class StatisticsUpdateSubsetRouteFactsTest extends MongoTest {
         )
       )
     )
-    counts should contain(
+    assertEqual(
+      counts.find(_._id == "RouteFixmetodoCount").get,
       StatisticLongValues(
         "RouteFixmetodoCount",
         Seq(
@@ -50,7 +52,8 @@ class StatisticsUpdateSubsetRouteFactsTest extends MongoTest {
         )
       )
     )
-    counts should contain(
+    assertEqual(
+      counts.find(_._id == "RouteInaccessibleCount").get,
       StatisticLongValues(
         "RouteInaccessibleCount",
         Seq(
