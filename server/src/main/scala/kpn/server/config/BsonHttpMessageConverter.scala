@@ -2,6 +2,7 @@ package kpn.server.config
 
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Timestamp
+import kpn.core.util.Log
 import kpn.database.util.Mongo
 import org.bson.BsonWriter
 import org.bson.codecs.Codec
@@ -16,6 +17,8 @@ import java.io.Writer
 import java.lang.reflect.Type
 
 class BsonHttpMessageConverter extends AbstractJsonHttpMessageConverter {
+
+  private val log = Log(classOf[BsonHttpMessageConverter])
 
   private val DefaultEncoderContext = EncoderContext.builder.build
   private val DefaultDecoderContext = DecoderContext.builder.build
@@ -40,17 +43,20 @@ class BsonHttpMessageConverter extends AbstractJsonHttpMessageConverter {
 
   override def writeInternal(instance: Any, objectType: Type, writer: Writer): Unit = {
     val bsonWriter = new JsonWriter(writer)
-    val clazz: Class[Any] = objectType match {
-      case c: Class[_] => c.asInstanceOf[Class[Any]]
-      case _ =>
-        throw new IllegalArgumentException(s"Expected Class type but got: $objectType")
-    }
 
-    if (clazz == classOf[ApiResponse[_]]) {
+    if (objectType.getTypeName.startsWith("kpn.api.custom.ApiResponse")) {
       val apiResponse = instance.asInstanceOf[ApiResponse[Any]]
       encodeApiResponse(bsonWriter, apiResponse, DefaultEncoderContext)
     }
+    else if (objectType.getTypeName.startsWith("java.lang.String")) {
+      bsonWriter.writeString(instance.toString)
+    }
     else {
+      val clazz: Class[Any] = objectType match {
+        case c: Class[_] => c.asInstanceOf[Class[Any]]
+        case _ =>
+          throw new IllegalArgumentException(s"Expected Class type but got: $objectType")
+      }
       val codec: Codec[Any] = Mongo.codecRegistry.get(clazz)
       codec.encode(bsonWriter, instance, DefaultEncoderContext)
     }

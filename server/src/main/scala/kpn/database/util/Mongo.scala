@@ -19,6 +19,7 @@ import org.bson.codecs.BooleanCodec
 import org.bson.codecs.DoubleCodec
 import org.bson.codecs.IntegerCodec
 import org.bson.codecs.LongCodec
+import org.bson.codecs.MapCodecProvider
 import org.bson.codecs.StringCodec
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.configuration.CodecRegistry
@@ -42,7 +43,10 @@ object Mongo {
       new ScalaDoubleCodec(),
 
     ),
-    CodecRegistries.fromProviders(new _CodecProvider),
+    CodecRegistries.fromProviders(
+      new _CodecProvider,
+      new MapCodecProvider
+    ),
     MongoClientSettings.getDefaultCodecRegistry
   )
 

@@ -87,7 +87,6 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 object Json {
 
   val objectMapper: ObjectMapper = buildObjectMapper(false)
-  val mongoObjectMapper: ObjectMapper = buildObjectMapper(true)
 
   private val prettyJsonWriter = {
     val printer = new DefaultPrettyPrinter().withArrayIndenter(new DefaultIndenter())
