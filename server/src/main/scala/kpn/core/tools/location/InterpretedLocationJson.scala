@@ -16,7 +16,7 @@ object InterpretedLocationJson {
     val gzippedInputStream = new FileInputStream(filename)
     val ungzippedInputStream = new GZIPInputStream(gzippedInputStream)
     val fileReader = new InputStreamReader(ungzippedInputStream, "UTF-8")
-    val locationJsons = Json.objectMapper.readValue(fileReader, classOf[LocationsJson]).features
+    val locationJsons = Json.readValue(fileReader, classOf[LocationsJson]).features
     locationJsons.map(locationJson => InterpretedLocationJson(locationJson)).filter(_.isAdministrativeBoundary)
   }
 }

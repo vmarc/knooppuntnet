@@ -1,3 +1,5 @@
 package kpn.core.tools.location
 
-case class LocationNameDefinitions(locations: Seq[LocationNameDefinition])
+import kpn.core.doc.Storable
+
+case class LocationNameDefinitions(locations: Seq[LocationNameDefinition]) extends Storable

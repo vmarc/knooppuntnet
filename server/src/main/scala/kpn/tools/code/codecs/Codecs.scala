@@ -13,6 +13,8 @@ object Codecs {
     ClassId("Tag", "kpn.api.custom"),
     ClassId("Timestamp", "kpn.api.custom"),
     ClassId("ApiResponse", "kpn.api.custom"),
+    ClassId("Translations", "kpn.core.tools.translations"),
+    ClassId("PoeTranslations", "kpn.core.tools.translations"),
   )
 }
 

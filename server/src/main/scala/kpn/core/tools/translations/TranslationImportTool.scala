@@ -1,12 +1,12 @@
 package kpn.core.tools.translations
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import kpn.database.base.Options
 import kpn.database.base.Tool
+import kpn.server.json.Json
 
 import java.io.File
-import scala.collection.SortedMap
+import java.io.FileReader
+import java.io.FileWriter
 
 /*
   Reformats the translations files exported from POEditor to what Angular expects.
@@ -23,7 +23,6 @@ object TranslationImportTool extends Tool[TranslationImportToolOptions] {
 class TranslationImportTool(root: String) {
 
   private val home = System.getProperty("user.home")
-  private val mapper = new ObjectMapper().registerModule(DefaultScalaModule)
 
   def process(): Unit = {
     Seq("de", "en", "fr", "nl").foreach(processLocale)
@@ -31,14 +30,20 @@ class TranslationImportTool(root: String) {
   }
 
   private def processLocale(locale: String): Unit = {
-    val translations = readTranslations(locale)
-    val transformed = transformTranslations(locale, translations)
-    writeTranslations(locale, transformed)
+    val poeTranslations = readPoeTranslations(locale)
+    val translations = Translations(locale, poeTranslations.translations)
+    writeTranslations(locale, translations)
   }
 
-  private def readTranslations(language: String): Map[String, String] = {
+  private def readPoeTranslations(language: String): PoeTranslations = {
     val file = inputFile(language)
-    mapper.readValue(file, classOf[Map[String, String]])
+    val reader = new FileReader(file)
+    try {
+      Json.readValue(reader, classOf[PoeTranslations])
+    }
+    finally {
+      reader.close()
+    }
   }
 
   private def inputFile(language: String): File = {
@@ -49,16 +54,14 @@ class TranslationImportTool(root: String) {
     file
   }
 
-  private def transformTranslations(locale: String, translations: Map[String, String]): Map[String, ?] = {
-    val sortedTranslations = SortedMap[String, String]() ++ translations
-    Map(
-      "locale" -> locale,
-      "translations" -> sortedTranslations
-    )
-  }
-
-  private def writeTranslations(locale: String, transformed: Map[String, ?]): Unit = {
+  private def writeTranslations(locale: String, translations: Translations): Unit = {
     val file = new File(s"$root/locale/translations.$locale.json")
-    mapper.writerWithDefaultPrettyPrinter.writeValue(file, transformed)
+    val writer = new FileWriter(file)
+    try {
+      writer.write(Json.pretty(translations))
+    }
+    finally {
+      writer.close()
+    }
   }
 }

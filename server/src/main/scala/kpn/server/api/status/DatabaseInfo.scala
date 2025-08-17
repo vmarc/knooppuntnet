@@ -1,3 +1,5 @@
 package kpn.server.api.status
 
-case class DatabaseInfo(sizes: DatabaseSizes, doc_count: Long)
+import kpn.core.doc.Storable
+
+case class DatabaseInfo(sizes: DatabaseSizes, doc_count: Long) extends Storable

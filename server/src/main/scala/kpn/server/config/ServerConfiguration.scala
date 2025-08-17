@@ -1,6 +1,5 @@
 package kpn.server.config
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.mongodb.client.MongoClients
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
 import kpn.database.base.Database
@@ -12,11 +11,9 @@ import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
-import kpn.server.json.Json
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Primary
 import org.springframework.scheduling.TaskScheduler
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler
@@ -27,10 +24,6 @@ import scala.concurrent.ExecutionContext
 
 @Configuration
 class ServerConfiguration {
-
-  @Bean
-  @Primary
-  def objectMapper: ObjectMapper = Json.objectMapper
 
   @Bean
   def threadMetrics = new JvmThreadMetrics

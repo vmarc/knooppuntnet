@@ -1,6 +1,7 @@
 package kpn.api.common.monitor
 
 import kpn.api.custom.Timestamp
+import kpn.core.doc.Storable
 
 case class MonitorRouteUpdate(
   action: MonitorAction,
@@ -16,7 +17,7 @@ case class MonitorRouteUpdate(
   migrationGeojson: Option[String] = None,
   newGroupName: Option[String] = None,
   newRouteName: Option[String] = None,
-) {
+) extends Storable {
   def printable(): MonitorRouteUpdate = {
     referenceGpx match {
       case None => this

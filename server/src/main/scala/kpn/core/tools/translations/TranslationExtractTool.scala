@@ -1,12 +1,12 @@
 package kpn.core.tools.translations
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import kpn.database.base.Options
 import kpn.database.base.Tool
+import kpn.server.json.Json
 
 import java.io.File
-import scala.collection.SortedMap
+import java.io.FileReader
+import java.io.FileWriter
 
 /*
   Postprocesses the translations file that is extracted from the Angular code
@@ -23,25 +23,27 @@ object TranslationExtractTool extends Tool[TranslationExtractToolOptions] {
 
 class TranslationExtractTool(root: String) {
 
-  private val mapper = new ObjectMapper().registerModule(DefaultScalaModule)
-
   def process(): Unit = {
     val translations = loadSourceTranslations()
-    val transformedTranslations = sortAndTrimTranslations(translations)
-    saveProcessedTranslations(transformedTranslations)
+    val poeTranslations = sortAndTrimTranslations(translations.translations)
+    saveProcessedTranslations(poeTranslations)
   }
 
-  private def sortAndTrimTranslations(translations: Map[String, String]): SortedMap[String, String] = {
-    val trimmedTranslations = translations.toSeq.map { case (key, value) =>
-      (key, value.trim)
-    }
-    SortedMap[String, String]() ++ trimmedTranslations
+  private def sortAndTrimTranslations(translations: Map[String, String]): PoeTranslations = {
+    val trimmedTranslations = translations.map { case (key, value) => (key, value.trim) }
+    PoeTranslations(trimmedTranslations)
   }
 
-  private def loadSourceTranslations(): Map[String, String] = {
+  private def loadSourceTranslations(): Translations = {
     val file = sourceTranslationsFile()
-    val jsonMap = mapper.readValue(file, classOf[Map[String, Any]])
-    jsonMap("translations").asInstanceOf[Map[String, String]]
+    val reader = new FileReader(file)
+    try {
+      val translations = Json.readValue(reader, classOf[Translations])
+      translations
+    }
+    finally {
+      reader.close()
+    }
   }
 
   private def sourceTranslationsFile(): File = {
@@ -52,8 +54,14 @@ class TranslationExtractTool(root: String) {
     file
   }
 
-  private def saveProcessedTranslations(transformedTranslations: SortedMap[String, String]): Unit = {
+  private def saveProcessedTranslations(poeTranslations: PoeTranslations): Unit = {
     val file = new File(s"$root/locale/translations.json")
-    mapper.writerWithDefaultPrettyPrinter.writeValue(file, transformedTranslations)
+    val writer = new FileWriter(file)
+    try {
+      writer.write(Json.pretty(poeTranslations))
+    }
+    finally {
+      writer.close()
+    }
   }
 }

@@ -15,9 +15,8 @@ object GeoJsonUtil {
       "LineString",
       coordinates
     )
-    val json = Json.objectMapper.writerWithDefaultPrettyPrinter()
     println(s"https://geojson.io/ $name")
-    println(json.writeValueAsString(line))
+    println(Json.pretty(line))
   }
 
   def printMap(/*map: RouteMap*/): Unit = {
@@ -45,9 +44,8 @@ object GeoJsonUtil {
       //      ).flatten
     )
 
-    val json = Json.objectMapper.writerWithDefaultPrettyPrinter()
     println("https://geojson.io/")
-    println(json.writeValueAsString(features))
+    println(Json.pretty(features))
   }
 
   def trackSegmentFeature(name: String, color: String, trackSegment: TrackSegment): GeoJsonFeature = {

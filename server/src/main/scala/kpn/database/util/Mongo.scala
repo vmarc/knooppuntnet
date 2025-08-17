@@ -41,7 +41,6 @@ object Mongo {
       new ScalaLongCodec(),
       new ScalaIntegerCodec(),
       new ScalaDoubleCodec(),
-
     ),
     CodecRegistries.fromProviders(
       new _CodecProvider,

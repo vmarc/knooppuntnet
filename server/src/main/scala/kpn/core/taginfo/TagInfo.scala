@@ -1,5 +1,7 @@
 package kpn.core.taginfo
 
+import kpn.core.doc.Storable
+
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -9,4 +11,4 @@ case class TagInfo(
   data_updated: String = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'").format(new Date()),
   project: TagInfoProject = TagInfoProject(),
   tags: Seq[TagInfoTag]
-)
+) extends Storable

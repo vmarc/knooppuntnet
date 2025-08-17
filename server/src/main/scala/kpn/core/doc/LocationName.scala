@@ -24,4 +24,4 @@ object LocationNames {
 case class LocationName(
   language: Language,
   name: String
-)
+) extends Storable

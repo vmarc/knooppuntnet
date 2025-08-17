@@ -21,12 +21,12 @@ class LocationConfigurationReader {
       val locationNameDefinitions = {
         val filename = s"${Dirs.root}/locations/${country.entryName}/locations.json"
         val string = FileUtils.readFileToString(new File(filename), "UTF-8")
-        Json.objectMapper.readValue(string, classOf[LocationNameDefinitions])
+        Json.readValue(string, classOf[LocationNameDefinitions])
       }
       val locationMap = locationNameDefinitions.locations.map(lnd => lnd.id -> lnd).toMap
       val treeFilename = s"${Dirs.root}/locations/${country.entryName}/tree.json"
       val string = FileUtils.readFileToString(new File(treeFilename), "UTF-8")
-      val tree = Json.objectMapper.readValue(string, classOf[LocationTree])
+      val tree = Json.readValue(string, classOf[LocationTree])
       toLocation(locationMap, tree)
     }
 

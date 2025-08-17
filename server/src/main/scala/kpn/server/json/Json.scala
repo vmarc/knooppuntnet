@@ -3,12 +3,9 @@ package kpn.server.json
 import com.fasterxml.jackson.annotation.JsonAutoDetect
 import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_ABSENT
 import com.fasterxml.jackson.annotation.PropertyAccessor
-import com.fasterxml.jackson.core.util.DefaultIndenter
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
-import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
@@ -37,6 +34,7 @@ import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.api.custom.Timestamp2
+import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
 import kpn.server.json.enumeratum.AnalysisStrategyJsonDeserializer
 import kpn.server.json.enumeratum.AnalysisStrategyJsonSerializer
@@ -80,29 +78,67 @@ import kpn.server.json.enumeratum.TagDiffTypeJsonDeserializer
 import kpn.server.json.enumeratum.TagDiffTypeJsonSerializer
 import kpn.server.json.enumeratum.WayDirectionJsonDeserializer
 import kpn.server.json.enumeratum.WayDirectionJsonSerializer
+import org.bson.codecs.DecoderContext
+import org.bson.codecs.EncoderContext
+import org.bson.json.JsonReader
+import org.bson.json.JsonWriter
+import org.bson.json.JsonWriterSettings
 import org.bson.types.ObjectId
 import org.locationtech.jts.geom.Geometry
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
+import java.io.Reader
+import java.io.StringReader
+import java.io.StringWriter
+
 object Json {
 
-  val objectMapper: ObjectMapper = buildObjectMapper(false)
-
-  private val prettyJsonWriter = {
-    val printer = new DefaultPrettyPrinter().withArrayIndenter(new DefaultIndenter())
-    Json.objectMapper.writer(printer)
-  }
-
-  def value[T](string: String, valueType: Class[T]): T = {
-    objectMapper.readValue(string, valueType)
+  def pretty(o: Object): String = {
+    encode(o, pretty = true)
   }
 
   def string(o: Object): String = {
-    objectMapper.writeValueAsString(o)
+    encode(o)
   }
 
-  def pretty(o: Object): String = {
-    prettyJsonWriter.writeValueAsString(o)
+  private def encode(o: Object, pretty: Boolean = false): String = {
+    val settings = JsonWriterSettings
+      .builder
+      .indent(pretty)
+      .build
+    val stringWriter = new StringWriter()
+    val jsonWriter = new JsonWriter(stringWriter, settings)
+    val codec = Mongo.codecRegistry.get(o.getClass.asInstanceOf[Class[Any]])
+    codec.encode(jsonWriter, o, EncoderContext.builder.build)
+    jsonWriter.close()
+    stringWriter.toString
+  }
+
+  def readValue[T](string: String, valueType: Class[T]): T = {
+    val reader = new StringReader(string)
+    try {
+      val jsonReader = new JsonReader(reader)
+      val codec = Mongo.codecRegistry.get(valueType /*o.getClass.asInstanceOf[Class[Any]]*/)
+      codec.decode(jsonReader, DecoderContext.builder.build)
+    }
+    finally {
+      reader.close()
+    }
+  }
+
+  def readValue[T](reader: Reader, valueType: Class[T]): T = {
+    val jsonReader = new JsonReader(reader)
+    val codec = Mongo.codecRegistry.get(valueType /*o.getClass.asInstanceOf[Class[Any]]*/)
+    codec.decode(jsonReader, DecoderContext.builder.build)
+  }
+
+
+  // TODO cleanup code below
+
+  val objectMapper: ObjectMapper = buildObjectMapper(false)
+
+  def value[T](string: String, valueType: Class[T]): T = {
+    objectMapper.readValue(string, valueType)
   }
 
   private def buildObjectMapper(mongo: Boolean): ObjectMapper = {
@@ -204,7 +240,7 @@ object Json {
     b.deserializerByType(classOf[CoordinateArray], new CoordinateArrayJsonDeserializer())
 
     val om: ObjectMapper = b.build()
-    om.registerModule(DefaultScalaModule)
+    //om.registerModule(DefaultScalaModule)
     om.setVisibility(PropertyAccessor.IS_GETTER, JsonAutoDetect.Visibility.NONE)
     om
   }

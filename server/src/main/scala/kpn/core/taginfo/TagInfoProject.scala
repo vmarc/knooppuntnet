@@ -1,5 +1,7 @@
 package kpn.core.taginfo
 
+import kpn.core.doc.Storable
+
 case class TagInfoProject(
   name: String = "knooppuntnet",
   description: String = "Route planner and quality analysis for walking and cycling networks",
@@ -8,4 +10,4 @@ case class TagInfoProject(
   icon_url: String = "https://raw.githubusercontent.com/vmarc/knooppuntnet/develop/docs/logo.svg",
   contact_name: String = "Marc Vergouwen",
   contact_email: String = "taginfo@vmarc.be"
-)
+) extends Storable

@@ -24,7 +24,7 @@ class GrafanaController {
   def query(@RequestBody parameters: String): String = {
     println(s"query: $parameters")
 
-    val query = Json.objectMapper.readValue(parameters, classOf[GrafanaQuery])
+    val query = Json.readValue(parameters, classOf[GrafanaQuery])
 
     def time(intervals: Long): Long = {
       query.intervalMs * intervals + query.startTime - query.intervalMs * query.maxDataPoints
@@ -65,7 +65,7 @@ class GrafanaController {
     )
 
     val response = Seq(timeseries1, timeseries2, timeseries3)
-    val responseString = Json.objectMapper.writeValueAsString(response)
+    val responseString = Json.pretty(response)
     println(s"Query response: $responseString")
     responseString
   }

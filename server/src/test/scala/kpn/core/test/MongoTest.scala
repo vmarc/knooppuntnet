@@ -5,14 +5,12 @@ import kpn.core.common.Time
 import kpn.core.util.UnitTest
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.json.Json
 import org.scalatest.BeforeAndAfterEach
 
 import java.util.concurrent.atomic.AtomicInteger
 
 object MongoTest {
   private val count = new AtomicInteger(0)
-  private val jsonWriter = Json.objectMapper.writerWithDefaultPrettyPrinter()
 }
 
 abstract class MongoTest extends UnitTest with BeforeAndAfterEach {

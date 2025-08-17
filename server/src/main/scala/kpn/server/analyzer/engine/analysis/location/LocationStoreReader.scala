@@ -12,6 +12,7 @@ import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.MultiPolygon
 import org.locationtech.jts.geom.Polygon
+import org.locationtech.jts.io.geojson.GeoJsonReader
 
 import java.io.File
 
@@ -33,7 +34,7 @@ class LocationStoreReader(development: Boolean) {
       val locationStoreCountry = loadCountry(country)
       val filename = s"$root/${country.entryName}/tree.json"
       val string = FileUtils.readFileToString(new File(filename), "UTF-8")
-      val tree = Json.objectMapper.readValue(string, classOf[LocationTree])
+      val tree = Json.readValue(string, classOf[LocationTree])
       val location = toLocation(locationStoreCountry.dataMap, tree)
       locationStoreCountry.copy(tree = location)
     }
@@ -45,13 +46,13 @@ class LocationStoreReader(development: Boolean) {
     val locationNameDefinitions = {
       val filename = s"$root/${country.entryName}/locations.json"
       val string = FileUtils.readFileToString(new File(filename), "UTF-8")
-      Json.objectMapper.readValue(string, classOf[LocationNameDefinitions])
+      Json.readValue(string, classOf[LocationNameDefinitions])
     }
     val dataMap = locationNameDefinitions.locations.map { locationNameDefinition =>
       val locationGeometry = {
         val filename = s"$root/${country.entryName}/geometries/${locationNameDefinition.id}.json"
         val string = FileUtils.readFileToString(new File(filename), "UTF-8")
-        val geometry = Json.objectMapper.readValue(string, classOf[Geometry])
+        val geometry = new GeoJsonReader().read(string)
         LocationGeometry(geometry)
       }
       val locators = toPolygons(locationGeometry.geometry).map(polygon => new IndexedPointInAreaLocator(polygon))

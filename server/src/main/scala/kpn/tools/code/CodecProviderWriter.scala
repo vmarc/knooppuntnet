@@ -56,6 +56,8 @@ class CodecProviderWriter {
       "kpn.tools.code.codecs.TagCodec",
       "kpn.tools.code.codecs.TimestampCodec",
       "kpn.tools.code.codecs.ScalaLongCodec",
+      "kpn.tools.code.codecs.TranslationsCodec",
+      "kpn.tools.code.codecs.PoeTranslationsCodec",
     )
 
     val classInfosImportClasses = classIds.map(classInfo => classInfo.fullName)

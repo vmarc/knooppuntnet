@@ -46,9 +46,8 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends MongoTest {
             "LineString",
             coordinates
           )
-          val json = Json.objectMapper.writerWithDefaultPrettyPrinter()
           println("PLAN ROUTE")
-          println(json.writeValueAsString(line))
+          println(Json.pretty(line))
         }
 
         val startNode = planLegDetail.routes.head.sourceNode.latLon
@@ -58,8 +57,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends MongoTest {
           "LineString",
           coordinates
         )
-        val json = Json.objectMapper.writerWithDefaultPrettyPrinter()
-        println(json.writeValueAsString(line))
+        println(Json.pretty(line))
     }
   }
 

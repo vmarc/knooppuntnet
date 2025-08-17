@@ -91,7 +91,7 @@ class SystemStatusMonitorImpl(
         val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[String])
         if (response.getStatusCode == HttpStatus.OK) {
 
-          val databaseInfo = Json.objectMapper.readValue(response.getBody, classOf[DatabaseInfo])
+          val databaseInfo = Json.readValue(response.getBody, classOf[DatabaseInfo])
           Seq(
             SystemStatusValue(s"${config.name}-docs", databaseInfo.doc_count),
             SystemStatusValue(s"${config.name}-disk-size", databaseInfo.sizes.file),

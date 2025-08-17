@@ -3,6 +3,7 @@ package kpn.core.tools.location
 import kpn.api.custom.Tag
 import kpn.core.doc.LocationName
 import kpn.core.doc.LocationPath
+import kpn.core.doc.Storable
 
 case class LocationNameDefinition(
   id: String,
@@ -11,4 +12,4 @@ case class LocationNameDefinition(
   name: String,
   names: Option[Seq[LocationName]],
   tags: Seq[Tag]
-)
+) extends Storable

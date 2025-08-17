@@ -164,7 +164,7 @@ object FindDeletedNodesHistoryTool {
     val entity = new HttpEntity[String]("", headers)
     val response = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[String])
     if (response.getStatusCode == HttpStatus.OK) {
-      val apiResponse = Json.objectMapper.readValue(response.getBody, classOf[ApiResponse[Long]])
+      val apiResponse = Json.readValue(response.getBody, classOf[ApiResponse[Long]])
       apiResponse.result.map(replicationNumber => ReplicationId(replicationNumber))
     }
     else {

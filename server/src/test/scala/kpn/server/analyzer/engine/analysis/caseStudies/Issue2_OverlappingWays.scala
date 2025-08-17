@@ -106,8 +106,7 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
       "LineString",
       coordinates
     )
-    val json = Json.objectMapper.writerWithDefaultPrettyPrinter()
     println(s"https://geojson.io/ $name")
-    println(json.writeValueAsString(line))
+    println(Json.pretty(line))
   }
 }

@@ -337,7 +337,9 @@ import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.BaseRouteSegmentElement
+import kpn.core.doc.LocationName
 import kpn.core.doc.LocationNodeCount
+import kpn.core.doc.LocationPath
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkRouteDetail
@@ -375,6 +377,12 @@ import kpn.core.metrics.SystemStatusDoc
 import kpn.core.metrics.UpdateAction
 import kpn.core.metrics.UpdateActionDoc
 import kpn.core.poi.PoiInfo
+import kpn.core.taginfo.TagInfo
+import kpn.core.taginfo.TagInfoProject
+import kpn.core.taginfo.TagInfoTag
+import kpn.core.tools.location.LocationGeometry
+import kpn.core.tools.location.LocationNameDefinition
+import kpn.core.tools.location.LocationNameDefinitions
 import kpn.core.tools.monitor.support.OsmSegments
 import kpn.core.tools.next.domain.NextRouteRelation
 import kpn.core.tools.next.domain.NextRouteState
@@ -383,6 +391,8 @@ import kpn.core.tools.next.support.TagCount
 import kpn.core.tools.support.NodeImageTag
 import kpn.core.tools.support.SpecialNode
 import kpn.core.tools.support.location.RouteWithoutLocation
+import kpn.core.tools.translations.PoeTranslations
+import kpn.core.tools.translations.Translations
 import kpn.database.actions.graph.RouteGraphEdge
 import kpn.database.actions.locations.LocationNodeInfoDoc
 import kpn.database.actions.locations.LocationQueryResult
@@ -409,6 +419,7 @@ import kpn.database.base.StringId
 import kpn.database.tools.NodeWithLongName
 import kpn.database.tools.RouteColourTagValue
 import kpn.server.analyzer.engine.analysis.AnalysisStatus
+import kpn.server.analyzer.engine.analysis.location.LocationTree
 import kpn.server.analyzer.engine.analysis.route.domain.RoutePathDirection
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
@@ -420,6 +431,10 @@ import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.api.analysis.pages.network.NetworkNodesPageData
 import kpn.server.api.analysis.pages.network.NetworkRoutesPageData
+import kpn.server.api.status.DatabaseInfo
+import kpn.server.api.status.DatabaseSizes
+import kpn.server.grafana.GrafanaQuery
+import kpn.server.grafana.GrafanaQueryTarget
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorGroupRouteCount
 import kpn.server.monitor.domain.MonitorReference
@@ -441,15 +456,18 @@ import kpn.server.monitor.repository.MonitorStateDeviationInfo
 import kpn.server.monitor.repository.MonitorStateId
 import kpn.server.monitor.repository.MonitorStateSummary
 import kpn.server.monitor.repository.MonitorTileData
+import kpn.server.monitor.route.update.MonitorUpdateArgs
 import kpn.server.repository.Distance
 import kpn.server.repository.NetworkElement
 import kpn.server.repository.NetworkFactElementIds
 import kpn.server.sync.StampDoc
 import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.DayCodec
+import kpn.tools.code.codecs.PoeTranslationsCodec
 import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
+import kpn.tools.code.codecs.TranslationsCodec
 import org.bson.codecs.Codec
 import org.bson.codecs.configuration.CodecProvider
 import org.bson.codecs.configuration.CodecRegistry
@@ -465,6 +483,12 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[Timestamp]) {
       return new TimestampCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Translations]) {
+      return new TranslationsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[PoeTranslations]) {
+      return new PoeTranslationsCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[NodeWithLongName]) {
       return new NodeWithLongNameCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -595,6 +619,15 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[OsmSegments]) {
       return new OsmSegmentsCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[LocationNameDefinition]) {
+      return new LocationNameDefinitionCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LocationGeometry]) {
+      return new LocationGeometryCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LocationNameDefinitions]) {
+      return new LocationNameDefinitionsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[SpecialNode]) {
       return new SpecialNodeCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
@@ -604,11 +637,26 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[NodeImageTag]) {
       return new NodeImageTagCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[TagInfoProject]) {
+      return new TagInfoProjectCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[TagInfo]) {
+      return new TagInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[TagInfoTag]) {
+      return new TagInfoTagCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[PoiInfo]) {
       return new PoiInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[GpxFile]) {
       return new GpxFileCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LocationName]) {
+      return new LocationNameCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LocationPath]) {
+      return new LocationPathCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[RawNetworkDoc]) {
       return new RawNetworkDocCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -721,6 +769,9 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[MonitorReferenceId]) {
       return new MonitorReferenceIdCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[MonitorUpdateArgs]) {
+      return new MonitorUpdateArgsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[MonitorSegment]) {
       return new MonitorSegmentCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
@@ -766,11 +817,23 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[OldMonitorReference]) {
       return new OldMonitorReferenceCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[GrafanaQueryTarget]) {
+      return new GrafanaQueryTargetCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[GrafanaQuery]) {
+      return new GrafanaQueryCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[NetworkNodesPageData]) {
       return new NetworkNodesPageDataCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[NetworkRoutesPageData]) {
       return new NetworkRoutesPageDataCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[DatabaseSizes]) {
+      return new DatabaseSizesCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[DatabaseInfo]) {
+      return new DatabaseInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[StampDoc]) {
       return new StampDocCodec(codecRegistry).asInstanceOf[Codec[T]]
@@ -789,6 +852,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[RouteTileSegment]) {
       return new RouteTileSegmentCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LocationTree]) {
+      return new LocationTreeCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[AnalysisStatus]) {
       return new AnalysisStatusCodec(codecRegistry).asInstanceOf[Codec[T]]

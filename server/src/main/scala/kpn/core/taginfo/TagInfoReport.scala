@@ -23,7 +23,7 @@ class TagInfoReport {
   def print(): Unit = {
     val tags = allTags()
     val tagInfo = TagInfo(tags = tags)
-    println(Json.objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(tagInfo))
+    println(Json.pretty(tagInfo))
     println(s"tagCount: ${tags.size}")
   }
 

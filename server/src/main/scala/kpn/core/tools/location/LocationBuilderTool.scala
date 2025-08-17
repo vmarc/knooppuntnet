@@ -86,14 +86,14 @@ class LocationBuilderTool {
   private def saveGeometries(country: String, datas: Seq[LocationData]): Unit = {
     datas.foreach { data =>
       val filename = s"$root/$country/geometries/${data.id}.json"
-      val geoJson = Json.objectMapper.writeValueAsString(data.geometry.geometry)
+      val geoJson = Json.pretty(data.geometry.geometry)
       FileUtils.writeStringToFile(new File(filename), geoJson, "UTF-8")
     }
   }
 
   private def prettyWrite(filename: String, obj: Object): Unit = {
-    val json = Json.objectMapper.writerWithDefaultPrettyPrinter()
-    FileUtils.writeStringToFile(new File(filename), json.writeValueAsString(obj), "UTF-8")
+    val json = Json.pretty(obj)
+    FileUtils.writeStringToFile(new File(filename), json, "UTF-8")
   }
 
   private def printTree(locations: Seq[LocationData], tree: LocationTree, countryName: String): Unit = {

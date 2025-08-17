@@ -1,5 +1,6 @@
 package kpn.core.tools.location
 
+import kpn.core.doc.Storable
 import kpn.server.json.Json
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.Envelope
@@ -11,7 +12,7 @@ object LocationGeometry {
 
   def load(filename: String): LocationGeometry = {
     val string = FileUtils.readFileToString(new File(filename), "UTF-8")
-    val geometry = Json.objectMapper.readValue(string, classOf[Geometry])
+    val geometry = Json.readValue(string, classOf[Geometry])
     LocationGeometry(geometry)
   }
 
@@ -26,7 +27,7 @@ object LocationGeometry {
 case class LocationGeometry(
   geometry: Geometry,
   envelope: Envelope
-) {
+) extends Storable {
 
   def contains(other: LocationGeometry): Boolean = {
     overlap(other: LocationGeometry) > 0.95
