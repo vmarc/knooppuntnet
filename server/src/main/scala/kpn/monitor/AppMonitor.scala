@@ -42,7 +42,7 @@ class AppMonitor(
     try {
       val response: ResponseEntity[String] = restTemplate.getForEntity(url, classOf[String])
       if (response.getStatusCode == HttpStatus.OK) {
-        val apiResponse = Json.value(response.getBody, classOf[ApiResponse[String]])
+        val apiResponse = Json.readValue(response.getBody, classOf[ApiResponse[String]])
         apiResponse.situationOn match {
           case Some(timestamp) =>
             val now = TimestampUtil.toLocal(Time.system())

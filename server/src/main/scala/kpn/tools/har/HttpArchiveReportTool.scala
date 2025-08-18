@@ -75,7 +75,7 @@ class HttpArchiveReportTool {
         println(content.getText)
       }
       else if (content.getMimeType != null && content.getMimeType.contains("application/json")) try {
-        val jsonObject = Json.value[Object](content.getText, classOf[Object])
+        val jsonObject = Json.readValue[Object](content.getText, classOf[Object])
         println(Json.pretty(jsonObject))
       }
       catch {

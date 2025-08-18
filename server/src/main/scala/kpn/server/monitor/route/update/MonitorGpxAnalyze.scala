@@ -88,7 +88,7 @@ class MonitorGpxAnalyze(
         val segmentCoordinates = routeRepository.segmentCoordinates(routeDoc.routeIds)
 
         val routeLines = segmentCoordinates.map { segment =>
-          val coordinates = Json.value(segment.coordinates, classOf[CoordinateArray]).coordinates
+          val coordinates = Json.readValue(segment.coordinates, classOf[CoordinateArray]).coordinates
           geometryFactory.createLineString(coordinates)
         }
 

@@ -234,7 +234,7 @@ class LegBuilderImpl(
 
     val routeLegSegments = routePath.elementIds.flatMap { elementId =>
       routeDoc.segmentElements.find(_.segmentElementId == elementId).map { segmentElement =>
-        val coordinates = Json.value(segmentElement.coordinates, classOf[CoordinateArray]).coordinates.toSeq
+        val coordinates = Json.readValue(segmentElement.coordinates, classOf[CoordinateArray]).coordinates.toSeq
         val planFragments = coordinates.sliding(2, 1).zipWithIndex.toSeq.flatMap { case (Seq(coordinate1, coordinate2), index) =>
           val meters = (Haversine.km(coordinate1.getX, coordinate1.getY, coordinate2.getX, coordinate2.getY) * 1000).toLong
           val latLon1 = LatLonImpl(coordinate1.getX.toString, coordinate1.getY.toString)

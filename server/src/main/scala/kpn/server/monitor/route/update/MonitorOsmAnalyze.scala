@@ -102,7 +102,7 @@ class MonitorOsmAnalyze(
         val segmentCoordinates = routeRepository.segmentCoordinates(Seq(relation.relationId))
 
         val routeLines = segmentCoordinates.map { segment =>
-          val coordinates = Json.value(segment.coordinates, classOf[CoordinateArray]).coordinates
+          val coordinates = Json.readValue(segment.coordinates, classOf[CoordinateArray]).coordinates
           geometryFactory.createLineString(coordinates)
         }
 

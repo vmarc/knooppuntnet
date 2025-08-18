@@ -28,7 +28,7 @@ class ServerWebSocketHandler(
       "unknown"
     }
     val payload = message.getPayload
-    val command = Json.value(payload, classOf[MonitorRouteUpdate])
+    val command = Json.readValue(payload, classOf[MonitorRouteUpdate])
     val reporter = new MonitorUpdateReporterWebsocket(session)
     Log.context(Seq("route-update", s"group=${command.groupName}", s"route=${command.routeName}")) {
       log.info(s"${command.printable()}")

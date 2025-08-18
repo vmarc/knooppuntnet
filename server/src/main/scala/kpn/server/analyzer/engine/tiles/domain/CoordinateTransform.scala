@@ -84,7 +84,7 @@ object CoordinateTransform {
   }
 
   def lineToWorldCoordinates(line: String): Seq[Coordinate] = {
-    val coordinates = Json.value(line, classOf[CoordinateArray]).coordinates
+    val coordinates = Json.readValue(line, classOf[CoordinateArray]).coordinates
     coordinates.toSeq.map(CoordinateTransform.toWorldCoordinate)
   }
 }

@@ -15,6 +15,9 @@ object Codecs {
     ClassId("ApiResponse", "kpn.api.custom"),
     ClassId("Translations", "kpn.core.tools.translations"),
     ClassId("PoeTranslations", "kpn.core.tools.translations"),
+    ClassId("Coordinate", "org.locationtech.jts.geom"),
+    ClassId("CoordinateArray", "kpn.server.analyzer.engine.tiles.domain"),
+    ClassId("TestObject", "kpn.tools.code.codecs")
   )
 }
 

@@ -90,7 +90,7 @@ class RouteTileEncoder(
   }
 
   private def buildRouteLineString(line: String): LineString = {
-    val coordinates: Array[Coordinate] = Json.value(line, classOf[CoordinateArray]).coordinates
+    val coordinates: Array[Coordinate] = Json.readValue(line, classOf[CoordinateArray]).coordinates
     geometryFactory.createLineString(coordinates)
   }
 

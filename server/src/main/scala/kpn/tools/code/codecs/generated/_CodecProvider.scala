@@ -427,6 +427,7 @@ import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.data.BlacklistEntry
 import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.api.analysis.pages.network.NetworkNodesPageData
@@ -462,15 +463,19 @@ import kpn.server.repository.NetworkElement
 import kpn.server.repository.NetworkFactElementIds
 import kpn.server.sync.StampDoc
 import kpn.server.sync.Transaction
+import kpn.tools.code.codecs.CoordinateArrayCodec
+import kpn.tools.code.codecs.CoordinateCodec
 import kpn.tools.code.codecs.DayCodec
 import kpn.tools.code.codecs.PoeTranslationsCodec
-import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
+import kpn.tools.code.codecs.TestObject
+import kpn.tools.code.codecs.TestObjectCodec
 import kpn.tools.code.codecs.TimestampCodec
 import kpn.tools.code.codecs.TranslationsCodec
 import org.bson.codecs.Codec
 import org.bson.codecs.configuration.CodecProvider
 import org.bson.codecs.configuration.CodecRegistry
+import org.locationtech.jts.geom.Coordinate
 
 class _CodecProvider extends CodecProvider {
   override def get[T](aClass: Class[T], codecRegistry: CodecRegistry): Codec[T] = {
@@ -489,6 +494,15 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[PoeTranslations]) {
       return new PoeTranslationsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Coordinate]) {
+      return new CoordinateCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[CoordinateArray]) {
+      return new CoordinateArrayCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[TestObject[Any]]) {
+      return new TestObjectCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[NodeWithLongName]) {
       return new NodeWithLongNameCodec(codecRegistry).asInstanceOf[Codec[T]]

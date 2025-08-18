@@ -211,7 +211,7 @@ class MonitorUpdateAnalysis(
     val segmentCoordinates = routeRepository.segmentCoordinates(relationIds)
 
     val routeLines = segmentCoordinates.map { segment =>
-      val coordinates = Json.value(segment.coordinates, classOf[CoordinateArray]).coordinates
+      val coordinates = Json.readValue(segment.coordinates, classOf[CoordinateArray]).coordinates
       geometryFactory.createLineString(coordinates)
     }
     val referenceLines = reference.referenceLines.map(CoordinateUtil.coordinatesToLineString)

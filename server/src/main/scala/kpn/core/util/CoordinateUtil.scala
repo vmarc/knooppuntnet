@@ -52,7 +52,7 @@ object CoordinateUtil {
   }
 
   def coordinatesToLineString(string: String): LineString = {
-    val coordinates = Json.value(string, classOf[CoordinateArray]).coordinates
+    val coordinates = Json.readValue(string, classOf[CoordinateArray]).coordinates
     geometryFactory.createLineString(coordinates)
   }
 
