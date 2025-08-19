@@ -16,8 +16,6 @@ import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
-import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
-import kpn.server.json.Json
 import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
@@ -102,7 +100,7 @@ class MonitorOsmAnalyze(
         val segmentCoordinates = routeRepository.segmentCoordinates(Seq(relation.relationId))
 
         val routeLines = segmentCoordinates.map { segment =>
-          val coordinates = Json.readValue(segment.coordinates, classOf[CoordinateArray]).coordinates
+          val coordinates = CoordinateUtil.stringToCoordinates(segment.coordinates)
           geometryFactory.createLineString(coordinates)
         }
 

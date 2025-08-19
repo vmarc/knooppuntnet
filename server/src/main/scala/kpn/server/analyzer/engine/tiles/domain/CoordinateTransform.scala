@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tiles.domain
 
 import kpn.api.common.data.Way
-import kpn.server.json.Json
+import kpn.core.util.CoordinateUtil
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.LineString
 
@@ -84,7 +84,7 @@ object CoordinateTransform {
   }
 
   def lineToWorldCoordinates(line: String): Seq[Coordinate] = {
-    val coordinates = Json.readValue(line, classOf[CoordinateArray]).coordinates
+    val coordinates = CoordinateUtil.stringToCoordinates(line)
     coordinates.toSeq.map(CoordinateTransform.toWorldCoordinate)
   }
 }

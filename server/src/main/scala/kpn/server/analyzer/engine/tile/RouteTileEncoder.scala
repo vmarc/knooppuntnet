@@ -2,19 +2,18 @@ package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.FeatureLayer
 import kpn.api.common.RouteType
+import kpn.core.util.CoordinateUtil
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
 import kpn.server.analyzer.engine.tiles.TileFileRepository
-import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
-import kpn.server.json.Json
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
@@ -90,7 +89,7 @@ class RouteTileEncoder(
   }
 
   private def buildRouteLineString(line: String): LineString = {
-    val coordinates: Array[Coordinate] = Json.readValue(line, classOf[CoordinateArray]).coordinates
+    val coordinates = CoordinateUtil.stringToCoordinates(line)
     geometryFactory.createLineString(coordinates)
   }
 

@@ -24,8 +24,11 @@ class PoeTranslationsCodecTest extends UnitTest {
 
     assertEqual(
       json,
-      """
-        |""".stripMargin
+      """{
+        |  "key1": "value1",
+        |  "key2": "value2",
+        |  "key3": "value3"
+        |}""".stripMargin
     )
 
     val reader = new StringReader(json)
