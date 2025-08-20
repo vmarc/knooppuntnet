@@ -4,7 +4,6 @@ import com.mongodb.client.model.Accumulators.sum
 import com.mongodb.client.model.Aggregates.count
 import com.mongodb.client.model.Aggregates.group
 import com.mongodb.client.model.Aggregates.project
-import com.mongodb.client.model.Aggregates.unionWith
 import com.mongodb.client.model.Aggregates.unwind
 import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Projections.excludeId
@@ -12,13 +11,13 @@ import com.mongodb.client.model.Projections.fields
 import kpn.api.common.RouteType
 import kpn.core.doc.Label
 import kpn.core.util.Log
-import kpn.core.util.Util.seqToList
 import kpn.database.actions.locations.MongoQueryLocationFactCount.log
 import kpn.database.base.CountResult
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.MongoAggregates.notEqual
+import kpn.database.base.MongoAggregates.unionWith
 import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
@@ -62,8 +61,8 @@ class MongoQueryLocationFactCount(database: Database) {
 
     Seq(
       nodeFactsPipeline,
-      Seq(unionWith("nodes", seqToList(nodePipeline2))),
-      Seq(unionWith("routes", seqToList(routeFactPipeline)))
+      Seq(unionWith("nodes", nodePipeline2)),
+      Seq(unionWith("routes", routeFactPipeline))
     ).flatten
   }
 

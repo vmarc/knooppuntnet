@@ -6,7 +6,6 @@ import com.mongodb.client.model.Aggregates.group
 import com.mongodb.client.model.Aggregates.out
 import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Aggregates.sort
-import com.mongodb.client.model.Aggregates.unionWith
 import com.mongodb.client.model.Aggregates.unwind
 import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Filters.exists
@@ -19,11 +18,11 @@ import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.statistics.StatisticValue
 import kpn.core.util.Log
-import kpn.core.util.Util.seqToList
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.MongoAggregates.notEqual
+import kpn.database.base.MongoAggregates.unionWith
 import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.MongoProjections.concat
 import kpn.database.base.Types.MongoPipeline
@@ -52,21 +51,21 @@ class StatisticsUpdater(database: Database) {
       val pipeline =
         pipelineNodeCount() ++
           Seq(
-            unionWith(database.orphanNodes.name, seqToList(pipelineOrphanNodeCount())),
-            unionWith(database.routes.name, seqToList(pipelineRouteCount())),
-            unionWith(database.orphanRoutes.name, seqToList(pipelineOrphanRouteCount())),
-            unionWith(database.nodes.name, seqToList(pipelineNodeFacts())),
-            unionWith(database.nodes.name, seqToList(pipelineNodeIntegrityCheckCount())),
-            unionWith(database.nodes.name, seqToList(pipelineNodeIntegrityCheckFailedCount())),
-            unionWith(database.routes.name, seqToList(pipelineRouteFacts())),
-            unionWith(database.routes.name, seqToList(pipelineRouteDistance())),
-            unionWith(database.networks.name, seqToList(pipelineNetworkCount())),
-            unionWith(database.networks.name, seqToList(pipelineNetworkFacts())),
-            unionWith(database.networks.name, seqToList(pipelineNetworkFacts2())),
-            unionWith(database.networks.name, seqToList(pipelineNetworkFacts3())),
-            unionWith(database.networks.name, seqToList(factCountPipeline())),
-            unionWith(database.networks.name, seqToList(pipelineIntegrityCheckNetworkCount())),
-            unionWith(database.changes.name, seqToList(pipelineChangeCount())),
+            unionWith(database.orphanNodes.name, pipelineOrphanNodeCount()),
+            unionWith(database.routes.name, pipelineRouteCount()),
+            unionWith(database.orphanRoutes.name, pipelineOrphanRouteCount()),
+            unionWith(database.nodes.name, pipelineNodeFacts()),
+            unionWith(database.nodes.name, pipelineNodeIntegrityCheckCount()),
+            unionWith(database.nodes.name, pipelineNodeIntegrityCheckFailedCount()),
+            unionWith(database.routes.name, pipelineRouteFacts()),
+            unionWith(database.routes.name, pipelineRouteDistance()),
+            unionWith(database.networks.name, pipelineNetworkCount()),
+            unionWith(database.networks.name, pipelineNetworkFacts()),
+            unionWith(database.networks.name, pipelineNetworkFacts2()),
+            unionWith(database.networks.name, pipelineNetworkFacts3()),
+            unionWith(database.networks.name, factCountPipeline()),
+            unionWith(database.networks.name, pipelineIntegrityCheckNetworkCount()),
+            unionWith(database.changes.name, pipelineChangeCount()),
             out(database.statistics.name)
           )
 
@@ -484,8 +483,8 @@ class StatisticsUpdater(database: Database) {
 
   private def factCountPipeline(): MongoPipeline = {
     networkFactCountPipeline() ++
-      Seq(unionWith(database.nodes.name, seqToList(nodeFactCountPipeline()))) ++
-      Seq(unionWith(database.routes.name, seqToList(routeFactCountPipeline()))) ++
+      Seq(unionWith(database.nodes.name, nodeFactCountPipeline())) ++
+      Seq(unionWith(database.routes.name, routeFactCountPipeline())) ++
       combineFactCounts()
   }
 

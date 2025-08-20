@@ -24,4 +24,8 @@ object MongoAggregates {
   def ffacet(name: String, pipeline: MongoPipeline): Facet = {
     new Facet(name, seqToList(pipeline))
   }
+
+  def unionWith(collection: String, pipeline: MongoPipeline): Bson = {
+    com.mongodb.client.model.Aggregates.unionWith(collection, seqToList(pipeline))
+  }
 }

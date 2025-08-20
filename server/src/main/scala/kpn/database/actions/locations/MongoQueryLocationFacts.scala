@@ -3,7 +3,6 @@ package kpn.database.actions.locations
 import com.mongodb.client.model.Accumulators.push
 import com.mongodb.client.model.Aggregates.group
 import com.mongodb.client.model.Aggregates.project
-import com.mongodb.client.model.Aggregates.unionWith
 import com.mongodb.client.model.Aggregates.unwind
 import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Projections.computed
@@ -14,12 +13,12 @@ import kpn.api.common.RouteType
 import kpn.api.common.location.LocationFact
 import kpn.core.doc.Label
 import kpn.core.util.Log
-import kpn.core.util.Util.seqToList
 import kpn.database.actions.locations.MongoQueryLocationFacts.log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.MongoAggregates.notEqual
+import kpn.database.base.MongoAggregates.unionWith
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
@@ -65,8 +64,8 @@ class MongoQueryLocationFacts(database: Database) {
     val routePipeline = buildRouteFactPipeline(mainFilter)
     Seq(
       nodeFactPipeline, // node facts
-      Seq(unionWith("nodes", seqToList(nodeIntegrityCheckFailedPipeline))),
-      Seq(unionWith("routes", seqToList(routePipeline)))
+      Seq(unionWith("nodes", nodeIntegrityCheckFailedPipeline)),
+      Seq(unionWith("routes", routePipeline))
     ).flatten
   }
 
