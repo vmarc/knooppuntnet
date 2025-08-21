@@ -2,14 +2,12 @@ package kpn.database.actions.statistics
 
 import kpn.api.common.statistics.StatisticValue
 import kpn.core.util.Log
-import kpn.core.util.Util.seqToList
 import kpn.database.actions.statistics.ChangeStatisticsUpdater.changesetSummaries
 import kpn.database.base.Database
 import kpn.database.base.MongoQuery
 import kpn.database.base.Pipeline
 import kpn.database.util.Mongo
 
-import scala.jdk.CollectionConverters.IterableHasAsScala
 import scala.language.postfixOps
 
 object ChangeStatisticsUpdater extends MongoQuery {
@@ -43,7 +41,7 @@ class ChangeStatisticsUpdater(database: Database) {
   private def updateCounts(collectionName: String, pipeline: Pipeline): Unit = {
     log.debugElapsed {
       val collection = database.getCollection(collectionName)
-      val values = collection.aggregate(seqToList(pipeline.stages), classOf[StatisticValue]).asScala.toSeq
+      val values = collection.aggregate(pipeline.stages, classOf[StatisticValue])
       (s"${pipeline.name}: ${values.size}", ())
     }
   }

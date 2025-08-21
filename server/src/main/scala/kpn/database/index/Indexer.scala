@@ -19,7 +19,7 @@ class Indexer(database: Database) {
       dropIndex(index)
       log.infoElapsed {
         val collection = database.getCollection(index.collection.name)
-        collection.createIndex(index.index, new IndexOptions().name(index.indexName))
+        collection.native.createIndex(index.index, new IndexOptions().name(index.indexName))
         ("Created", ())
       }
     }
@@ -28,7 +28,7 @@ class Indexer(database: Database) {
   def dropIndex(index: Index): Unit = {
     val collection = database.getCollection(index.collection.name)
     try {
-      collection.dropIndex(index.index)
+      collection.native.dropIndex(index.index)
       log.info("dropped")
     }
     catch {

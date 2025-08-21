@@ -14,9 +14,7 @@ import kpn.api.custom.Timestamp2
 import kpn.core.doc.Storable
 import kpn.core.doc.WithStringId
 import kpn.database.base.Database
-import kpn.database.base.DatabaseCollectionImpl
 import kpn.database.base.Types.MongoPipeline
-import kpn.database.tools.TimestampDemo.Period
 import kpn.database.util.Mongo
 import org.bson.BsonDocument
 
@@ -25,14 +23,14 @@ case class TestDoc(
   timestamp: Timestamp2
 ) extends WithStringId
 
-object TimestampDemo {
+case class Period(
+  year: Option[Long],
+  month: Option[Long],
+  day: Option[Long],
+  count: Long
+) extends Storable
 
-  case class Period(
-    year: Option[Long],
-    month: Option[Long],
-    day: Option[Long],
-    count: Long
-  ) extends Storable
+object TimestampDemo {
 
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn") { database =>
@@ -44,7 +42,7 @@ object TimestampDemo {
 
 class TimestampDemo(database: Database) {
 
-  private val collection = new DatabaseCollectionImpl(database.getCollection[TestDoc]("test"))
+  private val collection = database.getCollection[TestDoc]("test")
 
   def populateCollection(): Unit = {
     2015 to 2020 foreach { year =>

@@ -47,8 +47,8 @@ import scala.reflect.ClassTag
 
 class DatabaseImpl(val database: MongoDatabase) extends Database {
 
-  override def getCollection[T: ClassTag](collectionName: String): MongoCollection[T] = {
-    database.getCollection(collectionName).asInstanceOf[MongoCollection[T]]
+  override def getCollection[T: ClassTag](collectionName: String): DatabaseCollection[T] = {
+    new DatabaseCollectionImpl(database.getCollection(collectionName).asInstanceOf[MongoCollection[T]])
   }
 
   override def baseNetworks: DatabaseCollection[BaseNetworkDoc] = {

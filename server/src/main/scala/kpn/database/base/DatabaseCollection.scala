@@ -38,6 +38,11 @@ trait DatabaseCollection[TDocument] {
     duration: Duration = Duration(120, TimeUnit.SECONDS)
   ): Seq[TResult]
 
+  def aggregate[TResult](
+    pipeline: MongoPipeline,
+    resultClass: Class[TResult]
+  ): Seq[TResult]
+
   def optionAggregate[TResult](
     pipeline: MongoPipeline,
     resultClass: Class[TResult],

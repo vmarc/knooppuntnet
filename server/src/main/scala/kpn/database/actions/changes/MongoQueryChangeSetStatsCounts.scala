@@ -2,7 +2,6 @@ package kpn.database.actions.changes
 
 import com.mongodb.client.model.Aggregates.facet
 import kpn.core.util.Log
-import kpn.core.util.Util.seqToList
 import kpn.database.actions.changes.MongoQueryChangeSetStatsCounts.log
 import kpn.database.actions.changes.MongoQueryChangeSetStatsCounts.pipelineAll
 import kpn.database.actions.changes.MongoQueryChangeSetStatsCounts.pipelineDaysString
@@ -14,8 +13,6 @@ import kpn.database.base.MongoAggregates.ffacet
 import kpn.database.base.MongoQuery
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-
-import scala.jdk.CollectionConverters.IterableHasAsScala
 
 object MongoQueryChangeSetStatsCounts extends MongoQuery {
   private val log = Log(classOf[MongoQueryChangeSetStatsCounts])
@@ -66,7 +63,7 @@ class MongoQueryChangeSetStatsCounts(database: Database) {
 
     log.debugElapsed {
       val collection = database.getCollection("change-stats-summaries")
-      val counts = collection.aggregate(seqToList(pipeline), classOf[ChangeSetCounts]).first()
+      val counts = collection.aggregate(pipeline, classOf[ChangeSetCounts]).head
       val result = s"year: $year, month: ${monthOption.getOrElse('-')}, results: years: ${counts.years.size}, months: ${counts.months.size}, days: ${counts.days.size}"
       (result, counts)
     }
@@ -78,7 +75,7 @@ class MongoQueryChangeSetStatsCounts(database: Database) {
     }
     log.debugElapsed {
       val collection = database.getCollection("change-stats-summaries")
-      val counts = collection.aggregate(seqToList(pipelineAll), classOf[ChangeSetCount]).asScala.toSeq
+      val counts = collection.aggregate(pipelineAll, classOf[ChangeSetCount])
       (s"all days materialized ${counts.size} counts", counts)
     }
   }

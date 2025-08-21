@@ -1,6 +1,5 @@
 package kpn.database.base
 
-import com.mongodb.client.MongoCollection
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.PoiState
 import kpn.api.common.changes.ChangeSetInfo
@@ -46,7 +45,7 @@ import scala.reflect.ClassTag
 
 trait Database {
 
-  def getCollection[T: ClassTag](collectionName: String): MongoCollection[T]
+  def getCollection[T: ClassTag](collectionName: String): DatabaseCollection[T]
 
   def baseNetworks: DatabaseCollection[BaseNetworkDoc]
 

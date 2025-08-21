@@ -40,6 +40,10 @@ class DatabaseCollectionImpl[TDocument](collection: MongoCollection[TDocument]) 
     collection.aggregate(seqToList(pipeline), resultClass).allowDiskUse(allowDiskUse).asScala.toSeq
   }
 
+  override def aggregate[TResult](pipeline: MongoPipeline, resultClass: Class[TResult]): Seq[TResult] = {
+    collection.aggregate(seqToList(pipeline), resultClass).asScala.toSeq
+  }
+
   override def optionAggregate[TResult](
     pipeline: MongoPipeline,
     resultClass: Class[TResult],

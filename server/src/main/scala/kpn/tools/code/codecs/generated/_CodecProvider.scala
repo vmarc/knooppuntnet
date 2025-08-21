@@ -417,6 +417,7 @@ import kpn.database.base.NameRow
 import kpn.database.base.ObjectIdId
 import kpn.database.base.StringId
 import kpn.database.tools.NodeWithLongName
+import kpn.database.tools.Period
 import kpn.database.tools.RouteColourTagValue
 import kpn.server.analyzer.engine.analysis.AnalysisStatus
 import kpn.server.analyzer.engine.analysis.location.LocationTree
@@ -464,6 +465,7 @@ import kpn.server.sync.StampDoc
 import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.DayCodec
 import kpn.tools.code.codecs.PoeTranslationsCodec
+import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import kpn.tools.code.codecs.TranslationsCodec
@@ -488,6 +490,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[PoeTranslations]) {
       return new PoeTranslationsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Period]) {
+      return new PeriodCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[NodeWithLongName]) {
       return new NodeWithLongNameCodec(codecRegistry).asInstanceOf[Codec[T]]
