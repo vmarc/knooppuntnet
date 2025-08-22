@@ -19,6 +19,7 @@ import com.mongodb.client.model.Sorts.orderBy
 import kpn.core.util.Log
 import kpn.database.actions.statistics.StatisticLongValues
 import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.arrayEmpty
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.MongoAggregates.notEqual
@@ -51,7 +52,7 @@ class StatisticsUpdater(database: Database) {
       val pipeline =
         pipelineNodeCount() ++
           Seq(
-            unionWith(database.orphanNodes.name, pipelineOrphanNodeCount()),
+            unionWith(database.nodes.name, pipelineOrphanNodeCount()),
             unionWith(database.routes.name, pipelineRouteCount()),
             unionWith(database.orphanRoutes.name, pipelineOrphanRouteCount()),
             unionWith(database.nodes.name, pipelineNodeFacts()),
@@ -99,11 +100,19 @@ class StatisticsUpdater(database: Database) {
   private def pipelineOrphanNodeCount(): MongoPipeline = {
     factPipeline(
       "OrphanNodeCount",
+      filter(
+        and(
+          equal("active", true),
+          arrayEmpty("routeReferences"),
+          arrayEmpty("networkRelationReferences"),
+        )
+      ),
+      unwind("$names"),
       group(
         new Document(
           java.util.Map.of(
             "country", "$country",
-            "routeType", "$routeType"
+            "routeType", "$names.routeType"
           )
         ),
         sum("value", 1)

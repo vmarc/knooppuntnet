@@ -22,7 +22,7 @@ import kpn.core.test.TestObjects.newLocationChanges
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNodeChange
-import kpn.core.test.TestObjects.newOrphanNodeDoc
+import kpn.core.test.TestObjects.newOrphanNodeInfo
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
 import kpn.core.test.TestObjects.newRouteNode
@@ -59,7 +59,7 @@ class RouteDeleteTest03 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
 
       watched.routes.ids should contain(11)
-      database.orphanNodes shouldBe empty
+      findOrphanNodes() shouldBe empty
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
@@ -213,10 +213,8 @@ class RouteDeleteTest03 extends IntegrationTest {
 
   private def assertOrphanNode1001(): Unit = {
     assertEqual(
-      findOrphanNodeById("nl:hiking:1001"),
-      newOrphanNodeDoc(
-        country = Country.nl,
-        routeType = RouteType.hiking,
+      findOrphanNode(Subset.nlHiking, 1001),
+      newOrphanNodeInfo(
         nodeId = 1001L,
         name = "01"
       )
@@ -225,10 +223,8 @@ class RouteDeleteTest03 extends IntegrationTest {
 
   private def assertOrphanNode1002(): Unit = {
     assertEqual(
-      findOrphanNodeById("nl:hiking:1002"),
-      newOrphanNodeDoc(
-        country = Country.nl,
-        routeType = RouteType.hiking,
+      findOrphanNode(Subset.nlHiking, 1002),
+      newOrphanNodeInfo(
         nodeId = 1002L,
         name = "02"
       )

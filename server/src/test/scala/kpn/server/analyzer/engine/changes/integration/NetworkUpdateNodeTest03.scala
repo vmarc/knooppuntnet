@@ -79,7 +79,7 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
       watched.networks.ids should contain(1)
       watched.networks.ids should contain(2)
 
-      database.orphanNodes shouldBe empty
+      findOrphanNodes() shouldBe empty
 
       // network 2 has not changed
       assertEqual(findBaseNetworkById(2), network2)

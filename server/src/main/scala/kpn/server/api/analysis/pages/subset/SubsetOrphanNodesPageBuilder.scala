@@ -1,9 +1,7 @@
 package kpn.server.api.analysis.pages.subset
 
-import kpn.api.common.OrphanNodeInfo
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.custom.Subset
-import kpn.core.doc.OrphanNodeDoc
 import kpn.core.util.Log
 import kpn.database.actions.subsets.MongoQuerySubsetInfo
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanNodes
@@ -18,27 +16,12 @@ class SubsetOrphanNodesPageBuilder(database: Database) {
 
   def build(subset: Subset): SubsetOrphanNodesPage = {
     val subsetInfo = new MongoQuerySubsetInfo(database).execute(subset, log)
-    val nodes = new MongoQuerySubsetOrphanNodes(database)
-      .execute(subset)
-      .map(toInfo)
-      .sortBy(_.name)
+    val nodeInfos = new MongoQuerySubsetOrphanNodes(database).execute(subset)
 
     SubsetOrphanNodesPage(
       TimeInfoBuilder.timeInfo,
       subsetInfo,
-      nodes
-    )
-  }
-
-  private def toInfo(doc: OrphanNodeDoc): OrphanNodeInfo = {
-    OrphanNodeInfo(
-      id = doc.nodeId,
-      name = doc.name,
-      longName = doc.longName,
-      proposed = doc.proposed,
-      lastUpdated = doc.lastUpdated,
-      lastSurvey = doc.lastSurvey.map(_.yyyymmdd),
-      factCount = doc.facts.size
+      nodeInfos
     )
   }
 }

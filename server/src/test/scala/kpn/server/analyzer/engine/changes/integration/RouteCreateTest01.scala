@@ -81,7 +81,7 @@ class RouteCreateTest01 extends IntegrationTest {
       assertNodeChange1002()
       assertChangeSetSummary()
 
-      database.orphanNodes shouldBe empty
+      findOrphanNodes() shouldBe empty
     }
   }
 

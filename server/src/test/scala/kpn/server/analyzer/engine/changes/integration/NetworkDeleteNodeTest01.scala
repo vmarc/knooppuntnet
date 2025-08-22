@@ -31,7 +31,7 @@ import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeName
-import kpn.core.test.TestObjects.newOrphanNodeDoc
+import kpn.core.test.TestObjects.newOrphanNodeInfo
 import kpn.core.test.TestObjects.newRawRelation
 
 class NetworkDeleteNodeTest01 extends IntegrationTest {
@@ -257,10 +257,8 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
 
   private def assertOrphanNode(): Unit = {
     assertEqual(
-      findOrphanNodeById("nl:hiking:1001"),
-      newOrphanNodeDoc(
-        country = Country.nl,
-        routeType = RouteType.hiking,
+      findOrphanNode(Subset.nlHiking, 1001),
+      newOrphanNodeInfo(
         nodeId = 1001,
         name = "01"
       )

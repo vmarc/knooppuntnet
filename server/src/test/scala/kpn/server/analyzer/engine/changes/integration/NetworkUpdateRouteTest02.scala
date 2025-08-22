@@ -92,7 +92,7 @@ class NetworkUpdateRouteTest02 extends IntegrationTest {
 
       watched.routes.ids should contain(11)
 
-      database.orphanNodes shouldBe empty
+      findOrphanNodes() shouldBe empty
       database.orphanRoutes shouldBe empty
 
       assertBaseNetwork()

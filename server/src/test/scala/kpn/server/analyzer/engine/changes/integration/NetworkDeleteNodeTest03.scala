@@ -46,7 +46,7 @@ class NetworkDeleteNodeTest03 extends IntegrationTest {
 
       process(ChangeAction.Delete, newRawRelation(1))
 
-      database.orphanNodes shouldBe empty // <--
+      findOrphanNodes() shouldBe empty // <--
       database.routeChanges shouldBe empty
 
       watched.networks.ids shouldNot contain(1)

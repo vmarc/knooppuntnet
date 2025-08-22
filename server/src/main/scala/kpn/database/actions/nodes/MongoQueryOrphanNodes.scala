@@ -1,4 +1,4 @@
-package kpn.database.actions.subsets
+package kpn.database.actions.nodes
 
 import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Aggregates.sort
@@ -11,38 +11,40 @@ import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.OrphanNodeInfo
-import kpn.api.custom.Subset
-import kpn.core.doc.Label
 import kpn.core.util.Log
-import kpn.database.actions.subsets.MongoQuerySubsetOrphanNodes.log
+import kpn.database.actions.nodes.MongoQueryOrphanNodes.log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.arrayEmpty
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.MongoProjections.arraySize
+import kpn.database.base.Types.MongoPipeline
 
-object MongoQuerySubsetOrphanNodes {
-  private val log = Log(classOf[MongoQuerySubsetOrphanNodes])
+object MongoQueryOrphanNodes {
+  private val log = Log(classOf[MongoQueryOrphanNodes])
 }
 
-class MongoQuerySubsetOrphanNodes(database: Database) {
+class MongoQueryOrphanNodes(database: Database) {
 
-  def execute(subset: Subset): Seq[OrphanNodeInfo] = {
+  def execute(): Seq[OrphanNodeInfo] = {
+    val pipeline = buildPipeline()
+    log.debugElapsed {
+      val docs = database.nodes.aggregate(pipeline, classOf[OrphanNodeInfo], log)
+      val message = s"orphan nodes: ${docs.size}"
+      (message, docs)
+    }
+  }
 
-    val pipeline = Seq(
+  private def buildPipeline(): MongoPipeline = {
+    Seq(
       filter(
         and(
           equal("active", true),
-          equal("labels", Label.country(subset.country)),
-          equal("labels", Label.routeType(subset.routeType)),
           arrayEmpty("routeReferences"),
           arrayEmpty("networkRelationReferences"),
         )
       ),
       unwind("$names"),
-      filter(
-        equal("names.routeType", subset.routeType.entryName),
-      ),
       sort(
         orderBy(
           ascending(
@@ -63,11 +65,5 @@ class MongoQuerySubsetOrphanNodes(database: Database) {
         )
       )
     )
-
-    log.debugElapsed {
-      val docs = database.nodes.aggregate(pipeline, classOf[OrphanNodeInfo], log)
-      val message = s"subset ${subset.name} orphan nodes: ${docs.size}"
-      (message, docs)
-    }
   }
 }

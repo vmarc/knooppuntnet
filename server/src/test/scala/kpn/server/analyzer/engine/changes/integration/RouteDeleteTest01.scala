@@ -26,7 +26,7 @@ import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeTags
-import kpn.core.test.TestObjects.newOrphanNodeDoc
+import kpn.core.test.TestObjects.newOrphanNodeInfo
 import kpn.core.test.TestObjects.newRawRelation
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
@@ -240,10 +240,8 @@ class RouteDeleteTest01 extends IntegrationTest {
 
   private def assertOrphanNode1001(): Unit = {
     assertEqual(
-      findOrphanNodeById("nl:hiking:1001"),
-      newOrphanNodeDoc(
-        country = Country.nl,
-        routeType = RouteType.hiking,
+      findOrphanNode(Subset.nlHiking, 1001),
+      newOrphanNodeInfo(
         nodeId = 1001L,
         name = "01"
       )
@@ -252,10 +250,8 @@ class RouteDeleteTest01 extends IntegrationTest {
 
   private def assertOrphanNode1002(): Unit = {
     assertEqual(
-      findOrphanNodeById("nl:hiking:1002"),
-      newOrphanNodeDoc(
-        country = Country.nl,
-        routeType = RouteType.hiking,
+      findOrphanNode(Subset.nlHiking, 1002),
+      newOrphanNodeInfo(
         nodeId = 1002L,
         name = "02"
       )

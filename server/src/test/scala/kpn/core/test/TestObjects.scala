@@ -17,6 +17,7 @@ import kpn.api.common.LocationChanges
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkFact
 import kpn.api.common.NodeName
+import kpn.api.common.OrphanNodeInfo
 import kpn.api.common.Relation
 import kpn.api.common.ReplicationId
 import kpn.api.common.RouteLocationAnalysis
@@ -99,7 +100,6 @@ import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkRouteDetail
 import kpn.core.doc.NodeDoc
-import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
@@ -1453,29 +1453,23 @@ object TestObjects {
     )
   }
 
-  def newOrphanNodeDoc(
-    country: Country,
-    routeType: RouteType,
+  def newOrphanNodeInfo(
     nodeId: Long,
     name: String = "",
     longName: Option[String] = None,
-    proposed: Boolean = false,
     lastUpdated: Timestamp = Timestamps.default,
-    lastSurvey: Option[Day] = None,
-    facts: Seq[Fact] = Seq.empty
-  ): OrphanNodeDoc = {
-    val _id = s"${country.entryName}:${routeType.entryName}:$nodeId"
-    OrphanNodeDoc(
-      _id,
-      country,
-      routeType,
+    proposed: Boolean = false,
+    lastSurvey: Option[String] = None,
+    factCount: Long = 0
+  ): OrphanNodeInfo = {
+    OrphanNodeInfo(
       nodeId,
       name,
       longName,
-      proposed,
       lastUpdated,
+      proposed,
       lastSurvey,
-      facts
+      factCount
     )
   }
 

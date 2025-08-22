@@ -30,7 +30,7 @@ import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
-import kpn.core.test.TestObjects.newOrphanNodeDoc
+import kpn.core.test.TestObjects.newOrphanNodeInfo
 
 class NetworkUpdateNodeTest06 extends IntegrationTest {
 
@@ -133,10 +133,8 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
 
   private def assertOrphanNode(): Unit = {
     assertEqual(
-      findOrphanNodeById("nl:cycling:1002"),
-      newOrphanNodeDoc(
-        country = Country.nl,
-        routeType = RouteType.cycling,
+      findOrphanNode(Subset.nlBicycle, 1002),
+      newOrphanNodeInfo(
         nodeId = 1002,
         name = "03"
       )

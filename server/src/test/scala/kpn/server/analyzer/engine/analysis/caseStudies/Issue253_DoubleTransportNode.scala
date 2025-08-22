@@ -13,10 +13,10 @@ import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
-import kpn.core.doc.OrphanNodeDoc
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeName
+import kpn.core.test.TestObjects.newOrphanNodeInfo
 import kpn.core.test.TestObjects.newRawNode
 import kpn.database.actions.locations.MongoQueryLocationNodes
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanNodes
@@ -55,17 +55,10 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
       assertEqual(
         new MongoQuerySubsetOrphanNodes(context.database).execute(Subset.nlHiking),
         Seq(
-          OrphanNodeDoc(
-            _id = "nl:hiking:620168928",
-            country = Country.nl,
-            routeType = RouteType.hiking,
-            nodeId = 620168928L,
-            name = "Teumelet",
-            longName = None,
-            proposed = false,
+          newOrphanNodeInfo(
+            620168928L,
+            "Teumelet",
             lastUpdated = Timestamp(2021, 11, 6, 21, 23, 13),
-            lastSurvey = None,
-            facts = Seq.empty
           )
         )
       )

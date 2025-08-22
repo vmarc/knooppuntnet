@@ -68,7 +68,7 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
       watched.nodes.ids shouldNot contain(1002)
       watched.networks.ids should contain(1)
 
-      database.orphanNodes shouldBe empty
+      findOrphanNodes() shouldBe empty
       database.routes shouldBe empty
 
       findNodeById(1001) should equal(node1001)

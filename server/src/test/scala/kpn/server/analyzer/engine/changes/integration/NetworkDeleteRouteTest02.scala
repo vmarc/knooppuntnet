@@ -92,7 +92,7 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
       watched.nodes.ids should contain(1001)
       watched.nodes.ids should contain(1002)
 
-      database.orphanNodes shouldBe empty
+      findOrphanNodes() shouldBe empty
       database.orphanRoutes shouldBe empty
       database.nodeChanges shouldBe empty
 

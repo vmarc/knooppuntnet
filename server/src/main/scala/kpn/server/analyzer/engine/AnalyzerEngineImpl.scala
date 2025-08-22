@@ -4,7 +4,6 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.core.common.TimestampUtil
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 import kpn.server.analyzer.engine.changes.ChangeProcessorPipeline
@@ -39,7 +38,6 @@ class AnalyzerEngineImpl(
   poiChangeAnalyzer: PoiChangeAnalyzer,
   poiTileUpdater: PoiTileUpdater,
   statisticsUpdater: StatisticsUpdater,
-  orphanNodeUpdater: OrphanNodeUpdater,
   orphanRouteUpdater: OrphanRouteUpdater,
 ) extends AnalyzerEngine {
 
@@ -90,7 +88,6 @@ class AnalyzerEngineImpl(
         }
 
         if (analyzerStatisticsUpdateEnabled && replicationContext.hasChanges) {
-          orphanNodeUpdater.update()
           orphanRouteUpdater.update()
           statisticsUpdater.execute()
         }

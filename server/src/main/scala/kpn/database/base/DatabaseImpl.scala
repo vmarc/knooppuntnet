@@ -18,7 +18,6 @@ import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
-import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RawNetworkDoc
 import kpn.core.doc.RawNodeDoc
@@ -65,10 +64,6 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def nodes: DatabaseCollection[NodeDoc] = {
     new DatabaseCollectionImpl(database.getCollection("nodes", classOf[NodeDoc]))
-  }
-
-  override def orphanNodes: DatabaseCollection[OrphanNodeDoc] = {
-    new DatabaseCollectionImpl(database.getCollection("orphan-nodes", classOf[OrphanNodeDoc]))
   }
 
   override def routes: DatabaseCollection[RouteDoc] = {

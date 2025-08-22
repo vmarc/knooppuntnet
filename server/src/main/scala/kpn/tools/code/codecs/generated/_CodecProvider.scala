@@ -349,7 +349,6 @@ import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
 import kpn.core.doc.NodeRouteRef
 import kpn.core.doc.OldRouteDoc
-import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RawNetworkDoc
@@ -466,7 +465,6 @@ import kpn.server.sync.StampDoc
 import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.DayCodec
 import kpn.tools.code.codecs.PoeTranslationsCodec
-import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import kpn.tools.code.codecs.TranslationsCodec
@@ -686,9 +684,6 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[BaseRoutePath]) {
       return new BaseRoutePathCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[OrphanNodeDoc]) {
-      return new OrphanNodeDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[NetworkShapeDoc]) {
       return new NetworkShapeDocCodec(codecRegistry).asInstanceOf[Codec[T]]

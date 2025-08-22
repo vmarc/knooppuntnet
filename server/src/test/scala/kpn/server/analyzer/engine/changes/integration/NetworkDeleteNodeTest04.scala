@@ -61,7 +61,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
         )
       )
 
-      database.orphanNodes shouldBe empty // the node does not become orphan, it is no longer a network node
+      findOrphanNodes() shouldBe empty // the node does not become orphan, it is no longer a network node
 
       watched.networks.ids shouldNot contain(1)
       watched.nodes.ids shouldNot contain(1001)

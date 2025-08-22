@@ -30,6 +30,7 @@ import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
 import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNodeChange
+import kpn.core.test.TestObjects.newOrphanNodeInfo
 
 class NetworkUpdateNodeTest01 extends IntegrationTest {
 
@@ -84,7 +85,13 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
         )
       )
 
-      assertEqual(database.orphanNodes.stringIds(), Seq("nl:hiking:1002"))
+      assertEqual(
+        findOrphanNode(Subset.nlHiking, 1002),
+        newOrphanNodeInfo(
+          1002,
+          "02"
+        )
+      )
 
       assertBaseNetwork()
       assertNetwork()

@@ -22,7 +22,7 @@ import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNodeChange
-import kpn.core.test.TestObjects.newOrphanNodeDoc
+import kpn.core.test.TestObjects.newOrphanNodeInfo
 
 class NetworkUpdateNodeTest08 extends IntegrationTest {
 
@@ -55,10 +55,8 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
 
       assertEqual(
-        findOrphanNodeById("nl:hiking:1002"),
-        newOrphanNodeDoc(
-          country = Country.nl,
-          routeType = RouteType.hiking,
+        findOrphanNode(Subset.nlHiking, 1002),
+        newOrphanNodeInfo(
           nodeId = 1002,
           name = "02"
         )
@@ -66,7 +64,7 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      database.orphanNodes.findAll() shouldBe empty
+      findOrphanNodes() shouldBe empty
 
       watched.nodes.ids should contain(1001)
       watched.nodes.ids should contain(1002)

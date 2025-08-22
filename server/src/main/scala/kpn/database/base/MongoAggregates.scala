@@ -5,6 +5,7 @@ import com.mongodb.client.model.Facet
 import com.mongodb.client.model.Filters
 import kpn.core.util.Util.seqToList
 import kpn.database.base.Types.MongoPipeline
+import org.bson.BsonDocument
 import org.bson.conversions.Bson
 
 object MongoAggregates {
@@ -27,5 +28,9 @@ object MongoAggregates {
 
   def unionWith(collection: String, pipeline: MongoPipeline): Bson = {
     com.mongodb.client.model.Aggregates.unionWith(collection, seqToList(pipeline))
+  }
+
+  def arrayEmpty(field: String): Bson = {
+    BsonDocument.parse(s"""{$field: { $$exists: true, $$size: 0}}""")
   }
 }

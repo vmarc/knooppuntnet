@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetSummary
+import kpn.api.common.OrphanNodeInfo
 import kpn.api.common.Relation
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeAction
@@ -12,18 +13,20 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.data.Node
 import kpn.api.common.data.raw.RawElement
 import kpn.api.custom.Change
+import kpn.api.custom.Subset
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NodeDoc
-import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.test.MongoTest
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newChangeSet
 import kpn.core.test.Timestamps
+import kpn.database.actions.nodes.MongoQueryOrphanNodes
+import kpn.database.actions.subsets.MongoQuerySubsetOrphanNodes
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
@@ -151,16 +154,13 @@ class IntegrationTest extends MongoTest {
     }
   }
 
-  def findOrphanNodeById(_id: String): OrphanNodeDoc = {
-    database.orphanNodes.findByStringId(_id).getOrElse {
-      val ids = database.orphanNodes.stringIds()
-      if (ids.isEmpty) {
-        fail(s"Could not find orphan node ${_id}, no orphan nodes in database")
-      }
-      else {
-        fail(s"Could not find orphan node ${_id} (but found: ${ids.mkString(", ")})")
-      }
-    }
+  def findOrphanNode(subset: Subset, nodeId: Long): OrphanNodeInfo = {
+    val orphanNodeInfos = new MongoQuerySubsetOrphanNodes(database).execute(subset)
+    orphanNodeInfos.find(_.id == nodeId).get
+  }
+
+  def findOrphanNodes(): Seq[OrphanNodeInfo] = {
+    new MongoQueryOrphanNodes(database).execute()
   }
 
   def findBaseNodeById(nodeId: Long): BaseNodeDoc = {
