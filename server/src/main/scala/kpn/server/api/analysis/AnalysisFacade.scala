@@ -35,7 +35,7 @@ import kpn.api.common.route.RoutePathsPage
 import kpn.api.common.route.RouteSegmentsPage
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
-import kpn.api.common.statistics.StatisticValues
+import kpn.api.common.statistics.OverviewPage
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.common.subset.SubsetFactRefs
@@ -88,7 +88,7 @@ trait AnalysisFacade {
 
   def networkChanges(networkId: Long, parameters: ChangesParameters): ApiResponse[NetworkChangesPage]
 
-  def overview(language: Language): ApiResponse[Seq[StatisticValues]]
+  def overview(language: Language): ApiResponse[OverviewPage]
 
   def subsetFactDetails(subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage]
 

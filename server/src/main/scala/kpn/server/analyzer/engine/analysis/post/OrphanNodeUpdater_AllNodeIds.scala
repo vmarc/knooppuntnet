@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.post
 
 import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.exists
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import kpn.core.util.Log
@@ -18,6 +19,7 @@ class OrphanNodeUpdater_AllNodeIds(database: Database, log: Log) {
         filter(
           and(
             equal("active", true),
+            exists("country"),
           )
         ),
         project(

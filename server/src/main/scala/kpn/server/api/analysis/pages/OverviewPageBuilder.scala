@@ -1,6 +1,7 @@
 package kpn.server.api.analysis.pages
 
 import kpn.api.common.Language
+import kpn.api.common.statistics.OverviewPage
 import kpn.api.common.statistics.StatisticValue
 import kpn.api.common.statistics.StatisticValues
 import kpn.api.custom.Subset
@@ -12,14 +13,16 @@ import org.springframework.stereotype.Component
 @Component
 class OverviewPageBuilder(statisticsRepository: StatisticsRepository) {
 
-  def build(language: Language): Option[Seq[StatisticValues]] = {
+  def build(language: Language): Option[OverviewPage] = {
     val values = statisticsRepository.statisticValues()
     Some(
-      Seq(
-        toStaticValues(language, values),
-        integrityCheckPassRate(values),
-        integrityCheckCoverage(values)
-      ).flatten
+      OverviewPage(
+        Seq(
+          toStaticValues(language, values),
+          integrityCheckPassRate(values),
+          integrityCheckCoverage(values)
+        ).flatten
+      )
     )
   }
 

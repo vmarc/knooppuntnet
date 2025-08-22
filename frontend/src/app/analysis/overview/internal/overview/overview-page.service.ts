@@ -2,7 +2,7 @@ import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { StatisticValues } from '@api/common/statistics/statistic-values';
+import { OverviewPage } from '@api/common/statistics/overview-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/shared/services/api.service';
 import { BrowserStorageService } from '@app/shared/services/browser-storage.service';
@@ -16,7 +16,7 @@ export class OverviewPageService {
   private readonly apiService = inject(ApiService);
   private readonly pageWidthService = inject(PageWidthService);
   private readonly browserStorageService = inject(BrowserStorageService);
-  private readonly _response = signal<ApiResponse<StatisticValues[]>>(null);
+  private readonly _response = signal<ApiResponse<OverviewPage>>(null);
   readonly response = this._response.asReadonly();
 
   private readonly _preferredFormat = signal<OverviewFormat>(this.initialPreferredFormat());

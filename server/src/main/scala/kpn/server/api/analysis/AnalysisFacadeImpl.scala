@@ -35,7 +35,7 @@ import kpn.api.common.route.RoutePathsPage
 import kpn.api.common.route.RouteSegmentsPage
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
-import kpn.api.common.statistics.StatisticValues
+import kpn.api.common.statistics.OverviewPage
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.common.subset.SubsetFactRefs
@@ -251,7 +251,7 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def overview(language: Language): ApiResponse[Seq[StatisticValues]] = {
+  override def overview(language: Language): ApiResponse[OverviewPage] = {
     api.execute("overview", "") {
       reply(overviewPageBuilder.build(language))
     }

@@ -36,9 +36,9 @@ import { OverviewTableComponent } from './components/overview-table.component';
               <ui-situation-on [timestamp]="response.situationOn" />
             </div>
             @if (service.tableFormat()) {
-              <ui-overview-table [statistics]="response.result" />
+              <ui-overview-table [statistics]="response.result.values" />
             } @else {
-              <ui-overview-list [statistics]="response.result" />
+              <ui-overview-list [statistics]="response.result.values" />
             }
           }
         </div>

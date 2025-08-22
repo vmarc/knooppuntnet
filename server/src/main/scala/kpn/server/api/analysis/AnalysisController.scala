@@ -38,7 +38,7 @@ import kpn.api.common.route.RoutePathsPage
 import kpn.api.common.route.RouteSegmentsPage
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
-import kpn.api.common.statistics.StatisticValues
+import kpn.api.common.statistics.OverviewPage
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.common.subset.SubsetFactRefs
@@ -64,7 +64,7 @@ import org.springframework.web.server.ResponseStatusException
 class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/api/overview"))
-  def overview(@RequestParam language: String): ApiResponse[Seq[StatisticValues]] = {
+  def overview(@RequestParam language: String): ApiResponse[OverviewPage] = {
     analysisFacade.overview(toLanguage(language))
   }
 

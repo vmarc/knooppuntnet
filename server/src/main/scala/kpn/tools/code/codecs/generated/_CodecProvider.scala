@@ -295,6 +295,7 @@ import kpn.api.common.search.RouteList
 import kpn.api.common.search.RouteListItem
 import kpn.api.common.search.RouteSearchResult
 import kpn.api.common.statistics.CountryStatistic
+import kpn.api.common.statistics.OverviewPage
 import kpn.api.common.statistics.Statistic
 import kpn.api.common.statistics.StatisticValue
 import kpn.api.common.statistics.StatisticValues
@@ -883,6 +884,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[CountryStatistic]) {
       return new CountryStatisticCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[OverviewPage]) {
+      return new OverviewPageCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[StatisticValue]) {
       return new StatisticValueCodec(codecRegistry).asInstanceOf[Codec[T]]

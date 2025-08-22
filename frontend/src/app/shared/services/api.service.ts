@@ -45,7 +45,7 @@ import { RouteSegmentsPage } from '@api/common/route/route-segments-page';
 import { SearchResponse } from '@api/common/search-response';
 import { ConditionGroup } from '@api/common/search/condition-group';
 import { RouteList } from '@api/common/search/route-list';
-import { StatisticValues } from '@api/common/statistics/statistic-values';
+import { OverviewPage } from '@api/common/statistics/overview-page';
 import { LogPage } from '@api/common/status/log-page';
 import { PeriodParameters } from '@api/common/status/period-parameters';
 import { ReplicationStatusPage } from '@api/common/status/replication-status-page';
@@ -82,7 +82,7 @@ export class ApiService {
       .pipe(timeout(3000));
   }
 
-  overview(): Observable<ApiResponse<StatisticValues[]>> {
+  overview(): Observable<ApiResponse<OverviewPage>> {
     const url = '/api/overview';
     return this.http.get(url, { params: this.languageParams() });
   }

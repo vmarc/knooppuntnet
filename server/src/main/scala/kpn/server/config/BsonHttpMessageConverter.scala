@@ -12,6 +12,7 @@ import org.bson.json.JsonReader
 import org.bson.json.JsonWriter
 import org.springframework.http.converter.json.AbstractJsonHttpMessageConverter
 
+import java.io.PrintWriter
 import java.io.Reader
 import java.io.Writer
 import java.lang.reflect.Type
@@ -27,7 +28,9 @@ class BsonHttpMessageConverter extends AbstractJsonHttpMessageConverter {
   private val timestampCodec = Mongo.codecRegistry.get(classOf[Timestamp])
 
   override def readInternal(resolvedType: Type, reader: Reader): AnyRef = {
+
     val bsonReader = new JsonReader(reader)
+
     val clazz = resolvedType match {
       case c: Class[_] => c
       case _ => throw new IllegalArgumentException(s"Expected Class type but got: $resolvedType")
@@ -42,14 +45,14 @@ class BsonHttpMessageConverter extends AbstractJsonHttpMessageConverter {
   }
 
   override def writeInternal(instance: Any, objectType: Type, writer: Writer): Unit = {
-    val bsonWriter = new JsonWriter(writer)
-
     if (objectType.getTypeName.startsWith("kpn.api.custom.ApiResponse")) {
       val apiResponse = instance.asInstanceOf[ApiResponse[Any]]
+      val bsonWriter = new JsonWriter(writer)
       encodeApiResponse(bsonWriter, apiResponse, DefaultEncoderContext)
     }
     else if (objectType.getTypeName.startsWith("java.lang.String")) {
-      bsonWriter.writeString(instance.toString)
+      val printWriter = new PrintWriter(writer)
+      printWriter.write(instance.toString)
     }
     else {
       val clazz: Class[Any] = objectType match {
@@ -58,6 +61,7 @@ class BsonHttpMessageConverter extends AbstractJsonHttpMessageConverter {
           throw new IllegalArgumentException(s"Expected Class type but got: $objectType")
       }
       val codec: Codec[Any] = Mongo.codecRegistry.get(clazz)
+      val bsonWriter = new JsonWriter(writer)
       codec.encode(bsonWriter, instance, DefaultEncoderContext)
     }
   }

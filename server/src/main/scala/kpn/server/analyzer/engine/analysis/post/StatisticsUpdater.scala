@@ -16,8 +16,8 @@ import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.client.model.Sorts.orderBy
-import kpn.api.common.statistics.StatisticValue
 import kpn.core.util.Log
+import kpn.database.actions.statistics.StatisticLongValues
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
@@ -34,7 +34,7 @@ import org.springframework.stereotype.Component
 
 object StatisticsUpdater {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-prod") { database =>
+    Mongo.executeIn("kpn-laptop") { database =>
       new StatisticsUpdater(database).execute()
     }
   }
@@ -69,7 +69,7 @@ class StatisticsUpdater(database: Database) {
             out(database.statistics.name)
           )
 
-      val values = database.nodes.aggregate(pipeline, classOf[StatisticValue])
+      val values = database.nodes.aggregate(pipeline, classOf[StatisticLongValues])
       (s"${values.size} values", ())
     }
   }
@@ -430,7 +430,7 @@ class StatisticsUpdater(database: Database) {
       project(
         fields(
           include("_id"),
-          computed("value", BsonDocument.parse("""{$divide: ["$value", 1000]}"""))
+          computed("value", BsonDocument.parse("""{$toLong: {$divide: ["$value", 1000]}}"""))
         )
       )
     )
