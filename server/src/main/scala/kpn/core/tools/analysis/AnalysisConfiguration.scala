@@ -267,11 +267,8 @@ class AnalysisConfiguration(databaseName: String) {
   }
 
   private def createPostProcessor(): PostProcessor = {
-    val orphanRouteUpdater = new OrphanRouteUpdater(database)
     val statisticsUpdater = new StatisticsUpdater(database)
-
     new PostProcessor(
-      orphanRouteUpdater,
       statisticsUpdater
     )
   }

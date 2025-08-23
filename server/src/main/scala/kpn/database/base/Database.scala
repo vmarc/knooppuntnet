@@ -16,7 +16,6 @@ import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
-import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RawNetworkDoc
 import kpn.core.doc.RawNodeDoc
 import kpn.core.doc.RawRouteDoc
@@ -59,8 +58,6 @@ trait Database {
   def baseRoutes: DatabaseCollection[BaseRouteDoc]
 
   def routeTiles: DatabaseCollection[RouteTileInfo]
-
-  def orphanRoutes: DatabaseCollection[OrphanRouteDoc]
 
   def networkChanges: DatabaseCollection[NetworkChange]
 

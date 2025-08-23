@@ -87,7 +87,7 @@ class NetworkCreateTest01 extends IntegrationTest {
       watched.nodes.ids should contain(1001)
       watched.nodes.ids should contain(1002)
       findOrphanNodes() shouldBe empty
-      database.orphanRoutes.findAll().map(_._id) should equal(Seq(11))
+      findOrphanRoutes().map(_.id) should equal(Seq(11))
 
       process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
 
@@ -105,7 +105,7 @@ class NetworkCreateTest01 extends IntegrationTest {
       assertChangeSetSummary()
 
       findOrphanNodes() shouldBe empty
-      database.orphanRoutes shouldBe empty
+      findOrphanRoutes() shouldBe empty
     }
   }
 

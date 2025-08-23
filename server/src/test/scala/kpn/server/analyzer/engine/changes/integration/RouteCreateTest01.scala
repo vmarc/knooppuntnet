@@ -31,7 +31,7 @@ import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeName
 import kpn.core.test.TestObjects.newNodeTags
-import kpn.core.test.TestObjects.newOrphanRouteDoc
+import kpn.core.test.TestObjects.newOrphanRouteInfo
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
 import kpn.core.test.TestObjects.newRouteNode
@@ -100,10 +100,8 @@ class RouteCreateTest01 extends IntegrationTest {
   private def assertOrphanRoute(): Unit = {
     assertEqual(
       findOrphanRouteById(11L),
-      newOrphanRouteDoc(
+      newOrphanRouteInfo(
         11L,
-        country = Country.nl,
-        routeType = RouteType.hiking,
         name = "01-02"
       )
     )

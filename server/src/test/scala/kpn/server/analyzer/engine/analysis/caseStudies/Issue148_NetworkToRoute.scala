@@ -77,8 +77,8 @@ class Issue148_NetworkToRoute extends IntegrationTest {
       route.summary.name should equal("72-84")
       route.version should equal(2)
 
-      val orphanRoute = findOrphanRouteById(11774118L)
-      orphanRoute.name should equal("72-84")
+      val orphanRouteInfo = findOrphanRouteById(11774118L)
+      orphanRouteInfo.name should equal("72-84")
 
       val networkChange = findNetworkChangeById("123:1:11774118")
       networkChange.changeType should equal(ChangeType.Delete)

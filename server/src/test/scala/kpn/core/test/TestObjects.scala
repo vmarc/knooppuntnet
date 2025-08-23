@@ -101,7 +101,6 @@ import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkRouteDetail
 import kpn.core.doc.NodeDoc
-import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.doc.SuperSegment
@@ -1471,28 +1470,6 @@ object TestObjects {
       proposed,
       lastSurvey,
       factCount
-    )
-  }
-
-  def newOrphanRouteDoc(
-    _id: Long,
-    country: Country,
-    routeType: RouteType,
-    name: String = "",
-    meters: Long = 0,
-    facts: Seq[Fact] = Seq.empty,
-    lastSurvey: Option[Day] = None,
-    lastUpdated: Timestamp = Timestamps.default
-  ): OrphanRouteDoc = {
-    OrphanRouteDoc(
-      _id,
-      country,
-      Seq(routeType),
-      name,
-      meters,
-      facts,
-      lastSurvey,
-      lastUpdated
     )
   }
 

@@ -349,7 +349,6 @@ import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
 import kpn.core.doc.NodeRouteRef
 import kpn.core.doc.OldRouteDoc
-import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RawNetworkDoc
 import kpn.core.doc.RawNodeDoc
@@ -738,9 +737,6 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[RawRouteDoc]) {
       return new RawRouteDocCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[OrphanRouteDoc]) {
-      return new OrphanRouteDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[Distance]) {
       return new DistanceCodec(codecRegistry).asInstanceOf[Codec[T]]

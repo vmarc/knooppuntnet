@@ -71,7 +71,7 @@ class RouteDeleteTest01 extends IntegrationTest {
       assertNodeChange1002()
       assertOrphanNode1001()
       assertOrphanNode1002()
-      database.orphanRoutes shouldBe empty
+      findOrphanRoutes() shouldBe empty
       assertChangeSetSummary()
     }
   }

@@ -24,7 +24,7 @@ import kpn.core.test.TestObjects.newNetworkDetail
 import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNetworkTags
-import kpn.core.test.TestObjects.newOrphanRouteDoc
+import kpn.core.test.TestObjects.newOrphanRouteInfo
 import kpn.core.test.TestObjects.newRawRelation
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
@@ -86,10 +86,8 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
   private def assertOrphanRoute(): Unit = {
     assertEqual(
       findOrphanRouteById(11),
-      newOrphanRouteDoc(
+      newOrphanRouteInfo(
         11,
-        Country.nl,
-        RouteType.hiking,
         "01-02",
       )
     )

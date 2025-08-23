@@ -44,8 +44,8 @@ class NetworkToRouteTest01 extends IntegrationTest {
       route.summary.name should equal("01-02")
       route.version should equal(2)
 
-      val orphanRoute = findOrphanRouteById(1)
-      orphanRoute.name should equal("01-02")
+      val orphanRouteInfo = findOrphanRouteById(1)
+      orphanRouteInfo.name should equal("01-02")
 
       val networkChange = findNetworkChangeById("123:1:1")
       networkChange.changeType should equal(ChangeType.Delete)

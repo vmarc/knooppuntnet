@@ -7,26 +7,27 @@ import kpn.api.common.RouteType
 import kpn.api.common.RouteType.cycling
 import kpn.api.common.RouteType.hiking
 import kpn.core.test.MongoTest
-import kpn.core.test.TestObjects.newOrphanRouteDoc
+import kpn.core.test.TestObjects.newRouteDoc
+import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
 class StatisticsUpdateSubsetOrphanRouteCountTest extends MongoTest {
 
   test("execute") {
 
-    buildOrphanRouteDoc(11L, nl, hiking)
-    buildOrphanRouteDoc(12L, nl, hiking)
-    buildOrphanRouteDoc(13L, nl, cycling)
-    buildOrphanRouteDoc(14L, de, hiking)
-    buildOrphanRouteDoc(15L, de, hiking)
-    buildOrphanRouteDoc(16L, de, cycling)
+    buildRouteDoc(11L, nl, hiking)
+    buildRouteDoc(12L, nl, hiking)
+    buildRouteDoc(13L, nl, cycling)
+    buildRouteDoc(14L, de, hiking)
+    buildRouteDoc(15L, de, hiking)
+    buildRouteDoc(16L, de, cycling)
 
     new StatisticsUpdater(database).execute()
     val counts = new MongoQueryStatistics(database).execute()
 
     assertEqual(
-      counts.find(_._id == "OrphanRouteCount").get.values.toSet,
-      Set(
+      counts.find(_._id == "OrphanRouteCount").get.values,
+      Seq(
         StatisticLongValue(de, cycling, 1L),
         StatisticLongValue(de, hiking, 2L),
         StatisticLongValue(nl, cycling, 1L),
@@ -35,12 +36,14 @@ class StatisticsUpdateSubsetOrphanRouteCountTest extends MongoTest {
     )
   }
 
-  private def buildOrphanRouteDoc(routeId: Long, country: Country, routeType: RouteType): Unit = {
-    database.orphanRoutes.save(
-      newOrphanRouteDoc(
-        routeId,
-        country,
-        routeType,
+  private def buildRouteDoc(routeId: Long, country: Country, routeType: RouteType): Unit = {
+    database.routes.save(
+      newRouteDoc(
+        newRouteSummary(
+          routeId,
+          countries = Seq(country),
+          routeTypes = Seq(routeType)
+        )
       )
     )
   }

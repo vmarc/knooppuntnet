@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.OrphanNodeInfo
+import kpn.api.common.OrphanRouteInfo
 import kpn.api.common.Relation
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeAction
@@ -19,13 +20,13 @@ import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NodeDoc
-import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.test.MongoTest
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newChangeSet
 import kpn.core.test.Timestamps
 import kpn.database.actions.nodes.MongoQueryOrphanNodes
+import kpn.database.actions.routes.MongoQueryOrphanRoutes
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanNodes
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerMock
@@ -130,15 +131,17 @@ class IntegrationTest extends MongoTest {
     }
   }
 
-  def findOrphanRouteById(routeId: Long): OrphanRouteDoc = {
-    database.orphanRoutes.findById(routeId).getOrElse {
-      val ids = database.orphanRoutes.ids()
-      if (ids.isEmpty) {
-        fail(s"Could not find orphan route $routeId, no orphan routes in database")
-      }
-      else {
-        fail(s"Could not find orphan route $routeId (but found: ${ids.mkString(", ")})")
-      }
+  def findOrphanRoutes(): Seq[OrphanRouteInfo] = {
+    new MongoQueryOrphanRoutes(database).execute()
+  }
+
+  def findOrphanRouteById(routeId: Long): OrphanRouteInfo = {
+    val orphanRoutes = findOrphanRoutes()
+    if (orphanRoutes.isEmpty) {
+      fail(s"Could not find orphan route $routeId, no orphan routes in database")
+    }
+    orphanRoutes.find(_.id == routeId).getOrElse {
+      fail(s"Could not find orphan route $routeId (but found: ${orphanRoutes.map(_.id).mkString(", ")})")
     }
   }
 

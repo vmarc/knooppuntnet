@@ -47,7 +47,7 @@ import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNodeWithName
-import kpn.core.test.TestObjects.newOrphanRouteDoc
+import kpn.core.test.TestObjects.newOrphanRouteInfo
 import kpn.core.test.TestObjects.newRelation
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
@@ -395,10 +395,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
   private def assertOrphanRoute(): Unit = {
     assertEqual(
       findOrphanRouteById(11),
-      newOrphanRouteDoc(
+      newOrphanRouteInfo(
         11L,
-        Country.nl,
-        RouteType.hiking,
         "01-02"
       )
     )

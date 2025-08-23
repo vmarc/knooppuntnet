@@ -54,7 +54,7 @@ class StatisticsUpdater(database: Database) {
           Seq(
             unionWith(database.nodes.name, pipelineOrphanNodeCount()),
             unionWith(database.routes.name, pipelineRouteCount()),
-            unionWith(database.orphanRoutes.name, pipelineOrphanRouteCount()),
+            unionWith(database.routes.name, pipelineOrphanRouteCount()),
             unionWith(database.nodes.name, pipelineNodeFacts()),
             unionWith(database.nodes.name, pipelineNodeIntegrityCheckCount()),
             unionWith(database.nodes.name, pipelineNodeIntegrityCheckFailedCount()),
@@ -146,12 +146,19 @@ class StatisticsUpdater(database: Database) {
   private def pipelineOrphanRouteCount(): MongoPipeline = {
     factPipeline(
       "OrphanRouteCount",
-      unwind("$routeTypes"),
+      filter(
+        and(
+          equal("active", true),
+          arrayEmpty("networkReferences"),
+        )
+      ),
+      unwind("$summary.routeTypes"),
+      unwind("$summary.countries"),
       group(
         new Document(
           java.util.Map.of(
-            "country", "$country",
-            "routeType", "$routeTypes"
+            "country", "$summary.countries",
+            "routeType", "$summary.routeTypes"
           )
         ),
         sum("value", 1)

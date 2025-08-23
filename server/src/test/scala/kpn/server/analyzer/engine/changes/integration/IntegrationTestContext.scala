@@ -23,7 +23,6 @@ import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeTileAnaly
 import kpn.server.analyzer.engine.analysis.node.main.NodeMainAnalyzer
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeRouteReferencesAnalyzer
-import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.PostProcessor
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
@@ -265,7 +264,6 @@ class IntegrationTestContext(
     )
   }
 
-  private val orphanRouteUpdater = new OrphanRouteUpdater(database)
   private val statisticsUpdater = new StatisticsUpdater(database)
 
   private val baseRouteDocBuilder = new BaseRouteDocBuilder()
@@ -365,7 +363,6 @@ class IntegrationTestContext(
   }
 
   val postProcessor: PostProcessor = new PostProcessor(
-    orphanRouteUpdater,
     statisticsUpdater
   )
 

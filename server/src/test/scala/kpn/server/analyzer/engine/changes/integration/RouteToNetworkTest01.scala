@@ -32,7 +32,7 @@ class RouteToNetworkTest01 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      database.orphanRoutes.findById(1) should equal(None)
+      findOrphanRoutes().find(_.id == 1) should equal(None)
 
       val route = findRouteById(1)
       route.active should equal(false)

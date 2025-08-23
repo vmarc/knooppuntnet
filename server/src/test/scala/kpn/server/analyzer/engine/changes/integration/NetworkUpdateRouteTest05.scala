@@ -20,7 +20,7 @@ import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNetworkChange
-import kpn.core.test.TestObjects.newOrphanRouteDoc
+import kpn.core.test.TestObjects.newOrphanRouteInfo
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
 import kpn.core.test.TestObjects.newRouteNode
@@ -81,7 +81,7 @@ class NetworkUpdateRouteTest05 extends IntegrationTest {
 
       watched.routes.ids should contain(11)
       database.nodeChanges shouldBe empty
-      database.orphanRoutes shouldBe empty
+      findOrphanRoutes() shouldBe empty
 
       assertBaseNetwork()
       assertNetwork()
@@ -94,10 +94,8 @@ class NetworkUpdateRouteTest05 extends IntegrationTest {
   private def assertOrphanRouteBefore(): Unit = {
     assertEqual(
       findOrphanRouteById(11),
-      newOrphanRouteDoc(
+      newOrphanRouteInfo(
         11L,
-        Country.nl,
-        RouteType.hiking,
         "01-02"
       )
     )
