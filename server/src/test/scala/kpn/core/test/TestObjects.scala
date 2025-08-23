@@ -18,6 +18,7 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkFact
 import kpn.api.common.NodeName
 import kpn.api.common.OrphanNodeInfo
+import kpn.api.common.OrphanRouteInfo
 import kpn.api.common.Relation
 import kpn.api.common.ReplicationId
 import kpn.api.common.RouteLocationAnalysis
@@ -1490,6 +1491,26 @@ object TestObjects {
       name,
       meters,
       facts,
+      lastSurvey,
+      lastUpdated
+    )
+  }
+
+  def newOrphanRouteInfo(
+    id: Long,
+    name: String,
+    meters: Long = 0,
+    isBroken: Boolean = false,
+    inaccessible: Boolean = false,
+    lastSurvey: Option[String] = None,
+    lastUpdated: Timestamp = Timestamps.default
+  ): OrphanRouteInfo = {
+    OrphanRouteInfo(
+      id,
+      name,
+      meters,
+      isBroken,
+      inaccessible,
       lastSurvey,
       lastUpdated
     )

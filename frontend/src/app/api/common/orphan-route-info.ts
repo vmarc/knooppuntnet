@@ -7,7 +7,7 @@ export interface OrphanRouteInfo {
   readonly name: string;
   readonly meters: number;
   readonly isBroken: boolean;
-  readonly accessible: boolean;
+  readonly inaccessible: boolean;
   readonly lastSurvey?: string;
   readonly lastUpdated: Timestamp;
 }

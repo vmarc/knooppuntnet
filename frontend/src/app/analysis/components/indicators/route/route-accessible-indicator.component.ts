@@ -23,7 +23,7 @@ import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indi
   imports: [IndicatorComponent],
 })
 export class RouteAccessibleIndicatorComponent implements OnInit {
-  readonly accessible = input.required<boolean>();
+  readonly inaccessible = input.required<boolean>();
   readonly routeType = input.required<RouteType>();
 
   private readonly dialog = inject(MatDialog);
@@ -34,7 +34,7 @@ export class RouteAccessibleIndicatorComponent implements OnInit {
   }
 
   onOpenDialog() {
-    const data = new RouteAccessibleData(this.routeType(), this.accessible(), this.color);
+    const data = new RouteAccessibleData(this.routeType(), this.inaccessible(), this.color);
     this.dialog.open(RouteAccessibleIndicatorDialogComponent, {
       data,
       autoFocus: false,
@@ -52,7 +52,7 @@ export class RouteAccessibleIndicatorComponent implements OnInit {
       'motorboat' === this.routeType() ||
       'canoe' === this.routeType()
     ) {
-      color = this.accessible() ? 'green' : 'red';
+      color = this.inaccessible() ? 'red' : 'green';
     }
     return color;
   }

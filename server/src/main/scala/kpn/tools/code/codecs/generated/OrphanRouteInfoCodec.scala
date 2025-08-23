@@ -27,7 +27,7 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
     var name: String = null
     var meters: Long = 0
     var isBroken: Boolean = false
-    var accessible: Boolean = false
+    var inaccessible: Boolean = false
     var lastSurvey: Option[String] = None
     var lastUpdated: Timestamp = null
 
@@ -45,8 +45,8 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
       else if (fieldName == "isBroken") {
         isBroken = booleanCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "accessible") {
-        accessible = booleanCodec.decode(bsonReader, decoderContext)
+      else if (fieldName == "inaccessible") {
+        inaccessible = booleanCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "lastSurvey") {
         lastSurvey = Some(stringCodec.decode(bsonReader, decoderContext))
@@ -67,7 +67,7 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
       name,
       meters,
       isBroken,
-      accessible,
+      inaccessible,
       lastSurvey,
       lastUpdated,
     )
@@ -88,8 +88,8 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
     bsonWriter.writeName("isBroken")
     booleanCodec.encode(bsonWriter, value.isBroken, encoderContext)
 
-    bsonWriter.writeName("accessible")
-    booleanCodec.encode(bsonWriter, value.accessible, encoderContext)
+    bsonWriter.writeName("inaccessible")
+    booleanCodec.encode(bsonWriter, value.inaccessible, encoderContext)
 
     if (value.lastSurvey.isDefined) {
       bsonWriter.writeName("lastSurvey")

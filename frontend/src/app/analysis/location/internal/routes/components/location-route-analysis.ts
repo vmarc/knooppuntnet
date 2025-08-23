@@ -13,7 +13,7 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
     <div class="analysis">
       <ui-route-investigate-indicator [investigate]="route().broken" />
       <ui-route-accessible-indicator
-        [accessible]="!route().inaccessible"
+        [inaccessible]="!route().inaccessible"
         [routeType]="routeType()"
       />
     </div>

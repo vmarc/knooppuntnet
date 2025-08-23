@@ -14,7 +14,10 @@ import { RouteProposedIndicatorComponent } from '@app/analysis/components/indica
   template: `
     <div class="analysis">
       <ui-route-investigate-indicator [investigate]="route().investigate" />
-      <ui-route-accessible-indicator [accessible]="route().accessible" [routeType]="routeType()" />
+      <ui-route-accessible-indicator
+        [inaccessible]="route().accessible"
+        [routeType]="routeType()"
+      />
       <ui-route-connection-indicator [route]="route()" />
       <ui-route-proposed-indicator [proposed]="route().proposed" />
     </div>

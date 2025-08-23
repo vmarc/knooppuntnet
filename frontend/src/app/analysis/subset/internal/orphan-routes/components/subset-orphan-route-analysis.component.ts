@@ -12,7 +12,10 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
   template: `
     <div class="analysis">
       <ui-route-investigate-indicator [investigate]="route().isBroken" />
-      <ui-route-accessible-indicator [accessible]="route().accessible" [routeType]="routeType()" />
+      <ui-route-accessible-indicator
+        [inaccessible]="route().inaccessible"
+        [routeType]="routeType()"
+      />
     </div>
   `,
   styles: `

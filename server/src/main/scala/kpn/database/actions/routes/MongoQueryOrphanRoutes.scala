@@ -1,4 +1,4 @@
-package kpn.database.actions.subsets
+package kpn.database.actions.routes
 
 import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Aggregates.sort
@@ -10,8 +10,6 @@ import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.OrphanRouteInfo
-import kpn.api.custom.Subset
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.arrayEmpty
@@ -19,28 +17,26 @@ import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 
-object MongoQuerySubsetOrphanRoutes {
-  private val log = Log(classOf[MongoQuerySubsetOrphanRoutes])
+object MongoQueryOrphanRoutes {
+  private val log = Log(classOf[MongoQueryOrphanRoutes])
 }
 
-class MongoQuerySubsetOrphanRoutes(database: Database) {
+class MongoQueryOrphanRoutes(database: Database) {
 
-  def execute(subset: Subset, log: Log = MongoQuerySubsetOrphanRoutes.log): Seq[OrphanRouteInfo] = {
-    val pipeline = buildPipeline(subset)
+  def execute(log: Log = MongoQueryOrphanRoutes.log): Seq[OrphanRouteInfo] = {
+    val pipeline = buildPipeline()
     log.debugElapsed {
       val docs = database.routes.aggregate(pipeline, classOf[OrphanRouteInfo], log)
-      val message = s"subset ${subset.name} orphan routes: ${docs.size}"
+      val message = s"orphan routes: ${docs.size}"
       (message, docs)
     }
   }
 
-  private def buildPipeline(subset: Subset): MongoPipeline = {
+  private def buildPipeline(): MongoPipeline = {
     Seq(
       filter(
         and(
           equal("active", true),
-          equal("labels", Label.country(subset.country)),
-          equal("labels", Label.routeType(subset.routeType)),
           equal("summary.nodeNetwork", true),
           arrayEmpty("networkReferences"),
         )
