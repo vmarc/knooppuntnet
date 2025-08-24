@@ -3,7 +3,6 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { NetworkChangesComponent } from './components/network-changes.component';
-import { RouterService } from '@app/shared/services/router.service';
 import { UserLinkLoginComponent } from '@app/shared/user/user-link-login.component';
 import { NetworkChangesPageService } from './network-changes-page.service';
 

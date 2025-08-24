@@ -6,7 +6,6 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
 import { ApiResponse } from '@api/custom/api-response';
 import { MapService } from '@app/map/map.service';
 import { MonitorRouteService } from '@app/monitor/internal/route/monitor-route.service';
-import { FocusElements } from '@app/state/focus-elements';
 import { State } from '@app/state/state';
 import { MonitorService } from '../../monitor.service';
 

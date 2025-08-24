@@ -3,7 +3,6 @@ import { Signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { input } from '@angular/core';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { MenuOption } from '@app/shared/components/menu/menu-option';
