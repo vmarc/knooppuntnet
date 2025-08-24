@@ -2,12 +2,12 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { NzTabSetComponent } from 'ng-zorro-antd/tabs';
+import { NzTabsComponent } from 'ng-zorro-antd/tabs';
 import { NzTabComponent } from 'ng-zorro-antd/tabs';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { LocationPoiSelectComponent } from './components/poi-location-poi-select.component';
-import { PoiLocationPoiTableComponent } from './components/poi-location-poi-table.component';
+import { PoiLocationPoiListComponent } from './components/poi-location-poi-list.component';
 import { PoiLocationPoisPageService } from './poi-location-pois-page.service';
 
 @Component({
@@ -22,7 +22,7 @@ import { PoiLocationPoisPageService } from './poi-location-pois-page.service';
         <nz-tab nzTitle="Pois">
           @if (poisResponse(); as response) {
             @if (response.result; as page) {
-              <ui-poi-location-poi-table [pois]="page.pois" [poiCount]="page.poiCount" />
+              <ui-poi-location-poi-list [pois]="page.pois" [poiCount]="page.poiCount" />
             }
           } @else {
             First select location and poi type to see poi list.
@@ -35,9 +35,9 @@ import { PoiLocationPoisPageService } from './poi-location-pois-page.service';
   imports: [
     LocationPoiSelectComponent,
     NzTabComponent,
-    NzTabSetComponent,
     PageComponent,
-    PoiLocationPoiTableComponent,
+    PoiLocationPoiListComponent,
+    NzTabsComponent,
   ],
 })
 export class PoiLocationPoisPageComponent implements OnInit {
