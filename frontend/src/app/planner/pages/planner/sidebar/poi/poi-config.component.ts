@@ -3,11 +3,14 @@ import { Component } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
 import { OldPoiService } from '@app/shared/services/old-poi.service';
 import { Subscriptions } from '@app/util/subscriptions';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { NzRadioComponent } from 'ng-zorro-antd/radio';
+import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
 
 @Component({
   selector: 'ui-poi-config',
@@ -17,7 +20,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
     <div class="poi-config">
       <div class="col-icon">
         @if (icon) {
-          <img width="32" height="37" [src]="'assets/images/pois/' + icon" alt="icon" />
+          <img width="32" height="37" [src]="icon" alt="icon" />
         }
       </div>
 
@@ -27,43 +30,50 @@ import { ChangeDetectionStrategy } from '@angular/core';
 
       <div>
         <div class="col-spacer"></div>
-        <mat-radio-group [value]="levelString()" (change)="levelChanged($event)">
-          <mat-radio-button
-            value="0"
-            title="Do not show this icon on the map"
-            class="col-level-0"
-          />
-          <mat-radio-button
-            value="11"
-            [disabled]="minLevel > 11"
+        <nz-radio-group [ngModel]="levelString()" (ngModelChange)="levelChanged($event)">
+          <label nz-radio nzValue="0" title="Do not show this icon on the map" class="col-level-0">
+          </label>
+          <label
+            nz-radio
+            nzValue="11"
+            [nzDisabled]="minLevel > 11"
             title="Show this icon on the map as of zoomlevel 11 and higher"
             class="col-level-11"
-          />
-          <mat-radio-button
-            value="12"
-            [disabled]="minLevel > 12"
+          >
+          </label>
+          <label
+            nz-radio
+            nzValue="12"
+            [nzDisabled]="minLevel > 12"
             title="Show this icon on the map as of zoomlevel 12 and higher"
             class="col-level-12"
-          />
-          <mat-radio-button
-            value="13"
-            [disabled]="minLevel > 13"
+          >
+          </label>
+          <label
+            nz-radio
+            nzValue="13"
+            [nzDisabled]="minLevel > 13"
             title="Show this icon on the map as of zoomlevel 13 and higher"
             class="col-level-13"
-          />
-          <mat-radio-button
-            value="14"
-            [disabled]="minLevel > 14"
+          >
+          </label>
+          <label
+            nz-radio
+            nzValue="14"
+            [nzDisabled]="minLevel > 14"
             title="Show this icon on the map as of zoomlevel 14 and higher"
             class="col-level-14"
-          />
-          <mat-radio-button
-            value="15"
-            [disabled]="minLevel > 15"
+          >
+          </label>
+          <label
+            nz-radio
+            nzValue="15"
+            [nzDisabled]="minLevel > 15"
             title="Show this icon on the map as of zoomlevel 15 and higher"
             class="col-level-15"
-          />
-        </mat-radio-group>
+          >
+          </label>
+        </nz-radio-group>
       </div>
     </div>
   `,
@@ -74,7 +84,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
       padding-bottom: 10px;
     }
   `,
-  imports: [MatRadioModule],
+  imports: [MatRadioModule, NzRadioGroupComponent, NzRadioComponent, FormsModule],
 })
 export class PoiConfigComponent implements OnInit, OnDestroy {
   readonly poiId = input.required<string>();
@@ -91,7 +101,7 @@ export class PoiConfigComponent implements OnInit, OnDestroy {
       this.poiService.poiConfiguration.subscribe((poiConfiguration) => {
         const definition = poiConfiguration.poiDefinitionWithName(this.poiId());
         if (definition != null) {
-          this.icon = definition.icon;
+          this.icon = 'assets/images/pois/' + definition.icon;
           this.minLevel = definition.minLevel;
         } else {
           console.log('DEBUG PoiConfigComponent definition not found name=' + this.poiId());

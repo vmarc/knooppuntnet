@@ -1,31 +1,33 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { OldPoiService } from '@app/shared/services/old-poi.service';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
+import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
+import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
 import { MapPoiConfigComponent } from './poi/map-poi-config.component';
 
 @Component({
   selector: 'ui-planner-sidebar-poi-configuration',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <span i18n="@@planner.pois.title">Points of interest</span>
-        &nbsp;&nbsp;
-        <span class="kpn-thin" i18n="@@planner.pois.enabled-disabled">(Enabled/Disabled)</span>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-        <mat-checkbox
-          [checked]="isEnabled()"
-          (change)="enabledChanged($event)"
+    <nz-collapse>
+      <nz-collapse-panel [nzHeader]="poiHeader" [nzActive]="false">
+        <ng-template #poiHeader>
+          <span i18n="@@planner.pois.title">Points of interest</span>
+          &nbsp;&nbsp;
+          <span class="kpn-thin" i18n="@@planner.pois.enabled-disabled">(Enabled/Disabled)</span>
+        </ng-template>
+
+        <label
+          nz-checkbox
+          [nzChecked]="isEnabled()"
+          (nzCheckedChange)="enabledChanged($event)"
           i18n="@@planner.pois.enabled"
         >
           Show points of interest on the map
-        </mat-checkbox>
+        </label>
 
         <!-- TODO show warning only when zoom level not high enough to see the icons on the map -->
         <p>
@@ -33,19 +35,23 @@ import { MapPoiConfigComponent } from './poi/map-poi-config.component';
         </p>
 
         <ui-map-poi-config />
-        <button mat-stroked-button i18n="@@planner.pois.reset">
-          Reset configuration to default
-        </button>
-      </ng-template>
-    </mat-expansion-panel>
+        <button nz-button i18n="@@planner.pois.reset">Reset configuration to default</button>
+      </nz-collapse-panel>
+    </nz-collapse>
   `,
-  imports: [MapPoiConfigComponent, MatButtonModule, MatCheckboxModule, MatExpansionModule],
+  imports: [
+    MapPoiConfigComponent,
+    NzButtonComponent,
+    NzCheckboxComponent,
+    NzCollapseComponent,
+    NzCollapsePanelComponent,
+  ],
 })
 export class PlannerSideBarPoiConfigurationComponent {
   private readonly poiService = inject(OldPoiService);
 
-  enabledChanged(event: MatCheckboxChange) {
-    this.poiService.updateEnabled(event.checked);
+  enabledChanged(checked: boolean) {
+    this.poiService.updateEnabled(checked);
   }
 
   isEnabled() {

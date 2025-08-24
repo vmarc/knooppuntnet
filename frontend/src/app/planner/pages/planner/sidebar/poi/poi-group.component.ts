@@ -7,35 +7,39 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { OldPoiService } from '@app/shared/services/old-poi.service';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
+import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
+import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
 
 @Component({
   selector: 'ui-poi-group',
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <mat-checkbox
+    <nz-collapse>
+      <nz-collapse-panel [nzHeader]="groupHeader" [nzActive]="false">
+        <ng-template #groupHeader>
+          <label
+            nz-checkbox
             (click)="$event.stopPropagation()"
-            [checked]="isEnabled()"
-            (change)="groupEnabledChanged($event)"
-          />
+            [nzChecked]="isEnabled()"
+            (nzCheckedChange)="groupEnabledChanged($event)"
+          ></label>
           <span class="title">{{ title() }}</span>
           <span class="kpn-thin">(10/10)</span>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
+        </ng-template>
+
         <div></div>
 
         <div>
-          <button mat-stroked-button (click)="showAllClicked()" i18n="@@planner.pois.show-all">
+          <button nz-button (click)="showAllClicked()" i18n="@@planner.pois.show-all">
             Show all
           </button>
-          <button mat-stroked-button (click)="hideAllClicked()" i18n="@@planner.pois.hide-all">
+          <button nz-button (click)="hideAllClicked()" i18n="@@planner.pois.hide-all">
             Hide all
           </button>
-          <button mat-stroked-button (click)="defaultClicked()" i18n="@@planner.pois.default">
+          <button nz-button (click)="defaultClicked()" i18n="@@planner.pois.default">
             Default
           </button>
         </div>
@@ -52,8 +56,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
           <!-- eslint-enable @angular-eslint/template/i18n -->
         </div>
         <ng-content />
-      </ng-template>
-    </mat-expansion-panel>
+      </nz-collapse-panel>
+    </nz-collapse>
   `,
   styles: `
     .title {
@@ -61,7 +65,15 @@ import { ChangeDetectionStrategy } from '@angular/core';
       padding-right: 20px;
     }
   `,
-  imports: [MatExpansionModule, MatCheckboxModule, MatButtonModule],
+  imports: [
+    MatExpansionModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    NzCollapseComponent,
+    NzCollapsePanelComponent,
+    NzCheckboxComponent,
+    NzButtonComponent,
+  ],
 })
 export class PoiGroupComponent {
   readonly name = input.required<string>();
@@ -73,8 +85,8 @@ export class PoiGroupComponent {
     return this.poiService.isGroupEnabled(this.name());
   }
 
-  groupEnabledChanged(event: MatCheckboxChange) {
-    this.poiService.updateGroupEnabled(this.name(), event.checked);
+  groupEnabledChanged(checked: boolean) {
+    this.poiService.updateGroupEnabled(this.name(), checked);
   }
 
   showAllClicked() {

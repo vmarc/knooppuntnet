@@ -9,6 +9,7 @@ import { PlanActionsComponent } from '@app/planner/pages/planner/sidebar/plan-ac
 import { PlanComponent } from '@app/planner/pages/planner/sidebar/plan.component';
 import { PlannerLegendComponent } from '@app/planner/pages/planner/legend/planner-legend.component';
 import { PlannerSideBarOptionsComponent } from '@app/planner/pages/planner/sidebar/planner-side-bar-options.component';
+import { PlannerSideBarPoiConfigurationComponent } from '@app/planner/pages/planner/sidebar/planner-side-bar-poi-configuration.component';
 import { PlannerSidebarFitRouteComponent } from '@app/planner/pages/planner/sidebar/planner-sidebar-fit-route.component';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
@@ -57,8 +58,8 @@ import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
 
       <!--
         <ui-elevation-profile />
-        <ui-planner-sidebar-poi-configuration />
       -->
+      <ui-planner-sidebar-poi-configuration />
     </nz-collapse>
   `,
   providers: [
@@ -79,6 +80,7 @@ import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
     PlannerLegendComponent,
     PlannerSideBarOptionsComponent,
     PlannerSidebarFitRouteComponent,
+    PlannerSideBarPoiConfigurationComponent,
   ],
 })
 export class PlannerComponent implements OnInit {
