@@ -24,10 +24,6 @@ abstract class UnitTest extends AnyFunSuite with Matchers {
     pending
   }
 
-  def pendingRedesignTiles(): Unit = {
-    pending
-  }
-
   def pendingRedesign(): Unit = {
     pending
   }
@@ -45,10 +41,6 @@ abstract class UnitTest extends AnyFunSuite with Matchers {
   }
 
   def pendingRedesignRoutePlanning(): Unit = {
-    pending
-  }
-
-  def pendingRedesignMonitor(): Unit = {
     pending
   }
 }

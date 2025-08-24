@@ -222,7 +222,7 @@ class MonitorFacadeImpl(
   }
 
   private def reply[T](result: Option[T]): ApiResponse[T] = {
-    val response = ApiResponse(null, 1, result)
+    val response = ApiResponse(None, 1, result)
     TimestampLocal.localize(response)
     response
   }

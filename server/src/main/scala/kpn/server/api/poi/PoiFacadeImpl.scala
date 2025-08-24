@@ -34,7 +34,7 @@ class PoiFacadeImpl(
 
   override def areas(): ApiResponse[String] = {
     val geoJson = new PoiLocationGeoJson().geoJsonString()
-    val response = ApiResponse(null, 1, Some(geoJson))
+    val response = ApiResponse(None, 1, Some(geoJson))
     TimestampLocal.localize(response)
     response
   }
@@ -58,7 +58,7 @@ class PoiFacadeImpl(
           }
       }
     }
-    ApiResponse(null, 1, poiDetailOption)
+    ApiResponse(None, 1, poiDetailOption)
   }
 
   override def locationPois(
@@ -75,7 +75,7 @@ class PoiFacadeImpl(
       layersString.split(",").toSeq
     }
     val page = locationPoisPageBuilder.build(language, location, parameters, layers)
-    ApiResponse(null, 1, Some(page))
+    ApiResponse(None, 1, Some(page))
   }
 
   override def locationPoiSummary(
@@ -84,7 +84,7 @@ class PoiFacadeImpl(
     location: String
   ): ApiResponse[LocationPoiSummaryPage] = {
     val page = locationPoiSummaryPageBuilder.build(language, location)
-    ApiResponse(null, 1, Some(page))
+    ApiResponse(None, 1, Some(page))
   }
 
   override def locations(
@@ -93,6 +93,6 @@ class PoiFacadeImpl(
     language: Language
   ): ApiResponse[PoiLocationsPage] = {
     val page = poiLocationsPageBuilder.build(country, language)
-    ApiResponse(null, 1, Some(page))
+    ApiResponse(None, 1, Some(page))
   }
 }
