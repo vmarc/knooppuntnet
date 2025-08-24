@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { ConditionTreeNodeComponent } from './condition-tree-node.component';
 import { ConditionService } from './condition.service';
 
@@ -15,10 +15,10 @@ import { ConditionService } from './condition.service';
       <ui-condition-tree-node [form]="form" [root]="true" />
     </div>
     <div class="kpn-spacer-above">
-      <button mat-stroked-button (click)="onSubmit()">Search</button>
+      <button nz-button (click)="onSubmit()">Search</button>
     </div>
   `,
-  imports: [FormsModule, ReactiveFormsModule, MatButton, ConditionTreeNodeComponent],
+  imports: [ConditionTreeNodeComponent, FormsModule, NzButtonComponent, ReactiveFormsModule],
 })
 export class ConditionTreeComponent {
   private readonly service = inject(ConditionService);

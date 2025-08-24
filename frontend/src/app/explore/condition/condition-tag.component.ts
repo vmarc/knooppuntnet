@@ -2,50 +2,52 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatOption } from '@angular/material/autocomplete';
-import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
-import { MatAutocomplete } from '@angular/material/autocomplete';
-import { MatInput } from '@angular/material/input';
-import { MatSelect } from '@angular/material/select';
-import { MatFormField } from '@angular/material/select';
-import { MatLabel } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NzAutocompleteComponent } from 'ng-zorro-antd/auto-complete';
+import { NzAutocompleteTriggerDirective } from 'ng-zorro-antd/auto-complete';
+import { NzInputDirective } from 'ng-zorro-antd/input';
+import { NzSelectComponent } from 'ng-zorro-antd/select';
+import { NzOptionComponent } from 'ng-zorro-antd/select';
 import { ConditionTagForm } from './condition-controls';
 
 @Component({
   selector: 'ui-condition-tag',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-form-field appearance="outline">
-      <mat-label>tag key</mat-label>
-      <input
-        type="text"
-        placeholder="key"
-        matInput
-        [formControl]="form().controls.key"
-        [matAutocomplete]="auto"
-      />
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option value="operator">operator</mat-option>
-        <mat-option value="symbol">symbol</mat-option>
-        <mat-option value="option3">option3</mat-option>
-        <mat-option value="option4">option4</mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <div class="condition-line">
+      <div>
+        <div>tag key</div>
+        <div>
+          <input nz-input [formControl]="form().controls.key" [nzAutocomplete]="auto" />
+          <nz-autocomplete [nzDataSource]="options" nzBackfill #auto />
+        </div>
+      </div>
 
-    <mat-form-field appearance="outline" class="operator">
-      <mat-label>operation</mat-label>
-      <mat-select [formControl]="form().controls.operator">
-        <mat-option value="equals">equals</mat-option>
-        <mat-option value="contains">contains</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>tag value</mat-label>
-      <input matInput [formControl]="form().controls.value" />
-    </mat-form-field>
+      <div>
+        <div>operation</div>
+        <div>
+          <nz-select [formControl]="form().controls.operator">
+            <nz-option nzValue="equals" nzLabel="equals" />
+            <nz-option nzValue="contains" nzLabel="contains" />
+          </nz-select>
+        </div>
+      </div>
+
+      <div>
+        <div>tag value</div>
+        <div>
+          <input nz-input [formControl]="form().controls.value" />
+        </div>
+      </div>
+    </div>
   `,
   styles: `
+    .condition-line {
+      display: flex;
+      padding-left: 0.5em;
+      gap: 0.5em;
+    }
+
     form {
       display: flex;
       align-items: center;
@@ -57,17 +59,17 @@ import { ConditionTagForm } from './condition-controls';
     }
   `,
   imports: [
-    MatLabel,
-    MatFormField,
-    MatInput,
     FormsModule,
+    NzAutocompleteComponent,
+    NzAutocompleteTriggerDirective,
+    NzInputDirective,
+    NzOptionComponent,
+    NzSelectComponent,
     ReactiveFormsModule,
-    MatAutocomplete,
-    MatAutocompleteTrigger,
-    MatOption,
-    MatSelect,
   ],
 })
 export class ConditionTagComponent {
   readonly form = input.required<ConditionTagForm>();
+
+  readonly options = ['operator', 'symbol', 'option3', 'option4'];
 }

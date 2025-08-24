@@ -3,17 +3,16 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatOption } from '@angular/material/autocomplete';
-import { MatIconButton } from '@angular/material/button';
-import { MatCard } from '@angular/material/card';
-import { MatIcon } from '@angular/material/icon';
-import { MatSelect } from '@angular/material/select';
-import { MatFormField } from '@angular/material/select';
-import { MatLabel } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Condition } from '@api/common/search/condition';
 import { ConditionSubject } from '@api/common/search/condition-subject';
 import { ExploreState } from '@app/state/explore-state';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzCardComponent } from 'ng-zorro-antd/card';
+import { NzDropDownDirective } from 'ng-zorro-antd/dropdown';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzOptionComponent } from 'ng-zorro-antd/select';
+import { NzSelectComponent } from 'ng-zorro-antd/select';
 import { ConditionForm } from './condition-controls';
 import { ConditionLocationComponent } from './condition-location.component';
 import { ConditionNameComponent } from './condition-name.component';
@@ -24,17 +23,20 @@ import { ConditionTagComponent } from './condition-tag.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="card-wrapper">
-      <mat-card appearance="outlined">
+      <nz-card>
         <div class="condition-line kpn-small-spacer-above">
           @let subject = form().controls.subject;
-          <mat-form-field appearance="outline" class="subject">
-            <mat-label>condition</mat-label>
-            <mat-select [formControl]="subject">
-              <mat-option value="location">location</mat-option>
-              <mat-option value="tag">tag</mat-option>
-              <mat-option value="name">name</mat-option>
-            </mat-select>
-          </mat-form-field>
+
+          <div>
+            <div>subject</div>
+            <div>
+              <nz-select [formControl]="subject">
+                <nz-option nzValue="location" nzLabel="location" />
+                <nz-option nzValue="tag" nzLabel="tag" />
+                <nz-option nzValue="name" nzLabel="name" />
+              </nz-select>
+            </div>
+          </div>
 
           @if (subject.value === 'tag') {
             <ui-condition-tag [form]="form().controls.tag" />
@@ -46,11 +48,11 @@ import { ConditionTagComponent } from './condition-tag.component';
             <ui-condition-name [form]="form().controls.name" />
           }
 
-          <button mat-icon-button>
-            <mat-icon svgIcon="remove" (click)="onRemove()" />
+          <button nz-dropdown nz-button nzShape="circle" (click)="onRemove()">
+            <nz-icon nzType="close" />
           </button>
         </div>
-      </mat-card>
+      </nz-card>
     </div>
   `,
   styles: `
@@ -64,28 +66,22 @@ import { ConditionTagComponent } from './condition-tag.component';
       gap: 0.5em;
     }
 
-    .subject {
-      width: 8em;
-      min-width: 8em;
-    }
-
     button {
       margin-top: 0.4em;
     }
   `,
   imports: [
-    MatLabel,
-    MatFormField,
-    FormsModule,
-    ReactiveFormsModule,
-    MatIcon,
-    MatOption,
-    MatSelect,
-    MatIconButton,
-    MatCard,
     ConditionLocationComponent,
     ConditionNameComponent,
     ConditionTagComponent,
+    FormsModule,
+    NzButtonComponent,
+    NzCardComponent,
+    NzDropDownDirective,
+    NzIconDirective,
+    NzOptionComponent,
+    NzSelectComponent,
+    ReactiveFormsModule,
   ],
 })
 export class ConditionComponent {

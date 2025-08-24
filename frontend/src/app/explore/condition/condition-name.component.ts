@@ -2,31 +2,42 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatOption } from '@angular/material/autocomplete';
-import { MatInput } from '@angular/material/input';
-import { MatSelect } from '@angular/material/select';
-import { MatFormField } from '@angular/material/select';
-import { MatLabel } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NzInputDirective } from 'ng-zorro-antd/input';
+import { NzSelectComponent } from 'ng-zorro-antd/select';
+import { NzOptionComponent } from 'ng-zorro-antd/select';
 import { ConditionRouteNameForm } from './condition-controls';
 
 @Component({
   selector: 'ui-condition-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-form-field appearance="outline" class="operator">
-      <mat-label>operation</mat-label>
-      <mat-select [formControl]="form().controls.operator">
-        <mat-option value="equals">equals</mat-option>
-        <mat-option value="contains">contains</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>route name</mat-label>
-      <input matInput [formControl]="form().controls.name" />
-    </mat-form-field>
+    <div class="condition-line">
+      <div>
+        <div>operation</div>
+        <div>
+          <nz-select [formControl]="form().controls.operator">
+            <nz-option nzValue="equals" nzLabel="equals" />
+            <nz-option nzValue="contains" nzLabel="contains" />
+          </nz-select>
+        </div>
+      </div>
+
+      <div>
+        <div>route name</div>
+        <div>
+          <input nz-input [formControl]="form().controls.name" />
+        </div>
+      </div>
+    </div>
   `,
   styles: `
+    .condition-line {
+      display: flex;
+      padding-left: 0.5em;
+      gap: 0.5em;
+    }
+
     .operator {
       width: 8em;
     }
@@ -38,13 +49,11 @@ import { ConditionRouteNameForm } from './condition-controls';
     }
   `,
   imports: [
-    MatLabel,
-    MatFormField,
-    MatInput,
     FormsModule,
+    NzInputDirective,
+    NzOptionComponent,
+    NzSelectComponent,
     ReactiveFormsModule,
-    MatOption,
-    MatSelect,
   ],
 })
 export class ConditionNameComponent {

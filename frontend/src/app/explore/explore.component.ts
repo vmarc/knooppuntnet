@@ -6,23 +6,23 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
-import { MatInput } from '@angular/material/input';
-import { MatNavList } from '@angular/material/list';
-import { MatListItem } from '@angular/material/list';
-import { MatFormField } from '@angular/material/select';
-import { MatLabel } from '@angular/material/select';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { GeocoderLocation } from '@api/common/geocoder-location';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
+import { ListItemComponent } from '@app/shared/components/list/list-item.component';
+import { ListComponent } from '@app/shared/components/list/list.component';
 import { ApiService } from '@app/shared/services/api.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { State } from '@app/state/state';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
+import { NzFormLabelComponent } from 'ng-zorro-antd/form';
+import { NzFormItemComponent } from 'ng-zorro-antd/form';
+import { NzFormControlComponent } from 'ng-zorro-antd/form';
+import { NzRowDirective } from 'ng-zorro-antd/grid';
+import { NzColDirective } from 'ng-zorro-antd/grid';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzInputDirective } from 'ng-zorro-antd/input';
 import { NzInputGroupComponent } from 'ng-zorro-antd/input';
@@ -55,17 +55,18 @@ import { ExploreRoutesComponent } from './explore-routes.component';
         </button>
       </div>
       <form [formGroup]="form" class="kpn-form" #ngForm="ngForm">
-        <mat-form-field appearance="outline">
-          <mat-label>Search</mat-label>
-          <input matInput placeholder="location, relation id" [formControl]="query" />
-        </mat-form-field>
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="query"> Search</nz-form-label>
+          <nz-form-control>
+            <input nz-input id="query" placeholder="location, relation id" [formControl]="query" />
+          </nz-form-control>
+        </nz-form-item>
         <div>
-          <button mat-stroked-button (click)="search()">Search</button>
+          <button nz-button (click)="search()">Search</button>
         </div>
       </form>
-      <mat-slide-toggle class="kpn-small-spacer-above">Advanced</mat-slide-toggle>
       <div class="kpn-spacer-above">
-        <button mat-stroked-button (click)="listRoutesInMap()">list routes in map</button>
+        <button nz-button (click)="listRoutesInMap()">list routes in map</button>
       </div>
       <ui-divider class="kpn-spacer-above" />
       <ui-search />
@@ -74,13 +75,13 @@ import { ExploreRoutesComponent } from './explore-routes.component';
       @if (geocoderLocations().length > 0) {
         <ui-divider />
         <p>Locations</p>
-        <mat-nav-list>
+        <ui-list>
           @for (location of geocoderLocations(); track location.name) {
-            <mat-list-item>
+            <ui-list-item [clickable]="true">
               {{ location.name }}
-            </mat-list-item>
+            </ui-list-item>
           }
-        </mat-nav-list>
+        </ui-list>
         <ui-divider />
       }
       <ui-explore-routes />
@@ -91,19 +92,19 @@ import { ExploreRoutesComponent } from './explore-routes.component';
     DividerComponent,
     ExploreRoutesComponent,
     FormsModule,
-    MatButton,
-    MatFormField,
-    MatInput,
-    MatLabel,
-    MatListItem,
-    MatNavList,
-    MatSlideToggle,
+    ListComponent,
+    ListItemComponent,
     NzButtonComponent,
     NzCheckboxComponent,
+    NzColDirective,
+    NzFormControlComponent,
+    NzFormItemComponent,
+    NzFormLabelComponent,
     NzIconDirective,
     NzInputDirective,
     NzInputGroupComponent,
     NzInputGroupWhitSuffixOrPrefixDirective,
+    NzRowDirective,
     NzSegmentedComponent,
     PageComponent,
     PageComponent,

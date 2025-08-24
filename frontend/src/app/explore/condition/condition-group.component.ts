@@ -3,18 +3,18 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconButton } from '@angular/material/button';
-import { MatButtonToggle } from '@angular/material/button-toggle';
-import { MatButtonToggleGroup } from '@angular/material/button-toggle';
-import { MatLabel } from '@angular/material/form-field';
-import { MatIcon } from '@angular/material/icon';
-import { MatMenuItem } from '@angular/material/menu';
-import { MatMenuTrigger } from '@angular/material/menu';
-import { MatMenu } from '@angular/material/menu';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Condition } from '@api/common/search/condition';
 import { ConditionGroup } from '@api/common/search/condition-group';
 import { ExploreState } from '@app/state/explore-state';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzDropDownDirective } from 'ng-zorro-antd/dropdown';
+import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
+import { NzMenuDirective } from 'ng-zorro-antd/menu';
+import { NzRadioComponent } from 'ng-zorro-antd/radio';
+import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
 import { ConditionGroupForm } from './condition-controls';
 
 @Component({
@@ -22,27 +22,30 @@ import { ConditionGroupForm } from './condition-controls';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="group">
-      <mat-button-toggle-group name="operator" [formControl]="form().controls.operator">
-        <mat-button-toggle value="and"> and</mat-button-toggle>
-        <mat-button-toggle value="or">or</mat-button-toggle>
-      </mat-button-toggle-group>
+      <nz-radio-group [formControl]="form().controls.operator" nzButtonStyle="solid">
+        <label nz-radio-button nzValue="and">and</label>
+        <label nz-radio-button nzValue="or">or</label>
+      </nz-radio-group>
 
-      <button mat-icon-button [matMenuTriggerFor]="addMenu">
-        <mat-icon svgIcon="add" />
+      <button nz-dropdown nz-button nzShape="circle" [nzDropdownMenu]="menu">
+        <nz-icon nzType="plus" />
       </button>
-      <mat-menu #addMenu="matMenu">
-        <button mat-menu-item (click)="addCondition()">
-          <mat-icon svgIcon="add" />
-          <mat-label>add condition</mat-label>
-        </button>
-        <button mat-menu-item (click)="addGroup()">
-          <mat-icon svgIcon="add" />
-          <mat-label>add group</mat-label>
-        </button>
-      </mat-menu>
+
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="addCondition()">
+            <nz-icon nzType="plus" />
+            <span>add condition</span>
+          </li>
+          <li nz-menu-item (click)="addGroup()">
+            <nz-icon nzType="plus" />
+            <span>add group</span>
+          </li>
+        </ul>
+      </nz-dropdown-menu>
       @if (removeEnabled()) {
-        <button mat-icon-button>
-          <mat-icon svgIcon="remove" (click)="onRemove()" />
+        <button nz-dropdown nz-button nzShape="circle" (click)="onRemove()">
+          <nz-icon nzType="close" />
         </button>
       }
     </div>
@@ -52,19 +55,24 @@ import { ConditionGroupForm } from './condition-controls';
       padding-top: 0.5em;
       display: flex;
       align-items: center;
+      gap: 1em;
+    }
+
+    li nz-icon {
+      padding-right: 0.5em;
     }
   `,
   imports: [
     FormsModule,
+    NzButtonComponent,
+    NzDropDownDirective,
+    NzDropdownMenuComponent,
+    NzIconDirective,
+    NzMenuDirective,
+    NzMenuItemComponent,
+    NzRadioComponent,
+    NzRadioGroupComponent,
     ReactiveFormsModule,
-    MatIcon,
-    MatButtonToggleGroup,
-    MatButtonToggle,
-    MatIconButton,
-    MatMenu,
-    MatMenuTrigger,
-    MatMenuItem,
-    MatLabel,
   ],
 })
 export class ConditionGroupComponent {
