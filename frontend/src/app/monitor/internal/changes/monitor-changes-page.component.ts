@@ -8,7 +8,7 @@ import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrum
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { OldPaginatorComponent } from '@app/shared/components/paginator/old-paginator.component';
+import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
 import { MonitorChangesComponent } from '../components/monitor-changes.component';
 import { MonitorChangesPageService } from './monitor-changes-page.service';
 
@@ -36,13 +36,12 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
                 >Impact
               </mat-slide-toggle>
 
-              <ui-old-paginator
+              <ui-paginator
                 [pageSize]="service.pageSize()"
                 (pageSizeChange)="pageSizeChanged($event)"
                 [pageIndex]="page.pageIndex"
                 (pageIndexChange)="pageIndexChanged($event)"
                 [length]="page.totalChangeCount"
-                [showPageSizeSelection]="true"
               />
 
               <ui-monitor-changes
@@ -62,8 +61,8 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
     ErrorComponent,
     MatSlideToggleModule,
     MonitorChangesComponent,
-    OldPaginatorComponent,
     PageComponent,
+    PaginatorComponent,
   ],
 })
 export class MonitorChangesPageComponent {
