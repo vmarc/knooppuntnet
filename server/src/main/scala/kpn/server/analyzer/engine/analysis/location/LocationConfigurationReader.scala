@@ -19,14 +19,24 @@ class LocationConfigurationReader {
     val rootLocations = Country.values.map { country =>
       log.info(s"Loading ${country.entryName.toUpperCase}")
       val locationNameDefinitions = {
-        val filename = s"${Dirs.root}/locations/${country.entryName}/locations.json"
-        val string = FileUtils.readFileToString(new File(filename), "UTF-8")
-        Json.readValue(string, classOf[LocationNameDefinitions])
+        val filename = s"${Dirs.root}/locations-new/${country.entryName}/locations.json"
+        try {
+          val string = FileUtils.readFileToString(new File(filename), "UTF-8")
+          Json.readValue(string, classOf[LocationNameDefinitions])
+        }
+        catch {
+          case e: Throwable => throw new IllegalStateException(s"Could not read locations from: $filename", e)
+        }
       }
       val locationMap = locationNameDefinitions.locations.map(lnd => lnd.id -> lnd).toMap
-      val treeFilename = s"${Dirs.root}/locations/${country.entryName}/tree.json"
-      val string = FileUtils.readFileToString(new File(treeFilename), "UTF-8")
-      val tree = Json.readValue(string, classOf[LocationTree])
+      val treeFilename = s"${Dirs.root}/locations-new/${country.entryName}/tree.json"
+      val tree = try {
+        val string = FileUtils.readFileToString(new File(treeFilename), "UTF-8")
+        Json.readValue(string, classOf[LocationTree])
+      }
+      catch {
+        case e: Throwable => throw new IllegalStateException(s"Could not read locations tree from: $treeFilename", e)
+      }
       toLocation(locationMap, tree)
     }
 

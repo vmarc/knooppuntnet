@@ -53,8 +53,19 @@ object Mongo {
     MongoClients.create(url)
   }
 
+  def webClient: MongoClient = {
+    MongoClients.create(webUrl)
+  }
+
   def executeIn(databaseName: String)(action: Database => Unit): Unit = {
-    val mongoClient = client
+    executeIn(client, databaseName)(action)
+  }
+
+  def webExecuteIn(databaseName: String)(action: Database => Unit): Unit = {
+    executeIn(webClient, databaseName)(action)
+  }
+
+  private def executeIn(mongoClient: MongoClient, databaseName: String)(action: Database => Unit): Unit = {
     try {
       val mongoDatabase = database(mongoClient, databaseName)
       action(mongoDatabase)
@@ -73,10 +84,18 @@ object Mongo {
   }
 
   def url: String = {
+    urlProperty("mongodb.url")
+  }
+
+  def webUrl: String = {
+    urlProperty("web.mongodb.url")
+  }
+
+  private def urlProperty(property: String): String = {
     val properties = new File(Dirs.root, "conf/osm.properties")
     val config = new Properties()
     config.load(new FileReader(properties))
-    config.getProperty("mongodb.url")
+    config.getProperty(property)
   }
 
   def bsonString(bson: Bson): String = {

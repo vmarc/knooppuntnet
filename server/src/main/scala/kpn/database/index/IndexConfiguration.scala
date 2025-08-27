@@ -1,7 +1,7 @@
 package kpn.database.index
 
-import kpn.database.base.Database
 import com.mongodb.client.model.Indexes
+import kpn.database.base.Database
 
 class IndexConfiguration(database: Database) {
 

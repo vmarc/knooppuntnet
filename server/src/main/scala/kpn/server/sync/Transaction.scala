@@ -13,6 +13,16 @@ object Transaction {
   def routeDelete(routeId: Long): Transaction = {
     Transaction(ObjectId.get(), Time.now, "routes", "delete", routeId)
   }
+
+  def update(collection: String, objectId: Long): Transaction = {
+    Transaction(
+      ObjectId.get(),
+      Time.now,
+      collection,
+      "update",
+      objectId
+    )
+  }
 }
 
 case class Transaction(

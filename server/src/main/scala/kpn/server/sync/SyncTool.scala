@@ -14,12 +14,12 @@ object SyncTool {
   private val log = Log(classOf[SyncTool])
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-next") { sourceDatabase =>
-      Mongo.executeIn("kpn-laptop") { targetDatabase =>
+    Mongo.executeIn("kpn-laptop") { sourceDatabase =>
+      Mongo.webExecuteIn("kpn") { targetDatabase =>
         val tool = new SyncTool(sourceDatabase, targetDatabase)
-        //tool.generateInitialTransactions()
+        // tool.generateInitialTransactions()
         tool.processTransactions()
-        //tool.syncRoutes()
+        // tool.syncRoutes()
       }
     }
   }
@@ -27,19 +27,48 @@ object SyncTool {
 
 class SyncTool(sourceDatabase: Database, targetDatabase: Database) {
 
+  private val collections = Seq(
+    "routes",
+    "nodes",
+    "networks",
+    //    "pois",
+
+    //    "statistics",
+    //    "status",
+
+    //    "monitorGroups",
+    //    "monitorRoutes",
+    //    "monitorReferences",
+    //    "monitorStates",
+  )
+
   def generateInitialTransactions(): Unit = {
-    sourceDatabase.routes.ids().foreach { routeId =>
-      sourceDatabase.transactions.save(Transaction.routeUpdate(routeId))
+    collections.foreach { collection =>
+      Log.context(collection) {
+        val sourceCollection = sourceDatabase.getCollection(collection)
+        sourceCollection.ids().foreach { objectId =>
+          sourceDatabase.transactions.save(
+            Transaction.update(
+              collection,
+              objectId
+            )
+          )
+        }
+      }
     }
   }
 
   def processTransactions(): Unit = {
-    sourceDatabase.transactions.findAll().foreach { transaction =>
-      if (transaction.action == "update") {
-        processUpdateTransaction(transaction)
-      }
-      else if (transaction.action == "delete") {
-        processDeleteTransaction(transaction)
+    val transactions = sourceDatabase.transactions.findAll()
+    val transactionsCount = transactions.length
+    transactions.zipWithIndex.foreach { case (transaction, index) =>
+      Log.context(s"${index + 1}/$transactionsCount ${transaction._id}") {
+        if (transaction.action == "update") {
+          processUpdateTransaction(transaction)
+        }
+        else if (transaction.action == "delete") {
+          processDeleteTransaction(transaction)
+        }
       }
     }
   }
@@ -57,10 +86,50 @@ class SyncTool(sourceDatabase: Database, targetDatabase: Database) {
   }
 
   private def processUpdateTransaction(transaction: Transaction): Unit = {
+    log.infoElapsed {
+      Log.context(s"${transaction.collection}, ${transaction.id}") {
+        try {
+          transaction.collection match {
+            case "nodes" => processUpdateNode(transaction)
+            case "routes" => processUpdateRoute(transaction)
+            case "networks" => processUpdateNetwork(transaction)
+            case _ => throw new IllegalArgumentException(s"unsupported collection ${transaction.collection}")
+          }
+        }
+        catch {
+          case e: Throwable =>
+            log.error(s"could not process update", e)
+          // throw e
+        }
+      }
+
+      s"update ${transaction.collection} ${transaction.id}"
+    }
+  }
+
+  private def processUpdateNode(transaction: Transaction): Unit = {
+    sourceDatabase.nodes.findById(transaction.id) match {
+      case None => log.warn(s"Could not update node ${transaction.id}")
+      case Some(document) =>
+        targetDatabase.nodes.save(document)
+        sourceDatabase.transactions.deleteByObjectId(transaction._id)
+    }
+  }
+
+  private def processUpdateRoute(transaction: Transaction): Unit = {
     sourceDatabase.routes.findById(transaction.id) match {
-      case None =>
-      case Some(route) =>
-        targetDatabase.routes.save(route)
+      case None => log.warn(s"Could not update route ${transaction.id}")
+      case Some(document) =>
+        targetDatabase.routes.save(document)
+        sourceDatabase.transactions.deleteByObjectId(transaction._id)
+    }
+  }
+
+  private def processUpdateNetwork(transaction: Transaction): Unit = {
+    sourceDatabase.networks.findById(transaction.id) match {
+      case None => log.warn(s"Could not update network ${transaction.id}")
+      case Some(document) =>
+        targetDatabase.networks.save(document)
         sourceDatabase.transactions.deleteByObjectId(transaction._id)
     }
   }

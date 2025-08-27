@@ -6,7 +6,7 @@ import kpn.database.util.Mongo
 object CreateIndexesTool {
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-laptop") { database =>
+    Mongo.webExecuteIn("kpn") { database =>
       new Indexer(database).createIndexes()
     }
   }

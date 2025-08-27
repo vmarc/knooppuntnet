@@ -22,7 +22,6 @@ import kpn.core.doc.RawNetworkDoc
 import kpn.core.doc.RawNodeDoc
 import kpn.core.doc.RawRouteDoc
 import kpn.core.doc.RouteDoc
-import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
 import kpn.core.doc.WithStringId
 import kpn.database.actions.statistics.StatisticLongValues
@@ -103,10 +102,6 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def nodeNetworkRefs: DatabaseCollection[NodeNetworkRef] = {
     new DatabaseCollectionImpl(database.getCollection("node-network-refs", classOf[NodeNetworkRef]))
-  }
-
-  override def routeNetworkRefs: DatabaseCollection[RouteNetworkRef] = {
-    new DatabaseCollectionImpl(database.getCollection("route-network-refs", classOf[RouteNetworkRef]))
   }
 
   override def changeSets: DatabaseCollection[ChangeSetInfo] = {

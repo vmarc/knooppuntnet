@@ -20,7 +20,6 @@ import kpn.core.doc.RawNetworkDoc
 import kpn.core.doc.RawNodeDoc
 import kpn.core.doc.RawRouteDoc
 import kpn.core.doc.RouteDoc
-import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
 import kpn.core.doc.WithStringId
 import kpn.database.actions.statistics.StatisticLongValues
@@ -72,8 +71,6 @@ trait Database {
   def changes: DatabaseCollection[ChangeSetSummary]
 
   def nodeNetworkRefs: DatabaseCollection[NodeNetworkRef]
-
-  def routeNetworkRefs: DatabaseCollection[RouteNetworkRef]
 
   def changeSets: DatabaseCollection[ChangeSetInfo]
 

@@ -354,7 +354,6 @@ import kpn.core.doc.RawNetworkDoc
 import kpn.core.doc.RawNodeDoc
 import kpn.core.doc.RawRouteDoc
 import kpn.core.doc.RouteDoc
-import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.RouteRelation
 import kpn.core.doc.SubRouteData
 import kpn.core.doc.SuperSegment
@@ -464,7 +463,6 @@ import kpn.server.sync.StampDoc
 import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.DayCodec
 import kpn.tools.code.codecs.PoeTranslationsCodec
-import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import kpn.tools.code.codecs.TranslationsCodec
@@ -726,9 +724,6 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[NodeNetworkRef]) {
       return new NodeNetworkRefCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[RouteNetworkRef]) {
-      return new RouteNetworkRefCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[SubRouteData]) {
       return new SubRouteDataCodec(codecRegistry).asInstanceOf[Codec[T]]
