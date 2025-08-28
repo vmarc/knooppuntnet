@@ -42,6 +42,7 @@ import kpn.api.common.NetworkFact
 import kpn.api.common.NetworkFacts
 import kpn.api.common.NetworkIntegrityCheck
 import kpn.api.common.NetworkIntegrityCheckFailed
+import kpn.api.common.NetworkNameMissing
 import kpn.api.common.NodeInfo
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.NodeIntegrityCheckChange
@@ -463,6 +464,7 @@ import kpn.server.sync.StampDoc
 import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.DayCodec
 import kpn.tools.code.codecs.PoeTranslationsCodec
+import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import kpn.tools.code.codecs.TranslationsCodec
@@ -1699,6 +1701,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[ChangeSetNetwork]) {
       return new ChangeSetNetworkCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NetworkNameMissing]) {
+      return new NetworkNameMissingCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[LocationChanges]) {
       return new LocationChangesCodec(codecRegistry).asInstanceOf[Codec[T]]

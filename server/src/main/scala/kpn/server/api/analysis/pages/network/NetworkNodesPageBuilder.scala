@@ -1,6 +1,7 @@
 package kpn.server.api.analysis.pages.network
 
 import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import kpn.api.common.network.NetworkNodeRow
@@ -51,6 +52,7 @@ class NetworkNodesPageBuilder(
       ),
       project(
         fields(
+          excludeId(),
           include("summary"),
           include("nodes")
         )
