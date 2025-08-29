@@ -14,63 +14,59 @@ class RawNodeCodecTest extends UnitTest {
 
   test("write and read ChangeSetCount2 to mongo") {
     val uri = "mongodb://localhost:27017"
+    val mongoClient = MongoClients.create(uri)
     try {
-      val mongoClient = MongoClients.create(uri)
-      try {
-        val database = mongoClient.getDatabase("test").withCodecRegistry(Mongo.codecRegistry)
-        val collection = database.getCollection("counts", classOf[ChangeSetCount2])
+      val database = mongoClient.getDatabase("test").withCodecRegistry(Mongo.codecRegistry)
+      val collection = database.getCollection("counts", classOf[ChangeSetCount2])
 
-        val value = ChangeSetCount2(
-          year = 11,
-          month = 22,
-          day = 33,
-          impact = 44,
-          total = 55
-        )
+      val value = ChangeSetCount2(
+        year = 11,
+        month = 22,
+        day = 33,
+        impact = 44,
+        total = 55
+      )
 
-        collection.insertOne(value)
+      collection.insertOne(value)
 
-        val values = collection.find().asScala.toSeq
+      val values = collection.find().asScala.toSeq
 
-        println(values)
-      } finally {
-        if (mongoClient != null) {
-          mongoClient.close()
-        }
+      println(values)
+    } finally {
+      if (mongoClient != null) {
+        mongoClient.close()
       }
     }
   }
 
   test("write and read RawNode to mongo") {
     val uri = "mongodb://localhost:27017"
+    val mongoClient = MongoClients.create(uri)
     try {
-      val mongoClient = MongoClients.create(uri)
-      try {
-        val database = mongoClient.getDatabase("test").withCodecRegistry(Mongo.codecRegistry)
-        val collection = database.getCollection("raw-nodes", classOf[RawNode])
+      val database = mongoClient.getDatabase("test").withCodecRegistry(Mongo.codecRegistry)
+      val collection = database.getCollection("raw-nodes", classOf[RawNode])
 
-        val node = RawNode(
-          id = 123,
-          latitude = "1111",
-          longitude = "2222",
-          version = 3,
-          timestamp = Timestamp(2025, 8, 11, 12, 30, 5),
-          changeSetId = 5,
-          tags = Seq(
-            Tag("key1", "value1"),
-            Tag("key2", "value2")
-          )
+      val node = RawNode(
+        id = 123,
+        latitude = "1111",
+        longitude = "2222",
+        version = 3,
+        timestamp = Timestamp(2025, 8, 11, 12, 30, 5),
+        changeSetId = 5,
+        tags = Seq(
+          Tag("key1", "value1"),
+          Tag("key2", "value2")
         )
+      )
 
-        collection.insertOne(node)
+      collection.insertOne(node)
 
-        val nodes = collection.find().asScala.toSeq
+      val nodes = collection.find().asScala.toSeq
 
-        println(nodes)
-      } finally {
-        if (mongoClient != null) {
-          mongoClient.close()
-        }
+      println(nodes)
+    } finally {
+      if (mongoClient != null) {
+        mongoClient.close()
       }
     }
   }

@@ -30,7 +30,7 @@ class NetworkNodeDocAnalyzerTest extends MongoTest {
         Seq(
           newNetworkRouteDetail(
             id = 10L,
-            nodeRefs = Seq(1001L)
+            networkNodeIds = Some(Seq(1001L))
           )
         )
       )

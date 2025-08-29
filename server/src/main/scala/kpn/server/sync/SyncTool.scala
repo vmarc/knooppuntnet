@@ -17,7 +17,7 @@ object SyncTool {
     Mongo.executeIn("kpn-laptop") { sourceDatabase =>
       Mongo.webExecuteIn("kpn") { targetDatabase =>
         val tool = new SyncTool(sourceDatabase, targetDatabase)
-        // tool.generateInitialTransactions()
+        // tool.generateInitialTransactions2()
         tool.processTransactions()
         // tool.syncRoutes()
       }
@@ -41,6 +41,33 @@ class SyncTool(sourceDatabase: Database, targetDatabase: Database) {
     //    "monitorReferences",
     //    "monitorStates",
   )
+
+  def tempGenerateInitialTransactions(): Unit = {
+    val ids = sourceDatabase.routes.ids()
+    val idsCount = ids.length
+    ids.sorted.zipWithIndex.foreach { case (routeId, index) =>
+      Log.context(s"${index + 1}/$idsCount $routeId") {
+        log.info("update")
+        try {
+          sourceDatabase.routes.findById(routeId) match {
+            case None => log.warn("RouteDoc not found")
+            case Some(routeDoc) =>
+              if (routeDoc.networkNodeIds.isDefined) {
+                sourceDatabase.transactions.save(
+                  Transaction.update(
+                    "routes",
+                    routeDoc._id
+                  )
+                )
+              }
+          }
+        }
+        catch {
+          case e: Throwable => log.error("Could not update", e)
+        }
+      }
+    }
+  }
 
   def generateInitialTransactions(): Unit = {
     collections.foreach { collection =>

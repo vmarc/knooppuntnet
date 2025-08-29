@@ -69,7 +69,7 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
     var analysis: RouteInfoAnalysis = null
     var geometryDigest: String = null
     var locationAnalysis: RouteLocationAnalysis = null
-    var nodeRefs: Seq[Long] = null
+    var networkNodeIds: Option[Seq[Long]] = None
     var elementIds: ElementIds = null
     var edges: Seq[RouteEdge] = null
     var segments: Seq[BaseRouteSegment] = null
@@ -148,14 +148,14 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
       else if (fieldName == "locationAnalysis") {
         locationAnalysis = routeLocationAnalysisCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "nodeRefs") {
+      else if (fieldName == "networkNodeIds") {
         bsonReader.readStartArray()
         val valueBuffer = scala.collection.mutable.Buffer[Long]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
           valueBuffer += longCodec.decode(bsonReader, decoderContext)
         }
         bsonReader.readEndArray()
-        nodeRefs = valueBuffer.toSeq
+        networkNodeIds = Some(valueBuffer.toSeq)
       }
       else if (fieldName == "elementIds") {
         elementIds = elementIdsCodec.decode(bsonReader, decoderContext)
@@ -239,7 +239,7 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
       analysis,
       geometryDigest,
       locationAnalysis,
-      nodeRefs,
+      networkNodeIds,
       elementIds,
       edges,
       segments,
@@ -311,10 +311,12 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
     bsonWriter.writeName("locationAnalysis")
     routeLocationAnalysisCodec.encode(bsonWriter, value.locationAnalysis, encoderContext)
 
-    bsonWriter.writeName("nodeRefs")
-    bsonWriter.writeStartArray()
-    value.nodeRefs.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
+    if (value.networkNodeIds.isDefined) {
+      bsonWriter.writeName("networkNodeIds")
+      bsonWriter.writeStartArray()
+      value.networkNodeIds.get.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
+      bsonWriter.writeEndArray()
+    }
 
     bsonWriter.writeName("elementIds")
     elementIdsCodec.encode(bsonWriter, value.elementIds, encoderContext)

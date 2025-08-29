@@ -64,6 +64,14 @@ class BaseRouteDocBuilder {
       }
     }
 
+    val nodeIds = context.routeNodesAnalysis.nodeIds
+    val networkNodeIds = if (nodeIds.nonEmpty) {
+      Some(nodeIds)
+    }
+    else {
+      None
+    }
+
     BaseRouteDoc(
       summary.id,
       active = true,
@@ -81,7 +89,7 @@ class BaseRouteDocBuilder {
       routeAnalysis,
       context.geometryDigest,
       context._locationAnalysis.get,
-      context.routeNodesAnalysis.nodeIds,
+      networkNodeIds,
       context.elementIds,
       context.edges,
       context.segments,

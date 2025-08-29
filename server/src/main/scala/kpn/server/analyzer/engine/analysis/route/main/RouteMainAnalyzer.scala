@@ -81,6 +81,7 @@ class RouteMainAnalyzer(
       context.superSegments.map(_.segments.map(_.info.meters).sum).sum,
       context.superSegments,
       context.paths,
+      context.route.networkNodeIds,
       context.routeIds,
       context.bounds,
       context.structureRows,

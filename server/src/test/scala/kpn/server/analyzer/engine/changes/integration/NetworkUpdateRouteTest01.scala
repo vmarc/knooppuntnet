@@ -175,9 +175,11 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         analysis = newRouteInfoAnalysis(
           expectedName = "01-02",
         ),
-        nodeRefs = Seq(
-          1001,
-          1002
+        networkNodeIds = Some(
+          Seq(
+            1001,
+            1002
+          )
         ),
         elementIds = ElementIds(
           nodeIds = Set(1001, 1002),

@@ -20,7 +20,7 @@ case class NetworkRouteDetail(
   proposed: Boolean,
   facts: Seq[Fact],
   tags: Seq[Tag],
-  nodeRefs: Seq[Long]
+  networkNodeIds: Option[Seq[Long]]
 ) extends Tagable with Storable {
 
   def toRef: Ref = {

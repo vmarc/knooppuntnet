@@ -32,7 +32,7 @@ case class BaseRouteDoc(
   analysis: RouteInfoAnalysis,
   geometryDigest: String,
   locationAnalysis: RouteLocationAnalysis,
-  nodeRefs: Seq[Long], // networkNodeIds
+  networkNodeIds: Option[Seq[Long]],
   elementIds: ElementIds,
   edges: Seq[RouteEdge],
   segments: Seq[BaseRouteSegment],

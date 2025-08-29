@@ -24,7 +24,6 @@ class NodeRouteRefCodec(registry: CodecRegistry) extends Codec[NodeRouteRef] {
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): NodeRouteRef = {
     bsonReader.readStartDocument()
 
-    var _id: String = null
     var nodeId: Long = 0
     var routeId: Long = 0
     var routeType: RouteType = null
@@ -34,10 +33,7 @@ class NodeRouteRefCodec(registry: CodecRegistry) extends Codec[NodeRouteRef] {
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
-      if (fieldName == "_id") {
-        _id = stringCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "nodeId") {
+      if (fieldName == "nodeId") {
         nodeId = longCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "routeId") {
@@ -64,7 +60,6 @@ class NodeRouteRefCodec(registry: CodecRegistry) extends Codec[NodeRouteRef] {
     bsonReader.readEndDocument()
 
     NodeRouteRef(
-      _id,
       nodeId,
       routeId,
       routeType,
@@ -76,9 +71,6 @@ class NodeRouteRefCodec(registry: CodecRegistry) extends Codec[NodeRouteRef] {
 
   override def encode(bsonWriter: BsonWriter, value: NodeRouteRef, encoderContext: EncoderContext): Unit = {
     bsonWriter.writeStartDocument()
-
-    bsonWriter.writeName("_id")
-    stringCodec.encode(bsonWriter, value._id, encoderContext)
 
     bsonWriter.writeName("nodeId")
     longCodec.encode(bsonWriter, value.nodeId, encoderContext)

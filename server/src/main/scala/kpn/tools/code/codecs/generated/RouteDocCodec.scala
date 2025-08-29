@@ -76,6 +76,7 @@ class RouteDocCodec(registry: CodecRegistry) extends Codec[RouteDoc] {
     var superDistance: Long = 0
     var superSegments: Seq[SuperSegment] = null
     var paths: Seq[RoutePath] = null
+    var networkNodeIds: Option[Seq[Long]] = None
     var routeIds: Seq[Long] = null
     var bounds: Option[Bounds] = None
     var structureRows: Seq[RouteStructureRow] = null
@@ -199,6 +200,15 @@ class RouteDocCodec(registry: CodecRegistry) extends Codec[RouteDoc] {
         bsonReader.readEndArray()
         paths = valueBuffer.toSeq
       }
+      else if (fieldName == "networkNodeIds") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[Long]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += longCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        networkNodeIds = Some(valueBuffer.toSeq)
+      }
       else if (fieldName == "routeIds") {
         bsonReader.readStartArray()
         val valueBuffer = scala.collection.mutable.Buffer[Long]()
@@ -286,6 +296,7 @@ class RouteDocCodec(registry: CodecRegistry) extends Codec[RouteDoc] {
       superDistance,
       superSegments,
       paths,
+      networkNodeIds,
       routeIds,
       bounds,
       structureRows,
@@ -381,6 +392,13 @@ class RouteDocCodec(registry: CodecRegistry) extends Codec[RouteDoc] {
     bsonWriter.writeStartArray()
     value.paths.foreach(v => routePathCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
+
+    if (value.networkNodeIds.isDefined) {
+      bsonWriter.writeName("networkNodeIds")
+      bsonWriter.writeStartArray()
+      value.networkNodeIds.get.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
+      bsonWriter.writeEndArray()
+    }
 
     bsonWriter.writeName("routeIds")
     bsonWriter.writeStartArray()

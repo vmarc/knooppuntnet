@@ -921,6 +921,7 @@ object TestObjects {
     superDistance: Long = 0,
     superSegments: Seq[SuperSegment] = Seq.empty,
     paths: Seq[RoutePath] = Seq.empty,
+    networkNodeIds: Option[Seq[Long]] = None,
     routeIds: Seq[Long] = Seq.empty,
     bounds: Option[Bounds] = None,
     structureRows: Seq[RouteStructureRow] = Seq.empty,
@@ -952,6 +953,7 @@ object TestObjects {
       superDistance,
       superSegments,
       paths,
+      networkNodeIds,
       routeIds,
       bounds,
       structureRows,
@@ -980,7 +982,7 @@ object TestObjects {
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     geometryDigest: String = "",
     locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
-    nodeRefs: Seq[Long] = Seq.empty,
+    networkNodeIds: Option[Seq[Long]] = None,
     elementIds: ElementIds = ElementIds(),
     edges: Seq[RouteEdge] = Seq.empty,
     segments: Seq[BaseRouteSegment] = Seq.empty,
@@ -1008,7 +1010,7 @@ object TestObjects {
       analysis,
       geometryDigest,
       locationAnalysis,
-      nodeRefs,
+      networkNodeIds,
       elementIds,
       edges,
       segments,
@@ -1400,7 +1402,7 @@ object TestObjects {
     proposed: Boolean = false,
     facts: Seq[Fact] = Seq.empty,
     tags: Seq[Tag] = Seq.empty,
-    nodeRefs: Seq[Long] = Seq.empty
+    networkNodeIds: Option[Seq[Long]] = None
   ): NetworkRouteDetail = {
     NetworkRouteDetail(
       id,
@@ -1415,7 +1417,7 @@ object TestObjects {
       proposed,
       facts,
       tags,
-      nodeRefs
+      networkNodeIds
     )
   }
 

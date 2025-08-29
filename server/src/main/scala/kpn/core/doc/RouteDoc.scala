@@ -40,6 +40,7 @@ case class RouteDoc(
   superDistance: Long,
   superSegments: Seq[SuperSegment],
   paths: Seq[RoutePath],
+  networkNodeIds: Option[Seq[Long]],
   routeIds: Seq[Long], // routeId of this route plus all other routes in the entire tree
   bounds: Option[Bounds],
   structureRows: Seq[RouteStructureRow],

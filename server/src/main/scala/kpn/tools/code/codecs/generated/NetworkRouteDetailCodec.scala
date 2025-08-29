@@ -41,7 +41,7 @@ class NetworkRouteDetailCodec(registry: CodecRegistry) extends Codec[NetworkRout
     var proposed: Boolean = false
     var facts: Seq[Fact] = null
     var tags: Seq[Tag] = null
-    var nodeRefs: Seq[Long] = null
+    var networkNodeIds: Option[Seq[Long]] = None
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -93,14 +93,14 @@ class NetworkRouteDetailCodec(registry: CodecRegistry) extends Codec[NetworkRout
         bsonReader.readEndArray()
         tags = valueBuffer.toSeq
       }
-      else if (fieldName == "nodeRefs") {
+      else if (fieldName == "networkNodeIds") {
         bsonReader.readStartArray()
         val valueBuffer = scala.collection.mutable.Buffer[Long]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
           valueBuffer += longCodec.decode(bsonReader, decoderContext)
         }
         bsonReader.readEndArray()
-        nodeRefs = valueBuffer.toSeq
+        networkNodeIds = Some(valueBuffer.toSeq)
       }
       else {
         Codecs.log.warn(s"Unknown field name: $fieldName in NetworkRouteDetailCodec.decode()")
@@ -123,7 +123,7 @@ class NetworkRouteDetailCodec(registry: CodecRegistry) extends Codec[NetworkRout
       proposed,
       facts,
       tags,
-      nodeRefs,
+      networkNodeIds,
     )
   }
 
@@ -174,10 +174,12 @@ class NetworkRouteDetailCodec(registry: CodecRegistry) extends Codec[NetworkRout
     value.tags.foreach(v => tagCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
-    bsonWriter.writeName("nodeRefs")
-    bsonWriter.writeStartArray()
-    value.nodeRefs.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
+    if (value.networkNodeIds.isDefined) {
+      bsonWriter.writeName("networkNodeIds")
+      bsonWriter.writeStartArray()
+      value.networkNodeIds.get.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
+      bsonWriter.writeEndArray()
+    }
 
     bsonWriter.writeEndDocument()
   }

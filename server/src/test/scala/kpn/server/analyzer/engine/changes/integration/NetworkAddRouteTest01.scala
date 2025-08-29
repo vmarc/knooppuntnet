@@ -158,9 +158,12 @@ class NetworkAddRouteTest01 extends IntegrationTest {
               "ref" -> "01-02",
               "network:type" -> "node_network"
             ),
-            nodeRefs = Seq(
-              1001,
-              1002)
+            networkNodeIds = Some(
+              Seq(
+                1001,
+                1002
+              )
+            )
           )
         ),
         members = Seq(

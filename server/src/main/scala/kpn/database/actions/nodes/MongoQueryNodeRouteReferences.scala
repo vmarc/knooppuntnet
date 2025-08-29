@@ -5,6 +5,7 @@ import com.mongodb.client.model.Aggregates.unwind
 import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Filters.in
 import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
 import kpn.core.doc.NodeRouteRef
 import kpn.core.util.Log
@@ -33,21 +34,21 @@ class MongoQueryNodeRouteReferences(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("summary.nodeNetwork", true),
-          in("nodeRefs", nodeIds *),
+          in("networkNodeIds", nodeIds *),
         )
       ),
-      unwind("$nodeRefs"),
+      unwind("$networkNodeIds"),
       filter(
         and(
-          in("nodeRefs", nodeIds *),
+          in("networkNodeIds", nodeIds *),
         )
       ),
       unwind("$summary.routeTypes"),
       unwind("$summary.scopes"),
       project(
         fields(
-          computed("nodeId", "$nodeRefs"),
+          excludeId(),
+          computed("nodeId", "$networkNodeIds"),
           computed("routeId", "$summary.id"),
           computed("routeType", "$summary.routeTypes"),
           computed("routeScope", "$summary.scopes"),
