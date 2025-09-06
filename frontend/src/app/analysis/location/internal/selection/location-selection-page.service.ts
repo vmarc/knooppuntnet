@@ -46,6 +46,7 @@ export class LocationSelectionPageService {
     locationNode: LocationNode
   ): LocalLocationNode {
     const localPath = parents.map((ln) => ln.name).join(':');
+    const key = `${localPath}:${locationNode.name}`;
     const childParents: LocationNode[] = [];
     parents.forEach((parent) => childParents.push(parent));
     childParents.push(locationNode);
@@ -57,7 +58,14 @@ export class LocationSelectionPageService {
       );
     }
 
+    const expanded = childParents.length < 2;
+    const isLeaf = localChildren.length === 0;
+
     return {
+      title: 'title',
+      key: key,
+      expanded: expanded,
+      isLeaf: isLeaf,
       path: localPath,
       name: locationNode.name,
       nodeCount: locationNode.nodeCount,

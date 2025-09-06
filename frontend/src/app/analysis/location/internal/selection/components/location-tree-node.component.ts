@@ -2,16 +2,16 @@ import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
+import { LocalLocationNode } from '@app/analysis/location/internal/selection/components/local-location-node';
 import { LocationPipe } from '@app/shared/components/format/location.pipe';
 import { ZeroIntegerFormatPipe } from '@app/shared/components/format/zero-integer-format.pipe';
-import { LocationFlatNode } from './location-flat-node';
 
 @Component({
   selector: 'ui-location-tree-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (node(); as node) {
-      <div class="node">
+      <div>
         <a (click)="select(node)" class="link">{{ node.name | location }}</a>
         <span class="counts kpn-comma-list">
           <span class="kpn-space-separated">
@@ -31,10 +31,6 @@ import { LocationFlatNode } from './location-flat-node';
     }
   `,
   styles: `
-    .node {
-      padding-top: 6px;
-    }
-
     @media (max-width: 960px) {
       .link {
         display: block;
@@ -59,11 +55,11 @@ import { LocationFlatNode } from './location-flat-node';
   imports: [LocationPipe, ZeroIntegerFormatPipe],
 })
 export class LocationTreeNodeComponent {
-  readonly node = input.required<LocationFlatNode>();
+  readonly node = input.required<LocalLocationNode>();
 
   readonly selection = output<string>();
 
-  select(expandableNode: LocationFlatNode): void {
+  select(expandableNode: LocalLocationNode): void {
     const locationName =
       expandableNode.path.length > 0
         ? expandableNode.path + ':' + expandableNode.name
