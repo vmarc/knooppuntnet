@@ -117,7 +117,7 @@ class IndexConfiguration(database: Database) {
         database.routes,
         "node-network-routes",
         "active",
-        "summary.nodeNetwork",
+        "networkNodeIds",
       ),
     )
   }

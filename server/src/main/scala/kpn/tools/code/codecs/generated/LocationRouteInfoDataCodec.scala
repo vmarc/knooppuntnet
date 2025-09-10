@@ -2,6 +2,7 @@
 
 package kpn.tools.code.codecs.generated
 
+import kpn.api.common.Fact
 import kpn.api.custom.Day
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
@@ -19,6 +20,7 @@ class LocationRouteInfoDataCodec(registry: CodecRegistry) extends Codec[Location
 
   private val booleanCodec = registry.get(classOf[Boolean])
   private val dayCodec = registry.get(classOf[Day])
+  private val factCodec = registry.get(classOf[Fact])
   private val longCodec = registry.get(classOf[Long])
   private val stringCodec = registry.get(classOf[String])
   private val tagCodec = registry.get(classOf[Tag])
@@ -35,6 +37,7 @@ class LocationRouteInfoDataCodec(registry: CodecRegistry) extends Codec[Location
     var tags: Seq[Tag] = null
     var broken: Boolean = false
     var inaccessible: Boolean = false
+    var facts: Seq[Fact] = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -68,6 +71,15 @@ class LocationRouteInfoDataCodec(registry: CodecRegistry) extends Codec[Location
       else if (fieldName == "inaccessible") {
         inaccessible = booleanCodec.decode(bsonReader, decoderContext)
       }
+      else if (fieldName == "facts") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[Fact]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += factCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        facts = valueBuffer.toSeq
+      }
       else {
         Codecs.log.warn(s"Unknown field name: $fieldName in LocationRouteInfoDataCodec.decode()")
         bsonReader.skipValue()
@@ -85,6 +97,7 @@ class LocationRouteInfoDataCodec(registry: CodecRegistry) extends Codec[Location
       tags,
       broken,
       inaccessible,
+      facts,
     )
   }
 
@@ -118,6 +131,11 @@ class LocationRouteInfoDataCodec(registry: CodecRegistry) extends Codec[Location
 
     bsonWriter.writeName("inaccessible")
     booleanCodec.encode(bsonWriter, value.inaccessible, encoderContext)
+
+    bsonWriter.writeName("facts")
+    bsonWriter.writeStartArray()
+    value.facts.foreach(v => factCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
 
     bsonWriter.writeEndDocument()
   }

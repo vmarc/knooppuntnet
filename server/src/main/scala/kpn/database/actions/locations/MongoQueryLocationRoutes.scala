@@ -12,13 +12,19 @@ import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.client.model.Sorts.orderBy
+import kpn.api.common.Fact
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.changes.filter.ServerFilterOption
+import kpn.api.common.data.Tagable
 import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRouteOptions
 import kpn.api.common.location.LocationRoutesParameters
+import kpn.api.custom.Day
+import kpn.api.custom.Tag
+import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
+import kpn.core.doc.Storable
 import kpn.core.util.Log
 import kpn.core.util.RouteSymbol
 import kpn.database.base.Database
@@ -28,6 +34,18 @@ import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.bson.conversions.Bson
+
+case class LocationRouteInfoData(
+  id: Long,
+  name: String,
+  meters: Long,
+  lastUpdated: Timestamp,
+  lastSurvey: Option[Day],
+  tags: Seq[Tag],
+  broken: Boolean,
+  inaccessible: Boolean,
+  facts: Seq[Fact]
+) extends Tagable with Storable
 
 class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInfo) {
 
@@ -62,8 +80,8 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
       else {
         parameters.proposed match {
           case None => "all"
-          case Some(proposed) =>
-            oo.find(_.name == proposed.entryName) match {
+          case Some(proposedParameter) =>
+            oo.find(_.name == proposedParameter.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -101,7 +119,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
           case Some(value) =>
             surveyOptions.find(_.name == value.entryName) match {
               case None => "all"
-              case Some(value) => value.name
+              case Some(surveyOption) => surveyOption.name
             }
         }
       }
@@ -123,8 +141,8 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
       else {
         parameters.lastUpdated match {
           case None => "all"
-          case Some(value) =>
-            options.find(_.name == value.entryName) match {
+          case Some(lastUpdatedValue) =>
+            options.find(_.name == lastUpdatedValue.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -221,7 +239,8 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
           include("lastSurvey"),
           computed("tags", "$summary.tags"),
           computed("broken", "$summary.broken"),
-          computed("inaccessible", "$summary.inaccessible")
+          computed("inaccessible", "$summary.inaccessible"),
+          computed("facts", "$facts")
         )
       )
     )
@@ -239,7 +258,8 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
           lastSurvey = doc.lastSurvey,
           symbol = symbol,
           broken = doc.broken,
-          inaccessible = doc.inaccessible
+          inaccessible = doc.inaccessible,
+          facts = doc.facts
         )
       }
       (s"location routes: ${docs.size}", docs)

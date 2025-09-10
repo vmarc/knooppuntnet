@@ -15,39 +15,59 @@ import { SymbolWheelComponent } from './internal/symbol-wheel.component';
   selector: 'ui-symbol',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <span [style]="box" class="box">
-      <canvas #symbolCanvas [width]="width()" [height]="height()"></canvas>
+    <div [style]="box" class="box">
+      <canvas #symbolCanvas [width]="width()" [height]="height()" class="box-item"></canvas>
       @if (isForegroundHiker()) {
-        <ui-symbol-hiker [width]="width()" [height]="height()" [color]="foregroundColor()" />
+        <ui-symbol-hiker
+          [width]="width()"
+          [height]="height()"
+          [color]="foregroundColor()"
+          class="box-item"
+        />
       }
       @if (isForeground2Hiker()) {
-        <ui-symbol-hiker [width]="width()" [height]="height()" [color]="foreground2Color()" />
+        <ui-symbol-hiker
+          [width]="width()"
+          [height]="height()"
+          [color]="foreground2Color()"
+          class="box-item"
+        />
       }
       @if (isForegroundWheel()) {
-        <ui-symbol-wheel [width]="width()" [height]="height()" [color]="foregroundColor()" />
+        <ui-symbol-wheel
+          [width]="width()"
+          [height]="height()"
+          [color]="foregroundColor()"
+          class="box-item"
+        />
       }
       @if (isForeground2Wheel()) {
-        <ui-symbol-wheel [width]="width()" [height]="height()" [color]="foreground2Color()" />
+        <ui-symbol-wheel
+          [width]="width()"
+          [height]="height()"
+          [color]="foreground2Color()"
+          class="box-item"
+        />
       }
-    </span>
+    </div>
   `,
   styles: `
     .box {
-      position: relative;
+      display: inline-grid;
+      grid-template-columns: 25px;
+      grid-template-rows: 25px;
+    }
+
+    .box-item {
+      grid-column-start: 1;
+      grid-column-end: 1;
+      grid-row-start: 1;
+      grid-row-end: 1;
     }
 
     canvas {
-      position: absolute;
       border: 1px solid lightgray;
       letter-spacing: 0;
-    }
-
-    kpn-symbol-hiker {
-      position: absolute;
-    }
-
-    kpn-symbol-wheel {
-      position: absolute;
     }
   `,
   imports: [SymbolHikerComponent, SymbolWheelComponent],
