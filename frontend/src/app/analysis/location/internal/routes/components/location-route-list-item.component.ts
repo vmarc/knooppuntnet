@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
 import { LocationRouteInfo } from '@api/common/location/location-route-info';
+import { FactsLineComponent } from '@app/analysis/fact/components/facts-line.component';
 import { DayComponent } from '@app/shared/components/day/day.component';
 import { DayPipe } from '@app/shared/components/format/day.pipe';
 import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
@@ -36,23 +37,7 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
       }
     </div>
     @if (route.facts) {
-      <div class="facts">
-        @for (fact of route.facts; track fact) {
-          <span>{{ fact }}</span>
-        }
-      </div>
-    }
-  `,
-  styles: `
-    .facts {
-      display: flex;
-      flex-wrap: wrap;
-      line-height: 1em;
-      gap: 0.5em;
-
-      :not(:last-child):after {
-        content: ',';
-      }
+      <ui-facts-line [facts]="route.facts" />
     }
   `,
   imports: [
@@ -62,6 +47,7 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
     IntegerFormatPipe,
     LinkRouteComponent,
     SymbolComponent,
+    FactsLineComponent,
   ],
 })
 export class LocationRouteListItemComponent {

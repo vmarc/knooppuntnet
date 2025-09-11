@@ -1,8 +1,10 @@
 package kpn.server.api.analysis.pages.location
 
 import kpn.api.common.Country
+import kpn.api.common.Fact
 import kpn.api.common.Language
 import kpn.api.common.RouteType
+import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.LocationKey
@@ -29,7 +31,7 @@ class LocationRoutesPageBuilder(
   private def buildPage(language: Language, locationKeyParam: LocationKey, parameters: LocationRoutesParameters): Option[LocationRoutesPage] = {
     val subset = locationService.toSubset(language, locationKeyParam)
     val summary = locationRepository.summary(subset)
-    val routes = locationRepository.routes(subset, parameters)
+    val routes = locationRepository.routes(subset, parameters).map(withoutRedundantFacts)
     val routeCount = locationRepository.routeFilteredCount(subset, parameters)
     val filter = locationRepository.routeFilterOptions(subset, parameters)
     Some(
@@ -41,5 +43,16 @@ class LocationRoutesPageBuilder(
         routes
       )
     )
+  }
+
+  private def withoutRedundantFacts(route: LocationRouteInfo): LocationRouteInfo = {
+    val redundantFacts = Set[Fact](Fact.RouteBroken, Fact.RouteNotContinious)
+    if (route.facts.exists(redundantFacts.contains)) {
+      val filteredFacts = route.facts.filterNot(redundantFacts.contains)
+      route.copy(facts = filteredFacts)
+    }
+    else {
+      route
+    }
   }
 }
