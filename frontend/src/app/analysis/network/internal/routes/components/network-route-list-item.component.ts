@@ -9,7 +9,6 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 import { SymbolComponent } from '@app/symbol/symbol.component';
 import { ActionButtonRouteComponent } from '../../../../components/action/action-button-route.component';
-import { NetworkRouteAnalysisComponent } from './network-route-analysis.component';
 
 @Component({
   selector: 'ui-network-route-list-item',
@@ -23,7 +22,6 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
       <span> {{ route.length | distance }} </span>
     </div>
     <div class="kpn-line">
-      <ui-network-route-analysis [route]="route" [routeType]="routeType()" />
       @if (route.symbol) {
         <ui-symbol [description]="route.symbol" [width]="25" [height]="25" />
       }
@@ -49,6 +47,10 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
         {{ route.role }}
       </div>
     }
+
+    @if (route.proposed) {
+      <div class="kpn-line" i18n="@@network-routes.table.proposed">Proposed</div>
+    }
   `,
   imports: [
     ActionButtonRouteComponent,
@@ -56,7 +58,6 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
     DayPipe,
     DistancePipe,
     LinkRouteComponent,
-    NetworkRouteAnalysisComponent,
     SymbolComponent,
   ],
 })

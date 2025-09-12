@@ -36,7 +36,7 @@ class LocationRouteInfoDataCodec(registry: CodecRegistry) extends Codec[Location
     var lastSurvey: Option[Day] = None
     var tags: Seq[Tag] = null
     var broken: Boolean = false
-    var inaccessible: Boolean = false
+    var proposed: Boolean = false
     var facts: Seq[Fact] = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
@@ -68,8 +68,8 @@ class LocationRouteInfoDataCodec(registry: CodecRegistry) extends Codec[Location
       else if (fieldName == "broken") {
         broken = booleanCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "inaccessible") {
-        inaccessible = booleanCodec.decode(bsonReader, decoderContext)
+      else if (fieldName == "proposed") {
+        proposed = booleanCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "facts") {
         bsonReader.readStartArray()
@@ -96,7 +96,7 @@ class LocationRouteInfoDataCodec(registry: CodecRegistry) extends Codec[Location
       lastSurvey,
       tags,
       broken,
-      inaccessible,
+      proposed,
       facts,
     )
   }
@@ -129,8 +129,8 @@ class LocationRouteInfoDataCodec(registry: CodecRegistry) extends Codec[Location
     bsonWriter.writeName("broken")
     booleanCodec.encode(bsonWriter, value.broken, encoderContext)
 
-    bsonWriter.writeName("inaccessible")
-    booleanCodec.encode(bsonWriter, value.inaccessible, encoderContext)
+    bsonWriter.writeName("proposed")
+    booleanCodec.encode(bsonWriter, value.proposed, encoderContext)
 
     bsonWriter.writeName("facts")
     bsonWriter.writeStartArray()

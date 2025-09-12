@@ -111,7 +111,7 @@ class MongoQueryLocationRoutesTest extends MongoTest {
           None,
           None,
           broken = true,
-          inaccessible = false
+          Seq.empty
         ),
         LocationRouteInfo(
           1L,
@@ -122,7 +122,7 @@ class MongoQueryLocationRoutesTest extends MongoTest {
           Some(Day(2020, 8)),
           Some("red:white:red_lower"),
           broken = false,
-          inaccessible = false
+          Seq.empty
         ),
         LocationRouteInfo(
           2L,
@@ -133,7 +133,7 @@ class MongoQueryLocationRoutesTest extends MongoTest {
           None,
           None,
           broken = true,
-          inaccessible = true
+          Seq.empty
         )
       )
     )

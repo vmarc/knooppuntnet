@@ -1480,18 +1480,18 @@ object TestObjects {
     name: String,
     meters: Long = 0,
     isBroken: Boolean = false,
-    inaccessible: Boolean = false,
     lastSurvey: Option[String] = None,
-    lastUpdated: Timestamp = Timestamps.default
+    lastUpdated: Timestamp = Timestamps.default,
+    facts: Seq[Fact] = Seq.empty
   ): OrphanRouteInfo = {
     OrphanRouteInfo(
       id,
       name,
       meters,
       isBroken,
-      inaccessible,
       lastSurvey,
-      lastUpdated
+      lastUpdated,
+      facts
     )
   }
 

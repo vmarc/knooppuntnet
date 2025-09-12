@@ -36,6 +36,9 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
         <span>{{ route.lastSurvey | day }}</span>
       }
     </div>
+    @if (route.proposed) {
+      <div class="kpn-line" i18n="@@location-routes.table.proposed">Proposed</div>
+    }
     @if (route.facts) {
       <ui-facts-line [facts]="route.facts" />
     }

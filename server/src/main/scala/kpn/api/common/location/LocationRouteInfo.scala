@@ -13,6 +13,6 @@ case class LocationRouteInfo(
   lastSurvey: Option[Day],
   symbol: Option[String],
   broken: Boolean,
-  inaccessible: Boolean,
+  proposed: Boolean,
   facts: Seq[Fact]
 )

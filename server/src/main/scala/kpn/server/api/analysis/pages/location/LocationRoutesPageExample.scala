@@ -32,7 +32,7 @@ object LocationRoutesPageExample {
           lastSurvey = Some(Day(2018, 8)),
           symbol = None,
           broken = true,
-          inaccessible = false,
+          proposed = true,
           facts = Seq.empty
         ),
         LocationRouteInfo(
@@ -44,7 +44,7 @@ object LocationRoutesPageExample {
           lastSurvey = None,
           symbol = None,
           broken = false,
-          inaccessible = true,
+          proposed = false,
           facts = Seq.empty
         )
       )

@@ -13,6 +13,6 @@ export interface LocationRouteInfo {
   readonly lastSurvey?: Day;
   readonly symbol?: string;
   readonly broken: boolean;
-  readonly inaccessible: boolean;
+  readonly proposed: boolean;
   readonly facts: Fact[];
 }
