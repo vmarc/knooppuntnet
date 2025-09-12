@@ -7,7 +7,7 @@ case class OrphanRouteInfo(
   name: String,
   meters: Long,
   isBroken: Boolean,
-  inaccessible: Boolean,
   lastSurvey: Option[String],
-  lastUpdated: Timestamp
+  lastUpdated: Timestamp,
+  facts: Seq[Fact]
 )

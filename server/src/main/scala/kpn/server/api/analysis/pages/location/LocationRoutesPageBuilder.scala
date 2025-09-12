@@ -1,13 +1,13 @@
 package kpn.server.api.analysis.pages.location
 
 import kpn.api.common.Country
-import kpn.api.common.Fact
 import kpn.api.common.Language
 import kpn.api.common.RouteType
 import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.LocationKey
+import kpn.core.analysis.Facts
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.LocationRepository
@@ -46,10 +46,8 @@ class LocationRoutesPageBuilder(
   }
 
   private def withoutRedundantFacts(route: LocationRouteInfo): LocationRouteInfo = {
-    val redundantFacts = Set[Fact](Fact.RouteBroken, Fact.RouteNotContinious)
-    if (route.facts.exists(redundantFacts.contains)) {
-      val filteredFacts = route.facts.filterNot(redundantFacts.contains)
-      route.copy(facts = filteredFacts)
+    if (route.facts.exists(Facts.redundantFacts.contains)) {
+      route.copy(facts = Facts.withoutRedundantFacts(route.facts))
     }
     else {
       route

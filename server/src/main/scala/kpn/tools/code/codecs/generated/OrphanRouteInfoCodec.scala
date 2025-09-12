@@ -2,6 +2,7 @@
 
 package kpn.tools.code.codecs.generated
 
+import kpn.api.common.Fact
 import kpn.api.common.OrphanRouteInfo
 import kpn.api.custom.Timestamp
 import kpn.tools.code.codecs.Codecs
@@ -16,6 +17,7 @@ import org.bson.codecs.configuration.CodecRegistry
 class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInfo] {
 
   private val booleanCodec = registry.get(classOf[Boolean])
+  private val factCodec = registry.get(classOf[Fact])
   private val longCodec = registry.get(classOf[Long])
   private val stringCodec = registry.get(classOf[String])
   private val timestampCodec = registry.get(classOf[Timestamp])
@@ -27,9 +29,9 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
     var name: String = null
     var meters: Long = 0
     var isBroken: Boolean = false
-    var inaccessible: Boolean = false
     var lastSurvey: Option[String] = None
     var lastUpdated: Timestamp = null
+    var facts: Seq[Fact] = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -45,14 +47,20 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
       else if (fieldName == "isBroken") {
         isBroken = booleanCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "inaccessible") {
-        inaccessible = booleanCodec.decode(bsonReader, decoderContext)
-      }
       else if (fieldName == "lastSurvey") {
         lastSurvey = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else if (fieldName == "lastUpdated") {
         lastUpdated = timestampCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "facts") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[Fact]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += factCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        facts = valueBuffer.toSeq
       }
       else {
         Codecs.log.warn(s"Unknown field name: $fieldName in OrphanRouteInfoCodec.decode()")
@@ -67,9 +75,9 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
       name,
       meters,
       isBroken,
-      inaccessible,
       lastSurvey,
       lastUpdated,
+      facts,
     )
   }
 
@@ -88,9 +96,6 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
     bsonWriter.writeName("isBroken")
     booleanCodec.encode(bsonWriter, value.isBroken, encoderContext)
 
-    bsonWriter.writeName("inaccessible")
-    booleanCodec.encode(bsonWriter, value.inaccessible, encoderContext)
-
     if (value.lastSurvey.isDefined) {
       bsonWriter.writeName("lastSurvey")
       stringCodec.encode(bsonWriter, value.lastSurvey.get, encoderContext)
@@ -98,6 +103,11 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
 
     bsonWriter.writeName("lastUpdated")
     timestampCodec.encode(bsonWriter, value.lastUpdated, encoderContext)
+
+    bsonWriter.writeName("facts")
+    bsonWriter.writeStartArray()
+    value.facts.foreach(v => factCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
 
     bsonWriter.writeEndDocument()
   }

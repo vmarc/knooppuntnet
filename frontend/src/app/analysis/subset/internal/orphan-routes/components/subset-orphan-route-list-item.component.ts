@@ -3,11 +3,11 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OrphanRouteInfo } from '@api/common/orphan-route-info';
 import { RouteType } from '@api/common/route-type';
+import { FactsLineComponent } from '@app/analysis/fact/components/facts-line.component';
 import { DayComponent } from '@app/shared/components/day/day.component';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 import { ActionButtonRouteComponent } from '../../../../components/action/action-button-route.component';
-import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analysis.component';
 
 @Component({
   selector: 'ui-subset-orphan-route-list-item',
@@ -21,7 +21,6 @@ import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analys
       <span>{{ route.meters | distance }}</span>
     </div>
     <div class="kpn-line">
-      <ui-subset-orphan-route-analysis [route]="route" [routeType]="routeType()" />
       <span>
         <span i18n="@@subset-orphan-routes.table.last-edit" class="kpn-label">Last edit</span>
         <ui-day [timestamp]="route.lastUpdated" />
@@ -35,13 +34,16 @@ import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analys
         </span>
       </div>
     }
+    @if (route.facts) {
+      <ui-facts-line [facts]="route.facts" />
+    }
   `,
   imports: [
     ActionButtonRouteComponent,
     DayComponent,
     DistancePipe,
     LinkRouteComponent,
-    SubsetOrphanRouteAnalysisComponent,
+    FactsLineComponent,
   ],
 })
 export class SubsetOrphanRouteListItemComponent {

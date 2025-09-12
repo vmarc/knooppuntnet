@@ -136,4 +136,10 @@ object Facts {
     val infoFacts: Seq[Fact] = Fact.values.filter(Facts.isInfo)
     errorFacts ++ infoFacts
   }
+
+  val redundantFacts: Set[Fact] = Set(Fact.RouteBroken, Fact.RouteNotContinious)
+
+  def withoutRedundantFacts(facts: Seq[Fact]): Seq[Fact] = {
+    facts.filterNot(redundantFacts.contains)
+  }
 }
