@@ -20,6 +20,7 @@ import kpn.database.base.MongoAggregates.arrayEmpty
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.MongoProjections.arraySize
+import kpn.database.base.Types.MongoPipeline
 
 object MongoQuerySubsetOrphanNodes {
   private val log = Log(classOf[MongoQuerySubsetOrphanNodes])
@@ -28,8 +29,16 @@ object MongoQuerySubsetOrphanNodes {
 class MongoQuerySubsetOrphanNodes(database: Database) {
 
   def execute(subset: Subset): Seq[OrphanNodeInfo] = {
+    val pipeline = buildPipeline(subset)
+    log.debugElapsed {
+      val docs = database.nodes.aggregate(pipeline, classOf[OrphanNodeInfo], log).distinct
+      val message = s"subset ${subset.name} orphan nodes: ${docs.size}"
+      (message, docs)
+    }
+  }
 
-    val pipeline = Seq(
+  private def buildPipeline(subset: Subset): MongoPipeline = {
+    Seq(
       filter(
         and(
           equal("active", true),
@@ -63,11 +72,5 @@ class MongoQuerySubsetOrphanNodes(database: Database) {
         )
       )
     )
-
-    log.debugElapsed {
-      val docs = database.nodes.aggregate(pipeline, classOf[OrphanNodeInfo], log)
-      val message = s"subset ${subset.name} orphan nodes: ${docs.size}"
-      (message, docs)
-    }
   }
 }

@@ -343,6 +343,12 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             elementIds = Seq(1),
           )
         ),
+        networkNodeIds = Some(
+          Seq(
+            1001,
+            1002
+          )
+        ),
         routeIds = Seq(11),
         bounds = Some(Bounds()),
         structureRows = Seq(

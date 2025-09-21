@@ -57,7 +57,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         Seq(
           newOrphanNodeInfo(
             620168928L,
-            "Teumelet",
+            "Teumelet / o",
             lastUpdated = Timestamp(2021, 11, 6, 21, 23, 13),
           )
         )

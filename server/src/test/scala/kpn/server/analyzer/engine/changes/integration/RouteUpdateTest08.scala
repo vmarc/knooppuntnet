@@ -13,51 +13,29 @@ class RouteUpdateTest08 extends IntegrationTest {
   test("unexpected relation member added to route relation") {
 
     val dataBefore = OverpassData()
-      .node(1001)
-      .node(1002)
-      .node(1003)
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
       .way(101, 1001, 1002)
-      .way(102, 1002, 1003)
       .route(
         11,
-        "route-11",
+        "01-02",
         Seq(
           newMember(MemberType.Way, 101),
-        ),
-        version = 1
-      )
-      .route(
-        12,
-        "route-12",
-        Seq(
-          newMember(MemberType.Way, 102),
-          newMember(MemberType.Relation, 11)
         ),
         version = 1
       )
 
     val dataAfter = OverpassData()
-      .node(1001)
-      .node(1002)
-      .node(1003)
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
       .way(101, 1001, 1002)
-      .way(102, 1002, 1003)
-      .relation(13) // extra relation that does not belong in a route relation
+      .relation(12) // extra relation that does not belong in a route relation
       .route(
         11,
-        "route-11",
+        "01-02",
         Seq(
           newMember(MemberType.Way, 101),
-        ),
-        version = 1
-      )
-      .route(
-        12,
-        "route-12",
-        Seq(
-          newMember(MemberType.Way, 102),
-          newMember(MemberType.Relation, 11),
-          newMember(MemberType.Relation, 13)
+          newMember(MemberType.Relation, 12)
         ),
         version = 2
       )

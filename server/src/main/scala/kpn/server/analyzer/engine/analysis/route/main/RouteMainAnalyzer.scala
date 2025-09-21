@@ -1,5 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.main
 
+import kpn.api.common.Fact
+import kpn.api.common.Fact.RouteBroken
+import kpn.core.analysis.Facts
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
@@ -16,6 +19,7 @@ import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteSuperSegmen
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
+import scala.collection.mutable.ListBuffer
 
 @Component
 class RouteMainAnalyzer(
@@ -59,6 +63,16 @@ class RouteMainAnalyzer(
 
   private def buildRouteDoc(context: RouteAnalysisContext): RouteDoc = {
     val summary = context.route.summary.copy(meters = context.distance)
+
+    val facts: ListBuffer[Fact] = ListBuffer[Fact]()
+    facts ++= context.route.facts
+    facts ++= context.facts
+    if (facts.exists(Facts.isError)) {
+      if (!facts.contains(RouteBroken)) {
+        facts += RouteBroken
+      }
+    }
+
     RouteDoc(
       context.route._id, // routeId
       context.route.active,
@@ -69,7 +83,7 @@ class RouteMainAnalyzer(
       context.route.changeSetId,
       context.route.lastUpdated,
       context.route.lastSurvey,
-      context.route.facts ++ context.facts,
+      facts.toSeq,
       context.route.unexpectedNodeIds,
       context.unexpectedRelationIds,
       context.route.members,
