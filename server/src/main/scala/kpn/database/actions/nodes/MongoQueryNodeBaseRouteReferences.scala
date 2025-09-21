@@ -25,18 +25,19 @@ class MongoQueryNodeBaseRouteReferences(database: Database) {
 
   def execute(nodeId: Long): Seq[Reference] = {
     log.infoElapsed {
-      val refs = database.baseRoutes.aggregate(pipeline(nodeId), classOf[Reference], log)
+      val pipeline = buildPipeline(nodeId)
+      val refs = database.baseRoutes.aggregate(pipeline, classOf[Reference], log)
       (s"node route refs: ${refs.size}", refs)
     }
   }
 
-  private def pipeline(nodeId: Long): MongoPipeline = {
+  private def buildPipeline(nodeId: Long): MongoPipeline = {
     Seq(
       filter(
         and(
           equal("active", true),
           equal("summary.nodeNetwork", true),
-          equal("nodeRefs", nodeId),
+          equal("networkNodeIds", nodeId),
         )
       ),
       unwind("$summary.routeTypes"),

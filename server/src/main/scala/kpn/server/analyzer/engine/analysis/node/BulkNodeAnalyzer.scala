@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.node
 
+import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.main.NodeMainAnalyzer
@@ -28,22 +29,23 @@ class BulkNodeAnalyzer(
     }
   }
 
-  private def analyzeNodes(nodeIds: Seq[Long]) = {
+  private def analyzeNodes(nodeIds: Seq[Long]): Seq[NodeDoc] = {
     nodeIds.sliding(BatchSize, BatchSize).toSeq.flatMap { batchNodeIds =>
       log.info(s"Analyzing batch $BatchSize nodes")
       val baseNodeDocs = nodeRepository.baseNodesWithIds(batchNodeIds)
       baseNodeDocs.flatMap { baseNodeDoc =>
         Log.context(s"${baseNodeDoc._id}") {
           log.info(s"Analyzing node ${baseNodeDoc._id}")
-          nodeMainAnalyzer.analyze(baseNodeDoc) match {
-            case Some(nodeDoc) =>
-              Some(nodeDoc)
-            case None =>
-              log.error(s"Could not analyze node ${baseNodeDoc._id}")
-              None
-          }
+          analyzeNode(baseNodeDoc)
         }
       }
+    }
+  }
+
+  private def analyzeNode(baseNodeDoc: BaseNodeDoc): Option[NodeDoc] = {
+    nodeMainAnalyzer.analyze(baseNodeDoc).orElse {
+      log.error(s"Could not analyze node ${baseNodeDoc._id}")
+      None
     }
   }
 }

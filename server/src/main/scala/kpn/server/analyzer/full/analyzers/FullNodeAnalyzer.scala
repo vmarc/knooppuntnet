@@ -33,7 +33,7 @@ class FullNodeAnalyzer(
   private def analyzeNodes(context: FullAnalysisContext): AnalysisResult = {
     val activeNodeIds = findActiveNodeIds()
     val baseNodeIds = findBaseNodeIds()
-    val analyzedNodeIds = processBaseNodes(context, baseNodeIds)
+    val analyzedNodeIds = bulkAnalyzeNodes(context, baseNodeIds)
     val obsoleteNodeIds = (activeNodeIds.toSet -- analyzedNodeIds).toSeq.sorted
     deactivateObsoleteNodesBatch(obsoleteNodeIds)
     AnalysisResult(analyzedNodeIds, obsoleteNodeIds)
@@ -51,9 +51,9 @@ class FullNodeAnalyzer(
     }
   }
 
-  private def processBaseNodes(context: FullAnalysisContext, baseNodeIds: Seq[Long]): Seq[Long] = {
-    Log.context("base-nodes") {
-      log.info(s"Analyzing ${baseNodeIds.size} base nodes")
+  private def bulkAnalyzeNodes(context: FullAnalysisContext, baseNodeIds: Seq[Long]): Seq[Long] = {
+    Log.context("bulk-analyze-nodes") {
+      log.info(s"Analyzing ${baseNodeIds.size} nodes")
       log.infoElapsed {
         val nodeDocs = bulkNodeAnalyzer.analyze(baseNodeIds)
         context.initialAnalysisChangeSetContext.foreach { changeSetContext =>

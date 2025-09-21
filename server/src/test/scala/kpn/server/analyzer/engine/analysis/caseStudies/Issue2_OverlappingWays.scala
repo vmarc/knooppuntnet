@@ -14,6 +14,7 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysi
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.RouteAnalysisContextReport
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.json.Json
@@ -25,14 +26,24 @@ import scala.xml.XML
 
 class Issue2_OverlappingWays extends UnitTest with MockFactory {
 
-  test("28-28") {
-    pendingRedesignPrio2() // reproduces unresolved issue
+  /*
+     Test the analysis of a loop route (end node is the same as the start node), and the ways to get to the
+     actual route are included twice.
+           _______
+     ____/        \vv
+         \________/
 
-    val routeAnalysis = analyze("28-28", "vv", 7776398L, 9174227L)
+     To work arround the fact reported in knooppuntnet, the route was split in two routes with a connecting
+     node "vv".  In this test we first reconstruct the original route from the two new routes.
+   */
+  test("28-28") { // reproduces unresolved issue
+    val baseRouteAnalysisContext = analyze("28-28", "vv", 7776398L, 9174227L)
+    RouteAnalysisContextReport.report(baseRouteAnalysisContext)
+
     //      routeAnalysis.routeDetail.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
     //        makeGeojson(s"unusedSegment ${index + 1}", segment)
     //      }
-    routeAnalysis.facts shouldBe empty
+    baseRouteAnalysisContext.facts shouldBe empty
     //      routeAnalysis.structure.unusedSegments shouldBe empty
   }
 
@@ -61,7 +72,7 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
 
     val routeRelation = routeRelation1.copy(
       tags = routeTags,
-      members = routeRelation1.members ++ routeRelation2.members
+      members = routeRelation1.members ++ routeRelation2.members.reverse
     )
 
     val routeTileCache = new RouteTileCache()

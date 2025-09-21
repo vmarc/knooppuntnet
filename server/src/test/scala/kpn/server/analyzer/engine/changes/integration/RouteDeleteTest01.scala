@@ -41,7 +41,7 @@ class RouteDeleteTest01 extends IntegrationTest {
       .networkNode(1001, "01")
       .networkNode(1002, "02")
       .way(101, 1001, 1002)
-      .route(11, "01-02",
+      .route(11, "01-02", // route that will be deleted
         Seq(
           newMember(MemberType.Way, 101)
         )
@@ -61,8 +61,6 @@ class RouteDeleteTest01 extends IntegrationTest {
       watched.routes.ids shouldNot contain(11)
 
       assertBaseRoute()
-      // TODO redesign - assertBaseNode1001() ???
-      // TODO redesign - assertBaseNode1002() ???
       assertRoute()
       assertNode1001()
       assertNode1002()
