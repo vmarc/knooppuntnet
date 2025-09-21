@@ -268,6 +268,8 @@ class NodeNetworkStructureAnalyzer(context: BaseRouteAnalysisContext, traceEnabl
   }
 
   private def analyzeLoop(): Option[Structure] = {
-    None
+    context.routeNodesAnalysis.startNode.flatMap { startAndEndNode =>
+      buildStructureWithStartAndEndNodes(startAndEndNode, startAndEndNode)
+    }
   }
 }

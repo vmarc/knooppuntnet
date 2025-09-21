@@ -14,7 +14,6 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysi
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
-import kpn.server.analyzer.engine.analysis.route.base.analyzers.RouteAnalysisContextReport
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.json.Json
@@ -38,25 +37,49 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
    */
   test("28-28") { // reproduces unresolved issue
     val baseRouteAnalysisContext = analyze("28-28", "vv", 7776398L, 9174227L)
-    RouteAnalysisContextReport.report(baseRouteAnalysisContext)
-
-    //      routeAnalysis.routeDetail.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
-    //        makeGeojson(s"unusedSegment ${index + 1}", segment)
-    //      }
+    baseRouteAnalysisContext.abort shouldBe false
     baseRouteAnalysisContext.facts shouldBe empty
-    //      routeAnalysis.structure.unusedSegments shouldBe empty
+
+    val structure = baseRouteAnalysisContext.structure
+
+    val forwardPath = structure.forwardPath.get
+    forwardPath.id should equal(1)
+    forwardPath.startNodeId should equal(45749578L)
+    forwardPath.endNodeId should equal(45749578L)
+    forwardPath.id should equal(1)
+
+    val backwardPath = structure.backwardPath.get
+    backwardPath.id should equal(2)
+    backwardPath.startNodeId should equal(45749578L)
+    backwardPath.endNodeId should equal(45749578L)
+
+    structure.startTentaclePaths should equal(Seq.empty)
+    structure.endTentaclePaths should equal(Seq.empty)
+    structure.otherPaths should equal(Seq.empty)
   }
 
   test("32-32") {
 
-    pendingRedesignPrio2() // reproduces unresolved issue
+    val baseRouteAnalysisContext = analyze("32-32", "x", 7175609L, 11047960L)
+    baseRouteAnalysisContext.abort shouldBe false
+    baseRouteAnalysisContext.facts shouldBe empty
 
-    val routeAnalysis = analyze("32-32", "x", 7175609L, 11047960L)
-    //      routeAnalysis.routeDetail.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
-    //        makeGeojson(s"unusedSegment: ${index + 1}", segment)
-    //      }
-    routeAnalysis.facts shouldBe empty
-    //      routeAnalysis.structure.unusedSegments shouldBe empty
+    val structure = baseRouteAnalysisContext.structure
+
+    val forwardPath = structure.forwardPath.get
+    forwardPath.id should equal(1)
+    forwardPath.startNodeId should equal(908497572L)
+    forwardPath.endNodeId should equal(908497572L)
+    forwardPath.id should equal(1)
+
+    val backwardPath = structure.backwardPath.get
+    backwardPath.id should equal(2)
+    backwardPath.startNodeId should equal(908497572L)
+    backwardPath.endNodeId should equal(908497572L)
+
+    structure.startTentaclePaths should equal(Seq.empty)
+    structure.endTentaclePaths should equal(Seq.empty)
+    structure.otherPaths should equal(Seq.empty)
   }
 
   private def analyze(routeName: String, connectingNodeName: String, routeId1: Long, routeId2: Long): BaseRouteAnalysisContext = {
