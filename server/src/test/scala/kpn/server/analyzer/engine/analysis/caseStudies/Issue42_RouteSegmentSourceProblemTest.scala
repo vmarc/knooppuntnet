@@ -7,14 +7,15 @@ class Issue42_RouteSegmentSourceProblemTest extends UnitTest {
   test("segment problem") {
     val context = CaseStudy.analyze("9499242")
 
+    val startNodeId = context.routeNodesAnalysis.startNode.get.node.id
+    val endNodeId = context.routeNodesAnalysis.endNode.get.node.id
+
     val forwardPath = context.structure.forwardPath.get
-    val startNode = context.routeNodesAnalysis.startNode.get.node
-    pendingRedesign()
-    //    startNode.lat should equal(forwardPath.segments.head.source.lat)
-    //    startNode.lon should equal(forwardPath.segments.head.source.lon)
+    forwardPath.startNodeId should equal(startNodeId)
+    forwardPath.endNodeId should equal(endNodeId)
 
     val backwardPath = context.structure.backwardPath.get
-    //    context.map.endNodes.head.lat should equal(backwardPath.segments.head.source.lat)
-    //    context.map.endNodes.head.lon should equal(backwardPath.segments.head.source.lon)
+    backwardPath.startNodeId should equal(endNodeId)
+    backwardPath.endNodeId should equal(startNodeId)
   }
 }

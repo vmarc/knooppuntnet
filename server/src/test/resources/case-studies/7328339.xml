@@ -98,21 +98,21 @@
     <tag k="oneway" v="yes"/>
     <tag k="parking:condition:right" v="ticket"/>
     <tag k="parking:lane:right" v="parallel"/>
-    <nd ref="1618958373"/>
-    <nd ref="271381485"/>
-    <nd ref="6228202942"/>
     <nd ref="271381484"/>
+    <nd ref="6228202942"/>
+    <nd ref="271381485"/>
+    <nd ref="1618958373"/>
   </way>
   <relation id="7328339">
     <member type="way" ref="670932287" role="forward"/>
-    <member type="way" ref="594190379" role="forward"/>
-    <member type="way" ref="594190380" role="forward"/>
-    <member type="way" ref="594190381" role="forward"/>
-    <member type="way" ref="594190384" role="forward"/>
-    <member type="way" ref="594190387" role="forward"/>
-    <member type="way" ref="31821464" role="forward"/>
-    <member type="way" ref="37740759" role="backward"/>
-    <tag k="direction" v="backward"/>
+    <member type="way" ref="594190379" role="backward"/>
+    <member type="way" ref="594190380" role="backward"/>
+    <member type="way" ref="594190381" role="backward"/>
+    <member type="way" ref="594190384" role="backward"/>
+    <member type="way" ref="594190387" role="backward"/>
+    <member type="way" ref="31821464" role="backward"/>
+    <member type="way" ref="37740759" role="forward"/>
+    <tag k="direction" v="forward"/>
     <tag k="network:type" v="node_network"/>
     <tag k="network" v="rcn"/>
     <tag k="note" v="60-61"/>

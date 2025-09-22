@@ -107,6 +107,7 @@
     <member type="way" ref="119957427" role="forward"/>
     <member type="way" ref="31821448" role="forward"/>
     <tag k="comment" v="to be used in one direction: 64 to 63"/>
+    <tag k="direction" v="backward"/>
     <tag k="network:type" v="node_network"/>
     <tag k="network" v="rcn"/>
     <tag k="note" v="63-64"/>

@@ -95,7 +95,10 @@ class NodeNetworkStructureAnalyzer(context: BaseRouteAnalysisContext, traceEnabl
     }
   }
 
-  private def buildStartTentaclePaths(forwardPath: Option[StructurePath], backwardPath: Option[StructurePath]): Seq[StructurePath] = {
+  private def buildStartTentaclePaths(
+    forwardPath: Option[StructurePath],
+    backwardPath: Option[StructurePath]
+  ): Seq[StructurePath] = {
     val usedElementIds = findUsedElementIds(forwardPath, backwardPath, Seq.empty, Seq.empty)
     val remainingElements = findRemainingElements(usedElementIds)
     context.routeNodesAnalysis.startTentacleNodes.flatMap { fromNode =>
@@ -235,7 +238,12 @@ class NodeNetworkStructureAnalyzer(context: BaseRouteAnalysisContext, traceEnabl
     )
   }
 
-  private def findUsedElementIds(forwardPath: Option[StructurePath], backwardPath: Option[StructurePath], startTentaclePaths: Seq[StructurePath], endTentaclePaths: Seq[StructurePath]): Seq[Long] = {
+  private def findUsedElementIds(
+    forwardPath: Option[StructurePath],
+    backwardPath: Option[StructurePath],
+    startTentaclePaths: Seq[StructurePath],
+    endTentaclePaths: Seq[StructurePath]
+  ): Seq[Long] = {
     forwardPath.toSeq.flatMap(_.elementIds) ++ backwardPath.toSeq.flatMap(_.elementIds) ++
       startTentaclePaths.flatMap(_.elementIds) ++ endTentaclePaths.flatMap(_.elementIds)
   }
