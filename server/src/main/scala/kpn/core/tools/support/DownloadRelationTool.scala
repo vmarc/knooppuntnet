@@ -12,7 +12,7 @@ import java.nio.charset.Charset
 object DownloadRelationTool {
 
   private val routes = Seq(
-    "route 1" -> 11512870,
+    "route 1" -> 10015252,
   )
 
   def main(args: Array[String]): Unit = {
@@ -27,7 +27,7 @@ class DownloadRelationTool(overpassQueryExecutor: OverpassQueryExecutor) {
   def download(): Unit = {
     DownloadRelationTool.routes.foreach { case (name, relationId) =>
       println(s"downloading $name")
-      val xmlString = overpassQueryExecutor.executeQuery(Some(Timestamp(2025, 5, 20, 0, 0, 0)), QueryRelation(relationId))
+      val xmlString = overpassQueryExecutor.executeQuery(Some(Timestamp(2020, 1, 1, 0, 0, 0)), QueryRelation(relationId))
       val filename = new File(s"/Users/marc/tmp/xml/$relationId.xml")
       FileUtils.writeStringToFile(filename, xmlString, Charset.forName("UTF-8"))
     }

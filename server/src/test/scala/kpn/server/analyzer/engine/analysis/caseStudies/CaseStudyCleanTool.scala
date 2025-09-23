@@ -12,7 +12,7 @@ import scala.xml.XML
 object CaseStudyCleanTool {
   def main(args: Array[String]): Unit = {
     val tool = new CaseStudyCleanTool()
-    tool.clean("11512870")
+    tool.clean("10015252")
   }
 }
 

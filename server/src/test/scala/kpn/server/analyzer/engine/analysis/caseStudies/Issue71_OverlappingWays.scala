@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
+import kpn.api.common.Fact.RouteNameDeprecatedNoteTag
 import kpn.core.util.UnitTest
 
 class Issue71_OverlappingWays extends UnitTest {
@@ -10,19 +11,16 @@ class Issue71_OverlappingWays extends UnitTest {
   }
 
   test("route 314-353") {
-    pendingRedesign()
     val context = CaseStudy.analyze("9637368")
-    context.facts should equal(Seq.empty)
+    context.facts should equal(Seq(RouteNameDeprecatedNoteTag))
   }
 
   test("route 01-41") {
-    pendingRedesign()
     val context = CaseStudy.analyze("10015252")
-    context.facts should equal(Seq.empty)
+    context.facts should equal(Seq(RouteNameDeprecatedNoteTag))
   }
 
   test("route 93-95") {
-    pendingRedesign()
     val context = CaseStudy.analyze("145281")
     context.facts should equal(Seq.empty)
   }
