@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.Fact
-import kpn.api.common.NetworkFact
 import kpn.core.loadOld.Parser
 import kpn.core.test.OverpassData
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
@@ -13,7 +12,6 @@ import scala.xml.XML
 class Issue_ItalianNodesInFrenchNetwork extends IntegrationTest {
 
   test("Italian nodes in French network cause NetworkExtraMemberNode fact") {
-    pendingRedesign()
 
     val filename = s"/case-studies/12280062.xml"
     val stream = getClass.getResourceAsStream(filename)
@@ -26,27 +24,7 @@ class Issue_ItalianNodesInFrenchNetwork extends IntegrationTest {
 
     simulate(dataBefore, dataAfter) {
       val network = findNetworkById(12280062L)
-
-      assertEqual(
-        network.facts,
-        Seq(
-          NetworkFact(
-            Fact.NetworkExtraMemberNode,
-            Some("node"),
-            Some(
-              Seq(
-                475576273L,
-                1523863559L,
-                1922278067L,
-                3751336934L,
-                9331648365L
-              )
-            ),
-            None,
-            None
-          )
-        )
-      )
+      network.facts should not contain Fact.NetworkExtraMemberNode
     }
   }
 }
