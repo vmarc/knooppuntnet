@@ -1,4 +1,5 @@
-import { HttpResourceRef } from '@angular/common/http';
+import { signal } from '@angular/core';
+import { effect } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RoutePathsPage } from '@api/common/route/route-paths-page';
@@ -11,11 +12,22 @@ export class RoutePathsPageService {
   private readonly apiService = inject(ApiService);
   private readonly routeService = inject(RouteService);
 
-  readonly response: HttpResourceRef<ApiResponse<RoutePathsPage>>;
+  private readonly _response = signal<ApiResponse<RoutePathsPage>>(null);
+  readonly response = this._response.asReadonly();
 
   constructor() {
-    this.response = this.routeService.request('paths', () =>
-      this.apiService.routePaths(this.routeService.routeId())
-    );
+    effect(() => this.load(this.routeService.routeIdParam()));
+  }
+
+  private load(routeId: number) {
+    this.routeService.updateRouteNotFound(false);
+    this.apiService.routePaths(routeId).subscribe((response) => {
+      this._response.set(response);
+      if (response.result?.routeInfo) {
+        this.routeService.updateRoute(response.result.routeInfo);
+      } else {
+        this.routeService.updateRouteNotFound(true);
+      }
+    });
   }
 }

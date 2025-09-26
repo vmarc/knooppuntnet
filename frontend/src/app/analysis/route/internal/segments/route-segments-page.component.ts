@@ -13,7 +13,7 @@ import { RouterService } from '@app/shared/services/router.service';
   selector: 'ui-route-segments-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (response.hasValue()) {
+    @if (response()) {
       <ui-route-segments
         [segments]="segments()"
         [relations]="[]"
@@ -30,7 +30,7 @@ import { RouterService } from '@app/shared/services/router.service';
 export class RouteSegmentsPageComponent {
   readonly service = inject(RouteSegmentsPageService);
   protected readonly response = this.service.response;
-  protected readonly segments = computed(() => this.response.value()?.result?.segments);
+  protected readonly segments = computed(() => this.response()?.result?.segments);
 
   readonly showSegments = signal<boolean>(true); // TODO redesign - this.service.monitorShowSegments;
 

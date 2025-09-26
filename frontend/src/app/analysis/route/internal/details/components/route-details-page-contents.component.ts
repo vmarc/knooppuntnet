@@ -9,12 +9,14 @@ import { RouteDetailsPageService } from '../route-details-page.service';
   selector: 'ui-route-details-page-contents',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @let page = response().result;
-    <ui-route-details [situationOn]="response().situationOn" [routeDetails]="page.details" />
+    @let page = response()?.result;
+    @if (page) {
+      <ui-route-details [situationOn]="response().situationOn" [routeDetails]="page.details" />
+    }
   `,
   imports: [RouteDetailsComponent],
 })
 export class RouteDetailsPageContentsComponent {
   private readonly service = inject(RouteDetailsPageService);
-  protected readonly response = computed(() => this.service.response.value());
+  protected readonly response = this.service.response;
 }

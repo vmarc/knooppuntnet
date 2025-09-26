@@ -17,6 +17,9 @@ import { State } from '@app/state/state';
 export class RouteService {
   private readonly state = inject(State);
 
+  private readonly _routeIdParam = signal<number>(undefined);
+  readonly routeIdParam = this._routeIdParam.asReadonly();
+
   private readonly _routeNotFound = signal<boolean>(false);
   readonly routeNotFound = this._routeNotFound.asReadonly();
 
@@ -70,30 +73,15 @@ export class RouteService {
     }
   }
 
-  request(
-    pageName: RoutePageName,
-    action: () => HttpResourceRef<ApiResponse<any>>
-  ): HttpResourceRef<ApiResponse<any>> {
-    this.onPage(pageName);
-    const response = action();
-    effect(() => {
-      if (response.hasValue()) {
-        const result = response.value()?.result;
-        if (result) {
-          this.updateRoute(result.routeInfo);
-        } else {
-          this.updateRouteNotFound(true);
-        }
-      }
-    });
-    return response;
-  }
-
   updateRoute(routeInfo: RouteInfo): void {
     this._routeInfo.set(routeInfo);
   }
 
   updateRouteNotFound(value: boolean): void {
     this._routeNotFound.set(value);
+  }
+
+  updateRouteId(routeId: number): void {
+    this._routeIdParam.set(routeId);
   }
 }

@@ -1,5 +1,5 @@
-import { HttpResourceRef } from '@angular/common/http';
 import { effect } from '@angular/core';
+import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
@@ -17,43 +17,46 @@ export class RouteDetailsPageService {
   private readonly routeService = inject(RouteService);
   private readonly mapService = inject(MapService);
 
-  readonly response: HttpResourceRef<ApiResponse<RouteDetailsPage>>;
+  private readonly _response = signal<ApiResponse<RouteDetailsPage>>(null);
+  readonly response = this._response.asReadonly();
 
   constructor() {
-    this.response = this.routeService.request('details', () =>
-      this.apiService.routeDetails(this.routeService.routeId())
-    );
-    effect(() => {
-      if (this.response.hasValue()) {
-        const details = this.response.value().result?.details;
+    effect(() => this.load(this.routeService.routeIdParam()));
+  }
 
-        if (details) {
-          const routeIds = details.routeIds.map((id) => id.toString());
-          const nodeIds = new Array<string>();
-          if (details.nodes.startNode) {
-            nodeIds.push(details.nodes.startNode.nodeId.toString());
-          }
-          if (details.nodes.endNode) {
-            nodeIds.push(details.nodes.endNode.nodeId.toString());
-          }
-          details.nodes.startTentacleNodes
-            .map((node) => node.nodeId.toString())
-            .forEach((nodeId) => nodeIds.push(nodeId));
-          details.nodes.endTentacleNodes
-            .map((node) => node.nodeId.toString())
-            .forEach((nodeId) => nodeIds.push(nodeId));
-          details.nodes.redundantNodes
-            .map((node) => node.nodeId.toString())
-            .forEach((nodeId) => nodeIds.push(nodeId));
-          const elements: FocusElements = {
-            nodeIds,
-            routeIds,
-          };
+  private load(routeId: number) {
+    this.routeService.onInit(routeId);
+    this.apiService.routeDetails(routeId).subscribe((response) => {
+      this._response.set(response);
+      if (response.result?.details) {
+        this.routeService.updateRoute(response.result.routeInfo);
+        const details = response.result.details;
 
-          this.state.routeDetailsPageOpened(this.routeService.routeId());
-          this.state.map.updateFocusElements(elements);
-          this.mapService.fitBounds(this.routeService.bounds());
+        const routeIds = details.routeIds.map((id) => id.toString());
+        const nodeIds = new Array<string>();
+        if (details.nodes.startNode) {
+          nodeIds.push(details.nodes.startNode.nodeId.toString());
         }
+        if (details.nodes.endNode) {
+          nodeIds.push(details.nodes.endNode.nodeId.toString());
+        }
+        details.nodes.startTentacleNodes
+          .map((node) => node.nodeId.toString())
+          .forEach((nodeId) => nodeIds.push(nodeId));
+        details.nodes.endTentacleNodes
+          .map((node) => node.nodeId.toString())
+          .forEach((nodeId) => nodeIds.push(nodeId));
+        details.nodes.redundantNodes
+          .map((node) => node.nodeId.toString())
+          .forEach((nodeId) => nodeIds.push(nodeId));
+        const elements: FocusElements = {
+          nodeIds,
+          routeIds,
+        };
+
+        this.state.routeDetailsPageOpened(this.routeService.routeId());
+        this.state.map.updateFocusElements(elements);
+        this.mapService.fitBounds(this.routeService.bounds());
       }
     });
   }

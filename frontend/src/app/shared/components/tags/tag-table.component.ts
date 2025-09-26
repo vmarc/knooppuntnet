@@ -20,7 +20,7 @@ import { TagValueComponent } from './tag-value.component';
           </tr>
         </thead>
         <tbody>
-          @for (tag of tags().standardTags(); track tag) {
+          @for (tag of tags().standardTags(); track tag.key) {
             <tr>
               <td>{{ tag.key }}</td>
               <td>
@@ -33,7 +33,7 @@ import { TagValueComponent } from './tag-value.component';
               <td colspan="2"></td>
             </tr>
           }
-          @for (tag of tags().extraTags(); track tag) {
+          @for (tag of tags().extraTags(); track tag.key) {
             <tr>
               <td>{{ tag.key }}</td>
               <td>

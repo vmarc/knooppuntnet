@@ -10,7 +10,7 @@ import { RouterService } from '@app/shared/services/router.service';
   selector: 'ui-route-paths-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (response.hasValue()) {
+    @if (response()) {
       <ui-route-path-list [paths]="paths()" (selectChange)="selectPath($event)" />
     }
   `,
@@ -20,7 +20,7 @@ import { RouterService } from '@app/shared/services/router.service';
 export class RoutePathsPageComponent {
   private readonly service = inject(RoutePathsPageService);
   protected readonly response = this.service.response;
-  protected readonly paths = () => this.response.value()?.result?.paths;
+  protected readonly paths = () => this.response()?.result?.paths;
 
   selectPath(path: RoutePath) {
     // TODO redesign - this.service.selectPath(path);

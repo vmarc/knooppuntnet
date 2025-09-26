@@ -1,4 +1,5 @@
-import { HttpResourceRef } from '@angular/common/http';
+import { effect } from '@angular/core';
+import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RouteMembersPage } from '@api/common/route/route-members-page';
@@ -11,11 +12,22 @@ export class RouteMembersPageService {
   private readonly apiService = inject(ApiService);
   private readonly routeService = inject(RouteService);
 
-  readonly response: HttpResourceRef<ApiResponse<RouteMembersPage>>;
+  private readonly _response = signal<ApiResponse<RouteMembersPage>>(null);
+  readonly response = this._response.asReadonly();
 
   constructor() {
-    this.response = this.routeService.request('members', () =>
-      this.apiService.routeMembers(this.routeService.routeId())
-    );
+    effect(() => this.load(this.routeService.routeIdParam()));
+  }
+
+  private load(routeId: number): void {
+    this.routeService.updateRouteNotFound(false);
+    this.apiService.routeMembers(routeId).subscribe((response) => {
+      this._response.set(response);
+      if (response.result?.routeInfo) {
+        this.routeService.updateRoute(response.result.routeInfo);
+      } else {
+        this.routeService.updateRouteNotFound(true);
+      }
+    });
   }
 }

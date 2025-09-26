@@ -1,4 +1,3 @@
-import { HttpResourceRef } from '@angular/common/http';
 import { effect } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
@@ -23,22 +22,23 @@ export class RouteSegmentsPageService {
   private readonly _selectedSegment = signal<RouteSegment>(null);
   readonly selectedSegment = this._selectedSegment.asReadonly();
 
-  readonly response: HttpResourceRef<ApiResponse<RouteSegmentsPage>>;
+  private readonly _response = signal<ApiResponse<RouteSegmentsPage>>(null);
+  readonly response = this._response.asReadonly();
 
   constructor() {
-    this.response = this.routeService.request('segments', () =>
-      this.apiService.routeSegments(this.routeService.routeId())
-    );
-    effect(() => {
-      if (this.response.hasValue()) {
-        const segments = this.response.value().result?.segments ?? [];
-        const relationIds = segments.flatMap((segment) =>
-          segment.routeInfos.map((routeInfo) => routeInfo.relationId)
-        );
-        const segmentMap = SegmentMap.from(segments);
-        this.state.routeSegmentsPageOpened(segmentMap, this.routeService.routeId(), relationIds);
-        this.mapService.fitBounds(this.routeService.bounds());
-      }
+    effect(() => this.load(this.routeService.routeIdParam()));
+  }
+
+  private load(routeId: number) {
+    this.apiService.routeSegments(this.routeService.routeId()).subscribe((response) => {
+      this._response.set(response);
+      const segments = this.response().result?.segments ?? [];
+      const relationIds = segments.flatMap((segment) =>
+        segment.routeInfos.map((routeInfo) => routeInfo.relationId)
+      );
+      const segmentMap = SegmentMap.from(segments);
+      this.state.routeSegmentsPageOpened(segmentMap, this.routeService.routeId(), relationIds);
+      this.mapService.fitBounds(this.routeService.bounds());
     });
   }
 
