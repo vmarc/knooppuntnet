@@ -2,8 +2,6 @@ import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { OldPoiService } from '@app/shared/services/old-poi.service';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -67,7 +65,6 @@ import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
   `,
   imports: [
     MatExpansionModule,
-    MatCheckboxModule,
     MatButtonModule,
     NzCollapseComponent,
     NzCollapsePanelComponent,

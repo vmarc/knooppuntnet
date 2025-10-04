@@ -3,38 +3,46 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LocationEditPage } from '@api/common/location/location-edit-page';
 import { EditConfiguration } from '@app/analysis/components/edit/edit-configuration';
 import { EditParameters } from '@app/analysis/components/edit/edit-parameters';
 import { EditService } from '@app/shared/components/edit.service';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 
 @Component({
   selector: 'ui-location-edit',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p>
-      <mat-checkbox [checked]="nodeSelection" (change)="nodeSelectionChanged($event)">
+      <label
+        nz-checkbox
+        [nzChecked]="nodeSelection"
+        (nzCheckedChange)="nodeSelectionChanged($event)"
+      >
         {{ page().summary.nodeCount }}
         <span i18n="@@location-edit.nodes">nodes (quick)</span>
-      </mat-checkbox>
+      </label>
     </p>
     <p>
-      <mat-checkbox
-        [checked]="routeRelationsSelection"
-        (change)="routeRelationsSelectionChanged($event)"
+      <label
+        nz-checkbox
+        [nzChecked]="routeRelationsSelection"
+        (nzCheckedChange)="routeRelationsSelectionChanged($event)"
       >
         {{ page().summary.routeCount }}
         <span i18n="@@location-edit.routes">routes relations (quick)</span>
-      </mat-checkbox>
+      </label>
     </p>
     <p>
-      <mat-checkbox [checked]="fullRouteSelection" (change)="fullRouteSelectionChanged($event)">
+      <label
+        nz-checkbox
+        [nzChecked]="fullRouteSelection"
+        (nzCheckedChange)="fullRouteSelectionChanged($event)"
+      >
         {{ page().summary.routeCount }}
         <span i18n="@@location-edit.full-routes">routes with ways (takes more time)</span>
-      </mat-checkbox>
+      </label>
     </p>
     @if (showEstimatedTime()) {
       <p>
@@ -46,8 +54,8 @@ import { EditService } from '@app/shared/components/edit.service';
     }
     <p>
       <button
-        mat-raised-button
-        color="primary"
+        nz-button
+        nzType="primary"
         (click)="edit()"
         title="Open in editor (like JOSM)"
         i18n-title="@@location-edit.submit.tooltip"
@@ -57,7 +65,7 @@ import { EditService } from '@app/shared/components/edit.service';
       </button>
     </p>
   `,
-  imports: [MatCheckboxModule, MatButtonModule],
+  imports: [NzButtonComponent, NzCheckboxComponent],
 })
 export class LocationEditComponent implements OnInit {
   readonly page = input.required<LocationEditPage>();
@@ -78,18 +86,18 @@ export class LocationEditComponent implements OnInit {
     this.updateExpectation();
   }
 
-  nodeSelectionChanged(event: MatCheckboxChange) {
-    this.nodeSelection = event.checked;
+  nodeSelectionChanged(checked: boolean) {
+    this.nodeSelection = checked;
     this.updateExpectation();
   }
 
-  routeRelationsSelectionChanged(event: MatCheckboxChange) {
-    this.routeRelationsSelection = event.checked;
+  routeRelationsSelectionChanged(checked: boolean) {
+    this.routeRelationsSelection = checked;
     this.updateExpectation();
   }
 
-  fullRouteSelectionChanged(event: MatCheckboxChange) {
-    this.fullRouteSelection = event.checked;
+  fullRouteSelectionChanged(checked: boolean) {
+    this.fullRouteSelection = checked;
     this.updateExpectation();
   }
 

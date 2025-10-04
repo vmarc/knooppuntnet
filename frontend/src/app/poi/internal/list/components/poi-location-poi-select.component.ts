@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 import { NzFormControlComponent } from 'ng-zorro-antd/form';
@@ -92,7 +91,6 @@ import { CountrySelectComponent } from './country-select.component';
   imports: [
     CountrySelectComponent,
     LocationSelectorComponent,
-    MatCheckboxModule,
     NzButtonComponent,
     NzCheckboxComponent,
     NzColDirective,

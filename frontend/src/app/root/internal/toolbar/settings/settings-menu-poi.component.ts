@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { State } from '@app/state/state';
 import { MenuItemCheckboxComponent } from './menu-item-checkbox.component';
@@ -67,7 +66,7 @@ import { SettingsMenuPoiOptionComponent } from './settings-menu-poi-option.compo
       padding-right: 20px;
     }
   `,
-  imports: [MatCheckboxModule, SettingsMenuPoiOptionComponent, MenuItemCheckboxComponent],
+  imports: [SettingsMenuPoiOptionComponent, MenuItemCheckboxComponent],
 })
 export class SettingsMenuPoiComponent {
   private readonly state = inject(State);
