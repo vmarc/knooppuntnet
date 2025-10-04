@@ -16,7 +16,7 @@ import { MatAccordion } from '@angular/material/expansion';
         (click)="expandAll()"
         i18n="@@location.tree.expand-all"
       >
-        Expand all
+        OLD Expand all
       </button>
       <button
         mat-stroked-button
@@ -24,7 +24,7 @@ import { MatAccordion } from '@angular/material/expansion';
         (click)="collapseAll()"
         i18n="@@location.tree.collapse-all"
       >
-        Collapse all
+        OLD Collapse all
       </button>
     </div>
   `,
