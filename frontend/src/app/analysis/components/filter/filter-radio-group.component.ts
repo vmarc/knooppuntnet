@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatRadioModule } from '@angular/material/radio';
 import { Translations } from '@app/shared/i18n/translations';
 import { FilterOption } from '@app/shared/kpn/filter/filter-option';
 import { FilterOptionGroup } from '@app/shared/kpn/filter/filter-option-group';
@@ -30,7 +29,7 @@ import { NzRadioComponent } from 'ng-zorro-antd/radio';
     </div>
   `,
   styleUrl: './filter.scss',
-  imports: [MatRadioModule, NzRadioComponent, NzRadioGroupComponent, FormsModule],
+  imports: [NzRadioComponent, NzRadioGroupComponent, FormsModule],
 })
 export class FilterRadioGroupComponent {
   readonly group = input.required<FilterOptionGroup>();

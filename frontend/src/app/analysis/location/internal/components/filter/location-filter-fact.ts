@@ -3,7 +3,6 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatRadioChange } from '@angular/material/radio';
 import { ServerFilterGroup } from '@api/common/changes/filter/server-filter-group';
 import { Fact } from '@api/common/fact';
 import { FactNameComponent } from '@app/analysis/fact/components/fact-name.component';
@@ -53,11 +52,11 @@ export class LocationFilterFactComponent {
     return Translations.get(`filter.${option}`);
   }
 
-  selectionChanged(change: MatRadioChange): void {
-    if (change.value == 'all') {
+  selectionChanged(value: string): void {
+    if (value == 'all') {
       this.changed.emit(null);
     } else {
-      this.changed.emit(change.value as Fact);
+      this.changed.emit(value as Fact);
     }
   }
 

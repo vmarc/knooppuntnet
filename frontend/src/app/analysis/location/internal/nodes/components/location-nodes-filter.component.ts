@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatRadioModule } from '@angular/material/radio';
 import { SurveyParameter } from '@api/common/location/survey-parameter';
 import { BooleanParameter } from '@api/common/location/boolean-parameter';
 import { LastUpdatedParameter } from '@api/common/location/last-updated-parameter';
@@ -58,7 +57,7 @@ import { LocationNodesPageService } from '../location-nodes-page.service';
       />
     }
   `,
-  imports: [LocationFilterFactComponent, LocationFilterGroupComponent, MatRadioModule],
+  imports: [LocationFilterFactComponent, LocationFilterGroupComponent],
 })
 export class LocationNodesFilterComponent {
   protected readonly store = inject(LocationNodesPageService);

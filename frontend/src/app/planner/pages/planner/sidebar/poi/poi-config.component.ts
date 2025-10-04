@@ -4,8 +4,6 @@ import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatRadioChange } from '@angular/material/radio';
-import { MatRadioModule } from '@angular/material/radio';
 import { OldPoiService } from '@app/shared/services/old-poi.service';
 import { Subscriptions } from '@app/util/subscriptions';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -84,7 +82,7 @@ import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
       padding-bottom: 10px;
     }
   `,
-  imports: [MatRadioModule, NzRadioGroupComponent, NzRadioComponent, FormsModule],
+  imports: [NzRadioGroupComponent, NzRadioComponent, FormsModule],
 })
 export class PoiConfigComponent implements OnInit, OnDestroy {
   readonly poiId = input.required<string>();
@@ -118,8 +116,8 @@ export class PoiConfigComponent implements OnInit, OnDestroy {
     return this.poiService.poiLevel(this.poiId());
   }
 
-  levelChanged(event: MatRadioChange) {
-    this.poiService.updatePoiLevel(this.poiId(), +event.value);
+  levelChanged(value: string) {
+    this.poiService.updatePoiLevel(this.poiId(), +value);
   }
 
   poiName() {
