@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
@@ -9,6 +8,7 @@ import { NavService } from '@app/shared/components/nav.service';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
+import { SwitchComponent } from '@app/shared/components/switch/switch.component';
 import { MonitorChangesComponent } from '../../components/monitor-changes.component';
 import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-menu.component';
 import { MonitorGroupChangesPageService } from './monitor-group-changes-page.service';
@@ -37,12 +37,12 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
 
           @if (response.result; as page) {
             <div class="kpn-spacer-above">
-              <mat-slide-toggle
-                [checked]="service.impact()"
-                (change)="service.updateImpact($event.checked)"
-              >
-                Impact
-              </mat-slide-toggle>
+              <ui-switch
+                i18n-label="@@monitor.changes.impact"
+                label="Impact"
+                [value]="service.impact()"
+                (valueChange)="service.updateImpact($event)"
+              />
 
               <ui-paginator
                 (pageIndexChange)="pageChanged($event)"
@@ -65,12 +65,12 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
   providers: [NavService, MonitorGroupChangesPageService],
   imports: [
     BreadcrumbComponent,
-    MatSlideToggleModule,
     MonitorChangesComponent,
     MonitorGroupPageMenuComponent,
     PageComponent,
     PageHeaderComponent,
     PaginatorComponent,
+    SwitchComponent,
   ],
 })
 export class MonitorGroupChangesPageComponent {

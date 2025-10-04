@@ -1,11 +1,10 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
+import { SwitchComponent } from '@app/shared/components/switch/switch.component';
 import { MonitorChangesComponent } from '../../components/monitor-changes.component';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 import { MonitorRouteChangesPageService } from './monitor-route-changes-page.service';
@@ -19,7 +18,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
 
     @if (service.changesState(); as state) {
       <ui-page>
-        <ui-monitor-route-page-header pageName="changes" />
+        <ui-monitor-route-page-header />
 
         @if (state.response; as response) {
           <div class="kpn-spacer-above">
@@ -29,9 +28,12 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
 
             @if (response.result; as page) {
               <div class="kpn-spacer-above">
-                <mat-slide-toggle [checked]="service.impact()" (change)="impactChanged($event)"
-                  >Impact
-                </mat-slide-toggle>
+                <ui-switch
+                  i18n-label="@@monitor.changes.impact"
+                  label="Impact"
+                  [value]="service.impact()"
+                  (valueChange)="impactChanged($event)"
+                />
 
                 <ui-paginator
                   (pageIndexChange)="pageChanged($event)"
@@ -54,18 +56,18 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
   `,
   providers: [MonitorRouteChangesPageService, NavService],
   imports: [
-    MatSlideToggleModule,
     MonitorChangesComponent,
     MonitorRoutePageHeaderComponent,
     PageComponent,
     PaginatorComponent,
+    SwitchComponent,
   ],
 })
 export class MonitorRouteChangesPageComponent {
   readonly service = inject(MonitorRouteChangesPageService);
 
-  impactChanged(event: MatSlideToggleChange) {
-    this.service.updateImpact(event.checked);
+  impactChanged(impact: boolean) {
+    this.service.updateImpact(impact);
   }
 
   pageChanged(pageIndex: number) {

@@ -1,11 +1,10 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
+import { SwitchComponent } from '@app/shared/components/switch/switch.component';
 import { State } from '@app/state/state';
 import { PageComponent } from '../shared/components/page/page.component';
 
@@ -18,13 +17,12 @@ import { PageComponent } from '../shared/components/page/page.component';
       <ui-page-header i18n="@@settings-page.title">Settings</ui-page-header>
 
       <div class="setting">
-        <mat-slide-toggle
-          [checked]="extraLayers()"
-          (change)="extraLayersChanged($event)"
-          i18n="@@settings.extra-layers"
-        >
-          Extra layers
-        </mat-slide-toggle>
+        <ui-switch
+          i18n-label="@@settings.extra-layers"
+          label="Extra layers"
+          [value]="extraLayers()"
+          (valueChange)="extraLayersChanged($event)"
+        />
 
         <p class="comment" i18n="@@settings.extra-layers.comment.1">
           Enables the option to select extra layers in the planner map.
@@ -48,7 +46,7 @@ import { PageComponent } from '../shared/components/page/page.component';
       font-style: italic;
     }
   `,
-  imports: [MatSlideToggleModule, PageComponent, PageHeaderComponent, BreadcrumbComponent],
+  imports: [BreadcrumbComponent, PageComponent, PageHeaderComponent, SwitchComponent],
 })
 export class SettingsPageComponent {
   private readonly state = inject(State);
@@ -58,7 +56,7 @@ export class SettingsPageComponent {
     { label: Breadcrumbs.settingsLabel },
   ];
 
-  extraLayersChanged(event: MatSlideToggleChange): void {
-    this.state.preferences.updateExtraLayers(event.checked);
+  extraLayersChanged(value: boolean): void {
+    this.state.preferences.updateExtraLayers(value);
   }
 }

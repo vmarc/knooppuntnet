@@ -1,14 +1,13 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
+import { SwitchComponent } from '@app/shared/components/switch/switch.component';
 import { MonitorChangesComponent } from '../components/monitor-changes.component';
 import { MonitorChangesPageService } from './monitor-changes-page.service';
 
@@ -29,12 +28,12 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
 
           @if (response.result; as page) {
             <div class="kpn-spacer-above">
-              <mat-slide-toggle
-                [checked]="service.impact()"
-                (change)="impactChanged($event)"
-                i18n="@@monitor.changes.impact"
-                >Impact
-              </mat-slide-toggle>
+              <ui-switch
+                i18n-label="@@monitor.changes.impact"
+                label="Impact"
+                [value]="service.impact()"
+                (valueChange)="impactChanged($event)"
+              />
 
               <ui-paginator
                 [pageSize]="service.pageSize()"
@@ -59,10 +58,10 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
   imports: [
     BreadcrumbComponent,
     ErrorComponent,
-    MatSlideToggleModule,
     MonitorChangesComponent,
     PageComponent,
     PaginatorComponent,
+    SwitchComponent,
   ],
 })
 export class MonitorChangesPageComponent {
@@ -73,8 +72,8 @@ export class MonitorChangesPageComponent {
     { label: Breadcrumbs.changesLabel },
   ];
 
-  impactChanged(event: MatSlideToggleChange) {
-    this.service.updateImpact(event.checked);
+  impactChanged(value: boolean) {
+    this.service.updateImpact(value);
   }
 
   pageSizeChanged(pageSize: number) {
