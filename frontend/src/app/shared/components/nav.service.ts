@@ -31,7 +31,7 @@ export class NavService {
   }
 
   public state(name: string): string {
-    const state = this.router.getCurrentNavigation()?.extras.state;
+    const state = this.router.currentNavigation()?.extras.state;
     return state && state[name] ? state[name] : '';
   }
 
