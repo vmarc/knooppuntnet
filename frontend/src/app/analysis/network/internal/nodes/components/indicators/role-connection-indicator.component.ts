@@ -1,41 +1,31 @@
-import { inject } from '@angular/core';
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { NetworkNodeRow } from '@api/common/network/network-node-row';
-import { IndicatorComponent } from '@app/shared/components/indicator/indicator.component';
-import { RoleConnectionIndicatorDialogComponent } from './role-connection-indicator-dialog.component';
+import { TermComponent } from '@app/shared/components/term/term.component';
 
 @Component({
   selector: 'ui-role-connection-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-indicator
-      letter="C"
-      i18n-letter="@@role-connection-indicator.letter"
-      [color]="color"
-      (openDialog)="onOpenDialog()"
-    />
+    @if (roleConnection()) {
+      <div>
+        <ui-term
+          level="info"
+          title="Connection"
+          i18n-title="@@role-connection-indicator.blue.title"
+          i18n="@@role-connection-indicator.blue.text"
+        >
+          This node is a connection to another network. This node has role *"connection"* in the
+          network relation.
+        </ui-term>
+      </div>
+    }
   `,
-  imports: [IndicatorComponent],
+  imports: [TermComponent],
 })
-export class RoleConnectionIndicatorComponent implements OnInit {
+export class RoleConnectionIndicatorComponent {
   readonly node = input.required<NetworkNodeRow>();
-
-  private readonly dialog = inject(MatDialog);
-  color: string;
-
-  ngOnInit(): void {
-    this.color = this.node().detail.roleConnection ? 'blue' : 'gray';
-  }
-
-  onOpenDialog() {
-    this.dialog.open(RoleConnectionIndicatorDialogComponent, {
-      data: this.color,
-      autoFocus: false,
-      maxWidth: 600,
-    });
-  }
+  readonly roleConnection = computed(() => this.node().detail.roleConnection);
 }

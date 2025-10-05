@@ -16,18 +16,13 @@ import { RoleConnectionIndicatorComponent } from './indicators/role-connection-i
   selector: 'ui-network-node-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="analysis">
+    <div>
       <ui-network-indicator [node]="node()" />
       <ui-node-connection-indicator [node]="node()" />
       <ui-role-connection-indicator [node]="node()" />
       <ui-integrity-indicator [data]="integrityIndicatorData" />
       <ui-proposed-indicator [node]="node()" />
     </div>
-  `,
-  styles: `
-    .analysis {
-      display: flex;
-    }
   `,
   imports: [
     IntegrityIndicatorComponent,

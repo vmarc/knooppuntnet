@@ -19,13 +19,13 @@ export interface LineFact {
       @for (lineFact of lineFacts(); track lineFact.fact) {
         @switch (lineFact.level) {
           @case ('error') {
-            <span class="error">{{ lineFact.fact }}</span>
+            <span class="color-error">{{ lineFact.fact }}</span>
           }
           @case ('info') {
-            <span class="info">{{ lineFact.fact }}</span>
+            <span class="color-info">{{ lineFact.fact }}</span>
           }
           @default {
-            <span class="other">{{ lineFact.fact }}</span>
+            <span class="color-other">{{ lineFact.fact }}</span>
           }
         }
       }
@@ -42,18 +42,6 @@ export interface LineFact {
       :not(:last-child):after {
         content: ',';
       }
-    }
-
-    .error {
-      color: red;
-    }
-
-    .info {
-      color: lightseagreen;
-    }
-
-    .other {
-      color: orange;
     }
   `,
   imports: [],

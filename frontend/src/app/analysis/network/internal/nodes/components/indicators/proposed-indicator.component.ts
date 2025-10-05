@@ -1,41 +1,32 @@
-import { inject } from '@angular/core';
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { NetworkNodeRow } from '@api/common/network/network-node-row';
-import { IndicatorComponent } from '@app/shared/components/indicator/indicator.component';
-import { ProposedIndicatorDialogComponent } from './proposed-indicator-dialog.component';
+import { TermComponent } from '@app/shared/components/term/term.component';
 
 @Component({
   selector: 'ui-proposed-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ui-indicator
-      letter="P"
-      i18n-letter="@@proposed-indicator.letter"
-      [color]="color"
-      (openDialog)="onOpenDialog()"
-    />
+    @if (proposed()) {
+      <div>
+        <ui-term
+          level="info"
+          title="Proposed"
+          i18n-title="@@proposed-indicator.blue.title"
+          i18n="@@node-connection-indicator.blue.text"
+        >
+          This node is _"proposed"_. <br /><br />The node has lifecycle prefix "proposed:" in the
+          tag that makes it a network node, or has has tag _"state=proposed"_. The node is assumed
+          to still be in a planning phase and likely not signposted in the field.
+        </ui-term>
+      </div>
+    }
   `,
-  imports: [IndicatorComponent],
+  imports: [TermComponent],
 })
-export class ProposedIndicatorComponent implements OnInit {
+export class ProposedIndicatorComponent {
   readonly node = input.required<NetworkNodeRow>();
-
-  private readonly dialog = inject(MatDialog);
-  color: string;
-
-  ngOnInit(): void {
-    this.color = this.node().detail.proposed ? 'blue' : 'gray';
-  }
-
-  onOpenDialog() {
-    this.dialog.open(ProposedIndicatorDialogComponent, {
-      data: this.color,
-      autoFocus: false,
-      maxWidth: 600,
-    });
-  }
+  readonly proposed = computed(() => this.node().detail.proposed);
 }
