@@ -9,24 +9,20 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (!hasRouteReferences()) {
-      <span class="no-routes" i18n="@@location-nodes.no-routes"> no routes </span>
+      <span class="color-error" i18n="@@location-nodes.no-routes"> no routes </span>
     } @else {
-      <div class="kpn-comma-list route-list">
+      <span class="kpn-comma-list">
         @for (ref of node().routeReferences; track ref) {
           <span>
             <ui-link-route [routeId]="ref.id" [routeName]="ref.name" />
           </span>
         }
-      </div>
+      </span>
     }
   `,
   styles: `
-    .no-routes {
-      color: red;
-    }
-
-    .route-list {
-      display: inline-block;
+    :host {
+      display: block;
     }
   `,
   imports: [LinkRouteComponent],

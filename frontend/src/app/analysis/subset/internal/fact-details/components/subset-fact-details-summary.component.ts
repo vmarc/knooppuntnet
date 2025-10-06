@@ -89,5 +89,5 @@ export class SubsetFactDetailsSummaryComponent {
     () => new Set(this.page().networks.flatMap((n) => n.factRefs.map((r) => r.id))).size
   );
   protected factCount = computed(() => this.page().networks.flatMap((n) => n.factRefs).length);
-  protected fact = computed(() => Facts.facts.get(this.page().fact));
+  protected fact = computed(() => Facts.factDefinitionMap.get(this.page().fact));
 }

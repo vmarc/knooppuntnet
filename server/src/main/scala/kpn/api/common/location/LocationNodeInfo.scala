@@ -16,6 +16,6 @@ case class LocationNodeInfo(
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
   facts: Seq[Fact],
-  expectedRouteCount: String,
+  expectedRouteCount: Option[Long],
   routeReferences: Seq[Reference]
 ) extends LatLon

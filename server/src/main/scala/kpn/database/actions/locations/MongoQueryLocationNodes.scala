@@ -289,7 +289,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         val tagValues = RouteScope.all.map(scope => ScopedRouteType(subset.routeType, scope)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
           doc.tagValue(tagKey)
         }
-        val expectedNodeCount = tagValues.headOption.getOrElse("-")
+        val expectedNodeCount = tagValues.headOption.flatMap(value => value.toLongOption)
         val rowIndex = parameters.pageSize * parameters.pageIndex + index
         LocationNodeInfo(
           rowIndex,

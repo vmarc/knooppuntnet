@@ -53,7 +53,7 @@ import { Facts } from './facts';
           }
         </div>
         <div class="description">
-          <ui-fact-description [factInfo]="factInfo" />
+          <ui-fact-description [fact]="factInfo.fact" />
         </div>
       </div>
     } @empty {

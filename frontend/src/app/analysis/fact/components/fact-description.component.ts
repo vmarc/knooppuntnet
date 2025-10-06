@@ -51,7 +51,6 @@ import { FactRouteUnusedSegmentsComponent } from './descriptions/fact-route-unus
 import { FactRouteWithoutNodesComponent } from './descriptions/fact-route-without-nodes.component';
 import { FactRouteWithoutWaysComponent } from './descriptions/fact-route-without-ways.component';
 import { FactUnexpectedIntegrityCheckComponent } from './descriptions/fact-unexpected-integrity-check.component';
-import { FactInfo } from './fact-info';
 
 @Component({
   selector: 'ui-fact-description',
@@ -62,7 +61,7 @@ import { FactInfo } from './fact-info';
   imports: [NgComponentOutlet],
 })
 export class FactDescriptionComponent {
-  readonly factInfo = input.required<FactInfo>();
+  readonly fact = input.required<Fact>();
 
   private readonly factComponentMap: Record<string, Type<any>> = {
     Added: FactAddedComponent,
@@ -124,16 +123,16 @@ export class FactDescriptionComponent {
 
   getComponentInputs(): Record<string, any> {
     if (this.hasComponentFactInfoInput()) {
-      return { factInfo: this.factInfo() };
+      return { factInfo: this.fact() };
     }
     return {};
   }
 
   private findFactComponent(): Type<any> {
-    return this.factComponentMap[this.factInfo().fact];
+    return this.factComponentMap[this.fact().toString()];
   }
 
   private hasComponentFactInfoInput(): boolean {
-    return !this.findFactComponent() || this.componentsWithFactInfoInput.has(this.factInfo().fact);
+    return !this.findFactComponent() || this.componentsWithFactInfoInput.has(this.fact());
   }
 }

@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { NetworkFact } from '@api/common/network-fact';
 import { RouteType } from '@api/common/route-type';
-import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactDescriptionComponent } from '@app/analysis/fact/components/fact-description.component';
 import { NetworkFactElementsComponent } from '@app/analysis/network/internal/facts/components/network-fact-elements.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
@@ -14,15 +13,14 @@ import { NetworkFactChecksComponent } from './network-fact-checks.component';
   selector: 'ui-network-fact-contents',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @let fact = networkFact();
     <div class="description">
-      <ui-fact-description [factInfo]="factInfo()" />
+      <ui-fact-description [fact]="fact()" />
     </div>
     <ui-divider />
     <div class="sideline">
       <ui-network-fact-elements [routeType]="routeType()" [networkFact]="networkFact()" />
       @if (hasChecks()) {
-        <ui-network-fact-checks [checks]="fact.checks" />
+        <ui-network-fact-checks [checks]="networkFact().checks" />
       }
     </div>
   `,
@@ -49,7 +47,7 @@ import { NetworkFactChecksComponent } from './network-fact-checks.component';
 export class NetworkFactContentsComponent {
   readonly routeType = input.required<RouteType>();
   readonly networkFact = input.required<NetworkFact>();
-  protected readonly factInfo = computed(() => new FactInfo(this.networkFact().fact));
+  protected readonly fact = computed(() => this.networkFact().fact);
   protected readonly hasChecks = computed(
     () => this.networkFact().checks && this.networkFact().checks.length > 0
   );

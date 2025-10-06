@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Fact } from '@api/common/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact/components/fact-description.component';
 import { FactNameComponent } from '@app/analysis/fact/components/fact-name.component';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
@@ -8,7 +7,6 @@ import { ItemComponent } from '@app/shared/components/items/item.component';
 import { ItemsComponent } from '@app/shared/components/items/items.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { RouterService } from '@app/shared/services/router.service';
-import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { Facts } from '@app/analysis/fact/components/facts';
 
 @Component({
@@ -19,12 +17,12 @@ import { Facts } from '@app/analysis/fact/components/facts';
       <h1 i18n="@@fact-page.title">All facts</h1>
 
       <ui-items>
-        @for (factName of allFactNames(); track $index) {
+        @for (fact of facts(); track fact) {
           <ui-item [index]="$index">
             <p>
-              <ui-fact-name [fact]="factName" />
+              <ui-fact-name [fact]="fact" />
             </p>
-            <ui-fact-description [factInfo]="factInfo(factName)" />
+            <ui-fact-description [fact]="fact" />
           </ui-item>
         }
       </ui-items>
@@ -40,11 +38,7 @@ import { Facts } from '@app/analysis/fact/components/facts';
   ],
 })
 export class FactsPageComponent {
-  allFactNames() {
-    return Facts.allFactNames;
-  }
-
-  factInfo(fact: Fact): FactInfo {
-    return new FactInfo(fact);
+  facts() {
+    return Facts.facts;
   }
 }

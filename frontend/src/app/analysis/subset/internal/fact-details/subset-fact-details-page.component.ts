@@ -5,7 +5,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Fact } from '@api/common/fact';
 import { FactLevelComponent } from '@app/analysis/fact/components/fact-level.component';
-import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactDescriptionComponent } from '@app/analysis/fact/components/fact-description.component';
 import { FactNameComponent } from '@app/analysis/fact/components/fact-name.component';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
@@ -20,7 +19,7 @@ import { SubsetFactDetailsPageService } from './subset-fact-details-page.service
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nz-card class="kpn-spacer-above" [nzTitle]="headerTemplate">
-      <ui-fact-description [factInfo]="factInfo()" />
+      <ui-fact-description [fact]="fact()" />
       @if (service.page(); as page) {
         <ui-subset-fact-details-summary [page]="page" />
       }
@@ -63,9 +62,5 @@ export class SubsetFactDetailsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.onInit(this.fact());
-  }
-
-  factInfo(): FactInfo {
-    return new FactInfo(this.service.subsetFact().fact);
   }
 }

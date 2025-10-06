@@ -13,10 +13,16 @@ import { MarkdownComponent } from 'ngx-markdown';
     <span
       [class]="termStyle()"
       nz-popover
-      [nzPopoverTitle]="title()"
+      [nzPopoverTitle]="titleTemplate"
       [nzPopoverContent]="contentTemplate"
-      >{{ title() }}</span
     >
+      <span class="tooltip-link">
+        {{ name() }}
+      </span>
+    </span>
+    <ng-template #titleTemplate>
+      <b>{{ titleText() }}</b>
+    </ng-template>
     <ng-template #contentTemplate>
       <div class="tooltip-content">
         <markdown>
@@ -25,22 +31,12 @@ import { MarkdownComponent } from 'ngx-markdown';
       </div>
     </ng-template>
   `,
-  styles: `
-    /* 'tooltip-link' is used in termStyle signal below */
-    .tooltip-link {
-      text-decoration: underline;
-      text-decoration-style: dotted;
-    }
-
-    .tooltip-content {
-      max-width: 40em;
-      margin-top: 1em;
-    }
-  `,
   imports: [MarkdownComponent, NzPopoverDirective],
 })
 export class TermComponent {
   readonly level = input.required<FactLevel>();
-  readonly title = input.required<string>();
-  readonly termStyle = computed(() => `tooltip-link color-${this.level()}`);
+  readonly name = input.required<string>();
+  readonly title = input<string>();
+  readonly termStyle = computed(() => `color-${this.level()}`);
+  readonly titleText = computed(() => this.title() || this.name());
 }

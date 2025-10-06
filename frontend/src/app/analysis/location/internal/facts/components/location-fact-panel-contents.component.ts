@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { LocationFact } from '@api/common/location/location-fact';
-import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactDescriptionComponent } from '@app/analysis/fact/components/fact-description.component';
 import { IconNodeComponent } from '@app/shared/components/icon/icon-node.component';
 import { IconRouteComponent } from '@app/shared/components/icon/icon-route.component';
@@ -17,7 +16,7 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
   template: `
     @if (locationFact(); as locationFact) {
       <div class="description">
-        <ui-fact-description [factInfo]="factInfo(locationFact)" />
+        <ui-fact-description [fact]="locationFact.fact" />
       </div>
       <div class="sideline">
         @if (locationFact.elementType === 'route') {
@@ -71,8 +70,4 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
 })
 export class LocationFactPanelContentsComponent {
   readonly locationFact = input.required<LocationFact>();
-
-  factInfo(locationFact: LocationFact): FactInfo {
-    return new FactInfo(locationFact.fact);
-  }
 }

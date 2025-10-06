@@ -19,7 +19,7 @@ export class SubsetFactDetailsPageService {
   readonly subsetFact = this._subsetFact.asReadonly();
   readonly response = this._response.asReadonly();
   readonly page = computed(() => this.response()?.result);
-  readonly factDefinition = computed(() => Facts.facts.get(this.subsetFact().fact));
+  readonly factDefinition = computed(() => Facts.factDefinitionMap.get(this.subsetFact().fact));
 
   onInit(fact: Fact): void {
     this.subsetService.setPageName('facts');

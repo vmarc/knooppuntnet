@@ -61,7 +61,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
           Timestamps.default,
           None,
           Seq.empty,
-          "-",
+          None,
           Seq.empty
         ),
         LocationNodeInfo(
@@ -74,7 +74,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
           Timestamps.default,
           None,
           Seq.empty,
-          "-",
+          None,
           Seq.empty
         )
       )
@@ -170,7 +170,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
           Timestamps.default,
           Some(Day(2020, 8)),
           Seq.empty,
-          "-",
+          None,
           Seq.empty
         )
       )
@@ -298,7 +298,7 @@ class MongoQueryLocationNodesTest extends MongoTest {
           Timestamps.default,
           None,
           Seq(Fact.NodeInvalidSurveyDate),
-          "-",
+          None,
           Seq.empty
         )
       )

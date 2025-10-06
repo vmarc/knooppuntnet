@@ -22,34 +22,21 @@ import { NetworkNodeRoutesComponent } from './network-node-routes.component';
       <ui-link-node [nodeId]="node.detail.id" [nodeName]="node.detail.name" />
       <span>{{ node.detail.longName }}</span>
     </div>
+    @if (node.detail.lastSurvey) {
+      <div class="kpn-line">
+        <span i18n="@@network-nodes.table.last-survey" class="kpn-label">Survey</span>
+        <span>
+          {{ node.detail.lastSurvey | day }}
+        </span>
+      </div>
+    }
     <div class="kpn-line">
-      <ui-network-node-analysis
-        [routeType]="routeType()"
-        [routeScope]="routeScope()"
-        [node]="node"
-      />
-      @if (node.detail.lastSurvey) {
-        <span>
-          <span i18n="@@network-nodes.table.last-survey" class="kpn-label">Survey</span>
-          <span>
-            {{ node.detail.lastSurvey | day }}
-          </span>
-        </span>
-      }
+      <span i18n="@@network-nodes.table.last-edit" class="kpn-label">Last edit</span>
       <span>
-        <span i18n="@@network-nodes.table.last-edit" class="kpn-label">Last edit</span>
-        <span>
-          <ui-day [timestamp]="node.detail.timestamp" />
-        </span>
+        <ui-day [timestamp]="node.detail.timestamp" />
       </span>
     </div>
-    <div>
-      <span>
-        <span i18n="@@network-nodes.table.routes.expected" class="kpn-label">Expected</span>
-        <span>{{ expectedRouteCount(node) }}</span>
-      </span>
-    </div>
-
+    <ui-network-node-analysis [routeType]="routeType()" [routeScope]="routeScope()" [node]="node" />
     <div>
       <ui-network-node-routes [node]="node" />
     </div>
@@ -68,10 +55,4 @@ export class NetworkNodeListItemComponent {
   readonly routeScope = input.required<RouteScope>();
   readonly rowNumber = input.required<number>();
   readonly row = input.required<NetworkNodeRow>();
-
-  expectedRouteCount(node: NetworkNodeRow): string {
-    return this.row().detail.expectedRouteCount
-      ? this.row().detail.expectedRouteCount.toString()
-      : '-';
-  }
 }

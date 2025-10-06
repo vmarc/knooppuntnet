@@ -40,7 +40,7 @@ object LocationNodesPageExample {
           lastUpdated = Timestamp(2018, 11, 8),
           lastSurvey = None,
           facts = Seq(Fact.NodeInvalidSurveyDate),
-          expectedRouteCount = "3",
+          expectedRouteCount = Some(3),
           routeReferences = Seq(
             Reference(RouteType.hiking, RouteScope.regional, 101, "01-02", None),
             Reference(RouteType.hiking, RouteScope.regional, 102, "01-03", None)

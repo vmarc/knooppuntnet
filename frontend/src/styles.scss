@@ -694,3 +694,12 @@ input[type=number] {
   color: orange;
 }
 
+.tooltip-link {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+.tooltip-content {
+  max-width: 40em;
+  margin-top: 1em;
+}

@@ -37,7 +37,7 @@ class LocationNodeInfoCodec(registry: CodecRegistry) extends Codec[LocationNodeI
     var lastUpdated: Timestamp = null
     var lastSurvey: Option[Day] = None
     var facts: Seq[Fact] = null
-    var expectedRouteCount: String = null
+    var expectedRouteCount: Option[Long] = None
     var routeReferences: Seq[Reference] = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
@@ -76,7 +76,7 @@ class LocationNodeInfoCodec(registry: CodecRegistry) extends Codec[LocationNodeI
         facts = valueBuffer.toSeq
       }
       else if (fieldName == "expectedRouteCount") {
-        expectedRouteCount = stringCodec.decode(bsonReader, decoderContext)
+        expectedRouteCount = Some(longCodec.decode(bsonReader, decoderContext))
       }
       else if (fieldName == "routeReferences") {
         bsonReader.readStartArray()
@@ -144,8 +144,10 @@ class LocationNodeInfoCodec(registry: CodecRegistry) extends Codec[LocationNodeI
     value.facts.foreach(v => factCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
-    bsonWriter.writeName("expectedRouteCount")
-    stringCodec.encode(bsonWriter, value.expectedRouteCount, encoderContext)
+    if (value.expectedRouteCount.isDefined) {
+      bsonWriter.writeName("expectedRouteCount")
+      longCodec.encode(bsonWriter, value.expectedRouteCount.get, encoderContext)
+    }
 
     bsonWriter.writeName("routeReferences")
     bsonWriter.writeStartArray()

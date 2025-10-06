@@ -81,7 +81,7 @@ export class Facts {
     new FactDefinition('UnexpectedIntegrityCheck', 'error', FactElement.node),
   ];
 
-  static readonly facts: Map<Fact, FactDefinition> = new Map(
+  static readonly factDefinitionMap: Map<Fact, FactDefinition> = new Map(
     Facts.factDefinitions.map((f) => {
       const row: [Fact, FactDefinition] = [f.fact, f];
       return row;
@@ -89,8 +89,8 @@ export class Facts {
   );
 
   static factLevel(fact: Fact): FactLevel {
-    return this.facts.get(fact).level;
+    return this.factDefinitionMap.get(fact).level;
   }
 
-  static readonly allFactNames = Facts.facts.keys();
+  static readonly facts = Facts.factDefinitionMap.keys();
 }

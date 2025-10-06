@@ -46,7 +46,7 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
                     <span>({{ factCount.count }})</span>
                     <ui-fact-level [factLevel]="factLevel(factCount.fact)" />
                   </div>
-                  <ui-fact-description [factInfo]="factInfo(factCount)" />
+                  <ui-fact-description [fact]="factCount.fact" />
                 </ui-item>
               }
             </ui-items>

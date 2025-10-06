@@ -82,7 +82,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
             lastUpdated = Timestamp(2021, 11, 6, 21, 23, 13),
             lastSurvey = None,
             facts = Seq.empty,
-            expectedRouteCount = "-",
+            expectedRouteCount = None,
             routeReferences = Seq.empty
           )
         )

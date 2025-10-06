@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { Fact } from '@api/common/fact';
 import { FactLevel } from '@api/common/fact-level';
+import { FactTermComponent } from '@app/analysis/fact/components/fact-term.component';
 import { Facts } from '@app/analysis/fact/components/facts';
 
 export interface LineFact {
@@ -16,18 +17,8 @@ export interface LineFact {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="facts">
-      @for (lineFact of lineFacts(); track lineFact.fact) {
-        @switch (lineFact.level) {
-          @case ('error') {
-            <span class="color-error">{{ lineFact.fact }}</span>
-          }
-          @case ('info') {
-            <span class="color-info">{{ lineFact.fact }}</span>
-          }
-          @default {
-            <span class="color-other">{{ lineFact.fact }}</span>
-          }
-        }
+      @for (fact of facts(); track fact) {
+        <ui-fact-term [fact]="fact" />
       }
     </div>
   `,
@@ -44,7 +35,7 @@ export interface LineFact {
       }
     }
   `,
-  imports: [],
+  imports: [FactTermComponent],
 })
 export class FactsLineComponent {
   readonly facts = input.required<Fact[]>();
