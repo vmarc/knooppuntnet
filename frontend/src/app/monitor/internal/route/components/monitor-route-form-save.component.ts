@@ -1,11 +1,9 @@
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { MonitorWebsocketService } from '../../monitor-websocket.service';
 import { MonitorRouteSaveStep } from '../monitor-route-save-step';
 import { MonitorRouteFormErrorsComponent } from './monitor-route-form-errors.component';
@@ -29,7 +27,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 
     <div class="kpn-button-group">
       <button
-        mat-stroked-button
+        nz-button
         id="back-to-group-button"
         (click)="backToGroup()"
         [disabled]="done() === false"
@@ -38,7 +36,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
         Back to group
       </button>
       <button
-        mat-stroked-button
+        nz-button
         id="goto-analysis-result-button"
         (click)="gotoAnalysisResult()"
         [disabled]="done() === false"
@@ -48,13 +46,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
       </button>
     </div>
   `,
-  imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MonitorRouteFormSaveStepComponent,
-    MonitorRouteFormErrorsComponent,
-  ],
+  imports: [MonitorRouteFormSaveStepComponent, MonitorRouteFormErrorsComponent, NzButtonComponent],
 })
 export class MonitorRouteFormSaveComponent {
   readonly command = input.required<MonitorRouteUpdate>();

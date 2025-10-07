@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { Translations } from '@app/shared/i18n/translations';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
@@ -27,7 +26,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
       height: 24px;
     }
   `,
-  imports: [MatIconModule, NzButtonComponent, NzIconDirective],
+  imports: [NzButtonComponent, NzIconDirective],
 })
 export class DocLinkComponent {
   readonly subject = input.required<string>();

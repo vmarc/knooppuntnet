@@ -1,7 +1,6 @@
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { LocationKey } from '@api/custom/location-key';
 import { CountryNameComponent } from '@app/shared/components/country-name.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
@@ -13,7 +12,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (key(); as key) {
-      <ui-page-header [pageTitle]="'Locations'" subject="network-page">
+      <ui-page-header pageTitle="Locations" subject="network-page">
         <span class="header-route-type-icon">
           <nz-icon [nzType]="key.routeType" />
         </span>
@@ -32,13 +31,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
       content: ' ';
     }
   `,
-  imports: [
-    CountryNameComponent,
-    MatIconModule,
-    NzIconDirective,
-    PageHeaderComponent,
-    RouteTypeNameComponent,
-  ],
+  imports: [CountryNameComponent, NzIconDirective, PageHeaderComponent, RouteTypeNameComponent],
 })
 export class LocationSelectionPageHeaderComponent {
   readonly key = input.required<LocationKey>();

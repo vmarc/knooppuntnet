@@ -5,7 +5,6 @@ import { ElementRef } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +13,7 @@ import { PreferencesService } from '@app/shared/core/preferences/preferences.ser
 import { ApiService } from '@app/shared/services/api.service';
 import { DialogComponent } from '@app/shared/components/dialog/dialog.component';
 import { Util } from '@app/shared/components/util';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { ClipboardModule } from 'ngx-clipboard';
 import { PlanUtil } from '../../../domain/plan/plan-util';
 import { PdfService } from '../../../pdf/pdf.service';
@@ -44,7 +44,7 @@ import { PlannerService } from '../planner.service';
         </mat-form-field>
 
         <button
-          mat-stroked-button
+          nz-button
           (click)="printTextDocument()"
           title="Produce a route pdf file in 'text' format"
           i18n-title="@@plan.output.text.tooltip"
@@ -54,7 +54,7 @@ import { PlannerService } from '../planner.service';
         </button>
 
         <button
-          mat-stroked-button
+          nz-button
           (click)="printDocument()"
           title="Produce a route pdf file with compact node overview"
           i18n-title="@@plan.output.compact-pdf.tooltip"
@@ -64,7 +64,7 @@ import { PlannerService } from '../planner.service';
         </button>
 
         <button
-          mat-stroked-button
+          nz-button
           (click)="printStripDocument()"
           title="Produce a route pdf file with nodes in 'strip' format"
           i18n-title="@@plan.output.node-strip-pdf.tooltip"
@@ -74,7 +74,7 @@ import { PlannerService } from '../planner.service';
         </button>
 
         <button
-          mat-stroked-button
+          nz-button
           (click)="gpx()"
           title="Produce a route file that can be used in a gps-device"
           i18n-title="@@plan.output.gpx.tooltip"
@@ -84,7 +84,7 @@ import { PlannerService } from '../planner.service';
         </button>
 
         <button
-          mat-stroked-button
+          nz-button
           ngxClipboard
           [cbContent]="planUrl"
           title="Copy a link to this route to the clipboard (for example to keep for later or paste in email)"
@@ -122,11 +122,11 @@ import { PlannerService } from '../planner.service';
   imports: [
     ClipboardModule,
     DialogComponent,
-    MatButtonModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    NzButtonComponent,
   ],
 })
 export class PlanOutputDialogComponent implements OnInit, AfterViewInit {

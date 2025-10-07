@@ -8,12 +8,12 @@ import { Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { Translations } from '@app/shared/i18n/translations';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { TimestampUtil } from '@app/shared/components/timestamp-util';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { MonitorWebsocketService } from '../../monitor-websocket.service';
 import { MonitorRouteFormErrorsComponent } from '../components/monitor-route-form-errors.component';
 import { MonitorRouteFormSaveStepComponent } from '../components/monitor-route-form-save-step.component';
@@ -57,9 +57,9 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
             @if (busy() === false) {
               <div class="kpn-button-group">
                 <button
-                  mat-raised-button
+                  nz-button
+                  nzType="primary"
                   id="save"
-                  color="primary"
                   (click)="save()"
                   [disabled]="form.invalid"
                   i18n="@@action.upload"
@@ -81,7 +81,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 
           <div class="kpn-button-group">
             <button
-              mat-stroked-button
+              nz-button
               id="goto-analysis-result-button"
               [routerLink]="state.routeLink"
               [disabled]="done() === false"
@@ -103,11 +103,11 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   `,
   providers: [MonitorRouteGpxService, MonitorWebsocketService, NavService],
   imports: [
-    MatButtonModule,
     MonitorRouteFormErrorsComponent,
     MonitorRouteFormSaveStepComponent,
     MonitorRouteGpxBreadcrumbComponent,
     MonitorRouteGpxReferenceComponent,
+    NzButtonComponent,
     PageComponent,
     ReactiveFormsModule,
     RouterLink,

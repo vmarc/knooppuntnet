@@ -1,10 +1,10 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { RouterLink } from '@angular/router';
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'ui-subset-map-network-dialog',
@@ -37,9 +37,7 @@ import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
         </div>
       </div>
       <div mat-dialog-actions>
-        <button mat-stroked-button (click)="closeDialog()" i18n="@@subset-map.dialog.close">
-          Close
-        </button>
+        <button nz-button (click)="closeDialog()" i18n="@@subset-map.dialog.close">Close</button>
       </div>
     </div>
   `,
@@ -52,7 +50,7 @@ import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
       padding-top: 2em;
     }
   `,
-  imports: [MatDialogModule, RouterLink, MatButtonModule],
+  imports: [MatDialogModule, RouterLink, NzButtonComponent],
 })
 export class SubsetMapNetworkDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<SubsetMapNetworkDialogComponent>);

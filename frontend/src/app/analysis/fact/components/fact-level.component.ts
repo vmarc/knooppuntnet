@@ -9,13 +9,13 @@ import { FactLevel } from '@api/common/fact-level';
   template: `
     @switch (factLevel()) {
       @case ('info') {
-        <div class="info circle"></div>
+        <div class="color-info circle"></div>
       }
       @case ('error') {
-        <div class="error circle"></div>
+        <div class="color-error circle"></div>
       }
       @case ('other') {
-        <div class="other circle"></div>
+        <div class="color-other circle"></div>
       }
     }
   `,
@@ -25,18 +25,6 @@ import { FactLevel } from '@api/common/fact-level';
       width: 12px;
       height: 12px;
       border-radius: 50%;
-    }
-
-    .info {
-      background: rgb(102, 187, 106); /* material green400 */
-    }
-
-    .error {
-      background: rgb(239, 83, 80); /* material red400 */
-    }
-
-    .other {
-      background: rgb(255, 167, 38); /* material orange400 */
     }
   `,
 })

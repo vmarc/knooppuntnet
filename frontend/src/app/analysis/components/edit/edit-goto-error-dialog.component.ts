@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'ui-edit-goto-error-dialog',
@@ -23,7 +23,7 @@ import { MatDialogRef } from '@angular/material/dialog';
     </div>
     <div mat-dialog-actions>
       <p>
-        <button mat-raised-button (click)="close()" i18n="@@edit-goto-error-dialog.close">
+        <button nz-button nzType="link" (click)="close()" i18n="@@edit-goto-error-dialog.close">
           Close
         </button>
       </p>
@@ -34,7 +34,7 @@ import { MatDialogRef } from '@angular/material/dialog';
       min-width: 20em;
     }
   `,
-  imports: [MatButtonModule, MatDialogModule],
+  imports: [MatDialogModule, NzButtonComponent],
 })
 export class EditGotoErrorDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<EditGotoErrorDialogComponent>);

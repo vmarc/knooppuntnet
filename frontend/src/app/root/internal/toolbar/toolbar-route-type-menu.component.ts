@@ -2,8 +2,6 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { State } from '@app/state/state';
 import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzDropDownDirective } from 'ng-zorro-antd/dropdown';
@@ -70,8 +68,6 @@ import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-ite
   `,
   imports: [
     FormsModule,
-    MatButtonModule,
-    MatIconModule,
     NzDropDownDirective,
     NzDropdownMenuComponent,
     NzIconDirective,

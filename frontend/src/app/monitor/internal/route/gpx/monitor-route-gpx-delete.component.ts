@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { Translations } from '@app/shared/i18n/translations';
 import { DataComponent } from '@app/shared/components/data/data.component';
@@ -10,6 +9,7 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { TimestampDayPipe } from '@app/shared/components/format/timestamp-day.pipe';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { MonitorWebsocketService } from '../../monitor-websocket.service';
 import { MonitorRouteFormErrorsComponent } from '../components/monitor-route-form-errors.component';
 import { MonitorRouteFormSaveStepComponent } from '../components/monitor-route-form-save-step.component';
@@ -50,7 +50,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 
             @if (busy() === false) {
               <div class="kpn-button-group">
-                <button mat-stroked-button (click)="delete()">
+                <button nz-button (click)="delete()">
                   <span class="delete-button" i18n="@@monitor.route.gpx.delete.action">
                     Delete reference
                   </span>
@@ -69,7 +69,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 
           <div class="kpn-button-group">
             <button
-              mat-stroked-button
+              nz-button
               id="goto-analysis-result-button"
               [routerLink]="state.routeLink"
               [disabled]="done() === false"
@@ -97,7 +97,6 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   imports: [
     DataComponent,
     DistancePipe,
-    MatButtonModule,
     MonitorRouteFormErrorsComponent,
     MonitorRouteFormSaveStepComponent,
     MonitorRouteGpxBreadcrumbComponent,
@@ -106,6 +105,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
     TimestampDayPipe,
     TimestampDayPipe,
     DistancePipe,
+    NzButtonComponent,
   ],
 })
 export class MonitorRouteGpxDeleteComponent implements OnDestroy {

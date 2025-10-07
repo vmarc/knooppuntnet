@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { DayInputComponent } from '@app/shared/components/format/day-input.component';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'ui-monitor-route-gpx-reference',
@@ -22,7 +22,7 @@ import { DayInputComponent } from '@app/shared/components/format/day-input.compo
         #fileInput
       />
       <button
-        mat-stroked-button
+        nz-button
         (click)="fileInput.click()"
         type="button"
         i18n="@@monitor.route.properties.reference-details.file.select"
@@ -93,7 +93,7 @@ import { DayInputComponent } from '@app/shared/components/format/day-input.compo
       display: none;
     }
   `,
-  imports: [DayInputComponent, MatButtonModule],
+  imports: [DayInputComponent, NzButtonComponent],
 })
 export class MonitorRouteGpxReferenceComponent {
   readonly ngForm = input.required<FormGroupDirective>();

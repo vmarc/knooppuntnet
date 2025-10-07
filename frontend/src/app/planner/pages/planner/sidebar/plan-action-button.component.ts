@@ -4,8 +4,6 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { PageWidthService } from '@app/shared/components/page-width.service';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
@@ -31,7 +29,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
       </button>
     }
   `,
-  imports: [MatButtonModule, MatIconModule, NzIconDirective, NzButtonComponent],
+  imports: [NzIconDirective, NzButtonComponent],
 })
 export class PlanActionButtonComponent {
   readonly enabled = input(false);

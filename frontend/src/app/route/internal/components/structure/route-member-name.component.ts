@@ -2,7 +2,6 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { StructureRow } from '@api/common/route/structure-row';
 
@@ -43,7 +42,7 @@ import { StructureRow } from '@api/common/route/structure-row';
       margin-right: 2em;
     }
   `,
-  imports: [MatIconModule, RouterLink],
+  imports: [RouterLink],
 })
 export class RouteMemberNameComponent {
   readonly structureRow = input.required<StructureRow>();

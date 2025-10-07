@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { StructureRow } from '@api/common/route/structure-row';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
@@ -42,7 +41,7 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
       font-weight: 800;
     }
   `,
-  imports: [MatIconModule, DistancePipe, MatTooltip, DistancePipe],
+  imports: [DistancePipe, MatTooltip, DistancePipe],
 })
 export class RouteDistanceComponent {
   readonly structureRow = input.required<StructureRow>();

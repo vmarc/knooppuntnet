@@ -2,7 +2,6 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { ParentRoute } from '@api/common/route/parent-route';
 
@@ -36,7 +35,7 @@ import { ParentRoute } from '@api/common/route/parent-route';
       margin-left: 6em;
     }
   `,
-  imports: [MatIconModule, RouterLink, NgClass],
+  imports: [RouterLink, NgClass],
 })
 export class RouteParentsComponent {
   readonly parentRoutes = input.required<Array<ParentRoute>>();

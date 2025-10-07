@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { LocationDetailsPage } from '@api/common/location/location-details-page';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { ZeroIntegerFormatPipe } from '@app/shared/components/format/zero-integer-format.pipe';
@@ -26,7 +25,7 @@ import { ZeroIntegerFormatPipe } from '@app/shared/components/format/zero-intege
       </span>
     </span>
   `,
-  imports: [MatIconModule, DistancePipe, ZeroIntegerFormatPipe, DistancePipe],
+  imports: [DistancePipe, ZeroIntegerFormatPipe],
 })
 export class LocationSummaryComponent {
   readonly page = input.required<LocationDetailsPage>();

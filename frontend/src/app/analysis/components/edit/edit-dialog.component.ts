@@ -4,13 +4,13 @@ import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Translations } from '@app/shared/i18n/translations';
 import { Subscriptions } from '@app/util/subscriptions';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { EditParameters } from './edit-parameters';
 import { EditService } from './edit.service';
 
@@ -18,6 +18,7 @@ import { EditService } from './edit.service';
   selector: 'ui-edit-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     <div mat-dialog-title class="dialog" i18n="@@edit-dialog.title">Load in editor</div>
 
     <div mat-dialog-content>
@@ -56,12 +57,14 @@ import { EditService } from './edit.service';
     <div mat-dialog-actions>
       @if (editService.showProgress()) {
         <p>
-          <button mat-raised-button (click)="cancel()">{{ cancelButtonText }}</button>
+          <button nz-button nzType="link" (click)="cancel()">{{ cancelButtonText }}</button>
         </p>
       }
       @if (editService.error()) {
         <p>
-          <button mat-raised-button (click)="close()" i18n="@@edit-dialog.close">Close</button>
+          <button nz-button nzType="link" (click)="close()" i18n="@@edit-dialog.close">
+            Close
+          </button>
         </p>
       }
     </div>
@@ -76,7 +79,7 @@ import { EditService } from './edit.service';
     }
   `,
   providers: [EditService],
-  imports: [MatButtonModule, MatDialogModule, MatProgressBarModule],
+  imports: [MatDialogModule, MatProgressBarModule, NzButtonComponent],
 })
 export class EditDialogComponent implements OnInit, OnDestroy {
   protected readonly parameters: EditParameters = inject(MAT_DIALOG_DATA);
