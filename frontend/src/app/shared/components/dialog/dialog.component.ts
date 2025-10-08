@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'ui-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button mat-icon-button class="close-button" mat-dialog-close>
-      <mat-icon svgIcon="remove" />
+    <button nz-button class="close-button" mat-dialog-close>
+      <nz-icon nzType="close" />
     </button>
     <ng-content />
   `,
@@ -19,6 +19,6 @@ import { MatButtonModule } from '@angular/material/button';
       z-index: 100;
     }
   `,
-  imports: [MatButtonModule, MatDialogModule, MatIconModule],
+  imports: [MatDialogModule, NzIconDirective, NzButtonComponent],
 })
 export class DialogComponent {}

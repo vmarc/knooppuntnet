@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { MarkdownComponent } from 'ngx-markdown';
 import { Stat } from '../../domain/stat';
 import { OverviewListStatTableComponent } from './overview-list-stat-table.component';
@@ -15,9 +15,9 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
         <div (click)="toggleOpen()" class="title">
           <span class="expand-collapse-icon">
             @if (open) {
-              <mat-icon svgIcon="expand" />
+              <nz-icon nzType="up" />
             } @else {
-              <mat-icon svgIcon="collapse" />
+              <nz-icon nzType="right" />
             }
           </span>
           <span class="name">
@@ -95,7 +95,7 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
       max-width: 40em;
     }
   `,
-  imports: [MarkdownComponent, MatIconModule, OverviewListStatTableComponent],
+  imports: [MarkdownComponent, NzIconDirective, OverviewListStatTableComponent],
 })
 export class OverviewListStatComponent {
   readonly stat = input.required<Stat>();

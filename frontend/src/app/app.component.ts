@@ -6,7 +6,6 @@ import { RouteConfigLoadEnd } from '@angular/router';
 import { RouteConfigLoadStart } from '@angular/router';
 import { Router } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
-import { IconService } from '@app/shared/services/icon.service';
 import { Version } from '@app/shared/services/version';
 import { SpinnerService } from '@app/shared/spinner/spinner.service';
 import { Subscriptions } from '@app/util/subscriptions';
@@ -24,7 +23,6 @@ import { RootPageComponent } from './root/internal/root.component';
   imports: [RootPageComponent, RouterOutlet],
 })
 export class AppComponent implements OnDestroy {
-  private readonly iconService = inject(IconService);
   private readonly spinnerService = inject(SpinnerService);
   private readonly router = inject(Router);
 

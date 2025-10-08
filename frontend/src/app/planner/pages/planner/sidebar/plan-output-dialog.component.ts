@@ -7,13 +7,13 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { PreferencesService } from '@app/shared/core/preferences/preferences.service';
 import { ApiService } from '@app/shared/services/api.service';
 import { DialogComponent } from '@app/shared/components/dialog/dialog.component';
 import { Util } from '@app/shared/components/util';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ClipboardModule } from 'ngx-clipboard';
 import { PlanUtil } from '../../../domain/plan/plan-util';
 import { PdfService } from '../../../pdf/pdf.service';
@@ -26,7 +26,7 @@ import { PlannerService } from '../planner.service';
     <ui-dialog>
       <div mat-dialog-title>
         <div class="kpn-line">
-          <mat-icon svgIcon="output" />
+          <nz-icon nzType="export" />
           <span i18n="@@plan.output.title">Output</span>
         </div>
       </div>
@@ -124,9 +124,9 @@ import { PlannerService } from '../planner.service';
     DialogComponent,
     MatDialogModule,
     MatFormFieldModule,
-    MatIconModule,
     MatInputModule,
     NzButtonComponent,
+    NzIconDirective,
   ],
 })
 export class PlanOutputDialogComponent implements OnInit, AfterViewInit {

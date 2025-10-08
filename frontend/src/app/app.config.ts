@@ -12,7 +12,6 @@ import { ErrorHandler } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -21,7 +20,6 @@ import { provideRouter } from '@angular/router';
 import { Router } from '@angular/router';
 import { PreferencesService } from '@app/shared/core/preferences/preferences.service';
 import { ApiService } from '@app/shared/services/api.service';
-import { IconService } from '@app/shared/services/icon.service';
 import { OldPoiService } from '@app/shared/services/old-poi.service';
 import { OldPoiNameService } from '@app/shared/services/old-poi-name.service';
 import { EditService } from '@app/shared/components/edit.service';
@@ -66,7 +64,6 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       BrowserModule,
       LayoutModule,
-      MatIconModule,
       MatSidenavModule,
       MatButtonModule,
       MatDialogModule
@@ -88,7 +85,6 @@ export const appConfig: ApplicationConfig = {
     { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
     ApiService,
     EditService,
-    IconService,
     MapService,
     PlannerStateService,
     RouterService,
@@ -97,7 +93,6 @@ export const appConfig: ApplicationConfig = {
     MapInteractionsService,
     MapRoutePopupInteractionService,
     MatDialog,
-    MatIconRegistry,
     OldPoiNameService,
     OldPoiService,
     PageService,

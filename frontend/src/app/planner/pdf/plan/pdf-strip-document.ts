@@ -1,6 +1,5 @@
 import { jsPDF } from 'jspdf';
 import { Plan } from '../../domain/plan/plan';
-import { BitmapIconService } from '../services/bitmap-icon.service';
 import { PdfFooter } from './pdf-footer';
 import { PdfPage } from './pdf-page';
 import { PdfPlanBuilder } from './pdf-plan-builder';
@@ -15,8 +14,7 @@ export class PdfStripDocument {
 
   constructor(
     plan: Plan,
-    private name: string,
-    private iconService: BitmapIconService
+    private name: string
   ) {
     const pdfPlan = PdfPlanBuilder.fromPlan(plan);
     this.model = new PdfStripDocumentModel(pdfPlan.nodes);
@@ -106,9 +104,9 @@ export class PdfStripDocument {
     this.doc.line(x, PdfPage.yContentsTop, x, y);
     this.doc.setLineDashPattern([], 0);
 
-    this.iconService.getIcon('scissors').subscribe((icon) => {
-      this.doc.addImage(icon, 'PNG', x - 3, y - 10, 6, 6, '', 'FAST');
-    });
+    // this.iconService.getIcon('scissors').subscribe((icon) => {
+    //   this.doc.addImage(icon, 'PNG', x - 3, y - 10, 6, 6, '', 'FAST');
+    // });
 
     this.doc.setDrawColor(1);
   }

@@ -3,8 +3,8 @@ import { AfterViewChecked } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { MonitorRouteSaveStep } from '../monitor-route-save-step';
 import { ChangeDetectionStrategy } from '@angular/core';
 
@@ -15,15 +15,15 @@ import { ChangeDetectionStrategy } from '@angular/core';
     <div #stepDiv class="kpn-line kpn-spacer-below">
       <div class="icon">
         @if (step().status === 'busy') {
-          <mat-spinner diameter="20" />
+          <nz-icon nzType="loading" />
         }
 
         @if (step().status === 'todo') {
-          <mat-icon svgIcon="dot" class="todo" />
+          <nz-icon nzType="minus" class="todo" />
         }
 
         @if (step().status === 'done') {
-          <mat-icon svgIcon="tick" class="done" />
+          <nz-icon nzType="check" class="done" />
         }
       </div>
       <span>{{ step().description }}</span>
@@ -45,7 +45,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
       height: 0.3em;
     }
   `,
-  imports: [MatIconModule, MatProgressSpinnerModule],
+  imports: [MatProgressSpinnerModule, NzIconDirective],
 })
 export class MonitorRouteFormSaveStepComponent implements AfterViewChecked {
   readonly step = input.required<MonitorRouteSaveStep>();

@@ -2,8 +2,6 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Params } from '@angular/router';
@@ -15,6 +13,8 @@ import { TimestampDayPipe } from '@app/shared/components/format/timestamp-day.pi
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { SymbolComponent } from '@app/symbol/symbol.component';
 import { ActionButtonRelationComponent } from '@app/analysis/components/action/action-button-relation.component';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
 
 @Component({
@@ -120,7 +120,6 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
       </div>
     }
 
-    @if (structureRow().deviationCount > 0) {}
     <div class="kpn-line">
       <span i18n="@@monitor.group.route-table.deviations" class="kpn-label"> Deviations </span>
       <span>
@@ -148,7 +147,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
       <span class="kpn-action-cell">
         @if (structureRow().physical) {
           <button
-            mat-icon-button
+            nz-button
             [routerLink]="uploadGpx()"
             [queryParams]="subRelationIdQueryParams(structureRow())"
             [disabled]="!canUpload()"
@@ -157,7 +156,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
             class="kpn-action-button"
             [class.kpn-disabled]="!canUpload()"
           >
-            <mat-icon svgIcon="upload" />
+            <nz-icon nzType="upload" />
           </button>
           <button
             [routerLink]="deleteGpx()"
@@ -169,7 +168,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
             [class.kpn-disabled]="!structureRow().referenceFilename"
             [class.kpn-warning]="structureRow().referenceFilename"
           >
-            <mat-icon svgIcon="garbage" />
+            <nz-icon nzType="delete" />
           </button>
         }
       </span>
@@ -217,14 +216,13 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
     ActionButtonRelationComponent,
     DayPipe,
     DistancePipe,
-    DistancePipe,
     IconHappyComponent,
-    MatButtonModule,
-    MatIconModule,
     MatTableModule,
     MatTooltipModule,
     MonitorRouteGapComponent,
     NgClass,
+    NzButtonComponent,
+    NzIconDirective,
     RouterLink,
     SymbolComponent,
     TimestampDayPipe,

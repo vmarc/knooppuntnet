@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { TagDiffType } from '@api/common/diff/tag-diff-type';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'ui-tag-diff-action',
@@ -10,17 +10,17 @@ import { TagDiffType } from '@api/common/diff/tag-diff-type';
   template: `
     @switch (action()) {
       @case ('add') {
-        <mat-icon svgIcon="add" />
+        <nz-icon nzType="add" />
       }
       @case ('update') {
-        <mat-icon svgIcon="update" />
+        <nz-icon nzType="sync" />
       }
       @case ('delete') {
-        <mat-icon svgIcon="remove" />
+        <nz-icon nzType="close" />
       }
     }
   `,
-  imports: [MatIconModule],
+  imports: [NzIconDirective],
 })
 export class TagDiffActionComponent {
   readonly action = input.required<TagDiffType>();
