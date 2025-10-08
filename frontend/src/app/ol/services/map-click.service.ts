@@ -1,4 +1,5 @@
 import { Location } from '@angular/common';
+import { DOCUMENT } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -19,6 +20,8 @@ import MapBrowserEventType from 'ol/MapBrowserEventType';
 export class MapClickService {
   private readonly router = inject(Router);
   private readonly location = inject(Location);
+  private readonly document = inject(DOCUMENT);
+  private readonly window = this.document?.defaultView;
 
   private interaction: Interaction = this.buildInteraction();
   private ctrl = false;
@@ -33,6 +36,7 @@ export class MapClickService {
 
   private buildInteraction(): Interaction {
     return new Interaction({
+      // @ts-ignore
       handleEvent: (event: MapBrowserEvent<UIEvent>) => {
         const ctrlState = platformModifierKeyOnly(event);
         if (ctrlState === true || ctrlState === false) {
@@ -49,6 +53,7 @@ export class MapClickService {
     });
   }
 
+  // @ts-ignore
   private handleSingleClickEvent(evt: MapBrowserEvent<UIEvent>): boolean {
     const features = this.getFeatures(evt);
     const nodeFeature = this.findFeature(features, this.isNode);
@@ -64,6 +69,7 @@ export class MapClickService {
     return true; // propagate event
   }
 
+  // @ts-ignore
   private handleMoveEvent(evt: MapBrowserEvent<UIEvent>): boolean {
     let cursorStyle = 'default';
     if (this.isHooveringOverNodeOrRoute(evt)) {
@@ -73,6 +79,7 @@ export class MapClickService {
     return true; // propagate event
   }
 
+  // @ts-ignore
   private getFeatures(evt: MapBrowserEvent<UIEvent>): Array<FeatureLike> {
     return evt.map.getFeaturesAtPixel(evt.pixel, { hitTolerance: 10 });
   }
@@ -96,7 +103,7 @@ export class MapClickService {
     const url = `/analysis/route/${routeId}`;
     if (openNewTab) {
       const externalUrl = this.location.prepareExternalUrl(url);
-      window.open(externalUrl);
+      this.window.open(externalUrl);
     } else {
       this.interaction.getMap().removeInteraction(this.interaction);
       setTimeout(() => this.router.navigateByUrl(url, { state: { routeName } }), 250);
@@ -109,13 +116,14 @@ export class MapClickService {
     const url = `/analysis/node/${nodeId}`;
     if (openNewTab) {
       const externalUrl = this.location.prepareExternalUrl(url);
-      window.open(externalUrl);
+      this.window.open(externalUrl);
     } else {
       this.interaction.getMap().removeInteraction(this.interaction);
       setTimeout(() => this.router.navigateByUrl(url, { state: { nodeName } }), 250);
     }
   }
 
+  // @ts-ignore
   private isHooveringOverNodeOrRoute(evt: MapBrowserEvent<UIEvent>): boolean {
     const features = this.getFeatures(evt);
     if (features) {

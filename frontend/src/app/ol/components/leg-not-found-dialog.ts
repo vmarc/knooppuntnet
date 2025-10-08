@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from '@app/shared/components/dialog/dialog.component';
 
 @Component({
@@ -8,12 +7,12 @@ import { DialogComponent } from '@app/shared/components/dialog/dialog.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-dialog>
-      <div mat-dialog-title i18n="@@leg-not-found-dialog.title">No path</div>
-      <div mat-dialog-content i18n="@@leg-not-found-dialog.message">
+      <div dialog-title i18n="@@leg-not-found-dialog.title">No path</div>
+      <div i18n="@@leg-not-found-dialog.message">
         The planner did not find a path to the selected destination.
       </div>
     </ui-dialog>
   `,
-  imports: [DialogComponent, MatDialogModule],
+  imports: [DialogComponent],
 })
 export class LegNotFoundDialogComponent {}

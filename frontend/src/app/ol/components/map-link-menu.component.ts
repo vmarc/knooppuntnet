@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -40,6 +41,8 @@ import { MAP_SERVICE_TOKEN } from '../services/openlayers-map-service';
 })
 export class MapLinkMenuComponent {
   private readonly openlayersMapService: OpenlayersMapService = inject(MAP_SERVICE_TOKEN);
+  private readonly document = inject(DOCUMENT);
+  private readonly window = this.document?.defaultView;
 
   goto(target: string): void {
     const zoom = Math.round(this.openlayersMapService.map.getView().getZoom());
@@ -56,6 +59,6 @@ export class MapLinkMenuComponent {
     } else if (target === 'iD') {
       url = `https://www.openstreetmap.org/edit?editor=id#map=${zoom}/${center[1]}/${center[0]}`;
     }
-    window.open(encodeURI(url), '_blank');
+    this.window.open(encodeURI(url), '_blank');
   }
 }

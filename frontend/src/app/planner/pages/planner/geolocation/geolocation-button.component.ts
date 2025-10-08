@@ -1,9 +1,9 @@
+import { DOCUMENT } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { State } from '@app/state/state';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { fromLonLat } from 'ol/proj';
 import { MapService } from '@app/map/map.service';
 import { GeolocationPermissionDeniedDialogComponent } from './geolocation-permission-denied-dialog.component';
@@ -27,49 +27,62 @@ import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable
   imports: [NzButtonComponent, NzIconDirective],
 })
 export class GeolocationButtonComponent {
-  private readonly state = inject(State);
   private readonly mapService = inject(MapService);
-  private readonly dialog = inject(MatDialog);
+  private readonly modalService = inject(NzModalService);
+  private readonly document = inject(DOCUMENT);
+  private readonly navigator = this.document?.defaultView?.navigator;
 
   onClick(): void {
-    if (!navigator.geolocation) {
-      this.dialog.open(GeolocationUnavailableDialogComponent, {
-        autoFocus: false,
-        maxWidth: 600,
-      });
+    if (!this.navigator.geolocation) {
+      this.showUnavailableDialog();
     } else {
-      navigator.geolocation.getCurrentPosition(
+      this.navigator.geolocation.getCurrentPosition(
         (position) => {
           const center = fromLonLat([position.coords.longitude, position.coords.latitude]);
           this.mapService.geolocation(center);
         },
+        // @ts-ignore
         (positionError: GeolocationPositionError) => {
-          if (positionError.code === 1) {
-            this.dialog.open(GeolocationPermissionDeniedDialogComponent, {
-              autoFocus: false,
-              maxWidth: 600,
-            });
-          } else if (positionError.code === 2) {
-            this.dialog.open(GeolocationUnavailableDialogComponent, {
-              autoFocus: false,
-              maxWidth: 600,
-            });
-          } else if (positionError.code === 3) {
-            this.dialog.open(GeolocationTimeoutDialogComponent, {
-              autoFocus: false,
-              maxWidth: 600,
-            });
-          } else {
-            this.dialog.open(GeolocationUnavailableDialogComponent, {
-              autoFocus: false,
-              maxWidth: 600,
-            });
-          }
+          this.showError(positionError);
         },
         {
           enableHighAccuracy: true,
         }
       );
     }
+  }
+
+  // @ts-ignore
+  private showError(positionError: GeolocationPositionError) {
+    if (positionError.code === 1) {
+      this.showPermissionDeniedDialog();
+    } else if (positionError.code === 2) {
+      this.showUnavailableDialog();
+    } else if (positionError.code === 3) {
+      this.showTimeoutDialog();
+    } else {
+      this.showUnavailableDialog();
+    }
+  }
+
+  private showUnavailableDialog(): void {
+    this.modalService.create({
+      nzContent: GeolocationUnavailableDialogComponent,
+      nzFooter: null,
+    });
+  }
+
+  private showTimeoutDialog() {
+    this.modalService.create({
+      nzContent: GeolocationTimeoutDialogComponent,
+      nzFooter: null,
+    });
+  }
+
+  private showPermissionDeniedDialog() {
+    this.modalService.create({
+      nzContent: GeolocationPermissionDeniedDialogComponent,
+      nzFooter: null,
+    });
   }
 }

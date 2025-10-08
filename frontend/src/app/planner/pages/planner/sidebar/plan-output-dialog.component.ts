@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/core';
 import { viewChild } from '@angular/core';
 import { inject } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
@@ -24,13 +25,13 @@ import { PlannerService } from '../planner.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-dialog>
-      <div mat-dialog-title>
+      <div dialog-title>
         <div class="kpn-line">
           <nz-icon nzType="export" />
           <span i18n="@@plan.output.title">Output</span>
         </div>
       </div>
-      <div mat-dialog-content class="dialog-content">
+      <div class="dialog-content">
         <mat-form-field>
           <mat-label i18n="@@plan.output.route-name">Route name</mat-label>
           <input
@@ -122,7 +123,6 @@ import { PlannerService } from '../planner.service';
   imports: [
     ClipboardModule,
     DialogComponent,
-    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     NzButtonComponent,
@@ -136,6 +136,8 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   private readonly plannerService = inject(PlannerService);
   private readonly apiService = inject(ApiService);
   private readonly preferencesService = inject(PreferencesService);
+  private readonly document = inject(DOCUMENT);
+  private readonly window = this.document?.defaultView;
 
   protected name = '';
   protected planUrl = '';
@@ -194,7 +196,7 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   }
 
   private buildPlanUrl(): string {
-    let root = window.location.href;
+    let root = this.window.location.href;
     const fragmentIndex = root.indexOf('?');
     if (fragmentIndex > 0) {
       root = root.substring(0, fragmentIndex);

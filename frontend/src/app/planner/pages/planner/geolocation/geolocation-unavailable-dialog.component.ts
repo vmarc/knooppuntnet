@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from '@app/shared/components/dialog/dialog.component';
 
 @Component({
@@ -8,13 +7,13 @@ import { DialogComponent } from '@app/shared/components/dialog/dialog.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-dialog>
-      <div mat-dialog-title i18n="@@geolocation-dialog.unavailable.title">Unavailable</div>
-      <div mat-dialog-content i18n="@@geolocation-dialog.unavailable.message">
+      <div dialog-title i18n="@@geolocation-dialog.unavailable.title">Unavailable</div>
+      <div i18n="@@geolocation-dialog.unavailable.message">
         We cannot determine your location. Verify your settings to allow this application to access
         you location.
       </div>
     </ui-dialog>
   `,
-  imports: [DialogComponent, MatDialogModule],
+  imports: [DialogComponent],
 })
 export class GeolocationUnavailableDialogComponent {}

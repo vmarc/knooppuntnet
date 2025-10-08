@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/core';
 import { inject } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -41,6 +42,8 @@ import { NzMenuDirective } from 'ng-zorro-antd/menu';
 })
 export class RouteSegmentRelationPopupComponent {
   private readonly editService = inject(EditService);
+  private readonly document = inject(DOCUMENT);
+  private readonly window = this.document?.defaultView;
 
   readonly segment = input.required<SegmentInfo>();
   readonly relationId = input.required<number>();
@@ -56,7 +59,7 @@ export class RouteSegmentRelationPopupComponent {
     const bounds = this.segment()?.bounds;
     if (bounds) {
       const url = `https://www.openstreetmap.org/?bbox=${bounds.minLon},${bounds.minLat},${bounds.maxLon},${bounds.maxLat}`;
-      window.open(url, 'openstreetmap');
+      this.window.open(url, 'openstreetmap');
     }
   }
 }

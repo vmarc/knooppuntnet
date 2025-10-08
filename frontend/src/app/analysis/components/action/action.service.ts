@@ -1,16 +1,19 @@
+import { DOCUMENT } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { RouteType } from '@api/common/route-type';
 import { ApiService } from '@app/shared/services/api.service';
 import { TimeoutComponent } from '@app/shared/components/link/timeout.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ActionService {
   private readonly apiService = inject(ApiService);
-  private readonly dialog = inject(MatDialog);
+  private readonly modalService = inject(NzModalService);
+  private readonly document = inject(DOCUMENT);
+  private readonly window = this.document?.defaultView;
 
   idNode(nodeId: number): void {
     this.id('node', nodeId);
@@ -57,7 +60,7 @@ export class ActionService {
     } else if (routeType === 'inline-skating') {
       domain = 'skating';
     }
-    window.open(`https://${domain}.waymarkedtrails.org/#route?id=${routeId}`);
+    this.window.open(`https://${domain}.waymarkedtrails.org/#route?id=${routeId}`);
   }
 
   josmLoadNode(nodeId: number): void {
@@ -109,15 +112,15 @@ export class ActionService {
   }
 
   private id(kind: string, elementId: number): void {
-    window.open(`https://www.openstreetmap.org/edit?editor=id&${kind}=${elementId}`);
+    this.window.open(`https://www.openstreetmap.org/edit?editor=id&${kind}=${elementId}`);
   }
 
   private osm(kind: string, elementId: number): void {
-    window.open(`https://www.openstreetmap.org/${kind}/${elementId}`);
+    this.window.open(`https://www.openstreetmap.org/${kind}/${elementId}`);
   }
 
   private deepHistory(kind: string, elementId: number): void {
-    window.open(`https://osmlab.github.io/osm-deep-history/#/${kind}/${elementId}`);
+    this.window.open(`https://osmlab.github.io/osm-deep-history/#/${kind}/${elementId}`);
   }
 
   private josmLoad(objectString: string): void {
@@ -131,14 +134,17 @@ export class ActionService {
   }
 
   private josmCommand(url: string): void {
-    if (window['safari']) {
-      window.open(url, 'josm');
+    if (this.window['safari']) {
+      this.window.open(url, 'josm');
     } else {
       this.apiService.edit(url).subscribe({
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         next: () => {},
         error: () => {
-          this.dialog.open(TimeoutComponent, { autoFocus: false, maxWidth: 500 });
+          this.modalService.create({
+            nzContent: TimeoutComponent,
+            nzFooter: null,
+          });
         },
       });
     }

@@ -1,4 +1,6 @@
 import { NgClass } from '@angular/common';
+import { DOCUMENT } from '@angular/core';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Version } from '@app/shared/services/version';
@@ -41,6 +43,9 @@ import { Version } from '@app/shared/services/version';
   imports: [NgClass],
 })
 export class PageExperimentalComponent {
+  private readonly document = inject(DOCUMENT);
+  private readonly window = this.document?.defaultView;
+
   protected moreDetailOpen = false;
 
   isExperimental(): boolean {
@@ -56,6 +61,6 @@ export class PageExperimentalComponent {
   }
 
   link(): string {
-    return window.location.href.replace('experimental.', '');
+    return this.window.location.href.replace('experimental.', '');
   }
 }

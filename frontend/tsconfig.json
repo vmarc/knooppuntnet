@@ -26,8 +26,9 @@
     // TODO re-enable libCheck?
     "skipLibCheck": true,
     "lib": [
-      "ES2022",
-      "dom"
+      "es2022",
+      "dom",
+      "dom.iterable"
     ],
     "paths": {
       "@api/*": [

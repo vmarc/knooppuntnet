@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/core';
 import { inject } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -32,7 +33,8 @@ import { NzMenuDirective } from 'ng-zorro-antd/menu';
 })
 export class MonitorRouteDeviationPopupComponent {
   private readonly editService = inject(EditService);
-
+  private readonly document = inject(DOCUMENT);
+  private readonly window = this.document?.defaultView;
   readonly deviation = input.required<MonitorRouteDeviationInfo>();
 
   josmZoomToSelectedDeviation(): void {
@@ -46,7 +48,7 @@ export class MonitorRouteDeviationPopupComponent {
     const bounds = this.deviation()?.bounds;
     if (bounds) {
       const url = `https://www.openstreetmap.org/?bbox=${bounds.minLon},${bounds.minLat},${bounds.maxLon},${bounds.maxLat}`;
-      window.open(url, 'openstreetmap');
+      this.window.open(url, 'openstreetmap');
     }
   }
 }
