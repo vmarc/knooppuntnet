@@ -28,6 +28,7 @@ import { PageService } from '@app/shared/components/page.service';
 import { SpinnerInterceptor } from '@app/shared/spinner/spinner-interceptor';
 import { SpinnerService } from '@app/shared/spinner/spinner.service';
 import * as Sentry from '@sentry/angular';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { provideMarkdown } from 'ngx-markdown';
 import { appRoutes } from './app-routes';
 import { MapInteractionsService } from './map/map-interactions.service';
@@ -85,21 +86,22 @@ export const appConfig: ApplicationConfig = {
     { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
     ApiService,
     EditService,
-    MapService,
-    PlannerStateService,
-    RouterService,
-    PlannerPopupService,
-    PlannerMapLayerService,
     MapInteractionsService,
     MapRoutePopupInteractionService,
+    MapService,
     MatDialog,
+    NzModalService,
     OldPoiNameService,
     OldPoiService,
     PageService,
     PageWidthService,
+    PlannerMapLayerService,
+    PlannerPopupService,
+    PlannerStateService,
     PoiService,
     PreferencesService,
     RootService,
+    RouterService,
     SpinnerService,
     State,
     provideAnimations(),

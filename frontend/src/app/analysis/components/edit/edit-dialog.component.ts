@@ -1,30 +1,26 @@
 import { effect } from '@angular/core';
-import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { EditStepBuilder } from '@app/analysis/components/edit/edit-step-builder';
+import { EditService } from '@app/analysis/components/edit/edit.service';
 import { Translations } from '@app/shared/i18n/translations';
-import { Subscriptions } from '@app/util/subscriptions';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
+import { NzProgressComponent } from 'ng-zorro-antd/progress';
 import { EditParameters } from './edit-parameters';
-import { EditService } from './edit.service';
 
 @Component({
   selector: 'ui-edit-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
-    <div mat-dialog-title class="dialog" i18n="@@edit-dialog.title">Load in editor</div>
-
-    <div mat-dialog-content>
+    <div>
       @if (editService.showProgress()) {
         <p>
-          <mat-progress-bar [value]="editService.progress()" />
+          <nz-progress [nzPercent]="editService.progress()" [nzShowInfo]="false" />
         </p>
       }
       @if (editService.error()) {
@@ -54,44 +50,38 @@ import { EditService } from './edit.service';
         </p>
       }
     </div>
-    <div mat-dialog-actions>
+    <div>
       @if (editService.showProgress()) {
         <p>
-          <button nz-button nzType="link" (click)="cancel()">{{ cancelButtonText }}</button>
+          <button nz-button (click)="cancel()">{{ cancelButtonText }}</button>
         </p>
       }
       @if (editService.error()) {
         <p>
-          <button nz-button nzType="link" (click)="close()" i18n="@@edit-dialog.close">
-            Close
-          </button>
+          <button nz-button (click)="close()" i18n="@@edit-dialog.close">Close</button>
         </p>
       }
     </div>
   `,
+  providers: [EditService, EditStepBuilder],
   styles: `
-    .dialog {
-      min-width: 20em;
-    }
-
     .timeout {
       color: red;
     }
   `,
-  providers: [EditService],
-  imports: [MatDialogModule, MatProgressBarModule, NzButtonComponent],
+  imports: [NzButtonComponent, NzProgressComponent],
 })
-export class EditDialogComponent implements OnInit, OnDestroy {
-  protected readonly parameters: EditParameters = inject(MAT_DIALOG_DATA);
+export class EditDialogComponent implements OnInit {
   protected readonly editService = inject(EditService);
-  private readonly dialogRef = inject(MatDialogRef<EditDialogComponent>);
+  private readonly parameters: EditParameters = inject(NZ_MODAL_DATA);
+  private readonly modalRef = inject(NzModalRef);
+
   protected readonly cancelButtonText = Translations.get('action.cancel');
-  private readonly subscriptions = new Subscriptions();
 
   constructor() {
     effect(() => {
       if (this.editService.ready()) {
-        this.dialogRef.close();
+        this.modalRef.close();
       }
     });
   }
@@ -100,16 +90,12 @@ export class EditDialogComponent implements OnInit, OnDestroy {
     this.editService.edit(this.parameters);
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
   cancel(): void {
     this.editService.cancel();
-    this.dialogRef.close();
+    this.modalRef.close();
   }
 
   close(): void {
-    this.dialogRef.close();
+    this.modalRef.close();
   }
 }
