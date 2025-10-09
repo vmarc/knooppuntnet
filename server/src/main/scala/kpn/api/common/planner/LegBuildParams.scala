@@ -1,11 +1,13 @@
 package kpn.api.common.planner
 
+import kpn.core.doc.Storable
+
 case class LegBuildParams(
   routeType: String,
   source: LegEnd,
   sink: LegEnd,
   proposed: Boolean
-) {
+) extends Storable {
 
   def routeIds: Seq[Long] = {
     legEndRouteIds(source.route) ++ legEndRouteIds(sink.route).distinct

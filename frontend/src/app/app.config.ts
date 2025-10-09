@@ -10,11 +10,7 @@ import { provideAppInitializer } from '@angular/core';
 import { importProvidersFrom } from '@angular/core';
 import { ErrorHandler } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { withComponentInputBinding } from '@angular/router';
 import { provideRouter } from '@angular/router';
 import { Router } from '@angular/router';
@@ -46,7 +42,6 @@ import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 registerLocaleData(en);
 
@@ -62,13 +57,7 @@ export const appConfig: ApplicationConfig = {
       // withDebugTracing()
     ),
     // { provide: RouteReuseStrategy, useClass: KpnRouteReuseStrategy },
-    importProvidersFrom(
-      BrowserModule,
-      LayoutModule,
-      MatSidenavModule,
-      MatButtonModule,
-      MatDialogModule
-    ),
+    importProvidersFrom(BrowserModule, LayoutModule, MatButtonModule),
     {
       provide: ErrorHandler,
       useValue: Sentry.createErrorHandler({
@@ -89,7 +78,6 @@ export const appConfig: ApplicationConfig = {
     MapInteractionsService,
     MapRoutePopupInteractionService,
     MapService,
-    MatDialog,
     NzModalService,
     OldPoiNameService,
     OldPoiService,
@@ -104,12 +92,10 @@ export const appConfig: ApplicationConfig = {
     RouterService,
     SpinnerService,
     State,
-    provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     { provide: UserService },
     provideNzI18n(en_US),
     importProvidersFrom(FormsModule),
-    provideAnimationsAsync(),
     provideHttpClient(),
     provideMarkdown(),
   ],

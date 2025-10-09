@@ -55,13 +55,11 @@ export class PlanUtil {
       node: {
         nodeId,
       },
-      route: null,
     };
   }
 
   static legEndRoute(trackPathKeys: TrackPathKey[]): LegEnd {
     return {
-      node: null,
       route: {
         trackPathKeys,
         selection: null,

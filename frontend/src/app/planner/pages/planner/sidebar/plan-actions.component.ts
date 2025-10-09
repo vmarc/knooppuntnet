@@ -3,8 +3,8 @@ import { inject } from '@angular/core';
 import { Injector } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { PageWidthService } from '@app/shared/components/page-width.service';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { PlannerCommandReset } from '../../../domain/commands/planner-command-reset';
 import { PlannerCommandReverse } from '../../../domain/commands/planner-command-reverse';
 import { Plan } from '../../../domain/plan/plan';
@@ -87,7 +87,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
 export class PlanActionsComponent {
   private readonly plannerService = inject(PlannerService);
   private readonly pageWidthService = inject(PageWidthService);
-  private readonly dialog = inject(MatDialog);
+  private readonly modelService = inject(NzModalService);
   private readonly injector = inject(Injector);
 
   readonly plan = this.plannerService.context.plan;
@@ -123,15 +123,9 @@ export class PlanActionsComponent {
   }
 
   output(): void {
-    const injector = Injector.create({
-      parent: this.injector,
-      providers: [{ provide: PlannerService, useValue: this.plannerService }],
-    });
-
-    this.dialog.open(PlanOutputDialogComponent, {
-      minWidth: 280,
-      autoFocus: false,
-      injector,
+    this.modelService.create({
+      nzContent: PlanOutputDialogComponent,
+      nzFooter: null,
     });
   }
 

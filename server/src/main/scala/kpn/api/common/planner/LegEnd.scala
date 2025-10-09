@@ -1,6 +1,7 @@
 package kpn.api.common.planner
 
 import kpn.api.common.common.TrackPathKey
+import kpn.core.doc.Storable
 
 object LegEnd {
 
@@ -79,13 +80,12 @@ object LegEnd {
       node(string.toLong)
     }
   }
-
 }
 
 case class LegEnd(
   node: Option[LegEndNode],
   route: Option[LegEndRoute]
-) {
+) extends Storable {
 
   def vertices: Seq[String] = {
     node match {

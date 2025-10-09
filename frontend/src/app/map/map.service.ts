@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { effect } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Bounds } from '@api/common/bounds';
 import { LatLonImpl } from '@api/common/lat-lon-impl';
 import { PlanParams } from '@api/common/planner/plan-params';
@@ -17,6 +16,7 @@ import { ApiService } from '@app/shared/services/api.service';
 import { Util } from '@app/shared/components/util';
 import { State } from '@app/state/state';
 import { Subscriptions } from '@app/util/subscriptions';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Coordinate } from 'ol/coordinate';
 import { FeatureLike } from 'ol/Feature';
 import VectorTileLayer from 'ol/layer/VectorTile';
@@ -44,7 +44,7 @@ export class MapService {
   private readonly plannerStateService = inject(PlannerStateService);
   private readonly plannerService = inject(PlannerService);
   private readonly plannerMapService = inject(PlannerMapService);
-  private readonly dialog = inject(MatDialog);
+  private readonly modalService = inject(NzModalService);
   private readonly apiService = inject(ApiService);
   private readonly sharedStateService = inject(SharedStateService);
   private readonly routerService = inject(RouterService);
@@ -80,14 +80,14 @@ export class MapService {
       const error = this.plannerService.context.error();
       if (error) {
         if (error instanceof HttpErrorResponse) {
-          this.dialog.open(LegHttpErrorDialogComponent, {
-            autoFocus: false,
-            maxWidth: 600,
+          this.modalService.create({
+            nzContent: LegHttpErrorDialogComponent,
+            nzFooter: null,
           });
         } else if ('leg-not-found' === error.message) {
-          this.dialog.open(LegNotFoundDialogComponent, {
-            autoFocus: false,
-            maxWidth: 600,
+          this.modalService.create({
+            nzContent: LegNotFoundDialogComponent,
+            nzFooter: null,
           });
         }
       }
@@ -222,9 +222,9 @@ export class MapService {
 
   zoomInToRoute(): void {
     if (this.plannerService.context.plan().legs.isEmpty()) {
-      this.dialog.open(NoRouteDialogComponent, {
-        autoFocus: false,
-        maxWidth: 600,
+      this.modalService.create({
+        nzContent: NoRouteDialogComponent,
+        nzFooter: null,
       });
     } else {
       const bounds = PlanUtil.planBounds(this.plannerService.context.plan());

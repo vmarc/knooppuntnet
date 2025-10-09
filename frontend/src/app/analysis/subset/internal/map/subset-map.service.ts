@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Bounds } from '@api/common/bounds';
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 import { MapPosition } from '@app/ol/domain/map-position';
@@ -12,6 +11,7 @@ import { NetworkMarkerLayer } from '@app/ol/layers/network-marker-layer';
 import { MapControls } from '@app/ol/layers/map-controls';
 import { OpenlayersMapService } from '@app/ol/services/openlayers-map-service';
 import { Util } from '@app/shared/components/util';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { MapBrowserEvent } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import { FeatureLike } from 'ol/Feature';
@@ -24,7 +24,7 @@ import { SubsetMapNetworkDialogComponent } from './components/subset-map-network
 
 @Injectable()
 export class SubsetMapService extends OpenlayersMapService {
-  private readonly dialog = inject(MatDialog);
+  private readonly modalService = inject(NzModalService);
   private networks: SubsetMapNetwork[] = [];
 
   init(
@@ -101,10 +101,11 @@ export class SubsetMapService extends OpenlayersMapService {
         const networkId = +features[index].get(NetworkMarkerLayer.networkId);
         const network = this.networks.find((n) => n.id === networkId);
         if (network) {
-          this.dialog.open(SubsetMapNetworkDialogComponent, {
-            data: network,
-            autoFocus: false,
-            maxWidth: 600,
+          this.modalService.create({
+            nzTitle: network.name,
+            nzContent: SubsetMapNetworkDialogComponent,
+            nzData: network,
+            nzFooter: null,
           });
         }
 
