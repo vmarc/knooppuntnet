@@ -3,7 +3,6 @@ import { AfterViewChecked } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { MonitorRouteSaveStep } from '../monitor-route-save-step';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -45,7 +44,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
       height: 0.3em;
     }
   `,
-  imports: [MatProgressSpinnerModule, NzIconDirective],
+  imports: [NzIconDirective],
 })
 export class MonitorRouteFormSaveStepComponent implements AfterViewChecked {
   readonly step = input.required<MonitorRouteSaveStep>();

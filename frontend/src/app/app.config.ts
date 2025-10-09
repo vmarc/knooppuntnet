@@ -9,8 +9,9 @@ import { inject } from '@angular/core';
 import { provideAppInitializer } from '@angular/core';
 import { importProvidersFrom } from '@angular/core';
 import { ErrorHandler } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { BrowserModule } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { withComponentInputBinding } from '@angular/router';
 import { provideRouter } from '@angular/router';
 import { Router } from '@angular/router';
@@ -24,6 +25,7 @@ import { PageService } from '@app/shared/components/page.service';
 import { SpinnerInterceptor } from '@app/shared/spinner/spinner-interceptor';
 import { SpinnerService } from '@app/shared/spinner/spinner.service';
 import * as Sentry from '@sentry/angular';
+import { provideNzWave } from 'ng-zorro-antd/core/wave';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { provideMarkdown } from 'ngx-markdown';
 import { appRoutes } from './app-routes';
@@ -57,7 +59,7 @@ export const appConfig: ApplicationConfig = {
       // withDebugTracing()
     ),
     // { provide: RouteReuseStrategy, useClass: KpnRouteReuseStrategy },
-    importProvidersFrom(BrowserModule, LayoutModule, MatButtonModule),
+    importProvidersFrom(BrowserModule, LayoutModule),
     {
       provide: ErrorHandler,
       useValue: Sentry.createErrorHandler({
@@ -92,6 +94,8 @@ export const appConfig: ApplicationConfig = {
     RouterService,
     SpinnerService,
     State,
+    provideAnimations(),
+    provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
     { provide: UserService },
     provideNzI18n(en_US),

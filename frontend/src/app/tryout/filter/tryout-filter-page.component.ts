@@ -2,7 +2,6 @@ import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatLabel } from '@angular/material/form-field';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
 import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
@@ -72,7 +71,7 @@ import { NzTagComponent } from 'ng-zorro-antd/tag';
       </nz-dropdown-menu>
 
       <div class="kpn-small-spacer-above kpn-small-spacer-below">
-        <mat-label>query params</mat-label>
+        <span>query params</span>
         {{ queryParams() }}
       </div>
     </ui-page>
@@ -89,7 +88,6 @@ import { NzTagComponent } from 'ng-zorro-antd/tag';
     }
   `,
   imports: [
-    MatLabel,
     NzCollapseComponent,
     NzCollapsePanelComponent,
     NzDropDownDirective,

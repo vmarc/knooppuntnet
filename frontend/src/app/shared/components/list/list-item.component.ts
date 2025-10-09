@@ -3,14 +3,13 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatRipple } from '@angular/material/core';
 
 @Component({
   selector: 'ui-list-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (clickable()) {
-      <div class="kpn-list-item" [ngClass]="{ 'kpn-list-item-selected': selected() }" matRipple>
+      <div class="kpn-list-item" [ngClass]="{ 'kpn-list-item-selected': selected() }">
         <ng-container *ngTemplateOutlet="item" />
       </div>
     } @else {
@@ -22,7 +21,7 @@ import { MatRipple } from '@angular/material/core';
       <ng-content />
     </ng-template>
   `,
-  imports: [NgClass, MatRipple, NgTemplateOutlet],
+  imports: [NgClass, NgTemplateOutlet],
 })
 export class ListItemComponent {
   readonly clickable = input<boolean>(false);

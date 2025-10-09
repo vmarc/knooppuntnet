@@ -9,11 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { UntypedFormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UntypedFormControl } from '@angular/forms';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatOptionModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { Country } from '@api/common/country';
 import { LocationNode } from '@api/common/location/location-node';
 import { Util } from '@app/shared/components/util';
@@ -67,11 +62,6 @@ import { LocationOption } from './internal/selection/components/location-option'
   `,
   imports: [
     FormsModule,
-    MatAutocompleteModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatOptionModule,
     NzFormControlComponent,
     NzFormItemComponent,
     NzOptionComponent,

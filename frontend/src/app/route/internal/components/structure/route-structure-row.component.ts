@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatLabel } from '@angular/material/form-field';
-import { MatTooltip } from '@angular/material/tooltip';
 import { RouteType } from '@api/common/route-type';
 import { StructureRow } from '@api/common/route/structure-row';
 import { RouteMemberNameComponent } from '@app/route/internal/components/structure/route-member-name.component';
@@ -14,6 +12,7 @@ import { IconWarningComponent } from '@app/shared/components/icon/icon-warning.c
 import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
 import { TagsTextComponent } from '@app/shared/components/tags/tags-text.component';
 import { SymbolComponent } from '@app/symbol/symbol.component';
+import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
 import { RouteDistanceComponent } from './route-distance.component';
 import { RouteMemberIdComponent } from './route-member-id.component';
 import { RouteMemberImageComponent } from './route-member-image.component';
@@ -31,7 +30,7 @@ import { RouteMemberImageComponent } from './route-member-image.component';
           <span>{{ row.rowNumber }}.</span>
           <ui-route-member-id [structureRow]="row" />
           @if (row.role) {
-            <span class="role" matTooltip="role" matTooltipPosition="after">
+            <span class="role" nz-tooltip nzTooltipTitle="role">
               {{ row.role }}
             </span>
           }
@@ -60,7 +59,7 @@ import { RouteMemberImageComponent } from './route-member-image.component';
           @if (!row.way.accessible) {
             <div class="kpn-line extra-line">
               <ui-icon-warning />
-              <mat-label>Not accessible</mat-label>
+              <span>Not accessible</span>
             </div>
           }
         }
@@ -159,8 +158,6 @@ import { RouteMemberImageComponent } from './route-member-image.component';
     IconHappyComponent,
     IconWarningComponent,
     LinkNodeComponent,
-    MatLabel,
-    MatTooltip,
     RouteDistanceComponent,
     RouteMemberIdComponent,
     RouteMemberImageComponent,
@@ -169,6 +166,7 @@ import { RouteMemberImageComponent } from './route-member-image.component';
     RouteStructureReferenceComponent,
     SymbolComponent,
     TagsTextComponent,
+    NzTooltipDirective,
   ],
 })
 export class RouteStructureRowComponent {

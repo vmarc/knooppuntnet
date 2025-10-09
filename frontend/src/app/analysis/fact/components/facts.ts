@@ -2,7 +2,7 @@ import { Fact } from '@api/common/fact';
 import { FactElement } from './fact-element';
 import { FactLevel } from '@api/common/fact-level';
 
-class FactDefinition {
+export class FactDefinition {
   constructor(
     public fact: Fact,
     public level: FactLevel,

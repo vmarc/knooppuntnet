@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatTooltip } from '@angular/material/tooltip';
 import { StructureRow } from '@api/common/route/structure-row';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
+import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
 
 @Component({
   selector: 'ui-route-distance',
@@ -16,7 +16,11 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
     } @else if (row.memberType === 'relation') {
       <span class="distance">
         @if (row.distance !== row.relation.totalDistance && row.relation.totalDistance > 0) {
-          <span class="cumulative-distance" matTooltip="Total length of ways in all subrelations">
+          <span
+            class="cumulative-distance"
+            nz-tooltip
+            nzTooltipTitle="Total length of ways in all subrelations"
+          >
             {{ row.relation.totalDistance | distance }}
           </span>
         }
@@ -24,7 +28,7 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
           <span>/</span>
         }
         @if (row.distance > 0) {
-          <span matTooltip="Total length of ways in this relation">
+          <span nz-tooltip nzTooltipTitle="Total length of ways in this relation">
             {{ row.distance | distance }}
           </span>
         }
@@ -41,7 +45,7 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
       font-weight: 800;
     }
   `,
-  imports: [DistancePipe, MatTooltip, DistancePipe],
+  imports: [DistancePipe, DistancePipe, NzTooltipDirective],
 })
 export class RouteDistanceComponent {
   readonly structureRow = input.required<StructureRow>();

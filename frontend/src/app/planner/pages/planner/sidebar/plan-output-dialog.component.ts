@@ -6,14 +6,15 @@ import { ElementRef } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { PreferencesService } from '@app/shared/core/preferences/preferences.service';
 import { ApiService } from '@app/shared/services/api.service';
 import { DialogComponent } from '@app/shared/components/dialog/dialog.component';
 import { Util } from '@app/shared/components/util';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzFormItemComponent } from 'ng-zorro-antd/form';
+import { NzFormLabelComponent } from 'ng-zorro-antd/form';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzInputDirective } from 'ng-zorro-antd/input';
 import { ClipboardModule } from 'ngx-clipboard';
 import { PlanUtil } from '../../../domain/plan/plan-util';
 import { PdfService } from '../../../pdf/pdf.service';
@@ -31,17 +32,17 @@ import { PlannerService } from '../planner.service';
         </div>
       </div>
       <div class="dialog-content">
-        <mat-form-field>
-          <mat-label i18n="@@plan.output.route-name">Route name</mat-label>
+        <nz-form-item>
+          <nz-form-label i18n="@@plan.output.route-name">Route name</nz-form-label>
           <input
             #routename
-            matInput
+            nz-input
             placeholder="type route name"
             i18n-placeholder="@@plan.output.route-name-placeholder"
             [value]="name"
             (blur)="nameChanged($event)"
           />
-        </mat-form-field>
+        </nz-form-item>
 
         <button
           nz-button
@@ -122,10 +123,11 @@ import { PlannerService } from '../planner.service';
   imports: [
     ClipboardModule,
     DialogComponent,
-    MatFormFieldModule,
-    MatInputModule,
     NzButtonComponent,
     NzIconDirective,
+    NzInputDirective,
+    NzFormLabelComponent,
+    NzFormItemComponent,
   ],
 })
 export class PlanOutputDialogComponent implements OnInit, AfterViewInit {

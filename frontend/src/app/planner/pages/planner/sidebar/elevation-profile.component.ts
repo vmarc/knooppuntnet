@@ -3,16 +3,16 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatDividerModule } from '@angular/material/divider';
+import { DividerComponent } from '@app/shared/components/divider.component';
 
 @Component({
   selector: 'ui-elevation-profile',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <canvas #profile width="200" height="100"></canvas>
-    <mat-divider />
+    <ui-divider />
   `,
-  imports: [MatDividerModule],
+  imports: [DividerComponent],
 })
 export class ElevationProfileComponent implements AfterViewInit {
   private readonly canvas = viewChild<ElementRef>('profile');

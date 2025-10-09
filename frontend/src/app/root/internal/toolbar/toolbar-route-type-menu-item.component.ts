@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { RouteType } from '@api/common/route-type';
 import { State } from '@app/state/state';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
@@ -28,7 +27,7 @@ import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
       }
     `,
   ],
-  imports: [MatButtonModule, NzIconDirective, NzMenuItemComponent],
+  imports: [NzIconDirective, NzMenuItemComponent],
 })
 export class ToolbarRouteTypeMenuItemComponent {
   private readonly state = inject(State);

@@ -1,8 +1,6 @@
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { OldPoiService } from '@app/shared/services/old-poi.service';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
@@ -63,14 +61,7 @@ import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
       padding-right: 20px;
     }
   `,
-  imports: [
-    MatExpansionModule,
-    MatButtonModule,
-    NzCollapseComponent,
-    NzCollapsePanelComponent,
-    NzCheckboxComponent,
-    NzButtonComponent,
-  ],
+  imports: [NzCollapseComponent, NzCollapsePanelComponent, NzCheckboxComponent, NzButtonComponent],
 })
 export class PoiGroupComponent {
   readonly name = input.required<string>();

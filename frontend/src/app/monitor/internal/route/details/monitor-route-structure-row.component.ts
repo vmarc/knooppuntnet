@@ -2,8 +2,6 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { Params } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { StructureRow } from '@api/common/route/structure-row';
@@ -15,6 +13,7 @@ import { SymbolComponent } from '@app/symbol/symbol.component';
 import { ActionButtonRelationComponent } from '@app/analysis/components/action/action-button-relation.component';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
 import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
 
 @Component({
@@ -81,7 +80,11 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
       <span i18n="@@monitor.route.relation-table.distance" class="kpn-label"> Distance </span>
       <span class="distance">
         @if (structureRow().osmDistanceSubRelations > 0) {
-          <span class="cumulative-distance" matTooltip="Total length of ways in all subrelations">
+          <span
+            class="cumulative-distance"
+            nz-tooltip
+            nzTooltipTitle="Total length of ways in all subrelations"
+          >
             {{ structureRow().osmDistanceSubRelations | distance }}
           </span>
         }
@@ -91,7 +94,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
         }
 
         @if (structureRow().osmDistance > 0) {
-          <span matTooltip="Total length of ways in this relation">
+          <span nz-tooltip nzTooltipTitle="Total length of ways in this relation">
             {{ structureRow().osmDistance | distance }}
           </span>
         }
@@ -217,8 +220,6 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
     DayPipe,
     DistancePipe,
     IconHappyComponent,
-    MatTableModule,
-    MatTooltipModule,
     MonitorRouteGapComponent,
     NgClass,
     NzButtonComponent,
@@ -227,6 +228,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
     SymbolComponent,
     TimestampDayPipe,
     TimestampDayPipe,
+    NzTooltipDirective,
   ],
 })
 export class MonitorRouteStructureRowComponent {

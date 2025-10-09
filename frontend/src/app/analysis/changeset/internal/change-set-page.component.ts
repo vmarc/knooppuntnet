@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
+import { DividerComponent } from '@app/shared/components/divider.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { Util } from '@app/shared/components/util';
 import { RouterService } from '@app/shared/services/router.service';
@@ -27,9 +27,9 @@ import { ChangeSetOrphanRouteChangesComponent } from './components/change-set-or
         @if (!response.result) {
           <div i18n="@@changeset.not-found">Changeset not found</div>
         } @else {
-          @for (detail of response.result.details; track detail.summary._id; let first = $first) {
-            @if (!first) {
-              <mat-divider />
+          @for (detail of response.result.details; track detail.summary._id) {
+            @if (!$first) {
+              <ui-divider />
             }
             <ui-change-set-header [detail]="detail" />
             <ui-change-set-location-changes [changess]="detail.summary.locationChanges" />
@@ -48,7 +48,7 @@ import { ChangeSetOrphanRouteChangesComponent } from './components/change-set-or
     ChangeSetNetworkChangesComponent,
     ChangeSetOrphanNodeChangesComponent,
     ChangeSetOrphanRouteChangesComponent,
-    MatDivider,
+    DividerComponent,
     PageComponent,
   ],
 })
