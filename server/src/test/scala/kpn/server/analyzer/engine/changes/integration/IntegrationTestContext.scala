@@ -75,8 +75,8 @@ import kpn.server.analyzer.full.analyzers.InitialNetworkChangeBuilder
 import kpn.server.analyzer.full.analyzers.InitialNodeChangeBuilder
 import kpn.server.analyzer.full.analyzers.InitialRouteChangeBuilder
 import kpn.server.analyzer.full.analyzers.SingleBaseRouteAnalyzer
-import kpn.server.analyzer.load.AnalysisDataInitializer
-import kpn.server.analyzer.load.AnalysisDataInitializerImpl
+import kpn.server.analyzer.load.AnalysisContextLoader
+import kpn.server.analyzer.load.AnalysisContextLoaderImpl
 import kpn.server.repository.BlacklistRepository
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.ChangeSetRepositoryImpl
@@ -408,7 +408,7 @@ class IntegrationTestContext(
     )
   }
 
-  val analysisDataInitializer: AnalysisDataInitializer = new AnalysisDataInitializerImpl(
+  val analysisDataInitializer: AnalysisContextLoader = new AnalysisContextLoaderImpl(
     analysisContext,
     networkRepository,
     routeRepository,

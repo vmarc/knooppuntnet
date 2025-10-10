@@ -1,5 +1,5 @@
 package kpn.server.analyzer.load
 
-trait AnalysisDataInitializer {
+trait AnalysisContextLoader {
   def load(): Unit
 }

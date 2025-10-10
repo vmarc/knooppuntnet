@@ -8,14 +8,14 @@ import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
-class AnalysisDataInitializerImpl(
+class AnalysisContextLoaderImpl(
   analysisContext: AnalysisContext,
   networkRepository: NetworkRepository,
   routeRepository: RouteRepository,
   nodeRepository: NodeRepository
-) extends AnalysisDataInitializer {
+) extends AnalysisContextLoader {
 
-  private val log = Log(classOf[AnalysisDataInitializerImpl])
+  private val log = Log(classOf[AnalysisContextLoaderImpl])
 
   override def load(): Unit = {
     Log.context("load-watched") {
