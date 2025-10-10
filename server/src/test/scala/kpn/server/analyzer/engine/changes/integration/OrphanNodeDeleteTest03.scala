@@ -15,7 +15,7 @@ class OrphanNodeDeleteTest03 extends IntegrationTest {
 
       process(ChangeAction.Delete, newRawNode(1001))
 
-      watched.nodes.ids shouldNot contain(1001)
+      watched.nodes shouldNot contain(1001)
 
       database.nodes shouldBe empty
       database.changes shouldBe empty

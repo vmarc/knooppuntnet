@@ -8,6 +8,7 @@ import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.OsmChangeParser
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
 
+import scala.jdk.CollectionConverters.CollectionHasAsScala
 import scala.xml.XML
 
 class Issue184_NodeDeletion extends IntegrationTest {
@@ -35,20 +36,20 @@ class Issue184_NodeDeletion extends IntegrationTest {
 
     testIntegration(OverpassData.empty, OverpassData.empty) {
 
-      watched.nodes.ids.toSeq should equal(Seq.empty)
+      watched.nodes.asScala.toSet should equal(Set.empty)
 
       processCreate()
-      watched.nodes.ids.toSeq should equal(Seq(8813846463L))
+      watched.nodes.asScala.toSet should equal(Set(8813846463L))
 
       findNodeById(8813846463L).active shouldBe true
 
       processModify()
-      watched.nodes.ids.toSeq should equal(Seq(8813846463L))
+      watched.nodes.asScala.toSet should equal(Set(8813846463L))
 
       findNodeById(8813846463L).active shouldBe true
 
       processDelete()
-      watched.nodes.ids.toSeq should equal(Seq.empty)
+      watched.nodes.asScala.toSet should equal(Set.empty)
 
       findNodeById(8813846463L).active shouldBe false
     }

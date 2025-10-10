@@ -29,7 +29,7 @@ class MonitorChangeProcessorImpl(
 ) extends MonitorChangeProcessor {
 
   private val log = Log(classOf[MonitorChangeProcessorImpl])
-  private val elementIdMap = ElementIdMap()
+  private val elementIdMap = new ElementIdMap()
   private val geometryFactory = new GeometryFactory
   private val sampleDistanceMeters = 10
   private val toleranceMeters = 10

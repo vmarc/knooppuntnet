@@ -7,8 +7,8 @@ import kpn.server.analyzer.engine.context.Watched
 class AnalysisDataDiffReporterTest extends UnitTest {
 
   test("No differences") {
-    val left = Watched()
-    val right = Watched()
+    val left = new Watched()
+    val right = new Watched()
     val report = new AnalysisDataDiffReporter().report(left: Watched, right: Watched).mkString("\n")
     report should equal("No differences")
   }
@@ -17,8 +17,8 @@ class AnalysisDataDiffReporterTest extends UnitTest {
 
     pendingRedesign()
 
-    val left = Watched()
-    val right = Watched()
+    val left = new Watched()
+    val right = new Watched()
 
     val leftElementIds = ElementIds(
       nodeIds = Set(1011, 1012),
@@ -61,8 +61,8 @@ class AnalysisDataDiffReporterTest extends UnitTest {
 
     pendingRedesign()
 
-    val left = Watched()
-    val right = Watched()
+    val left = new Watched()
+    val right = new Watched()
 
     val leftElementIds = ElementIds(
       nodeIds = Set(1011, 1012),
@@ -110,8 +110,8 @@ class AnalysisDataDiffReporterTest extends UnitTest {
 
     pendingRedesign()
 
-    val left = Watched()
-    val right = Watched()
+    val left = new Watched()
+    val right = new Watched()
 
     left.nodes.add(10)
     left.nodes.add(11)

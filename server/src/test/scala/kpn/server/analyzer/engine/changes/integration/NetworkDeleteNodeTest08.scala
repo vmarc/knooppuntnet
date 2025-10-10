@@ -58,8 +58,8 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
         newRawRelation(1)
       )
 
-      watched.networks.ids shouldNot contain(1)
-      watched.nodes.ids shouldNot contain(1001)
+      watched.networks shouldNot contain(1)
+      watched.nodes shouldNot contain(1001)
 
       assertBaseNode()
       assertNode()

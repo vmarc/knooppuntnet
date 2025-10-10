@@ -1,14 +1,12 @@
 package kpn.server.analyzer.engine.context
 
-import scala.collection.concurrent.TrieMap
+import kpn.core.FastUtil
 
-object ElementIdMap {
-  def apply(): ElementIdMap = new ElementIdMap()
-}
+import scala.collection.concurrent.TrieMap
 
 class ElementIdMap {
 
-  private val elementMap: scala.collection.concurrent.Map[Long, ElementIds] = TrieMap()
+  private val elementMap: scala.collection.concurrent.Map[Long, RouteElementIds] = TrieMap()
 
   def size: Int = elementMap.size
 
@@ -16,9 +14,13 @@ class ElementIdMap {
 
   def ids: Iterable[Long] = elementMap.keySet
 
-  def get(key: Long): Option[ElementIds] = elementMap.get(key)
+  def get(key: Long): Option[RouteElementIds] = elementMap.get(key)
 
   def add(id: Long, elementIds: ElementIds): Unit = {
+    elementMap += (id -> RouteElementIds.from(elementIds))
+  }
+
+  def add(id: Long, elementIds: RouteElementIds): Unit = {
     elementMap += (id -> elementIds)
   }
 
@@ -35,11 +37,11 @@ class ElementIdMap {
   }
 
   def isReferencingNode(nodeId: Long): Boolean = {
-    elementMap.values.exists(_.nodeIds.contains(nodeId))
+    elementMap.values.exists(routeElementIds => FastUtil.contains(routeElementIds.nodeIds, nodeId))
   }
 
   def isReferencingRelation(relationId: Long): Boolean = {
-    elementMap.values.exists(_.relationIds.contains(relationId))
+    elementMap.values.exists(routeElementIds => FastUtil.contains(routeElementIds.relationIds, relationId))
   }
 
   /*
@@ -47,14 +49,14 @@ class ElementIdMap {
    */
   def referencedBy(elementIds: ElementIds): Set[Long] = {
     elementMap.filter { case (key, value) =>
-      value.relationIds.contains(key) ||
-        value.relationIds.exists(elementIds.relationIds.contains) ||
-        value.wayIds.exists(elementIds.wayIds.contains) ||
-        value.nodeIds.exists(elementIds.nodeIds.contains)
+      FastUtil.contains(value.relationIds, key) ||
+        elementIds.relationIds.exists(id => FastUtil.contains(value.relationIds, id)) ||
+        elementIds.wayIds.exists(id => FastUtil.contains(value.wayIds, id)) ||
+        elementIds.nodeIds.exists(id => FastUtil.contains(value.nodeIds, id))
     }.keySet.toSet
   }
 
-  def foreach(f: (Long, ElementIds) => Unit): Unit = {
+  def foreach(f: (Long, RouteElementIds) => Unit): Unit = {
     ids.toSeq.sorted.foreach { key =>
       get(key).foreach { elementIds =>
         f(key, elementIds)

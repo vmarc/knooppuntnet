@@ -49,7 +49,7 @@ class BaseNodeChangeProcessor(
 
   private def processDeletedNodes(nodeChanges: NodeChanges): Seq[BaseNodeDoc] = {
     val deletedDocs = nodeChanges.elementChanges.deletes.flatMap { nodeId =>
-      analysisContext.watched.nodes.delete(nodeId)
+      analysisContext.watched.nodes.remove(nodeId)
       nodeChanges.baseNodeDocsBefore.find(_._id == nodeId).map(deactivateNode)
     }
     nodeRepository.bulkSaveBaseNodes(deletedDocs)
@@ -83,7 +83,7 @@ class BaseNodeChangeProcessor(
     createNodeIds.foreach(analysisContext.watched.nodes.add)
 
     val deleteNodeIds = (beforeNodeIds -- afterNodeIds).toSeq.distinct.sorted
-    deleteNodeIds.foreach(analysisContext.watched.nodes.delete)
+    deleteNodeIds.foreach(analysisContext.watched.nodes.remove)
   }
 
   private def createResultContext(context: ChangeSetContext, nodeChanges: NodeChanges): (String, ChangeSetContext) = {

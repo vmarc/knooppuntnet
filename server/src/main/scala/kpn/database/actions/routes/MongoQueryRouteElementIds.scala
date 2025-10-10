@@ -23,7 +23,12 @@ class MongoQueryRouteElementIds(database: Database) {
   def execute(): Seq[ReferencedElementIds] = {
     log.debugElapsed {
       val pipeline = buildPipeline()
-      val routeElementIdss = database.baseRoutes.aggregate(pipeline, classOf[ReferencedElementIds], log, duration = Duration(5, TimeUnit.MINUTES))
+      val routeElementIdss = database.baseRoutes.aggregate(
+        pipeline,
+        classOf[ReferencedElementIds],
+        log,
+        duration = Duration(10, TimeUnit.MINUTES)
+      )
       (s"elementIds for active routes: ${routeElementIdss.size}", routeElementIdss)
     }
   }

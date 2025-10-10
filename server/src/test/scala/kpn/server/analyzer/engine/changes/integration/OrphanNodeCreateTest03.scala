@@ -28,7 +28,7 @@ class OrphanNodeCreateTest03 extends IntegrationTest {
 
       pendingRedesign()
 
-      watched.nodes.ids shouldNot contain(1001)
+      watched.nodes shouldNot contain(1001)
 
       database.nodes shouldBe empty
       database.nodeChanges shouldBe empty

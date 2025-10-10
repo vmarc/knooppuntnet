@@ -81,8 +81,8 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         )
       )
 
-      watched.networks.ids shouldNot contain(1)
-      watched.nodes.ids should contain(1001)
+      watched.networks shouldNot contain(1)
+      watched.nodes should contain(1001)
 
       assertBaseNode()
       assertBaseNetwork()

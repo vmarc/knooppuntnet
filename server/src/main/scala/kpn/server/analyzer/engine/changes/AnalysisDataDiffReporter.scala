@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes
 
+import it.unimi.dsi.fastutil.longs.LongSet
 import kpn.server.analyzer.engine.context.ElementIdMap
-import kpn.server.analyzer.engine.context.ElementIdSet
 import kpn.server.analyzer.engine.context.Watched
 
 class AnalysisDataDiffReporter {
@@ -64,10 +64,12 @@ class AnalysisDataDiffReporter {
     }
   }
 
-  private def networkElementDiff(title: String, left: Set[Long], right: Set[Long]): Seq[String] = {
+  private def networkElementDiff(title: String, left: LongSet, right: LongSet): Seq[String] = {
+    val leftSet = left.toLongArray.toSet
+    val rightSet = right.toLongArray.toSet
 
-    val leftOnly = left -- right
-    val rightOnly = right -- left
+    val leftOnly = leftSet -- rightSet
+    val rightOnly = rightSet -- leftSet
 
     if (leftOnly.isEmpty && rightOnly.isEmpty) {
       Seq.empty
@@ -88,13 +90,13 @@ class AnalysisDataDiffReporter {
     }
   }
 
-  private def elementIdDiff(title: String, left: ElementIdSet, right: ElementIdSet): Seq[String] = {
-    if (left.ids.isEmpty && right.ids.isEmpty) {
+  private def elementIdDiff(title: String, left: LongSet, right: LongSet): Seq[String] = {
+    if (left.isEmpty && right.isEmpty) {
       Seq.empty
     }
     else {
-      val leftIds = left.ids.toSet
-      val rightIds = right.ids.toSet
+      val leftIds = left.toLongArray.toSet
+      val rightIds = right.toLongArray.toSet
       val leftOnlyKeys = leftIds -- rightIds
       val rightOnlyKeys = rightIds -- leftIds
 

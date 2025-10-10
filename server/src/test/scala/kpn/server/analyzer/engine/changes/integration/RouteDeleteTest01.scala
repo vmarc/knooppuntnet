@@ -56,8 +56,8 @@ class RouteDeleteTest01 extends IntegrationTest {
 
       process(ChangeAction.Delete, newRawRelation(11))
 
-      watched.nodes.ids should contain(1001)
-      watched.nodes.ids should contain(1002)
+      watched.nodes should contain(1001)
+      watched.nodes should contain(1002)
       watched.routes.ids shouldNot contain(11)
 
       assertBaseRoute()

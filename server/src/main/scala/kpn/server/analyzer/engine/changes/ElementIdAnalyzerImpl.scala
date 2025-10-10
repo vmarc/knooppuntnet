@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes
 
+import kpn.core.FastUtil
 import kpn.server.analyzer.engine.context.ElementIdMap
 import kpn.server.analyzer.engine.context.ElementIds
 import org.springframework.stereotype.Component
@@ -31,10 +32,10 @@ class ElementIdAnalyzerImpl(
             elementIdMap.get(key) match {
               case None => false
               case Some(mapElementIds) =>
-                mapElementIds.relationIds.contains(key) ||
-                  elementIds.relationIds.exists(mapElementIds.relationIds.contains) ||
-                  elementIds.wayIds.exists(mapElementIds.wayIds.contains) ||
-                  elementIds.nodeIds.exists(mapElementIds.nodeIds.contains)
+                FastUtil.contains(mapElementIds.relationIds, key) ||
+                  elementIds.relationIds.exists(id => FastUtil.contains(mapElementIds.relationIds, id)) ||
+                  elementIds.wayIds.exists(id => FastUtil.contains(mapElementIds.wayIds, id)) ||
+                  elementIds.nodeIds.exists(id => FastUtil.contains(mapElementIds.nodeIds, id))
             }
           }
         }

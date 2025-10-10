@@ -70,11 +70,11 @@ class NetworkExtraAnalyzerIntegrationTest extends IntegrationTest {
         )
       )
 
-      watched.nodes.ids should contain(1001)
-      watched.nodes.ids should contain(1002)
-      watched.nodes.ids should contain(1003)
-      watched.nodes.ids should contain(1004)
-      watched.nodes.ids should contain(1005)
+      watched.nodes should contain(1001)
+      watched.nodes should contain(1002)
+      watched.nodes should contain(1003)
+      watched.nodes should contain(1004)
+      watched.nodes should contain(1005)
     }
   }
 
@@ -139,11 +139,11 @@ class NetworkExtraAnalyzerIntegrationTest extends IntegrationTest {
         )
       )
 
-      watched.nodes.ids should contain(1001)
-      watched.nodes.ids should contain(1002)
-      watched.nodes.ids should contain(1003)
-      watched.nodes.ids should contain(1004)
-      watched.nodes.ids should contain(1005)
+      watched.nodes should contain(1001)
+      watched.nodes should contain(1002)
+      watched.nodes should contain(1003)
+      watched.nodes should contain(1004)
+      watched.nodes should contain(1005)
     }
   }
 }

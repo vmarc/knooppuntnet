@@ -50,7 +50,7 @@ object MonitorRouteCreateXmlsTool {
 
 class MonitorRouteCreateXmlsTool(overpassQueryExecutor: OverpassQueryExecutor, routeIds: Seq[Long]) {
 
-  private val elementIdMap = ElementIdMap()
+  private val elementIdMap = new ElementIdMap()
   private val monitorChangeImpactAnalyzer = new MonitorChangeImpactAnalyzerImpl()
   private val osmChangeRepository = new OsmChangeRepositoryImpl(new File(s"${Dirs.root}/replicate"))
   private val log = Log(classOf[MonitorRouteCreateXmlsTool])
@@ -114,7 +114,7 @@ class MonitorRouteCreateXmlsTool(overpassQueryExecutor: OverpassQueryExecutor, r
     val xml = XML.loadString(xmlString)
     val rawData = new Parser().parse(xml.head)
     val routeRelation = new DataBuilder(rawData).data.relations(routeId)
-    val elementIds = RelationAnalyzerHelper.toElementIds(routeRelation)
+    val elementIds = RelationAnalyzerHelper.toRouteElementIds(routeRelation)
     elementIdMap.add(routeId, elementIds)
   }
 }

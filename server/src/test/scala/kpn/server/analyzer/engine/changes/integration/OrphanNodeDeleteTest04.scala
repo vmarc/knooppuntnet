@@ -34,7 +34,7 @@ class OrphanNodeDeleteTest04 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawNodeWithId(1001))
 
-      watched.nodes.ids shouldNot contain(1001)
+      watched.nodes shouldNot contain(1001)
 
       assertNode()
       assertNodeChange()

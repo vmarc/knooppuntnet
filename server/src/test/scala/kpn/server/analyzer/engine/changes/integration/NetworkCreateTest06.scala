@@ -60,8 +60,8 @@ class NetworkCreateTest06 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      watched.nodes.ids should contain(1001)
-      watched.nodes.ids should contain(1002)
+      watched.nodes should contain(1001)
+      watched.nodes should contain(1002)
 
       process(
         Seq(
@@ -81,10 +81,10 @@ class NetworkCreateTest06 extends IntegrationTest {
         )
       )
 
-      watched.nodes.ids should contain(1001)
-      watched.nodes.ids should contain(1002)
+      watched.nodes should contain(1001)
+      watched.nodes should contain(1002)
       watched.routes.ids should contain(11)
-      watched.networks.ids should contain(1)
+      watched.networks should contain(1)
 
       assertBaseNetwork()
       assertNetwork()

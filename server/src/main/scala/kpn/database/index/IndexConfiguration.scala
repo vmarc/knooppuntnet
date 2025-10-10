@@ -139,6 +139,13 @@ class IndexConfiguration(database: Database) {
         "_id",
         "summary.name",
       ),
+      Index( // support MongoQueryRouteElementIds
+        database.baseRoutes,
+        "element-ids",
+        "active",
+        "_id",
+        "elementIds",
+      ),
     )
   }
 

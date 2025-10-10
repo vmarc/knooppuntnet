@@ -89,7 +89,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with MockFactory {
 
     // verify
     assertEqual(
-      setup.analysisContext.watched.routes.get(11),
+      setup.analysisContext.watched.routes.get(11).map(_.toElementIds),
       Some(ElementIds(nodeIds = Set(1001, 1002)))
     )
 
