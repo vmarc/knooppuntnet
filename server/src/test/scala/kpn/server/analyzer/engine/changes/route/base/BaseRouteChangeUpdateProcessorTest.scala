@@ -89,8 +89,8 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with MockFactory {
 
     // verify
     assertEqual(
-      setup.analysisContext.watched.routes.get(11).map(_.toElementIds),
-      Some(ElementIds(nodeIds = Set(1001, 1002)))
+      setup.analysisContext.watched.routes.get(11),
+      Some(ElementIds.from(nodeIds = Set(1001, 1002)))
     )
 
     (setup.routeRepository.saveBaseRoute _).verify(
@@ -161,7 +161,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with MockFactory {
     // verify
     assertEqual(
       setup.analysisContext.watched.routes.get(11),
-      Some(ElementIds(nodeIds = Set(1001, 1002)))
+      Some(ElementIds.from(nodeIds = Set(1001, 1002)))
     )
 
     (setup.routeRepository.saveBaseRoute _).verify(
@@ -238,7 +238,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with MockFactory {
           newRouteTileData(2, 2, 2),
         )
       ),
-      elementIds = ElementIds(nodeIds = Set(1001, 1002)),
+      elementIds = ElementIds.from(nodeIds = Set(1001, 1002)),
     )
   }
 

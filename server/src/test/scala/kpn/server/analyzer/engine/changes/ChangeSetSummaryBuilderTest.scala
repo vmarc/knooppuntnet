@@ -26,7 +26,7 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.node.main.NodeChangeStateAnalyzer
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeStateAnalyzer
-import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.context.ChangeElementIds
 
 class ChangeSetSummaryBuilderTest extends UnitTest {
 
@@ -126,7 +126,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest {
     val context = ChangeSetContext(
       ReplicationId(0, 0, 1),
       newChangeSet(),
-      ElementIds(),
+      ChangeElementIds(),
       changes
     )
 
@@ -295,7 +295,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest {
     val context = ChangeSetContext(
       ReplicationId(0, 0, 1),
       newChangeSet(),
-      ElementIds(),
+      ChangeElementIds(),
       changes
     )
 

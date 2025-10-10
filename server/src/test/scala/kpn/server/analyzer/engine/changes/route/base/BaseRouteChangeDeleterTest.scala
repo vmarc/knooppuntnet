@@ -20,7 +20,7 @@ class BaseRouteChangeDeleterTest extends UnitTest with MockFactory {
   private class Setup {
     val log: MockLog = Log.mock
     val analysisContext = new AnalysisContext()
-    analysisContext.watched.routes.add(11, ElementIds(nodeIds = Set(1001, 1002)))
+    analysisContext.watched.routes.add(11, ElementIds.from(nodeIds = Set(1001, 1002)))
     val routeRepository: RouteRepository = stub[RouteRepository]
     val deleter = new BaseRouteChangeDeleterImpl(
       analysisContext,

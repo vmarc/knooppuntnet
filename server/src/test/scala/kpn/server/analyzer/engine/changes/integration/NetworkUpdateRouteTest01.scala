@@ -181,7 +181,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             1002
           )
         ),
-        elementIds = ElementIds(
+        elementIds = ElementIds.from(
           nodeIds = Set(1001, 1002),
           wayIds = Set(101)
         ),

@@ -15,6 +15,7 @@ object Codecs {
     ClassId("ApiResponse", "kpn.api.custom"),
     ClassId("Translations", "kpn.core.tools.translations"),
     ClassId("PoeTranslations", "kpn.core.tools.translations"),
+    ClassId("LongSet", "it.unimi.dsi.fastutil.longs")
   )
 }
 

@@ -24,7 +24,7 @@ import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
-import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.context.ChangeElementIds
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkInfoRepository
 import org.scalamock.scalatest.MockFactory
@@ -39,7 +39,7 @@ class ChangeSaverTest extends UnitTest with MockFactory {
     val context = ChangeSetContext(
       ReplicationId(1, 2, 3),
       newChangeSet(),
-      ElementIds(),
+      ChangeElementIds(),
       ChangeSetChanges()
     )
 
@@ -222,7 +222,7 @@ class ChangeSaverTest extends UnitTest with MockFactory {
     val context = ChangeSetContext(
       ReplicationId(0, 0, 1),
       newChangeSet(),
-      ElementIds(),
+      ChangeElementIds(),
       changeSetChanges
     )
     new ChangeSaver(changeSetRepository, networkInfoRepository).save(context)

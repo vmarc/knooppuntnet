@@ -5,12 +5,12 @@ import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
-import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.context.ChangeElementIds
 
 case class ChangeSetContext(
   replicationId: ReplicationId,
   changeSet: ChangeSet,
-  elementIds: ElementIds,
+  elementIds: ChangeElementIds,
   changes: ChangeSetChanges = ChangeSetChanges(),
   elementChanges: ElementChangeMap = new ElementChangeMap(),
   baseNetworkCreateIds: Seq[Long] = Seq.empty,

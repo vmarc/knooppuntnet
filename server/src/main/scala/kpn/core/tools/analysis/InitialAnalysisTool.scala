@@ -7,7 +7,7 @@ import kpn.core.util.Log
 import kpn.database.base.Options
 import kpn.database.base.Tool
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.context.ChangeElementIds
 import kpn.server.analyzer.full.MainFullAnalyzer
 import kpn.server.repository.AnalysisRepository
 
@@ -58,7 +58,7 @@ object InitialAnalysisTool extends Tool[InitialAnalysisToolOptions] {
         timestamp,
         Seq.empty
       ),
-      ElementIds()
+      ChangeElementIds()
     )
   }
 }

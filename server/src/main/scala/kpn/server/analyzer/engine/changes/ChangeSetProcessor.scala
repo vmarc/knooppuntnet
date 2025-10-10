@@ -5,7 +5,7 @@ import kpn.api.common.changes.ChangeSet
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.ReplicationContext
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
-import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.context.ChangeElementIds
 import org.springframework.stereotype.Component
 
 @Component
@@ -37,7 +37,7 @@ class ChangeSetProcessor(
 
   private def updateReplicationContext(
     replicationContext: ReplicationContext,
-    elementIds: ElementIds,
+    elementIds: ChangeElementIds,
     changeSetContext: ChangeSetContext
   ): ReplicationContext = {
     val changeSetElementCount = replicationContext.changeSetElementCount + elementIds.size

@@ -20,13 +20,13 @@ class AnalysisDataDiffReporterTest extends UnitTest {
     val left = new Watched()
     val right = new Watched()
 
-    val leftElementIds = ElementIds(
+    val leftElementIds = ElementIds.from(
       nodeIds = Set(1011, 1012),
       wayIds = Set(1021, 1022),
       relationIds = Set(1031, 1032)
     )
 
-    val rightElementIds = ElementIds(
+    val rightElementIds = ElementIds.from(
       nodeIds = Set(1011, 1013),
       wayIds = Set(1021, 1023),
       relationIds = Set(1031, 1033)
@@ -64,13 +64,13 @@ class AnalysisDataDiffReporterTest extends UnitTest {
     val left = new Watched()
     val right = new Watched()
 
-    val leftElementIds = ElementIds(
+    val leftElementIds = ElementIds.from(
       nodeIds = Set(1011, 1012),
       wayIds = Set(1021, 1022),
       relationIds = Set(1031, 1032)
     )
 
-    val rightElementIds = ElementIds(
+    val rightElementIds = ElementIds.from(
       nodeIds = Set(1011, 1013),
       wayIds = Set(1021, 1023),
       relationIds = Set(1031, 1033)

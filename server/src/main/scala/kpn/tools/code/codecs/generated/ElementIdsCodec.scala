@@ -2,6 +2,7 @@
 
 package kpn.tools.code.codecs.generated
 
+import it.unimi.dsi.fastutil.longs.LongSet
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
@@ -14,43 +15,25 @@ import org.bson.codecs.configuration.CodecRegistry
 
 class ElementIdsCodec(registry: CodecRegistry) extends Codec[ElementIds] {
 
-  private val longCodec = registry.get(classOf[Long])
+  private val longSetCodec = registry.get(classOf[LongSet])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): ElementIds = {
     bsonReader.readStartDocument()
 
-    var nodeIds: Set[Long] = null
-    var wayIds: Set[Long] = null
-    var relationIds: Set[Long] = null
+    var nodeIds: LongSet = null
+    var wayIds: LongSet = null
+    var relationIds: LongSet = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
       if (fieldName == "nodeIds") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[Long]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += longCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        nodeIds = valueBuffer.toSet
+        nodeIds = longSetCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "wayIds") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[Long]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += longCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        wayIds = valueBuffer.toSet
+        wayIds = longSetCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "relationIds") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[Long]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += longCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        relationIds = valueBuffer.toSet
+        relationIds = longSetCodec.decode(bsonReader, decoderContext)
       }
       else {
         Codecs.log.warn(s"Unknown field name: $fieldName in ElementIdsCodec.decode()")
@@ -71,19 +54,13 @@ class ElementIdsCodec(registry: CodecRegistry) extends Codec[ElementIds] {
     bsonWriter.writeStartDocument()
 
     bsonWriter.writeName("nodeIds")
-    bsonWriter.writeStartArray()
-    value.nodeIds.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
+    longSetCodec.encode(bsonWriter, value.nodeIds, encoderContext)
 
     bsonWriter.writeName("wayIds")
-    bsonWriter.writeStartArray()
-    value.wayIds.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
+    longSetCodec.encode(bsonWriter, value.wayIds, encoderContext)
 
     bsonWriter.writeName("relationIds")
-    bsonWriter.writeStartArray()
-    value.relationIds.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
+    longSetCodec.encode(bsonWriter, value.relationIds, encoderContext)
 
     bsonWriter.writeEndDocument()
   }

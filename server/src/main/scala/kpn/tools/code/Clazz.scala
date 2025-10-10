@@ -43,7 +43,7 @@ class Clazz(private val typeSignature: Type) {
   }
 
   def isStorable: Boolean = {
-    typeSignature.baseClasses.exists(_.fullName == "kpn.core.doc.Storable") && isCaseClass
+    typeSignature.baseClasses.exists(_.fullName == "kpn.core.doc.Storable") && !typeSignature.typeSymbol.isAbstract
   }
 
   def isApi: Boolean = {

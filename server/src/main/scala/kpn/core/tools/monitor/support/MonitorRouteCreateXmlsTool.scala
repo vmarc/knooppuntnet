@@ -114,7 +114,7 @@ class MonitorRouteCreateXmlsTool(overpassQueryExecutor: OverpassQueryExecutor, r
     val xml = XML.loadString(xmlString)
     val rawData = new Parser().parse(xml.head)
     val routeRelation = new DataBuilder(rawData).data.relations(routeId)
-    val elementIds = RelationAnalyzerHelper.toRouteElementIds(routeRelation)
+    val elementIds = RelationAnalyzerHelper.toElementIds(routeRelation)
     elementIdMap.add(routeId, elementIds)
   }
 }

@@ -12,7 +12,7 @@ import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
 import kpn.core.test.TestObjects.newNetworkRouteDetail
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.context.ChangeElementIds
 
 class NetworkChangeUpdateProcessorTest extends UnitTest {
 
@@ -387,7 +387,7 @@ class NetworkChangeUpdateProcessorTest extends UnitTest {
     val context: ChangeSetContext = ChangeSetContext(
       ReplicationId(1),
       newChangeSet(),
-      ElementIds()
+      ChangeElementIds()
     )
     new NetworkChangeUpdateProcessor(context, before, after, networkId).process().get
   }

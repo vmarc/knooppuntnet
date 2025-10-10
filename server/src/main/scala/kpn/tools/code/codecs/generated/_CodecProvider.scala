@@ -2,6 +2,7 @@
 
 package kpn.tools.code.codecs.generated
 
+import it.unimi.dsi.fastutil.longs.LongSet
 import kpn.api.common.AnalysisStrategy
 import kpn.api.common.Bounds
 import kpn.api.common.ChangeSetElementRef
@@ -463,8 +464,8 @@ import kpn.server.repository.NetworkFactElementIds
 import kpn.server.sync.StampDoc
 import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.DayCodec
+import kpn.tools.code.codecs.LongSetCodec
 import kpn.tools.code.codecs.PoeTranslationsCodec
-import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import kpn.tools.code.codecs.TranslationsCodec
@@ -489,6 +490,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[PoeTranslations]) {
       return new PoeTranslationsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[LongSet]) {
+      return new LongSetCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[Period]) {
       return new PeriodCodec(codecRegistry).asInstanceOf[Codec[T]]

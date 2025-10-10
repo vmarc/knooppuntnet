@@ -12,7 +12,7 @@ import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
-import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.context.ChangeElementIds
 
 class NetworkUpdateNodeDiffsAnalyzerTest extends UnitTest {
 
@@ -105,7 +105,7 @@ class NetworkUpdateNodeDiffsAnalyzerTest extends UnitTest {
     val context = ChangeSetContext(
       ReplicationId(1),
       newChangeSet(),
-      ElementIds(),
+      ChangeElementIds(),
       changes = ChangeSetChanges(
         nodeChanges = Seq(
           newNodeChange(
@@ -140,7 +140,7 @@ class NetworkUpdateNodeDiffsAnalyzerTest extends UnitTest {
     val context: ChangeSetContext = ChangeSetContext(
       ReplicationId(1),
       newChangeSet(),
-      ElementIds()
+      ChangeElementIds()
     )
     analyze(context, before, after)
   }

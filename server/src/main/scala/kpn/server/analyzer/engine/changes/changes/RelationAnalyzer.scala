@@ -9,7 +9,6 @@ import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.context.ElementIds
-import kpn.server.analyzer.engine.context.RouteElementIds
 
 object RelationAnalyzerHelper {
 
@@ -19,20 +18,11 @@ object RelationAnalyzerHelper {
     val relationIds = referencedRelations(relation).map(_.id)
     val relationIds2 = relation.members.flatMap(_.relationId)
 
-    ElementIds(
+    ElementIds.from(
       nodeIds,
       wayIds,
       relationIds ++ relationIds2
     )
-  }
-
-  def toRouteElementIds(relation: Relation): RouteElementIds = {
-    val routeElementIds = new RouteElementIds()
-    referencedNodes(relation).map(_.id).foreach(routeElementIds.nodeIds.add)
-    referencedWays(relation).map(_.id).foreach(routeElementIds.wayIds.add)
-    referencedRelations(relation).map(_.id).foreach(routeElementIds.relationIds.add)
-    relation.members.flatMap(_.relationId).foreach(routeElementIds.relationIds.add)
-    routeElementIds
   }
 
   def referencedNodes(relation: Relation): Set[Node] = {

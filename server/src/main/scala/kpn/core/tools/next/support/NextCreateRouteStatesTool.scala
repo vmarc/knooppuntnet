@@ -78,7 +78,7 @@ class NextCreateRouteStatesTool(
     val nodeIds = memberNodeIds.toSet ++ wayNodeIds.toSet
     val wayIds = relation.members.flatMap(_.way.map(_.id)).toSet
     val subRelationIds = relation.members.flatMap(_.relation.map(_.id)).toSet
-    ElementIds(nodeIds, wayIds, subRelationIds)
+    ElementIds.from(nodeIds, wayIds, subRelationIds)
   }
 
   private def determineTiles(relation: Relation): Seq[Tile] = {

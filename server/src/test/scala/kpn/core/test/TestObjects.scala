@@ -111,6 +111,7 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.analyzer.engine.context.ChangeElementIds
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
@@ -1572,7 +1573,7 @@ object TestObjects {
     ChangeSetContext(
       ReplicationId(1),
       newChangeSet(),
-      ElementIds()
+      ChangeElementIds()
     )
   }
 

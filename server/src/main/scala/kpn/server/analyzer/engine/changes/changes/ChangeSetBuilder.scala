@@ -4,7 +4,7 @@ import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Change
 import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
-import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.context.ChangeElementIds
 
 object ChangeSetBuilder {
 
@@ -41,11 +41,11 @@ object ChangeSetBuilder {
     }.toSeq.sortBy(_.id)
   }
 
-  def elementIdsIn(changeSet: ChangeSet): ElementIds = {
+  def elementIdsIn(changeSet: ChangeSet): ChangeElementIds = {
     val elements = changeSet.changes.flatMap(_.elements)
     val nodeIds = elements.filter(_.isNode).map(_.id).toSet
     val wayIds = elements.filter(_.isWay).map(_.id).toSet
     val relationIds = elements.filter(_.isRelation).map(_.id).toSet
-    ElementIds(nodeIds, wayIds, relationIds)
+    ChangeElementIds(nodeIds, wayIds, relationIds)
   }
 }
