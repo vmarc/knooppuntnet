@@ -100,7 +100,7 @@ class LocationNodeInfoDocCodec(registry: CodecRegistry) extends Codec[LocationNo
         routeReferences = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationNodeInfoDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationNodeInfoDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

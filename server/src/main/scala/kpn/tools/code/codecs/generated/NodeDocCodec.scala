@@ -161,7 +161,7 @@ class NodeDocCodec(registry: CodecRegistry) extends Codec[NodeDoc] {
         stamp = Some(objectIdCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

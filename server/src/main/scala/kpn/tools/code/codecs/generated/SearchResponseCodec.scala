@@ -34,7 +34,7 @@ class SearchResponseCodec(registry: CodecRegistry) extends Codec[SearchResponse]
         geocoderLocations = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SearchResponseCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SearchResponseCodec.decode()")
         bsonReader.skipValue()
       }
     }

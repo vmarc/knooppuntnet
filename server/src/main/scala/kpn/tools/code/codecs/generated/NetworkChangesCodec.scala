@@ -54,7 +54,7 @@ class NetworkChangesCodec(registry: CodecRegistry) extends Codec[NetworkChanges]
         deletes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkChangesCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkChangesCodec.decode()")
         bsonReader.skipValue()
       }
     }

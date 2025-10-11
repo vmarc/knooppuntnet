@@ -49,7 +49,7 @@ class RouteNodeDiffCodec(registry: CodecRegistry) extends Codec[RouteNodeDiff] {
         removed = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteNodeDiffCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteNodeDiffCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -155,7 +155,7 @@ class PoiAnalysisCodec(registry: CodecRegistry) extends Codec[PoiAnalysis] {
         denomination = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PoiAnalysisCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PoiAnalysisCodec.decode()")
         bsonReader.skipValue()
       }
     }

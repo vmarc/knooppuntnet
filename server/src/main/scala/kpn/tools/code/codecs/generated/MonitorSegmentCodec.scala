@@ -36,7 +36,7 @@ class MonitorSegmentCodec(registry: CodecRegistry) extends Codec[MonitorSegment]
         coordinates = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorSegmentCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorSegmentCodec.decode()")
         bsonReader.skipValue()
       }
     }

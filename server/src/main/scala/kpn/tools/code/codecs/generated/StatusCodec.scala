@@ -34,7 +34,7 @@ class StatusCodec(registry: CodecRegistry) extends Codec[Status] {
         diskUsage = diskUsageCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in StatusCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in StatusCodec.decode()")
         bsonReader.skipValue()
       }
     }

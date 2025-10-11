@@ -226,7 +226,7 @@ class NodeChangeCodec(registry: CodecRegistry) extends Codec[NodeChange] {
         comment = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeChangeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeChangeCodec.decode()")
         bsonReader.skipValue()
       }
     }

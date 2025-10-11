@@ -36,7 +36,7 @@ class ElementIdsCodec(registry: CodecRegistry) extends Codec[ElementIds] {
         relationIds = longSetCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ElementIdsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ElementIdsCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -34,7 +34,7 @@ class RoutesFactCodec(registry: CodecRegistry) extends Codec[RoutesFact] {
         routes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RoutesFactCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RoutesFactCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -34,7 +34,7 @@ class SubsetCodec(registry: CodecRegistry) extends Codec[Subset] {
         routeType = routeTypeCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SubsetCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SubsetCodec.decode()")
         bsonReader.skipValue()
       }
     }

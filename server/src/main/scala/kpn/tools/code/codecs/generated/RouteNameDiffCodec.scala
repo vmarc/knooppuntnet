@@ -31,7 +31,7 @@ class RouteNameDiffCodec(registry: CodecRegistry) extends Codec[RouteNameDiff] {
         after = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteNameDiffCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteNameDiffCodec.decode()")
         bsonReader.skipValue()
       }
     }

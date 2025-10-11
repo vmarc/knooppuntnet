@@ -66,7 +66,7 @@ class RouteInfoCodec(registry: CodecRegistry) extends Codec[RouteInfo] {
         changeCount = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

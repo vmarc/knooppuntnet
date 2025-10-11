@@ -63,7 +63,7 @@ class RouteDiffCodec(registry: CodecRegistry) extends Codec[RouteDiff] {
         tagDiffs = Some(tagDiffsCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteDiffCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteDiffCodec.decode()")
         bsonReader.skipValue()
       }
     }

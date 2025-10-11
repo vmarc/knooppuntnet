@@ -34,7 +34,7 @@ class LocationGeometryCodec(registry: CodecRegistry) extends Codec[LocationGeome
         envelope = envelopeCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationGeometryCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationGeometryCodec.decode()")
         bsonReader.skipValue()
       }
     }

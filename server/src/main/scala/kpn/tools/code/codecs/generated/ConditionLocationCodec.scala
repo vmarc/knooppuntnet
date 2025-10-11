@@ -27,7 +27,7 @@ class ConditionLocationCodec(registry: CodecRegistry) extends Codec[ConditionLoc
         name = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ConditionLocationCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ConditionLocationCodec.decode()")
         bsonReader.skipValue()
       }
     }

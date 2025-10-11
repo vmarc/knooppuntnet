@@ -34,7 +34,7 @@ class OverviewPageCodec(registry: CodecRegistry) extends Codec[OverviewPage] {
         values = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in OverviewPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in OverviewPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

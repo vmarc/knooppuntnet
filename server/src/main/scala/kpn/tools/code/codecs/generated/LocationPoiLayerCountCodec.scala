@@ -32,7 +32,7 @@ class LocationPoiLayerCountCodec(registry: CodecRegistry) extends Codec[Location
         count = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationPoiLayerCountCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationPoiLayerCountCodec.decode()")
         bsonReader.skipValue()
       }
     }

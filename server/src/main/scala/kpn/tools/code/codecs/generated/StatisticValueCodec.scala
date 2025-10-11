@@ -39,7 +39,7 @@ class StatisticValueCodec(registry: CodecRegistry) extends Codec[StatisticValue]
         value = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in StatisticValueCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in StatisticValueCodec.decode()")
         bsonReader.skipValue()
       }
     }

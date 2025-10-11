@@ -33,7 +33,7 @@ class NetworkShapeDocCodec(registry: CodecRegistry) extends Codec[NetworkShapeDo
         shape = Some(networkShapeCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkShapeDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkShapeDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

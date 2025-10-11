@@ -38,7 +38,7 @@ class NodeOrphanRouteReferenceCodec(registry: CodecRegistry) extends Codec[NodeO
         routeName = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeOrphanRouteReferenceCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeOrphanRouteReferenceCodec.decode()")
         bsonReader.skipValue()
       }
     }

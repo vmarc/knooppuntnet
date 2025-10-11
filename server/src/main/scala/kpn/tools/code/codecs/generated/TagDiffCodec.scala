@@ -41,7 +41,7 @@ class TagDiffCodec(registry: CodecRegistry) extends Codec[TagDiff] {
         valueAfter = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in TagDiffCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in TagDiffCodec.decode()")
         bsonReader.skipValue()
       }
     }

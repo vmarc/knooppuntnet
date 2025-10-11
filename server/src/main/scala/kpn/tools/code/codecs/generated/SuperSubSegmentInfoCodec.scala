@@ -53,7 +53,7 @@ class SuperSubSegmentInfoCodec(registry: CodecRegistry) extends Codec[SuperSubSe
         bounds = boundsCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SuperSubSegmentInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SuperSubSegmentInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

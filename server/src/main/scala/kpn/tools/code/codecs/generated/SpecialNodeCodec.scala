@@ -39,7 +39,7 @@ class SpecialNodeCodec(registry: CodecRegistry) extends Codec[SpecialNode] {
         routeType = routeTypeCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SpecialNodeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SpecialNodeCodec.decode()")
         bsonReader.skipValue()
       }
     }

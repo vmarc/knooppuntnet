@@ -62,7 +62,7 @@ class ApiActionCodec(registry: CodecRegistry) extends Codec[ApiAction] {
         elapsed = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ApiActionCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ApiActionCodec.decode()")
         bsonReader.skipValue()
       }
     }

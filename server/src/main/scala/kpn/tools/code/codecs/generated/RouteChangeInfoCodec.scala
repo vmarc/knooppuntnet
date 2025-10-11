@@ -125,7 +125,7 @@ class RouteChangeInfoCodec(registry: CodecRegistry) extends Codec[RouteChangeInf
         investigate = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteChangeInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteChangeInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

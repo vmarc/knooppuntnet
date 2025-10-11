@@ -134,7 +134,7 @@ class NetworkDocCodec(registry: CodecRegistry) extends Codec[NetworkDoc] {
         stamp = Some(objectIdCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

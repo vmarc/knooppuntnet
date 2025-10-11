@@ -54,7 +54,7 @@ class ChangeSetCountsCodec(registry: CodecRegistry) extends Codec[ChangeSetCount
         days = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeSetCountsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeSetCountsCodec.decode()")
         bsonReader.skipValue()
       }
     }

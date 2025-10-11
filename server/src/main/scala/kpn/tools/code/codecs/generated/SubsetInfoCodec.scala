@@ -55,7 +55,7 @@ class SubsetInfoCodec(registry: CodecRegistry) extends Codec[SubsetInfo] {
         orphanRouteCount = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SubsetInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SubsetInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

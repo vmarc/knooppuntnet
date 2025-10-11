@@ -32,7 +32,7 @@ class LocationNodeCountCodec(registry: CodecRegistry) extends Codec[LocationNode
         count = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationNodeCountCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationNodeCountCodec.decode()")
         bsonReader.skipValue()
       }
     }

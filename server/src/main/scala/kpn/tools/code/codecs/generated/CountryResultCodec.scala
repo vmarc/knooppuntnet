@@ -28,7 +28,7 @@ class CountryResultCodec(registry: CodecRegistry) extends Codec[CountryResult] {
         country = countryCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in CountryResultCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in CountryResultCodec.decode()")
         bsonReader.skipValue()
       }
     }

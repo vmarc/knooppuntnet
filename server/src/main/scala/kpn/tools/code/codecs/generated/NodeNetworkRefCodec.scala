@@ -46,7 +46,7 @@ class NodeNetworkRefCodec(registry: CodecRegistry) extends Codec[NodeNetworkRef]
         networkName = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeNetworkRefCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeNetworkRefCodec.decode()")
         bsonReader.skipValue()
       }
     }

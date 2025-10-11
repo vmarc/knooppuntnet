@@ -32,7 +32,7 @@ class PointSegmentCodec(registry: CodecRegistry) extends Codec[PointSegment] {
         p2 = latLonImplCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PointSegmentCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PointSegmentCodec.decode()")
         bsonReader.skipValue()
       }
     }

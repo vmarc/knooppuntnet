@@ -17,6 +17,10 @@ object Codecs {
     ClassId("PoeTranslations", "kpn.core.tools.translations"),
     ClassId("LongSet", "it.unimi.dsi.fastutil.longs")
   )
+
+  def warn(message: String): Unit = {
+    log.warn(message)
+  }
 }
 
 class Codecs

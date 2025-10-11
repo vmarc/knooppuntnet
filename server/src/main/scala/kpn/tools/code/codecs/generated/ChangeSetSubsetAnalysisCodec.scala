@@ -37,7 +37,7 @@ class ChangeSetSubsetAnalysisCodec(registry: CodecRegistry) extends Codec[Change
         investigate = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeSetSubsetAnalysisCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeSetSubsetAnalysisCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -28,7 +28,7 @@ class BoundsResultCodec(registry: CodecRegistry) extends Codec[BoundsResult] {
         bounds = boundsCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in BoundsResultCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in BoundsResultCodec.decode()")
         bsonReader.skipValue()
       }
     }

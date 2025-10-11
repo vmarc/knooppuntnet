@@ -43,7 +43,7 @@ class KnownElementsCodec(registry: CodecRegistry) extends Codec[KnownElements] {
         routeIds = valueBuffer.toSet
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in KnownElementsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in KnownElementsCodec.decode()")
         bsonReader.skipValue()
       }
     }

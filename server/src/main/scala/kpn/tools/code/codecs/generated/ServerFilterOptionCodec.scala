@@ -37,7 +37,7 @@ class ServerFilterOptionCodec(registry: CodecRegistry) extends Codec[ServerFilte
         selected = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ServerFilterOptionCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ServerFilterOptionCodec.decode()")
         bsonReader.skipValue()
       }
     }

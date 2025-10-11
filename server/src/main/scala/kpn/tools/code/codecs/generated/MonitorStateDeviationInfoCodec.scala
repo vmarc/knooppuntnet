@@ -35,7 +35,7 @@ class MonitorStateDeviationInfoCodec(registry: CodecRegistry) extends Codec[Moni
         deviationCount = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorStateDeviationInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorStateDeviationInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

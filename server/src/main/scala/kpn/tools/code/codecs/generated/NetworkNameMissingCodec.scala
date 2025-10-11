@@ -27,7 +27,7 @@ class NetworkNameMissingCodec(registry: CodecRegistry) extends Codec[NetworkName
         dummy = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkNameMissingCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkNameMissingCodec.decode()")
         bsonReader.skipValue()
       }
     }

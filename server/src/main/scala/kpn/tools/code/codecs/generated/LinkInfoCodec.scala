@@ -37,7 +37,7 @@ class LinkInfoCodec(registry: CodecRegistry) extends Codec[LinkInfo] {
         link = linkCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LinkInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LinkInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

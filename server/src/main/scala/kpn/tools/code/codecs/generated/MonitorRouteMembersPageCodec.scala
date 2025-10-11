@@ -58,7 +58,7 @@ class MonitorRouteMembersPageCodec(registry: CodecRegistry) extends Codec[Monito
         structureRows = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteMembersPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteMembersPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

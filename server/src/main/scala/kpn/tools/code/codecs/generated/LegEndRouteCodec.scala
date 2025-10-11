@@ -38,7 +38,7 @@ class LegEndRouteCodec(registry: CodecRegistry) extends Codec[LegEndRoute] {
         selection = Some(trackPathKeyCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LegEndRouteCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LegEndRouteCodec.decode()")
         bsonReader.skipValue()
       }
     }

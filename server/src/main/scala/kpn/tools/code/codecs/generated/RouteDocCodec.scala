@@ -267,7 +267,7 @@ class RouteDocCodec(registry: CodecRegistry) extends Codec[RouteDoc] {
         stamp = Some(objectIdCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

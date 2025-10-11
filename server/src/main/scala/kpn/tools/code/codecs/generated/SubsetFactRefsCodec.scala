@@ -38,7 +38,7 @@ class SubsetFactRefsCodec(registry: CodecRegistry) extends Codec[SubsetFactRefs]
         elementIds = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SubsetFactRefsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SubsetFactRefsCodec.decode()")
         bsonReader.skipValue()
       }
     }

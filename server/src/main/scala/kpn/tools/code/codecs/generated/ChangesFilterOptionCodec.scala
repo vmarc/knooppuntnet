@@ -57,7 +57,7 @@ class ChangesFilterOptionCodec(registry: CodecRegistry) extends Codec[ChangesFil
         current = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangesFilterOptionCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangesFilterOptionCodec.decode()")
         bsonReader.skipValue()
       }
     }

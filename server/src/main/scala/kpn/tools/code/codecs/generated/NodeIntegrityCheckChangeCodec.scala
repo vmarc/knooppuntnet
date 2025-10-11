@@ -38,7 +38,7 @@ class NodeIntegrityCheckChangeCodec(registry: CodecRegistry) extends Codec[NodeI
         after = Some(nodeIntegrityCheckCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeIntegrityCheckChangeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeIntegrityCheckChangeCodec.decode()")
         bsonReader.skipValue()
       }
     }

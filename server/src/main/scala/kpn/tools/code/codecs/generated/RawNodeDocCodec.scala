@@ -33,7 +33,7 @@ class RawNodeDocCodec(registry: CodecRegistry) extends Codec[RawNodeDoc] {
         node = rawNodeCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RawNodeDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RawNodeDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

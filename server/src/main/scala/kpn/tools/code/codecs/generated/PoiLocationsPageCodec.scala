@@ -28,7 +28,7 @@ class PoiLocationsPageCodec(registry: CodecRegistry) extends Codec[PoiLocationsP
         locationNode = Some(locationNodeCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PoiLocationsPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PoiLocationsPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

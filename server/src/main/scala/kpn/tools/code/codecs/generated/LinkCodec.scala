@@ -62,7 +62,7 @@ class LinkCodec(registry: CodecRegistry) extends Codec[Link] {
         isOnewayTail = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LinkCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LinkCodec.decode()")
         bsonReader.skipValue()
       }
     }

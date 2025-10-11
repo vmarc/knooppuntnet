@@ -39,7 +39,7 @@ class GrafanaQueryTargetCodec(registry: CodecRegistry) extends Codec[GrafanaQuer
         datasource = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in GrafanaQueryTargetCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in GrafanaQueryTargetCodec.decode()")
         bsonReader.skipValue()
       }
     }

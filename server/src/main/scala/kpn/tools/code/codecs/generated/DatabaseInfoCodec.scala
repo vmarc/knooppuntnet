@@ -33,7 +33,7 @@ class DatabaseInfoCodec(registry: CodecRegistry) extends Codec[DatabaseInfo] {
         doc_count = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in DatabaseInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in DatabaseInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -37,7 +37,7 @@ class NodeMovedCodec(registry: CodecRegistry) extends Codec[NodeMoved] {
         distance = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeMovedCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeMovedCodec.decode()")
         bsonReader.skipValue()
       }
     }

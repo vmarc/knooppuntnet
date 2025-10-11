@@ -203,7 +203,7 @@ class NodeChangeInfoCodec(registry: CodecRegistry) extends Codec[NodeChangeInfo]
         investigate = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeChangeInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeChangeInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

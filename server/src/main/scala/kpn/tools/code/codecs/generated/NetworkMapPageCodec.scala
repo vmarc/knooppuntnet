@@ -87,7 +87,7 @@ class NetworkMapPageCodec(registry: CodecRegistry) extends Codec[NetworkMapPage]
         bounds = boundsCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkMapPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkMapPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -35,7 +35,7 @@ class DatabaseSizesCodec(registry: CodecRegistry) extends Codec[DatabaseSizes] {
         active = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in DatabaseSizesCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in DatabaseSizesCodec.decode()")
         bsonReader.skipValue()
       }
     }

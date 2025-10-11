@@ -33,7 +33,7 @@ class SystemStatusDocCodec(registry: CodecRegistry) extends Codec[SystemStatusDo
         status = systemStatusCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SystemStatusDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SystemStatusDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -42,7 +42,7 @@ class BaseRoutePathCodec(registry: CodecRegistry) extends Codec[BaseRoutePath] {
         elementIds = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in BaseRoutePathCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in BaseRoutePathCodec.decode()")
         bsonReader.skipValue()
       }
     }

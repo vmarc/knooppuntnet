@@ -45,7 +45,7 @@ class NetworkMapNodeCodec(registry: CodecRegistry) extends Codec[NetworkMapNode]
         roleConnection = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkMapNodeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkMapNodeCodec.decode()")
         bsonReader.skipValue()
       }
     }

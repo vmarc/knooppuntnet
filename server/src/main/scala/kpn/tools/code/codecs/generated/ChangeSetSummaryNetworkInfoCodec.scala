@@ -50,7 +50,7 @@ class ChangeSetSummaryNetworkInfoCodec(registry: CodecRegistry) extends Codec[Ch
         orphanNodeChanges = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeSetSummaryNetworkInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeSetSummaryNetworkInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -36,7 +36,7 @@ class ParentRouteCodec(registry: CodecRegistry) extends Codec[ParentRoute] {
         name = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ParentRouteCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ParentRouteCodec.decode()")
         bsonReader.skipValue()
       }
     }

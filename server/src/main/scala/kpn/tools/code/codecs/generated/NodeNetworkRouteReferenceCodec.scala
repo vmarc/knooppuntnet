@@ -36,7 +36,7 @@ class NodeNetworkRouteReferenceCodec(registry: CodecRegistry) extends Codec[Node
         routeRole = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeNetworkRouteReferenceCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeNetworkRouteReferenceCodec.decode()")
         bsonReader.skipValue()
       }
     }

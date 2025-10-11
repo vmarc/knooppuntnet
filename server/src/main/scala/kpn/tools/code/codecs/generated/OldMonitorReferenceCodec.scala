@@ -90,7 +90,7 @@ class OldMonitorReferenceCodec(registry: CodecRegistry) extends Codec[OldMonitor
         referenceGeoJson = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in OldMonitorReferenceCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in OldMonitorReferenceCodec.decode()")
         bsonReader.skipValue()
       }
     }

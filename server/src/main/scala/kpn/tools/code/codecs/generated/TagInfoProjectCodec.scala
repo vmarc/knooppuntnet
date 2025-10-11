@@ -51,7 +51,7 @@ class TagInfoProjectCodec(registry: CodecRegistry) extends Codec[TagInfoProject]
         contact_email = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in TagInfoProjectCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in TagInfoProjectCodec.decode()")
         bsonReader.skipValue()
       }
     }

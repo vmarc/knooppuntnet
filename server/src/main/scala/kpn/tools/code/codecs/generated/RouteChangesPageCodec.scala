@@ -52,7 +52,7 @@ class RouteChangesPageCodec(registry: CodecRegistry) extends Codec[RouteChangesP
         changes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteChangesPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteChangesPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

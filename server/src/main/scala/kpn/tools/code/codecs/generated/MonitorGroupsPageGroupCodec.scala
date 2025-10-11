@@ -56,7 +56,7 @@ class MonitorGroupsPageGroupCodec(registry: CodecRegistry) extends Codec[Monitor
         bounds = Some(boundsCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorGroupsPageGroupCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorGroupsPageGroupCodec.decode()")
         bsonReader.skipValue()
       }
     }

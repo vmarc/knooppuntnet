@@ -52,7 +52,7 @@ class NodeMapInfoCodec(registry: CodecRegistry) extends Codec[NodeMapInfo] {
         longitude = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeMapInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeMapInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

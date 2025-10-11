@@ -48,7 +48,7 @@ class TransactionCodec(registry: CodecRegistry) extends Codec[Transaction] {
         id = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in TransactionCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in TransactionCodec.decode()")
         bsonReader.skipValue()
       }
     }

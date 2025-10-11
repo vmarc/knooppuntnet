@@ -33,7 +33,7 @@ class TrackSegmentFragmentCodec(registry: CodecRegistry) extends Codec[TrackSegm
         meters = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in TrackSegmentFragmentCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in TrackSegmentFragmentCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -27,7 +27,7 @@ class CountResultCodec(registry: CodecRegistry) extends Codec[CountResult] {
         count = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in CountResultCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in CountResultCodec.decode()")
         bsonReader.skipValue()
       }
     }

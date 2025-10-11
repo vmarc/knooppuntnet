@@ -37,7 +37,7 @@ class SegmentRouteInfoCodec(registry: CodecRegistry) extends Codec[SegmentRouteI
         segmentIds = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SegmentRouteInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SegmentRouteInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -103,7 +103,7 @@ class NetworkRouteDetailCodec(registry: CodecRegistry) extends Codec[NetworkRout
         networkNodeIds = Some(valueBuffer.toSeq)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkRouteDetailCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkRouteDetailCodec.decode()")
         bsonReader.skipValue()
       }
     }

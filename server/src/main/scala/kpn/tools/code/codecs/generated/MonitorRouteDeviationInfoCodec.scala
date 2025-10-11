@@ -41,7 +41,7 @@ class MonitorRouteDeviationInfoCodec(registry: CodecRegistry) extends Codec[Moni
         bounds = boundsCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteDeviationInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteDeviationInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

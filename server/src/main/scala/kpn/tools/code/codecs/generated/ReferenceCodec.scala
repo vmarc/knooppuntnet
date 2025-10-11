@@ -48,7 +48,7 @@ class ReferenceCodec(registry: CodecRegistry) extends Codec[Reference] {
         role = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ReferenceCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ReferenceCodec.decode()")
         bsonReader.skipValue()
       }
     }

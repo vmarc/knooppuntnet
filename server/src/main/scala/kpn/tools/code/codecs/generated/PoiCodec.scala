@@ -99,7 +99,7 @@ class PoiCodec(registry: CodecRegistry) extends Codec[Poi] {
         image = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PoiCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PoiCodec.decode()")
         bsonReader.skipValue()
       }
     }

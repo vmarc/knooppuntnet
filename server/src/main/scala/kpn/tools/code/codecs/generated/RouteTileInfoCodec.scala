@@ -97,7 +97,7 @@ class RouteTileInfoCodec(registry: CodecRegistry) extends Codec[RouteTileInfo] {
         segments = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteTileInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteTileInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

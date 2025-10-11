@@ -36,7 +36,7 @@ class MonitorChangesParametersCodec(registry: CodecRegistry) extends Codec[Monit
         impact = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorChangesParametersCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorChangesParametersCodec.decode()")
         bsonReader.skipValue()
       }
     }

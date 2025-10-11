@@ -58,7 +58,7 @@ class NetworkRoutesPageCodec(registry: CodecRegistry) extends Codec[NetworkRoute
         routes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkRoutesPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkRoutesPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

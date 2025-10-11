@@ -170,7 +170,7 @@ class RouteDetailsDataCodec(registry: CodecRegistry) extends Codec[RouteDetailsD
         locationAnalysis = routeLocationAnalysisCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteDetailsDataCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteDetailsDataCodec.decode()")
         bsonReader.skipValue()
       }
     }

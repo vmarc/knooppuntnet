@@ -62,7 +62,7 @@ class MonitorReferenceInfoCodec(registry: CodecRegistry) extends Codec[MonitorRe
         referenceFilename = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorReferenceInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorReferenceInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

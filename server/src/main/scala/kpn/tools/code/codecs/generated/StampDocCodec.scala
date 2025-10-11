@@ -33,7 +33,7 @@ class StampDocCodec(registry: CodecRegistry) extends Codec[StampDoc] {
         stamp = objectIdCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in StampDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in StampDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

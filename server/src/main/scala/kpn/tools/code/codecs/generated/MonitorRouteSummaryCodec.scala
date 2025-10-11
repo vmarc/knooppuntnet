@@ -77,7 +77,7 @@ class MonitorRouteSummaryCodec(registry: CodecRegistry) extends Codec[MonitorRou
         bounds = Some(boundsCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteSummaryCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteSummaryCodec.decode()")
         bsonReader.skipValue()
       }
     }

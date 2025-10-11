@@ -31,7 +31,7 @@ class LatLonImplCodec(registry: CodecRegistry) extends Codec[LatLonImpl] {
         longitude = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LatLonImplCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LatLonImplCodec.decode()")
         bsonReader.skipValue()
       }
     }

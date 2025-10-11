@@ -32,7 +32,7 @@ class TagCountCodec(registry: CodecRegistry) extends Codec[TagCount] {
         count = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in TagCountCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in TagCountCodec.decode()")
         bsonReader.skipValue()
       }
     }

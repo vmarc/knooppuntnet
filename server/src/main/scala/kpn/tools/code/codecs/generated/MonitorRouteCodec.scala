@@ -127,7 +127,7 @@ class MonitorRouteCodec(registry: CodecRegistry) extends Codec[MonitorRoute] {
         happy = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteCodec.decode()")
         bsonReader.skipValue()
       }
     }

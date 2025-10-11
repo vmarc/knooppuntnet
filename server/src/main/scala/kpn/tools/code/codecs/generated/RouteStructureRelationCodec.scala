@@ -71,7 +71,7 @@ class RouteStructureRelationCodec(registry: CodecRegistry) extends Codec[RouteSt
         happy = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteStructureRelationCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteStructureRelationCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -53,7 +53,7 @@ class NetworkNodeDiffCodec(registry: CodecRegistry) extends Codec[NetworkNodeDif
         tagDiffs = Some(tagDiffsCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkNodeDiffCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkNodeDiffCodec.decode()")
         bsonReader.skipValue()
       }
     }

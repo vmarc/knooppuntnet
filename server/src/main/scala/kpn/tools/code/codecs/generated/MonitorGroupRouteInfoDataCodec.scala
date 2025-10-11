@@ -37,7 +37,7 @@ class MonitorGroupRouteInfoDataCodec(registry: CodecRegistry) extends Codec[Moni
         bounds = Some(boundsCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorGroupRouteInfoDataCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorGroupRouteInfoDataCodec.decode()")
         bsonReader.skipValue()
       }
     }

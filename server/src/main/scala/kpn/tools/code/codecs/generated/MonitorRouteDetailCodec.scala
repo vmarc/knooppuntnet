@@ -95,7 +95,7 @@ class MonitorRouteDetailCodec(registry: CodecRegistry) extends Codec[MonitorRout
         happy = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteDetailCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteDetailCodec.decode()")
         bsonReader.skipValue()
       }
     }

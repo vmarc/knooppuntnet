@@ -146,7 +146,7 @@ class NodeFilterOptionQueryResultCodec(registry: CodecRegistry) extends Codec[No
         totalNodeCount = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeFilterOptionQueryResultCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeFilterOptionQueryResultCodec.decode()")
         bsonReader.skipValue()
       }
     }

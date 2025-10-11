@@ -57,7 +57,7 @@ class IntegrityCodec(registry: CodecRegistry) extends Codec[Integrity] {
         nokRate = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in IntegrityCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in IntegrityCodec.decode()")
         bsonReader.skipValue()
       }
     }

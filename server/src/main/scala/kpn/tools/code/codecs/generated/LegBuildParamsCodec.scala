@@ -42,7 +42,7 @@ class LegBuildParamsCodec(registry: CodecRegistry) extends Codec[LegBuildParams]
         proposed = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LegBuildParamsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LegBuildParamsCodec.decode()")
         bsonReader.skipValue()
       }
     }

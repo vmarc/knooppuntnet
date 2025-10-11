@@ -48,7 +48,7 @@ class PeriodParametersCodec(registry: CodecRegistry) extends Codec[PeriodParamet
         hour = Some(longCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PeriodParametersCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PeriodParametersCodec.decode()")
         bsonReader.skipValue()
       }
     }

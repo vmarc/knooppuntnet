@@ -62,7 +62,7 @@ class RouteNodesCodec(registry: CodecRegistry) extends Codec[RouteNodes] {
         redundantNodes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteNodesCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteNodesCodec.decode()")
         bsonReader.skipValue()
       }
     }

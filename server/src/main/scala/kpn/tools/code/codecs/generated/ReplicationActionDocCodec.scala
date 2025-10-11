@@ -33,7 +33,7 @@ class ReplicationActionDocCodec(registry: CodecRegistry) extends Codec[Replicati
         replication = replicationActionCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ReplicationActionDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ReplicationActionDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

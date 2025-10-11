@@ -48,7 +48,7 @@ class SurveyDateInfoCodec(registry: CodecRegistry) extends Codec[SurveyDateInfo]
         lastTwoYearsStart = dayCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SurveyDateInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SurveyDateInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

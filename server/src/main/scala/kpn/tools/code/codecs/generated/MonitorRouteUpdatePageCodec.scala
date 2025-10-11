@@ -57,7 +57,7 @@ class MonitorRouteUpdatePageCodec(registry: CodecRegistry) extends Codec[Monitor
         properties = monitorRoutePropertiesCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteUpdatePageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteUpdatePageCodec.decode()")
         bsonReader.skipValue()
       }
     }

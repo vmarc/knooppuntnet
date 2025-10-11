@@ -70,7 +70,7 @@ class RouteStructureWayCodec(registry: CodecRegistry) extends Codec[RouteStructu
         oneWayTags = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteStructureWayCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteStructureWayCodec.decode()")
         bsonReader.skipValue()
       }
     }

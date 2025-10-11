@@ -36,7 +36,7 @@ class NetworkElementCodec(registry: CodecRegistry) extends Codec[NetworkElement]
         elementId = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkElementCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkElementCodec.decode()")
         bsonReader.skipValue()
       }
     }

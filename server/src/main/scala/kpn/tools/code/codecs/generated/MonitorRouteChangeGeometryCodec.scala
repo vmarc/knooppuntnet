@@ -72,7 +72,7 @@ class MonitorRouteChangeGeometryCodec(registry: CodecRegistry) extends Codec[Mon
         resolvedDeviations = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteChangeGeometryCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteChangeGeometryCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -38,7 +38,7 @@ class MonitorStateTileDeviationCodec(registry: CodecRegistry) extends Codec[Moni
         lines = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorStateTileDeviationCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorStateTileDeviationCodec.decode()")
         bsonReader.skipValue()
       }
     }

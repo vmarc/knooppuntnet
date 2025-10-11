@@ -52,7 +52,7 @@ class ChangeSetLocationCodec(registry: CodecRegistry) extends Codec[ChangeSetLoc
         investigate = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeSetLocationCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeSetLocationCodec.decode()")
         bsonReader.skipValue()
       }
     }

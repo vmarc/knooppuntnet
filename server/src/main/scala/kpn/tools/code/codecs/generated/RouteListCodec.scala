@@ -79,7 +79,7 @@ class RouteListCodec(registry: CodecRegistry) extends Codec[RouteList] {
         size = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteListCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteListCodec.decode()")
         bsonReader.skipValue()
       }
     }

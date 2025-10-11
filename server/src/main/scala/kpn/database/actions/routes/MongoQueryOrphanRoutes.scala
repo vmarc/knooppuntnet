@@ -55,7 +55,6 @@ class MongoQueryOrphanRoutes(database: Database) {
           computed("name", "$summary.name"),
           computed("meters", "$summary.meters"),
           computed("isBroken", "$summary.broken"),
-          computed("inaccessible", "$summary.inaccessible"),
           include("lastSurvey"),
           include("lastUpdated"),
           include("facts"),

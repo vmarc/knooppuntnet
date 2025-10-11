@@ -52,7 +52,7 @@ class NetworkSummaryCodec(registry: CodecRegistry) extends Codec[NetworkSummary]
         routeCount = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkSummaryCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkSummaryCodec.decode()")
         bsonReader.skipValue()
       }
     }

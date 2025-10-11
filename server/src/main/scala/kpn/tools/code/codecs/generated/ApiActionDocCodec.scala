@@ -33,7 +33,7 @@ class ApiActionDocCodec(registry: CodecRegistry) extends Codec[ApiActionDoc] {
         api = apiActionCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ApiActionDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ApiActionDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

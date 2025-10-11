@@ -47,7 +47,7 @@ class ChangeKeyCodec(registry: CodecRegistry) extends Codec[ChangeKey] {
         time = timeKeyCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeKeyCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeKeyCodec.decode()")
         bsonReader.skipValue()
       }
     }

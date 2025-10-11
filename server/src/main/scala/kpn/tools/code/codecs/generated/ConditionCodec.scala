@@ -46,7 +46,7 @@ class ConditionCodec(registry: CodecRegistry) extends Codec[Condition] {
         group = Some(conditionGroupCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ConditionCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ConditionCodec.decode()")
         bsonReader.skipValue()
       }
     }

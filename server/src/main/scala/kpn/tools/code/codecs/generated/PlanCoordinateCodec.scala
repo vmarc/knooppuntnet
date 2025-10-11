@@ -31,7 +31,7 @@ class PlanCoordinateCodec(registry: CodecRegistry) extends Codec[PlanCoordinate]
         y = doubleCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PlanCoordinateCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PlanCoordinateCodec.decode()")
         bsonReader.skipValue()
       }
     }

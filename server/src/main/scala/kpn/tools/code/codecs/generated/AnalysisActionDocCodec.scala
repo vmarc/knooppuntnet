@@ -33,7 +33,7 @@ class AnalysisActionDocCodec(registry: CodecRegistry) extends Codec[AnalysisActi
         analysis = analysisActionCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in AnalysisActionDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in AnalysisActionDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

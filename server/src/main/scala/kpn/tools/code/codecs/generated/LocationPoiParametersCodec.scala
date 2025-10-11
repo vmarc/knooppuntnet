@@ -31,7 +31,7 @@ class LocationPoiParametersCodec(registry: CodecRegistry) extends Codec[Location
         pageIndex = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationPoiParametersCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationPoiParametersCodec.decode()")
         bsonReader.skipValue()
       }
     }

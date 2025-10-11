@@ -28,7 +28,7 @@ class LocationsPageCodec(registry: CodecRegistry) extends Codec[LocationsPage] {
         locationNode = Some(locationNodeCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationsPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationsPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

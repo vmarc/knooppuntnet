@@ -36,7 +36,7 @@ class DiskUsageCodec(registry: CodecRegistry) extends Codec[DiskUsage] {
         backend = barChartCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in DiskUsageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in DiskUsageCodec.decode()")
         bsonReader.skipValue()
       }
     }

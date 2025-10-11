@@ -48,7 +48,7 @@ class RouteNetworkNodeInfoCodec(registry: CodecRegistry) extends Codec[RouteNetw
         lon = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteNetworkNodeInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteNetworkNodeInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

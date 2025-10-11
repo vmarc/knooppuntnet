@@ -52,7 +52,7 @@ class MonitorChangesPageCodec(registry: CodecRegistry) extends Codec[MonitorChan
         changes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorChangesPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorChangesPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

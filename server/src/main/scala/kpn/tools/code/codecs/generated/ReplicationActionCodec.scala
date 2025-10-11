@@ -41,7 +41,7 @@ class ReplicationActionCodec(registry: CodecRegistry) extends Codec[ReplicationA
         changeSetCount = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ReplicationActionCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ReplicationActionCodec.decode()")
         bsonReader.skipValue()
       }
     }

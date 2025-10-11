@@ -59,7 +59,7 @@ class BlacklistCodec(registry: CodecRegistry) extends Codec[Blacklist] {
         nodes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in BlacklistCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in BlacklistCodec.decode()")
         bsonReader.skipValue()
       }
     }

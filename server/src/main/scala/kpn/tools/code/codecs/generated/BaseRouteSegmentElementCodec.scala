@@ -54,7 +54,7 @@ class BaseRouteSegmentElementCodec(registry: CodecRegistry) extends Codec[BaseRo
         coordinates = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in BaseRouteSegmentElementCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in BaseRouteSegmentElementCodec.decode()")
         bsonReader.skipValue()
       }
     }

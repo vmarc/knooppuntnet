@@ -56,7 +56,7 @@ class RouteListItemCodec(registry: CodecRegistry) extends Codec[RouteListItem] {
         routeIds = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteListItemCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteListItemCodec.decode()")
         bsonReader.skipValue()
       }
     }

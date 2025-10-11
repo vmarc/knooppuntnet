@@ -1,5 +1,6 @@
 package kpn.tools.code
 
+import kpn.core.util.Log
 import kpn.tools.code.codecs.Codecs
 import kpn.tools.code.domain.ClassInfo
 import kpn.tools.code.typescript.TypescriptWriter
@@ -11,6 +12,8 @@ object CodeGenerator {
 }
 
 class CodeGenerator {
+
+  private val log = Log(classOf[CodeGenerator])
 
   def generate(): Unit = {
     val classInfos = ClassInfoReader.collectClassInfos()
@@ -32,11 +35,11 @@ class CodeGenerator {
       val arrayFieldTypeNames = classInfo.fields.flatMap(_.classType.arrayType.flatMap(_.arrayType.flatMap(_.typeName)))
       val mapKeyFieldTypeNames = classInfo.fields.flatMap(_.classType.mapTypes.toSeq.flatMap(a => a._1.typeName.toSeq ++ a._2.typeName.toSeq))
       val typeNames = (fieldTypeNames ++ arrayFieldTypeNames ++ mapKeyFieldTypeNames).filterNot(typeName => Seq("Long", "Int", "String", "Boolean", "Timestamp", "Day", "Double", "ObjectId").contains(typeName)).sorted.distinct
-      typeNames.foreach { typeName =>
-        if (!codeClassInfos.exists(_.className == typeName)) {
-          println(s"${classInfo.fullName} > $typeName")
-        }
-      }
+      //  typeNames.foreach { typeName =>
+      //    if (!codeClassInfos.exists(_.className == typeName)) {
+      //      log.error(s"${classInfo.fullName} > $typeName")
+      //    }
+      //  }
     }
 
     val codecWriter = new CodecWriter()

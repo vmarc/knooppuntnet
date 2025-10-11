@@ -42,7 +42,7 @@ class RouteTileSegmentCodec(registry: CodecRegistry) extends Codec[RouteTileSegm
         lines = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteTileSegmentCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteTileSegmentCodec.decode()")
         bsonReader.skipValue()
       }
     }

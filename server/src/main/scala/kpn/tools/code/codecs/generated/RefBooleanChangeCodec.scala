@@ -33,7 +33,7 @@ class RefBooleanChangeCodec(registry: CodecRegistry) extends Codec[RefBooleanCha
         after = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RefBooleanChangeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RefBooleanChangeCodec.decode()")
         bsonReader.skipValue()
       }
     }

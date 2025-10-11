@@ -43,7 +43,7 @@ class LocationMapPageCodec(registry: CodecRegistry) extends Codec[LocationMapPag
         geoJson2 = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationMapPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationMapPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

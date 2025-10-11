@@ -39,7 +39,7 @@ class BoundsCodec(registry: CodecRegistry) extends Codec[Bounds] {
         maxLon = doubleCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in BoundsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in BoundsCodec.decode()")
         bsonReader.skipValue()
       }
     }

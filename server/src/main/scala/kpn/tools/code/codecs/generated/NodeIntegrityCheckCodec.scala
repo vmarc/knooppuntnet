@@ -45,7 +45,7 @@ class NodeIntegrityCheckCodec(registry: CodecRegistry) extends Codec[NodeIntegri
         failed = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeIntegrityCheckCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeIntegrityCheckCodec.decode()")
         bsonReader.skipValue()
       }
     }

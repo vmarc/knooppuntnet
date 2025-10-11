@@ -51,7 +51,7 @@ class ChangesPageCodec(registry: CodecRegistry) extends Codec[ChangesPage] {
         changeCount = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangesPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangesPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

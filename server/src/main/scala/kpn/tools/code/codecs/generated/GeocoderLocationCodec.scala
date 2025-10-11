@@ -41,7 +41,7 @@ class GeocoderLocationCodec(registry: CodecRegistry) extends Codec[GeocoderLocat
         bounds = boundsCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in GeocoderLocationCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in GeocoderLocationCodec.decode()")
         bsonReader.skipValue()
       }
     }

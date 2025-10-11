@@ -82,7 +82,7 @@ class MonitorStateCodec(registry: CodecRegistry) extends Codec[MonitorState] {
         segments = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorStateCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorStateCodec.decode()")
         bsonReader.skipValue()
       }
     }

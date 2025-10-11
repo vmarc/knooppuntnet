@@ -47,7 +47,7 @@ class GrafanaQueryCodec(registry: CodecRegistry) extends Codec[GrafanaQuery] {
         maxDataPoints = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in GrafanaQueryCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in GrafanaQueryCodec.decode()")
         bsonReader.skipValue()
       }
     }

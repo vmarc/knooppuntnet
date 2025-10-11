@@ -39,7 +39,7 @@ class PoiGroupCodec(registry: CodecRegistry) extends Codec[PoiGroup] {
         poiCounts = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PoiGroupCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PoiGroupCodec.decode()")
         bsonReader.skipValue()
       }
     }

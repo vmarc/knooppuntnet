@@ -40,7 +40,7 @@ class PoiDetailCodec(registry: CodecRegistry) extends Codec[PoiDetail] {
         poiState = poiStateCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PoiDetailCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PoiDetailCodec.decode()")
         bsonReader.skipValue()
       }
     }

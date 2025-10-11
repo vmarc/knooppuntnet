@@ -163,7 +163,7 @@ class CodecWriter {
       }
       out.println(s"else {")
       out.indent {
-        out.println(s"Codecs.log.warn(s\"Unknown field name: $$fieldName in ${classInfo.className}Codec.decode()\")")
+        out.println(s"Codecs.warn(s\"Unknown field name: $$fieldName in ${classInfo.className}Codec.decode()\")")
         out.println(s"bsonReader.skipValue()")
       }
       out.println(s"}")
@@ -179,7 +179,7 @@ class CodecWriter {
           case Some(typeName) =>
             writeDecodeMethodArrayField(out, field, typeName)
           case None =>
-            out.println(s"Codecs.log.warn(\"${field.name} is an array of unknown type\")")
+            out.println(s"Codecs.warn(\"${field.name} is an array of unknown type\")")
         }
 
       case None =>
@@ -187,7 +187,7 @@ class CodecWriter {
           case Some(typeName) =>
             writeDecodeMethodFieldDecode(out, field, typeName)
           case None =>
-            out.println(s"Codecs.log.warn(\"${field.name} is of unknown type\")")
+            out.println(s"Codecs.warn(\"${field.name} is of unknown type\")")
         }
     }
   }
@@ -287,7 +287,7 @@ class CodecWriter {
             writeEncodeMethodArrayField(out, field, typeName)
 
           case None =>
-            out.println(s"Codecs.log.warn(\"${field.name} is of unknown type\")")
+            out.println(s"Codecs.warn(\"${field.name} is of unknown type\")")
         }
 
       case None =>
@@ -302,7 +302,7 @@ class CodecWriter {
             }
             out.println(s"$codecName.encode(bsonWriter, $value, encoderContext)")
           case None =>
-            out.println(s"Codecs.log.warn(\"${field.name} is of unknown type\")")
+            out.println(s"Codecs.warn(\"${field.name} is of unknown type\")")
         }
     }
   }

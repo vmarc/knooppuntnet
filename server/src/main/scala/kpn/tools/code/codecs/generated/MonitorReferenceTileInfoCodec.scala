@@ -56,7 +56,7 @@ class MonitorReferenceTileInfoCodec(registry: CodecRegistry) extends Codec[Monit
         lines = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorReferenceTileInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorReferenceTileInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

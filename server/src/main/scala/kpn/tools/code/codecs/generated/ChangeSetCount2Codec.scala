@@ -43,7 +43,7 @@ class ChangeSetCount2Codec(registry: CodecRegistry) extends Codec[ChangeSetCount
         total = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeSetCount2Codec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeSetCount2Codec.decode()")
         bsonReader.skipValue()
       }
     }

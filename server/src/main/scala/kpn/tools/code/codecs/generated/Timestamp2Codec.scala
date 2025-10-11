@@ -47,7 +47,7 @@ class Timestamp2Codec(registry: CodecRegistry) extends Codec[Timestamp2] {
         second = intCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in Timestamp2Codec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in Timestamp2Codec.decode()")
         bsonReader.skipValue()
       }
     }

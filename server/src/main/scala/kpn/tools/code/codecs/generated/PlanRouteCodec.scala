@@ -49,7 +49,7 @@ class PlanRouteCodec(registry: CodecRegistry) extends Codec[PlanRoute] {
         segments = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PlanRouteCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PlanRouteCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -23,10 +23,10 @@ class StatisticsCodec(registry: CodecRegistry) extends Codec[Statistics] {
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
       if (fieldName == "map") {
-        Codecs.log.warn("map is of unknown type")
+        Codecs.warn("map is of unknown type")
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in StatisticsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in StatisticsCodec.decode()")
         bsonReader.skipValue()
       }
     }
@@ -42,7 +42,7 @@ class StatisticsCodec(registry: CodecRegistry) extends Codec[Statistics] {
     bsonWriter.writeStartDocument()
 
     bsonWriter.writeName("map")
-    Codecs.log.warn("map is of unknown type")
+    Codecs.warn("map is of unknown type")
 
     bsonWriter.writeEndDocument()
   }

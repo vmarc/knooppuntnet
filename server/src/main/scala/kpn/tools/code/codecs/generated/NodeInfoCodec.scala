@@ -121,7 +121,7 @@ class NodeInfoCodec(registry: CodecRegistry) extends Codec[NodeInfo] {
         integrity = Some(nodeIntegrityCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -57,7 +57,7 @@ class MonitorRouteSegmentsPageCodec(registry: CodecRegistry) extends Codec[Monit
         segments = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteSegmentsPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteSegmentsPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -34,7 +34,7 @@ class OsmSegmentsCodec(registry: CodecRegistry) extends Codec[OsmSegments] {
         osmSegments = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in OsmSegmentsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in OsmSegmentsCodec.decode()")
         bsonReader.skipValue()
       }
     }

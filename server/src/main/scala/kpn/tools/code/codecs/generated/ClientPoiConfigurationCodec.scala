@@ -34,7 +34,7 @@ class ClientPoiConfigurationCodec(registry: CodecRegistry) extends Codec[ClientP
         groupDefinitions = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ClientPoiConfigurationCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ClientPoiConfigurationCodec.decode()")
         bsonReader.skipValue()
       }
     }

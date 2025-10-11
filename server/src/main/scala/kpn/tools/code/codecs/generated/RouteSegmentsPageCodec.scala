@@ -40,7 +40,7 @@ class RouteSegmentsPageCodec(registry: CodecRegistry) extends Codec[RouteSegment
         segments = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteSegmentsPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteSegmentsPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

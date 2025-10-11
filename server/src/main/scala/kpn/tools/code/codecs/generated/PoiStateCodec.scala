@@ -49,7 +49,7 @@ class PoiStateCodec(registry: CodecRegistry) extends Codec[PoiState] {
         imageLastSeen = Some(timestampCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PoiStateCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PoiStateCodec.decode()")
         bsonReader.skipValue()
       }
     }

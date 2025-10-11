@@ -33,7 +33,7 @@ class AnalysisStatusCodec(registry: CodecRegistry) extends Codec[AnalysisStatus]
         timestamp = timestampCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in AnalysisStatusCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in AnalysisStatusCodec.decode()")
         bsonReader.skipValue()
       }
     }

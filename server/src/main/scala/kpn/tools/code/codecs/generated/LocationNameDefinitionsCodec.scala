@@ -34,7 +34,7 @@ class LocationNameDefinitionsCodec(registry: CodecRegistry) extends Codec[Locati
         locations = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationNameDefinitionsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationNameDefinitionsCodec.decode()")
         bsonReader.skipValue()
       }
     }

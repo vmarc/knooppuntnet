@@ -44,7 +44,7 @@ class NextRouteStateCodec(registry: CodecRegistry) extends Codec[NextRouteState]
         elementIds = elementIdsCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NextRouteStateCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NextRouteStateCodec.decode()")
         bsonReader.skipValue()
       }
     }

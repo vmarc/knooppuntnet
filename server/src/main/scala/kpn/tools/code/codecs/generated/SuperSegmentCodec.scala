@@ -34,7 +34,7 @@ class SuperSegmentCodec(registry: CodecRegistry) extends Codec[SuperSegment] {
         segments = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SuperSegmentCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SuperSegmentCodec.decode()")
         bsonReader.skipValue()
       }
     }

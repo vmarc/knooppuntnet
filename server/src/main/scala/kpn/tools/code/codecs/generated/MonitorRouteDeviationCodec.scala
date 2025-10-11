@@ -52,7 +52,7 @@ class MonitorRouteDeviationCodec(registry: CodecRegistry) extends Codec[MonitorR
         lines = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteDeviationCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteDeviationCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -31,7 +31,7 @@ class RouteRoleDiffCodec(registry: CodecRegistry) extends Codec[RouteRoleDiff] {
         after = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteRoleDiffCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteRoleDiffCodec.decode()")
         bsonReader.skipValue()
       }
     }

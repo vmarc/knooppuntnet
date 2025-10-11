@@ -40,7 +40,7 @@ class LocationRouteOptionsCodec(registry: CodecRegistry) extends Codec[LocationR
         proposed = serverFilterGroupCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationRouteOptionsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationRouteOptionsCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -84,7 +84,7 @@ class MonitorStateTileCodec(registry: CodecRegistry) extends Codec[MonitorStateT
         segments = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorStateTileCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorStateTileCodec.decode()")
         bsonReader.skipValue()
       }
     }

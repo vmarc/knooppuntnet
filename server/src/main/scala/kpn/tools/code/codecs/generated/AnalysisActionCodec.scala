@@ -28,7 +28,7 @@ class AnalysisActionCodec(registry: CodecRegistry) extends Codec[AnalysisAction]
         minuteDiff = minuteDiffInfoCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in AnalysisActionCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in AnalysisActionCodec.decode()")
         bsonReader.skipValue()
       }
     }

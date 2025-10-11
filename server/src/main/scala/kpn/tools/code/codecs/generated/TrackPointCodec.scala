@@ -31,7 +31,7 @@ class TrackPointCodec(registry: CodecRegistry) extends Codec[TrackPoint] {
         lon = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in TrackPointCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in TrackPointCodec.decode()")
         bsonReader.skipValue()
       }
     }

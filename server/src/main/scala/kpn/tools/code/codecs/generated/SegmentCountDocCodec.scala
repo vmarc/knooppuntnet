@@ -27,7 +27,7 @@ class SegmentCountDocCodec(registry: CodecRegistry) extends Codec[SegmentCountDo
         segmentCount = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SegmentCountDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SegmentCountDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

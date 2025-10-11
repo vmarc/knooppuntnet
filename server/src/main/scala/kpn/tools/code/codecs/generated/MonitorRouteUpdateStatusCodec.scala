@@ -54,7 +54,7 @@ class MonitorRouteUpdateStatusCodec(registry: CodecRegistry) extends Codec[Monit
         exception = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteUpdateStatusCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteUpdateStatusCodec.decode()")
         bsonReader.skipValue()
       }
     }

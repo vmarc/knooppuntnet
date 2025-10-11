@@ -70,7 +70,7 @@ class LocationEditPageCodec(registry: CodecRegistry) extends Codec[LocationEditP
         routeIds = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationEditPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationEditPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

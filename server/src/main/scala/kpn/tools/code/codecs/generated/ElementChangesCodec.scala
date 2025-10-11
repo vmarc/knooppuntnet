@@ -53,7 +53,7 @@ class ElementChangesCodec(registry: CodecRegistry) extends Codec[ElementChanges]
         deletes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ElementChangesCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ElementChangesCodec.decode()")
         bsonReader.skipValue()
       }
     }

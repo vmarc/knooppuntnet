@@ -63,7 +63,7 @@ class ChangeSetNetworkCodec(registry: CodecRegistry) extends Codec[ChangeSetNetw
         investigate = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeSetNetworkCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeSetNetworkCodec.decode()")
         bsonReader.skipValue()
       }
     }

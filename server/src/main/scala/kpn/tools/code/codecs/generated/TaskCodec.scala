@@ -27,7 +27,7 @@ class TaskCodec(registry: CodecRegistry) extends Codec[Task] {
         _id = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in TaskCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in TaskCodec.decode()")
         bsonReader.skipValue()
       }
     }

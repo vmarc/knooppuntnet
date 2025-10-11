@@ -39,7 +39,7 @@ class BarChart2dValueCodec(registry: CodecRegistry) extends Codec[BarChart2dValu
         series = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in BarChart2dValueCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in BarChart2dValueCodec.decode()")
         bsonReader.skipValue()
       }
     }

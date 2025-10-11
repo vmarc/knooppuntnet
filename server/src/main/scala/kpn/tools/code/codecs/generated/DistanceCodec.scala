@@ -27,7 +27,7 @@ class DistanceCodec(registry: CodecRegistry) extends Codec[Distance] {
         referenceDistance = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in DistanceCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in DistanceCodec.decode()")
         bsonReader.skipValue()
       }
     }

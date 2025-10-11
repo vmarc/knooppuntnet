@@ -54,7 +54,7 @@ class ChangeSetElementRefsCodec(registry: CodecRegistry) extends Codec[ChangeSet
         updated = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeSetElementRefsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeSetElementRefsCodec.decode()")
         bsonReader.skipValue()
       }
     }

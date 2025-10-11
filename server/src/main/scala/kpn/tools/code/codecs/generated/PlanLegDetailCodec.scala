@@ -44,7 +44,7 @@ class PlanLegDetailCodec(registry: CodecRegistry) extends Codec[PlanLegDetail] {
         routes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PlanLegDetailCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PlanLegDetailCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -108,7 +108,7 @@ class RouteDataCodec(registry: CodecRegistry) extends Codec[RouteData] {
         tags = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteDataCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteDataCodec.decode()")
         bsonReader.skipValue()
       }
     }

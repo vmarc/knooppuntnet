@@ -44,7 +44,7 @@ class MonitorRelationCodec(registry: CodecRegistry) extends Codec[MonitorRelatio
         elementIds = elementIdsCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRelationCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRelationCodec.decode()")
         bsonReader.skipValue()
       }
     }

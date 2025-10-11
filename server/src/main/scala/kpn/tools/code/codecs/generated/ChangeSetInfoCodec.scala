@@ -62,7 +62,7 @@ class ChangeSetInfoCodec(registry: CodecRegistry) extends Codec[ChangeSetInfo] {
         tags = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeSetInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeSetInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

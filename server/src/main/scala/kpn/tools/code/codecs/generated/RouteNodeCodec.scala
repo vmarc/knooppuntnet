@@ -49,7 +49,7 @@ class RouteNodeCodec(registry: CodecRegistry) extends Codec[RouteNode] {
         isInWay = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteNodeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteNodeCodec.decode()")
         bsonReader.skipValue()
       }
     }

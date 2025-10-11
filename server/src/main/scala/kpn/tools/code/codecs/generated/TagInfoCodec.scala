@@ -54,7 +54,7 @@ class TagInfoCodec(registry: CodecRegistry) extends Codec[TagInfo] {
         tags = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in TagInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in TagInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

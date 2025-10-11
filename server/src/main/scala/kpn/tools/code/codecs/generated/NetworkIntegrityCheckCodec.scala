@@ -31,7 +31,7 @@ class NetworkIntegrityCheckCodec(registry: CodecRegistry) extends Codec[NetworkI
         failed = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkIntegrityCheckCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkIntegrityCheckCodec.decode()")
         bsonReader.skipValue()
       }
     }

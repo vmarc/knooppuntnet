@@ -40,7 +40,7 @@ class LocationQueryResultCodec(registry: CodecRegistry) extends Codec[LocationQu
         factCount = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationQueryResultCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationQueryResultCodec.decode()")
         bsonReader.skipValue()
       }
     }

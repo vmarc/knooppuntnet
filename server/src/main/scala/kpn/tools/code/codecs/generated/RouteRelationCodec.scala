@@ -47,7 +47,7 @@ class RouteRelationCodec(registry: CodecRegistry) extends Codec[RouteRelation] {
         relations = Some(valueBuffer.toSeq)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteRelationCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteRelationCodec.decode()")
         bsonReader.skipValue()
       }
     }

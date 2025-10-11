@@ -60,7 +60,7 @@ class GpxFileCodec(registry: CodecRegistry) extends Codec[GpxFile] {
         trackSegments = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in GpxFileCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in GpxFileCodec.decode()")
         bsonReader.skipValue()
       }
     }

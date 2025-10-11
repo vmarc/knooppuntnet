@@ -39,7 +39,7 @@ class MembersDocCodec(registry: CodecRegistry) extends Codec[MembersDoc] {
         members = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MembersDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MembersDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

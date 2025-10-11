@@ -80,7 +80,7 @@ class MonitorRouteChangeCodec(registry: CodecRegistry) extends Codec[MonitorRout
         investigate = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteChangeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteChangeCodec.decode()")
         bsonReader.skipValue()
       }
     }

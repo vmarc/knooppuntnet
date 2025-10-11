@@ -96,7 +96,7 @@ class RouteStructureRowCodec(registry: CodecRegistry) extends Codec[RouteStructu
         pathIds = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteStructureRowCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteStructureRowCodec.decode()")
         bsonReader.skipValue()
       }
     }

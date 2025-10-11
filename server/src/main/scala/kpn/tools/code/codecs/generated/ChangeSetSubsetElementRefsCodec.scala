@@ -34,7 +34,7 @@ class ChangeSetSubsetElementRefsCodec(registry: CodecRegistry) extends Codec[Cha
         elementRefs = changeSetElementRefsCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeSetSubsetElementRefsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeSetSubsetElementRefsCodec.decode()")
         bsonReader.skipValue()
       }
     }

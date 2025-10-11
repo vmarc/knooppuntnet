@@ -44,7 +44,7 @@ class PoiInfoCodec(registry: CodecRegistry) extends Codec[PoiInfo] {
         layer = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PoiInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PoiInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

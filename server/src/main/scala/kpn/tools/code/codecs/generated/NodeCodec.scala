@@ -62,7 +62,7 @@ class NodeCodec(registry: CodecRegistry) extends Codec[Node] {
         tags = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeCodec.decode()")
         bsonReader.skipValue()
       }
     }

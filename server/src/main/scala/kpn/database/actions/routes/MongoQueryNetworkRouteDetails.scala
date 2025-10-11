@@ -4,6 +4,7 @@ import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Filters.in
 import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import kpn.core.doc.NetworkRouteDetail
@@ -47,6 +48,7 @@ class MongoQueryNetworkRouteDetails(database: Database) {
       ),
       project(
         fields(
+          excludeId(),
           computed("id", "$_id"),
           computed("name", "$summary.name"),
           computed("length", "$summary.meters"),

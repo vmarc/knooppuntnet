@@ -34,7 +34,7 @@ class ChangesFilterCodec(registry: CodecRegistry) extends Codec[ChangesFilter] {
         periods = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangesFilterCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangesFilterCodec.decode()")
         bsonReader.skipValue()
       }
     }

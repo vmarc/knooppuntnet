@@ -39,7 +39,7 @@ class SearchQueryResultCodec(registry: CodecRegistry) extends Codec[SearchQueryR
         tags = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SearchQueryResultCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SearchQueryResultCodec.decode()")
         bsonReader.skipValue()
       }
     }

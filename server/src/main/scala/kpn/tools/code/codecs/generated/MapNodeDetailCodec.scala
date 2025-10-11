@@ -68,7 +68,7 @@ class MapNodeDetailCodec(registry: CodecRegistry) extends Codec[MapNodeDetail] {
         routeReferences = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MapNodeDetailCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MapNodeDetailCodec.decode()")
         bsonReader.skipValue()
       }
     }

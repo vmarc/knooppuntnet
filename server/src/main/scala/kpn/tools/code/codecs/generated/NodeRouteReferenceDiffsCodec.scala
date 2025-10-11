@@ -54,7 +54,7 @@ class NodeRouteReferenceDiffsCodec(registry: CodecRegistry) extends Codec[NodeRo
         remaining = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeRouteReferenceDiffsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeRouteReferenceDiffsCodec.decode()")
         bsonReader.skipValue()
       }
     }

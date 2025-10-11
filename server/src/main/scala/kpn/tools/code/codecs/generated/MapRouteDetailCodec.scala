@@ -44,7 +44,7 @@ class MapRouteDetailCodec(registry: CodecRegistry) extends Codec[MapRouteDetail]
         networkReferences = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MapRouteDetailCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MapRouteDetailCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -40,7 +40,7 @@ class ClientPoiDefinitionCodec(registry: CodecRegistry) extends Codec[ClientPoiD
         defaultLevel = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ClientPoiDefinitionCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ClientPoiDefinitionCodec.decode()")
         bsonReader.skipValue()
       }
     }

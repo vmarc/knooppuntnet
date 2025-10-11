@@ -40,7 +40,7 @@ class NetworkNodeRowCodec(registry: CodecRegistry) extends Codec[NetworkNodeRow]
         routeReferences = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkNodeRowCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkNodeRowCodec.decode()")
         bsonReader.skipValue()
       }
     }

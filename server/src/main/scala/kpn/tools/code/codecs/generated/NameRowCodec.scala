@@ -27,7 +27,7 @@ class NameRowCodec(registry: CodecRegistry) extends Codec[NameRow] {
         name = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NameRowCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NameRowCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -57,7 +57,7 @@ class LocationChangesTreeNodeCodec(registry: CodecRegistry) extends Codec[Locati
         investigate = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationChangesTreeNodeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationChangesTreeNodeCodec.decode()")
         bsonReader.skipValue()
       }
     }

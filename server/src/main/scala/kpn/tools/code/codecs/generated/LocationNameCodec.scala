@@ -33,7 +33,7 @@ class LocationNameCodec(registry: CodecRegistry) extends Codec[LocationName] {
         name = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationNameCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationNameCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -39,7 +39,7 @@ class MapBoundsCodec(registry: CodecRegistry) extends Codec[MapBounds] {
         lonMax = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MapBoundsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MapBoundsCodec.decode()")
         bsonReader.skipValue()
       }
     }

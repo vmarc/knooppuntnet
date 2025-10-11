@@ -45,7 +45,7 @@ class NetworkFactsPageCodec(registry: CodecRegistry) extends Codec[NetworkFactsP
         facts = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkFactsPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkFactsPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

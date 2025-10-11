@@ -56,7 +56,7 @@ class TrackPathCodec(registry: CodecRegistry) extends Codec[TrackPath] {
         segments = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in TrackPathCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in TrackPathCodec.decode()")
         bsonReader.skipValue()
       }
     }

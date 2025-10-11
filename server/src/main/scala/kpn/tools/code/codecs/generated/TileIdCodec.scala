@@ -35,7 +35,7 @@ class TileIdCodec(registry: CodecRegistry) extends Codec[TileId] {
         y = intCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in TileIdCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in TileIdCodec.decode()")
         bsonReader.skipValue()
       }
     }

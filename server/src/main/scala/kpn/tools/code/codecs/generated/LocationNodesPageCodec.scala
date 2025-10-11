@@ -57,7 +57,7 @@ class LocationNodesPageCodec(registry: CodecRegistry) extends Codec[LocationNode
         nodes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationNodesPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationNodesPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -39,7 +39,7 @@ class RawRouteDocCodec(registry: CodecRegistry) extends Codec[RawRouteDoc] {
         subRelationTree = Some(routeRelationCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RawRouteDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RawRouteDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

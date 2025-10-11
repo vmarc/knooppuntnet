@@ -50,7 +50,7 @@ class SubsetMapNetworkCodec(registry: CodecRegistry) extends Codec[SubsetMapNetw
         center = latLonImplCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SubsetMapNetworkCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SubsetMapNetworkCodec.decode()")
         bsonReader.skipValue()
       }
     }

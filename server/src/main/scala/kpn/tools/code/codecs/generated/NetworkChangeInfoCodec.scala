@@ -111,7 +111,7 @@ class NetworkChangeInfoCodec(registry: CodecRegistry) extends Codec[NetworkChang
         investigate = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkChangeInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkChangeInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

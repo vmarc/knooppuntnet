@@ -82,7 +82,7 @@ class SubsetNetworksPageCodec(registry: CodecRegistry) extends Codec[SubsetNetwo
         networks = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SubsetNetworksPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SubsetNetworksPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

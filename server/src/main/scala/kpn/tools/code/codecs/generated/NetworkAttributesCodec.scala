@@ -104,7 +104,7 @@ class NetworkAttributesCodec(registry: CodecRegistry) extends Codec[NetworkAttri
         center = Some(latLonImplCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkAttributesCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkAttributesCodec.decode()")
         bsonReader.skipValue()
       }
     }

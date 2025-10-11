@@ -37,7 +37,7 @@ class MonitorGroupCodec(registry: CodecRegistry) extends Codec[MonitorGroup] {
         description = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorGroupCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorGroupCodec.decode()")
         bsonReader.skipValue()
       }
     }

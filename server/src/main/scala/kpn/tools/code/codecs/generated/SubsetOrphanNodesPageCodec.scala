@@ -46,7 +46,7 @@ class SubsetOrphanNodesPageCodec(registry: CodecRegistry) extends Codec[SubsetOr
         nodes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SubsetOrphanNodesPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SubsetOrphanNodesPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

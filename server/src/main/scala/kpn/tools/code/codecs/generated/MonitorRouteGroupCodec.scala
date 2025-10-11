@@ -31,7 +31,7 @@ class MonitorRouteGroupCodec(registry: CodecRegistry) extends Codec[MonitorRoute
         groupDescription = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteGroupCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteGroupCodec.decode()")
         bsonReader.skipValue()
       }
     }

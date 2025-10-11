@@ -75,7 +75,7 @@ class ChangeSetSummaryInfoCodec(registry: CodecRegistry) extends Codec[ChangeSet
         impact = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeSetSummaryInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeSetSummaryInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

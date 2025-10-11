@@ -34,7 +34,7 @@ class PlanFragmentCoordinateCodec(registry: CodecRegistry) extends Codec[PlanFra
         latLon = latLonImplCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PlanFragmentCoordinateCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PlanFragmentCoordinateCodec.decode()")
         bsonReader.skipValue()
       }
     }

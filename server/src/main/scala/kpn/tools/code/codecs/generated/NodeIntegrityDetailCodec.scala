@@ -51,7 +51,7 @@ class NodeIntegrityDetailCodec(registry: CodecRegistry) extends Codec[NodeIntegr
         routeRefs = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeIntegrityDetailCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeIntegrityDetailCodec.decode()")
         bsonReader.skipValue()
       }
     }

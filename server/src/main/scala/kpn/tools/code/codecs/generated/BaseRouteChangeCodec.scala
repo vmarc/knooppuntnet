@@ -57,7 +57,7 @@ class BaseRouteChangeCodec(registry: CodecRegistry) extends Codec[BaseRouteChang
         bounds = Some(boundsCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in BaseRouteChangeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in BaseRouteChangeCodec.decode()")
         bsonReader.skipValue()
       }
     }

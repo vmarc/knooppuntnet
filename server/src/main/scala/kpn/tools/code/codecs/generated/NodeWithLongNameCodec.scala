@@ -36,7 +36,7 @@ class NodeWithLongNameCodec(registry: CodecRegistry) extends Codec[NodeWithLongN
         longName = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeWithLongNameCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeWithLongNameCodec.decode()")
         bsonReader.skipValue()
       }
     }

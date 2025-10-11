@@ -76,7 +76,7 @@ class RouteFilterOptionQueryResultCodec(registry: CodecRegistry) extends Codec[R
         lastUpdated = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteFilterOptionQueryResultCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteFilterOptionQueryResultCodec.decode()")
         bsonReader.skipValue()
       }
     }

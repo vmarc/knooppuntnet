@@ -68,7 +68,7 @@ class LocationChangeSetSummaryCodec(registry: CodecRegistry) extends Codec[Locat
         impact = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationChangeSetSummaryCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationChangeSetSummaryCodec.decode()")
         bsonReader.skipValue()
       }
     }

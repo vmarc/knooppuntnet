@@ -67,7 +67,7 @@ class LocationPoiInfoCodec(registry: CodecRegistry) extends Codec[LocationPoiInf
         image = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationPoiInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationPoiInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

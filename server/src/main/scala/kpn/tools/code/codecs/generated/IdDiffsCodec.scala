@@ -53,7 +53,7 @@ class IdDiffsCodec(registry: CodecRegistry) extends Codec[IdDiffs] {
         updated = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in IdDiffsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in IdDiffsCodec.decode()")
         bsonReader.skipValue()
       }
     }

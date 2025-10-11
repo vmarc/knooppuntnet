@@ -84,7 +84,7 @@ class MonitorRouteRelationCodec(registry: CodecRegistry) extends Codec[MonitorRo
         relations = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteRelationCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteRelationCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -40,7 +40,7 @@ class CheckCodec(registry: CodecRegistry) extends Codec[Check] {
         actual = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in CheckCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in CheckCodec.decode()")
         bsonReader.skipValue()
       }
     }

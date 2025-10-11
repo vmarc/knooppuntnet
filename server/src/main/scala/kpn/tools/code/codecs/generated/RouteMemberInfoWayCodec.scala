@@ -87,7 +87,7 @@ class RouteMemberInfoWayCodec(registry: CodecRegistry) extends Codec[RouteMember
         link = linkCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteMemberInfoWayCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteMemberInfoWayCodec.decode()")
         bsonReader.skipValue()
       }
     }

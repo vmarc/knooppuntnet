@@ -60,7 +60,7 @@ class SubRouteDataCodec(registry: CodecRegistry) extends Codec[SubRouteData] {
         segments = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SubRouteDataCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SubRouteDataCodec.decode()")
         bsonReader.skipValue()
       }
     }

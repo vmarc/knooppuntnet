@@ -34,7 +34,7 @@ class LocationPoiSummaryPageCodec(registry: CodecRegistry) extends Codec[Locatio
         groups = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationPoiSummaryPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationPoiSummaryPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

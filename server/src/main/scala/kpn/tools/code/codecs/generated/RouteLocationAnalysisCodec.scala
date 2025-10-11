@@ -51,7 +51,7 @@ class RouteLocationAnalysisCodec(registry: CodecRegistry) extends Codec[RouteLoc
         locationNames = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteLocationAnalysisCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteLocationAnalysisCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -50,7 +50,7 @@ class MemberCodec(registry: CodecRegistry) extends Codec[Member] {
         role = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MemberCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MemberCodec.decode()")
         bsonReader.skipValue()
       }
     }

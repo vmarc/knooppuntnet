@@ -39,7 +39,7 @@ class NextRouteRelationCodec(registry: CodecRegistry) extends Codec[NextRouteRel
         structure = Some(routeRelationCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NextRouteRelationCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NextRouteRelationCodec.decode()")
         bsonReader.skipValue()
       }
     }

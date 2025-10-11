@@ -127,7 +127,7 @@ class BaseNodeDocCodec(registry: CodecRegistry) extends Codec[BaseNodeDoc] {
         tiles = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in BaseNodeDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in BaseNodeDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

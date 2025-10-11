@@ -33,7 +33,7 @@ class NetworkShapeCodec(registry: CodecRegistry) extends Codec[NetworkShape] {
         coordinates = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkShapeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkShapeCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -34,7 +34,7 @@ class LegEndCodec(registry: CodecRegistry) extends Codec[LegEnd] {
         route = Some(legEndRouteCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LegEndCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LegEndCodec.decode()")
         bsonReader.skipValue()
       }
     }

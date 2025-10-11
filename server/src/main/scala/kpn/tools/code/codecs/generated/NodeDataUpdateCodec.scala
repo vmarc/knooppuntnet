@@ -44,7 +44,7 @@ class NodeDataUpdateCodec(registry: CodecRegistry) extends Codec[NodeDataUpdate]
         nodeMoved = Some(nodeMovedCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeDataUpdateCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeDataUpdateCodec.decode()")
         bsonReader.skipValue()
       }
     }

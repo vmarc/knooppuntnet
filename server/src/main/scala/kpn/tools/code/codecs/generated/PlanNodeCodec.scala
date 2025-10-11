@@ -51,7 +51,7 @@ class PlanNodeCodec(registry: CodecRegistry) extends Codec[PlanNode] {
         latLon = latLonImplCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PlanNodeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PlanNodeCodec.decode()")
         bsonReader.skipValue()
       }
     }

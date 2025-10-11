@@ -79,7 +79,7 @@ class LogPageCodec(registry: CodecRegistry) extends Codec[LogPage] {
         nonRobot = barChartCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LogPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LogPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

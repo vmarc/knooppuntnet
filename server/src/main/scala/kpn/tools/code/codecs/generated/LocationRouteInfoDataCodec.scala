@@ -81,7 +81,7 @@ class LocationRouteInfoDataCodec(registry: CodecRegistry) extends Codec[Location
         facts = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationRouteInfoDataCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationRouteInfoDataCodec.decode()")
         bsonReader.skipValue()
       }
     }

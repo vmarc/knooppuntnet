@@ -45,7 +45,7 @@ class LogActionCodec(registry: CodecRegistry) extends Codec[LogAction] {
         values = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LogActionCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LogActionCodec.decode()")
         bsonReader.skipValue()
       }
     }

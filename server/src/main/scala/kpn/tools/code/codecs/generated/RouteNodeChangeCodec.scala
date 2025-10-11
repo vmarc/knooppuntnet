@@ -42,7 +42,7 @@ class RouteNodeChangeCodec(registry: CodecRegistry) extends Codec[RouteNodeChang
         changeType = elementChangeTypeCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteNodeChangeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteNodeChangeCodec.decode()")
         bsonReader.skipValue()
       }
     }

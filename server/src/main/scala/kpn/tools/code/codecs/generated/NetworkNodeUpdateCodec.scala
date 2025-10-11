@@ -38,7 +38,7 @@ class NetworkNodeUpdateCodec(registry: CodecRegistry) extends Codec[NetworkNodeU
         diffs = networkNodeDiffCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkNodeUpdateCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkNodeUpdateCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -40,7 +40,7 @@ class SystemStatusCodec(registry: CodecRegistry) extends Codec[SystemStatus] {
         values = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SystemStatusCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SystemStatusCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -120,7 +120,7 @@ class MonitorRouteMapPageCodec(registry: CodecRegistry) extends Codec[MonitorRou
         subRelations = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteMapPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteMapPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

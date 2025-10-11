@@ -37,7 +37,7 @@ class ConditionTagCodec(registry: CodecRegistry) extends Codec[ConditionTag] {
         value = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ConditionTagCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ConditionTagCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -40,7 +40,7 @@ class SubsetFactsPageCodec(registry: CodecRegistry) extends Codec[SubsetFactsPag
         factCounts = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SubsetFactsPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SubsetFactsPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -35,7 +35,7 @@ class ReplicationIdCodec(registry: CodecRegistry) extends Codec[ReplicationId] {
         level3 = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ReplicationIdCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ReplicationIdCodec.decode()")
         bsonReader.skipValue()
       }
     }

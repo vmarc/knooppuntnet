@@ -27,7 +27,7 @@ class UserCodec(registry: CodecRegistry) extends Codec[User] {
         _id = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in UserCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in UserCodec.decode()")
         bsonReader.skipValue()
       }
     }

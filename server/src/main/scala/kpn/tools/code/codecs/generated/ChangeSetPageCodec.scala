@@ -34,7 +34,7 @@ class ChangeSetPageCodec(registry: CodecRegistry) extends Codec[ChangeSetPage] {
         details = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeSetPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeSetPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

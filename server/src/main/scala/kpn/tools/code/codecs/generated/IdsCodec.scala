@@ -33,7 +33,7 @@ class IdsCodec(registry: CodecRegistry) extends Codec[Ids] {
         ids = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in IdsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in IdsCodec.decode()")
         bsonReader.skipValue()
       }
     }

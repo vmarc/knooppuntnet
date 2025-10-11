@@ -65,7 +65,7 @@ class RelationCodec(registry: CodecRegistry) extends Codec[Relation] {
         members = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RelationCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RelationCodec.decode()")
         bsonReader.skipValue()
       }
     }

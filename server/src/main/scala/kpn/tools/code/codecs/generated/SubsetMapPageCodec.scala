@@ -46,7 +46,7 @@ class SubsetMapPageCodec(registry: CodecRegistry) extends Codec[SubsetMapPage] {
         bounds = boundsCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SubsetMapPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SubsetMapPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

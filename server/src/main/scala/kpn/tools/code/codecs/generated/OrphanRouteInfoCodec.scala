@@ -63,7 +63,7 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
         facts = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in OrphanRouteInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in OrphanRouteInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

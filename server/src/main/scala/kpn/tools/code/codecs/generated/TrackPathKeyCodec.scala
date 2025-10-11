@@ -31,7 +31,7 @@ class TrackPathKeyCodec(registry: CodecRegistry) extends Codec[TrackPathKey] {
         pathId = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in TrackPathKeyCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in TrackPathKeyCodec.decode()")
         bsonReader.skipValue()
       }
     }

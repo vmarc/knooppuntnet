@@ -42,7 +42,7 @@ class NetworkFactElementIdsCodec(registry: CodecRegistry) extends Codec[NetworkF
         elementIds = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkFactElementIdsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkFactElementIdsCodec.decode()")
         bsonReader.skipValue()
       }
     }

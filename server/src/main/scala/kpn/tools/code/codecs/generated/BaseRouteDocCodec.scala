@@ -215,7 +215,7 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
         subRouteIds = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in BaseRouteDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in BaseRouteDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

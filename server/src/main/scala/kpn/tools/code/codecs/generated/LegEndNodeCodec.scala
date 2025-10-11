@@ -27,7 +27,7 @@ class LegEndNodeCodec(registry: CodecRegistry) extends Codec[LegEndNode] {
         nodeId = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LegEndNodeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LegEndNodeCodec.decode()")
         bsonReader.skipValue()
       }
     }

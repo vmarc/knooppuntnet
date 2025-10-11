@@ -37,7 +37,7 @@ class MetaDataCodec(registry: CodecRegistry) extends Codec[MetaData] {
         changeSetId = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MetaDataCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MetaDataCodec.decode()")
         bsonReader.skipValue()
       }
     }

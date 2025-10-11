@@ -73,7 +73,7 @@ class NetworkRouteRowCodec(registry: CodecRegistry) extends Codec[NetworkRouteRo
         symbol = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkRouteRowCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkRouteRowCodec.decode()")
         bsonReader.skipValue()
       }
     }

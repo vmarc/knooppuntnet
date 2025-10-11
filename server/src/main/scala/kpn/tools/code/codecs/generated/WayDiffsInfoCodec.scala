@@ -56,7 +56,7 @@ class WayDiffsInfoCodec(registry: CodecRegistry) extends Codec[WayDiffsInfo] {
         updated = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in WayDiffsInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in WayDiffsInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

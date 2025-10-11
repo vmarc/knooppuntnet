@@ -38,7 +38,7 @@ class LocationTreeCodec(registry: CodecRegistry) extends Codec[LocationTree] {
         children = Some(valueBuffer.toSeq)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationTreeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationTreeCodec.decode()")
         bsonReader.skipValue()
       }
     }

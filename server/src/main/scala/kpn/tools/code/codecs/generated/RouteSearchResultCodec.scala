@@ -68,7 +68,7 @@ class RouteSearchResultCodec(registry: CodecRegistry) extends Codec[RouteSearchR
         routeIds = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteSearchResultCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteSearchResultCodec.decode()")
         bsonReader.skipValue()
       }
     }

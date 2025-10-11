@@ -39,7 +39,7 @@ class RouteEdgeCodec(registry: CodecRegistry) extends Codec[RouteEdge] {
         meters = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteEdgeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteEdgeCodec.decode()")
         bsonReader.skipValue()
       }
     }

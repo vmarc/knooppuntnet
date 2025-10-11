@@ -39,7 +39,7 @@ class ScopedRouteTypeCodec(registry: CodecRegistry) extends Codec[ScopedRouteTyp
         key = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ScopedRouteTypeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ScopedRouteTypeCodec.decode()")
         bsonReader.skipValue()
       }
     }

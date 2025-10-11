@@ -33,7 +33,7 @@ class UpdateActionDocCodec(registry: CodecRegistry) extends Codec[UpdateActionDo
         update = updateActionCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in UpdateActionDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in UpdateActionDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -27,7 +27,7 @@ class RouteInfoAnalysisCodec(registry: CodecRegistry) extends Codec[RouteInfoAna
         expectedName = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteInfoAnalysisCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteInfoAnalysisCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -82,7 +82,7 @@ class WayUpdateCodec(registry: CodecRegistry) extends Codec[WayUpdate] {
         tagDiffs = Some(tagDiffsCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in WayUpdateCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in WayUpdateCodec.decode()")
         bsonReader.skipValue()
       }
     }

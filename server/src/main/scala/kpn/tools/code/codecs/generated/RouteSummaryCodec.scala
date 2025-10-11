@@ -107,7 +107,7 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
         tags = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteSummaryCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteSummaryCodec.decode()")
         bsonReader.skipValue()
       }
     }

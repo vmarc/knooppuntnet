@@ -33,7 +33,7 @@ class ReferencedElementIdsCodec(registry: CodecRegistry) extends Codec[Reference
         elementIds = elementIdsCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ReferencedElementIdsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ReferencedElementIdsCodec.decode()")
         bsonReader.skipValue()
       }
     }

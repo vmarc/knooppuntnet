@@ -55,7 +55,7 @@ class LocationRoutesParametersCodec(registry: CodecRegistry) extends Codec[Locat
         pageIndex = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationRoutesParametersCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationRoutesParametersCodec.decode()")
         bsonReader.skipValue()
       }
     }

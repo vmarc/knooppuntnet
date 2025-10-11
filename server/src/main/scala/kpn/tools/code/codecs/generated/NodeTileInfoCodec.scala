@@ -82,7 +82,7 @@ class NodeTileInfoCodec(registry: CodecRegistry) extends Codec[NodeTileInfo] {
         facts = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeTileInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeTileInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

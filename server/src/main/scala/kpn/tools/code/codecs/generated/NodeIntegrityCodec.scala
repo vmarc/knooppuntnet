@@ -34,7 +34,7 @@ class NodeIntegrityCodec(registry: CodecRegistry) extends Codec[NodeIntegrity] {
         details = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeIntegrityCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeIntegrityCodec.decode()")
         bsonReader.skipValue()
       }
     }

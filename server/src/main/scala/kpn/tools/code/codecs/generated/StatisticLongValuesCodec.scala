@@ -39,7 +39,7 @@ class StatisticLongValuesCodec(registry: CodecRegistry) extends Codec[StatisticL
         values = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in StatisticLongValuesCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in StatisticLongValuesCodec.decode()")
         bsonReader.skipValue()
       }
     }

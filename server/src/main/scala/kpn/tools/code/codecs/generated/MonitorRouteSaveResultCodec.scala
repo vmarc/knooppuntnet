@@ -42,7 +42,7 @@ class MonitorRouteSaveResultCodec(registry: CodecRegistry) extends Codec[Monitor
         exception = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteSaveResultCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteSaveResultCodec.decode()")
         bsonReader.skipValue()
       }
     }

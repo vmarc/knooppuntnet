@@ -49,7 +49,7 @@ class MonitorMessageCodec(registry: CodecRegistry) extends Codec[MonitorMessage]
         exception = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorMessageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorMessageCodec.decode()")
         bsonReader.skipValue()
       }
     }

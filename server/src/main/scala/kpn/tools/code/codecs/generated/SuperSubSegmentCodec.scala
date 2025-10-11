@@ -33,7 +33,7 @@ class SuperSubSegmentCodec(registry: CodecRegistry) extends Codec[SuperSubSegmen
         reversed = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SuperSubSegmentCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SuperSubSegmentCodec.decode()")
         bsonReader.skipValue()
       }
     }

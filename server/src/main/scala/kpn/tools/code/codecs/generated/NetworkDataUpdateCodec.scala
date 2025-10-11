@@ -32,7 +32,7 @@ class NetworkDataUpdateCodec(registry: CodecRegistry) extends Codec[NetworkDataU
         after = Some(networkDataCodec.decode(bsonReader, decoderContext))
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkDataUpdateCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkDataUpdateCodec.decode()")
         bsonReader.skipValue()
       }
     }

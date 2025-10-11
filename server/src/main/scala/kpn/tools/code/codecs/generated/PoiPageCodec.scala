@@ -46,7 +46,7 @@ class PoiPageCodec(registry: CodecRegistry) extends Codec[PoiPage] {
         analysis = poiAnalysisCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PoiPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PoiPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -32,7 +32,7 @@ class RouteWithoutLocationCodec(registry: CodecRegistry) extends Codec[RouteWith
         name = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteWithoutLocationCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteWithoutLocationCodec.decode()")
         bsonReader.skipValue()
       }
     }

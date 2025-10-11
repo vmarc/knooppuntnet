@@ -39,7 +39,7 @@ class LocationSummaryCodec(registry: CodecRegistry) extends Codec[LocationSummar
         changesCount = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationSummaryCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationSummaryCodec.decode()")
         bsonReader.skipValue()
       }
     }

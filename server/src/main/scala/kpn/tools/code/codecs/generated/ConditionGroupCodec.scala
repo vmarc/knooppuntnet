@@ -40,7 +40,7 @@ class ConditionGroupCodec(registry: CodecRegistry) extends Codec[ConditionGroup]
         conditions = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ConditionGroupCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ConditionGroupCodec.decode()")
         bsonReader.skipValue()
       }
     }

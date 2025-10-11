@@ -91,7 +91,7 @@ class SystemStatusPageCodec(registry: CodecRegistry) extends Codec[SystemStatusP
         changesDataSize = barChartCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SystemStatusPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SystemStatusPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

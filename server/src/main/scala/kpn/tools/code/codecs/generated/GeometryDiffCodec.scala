@@ -53,7 +53,7 @@ class GeometryDiffCodec(registry: CodecRegistry) extends Codec[GeometryDiff] {
         after = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in GeometryDiffCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in GeometryDiffCodec.decode()")
         bsonReader.skipValue()
       }
     }

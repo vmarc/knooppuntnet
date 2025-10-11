@@ -69,7 +69,7 @@ class MonitorGroupPageCodec(registry: CodecRegistry) extends Codec[MonitorGroupP
         routes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorGroupPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorGroupPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -50,7 +50,7 @@ class MonitorRouteSegmentCodec(registry: CodecRegistry) extends Codec[MonitorRou
         geoJson = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteSegmentCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteSegmentCodec.decode()")
         bsonReader.skipValue()
       }
     }

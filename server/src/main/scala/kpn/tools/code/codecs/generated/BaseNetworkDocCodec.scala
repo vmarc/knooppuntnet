@@ -107,7 +107,7 @@ class BaseNetworkDocCodec(registry: CodecRegistry) extends Codec[BaseNetworkDoc]
         relationIds = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in BaseNetworkDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in BaseNetworkDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

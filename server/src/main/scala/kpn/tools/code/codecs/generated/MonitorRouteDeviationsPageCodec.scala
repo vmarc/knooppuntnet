@@ -45,7 +45,7 @@ class MonitorRouteDeviationsPageCodec(registry: CodecRegistry) extends Codec[Mon
         deviations = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteDeviationsPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteDeviationsPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

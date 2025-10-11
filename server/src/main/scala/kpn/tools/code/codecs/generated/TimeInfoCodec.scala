@@ -40,7 +40,7 @@ class TimeInfoCodec(registry: CodecRegistry) extends Codec[TimeInfo] {
         lastYearStart = timestampCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in TimeInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in TimeInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

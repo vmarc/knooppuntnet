@@ -34,7 +34,7 @@ class RouteDetailsPageCodec(registry: CodecRegistry) extends Codec[RouteDetailsP
         details = routeDetailsCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteDetailsPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteDetailsPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

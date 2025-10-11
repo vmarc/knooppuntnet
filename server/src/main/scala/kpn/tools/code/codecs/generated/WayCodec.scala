@@ -69,7 +69,7 @@ class WayCodec(registry: CodecRegistry) extends Codec[Way] {
         length = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in WayCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in WayCodec.decode()")
         bsonReader.skipValue()
       }
     }

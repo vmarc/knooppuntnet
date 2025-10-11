@@ -32,7 +32,7 @@ class NameValueCodec(registry: CodecRegistry) extends Codec[NameValue] {
         value = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NameValueCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NameValueCodec.decode()")
         bsonReader.skipValue()
       }
     }

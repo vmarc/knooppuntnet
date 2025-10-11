@@ -48,7 +48,7 @@ class PlanSegmentCodec(registry: CodecRegistry) extends Codec[PlanSegment] {
         fragments = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PlanSegmentCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PlanSegmentCodec.decode()")
         bsonReader.skipValue()
       }
     }

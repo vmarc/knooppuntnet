@@ -57,7 +57,7 @@ class SubsetChangesPageCodec(registry: CodecRegistry) extends Codec[SubsetChange
         changeCount = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SubsetChangesPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SubsetChangesPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

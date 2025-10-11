@@ -40,7 +40,7 @@ class NetworkRouteFactCodec(registry: CodecRegistry) extends Codec[NetworkRouteF
         routes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkRouteFactCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkRouteFactCodec.decode()")
         bsonReader.skipValue()
       }
     }

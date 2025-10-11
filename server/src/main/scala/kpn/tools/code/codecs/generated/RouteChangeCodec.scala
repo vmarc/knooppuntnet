@@ -136,7 +136,7 @@ class RouteChangeCodec(registry: CodecRegistry) extends Codec[RouteChange] {
         locationImpact = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RouteChangeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RouteChangeCodec.decode()")
         bsonReader.skipValue()
       }
     }

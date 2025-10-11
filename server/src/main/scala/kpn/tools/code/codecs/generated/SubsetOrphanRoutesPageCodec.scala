@@ -46,7 +46,7 @@ class SubsetOrphanRoutesPageCodec(registry: CodecRegistry) extends Codec[SubsetO
         routes = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in SubsetOrphanRoutesPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in SubsetOrphanRoutesPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

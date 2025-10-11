@@ -33,7 +33,7 @@ class FactCountCodec(registry: CodecRegistry) extends Codec[FactCount] {
         count = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in FactCountCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in FactCountCodec.decode()")
         bsonReader.skipValue()
       }
     }

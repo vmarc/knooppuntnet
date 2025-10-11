@@ -31,7 +31,7 @@ class ChangeSetRefCodec(registry: CodecRegistry) extends Codec[ChangeSetRef] {
         changeSetId = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeSetRefCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeSetRefCodec.decode()")
         bsonReader.skipValue()
       }
     }

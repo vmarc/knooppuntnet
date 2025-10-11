@@ -27,7 +27,7 @@ class NetworkExtraMemberWayCodec(registry: CodecRegistry) extends Codec[NetworkE
         memberId = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkExtraMemberWayCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkExtraMemberWayCodec.decode()")
         bsonReader.skipValue()
       }
     }

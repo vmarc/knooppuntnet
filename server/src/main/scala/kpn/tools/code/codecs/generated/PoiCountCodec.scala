@@ -36,7 +36,7 @@ class PoiCountCodec(registry: CodecRegistry) extends Codec[PoiCount] {
         count = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in PoiCountCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in PoiCountCodec.decode()")
         bsonReader.skipValue()
       }
     }

@@ -48,7 +48,7 @@ class ChangesParametersCodec(registry: CodecRegistry) extends Codec[ChangesParam
         impact = booleanCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangesParametersCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangesParametersCodec.decode()")
         bsonReader.skipValue()
       }
     }

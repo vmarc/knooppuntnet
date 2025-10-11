@@ -139,7 +139,7 @@ class OldRouteDocCodec(registry: CodecRegistry) extends Codec[OldRouteDoc] {
         edges = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in OldRouteDocCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in OldRouteDocCodec.decode()")
         bsonReader.skipValue()
       }
     }

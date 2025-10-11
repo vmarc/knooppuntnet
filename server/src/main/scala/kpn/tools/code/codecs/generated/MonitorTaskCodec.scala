@@ -38,7 +38,7 @@ class MonitorTaskCodec(registry: CodecRegistry) extends Codec[MonitorTask] {
         message = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorTaskCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorTaskCodec.decode()")
         bsonReader.skipValue()
       }
     }

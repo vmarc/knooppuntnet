@@ -57,7 +57,7 @@ class NetworkChangesPageCodec(registry: CodecRegistry) extends Codec[NetworkChan
         totalCount = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkChangesPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkChangesPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

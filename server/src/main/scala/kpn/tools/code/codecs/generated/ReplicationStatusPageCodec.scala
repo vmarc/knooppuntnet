@@ -77,7 +77,7 @@ class ReplicationStatusPageCodec(registry: CodecRegistry) extends Codec[Replicat
         replicationChangeSets = barChartCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ReplicationStatusPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ReplicationStatusPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

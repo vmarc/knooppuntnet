@@ -39,7 +39,7 @@ class NodeRouteRefsCodec(registry: CodecRegistry) extends Codec[NodeRouteRefs] {
         routeRefs = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NodeRouteRefsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NodeRouteRefsCodec.decode()")
         bsonReader.skipValue()
       }
     }

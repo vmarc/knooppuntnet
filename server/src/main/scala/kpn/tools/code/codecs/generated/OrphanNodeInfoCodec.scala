@@ -55,7 +55,7 @@ class OrphanNodeInfoCodec(registry: CodecRegistry) extends Codec[OrphanNodeInfo]
         factCount = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in OrphanNodeInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in OrphanNodeInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

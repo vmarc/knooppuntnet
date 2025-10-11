@@ -54,7 +54,7 @@ class FactDiffsCodec(registry: CodecRegistry) extends Codec[FactDiffs] {
         remaining = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in FactDiffsCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in FactDiffsCodec.decode()")
         bsonReader.skipValue()
       }
     }

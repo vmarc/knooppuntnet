@@ -54,7 +54,7 @@ class MonitorRouteGpxPageCodec(registry: CodecRegistry) extends Codec[MonitorRou
         referenceDistance = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in MonitorRouteGpxPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in MonitorRouteGpxPageCodec.decode()")
         bsonReader.skipValue()
       }
     }

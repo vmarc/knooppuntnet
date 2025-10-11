@@ -59,7 +59,7 @@ class ActionTimestampCodec(registry: CodecRegistry) extends Codec[ActionTimestam
         weekDay = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ActionTimestampCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ActionTimestampCodec.decode()")
         bsonReader.skipValue()
       }
     }

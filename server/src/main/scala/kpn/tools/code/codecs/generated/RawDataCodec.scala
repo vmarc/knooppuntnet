@@ -64,7 +64,7 @@ class RawDataCodec(registry: CodecRegistry) extends Codec[RawData] {
         relations = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in RawDataCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in RawDataCodec.decode()")
         bsonReader.skipValue()
       }
     }

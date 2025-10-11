@@ -40,7 +40,7 @@ class ChangeCodec(registry: CodecRegistry) extends Codec[Change] {
         elements = valueBuffer.toSeq
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in ChangeCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in ChangeCodec.decode()")
         bsonReader.skipValue()
       }
     }

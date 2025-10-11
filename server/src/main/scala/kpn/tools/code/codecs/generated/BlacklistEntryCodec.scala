@@ -36,7 +36,7 @@ class BlacklistEntryCodec(registry: CodecRegistry) extends Codec[BlacklistEntry]
         reason = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in BlacklistEntryCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in BlacklistEntryCodec.decode()")
         bsonReader.skipValue()
       }
     }

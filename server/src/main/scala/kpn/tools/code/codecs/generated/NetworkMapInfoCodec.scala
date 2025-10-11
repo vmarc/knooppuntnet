@@ -38,7 +38,7 @@ class NetworkMapInfoCodec(registry: CodecRegistry) extends Codec[NetworkMapInfo]
         map = networkShapeCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in NetworkMapInfoCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkMapInfoCodec.decode()")
         bsonReader.skipValue()
       }
     }

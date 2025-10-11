@@ -33,7 +33,7 @@ class LocationCandidateCodec(registry: CodecRegistry) extends Codec[LocationCand
         percentage = longCodec.decode(bsonReader, decoderContext)
       }
       else {
-        Codecs.log.warn(s"Unknown field name: $fieldName in LocationCandidateCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in LocationCandidateCodec.decode()")
         bsonReader.skipValue()
       }
     }
