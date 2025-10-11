@@ -424,6 +424,7 @@ import kpn.server.analyzer.engine.analysis.location.LocationTree
 import kpn.server.analyzer.engine.analysis.route.domain.RoutePathDirection
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
+import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.data.BlacklistEntry
@@ -865,6 +866,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[Blacklist]) {
       return new BlacklistCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ElementChanges]) {
+      return new ElementChangesCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[TileId]) {
       return new TileIdCodec(codecRegistry).asInstanceOf[Codec[T]]

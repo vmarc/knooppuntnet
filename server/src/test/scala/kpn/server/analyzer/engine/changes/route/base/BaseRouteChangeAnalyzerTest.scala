@@ -136,12 +136,13 @@ class BaseRouteChangeAnalyzerTest extends UnitTest {
     setup.analyze(change) shouldBe empty
   }
 
-  private def buildRoute(routeId: Long, networkTagValue: String = "rwn"): RawRelation = {
+  private def buildRoute(routeId: Long, networkTagValue: String = "rwn", routeTagValue: String = "hiking"): RawRelation = {
     newRawRelation(
       routeId,
       tags = Tags.from(
         "network:type" -> "node_network",
         "type" -> "route",
+        "route" -> routeTagValue,
         "network" -> networkTagValue
       )
     )

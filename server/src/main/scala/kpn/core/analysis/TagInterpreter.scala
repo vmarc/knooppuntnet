@@ -11,13 +11,8 @@ import kpn.api.custom.ScopedRouteType
 object TagInterpreter {
 
   def isRouteRelation(tagable: Tagable): Boolean = {
-    tagable.hasTag("network:type", "node_network") &&
-      tagable.hasTag("type", "route") && {
-      tagable.tagValue("network") match {
-        case Some(value) => ScopedRouteType.all.map(_.key).contains(value)
-        case None => false
-      }
-    }
+    (tagable.hasTag("type", "route") || tagable.hasTag("type", "superroute")) &&
+      tagable.hasTag("route", "foot", "hiking", "walking", "bicycle", "horse", "motorboat", "canoe", "inline_skates")
   }
 
   def isNetworkRelation(tagable: Tagable): Boolean = {

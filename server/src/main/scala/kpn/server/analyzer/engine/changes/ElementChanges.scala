@@ -1,12 +1,13 @@
 package kpn.server.analyzer.engine.changes
 
 import kpn.api.common.changes.ChangeAction
+import kpn.core.doc.Storable
 
 case class ElementChanges(
   creates: Seq[Long] = Seq.empty,
   updates: Seq[Long] = Seq.empty,
   deletes: Seq[Long] = Seq.empty
-) {
+) extends Storable {
 
   def size: Int = creates.size + updates.size + deletes.size
 
