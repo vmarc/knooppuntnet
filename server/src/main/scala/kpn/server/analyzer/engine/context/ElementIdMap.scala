@@ -14,6 +14,8 @@ class ElementIdMap {
 
   def ids: Iterable[Long] = elementMap.keySet
 
+  def values: Iterable[ElementIds] = elementMap.values
+
   def get(key: Long): Option[ElementIds] = elementMap.get(key)
 
   def add(id: Long, elementIds: ElementIds): Unit = {

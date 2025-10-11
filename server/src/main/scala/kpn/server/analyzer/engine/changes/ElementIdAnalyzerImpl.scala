@@ -20,7 +20,7 @@ class ElementIdAnalyzerImpl(
   * Finds the ids of all the elements that contain at least 1 of given elements.
   */
   def referencedBy(elementIdMap: ElementIdMap, elementIds: ChangeElementIds): Set[Long] = {
-    val keys = elementIdMap.ids.toSeq
+    val keys = elementIdMap.ids.toSeq.sorted
     val batchSize = Math.max(5000, keys.size / 20)
     val futures = keys.sliding(batchSize, batchSize).map { keysSubset =>
       Future {

@@ -22,7 +22,7 @@ class LongSetCodec(registry: CodecRegistry) extends Codec[LongSet] {
       valueBuffer.add(longCodec.decode(bsonReader, decoderContext))
     }
     bsonReader.readEndArray()
-    LongSets.synchronize(new LongOpenHashSet(valueBuffer))
+    LongSets.unmodifiable(new LongOpenHashSet(valueBuffer))
   }
 
   override def encode(bsonWriter: BsonWriter, value: LongSet, encoderContext: EncoderContext): Unit = {
