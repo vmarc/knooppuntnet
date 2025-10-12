@@ -20,7 +20,7 @@ object MongoQuerySubRouteData {
 class MongoQuerySubRouteData(database: Database) {
 
   def execute(routeId: Long): Option[SubRouteData] = {
-    log.infoElapsed {
+    log.debugElapsed {
       val pipeline = buildPipeline(routeId)
       val routes = database.baseRoutes.optionAggregate(pipeline, classOf[SubRouteData], log)
       (s"${routes.size} routes", routes)

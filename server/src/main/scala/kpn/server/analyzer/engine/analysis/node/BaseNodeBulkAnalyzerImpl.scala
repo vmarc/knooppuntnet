@@ -19,8 +19,8 @@ class BaseNodeBulkAnalyzerImpl(
     val batchSize = 500
     Log.context("base-nodes") {
       val nodeCount = nodeIds.size
-      log.info(s"Analyzing $nodeCount base nodes")
-      log.infoElapsed {
+      log.debug(s"Analyzing $nodeCount base nodes")
+      log.debugElapsed {
         val baseNodeDocs = nodeIds.sliding(batchSize, batchSize).toSeq.zipWithIndex.flatMap { case (nodeIdsBatch, index) =>
           log.infoElapsed {
             val rawNodes = rawDataRepository.nodes(timestamp, nodeIdsBatch)

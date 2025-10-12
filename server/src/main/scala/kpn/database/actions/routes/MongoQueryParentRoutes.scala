@@ -20,7 +20,7 @@ object MongoQueryParentRoutes {
 class MongoQueryParentRoutes(database: Database) {
 
   def execute(routeId: Long): Seq[ParentRouteData] = {
-    log.infoElapsed {
+    log.debugElapsed {
       val pipeline = buildPipeline(routeId)
       val routes = database.baseRoutes.aggregate(pipeline, classOf[ParentRouteData], log)
       (s"${routes.size} parent routes", routes)

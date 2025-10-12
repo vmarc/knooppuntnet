@@ -22,7 +22,7 @@ object MongoQueryRouteNetworkReferences {
 class MongoQueryRouteNetworkReferences(database: Database) {
 
   def execute(routeId: Long, log: Log = MongoQueryRouteNetworkReferences.log): Seq[Reference] = {
-    log.infoElapsed {
+    log.debugElapsed {
       val pipeline = buildPipeline(routeId)
       val references = database.baseNetworks.aggregate(pipeline, classOf[Reference], log)
       (s"route network references: ${references.size}", references)
