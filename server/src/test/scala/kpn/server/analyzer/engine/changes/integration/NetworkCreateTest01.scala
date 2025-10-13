@@ -83,7 +83,7 @@ class NetworkCreateTest01 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
 
       assert(!watched.networks.contains(1))
-      watched.routes.ids should contain(11)
+      assert(watched.routes.contains(11))
       assert(watched.nodes.contains(1001))
       assert(watched.nodes.contains(1002))
       findOrphanNodes() shouldBe empty
@@ -92,7 +92,7 @@ class NetworkCreateTest01 extends IntegrationTest {
       process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
 
       assert(watched.networks.contains(1))
-      watched.routes.ids should contain(11)
+      assert(watched.routes.contains(11))
       assert(watched.nodes.contains(1001))
       assert(watched.nodes.contains(1002))
 

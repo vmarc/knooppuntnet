@@ -50,7 +50,7 @@ class NetworkDeleteNodeTest03 extends IntegrationTest {
       database.routeChanges shouldBe empty
 
       assert(!watched.networks.contains(1))
-      watched.routes.ids should contain(11)
+      assert(watched.routes.contains(11))
       assert(watched.nodes.contains(1001))
 
       assertNetwork()

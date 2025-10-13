@@ -66,8 +66,8 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
       // network 1 is no longer in memory
       assert(!watched.networks.contains(1))
 
-      watched.routes.ids should contain(11) // network 1 was removed, route no longer referenced
-      watched.routes.ids should contain(12) // network 1 was removed, but route still referenced in network 2
+      assert(watched.routes.contains(11)) // network 1 was removed, route no longer referenced
+      assert(watched.routes.contains(12)) // network 1 was removed, but route still referenced in network 2
 
       assert(watched.nodes.contains(1001))
       assert(watched.nodes.contains(1002)) // still referenced in orphan route

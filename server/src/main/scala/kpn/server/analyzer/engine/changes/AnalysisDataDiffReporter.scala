@@ -4,6 +4,8 @@ import it.unimi.dsi.fastutil.longs.LongSet
 import kpn.server.analyzer.engine.context.Watched
 import kpn.server.analyzer.engine.context.WatchedRoutes
 
+import scala.jdk.CollectionConverters.IteratorHasAsScala
+
 class AnalysisDataDiffReporter {
 
   def report(left: Watched, right: Watched): Seq[String] = {
@@ -29,12 +31,12 @@ class AnalysisDataDiffReporter {
   }
 
   private def dataDiff(title: String, left: WatchedRoutes, right: WatchedRoutes): Seq[String] = {
-    if (left.ids.isEmpty && right.ids.isEmpty) {
+    if (left.isEmpty && right.isEmpty) {
       Seq.empty
     } else {
 
-      val leftIds = left.ids.toSet
-      val rightIds = right.ids.toSet
+      val leftIds = left.ids.asScala.map(_.longValue()).toSet
+      val rightIds = right.ids.asScala.map(_.longValue()).toSet
       val leftOnlyKeys = leftIds -- rightIds
       val rightOnlyKeys = rightIds -- leftIds
       val commonKeys = rightIds intersect leftIds

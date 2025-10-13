@@ -64,12 +64,12 @@ class NetworkDeleteTest04 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
 
       assert(watched.networks.contains(1))
-      watched.routes.ids shouldNot contain(1)
+      assert(!watched.routes.contains(1))
 
       process(ChangeAction.Modify, dataAfter.data.relations(1).toRaw)
 
       assert(!watched.networks.contains(1))
-      watched.routes.ids should contain(1)
+      assert(watched.routes.contains(1))
 
       assertBaseNetwork()
       assertNetwork()

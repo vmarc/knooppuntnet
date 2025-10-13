@@ -58,7 +58,7 @@ class RouteDeleteTest01 extends IntegrationTest {
 
       assert(watched.nodes.contains(1001))
       assert(watched.nodes.contains(1002))
-      watched.routes.ids shouldNot contain(11)
+      assert(!watched.routes.contains(11))
 
       assertBaseRoute()
       assertRoute()

@@ -87,7 +87,7 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
 
       assert(!watched.networks.contains(1))
       assert(watched.networks.contains(2))
-      watched.routes.ids should contain(11)
+      assert(watched.routes.contains(11))
 
       assert(watched.nodes.contains(1001))
       assert(watched.nodes.contains(1002))

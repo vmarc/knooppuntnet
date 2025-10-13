@@ -64,7 +64,7 @@ class RouteCreateTest01 extends IntegrationTest {
         dataAfter.rawRelationWithId(11)
       )
 
-      watched.routes.ids should contain(11)
+      assert(watched.routes.contains(11))
       assert(watched.nodes.contains(1001))
       assert(watched.nodes.contains(1002))
 

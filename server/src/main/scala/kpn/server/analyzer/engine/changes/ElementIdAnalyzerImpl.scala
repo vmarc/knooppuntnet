@@ -10,6 +10,7 @@ import scala.concurrent.Await
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.concurrent.duration.Duration
+import scala.jdk.CollectionConverters.IteratorHasAsScala
 
 @Component
 class ElementIdAnalyzerImpl(
@@ -20,7 +21,7 @@ class ElementIdAnalyzerImpl(
   * Finds the ids of all the elements that contain at least 1 of given elements.
   */
   def referencedBy(watchedRoutes: WatchedRoutes, elementIds: ChangeElementIds): Set[Long] = {
-    val keys = watchedRoutes.ids.toSeq.sorted
+    val keys = watchedRoutes.ids.asScala.map(_.longValue()).toSeq.sorted
     val batchSize = Math.max(5000, keys.size / 20)
     val futures = keys.sliding(batchSize, batchSize).map { keysSubset =>
       Future {

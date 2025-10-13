@@ -79,7 +79,7 @@ class NetworkUpdateRouteTest05 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      watched.routes.ids should contain(11)
+      assert(watched.routes.contains(11))
       database.nodeChanges shouldBe empty
       findOrphanRoutes() shouldBe empty
 
