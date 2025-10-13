@@ -70,11 +70,11 @@ class NetworkExtraAnalyzerIntegrationTest extends IntegrationTest {
         )
       )
 
-      watched.nodes should contain(1001)
-      watched.nodes should contain(1002)
-      watched.nodes should contain(1003)
-      watched.nodes should contain(1004)
-      watched.nodes should contain(1005)
+      assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
+      assert(watched.nodes.contains(1003))
+      assert(watched.nodes.contains(1004))
+      assert(watched.nodes.contains(1005))
     }
   }
 
@@ -139,11 +139,11 @@ class NetworkExtraAnalyzerIntegrationTest extends IntegrationTest {
         )
       )
 
-      watched.nodes should contain(1001)
-      watched.nodes should contain(1002)
-      watched.nodes should contain(1003)
-      watched.nodes should contain(1004)
-      watched.nodes should contain(1005)
+      assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
+      assert(watched.nodes.contains(1003))
+      assert(watched.nodes.contains(1004))
+      assert(watched.nodes.contains(1005))
     }
   }
 }

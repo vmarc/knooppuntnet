@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.changes.network.base
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.data.raw.RawRelation
-import kpn.core.FastUtil
 import kpn.core.analysis.TagInterpreter
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -29,14 +28,14 @@ class BaseNetworkChangeAnalyzer(
 
       val networkUpdateIds1 = context.elementIds.relationIds
         .filter(id =>
-          FastUtil.contains(analysisContext.watched.networks, id)
+          analysisContext.watched.networks.contains(id)
         )
       val networkUpdateIds2 = findNetworkRelationChanges(context.changeSet, ChangeAction.Modify)
 
       val deletes = {
         val networkRelationDeletes = findNetworkRelationChanges(context.changeSet, ChangeAction.Delete)
           .filter(id =>
-            FastUtil.contains(analysisContext.watched.networks, id)
+            analysisContext.watched.networks.contains(id)
           )
         val knownNetworkDeletes = findKnownNetworkDeletes(context.changeSet)
         networkRelationDeletes ++ knownNetworkDeletes
@@ -56,7 +55,7 @@ class BaseNetworkChangeAnalyzer(
 
   private def findUpdatesToUnknownNetworks(changeSet: ChangeSet): Set[Long] = {
     val networkIds = findNetworkRelationChanges(changeSet, ChangeAction.Modify)
-    networkIds.filterNot(id => FastUtil.contains(analysisContext.watched.networks, id))
+    networkIds.filterNot(id => analysisContext.watched.networks.contains(id))
   }
 
   private def findNetworkRelationChanges(changeSet: ChangeSet, action: ChangeAction): Set[Long] = {
@@ -70,7 +69,7 @@ class BaseNetworkChangeAnalyzer(
   private def findKnownNetworkDeletes(changeSet: ChangeSet): Set[Long] = {
     changeSet
       .relations(ChangeAction.Delete).map(_.id)
-      .filter(id => FastUtil.contains(analysisContext.watched.networks, id))
+      .filter(id => analysisContext.watched.networks.contains(id))
       .toSet
   }
 

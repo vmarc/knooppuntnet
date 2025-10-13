@@ -66,8 +66,8 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
 
       findOrphanNodes() shouldBe empty
 
-      watched.nodes should contain(1001)
-      watched.nodes should contain(1002)
+      assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
 
       assertNetwork()
       assertNetworkChange()

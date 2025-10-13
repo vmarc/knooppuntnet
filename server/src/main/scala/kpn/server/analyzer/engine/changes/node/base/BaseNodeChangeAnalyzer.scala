@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.changes.node.base
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.data.raw.RawNode
-import kpn.core.FastUtil
 import kpn.core.analysis.TagInterpreter
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ElementChanges
@@ -81,7 +80,7 @@ class BaseNodeChangeAnalyzer(
   }
 
   private def isKnownNode(nodeId: Long): Boolean = {
-    FastUtil.contains(analysisContext.watched.nodes, nodeId)
+    analysisContext.watched.nodes.contains(nodeId)
   }
 
   private def isBlackListed(node: RawNode): Boolean = {

@@ -28,7 +28,7 @@ class OrphanNodeCreateTest03 extends IntegrationTest {
 
       pendingRedesign()
 
-      watched.nodes shouldNot contain(1001)
+      assert(!watched.nodes.contains(1001))
 
       database.nodes shouldBe empty
       database.nodeChanges shouldBe empty

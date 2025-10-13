@@ -90,7 +90,7 @@ class NetworkCreateTest07 extends IntegrationTest {
         )
       )
 
-      watched.networks should contain(1)
+      assert(watched.networks.contains(1))
 
       database.nodeChanges shouldBe empty
 

@@ -26,7 +26,7 @@ class OrphanNodeDeleteTest05 extends IntegrationTest {
 
       process(ChangeAction.Delete, dataBefore.rawNodeWithId(1001))
 
-      watched.nodes shouldNot contain(1001)
+      assert(!watched.nodes.contains(1001))
 
       pendingRedesign()
 

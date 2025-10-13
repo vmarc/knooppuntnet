@@ -48,9 +48,9 @@ class NetworkDeleteNodeTest02 extends IntegrationTest {
 
       findOrphanNodes() shouldBe empty
 
-      watched.networks shouldNot contain(1)
-      watched.networks should contain(2)
-      watched.nodes should contain(1001)
+      assert(!watched.networks.contains(1))
+      assert(watched.networks.contains(2))
+      assert(watched.nodes.contains(1001))
 
       assertNetwork()
       assertNetworkChange()

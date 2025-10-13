@@ -15,7 +15,7 @@ class NetworkDeleteTest02 extends IntegrationTest {
 
       process(ChangeAction.Delete, newRawRelation(1))
 
-      watched.networks shouldNot contain(1)
+      assert(!watched.networks.contains(1))
 
       database.baseNetworks shouldBe empty
       database.networks shouldBe empty

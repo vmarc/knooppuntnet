@@ -64,7 +64,7 @@ class RouteDeleteTest03 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
-      watched.nodes shouldNot contain(11)
+      assert(!watched.nodes.contains(11))
 
       assertBaseRoute()
       assertRoute()

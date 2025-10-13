@@ -78,10 +78,10 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      watched.nodes should contain(1001)
-      watched.nodes should contain(1002)
+      assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
       watched.routes.ids should contain(11)
-      watched.networks should contain(1)
+      assert(watched.networks.contains(1))
       findOrphanNodes() shouldBe empty
 
       assertOrphanRoute()

@@ -7,9 +7,9 @@ import kpn.server.analyzer.engine.context.Watched
 class AnalysisDataDiffReporter {
 
   def report(left: Watched, right: Watched): Seq[String] = {
-    val differences = elementIdDiff("Network", left.networks, right.networks) ++
+    val differences = elementIdDiff("Network", left.networks.ids, right.networks.ids) ++
       diff("Route", left.routes, right.routes) ++
-      elementIdDiff("Node", left.nodes, right.nodes)
+      elementIdDiff("Node", left.nodes.ids, right.nodes.ids)
 
     if (differences.isEmpty) {
       Seq("No differences")

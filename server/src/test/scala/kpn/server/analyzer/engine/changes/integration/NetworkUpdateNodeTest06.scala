@@ -77,9 +77,9 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawNodeWithId(1002), dataAfter.rawRelationWithId(1))
 
-      watched.nodes should contain(1001)
-      watched.nodes should contain(1002)
-      watched.networks should contain(1)
+      assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
+      assert(watched.networks.contains(1))
 
       assertBaseNetwork()
       assertNetwork()

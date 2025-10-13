@@ -56,7 +56,7 @@ class NetworkCreateTest04 extends IntegrationTest {
         dataAfter.rawRelationWithId(1)
       )
 
-      watched.networks should contain(1)
+      assert(watched.networks.contains(1))
 
       assertBaseNetwork()
       assertNetwork()
