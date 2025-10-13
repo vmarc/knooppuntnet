@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes
 
 import it.unimi.dsi.fastutil.longs.LongSet
-import kpn.server.analyzer.engine.context.ElementIdMap
 import kpn.server.analyzer.engine.context.Watched
+import kpn.server.analyzer.engine.context.WatchedRoutes
 
 class AnalysisDataDiffReporter {
 
@@ -19,7 +19,7 @@ class AnalysisDataDiffReporter {
     }
   }
 
-  private def diff(title: String, left: ElementIdMap, right: ElementIdMap): Seq[String] = {
+  private def diff(title: String, left: WatchedRoutes, right: WatchedRoutes): Seq[String] = {
     val differences = dataDiff("watched", left, right)
     if (differences.nonEmpty) {
       Seq(s"$title differences:") ++ differences
@@ -28,7 +28,7 @@ class AnalysisDataDiffReporter {
     }
   }
 
-  private def dataDiff(title: String, left: ElementIdMap, right: ElementIdMap): Seq[String] = {
+  private def dataDiff(title: String, left: WatchedRoutes, right: WatchedRoutes): Seq[String] = {
     if (left.ids.isEmpty && right.ids.isEmpty) {
       Seq.empty
     } else {

@@ -53,13 +53,13 @@ class TestAnalysisContextLoader(analysisContext: AnalysisContext, loader: Analys
     reportIdCounts(analysisContext)
 
     log.info(s"nodeRoutes")
-    printMapEntrySizes(analysisContext.watched.nodeRoutes)
+    // TODO     printMapEntrySizes(analysisContext.watched.nodeRoutes)
 
     log.info(s"wayRoutes")
-    printMapEntrySizes(analysisContext.watched.wayRoutes)
+    // TODO     printMapEntrySizes(analysisContext.watched.wayRoutes)
 
     log.info(s"relationRoutes")
-    printMapEntrySizes(analysisContext.watched.relationRoutes)
+    // TODO     printMapEntrySizes(analysisContext.watched.relationRoutes)
 
     log.info(s"memory ${Util.humanReadableBytes(after - before)}")
     log.info(s"memory ${Util.humanReadableBytes(after2 - after)}")
@@ -72,9 +72,9 @@ class TestAnalysisContextLoader(analysisContext: AnalysisContext, loader: Analys
         log.info(s"$index/$routeCount")
       }
       val elementIds = analysisContext.watched.routes.get(routeId).get
-      updateRouteMap(elementIds.nodeIds, routeId, analysisContext.watched.nodeRoutes)
-      updateRouteMap(elementIds.wayIds, routeId, analysisContext.watched.wayRoutes)
-      updateRouteMap(elementIds.relationIds, routeId, analysisContext.watched.relationRoutes)
+      //      updateRouteMap(elementIds.nodeIds, routeId, analysisContext.watched.nodeRoutes)
+      //      updateRouteMap(elementIds.wayIds, routeId, analysisContext.watched.wayRoutes)
+      //      updateRouteMap(elementIds.relationIds, routeId, analysisContext.watched.relationRoutes)
     }
   }
 
@@ -98,15 +98,15 @@ class TestAnalysisContextLoader(analysisContext: AnalysisContext, loader: Analys
 
   private def reportIdCounts(analysisContext: AnalysisContext): Unit = {
     val watchedRoutes = analysisContext.watched.routes
-    val routeNodeCount = watchedRoutes.values.map(_.nodeIds.size).sum
-    val routeWayCount = watchedRoutes.values.map(_.wayIds.size).sum
-    val routeRelationCount = watchedRoutes.values.map(_.relationIds.size).sum
+    //    val routeNodeCount = watchedRoutes.values.map(_.nodeIds.size).sum
+    //    val routeWayCount = watchedRoutes.values.map(_.wayIds.size).sum
+    //    val routeRelationCount = watchedRoutes.values.map(_.relationIds.size).sum
     log.info(s"nodeCount=${Util.humanReadableBytes(analysisContext.watched.nodes.size)}")
     log.info(s"routeCount=${Util.humanReadableBytes(analysisContext.watched.routes.size)}")
     log.info(s"networkCount=${Util.humanReadableBytes(analysisContext.watched.networks.size)}")
-    log.info(s"routeNodeCount=${Util.humanReadableBytes(routeNodeCount)}")
-    log.info(s"routeWayCount=${Util.humanReadableBytes(routeWayCount)}")
-    log.info(s"routeRelationCount=$routeRelationCount")
+    //    log.info(s"routeNodeCount=${Util.humanReadableBytes(routeNodeCount)}")
+    //    log.info(s"routeWayCount=${Util.humanReadableBytes(routeWayCount)}")
+    //    log.info(s"routeRelationCount=$routeRelationCount")
   }
 
   private def bytes: Long = {

@@ -135,7 +135,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with MockFactory {
 
     // verify
     setup.log.messages shouldBe empty
-    setup.analysisContext.watched.routes shouldBe empty
+    assert(setup.analysisContext.watched.routes.isEmpty)
 
     updatedChangeSetContext.impactedTileIds shouldBe empty
     updatedChangeSetContext.impactedNodeIds shouldBe empty
