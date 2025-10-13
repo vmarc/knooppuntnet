@@ -152,7 +152,7 @@ class IntegrationTestContext(
     )
   }
 
-  private val elementIdAnalyzer = new ElementIdAnalyzerImpl
+  private val elementIdAnalyzer = new ElementIdAnalyzerImpl(analysisContext)
 
   val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzer(nodeRepository)
 

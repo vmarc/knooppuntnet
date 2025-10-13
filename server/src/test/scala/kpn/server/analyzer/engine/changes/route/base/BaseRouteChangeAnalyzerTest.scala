@@ -158,7 +158,7 @@ class BaseRouteChangeAnalyzerTest extends UnitTest {
     }
 
     implicit val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
-    private val elementIdAnalyzer = new ElementIdAnalyzerImpl
+    private val elementIdAnalyzer = new ElementIdAnalyzerImpl(analysisContext)
 
     def analyze(change: Change): ElementChanges = {
       val changeSet = newChangeSet(changes = Seq(change))

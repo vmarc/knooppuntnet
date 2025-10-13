@@ -30,11 +30,7 @@ class BaseRouteChangeAnalyzer(
     val routeCreateIds1 = createdRouteIds.filterNot(isKnownRoute)
     val routeCreateIds2 = updatedRouteIds.filterNot(isKnownRoute)
 
-    val routeUpdateIds1 = elementIdAnalyzer.referencedBy(
-      analysisContext.watched.routes,
-      context.elementIds
-    )
-
+    val routeUpdateIds1 = elementIdAnalyzer.routesReferencedBy(context.elementIds)
     val routeUpdateIds2 = updatedRouteIds.filter(isKnownRoute)
 
     val deletes = deletedRelationsById.keySet.filter { routeId =>

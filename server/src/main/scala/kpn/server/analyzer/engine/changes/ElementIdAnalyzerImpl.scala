@@ -1,49 +1,33 @@
 package kpn.server.analyzer.engine.changes
 
-import kpn.core.FastUtil
+import it.unimi.dsi.fastutil.longs.LongList
+import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ChangeElementIds
-import kpn.server.analyzer.engine.context.WatchedRoutes
 import org.springframework.stereotype.Component
 
-import java.util.concurrent.TimeUnit
-import scala.concurrent.Await
-import scala.concurrent.ExecutionContext
-import scala.concurrent.Future
-import scala.concurrent.duration.Duration
-import scala.jdk.CollectionConverters.IteratorHasAsScala
+import scala.jdk.CollectionConverters.ListHasAsScala
 
 @Component
-class ElementIdAnalyzerImpl(
-  implicit val analysisExecutionContext: ExecutionContext
-) extends ElementIdAnalyzer {
+class ElementIdAnalyzerImpl(analysisContext: AnalysisContext) extends ElementIdAnalyzer {
 
-  /*
-  * Finds the ids of all the elements that contain at least 1 of given elements.
-  */
-  def referencedBy(watchedRoutes: WatchedRoutes, elementIds: ChangeElementIds): Set[Long] = {
-    val keys = watchedRoutes.ids.asScala.map(_.longValue()).toSeq.sorted
-    val batchSize = Math.max(5000, keys.size / 20)
-    val futures = keys.sliding(batchSize, batchSize).map { keysSubset =>
-      Future {
-        keysSubset.filter { key =>
-          if (elementIds.relationIds.contains(key)) {
-            true
-          }
-          else {
-            watchedRoutes.get(key) match {
-              case None => false
-              case Some(mapElementIds) =>
-                FastUtil.contains(mapElementIds.relationIds, key) ||
-                  elementIds.relationIds.exists(id => FastUtil.contains(mapElementIds.relationIds, id)) ||
-                  elementIds.wayIds.exists(id => FastUtil.contains(mapElementIds.wayIds, id)) ||
-                  elementIds.nodeIds.exists(id => FastUtil.contains(mapElementIds.nodeIds, id))
-            }
-          }
-        }
+  def routesReferencedBy(elementIds: ChangeElementIds): Set[Long] = {
+
+    val routes = analysisContext.watched.routes
+
+    val nodeRouteIds = references(elementIds.nodeIds, routes.routesReferencingNode)
+    val wayRouteIds = references(elementIds.wayIds, routes.routesReferencingWay)
+    val relationRouteIds = references(elementIds.relationIds, routes.routesReferencingRelation)
+    val routeRelationIds = elementIds.relationIds.filter(routes.contains)
+
+    nodeRouteIds ++ wayRouteIds ++ relationRouteIds ++ routeRelationIds
+  }
+
+  private def references(elementIds: Set[Long], referenceFinder: Long => Option[LongList]): Set[Long] = {
+    elementIds.flatMap { elementId =>
+      referenceFinder(elementId) match {
+        case Some(routeIds) => routeIds.asScala.map(_.longValue())
+        case None => Seq.empty
       }
     }
-
-    val futuresSeq = Future.sequence(futures)
-    Await.result(futuresSeq, Duration(1, TimeUnit.MINUTES)).flatten.toSet
   }
 }
