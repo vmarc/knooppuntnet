@@ -12,6 +12,7 @@ import { RouteDiffComponent } from './route-diff.component';
   selector: 'ui-route-change-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     <ui-route-diff [diffs]="routeChangeInfo().diffs" />
 
     @if (!routeChangeInfo().geometryDiff) {
@@ -26,16 +27,22 @@ import { RouteDiffComponent } from './route-diff.component';
       </div>
     }
 
-    @for (removedWayInfo of routeChangeInfo().wayDiffs.removed; track $index) {
-      <ui-route-change-way-removed [wayInfo]="removedWayInfo" />
+    @if (routeChangeInfo()?.wayDiffs?.removed) {
+      @for (removedWayInfo of routeChangeInfo().wayDiffs.removed; track $index) {
+        <ui-route-change-way-removed [wayInfo]="removedWayInfo" />
+      }
     }
 
-    @for (addedWayInfo of routeChangeInfo().wayDiffs.added; track $index) {
-      <ui-route-change-way-added [routeChangeInfo]="routeChangeInfo()" [wayInfo]="addedWayInfo" />
+    @if (routeChangeInfo()?.wayDiffs?.added) {
+      @for (addedWayInfo of routeChangeInfo().wayDiffs.added; track $index) {
+        <ui-route-change-way-added [routeChangeInfo]="routeChangeInfo()" [wayInfo]="addedWayInfo" />
+      }
     }
 
-    @for (wayUpdate of routeChangeInfo().wayDiffs.updated; track $index) {
-      <ui-route-change-way-updated [wayUpdate]="wayUpdate" />
+    @if (routeChangeInfo()?.wayDiffs?.updated) {
+      @for (wayUpdate of routeChangeInfo().wayDiffs.updated; track $index) {
+        <ui-route-change-way-updated [wayUpdate]="wayUpdate" />
+      }
     }
   `,
   imports: [

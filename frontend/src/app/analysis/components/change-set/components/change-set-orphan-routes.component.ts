@@ -15,7 +15,7 @@ import { ChangesSetElementRefsComponent } from './change-set-element-refs.compon
       <span i18n="@@change-set.orphan-routes">Free route(s)</span>
     </div>
     <ui-change-set-element-refs
-      [elementType]="'route'"
+      elementType="route"
       [changeSetElementRefs]="subsetElementRefs().elementRefs"
     />
   `,

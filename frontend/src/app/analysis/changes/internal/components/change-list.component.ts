@@ -24,7 +24,6 @@ import { ChangesPageService } from '../changes-page.service';
       }
     </ui-changes>
   `,
-  providers: [ChangesPageService],
   imports: [
     ChangeLocationAnalysisSummaryComponent,
     ChangeNetworkAnalysisSummaryComponent,
