@@ -15,35 +15,30 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
-    @if (response.hasValue()) {
-      @if (response.value().result; as page) {
-        <ui-route-details
-          [situationOn]="response.value().situationOn"
-          [routeDetails]="page.details"
-        />
+    @if (response().result; as page) {
+      <ui-route-details [situationOn]="response().situationOn" [routeDetails]="page.details" />
 
-        <ui-data title="Summary" i18n-title="@@monitor.route.details.summary">
-          <ui-monitor-route-details-summary [page]="page" />
-        </ui-data>
+      <ui-data title="Summary" i18n-title="@@monitor.route.details.summary">
+        <ui-monitor-route-details-summary [page]="page" />
+      </ui-data>
 
+      <ui-data title="Analysis" i18n-title="@@monitor.route.details.analysis">
+        <ui-monitor-route-details-timestamp [page]="page" />
+      </ui-data>
+
+      <ui-data title="Reference" i18n-title="@@monitor.route.details.reference">
+        <ui-monitor-route-details-reference [page]="page" />
+      </ui-data>
+
+      @if (page.summary.relationId) {
         <ui-data title="Analysis" i18n-title="@@monitor.route.details.analysis">
-          <ui-monitor-route-details-timestamp [page]="page" />
+          <ui-monitor-route-details-analysis [page]="page" />
         </ui-data>
-
-        <ui-data title="Reference" i18n-title="@@monitor.route.details.reference">
-          <ui-monitor-route-details-reference [page]="page" />
+      }
+      @if (page.comment) {
+        <ui-data title="Comment" i18n-title="@@monitor.route.details.comment">
+          <markdown [data]="page.comment" />
         </ui-data>
-
-        @if (page.summary.relationId) {
-          <ui-data title="Analysis" i18n-title="@@monitor.route.details.analysis">
-            <ui-monitor-route-details-analysis [page]="page" />
-          </ui-data>
-        }
-        @if (page.comment) {
-          <ui-data title="Comment" i18n-title="@@monitor.route.details.comment">
-            <markdown [data]="page.comment" />
-          </ui-data>
-        }
       }
     }
   `,

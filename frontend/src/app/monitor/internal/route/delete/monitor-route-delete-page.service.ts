@@ -1,9 +1,6 @@
-import { HttpResourceRef } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
-import { ApiResponse } from '@api/custom/api-response';
 import { NavService } from '@app/shared/components/nav.service';
 import { MonitorService } from '../../monitor.service';
 import { MonitorRouteDeletePageState } from './monitor-route-delete-page.state';
@@ -16,8 +13,6 @@ export class MonitorRouteDeletePageService {
 
   private readonly _state = signal<MonitorRouteDeletePageState>(initialState);
   readonly state = this._state.asReadonly();
-
-  readonly response: HttpResourceRef<ApiResponse<MonitorRouteDetailsPage>>;
 
   constructor() {
     const groupName = this.navService.param('groupName');
@@ -32,14 +27,14 @@ export class MonitorRouteDeletePageService {
       groupLink,
     }));
 
-    this.response = this.monitorService.route(groupName, routeName);
-
-    // const routeDescription = response.result?.summary.routeDescription ?? description;
-    // this._state.update((state) => ({
-    //   ...state,
-    //   routeDescription,
-    //   response,
-    // }));
+    this.monitorService.route(groupName, routeName).subscribe((response) => {
+      const routeDescription = response.result?.summary.routeDescription ?? description;
+      this._state.update((state) => ({
+        ...state,
+        routeDescription,
+        response,
+      }));
+    });
   }
 
   delete(): void {

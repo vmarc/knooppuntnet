@@ -1,5 +1,4 @@
-import { HttpResourceRef } from '@angular/common/http';
-import { effect } from '@angular/core';
+import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteDeviationInfo } from '@api/common/monitor/monitor-route-deviation-info';
@@ -17,20 +16,19 @@ export class MonitorRouteDeviationsPageService {
   private readonly monitorRouteService = inject(MonitorRouteService);
   private readonly mapService = inject(MapService);
 
-  readonly response: HttpResourceRef<ApiResponse<MonitorRouteDeviationsPage>>;
+  private readonly _response = signal<ApiResponse<MonitorRouteDeviationsPage>>(undefined);
+  readonly response = this._response.asReadonly();
 
   constructor() {
-    this.response = this.monitorRouteService.request('deviations', (groupName, routeName) =>
-      this.monitorService.routeDeviations(groupName, routeName)
-    );
-    effect(() => {
-      if (this.response.hasValue()) {
-        const summary = this.response.value().result.summary;
-        if (summary) {
-          this.monitorRouteService.update(summary);
-          this.state.monitorPageOpened(summary.routeId, summary.relationIds);
-          this.mapService.fitBounds(summary.bounds);
-        }
+    const groupName = this.monitorRouteService.summary().groupName;
+    const routeName = this.monitorRouteService.summary().routeName;
+    this.monitorService.routeDeviations(groupName, routeName).subscribe((response) => {
+      this._response.set(response);
+      const summary = response.result?.summary;
+      if (summary) {
+        this.monitorRouteService.update(summary);
+        this.state.monitorPageOpened(summary.routeId, summary.relationIds);
+        this.mapService.fitBounds(summary.bounds);
       }
     });
   }

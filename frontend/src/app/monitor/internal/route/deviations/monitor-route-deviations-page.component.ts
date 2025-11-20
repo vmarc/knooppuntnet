@@ -10,12 +10,10 @@ import { MonitorRouteDeviationsPageService } from '@app/monitor/internal/route/d
   selector: 'ui-monitor-route-deviations-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (response.hasValue()) {
-      <ui-monitor-route-deviation-list
-        [deviations]="deviations()"
-        (selectionChange)="selectDeviation($event)"
-      />
-    }
+    <ui-monitor-route-deviation-list
+      [deviations]="deviations()"
+      (selectionChange)="selectDeviation($event)"
+    />
   `,
   providers: [MonitorRouteDeviationsPageService],
   imports: [MonitorRouteDeviationListComponent],
@@ -23,7 +21,7 @@ import { MonitorRouteDeviationsPageService } from '@app/monitor/internal/route/d
 export class MonitorRouteDeviationsPageComponent {
   readonly service = inject(MonitorRouteDeviationsPageService);
   readonly response = this.service.response;
-  protected readonly deviations = computed(() => this.response.value()?.result?.deviations);
+  protected readonly deviations = computed(() => this.response()?.result?.deviations);
 
   selectDeviation(deviation: MonitorRouteDeviationInfo): void {
     this.service.selectDeviation(deviation);

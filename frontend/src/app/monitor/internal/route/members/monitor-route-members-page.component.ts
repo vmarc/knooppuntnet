@@ -8,10 +8,8 @@ import { MonitorRouteMembersPageService } from './monitor-route-members-page.ser
   selector: 'ui-monitor-route-members-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (response.hasValue()) {
-      @if (response.value().result; as page) {
-        <ui-route-structure [routeType]="page.routeTypes[0]" [rows]="page.structureRows" />
-      }
+    @if (response().result; as page) {
+      <ui-route-structure [routeType]="page.routeTypes[0]" [rows]="page.structureRows" />
     }
   `,
   providers: [MonitorRouteMembersPageService],

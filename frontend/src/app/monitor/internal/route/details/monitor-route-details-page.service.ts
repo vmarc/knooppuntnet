@@ -1,5 +1,4 @@
-import { HttpResourceRef } from '@angular/common/http';
-import { effect } from '@angular/core';
+import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
@@ -16,22 +15,22 @@ export class MonitorRouteDetailsPageService {
   private readonly monitorRouteService = inject(MonitorRouteService);
   private readonly mapService = inject(MapService);
 
-  readonly response: HttpResourceRef<ApiResponse<MonitorRouteDetailsPage>>;
+  private readonly _response = signal<ApiResponse<MonitorRouteDetailsPage>>(undefined);
+  readonly response = this._response.asReadonly();
 
   readonly admin = this.monitorService.adminEnabled;
 
   constructor() {
-    this.response = this.monitorRouteService.request('details', (groupName, routeName) =>
-      this.monitorService.route(groupName, routeName)
-    );
-    effect(() => {
-      if (this.response.hasValue()) {
-        const summary = this.response.value().result.summary;
-        if (summary) {
-          this.monitorRouteService.update(summary);
-          this.state.monitorPageOpened(summary.routeId, summary.relationIds);
-          this.mapService.fitBounds(summary.bounds);
-        }
+    const groupName = this.monitorRouteService.summary().groupName;
+    const routeName = this.monitorRouteService.summary().routeName;
+    this.monitorService.route(groupName, routeName).subscribe((response) => {
+      this._response.set(response);
+      const page = response.result;
+      const summary = page?.summary;
+      if (summary) {
+        this.monitorRouteService.update(summary);
+        this.state.monitorPageOpened(summary.routeId, summary.relationIds);
+        this.mapService.fitBounds(summary.bounds);
       }
     });
   }

@@ -1,5 +1,4 @@
-import { HttpResourceRef } from '@angular/common/http';
-import { effect } from '@angular/core';
+import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteSegmentsPage } from '@api/common/monitor/monitor-route-segments-page';
@@ -18,28 +17,27 @@ export class MonitorRouteSegmentsPageService {
   private readonly monitorRouteService = inject(MonitorRouteService);
   private readonly mapService = inject(MapService);
 
-  readonly response: HttpResourceRef<ApiResponse<MonitorRouteSegmentsPage>>;
+  private readonly _response = signal<ApiResponse<MonitorRouteSegmentsPage>>(undefined);
+  readonly response = this._response.asReadonly();
 
   readonly monitorShowSegments = this.state.map.monitorShowSegments;
 
   constructor() {
-    this.response = this.monitorRouteService.request('segments', (groupName, routeName) =>
-      this.monitorService.routeSegments(groupName, routeName)
-    );
-    effect(() => {
-      if (this.response.hasValue()) {
-        const page = this.response.value().result;
-        const summary = page.summary;
-        if (summary) {
-          this.monitorRouteService.update(summary);
-          const segmentMap = SegmentMap.from(page.segments);
-          this.state.monitorSegmentsPageOpened(
-            page.summary.routeId,
-            page.summary.relationIds,
-            segmentMap
-          );
-          this.mapService.fitBounds(summary.bounds);
-        }
+    const groupName = this.monitorRouteService.summary().groupName;
+    const routeName = this.monitorRouteService.summary().routeName;
+    this.monitorService.routeSegments(groupName, routeName).subscribe((response) => {
+      this._response.set(response);
+      const page = response.result;
+      const summary = page?.summary;
+      if (summary) {
+        this.monitorRouteService.update(summary);
+        const segmentMap = SegmentMap.from(page.segments);
+        this.state.monitorSegmentsPageOpened(
+          page.summary.routeId,
+          page.summary.relationIds,
+          segmentMap
+        );
+        this.mapService.fitBounds(summary.bounds);
       }
     });
   }
@@ -53,6 +51,6 @@ export class MonitorRouteSegmentsPageService {
   }
 
   zoomToFitRoute() {
-    this.mapService.fitBounds(this.response.value().result.summary.bounds);
+    this.mapService.fitBounds(this.response().result.summary.bounds);
   }
 }

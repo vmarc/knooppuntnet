@@ -11,17 +11,15 @@ import { MonitorRouteSegmentsPageService } from './monitor-route-segments-page.s
   selector: 'ui-monitor-route-segments-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (response.hasValue()) {
-      @if (response.value().result; as page) {
-        <ui-route-segments
-          [segments]="page.segments"
-          [relations]="page.relations"
-          [showSegments]="showSegments()"
-          (selectChange)="selectSegment($event)"
-          (showSegmentsChange)="showSegmentsChanged($event)"
-          (zoomToFitRoute)="zoomToFitRoute()"
-        />
-      }
+    @if (response().result; as page) {
+      <ui-route-segments
+        [segments]="page.segments"
+        [relations]="page.relations"
+        [showSegments]="showSegments()"
+        (selectChange)="selectSegment($event)"
+        (showSegmentsChange)="showSegmentsChanged($event)"
+        (zoomToFitRoute)="zoomToFitRoute()"
+      />
     }
   `,
   providers: [MonitorRouteSegmentsPageService, NzContextMenuService],
