@@ -10,7 +10,6 @@ case class RoutedatabankNode(
   longitude: String,
   provincie: String,
   updated: Option[String],
-  ogcFid: String,
   nodeType: String,
   regio: String
 ) extends LatLon {

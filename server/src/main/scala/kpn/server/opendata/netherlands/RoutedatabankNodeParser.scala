@@ -40,7 +40,6 @@ class RoutedatabankNodeParser {
           val longitude = point.getX.toString
           val provincie = feature.getAttribute("provincie").toString
           val lastEditedDate = feature.getAttribute("last_edited_date")
-          val ogcFid = feature.getAttribute("ogc_fid").toString
           val nodeType = {
             val value = feature.getAttribute("soort_knooppunt")
             if (value != null) {
@@ -79,7 +78,6 @@ class RoutedatabankNodeParser {
             longitude,
             provincie,
             updated,
-            ogcFid,
             nodeType,
             regio
           )
