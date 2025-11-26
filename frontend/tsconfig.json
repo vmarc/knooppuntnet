@@ -25,11 +25,6 @@
     "strictNullChecks": false,
     // TODO re-enable libCheck?
     "skipLibCheck": true,
-    "lib": [
-      "es2022",
-      "dom",
-      "dom.iterable"
-    ],
     "paths": {
       "@api/*": [
         "src/app/api/*"
