@@ -20,13 +20,12 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
           <div>
             @if (response.result.networkReferences.length === 1) {
               <span class="kpn-label" i18n="@@map.route-popup.network">Network</span>
-            }
-            @if (response.result.networkReferences.length !== 1) {
+            } @else {
               <span class="kpn-label" i18n="@@map.route-popup.networks">Networks</span>
             }
             @for (ref of response.result.networkReferences; track ref) {
               <div class="reference">
-                <a [routerLink]="'/analysis/network/' + ref.id">{{ ref.name }}</a>
+                <a [routerLink]="networkLink(ref.id)">{{ ref.name }}</a>
               </div>
             } @empty {
               <span i18n="@@map.route-popup.no-networks">None</span>
@@ -61,4 +60,8 @@ export class PlannerPopupRouteComponent {
   private readonly service = inject(PlannerPopupService);
   readonly routeType = this.state.page.routeType;
   readonly response = this.service.routeDetailResponse;
+
+  networkLink(networkId: number): string {
+    return `/analysis/network/${networkId}`;
+  }
 }

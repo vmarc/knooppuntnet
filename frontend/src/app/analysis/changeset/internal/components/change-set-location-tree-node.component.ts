@@ -13,6 +13,7 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
   template: `
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 
     @for (tree of trees(); track tree) {
       <div>

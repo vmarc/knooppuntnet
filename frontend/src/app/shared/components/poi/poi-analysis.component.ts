@@ -9,6 +9,7 @@ import { OldPoiService } from '@app/shared/services/old-poi.service';
   selector: 'ui-poi-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (poi().name) {
       <h2>{{ poi().name }}</h2>
     } @else {

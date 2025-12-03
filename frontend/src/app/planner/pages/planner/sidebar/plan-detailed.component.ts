@@ -9,14 +9,14 @@ import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
   selector: 'ui-plan-detailed',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (plan().sourceNode !== null) {
       <div class="node user-selected">
         @if (plan().sourceNode.nodeName.length <= 3) {
           <div class="text">
             {{ plan().sourceNode.nodeName }}
           </div>
-        }
-        @if (plan().sourceNode.nodeName.length > 3) {
+        } @else {
           <div class="text-long">
             {{ plan().sourceNode.nodeName }}
           </div>
@@ -32,8 +32,7 @@ import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
             <div class="text">
               {{ leg.sinkNode.nodeName }}
             </div>
-          }
-          @if (leg.sinkNode.nodeName.length > 3) {
+          } @else {
             <div class="text-long">
               {{ leg.sinkNode.nodeName }}
             </div>
@@ -56,8 +55,7 @@ import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
             <div class="text">
               {{ legRoute.sinkNode.nodeName }}
             </div>
-          }
-          @if (legRoute.sinkNode.nodeName.length > 3) {
+          } @else {
             <div class="text-long">
               {{ legRoute.sinkNode.nodeName }}
             </div>

@@ -25,6 +25,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   selector: 'ui-monitor-route-gpx',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (_state(); as state) {
       <ui-page>
         <ui-monitor-route-gpx-breadcrumb
@@ -38,7 +39,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
           @if (!response.result) {
             <div i18n="@@monitor.route.gpx.not-found" class="kpn-error">Route not found</div>
           }
-
+          <!-- eslint-disable-next-line @angular-eslint/template/prefer-at-else -->
           @if (response.result; as page) {
             <h1>{{ page.subRelationDescription }}</h1>
             <h2>GPX reference</h2>

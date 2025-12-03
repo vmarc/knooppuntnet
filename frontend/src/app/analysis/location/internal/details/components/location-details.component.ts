@@ -20,13 +20,9 @@ import { LocationSummaryComponent } from './location-summary.component';
     <ui-data title="Summary" i18n-title="@@location-details.summary">
       <ui-location-summary [page]="response().result" />
       <p class="location-names">
-        @for (
-          locationInfo of response().result.locationInfos;
-          track locationInfo.link;
-          let last = $last
-        ) {
+        @for (locationInfo of response().result.locationInfos; track locationInfo.link) {
           <div class="location-name">
-            @if (last) {
+            @if ($last) {
               {{ locationInfo.name | location }}
             } @else {
               <a [routerLink]="locationLink(locationInfo.link)">

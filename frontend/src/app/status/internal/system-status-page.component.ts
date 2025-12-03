@@ -31,8 +31,8 @@ import { SystemStatusPageService } from './system-status-page.service';
       @if (service.page(); as page) {
         <ui-status-page-menu [links]="service.statusLinks()" [periodType]="page.periodType" />
         <div>
-          <a [routerLink]="'TODO previous'" class="previous">previous</a>
-          <a [routerLink]="'TODO next'">next</a>
+          <a routerLink="TODO previous" class="previous">previous</a>
+          <a routerLink="TODO next">next</a>
         </div>
         <div class="chart-group">
           <h2>Backend disk space</h2>

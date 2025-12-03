@@ -13,6 +13,7 @@ import { RouteDiffsData } from './route-diffs-data';
   selector: 'ui-route-diffs-added',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (refs.length > 0) {
       <div class="kpn-level-2">
         <div class="kpn-line kpn-level-2-header">
@@ -44,8 +45,7 @@ import { RouteDiffsData } from './route-diffs-data';
                               }}
                             </ng-container>
                           }
-                        }
-                        @if (ref.routeChangeInfo.after.changeSetId !== data().changeSetId) {
+                        } @else {
                           <ng-container
                             i18n="@@route-diffs-added.existing-relation"
                             class="kpn-label"

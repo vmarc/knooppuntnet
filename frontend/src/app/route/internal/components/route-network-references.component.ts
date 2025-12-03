@@ -12,7 +12,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
     @for (reference of references(); track reference) {
       <div class="kpn-line">
         <nz-icon [nzType]="reference.routeType" />
-        <a [id]="'network-ref-' + reference.id" [routerLink]="'/analysis/network/' + reference.id">
+        <a [id]="networkId(reference)" [routerLink]="networkLink(reference)">
           {{ reference.name }}
         </a>
       </div>
@@ -24,4 +24,12 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 })
 export class RouteNetworkReferencesComponent {
   readonly references = input.required<Reference[]>();
+
+  networkId(reference: Reference): string {
+    return `network-ref-${reference.id}`;
+  }
+
+  networkLink(reference: Reference): string {
+    return `/analysis/network/${reference.id}`;
+  }
 }

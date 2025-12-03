@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -11,7 +12,7 @@ import { OsmLinkNodeComponent } from '@app/shared/components/link/osm-link-node.
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p class="kpn-line">
-      <img [src]="'/assets/images/' + title()" class="image" title="" alt="" />
+      <img [src]="imageSrc()" class="image" title="" alt="" />
       <ui-link-node [nodeId]="node().nodeId" [nodeName]="node().alternateName" />
       <ui-brackets>
         <ui-osm-link-node [nodeId]="node().nodeId" />
@@ -23,4 +24,5 @@ import { OsmLinkNodeComponent } from '@app/shared/components/link/osm-link-node.
 export class RouteNodeComponent {
   readonly title = input.required<string>();
   readonly node = input.required<RouteNode>();
+  readonly imageSrc = computed(() => `/assets/images/${this.title()}`);
 }

@@ -1,3 +1,4 @@
+import { UpperCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -18,7 +19,7 @@ import { RouteDiffsComponent } from './route-diffs/route-diffs.component';
       <div class="kpn-level-1">
         <div class="kpn-level-1-header kpn-line">
           <nz-icon [nzType]="refs.subset.routeType" />
-          <span>{{ refs.subset.country.toUpperCase() }}</span>
+          <span>{{ refs.subset.country | uppercase }}</span>
           <span i18n="@@change-set.orphan-routes.title">Free routes</span>
         </div>
         <div class="kpn-level-1-body">
@@ -27,7 +28,7 @@ import { RouteDiffsComponent } from './route-diffs/route-diffs.component';
       </div>
     }
   `,
-  imports: [RouteDiffsComponent, NzIconDirective],
+  imports: [RouteDiffsComponent, NzIconDirective, UpperCasePipe],
 })
 export class ChangeSetOrphanRouteChangesComponent {
   readonly detail = input.required<ChangeSetDetail>();

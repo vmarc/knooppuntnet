@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -10,24 +10,20 @@ import { RouteType } from '@api/common/route-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a
-      [routerLink]="'/analysis/route/' + routeId()"
+      [routerLink]="routeLink()"
       [state]="{ routeType: routeType(), routeName: routeName() }"
       title="Open route page"
       i18n-title="@@link-route.title"
-      >{{ linkTitle }}</a
+      >{{ linkTitle() }}</a
     >
   `,
   imports: [RouterLink],
 })
-export class LinkRouteComponent implements OnInit {
+export class LinkRouteComponent {
   readonly routeId = input.required<number>();
   readonly routeName = input.required<string>();
   readonly routeType = input<RouteType>();
   readonly title = input<string>();
-
-  protected linkTitle = '';
-
-  ngOnInit(): void {
-    this.linkTitle = this.title() ? this.title()! : this.routeName();
-  }
+  protected readonly routeLink = computed(() => `/analysis/route/${this.routeId()}`);
+  protected readonly linkTitle = computed(() => (this.title() ? this.title()! : this.routeName()));
 }

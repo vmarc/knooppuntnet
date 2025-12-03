@@ -32,7 +32,7 @@ import { MonitorGroupUpdatePageService } from './monitor-group-update-page.servi
               <p i18n="@@monitor.group.update.group-not-found">Group not found</p>
             </div>
           }
-
+          <!-- eslint-disable-next-line @angular-eslint/template/prefer-at-else -->
           @if (response.result; as page) {
             <div>
               <form nz-form nzLayout="vertical" [formGroup]="form" #ngForm="ngForm">

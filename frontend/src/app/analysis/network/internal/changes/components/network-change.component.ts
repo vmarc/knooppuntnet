@@ -10,6 +10,7 @@ import { LinkRouteComponent } from '@app/shared/components/link/link-route.compo
   selector: 'ui-network-change',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     <!-- changeType -->
     @if (changeType() === 'create') {
       <div>

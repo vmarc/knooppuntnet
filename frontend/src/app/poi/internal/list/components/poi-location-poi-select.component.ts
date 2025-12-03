@@ -16,6 +16,7 @@ import { CountrySelectComponent } from './country-select.component';
   selector: 'ui-location-poi-select',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     <div class="poi-select-form">
       <nz-form-item>
         <nz-form-control>

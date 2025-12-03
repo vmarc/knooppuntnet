@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -24,9 +25,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
                   class="external"
                   rel="nofollow noreferrer"
                   target="_blank"
-                  [href]="
-                    'https://overpass-api.de/achavi/?changeset=' + detail().summary.key.changeSetId
-                  "
+                  [href]="achaviLink()"
                   i18n="@@change-set.header.achavi"
                 >
                   achavi
@@ -37,7 +36,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
                   class="external"
                   rel="nofollow noreferrer"
                   target="_blank"
-                  [href]="'https://osmcha.org/changesets/' + detail().summary.key.changeSetId"
+                  [href]="osmchaLink()"
                   i18n="@@change-set.header.osmcha"
                 >
                   osmcha
@@ -79,6 +78,14 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
 })
 export class ChangeSetHeaderComponent {
   readonly detail = input.required<ChangeSetDetail>();
+
+  protected readonly achaviLink = computed(
+    () => 'https://overpass-api.de/achavi/?changeset=' + this.detail().summary.key.changeSetId
+  );
+
+  protected readonly osmchaLink = computed(
+    () => 'https://osmcha.org/changesets/' + this.detail().summary.key.changeSetId
+  );
 
   replicationName() {
     return Util.replicationName(this.detail().summary.key.replicationNumber);

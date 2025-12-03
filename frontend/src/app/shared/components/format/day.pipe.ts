@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
 import { Inject } from '@angular/core';
 import { Pipe, PipeTransform } from '@angular/core';
@@ -8,7 +9,7 @@ import { DayUtil } from '../day-util';
   name: 'day',
 })
 export class DayPipe implements PipeTransform {
-  constructor(@Inject(LOCALE_ID) public locale: string) {}
+  public locale: string = inject(LOCALE_ID);
 
   transform(day: Day): string {
     if (day) {

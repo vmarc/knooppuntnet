@@ -11,6 +11,7 @@ import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.compo
   selector: 'ui-subset-fact-details-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     <ui-divider />
     @if (page().networks.length === 0) {
       <div class="kpn-line">

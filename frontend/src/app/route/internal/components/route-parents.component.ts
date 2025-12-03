@@ -10,8 +10,8 @@ import { ParentRoute } from '@api/common/route/parent-route';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @for (parentRoute of parentRoutes(); track parentRoute.routeId) {
-      <div [ngClass]="'level-' + parentRoute.level">
-        <a [routerLink]="'/analysis/route/' + parentRoute.routeId">{{ parentRoute.name }}</a>
+      <div [ngClass]="routeLevel(parentRoute)">
+        <a [routerLink]="routeLink(parentRoute)">{{ parentRoute.name }}</a>
       </div>
     }
   `,
@@ -39,4 +39,12 @@ import { ParentRoute } from '@api/common/route/parent-route';
 })
 export class RouteParentsComponent {
   readonly parentRoutes = input.required<Array<ParentRoute>>();
+
+  routeLevel(parentRoute: ParentRoute): string {
+    return `level-${parentRoute.level}`;
+  }
+
+  routeLink(parentRoute: ParentRoute): string {
+    return `/analysis/route/${parentRoute.routeId}`;
+  }
 }

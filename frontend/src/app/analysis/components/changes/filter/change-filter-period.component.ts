@@ -16,9 +16,7 @@ import { MonthComponent } from './month.component';
       <div [ngClass]="option().level">
         @if (option().level === 'month') {
           <ui-month [month]="option().month" />
-        }
-
-        @if (option().level !== 'month') {
+        } @else {
           {{ option().name }}
         }
 

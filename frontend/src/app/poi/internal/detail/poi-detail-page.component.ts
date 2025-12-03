@@ -23,6 +23,7 @@ import { PoiDetailPageService } from './poi-detail-page.service';
   template: `
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 
     <ui-page>
       <!--    <ui-page-header>-->

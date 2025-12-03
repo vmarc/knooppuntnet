@@ -30,8 +30,7 @@ import { NodeDiffsData } from './node-diffs-data';
                       <ng-container i18n="@@node-diffs-updated.existing-node">
                         Existing node v{{ nodeChangeInfo.after.version }}.
                       </ng-container>
-                    }
-                    @if (nodeChangeInfo.before.version !== nodeChangeInfo.after.version) {
+                    } @else {
                       <ng-container i18n="@@node-diffs-updated.node-changed">
                         Node changed to v{{ nodeChangeInfo.after.version }}
                       </ng-container>

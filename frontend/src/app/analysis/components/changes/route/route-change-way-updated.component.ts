@@ -14,6 +14,7 @@ import { TagDiffsComponent } from '../tag-diffs.component';
   selector: 'ui-route-change-way-updated',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">
         <span class="kpn-label" i18n="@@route-change.way-update.title">Updated way</span>

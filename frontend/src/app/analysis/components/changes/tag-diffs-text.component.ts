@@ -9,6 +9,7 @@ import { TagDiffs } from '@api/common/diff/tag-diffs';
   selector: 'ui-tag-diffs-text',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (deletedTagDiffs.length > 0) {
       <div class="important-title">
         @if (deletedTagDiffs.length === 1) {

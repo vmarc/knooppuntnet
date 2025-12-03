@@ -15,6 +15,7 @@ import { MonitorChangeHeaderComponent } from './monitor-change-header.component'
   template: `
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
 
     <ui-items>
       @for (change of changes(); track $index) {
@@ -26,21 +27,16 @@ import { MonitorChangeHeaderComponent } from './monitor-change-header.component'
               @if (change.groupDescription) {
                 <p>
                   <span class="kpn-label">Group</span>
-                  <a [routerLink]="'/monitor/groups/' + change.groupName">{{
-                    change.groupDescription
-                  }}</a>
+                  <a [routerLink]="groupLink(change.groupName)">{{ change.groupDescription }}</a>
                 </p>
               }
 
               @if (change.routeName) {
                 <p>
                   <span class="kpn-label">Route</span>
-                  <a
-                    [routerLink]="
-                      '/monitor/groups/' + change.groupName + '/routes/' + change.key.elementId
-                    "
-                    >{{ change.routeName }}</a
-                  >
+                  <a [routerLink]="routeLink(change.groupName, change.key.elementId)">{{
+                    change.routeName
+                  }}</a>
                 </p>
               }
               <!--            <p>-->
@@ -64,9 +60,7 @@ import { MonitorChangeHeaderComponent } from './monitor-change-header.component'
 
               @if (change.routeSegmentCount !== 1) {
                 <p>Not OK: {{ change.routeSegmentCount }} route segments</p>
-              }
-
-              @if (change.routeSegmentCount === 1) {
+              } @else {
                 <p>OK: 1 route segment</p>
               }
 
@@ -111,5 +105,13 @@ export class MonitorChangesComponent {
 
   rowIndex(index: number): number {
     return this.pageSize() * this.pageIndex() + index;
+  }
+
+  groupLink(groupName: string): string {
+    return `/monitor/groups/${groupName}`;
+  }
+
+  routeLink(groupName: string, routeId: number): string {
+    return `/monitor/groups/${groupName}/routes/${routeId}`;
   }
 }

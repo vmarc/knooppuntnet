@@ -6,6 +6,7 @@ import { input } from '@angular/core';
   selector: 'ui-month',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @switch (month()) {
       @case (1) {
         <span i18n="@@filter.month.january">January</span>

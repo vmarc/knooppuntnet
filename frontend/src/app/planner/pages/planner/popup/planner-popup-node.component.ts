@@ -10,6 +10,7 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
   selector: 'ui-planner-popup-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (response(); as response) {
       @if (response.result) {
         <h2>
@@ -23,13 +24,12 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
         <div>
           @if (response.result.networkReferences.length === 1) {
             <span class="kpn-label" i18n="@@map.node-popup.network">Network</span>
-          }
-          @if (response.result.networkReferences.length !== 1) {
+          } @else {
             <span class="kpn-label" i18n="@@map.node-popup.networks">Networks</span>
           }
           @for (ref of response.result.networkReferences; track ref) {
             <div class="reference">
-              <a [routerLink]="'/analysis/network/' + ref.id">{{ ref.name }}</a>
+              <a [routerLink]="networkLink(ref.id)">{{ ref.name }}</a>
             </div>
           } @empty {
             <span i18n="@@map.node-popup.no-networks">None</span>
@@ -52,10 +52,7 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
           </div>
         }
         <div class="more-details">
-          <a
-            [routerLink]="'/analysis/node/' + response.result.id"
-            i18n="@@map.node-popup.more-details"
-          >
+          <a [routerLink]="nodeLink(response.result.id)" i18n="@@map.node-popup.more-details">
             More details
           </a>
         </div>
@@ -76,4 +73,12 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
 export class PlannerPopupNodeComponent {
   private readonly service = inject(PlannerPopupService);
   readonly response = this.service.nodeDetailResponse;
+
+  networkLink(networkId: number): string {
+    return `/analysis/network/${networkId}`;
+  }
+
+  nodeLink(nodeId: number): string {
+    return `/analysis/node/${nodeId}`;
+  }
 }

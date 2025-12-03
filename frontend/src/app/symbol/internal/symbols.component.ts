@@ -47,7 +47,7 @@ import { SymbolComponent } from '../symbol.component';
           <div class="example">
             <div class="symbol-name">
               <span>{{ example.description }}</span>
-              <a [routerLink]="'/analysis/route/' + example.relationId">
+              <a [routerLink]="routeLink(example)">
                 {{ example.relationId }}
               </a>
             </div>
@@ -201,5 +201,9 @@ export class SymbolsComponent {
 
   foregroundShapeDescription(shape: string): string {
     return `black::yellow_${shape}`;
+  }
+
+  routeLink(example: SymbolExample): string {
+    return `/analysis/route/${example.relationId}`;
   }
 }

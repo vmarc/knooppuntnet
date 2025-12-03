@@ -40,6 +40,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
               <div>Route/changeset not found</div>
             }
 
+            <!-- eslint-disable-next-line @angular-eslint/template/prefer-at-else -->
             @if (response.result; as page) {
               <div>
                 <table class="kpn-table">
@@ -55,9 +56,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
                               class="external"
                               rel="nofollow noreferrer"
                               target="_blank"
-                              [href]="
-                                'https://overpass-api.de/achavi/?changeset=' + page.key.changeSetId
-                              "
+                              [href]="achaviLink(page.key.changeSetId)"
                               i18n="@@change-set.header.achavi"
                             >
                               achavi
@@ -68,7 +67,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
                               class="external"
                               rel="nofollow noreferrer"
                               target="_blank"
-                              [href]="'https://osmcha.org/changesets/' + page.key.changeSetId"
+                              [href]="osmchaLink(page.key.changeSetId)"
                               i18n="@@change-set.header.osmcha"
                             >
                               osmcha
@@ -152,9 +151,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
                             <ui-icon-warning />
                             <span> Not OK: {{ page.routeSegmentCount }} route segments </span>
                           </div>
-                        }
-
-                        @if (page.routeSegmentCount === 1) {
+                        } @else {
                           <div class="kpn-line route-analysis">
                             <span>OK: 1 route segment</span>
                           </div>
@@ -267,5 +264,13 @@ export class MonitorRouteChangePageComponent {
 
   replicationName(): string {
     return '000/000/000';
+  }
+
+  achaviLink(changeSetId: number): string {
+    return `https://overpass-api.de/achavi/?changeset=${changeSetId}`;
+  }
+
+  osmchaLink(changeSetId: number): string {
+    return `https://osmcha.org/changesets/${changeSetId}`;
   }
 }

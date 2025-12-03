@@ -7,6 +7,7 @@ import { SharedStateService } from '../../core/shared/shared-state.service';
   selector: 'ui-error',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (service.httpError(); as httpError) {
       <div class="kpn-spacer-above http-error">
         @if (httpError === 'error-500') {

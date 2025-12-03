@@ -26,7 +26,7 @@ import { Facts } from './facts';
           @if (factInfo.networkRef) {
             <div class="reference">
               <ui-brackets>
-                <a class="text" [routerLink]="'/analysis/network/' + factInfo.networkRef.id">{{
+                <a class="text" [routerLink]="networkLink(factInfo.networkRef.id)">{{
                   factInfo.networkRef.name
                 }}</a>
               </ui-brackets>
@@ -102,5 +102,9 @@ export class FactsComponent {
 
   factLevel(factInfo: FactInfo): FactLevel {
     return Facts.factLevel(factInfo.fact);
+  }
+
+  networkLink(networkId: number): string {
+    return `/analysis/network/${networkId}`;
   }
 }

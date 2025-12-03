@@ -19,6 +19,7 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
   selector: 'ui-node-change-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @for (fact of nodeChangeInfo().facts; track $index) {
       <div class="kpn-detail">
         <ui-fact-name [fact]="fact" />

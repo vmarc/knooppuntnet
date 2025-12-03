@@ -10,6 +10,7 @@ import { FactNameComponent } from '../../fact/components/fact-name.component';
   selector: 'ui-fact-diffs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (factDiffs()) {
       @if (factDiffs().resolved.length > 0) {
         <div class="kpn-detail kpn-line">

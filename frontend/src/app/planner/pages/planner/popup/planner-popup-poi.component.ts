@@ -14,6 +14,7 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
   selector: 'ui-planner-popup-poi',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (response(); as response) {
       @if (!response.result) {
         <div class="item" i18n="@@poi.detail.none">No details available</div>

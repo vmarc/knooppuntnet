@@ -21,7 +21,7 @@ import { SettingsMenuScopeComponent } from './settings-menu-scope.component';
     <nz-drawer
       [nzClosable]="true"
       [nzVisible]="visible"
-      [nzPlacement]="'left'"
+      nzPlacement="left"
       nzTitle="Settings"
       (nzOnClose)="close()"
     >

@@ -14,6 +14,7 @@ import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.c
   selector: 'ui-change-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     <div class="kpn-line">
       @if (changeKey().changeSetId === 0) {
         <span i18n="@@change-header.start"> Start </span>

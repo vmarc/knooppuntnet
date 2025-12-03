@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -12,10 +13,10 @@ import { Tag } from '@api/custom/tag';
         <a [href]="tag().value">{{ tag().value }}</a>
       }
       @case ('wikidata') {
-        <a [href]="'http://www.wikidata.org/entity/' + tag().value">{{ tag().value }}</a>
+        <a [href]="wikidataLink()">{{ tag().value }}</a>
       }
       @case ('wikipedia') {
-        <a [href]="'https://en.wikipedia.org/wiki/' + tag().value">{{ tag().value }}</a>
+        <a [href]="wikipediaLink()">{{ tag().value }}</a>
       }
       @default {
         @if (tag().value.startsWith('http')) {
@@ -29,4 +30,10 @@ import { Tag } from '@api/custom/tag';
 })
 export class TagValueComponent {
   readonly tag = input.required<Tag>();
+  protected readonly wikidataLink = computed(
+    () => `http://www.wikidata.org/entity/${this.tag().value}`
+  );
+  protected readonly wikipediaLink = computed(
+    () => `https://en.wikipedia.org/wiki/${this.tag().value}`
+  );
 }

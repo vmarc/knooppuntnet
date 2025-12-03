@@ -12,6 +12,7 @@ import { NodeDiffsData } from './node-diffs-data';
   selector: 'ui-node-diffs-added',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (refs().length > 0) {
       <div class="kpn-level-2">
         <div class="kpn-line kpn-level-2-header">

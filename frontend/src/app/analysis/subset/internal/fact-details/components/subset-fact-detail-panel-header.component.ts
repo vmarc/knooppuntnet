@@ -19,8 +19,6 @@ import { ActionButtonNetworkComponent } from '../../../../components/action/acti
         <span i18n="@@subset-facts.orphan-routes" class="free-route-indent">Free routes</span>
       } @else {
         <ui-action-button-network [relationId]="networkFactRefs().networkId" />
-      }
-      @if (networkFactRefs().networkId !== 0) {
         <a [routerLink]="link()">
           {{ networkFactRefs().networkName }}
         </a>

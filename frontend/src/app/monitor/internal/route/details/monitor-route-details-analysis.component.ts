@@ -20,8 +20,7 @@ import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.compo
           <span>{{ page().summary.deviationCount }}</span>
           @if (page().summary.deviationCount === 1) {
             <span i18n="@@monitor.route.details.analysis.deviation"> deviation </span>
-          }
-          @if (page().summary.deviationCount !== 1) {
+          } @else {
             <span i18n="@@monitor.route.details.analysis.deviations"> deviations </span>
           }
           @if (page().summary.deviationCount > 0) {
@@ -37,8 +36,7 @@ import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.compo
           <span>{{ page().summary.segmentCount }}</span>
           @if (page().summary.segmentCount === 1) {
             <span i18n="@@monitor.route.details.analysis.osm-segment"> OSM segment </span>
-          }
-          @if (page().summary.segmentCount !== 1) {
+          } @else {
             <span i18n="@@monitor.route.details.analysis.osm-segments"> OSM segments </span>
           }
         </span>

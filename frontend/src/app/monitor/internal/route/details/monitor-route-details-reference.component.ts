@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -26,7 +27,7 @@ import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
     }
 
     @if (page().referenceType === 'gpx') {
-      <p>{{ 'GPX: "' + page().referenceFilename + '"' }}</p>
+      <p>{{ gpx() }}</p>
     }
 
     <p>{{ page().referenceDistance | distance }}</p>
@@ -35,4 +36,5 @@ import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
 })
 export class MonitorRouteDetailsReferenceComponent {
   readonly page = input.required<MonitorRouteDetailsPage>();
+  protected readonly gpx = computed(() => `GPX: ${this.page().referenceFilename}`);
 }

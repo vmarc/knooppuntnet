@@ -8,6 +8,7 @@ import { LinkNodeComponent } from '@app/shared/components/link/link-node.compone
   selector: 'ui-route-node-diff',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @switch (title()) {
       @case ('startNodes') {
         <span i18n="@@route-changes.node-diff.start-nodes">Start nodes</span>

@@ -11,6 +11,7 @@ import { RouteNodeDiffComponent } from './route-node-diff.component';
   selector: 'ui-route-diff',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (diffs().nameDiff) {
       <div class="kpn-detail" i18n="@@route-changes.route-diff.name-diff">
         Route name changed from "{{ diffs().nameDiff.before }}" to "{{ diffs().nameDiff.after }}".

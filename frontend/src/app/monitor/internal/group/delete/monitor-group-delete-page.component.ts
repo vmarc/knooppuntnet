@@ -24,9 +24,6 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
 
       @if (service.state(); as state) {
         @if (state.response; as response) {
-          @if (!response.result) {
-            <p class="kpn-error" i18n="@@monitor.group.delete.group-not-found">Group not found</p>
-          }
           @if (response.result; as page) {
             <ui-monitor-group-delete-info [page]="page" />
             <div class="kpn-form-buttons">
@@ -35,6 +32,8 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
               </button>
               <a routerLink="/monitor">{{ cancelLinkText }}</a>
             </div>
+          } @else {
+            <p class="kpn-error" i18n="@@monitor.group.delete.group-not-found">Group not found</p>
           }
         }
       }

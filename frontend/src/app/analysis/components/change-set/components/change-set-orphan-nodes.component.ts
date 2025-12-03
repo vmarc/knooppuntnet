@@ -15,7 +15,7 @@ import { ChangesSetElementRefsComponent } from './change-set-element-refs.compon
       <span i18n="@@change-set.orphan-nodes">Orphan node(s)</span>
     </div>
     <ui-change-set-element-refs
-      [elementType]="'node'"
+      elementType="node"
       [changeSetElementRefs]="subsetElementRefs().elementRefs"
     />
   `,

@@ -25,7 +25,7 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
           @if (!response.result) {
             <p i18n="@@monitor.changes.no-changes">No group changes</p>
           }
-
+          <!-- eslint-disable-next-line @angular-eslint/template/prefer-at-else -->
           @if (response.result; as page) {
             <div class="kpn-spacer-above">
               <ui-switch

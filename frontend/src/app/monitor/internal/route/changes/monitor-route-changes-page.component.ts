@@ -25,7 +25,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
             @if (!response.result) {
               <div>Route not found</div>
             }
-
+            <!-- eslint-disable-next-line @angular-eslint/template/prefer-at-else -->
             @if (response.result; as page) {
               <div class="kpn-spacer-above">
                 <ui-switch

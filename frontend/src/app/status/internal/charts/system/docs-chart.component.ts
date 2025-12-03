@@ -30,7 +30,7 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
         [showXAxisLabel]="true"
         [showYAxisLabel]="true"
         [xAxisLabel]="xAxisLabel()"
-        [yAxisLabel]="'documents'"
+        yAxisLabel="documents"
         [legend]="false"
         [roundDomains]="false"
       />

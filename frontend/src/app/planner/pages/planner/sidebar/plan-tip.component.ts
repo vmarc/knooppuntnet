@@ -13,6 +13,7 @@ import { PlannerService } from '../planner.service';
   selector: 'ui-plan-tip',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     @if (planPhase(); as planPhase) {
       <div class="tip">
         @if (planPhaseEnum.zoomInClickStartNode === planPhase) {

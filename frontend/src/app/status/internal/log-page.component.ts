@@ -32,8 +32,8 @@ import { StatusPageMenuComponent } from './status-page-menu.component';
       @if (service.page(); as page) {
         <ui-status-page-menu [links]="service.statusLinks()" [periodType]="page.periodType" />
         <div>
-          <a [routerLink]="'TODO previous'" class="previous">previous</a>
-          <a [routerLink]="'TODO next'">next</a>
+          <a routerLink="TODO previous" class="previous">previous</a>
+          <a routerLink="TODO next">next</a>
         </div>
         <div class="chart-group">
           <h2>Analysis</h2>

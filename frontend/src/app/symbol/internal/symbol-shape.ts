@@ -548,12 +548,10 @@ export class SymbolShape {
     context.stroke();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private static drawHiker(context: CanvasRenderingContext2D): void {
     // leave empty
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private static drawWheel(context: CanvasRenderingContext2D): void {
     // leave empty
   }

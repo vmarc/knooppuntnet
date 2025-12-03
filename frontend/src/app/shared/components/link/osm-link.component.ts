@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -10,7 +11,7 @@ import { input } from '@angular/core';
       class="external"
       rel="nofollow noreferrer"
       target="_blank"
-      [href]="'https://www.openstreetmap.org/' + kind() + '/' + elementId()"
+      [href]="osmLink()"
       title="Open in OpenStreetMap website"
       i18n-title="@@osm-link.title"
     >
@@ -22,4 +23,5 @@ export class OsmLinkComponent {
   readonly kind = input.required<string>();
   readonly elementId = input.required<string>();
   readonly title = input.required<string>();
+  protected readonly osmLink = computed(() => `/analysis/${this.kind()}/${this.elementId()}`);
 }

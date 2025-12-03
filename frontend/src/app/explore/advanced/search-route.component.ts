@@ -1,4 +1,4 @@
-import { input } from '@angular/core';
+import { computed, input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -14,7 +14,7 @@ import { ActionButtonRouteComponent } from '@app/analysis/components/action/acti
     @let route = item();
     <div class="kpn-line">
       <ui-action-button-route [routeType]="routeType()" [relationId]="route.id" />
-      <a [routerLink]="'/analysis/route/' + route.id">{{ route.name }}</a>
+      <a [routerLink]="routeLink()">{{ route.name }}</a>
     </div>
     <div class="kpn-line">
       <span>{{ route.distance | distance }}</span>
@@ -25,4 +25,5 @@ import { ActionButtonRouteComponent } from '@app/analysis/components/action/acti
 export class SearchRouteComponent {
   readonly routeType = input.required<RouteType>();
   readonly item = input.required<RouteListItem>();
+  readonly routeLink = computed(() => `/analysis/route/${this.item().id}`);
 }
