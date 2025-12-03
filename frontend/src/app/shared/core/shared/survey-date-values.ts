@@ -1,5 +1,5 @@
 import { SurveyDateInfo } from '@api/common/survey-date-info';
-import { DayPipe } from '../../components/format/day.pipe';
+import { DayUtil } from '@app/shared/components/day-util';
 
 export class SurveyDateValues {
   constructor(
@@ -10,12 +10,11 @@ export class SurveyDateValues {
   ) {}
 
   static from(surveyDateInfo: SurveyDateInfo): SurveyDateValues {
-    const pipe = new DayPipe('en');
     return new SurveyDateValues(
-      pipe.transform(surveyDateInfo.lastMonthStart),
-      pipe.transform(surveyDateInfo.lastHalfYearStart),
-      pipe.transform(surveyDateInfo.lastYearStart),
-      pipe.transform(surveyDateInfo.lastTwoYearsStart)
+      DayUtil.toString('en', surveyDateInfo.lastMonthStart),
+      DayUtil.toString('en', surveyDateInfo.lastHalfYearStart),
+      DayUtil.toString('en', surveyDateInfo.lastYearStart),
+      DayUtil.toString('en', surveyDateInfo.lastTwoYearsStart)
     );
   }
 }
