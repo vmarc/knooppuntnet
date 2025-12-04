@@ -55,16 +55,7 @@
             "index": "src/index.html",
             "polyfills": ["zone.js", "@angular/localize/init"],
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.json",
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                "output": "/assets/"
-              }
-            ],
+            "assets": ["src/favicon.ico", "src/assets", "src/manifest.json"],
             "styles": [
               "src/theme.less",
               "src/styles.scss",

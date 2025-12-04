@@ -25,7 +25,7 @@ import { PageService } from '@app/shared/components/page.service';
 import { SpinnerInterceptor } from '@app/shared/spinner/spinner-interceptor';
 import { SpinnerService } from '@app/shared/spinner/spinner.service';
 import * as Sentry from '@sentry/angular';
-import { provideNzWave } from 'ng-zorro-antd/core/wave';
+import { provideNzIcons } from 'ng-zorro-antd/icon';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { provideMarkdown } from 'ngx-markdown';
 import { appRoutes } from './app-routes';
@@ -44,8 +44,77 @@ import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
+import { IconDefinition } from '@ant-design/icons-angular';
+
+import { AimOutline } from '@ant-design/icons-angular/icons';
+import { ArrowsAltOutline } from '@ant-design/icons-angular/icons';
+import { CheckOutline } from '@ant-design/icons-angular/icons';
+import { ClockCircleOutline } from '@ant-design/icons-angular/icons';
+import { CloseOutline } from '@ant-design/icons-angular/icons';
+import { CompassOutline } from '@ant-design/icons-angular/icons';
+import { DashboardOutline } from '@ant-design/icons-angular/icons';
+import { DeleteOutline } from '@ant-design/icons-angular/icons';
+import { DoubleLeftOutline } from '@ant-design/icons-angular/icons';
+import { DoubleRightOutline } from '@ant-design/icons-angular/icons';
+import { DownOutline } from '@ant-design/icons-angular/icons';
+import { EditOutline } from '@ant-design/icons-angular/icons';
+import { EllipsisOutline } from '@ant-design/icons-angular/icons';
+import { ExperimentOutline } from '@ant-design/icons-angular/icons';
+import { ExportOutline } from '@ant-design/icons-angular/icons';
+import { FileTextOutline } from '@ant-design/icons-angular/icons';
+import { FullscreenExitOutline } from '@ant-design/icons-angular/icons';
+import { LeftOutline } from '@ant-design/icons-angular/icons';
+import { LoadingOutline } from '@ant-design/icons-angular/icons';
+import { MehOutline } from '@ant-design/icons-angular/icons';
+import { MinusOutline } from '@ant-design/icons-angular/icons';
+import { PlusOutline } from '@ant-design/icons-angular/icons';
+import { QuestionOutline } from '@ant-design/icons-angular/icons';
+import { RightOutline } from '@ant-design/icons-angular/icons';
+import { SearchOutline } from '@ant-design/icons-angular/icons';
+import { SettingOutline } from '@ant-design/icons-angular/icons';
+import { SmileOutline } from '@ant-design/icons-angular/icons';
+import { SyncOutline } from '@ant-design/icons-angular/icons';
+import { UndoOutline } from '@ant-design/icons-angular/icons';
+import { UploadOutline } from '@ant-design/icons-angular/icons';
+import { UpOutline } from '@ant-design/icons-angular/icons';
+import { WarningOutline } from '@ant-design/icons-angular/icons';
 
 registerLocaleData(en);
+
+const icons: IconDefinition[] = [
+  AimOutline,
+  ArrowsAltOutline,
+  CheckOutline,
+  ClockCircleOutline,
+  CloseOutline,
+  CompassOutline,
+  DashboardOutline,
+  DeleteOutline,
+  DoubleLeftOutline,
+  DoubleRightOutline,
+  DownOutline,
+  EditOutline,
+  EllipsisOutline,
+  ExperimentOutline,
+  ExportOutline,
+  FileTextOutline,
+  FullscreenExitOutline,
+  LeftOutline,
+  LoadingOutline,
+  MehOutline,
+  MinusOutline,
+  PlusOutline,
+  QuestionOutline,
+  RightOutline,
+  SearchOutline,
+  SettingOutline,
+  SmileOutline,
+  SyncOutline,
+  UndoOutline,
+  UpOutline,
+  UploadOutline,
+  WarningOutline,
+];
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -99,6 +168,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     { provide: UserService },
     provideNzI18n(en_US),
+    provideNzIcons(icons),
     importProvidersFrom(FormsModule),
     provideHttpClient(),
     provideMarkdown(),
