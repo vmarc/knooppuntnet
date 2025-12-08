@@ -65,19 +65,19 @@ import { FileTextOutline } from '@ant-design/icons-angular/icons';
 import { FullscreenExitOutline } from '@ant-design/icons-angular/icons';
 import { LeftOutline } from '@ant-design/icons-angular/icons';
 import { LoadingOutline } from '@ant-design/icons-angular/icons';
-import { MehOutline } from '@ant-design/icons-angular/icons';
+import { MehTwoTone } from '@ant-design/icons-angular/icons';
 import { MinusOutline } from '@ant-design/icons-angular/icons';
 import { PlusOutline } from '@ant-design/icons-angular/icons';
 import { QuestionOutline } from '@ant-design/icons-angular/icons';
 import { RightOutline } from '@ant-design/icons-angular/icons';
 import { SearchOutline } from '@ant-design/icons-angular/icons';
 import { SettingOutline } from '@ant-design/icons-angular/icons';
-import { SmileOutline } from '@ant-design/icons-angular/icons';
+import { SmileTwoTone } from '@ant-design/icons-angular/icons';
 import { SyncOutline } from '@ant-design/icons-angular/icons';
 import { UndoOutline } from '@ant-design/icons-angular/icons';
 import { UploadOutline } from '@ant-design/icons-angular/icons';
 import { UpOutline } from '@ant-design/icons-angular/icons';
-import { WarningOutline } from '@ant-design/icons-angular/icons';
+import { WarningTwoTone } from '@ant-design/icons-angular/icons';
 
 registerLocaleData(en);
 
@@ -101,19 +101,19 @@ const icons: IconDefinition[] = [
   FullscreenExitOutline,
   LeftOutline,
   LoadingOutline,
-  MehOutline,
+  MehTwoTone,
   MinusOutline,
   PlusOutline,
   QuestionOutline,
   RightOutline,
   SearchOutline,
   SettingOutline,
-  SmileOutline,
+  SmileTwoTone,
   SyncOutline,
   UndoOutline,
   UpOutline,
   UploadOutline,
-  WarningOutline,
+  WarningTwoTone,
 ];
 
 export const appConfig: ApplicationConfig = {
