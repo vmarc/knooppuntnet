@@ -12,7 +12,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
   template: `
     <a
       [routerLink]="routeUpdateLink()"
-      [state]="route"
+      [state]="route()"
       title="Update"
       i18n-title="@@action.update"
       class="kpn-action-button kpn-link"
@@ -22,7 +22,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
     <nz-divider nzType="vertical" />
     <a
       [routerLink]="routeDeleteLink()"
-      [state]="route"
+      [state]="route()"
       title="delete"
       i18n-title="@@action.delete"
       class="kpn-action-button kpn-warning"
