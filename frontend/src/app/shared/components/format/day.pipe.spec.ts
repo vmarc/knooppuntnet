@@ -1,6 +1,9 @@
 import { LOCALE_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Day } from '@api/custom/day';
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { DayPipe } from './day.pipe';
 
 describe('DayPipe', () => {

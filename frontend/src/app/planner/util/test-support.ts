@@ -1,4 +1,5 @@
 import { Coordinate } from 'ol/coordinate';
+import { expect } from 'vitest';
 import { PlanFlag } from '../domain/plan/plan-flag';
 import { PlanFlagType } from '../domain/plan/plan-flag-type';
 import { PlanLeg } from '../domain/plan/plan-leg';

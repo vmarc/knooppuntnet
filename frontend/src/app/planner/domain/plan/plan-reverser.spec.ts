@@ -4,6 +4,9 @@ import { PlanFragment } from '@api/common/planner/plan-fragment';
 import { PlanRoute } from '@api/common/planner/plan-route';
 import { PlanSegment } from '@api/common/planner/plan-segment';
 import { List } from 'immutable';
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { expectEndFlagCoordinate } from '../../util/test-support';
 import { expectStartFlagCoordinate } from '../../util/test-support';
 import { expectViaFlagCoordinate } from '../../util/test-support';
@@ -265,8 +268,8 @@ describe('PlanReverser', () => {
 
   const buildPlan = (setup: PlannerTestSetup): Plan => {
     /*
-      1  -----  2  --via3--  4
-    */
+          1  -----  2  --via3--  4
+        */
 
     const sourceNode = setup.node1;
     const viaNode = setup.node3;

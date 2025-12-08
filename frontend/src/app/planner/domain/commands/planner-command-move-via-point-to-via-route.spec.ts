@@ -1,3 +1,6 @@
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { PlannerTestSetup } from '../context/planner-test-setup';
 import { PlanFlag } from '../plan/plan-flag';
 import { PlanUtil } from '../plan/plan-util';

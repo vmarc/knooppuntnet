@@ -1,5 +1,8 @@
 import { PlanRoute } from '@api/common/planner/plan-route';
 import { List } from 'immutable';
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { Plan } from './plan';
 import { PlanFlag } from './plan-flag';
 import { PlanLeg } from './plan-leg';

@@ -1,8 +1,11 @@
 import { UrlMatchResult } from '@angular/router';
 import { UrlSegment } from '@angular/router';
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { LocationUrlMatcher } from './location-url-matcher';
 
-xdescribe('location-url-matcher', () => {
+describe.skip('location-url-matcher', () => {
   it('match', () => {
     const url = [
       new UrlSegment('cycling', {}),
@@ -26,6 +29,6 @@ xdescribe('location-url-matcher', () => {
 
     const result: UrlMatchResult = LocationUrlMatcher.match(url, null, null);
 
-    expect(result.consumed).toEqual(null);
+    expect(result).toEqual(null);
   });
 });

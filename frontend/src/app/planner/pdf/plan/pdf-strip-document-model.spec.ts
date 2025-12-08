@@ -1,4 +1,7 @@
 import { List } from 'immutable';
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { PdfPlanNode } from './pdf-plan-node';
 import { PdfStripDocumentModel } from './pdf-strip-document-model';
 

@@ -1,4 +1,7 @@
 import { Day } from '@api/custom/day';
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { DayUtil } from './day-util';
 
 describe('day-util', () => {

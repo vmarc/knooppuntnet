@@ -1,4 +1,7 @@
 import { List } from 'immutable';
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { expectViaFlagCoordinate } from '../../util/test-support';
 import { expectEndFlagCoordinate } from '../../util/test-support';
 import { PlannerTestSetup } from '../context/planner-test-setup';

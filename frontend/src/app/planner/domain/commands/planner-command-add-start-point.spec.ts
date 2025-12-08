@@ -1,3 +1,6 @@
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { expectStartFlag } from '../../util/test-support';
 import { PlannerTestSetup } from '../context/planner-test-setup';
 import { PlanFlag } from '../plan/plan-flag';

@@ -1,4 +1,7 @@
 import { List } from 'immutable';
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { expectEndFlag } from '../../util/test-support';
 import { PlannerTestSetup } from '../context/planner-test-setup';
 import { Plan } from '../plan/plan';

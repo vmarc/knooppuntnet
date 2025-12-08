@@ -1,5 +1,8 @@
 import { LOCALE_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { DistancePipe } from './distance.pipe';
 
 describe('DistancePipe', () => {

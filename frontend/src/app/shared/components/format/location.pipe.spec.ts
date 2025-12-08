@@ -1,3 +1,6 @@
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { LocationPipe } from './location.pipe';
 
 describe('location pipe', () => {

@@ -1,4 +1,5 @@
 import { Coordinate } from 'ol/coordinate';
+import { expect } from 'vitest';
 import { expectCoordinate } from '../../util/test-support';
 import { PlannerElasticBand } from './planner-elastic-band';
 

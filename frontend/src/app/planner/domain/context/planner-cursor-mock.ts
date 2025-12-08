@@ -1,4 +1,5 @@
 import { PlannerCursor } from './planner-cursor';
+import { expect } from 'vitest';
 
 export class PlannerCursorMock implements PlannerCursor {
   style = 'default';

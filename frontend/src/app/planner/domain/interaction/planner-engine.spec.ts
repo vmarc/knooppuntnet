@@ -1,4 +1,7 @@
 import { List } from 'immutable';
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { expectCoordinates } from '../../util/test-support';
 import { expectStartFlag } from '../../util/test-support';
 import { expectEndFlagCoordinate } from '../../util/test-support';
@@ -151,7 +154,7 @@ describe('PlannerEngine', () => {
       const commandStack = setup.context.commandStack();
       expect(commandStack.commandCount).toEqual(1);
       const command = commandStack.last();
-      expect(command).toEqual(jasmine.any(PlannerCommandMoveStartPoint));
+      expect(command instanceof PlannerCommandMoveStartPoint);
     });
 
     it('should cancel "move start-node" upon mouse up, while no legs in plan yet, and not hoovering over network node', () => {
@@ -259,9 +262,7 @@ describe('PlannerEngine', () => {
       setup.elasticBand.expectVisible(false);
 
       expect(setup.context.commandStack().commandCount).toEqual(1);
-      expect(setup.context.commandStack().last()).toEqual(
-        jasmine.any(PlannerCommandMoveFirstLegSource)
-      );
+      expect(setup.context.commandStack().last() instanceof PlannerCommandMoveFirstLegSource);
     });
 
     it('should cancel "move start-node" upon mouse up, with legs in plan, and not hoovering over network node', () => {
@@ -376,7 +377,7 @@ describe('PlannerEngine', () => {
       setup.elasticBand.expectVisible(false);
 
       expect(setup.context.commandStack().commandCount).toEqual(1);
-      expect(setup.context.commandStack().last()).toEqual(jasmine.any(PlannerCommandReplaceLeg));
+      expect(setup.context.commandStack().last() instanceof PlannerCommandReplaceLeg);
     });
 
     it('should cancel "move end-node" upon mouse up, while not hoovering over network node', () => {
@@ -494,7 +495,7 @@ describe('PlannerEngine', () => {
       setup.elasticBand.expectVisible(false);
 
       expect(setup.context.commandStack().commandCount).toEqual(1);
-      expect(setup.context.commandStack().last()).toEqual(jasmine.any(PlannerCommandMoveViaPoint));
+      expect(setup.context.commandStack().last() instanceof PlannerCommandMoveViaPoint);
     });
 
     it('should cancel "move via-node" upon mouse up, when not hoovering over network node', () => {
@@ -607,7 +608,7 @@ describe('PlannerEngine', () => {
 
       expect(setup.context.commandStack().commandCount).toEqual(1);
       const command = setup.context.commandStack().last();
-      expect(command).toEqual(jasmine.any(PlannerCommandSplitLeg));
+      expect(command instanceof PlannerCommandSplitLeg);
     });
 
     it('should cancel "split leg" upon mouse up, while not hoovering over network node', () => {

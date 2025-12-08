@@ -1,4 +1,5 @@
 import { Map } from 'immutable';
+import { expect } from 'vitest';
 import { PlanLeg } from '../plan/plan-leg';
 import { PlannerRouteLayer } from './planner-route-layer';
 

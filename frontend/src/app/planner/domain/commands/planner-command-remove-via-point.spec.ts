@@ -1,3 +1,6 @@
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { expectEndFlag } from '../../util/test-support';
 import { expectInvisibleFlag } from '../../util/test-support';
 import { expectViaFlag } from '../../util/test-support';

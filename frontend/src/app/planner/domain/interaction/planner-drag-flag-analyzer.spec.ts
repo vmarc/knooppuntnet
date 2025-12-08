@@ -1,4 +1,7 @@
 import { List } from 'immutable';
+import { describe } from 'vitest';
+import { it } from 'vitest';
+import { expect } from 'vitest';
 import { FlagFeature } from '../features/flag-feature';
 import { Plan } from '../plan/plan';
 import { PlanFlag } from '../plan/plan-flag';
