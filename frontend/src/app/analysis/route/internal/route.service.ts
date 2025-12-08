@@ -1,13 +1,10 @@
 import { Location } from '@angular/common';
-import { HttpResourceRef } from '@angular/common/http';
-import { effect } from '@angular/core';
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
 import { RouteInfo } from '@api/common/route/route-info';
-import { ApiResponse } from '@api/custom/api-response';
 import { RoutePageName } from '@app/analysis/route/internal/components/route-page-name';
 import { State } from '@app/state/state';
 

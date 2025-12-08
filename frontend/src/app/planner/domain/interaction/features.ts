@@ -104,8 +104,8 @@ export class Features {
         let pathId = 0;
         if (segmentId) {
           dashIndex = segmentId.indexOf('-');
-          routeId = dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
-          pathId = dashIndex === -1 ? -1 : segmentId.substr(dashIndex + 1);
+          routeId = dashIndex === -1 ? segmentId : segmentId.substring(0, dashIndex);
+          pathId = dashIndex === -1 ? -1 : segmentId.substring(dashIndex + 1);
         }
         const proposed = feature.get('state') === 'proposed';
         return new RouteFeature(+routeId, +pathId, routeName, oneWay, proposed, feature);

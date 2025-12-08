@@ -1,5 +1,3 @@
-import { HttpResourceRef } from '@angular/common/http';
-import { httpResource } from '@angular/common/http';
 import { HttpContext } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
