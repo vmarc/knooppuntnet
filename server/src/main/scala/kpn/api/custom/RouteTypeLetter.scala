@@ -12,6 +12,7 @@ object RouteTypeLetter {
       case RouteType.canoe => "p"
       case RouteType.motorboat => "m"
       case RouteType.inlineSkating => "i"
+      case RouteType.mtb => "?"
     }
   }
 }

@@ -32,7 +32,11 @@ class ScopedRouteTypeTest extends UnitTest {
         ScopedRouteType(RouteType.inlineSkating, RouteScope.local, "lin"),
         ScopedRouteType(RouteType.inlineSkating, RouteScope.regional, "rin"),
         ScopedRouteType(RouteType.inlineSkating, RouteScope.national, "nin"),
-        ScopedRouteType(RouteType.inlineSkating, RouteScope.international, "iin")
+        ScopedRouteType(RouteType.inlineSkating, RouteScope.international, "iin"),
+        ScopedRouteType(RouteType.mtb, RouteScope.local, "l?n"),
+        ScopedRouteType(RouteType.mtb, RouteScope.regional, "r?n"),
+        ScopedRouteType(RouteType.mtb, RouteScope.national, "n?n"),
+        ScopedRouteType(RouteType.mtb, RouteScope.international, "i?n"),
       )
     )
   }

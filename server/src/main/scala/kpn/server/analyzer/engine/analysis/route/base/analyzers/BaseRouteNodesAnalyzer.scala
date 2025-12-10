@@ -6,13 +6,17 @@ import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.data.Node
 import kpn.api.common.route.LinkDirection
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.NodeNameAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteNodesAnalyzer.log
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
 
 import scala.collection.mutable.ListBuffer
 
 object BaseRouteNodesAnalyzer extends BaseRouteAnalyzer {
+  private val log = Log(classOf[BaseRouteNodesAnalyzer])
+
   def analyze(context: BaseRouteAnalysisContext): BaseRouteAnalysisContext = {
     if (context.nodeNetwork) {
       new BaseRouteNodesAnalyzer(context).analyze
@@ -28,8 +32,11 @@ class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
   def analyze: BaseRouteAnalysisContext = {
 
     if (context.routeTypes.sizeIs > 1) {
-      // TODO redesign - should only contain nodes with no routeType
-      context
+      // TODO redesign
+      log.warn(s"IMPLEMENTATION INCOMPLETE: node contains multiple route types (${context.routeTypes.map(_.entryName).mkString(",")}), only the first one is processed!!!")
+      val routeType = context.routeTypes.head
+      val routeScope = context.scopes.head
+      analyzeRouteWithSingleRouteType(routeType, routeScope)
     }
     else if (context.routeTypes.sizeIs == 1) {
       val routeType = context.routeTypes.head
