@@ -20,6 +20,7 @@ import scala.xml.XML
 case class TaunusKlubRoute(id: Long, name: String, description: String)
 
 object TaunusKlubTool {
+  private val overpassUrl = "http://server-1:9005/api/overpass"
   private val routeInfos = Seq(
     TaunusKlubRoute(20745, "112", "Grenzstein-Rundwanderweg (Siegfried-Rumbler-Weg)"),
     TaunusKlubRoute(63178, "Lim", "Limeswanderweg [Taunus]"),
@@ -153,7 +154,7 @@ object TaunusKlubTool {
   }
 
   private def configuration(database: Database): MonitorUpdaterConfiguration = {
-    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
     val monitorRouteRelationRepository = new MonitorRouteRelationRepository(overpassQueryExecutor)
     val monitorRouteStructureLoader = new MonitorRouteStructureLoader(overpassQueryExecutor)
     new MonitorUpdaterConfiguration(

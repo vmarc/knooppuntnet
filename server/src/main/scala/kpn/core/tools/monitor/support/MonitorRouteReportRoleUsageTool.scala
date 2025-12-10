@@ -15,11 +15,13 @@ import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 import scala.xml.XML
 
 object MonitorRouteReportRoleUsageTool {
+  private val overpassUrl = "http://server-1:9005/api/overpass"
+
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-monitor") { database =>
       val groupRepository = new MonitorGroupRepositoryImpl(database)
       val routeRepository = new MonitorRouteRepositoryImpl(database)
-      val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl
+      val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
       val tool = new MonitorRouteReportRoleUsageTool(groupRepository, routeRepository, overpassQueryExecutor)
       tool.report()
     }

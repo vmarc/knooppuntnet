@@ -11,12 +11,13 @@ import java.nio.charset.Charset
 
 object DownloadRelationTool {
 
+  private val overpassUrl = "http://server-1:9005/api/overpass"
   private val routes = Seq(
     "route 1" -> 10015252,
   )
 
   def main(args: Array[String]): Unit = {
-    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
     new DownloadRelationTool(overpassQueryExecutor).download()
     println("done")
   }

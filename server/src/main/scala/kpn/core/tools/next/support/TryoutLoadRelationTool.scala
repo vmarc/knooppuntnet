@@ -10,7 +10,7 @@ import kpn.core.overpass.QueryRelation
 import scala.xml.XML
 
 object TryoutLoadRelationTool {
-
+  private val overpassUrl = "http://server-1:9005/api/overpass"
   private val largeRoutes = Seq(
     "LAW-2" -> 532494L,
     "LAW-3" -> 2801085L,
@@ -29,7 +29,7 @@ object TryoutLoadRelationTool {
   )
 
   def main(args: Array[String]): Unit = {
-    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
     new TryoutLoadRelationTool(overpassQueryExecutor).tryout()
   }
 }

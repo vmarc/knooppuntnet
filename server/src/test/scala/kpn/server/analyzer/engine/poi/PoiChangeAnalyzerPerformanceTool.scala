@@ -99,7 +99,7 @@ class TaskRepositoryTestImpl extends TaskRepository {
   def taskCount: Int = tasks.size
 }
 
-class OverpassQueryExecutorTestImpl extends OverpassQueryExecutorRemoteImpl {
+class OverpassQueryExecutorTestImpl extends OverpassQueryExecutorRemoteImpl("http://server-1:9005/api/overpass") {
   var requestCount = 0
 
   override def execute(queryString: String): String = {

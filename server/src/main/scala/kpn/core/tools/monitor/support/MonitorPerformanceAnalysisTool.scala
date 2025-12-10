@@ -5,6 +5,7 @@ import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
+import kpn.core.tools.monitor.support.MonitorPerformanceAnalysisTool.overpassUrl
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.monitor.route.update.MonitorRouteRelationRepository
@@ -14,6 +15,8 @@ import kpn.server.monitor.route.update.MonitorUpdateReporterLogger
 import kpn.server.monitor.route.update.MonitorUpdaterConfiguration
 
 object MonitorPerformanceAnalysisTool {
+  private val overpassUrl = "http://server-1:9005/api/overpass"
+
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-monitor") { database =>
       new MonitorPerformanceAnalysisTool(database).update()
@@ -23,7 +26,7 @@ object MonitorPerformanceAnalysisTool {
 
 class MonitorPerformanceAnalysisTool(database: Database) {
 
-  private val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+  private val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
   private val monitorRouteRelationRepository = new MonitorRouteRelationRepository(overpassQueryExecutor)
   private val monitorRouteStructureLoader = new MonitorRouteStructureLoader(overpassQueryExecutor)
 

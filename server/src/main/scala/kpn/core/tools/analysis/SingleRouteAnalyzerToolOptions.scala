@@ -16,6 +16,10 @@ object SingleRouteAnalyzerToolOptions extends Options[SingleRouteAnalyzerToolOpt
         c.copy(databaseName = x)
       } text "database name"
 
+      opt[String]('o', "overpass").required() valueName "<overpass>" action { (x, c) =>
+        c.copy(overpassUrl = x)
+      } text "overpass url"
+
       opt[String]('r', "routeId").required() valueName "<database>" action { (x, c) =>
         c.copy(routeId = x.toLong)
       } text "route id"
@@ -25,5 +29,6 @@ object SingleRouteAnalyzerToolOptions extends Options[SingleRouteAnalyzerToolOpt
 
 case class SingleRouteAnalyzerToolOptions(
   databaseName: String = "",
+  overpassUrl: String = "",
   routeId: Long = 0
 )

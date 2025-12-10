@@ -15,10 +15,15 @@ object InitialAnalysisToolOptions extends Options[InitialAnalysisToolOptions] {
       opt[String]('d', "database").required() valueName "<database>" action { (x, c) =>
         c.copy(databaseName = x)
       } text "database name"
+
+      opt[String]('o', "overpass").required() valueName "<overpass>" action { (x, c) =>
+        c.copy(overpassUrl = x)
+      } text "overpass url"
     }
   }
 }
 
 case class InitialAnalysisToolOptions(
-  databaseName: String = ""
+  databaseName: String = "",
+  overpassUrl: String = ""
 )

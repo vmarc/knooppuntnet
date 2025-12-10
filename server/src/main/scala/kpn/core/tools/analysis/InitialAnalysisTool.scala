@@ -25,7 +25,7 @@ object InitialAnalysisTool extends Tool[InitialAnalysisToolOptions] {
 
   override def execute(options: InitialAnalysisToolOptions): Unit = {
     log.info("Start")
-    val configuration = new AnalysisConfiguration(options.databaseName)
+    val configuration = new AnalysisConfiguration(options.databaseName, options.overpassUrl)
     try {
       val tool = buildTool(configuration)
       tool.analyze()

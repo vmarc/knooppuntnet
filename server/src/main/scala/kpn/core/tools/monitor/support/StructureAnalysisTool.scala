@@ -6,6 +6,7 @@ import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelation
 import kpn.core.tools.config.Dirs
+import kpn.core.tools.monitor.support.StructureAnalysisTool.overpassUrl
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
 import org.apache.commons.io.FileUtils
 
@@ -15,6 +16,8 @@ import scala.jdk.CollectionConverters.CollectionHasAsScala
 import scala.xml.XML
 
 object StructureAnalysisTool {
+  private val overpassUrl = "http://server-1:9005/api/overpass"
+
   def main(args: Array[String]): Unit = {
     new StructureAnalysisTool().analyze()
   }
@@ -22,7 +25,7 @@ object StructureAnalysisTool {
 
 class StructureAnalysisTool {
 
-  private val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+  private val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
 
   def analyze(): Unit = {
     val filename = s"${Dirs.root}/cycling-nok-routes.txt"

@@ -11,8 +11,10 @@ import java.io.File
 import scala.xml.XML
 
 object NextCollectRouteRelationIdsTool {
+  private val overpassUrl = "http://server-1:9005/api/overpass"
+
   def main(args: Array[String]): Unit = {
-    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
     val tool = new NextCollectRouteRelationIdsTool(overpassQueryExecutor)
     tool.collect()
   }

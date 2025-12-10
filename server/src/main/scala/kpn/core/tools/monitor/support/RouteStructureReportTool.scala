@@ -4,10 +4,13 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelation
+import kpn.core.tools.monitor.support.RouteStructureReportTool.overpassUrl
 
 import scala.xml.XML
 
 object RouteStructureReportTool {
+  private val overpassUrl = "http://server-1:9005/api/overpass"
+
   def main(args: Array[String]): Unit = {
     new RouteStructureReportTool().report()
   }
@@ -16,7 +19,7 @@ object RouteStructureReportTool {
 class RouteStructureReportTool {
   def report(): Unit = {
     val relationId = 12692749L
-    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
     val xmlString = overpassQueryExecutor.executeQuery(None, QueryRelation(relationId))
     val xml = XML.loadString(xmlString)
     val rawData = new Parser().parse(xml.head)

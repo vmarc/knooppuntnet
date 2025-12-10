@@ -17,6 +17,7 @@ import scala.xml.XML
   at the current time.
  */
 object FindDeletedRoutesTool {
+  private val overpassUrl = "http://server-1:9005/api/overpass"
 
   def main(args: Array[String]): Unit = {
 
@@ -25,7 +26,7 @@ object FindDeletedRoutesTool {
       System.exit(Exit.Failure)
     }
     val analysisDatabaseName = args(0)
-    val executor = new OverpassQueryExecutorRemoteImpl()
+    val executor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
     Mongo.executeIn(analysisDatabaseName) { database =>
       new FindDeletedRoutesTool(database, executor).report()
     }

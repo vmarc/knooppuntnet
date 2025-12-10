@@ -7,9 +7,9 @@ import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
+import kpn.server.analyzer.engine.changes.OsmChangeRepositoryImpl
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApi
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
-import kpn.server.analyzer.engine.changes.OsmChangeRepositoryImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -25,9 +25,12 @@ class AnalyzerConfiguration {
   def statusRepository: StatusRepository = new StatusRepositoryImpl(dirs)
 
   @Bean
-  def overpassQueryExecutor(@Value("${app.overpass.remote:false}") remote: Boolean): OverpassQueryExecutor = {
+  def overpassQueryExecutor(
+    @Value("${app.overpass.remote:false}") remote: Boolean,
+    @Value("${app.overpass.remote.url:https://overpass-api.de/api/interpreter}") url: String
+  ): OverpassQueryExecutor = {
     if (remote) {
-      new OverpassQueryExecutorRemoteImpl()
+      new OverpassQueryExecutorRemoteImpl(url)
     }
     else {
       new OverpassQueryExecutorImpl()

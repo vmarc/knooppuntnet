@@ -8,14 +8,12 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 
-class OverpassQueryExecutorRemoteImpl extends OverpassQueryExecutor {
+class OverpassQueryExecutorRemoteImpl(url: String) extends OverpassQueryExecutor {
 
   private val log = Log(classOf[OverpassQueryExecutorRemoteImpl])
 
   def execute(queryString: String): String = {
     log.debugElapsed {
-      //val url: String = "http://kpn-analysis:9005/api/overpass"
-      val url: String = "http://server-1:9005/api/overpass"
       val headers = new HttpHeaders()
       headers.setContentType(MediaType.TEXT_PLAIN)
       val entity = new HttpEntity[String](queryString, headers)

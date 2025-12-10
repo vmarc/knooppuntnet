@@ -12,7 +12,7 @@ object SingleRouteAnalyzerTool extends Tool[SingleRouteAnalyzerToolOptions] {
   override def options: Options[SingleRouteAnalyzerToolOptions] = SingleRouteAnalyzerToolOptions
 
   override def execute(options: SingleRouteAnalyzerToolOptions): Unit = {
-    val configuration = new AnalysisConfiguration(options.databaseName)
+    val configuration = new AnalysisConfiguration(options.databaseName, options.overpassUrl)
     try {
       val tool = buildTool(configuration)
       tool.analyze(options.routeId)

@@ -22,12 +22,14 @@ import java.io.File
 import scala.xml.XML
 
 object NextCreateRouteRelationsTool {
+  private val overpassUrl = "http://server-1:9005/api/overpass"
+
   def main(args: Array[String]): Unit = {
     val client = MongoClients.create("mongodb://localhost:27017")
     try {
       val mongoDatabase = client.getDatabase("kpn-next").withCodecRegistry(codecRegistry)
       val database = new NextDatabaseImpl(mongoDatabase)
-      val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+      val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
       val tool = new NextCreateRouteRelationsTool(database, overpassQueryExecutor)
       tool.createRouteRelations()
     } finally {

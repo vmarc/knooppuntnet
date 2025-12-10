@@ -14,11 +14,12 @@ import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RawDataRepositoryImpl
 
 object RawDataTool {
+  private val overpassUrl = "http://server-1:9005/api/overpass"
   val timestamp: Timestamp = Timestamp(2025, 5, 20, 0, 0, 0)
 
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-laptop") { database =>
-      val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+      val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
       val overpassRepository = new OverpassRepositoryImpl(overpassQueryExecutor)
       val repository = new RawDataRepositoryImpl(overpassRepository)
       val tool = new RawDataTool(database, repository)

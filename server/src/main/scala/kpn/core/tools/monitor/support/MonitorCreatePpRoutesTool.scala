@@ -13,6 +13,8 @@ import kpn.server.monitor.route.update.MonitorUpdateReporterLogger
 import kpn.server.monitor.route.update.MonitorUpdaterConfiguration
 
 object MonitorCreatePpRoutesTool {
+  private val overpassUrl = "http://server-1:9005/api/overpass"
+
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-prod") { database =>
       val tool = new MonitorCreatePpRoutesTool(configuration(database))
@@ -21,7 +23,7 @@ object MonitorCreatePpRoutesTool {
   }
 
   private def configuration(database: Database): MonitorUpdaterConfiguration = {
-    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
     val monitorRouteRelationRepository = new MonitorRouteRelationRepository(overpassQueryExecutor)
     val monitorRouteStructureLoader = new MonitorRouteStructureLoader(overpassQueryExecutor)
     new MonitorUpdaterConfiguration(

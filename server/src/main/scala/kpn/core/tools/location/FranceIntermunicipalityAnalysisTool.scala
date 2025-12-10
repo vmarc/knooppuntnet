@@ -7,6 +7,7 @@ import kpn.core.overpass.QueryRelation
 import kpn.core.overpass.QueryString
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.location.FranceIntermunicipalityAnalysisTool.intermunicipalitiesDir
+import kpn.core.tools.location.FranceIntermunicipalityAnalysisTool.overpassUrl
 import kpn.core.tools.location.FranceIntermunicipalityAnalysisTool.rootDir
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.GeometryCollection
@@ -19,6 +20,7 @@ object FranceIntermunicipalityAnalysisTool {
 
   private val rootDir = s"${Dirs.root}/locations"
   private val intermunicipalitiesDir = s"$rootDir/fr-intermunicipalities"
+  private val overpassUrl = "http://server-1:9005/api/overpass"
 
   def main(args: Array[String]): Unit = {
     val tool = new FranceIntermunicipalityAnalysisTool()
@@ -32,7 +34,7 @@ object FranceIntermunicipalityAnalysisTool {
 
 class FranceIntermunicipalityAnalysisTool {
 
-  private val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+  private val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
 
   case class IntermunicipalityGeometry(intermunicipalityType: String, relationId: Long, geometry: LocationGeometry)
 

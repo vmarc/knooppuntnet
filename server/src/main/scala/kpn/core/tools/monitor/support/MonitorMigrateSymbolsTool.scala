@@ -2,6 +2,7 @@ package kpn.core.tools.monitor.support
 
 import kpn.api.common.Relation
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
+import kpn.core.tools.monitor.support.MonitorMigrateSymbolsTool.overpassUrl
 import kpn.core.util.RouteSymbol
 import kpn.database.base.Database
 import kpn.database.util.Mongo
@@ -10,6 +11,8 @@ import kpn.server.monitor.route.update.MonitorRouteRelationRepository
 import org.bson.types.ObjectId
 
 object MonitorMigrateSymbolsTool {
+  private val overpassUrl = "http://server-1:9005/api/overpass"
+
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-monitor") { database =>
       new MonitorMigrateSymbolsTool(database).migrate()
@@ -19,7 +22,7 @@ object MonitorMigrateSymbolsTool {
 
 class MonitorMigrateSymbolsTool(database: Database) {
 
-  private val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+  private val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
   private val monitorRouteRelationRepository = new MonitorRouteRelationRepository(overpassQueryExecutor)
 
   def migrate(): Unit = {
