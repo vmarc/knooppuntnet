@@ -33,6 +33,7 @@ class BaseRouteTypeAnalyzer(tags: Seq[Tag]) {
       case "canoe" => Some(RouteType.canoe)
       case "motorboat" => Some(RouteType.motorboat)
       case "inline_skates" => Some(RouteType.inlineSkating)
+      case "mtb" => Some(RouteType.mtb)
       case _ => None
     }.distinct.sortBy(_.entryName)
   }

@@ -10,9 +10,11 @@ import kpn.api.custom.ScopedRouteType
 
 object TagInterpreter {
 
+  val routeTagValues: Seq[String] = Seq("foot", "hiking", "walking", "bicycle", "horse", "motorboat", "canoe", "inline_skates", "mtb")
+
   def isRouteRelation(tagable: Tagable): Boolean = {
     (tagable.hasTag("type", "route") || tagable.hasTag("type", "superroute")) &&
-      tagable.hasTag("route", "foot", "hiking", "walking", "bicycle", "horse", "motorboat", "canoe", "inline_skates")
+      tagable.hasTag("route", routeTagValues: _*)
   }
 
   def isNetworkRelation(tagable: Tagable): Boolean = {

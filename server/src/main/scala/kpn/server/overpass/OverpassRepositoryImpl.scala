@@ -5,6 +5,7 @@ import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Timestamp
+import kpn.core.analysis.TagInterpreter
 import kpn.core.data.DataBuilder
 import kpn.core.doc.RouteRelation
 import kpn.core.loadOld.Parser
@@ -101,7 +102,7 @@ class OverpassRepositoryImpl(
 
   override def routeIds(timestamp: Timestamp, typeValue: String): Seq[Long] = {
     val meta = s"""[date:"${timestamp.iso}"][timeout:1500][maxsize:24000000000]"""
-    val routeTagValues = s"""[~"^route$$"~".*(foot|hiking|walking|bicycle|horse|motorboat|canoe|inline_skates).*"]"""
+    val routeTagValues = s"""[~"^route$$"~".*(${TagInterpreter.routeTagValues.mkString("|")}).*"]"""
     val query = s"""$meta;relation["type"="$typeValue"]$routeTagValues;out ids;"""
     val xmlString = overpassQueryExecutor.execute(query)
     val xml = XML.loadString(xmlString)

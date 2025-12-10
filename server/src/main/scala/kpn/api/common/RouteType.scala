@@ -21,4 +21,6 @@ object RouteType extends Enum[RouteType] {
   final case object motorboat extends RouteType
 
   final case object inlineSkating extends RouteType
+
+  final case object mtb extends RouteType
 }

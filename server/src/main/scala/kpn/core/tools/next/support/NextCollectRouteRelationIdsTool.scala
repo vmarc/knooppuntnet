@@ -1,6 +1,7 @@
 package kpn.core.tools.next.support
 
 import kpn.api.custom.Timestamp
+import kpn.core.analysis.TagInterpreter
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.tools.config.Dirs
@@ -28,7 +29,7 @@ class NextCollectRouteRelationIdsTool(overpassQueryExecutor: OverpassQueryExecut
   private def collectIds(typeValue: String): Seq[String] = {
     println(s"Collect all $typeValue ids")
     val meta = s"""[date:"${Timestamp.analysisStart.iso}"][timeout:1500][maxsize:24000000000]"""
-    val routeTagValues = s"""[~"^route$$"~".*(foot|hiking|walking|bicycle|horse|motorboat|canoe|inline_skates).*"]"""
+    val routeTagValues = s"""[~"^route$$"~".*(${TagInterpreter.routeTagValues.mkString("|")}).*"]"""
     val query = s"""$meta;relation["type"="$typeValue"]$routeTagValues;out ids;"""
     val xmlString = overpassQueryExecutor.execute(query)
     val xml = XML.loadString(xmlString)

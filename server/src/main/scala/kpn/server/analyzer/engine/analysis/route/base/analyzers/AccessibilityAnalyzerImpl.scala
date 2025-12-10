@@ -17,6 +17,7 @@ class AccessibilityAnalyzerImpl extends AccessibilityAnalyzer {
         case RouteType.motorboat => motorboatAccessible(way)
         case RouteType.canoe => canoeAccessible(way)
         case RouteType.inlineSkating => inlineSkatesAccessible(way)
+        case RouteType.mtb => mtbAccessible(way)
         case _ => false
       }
     }
@@ -65,5 +66,13 @@ class AccessibilityAnalyzerImpl extends AccessibilityAnalyzer {
       way.hasTag("route", "ferry") ||
       way.hasTag("inline_skates", "yes")) &&
       !way.hasTag("inline_skates", "no")
+  }
+
+  private def mtbAccessible(way: Way): Boolean = {
+    (way.hasTag("highway") ||
+      way.hasTag("highway:virtual") ||
+      way.hasTag("route", "ferry") ||
+      way.hasTag("mtb", "yes")) &&
+      !way.hasTag("mtb", "no")
   }
 }

@@ -125,6 +125,8 @@ class TagInfoReport {
       "canoe" -> Some("no"),
       "inline_skates" -> Some("yes"),
       "inline_skates" -> Some("no"),
+      "mtb" -> Some("yes"),
+      "mtb" -> Some("no"),
     ).map { keyValue =>
       TagInfoTag(
         keyValue._1,

@@ -20,7 +20,6 @@ class RoutedatabankNodeParserTest extends UnitTest {
           "5.64449968",
           "Gelderland",
           Some("2019-11-19"),
-          "1",
           "keuzepunt",
           "Lunteren"
         )

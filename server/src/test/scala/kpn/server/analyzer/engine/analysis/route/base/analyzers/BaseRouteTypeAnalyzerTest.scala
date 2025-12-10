@@ -18,6 +18,7 @@ class BaseRouteTypeAnalyzerTest extends UnitTest {
     assertRouteTypes("canoe", RouteType.canoe)
     assertRouteTypes("motorboat", RouteType.motorboat)
     assertRouteTypes("inline_skates", RouteType.inlineSkating)
+    assertRouteTypes("mtb", RouteType.mtb)
   }
 
   test("multiple route types - hiking and cycling") {
@@ -33,7 +34,7 @@ class BaseRouteTypeAnalyzerTest extends UnitTest {
   }
 
   test("filter out unsupported route types") {
-    assertRouteTypes("hiking;mtb;bla", RouteType.hiking)
+    assertRouteTypes("hiking;jos;bla", RouteType.hiking)
   }
 
   test("abort analysis when route tag is missing") {
