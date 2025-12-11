@@ -38,24 +38,25 @@ import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnaly
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteSuperSegmentAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessorPipeline
-import kpn.server.analyzer.engine.changes.ChangeSaver
+import kpn.server.analyzer.engine.changes.ChangeSaverImpl
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.base.BaseNetworkChangeAnalyzer
-import kpn.server.analyzer.engine.changes.network.base.BaseNetworkChangeProcessor
-import kpn.server.analyzer.engine.changes.network.main.NetworkChangeProcessor
+import kpn.server.analyzer.engine.changes.network.base.BaseNetworkChangeProcessorImpl
+import kpn.server.analyzer.engine.changes.network.main.NetworkChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.node.base.BaseNodeChangeAnalyzer
-import kpn.server.analyzer.engine.changes.node.base.BaseNodeChangeProcessor
-import kpn.server.analyzer.engine.changes.node.main.NodeChangeProcessor
+import kpn.server.analyzer.engine.changes.node.base.BaseNodeChangeProcessorImpl
+import kpn.server.analyzer.engine.changes.node.main.NodeChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeCreateProcessorImpl
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeDeleteProcessorImpl
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeDeleterImpl
-import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeProcessor
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateProcessorImpl
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateTileProcessorImpl
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateWayProcessorImpl
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeProcessor
+import kpn.server.analyzer.engine.changes.route.main.RouteChangeProcessorImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculator
@@ -163,7 +164,7 @@ class IntegrationTestContext(
     taskRepository
   )
 
-  private val routeChangeProcessor: RouteChangeProcessor = new RouteChangeProcessor(
+  private val routeChangeProcessor: RouteChangeProcessor = new RouteChangeProcessorImpl(
     analysisContext,
     overpassRepository,
     routeMainAnalyzer,
@@ -194,7 +195,7 @@ class IntegrationTestContext(
     )
   }
 
-  private val nodeChangeProcessor = new NodeChangeProcessor(
+  private val nodeChangeProcessor = new NodeChangeProcessorImpl(
     bulkNodeAnalyzer,
     nodeChangeAnalyzer,
     nodeRepository,
@@ -270,7 +271,7 @@ class IntegrationTestContext(
 
   val changeProcessorPipeline: ChangeProcessorPipeline = {
 
-    val changeSaver = new ChangeSaver(
+    val changeSaver = new ChangeSaverImpl(
       changeSetRepository,
       networkInfoRepository
     )
@@ -282,7 +283,7 @@ class IntegrationTestContext(
 
     val networkChangeProcessor = {
 
-      new NetworkChangeProcessor(
+      new NetworkChangeProcessorImpl(
         analysisContext,
         networkRepository,
         networkMainAnalyzer,
@@ -294,7 +295,7 @@ class IntegrationTestContext(
         analysisContext,
         blacklistRepository
       )
-      new BaseNetworkChangeProcessor(
+      new BaseNetworkChangeProcessorImpl(
         analysisContext,
         baseNetworkChangeAnalyzer,
         rawDataRepository,
@@ -303,7 +304,12 @@ class IntegrationTestContext(
       )
     }
 
-    val baseNodeChangeProcessor = new BaseNodeChangeProcessor(analysisContext, nodeChangeAnalyzer: BaseNodeChangeAnalyzer, baseNodeBulkAnalyzer: BaseNodeBulkAnalyzer, nodeRepository: NodeRepository)
+    val baseNodeChangeProcessor = new BaseNodeChangeProcessorImpl(
+      analysisContext,
+      nodeChangeAnalyzer: BaseNodeChangeAnalyzer,
+      baseNodeBulkAnalyzer: BaseNodeBulkAnalyzer,
+      nodeRepository: NodeRepository
+    )
 
     val baseRouteChangeProcessor = {
       val routeChangeAnalyzer = new BaseRouteChangeAnalyzer(
@@ -342,7 +348,7 @@ class IntegrationTestContext(
         baseRouteDeleter
       )
 
-      new BaseRouteChangeProcessor(
+      new BaseRouteChangeProcessorImpl(
         routeChangeAnalyzer,
         baseRouteChangeCreateProcessor,
         baseRouteChangeUpdateProcessor,

@@ -30,10 +30,10 @@ class ChangeProcessorPipeline(
     networkChangeProcessor
   )
 
-  def process(context: ChangeSetContext): ChangeSetContext = {
-    val processedContext = processPipeline(context)
-    saveChanges(processedContext)
-    processedContext
+  def process(initialContext: ChangeSetContext): ChangeSetContext = {
+    val context = processPipeline(initialContext)
+    saveChanges(context)
+    context
   }
 
   private def processPipeline(initialContext: ChangeSetContext): ChangeSetContext = {

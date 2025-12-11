@@ -43,7 +43,7 @@ class ChangeSaverTest extends UnitTest with MockFactory {
       ChangeSetChanges()
     )
 
-    new ChangeSaver(changeSetRepository, networkInfoRepository).save(context)
+    new ChangeSaverImpl(changeSetRepository, networkInfoRepository).save(context)
 
     (changeSetRepository.saveNetworkChange _).verify(*).never()
     (changeSetRepository.saveRouteChange _).verify(*).never()
@@ -225,6 +225,6 @@ class ChangeSaverTest extends UnitTest with MockFactory {
       ChangeElementIds(),
       changeSetChanges
     )
-    new ChangeSaver(changeSetRepository, networkInfoRepository).save(context)
+    new ChangeSaverImpl(changeSetRepository, networkInfoRepository).save(context)
   }
 }

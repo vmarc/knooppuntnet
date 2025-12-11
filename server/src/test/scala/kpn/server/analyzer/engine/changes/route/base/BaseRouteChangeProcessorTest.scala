@@ -29,7 +29,7 @@ class BaseRouteChangeProcessorTest extends UnitTest with MockFactory {
       }
     }
 
-    val processor = new BaseRouteChangeProcessor(
+    val processor = new BaseRouteChangeProcessorImpl(
       analyzer,
       createProcessor,
       updateProcessor,
