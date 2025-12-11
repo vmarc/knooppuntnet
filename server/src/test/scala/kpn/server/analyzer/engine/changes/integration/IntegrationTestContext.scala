@@ -48,11 +48,11 @@ import kpn.server.analyzer.engine.changes.node.base.BaseNodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.node.base.BaseNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.node.main.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeAnalyzer
-import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeCreateProcessor
-import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeDeleteProcessor
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeCreateProcessorImpl
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeDeleteProcessorImpl
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeDeleterImpl
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeProcessor
-import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateProcessor
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateProcessorImpl
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateTileProcessorImpl
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateWayProcessorImpl
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeProcessor
@@ -312,7 +312,7 @@ class IntegrationTestContext(
         elementIdAnalyzer
       )
 
-      val baseRouteChangeCreateProcessor = new BaseRouteChangeCreateProcessor(
+      val baseRouteChangeCreateProcessor = new BaseRouteChangeCreateProcessorImpl(
         analysisContext,
         rawDataRepository,
         routeRepository,
@@ -327,7 +327,7 @@ class IntegrationTestContext(
 
       val baseRouteChangeUpdateWayProcessor = new BaseRouteChangeUpdateWayProcessorImpl()
 
-      val baseRouteChangeUpdateProcessor = new BaseRouteChangeUpdateProcessor(
+      val baseRouteChangeUpdateProcessor = new BaseRouteChangeUpdateProcessorImpl(
         analysisContext,
         rawDataRepository,
         routeRepository,
@@ -338,7 +338,7 @@ class IntegrationTestContext(
         baseRouteDeleter
       )
 
-      val baseRouteChangeDeleteProcessor = new BaseRouteChangeDeleteProcessor(
+      val baseRouteChangeDeleteProcessor = new BaseRouteChangeDeleteProcessorImpl(
         baseRouteDeleter
       )
 

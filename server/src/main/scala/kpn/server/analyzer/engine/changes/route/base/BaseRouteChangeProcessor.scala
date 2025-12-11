@@ -5,6 +5,8 @@ import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import org.springframework.stereotype.Component
 
+case class ChangeTask(processor: BaseRouteChangeSubProcessor, routeIds: Seq[Long])
+
 @Component
 class BaseRouteChangeProcessor(
   analyzer: BaseRouteChangeAnalyzer,
@@ -21,9 +23,9 @@ class BaseRouteChangeProcessor(
       val context = processChanges(
         changeSetContext,
         Seq(
-          (routeElementChanges.creates, createProcessor.process),
-          (routeElementChanges.updates, updateProcessor.process),
-          (routeElementChanges.deletes, deleteProcessor.process)
+          ChangeTask(createProcessor, routeElementChanges.creates),
+          ChangeTask(updateProcessor, routeElementChanges.updates),
+          ChangeTask(deleteProcessor, routeElementChanges.deletes)
         )
       )
       (
@@ -39,21 +41,19 @@ class BaseRouteChangeProcessor(
 
   private def processChanges(
     initialContext: ChangeSetContext,
-    changes: Seq[(Seq[Long], BaseRouteChangeSubProcessor)]
+    tasks: Seq[ChangeTask]
   ): ChangeSetContext = {
-    changes.foldLeft(initialContext) { case (context, (routeIds, processor)) =>
-      processRouteChanges(context, routeIds, processor)
+    tasks.foldLeft(initialContext) { case (context, task) =>
+      processRouteChanges(context, task)
     }
   }
 
   private def processRouteChanges(
     initialContext: ChangeSetContext,
-    routeIds: Seq[Long],
-    processor: BaseRouteChangeSubProcessor
+    task: ChangeTask
   ): ChangeSetContext = {
-    routeIds.foldLeft(initialContext) { (context, routeId) =>
-      processor.process(context, routeId)
+    task.routeIds.foldLeft(initialContext) { (context, routeId) =>
+      task.processor.process(context, routeId)
     }
   }
 }
-
