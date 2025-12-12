@@ -38,7 +38,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with MockFactory {
     val baseRouteMainAnalyzer: BaseRouteMainAnalyzer = stub[BaseRouteMainAnalyzer]
     val rawDataRepository: RawDataRepository = stub[RawDataRepository]
     val baseRouteDocBuilder: BaseRouteDocBuilder = stub[BaseRouteDocBuilder]
-    private val processor = new BaseRouteChangeCreateProcessorImpl(
+    private val processor = new BaseRouteChangeCreateProcessor(
       analysisContext,
       rawDataRepository,
       routeRepository,

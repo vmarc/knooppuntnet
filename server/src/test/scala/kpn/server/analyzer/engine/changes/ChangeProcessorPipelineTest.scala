@@ -10,16 +10,17 @@ import kpn.server.analyzer.engine.changes.node.base.BaseNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.node.main.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeProcessor
+import org.scalamock.scalatest.MockFactory
 
-class ChangeProcessorPipelineTest extends UnitTest {
+class ChangeProcessorPipelineTest extends UnitTest with MockFactory {
 
   test("pipeline executes all processors and triggers saving when changes are present") {
     val setup = new Setup(hasChanges = true)
     val initialContext = newChangeSetContext()
     val resultContext = setup.pipeline.process(initialContext)
     setup.assertAllProcessorsCalled()
-    setup.changeSetInfoUpdaterCalled should equal(true)
-    setup.changeSaverCalled should equal(true)
+    (setup.changeSetInfoUpdater.changeSetInfo _).verify(*).once()
+    (setup.changeSaver.save _).verify(*).once()
   }
 
   test("pipeline executes all processors but does not trigger saving when no changes") {
@@ -27,72 +28,35 @@ class ChangeProcessorPipelineTest extends UnitTest {
     val initialContext = newChangeSetContext()
     val resultContext = setup.pipeline.process(initialContext)
     setup.assertAllProcessorsCalled()
-    setup.changeSetInfoUpdaterCalled should equal(false)
-    setup.changeSaverCalled should equal(false)
+    (setup.changeSetInfoUpdater.changeSetInfo _).verify(*).never()
+    (setup.changeSaver.save _).verify(*).never()
   }
 
   private class Setup(hasChanges: Boolean) {
-    var baseNodeChangeProcessorCalled = false
-    var baseNetworkChangeProcessorCalled = false
-    var baseRouteChangeProcessorCalled = false
-    var networkChangeProcessorCalled = false
-    var routeChangeProcessorCalled = false
-    var nodeChangeProcessorCalled = false
-    var changeSetInfoUpdaterCalled = false
-    var changeSaverCalled = false
+    private val baseNodeChangeProcessor = stub[BaseNodeChangeProcessor]
+    private val baseNetworkChangeProcessor = stub[BaseNetworkChangeProcessor]
+    private val baseRouteChangeProcessor = stub[BaseRouteChangeProcessor]
+    private val networkChangeProcessor = stub[NetworkChangeProcessor]
+    private val routeChangeProcessor = stub[RouteChangeProcessor]
+    private val nodeChangeProcessor = stub[NodeChangeProcessor]
+    val changeSetInfoUpdater: ChangeSetInfoUpdater = stub[ChangeSetInfoUpdater]
+    val changeSaver: ChangeSaver = stub[ChangeSaver]
 
-    private val baseNodeChangeProcessor = new BaseNodeChangeProcessor {
-      override def process(context: ChangeSetContext): ChangeSetContext = {
-        baseNodeChangeProcessorCalled = true
-        if (hasChanges) {
-          val updatedChanges = context.changes.copy(nodeChanges = context.changes.nodeChanges :+ newNodeChange())
-          context.copy(changes = updatedChanges)
-        }
-        else {
-          context
-        }
+    (baseNodeChangeProcessor.process _).when(*).onCall { (context: ChangeSetContext) =>
+      if (hasChanges) {
+        val updatedChanges = context.changes.copy(nodeChanges = context.changes.nodeChanges :+ newNodeChange())
+        context.copy(changes = updatedChanges)
       }
-    }
-    private val baseNetworkChangeProcessor = new BaseNetworkChangeProcessor {
-      override def process(context: ChangeSetContext): ChangeSetContext = {
-        baseNetworkChangeProcessorCalled = true
+      else {
         context
       }
     }
-    private val baseRouteChangeProcessor = new BaseRouteChangeProcessor {
-      override def process(context: ChangeSetContext): ChangeSetContext = {
-        baseRouteChangeProcessorCalled = true
-        context
-      }
-    }
-    private val networkChangeProcessor = new NetworkChangeProcessor {
-      override def process(context: ChangeSetContext): ChangeSetContext = {
-        networkChangeProcessorCalled = true
-        context
-      }
-    }
-    private val routeChangeProcessor = new RouteChangeProcessor {
-      override def process(context: ChangeSetContext): ChangeSetContext = {
-        routeChangeProcessorCalled = true
-        context
-      }
-    }
-    private val nodeChangeProcessor = new NodeChangeProcessor {
-      override def process(context: ChangeSetContext): ChangeSetContext = {
-        nodeChangeProcessorCalled = true
-        context
-      }
-    }
-    private val changeSetInfoUpdater = new ChangeSetInfoUpdater {
-      override def changeSetInfo(changeSetId: Long): Unit = {
-        changeSetInfoUpdaterCalled = true
-      }
-    }
-    private val changeSaver = new ChangeSaver {
-      override def save(context: ChangeSetContext): Unit = {
-        changeSaverCalled = true
-      }
-    }
+
+    (baseNetworkChangeProcessor.process _).when(*).onCall((context: ChangeSetContext) => context)
+    (baseRouteChangeProcessor.process _).when(*).onCall((context: ChangeSetContext) => context)
+    (networkChangeProcessor.process _).when(*).onCall((context: ChangeSetContext) => context)
+    (routeChangeProcessor.process _).when(*).onCall((context: ChangeSetContext) => context)
+    (nodeChangeProcessor.process _).when(*).onCall((context: ChangeSetContext) => context)
 
     val pipeline = new ChangeProcessorPipeline(
       baseNodeChangeProcessor,
@@ -106,15 +70,12 @@ class ChangeProcessorPipelineTest extends UnitTest {
     )
 
     def assertAllProcessorsCalled(): Unit = {
-      baseNodeChangeProcessorCalled should equal(true)
-      baseNetworkChangeProcessorCalled should equal(true)
-      baseRouteChangeProcessorCalled should equal(true)
-      networkChangeProcessorCalled should equal(true)
-      routeChangeProcessorCalled should equal(true)
-      nodeChangeProcessorCalled should equal(true)
+      (baseNodeChangeProcessor.process _).verify(*).once()
+      (baseNetworkChangeProcessor.process _).verify(*).once()
+      (baseRouteChangeProcessor.process _).verify(*).once()
+      (networkChangeProcessor.process _).verify(*).once()
+      (routeChangeProcessor.process _).verify(*).once()
+      (nodeChangeProcessor.process _).verify(*).once()
     }
-
-    changeSetInfoUpdaterCalled should equal(false)
-    changeSaverCalled should equal(false)
   }
 }

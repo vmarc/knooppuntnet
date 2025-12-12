@@ -8,35 +8,6 @@ import org.scalamock.scalatest.MockFactory
 
 class BaseRouteChangeProcessorTest extends UnitTest with MockFactory {
 
-  private class Setup {
-    val analyzer: BaseRouteChangeAnalyzer = stub[BaseRouteChangeAnalyzer]
-    private val createProcessor = new BaseRouteChangeCreateProcessor {
-      override def process(changeSetContext: ChangeSetContext, routeId: Long): ChangeSetContext = {
-        // add routeId to baseRouteCreatedIds to indicate that processor was called
-        changeSetContext.copy(baseRouteCreatedIds = changeSetContext.baseRouteCreatedIds :+ routeId)
-      }
-    }
-    private val updateProcessor = new BaseRouteChangeUpdateProcessor {
-      override def process(changeSetContext: ChangeSetContext, routeId: Long): ChangeSetContext = {
-        // add routeId to baseRouteUpdatedIds to indicate that processor was called
-        changeSetContext.copy(baseRouteUpdatedIds = changeSetContext.baseRouteUpdatedIds :+ routeId)
-      }
-    }
-    private val deleteProcessor = new BaseRouteChangeDeleteProcessor {
-      override def process(changeSetContext: ChangeSetContext, routeId: Long): ChangeSetContext = {
-        // add routeId to baseRouteDeletedIds to indicate that processor was called
-        changeSetContext.copy(baseRouteDeletedIds = changeSetContext.baseRouteDeletedIds :+ routeId)
-      }
-    }
-
-    val processor = new BaseRouteChangeProcessorImpl(
-      analyzer,
-      createProcessor,
-      updateProcessor,
-      deleteProcessor
-    )
-  }
-
   test("the respective subprocessors are called for creates, updates and deletes") {
 
     val setup = new Setup()
@@ -68,5 +39,32 @@ class BaseRouteChangeProcessorTest extends UnitTest with MockFactory {
     val resultContext = setup.processor.process(initialContext)
 
     resultContext should equal(initialContext)
+  }
+  
+  private class Setup {
+    val analyzer: BaseRouteChangeAnalyzer = stub[BaseRouteChangeAnalyzer]
+    private val createProcessor = stub[BaseRouteChangeCreateProcessor]
+    private val updateProcessor = stub[BaseRouteChangeUpdateProcessor]
+    private val deleteProcessor = stub[BaseRouteChangeDeleteProcessor]
+
+    (createProcessor.process _).when(*, *).onCall { (changeSetContext: ChangeSetContext, routeId: Long) =>
+      // add routeId to baseRouteCreatedIds to indicate that processor was called
+      changeSetContext.copy(baseRouteCreatedIds = changeSetContext.baseRouteCreatedIds :+ routeId)
+    }
+    (updateProcessor.process _).when(*, *).onCall { (changeSetContext: ChangeSetContext, routeId: Long) =>
+      // add routeId to baseRouteUpdatedIds to indicate that processor was called
+      changeSetContext.copy(baseRouteUpdatedIds = changeSetContext.baseRouteUpdatedIds :+ routeId)
+    }
+    (deleteProcessor.process _).when(*, *).onCall { (changeSetContext: ChangeSetContext, routeId: Long) =>
+      //        // add routeId to baseRouteDeletedIds to indicate that processor was called
+      changeSetContext.copy(baseRouteDeletedIds = changeSetContext.baseRouteDeletedIds :+ routeId)
+    }
+
+    val processor = new BaseRouteChangeProcessor(
+      analyzer,
+      createProcessor,
+      updateProcessor,
+      deleteProcessor
+    )
   }
 }

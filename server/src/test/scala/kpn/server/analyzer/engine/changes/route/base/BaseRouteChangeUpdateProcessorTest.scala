@@ -45,7 +45,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with MockFactory {
     }
     val baseRouteDeleter: BaseRouteChangeDeleterMock = new BaseRouteChangeDeleterMock()
 
-    private val processor = new BaseRouteChangeUpdateProcessorImpl(
+    private val processor = new BaseRouteChangeUpdateProcessor(
       analysisContext,
       rawDataRepository,
       routeRepository,

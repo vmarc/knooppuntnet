@@ -22,7 +22,7 @@ class NetworkExtraAnalyzer(
     }
   }
 
-  private def analyzeNetwork(context: NetworkAnalysisContext) = {
+  private def analyzeNetwork(context: NetworkAnalysisContext): NetworkAnalysisContext = {
 
     val wayIds = memberIds(context, MemberType.Way)
     val nodeIds = memberIds(context, MemberType.Node)

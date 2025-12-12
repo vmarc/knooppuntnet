@@ -9,7 +9,7 @@ class BaseRouteChangeDeleteProcessorTest extends UnitTest with MockFactory {
 
   private class Setup {
     val baseRouteDeleter: BaseRouteChangeDeleterImpl = stub[BaseRouteChangeDeleterImpl]
-    val processor = new BaseRouteChangeDeleteProcessorImpl(
+    val processor = new BaseRouteChangeDeleteProcessor(
       baseRouteDeleter
     )
 
