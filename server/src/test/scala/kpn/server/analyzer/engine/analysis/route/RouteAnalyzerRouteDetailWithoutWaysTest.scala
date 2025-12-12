@@ -11,9 +11,9 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAna
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.repository.RouteRepository
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stubs
 
-class RouteAnalyzerRouteDetailWithoutWaysTest extends UnitTest with MockFactory {
+class RouteAnalyzerRouteDetailWithoutWaysTest extends UnitTest with Stubs {
 
   test("RouteNotForward and RouteNotBackward should not be reported for routes without ways") {
 

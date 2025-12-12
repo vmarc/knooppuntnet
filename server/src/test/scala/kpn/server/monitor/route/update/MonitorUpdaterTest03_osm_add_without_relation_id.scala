@@ -3,6 +3,7 @@ package kpn.server.monitor.route.update
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.server.monitor.domain.MonitorGroup
@@ -216,12 +217,25 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends MonitorUpdateTest
 
   private def setupLoadStructure(): Unit = {
     val monitorRouteRelation = route1.overpassStructure
-    (configuration.monitorRouteStructureLoader.load _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(monitorRouteRelation))
+    (monitorRouteStructureLoader.load _).returns { case (timestamp: Option[Timestamp], relationId: Long) =>
+      if (relationId == route1.relationId && (timestamp.isEmpty || timestamp.contains(ReferenceTimestamp1))) {
+        Some(monitorRouteRelation)
+      }
+      else {
+        None
+      }
+    }
   }
 
   private def setupLoadTopLevel(): Unit = {
     val relation = route1.overpassTopLevel
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, route1.relationId).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(relation))
+    (monitorRouteRelationRepository.loadTopLevel _).returns { case (timestamp: Option[Timestamp], relationId: Long) =>
+      if (relationId == route1.relationId && (timestamp.isEmpty || timestamp.contains(ReferenceTimestamp1))) {
+        Some(relation)
+      }
+      else {
+        None
+      }
+    }
   }
 }

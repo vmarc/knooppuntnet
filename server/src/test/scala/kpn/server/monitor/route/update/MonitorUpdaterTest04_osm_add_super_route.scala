@@ -5,6 +5,7 @@ import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
@@ -373,12 +374,24 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
     val subRelation1 = data.relations(subRoute11.relationId)
     val subRelation2 = data.relations(subRoute12.relationId)
 
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), TestSuperRoute.MainRelationId).returns(Some(mainRelation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), subRoute11.relationId).returns(Some(subRelation1))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), subRoute12.relationId).returns(Some(subRelation2))
-
-    //    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(mainRelation))
-    //    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 11).returns(Some(subRelation1))
-    //    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 12).returns(Some(subRelation2))
+    (monitorRouteRelationRepository.loadTopLevel _).returns { case (timestamp: Option[Timestamp], relationId: Long) =>
+      if (timestamp.contains(ReferenceTimestamp1)) {
+        if (relationId == TestSuperRoute.MainRelationId) {
+          Some(mainRelation)
+        }
+        else if (relationId == subRoute11.relationId) {
+          Some(subRelation1)
+        }
+        else if (relationId == subRoute12.relationId) {
+          Some(subRelation2)
+        }
+        else {
+          None
+        }
+      }
+      else {
+        None
+      }
+    }
   }
 }

@@ -11,9 +11,9 @@ import kpn.core.test.TestObjects.newRawNode
 import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
 import kpn.server.overpass.OverpassRepository
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stubs
 
-class NetworkExtraAnalyzerTest extends UnitTest with MockFactory {
+class NetworkExtraAnalyzerTest extends UnitTest with Stubs {
 
   test("network relation without members") {
 
@@ -38,7 +38,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory {
   test("networkExtraMemberNode") {
 
     val overpassRepository = stub[OverpassRepository]
-    (overpassRepository.nodes _).when(*, *).returns(Seq(newRawNode(1001)))
+    (overpassRepository.nodes _).returnsWith(Seq(newRawNode(1001)))
 
     val contextBefore = NetworkAnalysisContext(
       newBaseNetworkDoc(
@@ -114,7 +114,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory {
     )
 
     val overpassRepository = stub[OverpassRepository]
-    (overpassRepository.nodes _).when(*, *).returns(
+    (overpassRepository.nodes _).returnsWith(
       Seq(
         node,
         mapNode,
@@ -166,7 +166,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory {
   test("networkExtraMemberWay relation without members") {
 
     val overpassRepository = stub[OverpassRepository]
-    (overpassRepository.nodes _).when(*, *).returns(Seq.empty)
+    (overpassRepository.nodes _).returnsWith(Seq.empty)
 
     val contextBefore = NetworkAnalysisContext(
       newBaseNetworkDoc(
@@ -203,7 +203,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory {
   test("networkExtraMemberRelation") {
 
     val overpassRepository = stub[OverpassRepository]
-    (overpassRepository.nodes _).when(*, *).returns(Seq.empty)
+    (overpassRepository.nodes _).returnsWith(Seq.empty)
 
     val contextBefore = NetworkAnalysisContext(
       newBaseNetworkDoc(

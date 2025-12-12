@@ -14,12 +14,12 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAna
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.repository.RouteRepository
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stubs
 
 import scala.xml.InputSource
 import scala.xml.XML
 
-class Issue48_RouteWithSingleNodeWayTest extends UnitTest with MockFactory {
+class Issue48_RouteWithSingleNodeWayTest extends UnitTest with Stubs {
 
   test("ignore ways with less than 2 nodes in route analysis") {
     val routeRelation = readRoute()

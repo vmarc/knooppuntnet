@@ -7,9 +7,10 @@ import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.bson.types.ObjectId
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stub
+import org.scalamock.stubs.Stubs
 
-class MonitorStateStoreTest extends UnitTest with MockFactory {
+class MonitorStateStoreTest extends UnitTest with Stubs {
 
   test("save monitor route state and state tiles") {
     // setup
@@ -38,8 +39,8 @@ class MonitorStateStoreTest extends UnitTest with MockFactory {
   )
 
   private case class TestDependencies(
-    repository: MonitorRouteRepository,
-    tileBuilder: MonitorStateTileBuilder
+    repository: Stub[MonitorRouteRepository],
+    tileBuilder: Stub[MonitorStateTileBuilder]
   )
 
   private def setupTestData(): TestData = {
@@ -77,26 +78,33 @@ class MonitorStateStoreTest extends UnitTest with MockFactory {
 
   private def setupMocks(testData: TestData): TestDependencies = {
     val repository = stub[MonitorRouteRepository]
-    (repository.stateTiles _).when(*, *).returns(testData.existingTiles)
+    (repository.stateTiles _).returnsWith(testData.existingTiles)
+    (repository.saveState _).returnsWith(())
+    (repository.deleteStateTile _).returnsWith(())
+    (repository.saveStateTile _).returnsWith(())
 
     val tileBuilder = stub[MonitorStateTileBuilder]
-    (tileBuilder.build _).when(testData.monitorState).returns(testData.updatedTiles)
+    (tileBuilder.build _).returnsWith(testData.updatedTiles)
 
     TestDependencies(repository, tileBuilder)
   }
 
-  private def verifyRepositoryCalls(repository: MonitorRouteRepository, testData: TestData): Unit = {
+  private def verifyRepositoryCalls(repository: Stub[MonitorRouteRepository], testData: TestData): Unit = {
     // verify state is saved
-    (repository.saveState _).verify(testData.monitorState)
+    (repository.saveState _).calls should equal(Seq(testData.monitorState))
 
     // verify obsolete tile is deleted
-    (repository.deleteStateTile _).verify(testData.tileToRemove._id)
-
-    // verify updated tile keeps its original ID
-    (repository.saveStateTile _).verify(testData.updatedTile.copy(_id = testData.originalTileToUpdate._id))
+    (repository.deleteStateTile _).calls should equal(Seq(testData.tileToRemove._id))
 
     // verify new tile is saved
-    (repository.saveStateTile _).verify(testData.newTile)
+    // verify updated tile keeps its original ID
+    assertEqual(
+      (repository.saveStateTile _).calls,
+      Seq(
+        testData.newTile,
+        testData.updatedTile.copy(_id = testData.originalTileToUpdate._id)
+      )
+    )
   }
 
   private def createMonitorStateTile(_id: ObjectId, id: Int): MonitorStateTile = {

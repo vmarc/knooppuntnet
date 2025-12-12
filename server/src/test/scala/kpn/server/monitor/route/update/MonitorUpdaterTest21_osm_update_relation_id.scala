@@ -3,6 +3,7 @@ package kpn.server.monitor.route.update
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteSegment
@@ -250,12 +251,20 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
 
   private def setupLoadStructure(): Unit = {
     val monitorRouteRelation = route2.overpassStructure
-    (configuration.monitorRouteStructureLoader.load _).when(Some(ReferenceTimestamp1), route2.relationId).returns(Some(monitorRouteRelation))
+    (monitorRouteStructureLoader.load _).returns { case (timestamp: Option[Timestamp], relationId: Long) =>
+      Option.when(timestamp.contains(ReferenceTimestamp1) && relationId == route2.relationId) {
+        monitorRouteRelation
+      }
+    }
   }
 
   private def setupLoadTopLevel(): Unit = {
     val relation = route2.overpassTopLevel
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp1), route2.relationId).returns(Some(relation))
+    (monitorRouteRelationRepository.loadTopLevel _).returns { case (timestamp: Option[Timestamp], relationId: Long) =>
+      Option.when(timestamp.contains(ReferenceTimestamp1) && relationId == route2.relationId) {
+        relation
+      }
+    }
   }
 
   private def setupRouteDoc1(): Unit = {

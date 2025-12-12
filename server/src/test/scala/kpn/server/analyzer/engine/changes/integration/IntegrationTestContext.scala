@@ -87,7 +87,7 @@ import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RawDataRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 import kpn.server.repository.TaskRepository
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stubs
 
 import java.util.concurrent.Executors
 import scala.concurrent.ExecutionContext
@@ -97,7 +97,7 @@ class IntegrationTestContext(
   dataBefore: OverpassData,
   dataAfter: OverpassData,
   locationAnalyzer: LocationAnalyzer
-) extends MockFactory {
+) extends Stubs {
 
   val before: Data = dataBefore.data
   val after: Data = dataAfter.data
@@ -122,8 +122,11 @@ class IntegrationTestContext(
   private val networkInfoRepository = new NetworkInfoRepositoryImpl(database)
 
   private val taskRepository = stub[TaskRepository]
+  (taskRepository.exists _).returnsWith(false)
+  (taskRepository.add _).returnsWith(())
+
   private val blacklistRepository = stub[BlacklistRepository]
-  (blacklistRepository.get _).when(*).returns(Blacklist())
+  (blacklistRepository.get _).returnsWith(Blacklist())
 
   private val routeTileCache = new RouteTileCache()
   private val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)

@@ -6,6 +6,7 @@ import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
@@ -285,7 +286,11 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
 
   private def setupLoadStructure(): Unit = {
     val monitorRouteRelation = route1.overpassStructure
-    (configuration.monitorRouteStructureLoader.load _).when(Some(ReferenceTimestamp1), route1.relationId).returns(Some(monitorRouteRelation))
+    (monitorRouteStructureLoader.load _).returns { case (timestamp: Option[Timestamp], relationId: Long) =>
+      Option.when(timestamp.contains(ReferenceTimestamp1) && relationId == route1.relationId) {
+        monitorRouteRelation
+      }
+    }
   }
 
   private def setupLoadRelation(): Unit = {
@@ -305,8 +310,16 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
       )
 
     val relation = new DataBuilder(overpassData.rawData).data.relations(route1.relationId)
-    (configuration.monitorRouteRelationRepository.load _).when(None, route1.relationId).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(UpdateTimestamp), route1.relationId).returns(Some(relation))
+    (monitorRouteRelationRepository.load _).returns { case (timestamp: Option[Timestamp], relationId: Long) =>
+      Option.when(timestamp.isEmpty && relationId == route1.relationId) {
+        relation
+      }
+    }
+    (monitorRouteRelationRepository.loadTopLevel _).returns { case (timestamp: Option[Timestamp], relationId: Long) =>
+      Option.when(timestamp.contains(UpdateTimestamp) && relationId == route1.relationId) {
+        relation
+      }
+    }
   }
 
   private def setupRouteDoc(): Unit = {

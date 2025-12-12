@@ -18,12 +18,12 @@ import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.json.Json
 import kpn.server.repository.RouteRepository
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stubs
 
 import scala.xml.InputSource
 import scala.xml.XML
 
-class Issue2_OverlappingWays extends UnitTest with MockFactory {
+class Issue2_OverlappingWays extends UnitTest with Stubs {
 
   /*
      Test the analysis of a loop route (end node is the same as the start node), and the ways to get to the

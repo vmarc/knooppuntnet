@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine
 
 import kpn.core.util.UnitTest
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stubs
 
-class FullAnalysisTriggerTest extends UnitTest with MockFactory {
+class FullAnalysisTriggerTest extends UnitTest with Stubs {
 
   // TODO these tests are ignored for now because they have a UTC versus local time problem
 
@@ -38,9 +38,9 @@ class FullAnalysisTriggerTest extends UnitTest with MockFactory {
   private def assertFullAnalysis(previousAnalysisTime: Option[String], now: String): Unit = {
     withTimestamp(now) {
       val analysisTime = stub[AnalysisTimeRepository]
-      (() => analysisTime.get).when().once().returns(previousAnalysisTime)
+      (() => analysisTime.get).returnsWith(previousAnalysisTime)
       assert(new FullAnalysisTrigger(analysisTime).shouldPerformFullAnalysis)
-      (analysisTime.put _).verify(now)
+      (analysisTime.put _).calls should equal(Seq(now))
       ()
     }
   }
@@ -48,9 +48,9 @@ class FullAnalysisTriggerTest extends UnitTest with MockFactory {
   private def assertNoFullAnalysis(previousAnalysisTime: Option[String], now: String): Unit = {
     withTimestamp(now) {
       val analysisTime = stub[AnalysisTimeRepository]
-      (() => analysisTime.get).when().returns(previousAnalysisTime)
+      (() => analysisTime.get).returnsWith(previousAnalysisTime)
       assert(!new FullAnalysisTrigger(analysisTime).shouldPerformFullAnalysis)
-      (analysisTime.put _).verify(*).never()
+      (analysisTime.put _).times should equal(0)
       ()
     }
   }

@@ -1,6 +1,5 @@
 package kpn.server.api.planner.leg
 
-import kpn.api.common.RouteType
 import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.core.doc.BaseRouteDoc
@@ -13,7 +12,8 @@ import kpn.core.test.TestObjects.newRouteNetworkNodeInfo
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stubs
+import org.scalatest.Assertions.pending
 
 /*
         1m          2m          5m
@@ -22,7 +22,7 @@ import org.scalamock.scalatest.MockFactory
     ---------r4---------
              4m
 */
-class GraphTestData extends MockFactory {
+class GraphTestData extends Stubs {
 
   val node1: RouteNetworkNodeInfo = newRouteNetworkNodeInfo(id = 1001L, name = "01", lat = "1", lon = "1")
   val node2: RouteNetworkNodeInfo = newRouteNetworkNodeInfo(id = 1002L, name = "02", lat = "2", lon = "2")
@@ -42,8 +42,8 @@ class GraphTestData extends MockFactory {
     graph.add(GraphEdge(node3.id, node4.id, 5, proposed = false, legEndRoute3.trackPathKeys.head))
     graph.add(GraphEdge(node1.id, node3.id, 4, proposed = false, legEndRoute4.trackPathKeys.head))
 
-    val graphRepository: GraphRepository = stub[GraphRepository]
-    (graphRepository.graph _).when(RouteType.hiking).returns(Some(graph))
+    val graphRepository = stub[GraphRepository]
+    (graphRepository.graph _).returnsWith(Some(graph))
 
     graphRepository
   }

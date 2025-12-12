@@ -3,9 +3,9 @@ package kpn.server.analyzer.engine.poi
 import kpn.api.common.LatLonImpl
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.util.UnitTest
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stubs
 
-class PoiQueryExecutorTest extends UnitTest with MockFactory {
+class PoiQueryExecutorTest extends UnitTest with Stubs {
 
   test("pick up way center") {
 
@@ -41,8 +41,8 @@ class PoiQueryExecutorTest extends UnitTest with MockFactory {
         |</osm>
         |""".stripMargin
 
-    val overpassQueryExecutor: OverpassQueryExecutor = stub[OverpassQueryExecutor]
-    (overpassQueryExecutor.executeQuery _).when(*, *).returns(queryResult)
+    val overpassQueryExecutor = stub[OverpassQueryExecutor]
+    (overpassQueryExecutor.executeQuery _).returnsWith(queryResult)
 
     val poiQueryExecutor: PoiQueryExecutor = new PoiQueryExecutorImpl(overpassQueryExecutor)
 
@@ -59,12 +59,11 @@ class PoiQueryExecutorTest extends UnitTest with MockFactory {
         |</osm>
         |""".stripMargin
 
-    val overpassQueryExecutor: OverpassQueryExecutor = stub[OverpassQueryExecutor]
-    (overpassQueryExecutor.executeQuery _).when(*, *).returns(queryResult)
+    val overpassQueryExecutor = stub[OverpassQueryExecutor]
+    (overpassQueryExecutor.executeQuery _).returnsWith(queryResult)
 
     val poiQueryExecutor: PoiQueryExecutor = new PoiQueryExecutorImpl(overpassQueryExecutor)
 
     poiQueryExecutor.center(PoiRef("way", 179212052)) should equal(None)
   }
-
 }

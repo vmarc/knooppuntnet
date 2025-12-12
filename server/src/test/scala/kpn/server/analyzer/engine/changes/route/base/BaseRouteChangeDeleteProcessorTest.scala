@@ -3,12 +3,13 @@ package kpn.server.analyzer.engine.changes.route.base
 import kpn.core.test.TestObjects.newChangeSetContext
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stub
+import org.scalamock.stubs.Stubs
 
-class BaseRouteChangeDeleteProcessorTest extends UnitTest with MockFactory {
+class BaseRouteChangeDeleteProcessorTest extends UnitTest with Stubs {
 
   private class Setup {
-    val baseRouteDeleter: BaseRouteChangeDeleterImpl = stub[BaseRouteChangeDeleterImpl]
+    val baseRouteDeleter: Stub[BaseRouteChangeDeleterImpl] = stub[BaseRouteChangeDeleterImpl]
     val processor = new BaseRouteChangeDeleteProcessor(
       baseRouteDeleter
     )
@@ -22,15 +23,15 @@ class BaseRouteChangeDeleteProcessorTest extends UnitTest with MockFactory {
 
     // setup
     val setup = new Setup()
+    (setup.baseRouteDeleter.delete _).returns {
+      case (changeSetContext: ChangeSetContext, routeId: Long) => changeSetContext
+      case _ => throw new IllegalArgumentException()
+    }
 
     // execute
     val updatedChangeSetContext = setup.process()
 
     // verify
-    (setup.baseRouteDeleter.delete _).verify(
-      where { (context: ChangeSetContext, routeId: Long) =>
-        routeId == 11
-      }
-    ).once()
+    (setup.baseRouteDeleter.delete _).calls.map(_._2) should equal(Seq(11))
   }
 }

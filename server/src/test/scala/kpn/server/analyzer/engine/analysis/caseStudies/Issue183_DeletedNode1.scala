@@ -4,11 +4,10 @@ import kpn.api.common.common.Ref
 import kpn.api.common.diff.RouteData
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.util.UnitTest
-import org.scalamock.scalatest.MockFactory
 
 //  changeSetId = 104737699L
 //  replicationNumber = 4542690L
-class Issue183_DeletedNode1 extends UnitTest with MockFactory {
+class Issue183_DeletedNode1 extends UnitTest {
 
   private val deletedNodeId = 8731919671L
   private val replacementNodeId = 8734240777L

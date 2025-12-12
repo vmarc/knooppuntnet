@@ -1,9 +1,8 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.core.util.UnitTest
-import org.scalamock.scalatest.MockFactory
 
-class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
+class Issue109_RoundaboutRoute extends UnitTest {
 
   test("route that consists of a single roundabout with 9 ways connecting 8 nodes with the same name") {
 

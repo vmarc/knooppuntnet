@@ -284,14 +284,14 @@
     <dependency>
       <groupId>org.scalatest</groupId>
       <artifactId>scalatest_2.13</artifactId>
-      <version>3.2.18</version>
+      <version>3.2.19</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.scalamock</groupId>
       <artifactId>scalamock_2.13</artifactId>
-      <version>5.2.0</version>
+      <version>7.5.2</version>
       <scope>test</scope>
     </dependency>
 

@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.changes.route.base
 import kpn.api.common.ChangeType
 import kpn.api.common.Fact
 import kpn.api.common.RouteType
-import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RawRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteChange
 import kpn.core.test.TestObjects.newBaseRouteDoc
@@ -21,23 +20,23 @@ import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stub
+import org.scalamock.stubs.Stubs
 
-class BaseRouteChangeCreateProcessorTest extends UnitTest with MockFactory {
+class BaseRouteChangeCreateProcessorTest extends UnitTest with Stubs {
 
   private class Setup {
     val log: MockLog = Log.mock
     val analysisContext = new AnalysisContext()
-    val routeRepository: RouteRepository = stub[RouteRepository]
-    val baseRouteMainAnalyzer: BaseRouteMainAnalyzer = stub[BaseRouteMainAnalyzer]
-    val rawDataRepository: RawDataRepository = stub[RawDataRepository]
-    val baseRouteDocBuilder: BaseRouteDocBuilder = stub[BaseRouteDocBuilder]
+    val routeRepository: Stub[RouteRepository] = stub[RouteRepository]
+    val baseRouteMainAnalyzer: Stub[BaseRouteMainAnalyzer] = stub[BaseRouteMainAnalyzer]
+    val rawDataRepository: Stub[RawDataRepository] = stub[RawDataRepository]
+    val baseRouteDocBuilder: Stub[BaseRouteDocBuilder] = stub[BaseRouteDocBuilder]
     private val processor = new BaseRouteChangeCreateProcessor(
       analysisContext,
       rawDataRepository,
@@ -57,16 +56,22 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with MockFactory {
     val setup = new Setup()
 
     val rawRouteDoc = buildRawRouteDoc()
-    (setup.rawDataRepository.route _).when(*, 11).returns(Some(rawRouteDoc)).once()
+    (setup.rawDataRepository.route _).returnsWith(Some(rawRouteDoc))
 
     val analysisResult = buildAnalysisResult(rawRouteDoc)
     val baseRouteDoc = newBaseRouteDoc(newRouteSummary(11))
 
-    (setup.baseRouteMainAnalyzer.analyze _).when(*, *, *).returns(analysisResult).once()
-    (setup.baseRouteDocBuilder.build _).when(*).returns(baseRouteDoc).once()
+    (setup.baseRouteMainAnalyzer.analyze _).returnsWith(analysisResult)
+    (setup.baseRouteDocBuilder.build _).returnsWith(baseRouteDoc)
+
+    (setup.routeRepository.saveBaseRoute _).returnsWith(())
+    (setup.routeRepository.saveRouteTile _).returnsWith(())
 
     // execute
     val updatedChangeSetContext = setup.process()
+
+    (setup.baseRouteMainAnalyzer.analyze _).times should equal(1)
+    (setup.baseRouteDocBuilder.build _).times should equal(1)
 
     // verify
     assertEqual(
@@ -74,17 +79,8 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with MockFactory {
       Some(ElementIds.from(nodeIds = Set(1001, 1002)))
     )
 
-    (setup.routeRepository.saveBaseRoute _).verify(
-      where((doc: BaseRouteDoc) => doc._id == 11)
-    ).once()
-
-    (setup.routeRepository.saveRouteTile _).verify(
-      where((routeTileInfo: RouteTileInfo) => routeTileInfo._id == "1-1-1-11")
-    ).once()
-
-    (setup.routeRepository.saveRouteTile _).verify(
-      where((routeTileInfo: RouteTileInfo) => routeTileInfo._id == "2-2-2-11")
-    ).once()
+    (setup.routeRepository.saveBaseRoute _).calls.map(_._id) should equal(Seq(11))
+    (setup.routeRepository.saveRouteTile _).calls.map(_._id) should equal(Seq("1-1-1-11", "2-2-2-11"))
 
     assertEqual(updatedChangeSetContext.impactedTileIds, Seq("1-1-1-11", "2-2-2-11"))
     assertEqual(updatedChangeSetContext.impactedNodeIds, Seq(1001, 1002))
@@ -106,12 +102,15 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with MockFactory {
 
     // setup
     val setup = new Setup()
-    (setup.rawDataRepository.route _).when(*, 11).returns(None).once()
+    (setup.rawDataRepository.route _).returnsWith(None)
 
     // execute
     val updatedChangeSetContext = setup.process()
 
     // verify
+
+    (setup.rawDataRepository.route _).calls.map(_._2) should equal(Seq(11))
+
     assertEqual(
       setup.log.messages,
       Seq(
@@ -127,13 +126,17 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with MockFactory {
     // setup
     val setup = new Setup()
     val rawRouteDoc = buildRawRouteDoc()
-    (setup.rawDataRepository.route _).when(*, 11).returns(Some(rawRouteDoc)).once()
-    (setup.baseRouteMainAnalyzer.analyze _).when(*, *, *).returns(buildAbortedAnalysisResult(rawRouteDoc)).once()
+    (setup.rawDataRepository.route _).returnsWith(Some(rawRouteDoc))
+    (setup.baseRouteMainAnalyzer.analyze _).returnsWith(buildAbortedAnalysisResult(rawRouteDoc))
 
     // execute
     val updatedChangeSetContext = setup.process()
 
     // verify
+
+    (setup.rawDataRepository.route _).calls.map(_._2) should equal(Seq(11))
+    (setup.baseRouteMainAnalyzer.analyze _).times should equal(1)
+
     setup.log.messages shouldBe empty
     assert(setup.analysisContext.watched.routes.isEmpty)
 
@@ -141,9 +144,9 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with MockFactory {
     updatedChangeSetContext.impactedNodeIds shouldBe empty
     updatedChangeSetContext.impactedRouteIds.shouldEqual(Seq(11))
 
-    (setup.baseRouteDocBuilder.build _).verify(*).never()
-    (setup.routeRepository.saveBaseRoute _).verify(*).never()
-    (setup.routeRepository.saveRouteTile _).verify(*).never()
+    (setup.baseRouteDocBuilder.build _).times should equal(0)
+    (setup.routeRepository.saveBaseRoute _).times should equal(0)
+    (setup.routeRepository.saveRouteTile _).times should equal(0)
   }
 
   test("route analysis is aborted with LostRouteTags") {
@@ -153,29 +156,24 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with MockFactory {
     // setup
     val setup = new Setup()
     val rawRouteDoc = buildRawRouteDoc()
-    (setup.rawDataRepository.route _).when(*, 11).returns(Some(rawRouteDoc)).once()
-    (setup.baseRouteMainAnalyzer.analyze _).when(*, *, *).returns(buildAnalysisResult(rawRouteDoc).copy(abort = true, facts = Seq(Fact.LostRouteTags))).once()
+    (setup.rawDataRepository.route _).returnsWith(Some(rawRouteDoc))
+    (setup.baseRouteMainAnalyzer.analyze _).returnsWith(buildAnalysisResult(rawRouteDoc).copy(abort = true, facts = Seq(Fact.LostRouteTags)))
 
     // execute
     val updatedChangeSetContext = setup.process()
 
     // verify
+
+    (setup.rawDataRepository.route _).times should equal(1)
+    (setup.baseRouteMainAnalyzer.analyze _).times should equal(1)
+
     assertEqual(
       setup.analysisContext.watched.routes.get(11),
       Some(ElementIds.from(nodeIds = Set(1001, 1002)))
     )
 
-    (setup.routeRepository.saveBaseRoute _).verify(
-      where((doc: BaseRouteDoc) => doc._id == 11)
-    ).once()
-
-    (setup.routeRepository.saveRouteTile _).verify(
-      where((routeTileInfo: RouteTileInfo) => routeTileInfo._id == "1-1-1-11")
-    ).once()
-
-    (setup.routeRepository.saveRouteTile _).verify(
-      where((routeTileInfo: RouteTileInfo) => routeTileInfo._id == "2-2-2-11")
-    ).once()
+    (setup.routeRepository.saveBaseRoute _).calls.map(_._id) should equal(Seq(11))
+    (setup.routeRepository.saveRouteTile _).calls.map(_._id) should equal(Seq("1-1-1-11", "2-2-2-11"))
 
     assertEqual(updatedChangeSetContext.impactedTileIds, Seq("1-1-1-11", "2-2-2-11"))
     assertEqual(updatedChangeSetContext.impactedNodeIds, Seq(1001, 1002))

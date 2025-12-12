@@ -4,9 +4,10 @@ import kpn.core.test.TestObjects.newChangeSetContext
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stub
+import org.scalamock.stubs.Stubs
 
-class BaseRouteChangeProcessorTest extends UnitTest with MockFactory {
+class BaseRouteChangeProcessorTest extends UnitTest with Stubs {
 
   test("the respective subprocessors are called for creates, updates and deletes") {
 
@@ -18,7 +19,7 @@ class BaseRouteChangeProcessorTest extends UnitTest with MockFactory {
       deletes = Seq(5L, 6L)
     )
 
-    (setup.analyzer.analyze _).when(*).returns(routeChanges)
+    (setup.analyzer.analyze _).returnsWith(routeChanges)
 
     val resultContext = setup.processor.process(newChangeSetContext())
 
@@ -32,7 +33,7 @@ class BaseRouteChangeProcessorTest extends UnitTest with MockFactory {
     val setup = new Setup()
 
     val routeChanges = ElementChanges()
-    (setup.analyzer.analyze _).when(*).returns(routeChanges)
+    (setup.analyzer.analyze _).returnsWith(routeChanges)
 
     val initialContext = newChangeSetContext()
 
@@ -40,22 +41,22 @@ class BaseRouteChangeProcessorTest extends UnitTest with MockFactory {
 
     resultContext should equal(initialContext)
   }
-  
+
   private class Setup {
-    val analyzer: BaseRouteChangeAnalyzer = stub[BaseRouteChangeAnalyzer]
+    val analyzer: Stub[BaseRouteChangeAnalyzer] = stub[BaseRouteChangeAnalyzer]
     private val createProcessor = stub[BaseRouteChangeCreateProcessor]
     private val updateProcessor = stub[BaseRouteChangeUpdateProcessor]
     private val deleteProcessor = stub[BaseRouteChangeDeleteProcessor]
 
-    (createProcessor.process _).when(*, *).onCall { (changeSetContext: ChangeSetContext, routeId: Long) =>
+    (createProcessor.process _).returns { case (changeSetContext: ChangeSetContext, routeId: Long) =>
       // add routeId to baseRouteCreatedIds to indicate that processor was called
       changeSetContext.copy(baseRouteCreatedIds = changeSetContext.baseRouteCreatedIds :+ routeId)
     }
-    (updateProcessor.process _).when(*, *).onCall { (changeSetContext: ChangeSetContext, routeId: Long) =>
+    (updateProcessor.process _).returns { case (changeSetContext: ChangeSetContext, routeId: Long) =>
       // add routeId to baseRouteUpdatedIds to indicate that processor was called
       changeSetContext.copy(baseRouteUpdatedIds = changeSetContext.baseRouteUpdatedIds :+ routeId)
     }
-    (deleteProcessor.process _).when(*, *).onCall { (changeSetContext: ChangeSetContext, routeId: Long) =>
+    (deleteProcessor.process _).returns { case (changeSetContext: ChangeSetContext, routeId: Long) =>
       //        // add routeId to baseRouteDeletedIds to indicate that processor was called
       changeSetContext.copy(baseRouteDeletedIds = changeSetContext.baseRouteDeletedIds :+ routeId)
     }

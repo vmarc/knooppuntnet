@@ -14,12 +14,12 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAna
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.repository.RouteRepository
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stubs
 
 import scala.xml.InputSource
 import scala.xml.XML
 
-object CaseStudy extends MockFactory {
+object CaseStudy extends Stubs {
 
   def analyze(name: String): BaseRouteAnalysisContext = {
     val filename = s"/case-studies/$name.xml"

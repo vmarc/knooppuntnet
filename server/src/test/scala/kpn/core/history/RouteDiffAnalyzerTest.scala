@@ -10,9 +10,9 @@ import kpn.api.custom.Tags
 import kpn.core.test.TestData
 import kpn.core.test.TestObjects.newMember
 import kpn.core.util.UnitTest
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stubs
 
-class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
+class RouteDiffAnalyzerTest extends UnitTest with Stubs {
 
   test("removed way") {
 

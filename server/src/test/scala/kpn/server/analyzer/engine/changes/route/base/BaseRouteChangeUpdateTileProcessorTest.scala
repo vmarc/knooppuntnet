@@ -7,13 +7,12 @@ import kpn.core.test.TestObjects.newRouteTileData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.RouteNameAnalysis
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.repository.RouteRepository
-import org.scalamock.handlers.CallHandler1
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stub
+import org.scalamock.stubs.Stubs
 
-class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with MockFactory {
+class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with Stubs {
 
   test("process tile updates") {
     // setup
@@ -24,10 +23,7 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with MockFactory {
 
     // verify
     setup.assertTileDeleted("1-1-1-11")
-    setup.verifyTileSaved("1-1-2-11").never()
-    setup.verifyTileSaved("1-1-3-11").once()
-    setup.verifyTileSaved("1-1-4-11").once()
-
+    (setup.routeRepository.saveRouteTile _).calls.map(_._id) should equal(Seq("1-1-3-11", "1-1-4-11"))
     changeSetContext.impactedTileIds should equal(
       Seq(
         "1-1-1-11",
@@ -38,7 +34,9 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with MockFactory {
   }
 
   private class Setup {
-    private val routeRepository: RouteRepository = stub[RouteRepository]
+    val routeRepository: Stub[RouteRepository] = stub[RouteRepository]
+    (routeRepository.saveRouteTile _).returnsWith(())
+    (routeRepository.deleteRouteTile _).returnsWith(())
     private val processor = new BaseRouteChangeUpdateTileProcessorImpl(routeRepository)
 
     private val context = BaseRouteAnalysisContext(
@@ -69,22 +67,14 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with MockFactory {
     )
 
     private val beforeRouteTileInfos = RouteTileInfoBuilder.build(beforeContext)
-    (routeRepository.routeTiles _).when(*).returns(beforeRouteTileInfos)
+    (routeRepository.routeTiles _).returnsWith(beforeRouteTileInfos)
 
     def process(): ChangeSetContext = {
       processor.process(newChangeSetContext(), afterContext)
     }
 
     def assertTileDeleted(tileId: String): Unit = {
-      (routeRepository.deleteRouteTile _).verify(tileId).once()
-    }
-
-    def verifyTileSaved(tileId: String): CallHandler1[RouteTileInfo, Unit] = {
-      (routeRepository.saveRouteTile _).verify(
-        where { (routeTileInfo: RouteTileInfo) =>
-          routeTileInfo._id == tileId
-        }
-      )
+      (routeRepository.deleteRouteTile _).calls should equal(Seq(tileId))
     }
   }
 }

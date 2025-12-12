@@ -9,30 +9,37 @@ import kpn.core.data.DataBuilder
 import kpn.core.test.MongoTest
 import kpn.core.test.OverpassData
 import kpn.server.monitor.domain.MonitorRoute
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stub
+import org.scalamock.stubs.Stubs
 
-abstract class MonitorUpdateTest extends MongoTest with MockFactory {
+abstract class MonitorUpdateTest extends MongoTest with Stubs {
 
-  val ReferenceTimestamp1 = Timestamp(2022, 8, 1)
-  val ReferenceTimestamp2 = Timestamp(2022, 8, 2)
-  val CurrentTimestamp = Timestamp(2022, 8, 11, 12, 0, 0)
-  val UpdateTimestamp = Timestamp(2022, 8, 12, 12, 0, 0)
+  val ReferenceTimestamp1: Timestamp = Timestamp(2022, 8, 1)
+  val ReferenceTimestamp2: Timestamp = Timestamp(2022, 8, 2)
+  val CurrentTimestamp: Timestamp = Timestamp(2022, 8, 11, 12, 0, 0)
+  val UpdateTimestamp: Timestamp = Timestamp(2022, 8, 12, 12, 0, 0)
 
-  val GpxUpload1Timestamp = Timestamp(2022, 8, 12, 12, 0, 0)
-  val GpxUpload2Timestamp = Timestamp(2022, 8, 13, 12, 0, 0)
+  val GpxUpload1Timestamp: Timestamp = Timestamp(2022, 8, 12, 12, 0, 0)
+  val GpxUpload2Timestamp: Timestamp = Timestamp(2022, 8, 13, 12, 0, 0)
 
+  val monitorRouteRelationRepository: Stub[MonitorRouteRelationRepository] = stub[MonitorRouteRelationRepository]
+  val monitorRouteStructureLoader: Stub[MonitorRouteStructureLoader] = stub[MonitorRouteStructureLoader]
   private var _configuration: MonitorUpdaterConfiguration = _
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    _configuration = MonitorUpdaterTestSupport.configuration(database)
+    _configuration = new MonitorUpdaterConfiguration(
+      database,
+      monitorRouteRelationRepository,
+      monitorRouteStructureLoader
+    )
   }
 
   def configuration: MonitorUpdaterConfiguration = _configuration
 
   def setupRouteStructure(timestamp: Option[Timestamp], overpassData: OverpassData, relationId: Long): Unit = {
     val monitorRouteRelation = MonitorRouteRelation.from(new DataBuilder(overpassData.rawData).data.relations(relationId), None)
-    (configuration.monitorRouteStructureLoader.load _).when(timestamp, relationId).returns(Some(monitorRouteRelation))
+    (monitorRouteStructureLoader.load _).returnsWith(Some(monitorRouteRelation))
   }
 
   def message(commands: MonitorCommand*): MonitorMessage = {

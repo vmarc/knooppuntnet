@@ -13,15 +13,16 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.repository.RouteRepository
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stub
+import org.scalamock.stubs.Stubs
 
-class BaseRouteChangeDeleterTest extends UnitTest with MockFactory {
+class BaseRouteChangeDeleterTest extends UnitTest with Stubs {
 
   private class Setup {
     val log: MockLog = Log.mock
     val analysisContext = new AnalysisContext()
     analysisContext.watched.routes.add(11, ElementIds.from(nodeIds = Set(1001, 1002)))
-    val routeRepository: RouteRepository = stub[RouteRepository]
+    val routeRepository: Stub[RouteRepository] = stub[RouteRepository]
     val deleter = new BaseRouteChangeDeleterImpl(
       analysisContext,
       routeRepository,
@@ -36,23 +37,18 @@ class BaseRouteChangeDeleterTest extends UnitTest with MockFactory {
 
     // setup
     val setup = new Setup()
-    (setup.routeRepository.findBaseRouteById _).when(11).returns(Some(buildBaseRouteDoc()))
-    (setup.routeRepository.routeTileIds _).when(11).returns(Seq("tile-1", "tile-2"))
+    (setup.routeRepository.findBaseRouteById _).returns { case 11 => Some(buildBaseRouteDoc()) }
+    (setup.routeRepository.routeTileIds _).returns { case 11 => Seq("tile-1", "tile-2") }
+    (setup.routeRepository.deleteRouteTile _).returnsWith(())
+    (setup.routeRepository.saveBaseRoute _).returnsWith(())
 
     // execute
     val changeSetContext = setup.delete()
 
     // verify
     setup.analysisContext.watched.routes.size should equal(0)
-
-    (setup.routeRepository.deleteRouteTile _).verify("tile-1").once()
-    (setup.routeRepository.deleteRouteTile _).verify("tile-2").once()
-
-    (setup.routeRepository.saveBaseRoute _).verify(
-      where { (doc: BaseRouteDoc) =>
-        !doc.active
-      }
-    ).once()
+    (setup.routeRepository.deleteRouteTile _).calls should equal(Seq("tile-1", "tile-2"))
+    (setup.routeRepository.saveBaseRoute _).calls.map(_.active) should equal(Seq(false))
 
     assertEqual(changeSetContext.impactedNodeIds, Seq(1001, 1002))
     assertEqual(changeSetContext.impactedRouteIds, Seq(11))
@@ -63,16 +59,18 @@ class BaseRouteChangeDeleterTest extends UnitTest with MockFactory {
 
     // setup
     val setup = new Setup()
-    (setup.routeRepository.findBaseRouteById _).when(11).returns(None)
-    (setup.routeRepository.routeTileIds _).when(11).returns(Seq.empty)
+    (setup.routeRepository.findBaseRouteById _).returns { case 11 => None }
+    (setup.routeRepository.routeTileIds _).returns { case 11 => Seq.empty }
+    (setup.routeRepository.saveBaseRoute _).returnsWith(())
+    (setup.routeRepository.deleteRouteTile _).returnsWith(())
 
     // execute
     val changeSetContext = setup.delete()
 
     // verify
     setup.analysisContext.watched.routes.size should equal(0)
-    (setup.routeRepository.saveBaseRoute _).verify(*).never()
-    (setup.routeRepository.deleteRouteTile _).verify(*).never()
+    (setup.routeRepository.saveBaseRoute _).times should equal(0)
+    (setup.routeRepository.deleteRouteTile _).times should equal(0)
     assertEqual(
       setup.log.messages,
       Seq(
@@ -87,17 +85,17 @@ class BaseRouteChangeDeleterTest extends UnitTest with MockFactory {
 
     // setup
     val setup = new Setup()
-    (setup.routeRepository.findBaseRouteById _).when(11).returns(None)
-    (setup.routeRepository.routeTileIds _).when(11).returns(Seq("tile-1", "tile-2"))
+    (setup.routeRepository.deleteRouteTile _).returnsWith(())
+    (setup.routeRepository.findBaseRouteById _).returns { case 11 => None }
+    (setup.routeRepository.routeTileIds _).returns { case 11 => Seq("tile-1", "tile-2") }
 
     // execute
     val changeSetContext = setup.delete()
 
     // verify
     setup.analysisContext.watched.routes.size should equal(0)
-    (setup.routeRepository.saveBaseRoute _).verify(*).never()
-    (setup.routeRepository.deleteRouteTile _).verify("tile-1").once()
-    (setup.routeRepository.deleteRouteTile _).verify("tile-2").once()
+    (setup.routeRepository.saveBaseRoute _).times should equal(0)
+    (setup.routeRepository.deleteRouteTile _).calls should equal(Seq("tile-1", "tile-2"))
     assertEqual(
       setup.log.messages,
       Seq(

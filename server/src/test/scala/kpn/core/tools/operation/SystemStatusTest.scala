@@ -5,9 +5,9 @@ import kpn.api.custom.Timestamp
 import kpn.core.replicate.ReplicationStateRepository
 import kpn.core.tools.status.StatusRepository
 import kpn.core.util.UnitTest
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stubs
 
-class SystemStatusTest extends UnitTest with MockFactory {
+class SystemStatusTest extends UnitTest with Stubs {
 
   private val webServerProcessLines =
     """UID          PID    PPID  C STIME TTY          TIME CMD
@@ -32,7 +32,6 @@ class SystemStatusTest extends UnitTest with MockFactory {
       |root     3993833       1  0 Mar08 ?        01:03:27 /lib/systemd/systemd-udevd
       |""".stripMargin.split("\n").toList
 
-
   private val analysisServerProcessLines =
     """UID          PID    PPID  C STIME TTY          TIME CMD
       |root           1       0  0 Oct07 ?        00:00:05 /sbin/init
@@ -56,14 +55,13 @@ class SystemStatusTest extends UnitTest with MockFactory {
       |marcv     699619  699594  0 09:37 pts/2    00:00:00 ps -ef
       |""".stripMargin.split("\n").toList
 
-
   test("web server process status") {
 
     val processReporter = stub[ProcessReporter]
     val statusRepository = stub[StatusRepository]
     val replicationStateRepository = stub[ReplicationStateRepository]
 
-    (() => processReporter.processes).when().returns(webServerProcessLines)
+    (() => processReporter.processes).returnsWith(webServerProcessLines)
 
     val status = new SystemStatus(processReporter, statusRepository, replicationStateRepository).status(web = true)
 
@@ -84,21 +82,24 @@ class SystemStatusTest extends UnitTest with MockFactory {
     val statusRepository = stub[StatusRepository]
     val replicationStateRepository = stub[ReplicationStateRepository]
 
-    (() => processReporter.processes).when().returns(analysisServerProcessLines)
+    (() => processReporter.processes).returnsWith(analysisServerProcessLines)
 
-    (() => statusRepository.replicatorStatus).when().returns(Some(ReplicationId(1, 1, 4)))
-    (() => statusRepository.updaterStatus).when().returns(Some(ReplicationId(1, 1, 3)))
-    (() => statusRepository.analysisStatus1).when().returns(Some(ReplicationId(1, 1, 7)))
-    (() => statusRepository.analysisStatus2).when().returns(Some(ReplicationId(1, 1, 8)))
-    (() => statusRepository.analysisStatus3).when().returns(Some(ReplicationId(1, 1, 9)))
+    (() => statusRepository.replicatorStatus).returnsWith(Some(ReplicationId(1, 1, 4)))
+    (() => statusRepository.updaterStatus).returnsWith(Some(ReplicationId(1, 1, 3)))
+    (() => statusRepository.analysisStatus1).returnsWith(Some(ReplicationId(1, 1, 7)))
+    (() => statusRepository.analysisStatus2).returnsWith(Some(ReplicationId(1, 1, 8)))
+    (() => statusRepository.analysisStatus3).returnsWith(Some(ReplicationId(1, 1, 9)))
 
-    (replicationStateRepository.read _).when(ReplicationId(1, 1, 1)).returns(Timestamp(2015, 8, 11, 1, 2, 3))
-    (replicationStateRepository.read _).when(ReplicationId(1, 1, 2)).returns(Timestamp(2015, 8, 11, 2, 2, 3))
-    (replicationStateRepository.read _).when(ReplicationId(1, 1, 3)).returns(Timestamp(2015, 8, 11, 3, 2, 3))
-    (replicationStateRepository.read _).when(ReplicationId(1, 1, 4)).returns(Timestamp(2015, 8, 11, 4, 2, 3))
-    (replicationStateRepository.read _).when(ReplicationId(1, 1, 7)).returns(Timestamp(2015, 8, 11, 7, 2, 3))
-    (replicationStateRepository.read _).when(ReplicationId(1, 1, 8)).returns(Timestamp(2015, 8, 11, 8, 2, 3))
-    (replicationStateRepository.read _).when(ReplicationId(1, 1, 9)).returns(Timestamp(2015, 8, 11, 9, 2, 3))
+    (replicationStateRepository.read _).returns {
+      case ReplicationId(1, 1, 1) => Timestamp(2015, 8, 11, 1, 2, 3)
+      case ReplicationId(1, 1, 2) => Timestamp(2015, 8, 11, 2, 2, 3)
+      case ReplicationId(1, 1, 3) => Timestamp(2015, 8, 11, 3, 2, 3)
+      case ReplicationId(1, 1, 4) => Timestamp(2015, 8, 11, 4, 2, 3)
+      case ReplicationId(1, 1, 7) => Timestamp(2015, 8, 11, 7, 2, 3)
+      case ReplicationId(1, 1, 8) => Timestamp(2015, 8, 11, 8, 2, 3)
+      case ReplicationId(1, 1, 9) => Timestamp(2015, 8, 11, 9, 2, 3)
+      case _ => throw new IllegalArgumentException()
+    }
 
     val status = new SystemStatus(processReporter, statusRepository, replicationStateRepository).status(web = false)
 

@@ -4,6 +4,7 @@ import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newMonitorReference
@@ -162,12 +163,16 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
 
   private def setupStructureLoader(): Unit = {
     val monitorRouteRelation = route1.overpassStructure
-    (configuration.monitorRouteStructureLoader.load _).when(Some(ReferenceTimestamp2), route1.relationId).returns(Some(monitorRouteRelation))
+    (monitorRouteStructureLoader.load _).returns { case (timestamp: Option[Timestamp], relationId: Long) =>
+      Option.when(timestamp.contains(ReferenceTimestamp2) && relationId == route1.relationId) {
+        monitorRouteRelation
+      }
+    }
   }
 
   private def setupLoadTopLevel(): Unit = {
     val relation = route1.overpassTopLevel
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(ReferenceTimestamp2), route1.relationId).returns(None)
+    (monitorRouteRelationRepository.loadTopLevel _).returnsWith(None)
   }
 
   private def setupRouteDoc(): Unit = {

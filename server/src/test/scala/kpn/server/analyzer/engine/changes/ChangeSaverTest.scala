@@ -4,15 +4,11 @@ import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
-import kpn.api.common.ChangeSetSummary
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
 import kpn.api.common.ReplicationId
 import kpn.api.common.RouteType
-import kpn.api.common.changes.details.NetworkChange
-import kpn.api.common.changes.details.NodeChange
-import kpn.api.common.changes.details.RouteChange
 import kpn.api.custom.Subset
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSet
@@ -27,13 +23,20 @@ import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.context.ChangeElementIds
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkInfoRepository
-import org.scalamock.scalatest.MockFactory
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.scalamock.stubs.Stubs
 
-class ChangeSaverTest extends UnitTest with MockFactory {
+class ChangeSaverTest extends UnitTest with Stubs {
 
   test("nothing to save") {
 
+    // setup
     val changeSetRepository = stub[ChangeSetRepository]
+    (changeSetRepository.saveNetworkChange _).returnsWith(())
+    (changeSetRepository.saveRouteChange _).returnsWith(())
+    (changeSetRepository.saveNodeChange _).returnsWith(())
+    (changeSetRepository.saveChangeSetSummary _).returnsWith(())
+
     val networkInfoRepository = stub[NetworkInfoRepository]
 
     val context = ChangeSetContext(
@@ -43,12 +46,14 @@ class ChangeSaverTest extends UnitTest with MockFactory {
       ChangeSetChanges()
     )
 
+    // execute
     new ChangeSaver(changeSetRepository, networkInfoRepository).save(context)
 
-    (changeSetRepository.saveNetworkChange _).verify(*).never()
-    (changeSetRepository.saveRouteChange _).verify(*).never()
-    (changeSetRepository.saveNodeChange _).verify(*).never()
-    (changeSetRepository.saveChangeSetSummary _).verify(*).never()
+    // verify
+    (changeSetRepository.saveNetworkChange _).times should equal(0)
+    (changeSetRepository.saveRouteChange _).times should equal(0)
+    (changeSetRepository.saveNodeChange _).times should equal(0)
+    (changeSetRepository.saveChangeSetSummary _).times should equal(0)
   }
 
   test("save network changes") {
@@ -66,42 +71,30 @@ class ChangeSaverTest extends UnitTest with MockFactory {
 
     save(changeSetRepository, networkInfoRepository, changeSetChanges)
 
-    (changeSetRepository.saveRouteChange _).verify(*).never()
-    (changeSetRepository.saveNodeChange _).verify(*).never()
+    (changeSetRepository.saveRouteChange _).times should equal(0)
+    (changeSetRepository.saveNodeChange _).times should equal(0)
 
-    (changeSetRepository.saveNetworkChange _).verify(
-      where { (savedNetworkChange: NetworkChange) =>
-        assertEqual(savedNetworkChange, networkChange)
-        true
-      }
-    ).once()
+    (changeSetRepository.saveNetworkChange _).calls should equal(Seq(networkChange))
 
-    (changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
-        assertEqual(
-          changeSetSummary,
-          newChangeSetSummary(
-            networkChanges = NetworkChanges(
-              updates = Seq(
-                newChangeSetNetwork()
-              )
+    assertEquals(
+      (changeSetRepository.saveChangeSetSummary _).calls,
+      Seq(
+        newChangeSetSummary(
+          networkChanges = NetworkChanges(
+            updates = Seq(
+              newChangeSetNetwork()
             )
           )
         )
-        true
-      }
-    ).once()
+      )
+    )
 
-    (networkInfoRepository.updateNetworkChangeCount _).verify(
-      where { (networkId: Long) =>
-        networkId should equal(1)
-        true
-      }
-    ).once()
+    (networkInfoRepository.updateNetworkChangeCount _).calls should equal(Seq(1))
   }
 
   test("save route changes") {
 
+    // setup
     val routeChange = newRouteChange(
       newChangeKey(elementId = 10),
       after = Some(
@@ -118,49 +111,53 @@ class ChangeSaverTest extends UnitTest with MockFactory {
     )
 
     val changeSetRepository = stub[ChangeSetRepository]
-    val networkInfoRepository = stub[NetworkInfoRepository]
+    (changeSetRepository.saveNodeChange _).returnsWith(())
+    (changeSetRepository.saveRouteChange _).returnsWith(())
+    (changeSetRepository.saveNetworkChange _).returnsWith(())
+    (changeSetRepository.saveChangeSetSummary _).returnsWith(())
 
+    val networkInfoRepository = stub[NetworkInfoRepository]
+    (networkInfoRepository.updateNetworkChangeCount _).returnsWith(())
+
+    // execute
     save(changeSetRepository, networkInfoRepository, changeSetChanges)
 
-    (changeSetRepository.saveNetworkChange _).verify(*).never()
-    (changeSetRepository.saveNodeChange _).verify(*).never()
-    (networkInfoRepository.updateNetworkChangeCount _).verify(*).never()
+    // verify
+    (changeSetRepository.saveNetworkChange _).times should equal(0)
+    (changeSetRepository.saveNodeChange _).times should equal(0)
+    (networkInfoRepository.updateNetworkChangeCount _).times should equal(0)
 
-    (changeSetRepository.saveRouteChange _).verify(
-      where { (savedRouteChange: RouteChange) =>
-        assertEqual(savedRouteChange, routeChange)
-        true
-      }
-    ).once()
+    assertEqual(
+      (changeSetRepository.saveRouteChange _).calls,
+      Seq(routeChange)
+    )
 
-    (changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
-        assertEqual(
-          changeSetSummary,
-          newChangeSetSummary(
-            subsets = Seq(Subset.nlHiking),
-            orphanRouteChanges = Seq(
-              ChangeSetSubsetElementRefs(
-                Subset.nlHiking,
-                ChangeSetElementRefs(
-                  added = Seq(
-                    ChangeSetElementRef(10, "", happy = false, investigate = false)
-                  )
+    assertEqual(
+      (changeSetRepository.saveChangeSetSummary _).calls,
+      Seq(
+        newChangeSetSummary(
+          subsets = Seq(Subset.nlHiking),
+          orphanRouteChanges = Seq(
+            ChangeSetSubsetElementRefs(
+              Subset.nlHiking,
+              ChangeSetElementRefs(
+                added = Seq(
+                  ChangeSetElementRef(10, "", happy = false, investigate = false)
                 )
               )
-            ),
-            subsetAnalyses = Seq(
-              ChangeSetSubsetAnalysis(Subset.nlHiking)
             )
+          ),
+          subsetAnalyses = Seq(
+            ChangeSetSubsetAnalysis(Subset.nlHiking)
           )
         )
-        true
-      }
-    ).once()
+      )
+    )
   }
 
   test("save node changes") {
 
+    // setup
     val nodeChange = newNodeChange(
       newChangeKey(elementId = 1001),
       subsets = Seq(Subset.nlHiking),
@@ -173,45 +170,48 @@ class ChangeSaverTest extends UnitTest with MockFactory {
     )
 
     val changeSetRepository = stub[ChangeSetRepository]
-    val networkInfoRepository = stub[NetworkInfoRepository]
+    (changeSetRepository.saveNodeChange _).returnsWith(())
+    (changeSetRepository.saveRouteChange _).returnsWith(())
+    (changeSetRepository.saveNetworkChange _).returnsWith(())
+    (changeSetRepository.saveChangeSetSummary _).returnsWith(())
 
+    val networkInfoRepository = stub[NetworkInfoRepository]
+    (networkInfoRepository.updateNetworkChangeCount _).returnsWith(())
+
+    // execute
     save(changeSetRepository, networkInfoRepository, changeSetChanges)
 
-    (changeSetRepository.saveNetworkChange _).verify(*).never()
-    (changeSetRepository.saveRouteChange _).verify(*).never()
-    (networkInfoRepository.updateNetworkChangeCount _).verify(*).never()
+    // verify
+    (changeSetRepository.saveNetworkChange _).times should equal(0)
+    (changeSetRepository.saveRouteChange _).times should equal(0)
+    (networkInfoRepository.updateNetworkChangeCount _).times should equal(0)
 
-    (changeSetRepository.saveNodeChange _).verify(
-      where { (savedNodeChange: NodeChange) =>
-        assertEqual(savedNodeChange, nodeChange)
-        true
-      }
-    ).once()
+    assertEquals(
+      (changeSetRepository.saveNodeChange _).calls,
+      Seq(nodeChange)
+    )
 
-    (changeSetRepository.saveChangeSetSummary _).verify(
-      where { (changeSetSummary: ChangeSetSummary) =>
-        assertEqual(
-          changeSetSummary,
-          newChangeSetSummary(
-            subsets = Seq(Subset.nlHiking),
-            orphanNodeChanges = Seq(
-              ChangeSetSubsetElementRefs(
-                Subset.nlHiking,
-                ChangeSetElementRefs(
-                  updated = Seq(
-                    ChangeSetElementRef(1001, "01", happy = false, investigate = false)
-                  )
+    assertEquals(
+      (changeSetRepository.saveChangeSetSummary _).calls,
+      Seq(
+        newChangeSetSummary(
+          subsets = Seq(Subset.nlHiking),
+          orphanNodeChanges = Seq(
+            ChangeSetSubsetElementRefs(
+              Subset.nlHiking,
+              ChangeSetElementRefs(
+                updated = Seq(
+                  ChangeSetElementRef(1001, "01", happy = false, investigate = false)
                 )
               )
-            ),
-            subsetAnalyses = Seq(
-              ChangeSetSubsetAnalysis(Subset.nlHiking)
             )
+          ),
+          subsetAnalyses = Seq(
+            ChangeSetSubsetAnalysis(Subset.nlHiking)
           )
         )
-        true
-      }
-    ).once()
+      )
+    )
   }
 
   private def save(

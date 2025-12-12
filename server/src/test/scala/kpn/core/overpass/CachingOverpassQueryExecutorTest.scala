@@ -1,14 +1,14 @@
 package kpn.core.overpass
 
-import java.io.File
-
 import kpn.api.custom.Timestamp
 import kpn.core.util.GZipFile
 import kpn.core.util.UnitTest
 import org.apache.commons.io.FileUtils
-import org.scalamock.scalatest.MockFactory
+import org.scalamock.stubs.Stubs
 
-class CachingOverpassQueryExecutorTest extends UnitTest with MockFactory {
+import java.io.File
+
+class CachingOverpassQueryExecutorTest extends UnitTest with Stubs {
 
   test("test caching") {
     val cacheRootDir = new File("/tmp/test-cache")
@@ -17,7 +17,7 @@ class CachingOverpassQueryExecutorTest extends UnitTest with MockFactory {
     }
     try {
       val executor = stub[OverpassQueryExecutor]
-      (executor.execute _).when(*).returns("result")
+      (executor.execute _).returnsWith("result")
 
       val cachingExecutor = new CachingOverpassQueryExecutor(cacheRootDir, executor)
       cachingExecutor.executeQuery(Some(Timestamp(2015, 11, 8, 12, 13, 14)), QueryNode(1))
