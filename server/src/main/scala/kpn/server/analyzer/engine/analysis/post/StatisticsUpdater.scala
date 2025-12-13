@@ -42,36 +42,40 @@ object StatisticsUpdater {
 }
 
 @Component
-class StatisticsUpdater(database: Database) {
+class StatisticsUpdater(
+  database: Database,
+  analyzerStatisticsUpdateEnabled: Boolean = true
+) {
 
   private val log = Log(classOf[StatisticsUpdater])
 
   def execute(): Unit = {
+    if (analyzerStatisticsUpdateEnabled) {
+      log.debugElapsed {
+        val pipeline =
+          pipelineNodeCount() ++
+            Seq(
+              unionWith(database.nodes.name, pipelineOrphanNodeCount()),
+              unionWith(database.routes.name, pipelineRouteCount()),
+              unionWith(database.routes.name, pipelineOrphanRouteCount()),
+              unionWith(database.nodes.name, pipelineNodeFacts()),
+              unionWith(database.nodes.name, pipelineNodeIntegrityCheckCount()),
+              unionWith(database.nodes.name, pipelineNodeIntegrityCheckFailedCount()),
+              unionWith(database.routes.name, pipelineRouteFacts()),
+              unionWith(database.routes.name, pipelineRouteDistance()),
+              unionWith(database.networks.name, pipelineNetworkCount()),
+              unionWith(database.networks.name, pipelineNetworkFacts()),
+              unionWith(database.networks.name, pipelineNetworkFacts2()),
+              unionWith(database.networks.name, pipelineNetworkFacts3()),
+              unionWith(database.networks.name, factCountPipeline()),
+              unionWith(database.networks.name, pipelineIntegrityCheckNetworkCount()),
+              unionWith(database.changes.name, pipelineChangeCount()),
+              out(database.statistics.name)
+            )
 
-    log.debugElapsed {
-      val pipeline =
-        pipelineNodeCount() ++
-          Seq(
-            unionWith(database.nodes.name, pipelineOrphanNodeCount()),
-            unionWith(database.routes.name, pipelineRouteCount()),
-            unionWith(database.routes.name, pipelineOrphanRouteCount()),
-            unionWith(database.nodes.name, pipelineNodeFacts()),
-            unionWith(database.nodes.name, pipelineNodeIntegrityCheckCount()),
-            unionWith(database.nodes.name, pipelineNodeIntegrityCheckFailedCount()),
-            unionWith(database.routes.name, pipelineRouteFacts()),
-            unionWith(database.routes.name, pipelineRouteDistance()),
-            unionWith(database.networks.name, pipelineNetworkCount()),
-            unionWith(database.networks.name, pipelineNetworkFacts()),
-            unionWith(database.networks.name, pipelineNetworkFacts2()),
-            unionWith(database.networks.name, pipelineNetworkFacts3()),
-            unionWith(database.networks.name, factCountPipeline()),
-            unionWith(database.networks.name, pipelineIntegrityCheckNetworkCount()),
-            unionWith(database.changes.name, pipelineChangeCount()),
-            out(database.statistics.name)
-          )
-
-      val values = database.nodes.aggregate(pipeline, classOf[StatisticLongValues])
-      (s"${values.size} values", ())
+        val values = database.nodes.aggregate(pipeline, classOf[StatisticLongValues])
+        (s"${values.size} values", ())
+      }
     }
   }
 

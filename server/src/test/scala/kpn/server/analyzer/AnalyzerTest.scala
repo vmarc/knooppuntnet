@@ -5,6 +5,8 @@ import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.AnalyzerEngine
+import kpn.server.analyzer.full.InitialFullAnalyzer
+import kpn.server.analyzer.load.AnalysisContextLoader
 import org.scalamock.stubs.Stub
 import org.scalamock.stubs.Stubs
 
@@ -21,7 +23,9 @@ class AnalyzerTest extends UnitTest with Stubs {
     setup.analyzer.load()
 
     // verify
-    (setup.engine.load _).calls should equal(Seq(lastProcessedReplicationId))
+    (setup.initialFullAnalyzer.analyze _).calls should equal(Seq(lastProcessedReplicationId))
+    (setup.analysisContextLoader.load _).times should equal(1)
+    (setup.engine.process _).times should equal(0)
     (setup.statusRepository.write _).times should equal(0)
   }
 
@@ -35,7 +39,9 @@ class AnalyzerTest extends UnitTest with Stubs {
     setup.analyzer.load()
 
     // verify
-    (setup.engine.load _).times should equal(0)
+    (setup.initialFullAnalyzer.analyze _).times should equal(0)
+    (setup.analysisContextLoader.load _).times should equal(0)
+    (setup.engine.process _).times should equal(0)
     (setup.statusRepository.write _).times should equal(0)
   }
 
@@ -81,14 +87,24 @@ class AnalyzerTest extends UnitTest with Stubs {
   private class Setup {
     private val dirs = stub[Dirs]
     private val analyzerStatusFile = "filename"
+
     val statusRepository: Stub[StatusRepository] = stub[StatusRepository]
     (statusRepository.write _).returnsWith(())
+
+    val initialFullAnalyzer: Stub[InitialFullAnalyzer] = stub[InitialFullAnalyzer]
+    (initialFullAnalyzer.analyze _).returnsWith(())
+
+    val analysisContextLoader: Stub[AnalysisContextLoader] = stub[AnalysisContextLoader]
+    (analysisContextLoader.load _).returnsWith(())
+
     val engine: Stub[AnalyzerEngine] = stub[AnalyzerEngine]
-    (engine.load _).returnsWith(())
     (engine.process _).returnsWith(())
+
     val analyzer = new Analyzer(
       analyzerStatusFile,
       statusRepository,
+      initialFullAnalyzer,
+      analysisContextLoader,
       engine,
       dirs
     )

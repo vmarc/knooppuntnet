@@ -8,16 +8,19 @@ import org.springframework.stereotype.Component
 @Component
 class InitialFullAnalyzer(
   osmChangeRepository: OsmChangeRepository,
-  mainFullAnalyzer: MainFullAnalyzer
+  mainFullAnalyzer: MainFullAnalyzer,
+  analyzerInitializerEnabled: Boolean
 ) {
   def analyze(replicationId: ReplicationId): Unit = {
-    val beginOsmChange = osmChangeRepository.get(replicationId)
-    val timestampAfter = if (beginOsmChange.actions.isEmpty) {
-      osmChangeRepository.timestamp(replicationId)
+    if (analyzerInitializerEnabled) {
+      val beginOsmChange = osmChangeRepository.get(replicationId)
+      val timestampAfter = if (beginOsmChange.actions.isEmpty) {
+        osmChangeRepository.timestamp(replicationId)
+      }
+      else {
+        TimestampUtil.relativeSeconds(beginOsmChange.timestampUntil.get, 1)
+      }
+      mainFullAnalyzer.analyze(timestampAfter, None)
     }
-    else {
-      TimestampUtil.relativeSeconds(beginOsmChange.timestampUntil.get, 1)
-    }
-    mainFullAnalyzer.analyze(timestampAfter, None)
   }
 }

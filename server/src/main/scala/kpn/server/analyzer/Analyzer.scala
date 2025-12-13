@@ -5,6 +5,8 @@ import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.AnalyzerEngine
+import kpn.server.analyzer.full.InitialFullAnalyzer
+import kpn.server.analyzer.load.AnalysisContextLoader
 import org.springframework.stereotype.Component
 
 import java.io.File
@@ -15,6 +17,8 @@ import scala.annotation.tailrec
 class Analyzer(
   analyzerStatusFile: String,
   statusRepository: StatusRepository,
+  initialFullAnalyzer: InitialFullAnalyzer,
+  analysisContextLoader: AnalysisContextLoader,
   engine: AnalyzerEngine,
   dirs: Dirs
 ) {
@@ -40,7 +44,8 @@ class Analyzer(
     readStatus() match {
       case None => log.error(s"Could not start: failed to read analysis status $analyzerStatusFile")
       case Some(replicationId) =>
-        engine.load(replicationId)
+        initialFullAnalyzer.analyze(replicationId)
+        analysisContextLoader.load()
     }
   }
 

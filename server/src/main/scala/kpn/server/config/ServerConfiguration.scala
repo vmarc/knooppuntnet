@@ -94,7 +94,7 @@ class ServerConfiguration {
   }
 
   @Bean
-  def analyzerReload(@Value("${app.analyzer-reload:false}") value: Boolean): Boolean = {
+  def analyzerInitializerEnabled(@Value("${app.analyzer-initializer-enabled:false}") value: Boolean): Boolean = {
     value
   }
 

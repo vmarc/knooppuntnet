@@ -20,7 +20,7 @@ object TestAnalysisContextLoader {
         val networkRepository = new NetworkRepositoryImpl(database)
         val routeRepository = new RouteRepositoryImpl(database)
         val nodeRepository = new NodeRepositoryImpl(database)
-        new AnalysisContextLoaderImpl(
+        new AnalysisContextLoader(
           analysisContext,
           networkRepository,
           routeRepository,

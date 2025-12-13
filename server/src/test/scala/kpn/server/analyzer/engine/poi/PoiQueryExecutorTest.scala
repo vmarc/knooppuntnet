@@ -44,7 +44,7 @@ class PoiQueryExecutorTest extends UnitTest with Stubs {
     val overpassQueryExecutor = stub[OverpassQueryExecutor]
     (overpassQueryExecutor.executeQuery _).returnsWith(queryResult)
 
-    val poiQueryExecutor: PoiQueryExecutor = new PoiQueryExecutorImpl(overpassQueryExecutor)
+    val poiQueryExecutor: PoiQueryExecutor = new PoiQueryExecutor(overpassQueryExecutor)
 
     poiQueryExecutor.center(PoiRef("way", 179212052)) should equal(Some(LatLonImpl("47.7402732", "8.9747377")))
   }
@@ -62,7 +62,7 @@ class PoiQueryExecutorTest extends UnitTest with Stubs {
     val overpassQueryExecutor = stub[OverpassQueryExecutor]
     (overpassQueryExecutor.executeQuery _).returnsWith(queryResult)
 
-    val poiQueryExecutor: PoiQueryExecutor = new PoiQueryExecutorImpl(overpassQueryExecutor)
+    val poiQueryExecutor: PoiQueryExecutor = new PoiQueryExecutor(overpassQueryExecutor)
 
     poiQueryExecutor.center(PoiRef("way", 179212052)) should equal(None)
   }

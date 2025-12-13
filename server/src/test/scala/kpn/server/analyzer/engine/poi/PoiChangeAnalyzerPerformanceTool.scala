@@ -123,11 +123,12 @@ object PoiChangeAnalyzerPerformanceTool {
       val poiRepository = new PoiRepositoryTestImpl(database)
       val tileCalculator = new PoiTileCalculatorImpl()
       val taskRepository = new TaskRepositoryTestImpl()
-      val poiQueryExecutor = new PoiQueryExecutorImpl(overpassQueryExecutor)
+      val poiQueryExecutor = new PoiQueryExecutor(overpassQueryExecutor)
       val locationAnalyzer = new LocationAnalyzerImpl(analyzerEnabled = true, development = false)
       val poiScopeAnalyzer = new PoiScopeAnalyzerImpl(locationAnalyzer)
       val masterPoiAnalyzer = new MasterPoiAnalyzerImpl()
-      val poiChangeAnalyzer = new PoiChangeAnalyzerImpl(
+      val poiChangeAnalyzer = new PoiChangeAnalyzer(
+        analyzerPoiUpdateEnabled = true,
         knownPoiCache,
         poiRepository,
         tileCalculator,

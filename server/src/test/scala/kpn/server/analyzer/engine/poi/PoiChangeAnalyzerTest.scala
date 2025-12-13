@@ -652,7 +652,8 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     (locationAnalyzer.findLocations _).returnsWith(Seq.empty)
     val masterPoiAnalyzer: MasterPoiAnalyzer = new MasterPoiAnalyzerImpl()
 
-    val poiChangeAnalyzer: PoiChangeAnalyzer = new PoiChangeAnalyzerImpl(
+    val poiChangeAnalyzer: PoiChangeAnalyzer = new PoiChangeAnalyzer(
+      analyzerPoiUpdateEnabled = true,
       knownPoiCache,
       poiRepository,
       poiTileCalculator,
