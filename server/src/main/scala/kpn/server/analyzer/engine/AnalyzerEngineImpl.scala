@@ -94,7 +94,7 @@ class AnalyzerEngineImpl(
     changeSetProcessor.processChangeSets(replicationId, changeSets)
   }
 
-  private def loadOsmChange(replicationId: ReplicationId) = {
+  private def loadOsmChange(replicationId: ReplicationId): OsmChange = {
     val osmChange = osmChangeRepository.get(replicationId)
     log.debug(s"osmchange loaded (${osmChange.actions.size} actions)")
     osmChange

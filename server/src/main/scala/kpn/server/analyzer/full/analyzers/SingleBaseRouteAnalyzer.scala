@@ -39,7 +39,11 @@ class SingleBaseRouteAnalyzer(
     obsoleteIds: Seq[Long]
   )
 
-  def processRoute(timestamp: Timestamp, initialAnalysisChangeSetContext: Option[ChangeSetContext], routeId: Long): Unit = {
+  def processRoute(
+    timestamp: Timestamp,
+    initialAnalysisChangeSetContext: Option[ChangeSetContext],
+    routeId: Long
+  ): Unit = {
     log.infoElapsed {
       try {
         rawDataRepository.route(timestamp, routeId) match {
@@ -56,7 +60,11 @@ class SingleBaseRouteAnalyzer(
     }
   }
 
-  private def analyzeBaseRoute(initialAnalysisChangeSetContext: Option[ChangeSetContext], relation: Relation, subRelationTree: Option[RouteRelation]): Unit = {
+  private def analyzeBaseRoute(
+    initialAnalysisChangeSetContext: Option[ChangeSetContext],
+    relation: Relation,
+    subRelationTree: Option[RouteRelation]
+  ): Unit = {
     val context = baseRouteMainAnalyzer.analyze(relation, subRelationTree)
     if (!context.abort) {
       saveBaseRoute(context)
@@ -69,7 +77,10 @@ class SingleBaseRouteAnalyzer(
     routeRepository.saveBaseRoute(baseRouteDocBuilder.build(context))
   }
 
-  private def baseRouteChange(initialAnalysisChangeSetContext: Option[ChangeSetContext], context: BaseRouteAnalysisContext): Option[BaseRouteChange] = {
+  private def baseRouteChange(
+    initialAnalysisChangeSetContext: Option[ChangeSetContext],
+    context: BaseRouteAnalysisContext
+  ): Option[BaseRouteChange] = {
     initialAnalysisChangeSetContext.flatMap { changeSetContext =>
       val addedWays = context.relation.members.flatMap(_.way.map(WayInfo.from))
       if (addedWays.nonEmpty) {
