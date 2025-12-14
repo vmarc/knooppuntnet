@@ -12,8 +12,6 @@ import kpn.server.analyzer.engine.poi.PoiChangeAnalyzer
 import kpn.server.analyzer.engine.poi.PoiTileUpdater
 import kpn.server.analyzer.engine.tile.TileTask
 import kpn.server.analyzer.engine.tile.TileUpdater
-import kpn.server.analyzer.full.InitialFullAnalyzer
-import kpn.server.analyzer.load.AnalysisContextLoader
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.TaskRepository
 import org.springframework.stereotype.Component
@@ -21,10 +19,7 @@ import org.springframework.stereotype.Component
 @Component
 class AnalyzerEngine(
   analyzerTileUpdateEnabled: Boolean,
-  analyzerStatisticsUpdateEnabled: Boolean,
   osmChangeRepository: OsmChangeRepository,
-  analysisContextLoader: AnalysisContextLoader,
-  initialFullAnalyzer: InitialFullAnalyzer,
   changeSetProcessor: ChangeSetProcessor,
   analysisRepository: AnalysisRepository,
   taskRepository: TaskRepository,
@@ -60,7 +55,7 @@ class AnalyzerEngine(
   }
 
   private def updateStatistics(replicationContext: ReplicationContext): Unit = {
-    if (analyzerStatisticsUpdateEnabled && replicationContext.hasChanges) {
+    if (replicationContext.hasChanges) {
       statisticsUpdater.execute()
     }
   }

@@ -111,6 +111,7 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.analyzer.engine.changes.changes.OsmChange
 import kpn.server.analyzer.engine.context.ChangeElementIds
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.monitor.domain.MonitorGroup
@@ -1635,5 +1636,9 @@ object TestObjects {
     segments: SuperSubSegment*
   ): SuperSegment = {
     SuperSegment(segments)
+  }
+
+  def newOsmChange(actions: Seq[Change] = Seq.empty): OsmChange = {
+    OsmChange(actions)
   }
 }

@@ -12,7 +12,7 @@ class FullAnalysisPipeline(
   fullNetworkAnalyzer: FullNetworkAnalyzer,
 ) {
 
-  private val analyzers: List[FullAnalyzer] = List(
+  private val analyzers: Seq[FullAnalyzer] = Seq(
     fullBaseNodeAnalyzer,
     fullBaseRouteAnalyzer,
     fullBaseNetworkAnalyzer,
