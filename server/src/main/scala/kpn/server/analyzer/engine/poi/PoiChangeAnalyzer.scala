@@ -47,20 +47,28 @@ class PoiChangeAnalyzer(
     val analyses = nodeBasedPoiAnalyses ++ wayBasedPoiAnalyses ++ relationBasedPoiAnalyses
     analyses.foreach(processPoiChangeAnalysis)
 
-    val deletedPois = osmChange.actions.filter(_.action == Delete).flatMap(_.elements)
-    deletedPois.foreach(element => deletePoi(PoiRef.of(element), "delete"))
+    val deletedPoiNodes = osmChange.actions.filter(_.action == Delete).flatMap(_.nodes)
+    deletedPoiNodes.foreach(node => deletePoi(PoiRef.node(node.id), "delete"))
 
-    log.info(s"Analyzed ${nodeBasedPoiAnalyses.size} poi nodes, ${wayBasedPoiAnalyses.size} poi ways, ${relationBasedPoiAnalyses.size} poi relations, ${deletedPois.size} poi deletes")
+    val deletedPoiWays = osmChange.actions.filter(_.action == Delete).flatMap(_.ways)
+    deletedPoiWays.foreach(way => deletePoi(PoiRef.way(way.id), "delete"))
+
+    val deletedPoiRelations = osmChange.actions.filter(_.action == Delete).flatMap(_.relations)
+    deletedPoiRelations.foreach(relation => deletePoi(PoiRef.relation(relation.id), "delete"))
+
+    val deletedPoiCount = deletedPoiNodes.length + deletedPoiWays.length + deletedPoiRelations.length
+
+    log.info(s"Analyzed ${nodeBasedPoiAnalyses.size} poi nodes, ${wayBasedPoiAnalyses.size} poi ways, ${relationBasedPoiAnalyses.size} poi relations, $deletedPoiCount poi deletes")
   }
 
   private def modifiedElementsIn(osmChange: OsmChange): Seq[RawElement] = {
-    val elements = osmChange.actions.filter(action => action.action == Create || action.action == Modify).flatMap(_.elements)
-    val elementCount = elements.size
-    val nodeCount = elements.count(_.isNode)
-    val wayCount = elements.count(_.isWay)
-    val relationCount = elements.count(_.isRelation)
+    val actions = osmChange.actions.filter(action => action.action == Create || action.action == Modify)
+    val nodeCount = actions.map(_.nodes.size).sum
+    val wayCount = actions.map(_.ways.size).sum
+    val relationCount = actions.map(_.relations.size).sum
+    val elementCount = nodeCount + wayCount + relationCount
     log.info(s"$elementCount modified elements ($nodeCount nodes, $wayCount ways, $relationCount relations)")
-    elements
+    actions.flatMap(_.nodes) ++ actions.flatMap(_.ways) ++ actions.flatMap(_.relations)
   }
 
   private def analyzePoiChanges(elements: Seq[RawElement]): Seq[PoiChangeAnalysis] = {

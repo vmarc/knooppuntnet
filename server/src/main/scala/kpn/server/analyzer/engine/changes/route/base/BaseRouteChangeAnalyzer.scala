@@ -50,8 +50,7 @@ class BaseRouteChangeAnalyzer(
   private def buildRelationMap(changeSet: ChangeSet, action: ChangeAction): Map[Long, RawRelation] = {
     changeSet.changes
       .filter(_.action == action)
-      .flatMap(_.elements)
-      .collect { case e: RawRelation => e }
+      .flatMap(_.relations)
       .map(n => n.id -> n)
       .toMap
   }

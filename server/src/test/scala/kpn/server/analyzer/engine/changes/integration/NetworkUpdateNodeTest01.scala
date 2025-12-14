@@ -67,7 +67,7 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
       val node1001 = findNodeById(1001)
       val node1002 = findNodeById(1002)
 
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
       assert(watched.nodes.contains(1001))
       assert(watched.nodes.contains(1002))

@@ -13,7 +13,7 @@ class NetworkDeleteTest02 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Delete, newRawRelation(1))
+      processRelation(ChangeAction.Delete, newRawRelation(1))
 
       assert(!watched.networks.contains(1))
 

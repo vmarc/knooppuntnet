@@ -30,7 +30,7 @@ class RouteToNetworkTest01 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
       findOrphanRoutes().find(_.id == 1) should equal(None)
 

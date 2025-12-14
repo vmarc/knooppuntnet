@@ -49,7 +49,7 @@ class Issue183_DeletedNode3 extends IntegrationTest {
         )
       )
 
-      process(ChangeAction.Modify, newRawNode(deletedNodeId))
+      processNode(ChangeAction.Modify, newRawNode(deletedNodeId))
 
       val nodeAfter = findNodeById(deletedNodeId)
 

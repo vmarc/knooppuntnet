@@ -11,9 +11,11 @@ object ChangeSetBuilder {
   def from(timestamp: Timestamp, osmChange: OsmChange): Seq[ChangeSet] = {
     osmChange.allChangeSetIds.flatMap { changeSetId =>
       val actions = osmChange.actions.flatMap { action =>
-        val elements = action.elements.filter(_.changeSetId == changeSetId)
-        Option.when(elements.nonEmpty) {
-          Change(action.action, elements)
+        val nodes = action.nodes.filter(_.changeSetId == changeSetId)
+        val ways = action.ways.filter(_.changeSetId == changeSetId)
+        val relations = action.relations.filter(_.changeSetId == changeSetId)
+        Option.when(nodes.nonEmpty || ways.nonEmpty || relations.nonEmpty) {
+          Change(action.action, nodes, ways, relations)
         }
       }
       if (actions.nonEmpty) {
@@ -42,10 +44,9 @@ object ChangeSetBuilder {
   }
 
   def elementIdsIn(changeSet: ChangeSet): ChangeElementIds = {
-    val elements = changeSet.changes.flatMap(_.elements)
-    val nodeIds = elements.filter(_.isNode).map(_.id).toSet
-    val wayIds = elements.filter(_.isWay).map(_.id).toSet
-    val relationIds = elements.filter(_.isRelation).map(_.id).toSet
+    val nodeIds = changeSet.changes.flatMap(_.nodes).map(_.id).toSet
+    val wayIds = changeSet.changes.flatMap(_.ways).map(_.id).toSet
+    val relationIds = changeSet.changes.flatMap(_.relations).map(_.id).toSet
     ChangeElementIds(nodeIds, wayIds, relationIds)
   }
 }

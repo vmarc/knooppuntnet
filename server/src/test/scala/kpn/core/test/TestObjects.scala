@@ -27,6 +27,7 @@ import kpn.api.common.RouteMemberInfoWay
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteSummary
 import kpn.api.common.RouteType
+import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.ChangeKey
@@ -1640,5 +1641,19 @@ object TestObjects {
 
   def newOsmChange(actions: Seq[Change] = Seq.empty): OsmChange = {
     OsmChange(actions)
+  }
+
+  def newChange(
+    action: ChangeAction,
+    nodes: Seq[RawNode] = Seq.empty,
+    ways: Seq[RawWay] = Seq.empty,
+    relations: Seq[RawRelation] = Seq.empty
+  ): Change = {
+    Change(
+      action,
+      nodes,
+      ways,
+      relations
+    )
   }
 }

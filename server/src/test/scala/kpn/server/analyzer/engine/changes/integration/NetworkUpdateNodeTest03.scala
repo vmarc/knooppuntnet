@@ -72,7 +72,7 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
       val network2 = findBaseNetworkById(2)
       val networkInfo2 = findNetworkById(2)
 
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
       assert(watched.nodes.contains(1001))
       assert(watched.nodes.contains(1002))

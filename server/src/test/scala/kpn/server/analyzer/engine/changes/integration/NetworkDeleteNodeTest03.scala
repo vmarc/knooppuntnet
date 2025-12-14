@@ -44,7 +44,7 @@ class NetworkDeleteNodeTest03 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Delete, newRawRelation(1))
+      processRelation(ChangeAction.Delete, newRawRelation(1))
 
       findOrphanNodes() shouldBe empty // <--
       database.routeChanges shouldBe empty

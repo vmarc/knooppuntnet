@@ -39,7 +39,7 @@ class OrphanNodeCreateTest02 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Create, dataAfter.rawNodeWithId(1001))
+      processNode(ChangeAction.Create, dataAfter.rawNodeWithId(1001))
 
       assert(watched.nodes.contains(1001))
 

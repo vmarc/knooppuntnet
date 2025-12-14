@@ -6,6 +6,7 @@ import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Change
 import kpn.api.custom.Tags
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newChangeSet
 import kpn.core.test.TestObjects.newRawNode
 import kpn.core.util.UnitTest
@@ -19,7 +20,7 @@ class BaseNodeChangeAnalyzerTest extends UnitTest {
 
   test("'Create' new node") {
     val setup = new Setup()
-    val change = Change(Create, Seq(createNode(1001L)))
+    val change = newChange(Create, nodes = Seq(createNode(1001L)))
     assertEqual(
       setup.analyze(change),
       ElementChanges(
@@ -30,7 +31,7 @@ class BaseNodeChangeAnalyzerTest extends UnitTest {
 
   test("'Modify' of a previously unknown node is treated as new node") {
     val setup = new Setup()
-    val change = Change(Modify, Seq(createNode(1001L)))
+    val change = newChange(Modify, nodes = Seq(createNode(1001L)))
     assertEqual(
       setup.analyze(change),
       ElementChanges(
@@ -42,7 +43,7 @@ class BaseNodeChangeAnalyzerTest extends UnitTest {
   test("'Modify' of an existing node") {
     val setup = new Setup()
     setup.analysisContext.watched.nodes.add(1001L)
-    val change = Change(Modify, Seq(createNode(1001L)))
+    val change = newChange(Modify, nodes = Seq(createNode(1001L)))
     assertEqual(
       setup.analyze(change),
       ElementChanges(
@@ -54,7 +55,7 @@ class BaseNodeChangeAnalyzerTest extends UnitTest {
   test("'Delete' of an existing node") {
     val setup = new Setup()
     setup.analysisContext.watched.nodes.add(1001L)
-    val change = Change(Delete, Seq(newRawNode(1001L)))
+    val change = newChange(Delete, nodes = Seq(newRawNode(1001L)))
     assertEqual(
       setup.analyze(change),
       ElementChanges(
@@ -65,7 +66,7 @@ class BaseNodeChangeAnalyzerTest extends UnitTest {
 
   test("'Delete' of unknown node with tags in delete (does not happen in practice?)") {
     val setup = new Setup()
-    val change = Change(Delete, Seq(createNode(1001L)))
+    val change = newChange(Delete, nodes = Seq(createNode(1001L)))
     assertEqual(
       setup.analyze(change),
       ElementChanges(
@@ -76,7 +77,7 @@ class BaseNodeChangeAnalyzerTest extends UnitTest {
 
   test("'Delete' of unknown node without tags is ignored") {
     val setup = new Setup()
-    val change = Change(Delete, Seq(newRawNode(1001L)))
+    val change = newChange(Delete, nodes = Seq(newRawNode(1001L)))
     assertEqual(
       setup.analyze(change),
       ElementChanges()
@@ -86,39 +87,39 @@ class BaseNodeChangeAnalyzerTest extends UnitTest {
   test("Ignore 'Create' of blacklisted route") {
     val setup = new Setup()
     setup.blacklistNode(1001L)
-    val change = Change(Create, Seq(createNode(1001L)))
+    val change = newChange(Create, nodes = Seq(createNode(1001L)))
     setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Modify' of blacklisted route") {
     val setup = new Setup()
     setup.blacklistNode(1001L)
-    val change = Change(Modify, Seq(createNode(1001L)))
+    val change = newChange(Modify, nodes = Seq(createNode(1001L)))
     setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Delete' of blacklisted route") {
     val setup = new Setup()
     setup.blacklistNode(1001L)
-    val change = Change(Delete, Seq(createNode(1001L)))
+    val change = newChange(Delete, nodes = Seq(createNode(1001L)))
     setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Create' of non-network node") {
     val setup = new Setup()
-    val change = Change(Create, Seq(newRawNode(1001L)))
+    val change = newChange(Create, nodes = Seq(newRawNode(1001L)))
     setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Modify' of non-network node") {
     val setup = new Setup()
-    val change = Change(Modify, Seq(newRawNode(1001L)))
+    val change = newChange(Modify, nodes = Seq(newRawNode(1001L)))
     setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Delete' of non-network node") {
     val setup = new Setup()
-    val change = Change(Delete, Seq(newRawNode(1001L)))
+    val change = newChange(Delete, nodes = Seq(newRawNode(1001L)))
     setup.analyze(change) shouldBe empty
   }
 

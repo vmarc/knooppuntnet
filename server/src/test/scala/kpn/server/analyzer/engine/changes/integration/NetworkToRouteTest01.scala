@@ -29,7 +29,7 @@ class NetworkToRouteTest01 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter, keepDatabaseAfterTest = true) {
 
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
       val baseNetwork = findBaseNetworkById(1)
       baseNetwork.active should equal(false)

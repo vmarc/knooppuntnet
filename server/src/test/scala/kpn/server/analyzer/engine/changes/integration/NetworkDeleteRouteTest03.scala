@@ -61,7 +61,7 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Delete, newRawRelation(1))
+      processRelation(ChangeAction.Delete, newRawRelation(1))
 
       // network 1 is no longer in memory
       assert(!watched.networks.contains(1))

@@ -3,7 +3,9 @@
 package kpn.tools.code.codecs.generated
 
 import kpn.api.common.changes.ChangeAction
-import kpn.api.common.data.raw.RawElement
+import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Change
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
@@ -17,27 +19,49 @@ import org.bson.codecs.configuration.CodecRegistry
 class ChangeCodec(registry: CodecRegistry) extends Codec[Change] {
 
   private val changeActionCodec = registry.get(classOf[ChangeAction])
-  private val rawElementCodec = registry.get(classOf[RawElement])
+  private val rawNodeCodec = registry.get(classOf[RawNode])
+  private val rawRelationCodec = registry.get(classOf[RawRelation])
+  private val rawWayCodec = registry.get(classOf[RawWay])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): Change = {
     bsonReader.readStartDocument()
 
     var action: ChangeAction = null
-    var elements: Seq[RawElement] = null
+    var nodes: Seq[RawNode] = null
+    var ways: Seq[RawWay] = null
+    var relations: Seq[RawRelation] = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
       if (fieldName == "action") {
         action = changeActionCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "elements") {
+      else if (fieldName == "nodes") {
         bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[RawElement]()
+        val valueBuffer = scala.collection.mutable.Buffer[RawNode]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += rawElementCodec.decode(bsonReader, decoderContext)
+          valueBuffer += rawNodeCodec.decode(bsonReader, decoderContext)
         }
         bsonReader.readEndArray()
-        elements = valueBuffer.toSeq
+        nodes = valueBuffer.toSeq
+      }
+      else if (fieldName == "ways") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[RawWay]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += rawWayCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        ways = valueBuffer.toSeq
+      }
+      else if (fieldName == "relations") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[RawRelation]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += rawRelationCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        relations = valueBuffer.toSeq
       }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in ChangeCodec.decode()")
@@ -49,7 +73,9 @@ class ChangeCodec(registry: CodecRegistry) extends Codec[Change] {
 
     Change(
       action,
-      elements,
+      nodes,
+      ways,
+      relations,
     )
   }
 
@@ -59,9 +85,19 @@ class ChangeCodec(registry: CodecRegistry) extends Codec[Change] {
     bsonWriter.writeName("action")
     changeActionCodec.encode(bsonWriter, value.action, encoderContext)
 
-    bsonWriter.writeName("elements")
+    bsonWriter.writeName("nodes")
     bsonWriter.writeStartArray()
-    value.elements.foreach(v => rawElementCodec.encode(bsonWriter, v, encoderContext))
+    value.nodes.foreach(v => rawNodeCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
+
+    bsonWriter.writeName("ways")
+    bsonWriter.writeStartArray()
+    value.ways.foreach(v => rawWayCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
+
+    bsonWriter.writeName("relations")
+    bsonWriter.writeStartArray()
+    value.relations.foreach(v => rawRelationCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
     bsonWriter.writeEndDocument()

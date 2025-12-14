@@ -12,7 +12,9 @@ import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.data.Node
-import kpn.api.common.data.raw.RawElement
+import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.core.doc.BaseNetworkDoc
@@ -23,6 +25,7 @@ import kpn.core.doc.NodeDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.test.MongoTest
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newChangeSet
 import kpn.core.test.Timestamps
 import kpn.database.actions.nodes.MongoQueryOrphanNodes
@@ -86,9 +89,20 @@ class IntegrationTest extends MongoTest {
     context.analysisContext.watched
   }
 
-  def process(action: ChangeAction, elements: RawElement*): Unit = {
-    val changes = Seq(Change(action, elements))
-    process(changes)
+  def processNode(action: ChangeAction, node: RawNode): Unit = {
+    process(Seq(newChange(action, nodes = Seq(node))))
+  }
+
+  def processWay(action: ChangeAction, way: RawWay): Unit = {
+    process(Seq(newChange(action, ways = Seq(way))))
+  }
+
+  def processRelation(action: ChangeAction, relation: RawRelation): Unit = {
+    process(Seq(newChange(action, relations = Seq(relation))))
+  }
+
+  def process(change: Change): Unit = {
+    process(Seq(change))
   }
 
   def process(changes: Seq[Change]): Unit = {

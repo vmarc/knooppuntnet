@@ -32,7 +32,7 @@ class OrphanNodeDeleteTest04 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Modify, dataAfter.rawNodeWithId(1001))
+      processNode(ChangeAction.Modify, dataAfter.rawNodeWithId(1001))
 
       assert(!watched.nodes.contains(1001))
 

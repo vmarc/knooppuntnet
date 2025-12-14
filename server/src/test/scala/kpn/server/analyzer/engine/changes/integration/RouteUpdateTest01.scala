@@ -53,7 +53,7 @@ class RouteUpdateTest01 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
       assert(watched.routes.contains(11))
 

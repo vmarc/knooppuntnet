@@ -62,7 +62,7 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
         )
       )
 
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
       findOrphanNodes() shouldBe empty
 

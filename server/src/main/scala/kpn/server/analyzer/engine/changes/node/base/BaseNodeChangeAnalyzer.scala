@@ -61,8 +61,7 @@ class BaseNodeChangeAnalyzer(
   private def nodeMap(changeSet: ChangeSet, action: ChangeAction): Map[Long, RawNode] = {
     changeSet.changes
       .filter(_.action == action)
-      .flatMap(_.elements)
-      .collect { case e: RawNode => e }
+      .flatMap(_.nodes)
       .filterNot(isBlackListed)
       .map(n => n.id -> n)
       .toMap

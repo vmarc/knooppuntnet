@@ -54,7 +54,7 @@ class RouteDeleteTest01 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Delete, newRawRelation(11))
+      processRelation(ChangeAction.Delete, newRawRelation(11))
 
       assert(watched.nodes.contains(1001))
       assert(watched.nodes.contains(1002))

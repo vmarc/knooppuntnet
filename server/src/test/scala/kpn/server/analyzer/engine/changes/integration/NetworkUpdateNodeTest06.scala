@@ -20,6 +20,7 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetNetwork
@@ -75,7 +76,13 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Modify, dataAfter.rawNodeWithId(1002), dataAfter.rawRelationWithId(1))
+      process(
+        newChange(
+          ChangeAction.Modify,
+          nodes = Seq(dataAfter.rawNodeWithId(1002)),
+          relations = Seq(dataAfter.rawRelationWithId(1))
+        )
+      )
 
       assert(watched.nodes.contains(1001))
       assert(watched.nodes.contains(1002))

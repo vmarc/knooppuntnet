@@ -21,6 +21,7 @@ import kpn.api.custom.Tags
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseRouteChange
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetSummary
@@ -57,11 +58,19 @@ class RouteCreateTest01 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
 
       process(
-        ChangeAction.Create,
-        dataAfter.rawNodeWithId(1001),
-        dataAfter.rawNodeWithId(1002),
-        dataAfter.rawWayWithId(101),
-        dataAfter.rawRelationWithId(11)
+        newChange(
+          ChangeAction.Create,
+          nodes = Seq(
+            dataAfter.rawNodeWithId(1001),
+            dataAfter.rawNodeWithId(1002),
+          ),
+          ways = Seq(
+            dataAfter.rawWayWithId(101),
+          ),
+          relations = Seq(
+            dataAfter.rawRelationWithId(11)
+          )
+        )
       )
 
       assert(watched.routes.contains(11))

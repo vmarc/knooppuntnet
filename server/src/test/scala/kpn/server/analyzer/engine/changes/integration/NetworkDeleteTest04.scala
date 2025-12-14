@@ -66,7 +66,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
       assert(watched.networks.contains(1))
       assert(!watched.routes.contains(1))
 
-      process(ChangeAction.Modify, dataAfter.data.relations(1).toRaw)
+      processRelation(ChangeAction.Modify, dataAfter.data.relations(1).toRaw)
 
       assert(!watched.networks.contains(1))
       assert(watched.routes.contains(1))

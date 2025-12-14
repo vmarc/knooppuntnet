@@ -2,9 +2,9 @@ package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.data.MemberType
-import kpn.api.custom.Change
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newMember
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
 
@@ -41,14 +41,16 @@ class NetworkExtraAnalyzerIntegrationTest extends IntegrationTest {
 
       process(
         Seq(
-          Change(
+          newChange(
             ChangeAction.Create,
-            Seq(
+            nodes = Seq(
               dataAfter.rawNodeWithId(1001),
               dataAfter.rawNodeWithId(1002),
               dataAfter.rawNodeWithId(1003),
               dataAfter.rawNodeWithId(1004),
               dataAfter.rawNodeWithId(1005),
+            ),
+            relations = Seq(
               dataAfter.rawRelationWithId(1),
             )
           )
@@ -110,14 +112,16 @@ class NetworkExtraAnalyzerIntegrationTest extends IntegrationTest {
 
       process(
         Seq(
-          Change(
+          newChange(
             ChangeAction.Create,
-            Seq(
+            nodes = Seq(
               dataAfter.rawNodeWithId(1001),
               dataAfter.rawNodeWithId(1002),
               dataAfter.rawNodeWithId(1003),
               dataAfter.rawNodeWithId(1004),
               dataAfter.rawNodeWithId(1005),
+            ),
+            relations = Seq(
               dataAfter.rawRelationWithId(1),
             )
           )

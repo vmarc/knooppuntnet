@@ -1,6 +1,5 @@
 package kpn.api.common.changes
 
-import kpn.api.common.data.raw.RawElement
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Change
@@ -21,14 +20,10 @@ case class ChangeSet(
 ) {
 
   def relations(action: ChangeAction): Seq[RawRelation] = {
-    elements(action).collect { case e: RawRelation => e }
-  }
-
-  def elements(action: ChangeAction): Seq[RawElement] = {
-    changes.filter(_.action == action).flatMap(_.elements)
+    changes.filter(_.action == action).flatMap(_.relations)
   }
 
   def nodes(action: ChangeAction): Seq[RawNode] = {
-    elements(action).collect { case e: RawNode => e }
+    changes.filter(_.action == action).flatMap(_.nodes)
   }
 }

@@ -43,7 +43,7 @@ class RouteUpdateTest03 extends IntegrationTest {
       .networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
 
     testIntegration(dataBefore, dataAfter) {
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
       val baseRouteChange = findBaseRouteChangeById("123:1:11")
       assertEqual(
         baseRouteChange.wayDiffs.map(_.added),

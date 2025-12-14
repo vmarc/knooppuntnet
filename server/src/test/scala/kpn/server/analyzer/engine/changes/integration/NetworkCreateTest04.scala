@@ -18,6 +18,7 @@ import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetNetwork
@@ -49,11 +50,17 @@ class NetworkCreateTest04 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
 
       process(
-        ChangeAction.Create,
-        dataAfter.rawNodeWithId(1001),
-        dataAfter.rawNodeWithId(1002),
-        dataAfter.rawRelationWithId(11),
-        dataAfter.rawRelationWithId(1)
+        newChange(
+          ChangeAction.Create,
+          nodes = Seq(
+            dataAfter.rawNodeWithId(1001),
+            dataAfter.rawNodeWithId(1002)
+          ),
+          relations = Seq(
+            dataAfter.rawRelationWithId(11),
+            dataAfter.rawRelationWithId(1)
+          )
+        )
       )
 
       assert(watched.networks.contains(1))

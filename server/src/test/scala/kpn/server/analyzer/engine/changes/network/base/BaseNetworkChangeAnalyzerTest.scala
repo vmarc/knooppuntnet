@@ -7,6 +7,7 @@ import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Change
 import kpn.api.custom.Tags
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newChangeSet
 import kpn.core.test.TestObjects.newRawRelation
 import kpn.core.util.UnitTest
@@ -25,7 +26,7 @@ class BaseNetworkChangeAnalyzerTest extends UnitTest {
 
   test("'Create' network") {
     val setup = new Setup()
-    val change = Change(Create, Seq(buildNetwork(1L)))
+    val change = newChange(Create, relations = Seq(buildNetwork(1L)))
     assertEqual(
       setup.analyze(change),
       ElementChanges(
@@ -36,7 +37,7 @@ class BaseNetworkChangeAnalyzerTest extends UnitTest {
 
   test("'Modify' of previously unknown network is treated as new network") {
     val setup = new Setup()
-    val change = Change(Modify, Seq(buildNetwork(1L)))
+    val change = newChange(Modify, relations = Seq(buildNetwork(1L)))
     assertEqual(
       setup.analyze(change),
       ElementChanges(
@@ -48,7 +49,7 @@ class BaseNetworkChangeAnalyzerTest extends UnitTest {
   test("'Modify' of known network relation") {
     val setup = new Setup()
     setup.analysisContext.watched.networks.add(1L)
-    val change = Change(Modify, Seq(buildNetwork(1L)))
+    val change = newChange(Modify, relations = Seq(buildNetwork(1L)))
     assertEqual(
       setup.analyze(change),
       ElementChanges(
@@ -60,7 +61,7 @@ class BaseNetworkChangeAnalyzerTest extends UnitTest {
   test("'Delete' known network") {
     val setup = new Setup()
     setup.analysisContext.watched.networks.add(1L)
-    val change = Change(Delete, Seq(buildNetwork(1L)))
+    val change = newChange(Delete, relations = Seq(buildNetwork(1L)))
     assertEqual(
       setup.analyze(change),
       ElementChanges(
@@ -72,39 +73,39 @@ class BaseNetworkChangeAnalyzerTest extends UnitTest {
   test("Ignore 'Create' of blacklisted network") {
     val setup = new Setup()
     setup.blacklistNetwork(1L)
-    val change = Change(Create, Seq(buildNetwork(1L)))
+    val change = newChange(Create, relations = Seq(buildNetwork(1L)))
     setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Modify' of blacklisted network") {
     val setup = new Setup()
     setup.blacklistNetwork(1L)
-    val change = Change(Modify, Seq(buildNetwork(1L)))
+    val change = newChange(Modify, relations = Seq(buildNetwork(1L)))
     setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Delete' of blacklisted network") {
     val setup = new Setup()
     setup.blacklistNetwork(1L)
-    val change = Change(Delete, Seq(buildNetwork(1L)))
+    val change = newChange(Delete, relations = Seq(buildNetwork(1L)))
     setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Create' of non-network relation") {
     val setup = new Setup()
-    val change = Change(Create, Seq(newRawRelation(1L)))
+    val change = newChange(Create, relations = Seq(newRawRelation(1L)))
     setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Modify' of non-network relation") {
     val setup = new Setup()
-    val change = Change(Modify, Seq(newRawRelation(1L)))
+    val change = newChange(Modify, relations = Seq(newRawRelation(1L)))
     setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Delete' of unknown network relation") {
     val setup = new Setup()
-    val change = Change(Delete, Seq(newRawRelation(1L)))
+    val change = newChange(Delete, relations = Seq(newRawRelation(1L)))
     setup.analyze(change) shouldBe empty
   }
 

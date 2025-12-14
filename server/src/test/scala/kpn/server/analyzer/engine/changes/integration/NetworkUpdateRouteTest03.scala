@@ -13,10 +13,10 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetNetwork
@@ -74,17 +74,21 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
 
       process(
         Seq(
-          Change(
+          newChange(
             ChangeAction.Modify,
-            Seq(
+            relations = Seq(
               dataAfter.rawRelationWithId(1)
             )
           ),
-          Change(
+          newChange(
             ChangeAction.Delete,
-            Seq(
+            nodes = Seq(
               newRawNode(1003),
+            ),
+            ways = Seq(
               newRawWay(102),
+            ),
+            relations = Seq(
               newRawRelation(12)
             )
           )

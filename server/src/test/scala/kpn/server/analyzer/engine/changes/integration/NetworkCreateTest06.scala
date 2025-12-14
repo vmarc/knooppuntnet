@@ -21,12 +21,12 @@ import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.route.GeometryDiff
-import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseRouteChange
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetNetwork
@@ -65,15 +65,15 @@ class NetworkCreateTest06 extends IntegrationTest {
 
       process(
         Seq(
-          Change(
+          newChange(
             ChangeAction.Modify,
-            Seq(
+            nodes = Seq(
               dataAfter.rawNodeWithId(1002),
             )
           ),
-          Change(
+          newChange(
             ChangeAction.Create,
-            Seq(
+            relations = Seq(
               dataAfter.rawRelationWithId(1),
               dataAfter.rawRelationWithId(11),
             )

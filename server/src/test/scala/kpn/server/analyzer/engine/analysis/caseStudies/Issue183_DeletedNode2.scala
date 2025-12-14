@@ -19,7 +19,7 @@ class Issue183_DeletedNode2 extends IntegrationTest {
 
       val nodeBefore = findNodeById(deletedNodeId)
 
-      process(ChangeAction.Delete, newRawNode(deletedNodeId))
+      processNode(ChangeAction.Delete, newRawNode(deletedNodeId))
 
       val nodeAfter = findNodeById(deletedNodeId)
 

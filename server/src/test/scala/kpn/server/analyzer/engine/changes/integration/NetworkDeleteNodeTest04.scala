@@ -12,12 +12,12 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseNetworkDoc
 import kpn.core.test.TestObjects.newBaseNodeDoc
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetNetwork
@@ -56,8 +56,8 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
       process(
         Seq(
-          Change(ChangeAction.Modify, Seq(newRawNode(1001))),
-          Change(ChangeAction.Delete, Seq(newRawRelation(1)))
+          newChange(ChangeAction.Modify, nodes = Seq(newRawNode(1001))),
+          newChange(ChangeAction.Delete, relations = Seq(newRawRelation(1)))
         )
       )
 

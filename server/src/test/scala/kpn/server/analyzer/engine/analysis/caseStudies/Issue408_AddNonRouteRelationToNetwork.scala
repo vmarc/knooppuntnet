@@ -41,7 +41,7 @@ class Issue408_AddNonRouteRelationToNetwork extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
       val networkInfoDoc = findNetworkById(1)
 

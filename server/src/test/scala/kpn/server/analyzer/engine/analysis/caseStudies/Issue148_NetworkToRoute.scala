@@ -62,7 +62,7 @@ class Issue148_NetworkToRoute extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(11774118L))
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(11774118L))
 
       val baseNetwork = findBaseNetworkById(11774118L)
       baseNetwork.active should equal(false)

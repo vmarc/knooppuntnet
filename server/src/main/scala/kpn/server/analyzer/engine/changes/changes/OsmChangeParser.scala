@@ -21,30 +21,26 @@ class OsmChangeParser {
         case "modify" => ChangeAction.Modify
         case "delete" => ChangeAction.Delete
       }
-      val elements = actionXml.child.toSeq.filter(isElement).map { element =>
-        element.label match {
-          case "node" => node(element)
-          case "way" => way(element)
-          case "relation" => relation(element)
-        }
-      }
-      Change(action, elements)
+      val nodes = actionXml.child.toSeq.filter(_.label == "node").map(parseNode)
+      val ways = actionXml.child.toSeq.filter(_.label == "way").map(parseWay)
+      val relations = actionXml.child.toSeq.filter(_.label == "relation").map(parseRelation)
+      Change(action, nodes, ways, relations)
     }
     OsmChange(actions)
   }
 
-  private def node(node: scala.xml.Node): RawNode = {
+  private def parseNode(node: scala.xml.Node): RawNode = {
     val latitude = (node \ "@lat").text
     val longitude = (node \ "@lon").text
     RawNode(id(node), latitude, longitude, version(node), timestamp(node), changeSetId(node), tags(node))
   }
 
-  def way(node: scala.xml.Node): RawWay = {
+  private def parseWay(node: scala.xml.Node): RawWay = {
     val wayNodeIds = (node \ "nd").map { t => (t \ "@ref").text.toLong }
     RawWay(id(node), version(node), timestamp(node), changeSetId(node), wayNodeIds.toVector, tags(node))
   }
 
-  private def relation(node: scala.xml.Node): RawRelation = {
+  private def parseRelation(node: scala.xml.Node): RawRelation = {
     val members = (node \ "member").map { member =>
       val memberType = MemberType.withName((member \ "@type").text)
       val ref = (member \ "@ref").text.toLong

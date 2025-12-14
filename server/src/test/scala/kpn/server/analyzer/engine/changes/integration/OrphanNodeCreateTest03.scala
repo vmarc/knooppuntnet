@@ -24,7 +24,7 @@ class OrphanNodeCreateTest03 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Create, dataAfter.rawNodeWithId(1001))
+      processNode(ChangeAction.Create, dataAfter.rawNodeWithId(1001))
 
       pendingRedesign()
 

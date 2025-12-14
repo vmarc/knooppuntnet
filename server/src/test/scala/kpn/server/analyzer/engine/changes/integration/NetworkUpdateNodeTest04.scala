@@ -76,7 +76,7 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
       assert(watched.nodes.contains(1001))
       assert(watched.nodes.contains(1002))

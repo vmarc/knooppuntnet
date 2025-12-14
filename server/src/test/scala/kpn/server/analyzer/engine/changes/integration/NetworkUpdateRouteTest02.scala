@@ -88,7 +88,7 @@ class NetworkUpdateRouteTest02 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
       assert(watched.routes.contains(11))
 

@@ -3,8 +3,8 @@ package kpn.server.analyzer.engine
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.ChangeSet
-import kpn.api.custom.Change
 import kpn.core.common.TimestampUtil
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newNodeWithName
 import kpn.core.test.TestObjects.newOsmChange
 import kpn.core.test.Timestamps
@@ -30,9 +30,9 @@ class AnalyzerEngineTest extends UnitTest with Stubs {
       case ReplicationId(0, 0, 1) =>
         OsmChange(
           Seq(
-            Change(
+            newChange(
               ChangeAction.Create,
-              Seq(
+              nodes = Seq(
                 newNodeWithName(1001, "01").toRaw
               )
             )
@@ -60,9 +60,9 @@ class AnalyzerEngineTest extends UnitTest with Stubs {
           timestampBefore = TimestampUtil.relativeSeconds(Timestamps.default, -1),
           timestampAfter = TimestampUtil.relativeSeconds(Timestamps.default, 1),
           Seq(
-            Change(
+            newChange(
               ChangeAction.Create,
-              Seq(newNodeWithName(1001, "01").toRaw)
+              nodes = Seq(newNodeWithName(1001, "01").toRaw)
             )
           )
         )

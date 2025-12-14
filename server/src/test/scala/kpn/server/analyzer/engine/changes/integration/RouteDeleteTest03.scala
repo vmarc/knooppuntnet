@@ -62,7 +62,7 @@ class RouteDeleteTest03 extends IntegrationTest {
       assert(watched.routes.contains(11))
       findOrphanNodes() shouldBe empty
 
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
       assert(!watched.nodes.contains(11))
 

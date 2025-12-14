@@ -5,8 +5,8 @@ import kpn.api.common.changes.ChangeAction.Create
 import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.poi.Poi
-import kpn.api.custom.Change
 import kpn.api.custom.Tags
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newPoi
 import kpn.core.test.TestObjects.newRawNode
 import kpn.core.test.TestObjects.newRawRelation
@@ -50,9 +50,9 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change(
+          newChange(
             Create,
-            Seq(
+            nodes = Seq(
               newRawNode(
                 id = 123,
                 latitude = "1",
@@ -102,9 +102,9 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change(
+          newChange(
             Create,
-            Seq(
+            nodes = Seq(
               newRawNode(
                 id = 123,
                 latitude = "1",
@@ -155,9 +155,9 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change(
+          newChange(
             Modify,
-            Seq(
+            nodes = Seq(
               newRawNode(
                 id = 123,
                 latitude = "1",
@@ -213,9 +213,9 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change(
+          newChange(
             Modify,
-            Seq(
+            nodes = Seq(
               newRawNode(
                 id = 123,
                 latitude = "1",
@@ -267,9 +267,9 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change(
+          newChange(
             Delete,
-            Seq(
+            nodes = Seq(
               newRawNode(
                 id = 123,
                 latitude = "1",
@@ -308,9 +308,9 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change(
+          newChange(
             Delete,
-            Seq(
+            nodes = Seq(
               newRawNode(
                 id = 123,
                 latitude = "1",
@@ -349,9 +349,9 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change(
+          newChange(
             Delete,
-            Seq(
+            nodes = Seq(
               newRawNode(
                 id = 123,
                 latitude = "1",
@@ -389,9 +389,9 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change(
+          newChange(
             Modify,
-            Seq(
+            nodes = Seq(
               newRawNode(
                 id = 123,
                 latitude = "1",
@@ -437,9 +437,9 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change(
+          newChange(
             Modify,
-            Seq(
+            nodes = Seq(
               newRawNode(
                 id = 123,
                 latitude = "1",
@@ -489,9 +489,9 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change(
+          newChange(
             Create,
-            Seq(
+            ways = Seq(
               newRawWay(
                 id = 123,
                 tags = Tags.from("shop" -> "bicycle")
@@ -540,9 +540,9 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change(
+          newChange(
             Modify,
-            Seq(
+            ways = Seq(
               newRawWay(
                 id = 123,
                 tags = Tags.from("shop" -> "bicycle")
@@ -590,9 +590,9 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
-          Change(
+          newChange(
             Create,
-            Seq(
+            relations = Seq(
               newRawRelation(
                 id = 123,
                 tags = Tags.from("shop" -> "bicycle")

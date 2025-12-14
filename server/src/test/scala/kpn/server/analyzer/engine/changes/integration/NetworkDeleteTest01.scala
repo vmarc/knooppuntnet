@@ -22,6 +22,7 @@ import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseNetworkDoc
 import kpn.core.test.TestObjects.newBaseNodeDoc
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetSummary
@@ -58,9 +59,14 @@ class NetworkDeleteTest01 extends IntegrationTest {
       assert(watched.nodes.contains(1001))
 
       process(
-        ChangeAction.Delete,
-        newRawNode(1001),
-        newRawRelation(1)
+        newChange(
+          ChangeAction.Delete,
+          nodes = Seq(
+            newRawNode(1001)
+          ),
+          relations = Seq(newRawRelation(1)
+          )
+        )
       )
       assert(!watched.networks.contains(1))
       assert(!watched.nodes.contains(1001))

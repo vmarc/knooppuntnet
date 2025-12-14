@@ -18,11 +18,11 @@ import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.route.RouteDiff
-import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetNetwork
 import kpn.core.test.TestObjects.newChangeSetSummary
@@ -74,16 +74,16 @@ class NetworkCreateTest07 extends IntegrationTest {
 
       process(
         Seq(
-          Change(
+          newChange(
             ChangeAction.Modify,
-            Seq(
+            relations = Seq(
               dataAfter.rawRelationWithId(11)
 
             )
           ),
-          Change(
+          newChange(
             ChangeAction.Create,
-            Seq(
+            relations = Seq(
               dataAfter.rawRelationWithId(1)
             )
           ),
