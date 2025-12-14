@@ -6,4 +6,5 @@ export type RouteType =
   | 'hiking'
   | 'horse-riding'
   | 'inline-skating'
-  | 'motorboat';
+  | 'motorboat'
+  | 'mtb';

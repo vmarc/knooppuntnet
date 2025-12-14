@@ -23,7 +23,8 @@ object RawDataTool {
       val overpassRepository = new OverpassRepositoryImpl(overpassQueryExecutor)
       val repository = new RawDataRepositoryImpl(overpassRepository)
       val tool = new RawDataTool(database, repository)
-      tool.load()
+      tool.loadSingleRoute(301671)
+      // tool.load()
     }
   }
 }
@@ -31,6 +32,12 @@ object RawDataTool {
 class RawDataTool(database: Database, repository: RawDataRepository) {
 
   private val log = Log(classOf[RawDataTool])
+
+  def loadSingleRoute(routeId: Long): Unit = {
+    repository.route(timestamp, routeId) match {
+      case Some(rawRoute) => database.rawRoutes.save(rawRoute)
+    }
+  }
 
   def load(): Unit = {
     loadNodes()
