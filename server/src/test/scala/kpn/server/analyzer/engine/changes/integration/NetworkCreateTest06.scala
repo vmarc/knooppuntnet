@@ -212,11 +212,11 @@ class NetworkCreateTest06 extends IntegrationTest {
         nodeChanges = Seq(
           newRouteNodeChange(
             1001,
-            changeType = ElementChangeType.Removed
+            changeType = ElementChangeType.Added
           ),
           newRouteNodeChange(
             1002,
-            changeType = ElementChangeType.Removed
+            changeType = ElementChangeType.Added
           )
         ),
         happy = true,

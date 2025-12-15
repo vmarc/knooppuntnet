@@ -55,7 +55,10 @@ import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateProcessor
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateTileProcessorImpl
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateWayProcessorImpl
+import kpn.server.analyzer.engine.changes.route.main.RouteChangeCreateProcessor
+import kpn.server.analyzer.engine.changes.route.main.RouteChangeDeleteProcessor
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeProcessor
+import kpn.server.analyzer.engine.changes.route.main.RouteChangeUpdateProcessor
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculator
@@ -165,10 +168,17 @@ class IntegrationTestContext(
     taskRepository
   )
 
+  private val routeChangeCreateProcessor = new RouteChangeCreateProcessor()
+  private val routeChangeUpdateProcessor = new RouteChangeUpdateProcessor()
+  private val routeChangeDeleteProcessor = new RouteChangeDeleteProcessor()
+
   private val routeChangeProcessor: RouteChangeProcessor = new RouteChangeProcessor(
     analysisContext,
     routeMainAnalyzer,
-    routeRepository
+    routeRepository,
+    routeChangeCreateProcessor,
+    routeChangeUpdateProcessor,
+    routeChangeDeleteProcessor
   )
 
   private val nodeChangeAnalyzer = new BaseNodeChangeAnalyzer(
