@@ -38,9 +38,9 @@ class MongoQuerySubRouteData(database: Database) {
       project(
         fields(
           include("_id"),
-          computed("name", "$summary.name"),
-          include("members"),
-          computed("distance", "$summary.meters"),
+          computed("name", "$base.summary.name"),
+          computed("members", "$base.members"),
+          computed("distance", "$base.summary.meters"),
           include("segments"),
         )
       )

@@ -58,58 +58,61 @@ object LocationQuery {
     }
   }
 
-  def surveyFilter(surveyDateInfo: SurveyDateInfo, survey: Option[SurveyParameter]): Option[Bson] = {
+  def surveyFilter(route: Boolean, surveyDateInfo: SurveyDateInfo, survey: Option[SurveyParameter]): Option[Bson] = {
+    val lastSurveyFieldName = if (route) "base.lastSurvey" else "lastSurvey"
     survey.map {
       case SurveyParameter.Unknown => not(equal("labels", "survey"))
       case SurveyParameter.LastMonth =>
         and(
           equal("labels", "survey"),
-          gte("lastSurvey", surveyDateInfo.lastMonthStart.yyyymmdd)
+          gte(lastSurveyFieldName, surveyDateInfo.lastMonthStart.yyyymmdd)
         )
       case SurveyParameter.LastHalfYear =>
         and(
           equal("labels", "survey"),
-          lt("lastSurvey", surveyDateInfo.lastMonthStart.yyyymmdd),
-          gte("lastSurvey", surveyDateInfo.lastHalfYearStart.yyyymmdd)
+          lt(lastSurveyFieldName, surveyDateInfo.lastMonthStart.yyyymmdd),
+          gte(lastSurveyFieldName, surveyDateInfo.lastHalfYearStart.yyyymmdd)
         )
       case SurveyParameter.LastYear =>
         and(
           equal("labels", "survey"),
-          lt("lastSurvey", surveyDateInfo.lastHalfYearStart.yyyymmdd),
-          gte("lastSurvey", surveyDateInfo.lastYearStart.yyyymmdd)
+          lt(lastSurveyFieldName, surveyDateInfo.lastHalfYearStart.yyyymmdd),
+          gte(lastSurveyFieldName, surveyDateInfo.lastYearStart.yyyymmdd)
         )
       case SurveyParameter.LastTwoYears =>
         and(
           equal("labels", "survey"),
-          lt("lastSurvey", surveyDateInfo.lastYearStart.yyyymmdd),
-          gte("lastSurvey", surveyDateInfo.lastTwoYearsStart.yyyymmdd)
+          lt(lastSurveyFieldName, surveyDateInfo.lastYearStart.yyyymmdd),
+          gte(lastSurveyFieldName, surveyDateInfo.lastTwoYearsStart.yyyymmdd)
         )
       case SurveyParameter.Older =>
         and(
           equal("labels", "survey"),
-          lt("lastSurvey", surveyDateInfo.lastTwoYearsStart.yyyymmdd)
+          lt(lastSurveyFieldName, surveyDateInfo.lastTwoYearsStart.yyyymmdd)
         )
     }
   }
 
-  def lastUpdatedFilter(surveyDateInfo: SurveyDateInfo, lastUpdated: Option[LastUpdatedParameter]): Option[Bson] = {
+  def lastUpdatedFilter(route: Boolean, surveyDateInfo: SurveyDateInfo, lastUpdated: Option[LastUpdatedParameter]): Option[Bson] = {
+    val lastUpdatedFieldName = if (route) "base.lastUpdated" else "lastUpdated"
     lastUpdated.map {
       case LastUpdatedParameter.lastWeek =>
-        gte("lastUpdated", surveyDateInfo.lastWeekStart.yyyymmdd)
+        gte(lastUpdatedFieldName, surveyDateInfo.lastWeekStart.yyyymmdd)
       case LastUpdatedParameter.lastYear =>
         and(
-          lt("lastUpdated", surveyDateInfo.lastWeekStart.yyyymmdd),
-          gte("lastUpdated", surveyDateInfo.lastYearStart.yyyymmdd)
+          lt(lastUpdatedFieldName, surveyDateInfo.lastWeekStart.yyyymmdd),
+          gte(lastUpdatedFieldName, surveyDateInfo.lastYearStart.yyyymmdd)
         )
       case LastUpdatedParameter.older =>
-        lt("lastUpdated", surveyDateInfo.lastYearStart.yyyymmdd)
+        lt(lastUpdatedFieldName, surveyDateInfo.lastYearStart.yyyymmdd)
     }
   }
 
-  def proposedFilter(proposed: Option[BooleanParameter]): Option[Bson] = {
+  def proposedFilter(route: Boolean, proposed: Option[BooleanParameter]): Option[Bson] = {
+    val proposedFieldName = if (route) "base.proposed" else "proposed"
     proposed.map {
-      case BooleanParameter.Yes => equal("proposed", true)
-      case BooleanParameter.No => equal("proposed", false)
+      case BooleanParameter.Yes => equal(proposedFieldName, true)
+      case BooleanParameter.No => equal(proposedFieldName, false)
     }
   }
 
@@ -149,7 +152,7 @@ object LocationQuery {
       project(
         fields(
           excludeId(),
-          computed("proposed", BsonDocument.parse("""{ $cond: [ "$proposed", "yes", "no" ]}"""))
+          computed("proposed", BsonDocument.parse("""{ $cond: [ "$base.proposed", "yes", "no" ]}"""))
         )
       ),
       group(
@@ -167,11 +170,11 @@ object LocationQuery {
          |    $$switch: {
          |      branches: [
          |        {
-         |          case: {$$gte: ["$$lastUpdated", "${surveyDateInfo.lastWeekStart.yyyymmdd}"]},
+         |          case: {$$gte: ["$$base.lastUpdated", "${surveyDateInfo.lastWeekStart.yyyymmdd}"]},
          |          then: "1-lastWeek"
          |        },
          |        {
-         |          case: {$$gte: ["$$lastUpdated", "${surveyDateInfo.lastYearStart.yyyymmdd}"]},
+         |          case: {$$gte: ["$$base.lastUpdated", "${surveyDateInfo.lastYearStart.yyyymmdd}"]},
          |          then: "2-lastYear"
          |        },
          |      ],
@@ -208,23 +211,23 @@ object LocationQuery {
          |    $$switch: {
          |      branches: [
          |        {
-         |          case: {$$not: ["$$lastSurvey"]},
+         |          case: {$$not: ["$$base.lastSurvey"]},
          |          then: "0-unknown"
          |        },
          |        {
-         |          case: {$$gte: ["$$lastSurvey", "${surveyDateInfo.lastMonthStart.yyyymmdd}"]},
+         |          case: {$$gte: ["$$base.lastSurvey", "${surveyDateInfo.lastMonthStart.yyyymmdd}"]},
          |          then: "1-lastMonth"
          |        },
          |        {
-         |          case: {$$gte: ["$$lastSurvey", "${surveyDateInfo.lastHalfYearStart.yyyymmdd}"]},
+         |          case: {$$gte: ["$$base.lastSurvey", "${surveyDateInfo.lastHalfYearStart.yyyymmdd}"]},
          |          then: "2-lastHalfYear"
          |        },
          |        {
-         |          case: {$$gte: ["$$lastSurvey", "${surveyDateInfo.lastYearStart.yyyymmdd}"]},
+         |          case: {$$gte: ["$$base.lastSurvey", "${surveyDateInfo.lastYearStart.yyyymmdd}"]},
          |          then: "3-lastYear"
          |        },
          |        {
-         |          case: {$$gte: ["$$lastSurvey", "${surveyDateInfo.lastTwoYearsStart.yyyymmdd}"]},
+         |          case: {$$gte: ["$$base.lastSurvey", "${surveyDateInfo.lastTwoYearsStart.yyyymmdd}"]},
          |          then: "4-lastTwoYears"
          |        },
          |      ],

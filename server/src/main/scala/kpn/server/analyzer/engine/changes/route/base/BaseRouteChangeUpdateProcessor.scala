@@ -83,8 +83,8 @@ class BaseRouteChangeUpdateProcessor(
       val updatedChangeSetContext1 = baseRouteChangeUpdateTileProcessor.process(changeSetContext, context)
       val updatedChangeSetContext2 = processWayUpdates(updatedChangeSetContext1, beforeOption, baseRouteDoc)
 
-      val beforeNodeIds = beforeOption.toSeq.flatMap(_.nodes.nodeIds).toSet
-      val afterNodeIds = baseRouteDoc.nodes.nodeIds.toSet
+      val beforeNodeIds = beforeOption.toSeq.flatMap(_.base.nodes.nodeIds).toSet
+      val afterNodeIds = baseRouteDoc.base.nodes.nodeIds.toSet
       val addedNodeIds = afterNodeIds -- beforeNodeIds
       val removedNodeIds = beforeNodeIds -- afterNodeIds
       val impactedNodeIds = (addedNodeIds ++ removedNodeIds).toSeq.sorted

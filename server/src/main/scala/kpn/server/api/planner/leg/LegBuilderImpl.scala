@@ -117,7 +117,7 @@ class LegBuilderImpl(
     val routeIds = params.routeIds
     val routeDocs = routeIds.flatMap { routeId =>
       routeRepository.findBaseRouteById(routeId) match {
-        case Some(routeDoc) => Some(routeDoc.id -> routeDoc)
+        case Some(routeDoc) => Some(routeDoc._id -> routeDoc)
         case None =>
           log.error(s"via-route $routeId not found")
           None
@@ -195,7 +195,7 @@ class LegBuilderImpl(
           else {
             graphPathSegment.pathKey.pathId - 100
           }
-          val colour = route.summary.tagValue("colour")
+          val colour = route.base.summary.tagValue("colour")
           route.paths.find(_.id == pathId).flatMap { baseRoutePath =>
             trackPathToPlanRoute(route, baseRoutePath, colour).map { planRoute =>
               if (graphPathSegment.pathKey.pathId > 100) {
@@ -270,7 +270,7 @@ class LegBuilderImpl(
       }
     }
 
-    routeDoc.nodes.nodeWithId(startNodeId) match {
+    routeDoc.base.nodes.nodeWithId(startNodeId) match {
       case Some(sourceRouteNetworkNodeInfo) =>
         val sourceNodeId = sourceRouteNetworkNodeInfo.nodeId.toString
         val sourceNodeName = sourceRouteNetworkNodeInfo.name
@@ -288,7 +288,7 @@ class LegBuilderImpl(
           sourceLatLon
         )
 
-        routeDoc.nodes.nodeWithId(endNodeId) match {
+        routeDoc.base.nodes.nodeWithId(endNodeId) match {
 
           case Some(sinkRouteNetworkNodeInfo) =>
             val sinkNodeId = sinkRouteNetworkNodeInfo.nodeId.toString
@@ -318,12 +318,12 @@ class LegBuilderImpl(
             )
 
           case None =>
-            log.error(s"route ${routeDoc.id} source node $startNodeId not found")
+            log.error(s"route ${routeDoc._id} source node $startNodeId not found")
             None
         }
 
       case None =>
-        log.error(s"route ${routeDoc.id} sink node $endNodeId not found")
+        log.error(s"route ${routeDoc._id} sink node $endNodeId not found")
         None
     }
   }

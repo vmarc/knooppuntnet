@@ -7,9 +7,9 @@ import kpn.core.planner.graph.GraphEdge
 import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.core.test.TestObjects.legEndRoute
 import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteInfoAnalysis
 import kpn.core.test.TestObjects.newRouteNetworkNodeInfo
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
 import org.scalamock.stubs.Stubs
@@ -60,36 +60,36 @@ class GraphTestData extends Stubs {
   private def routeDoc(legEndRoute: LegEndRoute, startNode: RouteNetworkNodeInfo, endNode: RouteNetworkNodeInfo): BaseRouteDoc = {
     pending
     newBaseRouteDoc(
-      summary = newRouteSummary(
-        id = legEndRoute.trackPathKeys.head.routeId
-      ),
-      analysis = newRouteInfoAnalysis(
-        // TODO redesign
-        //  map = RouteMap(
-        //    startNodes = Seq(startNode),
-        //    endNodes = Seq(endNode),
-        //    forwardPath = Some(
-        //      TrackPath(
-        //        pathId = legEndRoute.trackPathKeys.head.pathId,
-        //        startNodeId = startNode.id,
-        //        endNodeId = endNode.id,
-        //        meters = 0,
-        //        oneWay = false,
-        //        segments = Seq(
-        //          TrackSegment(
-        //            surface = "unpaved",
-        //            source = TrackPoint(startNode.lat, startNode.lon),
-        //            fragments = Seq(
-        //              TrackSegmentFragment(
-        //                trackPoint = TrackPoint(endNode.lat, endNode.lon),
-        //                meters = 0
-        //              )
-        //            )
-        //          )
-        //        )
-        //      )
-        //    )
-        //  )
+      legEndRoute.trackPathKeys.head.routeId,
+      base = newRouteBaseData(
+        analysis = newRouteInfoAnalysis(
+          // TODO redesign
+          //  map = RouteMap(
+          //    startNodes = Seq(startNode),
+          //    endNodes = Seq(endNode),
+          //    forwardPath = Some(
+          //      TrackPath(
+          //        pathId = legEndRoute.trackPathKeys.head.pathId,
+          //        startNodeId = startNode.id,
+          //        endNodeId = endNode.id,
+          //        meters = 0,
+          //        oneWay = false,
+          //        segments = Seq(
+          //          TrackSegment(
+          //            surface = "unpaved",
+          //            source = TrackPoint(startNode.lat, startNode.lon),
+          //            fragments = Seq(
+          //              TrackSegmentFragment(
+          //                trackPoint = TrackPoint(endNode.lat, endNode.lon),
+          //                meters = 0
+          //              )
+          //            )
+          //          )
+          //        )
+          //      )
+          //    )
+          //  )
+        )
       )
     )
   }

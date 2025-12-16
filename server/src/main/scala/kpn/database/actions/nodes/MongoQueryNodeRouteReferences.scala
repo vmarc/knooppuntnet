@@ -34,25 +34,25 @@ class MongoQueryNodeRouteReferences(database: Database) {
       filter(
         and(
           equal("active", true),
-          in("networkNodeIds", nodeIds *),
+          in("base.networkNodeIds", nodeIds *),
         )
       ),
-      unwind("$networkNodeIds"),
+      unwind("$base.networkNodeIds"),
       filter(
         and(
-          in("networkNodeIds", nodeIds *),
+          in("base.networkNodeIds", nodeIds *),
         )
       ),
-      unwind("$summary.routeTypes"),
-      unwind("$summary.scopes"),
+      unwind("$base.summary.routeTypes"),
+      unwind("$base.summary.scopes"),
       project(
         fields(
           excludeId(),
-          computed("nodeId", "$networkNodeIds"),
-          computed("routeId", "$summary.id"),
-          computed("routeType", "$summary.routeTypes"),
-          computed("routeScope", "$summary.scopes"),
-          computed("routeName", "$summary.name"),
+          computed("nodeId", "$base.networkNodeIds"),
+          computed("routeId", "$_id"),
+          computed("routeType", "$base.summary.routeTypes"),
+          computed("routeScope", "$base.summary.scopes"),
+          computed("routeName", "$base.summary.name"),
           // TODO redesign - include role
         )
       )

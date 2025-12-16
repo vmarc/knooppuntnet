@@ -9,7 +9,6 @@ import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -34,13 +33,11 @@ class RouteChangeProcessorTest extends UnitTest with Stubs {
     (routeRepository.findRouteById _).returnsWith(None)
     (routeRepository.findBaseRouteById _).returnsWith(
       Some(
-        newBaseRouteDoc(
-          newRouteSummary(1),
-        )
+        newBaseRouteDoc(1)
       )
     )
     (routeMainAnalyzer.analyze _).returnsWith(
-      Some(newRouteDoc(newRouteSummary(1)))
+      Some(newRouteDoc())
     )
 
     val routeChange = newRouteChange(

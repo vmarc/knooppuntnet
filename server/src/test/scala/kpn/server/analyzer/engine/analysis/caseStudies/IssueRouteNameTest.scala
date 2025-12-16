@@ -7,7 +7,7 @@ class IssueRouteNameTest extends UnitTest {
 
   test("note") {
     val route = CaseStudy.baseRouteDoc("14755555")
-    route.summary.name should equal("Chemin de la Grive")
+    route.base.summary.name should equal("Chemin de la Grive")
     assertEqual(
       route.facts,
       Seq(Fact.RouteNodeNameMismatch)

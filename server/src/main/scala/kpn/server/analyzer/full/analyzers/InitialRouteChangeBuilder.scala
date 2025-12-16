@@ -21,27 +21,27 @@ class InitialRouteChangeBuilder(
 
   def saveRouteChange(changeSetContext: ChangeSetContext, routeDoc: RouteDoc): Unit = {
 
-    val key = changeSetContext.buildChangeKey(routeDoc.id)
+    val key = changeSetContext.buildChangeKey(routeDoc._id)
     val facts = routeDoc.facts
     val locationFacts = facts.filter(Facts.locationFacts.contains)
     val routeData = RouteData(
-      routeDoc.summary.id,
+      routeDoc._id,
       MetaData(
-        routeDoc.version,
-        routeDoc.lastUpdated,
-        routeDoc.changeSetId
+        routeDoc.base.version,
+        routeDoc.base.lastUpdated,
+        routeDoc.base.changeSetId
       ),
-      routeDoc.summary.countries.toSeq,
-      routeDoc.summary.routeTypes,
-      routeDoc.summary.name: String,
-      routeDoc.nodes.nodes,
+      routeDoc.base.summary.countries.toSeq,
+      routeDoc.base.summary.routeTypes,
+      routeDoc.base.summary.name: String,
+      routeDoc.base.nodes.nodes,
       routeDoc.facts,
-      routeDoc.summary.meters,
-      routeDoc.locationAnalysis,
-      routeDoc.summary.tags
+      routeDoc.base.summary.meters,
+      routeDoc.base.locationAnalysis,
+      routeDoc.base.summary.tags
     )
 
-    val nodeChanges = routeDoc.nodes.nodes.map { node =>
+    val nodeChanges = routeDoc.base.nodes.nodes.map { node =>
       RouteNodeChange(
         node.nodeId,
         node.latitude,
@@ -55,8 +55,8 @@ class InitialRouteChangeBuilder(
         _id = key.toId,
         key = key,
         changeType = ChangeType.InitialValue,
-        name = routeDoc.summary.name,
-        locationAnalysis = routeDoc.locationAnalysis,
+        name = routeDoc.base.summary.name,
+        locationAnalysis = routeDoc.base.locationAnalysis,
         addedToNetwork = Seq.empty,
         removedFromNetwork = Seq.empty,
         before = None,

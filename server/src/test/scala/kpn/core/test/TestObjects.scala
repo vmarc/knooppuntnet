@@ -102,6 +102,7 @@ import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkRouteDetail
 import kpn.core.doc.NodeDoc
+import kpn.core.doc.RouteBaseData
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.doc.SuperSegment
@@ -625,7 +626,6 @@ object TestObjects {
   }
 
   def newRouteSummary(
-    id: Long,
     countries: Seq[Country] = Seq.empty,
     nodeNetwork: Boolean = true,
     routeTypes: Seq[RouteType] = Seq(RouteType.hiking),
@@ -639,7 +639,6 @@ object TestObjects {
     tags: Seq[Tag] = Seq.empty
   ): RouteSummary = {
     RouteSummary(
-      id,
       countries,
       nodeNetwork,
       routeTypes,
@@ -903,126 +902,110 @@ object TestObjects {
     )
   }
 
-  def newRouteDoc(
-    summary: RouteSummary,
-    active: Boolean = true,
-    labels: Seq[String] = Seq.empty,
+  def newRouteBaseData(
+    summary: RouteSummary = newRouteSummary(),
     proposed: Boolean = false,
     version: Int = 0,
     changeSetId: Long = 1,
     lastUpdated: Timestamp = Timestamps.default,
     lastSurvey: Option[Day] = None,
-    facts: Seq[Fact] = Seq.empty,
     unexpectedNodeIds: Seq[Long] = Seq.empty,
-    unexpectedRelationIds: Seq[Long] = Seq.empty,
     members: Seq[RouteMemberInfo] = Seq.empty,
     nameDerivedFromNodes: Boolean = false,
     nodes: RouteNodes = RouteNodes(),
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
+    networkNodeIds: Option[Seq[Long]] = None,
+    edges: Seq[RouteEdge] = Seq.empty,
+  ): RouteBaseData = {
+    RouteBaseData(
+      summary,
+      proposed,
+      version,
+      changeSetId,
+      lastUpdated,
+      lastSurvey,
+      unexpectedNodeIds,
+      members,
+      nameDerivedFromNodes,
+      nodes,
+      analysis,
+      locationAnalysis,
+      networkNodeIds,
+      edges
+    )
+  }
+
+  def newRouteDoc(
+    _id: Long = 1,
+    active: Boolean = true,
+    labels: Seq[String] = Seq.empty,
+    base: RouteBaseData = newRouteBaseData(),
+    facts: Seq[Fact] = Seq.empty,
+    unexpectedRelationIds: Seq[Long] = Seq.empty,
     segments: Seq[RouteSegment] = Seq.empty,
     superDistance: Long = 0,
     superSegments: Seq[SuperSegment] = Seq.empty,
     paths: Seq[RoutePath] = Seq.empty,
-    networkNodeIds: Option[Seq[Long]] = None,
     routeIds: Seq[Long] = Seq.empty,
-    bounds: Option[Bounds] = None,
     structureRows: Seq[RouteStructureRow] = Seq.empty,
     relationCount: Long = 0,
     relationLevels: Long = 0,
     parentRoutes: Seq[ParentRoute] = Seq.empty,
     networkReferences: Seq[Reference] = Seq.empty,
-    edges: Seq[RouteEdge] = Seq.empty,
+    bounds: Option[Bounds] = None,
   ): RouteDoc = {
     RouteDoc(
-      summary.id,
+      _id,
       active,
       labels,
-      summary,
-      proposed,
-      version,
-      changeSetId,
-      lastUpdated,
-      lastSurvey,
+      base,
       facts,
-      unexpectedNodeIds,
       unexpectedRelationIds,
-      members,
-      nameDerivedFromNodes,
-      nodes,
-      analysis,
-      locationAnalysis,
       segments,
       superDistance,
       superSegments,
       paths,
-      networkNodeIds,
       routeIds,
-      bounds,
       structureRows,
       relationCount,
       relationLevels,
       parentRoutes,
       networkReferences,
-      edges,
+      bounds,
       None,
     )
   }
 
   def newBaseRouteDoc(
-    summary: RouteSummary,
+    _id: Long,
     active: Boolean = true,
-    proposed: Boolean = false,
-    version: Int = 0,
-    changeSetId: Long = 1,
-    lastUpdated: Timestamp = Timestamps.default,
-    lastSurvey: Option[Day] = None,
+    base: RouteBaseData = newRouteBaseData(),
     facts: Seq[Fact] = Seq.empty,
-    unexpectedNodeIds: Seq[Long] = Seq.empty,
-    members: Seq[RouteMemberInfo] = Seq.empty,
-    nameDerivedFromNodes: Boolean = false,
-    nodes: RouteNodes = RouteNodes(),
-    analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     geometryDigest: String = "",
-    locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
-    networkNodeIds: Option[Seq[Long]] = None,
     elementIds: ElementIds = ElementIds(),
-    edges: Seq[RouteEdge] = Seq.empty,
     segments: Seq[BaseRouteSegment] = Seq.empty,
     segmentElements: Seq[BaseRouteSegmentElement] = Seq.empty,
     paths: Seq[BaseRoutePath] = Seq.empty,
     relation: Option[Relation] = None,
     subRelationTree: Option[RouteRelation] = None,
-    bounds: Option[Bounds] = None,
-    subRouteIds: Seq[Long] = Seq.empty
+    subRouteIds: Seq[Long] = Seq.empty,
+    bounds: Option[Bounds] = None
   ): BaseRouteDoc = {
     BaseRouteDoc(
-      summary.id,
+      _id,
       active,
-      summary,
-      proposed,
-      version,
-      changeSetId,
-      lastUpdated,
-      lastSurvey,
+      base,
       facts,
-      unexpectedNodeIds,
-      members,
-      nameDerivedFromNodes,
-      nodes,
-      analysis,
       geometryDigest,
-      locationAnalysis,
-      networkNodeIds,
       elementIds,
-      edges,
       segments,
       segmentElements,
       paths,
       relation,
       subRelationTree,
-      bounds,
-      subRouteIds
+      subRouteIds,
+      bounds
     )
   }
 

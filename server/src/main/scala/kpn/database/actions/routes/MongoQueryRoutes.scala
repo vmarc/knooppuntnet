@@ -41,14 +41,14 @@ class MongoQueryRoutes(database: Database) {
       sort(
         orderBy(
           ascending(
-            "summary.name",
+            "base.summary.name",
           )
         )
       ),
       project(
         fields(
           include("_id"),
-          computed("tags", "$summary.tags")
+          computed("tags", "$base.summary.tags")
         )
       )
     )

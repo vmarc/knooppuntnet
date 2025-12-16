@@ -4,12 +4,13 @@ import kpn.api.common.Fact
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteSummary
 import kpn.api.common.data.Element
-import kpn.api.common.data.MemberType.Relation
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.Facts
 import kpn.core.doc.BaseRouteDoc
+import kpn.core.doc.RouteBaseData
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import org.springframework.stereotype.Component
 
@@ -43,7 +44,6 @@ class BaseRouteDocBuilder {
     val lastUpdated: Timestamp = lastUpdatedElement.timestamp
 
     val summary = RouteSummary(
-      context.relation.id,
       context.countries,
       context.nodeNetwork,
       context.routeTypes,
@@ -59,7 +59,7 @@ class BaseRouteDocBuilder {
 
     val subRelationIds = context.routeMembers.flatMap { member =>
       member.memberType match {
-        case Relation => Some(member.id)
+        case MemberType.Relation => Some(member.id)
         case _ => None
       }
     }
@@ -73,32 +73,34 @@ class BaseRouteDocBuilder {
     }
 
     BaseRouteDoc(
-      summary.id,
+      context.relation.id,
       active = true,
-      summary,
-      proposed = context.proposed,
-      context.relation.version,
-      context.relation.changeSetId,
-      lastUpdated,
-      context.lastSurvey,
-      context.facts,
-      context.unexpectedNodeIds,
-      members,
-      nameDerivedFromNodes,
-      context.routeNodesAnalysis.toRouteNodes,
-      routeAnalysis,
+      base = RouteBaseData(
+        summary = summary,
+        proposed = context.proposed,
+        version = context.relation.version,
+        changeSetId = context.relation.changeSetId,
+        lastUpdated = lastUpdated,
+        lastSurvey = context.lastSurvey,
+        unexpectedNodeIds = context.unexpectedNodeIds,
+        members = members,
+        nameDerivedFromNodes = nameDerivedFromNodes,
+        nodes = context.routeNodesAnalysis.toRouteNodes,
+        analysis = routeAnalysis,
+        locationAnalysis = context._locationAnalysis.get,
+        networkNodeIds = networkNodeIds,
+        edges = context.edges,
+      ),
+      facts = context.facts,
       context.geometryDigest,
-      context._locationAnalysis.get,
-      networkNodeIds,
       context.elementIds,
-      context.edges,
       context.segments,
       context.segmentElements,
       context.paths,
       Some(context.relation),
       context.subRelationTree,
+      subRelationIds,
       context.bounds,
-      subRelationIds
     )
   }
 }

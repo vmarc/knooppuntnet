@@ -16,7 +16,7 @@ case class CompareEdge(
 
 class CompareEdges(oldRouteDoc: OldRouteDoc, newRouteDoc: BaseRouteDoc, log: Log) {
   def compare(): Unit = {
-    if (oldRouteDoc.facts.nonEmpty && newRouteDoc.facts.isEmpty && newRouteDoc.edges.nonEmpty) {
+    if (oldRouteDoc.facts.nonEmpty && newRouteDoc.facts.isEmpty && newRouteDoc.base.edges.nonEmpty) {
       // new analysis without problem found edges, old analysis failed: assume new edges better than old
       return
     }
@@ -24,7 +24,7 @@ class CompareEdges(oldRouteDoc: OldRouteDoc, newRouteDoc: BaseRouteDoc, log: Log
       // cannot compare edges
       return
     }
-    if (oldRouteDoc.edges.isEmpty && newRouteDoc.edges.nonEmpty) {
+    if (oldRouteDoc.edges.isEmpty && newRouteDoc.base.edges.nonEmpty) {
       // new analysis found edges: assume new edges better than old
       return
     }
@@ -34,7 +34,7 @@ class CompareEdges(oldRouteDoc: OldRouteDoc, newRouteDoc: BaseRouteDoc, log: Log
     if (!edgesEqual(oldEdges, newEdges)) {
       val detail = Seq(
         oldRouteDoc.edges.map(edge => s"old-edge $edge"),
-        newRouteDoc.edges.map(edge => s"new-edge $edge"),
+        newRouteDoc.base.edges.map(edge => s"new-edge $edge"),
         oldEdges.map(edge => s"old-edge $edge"),
         newEdges.map(edge => s"new-edge $edge"),
       ).flatten.mkString("\n")
@@ -43,7 +43,7 @@ class CompareEdges(oldRouteDoc: OldRouteDoc, newRouteDoc: BaseRouteDoc, log: Log
   }
 
   private def newCompareEdges(): Seq[CompareEdge] = {
-    sort(newRouteDoc.edges.map(toCompareEdge))
+    sort(newRouteDoc.base.edges.map(toCompareEdge))
   }
 
   private def oldCompareEdges(): Seq[CompareEdge] = {

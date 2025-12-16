@@ -355,6 +355,7 @@ import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RawNetworkDoc
 import kpn.core.doc.RawNodeDoc
 import kpn.core.doc.RawRouteDoc
+import kpn.core.doc.RouteBaseData
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.doc.SubRouteData
@@ -424,11 +425,14 @@ import kpn.server.analyzer.engine.analysis.location.LocationTree
 import kpn.server.analyzer.engine.analysis.route.domain.RoutePathDirection
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
+import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.data.BlacklistEntry
+import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeContext
+import kpn.server.analyzer.engine.context.ChangeElementIds
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
@@ -468,6 +472,7 @@ import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.DayCodec
 import kpn.tools.code.codecs.LongSetCodec
 import kpn.tools.code.codecs.PoeTranslationsCodec
+import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import kpn.tools.code.codecs.TranslationsCodec
@@ -727,6 +732,9 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[RouteDoc]) {
       return new RouteDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[RouteBaseData]) {
+      return new RouteBaseDataCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[Task]) {
       return new TaskCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
@@ -841,6 +849,9 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[Transaction]) {
       return new TransactionCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[ChangeElementIds]) {
+      return new ChangeElementIdsCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[ElementIds]) {
       return new ElementIdsCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
@@ -865,8 +876,14 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[ReferencedElementIds]) {
       return new ReferencedElementIdsCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[ChangeSetContext]) {
+      return new ChangeSetContextCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[BlacklistEntry]) {
       return new BlacklistEntryCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[ChangeSetChanges]) {
+      return new ChangeSetChangesCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[Blacklist]) {
       return new BlacklistCodec(codecRegistry).asInstanceOf[Codec[T]]

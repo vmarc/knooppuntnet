@@ -130,16 +130,16 @@ class StatisticsUpdater(
       filter(
         and(
           equal("active", true),
-          exists("summary.countries.0")
+          exists("base.summary.countries.0")
         )
       ),
-      unwind("$summary.countries"),
-      unwind("$summary.routeTypes"),
+      unwind("$base.summary.countries"),
+      unwind("$base.summary.routeTypes"),
       group(
         new Document(
           java.util.Map.of(
-            "country", "$summary.countries",
-            "routeType", "$summary.routeTypes"
+            "country", "$base.summary.countries",
+            "routeType", "$base.summary.routeTypes"
           )
         ),
         sum("value", 1)
@@ -156,13 +156,13 @@ class StatisticsUpdater(
           arrayEmpty("networkReferences"),
         )
       ),
-      unwind("$summary.routeTypes"),
-      unwind("$summary.countries"),
+      unwind("$base.summary.routeTypes"),
+      unwind("$base.summary.countries"),
       group(
         new Document(
           java.util.Map.of(
-            "country", "$summary.countries",
-            "routeType", "$summary.routeTypes"
+            "country", "$base.summary.countries",
+            "routeType", "$base.summary.routeTypes"
           )
         ),
         sum("value", 1)
@@ -217,18 +217,18 @@ class StatisticsUpdater(
       filter(
         and(
           equal("active", true),
-          exists("summary.countries.0"),
+          exists("base.summary.countries.0"),
           exists("facts")
         )
       ),
       unwind("$facts"),
-      unwind("$summary.countries"),
-      unwind("$summary.routeTypes"),
+      unwind("$base.summary.countries"),
+      unwind("$base.summary.routeTypes"),
       group(
         new Document(
           java.util.Map.of(
-            "country", "$summary.countries",
-            "routeType", "$summary.routeTypes",
+            "country", "$base.summary.countries",
+            "routeType", "$base.summary.routeTypes",
             "factName", "$facts"
           )
         ),
@@ -433,19 +433,19 @@ class StatisticsUpdater(
       filter(
         and(
           equal("active", true),
-          exists("summary.countries.0")
+          exists("base.summary.countries.0")
         )
       ),
-      unwind("$summary.countries"),
-      unwind("$summary.routeTypes"),
+      unwind("$base.summary.countries"),
+      unwind("$base.summary.routeTypes"),
       group(
         new Document(
           java.util.Map.of(
-            "country", "$summary.countries",
-            "routeType", "$summary.routeTypes"
+            "country", "$base.summary.countries",
+            "routeType", "$base.summary.routeTypes"
           )
         ),
-        sum("value", "$summary.meters")
+        sum("value", "$base.summary.meters")
       ),
       project(
         fields(
@@ -567,12 +567,12 @@ class StatisticsUpdater(
       filter(
         and(
           equal("active", true),
-          exists("summary.countries.0")
+          exists("base.summary.countries.0")
         )
       ),
       unwind("$facts"),
-      unwind("$summary.countries"),
-      unwind("$summary.routeTypes"),
+      unwind("$base.summary.countries"),
+      unwind("$base.summary.routeTypes"),
       filter(
         and(
           notEqual("facts", "RouteBroken"),
@@ -583,8 +583,8 @@ class StatisticsUpdater(
       group(
         new Document(
           java.util.Map.of(
-            "country", "$summary.countries",
-            "routeType", "$summary.routeTypes"
+            "country", "$base.summary.countries",
+            "routeType", "$base.summary.routeTypes"
           )
         ),
         sum("factCount", 1)

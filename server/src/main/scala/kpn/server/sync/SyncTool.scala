@@ -52,7 +52,7 @@ class SyncTool(sourceDatabase: Database, targetDatabase: Database) {
           sourceDatabase.routes.findById(routeId) match {
             case None => log.warn("RouteDoc not found")
             case Some(routeDoc) =>
-              if (routeDoc.networkNodeIds.isDefined) {
+              if (routeDoc.base.networkNodeIds.isDefined) {
                 sourceDatabase.transactions.save(
                   Transaction.update(
                     "routes",

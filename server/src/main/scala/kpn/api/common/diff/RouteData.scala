@@ -18,20 +18,20 @@ object RouteData {
 
   def from(routeDoc: RouteDoc): RouteData = {
     RouteData(
-      relationId = routeDoc.id,
+      relationId = routeDoc._id,
       meta = MetaData(
-        version = routeDoc.version,
-        timestamp = routeDoc.lastUpdated,
-        changeSetId = routeDoc.changeSetId
+        version = routeDoc.base.version,
+        timestamp = routeDoc.base.lastUpdated,
+        changeSetId = routeDoc.base.changeSetId
       ),
-      countries = routeDoc.summary.countries,
-      routeTypes = routeDoc.summary.routeTypes,
-      name = routeDoc.summary.name,
-      networkNodes = routeDoc.nodes.nodes,
+      countries = routeDoc.base.summary.countries,
+      routeTypes = routeDoc.base.summary.routeTypes,
+      name = routeDoc.base.summary.name,
+      networkNodes = routeDoc.base.nodes.nodes,
       facts = routeDoc.facts,
-      meters = routeDoc.summary.meters,
-      locationAnalysis = routeDoc.locationAnalysis,
-      tags = routeDoc.summary.tags
+      meters = routeDoc.base.summary.meters,
+      locationAnalysis = routeDoc.base.locationAnalysis,
+      tags = routeDoc.base.summary.tags
     )
   }
 

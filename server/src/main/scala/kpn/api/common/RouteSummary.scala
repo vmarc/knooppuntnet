@@ -5,7 +5,6 @@ import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class RouteSummary(
-  id: Long,
   countries: Seq[Country],
   nodeNetwork: Boolean,
   routeTypes: Seq[RouteType],

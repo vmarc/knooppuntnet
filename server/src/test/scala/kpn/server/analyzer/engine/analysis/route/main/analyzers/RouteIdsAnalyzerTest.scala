@@ -4,9 +4,9 @@ import kpn.api.common.Fact.RouteUnexpectedRelation
 import kpn.api.common.data.MemberType
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteMemberInfo
 import kpn.core.test.TestObjects.newRouteRelation
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteRepositoryImpl
 
@@ -18,7 +18,7 @@ class RouteIdsAnalyzerTest extends MongoTest {
     val baseRouteRepository = new RouteRepositoryImpl(database)
     val routeIdsAnalyzer = new RouteIdsAnalyzer(baseRouteRepository)
 
-    val baseRouteDoc = newBaseRouteDoc(newRouteSummary(11L))
+    val baseRouteDoc = newBaseRouteDoc(11L)
     baseRouteRepository.saveBaseRoute(baseRouteDoc)
 
     // execute
@@ -38,7 +38,7 @@ class RouteIdsAnalyzerTest extends MongoTest {
     val routeIdsAnalyzer = new RouteIdsAnalyzer(baseRouteRepository)
 
     val baseRouteDoc = newBaseRouteDoc(
-      newRouteSummary(11L),
+      11L,
       subRelationTree = Some(
         newRouteRelation(
           1,
@@ -56,10 +56,10 @@ class RouteIdsAnalyzerTest extends MongoTest {
     )
 
     baseRouteRepository.saveBaseRoute(baseRouteDoc)
-    baseRouteRepository.saveBaseRoute(newBaseRouteDoc(newRouteSummary(1L)))
-    baseRouteRepository.saveBaseRoute(newBaseRouteDoc(newRouteSummary(2L)))
-    baseRouteRepository.saveBaseRoute(newBaseRouteDoc(newRouteSummary(3L)))
-    baseRouteRepository.saveBaseRoute(newBaseRouteDoc(newRouteSummary(4L)))
+    baseRouteRepository.saveBaseRoute(newBaseRouteDoc(1L))
+    baseRouteRepository.saveBaseRoute(newBaseRouteDoc(2L))
+    baseRouteRepository.saveBaseRoute(newBaseRouteDoc(3L))
+    baseRouteRepository.saveBaseRoute(newBaseRouteDoc(4L))
 
     // execute
     val context = routeIdsAnalyzer.analyze(RouteAnalysisContext(baseRouteDoc))
@@ -84,9 +84,11 @@ class RouteIdsAnalyzerTest extends MongoTest {
     val routeIdsAnalyzer = new RouteIdsAnalyzer(baseRouteRepository)
 
     val baseRouteDoc = newBaseRouteDoc(
-      newRouteSummary(11L),
-      members = Seq(
-        newRouteMemberInfo(13, MemberType.Relation)
+      11L,
+      base = newRouteBaseData(
+        members = Seq(
+          newRouteMemberInfo(13, MemberType.Relation)
+        )
       )
     )
 

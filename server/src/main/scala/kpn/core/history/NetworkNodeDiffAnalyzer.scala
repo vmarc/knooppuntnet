@@ -45,8 +45,8 @@ class NetworkNodeDiffAnalyzer(routeType: RouteType, before: NetworkNodeInfo, aft
   }
 
   private def routeReferenceDiffs: Option[NodeRouteReferenceDiffs] = {
-    val beforeRouteIds = before.referencedInRoutes.map(_.id).toSet
-    val afterRouteIds = after.referencedInRoutes.map(_.id).toSet
+    val beforeRouteIds = before.referencedInRoutes.map(_._id).toSet
+    val afterRouteIds = after.referencedInRoutes.map(_._id).toSet
 
     Option.when(beforeRouteIds != afterRouteIds) {
       val removedIds = beforeRouteIds -- afterRouteIds
@@ -62,7 +62,7 @@ class NetworkNodeDiffAnalyzer(routeType: RouteType, before: NetworkNodeInfo, aft
   }
 
   private def routeRefs(routes: Seq[RouteDoc], ids: Set[Long]): Seq[Ref] = {
-    routes.filter(route => ids.contains(route.id)).map(route => Ref(route.id, route.summary.name))
+    routes.filter(route => ids.contains(route._id)).map(_.toRef)
   }
 
   private def tagDiffs: Option[TagDiffs] = {

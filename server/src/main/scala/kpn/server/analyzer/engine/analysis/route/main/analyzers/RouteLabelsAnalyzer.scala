@@ -29,28 +29,28 @@ class RouteLabelsAnalyzer(context: RouteAnalysisContext) {
 
   private def buildBasicLabels(): Seq[String] = {
     Seq(
-      if (context.route.lastSurvey.isDefined) Some(Label.survey) else None,
-      if (context.route.facts.nonEmpty) Some(Label.facts) else None,
-      if (context.route.facts.contains(Fact.RouteBroken)) Some("broken") else None,
+      if (context.route.base.lastSurvey.isDefined) Some(Label.survey) else None,
+      if (context.facts.nonEmpty) Some(Label.facts) else None,
+      if (context.facts.contains(Fact.RouteBroken)) Some("broken") else None,
     ).flatten
   }
 
   private def buildFactLabels(): Seq[String] = {
-    context.route.facts.map(fact => Label.fact(fact))
+    context.facts.map(fact => Label.fact(fact))
   }
 
   private def buildRouteTypeLabels(): Seq[String] = {
-    context.route.summary.routeTypes.map(Label.routeType)
+    context.route.base.summary.routeTypes.map(Label.routeType)
   }
 
   private def buildScopeLabels(): Seq[String] = {
-    context.route.summary.scopes.map(Label.scope)
+    context.route.base.summary.scopes.map(Label.scope)
   }
 
   private def buildLocationLabels(): Seq[String] = {
-    val analysisLabels = context.route.locationAnalysis.locationNames.map(Label.location)
+    val analysisLabels = context.route.base.locationAnalysis.locationNames.map(Label.location)
     if (analysisLabels.isEmpty) {
-      context.route.summary.countries.map(country => Label.location(country.entryName))
+      context.route.base.summary.countries.map(country => Label.location(country.entryName))
     }
     else {
       analysisLabels

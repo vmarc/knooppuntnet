@@ -47,7 +47,7 @@ class RouteChangeUpdateProcessor() {
     //
     val facts = routeUpdate.facts
 
-    val impactedNodeIds: Seq[Long] = (before.nodes.nodeIds ++ after.nodes.nodeIds).distinct.sorted
+    val impactedNodeIds: Seq[Long] = (before.base.nodes.nodeIds ++ after.base.nodes.nodeIds).distinct.sorted
 
     val beforeNetworkIds = before.networkReferences.map(_.id).toSet
     val afterNetworkIds = after.networkReferences.map(_.id).toSet
@@ -69,8 +69,8 @@ class RouteChangeUpdateProcessor() {
             _id = key.toId,
             key = key,
             changeType = ChangeType.Update,
-            name = after.summary.name,
-            locationAnalysis = after.locationAnalysis,
+            name = after.base.summary.name,
+            locationAnalysis = after.base.locationAnalysis,
             addedToNetwork = addedToNetwork,
             removedFromNetwork = removedFromNetwork,
             before = Some(routeUpdate.before),

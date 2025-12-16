@@ -10,6 +10,7 @@ import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newMonitorReference
 import kpn.core.test.TestObjects.newMonitorRoute
 import kpn.core.test.TestObjects.newMonitorState
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.TestObjects.newSuperSegment
@@ -178,9 +179,11 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
   private def setupRouteDoc(): Unit = {
     configuration.routeRepository.saveRoute(
       newRouteDoc(
-        newRouteSummary(
-          route1.relationId,
-          name = "route-name"
+        route1.relationId,
+        base = newRouteBaseData(
+          newRouteSummary(
+            name = "route-name"
+          )
         ),
         superDistance = route1.meters,
         routeIds = Seq(route1.relationId),

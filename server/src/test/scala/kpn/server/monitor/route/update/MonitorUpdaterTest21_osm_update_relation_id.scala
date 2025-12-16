@@ -12,6 +12,7 @@ import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newMonitorReference
 import kpn.core.test.TestObjects.newMonitorRoute
 import kpn.core.test.TestObjects.newMonitorState
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.TestObjects.newSuperSegment
@@ -234,7 +235,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
   private def setupBaseRouteDoc(): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(route2.relationId),
+        route2.relationId,
         segments = Seq(
           newBaseRouteSegment(1)
         ),
@@ -270,9 +271,11 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
   private def setupRouteDoc1(): Unit = {
     configuration.routeRepository.saveRoute(
       newRouteDoc(
-        newRouteSummary(
-          route1.relationId,
-          name = "route-name-1"
+        route1.relationId,
+        base = newRouteBaseData(
+          newRouteSummary(
+            name = "route-name-1"
+          )
         ),
         superDistance = route1.meters,
         routeIds = Seq(route1.relationId),
@@ -286,9 +289,11 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
   private def setupRouteDoc2(): Unit = {
     configuration.routeRepository.saveRoute(
       newRouteDoc(
-        newRouteSummary(
-          route2.relationId,
-          name = "route-name-2"
+        route2.relationId,
+        base = newRouteBaseData(
+          newRouteSummary(
+            name = "route-name-2"
+          )
         ),
         superDistance = route2.meters,
         routeIds = Seq(route2.relationId),

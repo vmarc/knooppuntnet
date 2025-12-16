@@ -8,6 +8,7 @@ import kpn.core.doc.RawRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newChangeSetContext
 import kpn.core.test.TestObjects.newRelation
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeAnalysis
 import kpn.core.test.TestObjects.newRouteSummary
@@ -71,10 +72,13 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
     (setup.rawDataRepository.route _).returnsWith(Some(rawRouteDoc))
 
     val beforeBaseRouteDoc = newBaseRouteDoc(
-      newRouteSummary(11, name = "before"),
-      nodes = RouteNodes(
-        startNode = Some(newRouteNode(1001, "01")),
-        endNode = Some(newRouteNode(1002, "02")),
+      11,
+      base = newRouteBaseData(
+        newRouteSummary(name = "before"),
+        nodes = RouteNodes(
+          startNode = Some(newRouteNode(1001, "01")),
+          endNode = Some(newRouteNode(1002, "02")),
+        )
       )
     )
     (setup.routeRepository.findBaseRouteById _).returnsWith(Some(beforeBaseRouteDoc))
@@ -82,7 +86,11 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
     val analysisResult = buildAnalysisResult(rawRouteDoc)
     (setup.baseRouteMainAnalyzer.analyze _).returnsWith(analysisResult)
 
-    val afterBaseRouteDoc = newBaseRouteDoc(newRouteSummary(11, name = "after"))
+    val afterBaseRouteDoc = newBaseRouteDoc(
+      11,
+      base = newRouteBaseData(
+        newRouteSummary(name = "after"))
+    )
     (setup.baseRouteDocBuilder.build _).returnsWith(afterBaseRouteDoc)
 
     // execute
@@ -100,7 +108,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
       Some(ElementIds.from(nodeIds = Set(1001, 1002)))
     )
 
-    (setup.routeRepository.saveBaseRoute _).calls.map(doc => (doc._id, doc.summary.name)) should equal(Seq((11, "after")))
+    (setup.routeRepository.saveBaseRoute _).calls.map(doc => (doc._id, doc.base.summary.name)) should equal(Seq((11, "after")))
 
     assertEqual(updatedChangeSetContext.impactedTileIds, Seq("updated-tile"))
     assertEqual(updatedChangeSetContext.impactedNodeIds, Seq(1001, 1002))
@@ -194,10 +202,13 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
     (setup.rawDataRepository.route _).returnsWith(Some(rawRouteDoc))
 
     val beforeBaseRouteDoc = newBaseRouteDoc(
-      newRouteSummary(11, name = "before"),
-      nodes = RouteNodes(
-        startNode = Some(newRouteNode(1001, "01")),
-        endNode = Some(newRouteNode(1002, "02")),
+      11,
+      base = newRouteBaseData(
+        newRouteSummary(name = "before"),
+        nodes = RouteNodes(
+          startNode = Some(newRouteNode(1001, "01")),
+          endNode = Some(newRouteNode(1002, "02")),
+        )
       )
     )
 

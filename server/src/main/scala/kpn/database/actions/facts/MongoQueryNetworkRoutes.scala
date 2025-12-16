@@ -36,7 +36,7 @@ class MongoQueryNetworkRoutes(database: Database) {
         and(
           equal("active", true),
           equal("country", subset.country.entryName),
-          equal("summary.routeType", subset.routeType.entryName)
+          equal("base.summary.routeType", subset.routeType.entryName)
         )
       ),
       unwind("$routes"),
@@ -45,7 +45,7 @@ class MongoQueryNetworkRoutes(database: Database) {
         fields(
           excludeId(),
           computed("networkId", "$_id"),
-          computed("networkName", "$summary.name"),
+          computed("networkName", "$base.summary.name"),
           computed("elementId", "$routes.id"),
         )
       )

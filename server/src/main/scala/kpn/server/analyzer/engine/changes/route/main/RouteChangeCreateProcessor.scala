@@ -22,14 +22,14 @@ class RouteChangeCreateProcessor {
       )
     }
 
-    val impactedNodeIds: Seq[Long] = routeDocAfter.nodes.nodeIds
+    val impactedNodeIds: Seq[Long] = routeDocAfter.base.nodes.nodeIds
 
     val key = context.buildChangeKey(routeId)
 
     val addedToNetwork = routeDocAfter.networkReferences.map(_.toRef)
     val impactedNetworkIds = addedToNetwork.map(_.id)
 
-    val nodeChanges = routeDocAfter.nodes.nodes.map { node =>
+    val nodeChanges = routeDocAfter.base.nodes.nodes.map { node =>
       RouteNodeChange(
         node.nodeId,
         node.latitude,
@@ -45,8 +45,8 @@ class RouteChangeCreateProcessor {
             _id = key.toId,
             key = key,
             changeType = ChangeType.Create,
-            name = routeDocAfter.summary.name,
-            locationAnalysis = routeDocAfter.locationAnalysis,
+            name = routeDocAfter.base.summary.name,
+            locationAnalysis = routeDocAfter.base.locationAnalysis,
             addedToNetwork = addedToNetwork,
             removedFromNetwork = Seq.empty,
             before = None,

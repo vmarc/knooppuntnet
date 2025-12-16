@@ -51,14 +51,14 @@ class MongoQueryGraphEdges(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("summary.nodeNetwork", true),
+          equal("base.summary.nodeNetwork", true),
         )
       ),
       unwind("$edges"),
-      unwind("$summary.routeTypes"),
+      unwind("$base.summary.routeTypes"),
       project(
         fields(
-          computed("routeType", "$summary.routeTypes"),
+          computed("routeType", "$base.summary.routeTypes"),
           include("proposed"),
           include("_id"),
           computed("pathId", "$edges.pathId"),

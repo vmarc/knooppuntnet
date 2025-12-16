@@ -33,9 +33,9 @@ class MongoQueryRouteSearchResults(database: Database) {
           fields(
             exclude("_id"),
             computed("id", "$_id"),
-            computed("name", "$summary.name"),
-            computed("distance", "$summary.meters"),
-            computed("scopes", "$summary.scopes"),
+            computed("name", "$base.summary.name"),
+            computed("distance", "$base.summary.meters"),
+            computed("scopes", "$base.summary.scopes"),
             include("bounds"),
             include("routeIds"),
           )

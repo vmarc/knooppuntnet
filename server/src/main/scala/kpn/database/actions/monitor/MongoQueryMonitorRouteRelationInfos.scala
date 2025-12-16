@@ -34,7 +34,7 @@ class MongoQueryMonitorRouteRelationInfos(database: Database) {
         fields(
           excludeId(),
           computed("relationId", "$_id"),
-          computed("name", "$summary.name"),
+          computed("name", "$base.summary.name"),
         )
       )
     )

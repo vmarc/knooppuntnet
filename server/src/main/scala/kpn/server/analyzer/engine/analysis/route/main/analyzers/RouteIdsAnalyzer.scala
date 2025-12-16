@@ -12,7 +12,7 @@ class RouteIdsAnalyzer(routeRepository: RouteRepository) extends RouteAnalyzer {
 
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     val subRelationIds = context.route.subRelationTree.toSeq.flatMap(RouteRelation.relationIds).toSet
-    val memberRelationIds = context.route.members.filter(_.memberType == MemberType.Relation).map(_.id).toSet
+    val memberRelationIds = context.route.base.members.filter(_.memberType == MemberType.Relation).map(_.id).toSet
     val relationIds = (subRelationIds ++ memberRelationIds ++ Set(context.route._id)).toSeq.sorted
     val routeIds = routeRepository.routeActiveIds(relationIds)
     val unexpectedRelationIds = relationIds.diff(routeIds)

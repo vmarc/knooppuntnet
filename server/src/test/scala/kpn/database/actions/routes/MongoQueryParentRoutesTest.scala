@@ -3,6 +3,7 @@ package kpn.database.actions.routes
 import kpn.core.doc.ParentRouteData
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteSummary
 
 class MongoQueryParentRoutesTest extends MongoTest {
@@ -11,9 +12,9 @@ class MongoQueryParentRoutesTest extends MongoTest {
 
     val query = new MongoQueryParentRoutes(database)
 
-    database.baseRoutes.save(newBaseRouteDoc(newRouteSummary(11L, name = "route 11"), subRouteIds = Seq(12L)))
-    database.baseRoutes.save(newBaseRouteDoc(newRouteSummary(12L, name = "route 12"), subRouteIds = Seq(13L)))
-    database.baseRoutes.save(newBaseRouteDoc(newRouteSummary(13L, name = "route 13")))
+    database.baseRoutes.save(newBaseRouteDoc(11L, base = newRouteBaseData(newRouteSummary(name = "route 11")), subRouteIds = Seq(12L)))
+    database.baseRoutes.save(newBaseRouteDoc(12L, base = newRouteBaseData(newRouteSummary(name = "route 12")), subRouteIds = Seq(13L)))
+    database.baseRoutes.save(newBaseRouteDoc(13L, base = newRouteBaseData(newRouteSummary(name = "route 13"))))
 
     assertEqual(
       query.execute(11L),

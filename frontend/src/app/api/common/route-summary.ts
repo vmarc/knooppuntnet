@@ -7,7 +7,6 @@ import { RouteScope } from './route-scope';
 import { RouteType } from './route-type';
 
 export interface RouteSummary {
-  readonly id: number;
   readonly countries: Country[];
   readonly nodeNetwork: boolean;
   readonly routeTypes: RouteType[];

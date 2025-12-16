@@ -32,8 +32,8 @@ class RouteMainAnalyzer(
 ) {
 
   def analyze(route: BaseRouteDoc): Option[RouteDoc] = {
-    Log.context(f"route=${route.summary.id}%07d") {
-      val context = RouteAnalysisContext(route)
+    Log.context(f"route=${route._id}%07d") {
+      val context = RouteAnalysisContext(route, facts = route.facts)
       val analyzers: List[RouteAnalyzer] = List(
         routeIdsAnalyzer,
         routeSuperSegmentAnalyzer,
@@ -62,8 +62,6 @@ class RouteMainAnalyzer(
   }
 
   private def buildRouteDoc(context: RouteAnalysisContext): RouteDoc = {
-    val summary = context.route.summary.copy(meters = context.distance)
-
     val facts: ListBuffer[Fact] = ListBuffer[Fact]()
     facts ++= context.route.facts
     facts ++= context.facts
@@ -77,33 +75,20 @@ class RouteMainAnalyzer(
       context.route._id, // routeId
       context.route.active,
       context.labels,
-      summary,
-      context.route.proposed,
-      context.route.version,
-      context.route.changeSetId,
-      context.route.lastUpdated,
-      context.route.lastSurvey,
+      context.route.base,
       facts.toSeq,
-      context.route.unexpectedNodeIds,
       context.unexpectedRelationIds,
-      context.route.members,
-      context.route.nameDerivedFromNodes,
-      context.route.nodes,
-      context.route.analysis,
-      context.route.locationAnalysis,
       context.segments,
       context.superSegments.map(_.segments.map(_.info.meters).sum).sum,
       context.superSegments,
       context.paths,
-      context.route.networkNodeIds,
       context.routeIds,
-      context.bounds,
       context.structureRows,
       context.structureRows.count(_.relation.nonEmpty),
       context.structureRows.map(_.level).max,
       context.parentRoutes,
       context.networkReferences,
-      context.route.edges,
+      context.bounds,
       None
     )
   }

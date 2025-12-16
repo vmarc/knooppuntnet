@@ -31,7 +31,6 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): RouteSummary = {
     bsonReader.readStartDocument()
 
-    var id: Long = 0
     var countries: Seq[Country] = null
     var nodeNetwork: Boolean = false
     var routeTypes: Seq[RouteType] = null
@@ -46,10 +45,7 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
-      if (fieldName == "id") {
-        id = longCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "countries") {
+      if (fieldName == "countries") {
         bsonReader.readStartArray()
         val valueBuffer = scala.collection.mutable.Buffer[Country]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
@@ -115,7 +111,6 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
     bsonReader.readEndDocument()
 
     RouteSummary(
-      id,
       countries,
       nodeNetwork,
       routeTypes,
@@ -132,9 +127,6 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
 
   override def encode(bsonWriter: BsonWriter, value: RouteSummary, encoderContext: EncoderContext): Unit = {
     bsonWriter.writeStartDocument()
-
-    bsonWriter.writeName("id")
-    longCodec.encode(bsonWriter, value.id, encoderContext)
 
     bsonWriter.writeName("countries")
     bsonWriter.writeStartArray()

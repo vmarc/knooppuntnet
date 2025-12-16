@@ -29,15 +29,15 @@ class RouteUpdateTool(database: Database) {
               database.baseRoutes.findById(routeId) match {
                 case None => log.warn("BaseRouteDoc not found")
                 case Some(baseRouteDoc) =>
-                  baseRouteDoc.networkNodeIds match {
+                  baseRouteDoc.base.networkNodeIds match {
                     case None => // no update needed
                     case Some(networkNodeIds) =>
                       if (networkNodeIds.isEmpty) {
-                        val updatedBaseRouteDoc = baseRouteDoc.copy(networkNodeIds = None)
+                        val updatedBaseRouteDoc = baseRouteDoc.copy(base = baseRouteDoc.base.copy(networkNodeIds = None))
                         database.baseRoutes.save(updatedBaseRouteDoc)
                       }
                       else {
-                        val updatedRouteDoc = routeDoc.copy(networkNodeIds = Some(networkNodeIds))
+                        val updatedRouteDoc = routeDoc.copy(base = routeDoc.base.copy(networkNodeIds = Some(networkNodeIds)))
                         database.routes.save(updatedRouteDoc)
                       }
                   }

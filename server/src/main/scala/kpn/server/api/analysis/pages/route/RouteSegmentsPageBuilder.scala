@@ -26,8 +26,8 @@ class RouteSegmentsPageBuilder(
 
       val routeInfo = RouteInfo(
         routeDoc._id,
-        routeDoc.summary.name,
-        routeDoc.summary.routeTypes,
+        routeDoc.base.summary.name,
+        routeDoc.base.summary.routeTypes,
         memberCount = routeDoc.structureRows.size,
         pathCount = routeDoc.paths.size,
         segmentCount = routeDoc.segments.size,

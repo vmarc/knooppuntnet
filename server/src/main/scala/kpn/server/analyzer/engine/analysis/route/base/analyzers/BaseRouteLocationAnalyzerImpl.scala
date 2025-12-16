@@ -20,7 +20,7 @@ class BaseRouteLocationAnalyzerImpl(
     routeRepository.findBaseRouteById(context.relation.id) match {
       case Some(route) =>
         if (route.geometryDigest == context.geometryDigest) {
-          context.copy(_locationAnalysis = Some(route.locationAnalysis))
+          context.copy(_locationAnalysis = Some(route.base.locationAnalysis))
         }
         else {
           locate(context)

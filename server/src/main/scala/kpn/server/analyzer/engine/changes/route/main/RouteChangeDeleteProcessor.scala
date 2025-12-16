@@ -16,14 +16,14 @@ class RouteChangeDeleteProcessor {
 
   def process(context: ChangeSetContext, routeDoc: RouteDoc): Option[RouteChangeContext] = {
 
-    val impactedNodeIds: Seq[Long] = routeDoc.nodes.nodeIds.sorted
+    val impactedNodeIds: Seq[Long] = routeDoc.base.nodes.nodeIds.sorted
 
     val removedFromNetwork = routeDoc.networkReferences.map(_.toRef)
     val impactedNetworkIds = removedFromNetwork.map(_.id)
 
     val beforeRouteData = RouteData.from(routeDoc)
 
-    val nodeChanges = routeDoc.nodes.nodes.map { node =>
+    val nodeChanges = routeDoc.base.nodes.nodes.map { node =>
       RouteNodeChange(
         node.nodeId,
         node.latitude,
@@ -41,8 +41,8 @@ class RouteChangeDeleteProcessor {
             _id = key.toId,
             key = key,
             changeType = ChangeType.Delete,
-            name = routeDoc.summary.name,
-            locationAnalysis = routeDoc.locationAnalysis,
+            name = routeDoc.base.summary.name,
+            locationAnalysis = routeDoc.base.locationAnalysis,
             addedToNetwork = Seq.empty,
             removedFromNetwork = removedFromNetwork,
             before = Some(beforeRouteData),

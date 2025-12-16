@@ -80,13 +80,13 @@ class RouteDeleteTest03 extends IntegrationTest {
 
   private def assertBaseRoute(): Unit = {
     val baseRouteDoc = findBaseRouteById(11)
-    baseRouteDoc.id should equal(11)
+    baseRouteDoc._id should equal(11)
     assert(!baseRouteDoc.active)
   }
 
   private def assertRoute(): Unit = {
     val routeDoc = findRouteById(11)
-    routeDoc.id should equal(11)
+    routeDoc._id should equal(11)
     assert(!routeDoc.active)
   }
 

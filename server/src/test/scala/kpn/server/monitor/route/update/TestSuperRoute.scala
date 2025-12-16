@@ -10,7 +10,6 @@ import kpn.core.test.TestObjects.newBaseRouteSegment
 import kpn.core.test.TestObjects.newBaseRouteSegmentElement
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteRelation
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.TestObjects.newSuperSegment
 import kpn.core.util.Util.mergeBounds
 
@@ -22,7 +21,7 @@ object TestSuperRoute {
   val subRoute12: MonitorTestRoute = MonitorTestData.route2.copy(relationId = 12, stateTiles = MonitorTestData.route2.stateTiles.map(_.copy(relationId = 12)))
 
   val baseRouteDoc: BaseRouteDoc = newBaseRouteDoc(
-    newRouteSummary(MainRelationId),
+    MainRelationId,
     subRelationTree = Some(
       newRouteRelation(
         relationId = MainRelationId,
@@ -43,7 +42,7 @@ object TestSuperRoute {
   )
 
   val baseRouteDoc11: BaseRouteDoc = newBaseRouteDoc(
-    newRouteSummary(subRoute11.relationId),
+    subRoute11.relationId,
     segments = Seq(
       newBaseRouteSegment(1, meters = subRoute11.meters)
     ),
@@ -58,7 +57,7 @@ object TestSuperRoute {
   )
 
   val baseRouteDoc12: BaseRouteDoc = newBaseRouteDoc(
-    newRouteSummary(subRoute12.relationId),
+    subRoute12.relationId,
     segments = Seq(
       newBaseRouteSegment(1, meters = subRoute12.meters)
     ),
@@ -73,7 +72,7 @@ object TestSuperRoute {
   )
 
   val routeDoc1: RouteDoc = newRouteDoc(
-    newRouteSummary(MainRelationId),
+    MainRelationId,
     superDistance = subRoute11.meters + subRoute12.meters,
     superSegments = Seq(
       newSuperSegment(

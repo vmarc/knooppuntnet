@@ -10,7 +10,6 @@ import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetContext
 import kpn.core.test.TestObjects.newRelation
 import kpn.core.test.TestObjects.newRouteNodeAnalysis
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.TestObjects.newRouteTileData
 import kpn.core.util.Log
 import kpn.core.util.MockLog
@@ -59,7 +58,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with Stubs {
     (setup.rawDataRepository.route _).returnsWith(Some(rawRouteDoc))
 
     val analysisResult = buildAnalysisResult(rawRouteDoc)
-    val baseRouteDoc = newBaseRouteDoc(newRouteSummary(11))
+    val baseRouteDoc = newBaseRouteDoc(11)
 
     (setup.baseRouteMainAnalyzer.analyze _).returnsWith(analysisResult)
     (setup.baseRouteDocBuilder.build _).returnsWith(baseRouteDoc)
@@ -91,7 +90,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with Stubs {
       Seq(
         newBaseRouteChange(
           _id = "123:1:11",
-          key = newChangeKey(1, elementId = 11),
+          key = newChangeKey(elementId = 11),
           changeType = ChangeType.Create,
         )
       )

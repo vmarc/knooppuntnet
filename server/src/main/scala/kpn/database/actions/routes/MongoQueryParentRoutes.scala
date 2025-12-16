@@ -39,7 +39,7 @@ class MongoQueryParentRoutes(database: Database) {
         fields(
           exclude("_id"),
           computed("routeId", "$_id"),
-          computed("name", "$summary.name"),
+          computed("name", "$base.summary.name"),
         )
       )
     )

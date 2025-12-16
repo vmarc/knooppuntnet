@@ -96,13 +96,13 @@ class RouteCreateTest01 extends IntegrationTest {
 
   private def assertBaseRoute(): Unit = {
     val baseRouteDoc = findBaseRouteById(11L)
-    baseRouteDoc.summary.name should equal("01-02")
+    baseRouteDoc.base.summary.name should equal("01-02")
     // TODO redesign - add detailed doc comparison?
   }
 
   private def assertRoute(): Unit = {
     val routeDoc = findRouteById(11L)
-    routeDoc.summary.name should equal("01-02")
+    routeDoc.base.summary.name should equal("01-02")
     // TODO redesign - add detailed doc comparison?
   }
 

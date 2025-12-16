@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.main.analyzers
 import kpn.api.common.route.ParentRoute
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteRepositoryImpl
@@ -15,19 +16,28 @@ class RouteParentsAnalyzerTest extends MongoTest {
 
     baseRouteRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(11, name = "route 11"),
+        11,
+        base = newRouteBaseData(
+          newRouteSummary(name = "route 11")
+        ),
         subRouteIds = Seq(12)
       )
     )
     baseRouteRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(12, name = "route 12"),
+        12,
+        base = newRouteBaseData(
+          newRouteSummary(name = "route 12")
+        ),
         subRouteIds = Seq(13)
       )
     )
     baseRouteRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(13, name = "route 13"),
+        13,
+        base = newRouteBaseData(
+          newRouteSummary(name = "route 13")
+        )
       )
     )
 
@@ -74,19 +84,28 @@ class RouteParentsAnalyzerTest extends MongoTest {
 
     baseRouteRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(11, name = "route 11"),
+        11,
+        base = newRouteBaseData(
+          newRouteSummary(name = "route 11")
+        ),
         subRouteIds = Seq(12)
       )
     )
     baseRouteRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(12, name = "route 12"),
+        12,
+        base = newRouteBaseData(
+          newRouteSummary(name = "route 12")
+        ),
         subRouteIds = Seq(13)
       )
     )
     baseRouteRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(13, name = "route 13"),
+        13,
+        base = newRouteBaseData(
+          newRouteSummary(name = "route 13")
+        ),
         subRouteIds = Seq(11)
       )
     )

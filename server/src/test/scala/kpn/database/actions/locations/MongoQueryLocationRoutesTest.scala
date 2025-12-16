@@ -11,6 +11,7 @@ import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.Timestamps
@@ -46,28 +47,32 @@ class MongoQueryLocationRoutesTest extends MongoTest {
 
     database.routes.save(
       newRouteDoc(
-        newRouteSummary(
-          10L,
-          name = "bbb",
-          meters = 100,
-          tags = Tags.from("osmc:symbol" -> "red:white:red_lower")
+        10L,
+        base = newRouteBaseData(
+          newRouteSummary(
+            name = "bbb",
+            meters = 100,
+            tags = Tags.from("osmc:symbol" -> "red:white:red_lower")
+          ),
+          lastSurvey = Some(Day(2020, 8))
         ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location("essen"),
           Label.survey
-        ),
-        lastSurvey = Some(Day(2020, 8))
+        )
       )
     )
 
     database.routes.save(
       newRouteDoc(
-        newRouteSummary(
-          20L,
-          name = "aaa",
-          meters = 200,
-          broken = true
+        20L,
+        base = newRouteBaseData(
+          newRouteSummary(
+            name = "aaa",
+            meters = 200,
+            broken = true
+          )
         ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
@@ -79,12 +84,14 @@ class MongoQueryLocationRoutesTest extends MongoTest {
 
     database.routes.save(
       newRouteDoc(
-        newRouteSummary(
-          30L,
-          name = "ccc",
-          meters = 300,
-          broken = true,
-          inaccessible = true
+        30L,
+        base = newRouteBaseData(
+          newRouteSummary(
+            name = "ccc",
+            meters = 300,
+            broken = true,
+            inaccessible = true
+          )
         ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
@@ -148,7 +155,7 @@ class MongoQueryLocationRoutesTest extends MongoTest {
 
     database.routes.save(
       newRouteDoc(
-        newRouteSummary(10L),
+        10L,
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location("be"),
@@ -161,7 +168,7 @@ class MongoQueryLocationRoutesTest extends MongoTest {
 
     database.routes.save(
       newRouteDoc(
-        newRouteSummary(20L),
+        20L,
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location("be"),
@@ -173,7 +180,7 @@ class MongoQueryLocationRoutesTest extends MongoTest {
 
     database.routes.save(
       newRouteDoc(
-        newRouteSummary(30L),
+        30L,
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location("be"),
@@ -283,8 +290,9 @@ class MongoQueryLocationRoutesTest extends MongoTest {
   private def routeWithTags(id: Long, active: Boolean, tags: Seq[Tag], labels: String*): Unit = {
     database.routes.save(
       newRouteDoc(
-        newRouteSummary(id, tags = tags),
+        id,
         active = active,
+        base = newRouteBaseData(newRouteSummary(tags = tags)),
         labels = labels,
       )
     )

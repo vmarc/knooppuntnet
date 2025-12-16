@@ -43,7 +43,7 @@ class MongoQueryRoutesWithFact(database: Database) {
         fields(
           excludeId(),
           computed("id", "$_id"),
-          computed("name", "$summary.name"),
+          computed("name", "$base.summary.name"),
         )
       )
     )

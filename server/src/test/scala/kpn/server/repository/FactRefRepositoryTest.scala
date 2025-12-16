@@ -11,7 +11,6 @@ import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.TestObjects.newRouteSummary
 
 class FactRefRepositoryTest extends MongoTest {
 
@@ -94,7 +93,7 @@ class FactRefRepositoryTest extends MongoTest {
   private def setupRoute(routeId: Long, subset: Subset, facts: Seq[Fact]): Unit = {
     database.routes.save(
       newRouteDoc(
-        newRouteSummary(routeId),
+        routeId,
         labels = Seq(
           Label.facts,
           Label.routeType(subset.routeType),

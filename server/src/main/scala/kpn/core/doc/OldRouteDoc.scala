@@ -28,9 +28,7 @@ case class OldRouteDoc(
   edges: Seq[RouteEdge],
 ) extends WithId {
 
-  def id: Long = summary.id
-
-  def toRef: Ref = Ref(summary.id, summary.name)
+  def toRef: Ref = Ref(_id, summary.name)
 
   def deactivated: OldRouteDoc = {
     copy(

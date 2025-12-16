@@ -49,6 +49,7 @@ import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNodeWithName
 import kpn.core.test.TestObjects.newOrphanRouteInfo
 import kpn.core.test.TestObjects.newRelation
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
 import kpn.core.test.TestObjects.newRouteDoc
@@ -133,61 +134,64 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
     assertEqual(
       findBaseRouteById(11).copy(geometryDigest = ""),
       newBaseRouteDoc(
-        newRouteSummary(
-          11,
-          name = "01-02",
-          countries = Seq(Country.nl),
-          wayCount = 1,
-          tags = newRouteTags("01-02")
-        ),
-        members = Seq(
-          RouteMemberInfo(
-            id = 101,
-            memberType = MemberType.Way,
-            role = None,
-            name = None,
-            poi = None,
-            way = Some(
-              RouteMemberInfoWay(
-                wayType = Some("unclassified"),
-                nodes = Seq(
-                  RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
-                  RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
-                ),
-                timestamp = Timestamp(2015, 8, 11, 0, 0, 0),
-                surface = "paved",
-                accessible = true,
-                distance = 0,
-                nodeCount = "2",
-                oneWay = WayDirection.Both,
-                oneWayTags = Seq.empty,
-                link = newLink(0) // "wn000"
-              )
-            ),
-            segmentIds = Seq(1),
-            pathIds = Seq(1, 2)
-          )
-        ),
-        nodes = RouteNodes(
-          startNode = Some(newRouteNode(1001, "01")),
-          endNode = Some(newRouteNode(1002, "02")),
-        ),
-        analysis = newRouteInfoAnalysis(
-          expectedName = "01-02",
-        ),
-        networkNodeIds = Some(
-          Seq(
-            1001,
-            1002
-          )
+        11,
+        base = newRouteBaseData(
+
+          newRouteSummary(
+            name = "01-02",
+            countries = Seq(Country.nl),
+            wayCount = 1,
+            tags = newRouteTags("01-02")
+          ),
+          members = Seq(
+            RouteMemberInfo(
+              id = 101,
+              memberType = MemberType.Way,
+              role = None,
+              name = None,
+              poi = None,
+              way = Some(
+                RouteMemberInfoWay(
+                  wayType = Some("unclassified"),
+                  nodes = Seq(
+                    RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
+                    RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
+                  ),
+                  timestamp = Timestamp(2015, 8, 11, 0, 0, 0),
+                  surface = "paved",
+                  accessible = true,
+                  distance = 0,
+                  nodeCount = "2",
+                  oneWay = WayDirection.Both,
+                  oneWayTags = Seq.empty,
+                  link = newLink(0) // "wn000"
+                )
+              ),
+              segmentIds = Seq(1),
+              pathIds = Seq(1, 2)
+            )
+          ),
+          nodes = RouteNodes(
+            startNode = Some(newRouteNode(1001, "01")),
+            endNode = Some(newRouteNode(1002, "02")),
+          ),
+          analysis = newRouteInfoAnalysis(
+            expectedName = "01-02",
+          ),
+          networkNodeIds = Some(
+            Seq(
+              1001,
+              1002
+            )
+          ),
+          edges = Seq(
+            RouteEdge(1, 1001, 1002, 0),
+            RouteEdge(2, 1002, 1001, 0),
+          ),
         ),
         elementIds = ElementIds.from(
           nodeIds = Set(1001, 1002),
           wayIds = Set(101)
-        ),
-        edges = Seq(
-          RouteEdge(1, 1001, 1002, 0),
-          RouteEdge(2, 1002, 1001, 0),
         ),
         segments = Seq(
           BaseRouteSegment(
@@ -259,52 +263,65 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
     assertEqual(
       findRouteById(11),
       newRouteDoc(
-        newRouteSummary(
-          11,
-          name = "01-02",
-          countries = Seq(Country.nl),
-          wayCount = 1,
-          tags = newRouteTags("01-02")
+        11,
+        base = newRouteBaseData(
+
+          newRouteSummary(
+            name = "01-02",
+            countries = Seq(Country.nl),
+            wayCount = 1,
+            tags = newRouteTags("01-02")
+          ),
+          members = Seq(
+            RouteMemberInfo(
+              101,
+              MemberType.Way,
+              None,
+              None,
+              None,
+              Some(
+                RouteMemberInfoWay(
+                  Some("unclassified"),
+                  Seq(
+                    RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
+                    RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
+                  ),
+                  Timestamp(2015, 8, 11, 0, 0, 0),
+                  surface = "paved",
+                  accessible = true,
+                  0,
+                  "2",
+                  WayDirection.Both,
+                  Seq.empty,
+                  newLink(0) // "wn000"
+                )
+              ),
+              segmentIds = Seq(1),
+              pathIds = Seq(1, 2)
+            )
+          ),
+          nodes = RouteNodes(
+            startNode = Some(newRouteNode(1001, "01")),
+            endNode = Some(newRouteNode(1002, "02")),
+          ),
+          analysis = newRouteInfoAnalysis(
+            expectedName = "01-02",
+          ),
+          networkNodeIds = Some(
+            Seq(
+              1001,
+              1002
+            )
+          ),
+          edges = Seq(
+            RouteEdge(1, 1001, 1002, 0),
+            RouteEdge(2, 1002, 1001, 0),
+          )
         ),
         labels = Seq(
           Label.country(Country.nl),
           Label.routeType(RouteType.hiking),
           Label.scope(RouteScope.regional),
-        ),
-        members = Seq(
-          RouteMemberInfo(
-            101,
-            MemberType.Way,
-            None,
-            None,
-            None,
-            Some(
-              RouteMemberInfoWay(
-                Some("unclassified"),
-                Seq(
-                  RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
-                  RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
-                ),
-                Timestamp(2015, 8, 11, 0, 0, 0),
-                surface = "paved",
-                accessible = true,
-                0,
-                "2",
-                WayDirection.Both,
-                Seq.empty,
-                newLink(0) // "wn000"
-              )
-            ),
-            segmentIds = Seq(1),
-            pathIds = Seq(1, 2)
-          )
-        ),
-        nodes = RouteNodes(
-          startNode = Some(newRouteNode(1001, "01")),
-          endNode = Some(newRouteNode(1002, "02")),
-        ),
-        analysis = newRouteInfoAnalysis(
-          expectedName = "01-02",
         ),
         segments = Seq(
           RouteSegment(
@@ -341,12 +358,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             id = 2,
             name = "backward",
             elementIds = Seq(1),
-          )
-        ),
-        networkNodeIds = Some(
-          Seq(
-            1001,
-            1002
           )
         ),
         routeIds = Seq(11),
@@ -391,11 +402,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             pathIds = Seq(1, 2)
           ),
         ),
-        relationLevels = 1,
-        edges = Seq(
-          RouteEdge(1, 1001, 1002, 0),
-          RouteEdge(2, 1002, 1001, 0),
-        ),
+        relationLevels = 1
       )
     )
   }

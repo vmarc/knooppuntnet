@@ -36,8 +36,8 @@ class RouteToNetworkTest01 extends IntegrationTest {
 
       val route = findRouteById(1)
       route.active should equal(false)
-      route.summary.name should equal("01-02")
-      route.version should equal(1)
+      route.base.summary.name should equal("01-02")
+      route.base.version should equal(1)
 
       val baseNetwork = findBaseNetworkById(1)
       baseNetwork.active should equal(true)

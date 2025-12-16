@@ -54,7 +54,7 @@ class BaseRouteChangeDeleterImpl(
     private def deactivateBaseRouteDoc(changeSetContext: ChangeSetContext, baseRouteDoc: BaseRouteDoc): ChangeSetContext = {
       routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
       changeSetContext.withImpact(
-        nodeIds = baseRouteDoc.nodes.nodeIds
+        nodeIds = baseRouteDoc.base.nodes.nodeIds
       )
     }
   }

@@ -39,7 +39,6 @@ object RouteDetailsPageExample {
       id = 1,
       active = true,
       summary = RouteSummary(
-        id = 1,
         countries = Seq(Country.nl),
         nodeNetwork = true,
         routeTypes = Seq(RouteType.hiking),

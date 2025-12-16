@@ -8,7 +8,6 @@ import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeName
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 
 class MongoQueryLocationFactCountTest extends MongoTest {
@@ -67,7 +66,7 @@ class MongoQueryLocationFactCountTest extends MongoTest {
 
     database.routes.save(
       newRouteDoc(
-        newRouteSummary(101L),
+        101L,
         labels = Seq(
           Label.facts,
           Label.routeType(RouteType.hiking),
@@ -79,7 +78,7 @@ class MongoQueryLocationFactCountTest extends MongoTest {
 
     database.routes.save(
       newRouteDoc(
-        newRouteSummary(102L),
+        102L,
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location(Country.be.entryName)
@@ -89,7 +88,7 @@ class MongoQueryLocationFactCountTest extends MongoTest {
 
     database.routes.save(
       newRouteDoc(
-        newRouteSummary(103L),
+        103L,
         active = false,
         labels = Seq(
           Label.facts,

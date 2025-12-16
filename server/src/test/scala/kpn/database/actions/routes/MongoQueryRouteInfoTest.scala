@@ -4,6 +4,7 @@ import kpn.api.common.RouteType.hiking
 import kpn.api.common.route.RouteInfo
 import kpn.core.doc.RouteDoc
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
 
@@ -23,12 +24,14 @@ class MongoQueryRouteInfoTest extends MongoTest {
 
   private def buildRoute(id: Long, name: String, active: Boolean = true): RouteDoc = {
     newRouteDoc(
-      newRouteSummary(
-        id,
-        routeTypes = Seq(hiking),
-        name = name
-      ),
+      id,
       active = active,
+      base = newRouteBaseData(
+        newRouteSummary(
+          routeTypes = Seq(hiking),
+          name = name
+        )
+      ),
       segments = Seq.empty
     )
   }

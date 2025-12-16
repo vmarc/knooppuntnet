@@ -14,6 +14,7 @@ import kpn.core.test.TestObjects.newBaseRouteSegment
 import kpn.core.test.TestObjects.newBaseRouteSegmentElement
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.TestObjects.newSuperSegment
@@ -274,7 +275,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
   private def setupBaseRouteDoc(): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(route1.relationId),
+        route1.relationId,
         segments = Seq(
           newBaseRouteSegment(1)
         ),
@@ -331,9 +332,11 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
   private def setupRouteDoc(): Unit = {
     configuration.routeRepository.saveRoute(
       newRouteDoc(
-        newRouteSummary(
-          route1.relationId,
-          name = "route-name"
+        route1.relationId,
+        base = newRouteBaseData(
+          newRouteSummary(
+            name = "route-name"
+          )
         ),
         superDistance = route1.meters,
         routeIds = Seq(route1.relationId),

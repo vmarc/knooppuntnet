@@ -30,7 +30,7 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
 
   private def buildRows(context: RouteAnalysisContext): Seq[RouteStructureRow] = {
     val level = 1L
-    context.route.members.zipWithIndex.flatMap { case (member, index) =>
+    context.route.base.members.zipWithIndex.flatMap { case (member, index) =>
       member.memberType match {
         case MemberType.Relation => buildRelationRows(level, Seq(index + 1), member, Seq.empty)
         case MemberType.Way => Seq(buildWayRow(level, member, index + 1))

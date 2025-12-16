@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 class RouteParentAnalyzer(routeRepository: RouteRepository) extends RouteAnalyzer {
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    val parentRoutes = findParentRoutes(context.route.id, 1, Seq.empty)
+    val parentRoutes = findParentRoutes(context.route._id, 1, Seq.empty)
     context.copy(
       _parentRoutes = Some(parentRoutes)
     )

@@ -8,6 +8,7 @@ import kpn.api.common.RouteType
 import kpn.api.custom.Day
 import kpn.core.doc.Label
 import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
@@ -36,7 +37,7 @@ class RouteLabelsAnalyzerTest extends UnitTest {
     val context = buildContext()
     val updatedContext = context.copy(
       route = context.route.copy(
-        lastSurvey = None
+        base = context.route.base.copy(lastSurvey = None)
       )
     )
     val labels = RouteLabelsAnalyzer.analyze(updatedContext).labels
@@ -46,9 +47,7 @@ class RouteLabelsAnalyzerTest extends UnitTest {
   test("not broken") {
     val context = buildContext()
     val updatedContext = context.copy(
-      route = context.route.copy(
-        facts = Seq(Fact.RouteInaccessible)
-      )
+      facts = Seq(Fact.RouteInaccessible)
     )
     val labels = RouteLabelsAnalyzer.analyze(updatedContext).labels
     labels should contain(Label.facts)
@@ -59,10 +58,12 @@ class RouteLabelsAnalyzerTest extends UnitTest {
     val context = buildContext()
     val updatedContext = context.copy(
       route = context.route.copy(
-        locationAnalysis = RouteLocationAnalysis(
-          None,
-          Seq.empty,
-          Seq.empty,
+        base = context.route.base.copy(
+          locationAnalysis = RouteLocationAnalysis(
+            None,
+            Seq.empty,
+            Seq.empty,
+          )
         )
       )
     )
@@ -86,22 +87,23 @@ class RouteLabelsAnalyzerTest extends UnitTest {
     val relation = data.relations(1L)
     RouteAnalysisContext(
       route = newBaseRouteDoc(
-        summary = newRouteSummary(
-          id = 1,
-          countries = Seq(Country.be),
-          routeTypes = Seq(RouteType.hiking),
-          scopes = Seq(RouteScope.regional)
+        1L,
+        base = newRouteBaseData(
+          summary = newRouteSummary(
+            countries = Seq(Country.be),
+            routeTypes = Seq(RouteType.hiking),
+            scopes = Seq(RouteScope.regional)
+          ),
+          lastSurvey = Some(Day(2020, 8)),
+          locationAnalysis =
+            RouteLocationAnalysis(
+              None,
+              Seq.empty,
+              Seq("be", "Essen")
+            )
         ),
-        lastSurvey = Some(Day(2020, 8)),
-        facts = Seq(Fact.RouteBroken),
-        locationAnalysis =
-          RouteLocationAnalysis(
-            None,
-            Seq.empty,
-            Seq("be", "Essen")
-          )
       ),
-      None,
+      facts = Seq(Fact.RouteBroken),
     )
   }
 }

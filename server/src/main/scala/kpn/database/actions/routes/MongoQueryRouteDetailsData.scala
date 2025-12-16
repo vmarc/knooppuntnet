@@ -2,6 +2,7 @@ package kpn.database.actions.routes
 
 import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Projections.computed
 import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
@@ -40,20 +41,20 @@ class MongoQueryRouteDetailsData(database: Database) {
           excludeId(),
           include("id"),
           include("active"),
-          include("summary"),
-          include("proposed"),
-          include("version"),
-          include("changeSetId"),
-          include("lastUpdated"),
-          include("lastSurvey"),
+          computed("summary", "$base.summary"),
+          computed("proposed", "$base.proposed"),
+          computed("version", "$base.version"),
+          computed("changeSetId", "$base.changeSetId"),
+          computed("lastUpdated", "$base.lastUpdated"),
+          computed("lastSurvey", "$base.lastSurvey"),
           include("facts"),
-          include("unexpectedNodeIds"),
+          computed("unexpectedNodeIds", "$base.unexpectedNodeIds"),
           include("unexpectedRelationIds"),
           include("memberCount"),
           arraySize("segmentCount", "$segments"),
           arraySize("pathCount", "$paths"),
-          include("nameDerivedFromNodes"),
-          include("nodes"),
+          computed("nameDerivedFromNodes", "$base.nameDerivedFromNodes"),
+          computed("nodes", "$base.nodes"),
           include("bounds"),
           include("routeIds"),
           include("relationCount"),

@@ -9,6 +9,7 @@ import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteSegment
 import kpn.core.test.TestObjects.newBaseRouteSegmentElement
 import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteRelation
 import kpn.core.test.TestObjects.newRouteSummary
@@ -367,7 +368,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
   private def setupBaseRouteDoc1(): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(MainrelationId),
+        MainrelationId,
         subRelationTree = Some(
           newRouteRelation(
             relationId = MainrelationId,
@@ -392,7 +393,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
   private def setupBaseRouteDoc11(): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(subRoute11.relationId),
+        subRoute11.relationId,
         segments = Seq(
           newBaseRouteSegment(1)
         ),
@@ -411,7 +412,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
   private def setupBaseRouteDoc12(): Unit = {
     configuration.routeRepository.saveBaseRoute(
       newBaseRouteDoc(
-        newRouteSummary(subRoute12.relationId),
+        subRoute12.relationId,
         segments = Seq(
           newBaseRouteSegment(1)
         ),
@@ -430,9 +431,11 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
   private def setupRouteDoc1(): Unit = {
     configuration.routeRepository.saveRoute(
       newRouteDoc(
-        newRouteSummary(
-          MainrelationId,
-          name = "route-name"
+        MainrelationId,
+        base = newRouteBaseData(
+          newRouteSummary(
+            name = "route-name"
+          )
         ),
         superDistance = subRoute11.meters + subRoute12.meters,
         routeIds = Seq(MainrelationId, subRoute11.relationId, subRoute12.relationId),

@@ -5,18 +5,11 @@ package kpn.tools.code.codecs.generated
 import kpn.api.common.Bounds
 import kpn.api.common.Fact
 import kpn.api.common.Relation
-import kpn.api.common.RouteLocationAnalysis
-import kpn.api.common.RouteMemberInfo
-import kpn.api.common.RouteSummary
 import kpn.api.common.route.BaseRouteSegment
-import kpn.api.common.route.RouteEdge
-import kpn.api.common.route.RouteInfoAnalysis
-import kpn.api.common.route.RouteNodes
-import kpn.api.custom.Day
-import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.BaseRouteSegmentElement
+import kpn.core.doc.RouteBaseData
 import kpn.core.doc.RouteRelation
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.tools.code.codecs.Codecs
@@ -35,50 +28,30 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
   private val baseRouteSegmentElementCodec = registry.get(classOf[BaseRouteSegmentElement])
   private val booleanCodec = registry.get(classOf[Boolean])
   private val boundsCodec = registry.get(classOf[Bounds])
-  private val dayCodec = registry.get(classOf[Day])
   private val elementIdsCodec = registry.get(classOf[ElementIds])
   private val factCodec = registry.get(classOf[Fact])
   private val longCodec = registry.get(classOf[Long])
   private val relationCodec = registry.get(classOf[Relation])
-  private val routeEdgeCodec = registry.get(classOf[RouteEdge])
-  private val routeInfoAnalysisCodec = registry.get(classOf[RouteInfoAnalysis])
-  private val routeLocationAnalysisCodec = registry.get(classOf[RouteLocationAnalysis])
-  private val routeMemberInfoCodec = registry.get(classOf[RouteMemberInfo])
-  private val routeNodesCodec = registry.get(classOf[RouteNodes])
+  private val routeBaseDataCodec = registry.get(classOf[RouteBaseData])
   private val routeRelationCodec = registry.get(classOf[RouteRelation])
-  private val routeSummaryCodec = registry.get(classOf[RouteSummary])
   private val stringCodec = registry.get(classOf[String])
-  private val timestampCodec = registry.get(classOf[Timestamp])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): BaseRouteDoc = {
     bsonReader.readStartDocument()
 
     var _id: Long = 0
     var active: Boolean = false
-    var summary: RouteSummary = null
-    var proposed: Boolean = false
-    var version: Long = 0
-    var changeSetId: Long = 0
-    var lastUpdated: Timestamp = null
-    var lastSurvey: Option[Day] = None
+    var base: RouteBaseData = null
     var facts: Seq[Fact] = null
-    var unexpectedNodeIds: Seq[Long] = null
-    var members: Seq[RouteMemberInfo] = null
-    var nameDerivedFromNodes: Boolean = false
-    var nodes: RouteNodes = null
-    var analysis: RouteInfoAnalysis = null
     var geometryDigest: String = null
-    var locationAnalysis: RouteLocationAnalysis = null
-    var networkNodeIds: Option[Seq[Long]] = None
     var elementIds: ElementIds = null
-    var edges: Seq[RouteEdge] = null
     var segments: Seq[BaseRouteSegment] = null
     var segmentElements: Seq[BaseRouteSegmentElement] = null
     var paths: Seq[BaseRoutePath] = null
     var relation: Option[Relation] = None
     var subRelationTree: Option[RouteRelation] = None
-    var bounds: Option[Bounds] = None
     var subRouteIds: Seq[Long] = null
+    var bounds: Option[Bounds] = None
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -88,23 +61,8 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
       else if (fieldName == "active") {
         active = booleanCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "summary") {
-        summary = routeSummaryCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "proposed") {
-        proposed = booleanCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "version") {
-        version = longCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "changeSetId") {
-        changeSetId = longCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "lastUpdated") {
-        lastUpdated = timestampCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "lastSurvey") {
-        lastSurvey = Some(dayCodec.decode(bsonReader, decoderContext))
+      else if (fieldName == "base") {
+        base = routeBaseDataCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "facts") {
         bsonReader.readStartArray()
@@ -115,59 +73,11 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
         bsonReader.readEndArray()
         facts = valueBuffer.toSeq
       }
-      else if (fieldName == "unexpectedNodeIds") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[Long]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += longCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        unexpectedNodeIds = valueBuffer.toSeq
-      }
-      else if (fieldName == "members") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[RouteMemberInfo]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += routeMemberInfoCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        members = valueBuffer.toSeq
-      }
-      else if (fieldName == "nameDerivedFromNodes") {
-        nameDerivedFromNodes = booleanCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "nodes") {
-        nodes = routeNodesCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "analysis") {
-        analysis = routeInfoAnalysisCodec.decode(bsonReader, decoderContext)
-      }
       else if (fieldName == "geometryDigest") {
         geometryDigest = stringCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "locationAnalysis") {
-        locationAnalysis = routeLocationAnalysisCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "networkNodeIds") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[Long]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += longCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        networkNodeIds = Some(valueBuffer.toSeq)
-      }
       else if (fieldName == "elementIds") {
         elementIds = elementIdsCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "edges") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[RouteEdge]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += routeEdgeCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        edges = valueBuffer.toSeq
       }
       else if (fieldName == "segments") {
         bsonReader.readStartArray()
@@ -202,9 +112,6 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
       else if (fieldName == "subRelationTree") {
         subRelationTree = Some(routeRelationCodec.decode(bsonReader, decoderContext))
       }
-      else if (fieldName == "bounds") {
-        bounds = Some(boundsCodec.decode(bsonReader, decoderContext))
-      }
       else if (fieldName == "subRouteIds") {
         bsonReader.readStartArray()
         val valueBuffer = scala.collection.mutable.Buffer[Long]()
@@ -213,6 +120,9 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
         }
         bsonReader.readEndArray()
         subRouteIds = valueBuffer.toSeq
+      }
+      else if (fieldName == "bounds") {
+        bounds = Some(boundsCodec.decode(bsonReader, decoderContext))
       }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in BaseRouteDocCodec.decode()")
@@ -225,30 +135,17 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
     BaseRouteDoc(
       _id,
       active,
-      summary,
-      proposed,
-      version,
-      changeSetId,
-      lastUpdated,
-      lastSurvey,
+      base,
       facts,
-      unexpectedNodeIds,
-      members,
-      nameDerivedFromNodes,
-      nodes,
-      analysis,
       geometryDigest,
-      locationAnalysis,
-      networkNodeIds,
       elementIds,
-      edges,
       segments,
       segmentElements,
       paths,
       relation,
       subRelationTree,
-      bounds,
       subRouteIds,
+      bounds,
     )
   }
 
@@ -261,70 +158,19 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
     bsonWriter.writeName("active")
     booleanCodec.encode(bsonWriter, value.active, encoderContext)
 
-    bsonWriter.writeName("summary")
-    routeSummaryCodec.encode(bsonWriter, value.summary, encoderContext)
-
-    bsonWriter.writeName("proposed")
-    booleanCodec.encode(bsonWriter, value.proposed, encoderContext)
-
-    bsonWriter.writeName("version")
-    longCodec.encode(bsonWriter, value.version, encoderContext)
-
-    bsonWriter.writeName("changeSetId")
-    longCodec.encode(bsonWriter, value.changeSetId, encoderContext)
-
-    bsonWriter.writeName("lastUpdated")
-    timestampCodec.encode(bsonWriter, value.lastUpdated, encoderContext)
-
-    if (value.lastSurvey.isDefined) {
-      bsonWriter.writeName("lastSurvey")
-      dayCodec.encode(bsonWriter, value.lastSurvey.get, encoderContext)
-    }
+    bsonWriter.writeName("base")
+    routeBaseDataCodec.encode(bsonWriter, value.base, encoderContext)
 
     bsonWriter.writeName("facts")
     bsonWriter.writeStartArray()
     value.facts.foreach(v => factCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
-    bsonWriter.writeName("unexpectedNodeIds")
-    bsonWriter.writeStartArray()
-    value.unexpectedNodeIds.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
-
-    bsonWriter.writeName("members")
-    bsonWriter.writeStartArray()
-    value.members.foreach(v => routeMemberInfoCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
-
-    bsonWriter.writeName("nameDerivedFromNodes")
-    booleanCodec.encode(bsonWriter, value.nameDerivedFromNodes, encoderContext)
-
-    bsonWriter.writeName("nodes")
-    routeNodesCodec.encode(bsonWriter, value.nodes, encoderContext)
-
-    bsonWriter.writeName("analysis")
-    routeInfoAnalysisCodec.encode(bsonWriter, value.analysis, encoderContext)
-
     bsonWriter.writeName("geometryDigest")
     stringCodec.encode(bsonWriter, value.geometryDigest, encoderContext)
 
-    bsonWriter.writeName("locationAnalysis")
-    routeLocationAnalysisCodec.encode(bsonWriter, value.locationAnalysis, encoderContext)
-
-    if (value.networkNodeIds.isDefined) {
-      bsonWriter.writeName("networkNodeIds")
-      bsonWriter.writeStartArray()
-      value.networkNodeIds.get.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
-      bsonWriter.writeEndArray()
-    }
-
     bsonWriter.writeName("elementIds")
     elementIdsCodec.encode(bsonWriter, value.elementIds, encoderContext)
-
-    bsonWriter.writeName("edges")
-    bsonWriter.writeStartArray()
-    value.edges.foreach(v => routeEdgeCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
 
     bsonWriter.writeName("segments")
     bsonWriter.writeStartArray()
@@ -351,15 +197,15 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
       routeRelationCodec.encode(bsonWriter, value.subRelationTree.get, encoderContext)
     }
 
-    if (value.bounds.isDefined) {
-      bsonWriter.writeName("bounds")
-      boundsCodec.encode(bsonWriter, value.bounds.get, encoderContext)
-    }
-
     bsonWriter.writeName("subRouteIds")
     bsonWriter.writeStartArray()
     value.subRouteIds.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
+
+    if (value.bounds.isDefined) {
+      bsonWriter.writeName("bounds")
+      boundsCodec.encode(bsonWriter, value.bounds.get, encoderContext)
+    }
 
     bsonWriter.writeEndDocument()
   }

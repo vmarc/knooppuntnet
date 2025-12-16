@@ -13,6 +13,7 @@ import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeName
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
@@ -142,12 +143,14 @@ class StatisticsUpdateSubsetFactCountTest extends MongoTest {
   ): Unit = {
     database.routes.save(
       newRouteDoc(
-        newRouteSummary(
-          routeId,
-          Seq(country),
-          routeTypes = Seq(routeType),
-        ),
+        routeId,
         active = active,
+        base = newRouteBaseData(
+          newRouteSummary(
+            Seq(country),
+            routeTypes = Seq(routeType),
+          )
+        ),
         facts = facts
       )
     )

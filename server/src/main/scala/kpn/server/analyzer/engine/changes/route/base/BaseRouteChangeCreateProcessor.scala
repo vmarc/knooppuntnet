@@ -124,7 +124,7 @@ class BaseRouteChangeCreateProcessor(
         val baseRouteDoc = baseRouteDocBuilder.build(context)
         changeSetContext.withImpact(
           tileIds = context.tiles,
-          nodeIds = baseRouteDoc.nodes.nodeIds,
+          nodeIds = baseRouteDoc.base.nodes.nodeIds,
         )
       }
       else {

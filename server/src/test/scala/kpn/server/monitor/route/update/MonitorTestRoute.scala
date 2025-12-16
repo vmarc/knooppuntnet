@@ -13,6 +13,7 @@ import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteSegment
 import kpn.core.test.TestObjects.newBaseRouteSegmentElement
 import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.TestObjects.newSuperSegment
@@ -42,7 +43,7 @@ case class MonitorTestRoute(
 
   def baseRouteDoc: BaseRouteDoc = {
     newBaseRouteDoc(
-      newRouteSummary(relationId),
+      relationId,
       segments = Seq(
         newBaseRouteSegment(1)
       ),
@@ -60,9 +61,11 @@ case class MonitorTestRoute(
 
   def routeDoc: RouteDoc = {
     newRouteDoc(
-      newRouteSummary(
-        relationId,
-        name = "route-name"
+      relationId,
+      base = newRouteBaseData(
+        newRouteSummary(
+          name = "route-name"
+        )
       ),
       superDistance = meters,
       routeIds = Seq(relationId),

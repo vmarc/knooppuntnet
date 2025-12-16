@@ -2,21 +2,18 @@ package kpn.database.actions.routes
 
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseRouteDoc
-import kpn.core.test.TestObjects.newRouteSummary
 
 class MongoQueryKnownRouteIdsTest extends MongoTest {
 
   test("known route ids") {
 
     database.baseRoutes.save(
-      newBaseRouteDoc(
-        newRouteSummary(11L)
-      )
+      newBaseRouteDoc(11L)
     )
 
     database.baseRoutes.save(
       newBaseRouteDoc(
-        newRouteSummary(12L),
+        12L,
         active = false // non-active routes are not included
       )
     )

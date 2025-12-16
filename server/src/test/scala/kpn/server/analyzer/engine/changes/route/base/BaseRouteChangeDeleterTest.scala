@@ -4,8 +4,8 @@ import kpn.api.common.route.RouteNodes
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newChangeSetContext
+import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteNode
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.util.Log
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
@@ -108,10 +108,12 @@ class BaseRouteChangeDeleterTest extends UnitTest with Stubs {
 
   private def buildBaseRouteDoc(): BaseRouteDoc = {
     newBaseRouteDoc(
-      newRouteSummary(11),
-      nodes = RouteNodes(
-        startNode = Some(newRouteNode(1001, "01")),
-        endNode = Some(newRouteNode(1002, "02")),
+      11,
+      base = newRouteBaseData(
+        nodes = RouteNodes(
+          startNode = Some(newRouteNode(1001, "01")),
+          endNode = Some(newRouteNode(1002, "02")),
+        )
       )
     )
   }

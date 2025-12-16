@@ -6,13 +6,13 @@ import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
-class MapRouteDetailBuilder(  routeRepository: RouteRepository)  {
+class MapRouteDetailBuilder(routeRepository: RouteRepository) {
   def build(routeId: Long): Option[MapRouteDetail] = {
     routeRepository.findRouteById(routeId).map { route =>
       val networkReferences = buildNetworkReferences(routeId)
       MapRouteDetail(
         routeId,
-        route.summary.name,
+        route.base.summary.name,
         networkReferences
       )
     }
