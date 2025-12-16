@@ -12,8 +12,6 @@ case class RouteSummary(
   // TODO redesign - reintroduce routeScope: RouteScope, ?
   name: String,
   meters: Long,
-  broken: Boolean,
-  inaccessible: Boolean,
   wayCount: Long,
   timestamp: Timestamp, // TODO redesign - same as RouteDoc.lastUpdated ???
   tags: Seq[Tag]

@@ -71,7 +71,6 @@ class MongoQueryLocationRoutesTest extends MongoTest {
           newRouteSummary(
             name = "aaa",
             meters = 200,
-            broken = true
           )
         ),
         labels = Seq(
@@ -88,16 +87,14 @@ class MongoQueryLocationRoutesTest extends MongoTest {
         base = newRouteBaseData(
           newRouteSummary(
             name = "ccc",
-            meters = 300,
-            broken = true,
-            inaccessible = true
+            meters = 300
           )
         ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location("essen"),
           Label.facts,
-          Label.fact(Fact.RouteInaccessible),
+          Label.fact(Fact.RouteInaccessible)
         )
       )
     )
@@ -117,7 +114,6 @@ class MongoQueryLocationRoutesTest extends MongoTest {
           Timestamps.default,
           None,
           None,
-          broken = true,
           proposed = false,
           Seq.empty
         ),
@@ -129,7 +125,6 @@ class MongoQueryLocationRoutesTest extends MongoTest {
           Timestamps.default,
           Some(Day(2020, 8)),
           Some("red:white:red_lower"),
-          broken = false,
           proposed = false,
           Seq.empty
         ),
@@ -141,7 +136,6 @@ class MongoQueryLocationRoutesTest extends MongoTest {
           Timestamps.default,
           None,
           None,
-          broken = true,
           proposed = false,
           Seq.empty
         )

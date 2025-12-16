@@ -42,7 +42,6 @@ case class LocationRouteInfoData(
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
   tags: Seq[Tag],
-  broken: Boolean,
   proposed: Boolean,
   facts: Seq[Fact]
 ) extends Tagable with Storable
@@ -238,7 +237,6 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
           computed("lastUpdated", "$base.lastUpdated"),
           computed("lastSurvey", "$base.lastSurvey"),
           computed("tags", "$base.summary.tags"),
-          computed("broken", "$base.summary.broken"),
           computed("proposed", "$base.proposed"),
           include("facts")
         )
@@ -257,7 +255,6 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
           lastUpdated = doc.lastUpdated,
           lastSurvey = doc.lastSurvey,
           symbol = symbol,
-          broken = doc.broken,
           proposed = doc.proposed,
           facts = doc.facts
         )

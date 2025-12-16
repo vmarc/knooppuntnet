@@ -43,9 +43,9 @@ class RouteDocCodec(registry: CodecRegistry) extends Codec[RouteDoc] {
 
     var _id: Long = 0
     var active: Boolean = false
+    var labels: Seq[String] = null
     var base: RouteBaseData = null
     var facts: Seq[Fact] = null
-    var labels: Seq[String] = null
     var unexpectedRelationIds: Seq[Long] = null
     var segments: Seq[RouteSegment] = null
     var superDistance: Long = 0
@@ -68,6 +68,15 @@ class RouteDocCodec(registry: CodecRegistry) extends Codec[RouteDoc] {
       else if (fieldName == "active") {
         active = booleanCodec.decode(bsonReader, decoderContext)
       }
+      else if (fieldName == "labels") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[String]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += stringCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        labels = valueBuffer.toSeq
+      }
       else if (fieldName == "base") {
         base = routeBaseDataCodec.decode(bsonReader, decoderContext)
       }
@@ -79,15 +88,6 @@ class RouteDocCodec(registry: CodecRegistry) extends Codec[RouteDoc] {
         }
         bsonReader.readEndArray()
         facts = valueBuffer.toSeq
-      }
-      else if (fieldName == "labels") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[String]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += stringCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        labels = valueBuffer.toSeq
       }
       else if (fieldName == "unexpectedRelationIds") {
         bsonReader.readStartArray()
@@ -215,17 +215,17 @@ class RouteDocCodec(registry: CodecRegistry) extends Codec[RouteDoc] {
     bsonWriter.writeName("active")
     booleanCodec.encode(bsonWriter, value.active, encoderContext)
 
+    bsonWriter.writeName("labels")
+    bsonWriter.writeStartArray()
+    value.labels.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
+
     bsonWriter.writeName("base")
     routeBaseDataCodec.encode(bsonWriter, value.base, encoderContext)
 
     bsonWriter.writeName("facts")
     bsonWriter.writeStartArray()
     value.facts.foreach(v => factCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
-
-    bsonWriter.writeName("labels")
-    bsonWriter.writeStartArray()
-    value.labels.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
     bsonWriter.writeName("unexpectedRelationIds")

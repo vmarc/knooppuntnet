@@ -12,7 +12,6 @@ case class LocationRouteInfo(
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
   symbol: Option[String],
-  broken: Boolean,
   proposed: Boolean,
   facts: Seq[Fact]
 )

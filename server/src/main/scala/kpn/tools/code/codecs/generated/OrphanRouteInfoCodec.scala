@@ -74,7 +74,6 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
       id,
       name,
       meters,
-      isBroken,
       lastSurvey,
       lastUpdated,
       facts,
@@ -92,9 +91,6 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
 
     bsonWriter.writeName("meters")
     longCodec.encode(bsonWriter, value.meters, encoderContext)
-
-    bsonWriter.writeName("isBroken")
-    booleanCodec.encode(bsonWriter, value.isBroken, encoderContext)
 
     if (value.lastSurvey.isDefined) {
       bsonWriter.writeName("lastSurvey")

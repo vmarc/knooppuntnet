@@ -40,27 +40,10 @@ class MongoQuerySubsetOrphanRoutesTest extends MongoTest {
     new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking) should equal(Seq.empty)
   }
 
-  test("route that is broken") {
-    database.routes.save(createRouteDoc(broken = true))
-    assertEqual(
-      new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking),
-      Seq(
-        newOrphanRouteInfo(
-          id = 100L,
-          name = "01-02",
-          meters = 123,
-          isBroken = true,
-          lastUpdated = Timestamp(2020, 8, 11),
-        )
-      )
-    )
-  }
-
   private def createRouteDoc(
     country: Country = Country.nl,
     routeType: RouteType = RouteType.hiking,
-    lastSurvey: Option[Day] = None,
-    broken: Boolean = false
+    lastSurvey: Option[Day] = None
   ): RouteDoc = {
     newRouteDoc(
       100L,
@@ -68,7 +51,6 @@ class MongoQuerySubsetOrphanRoutesTest extends MongoTest {
         newRouteSummary(
           name = "01-02",
           meters = 123,
-          broken = broken
         ),
         lastUpdated = Timestamp(2020, 8, 11),
       ),

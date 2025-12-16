@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route.base
 
-import kpn.api.common.Fact
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteSummary
 import kpn.api.common.data.Element
@@ -8,7 +7,6 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.custom.Timestamp
-import kpn.core.analysis.Facts
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteBaseData
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
@@ -50,8 +48,6 @@ class BaseRouteDocBuilder {
       context.scopes,
       title,
       length,
-      context.facts.exists(Facts.isError),
-      context.facts.contains(Fact.RouteInaccessible),
       routeWays.size,
       context.relation.timestamp,
       context.relation.tags

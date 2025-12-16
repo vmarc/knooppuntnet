@@ -31,7 +31,6 @@ object LocationRoutesPageExample {
           lastUpdated = Timestamp(2018, 8, 11),
           lastSurvey = Some(Day(2018, 8)),
           symbol = None,
-          broken = true,
           proposed = true,
           facts = Seq.empty
         ),
@@ -43,7 +42,6 @@ object LocationRoutesPageExample {
           lastUpdated = Timestamp(2018, 8, 13),
           lastSurvey = None,
           symbol = None,
-          broken = false,
           proposed = false,
           facts = Seq.empty
         )

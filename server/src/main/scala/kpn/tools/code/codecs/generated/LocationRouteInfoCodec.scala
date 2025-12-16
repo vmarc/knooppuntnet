@@ -34,7 +34,6 @@ class LocationRouteInfoCodec(registry: CodecRegistry) extends Codec[LocationRout
     var lastUpdated: Timestamp = null
     var lastSurvey: Option[Day] = None
     var symbol: Option[String] = None
-    var broken: Boolean = false
     var proposed: Boolean = false
     var facts: Seq[Fact] = null
 
@@ -60,9 +59,6 @@ class LocationRouteInfoCodec(registry: CodecRegistry) extends Codec[LocationRout
       }
       else if (fieldName == "symbol") {
         symbol = Some(stringCodec.decode(bsonReader, decoderContext))
-      }
-      else if (fieldName == "broken") {
-        broken = booleanCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "proposed") {
         proposed = booleanCodec.decode(bsonReader, decoderContext)
@@ -92,7 +88,6 @@ class LocationRouteInfoCodec(registry: CodecRegistry) extends Codec[LocationRout
       lastUpdated,
       lastSurvey,
       symbol,
-      broken,
       proposed,
       facts,
     )
@@ -125,9 +120,6 @@ class LocationRouteInfoCodec(registry: CodecRegistry) extends Codec[LocationRout
       bsonWriter.writeName("symbol")
       stringCodec.encode(bsonWriter, value.symbol.get, encoderContext)
     }
-
-    bsonWriter.writeName("broken")
-    booleanCodec.encode(bsonWriter, value.broken, encoderContext)
 
     bsonWriter.writeName("proposed")
     booleanCodec.encode(bsonWriter, value.proposed, encoderContext)

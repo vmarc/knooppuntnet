@@ -45,8 +45,6 @@ object RouteDetailsPageExample {
         scopes = Seq(RouteScope.regional),
         name = "01-02",
         meters = 1234,
-        broken = true,
-        inaccessible = true,
         wayCount = 10,
         timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
         tags = Tags.from(

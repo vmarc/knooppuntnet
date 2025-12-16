@@ -12,7 +12,6 @@ export interface LocationRouteInfo {
   readonly lastUpdated: Timestamp;
   readonly lastSurvey?: Day;
   readonly symbol?: string;
-  readonly broken: boolean;
   readonly proposed: boolean;
   readonly facts: Fact[];
 }

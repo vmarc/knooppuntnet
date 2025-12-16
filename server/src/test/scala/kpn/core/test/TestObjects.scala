@@ -632,8 +632,6 @@ object TestObjects {
     scopes: Seq[RouteScope] = Seq(RouteScope.regional),
     name: String = "",
     meters: Int = 0,
-    broken: Boolean = false,
-    inaccessible: Boolean = false,
     wayCount: Int = 0,
     timestamp: Timestamp = Timestamps.default,
     tags: Seq[Tag] = Seq.empty
@@ -645,8 +643,6 @@ object TestObjects {
       scopes,
       name,
       meters,
-      broken,
-      inaccessible,
       wayCount,
       timestamp,
       tags
@@ -1465,7 +1461,6 @@ object TestObjects {
     id: Long,
     name: String,
     meters: Long = 0,
-    isBroken: Boolean = false,
     lastSurvey: Option[String] = None,
     lastUpdated: Timestamp = Timestamps.default,
     facts: Seq[Fact] = Seq.empty
@@ -1474,7 +1469,6 @@ object TestObjects {
       id,
       name,
       meters,
-      isBroken,
       lastSurvey,
       lastUpdated,
       facts

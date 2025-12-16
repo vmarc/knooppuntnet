@@ -37,8 +37,6 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
     var scopes: Seq[RouteScope] = null
     var name: String = null
     var meters: Long = 0
-    var broken: Boolean = false
-    var inaccessible: Boolean = false
     var wayCount: Long = 0
     var timestamp: Timestamp = null
     var tags: Seq[Tag] = null
@@ -81,12 +79,6 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
       else if (fieldName == "meters") {
         meters = longCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "broken") {
-        broken = booleanCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "inaccessible") {
-        inaccessible = booleanCodec.decode(bsonReader, decoderContext)
-      }
       else if (fieldName == "wayCount") {
         wayCount = longCodec.decode(bsonReader, decoderContext)
       }
@@ -117,8 +109,6 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
       scopes,
       name,
       meters,
-      broken,
-      inaccessible,
       wayCount,
       timestamp,
       tags,
@@ -151,12 +141,6 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
 
     bsonWriter.writeName("meters")
     longCodec.encode(bsonWriter, value.meters, encoderContext)
-
-    bsonWriter.writeName("broken")
-    booleanCodec.encode(bsonWriter, value.broken, encoderContext)
-
-    bsonWriter.writeName("inaccessible")
-    booleanCodec.encode(bsonWriter, value.inaccessible, encoderContext)
 
     bsonWriter.writeName("wayCount")
     longCodec.encode(bsonWriter, value.wayCount, encoderContext)

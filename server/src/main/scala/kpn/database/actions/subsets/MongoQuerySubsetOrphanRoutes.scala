@@ -58,7 +58,6 @@ class MongoQuerySubsetOrphanRoutes(database: Database) {
           computed("id", "$_id"),
           computed("name", "$base.summary.name"),
           computed("meters", "$base.summary.meters"),
-          computed("isBroken", "$base.summary.broken"),
           computed("lastSurvey", "$base.lastSurvey"),
           computed("lastUpdated", "$base.lastUpdated"),
           include("facts"),

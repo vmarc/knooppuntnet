@@ -13,8 +13,6 @@ export interface RouteSummary {
   readonly scopes: RouteScope[];
   readonly name: string;
   readonly meters: number;
-  readonly broken: boolean;
-  readonly inaccessible: boolean;
   readonly wayCount: number;
   readonly timestamp: Timestamp;
   readonly tags: Tag[];
