@@ -6,7 +6,7 @@ class Issue208_LoopRoute extends UnitTest {
 
   test("route Golf - Golf") {
     val route = CaseStudy.baseRouteDoc("13331398")
-    route.base.summary.name should equal("Golf - Golf")
+    route.base.name should equal("Golf - Golf")
     pendingRedesignLoop()
     route.facts should equal(Seq.empty)
     //  route.analysis.map.freePaths.size should equal(1)
@@ -15,7 +15,7 @@ class Issue208_LoopRoute extends UnitTest {
 
   test("route ?-? instead of no-name") {
     val route = CaseStudy.baseRouteDoc("13669113")
-    route.base.summary.name should equal("?-?")
+    route.base.name should equal("?-?")
     pendingRedesignLoop()
     route.facts should equal(Seq.empty)
   }

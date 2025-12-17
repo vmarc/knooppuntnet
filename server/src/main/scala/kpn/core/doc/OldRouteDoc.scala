@@ -1,7 +1,9 @@
 package kpn.core.doc
 
+import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.RouteSummary
+import kpn.api.common.RouteScope
+import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
@@ -13,7 +15,13 @@ case class OldRouteDoc(
   _id: Long, // routeId
   active: Boolean,
   labels: Seq[String],
-  summary: RouteSummary,
+  countries: Seq[Country],
+  nodeNetwork: Boolean,
+  routeTypes: Seq[RouteType],
+  scopes: Seq[RouteScope],
+  name: String,
+  meters: Long,
+  wayCount: Long,
   proposed: Boolean,
   version: Long,
   changeSetId: Long,
@@ -28,7 +36,7 @@ case class OldRouteDoc(
   edges: Seq[RouteEdge],
 ) extends WithId {
 
-  def toRef: Ref = Ref(_id, summary.name)
+  def toRef: Ref = Ref(_id, name)
 
   def deactivated: OldRouteDoc = {
     copy(

@@ -104,7 +104,7 @@ class IndexConfiguration(database: Database) {
         "location-routes-page",
         "active",
         "labels",
-        "base.summary.name",
+        "base.name",
         "_id"
       ),
       Index(
@@ -128,7 +128,7 @@ class IndexConfiguration(database: Database) {
         database.baseRoutes,
         "route-node-references",
         "active",
-        "base.summary.nodeNetwork",
+        "base.nodeNetwork",
         "nodeRefs"
       ),
       Index( // support MongoQueryParentRoutes
@@ -137,7 +137,7 @@ class IndexConfiguration(database: Database) {
         "subRouteIds",
         "active",
         "_id",
-        "base.summary.name",
+        "base.name",
       ),
       Index( // support MongoQueryRouteElementIds
         database.baseRoutes,

@@ -12,7 +12,6 @@ import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteRelation
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.TestObjects.newSuperSegment
 import kpn.core.util.Util.mergeBounds
 import kpn.server.monitor.domain.MonitorGroup
@@ -433,9 +432,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
       newRouteDoc(
         MainrelationId,
         base = newRouteBaseData(
-          summary = newRouteSummary(
-            name = "route-name"
-          )
+          name = "route-name"
         ),
         superDistance = subRoute11.meters + subRoute12.meters,
         routeIds = Seq(MainrelationId, subRoute11.relationId, subRoute12.relationId),

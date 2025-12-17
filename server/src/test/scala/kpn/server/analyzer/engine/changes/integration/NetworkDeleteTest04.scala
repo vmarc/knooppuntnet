@@ -129,7 +129,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
   private def assertRoute(): Unit = {
     val route = findRouteById(1)
     route.active should equal(true)
-    route.base.summary.name should equal("01-02")
+    route.base.name should equal("01-02")
     route.base.raw.version should equal(2)
   }
 

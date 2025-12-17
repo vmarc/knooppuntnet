@@ -6,7 +6,6 @@ import kpn.api.custom.Day
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.Timestamps
 
 class MongoQueryOrphanRoutesTest extends MongoTest {
@@ -19,10 +18,8 @@ class MongoQueryOrphanRoutesTest extends MongoTest {
       newRouteDoc(
         11L,
         base = newRouteBaseData(
-          summary = newRouteSummary(
-            name = "route 11",
-            meters = 1011
-          ),
+          name = "route 11",
+          meters = 1011,
           lastSurvey = Some(Day(2015, 8, 11)),
           lastUpdated = Timestamps.default,
         ),
@@ -34,10 +31,8 @@ class MongoQueryOrphanRoutesTest extends MongoTest {
       newRouteDoc(
         12L,
         base = newRouteBaseData(
-          summary = newRouteSummary(
-            name = "route 12",
-            meters = 1012
-          ),
+          name = "route 12",
+          meters = 1012,
           lastSurvey = Some(Day(2015, 8, 12)),
           lastUpdated = Timestamps.default,
         ),

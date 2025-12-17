@@ -84,7 +84,7 @@ class MonitorRouteMembersPageBuilder(
     MonitorRouteMembersPage(
       summary,
       referenceType = monitorRoute.referenceType,
-      routeTypes = routeDoc.base.summary.routeTypes,
+      routeTypes = routeDoc.base.routeTypes,
       structureRows,
     )
   }

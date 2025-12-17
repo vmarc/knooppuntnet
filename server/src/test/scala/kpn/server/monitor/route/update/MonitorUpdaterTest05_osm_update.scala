@@ -12,7 +12,6 @@ import kpn.core.test.TestObjects.newMonitorRoute
 import kpn.core.test.TestObjects.newMonitorState
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.TestObjects.newSuperSegment
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -181,9 +180,7 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
       newRouteDoc(
         route1.relationId,
         base = newRouteBaseData(
-          summary = newRouteSummary(
-            name = "route-name"
-          )
+          name = "route-name"
         ),
         superDistance = route1.meters,
         routeIds = Seq(route1.relationId),

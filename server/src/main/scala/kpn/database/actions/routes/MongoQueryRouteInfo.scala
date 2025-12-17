@@ -36,8 +36,8 @@ class MongoQueryRouteInfo(database: Database) {
         fields(
           excludeId(),
           computed("routeId", "$_id"),
-          computed("routeName", "$base.summary.name"),
-          computed("routeTypes", "$base.summary.routeTypes"),
+          computed("routeName", "$base.name"),
+          computed("routeTypes", "$base.routeTypes"),
           computed("changeCount", Document.parse("""{ $literal: 0 }""")),
           arraySize("segmentCount", "$segments")
         )

@@ -58,7 +58,7 @@ class MonitorRouteSegmentsPageBuilder(
 
     MonitorRouteSegmentsPage(
       summary,
-      routeDoc.base.summary.meters,
+      routeDoc.base.meters,
       routeRelationInfos,
       segments
     )

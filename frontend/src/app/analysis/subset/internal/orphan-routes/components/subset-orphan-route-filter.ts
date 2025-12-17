@@ -12,7 +12,7 @@ export class SubsetOrphanRouteFilter {
   private readonly brokenFilter = new BooleanFilter<OrphanRouteInfo>(
     'investigate',
     this.criteria().broken,
-    (row) => row.isBroken,
+    (row) => row.investigate,
     () => this.criteria.update((c) => ({ ...c, broken: null })),
     () => this.criteria.update((c) => ({ ...c, broken: true })),
     () => this.criteria.update((c) => ({ ...c, broken: false }))

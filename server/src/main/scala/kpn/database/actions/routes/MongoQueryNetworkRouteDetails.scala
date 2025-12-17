@@ -50,8 +50,8 @@ class MongoQueryNetworkRouteDetails(database: Database) {
         fields(
           excludeId(),
           computed("id", "$_id"),
-          computed("name", "$base.summary.name"),
-          computed("length", "$base.summary.meters"),
+          computed("name", "$base.name"),
+          computed("length", "$base.meters"),
           include("facts"),
           computed("proposed", "$base.proposed"),
           computed("lastUpdated", "$base.lastUpdated"),

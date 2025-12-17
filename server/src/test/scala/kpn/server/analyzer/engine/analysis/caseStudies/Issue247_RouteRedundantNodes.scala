@@ -17,7 +17,7 @@ class Issue247_RouteRedundantNodes extends UnitTest {
     route.base.nodes.startTentacleNodes.map(_.alternateName) should equal(Seq("?.b"))
     route.base.nodes.endNode should equal(None)
 
-    route.base.summary.name should equal("?-?")
+    route.base.name should equal("?-?")
 
     assertEqual(
       route.base.raw.tags,

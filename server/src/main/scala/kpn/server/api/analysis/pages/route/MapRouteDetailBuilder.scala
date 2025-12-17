@@ -12,7 +12,7 @@ class MapRouteDetailBuilder(routeRepository: RouteRepository) {
       val networkReferences = buildNetworkReferences(routeId)
       MapRouteDetail(
         routeId,
-        route.base.summary.name,
+        route.base.name,
         networkReferences
       )
     }

@@ -41,14 +41,14 @@ class MongoQuerySubsetOrphanRoutes(database: Database) {
           equal("active", true),
           equal("labels", Label.country(subset.country)),
           equal("labels", Label.routeType(subset.routeType)),
-          equal("base.summary.nodeNetwork", true),
+          equal("base.nodeNetwork", true),
           arrayEmpty("networkReferences"),
         )
       ),
       sort(
         orderBy(
           ascending(
-            "base.summary.name"
+            "base.name"
           )
         )
       ),
@@ -56,8 +56,8 @@ class MongoQuerySubsetOrphanRoutes(database: Database) {
         fields(
           excludeId(),
           computed("id", "$_id"),
-          computed("name", "$base.summary.name"),
-          computed("meters", "$base.summary.meters"),
+          computed("name", "$base.name"),
+          computed("meters", "$base.meters"),
           computed("lastSurvey", "$base.lastSurvey"),
           computed("lastUpdated", "$base.lastUpdated"),
           include("facts"),

@@ -1,8 +1,10 @@
 // this file is generated, please do not modify
 
 import { Bounds } from '@api/common/bounds';
+import { Country } from '@api/common/country';
 import { Fact } from '@api/common/fact';
-import { RouteSummary } from '@api/common/route-summary';
+import { RouteScope } from '@api/common/route-scope';
+import { RouteType } from '@api/common/route-type';
 import { Reference } from '@api/common/common/reference';
 import { Raw } from '@api/common/data/raw/raw';
 import { LocationCandidateInfo } from '@api/common/location/location-candidate-info';
@@ -15,7 +17,13 @@ export interface RouteDetails {
   readonly id: number;
   readonly active: boolean;
   readonly raw: Raw;
-  readonly summary: RouteSummary;
+  readonly countries: Country[];
+  readonly nodeNetwork: boolean;
+  readonly routeTypes: RouteType[];
+  readonly scopes: RouteScope[];
+  readonly name: string;
+  readonly meters: number;
+  readonly wayCount: number;
   readonly proposed: boolean;
   readonly lastUpdated: Timestamp;
   readonly lastSurvey?: Day;

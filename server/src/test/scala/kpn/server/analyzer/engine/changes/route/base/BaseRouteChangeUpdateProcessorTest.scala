@@ -11,7 +11,6 @@ import kpn.core.test.TestObjects.newRelation
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeAnalysis
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.TestObjects.newRouteTileData
 import kpn.core.util.Log
 import kpn.core.util.MockLog
@@ -74,7 +73,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
     val beforeBaseRouteDoc = newBaseRouteDoc(
       11,
       base = newRouteBaseData(
-        summary = newRouteSummary(name = "before"),
+        name = "before",
         nodes = RouteNodes(
           startNode = Some(newRouteNode(1001, "01")),
           endNode = Some(newRouteNode(1002, "02")),
@@ -89,7 +88,8 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
     val afterBaseRouteDoc = newBaseRouteDoc(
       11,
       base = newRouteBaseData(
-        summary = newRouteSummary(name = "after"))
+        name = "after"
+      )
     )
     (setup.baseRouteDocBuilder.build _).returnsWith(afterBaseRouteDoc)
 
@@ -108,7 +108,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
       Some(ElementIds.from(nodeIds = Set(1001, 1002)))
     )
 
-    (setup.routeRepository.saveBaseRoute _).calls.map(doc => (doc._id, doc.base.summary.name)) should equal(Seq((11, "after")))
+    (setup.routeRepository.saveBaseRoute _).calls.map(doc => (doc._id, doc.base.name)) should equal(Seq((11, "after")))
 
     assertEqual(updatedChangeSetContext.impactedTileIds, Seq("updated-tile"))
     assertEqual(updatedChangeSetContext.impactedNodeIds, Seq(1001, 1002))
@@ -204,7 +204,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
     val beforeBaseRouteDoc = newBaseRouteDoc(
       11,
       base = newRouteBaseData(
-        summary = newRouteSummary(name = "before"),
+        name = "before",
         nodes = RouteNodes(
           startNode = Some(newRouteNode(1001, "01")),
           endNode = Some(newRouteNode(1002, "02")),

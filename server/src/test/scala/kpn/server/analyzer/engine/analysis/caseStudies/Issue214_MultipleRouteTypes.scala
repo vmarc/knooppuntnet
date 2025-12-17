@@ -7,6 +7,6 @@ class Issue214_MultipleRouteTypes extends UnitTest {
 
   test("route=hiking;mtb") {
     val route = CaseStudy.baseRouteDoc("13328443")
-    route.base.summary.routeTypes should equal(Seq(RouteType.hiking, RouteType.mtb))
+    route.base.routeTypes should equal(Seq(RouteType.hiking, RouteType.mtb))
   }
 }

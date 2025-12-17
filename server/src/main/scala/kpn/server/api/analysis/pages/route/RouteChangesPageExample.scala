@@ -30,8 +30,8 @@ object RouteChangesPageExample {
     RouteChangesPage(
       RouteInfo(
         route.id,
-        route.summary.name,
-        route.summary.routeTypes,
+        route.name,
+        route.routeTypes,
         memberCount = 3,
         pathCount = 3,
         segmentCount = 3,

@@ -6,7 +6,6 @@ import kpn.core.doc.RouteDoc
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.TestObjects.newRouteSummary
 
 class MongoQueryRouteInfoTest extends MongoTest {
 
@@ -27,10 +26,8 @@ class MongoQueryRouteInfoTest extends MongoTest {
       id,
       active = active,
       base = newRouteBaseData(
-        summary = newRouteSummary(
-          routeTypes = Seq(hiking),
-          name = name
-        )
+        routeTypes = Seq(hiking),
+        name = name
       ),
       segments = Seq.empty
     )

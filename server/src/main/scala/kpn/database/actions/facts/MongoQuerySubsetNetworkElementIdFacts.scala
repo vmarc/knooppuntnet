@@ -45,7 +45,7 @@ class MongoQuerySubsetNetworkElementIdFacts(database: Database) {
         and(
           equal("active", true),
           equal("country", subset.country.entryName),
-          equal("base.summary.routeType", subset.routeType.entryName)
+          equal("base.routeType", subset.routeType.entryName)
         )
       ),
       unwind("$facts"),
@@ -54,7 +54,7 @@ class MongoQuerySubsetNetworkElementIdFacts(database: Database) {
         fields(
           excludeId(),
           computed("networkId", "$_id"),
-          computed("networkName", "$base.summary.name"),
+          computed("networkName", "$base.name"),
           computed("elementIds", "$facts.elementIds"),
         )
       )

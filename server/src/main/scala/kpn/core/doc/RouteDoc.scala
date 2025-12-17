@@ -33,7 +33,7 @@ case class RouteDoc(
   stamp: Option[ObjectId],
 ) extends WithId with Tagable {
 
-  def toRef: Ref = Ref(_id, base.summary.name)
+  def toRef: Ref = Ref(_id, base.name)
 
   def deactivated: RouteDoc = {
     copy(

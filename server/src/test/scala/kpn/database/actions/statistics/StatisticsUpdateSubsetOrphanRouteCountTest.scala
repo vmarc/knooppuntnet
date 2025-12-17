@@ -9,7 +9,6 @@ import kpn.api.common.RouteType.hiking
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
 class StatisticsUpdateSubsetOrphanRouteCountTest extends MongoTest {
@@ -42,10 +41,8 @@ class StatisticsUpdateSubsetOrphanRouteCountTest extends MongoTest {
       newRouteDoc(
         routeId,
         base = newRouteBaseData(
-          summary = newRouteSummary(
-            countries = Seq(country),
-            routeTypes = Seq(routeType)
-          )
+          countries = Seq(country),
+          routeTypes = Seq(routeType)
         ),
       )
     )

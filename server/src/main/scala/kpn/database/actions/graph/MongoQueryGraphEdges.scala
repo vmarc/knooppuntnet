@@ -51,14 +51,14 @@ class MongoQueryGraphEdges(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("base.summary.nodeNetwork", true),
+          equal("base.nodeNetwork", true),
         )
       ),
       unwind("$edges"),
-      unwind("$base.summary.routeTypes"),
+      unwind("$base.routeTypes"),
       project(
         fields(
-          computed("routeType", "$base.summary.routeTypes"),
+          computed("routeType", "$base.routeTypes"),
           include("proposed"),
           include("_id"),
           computed("pathId", "$edges.pathId"),
@@ -74,10 +74,10 @@ class MongoQueryGraphEdges(database: Database) {
     RouteType.values.map { routeType =>
       val routeTypeEdges = edges.filter(_.routeType == routeType).map { edge =>
         GraphEdge(
-          edge.sourceNodeId: Long,
-          edge.sinkNodeId: Long,
-          edge.meters: Long,
-          edge.proposed: Boolean,
+          edge.sourceNodeId,
+          edge.sinkNodeId,
+          edge.meters,
+          edge.proposed,
           TrackPathKey(edge._id, edge.pathId)
         )
       }

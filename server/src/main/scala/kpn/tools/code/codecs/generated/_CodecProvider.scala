@@ -61,7 +61,6 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteMemberInfoWay
 import kpn.api.common.RouteScope
-import kpn.api.common.RouteSummary
 import kpn.api.common.RouteType
 import kpn.api.common.RoutesFact
 import kpn.api.common.SearchResponse
@@ -921,9 +920,6 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[ChangesPage]) {
       return new ChangesPageCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[RouteSummary]) {
-      return new RouteSummaryCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[ReplicationId]) {
       return new ReplicationIdCodec(codecRegistry).asInstanceOf[Codec[T]]

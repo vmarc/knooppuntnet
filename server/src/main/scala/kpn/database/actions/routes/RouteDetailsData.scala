@@ -1,9 +1,11 @@
 package kpn.database.actions.routes
 
 import kpn.api.common.Bounds
+import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.RouteLocationAnalysis
-import kpn.api.common.RouteSummary
+import kpn.api.common.RouteScope
+import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.data.raw.Raw
 import kpn.api.common.route.ParentRoute
@@ -16,7 +18,13 @@ case class RouteDetailsData(
   id: Long,
   active: Boolean,
   core: Raw,
-  summary: RouteSummary,
+  countries: Seq[Country],
+  nodeNetwork: Boolean,
+  routeTypes: Seq[RouteType],
+  scopes: Seq[RouteScope],
+  name: String,
+  meters: Long,
+  wayCount: Long,
   proposed: Boolean,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],

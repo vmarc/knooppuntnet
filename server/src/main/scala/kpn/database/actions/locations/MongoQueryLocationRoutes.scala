@@ -225,15 +225,15 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
 
     val pipeline = Seq(
       filter(buildFilter(subset, parameters)),
-      sort(orderBy(ascending("base.summary.name", "_id"))),
+      sort(orderBy(ascending("base.name", "_id"))),
       skip(parameters.pageSize.toInt * parameters.pageIndex.toInt),
       limit(parameters.pageSize.toInt),
       project(
         fields(
           excludeId(),
           computed("id", "$_id"),
-          computed("name", "$base.summary.name"),
-          computed("meters", "$base.summary.meters"),
+          computed("name", "$base.name"),
+          computed("meters", "$base.meters"),
           computed("lastUpdated", "$base.lastUpdated"),
           computed("lastSurvey", "$base.lastSurvey"),
           computed("tags", "$base.raw.tags"),

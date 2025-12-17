@@ -40,17 +40,17 @@ class RouteLabelsAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def buildRouteTypeLabels(): Seq[String] = {
-    context.route.base.summary.routeTypes.map(Label.routeType)
+    context.route.base.routeTypes.map(Label.routeType)
   }
 
   private def buildScopeLabels(): Seq[String] = {
-    context.route.base.summary.scopes.map(Label.scope)
+    context.route.base.scopes.map(Label.scope)
   }
 
   private def buildLocationLabels(): Seq[String] = {
     val analysisLabels = context.route.base.locationAnalysis.locationNames.map(Label.location)
     if (analysisLabels.isEmpty) {
-      context.route.base.summary.countries.map(country => Label.location(country.entryName))
+      context.route.base.countries.map(country => Label.location(country.entryName))
     }
     else {
       analysisLabels

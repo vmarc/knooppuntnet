@@ -9,7 +9,6 @@ import kpn.api.custom.Day
 import kpn.core.doc.Label
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newRouteBaseData
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
@@ -89,11 +88,9 @@ class RouteLabelsAnalyzerTest extends UnitTest {
       route = newBaseRouteDoc(
         1L,
         base = newRouteBaseData(
-          summary = newRouteSummary(
-            countries = Seq(Country.be),
-            routeTypes = Seq(RouteType.hiking),
-            scopes = Seq(RouteScope.regional)
-          ),
+          countries = Seq(Country.be),
+          routeTypes = Seq(RouteType.hiking),
+          scopes = Seq(RouteScope.regional),
           lastSurvey = Some(Day(2020, 8)),
           locationAnalysis =
             RouteLocationAnalysis(

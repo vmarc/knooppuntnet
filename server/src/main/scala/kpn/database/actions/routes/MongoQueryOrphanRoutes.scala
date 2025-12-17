@@ -42,7 +42,7 @@ class MongoQueryOrphanRoutes(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("base.summary.nodeNetwork", true),
+          equal("base.nodeNetwork", true),
           arrayEmpty("networkReferences"),
         )
       ),
@@ -57,8 +57,8 @@ class MongoQueryOrphanRoutes(database: Database) {
         fields(
           excludeId(),
           computed("id", "$_id"),
-          computed("name", "$base.summary.name"),
-          computed("meters", "$base.summary.meters"),
+          computed("name", "$base.name"),
+          computed("meters", "$base.meters"),
           computed("lastSurvey", "$base.lastSurvey"),
           computed("lastUpdated", "$base.lastUpdated"),
           include("facts"),

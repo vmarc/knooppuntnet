@@ -45,7 +45,7 @@ class RouteChangeCreateProcessor {
             _id = key.toId,
             key = key,
             changeType = ChangeType.Create,
-            name = routeDocAfter.base.summary.name,
+            name = routeDocAfter.base.name,
             locationAnalysis = routeDocAfter.base.locationAnalysis,
             addedToNetwork = addedToNetwork,
             removedFromNetwork = Seq.empty,

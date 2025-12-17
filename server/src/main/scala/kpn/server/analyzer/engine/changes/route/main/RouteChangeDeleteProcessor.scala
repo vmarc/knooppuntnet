@@ -41,7 +41,7 @@ class RouteChangeDeleteProcessor {
             _id = key.toId,
             key = key,
             changeType = ChangeType.Delete,
-            name = routeDoc.base.summary.name,
+            name = routeDoc.base.name,
             locationAnalysis = routeDoc.base.locationAnalysis,
             addedToNetwork = Seq.empty,
             removedFromNetwork = removedFromNetwork,

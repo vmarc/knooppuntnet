@@ -83,7 +83,7 @@ class MonitorOsmNowAnalyze(
   }
 
   private def updateReporterSteps(args: MonitorUpdateArgs, routeDoc: RouteDoc): Unit = {
-    val mainRelationInfo = (args.relationId.toString, routeDoc.base.summary.name)
+    val mainRelationInfo = (args.relationId.toString, routeDoc.base.name)
     val subRelationInfos = routeDoc.structureRows.filter(_.relation.isDefined).map(row => (row.id.toString, row.name.getOrElse("")))
     val relationInfos = mainRelationInfo +: subRelationInfos
 

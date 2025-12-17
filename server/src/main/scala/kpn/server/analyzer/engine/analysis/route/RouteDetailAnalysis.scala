@@ -28,11 +28,11 @@ case class RouteDetailAnalysis(
 
   def id: Long = relation.id
 
-  def name: String = baseRoute.base.summary.name
+  def name: String = baseRoute.base.name
 
   def subsets: Seq[Subset] = {
-    baseRoute.base.summary.countries.flatMap { country =>
-      baseRoute.base.summary.routeTypes.flatMap { routeType =>
+    baseRoute.base.countries.flatMap { country =>
+      baseRoute.base.routeTypes.flatMap { routeType =>
         Subset.of(country, routeType)
       }
     }

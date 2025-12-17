@@ -3,7 +3,6 @@ package kpn.server.api.analysis.pages.route
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.RouteScope
-import kpn.api.common.RouteSummary
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.data.raw.Raw
@@ -51,15 +50,13 @@ object RouteDetailsPageExample {
           "key5" -> "value5"
         )
       ),
-      summary = RouteSummary(
-        countries = Seq(Country.nl),
-        nodeNetwork = true,
-        routeTypes = Seq(RouteType.hiking),
-        scopes = Seq(RouteScope.regional),
-        name = "01-02",
-        meters = 1234,
-        wayCount = 10,
-      ),
+      countries = Seq(Country.nl),
+      nodeNetwork = true,
+      routeTypes = Seq(RouteType.hiking),
+      scopes = Seq(RouteScope.regional),
+      name = "01-02",
+      meters = 1234,
+      wayCount = 10,
       proposed = true,
       lastUpdated = Timestamp(2020, 10, 11, 12, 34, 56),
       lastSurvey = Some(Day(2020, 11, 8)),

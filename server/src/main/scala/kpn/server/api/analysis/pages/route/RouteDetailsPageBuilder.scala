@@ -54,8 +54,8 @@ class RouteDetailsPageBuilder(
     val changeCount = changeSetRepository.routeChangesCount(routeId)
     RouteInfo(
       routeId,
-      details.summary.name,
-      details.summary.routeTypes,
+      details.name,
+      details.routeTypes,
       bounds = details.bounds,
       memberCount = details.memberCount,
       pathCount = details.pathCount,

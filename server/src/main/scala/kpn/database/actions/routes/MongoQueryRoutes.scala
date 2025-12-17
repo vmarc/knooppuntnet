@@ -41,7 +41,7 @@ class MongoQueryRoutes(database: Database) {
       sort(
         orderBy(
           ascending(
-            "base.summary.name",
+            "base.name",
           )
         )
       ),

@@ -1,8 +1,10 @@
 package kpn.core.doc
 
+import kpn.api.common.Country
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteMemberInfo
-import kpn.api.common.RouteSummary
+import kpn.api.common.RouteScope
+import kpn.api.common.RouteType
 import kpn.api.common.data.raw.Raw
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
@@ -12,7 +14,14 @@ import kpn.api.custom.Timestamp
 
 case class RouteBaseData(
   raw: Raw,
-  summary: RouteSummary,
+  countries: Seq[Country],
+  nodeNetwork: Boolean,
+  routeTypes: Seq[RouteType],
+  scopes: Seq[RouteScope],
+  // TODO redesign - reintroduce routeScope: RouteScope, ?
+  name: String,
+  meters: Long,
+  wayCount: Long,
   proposed: Boolean,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],

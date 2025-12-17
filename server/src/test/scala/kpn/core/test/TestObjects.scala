@@ -25,7 +25,6 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteMemberInfoWay
 import kpn.api.common.RouteScope
-import kpn.api.common.RouteSummary
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.ChangeSet
@@ -638,26 +637,6 @@ object TestObjects {
     )
   }
 
-  def newRouteSummary(
-    countries: Seq[Country] = Seq.empty,
-    nodeNetwork: Boolean = true,
-    routeTypes: Seq[RouteType] = Seq(RouteType.hiking),
-    scopes: Seq[RouteScope] = Seq(RouteScope.regional),
-    name: String = "",
-    meters: Int = 0,
-    wayCount: Int = 0
-  ): RouteSummary = {
-    RouteSummary(
-      countries,
-      nodeNetwork,
-      routeTypes,
-      scopes,
-      name,
-      meters,
-      wayCount
-    )
-  }
-
   def newRouteNetworkNodeInfo(
     id: Long,
     name: String,
@@ -909,7 +888,13 @@ object TestObjects {
 
   def newRouteBaseData(
     raw: Raw = newRaw(),
-    summary: RouteSummary = newRouteSummary(),
+    countries: Seq[Country] = Seq.empty,
+    nodeNetwork: Boolean = true,
+    routeTypes: Seq[RouteType] = Seq(RouteType.hiking),
+    scopes: Seq[RouteScope] = Seq(RouteScope.regional),
+    name: String = "",
+    meters: Int = 0,
+    wayCount: Int = 0,
     proposed: Boolean = false,
     lastUpdated: Timestamp = Timestamps.default,
     lastSurvey: Option[Day] = None,
@@ -924,7 +909,13 @@ object TestObjects {
   ): RouteBaseData = {
     RouteBaseData(
       raw,
-      summary,
+      countries,
+      nodeNetwork,
+      routeTypes,
+      scopes,
+      name,
+      meters,
+      wayCount,
       proposed,
       lastUpdated,
       lastSurvey,

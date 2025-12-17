@@ -20,12 +20,12 @@ object RouteData {
     RouteData(
       relationId = routeDoc._id,
       raw = routeDoc.base.raw,
-      countries = routeDoc.base.summary.countries,
-      routeTypes = routeDoc.base.summary.routeTypes,
-      name = routeDoc.base.summary.name,
+      countries = routeDoc.base.countries,
+      routeTypes = routeDoc.base.routeTypes,
+      name = routeDoc.base.name,
       networkNodes = routeDoc.base.nodes.nodes,
       facts = routeDoc.facts,
-      meters = routeDoc.base.summary.meters,
+      meters = routeDoc.base.meters,
       locationAnalysis = routeDoc.base.locationAnalysis
     )
   }

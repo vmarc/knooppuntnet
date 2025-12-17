@@ -16,7 +16,6 @@ import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.TestObjects.newSuperSegment
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
@@ -294,9 +293,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
       newRouteDoc(
         route1.relationId,
         base = newRouteBaseData(
-          summary = newRouteSummary(
-            name = "route-name"
-          )
+          name = "route-name"
         ),
         superDistance = route1.meters,
         routeIds = Seq(route1.relationId),

@@ -76,7 +76,7 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
         }
       }
       <ui-data title="Number of ways" i18n-title="@@route.number-of-ways">
-        {{ data.summary.wayCount }}
+        {{ data.wayCount }}
       </ui-data>
     </div>
 

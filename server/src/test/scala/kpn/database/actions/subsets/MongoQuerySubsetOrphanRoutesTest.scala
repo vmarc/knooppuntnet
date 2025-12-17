@@ -11,7 +11,6 @@ import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newOrphanRouteInfo
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.TestObjects.newRouteSummary
 
 class MongoQuerySubsetOrphanRoutesTest extends MongoTest {
 
@@ -48,10 +47,8 @@ class MongoQuerySubsetOrphanRoutesTest extends MongoTest {
     newRouteDoc(
       100L,
       base = newRouteBaseData(
-        summary = newRouteSummary(
-          name = "01-02",
-          meters = 123,
-        ),
+        name = "01-02",
+        meters = 123,
         lastUpdated = Timestamp(2020, 8, 11),
       ),
       labels = Seq(

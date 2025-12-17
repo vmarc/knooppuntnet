@@ -15,7 +15,6 @@ import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeName
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
 class StatisticsUpdateSubsetFactCountTest extends MongoTest {
@@ -146,10 +145,8 @@ class StatisticsUpdateSubsetFactCountTest extends MongoTest {
         routeId,
         active = active,
         base = newRouteBaseData(
-          summary = newRouteSummary(
-            Seq(country),
-            routeTypes = Seq(routeType),
-          )
+          countries = Seq(country),
+          routeTypes = Seq(routeType)
         ),
         facts = facts
       )

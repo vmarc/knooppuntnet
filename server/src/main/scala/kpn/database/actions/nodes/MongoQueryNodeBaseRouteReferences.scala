@@ -36,19 +36,19 @@ class MongoQueryNodeBaseRouteReferences(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("base.summary.nodeNetwork", true),
+          equal("base.nodeNetwork", true),
           equal("base.networkNodeIds", nodeId),
         )
       ),
-      unwind("$base.summary.routeTypes"),
-      unwind("$base.summary.scopes"),
+      unwind("$base.routeTypes"),
+      unwind("$base.scopes"),
       project(
         fields(
           excludeId(),
-          computed("routeType", "$base.summary.routeTypes"),
-          computed("routeScope", "$base.summary.scopes"),
+          computed("routeType", "$base.routeTypes"),
+          computed("routeScope", "$base.scopes"),
           computed("id", "$_id"),
-          computed("name", "$base.summary.name")
+          computed("name", "$base.name")
         )
       ),
       sort(orderBy(ascending("routeType", "routeScope", "routeName")))

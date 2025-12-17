@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.base
 
 import kpn.api.common.RouteMemberInfo
-import kpn.api.common.RouteSummary
 import kpn.api.common.data.Element
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.Way
@@ -41,16 +40,6 @@ class BaseRouteDocBuilder {
 
     val lastUpdated: Timestamp = lastUpdatedElement.timestamp
 
-    val summary = RouteSummary(
-      context.countries,
-      context.nodeNetwork,
-      context.routeTypes,
-      context.scopes,
-      title,
-      length,
-      routeWays.size,
-    )
-
     val subRelationIds = context.routeMembers.flatMap { member =>
       member.memberType match {
         case MemberType.Relation => Some(member.id)
@@ -71,7 +60,13 @@ class BaseRouteDocBuilder {
       active = true,
       base = RouteBaseData(
         raw = context.relation.raw,
-        summary = summary,
+        countries = context.countries,
+        nodeNetwork = context.nodeNetwork,
+        routeTypes = context.routeTypes,
+        scopes = context.scopes,
+        name = title,
+        meters = length,
+        wayCount = routeWays.size,
         proposed = context.proposed,
         lastUpdated = lastUpdated,
         lastSurvey = context.lastSurvey,

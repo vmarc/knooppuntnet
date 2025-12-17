@@ -2,8 +2,10 @@
 
 package kpn.tools.code.codecs.generated
 
+import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.RouteSummary
+import kpn.api.common.RouteScope
+import kpn.api.common.RouteType
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.custom.Day
@@ -22,13 +24,15 @@ import org.bson.codecs.configuration.CodecRegistry
 class OldRouteDocCodec(registry: CodecRegistry) extends Codec[OldRouteDoc] {
 
   private val booleanCodec = registry.get(classOf[Boolean])
+  private val countryCodec = registry.get(classOf[Country])
   private val dayCodec = registry.get(classOf[Day])
   private val elementIdsCodec = registry.get(classOf[ElementIds])
   private val factCodec = registry.get(classOf[Fact])
   private val longCodec = registry.get(classOf[Long])
   private val routeEdgeCodec = registry.get(classOf[RouteEdge])
   private val routeInfoAnalysisCodec = registry.get(classOf[RouteInfoAnalysis])
-  private val routeSummaryCodec = registry.get(classOf[RouteSummary])
+  private val routeScopeCodec = registry.get(classOf[RouteScope])
+  private val routeTypeCodec = registry.get(classOf[RouteType])
   private val stringCodec = registry.get(classOf[String])
   private val timestampCodec = registry.get(classOf[Timestamp])
 
@@ -38,7 +42,13 @@ class OldRouteDocCodec(registry: CodecRegistry) extends Codec[OldRouteDoc] {
     var _id: Long = 0
     var active: Boolean = false
     var labels: Seq[String] = null
-    var summary: RouteSummary = null
+    var countries: Seq[Country] = null
+    var nodeNetwork: Boolean = false
+    var routeTypes: Seq[RouteType] = null
+    var scopes: Seq[RouteScope] = null
+    var name: String = null
+    var meters: Long = 0
+    var wayCount: Long = 0
     var proposed: Boolean = false
     var version: Long = 0
     var changeSetId: Long = 0
@@ -69,8 +79,44 @@ class OldRouteDocCodec(registry: CodecRegistry) extends Codec[OldRouteDoc] {
         bsonReader.readEndArray()
         labels = valueBuffer.toSeq
       }
-      else if (fieldName == "summary") {
-        summary = routeSummaryCodec.decode(bsonReader, decoderContext)
+      else if (fieldName == "countries") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[Country]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += countryCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        countries = valueBuffer.toSeq
+      }
+      else if (fieldName == "nodeNetwork") {
+        nodeNetwork = booleanCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "routeTypes") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[RouteType]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += routeTypeCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        routeTypes = valueBuffer.toSeq
+      }
+      else if (fieldName == "scopes") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[RouteScope]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += routeScopeCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        scopes = valueBuffer.toSeq
+      }
+      else if (fieldName == "name") {
+        name = stringCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "meters") {
+        meters = longCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "wayCount") {
+        wayCount = longCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "proposed") {
         proposed = booleanCodec.decode(bsonReader, decoderContext)
@@ -150,7 +196,13 @@ class OldRouteDocCodec(registry: CodecRegistry) extends Codec[OldRouteDoc] {
       _id,
       active,
       labels,
-      summary,
+      countries,
+      nodeNetwork,
+      routeTypes,
+      scopes,
+      name,
+      meters,
+      wayCount,
       proposed,
       version,
       changeSetId,
@@ -180,8 +232,32 @@ class OldRouteDocCodec(registry: CodecRegistry) extends Codec[OldRouteDoc] {
     value.labels.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
-    bsonWriter.writeName("summary")
-    routeSummaryCodec.encode(bsonWriter, value.summary, encoderContext)
+    bsonWriter.writeName("countries")
+    bsonWriter.writeStartArray()
+    value.countries.foreach(v => countryCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
+
+    bsonWriter.writeName("nodeNetwork")
+    booleanCodec.encode(bsonWriter, value.nodeNetwork, encoderContext)
+
+    bsonWriter.writeName("routeTypes")
+    bsonWriter.writeStartArray()
+    value.routeTypes.foreach(v => routeTypeCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
+
+    bsonWriter.writeName("scopes")
+    bsonWriter.writeStartArray()
+    value.scopes.foreach(v => routeScopeCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
+
+    bsonWriter.writeName("name")
+    stringCodec.encode(bsonWriter, value.name, encoderContext)
+
+    bsonWriter.writeName("meters")
+    longCodec.encode(bsonWriter, value.meters, encoderContext)
+
+    bsonWriter.writeName("wayCount")
+    longCodec.encode(bsonWriter, value.wayCount, encoderContext)
 
     bsonWriter.writeName("proposed")
     booleanCodec.encode(bsonWriter, value.proposed, encoderContext)

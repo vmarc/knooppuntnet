@@ -4,7 +4,6 @@ import kpn.api.common.route.ParentRoute
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newRouteBaseData
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteRepositoryImpl
 
@@ -18,7 +17,7 @@ class RouteParentsAnalyzerTest extends MongoTest {
       newBaseRouteDoc(
         11,
         base = newRouteBaseData(
-          summary = newRouteSummary(name = "route 11")
+          name = "route 11"
         ),
         subRouteIds = Seq(12)
       )
@@ -27,7 +26,7 @@ class RouteParentsAnalyzerTest extends MongoTest {
       newBaseRouteDoc(
         12,
         base = newRouteBaseData(
-          summary = newRouteSummary(name = "route 12")
+          name = "route 12"
         ),
         subRouteIds = Seq(13)
       )
@@ -36,7 +35,7 @@ class RouteParentsAnalyzerTest extends MongoTest {
       newBaseRouteDoc(
         13,
         base = newRouteBaseData(
-          summary = newRouteSummary(name = "route 13")
+          name = "route 13"
         )
       )
     )
@@ -86,7 +85,7 @@ class RouteParentsAnalyzerTest extends MongoTest {
       newBaseRouteDoc(
         11,
         base = newRouteBaseData(
-          summary = newRouteSummary(name = "route 11")
+          name = "route 11"
         ),
         subRouteIds = Seq(12)
       )
@@ -95,7 +94,7 @@ class RouteParentsAnalyzerTest extends MongoTest {
       newBaseRouteDoc(
         12,
         base = newRouteBaseData(
-          summary = newRouteSummary(name = "route 12")
+          name = "route 12"
         ),
         subRouteIds = Seq(13)
       )
@@ -104,7 +103,7 @@ class RouteParentsAnalyzerTest extends MongoTest {
       newBaseRouteDoc(
         13,
         base = newRouteBaseData(
-          summary = newRouteSummary(name = "route 13")
+          name = "route 13"
         ),
         subRouteIds = Seq(11)
       )

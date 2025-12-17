@@ -17,11 +17,11 @@ import { RouteLocationComponent } from './route-location.component';
   template: `
     <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     <div>
-      <p>{{ route().summary.meters | distance }}</p>
+      <p>{{ route().meters | distance }}</p>
 
-      @if (route().summary.countries) {
+      @if (route().countries) {
         <p>
-          @for (country of route().summary.countries; track country) {
+          @for (country of route().countries; track country) {
             <ui-country-name [country]="country" />
           }
         </p>
@@ -29,15 +29,12 @@ import { RouteLocationComponent } from './route-location.component';
 
       <div class="kpn-align-center">
         <span>{{ route().id }}</span>
-        <ui-action-button-route
-          [routeType]="route().summary.routeTypes[0]"
-          [relationId]="route().id"
-        />
+        <ui-action-button-route [routeType]="route().routeTypes[0]" [relationId]="route().id" />
       </div>
 
       <!-- TODO redesign routeTypes[0] -->
       <ui-route-location
-        [routeType]="route().summary.routeTypes[0]"
+        [routeType]="route().routeTypes[0]"
         [locationCandidateInfos]="route().locationCandidateInfos"
       />
       @if (hasSymbol()) {

@@ -15,7 +15,6 @@ import kpn.core.test.TestObjects.newBaseRouteSegmentElement
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.TestObjects.newSuperSegment
 import kpn.server.monitor.domain.MonitorReferenceTile
 
@@ -63,9 +62,7 @@ case class MonitorTestRoute(
     newRouteDoc(
       relationId,
       base = newRouteBaseData(
-        summary = newRouteSummary(
-          name = "route-name"
-        )
+        name = "route-name"
       ),
       superDistance = meters,
       routeIds = Seq(relationId),

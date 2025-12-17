@@ -69,7 +69,7 @@ class RouteChangeUpdateProcessor() {
             _id = key.toId,
             key = key,
             changeType = ChangeType.Update,
-            name = after.base.summary.name,
+            name = after.base.name,
             locationAnalysis = after.base.locationAnalysis,
             addedToNetwork = addedToNetwork,
             removedFromNetwork = removedFromNetwork,

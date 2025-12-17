@@ -57,7 +57,6 @@ import kpn.core.test.TestObjects.newRouteInfoAnalysis
 import kpn.core.test.TestObjects.newRouteNetworkNodeInfo
 import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeChange
-import kpn.core.test.TestObjects.newRouteSummary
 import kpn.core.test.TestObjects.newRouteTags
 import kpn.core.test.TestObjects.newSuperSegment
 import kpn.core.test.TestObjects.newWay
@@ -139,11 +138,9 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           raw = newRaw(
             tags = newRouteTags("01-02")
           ),
-          summary = newRouteSummary(
-            name = "01-02",
-            countries = Seq(Country.nl),
-            wayCount = 1,
-          ),
+          name = "01-02",
+          countries = Seq(Country.nl),
+          wayCount = 1,
           members = Seq(
             RouteMemberInfo(
               id = 101,
@@ -269,11 +266,9 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           raw = newRaw(
             tags = newRouteTags("01-02")
           ),
-          summary = newRouteSummary(
-            name = "01-02",
-            countries = Seq(Country.nl),
-            wayCount = 1
-          ),
+          name = "01-02",
+          countries = Seq(Country.nl),
+          wayCount = 1,
           members = Seq(
             RouteMemberInfo(
               101,

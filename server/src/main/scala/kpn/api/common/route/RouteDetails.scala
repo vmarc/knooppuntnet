@@ -1,8 +1,10 @@
 package kpn.api.common.route
 
 import kpn.api.common.Bounds
+import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.RouteSummary
+import kpn.api.common.RouteScope
+import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.data.raw.Raw
 import kpn.api.common.location.LocationCandidateInfo
@@ -16,7 +18,13 @@ object RouteDetails {
       routeDetailsData.id,
       routeDetailsData.active,
       routeDetailsData.core,
-      routeDetailsData.summary,
+      routeDetailsData.countries,
+      routeDetailsData.nodeNetwork,
+      routeDetailsData.routeTypes,
+      routeDetailsData.scopes,
+      routeDetailsData.name,
+      routeDetailsData.meters,
+      routeDetailsData.wayCount,
       routeDetailsData.proposed,
       routeDetailsData.lastUpdated,
       routeDetailsData.lastSurvey,
@@ -43,7 +51,13 @@ case class RouteDetails(
   id: Long,
   active: Boolean,
   raw: Raw,
-  summary: RouteSummary,
+  countries: Seq[Country],
+  nodeNetwork: Boolean,
+  routeTypes: Seq[RouteType],
+  scopes: Seq[RouteScope],
+  name: String,
+  meters: Long,
+  wayCount: Long,
   proposed: Boolean,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],

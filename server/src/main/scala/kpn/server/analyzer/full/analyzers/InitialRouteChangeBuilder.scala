@@ -26,12 +26,12 @@ class InitialRouteChangeBuilder(
     val routeData = RouteData(
       routeDoc._id,
       routeDoc.base.raw,
-      routeDoc.base.summary.countries.toSeq,
-      routeDoc.base.summary.routeTypes,
-      routeDoc.base.summary.name: String,
+      routeDoc.base.countries.toSeq,
+      routeDoc.base.routeTypes,
+      routeDoc.base.name: String,
       routeDoc.base.nodes.nodes,
       routeDoc.facts,
-      routeDoc.base.summary.meters,
+      routeDoc.base.meters,
       routeDoc.base.locationAnalysis
     )
 
@@ -49,7 +49,7 @@ class InitialRouteChangeBuilder(
         _id = key.toId,
         key = key,
         changeType = ChangeType.InitialValue,
-        name = routeDoc.base.summary.name,
+        name = routeDoc.base.name,
         locationAnalysis = routeDoc.base.locationAnalysis,
         addedToNetwork = Seq.empty,
         removedFromNetwork = Seq.empty,

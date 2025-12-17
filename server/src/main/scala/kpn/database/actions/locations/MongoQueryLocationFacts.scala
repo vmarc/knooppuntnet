@@ -171,7 +171,7 @@ class MongoQueryLocationFacts(database: Database) {
           excludeId(),
           computed("fact", "$facts"),
           computed("ref.id", "$_id"),
-          computed("ref.name", "$base.summary.name"),
+          computed("ref.name", "$base.name"),
         )
       ),
       group(

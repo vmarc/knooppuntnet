@@ -38,7 +38,7 @@ class MongoQueryLocations(database: Database) {
       ),
       group(
         "meters",
-        sum("count", "$base.summary.meters")
+        sum("count", "$base.meters")
       )
     )
 

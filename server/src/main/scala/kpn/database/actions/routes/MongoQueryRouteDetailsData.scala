@@ -41,7 +41,7 @@ class MongoQueryRouteDetailsData(database: Database) {
           excludeId(),
           include("id"),
           include("active"),
-          computed("summary", "$base.summary"),
+          computed("summary", "$base"),
           computed("proposed", "$base.proposed"),
           computed("version", "$base.version"),
           computed("changeSetId", "$base.changeSetId"),
