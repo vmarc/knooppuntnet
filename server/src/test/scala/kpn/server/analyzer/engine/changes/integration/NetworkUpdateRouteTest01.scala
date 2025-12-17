@@ -44,10 +44,10 @@ import kpn.core.test.TestObjects.newChangeSetNetwork
 import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newLink
 import kpn.core.test.TestObjects.newMember
-import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNodeWithName
 import kpn.core.test.TestObjects.newOrphanRouteInfo
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRelation
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteChange
@@ -136,12 +136,13 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
       newBaseRouteDoc(
         11,
         base = newRouteBaseData(
-
-          newRouteSummary(
+          raw = newRaw(
+            tags = newRouteTags("01-02")
+          ),
+          summary = newRouteSummary(
             name = "01-02",
             countries = Seq(Country.nl),
             wayCount = 1,
-            tags = newRouteTags("01-02")
           ),
           members = Seq(
             RouteMemberInfo(
@@ -265,12 +266,13 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
       newRouteDoc(
         11,
         base = newRouteBaseData(
-
-          newRouteSummary(
+          raw = newRaw(
+            tags = newRouteTags("01-02")
+          ),
+          summary = newRouteSummary(
             name = "01-02",
             countries = Seq(Country.nl),
-            wayCount = 1,
-            tags = newRouteTags("01-02")
+            wayCount = 1
           ),
           members = Seq(
             RouteMemberInfo(
@@ -460,15 +462,17 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
 
     val routeData = newRouteData(
       relationId = 11,
-      meta = newMetaData(changeSetId = 1),
+      raw = newRaw(
+        changeSetId = 1,
+        tags = newRouteTags("01-02")
+      ),
       countries = Seq(Country.nl),
       routeTypes = Seq(RouteType.hiking),
       name = "01-02",
       networkNodes = Seq(
         newRouteNode(1001, "01"),
         newRouteNode(1002, "02")
-      ),
-      tags = newRouteTags("01-02")
+      )
     )
 
     assertEqual(

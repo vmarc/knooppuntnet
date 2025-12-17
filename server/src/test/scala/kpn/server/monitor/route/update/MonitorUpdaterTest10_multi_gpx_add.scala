@@ -433,7 +433,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
       newRouteDoc(
         MainrelationId,
         base = newRouteBaseData(
-          newRouteSummary(
+          summary = newRouteSummary(
             name = "route-name"
           )
         ),

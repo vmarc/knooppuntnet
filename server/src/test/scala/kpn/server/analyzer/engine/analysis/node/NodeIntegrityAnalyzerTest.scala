@@ -9,6 +9,7 @@ import kpn.api.custom.Tags
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
 import kpn.core.test.TestObjects.newNode
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteData
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalysis
@@ -137,7 +138,9 @@ class NodeIntegrityAnalyzerTest extends UnitTest {
     NetworkMemberRoute(
       data = newRouteData(
         relationId = routeId,
-        tags = routeTags,
+        raw = newRaw(
+          tags = routeTags,
+        ),
         networkNodes = Seq(
           RouteNode(
             networkNode.node.id,

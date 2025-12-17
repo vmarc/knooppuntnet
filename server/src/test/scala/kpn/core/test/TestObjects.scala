@@ -44,6 +44,7 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
+import kpn.api.common.data.raw.Raw
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
@@ -391,27 +392,25 @@ object TestObjects {
 
   def newRouteData(
     relationId: Long = 0,
-    meta: MetaData = MetaData(0, Timestamps.default, 0),
+    raw: Raw = newRaw(),
     countries: Seq[Country] = Seq.empty,
     routeTypes: Seq[RouteType] = Seq.empty,
     name: String = "",
     networkNodes: Seq[RouteNode] = Seq.empty,
     facts: Seq[Fact] = Seq.empty,
     meters: Long = 0,
-    locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
-    tags: Seq[Tag] = Seq.empty,
+    locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty)
   ): RouteData = {
     RouteData(
       relationId,
-      meta,
+      raw,
       countries,
       routeTypes,
       name,
       networkNodes,
       facts,
-      meters: Long,
-      locationAnalysis: RouteLocationAnalysis,
-      tags: Seq[Tag]
+      meters,
+      locationAnalysis
     )
   }
 
@@ -625,6 +624,20 @@ object TestObjects {
     )
   }
 
+  def newRaw(
+    version: Long = 0,
+    changeSetId: Long = 1,
+    timestamp: Timestamp = Timestamps.default,
+    tags: Seq[Tag] = Seq.empty
+  ): Raw = {
+    Raw(
+      version,
+      changeSetId,
+      timestamp,
+      tags
+    )
+  }
+
   def newRouteSummary(
     countries: Seq[Country] = Seq.empty,
     nodeNetwork: Boolean = true,
@@ -632,9 +645,7 @@ object TestObjects {
     scopes: Seq[RouteScope] = Seq(RouteScope.regional),
     name: String = "",
     meters: Int = 0,
-    wayCount: Int = 0,
-    timestamp: Timestamp = Timestamps.default,
-    tags: Seq[Tag] = Seq.empty
+    wayCount: Int = 0
   ): RouteSummary = {
     RouteSummary(
       countries,
@@ -643,9 +654,7 @@ object TestObjects {
       scopes,
       name,
       meters,
-      wayCount,
-      timestamp,
-      tags
+      wayCount
     )
   }
 
@@ -899,10 +908,9 @@ object TestObjects {
   }
 
   def newRouteBaseData(
+    raw: Raw = newRaw(),
     summary: RouteSummary = newRouteSummary(),
     proposed: Boolean = false,
-    version: Int = 0,
-    changeSetId: Long = 1,
     lastUpdated: Timestamp = Timestamps.default,
     lastSurvey: Option[Day] = None,
     unexpectedNodeIds: Seq[Long] = Seq.empty,
@@ -915,10 +923,9 @@ object TestObjects {
     edges: Seq[RouteEdge] = Seq.empty,
   ): RouteBaseData = {
     RouteBaseData(
+      raw,
       summary,
       proposed,
-      version,
-      changeSetId,
       lastUpdated,
       lastSurvey,
       unexpectedNodeIds,
@@ -1463,7 +1470,8 @@ object TestObjects {
     meters: Long = 0,
     lastSurvey: Option[String] = None,
     lastUpdated: Timestamp = Timestamps.default,
-    facts: Seq[Fact] = Seq.empty
+    facts: Seq[Fact] = Seq.empty,
+    investigate: Boolean = false
   ): OrphanRouteInfo = {
     OrphanRouteInfo(
       id,
@@ -1471,7 +1479,8 @@ object TestObjects {
       meters,
       lastSurvey,
       lastUpdated,
-      facts
+      facts,
+      investigate
     )
   }
 

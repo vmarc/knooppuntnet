@@ -16,6 +16,8 @@ import kpn.database.base.MongoAggregates.arrayEmpty
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
+import kpn.database.util.Mongo
+import org.bson.BsonDocument
 
 object MongoQueryOrphanRoutes {
   private val log = Log(classOf[MongoQueryOrphanRoutes])
@@ -25,6 +27,9 @@ class MongoQueryOrphanRoutes(database: Database) {
 
   def execute(log: Log = MongoQueryOrphanRoutes.log): Seq[OrphanRouteInfo] = {
     val pipeline = buildPipeline()
+
+    println(Mongo.pipelineString(pipeline))
+
     log.debugElapsed {
       val docs = database.routes.aggregate(pipeline, classOf[OrphanRouteInfo], log)
       val message = s"orphan routes: ${docs.size}"
@@ -57,6 +62,7 @@ class MongoQueryOrphanRoutes(database: Database) {
           computed("lastSurvey", "$base.lastSurvey"),
           computed("lastUpdated", "$base.lastUpdated"),
           include("facts"),
+          computed("investigate", BsonDocument.parse("""{"$in": ["RouteBroken", "$facts"]}""")),
         )
       )
     )

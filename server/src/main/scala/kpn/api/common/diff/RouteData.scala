@@ -5,8 +5,8 @@ import kpn.api.common.Fact
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
-import kpn.api.common.data.MetaData
 import kpn.api.common.data.Tagable
+import kpn.api.common.data.raw.Raw
 import kpn.api.common.route.RouteNode
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag
@@ -19,49 +19,42 @@ object RouteData {
   def from(routeDoc: RouteDoc): RouteData = {
     RouteData(
       relationId = routeDoc._id,
-      meta = MetaData(
-        version = routeDoc.base.version,
-        timestamp = routeDoc.base.lastUpdated,
-        changeSetId = routeDoc.base.changeSetId
-      ),
+      raw = routeDoc.base.raw,
       countries = routeDoc.base.summary.countries,
       routeTypes = routeDoc.base.summary.routeTypes,
       name = routeDoc.base.summary.name,
       networkNodes = routeDoc.base.nodes.nodes,
       facts = routeDoc.facts,
       meters = routeDoc.base.summary.meters,
-      locationAnalysis = routeDoc.base.locationAnalysis,
-      tags = routeDoc.base.summary.tags
+      locationAnalysis = routeDoc.base.locationAnalysis
     )
   }
 
   def from(context: BaseRouteAnalysisContext): RouteData = {
     RouteData(
       context.relation.id,
-      context.relation.toMeta,
+      context.relation.raw,
       context.countries,
       context.routeTypes,
       context.routeNameAnalysis.name.getOrElse("no-name"),
       context.routeNodesAnalysis.nodes.map(_.toRouteNode),
       context.facts,
       context.structure.nodeNetworkPaths.map(_.meters).sum,
-      context.locationAnalysis,
-      context.relation.tags
+      context.locationAnalysis
     )
   }
 }
 
 case class RouteData(
   relationId: Long,
-  meta: MetaData,
+  raw: Raw,
   countries: Seq[Country],
   routeTypes: Seq[RouteType],
   name: String,
   networkNodes: Seq[RouteNode],
   facts: Seq[Fact],
   meters: Long,
-  locationAnalysis: RouteLocationAnalysis,
-  tags: Seq[Tag]
+  locationAnalysis: RouteLocationAnalysis
 ) extends Tagable {
 
   def toRef: Ref = Ref(relationId, name)
@@ -75,4 +68,6 @@ case class RouteData(
       }
     }
   }
+
+  def tags: Seq[Tag] = raw.tags
 }

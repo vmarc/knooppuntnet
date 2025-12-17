@@ -74,7 +74,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
     val beforeBaseRouteDoc = newBaseRouteDoc(
       11,
       base = newRouteBaseData(
-        newRouteSummary(name = "before"),
+        summary = newRouteSummary(name = "before"),
         nodes = RouteNodes(
           startNode = Some(newRouteNode(1001, "01")),
           endNode = Some(newRouteNode(1002, "02")),
@@ -89,7 +89,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
     val afterBaseRouteDoc = newBaseRouteDoc(
       11,
       base = newRouteBaseData(
-        newRouteSummary(name = "after"))
+        summary = newRouteSummary(name = "after"))
     )
     (setup.baseRouteDocBuilder.build _).returnsWith(afterBaseRouteDoc)
 
@@ -204,7 +204,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
     val beforeBaseRouteDoc = newBaseRouteDoc(
       11,
       base = newRouteBaseData(
-        newRouteSummary(name = "before"),
+        summary = newRouteSummary(name = "before"),
         nodes = RouteNodes(
           startNode = Some(newRouteNode(1001, "01")),
           endNode = Some(newRouteNode(1002, "02")),

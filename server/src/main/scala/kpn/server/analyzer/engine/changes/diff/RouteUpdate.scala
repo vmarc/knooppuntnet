@@ -24,7 +24,7 @@ case class RouteUpdate(
 
   def nonEmpty: Boolean = diffs.nonEmpty
 
-  def isNewVersion: Boolean = before.meta.version != after.meta.version
+  def isNewVersion: Boolean = before.raw.version != after.raw.version
 
   def happy: Boolean = diffs.happy
 

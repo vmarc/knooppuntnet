@@ -5,7 +5,7 @@ import kpn.api.common.RouteType
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSet
-import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
 import kpn.core.test.TestObjects.newRouteDoc
@@ -45,7 +45,7 @@ class RouteChangeProcessorTest extends UnitTest with Stubs {
       after = Some(
         newRouteData(
           relationId = 1,
-          meta = newMetaData(changeSetId = 1),
+          raw = newRaw(changeSetId = 1),
           routeTypes = Seq(RouteType.hiking),
         )
       ),

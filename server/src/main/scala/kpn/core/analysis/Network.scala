@@ -65,7 +65,7 @@ case class Network(
   def lastUpdated: Timestamp = {
     val relationUpdates = Seq(relation.timestamp)
     val nodeUpdates = nodes.map(_.networkNode.node.timestamp)
-    val routeUpdates = routes.map(_.data.meta.timestamp)
+    val routeUpdates = routes.map(_.data.raw.timestamp)
     val timestamp: Seq[Timestamp] = relationUpdates ++ nodeUpdates ++ routeUpdates
     timestamp.max
   }

@@ -6,6 +6,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.Fact
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Reference
+import kpn.api.common.data.raw.Raw
 import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.common.route.ParentRoute
 import kpn.api.common.route.RouteDetails
@@ -30,6 +31,7 @@ class RouteDetailsCodec(registry: CodecRegistry) extends Codec[RouteDetails] {
   private val locationCandidateInfoCodec = registry.get(classOf[LocationCandidateInfo])
   private val longCodec = registry.get(classOf[Long])
   private val parentRouteCodec = registry.get(classOf[ParentRoute])
+  private val rawCodec = registry.get(classOf[Raw])
   private val referenceCodec = registry.get(classOf[Reference])
   private val routeNodesCodec = registry.get(classOf[RouteNodes])
   private val routeSummaryCodec = registry.get(classOf[RouteSummary])
@@ -40,10 +42,9 @@ class RouteDetailsCodec(registry: CodecRegistry) extends Codec[RouteDetails] {
 
     var id: Long = 0
     var active: Boolean = false
+    var raw: Raw = null
     var summary: RouteSummary = null
     var proposed: Boolean = false
-    var version: Long = 0
-    var changeSetId: Long = 0
     var lastUpdated: Timestamp = null
     var lastSurvey: Option[Day] = None
     var facts: Seq[Fact] = null
@@ -70,17 +71,14 @@ class RouteDetailsCodec(registry: CodecRegistry) extends Codec[RouteDetails] {
       else if (fieldName == "active") {
         active = booleanCodec.decode(bsonReader, decoderContext)
       }
+      else if (fieldName == "raw") {
+        raw = rawCodec.decode(bsonReader, decoderContext)
+      }
       else if (fieldName == "summary") {
         summary = routeSummaryCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "proposed") {
         proposed = booleanCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "version") {
-        version = longCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "changeSetId") {
-        changeSetId = longCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "lastUpdated") {
         lastUpdated = timestampCodec.decode(bsonReader, decoderContext)
@@ -186,10 +184,9 @@ class RouteDetailsCodec(registry: CodecRegistry) extends Codec[RouteDetails] {
     RouteDetails(
       id,
       active,
+      raw,
       summary,
       proposed,
-      version,
-      changeSetId,
       lastUpdated,
       lastSurvey,
       facts,
@@ -219,17 +216,14 @@ class RouteDetailsCodec(registry: CodecRegistry) extends Codec[RouteDetails] {
     bsonWriter.writeName("active")
     booleanCodec.encode(bsonWriter, value.active, encoderContext)
 
+    bsonWriter.writeName("raw")
+    rawCodec.encode(bsonWriter, value.raw, encoderContext)
+
     bsonWriter.writeName("summary")
     routeSummaryCodec.encode(bsonWriter, value.summary, encoderContext)
 
     bsonWriter.writeName("proposed")
     booleanCodec.encode(bsonWriter, value.proposed, encoderContext)
-
-    bsonWriter.writeName("version")
-    longCodec.encode(bsonWriter, value.version, encoderContext)
-
-    bsonWriter.writeName("changeSetId")
-    longCodec.encode(bsonWriter, value.changeSetId, encoderContext)
 
     bsonWriter.writeName("lastUpdated")
     timestampCodec.encode(bsonWriter, value.lastUpdated, encoderContext)

@@ -236,7 +236,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
           computed("meters", "$base.summary.meters"),
           computed("lastUpdated", "$base.lastUpdated"),
           computed("lastSurvey", "$base.lastSurvey"),
-          computed("tags", "$base.summary.tags"),
+          computed("tags", "$base.raw.tags"),
           computed("proposed", "$base.proposed"),
           include("facts")
         )

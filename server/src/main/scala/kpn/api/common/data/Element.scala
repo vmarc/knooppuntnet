@@ -1,5 +1,6 @@
 package kpn.api.common.data
 
+import kpn.api.common.data.raw.Raw
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
@@ -22,4 +23,13 @@ trait Element extends Meta with Tagable {
   def isRelation: Boolean = false
 
   def toMeta: MetaData = MetaData(version, timestamp, changeSetId)
+
+  def raw: Raw = {
+    Raw(
+      version,
+      changeSetId,
+      timestamp,
+      tags
+    )
+  }
 }

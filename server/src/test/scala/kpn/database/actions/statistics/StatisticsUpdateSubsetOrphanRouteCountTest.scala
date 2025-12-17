@@ -42,7 +42,7 @@ class StatisticsUpdateSubsetOrphanRouteCountTest extends MongoTest {
       newRouteDoc(
         routeId,
         base = newRouteBaseData(
-          newRouteSummary(
+          summary = newRouteSummary(
             countries = Seq(country),
             routeTypes = Seq(routeType)
           )

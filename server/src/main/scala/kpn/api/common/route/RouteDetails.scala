@@ -4,6 +4,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.Fact
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Reference
+import kpn.api.common.data.raw.Raw
 import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
@@ -14,10 +15,9 @@ object RouteDetails {
     RouteDetails(
       routeDetailsData.id,
       routeDetailsData.active,
+      routeDetailsData.core,
       routeDetailsData.summary,
       routeDetailsData.proposed,
-      routeDetailsData.version,
-      routeDetailsData.changeSetId,
       routeDetailsData.lastUpdated,
       routeDetailsData.lastSurvey,
       routeDetailsData.facts,
@@ -42,10 +42,9 @@ object RouteDetails {
 case class RouteDetails(
   id: Long,
   active: Boolean,
+  raw: Raw,
   summary: RouteSummary,
   proposed: Boolean,
-  version: Long,
-  changeSetId: Long,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
   facts: Seq[Fact],

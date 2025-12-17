@@ -13,6 +13,7 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
+import kpn.api.common.data.raw.Raw
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkData
@@ -304,10 +305,17 @@ class NetworkCreateTest01 extends IntegrationTest {
         before = Some(
           newRouteData(
             relationId = 11,
-            meta = MetaData(
+            raw = Raw(
               version = 0,
               timestamp = Timestamp(2015, 8, 11),
-              changeSetId = 1
+              changeSetId = 1,
+              tags = Tags.from(
+                "network" -> "rwn",
+                "type" -> "route",
+                "route" -> "foot",
+                "ref" -> "01-02",
+                "network:type" -> "node_network",
+              )
             ),
             countries = Seq(Country.nl),
             routeTypes = Seq(RouteType.hiking),
@@ -315,23 +323,23 @@ class NetworkCreateTest01 extends IntegrationTest {
             networkNodes = Seq(
               newRouteNode(1001, "01"),
               newRouteNode(1002, "02")
-            ),
-            tags = Tags.from(
-              "network" -> "rwn",
-              "type" -> "route",
-              "route" -> "foot",
-              "ref" -> "01-02",
-              "network:type" -> "node_network",
             )
           )
         ),
         after = Some(
           newRouteData(
             relationId = 11,
-            meta = MetaData(
+            raw = Raw(
               version = 0,
               timestamp = Timestamp(2015, 8, 11),
-              changeSetId = 1
+              changeSetId = 1,
+              tags = Tags.from(
+                "network" -> "rwn",
+                "type" -> "route",
+                "route" -> "foot",
+                "ref" -> "01-02",
+                "network:type" -> "node_network",
+              )
             ),
             Seq(Country.nl),
             Seq(RouteType.hiking),
@@ -339,13 +347,6 @@ class NetworkCreateTest01 extends IntegrationTest {
             networkNodes = Seq(
               newRouteNode(1001, "01"),
               newRouteNode(1002, "02")
-            ),
-            tags = Tags.from(
-              "network" -> "rwn",
-              "type" -> "route",
-              "route" -> "foot",
-              "ref" -> "01-02",
-              "network:type" -> "node_network",
             )
           )
         ),

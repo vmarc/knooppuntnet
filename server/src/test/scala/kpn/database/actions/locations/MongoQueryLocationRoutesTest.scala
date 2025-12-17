@@ -11,6 +11,7 @@ import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteSummary
@@ -49,10 +50,12 @@ class MongoQueryLocationRoutesTest extends MongoTest {
       newRouteDoc(
         10L,
         base = newRouteBaseData(
+          newRaw(
+            tags = Tags.from("osmc:symbol" -> "red:white:red_lower")
+          ),
           newRouteSummary(
             name = "bbb",
             meters = 100,
-            tags = Tags.from("osmc:symbol" -> "red:white:red_lower")
           ),
           lastSurvey = Some(Day(2020, 8))
         ),
@@ -68,7 +71,7 @@ class MongoQueryLocationRoutesTest extends MongoTest {
       newRouteDoc(
         20L,
         base = newRouteBaseData(
-          newRouteSummary(
+          summary = newRouteSummary(
             name = "aaa",
             meters = 200,
           )
@@ -85,7 +88,7 @@ class MongoQueryLocationRoutesTest extends MongoTest {
       newRouteDoc(
         30L,
         base = newRouteBaseData(
-          newRouteSummary(
+          summary = newRouteSummary(
             name = "ccc",
             meters = 300
           )
@@ -286,7 +289,7 @@ class MongoQueryLocationRoutesTest extends MongoTest {
       newRouteDoc(
         id,
         active = active,
-        base = newRouteBaseData(newRouteSummary(tags = tags)),
+        base = newRouteBaseData(newRaw(tags = tags)),
         labels = labels,
       )
     )

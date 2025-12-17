@@ -18,12 +18,12 @@ import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetNetwork
 import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newMember
-import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNetworkDetail
 import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNetworkTags
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRawRelation
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
@@ -156,15 +156,17 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
 
     val routeData = newRouteData(
       relationId = 11,
-      meta = newMetaData(changeSetId = 1),
+      raw = newRaw(
+        changeSetId = 1,
+        tags = newRouteTags("01-02")
+      ),
       countries = Seq(Country.nl),
       routeTypes = Seq(RouteType.hiking),
       name = "01-02",
       networkNodes = Seq(
         newRouteNode(1001, "01"),
         newRouteNode(1002, "02")
-      ),
-      tags = newRouteTags("01-02")
+      )
     )
 
     assertEqual(

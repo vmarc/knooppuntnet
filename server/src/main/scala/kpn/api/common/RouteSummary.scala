@@ -1,9 +1,5 @@
 package kpn.api.common
 
-import kpn.api.common.data.Tagable
-import kpn.api.custom.Tag
-import kpn.api.custom.Timestamp
-
 case class RouteSummary(
   countries: Seq[Country],
   nodeNetwork: Boolean,
@@ -12,7 +8,5 @@ case class RouteSummary(
   // TODO redesign - reintroduce routeScope: RouteScope, ?
   name: String,
   meters: Long,
-  wayCount: Long,
-  timestamp: Timestamp, // TODO redesign - same as RouteDoc.lastUpdated ???
-  tags: Seq[Tag]
-) extends Tagable
+  wayCount: Long
+)

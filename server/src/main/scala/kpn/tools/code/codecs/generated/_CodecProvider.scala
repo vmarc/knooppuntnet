@@ -107,6 +107,7 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
+import kpn.api.common.data.raw.Raw
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
@@ -1841,6 +1842,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[RawNode]) {
       return new RawNodeCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[Raw]) {
+      return new RawCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[MemberType]) {
       return new MemberTypeCodec(codecRegistry).asInstanceOf[Codec[T]]

@@ -6,6 +6,7 @@ import kpn.api.common.RouteScope
 import kpn.api.common.RouteSummary
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
+import kpn.api.common.data.raw.Raw
 import kpn.api.common.route.RouteDetails
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteInfo
@@ -38,14 +39,9 @@ object RouteDetailsPageExample {
     RouteDetails(
       id = 1,
       active = true,
-      summary = RouteSummary(
-        countries = Seq(Country.nl),
-        nodeNetwork = true,
-        routeTypes = Seq(RouteType.hiking),
-        scopes = Seq(RouteScope.regional),
-        name = "01-02",
-        meters = 1234,
-        wayCount = 10,
+      raw = Raw(
+        version = 1,
+        changeSetId = 1,
         timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
         tags = Tags.from(
           "key1" -> "value1",
@@ -55,9 +51,16 @@ object RouteDetailsPageExample {
           "key5" -> "value5"
         )
       ),
+      summary = RouteSummary(
+        countries = Seq(Country.nl),
+        nodeNetwork = true,
+        routeTypes = Seq(RouteType.hiking),
+        scopes = Seq(RouteScope.regional),
+        name = "01-02",
+        meters = 1234,
+        wayCount = 10,
+      ),
       proposed = true,
-      version = 1,
-      changeSetId = 1,
       lastUpdated = Timestamp(2020, 10, 11, 12, 34, 56),
       lastSurvey = Some(Day(2020, 11, 8)),
       facts = Seq(
@@ -87,7 +90,7 @@ object RouteDetailsPageExample {
       networkReferences = Seq(
         Reference(RouteType.cycling, RouteScope.regional, 1, "network one", None),
         Reference(RouteType.cycling, RouteScope.regional, 2, "network two", None)
-      ),
+      )
     )
   }
 }

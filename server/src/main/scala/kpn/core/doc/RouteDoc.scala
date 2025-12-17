@@ -4,10 +4,12 @@ import kpn.api.common.Bounds
 import kpn.api.common.Fact
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
+import kpn.api.common.data.Tagable
 import kpn.api.common.route.ParentRoute
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.common.route.RouteStructureRow
+import kpn.api.custom.Tag
 import org.bson.types.ObjectId
 
 case class RouteDoc(
@@ -29,7 +31,7 @@ case class RouteDoc(
   networkReferences: Seq[Reference],
   bounds: Option[Bounds],
   stamp: Option[ObjectId],
-) extends WithId {
+) extends WithId with Tagable {
 
   def toRef: Ref = Ref(_id, base.summary.name)
 
@@ -38,5 +40,9 @@ case class RouteDoc(
       active = false,
       labels = labels.filterNot(_.startsWith("fact"))
     )
+  }
+
+  def tags: Seq[Tag] = {
+    base.raw.tags
   }
 }

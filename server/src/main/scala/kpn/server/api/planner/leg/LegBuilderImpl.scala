@@ -195,7 +195,7 @@ class LegBuilderImpl(
           else {
             graphPathSegment.pathKey.pathId - 100
           }
-          val colour = route.base.summary.tagValue("colour")
+          val colour = route.tagValue("colour")
           route.paths.find(_.id == pathId).flatMap { baseRoutePath =>
             trackPathToPlanRoute(route, baseRoutePath, colour).map { planRoute =>
               if (graphPathSegment.pathKey.pathId > 100) {

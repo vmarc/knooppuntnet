@@ -46,7 +46,7 @@ import { RouteSummaryComponent } from '@app/route/internal/components/route-summ
       </div>
     </div>
     <ui-data title="Relation last updated" i18n-title="@@route.relation-last-updated">
-      <ui-timestamp [timestamp]="data.summary.timestamp" />
+      <ui-timestamp [timestamp]="data.raw.timestamp" />
     </ui-data>
     <ui-data title="Network" i18n-title="@@route.network">
       <ui-route-network-references [references]="data.networkReferences" />
@@ -123,7 +123,7 @@ export class RouteDetailsComponent {
   readonly routeDetails = input.required<RouteDetails>();
 
   routeTags() {
-    return InterpretedTags.routeTags(this.routeDetails().summary.tags);
+    return InterpretedTags.routeTags(this.routeDetails().raw.tags);
   }
 
   factInfos(): FactInfo[] {

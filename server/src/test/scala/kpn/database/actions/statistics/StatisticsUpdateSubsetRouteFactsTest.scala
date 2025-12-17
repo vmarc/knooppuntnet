@@ -103,7 +103,7 @@ class StatisticsUpdateSubsetRouteFactsTest extends MongoTest {
         routeId,
         active = active,
         base = newRouteBaseData(
-          newRouteSummary(
+          summary = newRouteSummary(
             Seq(country),
             routeTypes = Seq(routeType),
           )

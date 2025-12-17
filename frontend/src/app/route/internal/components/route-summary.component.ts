@@ -28,10 +28,10 @@ import { RouteLocationComponent } from './route-location.component';
       }
 
       <div class="kpn-align-center">
-        <span>{{ route().summary.id }}</span>
+        <span>{{ route().id }}</span>
         <ui-action-button-route
           [routeType]="route().summary.routeTypes[0]"
-          [relationId]="route().summary.id"
+          [relationId]="route().id"
         />
       </div>
 
@@ -112,7 +112,7 @@ export class RouteSummaryComponent {
   }
 
   isProposed() {
-    const stateTag = this.route().summary.tags.find((t) => t.key === 'state');
+    const stateTag = this.route().raw.tags.find((t) => t.key === 'state');
     return stateTag && stateTag.value === 'proposed';
   }
 
@@ -135,7 +135,7 @@ export class RouteSummaryComponent {
   }
 
   symbolDescription(): string {
-    const symbolTag = this.route().summary.tags.find((tag) => tag.key === 'osmc:symbol');
+    const symbolTag = this.route().raw.tags.find((tag) => tag.key === 'osmc:symbol');
     if (symbolTag) {
       return symbolTag.value;
     }

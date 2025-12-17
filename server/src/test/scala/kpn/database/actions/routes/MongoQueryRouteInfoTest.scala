@@ -27,7 +27,7 @@ class MongoQueryRouteInfoTest extends MongoTest {
       id,
       active = active,
       base = newRouteBaseData(
-        newRouteSummary(
+        summary = newRouteSummary(
           routeTypes = Seq(hiking),
           name = name
         )

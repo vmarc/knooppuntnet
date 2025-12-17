@@ -60,34 +60,34 @@ class RouteRepositoryTest extends MongoTest {
     val routeRepository = new RouteRepositoryImpl(database)
 
     // first save
-    routeRepository.saveBaseRoute(newBaseRouteDoc(10, base = newRouteBaseData(newRouteSummary(name = "01-02"))))
-    routeRepository.saveBaseRoute(newBaseRouteDoc(20, base = newRouteBaseData(newRouteSummary(name = "02-03"))))
+    routeRepository.saveBaseRoute(newBaseRouteDoc(10, base = newRouteBaseData(summary = newRouteSummary(name = "01-02"))))
+    routeRepository.saveBaseRoute(newBaseRouteDoc(20, base = newRouteBaseData(summary = newRouteSummary(name = "02-03"))))
 
-    routeRepository.findBaseRouteById(10) should equal(Some(newBaseRouteDoc(10, base = newRouteBaseData(newRouteSummary(name = "01-02")))))
-    routeRepository.findBaseRouteById(20) should equal(Some(newBaseRouteDoc(20, base = newRouteBaseData(newRouteSummary(name = "02-03")))))
+    routeRepository.findBaseRouteById(10) should equal(Some(newBaseRouteDoc(10, base = newRouteBaseData(summary = newRouteSummary(name = "01-02")))))
+    routeRepository.findBaseRouteById(20) should equal(Some(newBaseRouteDoc(20, base = newRouteBaseData(summary = newRouteSummary(name = "02-03")))))
     routeRepository.findBaseRouteById(30) should equal(None)
 
     // save again without change
-    routeRepository.saveBaseRoute(newBaseRouteDoc(10, base = newRouteBaseData(newRouteSummary(name = "01-02"))))
-    routeRepository.saveBaseRoute(newBaseRouteDoc(20, base = newRouteBaseData(newRouteSummary(name = "02-03"))))
+    routeRepository.saveBaseRoute(newBaseRouteDoc(10, base = newRouteBaseData(summary = newRouteSummary(name = "01-02"))))
+    routeRepository.saveBaseRoute(newBaseRouteDoc(20, base = newRouteBaseData(summary = newRouteSummary(name = "02-03"))))
 
-    routeRepository.findBaseRouteById(10) should equal(Some(newBaseRouteDoc(10, base = newRouteBaseData(newRouteSummary(name = "01-02")))))
-    routeRepository.findBaseRouteById(20) should equal(Some(newBaseRouteDoc(20, base = newRouteBaseData(newRouteSummary(name = "02-03")))))
+    routeRepository.findBaseRouteById(10) should equal(Some(newBaseRouteDoc(10, base = newRouteBaseData(summary = newRouteSummary(name = "01-02")))))
+    routeRepository.findBaseRouteById(20) should equal(Some(newBaseRouteDoc(20, base = newRouteBaseData(summary = newRouteSummary(name = "02-03")))))
     routeRepository.findBaseRouteById(30) should equal(None)
 
     // update
-    routeRepository.saveBaseRoute(newBaseRouteDoc(10, base = newRouteBaseData(newRouteSummary(name = "01-02"))))
-    routeRepository.saveBaseRoute(newBaseRouteDoc(20, base = newRouteBaseData(newRouteSummary(name = "02-04"))))
+    routeRepository.saveBaseRoute(newBaseRouteDoc(10, base = newRouteBaseData(summary = newRouteSummary(name = "01-02"))))
+    routeRepository.saveBaseRoute(newBaseRouteDoc(20, base = newRouteBaseData(summary = newRouteSummary(name = "02-04"))))
 
-    routeRepository.findBaseRouteById(10) should equal(Some(newBaseRouteDoc(10, base = newRouteBaseData(newRouteSummary(name = "01-02")))))
-    routeRepository.findBaseRouteById(20) should equal(Some(newBaseRouteDoc(20, base = newRouteBaseData(newRouteSummary(name = "02-04"))))) // updated
+    routeRepository.findBaseRouteById(10) should equal(Some(newBaseRouteDoc(10, base = newRouteBaseData(summary = newRouteSummary(name = "01-02")))))
+    routeRepository.findBaseRouteById(20) should equal(Some(newBaseRouteDoc(20, base = newRouteBaseData(summary = newRouteSummary(name = "02-04"))))) // updated
     routeRepository.findBaseRouteById(30) should equal(None)
 
     // update
-    routeRepository.saveBaseRoute(newBaseRouteDoc(20, base = newRouteBaseData(newRouteSummary(name = "02-05"))))
+    routeRepository.saveBaseRoute(newBaseRouteDoc(20, base = newRouteBaseData(summary = newRouteSummary(name = "02-05"))))
 
-    routeRepository.findBaseRouteById(10) should equal(Some(newBaseRouteDoc(10, base = newRouteBaseData(newRouteSummary(name = "01-02"))))) // not deleted
-    routeRepository.findBaseRouteById(20) should equal(Some(newBaseRouteDoc(20, base = newRouteBaseData(newRouteSummary(name = "02-05"))))) // updated
+    routeRepository.findBaseRouteById(10) should equal(Some(newBaseRouteDoc(10, base = newRouteBaseData(summary = newRouteSummary(name = "01-02"))))) // not deleted
+    routeRepository.findBaseRouteById(20) should equal(Some(newBaseRouteDoc(20, base = newRouteBaseData(summary = newRouteSummary(name = "02-05"))))) // updated
     routeRepository.findBaseRouteById(30) should equal(None)
   }
 

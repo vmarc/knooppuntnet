@@ -309,7 +309,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
       newRouteDoc(
         route1.relationId,
         base = newRouteBaseData(
-          newRouteSummary(
+          summary = newRouteSummary(
             name = "route-name"
           )
         ),

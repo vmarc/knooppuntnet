@@ -4,13 +4,12 @@ import { Country } from '@api/common/country';
 import { Fact } from '@api/common/fact';
 import { RouteLocationAnalysis } from '@api/common/route-location-analysis';
 import { RouteType } from '@api/common/route-type';
-import { MetaData } from '@api/common/data/meta-data';
+import { Raw } from '@api/common/data/raw/raw';
 import { RouteNode } from '@api/common/route/route-node';
-import { Tag } from '@api/custom/tag';
 
 export interface RouteData {
   readonly relationId: number;
-  readonly meta: MetaData;
+  readonly raw: Raw;
   readonly countries: Country[];
   readonly routeTypes: RouteType[];
   readonly name: string;
@@ -18,5 +17,4 @@ export interface RouteData {
   readonly facts: Fact[];
   readonly meters: number;
   readonly locationAnalysis: RouteLocationAnalysis;
-  readonly tags: Tag[];
 }

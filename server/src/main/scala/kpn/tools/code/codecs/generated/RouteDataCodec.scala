@@ -6,10 +6,9 @@ import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteType
-import kpn.api.common.data.MetaData
+import kpn.api.common.data.raw.Raw
 import kpn.api.common.diff.RouteData
 import kpn.api.common.route.RouteNode
-import kpn.api.custom.Tag
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
 import org.bson.BsonType
@@ -24,18 +23,17 @@ class RouteDataCodec(registry: CodecRegistry) extends Codec[RouteData] {
   private val countryCodec = registry.get(classOf[Country])
   private val factCodec = registry.get(classOf[Fact])
   private val longCodec = registry.get(classOf[Long])
-  private val metaDataCodec = registry.get(classOf[MetaData])
+  private val rawCodec = registry.get(classOf[Raw])
   private val routeLocationAnalysisCodec = registry.get(classOf[RouteLocationAnalysis])
   private val routeNodeCodec = registry.get(classOf[RouteNode])
   private val routeTypeCodec = registry.get(classOf[RouteType])
   private val stringCodec = registry.get(classOf[String])
-  private val tagCodec = registry.get(classOf[Tag])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): RouteData = {
     bsonReader.readStartDocument()
 
     var relationId: Long = 0
-    var meta: MetaData = null
+    var raw: Raw = null
     var countries: Seq[Country] = null
     var routeTypes: Seq[RouteType] = null
     var name: String = null
@@ -43,15 +41,14 @@ class RouteDataCodec(registry: CodecRegistry) extends Codec[RouteData] {
     var facts: Seq[Fact] = null
     var meters: Long = 0
     var locationAnalysis: RouteLocationAnalysis = null
-    var tags: Seq[Tag] = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
       if (fieldName == "relationId") {
         relationId = longCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "meta") {
-        meta = metaDataCodec.decode(bsonReader, decoderContext)
+      else if (fieldName == "raw") {
+        raw = rawCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "countries") {
         bsonReader.readStartArray()
@@ -98,15 +95,6 @@ class RouteDataCodec(registry: CodecRegistry) extends Codec[RouteData] {
       else if (fieldName == "locationAnalysis") {
         locationAnalysis = routeLocationAnalysisCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "tags") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[Tag]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += tagCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        tags = valueBuffer.toSeq
-      }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in RouteDataCodec.decode()")
         bsonReader.skipValue()
@@ -117,7 +105,7 @@ class RouteDataCodec(registry: CodecRegistry) extends Codec[RouteData] {
 
     RouteData(
       relationId,
-      meta,
+      raw,
       countries,
       routeTypes,
       name,
@@ -125,7 +113,6 @@ class RouteDataCodec(registry: CodecRegistry) extends Codec[RouteData] {
       facts,
       meters,
       locationAnalysis,
-      tags,
     )
   }
 
@@ -135,8 +122,8 @@ class RouteDataCodec(registry: CodecRegistry) extends Codec[RouteData] {
     bsonWriter.writeName("relationId")
     longCodec.encode(bsonWriter, value.relationId, encoderContext)
 
-    bsonWriter.writeName("meta")
-    metaDataCodec.encode(bsonWriter, value.meta, encoderContext)
+    bsonWriter.writeName("raw")
+    rawCodec.encode(bsonWriter, value.raw, encoderContext)
 
     bsonWriter.writeName("countries")
     bsonWriter.writeStartArray()
@@ -166,11 +153,6 @@ class RouteDataCodec(registry: CodecRegistry) extends Codec[RouteData] {
 
     bsonWriter.writeName("locationAnalysis")
     routeLocationAnalysisCodec.encode(bsonWriter, value.locationAnalysis, encoderContext)
-
-    bsonWriter.writeName("tags")
-    bsonWriter.writeStartArray()
-    value.tags.foreach(v => tagCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
 
     bsonWriter.writeEndDocument()
   }

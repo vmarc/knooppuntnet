@@ -6,8 +6,6 @@ import kpn.api.common.Country
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteSummary
 import kpn.api.common.RouteType
-import kpn.api.custom.Tag
-import kpn.api.custom.Timestamp
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
 import org.bson.BsonType
@@ -25,8 +23,6 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
   private val routeScopeCodec = registry.get(classOf[RouteScope])
   private val routeTypeCodec = registry.get(classOf[RouteType])
   private val stringCodec = registry.get(classOf[String])
-  private val tagCodec = registry.get(classOf[Tag])
-  private val timestampCodec = registry.get(classOf[Timestamp])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): RouteSummary = {
     bsonReader.readStartDocument()
@@ -38,8 +34,6 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
     var name: String = null
     var meters: Long = 0
     var wayCount: Long = 0
-    var timestamp: Timestamp = null
-    var tags: Seq[Tag] = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -82,18 +76,6 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
       else if (fieldName == "wayCount") {
         wayCount = longCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "timestamp") {
-        timestamp = timestampCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "tags") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[Tag]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += tagCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        tags = valueBuffer.toSeq
-      }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in RouteSummaryCodec.decode()")
         bsonReader.skipValue()
@@ -110,8 +92,6 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
       name,
       meters,
       wayCount,
-      timestamp,
-      tags,
     )
   }
 
@@ -144,14 +124,6 @@ class RouteSummaryCodec(registry: CodecRegistry) extends Codec[RouteSummary] {
 
     bsonWriter.writeName("wayCount")
     longCodec.encode(bsonWriter, value.wayCount, encoderContext)
-
-    bsonWriter.writeName("timestamp")
-    timestampCodec.encode(bsonWriter, value.timestamp, encoderContext)
-
-    bsonWriter.writeName("tags")
-    bsonWriter.writeStartArray()
-    value.tags.foreach(v => tagCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
 
     bsonWriter.writeEndDocument()
   }

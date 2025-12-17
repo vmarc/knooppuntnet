@@ -181,7 +181,7 @@ class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
       newRouteDoc(
         route1.relationId,
         base = newRouteBaseData(
-          newRouteSummary(
+          summary = newRouteSummary(
             name = "route-name"
           )
         ),

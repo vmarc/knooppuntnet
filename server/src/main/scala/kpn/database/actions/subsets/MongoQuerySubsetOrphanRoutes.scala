@@ -61,6 +61,7 @@ class MongoQuerySubsetOrphanRoutes(database: Database) {
           computed("lastSurvey", "$base.lastSurvey"),
           computed("lastUpdated", "$base.lastUpdated"),
           include("facts"),
+          include("investigate"),
         )
       )
     )

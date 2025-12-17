@@ -195,7 +195,7 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
       newRouteDoc(
         route1.relationId,
         base = newRouteBaseData(
-          newRouteSummary(
+          summary = newRouteSummary(
             name = "route-name"
           )
         ),

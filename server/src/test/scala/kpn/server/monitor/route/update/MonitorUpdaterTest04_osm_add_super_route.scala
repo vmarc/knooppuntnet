@@ -289,7 +289,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
       newRouteDoc(
         TestSuperRoute.MainRelationId,
         base = newRouteBaseData(
-          newRouteSummary(
+          summary = newRouteSummary(
             name = "route-name"
           )
         ),

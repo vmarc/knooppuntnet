@@ -42,6 +42,7 @@ import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
 import kpn.core.test.TestObjects.newNetworkRouteDetail
 import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNodeChange
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
 import kpn.core.test.TestObjects.newRouteNode
@@ -257,15 +258,17 @@ class NetworkAddRouteTest01 extends IntegrationTest {
 
     val routeData = newRouteData(
       relationId = 11,
-      meta = newMetaData(changeSetId = 1),
+      raw = newRaw(
+        changeSetId = 1,
+        tags = newRouteTags("01-02")
+      ),
       countries = Seq(Country.nl),
       routeTypes = Seq(RouteType.hiking),
       name = "01-02",
       networkNodes = Seq(
         newRouteNode(1001, "01"),
         newRouteNode(1002, "02")
-      ),
-      tags = newRouteTags("01-02")
+      )
     )
 
     assertEqual(

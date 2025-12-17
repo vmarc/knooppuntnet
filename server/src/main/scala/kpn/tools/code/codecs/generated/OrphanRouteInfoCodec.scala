@@ -28,10 +28,10 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
     var id: Long = 0
     var name: String = null
     var meters: Long = 0
-    var isBroken: Boolean = false
     var lastSurvey: Option[String] = None
     var lastUpdated: Timestamp = null
     var facts: Seq[Fact] = null
+    var investigate: Boolean = false
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -43,9 +43,6 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
       }
       else if (fieldName == "meters") {
         meters = longCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "isBroken") {
-        isBroken = booleanCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "lastSurvey") {
         lastSurvey = Some(stringCodec.decode(bsonReader, decoderContext))
@@ -62,6 +59,9 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
         bsonReader.readEndArray()
         facts = valueBuffer.toSeq
       }
+      else if (fieldName == "investigate") {
+        investigate = booleanCodec.decode(bsonReader, decoderContext)
+      }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in OrphanRouteInfoCodec.decode()")
         bsonReader.skipValue()
@@ -77,6 +77,7 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
       lastSurvey,
       lastUpdated,
       facts,
+      investigate,
     )
   }
 
@@ -104,6 +105,9 @@ class OrphanRouteInfoCodec(registry: CodecRegistry) extends Codec[OrphanRouteInf
     bsonWriter.writeStartArray()
     value.facts.foreach(v => factCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
+
+    bsonWriter.writeName("investigate")
+    booleanCodec.encode(bsonWriter, value.investigate, encoderContext)
 
     bsonWriter.writeEndDocument()
   }

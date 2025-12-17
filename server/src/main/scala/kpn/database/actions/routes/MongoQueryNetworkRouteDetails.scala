@@ -56,7 +56,7 @@ class MongoQueryNetworkRouteDetails(database: Database) {
           computed("proposed", "$base.proposed"),
           computed("lastUpdated", "$base.lastUpdated"),
           computed("lastSurvey", "$base.lastSurvey"),
-          computed("tags", "$base.summary.tags"),
+          computed("tags", "$base.raw.tags"),
           computed("networkNodeIds", "$base.networkNodeIds")
         )
       )

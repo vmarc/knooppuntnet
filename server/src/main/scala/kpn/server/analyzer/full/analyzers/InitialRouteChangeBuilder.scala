@@ -3,7 +3,6 @@ package kpn.server.analyzer.full.analyzers
 import kpn.api.common.ChangeType
 import kpn.api.common.ElementChangeType
 import kpn.api.common.changes.details.RouteChange
-import kpn.api.common.data.MetaData
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
@@ -26,19 +25,14 @@ class InitialRouteChangeBuilder(
     val locationFacts = facts.filter(Facts.locationFacts.contains)
     val routeData = RouteData(
       routeDoc._id,
-      MetaData(
-        routeDoc.base.version,
-        routeDoc.base.lastUpdated,
-        routeDoc.base.changeSetId
-      ),
+      routeDoc.base.raw,
       routeDoc.base.summary.countries.toSeq,
       routeDoc.base.summary.routeTypes,
       routeDoc.base.summary.name: String,
       routeDoc.base.nodes.nodes,
       routeDoc.facts,
       routeDoc.base.summary.meters,
-      routeDoc.base.locationAnalysis,
-      routeDoc.base.summary.tags
+      routeDoc.base.locationAnalysis
     )
 
     val nodeChanges = routeDoc.base.nodes.nodes.map { node =>

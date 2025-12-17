@@ -5,6 +5,7 @@ import kpn.api.common.Fact
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Reference
+import kpn.api.common.data.raw.Raw
 import kpn.api.common.route.ParentRoute
 import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Day
@@ -14,10 +15,9 @@ import kpn.core.doc.Storable
 case class RouteDetailsData(
   id: Long,
   active: Boolean,
+  core: Raw,
   summary: RouteSummary,
   proposed: Boolean,
-  version: Long,
-  changeSetId: Long,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
   facts: Seq[Fact],

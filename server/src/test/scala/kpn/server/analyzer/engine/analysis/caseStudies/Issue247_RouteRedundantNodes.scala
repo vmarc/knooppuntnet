@@ -20,7 +20,7 @@ class Issue247_RouteRedundantNodes extends UnitTest {
     route.base.summary.name should equal("?-?")
 
     assertEqual(
-      route.base.summary.tags,
+      route.base.raw.tags,
       Tags.from(
         "ref" -> "? - ?",
         "network" -> "lwn",

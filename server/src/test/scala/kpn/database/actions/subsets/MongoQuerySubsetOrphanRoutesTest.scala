@@ -48,7 +48,7 @@ class MongoQuerySubsetOrphanRoutesTest extends MongoTest {
     newRouteDoc(
       100L,
       base = newRouteBaseData(
-        newRouteSummary(
+        summary = newRouteSummary(
           name = "01-02",
           meters = 123,
         ),

@@ -27,6 +27,7 @@ import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRawNode
 import kpn.core.test.TestObjects.newRawRelation
 import kpn.core.test.TestObjects.newRawWay
@@ -186,15 +187,17 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         before = Some(
           newRouteData(
             relationId = 12,
-            meta = newMetaData(changeSetId = 1),
+            raw = newRaw(
+              changeSetId = 1,
+              tags = newRouteTags("02-03")
+            ),
             countries = Seq(Country.nl),
             routeTypes = Seq(RouteType.hiking),
             name = "02-03",
             networkNodes = Seq(
               newRouteNode(1002, "02"),
               newRouteNode(1003, "03")
-            ),
-            tags = newRouteTags("02-03")
+            )
           )
         ),
         nodeChanges = Seq(

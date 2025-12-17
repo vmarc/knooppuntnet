@@ -97,7 +97,7 @@ class DuplicateRoutesReport(database: Database) {
         val routeTypes = routeDoc.base.summary.routeTypes
         val name = routeDoc.base.summary.name
         val wayIds = routeDoc.base.members.filter(_.memberType == MemberType.Way).map(_.id).toSet
-        val alternate = routeDoc.base.summary.hasTag("state", "alternate")
+        val alternate = routeDoc.hasTag("state", "alternate")
         Option.when(routeDoc.active && wayIds.nonEmpty && countries.nonEmpty) {
           RouteWays(
             countries.head,

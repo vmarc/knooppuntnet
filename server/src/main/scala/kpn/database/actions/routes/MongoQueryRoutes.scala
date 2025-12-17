@@ -48,7 +48,7 @@ class MongoQueryRoutes(database: Database) {
       project(
         fields(
           include("_id"),
-          computed("tags", "$base.summary.tags")
+          computed("tags", "$base.raw.tags")
         )
       )
     )

@@ -328,7 +328,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends MonitorUpdateTest {
       newRouteDoc(
         route1.relationId,
         base = newRouteBaseData(
-          newRouteSummary(
+          summary = newRouteSummary(
             name = "route-name"
           )
         ),

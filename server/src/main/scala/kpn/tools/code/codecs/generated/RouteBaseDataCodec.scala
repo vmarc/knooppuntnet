@@ -5,6 +5,7 @@ package kpn.tools.code.codecs.generated
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteSummary
+import kpn.api.common.data.raw.Raw
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteNodes
@@ -25,6 +26,7 @@ class RouteBaseDataCodec(registry: CodecRegistry) extends Codec[RouteBaseData] {
   private val booleanCodec = registry.get(classOf[Boolean])
   private val dayCodec = registry.get(classOf[Day])
   private val longCodec = registry.get(classOf[Long])
+  private val rawCodec = registry.get(classOf[Raw])
   private val routeEdgeCodec = registry.get(classOf[RouteEdge])
   private val routeInfoAnalysisCodec = registry.get(classOf[RouteInfoAnalysis])
   private val routeLocationAnalysisCodec = registry.get(classOf[RouteLocationAnalysis])
@@ -36,10 +38,9 @@ class RouteBaseDataCodec(registry: CodecRegistry) extends Codec[RouteBaseData] {
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): RouteBaseData = {
     bsonReader.readStartDocument()
 
+    var raw: Raw = null
     var summary: RouteSummary = null
     var proposed: Boolean = false
-    var version: Long = 0
-    var changeSetId: Long = 0
     var lastUpdated: Timestamp = null
     var lastSurvey: Option[Day] = None
     var unexpectedNodeIds: Seq[Long] = null
@@ -53,17 +54,14 @@ class RouteBaseDataCodec(registry: CodecRegistry) extends Codec[RouteBaseData] {
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
-      if (fieldName == "summary") {
+      if (fieldName == "raw") {
+        raw = rawCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "summary") {
         summary = routeSummaryCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "proposed") {
         proposed = booleanCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "version") {
-        version = longCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "changeSetId") {
-        changeSetId = longCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "lastUpdated") {
         lastUpdated = timestampCodec.decode(bsonReader, decoderContext)
@@ -128,10 +126,9 @@ class RouteBaseDataCodec(registry: CodecRegistry) extends Codec[RouteBaseData] {
     bsonReader.readEndDocument()
 
     RouteBaseData(
+      raw,
       summary,
       proposed,
-      version,
-      changeSetId,
       lastUpdated,
       lastSurvey,
       unexpectedNodeIds,
@@ -148,17 +145,14 @@ class RouteBaseDataCodec(registry: CodecRegistry) extends Codec[RouteBaseData] {
   override def encode(bsonWriter: BsonWriter, value: RouteBaseData, encoderContext: EncoderContext): Unit = {
     bsonWriter.writeStartDocument()
 
+    bsonWriter.writeName("raw")
+    rawCodec.encode(bsonWriter, value.raw, encoderContext)
+
     bsonWriter.writeName("summary")
     routeSummaryCodec.encode(bsonWriter, value.summary, encoderContext)
 
     bsonWriter.writeName("proposed")
     booleanCodec.encode(bsonWriter, value.proposed, encoderContext)
-
-    bsonWriter.writeName("version")
-    longCodec.encode(bsonWriter, value.version, encoderContext)
-
-    bsonWriter.writeName("changeSetId")
-    longCodec.encode(bsonWriter, value.changeSetId, encoderContext)
 
     bsonWriter.writeName("lastUpdated")
     timestampCodec.encode(bsonWriter, value.lastUpdated, encoderContext)

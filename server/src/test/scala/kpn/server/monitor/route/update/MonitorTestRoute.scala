@@ -63,7 +63,7 @@ case class MonitorTestRoute(
     newRouteDoc(
       relationId,
       base = newRouteBaseData(
-        newRouteSummary(
+        summary = newRouteSummary(
           name = "route-name"
         )
       ),

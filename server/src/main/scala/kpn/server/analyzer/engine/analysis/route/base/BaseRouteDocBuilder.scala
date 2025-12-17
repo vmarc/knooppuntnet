@@ -49,8 +49,6 @@ class BaseRouteDocBuilder {
       title,
       length,
       routeWays.size,
-      context.relation.timestamp,
-      context.relation.tags
     )
 
     val subRelationIds = context.routeMembers.flatMap { member =>
@@ -72,10 +70,9 @@ class BaseRouteDocBuilder {
       context.relation.id,
       active = true,
       base = RouteBaseData(
+        raw = context.relation.raw,
         summary = summary,
         proposed = context.proposed,
-        version = context.relation.version,
-        changeSetId = context.relation.changeSetId,
         lastUpdated = lastUpdated,
         lastSurvey = context.lastSurvey,
         unexpectedNodeIds = context.unexpectedNodeIds,

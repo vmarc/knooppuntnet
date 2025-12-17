@@ -18,7 +18,7 @@ class RouteParentsAnalyzerTest extends MongoTest {
       newBaseRouteDoc(
         11,
         base = newRouteBaseData(
-          newRouteSummary(name = "route 11")
+          summary = newRouteSummary(name = "route 11")
         ),
         subRouteIds = Seq(12)
       )
@@ -27,7 +27,7 @@ class RouteParentsAnalyzerTest extends MongoTest {
       newBaseRouteDoc(
         12,
         base = newRouteBaseData(
-          newRouteSummary(name = "route 12")
+          summary = newRouteSummary(name = "route 12")
         ),
         subRouteIds = Seq(13)
       )
@@ -36,7 +36,7 @@ class RouteParentsAnalyzerTest extends MongoTest {
       newBaseRouteDoc(
         13,
         base = newRouteBaseData(
-          newRouteSummary(name = "route 13")
+          summary = newRouteSummary(name = "route 13")
         )
       )
     )
@@ -86,7 +86,7 @@ class RouteParentsAnalyzerTest extends MongoTest {
       newBaseRouteDoc(
         11,
         base = newRouteBaseData(
-          newRouteSummary(name = "route 11")
+          summary = newRouteSummary(name = "route 11")
         ),
         subRouteIds = Seq(12)
       )
@@ -95,7 +95,7 @@ class RouteParentsAnalyzerTest extends MongoTest {
       newBaseRouteDoc(
         12,
         base = newRouteBaseData(
-          newRouteSummary(name = "route 12")
+          summary = newRouteSummary(name = "route 12")
         ),
         subRouteIds = Seq(13)
       )
@@ -104,7 +104,7 @@ class RouteParentsAnalyzerTest extends MongoTest {
       newBaseRouteDoc(
         13,
         base = newRouteBaseData(
-          newRouteSummary(name = "route 13")
+          summary = newRouteSummary(name = "route 13")
         ),
         subRouteIds = Seq(11)
       )

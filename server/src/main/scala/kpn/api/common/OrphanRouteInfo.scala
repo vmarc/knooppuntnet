@@ -8,5 +8,6 @@ case class OrphanRouteInfo(
   meters: Long,
   lastSurvey: Option[String],
   lastUpdated: Timestamp,
-  facts: Seq[Fact]
+  facts: Seq[Fact],
+  investigate: Boolean
 )

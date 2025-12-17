@@ -273,7 +273,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
       newRouteDoc(
         route1.relationId,
         base = newRouteBaseData(
-          newRouteSummary(
+          summary = newRouteSummary(
             name = "route-name-1"
           )
         ),
@@ -291,7 +291,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
       newRouteDoc(
         route2.relationId,
         base = newRouteBaseData(
-          newRouteSummary(
+          summary = newRouteSummary(
             name = "route-name-2"
           )
         ),
