@@ -6,7 +6,6 @@ import kpn.api.common.LatLonImpl
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkDetail
 import kpn.api.custom.Day
-import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
@@ -24,7 +23,6 @@ class NetworkDetailCodec(registry: CodecRegistry) extends Codec[NetworkDetail] {
   private val latLonImplCodec = registry.get(classOf[LatLonImpl])
   private val longCodec = registry.get(classOf[Long])
   private val stringCodec = registry.get(classOf[String])
-  private val tagCodec = registry.get(classOf[Tag])
   private val timestampCodec = registry.get(classOf[Timestamp])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): NetworkDetail = {
@@ -32,12 +30,9 @@ class NetworkDetailCodec(registry: CodecRegistry) extends Codec[NetworkDetail] {
 
     var km: Long = 0
     var meters: Long = 0
-    var version: Long = 0
-    var changeSetId: Long = 0
     var lastUpdated: Timestamp = null
     var relationLastUpdated: Timestamp = null
     var lastSurvey: Option[Day] = None
-    var tags: Seq[Tag] = null
     var brokenRouteCount: Long = 0
     var brokenRoutePercentage: String = null
     var integrity: Integrity = null
@@ -53,12 +48,6 @@ class NetworkDetailCodec(registry: CodecRegistry) extends Codec[NetworkDetail] {
       else if (fieldName == "meters") {
         meters = longCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "version") {
-        version = longCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "changeSetId") {
-        changeSetId = longCodec.decode(bsonReader, decoderContext)
-      }
       else if (fieldName == "lastUpdated") {
         lastUpdated = timestampCodec.decode(bsonReader, decoderContext)
       }
@@ -67,15 +56,6 @@ class NetworkDetailCodec(registry: CodecRegistry) extends Codec[NetworkDetail] {
       }
       else if (fieldName == "lastSurvey") {
         lastSurvey = Some(dayCodec.decode(bsonReader, decoderContext))
-      }
-      else if (fieldName == "tags") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[Tag]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += tagCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        tags = valueBuffer.toSeq
       }
       else if (fieldName == "brokenRouteCount") {
         brokenRouteCount = longCodec.decode(bsonReader, decoderContext)
@@ -106,12 +86,9 @@ class NetworkDetailCodec(registry: CodecRegistry) extends Codec[NetworkDetail] {
     NetworkDetail(
       km,
       meters,
-      version,
-      changeSetId,
       lastUpdated,
       relationLastUpdated,
       lastSurvey,
-      tags,
       brokenRouteCount,
       brokenRoutePercentage,
       integrity,
@@ -130,12 +107,6 @@ class NetworkDetailCodec(registry: CodecRegistry) extends Codec[NetworkDetail] {
     bsonWriter.writeName("meters")
     longCodec.encode(bsonWriter, value.meters, encoderContext)
 
-    bsonWriter.writeName("version")
-    longCodec.encode(bsonWriter, value.version, encoderContext)
-
-    bsonWriter.writeName("changeSetId")
-    longCodec.encode(bsonWriter, value.changeSetId, encoderContext)
-
     bsonWriter.writeName("lastUpdated")
     timestampCodec.encode(bsonWriter, value.lastUpdated, encoderContext)
 
@@ -146,11 +117,6 @@ class NetworkDetailCodec(registry: CodecRegistry) extends Codec[NetworkDetail] {
       bsonWriter.writeName("lastSurvey")
       dayCodec.encode(bsonWriter, value.lastSurvey.get, encoderContext)
     }
-
-    bsonWriter.writeName("tags")
-    bsonWriter.writeStartArray()
-    value.tags.foreach(v => tagCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
 
     bsonWriter.writeName("brokenRouteCount")
     longCodec.encode(bsonWriter, value.brokenRouteCount, encoderContext)

@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.network.main
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.network.NetworkDetail
-import kpn.api.common.network.NetworkSummary
 import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.NetworkDoc
@@ -66,26 +65,41 @@ class NetworkMainAnalyzer(
   @tailrec
   private def doAnalyze(analyzers: List[NetworkAnalyzer], context: NetworkAnalysisContext): Option[NetworkDoc] = {
     if (analyzers.isEmpty) {
-      val summary = buildSummary(context)
+      val factCount = if (context.network.active) {
+        context.networkFacts.map(_.size).sum + context.facts.size
+      }
+      else {
+        0
+      }
+
       val detail = buildDetail(context)
       val facts = Fact.values.flatMap { fact => // use fact sorting order as defined in Fact class
         context.networkFacts.filter(_.fact == fact)
       }
+
+      val base = if (context.network.active) {
+        context.network.base
+      } else {
+        context.network.base.copy(members = Seq.empty)
+      }
+
       Some(
         NetworkDoc(
-          context.network._id,
-          context.network.active,
-          context.country,
-          summary,
-          detail,
-          facts,
-          context.nodeDetails,
-          context.routeDetails,
-          context.extraNodeIds,
-          context.extraWayIds,
-          context.extraRelationIds,
-          if (context.network.active) context.network.members else Seq.empty,
-          None
+          _id = context.network._id,
+          active = context.network.active,
+          base = base,
+          country = context.country,
+          detail = detail,
+          facts = facts,
+          nodes = context.nodeDetails,
+          routes = context.routeDetails,
+          factCount = factCount,
+          nodeCount = context.nodeDetails.size,
+          routeCount = context.routeDetails.size,
+          extraNodeIds = context.extraNodeIds,
+          extraWayIds = context.extraWayIds,
+          extraRelationIds = context.extraRelationIds,
+          stamp = None,
         )
       )
     }
@@ -95,33 +109,13 @@ class NetworkMainAnalyzer(
     }
   }
 
-  private def buildSummary(context: NetworkAnalysisContext): NetworkSummary = {
-    val factCount = if (context.network.active) {
-      context.networkFacts.map(_.size).sum + context.facts.size
-    }
-    else {
-      0
-    }
-    NetworkSummary(
-      context.name,
-      context.scopedRouteType.routeType,
-      context.scopedRouteType.routeScope,
-      factCount,
-      context.nodeDetails.size,
-      context.routeDetails.size,
-    )
-  }
-
   private def buildDetail(context: NetworkAnalysisContext): NetworkDetail = {
     NetworkDetail(
       context.km,
       context.meters,
-      context.network.version,
-      context.network.changeSetId,
       context.lastUpdated.get,
-      context.network.timestamp,
+      context.network.base.raw.timestamp,
       context.lastSurvey,
-      context.network.tags,
       context.brokenRouteCount,
       context.brokenRoutePercentage,
       context.integrity,

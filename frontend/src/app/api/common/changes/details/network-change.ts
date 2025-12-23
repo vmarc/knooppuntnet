@@ -12,7 +12,7 @@ export interface NetworkChange {
   readonly _id: string;
   readonly key: ChangeKey;
   readonly networkId: number;
-  readonly networkName: string;
+  readonly networkName?: string;
   readonly changeType: ChangeType;
   readonly country?: Country;
   readonly routeType: RouteType;

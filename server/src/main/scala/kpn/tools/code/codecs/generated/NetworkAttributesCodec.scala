@@ -36,7 +36,7 @@ class NetworkAttributesCodec(registry: CodecRegistry) extends Codec[NetworkAttri
     var country: Option[Country] = None
     var routeType: RouteType = null
     var routeScope: RouteScope = null
-    var name: String = null
+    var name: Option[String] = None
     var km: Long = 0
     var meters: Long = 0
     var nodeCount: Long = 0
@@ -65,7 +65,7 @@ class NetworkAttributesCodec(registry: CodecRegistry) extends Codec[NetworkAttri
         routeScope = routeScopeCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "name") {
-        name = stringCodec.decode(bsonReader, decoderContext)
+        name = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else if (fieldName == "km") {
         km = longCodec.decode(bsonReader, decoderContext)
@@ -149,8 +149,10 @@ class NetworkAttributesCodec(registry: CodecRegistry) extends Codec[NetworkAttri
     bsonWriter.writeName("routeScope")
     routeScopeCodec.encode(bsonWriter, value.routeScope, encoderContext)
 
-    bsonWriter.writeName("name")
-    stringCodec.encode(bsonWriter, value.name, encoderContext)
+    if (value.name.isDefined) {
+      bsonWriter.writeName("name")
+      stringCodec.encode(bsonWriter, value.name.get, encoderContext)
+    }
 
     bsonWriter.writeName("km")
     longCodec.encode(bsonWriter, value.km, encoderContext)

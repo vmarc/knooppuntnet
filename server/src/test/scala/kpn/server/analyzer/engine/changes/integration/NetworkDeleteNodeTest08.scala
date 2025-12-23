@@ -24,13 +24,14 @@ import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newLocationChanges
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNetworkDetail
 import kpn.core.test.TestObjects.newNetworkDoc
-import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNetworkTags
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRawNode
 import kpn.core.test.TestObjects.newRawRelation
 import kpn.core.test.Timestamps
@@ -112,15 +113,17 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
       newNetworkDoc(
         1,
         active = false, // <--- !!!
-        country = Some(Country.nl),
-        newNetworkSummary(
-          name = "network1",
+        base = newNetworkBaseData(
+          raw = newRaw(
+            tags = newNetworkTags("network1")
+          ),
+          name = Some("network1"),
           routeType = RouteType.hiking,
         ),
+        country = Some(Country.nl),
         newNetworkDetail(
           lastUpdated = Timestamps.default,
           relationLastUpdated = Timestamps.default,
-          tags = newNetworkTags("network1")
         )
       )
     )
@@ -128,10 +131,10 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
 
   private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkChangeById("123:1:1"),
+      findNetworkChangeById("1:1:1"),
       newNetworkChange(
         key = newChangeKey(elementId = 1),
-        networkName = "network1",
+        networkName = Some("network1"),
         changeType = ChangeType.Delete,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
@@ -153,7 +156,7 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
 
   private def assertNodeChange(): Unit = {
     assertEqual(
-      findNodeChangeById("123:1:1001"),
+      findNodeChangeById("1:1:1001"),
       newNodeChange(
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Delete,
@@ -177,7 +180,7 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
 
   private def assertChangeSetSummary(): Unit = {
     assertEqual(
-      findChangeSetSummaryById("123:1"),
+      findChangeSetSummaryById("1:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         locations = Seq("nl"),
@@ -187,7 +190,7 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
               Some(Country.nl),
               RouteType.hiking,
               1,
-              "network1",
+              Some("network1"),
               nodeChanges = ChangeSetElementRefs(
                 removed = Seq(
                   newChangeSetElementRef(1001, "01", investigate = true)

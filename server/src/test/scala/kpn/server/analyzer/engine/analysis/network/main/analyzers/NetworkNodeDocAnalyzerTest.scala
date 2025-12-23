@@ -5,6 +5,7 @@ import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.ScopedRouteType
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkRouteDetail
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.Timestamps
@@ -16,10 +17,12 @@ class NetworkNodeDocAnalyzerTest extends MongoTest {
 
     val network = newBaseNetworkDoc(
       _id = 1L,
-      members = Seq(
-        RawMember(MemberType.Node, 1002L, None),
-        RawMember(MemberType.Node, 1003L, None),
-      ),
+      base = newNetworkBaseData(
+        members = Seq(
+          RawMember(MemberType.Node, 1002L, None),
+          RawMember(MemberType.Node, 1003L, None),
+        )
+      )
     )
 
     val context = NetworkAnalysisContext(

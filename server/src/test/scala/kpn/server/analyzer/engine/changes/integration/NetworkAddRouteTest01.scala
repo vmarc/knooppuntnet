@@ -35,12 +35,12 @@ import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newLocationChanges
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNetworkDetail
 import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
 import kpn.core.test.TestObjects.newNetworkRouteDetail
-import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteChange
@@ -122,20 +122,27 @@ class NetworkAddRouteTest01 extends IntegrationTest {
       findNetworkById(1),
       newNetworkDoc(
         1,
-        country = Some(Country.nl),
-        summary = newNetworkSummary(
-          name = "network",
-          nodeCount = 2,
-          routeCount = 1,
-        ),
-        detail = newNetworkDetail(
-          version = 2,
-          tags = Tags.from(
-            "network:type" -> "node_network",
-            "type" -> "network",
-            "network" -> "rwn",
-            "name" -> "network",
+        base = newNetworkBaseData(
+          raw = newRaw(
+            version = 2,
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "type" -> "network",
+              "network" -> "rwn",
+              "name" -> "network",
+            ),
           ),
+          name = Some("network"),
+          members = Seq(
+            RawMember(MemberType.Node, 1001, None),
+            RawMember(MemberType.Node, 1002, None),
+            RawMember(MemberType.Relation, 11, None),
+          )
+        ),
+        nodeCount = 2,
+        routeCount = 1,
+        country = Some(Country.nl),
+        detail = newNetworkDetail(
           center = Some(LatLonImpl("0.0", "0.0")),
         ),
         nodes = Seq(
@@ -168,11 +175,6 @@ class NetworkAddRouteTest01 extends IntegrationTest {
               )
             )
           )
-        ),
-        members = Seq(
-          RawMember(MemberType.Node, 1001, None),
-          RawMember(MemberType.Node, 1002, None),
-          RawMember(MemberType.Relation, 11, None),
         )
       )
     )
@@ -180,10 +182,10 @@ class NetworkAddRouteTest01 extends IntegrationTest {
 
   private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkChangeById("123:1:1"),
+      findNetworkChangeById("1:1:1"),
       newNetworkChange(
         key = newChangeKey(elementId = 1),
-        networkName = "network",
+        networkName = Some("network"),
         changeType = ChangeType.Update,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
@@ -192,13 +194,13 @@ class NetworkAddRouteTest01 extends IntegrationTest {
             Some(
               NetworkData(
                 MetaData(1, Timestamps.default, 1),
-                "network"
+                Some("network")
               )
             ),
             Some(
               NetworkData(
                 MetaData(2, Timestamps.default, 1),
-                "network"
+                Some("network")
               )
             )
           )
@@ -225,9 +227,9 @@ class NetworkAddRouteTest01 extends IntegrationTest {
 
   private def assertBaseRouteChange(): Unit = {
     assertEqual(
-      findBaseRouteChangeById("123:1:11"),
+      findBaseRouteChangeById("1:1:11"),
       newBaseRouteChange(
-        "123:1:11",
+        "1:1:11",
         newChangeKey(elementId = 11),
         ChangeType.Create,
         wayDiffs = Some(
@@ -259,7 +261,6 @@ class NetworkAddRouteTest01 extends IntegrationTest {
     val routeData = newRouteData(
       relationId = 11,
       raw = newRaw(
-        changeSetId = 1,
         tags = newRouteTags("01-02")
       ),
       countries = Seq(Country.nl),
@@ -272,7 +273,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
     )
 
     assertEqual(
-      findRouteChangeById("123:1:11"),
+      findRouteChangeById("1:1:11"),
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Create,
@@ -300,7 +301,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
 
   private def assertNodeChange1001(): Unit = {
     assertEqual(
-      findNodeChangeById("123:1:1001"),
+      findNodeChangeById("1:1:1001"),
       newNodeChange(
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Update,
@@ -324,7 +325,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
 
   private def assertNodeChange1002(): Unit = {
     assertEqual(
-      findNodeChangeById("123:1:1002"),
+      findNodeChangeById("1:1:1002"),
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
@@ -348,7 +349,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
 
   private def assertChangeSetSummary(): Unit = {
     assertEqual(
-      findChangeSetSummaryById("123:1"),
+      findChangeSetSummaryById("1:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         locations = Seq("nl"),
@@ -358,7 +359,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
               Some(Country.nl),
               RouteType.hiking,
               1,
-              "network",
+              Some("network"),
               nodeChanges = ChangeSetElementRefs(
                 updated = Seq(
                   ChangeSetElementRef(

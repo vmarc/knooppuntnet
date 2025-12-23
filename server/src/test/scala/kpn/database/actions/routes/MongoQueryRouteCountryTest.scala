@@ -5,6 +5,7 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkDoc
 
 class MongoQueryRouteCountryTest extends MongoTest {
@@ -14,8 +15,10 @@ class MongoQueryRouteCountryTest extends MongoTest {
     database.baseNetworks.save(
       newBaseNetworkDoc(
         _id = 1,
-        members = Seq(
-          RawMember(MemberType.Relation, 11, None)
+        base = newNetworkBaseData(
+          members = Seq(
+            RawMember(MemberType.Relation, 11, None)
+          )
         )
       )
     )
@@ -39,8 +42,10 @@ class MongoQueryRouteCountryTest extends MongoTest {
       newBaseNetworkDoc(
         _id = 1,
         active = false,
-        members = Seq(
-          RawMember(MemberType.Relation, 11, None)
+        base = newNetworkBaseData(
+          members = Seq(
+            RawMember(MemberType.Relation, 11, None)
+          )
         )
       )
     )
@@ -58,8 +63,10 @@ class MongoQueryRouteCountryTest extends MongoTest {
     database.baseNetworks.save(
       newBaseNetworkDoc(
         _id = 1,
-        members = Seq(
-          RawMember(MemberType.Relation, 11, None)
+        base = newNetworkBaseData(
+          members = Seq(
+            RawMember(MemberType.Relation, 11, None)
+          )
         )
       )
     )

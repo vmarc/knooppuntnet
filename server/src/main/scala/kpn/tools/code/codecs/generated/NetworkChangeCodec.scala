@@ -38,7 +38,7 @@ class NetworkChangeCodec(registry: CodecRegistry) extends Codec[NetworkChange] {
     var _id: String = null
     var key: ChangeKey = null
     var networkId: Long = 0
-    var networkName: String = null
+    var networkName: Option[String] = None
     var changeType: ChangeType = null
     var country: Option[Country] = None
     var routeType: RouteType = null
@@ -67,7 +67,7 @@ class NetworkChangeCodec(registry: CodecRegistry) extends Codec[NetworkChange] {
         networkId = longCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "networkName") {
-        networkName = stringCodec.decode(bsonReader, decoderContext)
+        networkName = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else if (fieldName == "changeType") {
         changeType = changeTypeCodec.decode(bsonReader, decoderContext)
@@ -157,8 +157,10 @@ class NetworkChangeCodec(registry: CodecRegistry) extends Codec[NetworkChange] {
     bsonWriter.writeName("networkId")
     longCodec.encode(bsonWriter, value.networkId, encoderContext)
 
-    bsonWriter.writeName("networkName")
-    stringCodec.encode(bsonWriter, value.networkName, encoderContext)
+    if (value.networkName.isDefined) {
+      bsonWriter.writeName("networkName")
+      stringCodec.encode(bsonWriter, value.networkName.get, encoderContext)
+    }
 
     bsonWriter.writeName("changeType")
     changeTypeCodec.encode(bsonWriter, value.changeType, encoderContext)

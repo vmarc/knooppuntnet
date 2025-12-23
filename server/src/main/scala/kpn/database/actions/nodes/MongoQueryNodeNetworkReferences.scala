@@ -19,13 +19,14 @@ object MongoQueryNodeNetworkReferences {
 class MongoQueryNodeNetworkReferences(database: Database) {
 
   def execute(nodeId: Long, log: Log = MongoQueryNodeNetworkReferences.log): Seq[Reference] = {
+    val pipeline = buildPipeline(nodeId)
     log.debugElapsed {
-      val references = database.networks.aggregate(pipeline(nodeId), classOf[Reference], log)
+      val references = database.networks.aggregate(pipeline, classOf[Reference], log)
       (s"node network references: ${references.size}", references)
     }
   }
 
-  private def pipeline(nodeId: Long): MongoPipeline = {
+  private def buildPipeline(nodeId: Long): MongoPipeline = {
     Seq(
       filter(
         and(
@@ -36,10 +37,10 @@ class MongoQueryNodeNetworkReferences(database: Database) {
       project(
         fields(
           excludeId(),
-          computed("routeType", "$summary.routeType"),
-          computed("routeScope", "$summary.routeScope"),
+          computed("routeType", "$base.routeType"),
+          computed("routeScope", "$base.routeScope"),
           computed("id", "$_id"),
-          computed("name", "$summary.name"),
+          computed("name", "$base.name"),
         )
       )
     )

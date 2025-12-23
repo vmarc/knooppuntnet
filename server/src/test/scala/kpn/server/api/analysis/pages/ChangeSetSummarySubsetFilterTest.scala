@@ -148,7 +148,7 @@ class ChangeSetSummarySubsetFilterTest extends UnitTest {
       country = Some(subset.country),
       routeType = subset.routeType,
       networkId = 1,
-      networkName = networkName,
+      networkName = Some(networkName),
       routeChanges = ChangeSetElementRefs(),
       nodeChanges = ChangeSetElementRefs(),
       happy = happy,

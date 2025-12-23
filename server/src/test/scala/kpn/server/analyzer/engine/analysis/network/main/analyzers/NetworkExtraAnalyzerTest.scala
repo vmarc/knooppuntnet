@@ -7,6 +7,7 @@ import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newRawNode
 import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
@@ -43,8 +44,10 @@ class NetworkExtraAnalyzerTest extends UnitTest with Stubs {
     val contextBefore = NetworkAnalysisContext(
       newBaseNetworkDoc(
         1,
-        members = Seq(
-          RawMember(MemberType.Node, 1001, None)
+        base = newNetworkBaseData(
+          members = Seq(
+            RawMember(MemberType.Node, 1001, None)
+          )
         )
       ),
       Timestamps.default,
@@ -127,12 +130,14 @@ class NetworkExtraAnalyzerTest extends UnitTest with Stubs {
     val contextBefore = NetworkAnalysisContext(
       newBaseNetworkDoc(
         1,
-        members = Seq(
-          RawMember(MemberType.Node, 1001, None),
-          RawMember(MemberType.Node, 1002, None),
-          RawMember(MemberType.Node, 1003, None),
-          RawMember(MemberType.Node, 1004, None),
-          RawMember(MemberType.Node, 1005, None)
+        base = newNetworkBaseData(
+          members = Seq(
+            RawMember(MemberType.Node, 1001, None),
+            RawMember(MemberType.Node, 1002, None),
+            RawMember(MemberType.Node, 1003, None),
+            RawMember(MemberType.Node, 1004, None),
+            RawMember(MemberType.Node, 1005, None)
+          )
         )
       ),
       Timestamps.default,
@@ -171,8 +176,10 @@ class NetworkExtraAnalyzerTest extends UnitTest with Stubs {
     val contextBefore = NetworkAnalysisContext(
       newBaseNetworkDoc(
         1,
-        members = Seq(
-          RawMember(MemberType.Way, 11, None),
+        base = newNetworkBaseData(
+          members = Seq(
+            RawMember(MemberType.Way, 11, None),
+          )
         )
       ),
       Timestamp(2020, 11, 8),
@@ -208,8 +215,10 @@ class NetworkExtraAnalyzerTest extends UnitTest with Stubs {
     val contextBefore = NetworkAnalysisContext(
       newBaseNetworkDoc(
         1,
-        members = Seq(
-          RawMember(MemberType.Relation, 2, None),
+        base = newNetworkBaseData(
+          members = Seq(
+            RawMember(MemberType.Relation, 2, None),
+          )
         )
       ),
       Timestamps.default,

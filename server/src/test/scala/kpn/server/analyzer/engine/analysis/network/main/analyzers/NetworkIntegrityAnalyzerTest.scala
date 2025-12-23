@@ -10,6 +10,7 @@ import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.ScopedRouteType
 import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
@@ -81,11 +82,13 @@ class NetworkIntegrityAnalyzerTest extends UnitTest {
 
     val network = newBaseNetworkDoc(
       _id = 1L,
-      members = Seq(
-        RawMember(MemberType.Node, 1001L, None),
-        RawMember(MemberType.Node, 1002L, None),
-        RawMember(MemberType.Node, 1003L, None),
-        RawMember(MemberType.Node, 1004L, None),
+      base = newNetworkBaseData(
+        members = Seq(
+          RawMember(MemberType.Node, 1001L, None),
+          RawMember(MemberType.Node, 1002L, None),
+          RawMember(MemberType.Node, 1003L, None),
+          RawMember(MemberType.Node, 1004L, None),
+        )
       )
     )
 

@@ -65,6 +65,7 @@ class NetworkChangesPageBuilder(
       val rowIndex = parameters.pageSize * parameters.pageIndex + index
       new NetworkChangeInfoBuilder().build(rowIndex, change, changeSetInfos)
     }
+
     NetworkChangesPage(
       networkDoc.summary,
       filterOptions,

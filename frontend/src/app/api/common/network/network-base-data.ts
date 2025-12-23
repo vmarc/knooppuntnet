@@ -2,12 +2,13 @@
 
 import { RouteScope } from '@api/common/route-scope';
 import { RouteType } from '@api/common/route-type';
+import { Raw } from '@api/common/data/raw/raw';
+import { RawMember } from '@api/common/data/raw/raw-member';
 
-export interface NetworkSummary {
+export interface NetworkBaseData {
+  readonly raw: Raw;
   readonly name?: string;
   readonly routeType: RouteType;
   readonly routeScope: RouteScope;
-  readonly factCount: number;
-  readonly nodeCount: number;
-  readonly routeCount: number;
+  readonly members: RawMember[];
 }

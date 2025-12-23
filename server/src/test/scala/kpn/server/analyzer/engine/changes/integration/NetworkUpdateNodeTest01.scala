@@ -24,13 +24,14 @@ import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newLocationChanges
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNetworkDetail
 import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
-import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newOrphanNodeInfo
+import kpn.core.test.TestObjects.newRaw
 
 class NetworkUpdateNodeTest01 extends IntegrationTest {
 
@@ -107,16 +108,19 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
       findBaseNetworkById(1),
       newBaseNetworkDoc(
         1,
-        name = Some("name"),
-        changeSetId = 1,
-        members = Seq(
-          RawMember(MemberType.Node, 1001, None)
-        ),
-        tags = Tags.from(
-          "network:type" -> "node_network",
-          "type" -> "network",
-          "network" -> "rwn",
-          "name" -> "name"
+        base = newNetworkBaseData(
+          raw = newRaw(
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "type" -> "network",
+              "network" -> "rwn",
+              "name" -> "name"
+            )
+          ),
+          name = Some("name"),
+          members = Seq(
+            RawMember(MemberType.Node, 1001, None)
+          )
         ),
         nodeIds = Seq(
           1001
@@ -130,18 +134,23 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
       findNetworkById(1),
       newNetworkDoc(
         1,
-        country = Some(Country.nl),
-        summary = newNetworkSummary(
-          name = "name",
-          nodeCount = 1,
-        ),
-        detail = newNetworkDetail(
-          tags = Tags.from(
-            "network:type" -> "node_network",
-            "type" -> "network",
-            "network" -> "rwn",
-            "name" -> "name"
+        base = newNetworkBaseData(
+          raw = newRaw(
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "type" -> "network",
+              "network" -> "rwn",
+              "name" -> "name"
+            ),
           ),
+          name = Some("name"),
+          members = Seq(
+            RawMember(MemberType.Node, 1001, None)
+          )
+        ),
+        country = Some(Country.nl),
+        nodeCount = 1,
+        detail = newNetworkDetail(
           center = Some(LatLonImpl("0.0", "0.0")),
         ),
         nodes = Seq(
@@ -150,9 +159,6 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
             name = "01",
             definedInRelation = true
           )
-        ),
-        members = Seq(
-          RawMember(MemberType.Node, 1001, None)
         )
       )
     )
@@ -160,7 +166,7 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
 
   private def assertNodeChange1002(): Unit = {
     assertEqual(
-      findNodeChangeById("123:1:1002"),
+      findNodeChangeById("1:1:1002"),
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
@@ -182,10 +188,10 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
 
   private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkChangeById("123:1:1"),
+      findNetworkChangeById("1:1:1"),
       newNetworkChange(
         key = newChangeKey(elementId = 1),
-        networkName = "name",
+        networkName = Some("name"),
         changeType = ChangeType.Update,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
@@ -201,7 +207,7 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
 
   private def assertChangeSetSummary(): Unit = {
     assertEqual(
-      findChangeSetSummaryById("123:1"),
+      findChangeSetSummaryById("1:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         locations = Seq("nl"),
@@ -211,7 +217,7 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
               Some(Country.nl),
               RouteType.hiking,
               1,
-              "name",
+              Some("name"),
               nodeChanges = ChangeSetElementRefs(
                 removed = Seq(
                   newChangeSetElementRef(1002, "02", investigate = true)

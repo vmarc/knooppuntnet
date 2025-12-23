@@ -21,7 +21,7 @@ case class NetworkAnalysisContext(
   previousKnownCountry: Option[Country] = None,
   _scopedRouteTypeOption: Option[Option[ScopedRouteType]] = None,
   _country: Option[Option[Country]] = None,
-  _name: Option[String] = None,
+  _name: Option[Option[String]] = None,
   _proposed: Option[Boolean] = None,
   facts: Seq[Fact] = Seq.empty,
   _nodeDocs: Option[Seq[NodeDoc]] = None,
@@ -47,8 +47,8 @@ case class NetworkAnalysisContext(
 
   def scopedRouteType: ScopedRouteType = {
     ScopedRouteType.from(
-      network.routeType,
-      network.routeScope,
+      network.base.routeType,
+      network.base.routeScope,
     )
   }
 
@@ -60,7 +60,7 @@ case class NetworkAnalysisContext(
 
   def country: Option[Country] = _country.getOrElse(throw new PreconditionMissingException)
 
-  def name: String = _name.getOrElse(throw new PreconditionMissingException)
+  def name: Option[String] = _name.getOrElse(throw new PreconditionMissingException)
 
   def proposed: Boolean = _proposed.getOrElse(throw new PreconditionMissingException)
 

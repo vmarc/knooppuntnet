@@ -4,7 +4,9 @@ package kpn.tools.code.codecs.generated
 
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
-import kpn.api.common.network.NetworkSummary
+import kpn.api.common.data.raw.Raw
+import kpn.api.common.data.raw.RawMember
+import kpn.api.common.network.NetworkBaseData
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
 import org.bson.BsonType
@@ -14,26 +16,29 @@ import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
 import org.bson.codecs.configuration.CodecRegistry
 
-class NetworkSummaryCodec(registry: CodecRegistry) extends Codec[NetworkSummary] {
+class NetworkBaseDataCodec(registry: CodecRegistry) extends Codec[NetworkBaseData] {
 
-  private val longCodec = registry.get(classOf[Long])
+  private val rawCodec = registry.get(classOf[Raw])
+  private val rawMemberCodec = registry.get(classOf[RawMember])
   private val routeScopeCodec = registry.get(classOf[RouteScope])
   private val routeTypeCodec = registry.get(classOf[RouteType])
   private val stringCodec = registry.get(classOf[String])
 
-  override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): NetworkSummary = {
+  override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): NetworkBaseData = {
     bsonReader.readStartDocument()
 
+    var raw: Raw = null
     var name: Option[String] = None
     var routeType: RouteType = null
     var routeScope: RouteScope = null
-    var factCount: Long = 0
-    var nodeCount: Long = 0
-    var routeCount: Long = 0
+    var members: Seq[RawMember] = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
-      if (fieldName == "name") {
+      if (fieldName == "raw") {
+        raw = rawCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "name") {
         name = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else if (fieldName == "routeType") {
@@ -42,35 +47,37 @@ class NetworkSummaryCodec(registry: CodecRegistry) extends Codec[NetworkSummary]
       else if (fieldName == "routeScope") {
         routeScope = routeScopeCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "factCount") {
-        factCount = longCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "nodeCount") {
-        nodeCount = longCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "routeCount") {
-        routeCount = longCodec.decode(bsonReader, decoderContext)
+      else if (fieldName == "members") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[RawMember]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += rawMemberCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        members = valueBuffer.toSeq
       }
       else {
-        Codecs.warn(s"Unknown field name: $fieldName in NetworkSummaryCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkBaseDataCodec.decode()")
         bsonReader.skipValue()
       }
     }
 
     bsonReader.readEndDocument()
 
-    NetworkSummary(
+    NetworkBaseData(
+      raw,
       name,
       routeType,
       routeScope,
-      factCount,
-      nodeCount,
-      routeCount,
+      members,
     )
   }
 
-  override def encode(bsonWriter: BsonWriter, value: NetworkSummary, encoderContext: EncoderContext): Unit = {
+  override def encode(bsonWriter: BsonWriter, value: NetworkBaseData, encoderContext: EncoderContext): Unit = {
     bsonWriter.writeStartDocument()
+
+    bsonWriter.writeName("raw")
+    rawCodec.encode(bsonWriter, value.raw, encoderContext)
 
     if (value.name.isDefined) {
       bsonWriter.writeName("name")
@@ -83,19 +90,15 @@ class NetworkSummaryCodec(registry: CodecRegistry) extends Codec[NetworkSummary]
     bsonWriter.writeName("routeScope")
     routeScopeCodec.encode(bsonWriter, value.routeScope, encoderContext)
 
-    bsonWriter.writeName("factCount")
-    longCodec.encode(bsonWriter, value.factCount, encoderContext)
-
-    bsonWriter.writeName("nodeCount")
-    longCodec.encode(bsonWriter, value.nodeCount, encoderContext)
-
-    bsonWriter.writeName("routeCount")
-    longCodec.encode(bsonWriter, value.routeCount, encoderContext)
+    bsonWriter.writeName("members")
+    bsonWriter.writeStartArray()
+    value.members.foreach(v => rawMemberCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
 
     bsonWriter.writeEndDocument()
   }
 
-  override def getEncoderClass: Class[NetworkSummary] = {
-    classOf[NetworkSummary]
+  override def getEncoderClass: Class[NetworkBaseData] = {
+    classOf[NetworkBaseData]
   }
 }

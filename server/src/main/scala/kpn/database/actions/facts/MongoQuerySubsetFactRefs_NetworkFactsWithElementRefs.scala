@@ -39,7 +39,7 @@ class MongoQuerySubsetFactRefs_NetworkFactsWithElementRefs(database: Database) {
         and(
           equal("active", true),
           equal("country", subset.country.entryName),
-          equal("summary.routeType", subset.routeType.entryName)
+          equal("base.routeType", subset.routeType.entryName)
         )
       ),
       unwind("$facts"),

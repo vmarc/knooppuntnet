@@ -12,7 +12,7 @@ export interface NetworkAttributes {
   readonly country?: Country;
   readonly routeType: RouteType;
   readonly routeScope: RouteScope;
-  readonly name: string;
+  readonly name?: string;
   readonly km: number;
   readonly meters: number;
   readonly nodeCount: number;

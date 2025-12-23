@@ -3,7 +3,6 @@ package kpn.server.api.analysis.pages.subset
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.custom.Subset
-import kpn.core.doc.NetworkDoc
 import kpn.core.util.Formatter.percentage
 import kpn.core.util.Log
 import kpn.server.repository.NetworkRepository
@@ -22,54 +21,30 @@ class SubsetNetworksPageBuilder(
 
     val subsetInfo = subsetRepository.subsetInfo(subset)
 
-    val networkDocs = queryNetworks(subset)
-    val routeCount = networkDocs.map(_.summary.routeCount).sum
-    val brokenRouteNetworkCount = networkDocs.count(_.detail.brokenRouteCount > 0)
-    val brokenRouteNetworkPercentage = percentage(brokenRouteNetworkCount, networkDocs.size)
-    val brokenRouteCount = networkDocs.map(_.detail.brokenRouteCount).sum
+    val networkAttributess = queryNetworks(subset)
+    val routeCount = networkAttributess.map(_.routeCount).sum
+    val brokenRouteNetworkCount = networkAttributess.count(_.brokenRouteCount > 0)
+    val brokenRouteNetworkPercentage = percentage(brokenRouteNetworkCount, networkAttributess.size)
+    val brokenRouteCount = networkAttributess.map(_.brokenRouteCount).sum
     val brokenRoutePercentage = percentage(brokenRouteCount, routeCount)
-
-    val networks = networkDocs.map(toNetworkAttributes)
 
     SubsetNetworksPage(
       subsetInfo,
-      km = networkDocs.map(_.detail.meters).sum / 1000,
-      networkCount = networkDocs.size,
-      nodeCount = networkDocs.map(_.summary.nodeCount).sum,
+      km = networkAttributess.map(_.meters).sum / 1000,
+      networkCount = networkAttributess.size,
+      nodeCount = networkAttributess.map(_.nodeCount).sum,
       routeCount = routeCount,
       brokenRouteNetworkCount = brokenRouteNetworkCount,
       brokenRouteNetworkPercentage = brokenRouteNetworkPercentage,
       brokenRouteCount = brokenRouteCount,
       brokenRoutePercentage = brokenRoutePercentage,
-      inaccessibleRouteCount = networkDocs.map(_.detail.inaccessibleRouteCount).sum,
+      inaccessibleRouteCount = networkAttributess.map(_.inaccessibleRouteCount).sum,
       analysisUpdatedTime = "TODO",
-      networks = networks
+      networks = networkAttributess
     )
   }
 
-  private def queryNetworks(subset: Subset): Seq[NetworkDoc] = {
+  private def queryNetworks(subset: Subset): Seq[NetworkAttributes] = {
     networkRepository.subsetNetworks(subset)
-  }
-
-  private def toNetworkAttributes(networkDoc: NetworkDoc): NetworkAttributes = {
-    NetworkAttributes(
-      networkDoc._id,
-      networkDoc.country,
-      networkDoc.summary.routeType,
-      networkDoc.summary.routeScope,
-      networkDoc.summary.name,
-      networkDoc.detail.km,
-      networkDoc.detail.meters,
-      networkDoc.summary.nodeCount,
-      networkDoc.summary.routeCount,
-      networkDoc.detail.brokenRouteCount,
-      networkDoc.detail.brokenRoutePercentage,
-      networkDoc.detail.integrity,
-      networkDoc.detail.inaccessibleRouteCount,
-      networkDoc.detail.connectionCount,
-      networkDoc.detail.lastUpdated,
-      networkDoc.detail.relationLastUpdated,
-      networkDoc.detail.center
-    )
   }
 }

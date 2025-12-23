@@ -6,7 +6,6 @@ import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Projections.computed
 import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
-import com.mongodb.client.model.Projections.include
 import kpn.api.common.common.Reference
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -21,8 +20,9 @@ object MongoQueryNodeBaseNetworkReferences {
 class MongoQueryNodeBaseNetworkReferences(database: Database) {
 
   def execute(nodeId: Long, log: Log = MongoQueryNodeBaseNetworkReferences.log): Seq[Reference] = {
+    val pipeline = buildPipeline(nodeId)
     log.infoElapsed {
-      val references = database.baseNetworks.aggregate(pipeline(nodeId), classOf[Reference], log)
+      val references = database.baseNetworks.aggregate(pipeline, classOf[Reference], log)
       val updatedReferences = references.map { ref =>
         if (ref.name == null) {
           ref.copy(name = "") // needed because BaseNetworkDoc.name is Option[String]
@@ -35,7 +35,7 @@ class MongoQueryNodeBaseNetworkReferences(database: Database) {
     }
   }
 
-  private def pipeline(nodeId: Long): MongoPipeline = {
+  private def buildPipeline(nodeId: Long): MongoPipeline = {
     Seq(
       filter(
         and(
@@ -43,21 +43,21 @@ class MongoQueryNodeBaseNetworkReferences(database: Database) {
           equal("nodeIds", nodeId),
         )
       ),
-      unwind("$members"),
+      unwind("$base.members"),
       filter(
         and(
-          equal("members.memberType", "node"),
-          equal("members.ref", nodeId),
+          equal("base.members.memberType", "node"),
+          equal("base.members.ref", nodeId),
         )
       ),
       project(
         fields(
           excludeId(),
-          include("routeType"),
-          include("routeScope"),
+          computed("routeType", "$base.routeType"),
+          computed("routeScope", "$base.routeScope"),
           computed("id", "$_id"),
-          include("name"),
-          computed("role", "$members.role"),
+          computed("name", "$base.name"),
+          computed("role", "$base.members.role"),
         )
       )
     )

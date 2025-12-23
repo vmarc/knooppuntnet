@@ -431,7 +431,7 @@ object ChangeSetPageExample {
       country = Some(Country.nl),
       routeType = RouteType.hiking,
       networkId = 1,
-      networkName = "network one",
+      networkName = Some("network one"),
       before = None,
       after = Some(
         MetaData(
@@ -503,7 +503,7 @@ object ChangeSetPageExample {
       country = Some(Country.nl),
       routeType = RouteType.hiking,
       networkId = 2,
-      networkName = "network two",
+      networkName = Some("network two"),
       before = Some(
         MetaData(
           version = 1,
@@ -543,7 +543,7 @@ object ChangeSetPageExample {
       country = Some(Country.nl),
       routeType = RouteType.hiking,
       networkId = 1,
-      networkName = "network one",
+      networkName = Some("network one"),
       before = Some(
         MetaData(
           version = 1,

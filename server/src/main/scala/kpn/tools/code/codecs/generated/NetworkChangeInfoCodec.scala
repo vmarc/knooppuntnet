@@ -42,7 +42,7 @@ class NetworkChangeInfoCodec(registry: CodecRegistry) extends Codec[NetworkChang
     var country: Option[Country] = None
     var routeType: RouteType = null
     var networkId: Long = 0
-    var networkName: String = null
+    var networkName: Option[String] = None
     var before: Option[MetaData] = None
     var after: Option[MetaData] = None
     var networkDataUpdated: Boolean = false
@@ -78,7 +78,7 @@ class NetworkChangeInfoCodec(registry: CodecRegistry) extends Codec[NetworkChang
         networkId = longCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "networkName") {
-        networkName = stringCodec.decode(bsonReader, decoderContext)
+        networkName = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else if (fieldName == "before") {
         before = Some(metaDataCodec.decode(bsonReader, decoderContext))
@@ -168,8 +168,10 @@ class NetworkChangeInfoCodec(registry: CodecRegistry) extends Codec[NetworkChang
     bsonWriter.writeName("networkId")
     longCodec.encode(bsonWriter, value.networkId, encoderContext)
 
-    bsonWriter.writeName("networkName")
-    stringCodec.encode(bsonWriter, value.networkName, encoderContext)
+    if (value.networkName.isDefined) {
+      bsonWriter.writeName("networkName")
+      stringCodec.encode(bsonWriter, value.networkName.get, encoderContext)
+    }
 
     if (value.before.isDefined) {
       bsonWriter.writeName("before")

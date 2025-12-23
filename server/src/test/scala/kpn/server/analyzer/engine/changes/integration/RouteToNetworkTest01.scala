@@ -41,19 +41,19 @@ class RouteToNetworkTest01 extends IntegrationTest {
 
       val baseNetwork = findBaseNetworkById(1)
       baseNetwork.active should equal(true)
-      baseNetwork.version should equal(2)
+      baseNetwork.base.raw.version should equal(2)
 
       val network = findNetworkById(1)
       network.active should equal(true)
-      network.summary.name should equal("01-02")
+      network.base.name should equal(Some("01-02"))
 
-      val routeChange = findRouteChangeById("123:1:1")
+      val routeChange = findRouteChangeById("1:1:1")
       routeChange.changeType should equal(ChangeType.Update)
       routeChange.name should equal("01-02")
 
-      val networkChange = findNetworkChangeById("123:1:1")
+      val networkChange = findNetworkChangeById("1:1:1")
       networkChange.changeType should equal(ChangeType.Create)
-      networkChange.networkName should equal("01-02")
+      networkChange.networkName should equal(Some("01-02"))
     }
   }
 }

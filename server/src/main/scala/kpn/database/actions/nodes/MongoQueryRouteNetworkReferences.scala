@@ -5,7 +5,6 @@ import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Projections.computed
 import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
-import com.mongodb.client.model.Projections.include
 import kpn.api.common.common.Reference
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -38,10 +37,10 @@ class MongoQueryRouteNetworkReferences(database: Database) {
       project(
         fields(
           excludeId(),
-          include("routeType"),
-          include("routeScope"),
+          computed("routeType", "$base.routeType"),
+          computed("routeScope", "$base.routeScope"),
           computed("id", "$_id"),
-          include("name"),
+          computed("name", "$base.name"),
         )
       )
     )

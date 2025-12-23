@@ -20,7 +20,7 @@ class DatabaseCollectionTest extends MongoTest {
   test("stringIds") {
     database.nodeChanges.save(newNodeChange(newChangeKey(elementId = 1001L)))
     database.nodeChanges.save(newNodeChange(newChangeKey(elementId = 1002L)))
-    database.nodeChanges.stringIds() should equal(Seq("123:1:1001", "123:1:1002"))
+    database.nodeChanges.stringIds() should equal(Seq("1:1:1001", "1:1:1002"))
   }
 
   test("stringIds from empty collection") {

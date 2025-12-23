@@ -22,7 +22,7 @@ class NetworkDataCodec(registry: CodecRegistry) extends Codec[NetworkData] {
     bsonReader.readStartDocument()
 
     var metaData: MetaData = null
-    var name: String = null
+    var name: Option[String] = None
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -30,7 +30,7 @@ class NetworkDataCodec(registry: CodecRegistry) extends Codec[NetworkData] {
         metaData = metaDataCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "name") {
-        name = stringCodec.decode(bsonReader, decoderContext)
+        name = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in NetworkDataCodec.decode()")
@@ -52,8 +52,10 @@ class NetworkDataCodec(registry: CodecRegistry) extends Codec[NetworkData] {
     bsonWriter.writeName("metaData")
     metaDataCodec.encode(bsonWriter, value.metaData, encoderContext)
 
-    bsonWriter.writeName("name")
-    stringCodec.encode(bsonWriter, value.name, encoderContext)
+    if (value.name.isDefined) {
+      bsonWriter.writeName("name")
+      stringCodec.encode(bsonWriter, value.name.get, encoderContext)
+    }
 
     bsonWriter.writeEndDocument()
   }

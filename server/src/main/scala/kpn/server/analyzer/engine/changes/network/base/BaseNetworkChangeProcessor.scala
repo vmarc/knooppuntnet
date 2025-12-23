@@ -90,8 +90,8 @@ class BaseNetworkChangeProcessor(
         analysisContext.watched.networks.add(rawRelation.id)
         networkRepository.saveBaseNetwork(baseNetworkDoc)
         context.withImpact(
-          baseNetworkDoc.members.filter(_.memberType == MemberType.Node).map(_.ref),
-          baseNetworkDoc.members.filter(_.memberType == MemberType.Relation).map(_.ref),
+          baseNetworkDoc.base.members.filter(_.memberType == MemberType.Node).map(_.ref),
+          baseNetworkDoc.base.members.filter(_.memberType == MemberType.Relation).map(_.ref),
           Seq(networkId)
         )
     }
@@ -107,21 +107,21 @@ class BaseNetworkChangeProcessor(
         analysisContext.watched.networks.add(rawRelation.id)
         networkRepository.saveBaseNetwork(baseNetworkDoc)
 
-        val beforeNodeIds = before.members.filter(_.memberType == MemberType.Node).map(_.ref).toSet
-        val afterNodeIds = baseNetworkDoc.members.filter(_.memberType == MemberType.Node).map(_.ref).toSet
+        val beforeNodeIds = before.base.members.filter(_.memberType == MemberType.Node).map(_.ref).toSet
+        val afterNodeIds = baseNetworkDoc.base.members.filter(_.memberType == MemberType.Node).map(_.ref).toSet
         val addedNodeIds = afterNodeIds -- beforeNodeIds
         val removedNodeIds = beforeNodeIds -- afterNodeIds
 
         val updatedNodeIds = afterNodeIds.intersect(beforeNodeIds).filter { nodeId =>
-          val beforeNodeMember = before.members.find(member => member.isNode && member.ref == nodeId)
-          val afterNodeMember = baseNetworkDoc.members.find(member => member.isNode && member.ref == nodeId)
+          val beforeNodeMember = before.base.members.find(member => member.isNode && member.ref == nodeId)
+          val afterNodeMember = baseNetworkDoc.base.members.find(member => member.isNode && member.ref == nodeId)
           beforeNodeMember.map(_.role) != afterNodeMember.map(_.role)
         }
 
         val impactedNodeIds = (addedNodeIds ++ removedNodeIds ++ updatedNodeIds).toSeq.sorted
 
-        val beforeRouteIds = before.members.filter(_.memberType == MemberType.Relation).map(_.ref).toSet
-        val afterRouteIds = baseNetworkDoc.members.filter(_.memberType == MemberType.Relation).map(_.ref).toSet
+        val beforeRouteIds = before.base.members.filter(_.memberType == MemberType.Relation).map(_.ref).toSet
+        val afterRouteIds = baseNetworkDoc.base.members.filter(_.memberType == MemberType.Relation).map(_.ref).toSet
         val addedRouteIds = afterRouteIds -- beforeRouteIds
         val removedRouteIds = beforeRouteIds -- afterRouteIds
         val impactedRouteIds = (addedRouteIds ++ removedRouteIds).toSeq.sorted
@@ -138,12 +138,14 @@ class BaseNetworkChangeProcessor(
     analysisContext.watched.networks.remove(networkId)
     val updatedDoc = before.copy(
       active = false,
-      members = Seq.empty,
+      base = before.base.copy(
+        members = Seq.empty
+      )
     )
     networkRepository.saveBaseNetwork(updatedDoc)
     context.withImpact(
-      before.members.filter(_.memberType == MemberType.Node).map(_.ref),
-      before.members.filter(_.memberType == MemberType.Relation).map(_.ref),
+      before.base.members.filter(_.memberType == MemberType.Node).map(_.ref),
+      before.base.members.filter(_.memberType == MemberType.Relation).map(_.ref),
       Seq(networkId)
     )
   }

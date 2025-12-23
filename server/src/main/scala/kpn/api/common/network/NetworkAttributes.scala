@@ -12,7 +12,7 @@ case class NetworkAttributes(
   country: Option[Country],
   routeType: RouteType,
   routeScope: RouteScope,
-  name: String,
+  name: Option[String],
   km: Long,
   meters: Long,
   nodeCount: Long,

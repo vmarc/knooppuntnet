@@ -9,9 +9,10 @@ import kpn.api.common.common.Ref
 import kpn.api.common.subset.NetworkFactRefs
 import kpn.api.custom.Subset
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkRouteDetail
-import kpn.core.test.TestObjects.newNetworkSummary
+import kpn.core.test.TestObjects.newRaw
 
 class FactRepositoryTest extends MongoTest {
 
@@ -21,11 +22,11 @@ class FactRepositoryTest extends MongoTest {
     networkRepository.save(
       newNetworkDoc(
         1,
-        country = Some(Country.be),
-        summary = newNetworkSummary(
-          name = "network-1",
+        base = newNetworkBaseData(
+          name = Some("network-1"),
           routeType = RouteType.hiking,
         ),
+        country = Some(Country.be),
         routes = Seq(
           newNetworkRouteDetail(
             11,
@@ -50,11 +51,11 @@ class FactRepositoryTest extends MongoTest {
     networkRepository.save(
       newNetworkDoc(
         2,
-        country = Some(Country.be),
-        summary = newNetworkSummary(
-          name = "network-2",
+        base = newNetworkBaseData(
+          name = Some("network-2"),
           routeType = RouteType.hiking,
         ),
+        country = Some(Country.be),
         routes = Seq(
           newNetworkRouteDetail(
             13,
@@ -98,11 +99,13 @@ class FactRepositoryTest extends MongoTest {
     networkRepository.save(
       newNetworkDoc(
         1,
-        country = Some(Country.be),
-        summary = newNetworkSummary(
-          name = "network-1",
+        base = newNetworkBaseData(
+          raw = newRaw(
+          ),
+          name = Some("network-1"),
           routeType = RouteType.hiking,
         ),
+        country = Some(Country.be),
         facts = Seq(
           NetworkFact(
             Fact.IntegrityCheckFailed,

@@ -147,10 +147,10 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
 
   private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkChangeById("123:1:1"),
+      findNetworkChangeById("1:1:1"),
       newNetworkChange(
         key = newChangeKey(elementId = 1),
-        networkName = "name",
+        networkName = Some("name"),
         changeType = ChangeType.Update,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
@@ -178,7 +178,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
 
   private def assertRouteChange(): Unit = {
     assertEqual(
-      findRouteChangeById("123:1:12"),
+      findRouteChangeById("1:1:12"),
       newRouteChange(
         newChangeKey(elementId = 12),
         ChangeType.Delete,
@@ -188,7 +188,6 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
           newRouteData(
             relationId = 12,
             raw = newRaw(
-              changeSetId = 1,
               tags = newRouteTags("02-03")
             ),
             countries = Seq(Country.nl),
@@ -221,7 +220,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
 
   private def assertNodeChange1002(): Unit = {
     assertEqual(
-      findNodeChangeById("123:1:1002"),
+      findNodeChangeById("1:1:1002"),
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
@@ -245,7 +244,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
 
   private def assertNodeChange1003(): Unit = {
     assertEqual(
-      findNodeChangeById("123:1:1003"),
+      findNodeChangeById("1:1:1003"),
       newNodeChange(
         key = newChangeKey(elementId = 1003),
         changeType = ChangeType.Delete,
@@ -268,7 +267,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
 
   private def assertChangeSetSummary(): Unit = {
     assertEqual(
-      findChangeSetSummaryById("123:1"),
+      findChangeSetSummaryById("1:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         locations = Seq("nl"),
@@ -278,7 +277,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
               Some(Country.nl),
               RouteType.hiking,
               1,
-              "name",
+              Some("name"),
               routeChanges = ChangeSetElementRefs(
                 removed = Seq(newChangeSetElementRef(12, "02-03", investigate = true))
               ),

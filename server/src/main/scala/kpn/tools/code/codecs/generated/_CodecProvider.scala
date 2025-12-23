@@ -205,6 +205,7 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatus
 import kpn.api.common.monitor.MonitorRouteUpdateStep
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
+import kpn.api.common.network.NetworkBaseData
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkDetail
 import kpn.api.common.network.NetworkDetailsPage
@@ -1412,6 +1413,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[Fact]) {
       return new FactCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NetworkBaseData]) {
+      return new NetworkBaseDataCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[NetworkDetail]) {
       return new NetworkDetailCodec(codecRegistry).asInstanceOf[Codec[T]]

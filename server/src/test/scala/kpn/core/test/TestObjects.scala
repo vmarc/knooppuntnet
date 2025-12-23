@@ -67,6 +67,7 @@ import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
+import kpn.api.common.network.NetworkBaseData
 import kpn.api.common.network.NetworkDetail
 import kpn.api.common.network.NetworkSummary
 import kpn.api.common.node.NodeIntegrity
@@ -307,7 +308,7 @@ object TestObjects {
   def newChangeKey(
     replicationNumber: Int = 1,
     timestamp: Timestamp = Timestamps.default,
-    changeSetId: Long = 123,
+    changeSetId: Long = 1,
     elementId: Long = 0
   ): ChangeKey = {
     ChangeKey(
@@ -511,31 +512,33 @@ object TestObjects {
     )
   }
 
+  def newNetworkBaseData(
+    raw: Raw = newRaw(),
+    name: Option[String] = None,
+    routeType: RouteType = RouteType.hiking,
+    routeScope: RouteScope = RouteScope.regional,
+    members: Seq[RawMember] = Seq.empty,
+  ): NetworkBaseData = {
+    NetworkBaseData(
+      raw,
+      name,
+      routeType,
+      routeScope,
+      members
+    )
+  }
+
   def newBaseNetworkDoc(
     _id: Long,
     active: Boolean = true,
-    routeType: RouteType = RouteType.hiking,
-    routeScope: RouteScope = RouteScope.regional,
-    name: Option[String] = None,
-    version: Long = 0,
-    timestamp: Timestamp = Timestamps.default,
-    changeSetId: Long = 0,
-    members: Seq[RawMember] = Seq.empty,
-    tags: Seq[Tag] = Seq.empty,
+    base: NetworkBaseData = newNetworkBaseData(),
     nodeIds: Seq[Long] = Seq.empty,
     relationIds: Seq[Long] = Seq.empty,
   ): BaseNetworkDoc = {
     BaseNetworkDoc(
       _id,
       active,
-      routeType,
-      routeScope,
-      name,
-      version,
-      timestamp,
-      changeSetId,
-      members,
-      tags,
+      base,
       nodeIds,
       relationIds,
     )
@@ -546,7 +549,7 @@ object TestObjects {
     country: Option[Country] = None,
     routeType: RouteType = RouteType.hiking,
     routeScope: RouteScope = RouteScope.regional,
-    name: String = "",
+    name: Option[String] = None,
     km: Int = 0,
     meters: Int = 0,
     nodeCount: Int = 0,
@@ -656,7 +659,7 @@ object TestObjects {
   }
 
   def newChangeSet(
-    id: Long = 123,
+    id: Long = 1,
     timestamp: Timestamp = Timestamps.default,
     timestampFrom: Timestamp = Timestamps.from,
     timestampUntil: Timestamp = Timestamps.until,
@@ -750,7 +753,7 @@ object TestObjects {
 
   def newNetworkChange(
     key: ChangeKey = newChangeKey(),
-    networkName: String = "",
+    networkName: Option[String] = None,
     changeType: ChangeType = ChangeType.Update,
     country: Option[Country] = None,
     routeType: RouteType = RouteType.hiking,
@@ -836,7 +839,7 @@ object TestObjects {
     country: Option[Country] = None,
     routeType: RouteType = RouteType.hiking,
     networkId: Long = 0,
-    networkName: String = "",
+    networkName: Option[String] = None,
     routeChanges: ChangeSetElementRefs = ChangeSetElementRefs.empty,
     nodeChanges: ChangeSetElementRefs = ChangeSetElementRefs.empty,
     happy: Boolean = false,
@@ -1283,7 +1286,7 @@ object TestObjects {
     version: Int = 1,
     timestamp: Timestamp = Timestamps.default,
     changeSetId: Long = 1,
-    name: String
+    name: Option[String] = None
   ): NetworkData = {
     NetworkData(MetaData(version, timestamp, changeSetId), name)
   }
@@ -1291,36 +1294,40 @@ object TestObjects {
   def newNetworkDoc(
     _id: Long,
     active: Boolean = true,
+    base: NetworkBaseData = newNetworkBaseData(),
     country: Option[Country] = Some(Country.nl),
-    summary: NetworkSummary = newNetworkSummary(),
     detail: NetworkDetail = newNetworkDetail(),
     facts: Seq[NetworkFact] = Seq.empty,
     nodes: Seq[NetworkInfoNodeDetail] = Seq.empty,
     routes: Seq[NetworkRouteDetail] = Seq.empty,
+    factCount: Long = 0,
+    nodeCount: Long = 0,
+    routeCount: Long = 0,
     extraNodeIds: Seq[Long] = Seq.empty,
     extraWayIds: Seq[Long] = Seq.empty,
     extraRelationIds: Seq[Long] = Seq.empty,
-    members: Seq[RawMember] = Seq.empty
   ): NetworkDoc = {
     NetworkDoc(
       _id,
       active,
+      base,
       country,
-      summary,
       detail,
       facts,
       nodes,
       routes,
+      factCount,
+      nodeCount,
+      routeCount,
       extraNodeIds,
       extraWayIds,
       extraRelationIds,
-      members,
       None
     )
   }
 
   def newNetworkSummary(
-    name: String = "",
+    name: Option[String] = None,
     routeType: RouteType = RouteType.hiking,
     routeScope: RouteScope = RouteScope.regional,
     factCount: Long = 0,
@@ -1404,12 +1411,9 @@ object TestObjects {
   def newNetworkDetail(
     km: Long = 0,
     meters: Long = 0,
-    version: Long = 0,
-    changeSetId: Long = 1,
     lastUpdated: Timestamp = Timestamps.default,
     relationLastUpdated: Timestamp = Timestamps.default,
     lastSurvey: Option[Day] = None,
-    tags: Seq[Tag] = Seq.empty,
     brokenRouteCount: Long = 0,
     brokenRoutePercentage: String = "-",
     integrity: Integrity = Integrity(),
@@ -1420,12 +1424,9 @@ object TestObjects {
     NetworkDetail(
       km,
       meters,
-      version,
-      changeSetId,
       lastUpdated,
       relationLastUpdated,
       lastSurvey,
-      tags,
       brokenRouteCount,
       brokenRoutePercentage,
       integrity,

@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.network.main
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.IdDiffs
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.util.UnitTest
 
@@ -12,17 +13,21 @@ class NetworkDiffAnalyzerTest extends UnitTest {
 
     val before = newNetworkDoc(
       1,
-      members = Seq(
-        RawMember(MemberType.Node, 1, None),
-        RawMember(MemberType.Node, 3, None),
+      base = newNetworkBaseData(
+        members = Seq(
+          RawMember(MemberType.Node, 1, None),
+          RawMember(MemberType.Node, 3, None),
+        )
       )
     )
 
     val after = newNetworkDoc(
       1,
-      members = Seq(
-        RawMember(MemberType.Node, 2, None),
-        RawMember(MemberType.Node, 3, Some("connection"))
+      base = newNetworkBaseData(
+        members = Seq(
+          RawMember(MemberType.Node, 2, None),
+          RawMember(MemberType.Node, 3, Some("connection"))
+        )
       )
     )
 
@@ -41,15 +46,19 @@ class NetworkDiffAnalyzerTest extends UnitTest {
 
     val before = newNetworkDoc(
       1,
-      members = Seq(
-        RawMember(MemberType.Way, 1, None),
+      base = newNetworkBaseData(
+        members = Seq(
+          RawMember(MemberType.Way, 1, None),
+        )
       )
     )
 
     val after = newNetworkDoc(
       1,
-      members = Seq(
-        RawMember(MemberType.Way, 2, None),
+      base = newNetworkBaseData(
+        members = Seq(
+          RawMember(MemberType.Way, 2, None),
+        )
       )
     )
 
@@ -67,17 +76,21 @@ class NetworkDiffAnalyzerTest extends UnitTest {
 
     val before = newNetworkDoc(
       1,
-      members = Seq(
-        RawMember(MemberType.Relation, 1, None),
-        RawMember(MemberType.Relation, 3, None),
+      base = newNetworkBaseData(
+        members = Seq(
+          RawMember(MemberType.Relation, 1, None),
+          RawMember(MemberType.Relation, 3, None),
+        )
       )
     )
 
     val after = newNetworkDoc(
       1,
-      members = Seq(
-        RawMember(MemberType.Relation, 2, None),
-        RawMember(MemberType.Relation, 3, Some("connection"))
+      base = newNetworkBaseData(
+        members = Seq(
+          RawMember(MemberType.Relation, 2, None),
+          RawMember(MemberType.Relation, 3, Some("connection"))
+        )
       )
     )
 

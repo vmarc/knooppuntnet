@@ -29,8 +29,8 @@ class NetworkChangeCreateProcessor(context: ChangeSetContext, after: NetworkDoc,
       extraRelationDiffs.added.nonEmpty
 
     val networkDataAfter = NetworkData(
-      after.detail.toMeta,
-      after.summary.name
+      after.base.raw.meta,
+      after.base.name
     )
 
     val key = context.buildChangeKey(networkId)
@@ -38,10 +38,10 @@ class NetworkChangeCreateProcessor(context: ChangeSetContext, after: NetworkDoc,
       key.toId,
       key,
       networkId = after._id,
-      networkName = after.summary.name,
+      networkName = after.base.name,
       changeType = ChangeType.Create,
       country = after.country,
-      routeType = after.summary.routeType,
+      routeType = after.base.routeType,
       networkDataUpdate = Some(
         NetworkDataUpdate(
           None,

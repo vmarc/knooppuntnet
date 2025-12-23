@@ -4,6 +4,7 @@ import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Projections.computed
 import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.api.common.subset.SubsetMapNetwork
 import kpn.api.custom.Subset
 import kpn.core.util.Log
@@ -32,16 +33,16 @@ class MongoQuerySubsetMapNetworks(database: Database) {
         and(
           equal("active", true),
           equal("country", subset.country.entryName),
-          equal("summary.routeType", subset.routeType.entryName),
+          equal("base.routeType", subset.routeType.entryName),
         )
       ),
       project(
         fields(
           computed("id", "$_id"),
-          computed("name", "$summary.name"),
+          computed("name", "$base.name"),
           computed("km", "$detail.km"),
-          computed("nodeCount", "$summary.nodeCount"),
-          computed("routeCount", "$summary.routeCount"),
+          include("nodeCount"),
+          include("routeCount"),
           computed("center", "$detail.center"),
         )
       )

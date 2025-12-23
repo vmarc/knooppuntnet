@@ -4,9 +4,8 @@ package kpn.tools.code.codecs.generated
 
 import kpn.api.common.Country
 import kpn.api.common.NetworkFact
-import kpn.api.common.data.raw.RawMember
+import kpn.api.common.network.NetworkBaseData
 import kpn.api.common.network.NetworkDetail
-import kpn.api.common.network.NetworkSummary
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkRouteDetail
@@ -25,29 +24,30 @@ class NetworkDocCodec(registry: CodecRegistry) extends Codec[NetworkDoc] {
   private val booleanCodec = registry.get(classOf[Boolean])
   private val countryCodec = registry.get(classOf[Country])
   private val longCodec = registry.get(classOf[Long])
+  private val networkBaseDataCodec = registry.get(classOf[NetworkBaseData])
   private val networkDetailCodec = registry.get(classOf[NetworkDetail])
   private val networkFactCodec = registry.get(classOf[NetworkFact])
   private val networkInfoNodeDetailCodec = registry.get(classOf[NetworkInfoNodeDetail])
   private val networkRouteDetailCodec = registry.get(classOf[NetworkRouteDetail])
-  private val networkSummaryCodec = registry.get(classOf[NetworkSummary])
   private val objectIdCodec = registry.get(classOf[ObjectId])
-  private val rawMemberCodec = registry.get(classOf[RawMember])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): NetworkDoc = {
     bsonReader.readStartDocument()
 
     var _id: Long = 0
     var active: Boolean = false
+    var base: NetworkBaseData = null
     var country: Option[Country] = None
-    var summary: NetworkSummary = null
     var detail: NetworkDetail = null
     var facts: Seq[NetworkFact] = null
     var nodes: Seq[NetworkInfoNodeDetail] = null
     var routes: Seq[NetworkRouteDetail] = null
+    var factCount: Long = 0
+    var nodeCount: Long = 0
+    var routeCount: Long = 0
     var extraNodeIds: Seq[Long] = null
     var extraWayIds: Seq[Long] = null
     var extraRelationIds: Seq[Long] = null
-    var members: Seq[RawMember] = null
     var stamp: Option[ObjectId] = None
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
@@ -58,11 +58,11 @@ class NetworkDocCodec(registry: CodecRegistry) extends Codec[NetworkDoc] {
       else if (fieldName == "active") {
         active = booleanCodec.decode(bsonReader, decoderContext)
       }
+      else if (fieldName == "base") {
+        base = networkBaseDataCodec.decode(bsonReader, decoderContext)
+      }
       else if (fieldName == "country") {
         country = Some(countryCodec.decode(bsonReader, decoderContext))
-      }
-      else if (fieldName == "summary") {
-        summary = networkSummaryCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "detail") {
         detail = networkDetailCodec.decode(bsonReader, decoderContext)
@@ -94,6 +94,15 @@ class NetworkDocCodec(registry: CodecRegistry) extends Codec[NetworkDoc] {
         bsonReader.readEndArray()
         routes = valueBuffer.toSeq
       }
+      else if (fieldName == "factCount") {
+        factCount = longCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "nodeCount") {
+        nodeCount = longCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "routeCount") {
+        routeCount = longCodec.decode(bsonReader, decoderContext)
+      }
       else if (fieldName == "extraNodeIds") {
         bsonReader.readStartArray()
         val valueBuffer = scala.collection.mutable.Buffer[Long]()
@@ -121,15 +130,6 @@ class NetworkDocCodec(registry: CodecRegistry) extends Codec[NetworkDoc] {
         bsonReader.readEndArray()
         extraRelationIds = valueBuffer.toSeq
       }
-      else if (fieldName == "members") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[RawMember]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += rawMemberCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        members = valueBuffer.toSeq
-      }
       else if (fieldName == "stamp") {
         stamp = Some(objectIdCodec.decode(bsonReader, decoderContext))
       }
@@ -144,16 +144,18 @@ class NetworkDocCodec(registry: CodecRegistry) extends Codec[NetworkDoc] {
     NetworkDoc(
       _id,
       active,
+      base,
       country,
-      summary,
       detail,
       facts,
       nodes,
       routes,
+      factCount,
+      nodeCount,
+      routeCount,
       extraNodeIds,
       extraWayIds,
       extraRelationIds,
-      members,
       stamp,
     )
   }
@@ -167,13 +169,13 @@ class NetworkDocCodec(registry: CodecRegistry) extends Codec[NetworkDoc] {
     bsonWriter.writeName("active")
     booleanCodec.encode(bsonWriter, value.active, encoderContext)
 
+    bsonWriter.writeName("base")
+    networkBaseDataCodec.encode(bsonWriter, value.base, encoderContext)
+
     if (value.country.isDefined) {
       bsonWriter.writeName("country")
       countryCodec.encode(bsonWriter, value.country.get, encoderContext)
     }
-
-    bsonWriter.writeName("summary")
-    networkSummaryCodec.encode(bsonWriter, value.summary, encoderContext)
 
     bsonWriter.writeName("detail")
     networkDetailCodec.encode(bsonWriter, value.detail, encoderContext)
@@ -193,6 +195,15 @@ class NetworkDocCodec(registry: CodecRegistry) extends Codec[NetworkDoc] {
     value.routes.foreach(v => networkRouteDetailCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
+    bsonWriter.writeName("factCount")
+    longCodec.encode(bsonWriter, value.factCount, encoderContext)
+
+    bsonWriter.writeName("nodeCount")
+    longCodec.encode(bsonWriter, value.nodeCount, encoderContext)
+
+    bsonWriter.writeName("routeCount")
+    longCodec.encode(bsonWriter, value.routeCount, encoderContext)
+
     bsonWriter.writeName("extraNodeIds")
     bsonWriter.writeStartArray()
     value.extraNodeIds.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
@@ -206,11 +217,6 @@ class NetworkDocCodec(registry: CodecRegistry) extends Codec[NetworkDoc] {
     bsonWriter.writeName("extraRelationIds")
     bsonWriter.writeStartArray()
     value.extraRelationIds.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
-
-    bsonWriter.writeName("members")
-    bsonWriter.writeStartArray()
-    value.members.foreach(v => rawMemberCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
     if (value.stamp.isDefined) {

@@ -7,9 +7,9 @@ import kpn.api.common.RouteType
 import kpn.api.common.subset.SubsetMapNetwork
 import kpn.api.custom.Subset
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkDetail
 import kpn.core.test.TestObjects.newNetworkDoc
-import kpn.core.test.TestObjects.newNetworkSummary
 
 class MongoQuerySubsetMapNetworksTest extends MongoTest {
 
@@ -51,18 +51,18 @@ class MongoQuerySubsetMapNetworksTest extends MongoTest {
       newNetworkDoc(
         _id = networkId,
         active = active,
-        country = Some(country),
-        summary = newNetworkSummary(
-          name = name,
+        base = newNetworkBaseData(
+          name = Some(name),
           routeType = RouteType.hiking,
           routeScope = RouteScope.regional,
-          nodeCount = networkId * 10,
-          routeCount = networkId * 20,
         ),
+        country = Some(country),
         detail = newNetworkDetail(
           km = 100 + networkId,
           center = Some(LatLonImpl(networkId.toString, networkId.toString))
         ),
+        nodeCount = networkId * 10,
+        routeCount = networkId * 20,
       )
     )
   }

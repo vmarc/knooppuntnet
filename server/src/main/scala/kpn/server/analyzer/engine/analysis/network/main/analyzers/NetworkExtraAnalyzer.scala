@@ -73,7 +73,7 @@ class NetworkExtraAnalyzer(
   }
 
   private def memberIds(context: NetworkAnalysisContext, memberType: MemberType): Set[Long] = {
-    context.network.members.filter(_.memberType == memberType).map(_.ref).toSet
+    context.network.base.members.filter(_.memberType == memberType).map(_.ref).toSet
   }
 
   private def isNodeAllowedInNetworkRelation(tagable: Tagable): Boolean = {

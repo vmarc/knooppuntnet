@@ -34,13 +34,13 @@ class NetworkDetailsPageBuilder(database: Database) {
       NetworkAttributes(
         networkDoc._id,
         networkDoc.country,
-        networkDoc.summary.routeType,
-        networkDoc.summary.routeScope,
-        networkDoc.summary.name,
+        networkDoc.base.routeType,
+        networkDoc.base.routeScope,
+        networkDoc.base.name,
         networkDoc.detail.km,
         networkDoc.detail.meters,
-        networkDoc.summary.nodeCount,
-        networkDoc.summary.routeCount,
+        networkDoc.nodeCount,
+        networkDoc.routeCount,
         networkDoc.detail.brokenRouteCount,
         networkDoc.detail.brokenRoutePercentage,
         networkDoc.detail.integrity,
@@ -50,7 +50,7 @@ class NetworkDetailsPageBuilder(database: Database) {
         networkDoc.detail.relationLastUpdated,
         center = None // TODO MONGO niet nodig op dit scherm
       ),
-      networkDoc.detail.tags
+      networkDoc.tags
       // TODO MONGO networkInfoDoc.networkFacts ??
     )
   }

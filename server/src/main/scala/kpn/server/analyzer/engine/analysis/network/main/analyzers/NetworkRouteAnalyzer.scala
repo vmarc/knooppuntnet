@@ -14,12 +14,12 @@ class NetworkRouteAnalyzer(routeRepository: RouteRepository) extends NetworkAnal
   private val log = Log(classOf[NetworkAnalysisContext])
 
   override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
-    val routeIds = context.network.members.filter(_.memberType == MemberType.Relation).map(_.ref)
+    val routeIds = context.network.base.members.filter(_.memberType == MemberType.Relation).map(_.ref)
     val routeDetails = queryRouteDetails(routeIds)
     val meters = routeDetails.map(_.length).sum
     val km = Math.round(meters.toDouble / 1000)
     val enrichedRouteDetails = routeDetails.map { networkRouteDetail =>
-      val role = context.network.members
+      val role = context.network.base.members
         .find(member => member.memberType == MemberType.Relation && member.ref == networkRouteDetail.id)
         .flatMap(_.role)
       val investigate = networkRouteDetail.facts.contains(Fact.RouteBroken)

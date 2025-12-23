@@ -7,9 +7,10 @@ import kpn.api.common.subset.SubsetFactRefs
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkDoc
-import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteDoc
 
 class FactRefRepositoryTest extends MongoTest {
@@ -126,10 +127,12 @@ class FactRefRepositoryTest extends MongoTest {
     database.networks.save(
       newNetworkDoc(
         networkId,
-        country = Some(subset.country),
-        summary = newNetworkSummary(
+        base = newNetworkBaseData(
+          raw = newRaw(
+          ),
           routeType = subset.routeType,
         ),
+        country = Some(subset.country),
         facts = Seq(
           NetworkFact(
             fact,
@@ -149,10 +152,12 @@ class FactRefRepositoryTest extends MongoTest {
     database.networks.save(
       newNetworkDoc(
         networkId,
-        country = Some(subset.country),
-        summary = newNetworkSummary(
+        base = newNetworkBaseData(
+          raw = newRaw(
+          ),
           routeType = subset.routeType,
         ),
+        country = Some(subset.country),
         facts = Seq(
           NetworkFact(
             Fact.NodeMemberMissing,

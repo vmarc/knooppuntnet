@@ -4,5 +4,5 @@ import kpn.api.common.data.MetaData
 
 case class NetworkData(
   metaData: MetaData,
-  name: String
+  name: Option[String]
 )

@@ -6,9 +6,9 @@ import kpn.api.common.RouteType
 import kpn.api.common.RouteType.hiking
 import kpn.api.common.common.Reference
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
-import kpn.core.test.TestObjects.newNetworkSummary
 
 class MongoQueryNodeNetworkReferencesTest extends MongoTest {
 
@@ -17,8 +17,8 @@ class MongoQueryNodeNetworkReferencesTest extends MongoTest {
     database.networks.save(
       newNetworkDoc(
         1L,
-        summary = newNetworkSummary(
-          name = "network-1",
+        base = newNetworkBaseData(
+          name = Some("network-1"),
           routeType = RouteType.hiking,
           routeScope = RouteScope.regional,
         ),
@@ -31,8 +31,8 @@ class MongoQueryNodeNetworkReferencesTest extends MongoTest {
     database.networks.save(
       newNetworkDoc(
         2L,
-        summary = newNetworkSummary(
-          name = "network-2",
+        base = newNetworkBaseData(
+          name = Some("network-2"),
           routeType = RouteType.hiking,
           routeScope = RouteScope.regional,
         ),
@@ -58,8 +58,8 @@ class MongoQueryNodeNetworkReferencesTest extends MongoTest {
     database.networks.save(
       newNetworkDoc(
         1L,
-        summary = newNetworkSummary(
-          name = "network-1",
+        base = newNetworkBaseData(
+          name = Some("network-1"),
           routeType = RouteType.hiking,
           routeScope = RouteScope.regional,
         ),
@@ -72,8 +72,8 @@ class MongoQueryNodeNetworkReferencesTest extends MongoTest {
       newNetworkDoc(
         2L,
         active = false,
-        summary = newNetworkSummary(
-          name = "network-2",
+        base = newNetworkBaseData(
+          name = Some("network-2"),
           routeType = RouteType.hiking,
           routeScope = RouteScope.regional,
         ),

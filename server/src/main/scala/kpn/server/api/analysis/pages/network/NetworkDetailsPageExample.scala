@@ -34,7 +34,7 @@ object NetworkDetailsPageExample {
 
   def networkSummary(): NetworkSummary = {
     NetworkSummary(
-      "network name",
+      Some("network name"),
       RouteType.hiking,
       RouteScope.regional,
       3,
@@ -52,7 +52,7 @@ object NetworkDetailsPageExample {
       country = Some(Country.nl),
       routeType = RouteType.hiking,
       routeScope = RouteScope.regional,
-      name = "Network One",
+      name = Some("Network One"),
       km = 12,
       meters = 1234,
       nodeCount = 3,

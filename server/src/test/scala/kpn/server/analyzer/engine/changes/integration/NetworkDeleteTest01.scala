@@ -9,7 +9,6 @@ import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
-import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
@@ -28,12 +27,13 @@ import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newLocationChanges
 import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNetworkDetail
 import kpn.core.test.TestObjects.newNetworkDoc
-import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRawNode
 import kpn.core.test.TestObjects.newRawRelation
 
@@ -101,13 +101,16 @@ class NetworkDeleteTest01 extends IntegrationTest {
       newBaseNetworkDoc(
         1L,
         active = false,
-        name = Some("network1"),
-        changeSetId = 1,
-        tags = Tags.from(
-          "network:type" -> "node_network",
-          "type" -> "network",
-          "network" -> "rwn",
-          "name" -> "network1",
+        base = newNetworkBaseData(
+          raw = newRaw(
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "type" -> "network",
+              "network" -> "rwn",
+              "name" -> "network1"
+            )
+          ),
+          name = Some("network1"),
         ),
         nodeIds = Seq(
           1001
@@ -123,16 +126,18 @@ class NetworkDeleteTest01 extends IntegrationTest {
         1L,
         active = false,
         country = Some(Country.nl),
-        summary = newNetworkSummary(
-          name = "network1",
+        base = newNetworkBaseData(
+          raw = newRaw(
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "type" -> "network",
+              "network" -> "rwn",
+              "name" -> "network1"
+            )
+          ),
+          name = Some("network1"),
         ),
         detail = newNetworkDetail(
-          tags = Tags.from(
-            "network:type" -> "node_network",
-            "type" -> "network",
-            "network" -> "rwn",
-            "name" -> "network1",
-          )
         )
       )
     )
@@ -155,9 +160,9 @@ class NetworkDeleteTest01 extends IntegrationTest {
 
   private def assertChangeSetSummary(): Unit = {
     assertEqual(
-      findChangeSetSummaryById("123:1"),
+      findChangeSetSummaryById("1:1"),
       newChangeSetSummary(
-        key = ChangeKey(1, Timestamp(2015, 8, 11, 0, 0, 0), 123, 0),
+        key = newChangeKey(),
         subsets = Seq(Subset.nlHiking),
         locations = Seq("nl"),
         timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
@@ -168,7 +173,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
               country = Some(Country.nl),
               routeType = RouteType.hiking,
               networkId = 1,
-              networkName = "network1",
+              networkName = Some("network1"),
               routeChanges = ChangeSetElementRefs(),
               nodeChanges = ChangeSetElementRefs(
                 removed = Seq(
@@ -205,10 +210,10 @@ class NetworkDeleteTest01 extends IntegrationTest {
 
   private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkChangeById("123:1:1"),
+      findNetworkChangeById("1:1:1"),
       newNetworkChange(
         key = newChangeKey(elementId = 1),
-        networkName = "network1",
+        networkName = Some("network1"),
         changeType = ChangeType.Delete,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
@@ -225,7 +230,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
   }
 
   private def assertNodeChange(): Unit = {
-    val nodeChange = findNodeChangeById("123:1:1001")
+    val nodeChange = findNodeChangeById("1:1:1001")
     assertEqual(
       nodeChange,
       newNodeChange(

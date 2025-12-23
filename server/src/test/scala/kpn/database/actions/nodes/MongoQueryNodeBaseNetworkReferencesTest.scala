@@ -9,6 +9,7 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newNetworkBaseData
 
 class MongoQueryNodeBaseNetworkReferencesTest extends MongoTest {
 
@@ -16,12 +17,14 @@ class MongoQueryNodeBaseNetworkReferencesTest extends MongoTest {
     database.baseNetworks.save(
       newBaseNetworkDoc(
         1L,
-        name = Some("network-1"),
-        routeType = RouteType.hiking,
-        routeScope = RouteScope.regional,
-        members = Seq(
-          RawMember(MemberType.Node, 1001L, Some("connection")),
-          RawMember(MemberType.Node, 1002L, None),
+        base = newNetworkBaseData(
+          name = Some("network-1"),
+          routeType = RouteType.hiking,
+          routeScope = RouteScope.regional,
+          members = Seq(
+            RawMember(MemberType.Node, 1001L, Some("connection")),
+            RawMember(MemberType.Node, 1002L, None),
+          )
         ),
         nodeIds = Seq(
           1001,
@@ -31,12 +34,14 @@ class MongoQueryNodeBaseNetworkReferencesTest extends MongoTest {
     )
     database.baseNetworks.save(
       newBaseNetworkDoc(2L,
-        name = Some("network-2"),
-        routeType = RouteType.hiking,
-        routeScope = RouteScope.regional,
-        members = Seq(
-          RawMember(MemberType.Node, 1001L, None),
-          RawMember(MemberType.Node, 1003L, None),
+        base = newNetworkBaseData(
+          name = Some("network-2"),
+          routeType = RouteType.hiking,
+          routeScope = RouteScope.regional,
+          members = Seq(
+            RawMember(MemberType.Node, 1001L, None),
+            RawMember(MemberType.Node, 1003L, None),
+          )
         ),
         nodeIds = Seq(
           1001,
@@ -59,10 +64,12 @@ class MongoQueryNodeBaseNetworkReferencesTest extends MongoTest {
     database.baseNetworks.save(
       newBaseNetworkDoc(
         1L,
-        name = Some("network-1"),
-        members = Seq(
-          RawMember(MemberType.Node, 1001L, None),
-          RawMember(MemberType.Node, 1002L, None),
+        base = newNetworkBaseData(
+          name = Some("network-1"),
+          members = Seq(
+            RawMember(MemberType.Node, 1001L, None),
+            RawMember(MemberType.Node, 1002L, None),
+          )
         ),
         nodeIds = Seq(
           1001,
@@ -74,10 +81,12 @@ class MongoQueryNodeBaseNetworkReferencesTest extends MongoTest {
       newBaseNetworkDoc(
         2L,
         active = false,
-        name = Some("network-2"),
-        members = Seq(
-          RawMember(MemberType.Node, 1001L, None),
-          RawMember(MemberType.Node, 1003L, None),
+        base = newNetworkBaseData(
+          name = Some("network-2"),
+          members = Seq(
+            RawMember(MemberType.Node, 1001L, None),
+            RawMember(MemberType.Node, 1003L, None),
+          )
         ),
         nodeIds = Seq(
           1001,

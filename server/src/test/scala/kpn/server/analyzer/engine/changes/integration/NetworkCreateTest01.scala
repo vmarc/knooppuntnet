@@ -22,8 +22,8 @@ import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.doc.BaseNetworkDoc
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newBaseNetworkDoc
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetNetwork
@@ -31,13 +31,14 @@ import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newLocationChanges
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNetworkDetail
 import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
 import kpn.core.test.TestObjects.newNetworkRouteDetail
-import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNodeChange
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
 import kpn.core.test.TestObjects.newRouteNode
@@ -113,25 +114,26 @@ class NetworkCreateTest01 extends IntegrationTest {
   private def assertBaseNetworkDoc(): Unit = {
     assertEqual(
       findBaseNetworkById(1),
-      BaseNetworkDoc(
+      newBaseNetworkDoc(
         1,
-        active = true,
-        routeType = RouteType.hiking,
-        routeScope = RouteScope.regional,
-        name = Some("network-name"),
-        version = 0,
-        changeSetId = 1,
-        timestamp = Timestamps.default,
-        members = Seq(
-          RawMember(MemberType.Node, 1001, None),
-          RawMember(MemberType.Node, 1002, None),
-          RawMember(MemberType.Relation, 11, None),
-        ),
-        tags = Tags.from(
-          "network:type" -> "node_network",
-          "type" -> "network",
-          "network" -> "rwn",
-          "name" -> "network-name",
+        base = newNetworkBaseData(
+          raw = newRaw(
+            timestamp = Timestamps.default,
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "type" -> "network",
+              "network" -> "rwn",
+              "name" -> "network-name",
+            ),
+          ),
+          routeType = RouteType.hiking,
+          routeScope = RouteScope.regional,
+          name = Some("network-name"),
+          members = Seq(
+            RawMember(MemberType.Node, 1001, None),
+            RawMember(MemberType.Node, 1002, None),
+            RawMember(MemberType.Relation, 11, None),
+          )
         ),
         nodeIds = Seq(
           1001,
@@ -149,18 +151,25 @@ class NetworkCreateTest01 extends IntegrationTest {
       findNetworkById(1),
       newNetworkDoc(
         1,
-        summary = newNetworkSummary(
-          name = "network-name",
-          nodeCount = 2,
-          routeCount = 1,
-        ),
-        detail = newNetworkDetail(
-          tags = Tags.from(
-            "network:type" -> "node_network",
-            "type" -> "network",
-            "network" -> "rwn",
-            "name" -> "network-name"
+        base = newNetworkBaseData(
+          raw = newRaw(
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "type" -> "network",
+              "network" -> "rwn",
+              "name" -> "network-name"
+            ),
           ),
+          name = Some("network-name"),
+          members = Seq(
+            RawMember(MemberType.Node, 1001, None),
+            RawMember(MemberType.Node, 1002, None),
+            RawMember(MemberType.Relation, 11, None),
+          ),
+        ),
+        nodeCount = 2,
+        routeCount = 1,
+        detail = newNetworkDetail(
           center = Some(LatLonImpl("0.0", "0.0"))
         ),
         nodes = Seq(
@@ -193,19 +202,14 @@ class NetworkCreateTest01 extends IntegrationTest {
               )
             )
           )
-        ),
-        members = Seq(
-          RawMember(MemberType.Node, 1001, None),
-          RawMember(MemberType.Node, 1002, None),
-          RawMember(MemberType.Relation, 11, None),
-        ),
+        )
       )
     )
   }
 
   private def assertChangeSetSummary(): Unit = {
     assertEqual(
-      findChangeSetSummaryById("123:1"),
+      findChangeSetSummaryById("1:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         locations = Seq("nl"),
@@ -215,7 +219,7 @@ class NetworkCreateTest01 extends IntegrationTest {
               Some(Country.nl),
               RouteType.hiking,
               1,
-              "network-name",
+              Some("network-name"),
               routeChanges = ChangeSetElementRefs(
                 added = Seq(
                   ChangeSetElementRef(11, "01-02", happy = true, investigate = false)
@@ -253,10 +257,10 @@ class NetworkCreateTest01 extends IntegrationTest {
 
   private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkChangeById("123:1:1"),
+      findNetworkChangeById("1:1:1"),
       newNetworkChange(
         newChangeKey(elementId = 1),
-        networkName = "network-name",
+        networkName = Some("network-name"),
         changeType = ChangeType.Create,
         country = Some(Country.nl),
         networkDataUpdate = Some(
@@ -265,7 +269,7 @@ class NetworkCreateTest01 extends IntegrationTest {
             Some(
               NetworkData(
                 MetaData(0, Timestamps.default, 1),
-                "network-name"
+                Some("network-name")
               )
             )
           )
@@ -296,7 +300,7 @@ class NetworkCreateTest01 extends IntegrationTest {
 
   private def assertRouteChange(): Unit = {
     assertEqual(
-      findRouteChangeById("123:1:11"),
+      findRouteChangeById("1:1:11"),
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Update,
@@ -368,7 +372,7 @@ class NetworkCreateTest01 extends IntegrationTest {
 
   private def assertNodeChange1001(): Unit = {
     assertEqual(
-      findNodeChangeById("123:1:1001"),
+      findNodeChangeById("1:1:1001"),
       newNodeChange(
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Update,
@@ -392,7 +396,7 @@ class NetworkCreateTest01 extends IntegrationTest {
 
   private def assertNodeChange1002(): Unit = {
     assertEqual(
-      findNodeChangeById("123:1:1002"),
+      findNodeChangeById("1:1:1002"),
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,

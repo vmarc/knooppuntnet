@@ -316,7 +316,7 @@ class ChangeSetRepositoryTest extends MongoTest {
       key.toId,
       key,
       networkId,
-      s"network$networkId",
+      Some(s"network$networkId"),
       ChangeType.Update,
       Some(Country.nl),
       RouteType.hiking,

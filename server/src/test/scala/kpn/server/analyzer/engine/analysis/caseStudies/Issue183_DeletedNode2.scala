@@ -26,7 +26,7 @@ class Issue183_DeletedNode2 extends IntegrationTest {
       assert(nodeBefore.active)
       assert(!nodeAfter.active)
 
-      val nodeChange = findNodeChangeById("123:1:8731919671")
+      val nodeChange = findNodeChangeById("1:1:8731919671")
       nodeChange.facts should equal(Seq(Fact.Deleted))
     }
   }

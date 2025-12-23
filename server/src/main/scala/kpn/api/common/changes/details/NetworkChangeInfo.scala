@@ -16,7 +16,7 @@ case class NetworkChangeInfo(
   country: Option[Country],
   routeType: RouteType,
   networkId: Long,
-  networkName: String,
+  networkName: Option[String],
   before: Option[MetaData],
   after: Option[MetaData],
   networkDataUpdated: Boolean,

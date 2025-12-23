@@ -9,20 +9,20 @@ import kpn.api.common.Country
 import kpn.api.common.NetworkChanges
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
-import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.data.MemberType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newLocationChanges
 import kpn.core.test.TestObjects.newMember
-import kpn.core.test.TestObjects.newNetworkDetail
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkDoc
-import kpn.core.test.TestObjects.newNetworkSummary
+import kpn.core.test.TestObjects.newRaw
 
 class NetworkDeleteTest04 extends IntegrationTest {
 
@@ -87,14 +87,17 @@ class NetworkDeleteTest04 extends IntegrationTest {
       newBaseNetworkDoc(
         1L,
         active = false,
-        name = Some("01-02"),
-        version = 1,
-        changeSetId = 1,
-        tags = Tags.from(
-          "network:type" -> "node_network",
-          "type" -> "network",
-          "network" -> "rwn",
-          "name" -> "01-02",
+        base = newNetworkBaseData(
+          raw = newRaw(
+            version = 1,
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "type" -> "network",
+              "network" -> "rwn",
+              "name" -> "01-02"
+            )
+          ),
+          name = Some("01-02"),
         ),
         nodeIds = Seq(
           1001
@@ -109,19 +112,19 @@ class NetworkDeleteTest04 extends IntegrationTest {
       newNetworkDoc(
         1L,
         active = false,
-        country = Some(Country.nl),
-        summary = newNetworkSummary(
-          name = "01-02",
+        base = newNetworkBaseData(
+          raw = newRaw(
+            version = 1,
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "type" -> "network",
+              "network" -> "rwn",
+              "name" -> "01-02"
+            )
+          ),
+          name = Some("01-02")
         ),
-        detail = newNetworkDetail(
-          version = 1,
-          tags = Tags.from(
-            "network:type" -> "node_network",
-            "type" -> "network",
-            "network" -> "rwn",
-            "name" -> "01-02",
-          )
-        )
+        country = Some(Country.nl)
       )
     )
   }
@@ -135,9 +138,9 @@ class NetworkDeleteTest04 extends IntegrationTest {
 
   private def assertChangeSetSummary(): Unit = {
     assertEqual(
-      findChangeSetSummaryById("123:1"),
+      findChangeSetSummaryById("1:1"),
       newChangeSetSummary(
-        key = ChangeKey(1, Timestamp(2015, 8, 11, 0, 0, 0), 123, 0),
+        key = newChangeKey(),
         subsets = Seq(Subset.nlHiking),
         locations = Seq("nl"),
         timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
@@ -148,7 +151,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
               country = Some(Country.nl),
               routeType = RouteType.hiking,
               networkId = 1,
-              networkName = "01-02",
+              networkName = Some("01-02"),
               routeChanges = ChangeSetElementRefs(),
               nodeChanges = ChangeSetElementRefs(
                 removed = Seq(
@@ -196,19 +199,19 @@ class NetworkDeleteTest04 extends IntegrationTest {
   }
 
   private def assertNetworkChange(): Unit = {
-    val networkChange = findNetworkChangeById("123:1:1")
-    networkChange.key.changeSetId should equal(123)
+    val networkChange = findNetworkChangeById("1:1:1")
+    networkChange.key.changeSetId should equal(1)
     networkChange.key.elementId should equal(1)
     networkChange.changeType should equal(ChangeType.Delete)
     networkChange.routeType should equal(RouteType.hiking)
-    networkChange.networkName should equal("01-02")
+    networkChange.networkName should equal(Some("01-02"))
     assert(!networkChange.happy)
     assert(networkChange.investigate)
   }
 
   private def assertRouteChange(): Unit = {
-    val routeChange = findRouteChangeById("123:1:1")
-    routeChange.key.changeSetId should equal(123)
+    val routeChange = findRouteChangeById("1:1:1")
+    routeChange.key.changeSetId should equal(1)
     routeChange.key.elementId should equal(1)
     routeChange.changeType should equal(ChangeType.Create)
     assert(routeChange.happy)

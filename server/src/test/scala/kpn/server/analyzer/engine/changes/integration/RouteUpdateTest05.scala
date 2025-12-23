@@ -42,7 +42,7 @@ class RouteUpdateTest05 extends IntegrationTest {
 
       processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
-      val routeChange = findRouteChangeById("123:1:11")
+      val routeChange = findRouteChangeById("1:1:11")
 
       assertEqual(
         routeChange.diffs.nameDiff,

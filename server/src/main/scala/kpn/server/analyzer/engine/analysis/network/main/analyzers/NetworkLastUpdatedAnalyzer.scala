@@ -10,7 +10,7 @@ class NetworkLastUpdatedAnalyzer(context: NetworkAnalysisContext) {
 
   def analyze: NetworkAnalysisContext = {
     val timestamps = Seq(
-      Seq(context.network.timestamp),
+      Seq(context.network.base.raw.timestamp),
       context.nodeDetails.map(_.timestamp),
       context.routeDetails.map(_.lastUpdated)
     ).flatten

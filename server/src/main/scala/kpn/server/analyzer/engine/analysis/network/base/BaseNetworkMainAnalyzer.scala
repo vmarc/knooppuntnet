@@ -1,6 +1,8 @@
 package kpn.server.analyzer.engine.analysis.network.base
 
+import kpn.api.common.data.raw.Raw
 import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.network.NetworkBaseData
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkAnalysisContext
@@ -39,14 +41,18 @@ class BaseNetworkMainAnalyzer {
         BaseNetworkDoc(
           _id = context.relation.id,
           active = true,
-          routeType = context.routeType,
-          routeScope = context.routeScope,
-          name = context.name,
-          version = context.relation.version,
-          timestamp = context.relation.timestamp,
-          changeSetId = context.relation.changeSetId,
-          members = context.relation.members,
-          tags = context.relation.tags,
+          NetworkBaseData(
+            raw = Raw(
+              version = context.relation.version,
+              changeSetId = context.relation.changeSetId,
+              timestamp = context.relation.timestamp,
+              tags = context.relation.tags,
+            ),
+            name = context.name,
+            routeType = context.routeType,
+            routeScope = context.routeScope,
+            members = context.relation.members,
+          ),
           nodeIds = nodeIds,
           relationIds = relationIds,
         )

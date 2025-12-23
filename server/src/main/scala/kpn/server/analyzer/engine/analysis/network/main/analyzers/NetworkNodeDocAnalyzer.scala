@@ -30,7 +30,7 @@ class NetworkNodeDocAnalyzer(nodeRepository: NodeRepository) extends NetworkAnal
 
   private def allNodeIds(context: NetworkAnalysisContext): Seq[Long] = {
     val routeNodeIds = context.routeDetails.flatMap(_.networkNodeIds.toSeq.flatten)
-    val networkNodeIds = context.network.members.filter(_.memberType == MemberType.Node).map(_.ref)
+    val networkNodeIds = context.network.base.members.filter(_.memberType == MemberType.Node).map(_.ref)
     (networkNodeIds ++ routeNodeIds).distinct.sorted
   }
 }

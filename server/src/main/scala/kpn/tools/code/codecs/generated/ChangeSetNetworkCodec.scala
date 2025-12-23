@@ -30,7 +30,7 @@ class ChangeSetNetworkCodec(registry: CodecRegistry) extends Codec[ChangeSetNetw
     var country: Option[Country] = None
     var routeType: RouteType = null
     var networkId: Long = 0
-    var networkName: String = null
+    var networkName: Option[String] = None
     var routeChanges: ChangeSetElementRefs = null
     var nodeChanges: ChangeSetElementRefs = null
     var happy: Boolean = false
@@ -48,7 +48,7 @@ class ChangeSetNetworkCodec(registry: CodecRegistry) extends Codec[ChangeSetNetw
         networkId = longCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "networkName") {
-        networkName = stringCodec.decode(bsonReader, decoderContext)
+        networkName = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else if (fieldName == "routeChanges") {
         routeChanges = changeSetElementRefsCodec.decode(bsonReader, decoderContext)
@@ -96,8 +96,10 @@ class ChangeSetNetworkCodec(registry: CodecRegistry) extends Codec[ChangeSetNetw
     bsonWriter.writeName("networkId")
     longCodec.encode(bsonWriter, value.networkId, encoderContext)
 
-    bsonWriter.writeName("networkName")
-    stringCodec.encode(bsonWriter, value.networkName, encoderContext)
+    if (value.networkName.isDefined) {
+      bsonWriter.writeName("networkName")
+      stringCodec.encode(bsonWriter, value.networkName.get, encoderContext)
+    }
 
     bsonWriter.writeName("routeChanges")
     changeSetElementRefsCodec.encode(bsonWriter, value.routeChanges, encoderContext)

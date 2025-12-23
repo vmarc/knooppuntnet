@@ -141,7 +141,7 @@ class RouteDeleteTest01 extends IntegrationTest {
 
   private def assertRouteChange(): Unit = {
     assertEqual(
-      findRouteChangeById("123:1:11"),
+      findRouteChangeById("1:1:11"),
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Delete,
@@ -189,7 +189,7 @@ class RouteDeleteTest01 extends IntegrationTest {
 
   private def assertNodeChange1001(): Unit = {
     assertEqual(
-      findNodeChangeById("123:1:1001"),
+      findNodeChangeById("1:1:1001"),
       newNodeChange(
         newChangeKey(elementId = 1001),
         ChangeType.Update,
@@ -215,7 +215,7 @@ class RouteDeleteTest01 extends IntegrationTest {
 
   private def assertNodeChange1002(): Unit = {
     assertEqual(
-      findNodeChangeById("123:1:1002"),
+      findNodeChangeById("1:1:1002"),
       newNodeChange(
         newChangeKey(elementId = 1002),
         ChangeType.Update,
@@ -261,7 +261,7 @@ class RouteDeleteTest01 extends IntegrationTest {
 
   private def assertChangeSetSummary(): Unit = {
     assertEqual(
-      findChangeSetSummaryById("123:1"),
+      findChangeSetSummaryById("1:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         locations = Seq("nl"),

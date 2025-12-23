@@ -416,10 +416,10 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
 
   private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkChangeById("123:1:1"),
+      findNetworkChangeById("1:1:1"),
       newNetworkChange(
         key = newChangeKey(elementId = 1),
-        networkName = "name",
+        networkName = Some("name"),
         changeType = ChangeType.Update,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
@@ -428,13 +428,13 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             Some(
               NetworkData(
                 MetaData(1, Timestamps.default, 1),
-                name = "name"
+                name = Some("name")
               )
             ),
             Some(
               NetworkData(
                 MetaData(2, Timestamps.default, 1),
-                name = "name"
+                name = Some("name")
               )
             ),
           )
@@ -458,7 +458,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
     val routeData = newRouteData(
       relationId = 11,
       raw = newRaw(
-        changeSetId = 1,
         tags = newRouteTags("01-02")
       ),
       countries = Seq(Country.nl),
@@ -471,7 +470,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
     )
 
     assertEqual(
-      findRouteChangeById("123:1:11"),
+      findRouteChangeById("1:1:11"),
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Update,
@@ -491,7 +490,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
 
   private def assertChangeSetSummary(): Unit = {
     assertEqual(
-      findChangeSetSummaryById("123:1"),
+      findChangeSetSummaryById("1:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(
@@ -500,7 +499,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
               Some(Country.nl),
               RouteType.hiking,
               1,
-              "name",
+              Some("name"),
               routeChanges = ChangeSetElementRefs(
                 removed = Seq(
                   newChangeSetElementRef(11, "01-02", investigate = true)

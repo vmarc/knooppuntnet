@@ -18,10 +18,10 @@ import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetNetwork
 import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNetworkDetail
 import kpn.core.test.TestObjects.newNetworkDoc
-import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.core.test.TestObjects.newNetworkTags
 import kpn.core.test.TestObjects.newOrphanRouteInfo
 import kpn.core.test.TestObjects.newRaw
@@ -99,15 +99,17 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
       newNetworkDoc(
         1,
         active = false, // <--- !!!
-        country = Some(Country.nl),
-        newNetworkSummary(
-          name = "network",
+        base = newNetworkBaseData(
+          raw = newRaw(
+            tags = newNetworkTags("network")
+          ),
+          name = Some("network"),
           routeType = RouteType.hiking,
         ),
+        country = Some(Country.nl),
         newNetworkDetail(
           lastUpdated = Timestamps.default,
           relationLastUpdated = Timestamps.default,
-          tags = newNetworkTags("network")
         )
       )
     )
@@ -115,10 +117,10 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
 
   private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkChangeById("123:1:1"),
+      findNetworkChangeById("1:1:1"),
       newNetworkChange(
         key = newChangeKey(elementId = 1),
-        networkName = "network",
+        networkName = Some("network"),
         changeType = ChangeType.Delete,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
@@ -146,7 +148,6 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
     val routeData = newRouteData(
       relationId = 11,
       raw = newRaw(
-        changeSetId = 1,
         tags = newRouteTags("01-02")
       ),
       countries = Seq(Country.nl),
@@ -159,7 +160,7 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
     )
 
     assertEqual(
-      findRouteChangeById("123:1:11"),
+      findRouteChangeById("1:1:11"),
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Update,
@@ -179,7 +180,7 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
 
   private def assertChangeSetSummary(): Unit = {
     assertEqual(
-      findChangeSetSummaryById("123:1"),
+      findChangeSetSummaryById("1:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(
@@ -188,7 +189,7 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
               Some(Country.nl),
               RouteType.hiking,
               1,
-              "network",
+              Some("network"),
               routeChanges = ChangeSetElementRefs(
                 removed = Seq(
                   newChangeSetElementRef(11, "01-02", investigate = true)

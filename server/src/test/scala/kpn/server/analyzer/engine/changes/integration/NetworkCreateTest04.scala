@@ -84,10 +84,10 @@ class NetworkCreateTest04 extends IntegrationTest {
 
   private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkChangeById("123:1:1"),
+      findNetworkChangeById("1:1:1"),
       newNetworkChange(
         key = newChangeKey(elementId = 1),
-        networkName = "name",
+        networkName = Some("name"),
         changeType = ChangeType.Create,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
@@ -101,7 +101,7 @@ class NetworkCreateTest04 extends IntegrationTest {
                   timestamp = Timestamp(2015, 8, 11),
                   changeSetId = 1
                 ),
-                name = "name"
+                name = Some("name")
               )
             )
           )
@@ -123,7 +123,7 @@ class NetworkCreateTest04 extends IntegrationTest {
 
   private def assertChangeSetSummary(): Unit = {
     assertEqual(
-      findChangeSetSummaryById("123:1"),
+      findChangeSetSummaryById("1:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         locations = Seq("nl"),
@@ -133,7 +133,7 @@ class NetworkCreateTest04 extends IntegrationTest {
               Some(Country.nl),
               RouteType.hiking,
               1,
-              "name",
+              Some("name"),
               routeChanges = ChangeSetElementRefs(
                 added = Seq(
                   ChangeSetElementRef(11, "01-02", happy = true, investigate = false)

@@ -3,26 +3,42 @@ package kpn.core.doc
 import kpn.api.common.Country
 import kpn.api.common.NetworkFact
 import kpn.api.common.data.MemberType
+import kpn.api.common.data.Tagable
 import kpn.api.common.data.raw.RawMember
+import kpn.api.common.network.NetworkBaseData
 import kpn.api.common.network.NetworkDetail
 import kpn.api.common.network.NetworkSummary
+import kpn.api.custom.Tag
 import org.bson.types.ObjectId
 
 case class NetworkDoc(
   _id: Long,
   active: Boolean,
+  base: NetworkBaseData,
   country: Option[Country],
-  summary: NetworkSummary,
   detail: NetworkDetail,
   facts: Seq[NetworkFact],
   nodes: Seq[NetworkInfoNodeDetail],
   routes: Seq[NetworkRouteDetail],
+  factCount: Long,
+  nodeCount: Long,
+  routeCount: Long,
   extraNodeIds: Seq[Long],
   extraWayIds: Seq[Long],
   extraRelationIds: Seq[Long],
-  members: Seq[RawMember],
   stamp: Option[ObjectId],
-) extends WithId {
+) extends WithId with Tagable {
+
+  def summary: NetworkSummary = {
+    NetworkSummary(
+      name = base.name,
+      routeType = base.routeType,
+      routeScope = base.routeScope,
+      factCount = factCount,
+      nodeCount = nodeCount,
+      routeCount = routeCount
+    )
+  }
 
   def memberNodeIds: Seq[Long] = {
     membersTypeRefs(MemberType.Node)
@@ -48,8 +64,12 @@ case class NetworkDoc(
     membersType(MemberType.Relation)
   }
 
+  def tags: Seq[Tag] = {
+    base.raw.tags
+  }
+
   private def membersType(memberType: MemberType): Seq[RawMember] = {
-    members.filter(_.memberType == memberType)
+    base.members.filter(_.memberType == memberType)
   }
 
   private def membersTypeRefs(memberType: MemberType): Seq[Long] = {

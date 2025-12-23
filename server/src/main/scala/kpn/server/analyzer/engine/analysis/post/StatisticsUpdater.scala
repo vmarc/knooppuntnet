@@ -261,7 +261,7 @@ class StatisticsUpdater(
         and(
           equal("active", true),
           exists("country"),
-          exists("summary.routeType"),
+          exists("base.routeType"),
           exists("facts")
         )
       ),
@@ -278,7 +278,7 @@ class StatisticsUpdater(
         fields(
           computed("factName", "$facts.fact"),
           include("country"),
-          computed("routeType", "$summary.routeType"),
+          computed("routeType", "$base.routeType"),
           arraySize("factCount", "$facts.elementIds")
         )
       ),
@@ -320,7 +320,7 @@ class StatisticsUpdater(
         and(
           equal("active", true),
           exists("country"),
-          exists("summary.routeType"),
+          exists("base.routeType"),
           exists("facts")
         )
       ),
@@ -335,7 +335,7 @@ class StatisticsUpdater(
         fields(
           computed("factName", "$facts.fact"),
           include("country"),
-          computed("routeType", "$summary.routeType"),
+          computed("routeType", "$base.routeType"),
           arraySize("factCount", "$facts.elements")
         )
       ),
@@ -377,7 +377,7 @@ class StatisticsUpdater(
         and(
           equal("active", true),
           exists("country"),
-          exists("summary.routeType"),
+          exists("base.routeType"),
           exists("facts")
         )
       ),
@@ -392,7 +392,7 @@ class StatisticsUpdater(
         fields(
           computed("factName", "$facts.fact"),
           include("country"),
-          computed("routeType", "$summary.routeType"),
+          computed("routeType", "$base.routeType"),
           computed("factCount", 1)
         )
       ),
@@ -463,14 +463,14 @@ class StatisticsUpdater(
         and(
           equal("active", true),
           exists("country"),
-          exists("summary.routeType")
+          exists("base.routeType")
         )
       ),
       group(
         new Document(
           java.util.Map.of(
             "country", "$country",
-            "routeType", "$summary.routeType"
+            "routeType", "$base.routeType"
           )
         ),
         sum("value", 1)
@@ -485,7 +485,7 @@ class StatisticsUpdater(
         and(
           equal("active", true),
           exists("country"),
-          exists("summary.routeType"),
+          exists("base.routeType"),
           equal("detail.integrity.hasChecks", true),
         )
       ),
@@ -493,7 +493,7 @@ class StatisticsUpdater(
         new Document(
           java.util.Map.of(
             "country", "$country",
-            "routeType", "$summary.routeType"
+            "routeType", "$base.routeType"
           )
         ),
         sum("value", 1)
@@ -554,7 +554,7 @@ class StatisticsUpdater(
         new Document(
           java.util.Map.of(
             "country", "$country",
-            "routeType", "$summary.routeType"
+            "routeType", "$base.routeType"
           )
         ),
         sum("factCount", 1)

@@ -37,6 +37,18 @@ class BaseRouteTagAnalyzerTest extends UnitTest {
     testValid(RouteScope.regional, RouteType.cycling, "bicycle;mtb")
   }
 
+  test("unknown 'network' tag value") {
+    val context = analyze(
+      Tags.from(
+        "type" -> "route",
+        "network:type" -> "node_network",
+        "network" -> "Alabak", // routeId=301671
+        "route" -> "mtb"
+      )
+    )
+    context.scopedRouteTypeOption should equal(None)
+  }
+
   private def testValid(routeScope: RouteScope, routeType: RouteType, tagValue: String): Unit = {
     val scopedRouteType = ScopedRouteType(routeType, routeScope)
     val tags = Tags.from(

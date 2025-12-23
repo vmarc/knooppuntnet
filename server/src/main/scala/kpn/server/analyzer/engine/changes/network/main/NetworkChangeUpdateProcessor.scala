@@ -17,13 +17,13 @@ class NetworkChangeUpdateProcessor(
   def process(): Option[NetworkChange] = {
 
     val networkDataBefore = NetworkData(
-      before.detail.toMeta,
-      before.summary.name
+      before.base.raw.meta,
+      before.base.name
     )
 
     val networkDataAfter = NetworkData(
-      after.detail.toMeta,
-      after.summary.name
+      after.base.raw.meta,
+      after.base.name
     )
 
     val networkDataUpdate = Option.when(networkDataBefore != networkDataAfter) {
@@ -53,10 +53,10 @@ class NetworkChangeUpdateProcessor(
           key.toId,
           key,
           networkId,
-          after.summary.name,
+          after.base.name,
           ChangeType.Update,
           after.country,
-          after.summary.routeType,
+          after.base.routeType,
           networkDataUpdate,
           relationDiffAnalyzer.nodeDiffs,
           relationDiffAnalyzer.wayDiffs,

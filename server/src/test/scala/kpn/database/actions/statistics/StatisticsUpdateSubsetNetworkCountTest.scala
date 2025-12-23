@@ -7,8 +7,8 @@ import kpn.api.common.RouteType
 import kpn.api.common.RouteType.cycling
 import kpn.api.common.RouteType.hiking
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkDoc
-import kpn.core.test.TestObjects.newNetworkSummary
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
 class StatisticsUpdateSubsetNetworkCountTest extends MongoTest {
@@ -44,8 +44,8 @@ class StatisticsUpdateSubsetNetworkCountTest extends MongoTest {
       newNetworkDoc(
         networkId,
         active,
-        Some(country),
-        newNetworkSummary(routeType = routeType)
+        newNetworkBaseData(routeType = routeType),
+        Some(country)
       )
     )
   }

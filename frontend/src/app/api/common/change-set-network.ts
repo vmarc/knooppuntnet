@@ -8,7 +8,7 @@ export interface ChangeSetNetwork {
   readonly country?: Country;
   readonly routeType: RouteType;
   readonly networkId: number;
-  readonly networkName: string;
+  readonly networkName?: string;
   readonly routeChanges: ChangeSetElementRefs;
   readonly nodeChanges: ChangeSetElementRefs;
   readonly happy: boolean;

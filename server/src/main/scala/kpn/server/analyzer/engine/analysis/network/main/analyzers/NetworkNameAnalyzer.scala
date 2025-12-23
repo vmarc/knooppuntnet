@@ -47,13 +47,13 @@ object NetworkNameAnalyzer extends NetworkAnalyzer {
     "Réseau pédestre ",
   )
 
-  def name(tagable: Tagable): String = {
-    val nameTagValue = tagable.tagValue("name").getOrElse("no-name")
+  def name(tagable: Tagable): Option[String] = {
+    val nameTagValue = tagable.tagValue("name")
     val prefixOption = NetworkNameAnalyzer.ignoredSubstrings.find(n => nameTagValue.contains(n))
     prefixOption match {
       case Some(substring) =>
-        nameTagValue.replace(substring, "").trim
-      case None => nameTagValue.trim
+        nameTagValue.map(_.replace(substring, "").trim)
+      case None => nameTagValue.map(_.trim)
     }
   }
 
@@ -64,11 +64,11 @@ object NetworkNameAnalyzer extends NetworkAnalyzer {
 
 class NetworkNameAnalyzer(context: NetworkAnalysisContext) {
   def analyze: NetworkAnalysisContext = {
-    val nameTagValue = context.network.tagValue("name").getOrElse("no-name")
+    val nameTagValue = context.network.tagValue("name")
     val prefixOption = NetworkNameAnalyzer.ignoredSubstrings.find(n => nameTagValue.contains(n))
     val name = prefixOption match {
-      case Some(substring) => nameTagValue.replace(substring, "").trim
-      case None => nameTagValue.trim
+      case Some(substring) => nameTagValue.map(_.replace(substring, "").trim)
+      case None => nameTagValue.map(_.trim)
     }
     context.copy(
       _name = Some(name)

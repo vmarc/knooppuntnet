@@ -8,6 +8,8 @@ import kpn.api.common.data.raw.RawMember
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseNetworkDoc
 import kpn.core.test.TestObjects.newBaseRouteDoc
+import kpn.core.test.TestObjects.newNetworkBaseData
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteTileInfo
 
@@ -30,9 +32,13 @@ class RouteRepositoryTest extends MongoTest {
     database.baseNetworks.save(
       newBaseNetworkDoc(
         1L,
-        name = Some("network-name"),
-        members = Seq(
-          RawMember(MemberType.Relation, 10, Some("role")),
+        base = newNetworkBaseData(
+          raw = newRaw(
+          ),
+          name = Some("network-name"),
+          members = Seq(
+            RawMember(MemberType.Relation, 10, Some("role")),
+          ),
         ),
         relationIds = Seq(
           10

@@ -89,7 +89,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with Stubs {
       updatedChangeSetContext.changes.baseRouteChanges,
       Seq(
         newBaseRouteChange(
-          _id = "123:1:11",
+          _id = "1:1:11",
           key = newChangeKey(elementId = 11),
           changeType = ChangeType.Create,
         )

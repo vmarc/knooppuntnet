@@ -16,7 +16,7 @@ object NetworkChangesPageExample {
 
     NetworkChangesPage(
       NetworkSummary(
-        "name",
+        Some("name"),
         RouteType.hiking,
         RouteScope.regional,
         1,

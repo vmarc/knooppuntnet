@@ -7,7 +7,7 @@ case class ChangeSetNetwork(
   country: Option[Country],
   routeType: RouteType,
   networkId: Long,
-  networkName: String,
+  networkName: Option[String],
   routeChanges: ChangeSetElementRefs,
   nodeChanges: ChangeSetElementRefs,
   happy: Boolean,

@@ -2,11 +2,7 @@
 
 package kpn.tools.code.codecs.generated
 
-import kpn.api.common.RouteScope
-import kpn.api.common.RouteType
-import kpn.api.common.data.raw.RawMember
-import kpn.api.custom.Tag
-import kpn.api.custom.Timestamp
+import kpn.api.common.network.NetworkBaseData
 import kpn.core.doc.BaseNetworkDoc
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
@@ -21,26 +17,14 @@ class BaseNetworkDocCodec(registry: CodecRegistry) extends Codec[BaseNetworkDoc]
 
   private val booleanCodec = registry.get(classOf[Boolean])
   private val longCodec = registry.get(classOf[Long])
-  private val rawMemberCodec = registry.get(classOf[RawMember])
-  private val routeScopeCodec = registry.get(classOf[RouteScope])
-  private val routeTypeCodec = registry.get(classOf[RouteType])
-  private val stringCodec = registry.get(classOf[String])
-  private val tagCodec = registry.get(classOf[Tag])
-  private val timestampCodec = registry.get(classOf[Timestamp])
+  private val networkBaseDataCodec = registry.get(classOf[NetworkBaseData])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): BaseNetworkDoc = {
     bsonReader.readStartDocument()
 
     var _id: Long = 0
     var active: Boolean = false
-    var routeType: RouteType = null
-    var routeScope: RouteScope = null
-    var name: Option[String] = None
-    var version: Long = 0
-    var timestamp: Timestamp = null
-    var changeSetId: Long = 0
-    var members: Seq[RawMember] = null
-    var tags: Seq[Tag] = null
+    var base: NetworkBaseData = null
     var nodeIds: Seq[Long] = null
     var relationIds: Seq[Long] = null
 
@@ -52,41 +36,8 @@ class BaseNetworkDocCodec(registry: CodecRegistry) extends Codec[BaseNetworkDoc]
       else if (fieldName == "active") {
         active = booleanCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "routeType") {
-        routeType = routeTypeCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "routeScope") {
-        routeScope = routeScopeCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "name") {
-        name = Some(stringCodec.decode(bsonReader, decoderContext))
-      }
-      else if (fieldName == "version") {
-        version = longCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "timestamp") {
-        timestamp = timestampCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "changeSetId") {
-        changeSetId = longCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "members") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[RawMember]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += rawMemberCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        members = valueBuffer.toSeq
-      }
-      else if (fieldName == "tags") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[Tag]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += tagCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        tags = valueBuffer.toSeq
+      else if (fieldName == "base") {
+        base = networkBaseDataCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "nodeIds") {
         bsonReader.readStartArray()
@@ -117,14 +68,7 @@ class BaseNetworkDocCodec(registry: CodecRegistry) extends Codec[BaseNetworkDoc]
     BaseNetworkDoc(
       _id,
       active,
-      routeType,
-      routeScope,
-      name,
-      version,
-      timestamp,
-      changeSetId,
-      members,
-      tags,
+      base,
       nodeIds,
       relationIds,
     )
@@ -139,35 +83,8 @@ class BaseNetworkDocCodec(registry: CodecRegistry) extends Codec[BaseNetworkDoc]
     bsonWriter.writeName("active")
     booleanCodec.encode(bsonWriter, value.active, encoderContext)
 
-    bsonWriter.writeName("routeType")
-    routeTypeCodec.encode(bsonWriter, value.routeType, encoderContext)
-
-    bsonWriter.writeName("routeScope")
-    routeScopeCodec.encode(bsonWriter, value.routeScope, encoderContext)
-
-    if (value.name.isDefined) {
-      bsonWriter.writeName("name")
-      stringCodec.encode(bsonWriter, value.name.get, encoderContext)
-    }
-
-    bsonWriter.writeName("version")
-    longCodec.encode(bsonWriter, value.version, encoderContext)
-
-    bsonWriter.writeName("timestamp")
-    timestampCodec.encode(bsonWriter, value.timestamp, encoderContext)
-
-    bsonWriter.writeName("changeSetId")
-    longCodec.encode(bsonWriter, value.changeSetId, encoderContext)
-
-    bsonWriter.writeName("members")
-    bsonWriter.writeStartArray()
-    value.members.foreach(v => rawMemberCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
-
-    bsonWriter.writeName("tags")
-    bsonWriter.writeStartArray()
-    value.tags.foreach(v => tagCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
+    bsonWriter.writeName("base")
+    networkBaseDataCodec.encode(bsonWriter, value.base, encoderContext)
 
     bsonWriter.writeName("nodeIds")
     bsonWriter.writeStartArray()

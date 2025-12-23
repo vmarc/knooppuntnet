@@ -6,7 +6,7 @@ import kpn.core.doc.NodeDoc
 class NetworkDocAnalyzer(context: NetworkAnalysisContext, nodeDoc: NodeDoc) {
 
   def roleConnection: Boolean = {
-    context.network.members.find(_.ref == nodeDoc._id) match {
+    context.network.base.members.find(_.ref == nodeDoc._id) match {
       case Some(nodeRef) => nodeRef.role.contains("connection")
       case None => false
     }
@@ -24,7 +24,7 @@ class NetworkDocAnalyzer(context: NetworkAnalysisContext, nodeDoc: NodeDoc) {
   def connection: Boolean = {
     // the node is considered a connection node if all routes (in the network)
     // that contain this node have role "connection" in the network relation
-    val nodeRouteDetails = context.routeDetails.filter(_.networkNodeIds.contains(nodeDoc._id))
+    val nodeRouteDetails = context.routeDetails.filter(_.networkNodeIds.toSeq.flatten.contains(nodeDoc._id))
     val connectionRouteDetails = nodeRouteDetails.filter(_.role.contains("connection"))
     nodeRouteDetails.nonEmpty && connectionRouteDetails.sizeIs == nodeRouteDetails.sizeIs
   }
@@ -34,6 +34,6 @@ class NetworkDocAnalyzer(context: NetworkAnalysisContext, nodeDoc: NodeDoc) {
   }
 
   def definedInRelation: Boolean = {
-    context.network.members.exists(_.ref == nodeDoc._id)
+    context.network.base.members.exists(_.ref == nodeDoc._id)
   }
 }

@@ -3,7 +3,6 @@ package kpn.api.common.changes.details
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.RouteType
-import kpn.api.common.common.Ref
 import kpn.api.common.common.ReferencedElements
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkDataUpdate
@@ -14,7 +13,7 @@ case class NetworkChange(
   _id: String,
   key: ChangeKey,
   networkId: Long,
-  networkName: String,
+  networkName: Option[String],
   changeType: ChangeType,
   country: Option[Country],
   routeType: RouteType,
@@ -31,10 +30,6 @@ case class NetworkChange(
   investigate: Boolean,
   impact: Boolean
 ) extends WithStringId {
-
-  def toRef: Ref = {
-    Ref(networkId, networkName)
-  }
 
   def impactedNodeIds: Seq[Long] = {
     nodeDiffs.ids

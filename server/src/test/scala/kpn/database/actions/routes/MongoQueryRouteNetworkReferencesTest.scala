@@ -8,6 +8,7 @@ import kpn.api.common.data.raw.RawMember
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newNetworkBaseData
 
 class MongoQueryRouteNetworkReferencesTest extends MongoTest {
 
@@ -54,11 +55,13 @@ class MongoQueryRouteNetworkReferencesTest extends MongoTest {
     newBaseNetworkDoc(
       id,
       active = active,
-      name = Some(name),
-      routeType = hiking,
-      routeScope = regional,
-      members = routeIds.map(routeId =>
-        RawMember(MemberType.Relation, routeId, None)
+      base = newNetworkBaseData(
+        name = Some(name),
+        routeType = hiking,
+        routeScope = regional,
+        members = routeIds.map(routeId =>
+          RawMember(MemberType.Relation, routeId, None)
+        )
       ),
       relationIds = routeIds
     )
