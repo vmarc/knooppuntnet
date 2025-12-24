@@ -32,8 +32,8 @@ class InitialNodeChangeBuilder(
       key = key,
       changeType = ChangeType.InitialValue,
       subsets = determineSubsets(nodeDoc),
-      locations = nodeDoc.locations,
-      name = nodeDoc.name,
+      locations = nodeDoc.base.locations,
+      name = nodeDoc.base.name,
       before = None,
       after = Some(nodeDoc.toMeta),
       connectionChanges = Seq.empty,
@@ -48,7 +48,7 @@ class InitialNodeChangeBuilder(
       factDiffs = createFactDiffs(facts),
       facts = Seq.empty,
       initialTags = Some(nodeDoc.tags),
-      initialLatLon = Some(LatLonImpl(nodeDoc.latitude, nodeDoc.longitude)),
+      initialLatLon = Some(LatLonImpl(nodeDoc.base.latitude, nodeDoc.base.longitude)),
       investigate = facts.nonEmpty,
       impact = true,
       locationInvestigate = locationFacts.nonEmpty,
@@ -57,8 +57,8 @@ class InitialNodeChangeBuilder(
   }
 
   private def determineSubsets(nodeDoc: NodeDoc): Seq[Subset] = {
-    nodeDoc.country.map { country =>
-      nodeDoc.names.map(_.routeType).distinct.map(routeType => Subset(country, routeType))
+    nodeDoc.base.country.map { country =>
+      nodeDoc.base.names.map(_.routeType).distinct.map(routeType => Subset(country, routeType))
     }.getOrElse(Seq.empty)
   }
 

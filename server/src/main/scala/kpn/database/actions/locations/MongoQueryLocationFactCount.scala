@@ -103,9 +103,9 @@ class MongoQueryLocationFactCount(database: Database) {
           LocationQuery.locationFilter("labels", subset),
         )
       ),
-      unwind("$names"),
+      unwind("$base.names"),
       filter(
-        equal("names.routeType", subset.routeType.entryName)
+        equal("base.names.routeType", subset.routeType.entryName)
       ),
       unwind("$integrity.details"),
       filter(

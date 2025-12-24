@@ -28,16 +28,16 @@ object FindNodeWithLongName {
       filter(
         equal("active", true),
       ),
-      unwind("$names"),
+      unwind("$base.names"),
       filter(
-        exists("names.longName")
+        exists("base.names.longName")
       ),
       project(
         fields(
           excludeId(),
           computed("id", "$_id"),
-          computed("name", "$names.name"),
-          computed("longName", "$names.longName"),
+          computed("name", "$base.names.name"),
+          computed("longName", "$base.names.longName"),
         )
       )
     )

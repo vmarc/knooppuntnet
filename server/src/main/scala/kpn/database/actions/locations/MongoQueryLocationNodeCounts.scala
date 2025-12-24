@@ -59,9 +59,9 @@ class MongoQueryLocationNodeCounts(database: Database) {
           equal("labels", Label.routeType(routeType))
         )
       ),
-      unwind("$locations"),
+      unwind("$base.locations"),
       group(
-        "$locations",
+        "$base.locations",
         sum("count", 1)
       ),
       sort(orderBy(ascending("_id"))),

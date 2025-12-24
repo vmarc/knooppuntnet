@@ -24,8 +24,8 @@ class Issue183_DeletedNode3 extends IntegrationTest {
 
       val nodeBefore = findNodeById(deletedNodeId)
       assert(nodeBefore.active)
-      nodeBefore.name should equal(Some("Pau49"))
-      nodeBefore.names should equal(
+      nodeBefore.base.name should equal(Some("Pau49"))
+      nodeBefore.base.names should equal(
         Seq(
           newNodeName(
             RouteType.cycling,

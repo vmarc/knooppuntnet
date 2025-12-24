@@ -1,7 +1,9 @@
 package kpn.server.analyzer.engine.analysis.node.base
 
+import kpn.api.common.data.raw.Raw
 import kpn.api.common.data.raw.RawNode
 import kpn.core.doc.BaseNodeDoc
+import kpn.core.doc.NodeBaseData
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeAnalysisContext
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeAnalyzer
@@ -42,18 +44,23 @@ class BaseNodeMainAnalyzer(
         BaseNodeDoc(
           _id = context.node.id,
           active = context.active,
-          name = context.name,
-          names = context.names,
-          version = context.node.version,
-          changeSetId = context.node.changeSetId,
-          latitude = context.node.latitude,
-          longitude = context.node.longitude,
-          lastUpdated = context.node.timestamp,
-          tags = context.node.tags,
-          lastSurvey = context.lastSurvey,
+          base = NodeBaseData(
+            raw = Raw(
+              version = context.node.version,
+              changeSetId = context.node.changeSetId,
+              timestamp = context.node.timestamp,
+              tags = context.node.tags
+            ),
+            name = context.name,
+            names = context.names,
+            latitude = context.node.latitude,
+            longitude = context.node.longitude,
+            lastUpdated = context.node.timestamp,
+            lastSurvey = context.lastSurvey,
+            country = context.country,
+            locations = context.locations
+          ),
           facts = context.facts,
-          country = context.country,
-          locations = context.locations,
           tiles = context.tiles,
         )
       )

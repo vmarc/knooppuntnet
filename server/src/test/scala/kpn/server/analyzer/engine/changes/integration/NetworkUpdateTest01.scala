@@ -120,8 +120,8 @@ class NetworkUpdateTest01 extends IntegrationTest {
             updated = Seq(
               WayUpdate(
                 101,
-                MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
-                MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
+                MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 1),
+                MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 1),
                 Seq.empty,
                 Seq.empty,
                 Seq(

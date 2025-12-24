@@ -14,9 +14,9 @@ class NodeLabelsAnalyzer(context: NodeAnalysisContext) {
   def analyze: NodeAnalysisContext = {
     val basicLabels = buildBasicLabels()
     val factLabels = context.facts.map(fact => Label.fact(fact))
-    val routeTypeLabels = context.node.names.map(name => Label.routeType(name.routeType)).distinct
+    val routeTypeLabels = context.node.base.names.map(name => Label.routeType(name.routeType)).distinct
     val integrityCheckLabels = buildIntegrityCheckLabels(context.integrity)
-    val locationLabels = context.node.locations.map(location => Label.location(location))
+    val locationLabels = context.node.base.locations.map(location => Label.location(location))
     val labels = basicLabels ++ factLabels ++ routeTypeLabels ++ integrityCheckLabels ++ locationLabels
     context.copy(_labels = Some(labels))
   }
@@ -24,7 +24,7 @@ class NodeLabelsAnalyzer(context: NodeAnalysisContext) {
   private def buildBasicLabels(): Seq[String] = {
     Seq(
       if (context.orphan) Some(Label.orphan) else None,
-      if (context.node.lastSurvey.isDefined) Some(Label.survey) else None,
+      if (context.node.base.lastSurvey.isDefined) Some(Label.survey) else None,
       if (context.facts.nonEmpty) Some(Label.facts) else None,
     ).flatten
   }

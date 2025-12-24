@@ -46,7 +46,7 @@ class NodeDetailsPageBuilder(
       nodeDoc = nodeDoc,
       changeCount = changeSetRepository.nodeChangesCount(nodeId),
       networkReferences = networkRepository.nodeNetworkReferences(nodeId),
-      locations = locationService.toInfos(language, nodeDoc.locations, nodeDoc.locations).reverse
+      locations = locationService.toInfos(language, nodeDoc.base.locations, nodeDoc.base.locations).reverse
     )
   }
 
@@ -66,13 +66,13 @@ class NodeDetailsPageBuilder(
       id = context.nodeDoc._id,
       active = context.nodeDoc.active,
       orphan = isOrphanNode(context.nodeDoc),
-      country = context.nodeDoc.country,
-      name = context.nodeDoc.name.getOrElse(context.nodeDoc._id.toString),
-      names = context.nodeDoc.names,
-      latitude = context.nodeDoc.latitude,
-      longitude = context.nodeDoc.longitude,
-      lastUpdated = context.nodeDoc.lastUpdated,
-      lastSurvey = context.nodeDoc.lastSurvey,
+      country = context.nodeDoc.base.country,
+      name = context.nodeDoc.base.name.getOrElse(context.nodeDoc._id.toString),
+      names = context.nodeDoc.base.names,
+      latitude = context.nodeDoc.base.latitude,
+      longitude = context.nodeDoc.base.longitude,
+      lastUpdated = context.nodeDoc.base.lastUpdated,
+      lastSurvey = context.nodeDoc.base.lastSurvey,
       tags = context.nodeDoc.tags,
       facts = context.nodeDoc.facts,
       locations = context.locations,
@@ -81,7 +81,7 @@ class NodeDetailsPageBuilder(
   }
 
   private def calculateMixedRouteScopes(nodeDoc: NodeDoc): Boolean = {
-    val allScopes = nodeDoc.names.map(_.routeScope) ++
+    val allScopes = nodeDoc.base.names.map(_.routeScope) ++
       nodeDoc.routeReferences.map(_.routeScope) ++
       nodeDoc.networkRelationReferences.map(_.routeScope)
     allScopes.distinct.sizeIs > 1

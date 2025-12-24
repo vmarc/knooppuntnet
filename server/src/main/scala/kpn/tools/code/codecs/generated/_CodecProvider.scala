@@ -348,6 +348,7 @@ import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkRouteDetail
 import kpn.core.doc.NetworkShapeDoc
+import kpn.core.doc.NodeBaseData
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
 import kpn.core.doc.NodeRouteRef
@@ -696,6 +697,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[BaseRoutePath]) {
       return new BaseRoutePathCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NodeBaseData]) {
+      return new NodeBaseDataCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[NetworkShapeDoc]) {
       return new NetworkShapeDocCodec(codecRegistry).asInstanceOf[Codec[T]]

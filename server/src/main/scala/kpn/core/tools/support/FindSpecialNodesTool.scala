@@ -3,8 +3,8 @@ package kpn.core.tools.support
 import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Aggregates.unwind
 import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.elemMatch
 import com.mongodb.client.model.Projections.fields
-import com.mongodb.client.model.Projections.include
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
@@ -36,17 +36,17 @@ class FindSpecialNodesTool(database: Database) {
       filter(
         equal("active", true),
       ),
-      unwind("$names"),
+      unwind("$base.names"),
       filter(
-        equal("names.name", "o"),
+        elemMatch("base.names", equal("name", "o")),
       ),
       project(
         fields(
           computed("nodeId", "$_id"),
-          include("country"),
-          computed("routeType", "$names.routeType"),
+          computed("country", "$base.country"),
+          computed("routeType", "$base.names.routeType"),
         )
-      ),
+      )
     )
 
     database.nodes.aggregate(pipeline, classOf[SpecialNode], log)

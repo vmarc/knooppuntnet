@@ -103,8 +103,8 @@ class NodeChangeProcessor(
   private def processCreate(context: ChangeSetContext, nodeDoc: NodeDoc): Option[NodeChange] = {
 
     val key = context.buildChangeKey(nodeDoc._id)
-    val subsets = nodeDoc.country.toSeq.flatMap { country =>
-      nodeDoc.names.map(_.routeType).flatMap(routeType => Subset.of(country, routeType))
+    val subsets = nodeDoc.base.country.toSeq.flatMap { country =>
+      nodeDoc.base.names.map(_.routeType).flatMap(routeType => Subset.of(country, routeType))
     }
 
     val factDiffs = Option.when(nodeDoc.facts.nonEmpty) {
@@ -120,8 +120,8 @@ class NodeChangeProcessor(
           key = key,
           changeType = ChangeType.Create, // TODO MONGO or derive from action ?
           subsets,
-          locations = nodeDoc.locations,
-          nodeDoc.name,
+          locations = nodeDoc.base.locations,
+          nodeDoc.base.name,
           before = None,
           after = Some(nodeDoc.toMeta),
           connectionChanges = Seq.empty,
@@ -136,7 +136,7 @@ class NodeChangeProcessor(
           factDiffs = factDiffs,
           facts = Seq.empty,
           initialTags = Some(nodeDoc.tags),
-          initialLatLon = Some(LatLonImpl(nodeDoc.latitude, nodeDoc.longitude)),
+          initialLatLon = Some(LatLonImpl(nodeDoc.base.latitude, nodeDoc.base.longitude)),
         )
       )
     )
@@ -189,8 +189,8 @@ class NodeChangeProcessor(
   private def processDelete(context: ChangeSetContext, nodeDoc: NodeDoc): Option[NodeChange] = {
 
     val key = context.buildChangeKey(nodeDoc._id)
-    val subsets = nodeDoc.names.flatMap { nodeName =>
-      nodeDoc.country.flatMap { country =>
+    val subsets = nodeDoc.base.names.flatMap { nodeName =>
+      nodeDoc.base.country.flatMap { country =>
         Subset.of(country, nodeName.routeType)
       }
     }
@@ -202,8 +202,8 @@ class NodeChangeProcessor(
           key = key,
           changeType = ChangeType.Delete,
           subsets = subsets,
-          locations = nodeDoc.locations,
-          name = nodeDoc.name,
+          locations = nodeDoc.base.locations,
+          name = nodeDoc.base.name,
           before = Some(nodeDoc.toMeta),
           after = None,
           connectionChanges = Seq.empty,

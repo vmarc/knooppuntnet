@@ -60,20 +60,20 @@ class NodeDocChangeAnalyzer(
     }
     else {
       val subsets = {
-        val subsetsBefore = before.country.toSeq.flatMap(country => before.names.map(_.routeType).flatMap(routeType => Subset.of(country, routeType)))
-        val subsetsAfter = after.country.toSeq.flatMap(country => after.names.map(_.routeType).flatMap(routeType => Subset.of(country, routeType)))
+        val subsetsBefore = before.base.country.toSeq.flatMap(country => before.base.names.map(_.routeType).flatMap(routeType => Subset.of(country, routeType)))
+        val subsetsAfter = after.base.country.toSeq.flatMap(country => after.base.names.map(_.routeType).flatMap(routeType => Subset.of(country, routeType)))
         (subsetsBefore ++ subsetsAfter).distinct
       }
       val tagDiffs = analyzeTagDiffs
       val nodeMoved = analyzeNodeMoved
       val key = context.buildChangeKey(after._id)
 
-      val allLocations = (before.locations ++ after.locations).distinct.sorted
+      val allLocations = (before.base.locations ++ after.base.locations).distinct.sorted
       val impactedTiles = tileChangeAnalyzer.impactedTiles(before, after)
 
       val nodeName = changeType match {
-        case ChangeType.Delete => before.name
-        case _ => after.name
+        case ChangeType.Delete => before.base.name
+        case _ => after.base.name
       }
 
       Some(
@@ -111,10 +111,10 @@ class NodeDocChangeAnalyzer(
   }
 
   private def analyzeNodeMoved: Option[NodeMoved] = {
-    Option.when(before.latitude != after.latitude || before.longitude != after.longitude) {
-      val latLonBefore = LatLonImpl(before.latitude, before.longitude)
-      val latLonAfter = LatLonImpl(after.latitude, after.longitude)
-      val distance = Haversine.meters(Seq(before, after))
+    Option.when(before.base.latitude != after.base.latitude || before.base.longitude != after.base.longitude) {
+      val latLonBefore = LatLonImpl(before.base.latitude, before.base.longitude)
+      val latLonAfter = LatLonImpl(after.base.latitude, after.base.longitude)
+      val distance = Haversine.meters(Seq(before.base, after.base))
       NodeMoved(latLonBefore, latLonAfter, distance)
     }
   }

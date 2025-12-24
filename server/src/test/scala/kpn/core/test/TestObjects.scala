@@ -102,6 +102,7 @@ import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkRouteDetail
+import kpn.core.doc.NodeBaseData
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.RouteBaseData
 import kpn.core.doc.RouteDoc
@@ -136,7 +137,7 @@ object TestObjects {
     longitude: String = "0",
     version: Long = 0,
     timestamp: Timestamp = Timestamps.default,
-    changeSetId: Long = 0,
+    changeSetId: Long = 1,
     tags: Seq[Tag] = Seq.empty
   ): RawNode = {
     RawNode(
@@ -150,39 +151,43 @@ object TestObjects {
     )
   }
 
-  def newBaseNodeDoc(
-    _id: Long = 0,
-    active: Boolean = true,
+  def newNodeBaseData(
+    raw: Raw = newRaw(),
     name: Option[String] = None,
     names: Seq[NodeName] = Seq.empty,
-    version: Long = 0,
-    changeSetId: Long = 0,
     latitude: String = "0",
     longitude: String = "0",
     lastUpdated: Timestamp = Timestamps.default,
-    tags: Seq[Tag] = Seq.empty,
     lastSurvey: Option[Day] = None,
-    facts: Seq[Fact] = Seq.empty,
     country: Option[Country] = None,
     locations: Seq[String] = Seq.empty,
+  ): NodeBaseData = {
+    NodeBaseData(
+      raw,
+      name,
+      names,
+      latitude,
+      longitude,
+      lastUpdated,
+      lastSurvey,
+      country,
+      locations
+    )
+  }
+
+  def newBaseNodeDoc(
+    _id: Long = 0,
+    active: Boolean = true,
+    base: NodeBaseData = newNodeBaseData(),
+    facts: Seq[Fact] = Seq.empty,
     tiles: Seq[String] = Seq.empty,
   ): BaseNodeDoc = {
     BaseNodeDoc(
       _id,
       active,
-      name,
-      names,
-      version,
-      changeSetId,
-      latitude,
-      longitude,
-      lastUpdated,
-      tags,
-      lastSurvey,
+      base,
       facts,
-      country,
-      locations,
-      tiles,
+      tiles
     )
   }
 
@@ -209,7 +214,7 @@ object TestObjects {
     id: Long,
     version: Int = 0,
     timestamp: Timestamp = Timestamps.default,
-    changeSetId: Long = 0,
+    changeSetId: Long = 1,
     nodeIds: Vector[Long] = Vector.empty,
     tags: Seq[Tag] = Seq.empty
   ): RawWay = {
@@ -226,7 +231,7 @@ object TestObjects {
   def newWayInfo(
     id: Long,
     version: Int = 0,
-    changeSetId: Long = 0,
+    changeSetId: Long = 1,
     timestamp: Timestamp = Timestamps.default,
     tags: Seq[Tag] = Seq.empty
   ): WayInfo = {
@@ -322,7 +327,7 @@ object TestObjects {
   def newMetaData(
     version: Long = 0,
     timestamp: Timestamp = Timestamps.default,
-    changeSetId: Long = 0
+    changeSetId: Long = 1
   ): MetaData = {
     MetaData(
       version,
@@ -420,7 +425,7 @@ object TestObjects {
     longitude: String = "0",
     version: Int = 0,
     timestamp: Timestamp = Timestamps.default,
-    changeSetId: Long = 0,
+    changeSetId: Long = 1,
     tags: Seq[Tag] = Seq.empty
   ): Node = {
     Node(
@@ -438,7 +443,7 @@ object TestObjects {
     id: Long,
     version: Int = 0,
     timestamp: Timestamp = Timestamps.default,
-    changeSetId: Long = 0,
+    changeSetId: Long = 1,
     nodes: Vector[Node] = Vector.empty,
     tags: Seq[Tag] = Seq.empty,
     length: Int = 0
@@ -449,19 +454,9 @@ object TestObjects {
   def newNodeDoc(
     id: Long,
     active: Boolean = true,
+    base: NodeBaseData = newNodeBaseData(),
     labels: Seq[String] = Seq.empty,
-    country: Option[Country] = None,
-    name: Option[String] = None,
-    names: Seq[NodeName] = Seq.empty,
-    version: Long = 0,
-    changeSetId: Long = 0,
-    latitude: String = "0",
-    longitude: String = "0",
-    lastUpdated: Timestamp = Timestamps.default,
-    lastSurvey: Option[Day] = None,
-    tags: Seq[Tag] = Seq.empty,
     facts: Seq[Fact] = Seq.empty,
-    locations: Seq[String] = Seq.empty,
     tiles: Seq[String] = Seq.empty,
     integrity: Option[NodeIntegrity] = None,
     routeReferences: Seq[Reference] = Seq.empty,
@@ -471,19 +466,9 @@ object TestObjects {
     NodeDoc(
       id,
       active,
+      base,
       labels,
-      country,
-      name,
-      names,
-      version,
-      changeSetId,
-      latitude,
-      longitude,
-      lastUpdated,
-      lastSurvey,
-      tags,
       facts,
-      locations,
       integrity,
       routeReferences,
       networkReferences,

@@ -29,9 +29,11 @@ import kpn.core.test.TestObjects.newLocationChanges
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNetworkChange
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newOrphanNodeInfo
+import kpn.core.test.TestObjects.newRaw
 
 class NetworkUpdateNodeTest06 extends IntegrationTest {
 
@@ -114,26 +116,30 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
       findNodeById(1002),
       newNodeDoc(
         1002,
+        base = newNodeBaseData(
+          raw = newRaw(
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "rcn_ref" -> "03",
+            )
+          ),
+          name = Some("03"),
+          names = Seq(
+            NodeName(
+              RouteType.cycling,
+              RouteScope.regional,
+              "03",
+              None,
+              proposed = false
+            )
+          ),
+          country = Some(Country.nl),
+          locations = Seq("nl")
+        ),
         labels = Seq(
           Label.routeType(RouteType.cycling),
           Label.location("nl")
-        ),
-        country = Some(Country.nl),
-        name = Some("03"),
-        names = Seq(
-          NodeName(
-            RouteType.cycling,
-            RouteScope.regional,
-            "03",
-            None,
-            proposed = false
-          )
-        ),
-        tags = Tags.from(
-          "network:type" -> "node_network",
-          "rcn_ref" -> "03",
-        ),
-        locations = Seq("nl"),
+        )
       )
     )
   }

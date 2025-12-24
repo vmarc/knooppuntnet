@@ -20,7 +20,7 @@ case class NodeAnalysisContext(
 ) {
 
   def routeTypes: Seq[RouteType] = {
-    node.names.map(_.routeType).distinct
+    node.base.names.map(_.routeType).distinct
   }
 
   def integrity: Option[NodeIntegrity] = _integrity.getOrElse(throw new PreconditionMissingException)

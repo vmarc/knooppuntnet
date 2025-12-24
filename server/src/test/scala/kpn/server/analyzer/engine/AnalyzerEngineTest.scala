@@ -53,7 +53,7 @@ class AnalyzerEngineTest extends UnitTest with Stubs {
     changeSets should equal(
       Seq(
         ChangeSet(
-          0,
+          1,
           timestamp = Timestamps.default,
           timestampFrom = Timestamps.default,
           timestampUntil = Timestamps.default,

@@ -30,6 +30,7 @@ import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNetworkDetail
 import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkTags
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newRaw
@@ -85,9 +86,13 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
       newBaseNodeDoc(
         1001,
         active = false,
-        country = Some(Country.nl),
-        locations = Seq("nl"),
-        version = 2, // <--
+        base = newNodeBaseData(
+          raw = newRaw(
+            version = 2 // <--
+          ),
+          country = Some(Country.nl),
+          locations = Seq("nl"),
+        )
       )
     )
   }
@@ -117,12 +122,16 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
       newNodeDoc(
         1001,
         active = false,
+        base = newNodeBaseData(
+          raw = newRaw(
+            version = 2 // <--
+          ),
+          country = Some(Country.nl),
+          locations = Seq("nl")
+        ),
         labels = Seq(
           Label.location("nl")
-        ),
-        country = Some(Country.nl),
-        locations = Seq("nl"),
-        version = 2, // <--
+        )
       )
     )
   }

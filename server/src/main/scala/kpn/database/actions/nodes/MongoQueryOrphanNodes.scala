@@ -44,7 +44,7 @@ class MongoQueryOrphanNodes(database: Database) {
           arrayEmpty("networkRelationReferences"),
         )
       ),
-      unwind("$names"),
+      unwind("$base.names"),
       sort(
         orderBy(
           ascending(

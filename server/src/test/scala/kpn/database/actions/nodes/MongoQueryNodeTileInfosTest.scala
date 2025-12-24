@@ -3,6 +3,7 @@ package kpn.database.actions.nodes
 import kpn.api.common.RouteType
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseNodeDoc
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeName
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
@@ -14,8 +15,10 @@ class MongoQueryNodeTileInfosTest extends MongoTest {
     database.baseNodes.save(
       newBaseNodeDoc(
         1001,
-        names = Seq(
-          newNodeName(RouteType.hiking, name = "01")
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(RouteType.hiking, name = "01")
+          )
         ),
         tiles = Seq(
           "hiking-13-1-1",

@@ -2,14 +2,10 @@
 
 package kpn.tools.code.codecs.generated
 
-import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.NodeName
 import kpn.api.common.common.Reference
 import kpn.api.common.node.NodeIntegrity
-import kpn.api.custom.Day
-import kpn.api.custom.Tag
-import kpn.api.custom.Timestamp
+import kpn.core.doc.NodeBaseData
 import kpn.core.doc.NodeDoc
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
@@ -24,36 +20,22 @@ import org.bson.types.ObjectId
 class NodeDocCodec(registry: CodecRegistry) extends Codec[NodeDoc] {
 
   private val booleanCodec = registry.get(classOf[Boolean])
-  private val countryCodec = registry.get(classOf[Country])
-  private val dayCodec = registry.get(classOf[Day])
   private val factCodec = registry.get(classOf[Fact])
   private val longCodec = registry.get(classOf[Long])
+  private val nodeBaseDataCodec = registry.get(classOf[NodeBaseData])
   private val nodeIntegrityCodec = registry.get(classOf[NodeIntegrity])
-  private val nodeNameCodec = registry.get(classOf[NodeName])
   private val objectIdCodec = registry.get(classOf[ObjectId])
   private val referenceCodec = registry.get(classOf[Reference])
   private val stringCodec = registry.get(classOf[String])
-  private val tagCodec = registry.get(classOf[Tag])
-  private val timestampCodec = registry.get(classOf[Timestamp])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): NodeDoc = {
     bsonReader.readStartDocument()
 
     var _id: Long = 0
     var active: Boolean = false
+    var base: NodeBaseData = null
     var labels: Seq[String] = null
-    var country: Option[Country] = None
-    var name: Option[String] = None
-    var names: Seq[NodeName] = null
-    var version: Long = 0
-    var changeSetId: Long = 0
-    var latitude: String = null
-    var longitude: String = null
-    var lastUpdated: Timestamp = null
-    var lastSurvey: Option[Day] = None
-    var tags: Seq[Tag] = null
     var facts: Seq[Fact] = null
-    var locations: Seq[String] = null
     var integrity: Option[NodeIntegrity] = None
     var routeReferences: Seq[Reference] = null
     var networkRelationReferences: Seq[Reference] = null
@@ -67,6 +49,9 @@ class NodeDocCodec(registry: CodecRegistry) extends Codec[NodeDoc] {
       else if (fieldName == "active") {
         active = booleanCodec.decode(bsonReader, decoderContext)
       }
+      else if (fieldName == "base") {
+        base = nodeBaseDataCodec.decode(bsonReader, decoderContext)
+      }
       else if (fieldName == "labels") {
         bsonReader.readStartArray()
         val valueBuffer = scala.collection.mutable.Buffer[String]()
@@ -76,48 +61,6 @@ class NodeDocCodec(registry: CodecRegistry) extends Codec[NodeDoc] {
         bsonReader.readEndArray()
         labels = valueBuffer.toSeq
       }
-      else if (fieldName == "country") {
-        country = Some(countryCodec.decode(bsonReader, decoderContext))
-      }
-      else if (fieldName == "name") {
-        name = Some(stringCodec.decode(bsonReader, decoderContext))
-      }
-      else if (fieldName == "names") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[NodeName]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += nodeNameCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        names = valueBuffer.toSeq
-      }
-      else if (fieldName == "version") {
-        version = longCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "changeSetId") {
-        changeSetId = longCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "latitude") {
-        latitude = stringCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "longitude") {
-        longitude = stringCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "lastUpdated") {
-        lastUpdated = timestampCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "lastSurvey") {
-        lastSurvey = Some(dayCodec.decode(bsonReader, decoderContext))
-      }
-      else if (fieldName == "tags") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[Tag]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += tagCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        tags = valueBuffer.toSeq
-      }
       else if (fieldName == "facts") {
         bsonReader.readStartArray()
         val valueBuffer = scala.collection.mutable.Buffer[Fact]()
@@ -126,15 +69,6 @@ class NodeDocCodec(registry: CodecRegistry) extends Codec[NodeDoc] {
         }
         bsonReader.readEndArray()
         facts = valueBuffer.toSeq
-      }
-      else if (fieldName == "locations") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[String]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += stringCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        locations = valueBuffer.toSeq
       }
       else if (fieldName == "integrity") {
         integrity = Some(nodeIntegrityCodec.decode(bsonReader, decoderContext))
@@ -171,19 +105,9 @@ class NodeDocCodec(registry: CodecRegistry) extends Codec[NodeDoc] {
     NodeDoc(
       _id,
       active,
+      base,
       labels,
-      country,
-      name,
-      names,
-      version,
-      changeSetId,
-      latitude,
-      longitude,
-      lastUpdated,
-      lastSurvey,
-      tags,
       facts,
-      locations,
       integrity,
       routeReferences,
       networkRelationReferences,
@@ -200,59 +124,17 @@ class NodeDocCodec(registry: CodecRegistry) extends Codec[NodeDoc] {
     bsonWriter.writeName("active")
     booleanCodec.encode(bsonWriter, value.active, encoderContext)
 
+    bsonWriter.writeName("base")
+    nodeBaseDataCodec.encode(bsonWriter, value.base, encoderContext)
+
     bsonWriter.writeName("labels")
     bsonWriter.writeStartArray()
     value.labels.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
-    if (value.country.isDefined) {
-      bsonWriter.writeName("country")
-      countryCodec.encode(bsonWriter, value.country.get, encoderContext)
-    }
-
-    if (value.name.isDefined) {
-      bsonWriter.writeName("name")
-      stringCodec.encode(bsonWriter, value.name.get, encoderContext)
-    }
-
-    bsonWriter.writeName("names")
-    bsonWriter.writeStartArray()
-    value.names.foreach(v => nodeNameCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
-
-    bsonWriter.writeName("version")
-    longCodec.encode(bsonWriter, value.version, encoderContext)
-
-    bsonWriter.writeName("changeSetId")
-    longCodec.encode(bsonWriter, value.changeSetId, encoderContext)
-
-    bsonWriter.writeName("latitude")
-    stringCodec.encode(bsonWriter, value.latitude, encoderContext)
-
-    bsonWriter.writeName("longitude")
-    stringCodec.encode(bsonWriter, value.longitude, encoderContext)
-
-    bsonWriter.writeName("lastUpdated")
-    timestampCodec.encode(bsonWriter, value.lastUpdated, encoderContext)
-
-    if (value.lastSurvey.isDefined) {
-      bsonWriter.writeName("lastSurvey")
-      dayCodec.encode(bsonWriter, value.lastSurvey.get, encoderContext)
-    }
-
-    bsonWriter.writeName("tags")
-    bsonWriter.writeStartArray()
-    value.tags.foreach(v => tagCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
-
     bsonWriter.writeName("facts")
     bsonWriter.writeStartArray()
     value.facts.foreach(v => factCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
-
-    bsonWriter.writeName("locations")
-    bsonWriter.writeStartArray()
-    value.locations.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
     if (value.integrity.isDefined) {

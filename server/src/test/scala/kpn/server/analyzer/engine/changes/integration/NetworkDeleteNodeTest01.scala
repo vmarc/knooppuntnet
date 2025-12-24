@@ -27,6 +27,7 @@ import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNetworkDoc
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeName
@@ -79,16 +80,20 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
       findBaseNodeById(1001),
       newBaseNodeDoc(
         1001,
-        name = Some("01"),
-        names = Seq(
-          newNodeName(name = "01")
+        base = newNodeBaseData(
+          raw = newRaw(
+            tags = Tags.from(
+              "rwn_ref" -> "01",
+              "network:type" -> "node_network"
+            )
+          ),
+          name = Some("01"),
+          names = Seq(
+            newNodeName(name = "01")
+          ),
+          country = Some(Country.nl),
+          locations = Seq("nl")
         ),
-        tags = Tags.from(
-          "rwn_ref" -> "01",
-          "network:type" -> "node_network"
-        ),
-        country = Some(Country.nl),
-        locations = Seq("nl"),
         tiles = Seq(
           "hiking-12-2047-2047",
           "hiking-12-2047-2048",
@@ -132,20 +137,24 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
       findNodeById(1001),
       newNodeDoc(
         1001,
+        base = newNodeBaseData(
+          raw = newRaw(
+            tags = Tags.from(
+              "rwn_ref" -> "01",
+              "network:type" -> "node_network"
+            ),
+          ),
+          name = Some("01"),
+          names = Seq(
+            newNodeName(name = "01")
+          ),
+          country = Some(Country.nl),
+          locations = Seq("nl")
+        ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location("nl")
-        ),
-        country = Some(Country.nl),
-        locations = Seq("nl"),
-        name = Some("01"),
-        names = Seq(
-          newNodeName(name = "01")
-        ),
-        tags = Tags.from(
-          "rwn_ref" -> "01",
-          "network:type" -> "node_network"
-        ),
+        )
       )
     )
   }

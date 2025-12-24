@@ -7,6 +7,7 @@ import kpn.api.common.RouteType
 import kpn.api.common.RouteType.cycling
 import kpn.api.common.RouteType.hiking
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeName
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
@@ -39,9 +40,11 @@ class StatisticsUpdateSubsetOrphanNodeCountTest extends MongoTest {
     database.nodes.save(
       newNodeDoc(
         id = nodeId,
-        country = Some(country),
-        names = Seq(
-          newNodeName(routeType = routeType),
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(routeType = routeType),
+          ),
+          country = Some(country)
         )
       )
     )

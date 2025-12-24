@@ -9,7 +9,9 @@ import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.Tags
 import kpn.core.test.TestObjects.newBaseNodeDoc
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeName
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.util.UnitTest
 
 class NodeIntegrityAnalyzerTest extends UnitTest {
@@ -17,17 +19,21 @@ class NodeIntegrityAnalyzerTest extends UnitTest {
   test("UnexpectedIntegrityCheck") {
 
     val node = newBaseNodeDoc(
-      names = Seq(
-        newNodeName(
-          routeType = RouteType.hiking,
-          routeScope = RouteScope.regional,
-          name = "01",
+      base = newNodeBaseData(
+        raw = newRaw(
+          tags = Tags.from(
+            "rwn_ref" -> "01", // hiking node
+            "expected_rcn_route_relations" -> "3", // unexpected cycling tag
+          )
+        ),
+        names = Seq(
+          newNodeName(
+            routeType = RouteType.hiking,
+            routeScope = RouteScope.regional,
+            name = "01",
+          )
         )
-      ),
-      tags = Tags.from(
-        "rwn_ref" -> "01", // hiking node
-        "expected_rcn_route_relations" -> "3", // unexpected cycling tag
-      ),
+      )
     )
 
     val context = NodeAnalysisContext(node)
@@ -39,16 +45,20 @@ class NodeIntegrityAnalyzerTest extends UnitTest {
   test("IntegrityCheck ok") {
 
     val node = newBaseNodeDoc(
-      names = Seq(
-        newNodeName(
-          routeType = RouteType.hiking,
-          routeScope = RouteScope.regional,
-          name = "01",
+      base = newNodeBaseData(
+        raw = newRaw(
+          tags = Tags.from(
+            "rwn_ref" -> "01",
+            "expected_rwn_route_relations" -> "3",
+          )
+        ),
+        names = Seq(
+          newNodeName(
+            routeType = RouteType.hiking,
+            routeScope = RouteScope.regional,
+            name = "01",
+          )
         )
-      ),
-      tags = Tags.from(
-        "rwn_ref" -> "01",
-        "expected_rwn_route_relations" -> "3",
       )
     )
 
@@ -106,16 +116,20 @@ class NodeIntegrityAnalyzerTest extends UnitTest {
   test("IntegrityCheck nok") {
 
     val node = newBaseNodeDoc(
-      names = Seq(
-        newNodeName(
-          routeType = RouteType.hiking,
-          routeScope = RouteScope.regional,
-          name = "01",
+      base = newNodeBaseData(
+        raw = newRaw(
+          tags = Tags.from(
+            "rwn_ref" -> "01",
+            "expected_rwn_route_relations" -> "3",
+          )
+        ),
+        names = Seq(
+          newNodeName(
+            routeType = RouteType.hiking,
+            routeScope = RouteScope.regional,
+            name = "01",
+          )
         )
-      ),
-      tags = Tags.from(
-        "rwn_ref" -> "01",
-        "expected_rwn_route_relations" -> "3",
       )
     )
 

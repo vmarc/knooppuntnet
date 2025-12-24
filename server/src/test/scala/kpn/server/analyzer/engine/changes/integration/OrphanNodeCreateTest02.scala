@@ -18,9 +18,11 @@ import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newLocationChanges
 import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeName
+import kpn.core.test.TestObjects.newRaw
 
 class OrphanNodeCreateTest02 extends IntegrationTest {
 
@@ -54,26 +56,30 @@ class OrphanNodeCreateTest02 extends IntegrationTest {
       findNodeById(1001),
       newNodeDoc(
         1001,
+        base = newNodeBaseData(
+          raw = newRaw(
+            version = 1,
+            tags = Tags.from(
+              "proposed:rwn_ref" -> "01",
+              "network:type" -> "node_network"
+            )
+          ),
+          name = Some("01"),
+          names = Seq(
+            newNodeName(
+              RouteType.hiking,
+              RouteScope.regional,
+              "01",
+              proposed = true
+            )
+          ),
+          country = Some(Country.nl),
+          locations = Seq("nl")
+        ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location("nl")
-        ),
-        country = Some(Country.nl),
-        name = Some("01"),
-        names = Seq(
-          newNodeName(
-            RouteType.hiking,
-            RouteScope.regional,
-            "01",
-            proposed = true
-          )
-        ),
-        version = 1,
-        tags = Tags.from(
-          "proposed:rwn_ref" -> "01",
-          "network:type" -> "node_network"
-        ),
-        locations = Seq("nl"),
+        )
       )
     )
   }

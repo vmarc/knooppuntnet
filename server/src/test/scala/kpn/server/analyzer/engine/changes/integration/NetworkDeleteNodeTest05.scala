@@ -33,6 +33,7 @@ import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNetworkDetail
 import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkTags
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeName
@@ -100,17 +101,21 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
       findBaseNodeById(1001),
       newBaseNodeDoc(
         1001,
-        name = Some("02"),
-        names = Seq(
-          newNodeName(RouteType.cycling, RouteScope.regional, "02")
+        base = newNodeBaseData(
+          raw = newRaw(
+            version = 2,
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "rcn_ref" -> "02"
+            )
+          ),
+          name = Some("02"),
+          names = Seq(
+            newNodeName(RouteType.cycling, RouteScope.regional, "02")
+          ),
+          country = Some(Country.nl),
+          locations = Seq("nl")
         ),
-        version = 2,
-        tags = Tags.from(
-          "network:type" -> "node_network",
-          "rcn_ref" -> "02"
-        ),
-        country = Some(Country.nl),
-        locations = Seq("nl"),
         tiles = Seq(
           "cycling-12-2047-2047",
           "cycling-12-2047-2048",
@@ -135,21 +140,25 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
       findNodeById(1001),
       newNodeDoc(
         1001,
+        base = newNodeBaseData(
+          raw = newRaw(
+            version = 2, // <--
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "rcn_ref" -> "02"
+            ),
+          ),
+          name = Some("02"),
+          names = Seq(
+            newNodeName(RouteType.cycling, RouteScope.regional, "02")
+          ),
+          country = Some(Country.nl),
+          locations = Seq("nl"),
+        ),
         labels = Seq(
           Label.routeType(RouteType.cycling),
           Label.location("nl")
-        ),
-        country = Some(Country.nl),
-        name = Some("02"),
-        names = Seq(
-          newNodeName(RouteType.cycling, RouteScope.regional, "02")
-        ),
-        version = 2, // <--
-        tags = Tags.from(
-          "network:type" -> "node_network",
-          "rcn_ref" -> "02"
-        ),
-        locations = Seq("nl"),
+        )
       )
     )
   }

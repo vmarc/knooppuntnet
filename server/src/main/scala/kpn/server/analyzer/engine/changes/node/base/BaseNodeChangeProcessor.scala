@@ -59,9 +59,13 @@ class BaseNodeChangeProcessor(
   private def deactivateNode(doc: BaseNodeDoc) = {
     doc.copy(
       active = false,
-      name = None,
-      names = Seq.empty,
-      tags = Seq.empty,
+      base = doc.base.copy(
+        raw = doc.base.raw.copy(
+          tags = Seq.empty,
+        ),
+        name = None,
+        names = Seq.empty
+      ),
       facts = Seq.empty,
       tiles = Seq.empty
     )

@@ -14,9 +14,11 @@ import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeName
 import kpn.core.test.TestObjects.newOrphanNodeInfo
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRawNode
 import kpn.database.actions.locations.MongoQueryLocationNodes
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanNodes
@@ -92,31 +94,36 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         findNodeById(620168928L),
         newNodeDoc(
           id = 620168928L,
+          base = newNodeBaseData(
+            raw = newRaw(
+              version = 5,
+              timestamp = Timestamp(2021, 11, 6, 21, 23, 13),
+              tags = Tags.from(
+                "hiking" -> "yes",
+                "information" -> "guidepost",
+                "lwn_name" -> "Teumelet",
+                "name" -> "Teumelet",
+                "network:type" -> "node_network",
+                "operator" -> "Communauté de Communes Maurienne Galibier",
+                "ref" -> "o",
+                "rwn_ref" -> "o",
+                "tourism" -> "information"
+              ),
+            ),
+            name = Some("Teumelet / o"),
+            names = Seq(
+              newNodeName(RouteType.hiking, RouteScope.local, "Teumelet"),
+              newNodeName(RouteType.hiking, RouteScope.regional, "o")
+            ),
+            lastUpdated = Timestamp(2021, 11, 6, 21, 23, 13),
+            country = Some(Country.nl),
+            locations = Seq(
+              "nl"
+            )
+          ),
           labels = Seq(
             Label.routeType(RouteType.hiking),
             Label.location("nl")
-          ),
-          country = Some(Country.nl),
-          name = Some("Teumelet / o"),
-          names = Seq(
-            newNodeName(RouteType.hiking, RouteScope.local, "Teumelet"),
-            newNodeName(RouteType.hiking, RouteScope.regional, "o")
-          ),
-          version = 5,
-          lastUpdated = Timestamp(2021, 11, 6, 21, 23, 13),
-          tags = Tags.from(
-            "hiking" -> "yes",
-            "information" -> "guidepost",
-            "lwn_name" -> "Teumelet",
-            "name" -> "Teumelet",
-            "network:type" -> "node_network",
-            "operator" -> "Communauté de Communes Maurienne Galibier",
-            "ref" -> "o",
-            "rwn_ref" -> "o",
-            "tourism" -> "information"
-          ),
-          locations = Seq(
-            "nl"
           )
         )
       )

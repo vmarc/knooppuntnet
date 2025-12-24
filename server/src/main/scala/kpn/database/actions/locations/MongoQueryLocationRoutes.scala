@@ -163,8 +163,8 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
       surveyDateInfo,
       Seq(
         LocationQuery.factFilter(parameters.fact),
-        LocationQuery.lastUpdatedFilter(route = true, surveyDateInfo, parameters.lastUpdated),
-        LocationQuery.proposedFilter(route = true, parameters.proposed)
+        LocationQuery.lastUpdatedFilter(base = true, surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.proposedFilter(base = true, parameters.proposed)
       )
     )
   }
@@ -174,8 +174,8 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
       surveyDateInfo,
       Seq(
         LocationQuery.factFilter(parameters.fact),
-        LocationQuery.surveyFilter(route = true, surveyDateInfo, parameters.survey),
-        LocationQuery.proposedFilter(route = true, parameters.proposed)
+        LocationQuery.surveyFilter(base = true, surveyDateInfo, parameters.survey),
+        LocationQuery.proposedFilter(base = true, parameters.proposed)
       )
     )
   }
@@ -184,8 +184,8 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     LocationQuery.proposedPipeline(
       Seq(
         LocationQuery.factFilter(parameters.fact),
-        LocationQuery.surveyFilter(route = true, surveyDateInfo, parameters.survey),
-        LocationQuery.lastUpdatedFilter(route = true, surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.surveyFilter(base = true, surveyDateInfo, parameters.survey),
+        LocationQuery.lastUpdatedFilter(base = true, surveyDateInfo, parameters.lastUpdated),
       )
     )
   }
@@ -193,9 +193,9 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
   private def factsPipeline(parameters: LocationRoutesParameters): MongoPipeline = {
     LocationQuery.factsPipeline(
       Seq(
-        LocationQuery.surveyFilter(route = true, surveyDateInfo, parameters.survey),
-        LocationQuery.lastUpdatedFilter(route = true, surveyDateInfo, parameters.lastUpdated),
-        LocationQuery.proposedFilter(route = true, parameters.proposed)
+        LocationQuery.surveyFilter(base = true, surveyDateInfo, parameters.survey),
+        LocationQuery.lastUpdatedFilter(base = true, surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.proposedFilter(base = true, parameters.proposed)
       )
     )
   }
@@ -203,9 +203,9 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
   private def factsTotalRouteCountPipeline(parameters: LocationRoutesParameters): MongoPipeline = {
     LocationQuery.countPipeline(
       Seq(
-        LocationQuery.surveyFilter(route = true, surveyDateInfo, parameters.survey),
-        LocationQuery.lastUpdatedFilter(route = true, surveyDateInfo, parameters.lastUpdated),
-        LocationQuery.proposedFilter(route = true, parameters.proposed)
+        LocationQuery.surveyFilter(base = true, surveyDateInfo, parameters.survey),
+        LocationQuery.lastUpdatedFilter(base = true, surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.proposedFilter(base = true, parameters.proposed)
       )
     )
   }
@@ -274,9 +274,9 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
   private def buildFilter(subset: LocationSubset, parameters: LocationRoutesParameters): Bson = {
     val filters: MongoPipeline = mainFilters(subset) ++ Seq(
       LocationQuery.factFilter(parameters.fact),
-      LocationQuery.surveyFilter(route = true, surveyDateInfo, parameters.survey),
-      LocationQuery.lastUpdatedFilter(route = true, surveyDateInfo, parameters.lastUpdated),
-      LocationQuery.proposedFilter(route = true, parameters.proposed)
+      LocationQuery.surveyFilter(base = true, surveyDateInfo, parameters.survey),
+      LocationQuery.lastUpdatedFilter(base = true, surveyDateInfo, parameters.lastUpdated),
+      LocationQuery.proposedFilter(base = true, parameters.proposed)
     ).flatten
     and(filters *)
   }

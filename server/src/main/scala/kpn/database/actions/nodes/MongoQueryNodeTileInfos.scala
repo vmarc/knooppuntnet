@@ -3,8 +3,10 @@ package kpn.database.actions.nodes
 import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Aggregates.unwind
 import com.mongodb.client.model.Filters.and
+import com.mongodb.client.model.Filters.elemMatch
 import com.mongodb.client.model.Filters.regex
 import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import kpn.api.common.RouteType
@@ -45,22 +47,23 @@ class MongoQueryNodeTileInfos(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("names.routeType", routeType.entryName),
-          regex("tiles", s"^${routeType.entryName}-$zoomLevel-"),
+          elemMatch("base.names", equal("routeType", routeType.entryName)),
+          regex("tiles", s"^${routeType.entryName}-$zoomLevel-.*"),
         )
       ),
       unwind("$tiles"),
       filter(
-        regex("tiles", s"^${routeType.entryName}-$zoomLevel-"),
+        regex("tiles", s"^${routeType.entryName}-$zoomLevel-.*"),
       ),
       project(
         fields(
+          excludeId(),
           computed("tileName", tileName(routeType)),
           computed("nodeId", "$_id"),
-          include("names"),
-          include("latitude"),
-          include("longitude"),
-          include("tags"),
+          computed("names", "$base.names"),
+          computed("latitude", "$base.latitude"),
+          computed("longitude", "$base.longitude"),
+          computed("tags", "$base.raw.tags"),
           include("facts")
         )
       )
@@ -72,7 +75,7 @@ class MongoQueryNodeTileInfos(database: Database) {
       filter(
         and(
           equal("active", true),
-          equal("names.routeType", routeType.entryName),
+          elemMatch("base.names", equal("routeType", routeType.entryName)),
           equal("tiles", s"${routeType.entryName}-${tileId.name}")
         )
       ),
@@ -80,10 +83,10 @@ class MongoQueryNodeTileInfos(database: Database) {
         fields(
           computed("tileName", tileId.name),
           computed("nodeId", "$_id"),
-          include("names"),
-          include("latitude"),
-          include("longitude"),
-          include("tags"),
+          computed("names", "$base.names"),
+          computed("latitude", "$base.latitude"),
+          computed("longitude", "$base.longitude"),
+          computed("tags", "$base.raw.tags"),
           include("facts")
         )
       )

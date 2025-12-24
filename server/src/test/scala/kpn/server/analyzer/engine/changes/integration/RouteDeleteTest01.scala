@@ -23,6 +23,7 @@ import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newLocationChanges
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeTags
@@ -92,23 +93,27 @@ class RouteDeleteTest01 extends IntegrationTest {
       findNodeById(1001),
       newNodeDoc(
         1001,
+        base = newNodeBaseData(
+          raw = newRaw(
+            tags = newNodeTags("01")
+          ),
+          name = Some("01"),
+          names = Seq(
+            NodeName(
+              RouteType.hiking,
+              RouteScope.regional,
+              "01",
+              None,
+              proposed = false
+            )
+          ),
+          country = Some(Country.nl),
+          locations = Seq("nl")
+        ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location("nl")
-        ),
-        country = Some(Country.nl),
-        locations = Seq("nl"),
-        name = Some("01"),
-        names = Seq(
-          NodeName(
-            RouteType.hiking,
-            RouteScope.regional,
-            "01",
-            None,
-            proposed = false
-          )
-        ),
-        tags = newNodeTags("01")
+        )
       )
     )
   }
@@ -118,23 +123,28 @@ class RouteDeleteTest01 extends IntegrationTest {
       findNodeById(1002),
       newNodeDoc(
         1002,
+        base = newNodeBaseData(
+          raw = newRaw(
+            tags = newNodeTags("02")
+          ),
+          name = Some("02"),
+          names = Seq(
+            NodeName(
+              RouteType.hiking,
+              RouteScope.regional,
+              "02",
+              None,
+              proposed = false
+            )
+          ),
+          country = Some(Country.nl),
+          locations = Seq("nl")
+        ),
         labels = Seq(
+
           Label.routeType(RouteType.hiking),
           Label.location("nl")
         ),
-        country = Some(Country.nl),
-        locations = Seq("nl"),
-        name = Some("02"),
-        names = Seq(
-          NodeName(
-            RouteType.hiking,
-            RouteScope.regional,
-            "02",
-            None,
-            proposed = false
-          )
-        ),
-        tags = newNodeTags("02")
       )
     )
   }
@@ -150,7 +160,6 @@ class RouteDeleteTest01 extends IntegrationTest {
           newRouteData(
             relationId = 11,
             raw = newRaw(
-              changeSetId = 1,
               tags = Tags.from(
                 "network" -> "rwn",
                 "type" -> "route",

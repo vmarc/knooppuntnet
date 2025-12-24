@@ -1,8 +1,11 @@
 package kpn.server.repository
 
 import kpn.api.custom.Tags
+import kpn.core.doc.NodeDoc
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newRaw
 
 class NodeRepositoryTest extends MongoTest {
 
@@ -61,35 +64,35 @@ class NodeRepositoryTest extends MongoTest {
 
     val nodeRepository = new NodeRepositoryImpl(database)
 
-    nodeRepository.save(newNodeDoc(1001, tags = Tags.from("rwn_ref" -> "01")))
-    nodeRepository.save(newNodeDoc(1002, tags = Tags.from("rwn_ref" -> "02")))
-    nodeRepository.save(newNodeDoc(1003, tags = Tags.from("rwn_ref" -> "03")))
+    nodeRepository.save(buildNode(1001, "01"))
+    nodeRepository.save(buildNode(1002, "02"))
+    nodeRepository.save(buildNode(1003, "03"))
 
-    assertEqual(nodeRepository.nodeWithId(1001), Some(newNodeDoc(1001, tags = Tags.from("rwn_ref" -> "01"))))
-    assertEqual(nodeRepository.nodeWithId(1002), Some(newNodeDoc(1002, tags = Tags.from("rwn_ref" -> "02"))))
-    assertEqual(nodeRepository.nodeWithId(1003), Some(newNodeDoc(1003, tags = Tags.from("rwn_ref" -> "03"))))
+    assertEqual(nodeRepository.nodeWithId(1001), Some(buildNode(1001, "01")))
+    assertEqual(nodeRepository.nodeWithId(1002), Some(buildNode(1002, "02")))
+    assertEqual(nodeRepository.nodeWithId(1003), Some(buildNode(1003, "03")))
     nodeRepository.nodeWithId(104) should equal(None)
 
     nodeRepository.bulkSave(
-      newNodeDoc(1001, tags = Tags.from("rwn_ref" -> "01")),
-      newNodeDoc(1002, tags = Tags.from("rwn_ref" -> "02")),
-      newNodeDoc(1003, tags = Tags.from("rwn_ref" -> "03"))
+      buildNode(1001, "01"),
+      buildNode(1002, "02"),
+      buildNode(1003, "03")
     )
 
-    assertEqual(nodeRepository.nodeWithId(1001), Some(newNodeDoc(1001, tags = Tags.from("rwn_ref" -> "01"))))
-    assertEqual(nodeRepository.nodeWithId(1002), Some(newNodeDoc(1002, tags = Tags.from("rwn_ref" -> "02"))))
-    assertEqual(nodeRepository.nodeWithId(1003), Some(newNodeDoc(1003, tags = Tags.from("rwn_ref" -> "03"))))
+    assertEqual(nodeRepository.nodeWithId(1001), Some(buildNode(1001, "01")))
+    assertEqual(nodeRepository.nodeWithId(1002), Some(buildNode(1002, "02")))
+    assertEqual(nodeRepository.nodeWithId(1003), Some(buildNode(1003, "03")))
     nodeRepository.nodeWithId(104) should equal(None)
 
     nodeRepository.bulkSave(
-      newNodeDoc(1001, tags = Tags.from("rwn_ref" -> "01")),
-      newNodeDoc(1002, tags = Tags.from("rwn_ref" -> "02")),
-      newNodeDoc(1003, tags = Tags.from("rwn_ref" -> "33"))
+      buildNode(1001, "01"),
+      buildNode(1002, "02"),
+      buildNode(1003, "33")
     )
 
-    assertEqual(nodeRepository.nodeWithId(1001), Some(newNodeDoc(1001, tags = Tags.from("rwn_ref" -> "01"))))
-    assertEqual(nodeRepository.nodeWithId(1002), Some(newNodeDoc(1002, tags = Tags.from("rwn_ref" -> "02"))))
-    assertEqual(nodeRepository.nodeWithId(1003), Some(newNodeDoc(1003, tags = Tags.from("rwn_ref" -> "33")))) // updated
+    assertEqual(nodeRepository.nodeWithId(1001), Some(buildNode(1001, "01")))
+    assertEqual(nodeRepository.nodeWithId(1002), Some(buildNode(1002, "02")))
+    assertEqual(nodeRepository.nodeWithId(1003), Some(buildNode(1003, "33"))) // updated
     nodeRepository.nodeWithId(104) should equal(None)
   }
 
@@ -115,5 +118,16 @@ class NodeRepositoryTest extends MongoTest {
     nodeRepository.save(newNodeDoc(1002))
 
     nodeRepository.filterKnown(Set(1001, 1002, 1003)) should equal(Set(1001, 1002))
+  }
+
+  private def buildNode(id: Long, name: String): NodeDoc = {
+    newNodeDoc(
+      id,
+      base = newNodeBaseData(
+        raw = newRaw(
+          tags = Tags.from("rwn_ref" -> name)
+        )
+      )
+    )
   }
 }

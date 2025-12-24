@@ -35,10 +35,10 @@ class NodeTileChangeAnalyzerImpl(
     NodeTileInfo(
       "TODO redesign",
       nodeDoc._id,
-      nodeDoc.names,
-      nodeDoc.latitude,
-      nodeDoc.longitude,
-      nodeDoc.lastSurvey,
+      nodeDoc.base.names,
+      nodeDoc.base.latitude,
+      nodeDoc.base.longitude,
+      nodeDoc.base.lastSurvey,
       nodeDoc.tags,
       nodeDoc.facts
     )

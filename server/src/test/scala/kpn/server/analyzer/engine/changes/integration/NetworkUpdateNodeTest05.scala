@@ -24,6 +24,7 @@ import kpn.core.test.TestObjects.newLocationChanges
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNetworkChange
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
 
@@ -102,11 +103,13 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
       newNodeDoc(
         1002,
         active = false,
+        base = newNodeBaseData(
+          country = Some(Country.nl),
+          locations = Seq("nl")
+        ),
         labels = Seq(
           Label.location("nl")
-        ),
-        country = Some(Country.nl),
-        locations = Seq("nl"),
+        )
       )
     )
   }

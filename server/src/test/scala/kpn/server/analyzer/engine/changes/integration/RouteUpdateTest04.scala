@@ -41,15 +41,13 @@ class RouteUpdateTest04 extends IntegrationTest {
       processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
       val baseRouteChange = findBaseRouteChangeById("1:1:11")
       assertEqual(
-        baseRouteChange.wayDiffs.map(_.updated),
-        Some(
-          Seq(
-            WayUpdate(
-              101,
-              before = newMetaData(),
-              after = newMetaData(),
-              directionReversed = true
-            )
+        baseRouteChange.wayDiffs.map(_.updated).get,
+        Seq(
+          WayUpdate(
+            101,
+            before = newMetaData(),
+            after = newMetaData(),
+            directionReversed = true
           )
         )
       )

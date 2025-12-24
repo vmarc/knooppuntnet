@@ -7,7 +7,6 @@ import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Projections.computed
 import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
-import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.OrphanNodeInfo
@@ -48,9 +47,9 @@ class MongoQuerySubsetOrphanNodes(database: Database) {
           arrayEmpty("networkRelationReferences"),
         )
       ),
-      unwind("$names"),
+      unwind("$base.names"),
       filter(
-        equal("names.routeType", subset.routeType.entryName),
+        equal("base.names.routeType", subset.routeType.entryName),
       ),
       sort(
         orderBy(
@@ -63,11 +62,11 @@ class MongoQuerySubsetOrphanNodes(database: Database) {
         fields(
           excludeId(),
           computed("id", "$_id"),
-          include("name"),
-          include("longName"),
-          include("proposed"),
-          include("lastUpdated"),
-          include("lastSurvey"),
+          computed("name", "$base.name"),
+          computed("longName", "$base.longName"),
+          computed("proposed", "$base.proposed"),
+          computed("lastUpdated", "$base.lastUpdated"),
+          computed("lastSurvey", "$base.lastSurvey"),
           arraySize("factCount", "$facts"),
         )
       )

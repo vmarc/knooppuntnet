@@ -6,6 +6,7 @@ import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Aggregates.unwind
 import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.elemMatch
 import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
@@ -83,9 +84,9 @@ class MongoQueryLocationFacts(database: Database) {
   private def buildNodeFactPipeline(subset: LocationSubset, mainFilter: Bson): MongoPipeline = {
     Seq(
       mainFilter,
-      unwind("$names"),
+      unwind("$base.names"),
       filter(
-        equal("names.routeType", subset.routeType.entryName)
+        equal("base.names.routeType", subset.routeType.entryName)
       ),
       unwind("$facts"),
       project(
@@ -93,7 +94,7 @@ class MongoQueryLocationFacts(database: Database) {
           excludeId(),
           computed("fact", "$facts"),
           computed("ref.id", "$_id"),
-          computed("ref.name", "$names.name"),
+          computed("ref.name", "$base.names.name"),
         )
       ),
       group(
@@ -120,9 +121,9 @@ class MongoQueryLocationFacts(database: Database) {
           LocationQuery.locationFilter("labels", subset),
         )
       ),
-      unwind("$names"),
+      unwind("$base.names"),
       filter(
-        equal("names.routeType", subset.routeType.entryName)
+        elemMatch("base.names", equal("base.names.routeType", subset.routeType.entryName))
       ),
       unwind("$integrity.details"),
       filter(

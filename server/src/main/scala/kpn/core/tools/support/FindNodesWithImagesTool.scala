@@ -41,13 +41,13 @@ class FindNodesWithImagesTool(database: Database) {
       filter(
         equal("active", true),
       ),
-      unwind("$tags.tags"),
+      unwind("$base.raw.tags"),
       project(
         fields(
           excludeId(),
           computed("nodeId", "$_id"),
-          computed("key", "$tags.tags.key"),
-          computed("value", "$tags.tags.value"),
+          computed("key", "$base.raw.tags.key"),
+          computed("value", "$base.raw.tags.value"),
         )
       ),
       filter(
@@ -68,11 +68,11 @@ class FindNodesWithImagesTool(database: Database) {
       filter(
         equal("active", true),
       ),
-      unwind("$tags.tags"),
+      unwind("$base.raw.tags"),
       project(
         fields(
           excludeId(),
-          computed("key", "$tags.tags.key"),
+          computed("key", "$base.raw.tags.key"),
         )
       ),
       group("$key"),

@@ -15,7 +15,7 @@ import { ActionButtonRelationComponent } from '@app/analysis/components/action/a
       </p>
     } @else {
       <p class="kpn-space-separated">
-        <span>{{ page().details.summary.wayCount }}</span>
+        <span>{{ page().details.wayCount }}</span>
         <span i18n="@@monitor.route.details.ways">ways</span>
       </p>
 

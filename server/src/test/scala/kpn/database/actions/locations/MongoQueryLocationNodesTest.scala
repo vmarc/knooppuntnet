@@ -10,6 +10,7 @@ import kpn.api.common.location.SurveyParameter
 import kpn.api.custom.Day
 import kpn.core.doc.Label
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeName
 import kpn.core.test.Timestamps
@@ -22,12 +23,14 @@ class MongoQueryLocationNodesTest extends MongoTest {
     database.nodes.save(
       newNodeDoc(
         1001L,
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(name = "01")
+          )
+        ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location(Country.be.entryName)
-        ),
-        names = Seq(
-          newNodeName(name = "01")
         )
       )
     )
@@ -35,12 +38,14 @@ class MongoQueryLocationNodesTest extends MongoTest {
     database.nodes.save(
       newNodeDoc(
         1002L,
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(name = "02")
+          )
+        ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location(Country.be.entryName)
-        ),
-        names = Seq(
-          newNodeName(name = "02")
         )
       )
     )
@@ -88,12 +93,14 @@ class MongoQueryLocationNodesTest extends MongoTest {
     database.nodes.save(
       newNodeDoc(
         1001L,
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(name = "01")
+          )
+        ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location(Country.be.entryName),
-        ),
-        names = Seq(
-          newNodeName(name = "01")
         )
       )
     )
@@ -103,12 +110,14 @@ class MongoQueryLocationNodesTest extends MongoTest {
       newNodeDoc(
         1002L,
         active = false,
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(name = "02")
+          )
+        ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location(Country.be.entryName)
-        ),
-        names = Seq(
-          newNodeName(name = "02")
         )
       )
     )
@@ -127,27 +136,31 @@ class MongoQueryLocationNodesTest extends MongoTest {
     database.nodes.save(
       newNodeDoc(
         1001L,
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(name = "01")
+          ),
+          lastSurvey = Some(Day(2020, 8))
+        ),
         labels = Seq(
           Label.survey,
           Label.routeType(RouteType.hiking),
           Label.location(Country.be.entryName)
-        ),
-        names = Seq(
-          newNodeName(name = "01")
-        ),
-        lastSurvey = Some(Day(2020, 8))
+        )
       )
     )
 
     database.nodes.save(
       newNodeDoc(
         1002L,
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(name = "02")
+          )
+        ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location(Country.be.entryName)
-        ),
-        names = Seq(
-          newNodeName(name = "02")
         )
       )
     )
@@ -183,12 +196,14 @@ class MongoQueryLocationNodesTest extends MongoTest {
     database.nodes.save(
       newNodeDoc(
         1001L,
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(name = "01")
+          )
+        ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location(Country.be.entryName)
-        ),
-        names = Seq(
-          newNodeName(name = "01")
         )
       )
     )
@@ -196,12 +211,14 @@ class MongoQueryLocationNodesTest extends MongoTest {
     database.nodes.save(
       newNodeDoc(
         1002L,
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(name = "02")
+          )
+        ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location(Country.nl.entryName)
-        ),
-        names = Seq(
-          newNodeName(name = "02")
         )
       )
     )
@@ -219,12 +236,14 @@ class MongoQueryLocationNodesTest extends MongoTest {
     database.nodes.save(
       newNodeDoc(
         1001L,
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(name = "01")
+          )
+        ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location(Country.be.entryName)
-        ),
-        names = Seq(
-          newNodeName(name = "01")
         )
       )
     )
@@ -232,12 +251,14 @@ class MongoQueryLocationNodesTest extends MongoTest {
     database.nodes.save(
       newNodeDoc(
         1002L,
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(name = "02")
+          )
+        ),
         labels = Seq(
           Label.routeType(RouteType.cycling),
           Label.location(Country.be.entryName)
-        ),
-        names = Seq(
-          newNodeName(name = "02")
         )
       )
     )
@@ -255,12 +276,14 @@ class MongoQueryLocationNodesTest extends MongoTest {
     database.nodes.save(
       newNodeDoc(
         1001L,
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(name = "01")
+          )
+        ),
         labels = Seq(
           Label.routeType(RouteType.hiking),
           Label.location(Country.be.entryName)
-        ),
-        names = Seq(
-          newNodeName(name = "01")
         )
       )
     )
@@ -268,14 +291,16 @@ class MongoQueryLocationNodesTest extends MongoTest {
     database.nodes.save(
       newNodeDoc(
         1007L,
+        base = newNodeBaseData(
+          names = Seq(
+            newNodeName(name = "02")
+          ),
+        ),
         labels = Seq(
           Label.facts,
           Label.fact(Fact.NodeInvalidSurveyDate),
           Label.routeType(RouteType.hiking),
           Label.location(Country.be.entryName)
-        ),
-        names = Seq(
-          newNodeName(name = "02")
         ),
         facts = Seq(Fact.NodeInvalidSurveyDate)
       )
@@ -312,12 +337,14 @@ class MongoQueryLocationNodesTest extends MongoTest {
       database.nodes.save(
         newNodeDoc(
           nodeId,
+          base = newNodeBaseData(
+            names = Seq(
+              newNodeName(name = name)
+            )
+          ),
           labels = Seq(
             Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
-          ),
-          names = Seq(
-            newNodeName(name = name)
           )
         )
       )

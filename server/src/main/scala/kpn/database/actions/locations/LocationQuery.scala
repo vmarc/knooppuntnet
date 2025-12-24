@@ -58,8 +58,8 @@ object LocationQuery {
     }
   }
 
-  def surveyFilter(route: Boolean, surveyDateInfo: SurveyDateInfo, survey: Option[SurveyParameter]): Option[Bson] = {
-    val lastSurveyFieldName = if (route) "base.lastSurvey" else "lastSurvey"
+  def surveyFilter(base: Boolean, surveyDateInfo: SurveyDateInfo, survey: Option[SurveyParameter]): Option[Bson] = {
+    val lastSurveyFieldName = if (base) "base.lastSurvey" else "lastSurvey"
     survey.map {
       case SurveyParameter.Unknown => not(equal("labels", "survey"))
       case SurveyParameter.LastMonth =>
@@ -93,8 +93,8 @@ object LocationQuery {
     }
   }
 
-  def lastUpdatedFilter(route: Boolean, surveyDateInfo: SurveyDateInfo, lastUpdated: Option[LastUpdatedParameter]): Option[Bson] = {
-    val lastUpdatedFieldName = if (route) "base.lastUpdated" else "lastUpdated"
+  def lastUpdatedFilter(base: Boolean, surveyDateInfo: SurveyDateInfo, lastUpdated: Option[LastUpdatedParameter]): Option[Bson] = {
+    val lastUpdatedFieldName = if (base) "base.lastUpdated" else "lastUpdated"
     lastUpdated.map {
       case LastUpdatedParameter.lastWeek =>
         gte(lastUpdatedFieldName, surveyDateInfo.lastWeekStart.yyyymmdd)
@@ -108,8 +108,8 @@ object LocationQuery {
     }
   }
 
-  def proposedFilter(route: Boolean, proposed: Option[BooleanParameter]): Option[Bson] = {
-    val proposedFieldName = if (route) "base.proposed" else "proposed"
+  def proposedFilter(base: Boolean, proposed: Option[BooleanParameter]): Option[Bson] = {
+    val proposedFieldName = if (base) "base.proposed" else "proposed"
     proposed.map {
       case BooleanParameter.Yes => equal(proposedFieldName, true)
       case BooleanParameter.No => equal(proposedFieldName, false)

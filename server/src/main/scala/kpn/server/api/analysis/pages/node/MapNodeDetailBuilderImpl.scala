@@ -13,9 +13,9 @@ class MapNodeDetailBuilderImpl(nodeRepository: NodeRepository) extends MapNodeDe
       MapNodeDetail(
         nodeDoc._id,
         nodeDoc.routeTypeName(routeType),
-        nodeDoc.latitude,
-        nodeDoc.longitude,
-        nodeDoc.lastUpdated,
+        nodeDoc.base.latitude,
+        nodeDoc.base.longitude,
+        nodeDoc.base.lastUpdated,
         nodeDoc.networkRelationReferences,
         nodeDoc.routeReferences
       )

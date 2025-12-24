@@ -16,8 +16,10 @@ import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newLocationChanges
 import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRawNode
 
 class OrphanNodeDeleteTest01 extends IntegrationTest {
@@ -47,12 +49,16 @@ class OrphanNodeDeleteTest01 extends IntegrationTest {
       newNodeDoc(
         1001,
         active = false,
+        base = newNodeBaseData(
+          raw = newRaw(
+            version = 1
+          ),
+          country = Some(Country.nl),
+          locations = Seq("nl")
+        ),
         labels = Seq(
           Label.location("nl")
-        ),
-        country = Some(Country.nl),
-        locations = Seq("nl"),
-        version = 1
+        )
       )
     )
   }

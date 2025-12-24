@@ -42,12 +42,12 @@ class MongoQueryNodesWithIntegrityCheckFailed(database: Database) {
         )
       ),
       unwind("$names"),
-      filter(equal("names.routeType", subset.routeType.entryName)),
+      filter(equal("base.names.routeType", subset.routeType.entryName)),
       project(
         fields(
           excludeId(),
           computed("id", "$_id"),
-          computed("name", "$names.name"),
+          computed("name", "$base.names.name"),
         )
       )
     )

@@ -31,14 +31,14 @@ class NetworkNodeAnalyzer(context: NetworkAnalysisContext) {
         nodeDoc._id,
         nodeDoc.name(context.scopedRouteType),
         networkDocAnalyzer.longName,
-        nodeDoc.latitude,
-        nodeDoc.longitude,
+        nodeDoc.base.latitude,
+        nodeDoc.base.longitude,
         networkDocAnalyzer.connection,
         networkDocAnalyzer.roleConnection,
         networkDocAnalyzer.definedInRelation,
         networkDocAnalyzer.proposed,
-        nodeDoc.lastUpdated,
-        nodeDoc.lastSurvey,
+        nodeDoc.base.lastUpdated,
+        nodeDoc.base.lastSurvey,
         networkDocAnalyzer.expectedRouteCount,
         nodeDoc.facts
       )
