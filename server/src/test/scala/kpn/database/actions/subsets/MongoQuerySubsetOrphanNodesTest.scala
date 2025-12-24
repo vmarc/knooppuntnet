@@ -19,9 +19,7 @@ class MongoQuerySubsetOrphanNodesTest extends MongoTest {
   test("orphan node") {
     database.nodes.save(createNodeDoc())
     assertEqual(
-      new MongoQuerySubsetO
-
-        rphanNodes (database).execute(Subset.beCycling),
+      new MongoQuerySubsetOrphanNodes(database).execute(Subset.beCycling),
       Seq(
         newOrphanNodeInfo(
           1001,
