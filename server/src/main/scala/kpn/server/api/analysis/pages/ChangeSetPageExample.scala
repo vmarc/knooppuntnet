@@ -342,7 +342,7 @@ object ChangeSetPageExample {
       ),
       orphanNodeChanges = Seq(
         ChangeSetSubsetElementRefs(
-          subset = Subset.beBicycle,
+          subset = Subset.beCycling,
           elementRefs = ChangeSetElementRefs(
             removed = Seq(
               ChangeSetElementRef(

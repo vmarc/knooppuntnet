@@ -6,7 +6,7 @@ import kpn.api.common.RouteType.cycling
 import kpn.api.common.RouteType.hiking
 import kpn.api.custom.Subset
 import kpn.api.custom.Subset.deHiking
-import kpn.api.custom.Subset.nlBicycle
+import kpn.api.custom.Subset.nlCycling
 import kpn.api.custom.Subset.nlHiking
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newChangeKey
@@ -19,8 +19,8 @@ class StatisticsUpdateSubsetChangeCountTest extends MongoTest {
     buildChangeSetSummary(1L, Seq(nlHiking))
     buildChangeSetSummary(2L, Seq(nlHiking))
     buildChangeSetSummary(3L, Seq(nlHiking))
-    buildChangeSetSummary(4L, Seq(nlBicycle))
-    buildChangeSetSummary(5L, Seq(nlBicycle))
+    buildChangeSetSummary(4L, Seq(nlCycling))
+    buildChangeSetSummary(5L, Seq(nlCycling))
     buildChangeSetSummary(6L, Seq(deHiking))
 
     new StatisticsUpdater(database).execute()

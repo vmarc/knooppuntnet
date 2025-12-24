@@ -146,7 +146,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
 
   private def assertOrphanNode(): Unit = {
     assertEqual(
-      findOrphanNode(Subset.nlBicycle, 1002),
+      findOrphanNode(Subset.nlCycling, 1002),
       newOrphanNodeInfo(
         nodeId = 1002,
         name = "03"
@@ -183,7 +183,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
         changeType = ChangeType.Update,
         subsets = Seq(
           Subset.nlHiking,
-          Subset.nlBicycle
+          Subset.nlCycling
         ),
         locations = Seq("nl"),
         name = Some("03"),

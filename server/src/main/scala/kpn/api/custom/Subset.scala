@@ -6,40 +6,40 @@ import kpn.api.common.RouteType
 object Subset {
 
   val beHiking: Subset = Subset(Country.be, RouteType.hiking)
-  val beBicycle: Subset = Subset(Country.be, RouteType.cycling)
+  val beCycling: Subset = Subset(Country.be, RouteType.cycling)
   val beHorseRiding: Subset = Subset(Country.be, RouteType.horseRiding)
 
   val nlHiking: Subset = Subset(Country.nl, RouteType.hiking)
-  val nlBicycle: Subset = Subset(Country.nl, RouteType.cycling)
+  val nlCycling: Subset = Subset(Country.nl, RouteType.cycling)
   val nlHorseRiding: Subset = Subset(Country.nl, RouteType.horseRiding)
   val nlCanoe: Subset = Subset(Country.nl, RouteType.canoe)
   val nlMotorboat: Subset = Subset(Country.nl, RouteType.motorboat)
   val nlInlineSkates: Subset = Subset(Country.nl, RouteType.inlineSkating)
 
   val deHiking: Subset = Subset(Country.de, RouteType.hiking)
-  val deBicycle: Subset = Subset(Country.de, RouteType.cycling)
+  val deCycling: Subset = Subset(Country.de, RouteType.cycling)
   val deHorseRiding: Subset = Subset(Country.de, RouteType.horseRiding)
 
   val frHiking: Subset = Subset(Country.fr, RouteType.hiking)
-  val frBicycle: Subset = Subset(Country.fr, RouteType.cycling)
+  val frCycling: Subset = Subset(Country.fr, RouteType.cycling)
   val frHorseRiding: Subset = Subset(Country.fr, RouteType.horseRiding)
   val frCanoe: Subset = Subset(Country.fr, RouteType.canoe)
 
-  val atBicycle: Subset = Subset(Country.at, RouteType.cycling)
+  val atCycling: Subset = Subset(Country.at, RouteType.cycling)
 
   val esHiking: Subset = Subset(Country.es, RouteType.hiking)
-  val esBicycle: Subset = Subset(Country.es, RouteType.cycling)
+  val esCycling: Subset = Subset(Country.es, RouteType.cycling)
 
-  val dkBicycle: Subset = Subset(Country.dk, RouteType.cycling)
+  val dkCycling: Subset = Subset(Country.dk, RouteType.cycling)
 
   val all: Seq[Subset] = Seq(
-    nlBicycle,
-    beBicycle,
-    deBicycle,
-    frBicycle,
-    atBicycle,
-    esBicycle,
-    dkBicycle,
+    nlCycling,
+    beCycling,
+    deCycling,
+    frCycling,
+    atCycling,
+    esCycling,
+    dkCycling,
     nlHiking,
     beHiking,
     deHiking,

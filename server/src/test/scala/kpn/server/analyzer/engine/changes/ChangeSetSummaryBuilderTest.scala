@@ -284,7 +284,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest {
           newNodeChange(
             key = newChangeKey(elementId = 1004),
             changeType = ChangeType.Update,
-            subsets = Seq(Subset.beBicycle),
+            subsets = Seq(Subset.beCycling),
             locations = Seq("be", "Antwerp", "Essen"),
             name = Some("04")
           )
@@ -307,7 +307,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest {
         _id = newChangeKey().toShortId,
         key = newChangeKey(),
         subsets = Seq(
-          Subset.beBicycle,
+          Subset.beCycling,
           Subset.beHiking,
           Subset.nlHiking
         ),
@@ -325,7 +325,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest {
         orphanRouteChanges = Seq.empty,
         orphanNodeChanges = Seq(
           ChangeSetSubsetElementRefs(
-            Subset.beBicycle,
+            Subset.beCycling,
             ChangeSetElementRefs(
               updated = Seq(
                 newChangeSetElementRef(1004, "04")
@@ -351,7 +351,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest {
           )
         ),
         subsetAnalyses = Seq(
-          ChangeSetSubsetAnalysis(Subset.beBicycle),
+          ChangeSetSubsetAnalysis(Subset.beCycling),
           ChangeSetSubsetAnalysis(Subset.beHiking),
           ChangeSetSubsetAnalysis(Subset.nlHiking)
         ),

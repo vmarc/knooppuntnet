@@ -22,11 +22,11 @@ class MongoQuerySubsetChangesTest extends MongoTest {
   test("subset changes - subset") {
     changeSet(1, Timestamp(2021, 8, 11), Subset.nlHiking, impact = true)
     changeSet(2, Timestamp(2021, 8, 12), Subset.nlHiking, impact = true)
-    changeSet(3, Timestamp(2021, 8, 13), Subset.nlBicycle, impact = true)
-    changeSet(4, Timestamp(2021, 8, 14), Subset.nlBicycle, impact = true)
+    changeSet(3, Timestamp(2021, 8, 13), Subset.nlCycling, impact = true)
+    changeSet(4, Timestamp(2021, 8, 14), Subset.nlCycling, impact = true)
 
     query(Subset.nlHiking, ChangesParameters(Some(2021))) should equal(Seq(2, 1))
-    query(Subset.nlBicycle, ChangesParameters(Some(2021))) should equal(Seq(4, 3))
+    query(Subset.nlCycling, ChangesParameters(Some(2021))) should equal(Seq(4, 3))
   }
 
   test("subset changes - time") {

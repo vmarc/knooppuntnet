@@ -218,7 +218,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         changeType = ChangeType.Update,
         subsets = Seq(
           Subset.nlHiking,
-          Subset.nlBicycle
+          Subset.nlCycling
         ),
         locations = Seq("nl"),
         name = Some("02"),

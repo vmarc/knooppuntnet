@@ -16,8 +16,8 @@ object MongoQuerySubsetInfo {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-experimental") { database =>
       val query = new MongoQuerySubsetInfo(database)
-      println(query.execute(Subset.nlBicycle))
-      println(query.execute(Subset.deBicycle))
+      println(query.execute(Subset.nlCycling))
+      println(query.execute(Subset.deCycling))
     }
   }
 }
