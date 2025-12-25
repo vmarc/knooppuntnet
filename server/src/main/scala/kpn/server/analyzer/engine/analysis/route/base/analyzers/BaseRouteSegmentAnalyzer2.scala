@@ -7,6 +7,8 @@ import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.util.Haversine
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.domain.StructurePath
+import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
+import org.locationtech.jts.geom.Coordinate
 
 object BaseRouteSegmentAnalyzer2 extends BaseRouteAnalyzer {
   override def analyze(context: BaseRouteAnalysisContext): BaseRouteAnalysisContext = {
@@ -54,7 +56,7 @@ class BaseRouteSegmentAnalyzer2(context: BaseRouteAnalysisContext) {
     context.analysisSegments.flatMap { segment =>
       segment.elements.flatMap { element =>
         element.fragmentGroups.map { fragmentGroup =>
-          val coordinates = fragmentGroup.nodes.map(node => s"[${node.longitude},${node.latitude}]").mkString("[", ",", "]")
+          val coordinates = CoordinateCodec.encode(fragmentGroup.nodes.toArray.map(node => new Coordinate(node.lat, node.lon)))
           val meters = Haversine.meters(fragmentGroup.nodes)
           val fragmentIds = fragmentGroup.fragments.map(_.id)
           val wayIds = fragmentGroup.fragments.map(_.way.id)

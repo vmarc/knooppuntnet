@@ -1,7 +1,9 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
+import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.monitor.domain.MonitorReferenceTile
+import org.locationtech.jts.geom.Coordinate
 
 object MonitorTestData {
 
@@ -59,9 +61,9 @@ object MonitorTestData {
     referenceTiles: Seq[MonitorReferenceTile],
     stateTiles: Seq[MonitorStateTileInfo],
   ): MonitorTestRoute = {
-    val coordinates = Array(Array(lon1, lat1), Array(lon2, lat2))
+    val coordinates = Array(new Coordinate(lon1.toDouble, lat1.toDouble), new Coordinate(lon2.toDouble, lat2.toDouble))
     val coordinateString: String = {
-      coordinates.map(c => c.map(_.toDouble).mkString("[", ",", "]")).mkString("[", ",", "]")
+      CoordinateCodec.encode(coordinates)
     }
     MonitorTestRoute(
       relationId = relationId,
@@ -70,7 +72,7 @@ object MonitorTestData {
       lon2 = lon2,
       lat2 = lat2,
       meters = meters,
-      coordinates = coordinates,
+      coordinates = coordinateString,
       lines = Seq(coordinateString),
       bounds = Bounds(
         Math.min(lat1.toDouble, lat2.toDouble),

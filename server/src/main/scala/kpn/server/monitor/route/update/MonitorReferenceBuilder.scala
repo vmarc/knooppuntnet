@@ -26,7 +26,7 @@ class MonitorReferenceBuilder(
   }
 
   private def buildWorldCoordinateReferenceLines(reference: MonitorReference): Seq[Seq[Coordinate]] = {
-    reference.referenceLines.map(CoordinateTransform.lineToWorldCoordinates)
+    reference.referenceLines.map(CoordinateTransform.encodedLatLonLineToWorldCoordinates)
   }
 
   private def buildTiles(tiles: Seq[Tile], worldCoordinateReferenceLines: Seq[Seq[Coordinate]]): Seq[MonitorReferenceTile] = {

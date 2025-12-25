@@ -281,7 +281,7 @@ class MonitorUpdaterTest19_update_osm_to_multi_gpx extends MonitorUpdateTest {
           newBaseRouteSegmentElement(
             segmentId = 1,
             segmentElementId = 1,
-            coordinates = route1.coordinateString
+            coordinates = route1.coordinates
           )
         )
       )

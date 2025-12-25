@@ -50,7 +50,7 @@ object TestSuperRoute {
       newBaseRouteSegmentElement(
         segmentId = 1,
         segmentElementId = 1,
-        coordinates = subRoute11.coordinateString
+        coordinates = subRoute11.coordinates
       )
     ),
     bounds = Some(subRoute11.bounds),
@@ -65,7 +65,7 @@ object TestSuperRoute {
       newBaseRouteSegmentElement(
         segmentId = 1,
         segmentElementId = 1,
-        coordinates = subRoute12.coordinateString
+        coordinates = subRoute12.coordinates
       )
     ),
     bounds = Some(subRoute12.bounds),

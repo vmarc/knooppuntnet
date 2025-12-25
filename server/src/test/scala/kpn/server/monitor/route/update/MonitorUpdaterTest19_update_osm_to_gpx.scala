@@ -283,7 +283,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends MonitorUpdateTest {
             segmentId = 1,
             segmentElementId = 1,
             meters = route1.meters,
-            coordinates = route1.coordinateString
+            coordinates = route1.coordinates
           )
         )
       )

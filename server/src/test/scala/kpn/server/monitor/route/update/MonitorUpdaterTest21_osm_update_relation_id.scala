@@ -242,7 +242,7 @@ class MonitorUpdaterTest21_osm_update_relation_id extends MonitorUpdateTest {
           newBaseRouteSegmentElement(
             segmentId = 1,
             segmentElementId = 1,
-            coordinates = route2.coordinateString,
+            coordinates = route2.coordinates,
           )
         )
       )

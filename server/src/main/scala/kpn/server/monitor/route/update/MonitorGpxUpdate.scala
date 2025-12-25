@@ -7,6 +7,7 @@ import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
+import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
@@ -59,7 +60,7 @@ class MonitorGpxUpdate(
           val segmentCoordinates = routeRepository.segmentCoordinates(routeDoc.routeIds)
 
           val routeLines = segmentCoordinates.map { segment =>
-            val coordinates = CoordinateUtil.stringToCoordinates(segment.coordinates)
+            val coordinates = CoordinateCodec.decode(segment.coordinates)
             geometryFactory.createLineString(coordinates)
           }
 

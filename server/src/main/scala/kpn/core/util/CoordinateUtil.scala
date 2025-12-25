@@ -2,6 +2,7 @@ package kpn.core.util
 
 import kpn.api.common.LatLon
 import kpn.api.common.planner.PlanCoordinate
+import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import org.geotools.geometry.jts.JTS
 import org.geotools.referencing.CRS
 import org.locationtech.jts.geom.Coordinate
@@ -47,11 +48,11 @@ object CoordinateUtil {
   }
 
   def lineStringToCoordinates(lineString: LineString): String = {
-    lineString.getCoordinates.map(c => s"[${c.x},${c.y}]").mkString("[", ",", "]")
+    CoordinateCodec.encode(lineString.getCoordinates)
   }
 
   def coordinatesToLineString(string: String): LineString = {
-    val coordinates = stringToCoordinates(string)
+    val coordinates = CoordinateCodec.decode(string)
     geometryFactory.createLineString(coordinates)
   }
 

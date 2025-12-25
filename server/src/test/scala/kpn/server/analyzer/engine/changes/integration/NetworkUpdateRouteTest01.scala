@@ -207,7 +207,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             segmentElementId = 1,
             surface = "paved",
             memberIndexes = Seq(0),
-            coordinates = "[[0,0],[0,0]]"
+            coordinates = "[[0.0,0.0],[0,0]]"
           )
         ),
         paths = Seq(

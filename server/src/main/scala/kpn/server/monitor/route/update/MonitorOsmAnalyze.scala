@@ -16,6 +16,7 @@ import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
+import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
@@ -100,7 +101,7 @@ class MonitorOsmAnalyze(
         val segmentCoordinates = routeRepository.segmentCoordinates(Seq(relation.relationId))
 
         val routeLines = segmentCoordinates.map { segment =>
-          val coordinates = CoordinateUtil.stringToCoordinates(segment.coordinates)
+          val coordinates = CoordinateCodec.decode(segment.coordinates)
           geometryFactory.createLineString(coordinates)
         }
 

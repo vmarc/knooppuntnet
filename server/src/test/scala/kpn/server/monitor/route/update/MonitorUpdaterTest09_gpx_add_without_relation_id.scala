@@ -295,7 +295,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends MonitorUpdateTest
           newBaseRouteSegmentElement(
             segmentId = 1,
             segmentElementId = 1,
-            coordinates = route1.coordinateString
+            coordinates = route1.coordinates
           )
         ),
         bounds = Some(route1.bounds)

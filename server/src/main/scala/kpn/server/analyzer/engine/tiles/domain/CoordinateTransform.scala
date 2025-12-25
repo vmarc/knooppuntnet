@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.tiles.domain
 
 import kpn.api.common.data.Way
-import kpn.core.util.CoordinateUtil
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.LineString
 
@@ -83,8 +82,8 @@ object CoordinateTransform {
     new Coordinate(x, y)
   }
 
-  def lineToWorldCoordinates(line: String): Seq[Coordinate] = {
-    val coordinates = CoordinateUtil.stringToCoordinates(line)
+  def encodedLatLonLineToWorldCoordinates(line: String): Seq[Coordinate] = {
+    val coordinates = CoordinateCodec.decode(line)
     coordinates.toSeq.map(CoordinateTransform.toWorldCoordinate)
   }
 }

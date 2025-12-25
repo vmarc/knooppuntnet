@@ -25,20 +25,13 @@ case class MonitorTestRoute(
   lon2: String,
   lat2: String,
   meters: Long,
-  coordinates: Array[Array[String]],
+  coordinates: String,
   lines: Seq[String],
   bounds: Bounds,
   gpx: String,
   referenceTiles: Seq[MonitorReferenceTile],
   stateTiles: Seq[MonitorStateTileInfo],
 ) {
-  def coordinateString: String = {
-    coordinates.map(c => c.map(d => d).mkString("[", ",", "]")).mkString("[", ",", "]")
-  }
-
-  def coordinateDoubles: Array[Array[Double]] = {
-    coordinates.map(c => c.map(d => d.toDouble))
-  }
 
   def baseRouteDoc: BaseRouteDoc = {
     newBaseRouteDoc(
@@ -51,7 +44,7 @@ case class MonitorTestRoute(
           segmentId = 1,
           segmentElementId = 1,
           meters = meters,
-          coordinates = coordinateString
+          coordinates = coordinates
         )
       ),
       bounds = Some(bounds)

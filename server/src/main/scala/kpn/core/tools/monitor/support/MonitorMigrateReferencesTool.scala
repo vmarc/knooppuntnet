@@ -5,6 +5,7 @@ import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCache
+import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 import kpn.server.monitor.route.update.MonitorReferenceBuilder
@@ -83,6 +84,6 @@ class MonitorMigrateReferencesTool(database: Database) {
   }
 
   private def toCoordinates(lineString: LineString): String = {
-    lineString.getCoordinates.map(c => s"[${c.x},${c.y}]").mkString("[", ",", "]")
+    CoordinateCodec.encode(lineString.getCoordinates)
   }
 }

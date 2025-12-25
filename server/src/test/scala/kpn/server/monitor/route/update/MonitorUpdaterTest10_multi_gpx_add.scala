@@ -400,7 +400,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
           newBaseRouteSegmentElement(
             segmentId = 1,
             segmentElementId = 1,
-            coordinates = subRoute11.coordinateString
+            coordinates = subRoute11.coordinates
           )
         ),
         bounds = Some(subRoute11.bounds),
@@ -419,7 +419,7 @@ class MonitorUpdaterTest10_multi_gpx_add extends MonitorUpdateTest {
           newBaseRouteSegmentElement(
             segmentId = 1,
             segmentElementId = 1,
-            coordinates = subRoute12.coordinateString
+            coordinates = subRoute12.coordinates
           )
         ),
         bounds = Some(subRoute11.bounds),

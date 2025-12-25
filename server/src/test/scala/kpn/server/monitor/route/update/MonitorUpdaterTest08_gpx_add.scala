@@ -147,7 +147,7 @@ class MonitorUpdaterTest08_gpx_add extends MonitorUpdateTest {
           newBaseRouteSegmentElement(
             segmentId = 1,
             segmentElementId = 1,
-            coordinates = route1.coordinateString
+            coordinates = route1.coordinates
           )
         )
       )

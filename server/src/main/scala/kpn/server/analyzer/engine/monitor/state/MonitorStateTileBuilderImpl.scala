@@ -32,7 +32,7 @@ class MonitorStateTileBuilderImpl(
   def build(state: MonitorState): Seq[MonitorStateTile] = {
     val worldCoordinateMatchesLines = buildWorldCoordinateMatchesLines(state)
     val worldCoordinateSegments = state.segments.map { segment =>
-      val coordinates = CoordinateTransform.lineToWorldCoordinates(segment.coordinates)
+      val coordinates = CoordinateTransform.encodedLatLonLineToWorldCoordinates(segment.coordinates)
       val xmin = coordinates.minBy(_.x).x
       val xmax = coordinates.maxBy(_.x).x
       val ymin = coordinates.minBy(_.y).y
@@ -112,12 +112,12 @@ class MonitorStateTileBuilderImpl(
   }
 
   private def buildWorldCoordinateMatchesLines(state: MonitorState): Seq[Seq[Coordinate]] = {
-    state.matchesLines.map(CoordinateTransform.lineToWorldCoordinates)
+    state.matchesLines.map(CoordinateTransform.encodedLatLonLineToWorldCoordinates)
   }
 
   private def buildDeviations(state: MonitorState): Seq[MonitorStateDeviationWorldCoordinates] = {
     state.deviations.map { deviation =>
-      val worldCoordinateLines = deviation.lines.map(CoordinateTransform.lineToWorldCoordinates)
+      val worldCoordinateLines = deviation.lines.map(CoordinateTransform.encodedLatLonLineToWorldCoordinates)
       MonitorStateDeviationWorldCoordinates(
         deviation.id,
         worldCoordinateLines

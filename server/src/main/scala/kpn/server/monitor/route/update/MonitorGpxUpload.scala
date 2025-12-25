@@ -13,6 +13,7 @@ import kpn.server.analyzer.engine.monitor.analysis.MonitorReferenceUtil
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
+import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
@@ -113,7 +114,7 @@ class MonitorGpxUpload(
     val segmentCoordinates = routeRepository.segmentCoordinates(Seq(relationId))
 
     val routeLines = segmentCoordinates.map { segment =>
-      val coordinates = CoordinateUtil.stringToCoordinates(segment.coordinates)
+      val coordinates = CoordinateCodec.decode(segment.coordinates)
       geometryFactory.createLineString(coordinates)
     }
 

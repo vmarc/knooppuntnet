@@ -17,6 +17,7 @@ import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Haversine
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
@@ -232,7 +233,7 @@ class LegBuilderImpl(
 
     val routeLegSegments = routePath.elementIds.flatMap { elementId =>
       routeDoc.segmentElements.find(_.segmentElementId == elementId).map { segmentElement =>
-        val coordinates = CoordinateUtil.stringToCoordinates(segmentElement.coordinates).toSeq
+        val coordinates = CoordinateCodec.decode(segmentElement.coordinates).toSeq
         val planFragments = coordinates.sliding(2, 1).zipWithIndex.toSeq.flatMap { case (Seq(coordinate1, coordinate2), index) =>
           val meters = (Haversine.km(coordinate1.getX, coordinate1.getY, coordinate2.getX, coordinate2.getY) * 1000).toLong
           val latLon1 = LatLonImpl(coordinate1.getX.toString, coordinate1.getY.toString)

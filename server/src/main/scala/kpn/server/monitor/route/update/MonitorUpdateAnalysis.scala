@@ -8,6 +8,7 @@ import kpn.core.util.Log
 import kpn.core.util.Util.mergeBounds
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
+import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorState
@@ -209,7 +210,7 @@ class MonitorUpdateAnalysis(
     val segmentCoordinates = routeRepository.segmentCoordinates(relationIds)
 
     val routeLines = segmentCoordinates.map { segment =>
-      val coordinates = CoordinateUtil.stringToCoordinates(segment.coordinates)
+      val coordinates = CoordinateCodec.decode(segment.coordinates)
       geometryFactory.createLineString(coordinates)
     }
     val referenceLines = reference.referenceLines.map(CoordinateUtil.coordinatesToLineString)
