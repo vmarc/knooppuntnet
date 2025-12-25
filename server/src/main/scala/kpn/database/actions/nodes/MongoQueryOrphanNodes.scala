@@ -7,7 +7,6 @@ import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Projections.computed
 import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
-import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.OrphanNodeInfo
@@ -48,7 +47,7 @@ class MongoQueryOrphanNodes(database: Database) {
       sort(
         orderBy(
           ascending(
-            "name"
+            "base.names.name"
           )
         )
       ),
@@ -56,11 +55,11 @@ class MongoQueryOrphanNodes(database: Database) {
         fields(
           excludeId(),
           computed("id", "$_id"),
-          include("name"),
-          include("longName"),
-          include("proposed"),
-          include("lastUpdated"),
-          include("lastSurvey"),
+          computed("name", "$base.names.name"),
+          computed("longName", "$base.names.longName"),
+          computed("proposed", "$base.names.proposed"),
+          computed("lastUpdated", "$base.lastUpdated"),
+          computed("lastSurvey", "$base.lastSurvey"),
           arraySize("factCount", "$facts"),
         )
       )
