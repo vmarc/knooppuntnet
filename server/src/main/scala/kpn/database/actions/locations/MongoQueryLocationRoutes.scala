@@ -49,6 +49,7 @@ case class LocationRouteInfoData(
 class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInfo) {
 
   private val log = Log(classOf[MongoQueryLocationRoutes])
+  private val lastUpdatedFieldName = "base.lastUpdated"
 
   def filterOptions(subset: LocationSubset, parameters: LocationRoutesParameters): LocationRouteOptions = {
     val pipeline = Seq(
@@ -163,7 +164,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
       surveyDateInfo,
       Seq(
         LocationQuery.factFilter(parameters.fact),
-        LocationQuery.lastUpdatedFilter(base = true, surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.lastUpdatedFilter(lastUpdatedFieldName, surveyDateInfo, parameters.lastUpdated),
         LocationQuery.proposedFilter(base = true, parameters.proposed)
       )
     )
@@ -185,7 +186,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
       Seq(
         LocationQuery.factFilter(parameters.fact),
         LocationQuery.surveyFilter(base = true, surveyDateInfo, parameters.survey),
-        LocationQuery.lastUpdatedFilter(base = true, surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.lastUpdatedFilter(lastUpdatedFieldName, surveyDateInfo, parameters.lastUpdated),
       )
     )
   }
@@ -194,7 +195,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     LocationQuery.factsPipeline(
       Seq(
         LocationQuery.surveyFilter(base = true, surveyDateInfo, parameters.survey),
-        LocationQuery.lastUpdatedFilter(base = true, surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.lastUpdatedFilter(lastUpdatedFieldName, surveyDateInfo, parameters.lastUpdated),
         LocationQuery.proposedFilter(base = true, parameters.proposed)
       )
     )
@@ -204,7 +205,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     LocationQuery.countPipeline(
       Seq(
         LocationQuery.surveyFilter(base = true, surveyDateInfo, parameters.survey),
-        LocationQuery.lastUpdatedFilter(base = true, surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.lastUpdatedFilter(lastUpdatedFieldName, surveyDateInfo, parameters.lastUpdated),
         LocationQuery.proposedFilter(base = true, parameters.proposed)
       )
     )
@@ -275,7 +276,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     val filters: MongoPipeline = mainFilters(subset) ++ Seq(
       LocationQuery.factFilter(parameters.fact),
       LocationQuery.surveyFilter(base = true, surveyDateInfo, parameters.survey),
-      LocationQuery.lastUpdatedFilter(base = true, surveyDateInfo, parameters.lastUpdated),
+      LocationQuery.lastUpdatedFilter(lastUpdatedFieldName, surveyDateInfo, parameters.lastUpdated),
       LocationQuery.proposedFilter(base = true, parameters.proposed)
     ).flatten
     and(filters *)

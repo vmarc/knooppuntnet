@@ -13,6 +13,7 @@ import kpn.core.test.TestObjects.newNodeBaseData
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newNodeName
 import kpn.core.test.TestObjects.newOrphanNodeInfo
+import kpn.core.test.TestObjects.newRaw
 
 class MongoQuerySubsetOrphanNodesTest extends MongoTest {
 
@@ -50,6 +51,9 @@ class MongoQuerySubsetOrphanNodesTest extends MongoTest {
     newNodeDoc(
       1001L,
       base = newNodeBaseData(
+        raw = newRaw(
+          timestamp = Timestamp(2020, 8, 11)
+        ),
         name = Some("01-02"),
         names = Seq(
           newNodeName(
@@ -60,7 +64,6 @@ class MongoQuerySubsetOrphanNodesTest extends MongoTest {
             proposed = true
           )
         ),
-        lastUpdated = Timestamp(2020, 8, 11),
         country = Some(country)
       ),
       labels = Seq(

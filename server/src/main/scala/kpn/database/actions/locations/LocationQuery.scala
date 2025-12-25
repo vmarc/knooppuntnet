@@ -93,18 +93,17 @@ object LocationQuery {
     }
   }
 
-  def lastUpdatedFilter(base: Boolean, surveyDateInfo: SurveyDateInfo, lastUpdated: Option[LastUpdatedParameter]): Option[Bson] = {
-    val lastUpdatedFieldName = if (base) "base.lastUpdated" else "lastUpdated"
+  def lastUpdatedFilter(fieldName: String, surveyDateInfo: SurveyDateInfo, lastUpdated: Option[LastUpdatedParameter]): Option[Bson] = {
     lastUpdated.map {
       case LastUpdatedParameter.lastWeek =>
-        gte(lastUpdatedFieldName, surveyDateInfo.lastWeekStart.yyyymmdd)
+        gte(fieldName, surveyDateInfo.lastWeekStart.yyyymmdd)
       case LastUpdatedParameter.lastYear =>
         and(
-          lt(lastUpdatedFieldName, surveyDateInfo.lastWeekStart.yyyymmdd),
-          gte(lastUpdatedFieldName, surveyDateInfo.lastYearStart.yyyymmdd)
+          lt(fieldName, surveyDateInfo.lastWeekStart.yyyymmdd),
+          gte(fieldName, surveyDateInfo.lastYearStart.yyyymmdd)
         )
       case LastUpdatedParameter.older =>
-        lt(lastUpdatedFieldName, surveyDateInfo.lastYearStart.yyyymmdd)
+        lt(fieldName, surveyDateInfo.lastYearStart.yyyymmdd)
     }
   }
 

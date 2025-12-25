@@ -65,7 +65,7 @@ class MongoQuerySubsetOrphanNodes(database: Database) {
           computed("name", "$base.name"),
           computed("longName", "$base.names.longName"),
           computed("proposed", "$base.names.proposed"),
-          computed("lastUpdated", "$base.lastUpdated"),
+          computed("lastUpdated", "$base.raw.timestamp"),
           computed("lastSurvey", "$base.lastSurvey"),
           arraySize("factCount", "$facts"),
         )

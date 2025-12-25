@@ -67,6 +67,7 @@ class OrphanNodeUpdateTest01 extends IntegrationTest {
         base = newNodeBaseData(
           raw = newRaw(
             version = 2,
+            timestamp = Timestamp(2015, 8, 11, 0, 0, 0),
             tags = Tags.from(
               "rwn_ref" -> "01",
               "network:type" -> "node_network",
@@ -83,7 +84,6 @@ class OrphanNodeUpdateTest01 extends IntegrationTest {
               proposed = false
             )
           ),
-          lastUpdated = Timestamp(2015, 8, 11, 0, 0, 0),
           country = Some(Country.nl),
           locations = Seq("nl")
         ),

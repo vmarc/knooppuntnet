@@ -53,10 +53,9 @@ class BaseNodeMainAnalyzer(
             ),
             name = context.name,
             names = context.names,
+            lastSurvey = context.lastSurvey,
             latitude = context.node.latitude,
             longitude = context.node.longitude,
-            lastUpdated = context.node.timestamp,
-            lastSurvey = context.lastSurvey,
             country = context.country,
             locations = context.locations
           ),

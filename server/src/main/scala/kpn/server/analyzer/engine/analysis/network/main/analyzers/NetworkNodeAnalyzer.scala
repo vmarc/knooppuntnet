@@ -37,7 +37,7 @@ class NetworkNodeAnalyzer(context: NetworkAnalysisContext) {
         networkDocAnalyzer.roleConnection,
         networkDocAnalyzer.definedInRelation,
         networkDocAnalyzer.proposed,
-        nodeDoc.base.lastUpdated,
+        nodeDoc.base.raw.timestamp,
         nodeDoc.base.lastSurvey,
         networkDocAnalyzer.expectedRouteCount,
         nodeDoc.facts

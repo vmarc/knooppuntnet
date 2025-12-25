@@ -35,7 +35,7 @@ class InitialNodeChangeBuilder(
       locations = nodeDoc.base.locations,
       name = nodeDoc.base.name,
       before = None,
-      after = Some(nodeDoc.toMeta),
+      after = Some(nodeDoc.base.raw.meta),
       connectionChanges = Seq.empty,
       roleConnectionChanges = Seq.empty,
       definedInNetworkChanges = Seq.empty,

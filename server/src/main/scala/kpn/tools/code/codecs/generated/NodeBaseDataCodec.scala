@@ -6,7 +6,6 @@ import kpn.api.common.Country
 import kpn.api.common.NodeName
 import kpn.api.common.data.raw.Raw
 import kpn.api.custom.Day
-import kpn.api.custom.Timestamp
 import kpn.core.doc.NodeBaseData
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
@@ -24,7 +23,6 @@ class NodeBaseDataCodec(registry: CodecRegistry) extends Codec[NodeBaseData] {
   private val nodeNameCodec = registry.get(classOf[NodeName])
   private val rawCodec = registry.get(classOf[Raw])
   private val stringCodec = registry.get(classOf[String])
-  private val timestampCodec = registry.get(classOf[Timestamp])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): NodeBaseData = {
     bsonReader.readStartDocument()
@@ -32,10 +30,9 @@ class NodeBaseDataCodec(registry: CodecRegistry) extends Codec[NodeBaseData] {
     var raw: Raw = null
     var name: Option[String] = None
     var names: Seq[NodeName] = null
+    var lastSurvey: Option[Day] = None
     var latitude: String = null
     var longitude: String = null
-    var lastUpdated: Timestamp = null
-    var lastSurvey: Option[Day] = None
     var country: Option[Country] = None
     var locations: Seq[String] = null
 
@@ -56,17 +53,14 @@ class NodeBaseDataCodec(registry: CodecRegistry) extends Codec[NodeBaseData] {
         bsonReader.readEndArray()
         names = valueBuffer.toSeq
       }
+      else if (fieldName == "lastSurvey") {
+        lastSurvey = Some(dayCodec.decode(bsonReader, decoderContext))
+      }
       else if (fieldName == "latitude") {
         latitude = stringCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "longitude") {
         longitude = stringCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "lastUpdated") {
-        lastUpdated = timestampCodec.decode(bsonReader, decoderContext)
-      }
-      else if (fieldName == "lastSurvey") {
-        lastSurvey = Some(dayCodec.decode(bsonReader, decoderContext))
       }
       else if (fieldName == "country") {
         country = Some(countryCodec.decode(bsonReader, decoderContext))
@@ -92,10 +86,9 @@ class NodeBaseDataCodec(registry: CodecRegistry) extends Codec[NodeBaseData] {
       raw,
       name,
       names,
+      lastSurvey,
       latitude,
       longitude,
-      lastUpdated,
-      lastSurvey,
       country,
       locations,
     )
@@ -117,19 +110,16 @@ class NodeBaseDataCodec(registry: CodecRegistry) extends Codec[NodeBaseData] {
     value.names.foreach(v => nodeNameCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
+    if (value.lastSurvey.isDefined) {
+      bsonWriter.writeName("lastSurvey")
+      dayCodec.encode(bsonWriter, value.lastSurvey.get, encoderContext)
+    }
+
     bsonWriter.writeName("latitude")
     stringCodec.encode(bsonWriter, value.latitude, encoderContext)
 
     bsonWriter.writeName("longitude")
     stringCodec.encode(bsonWriter, value.longitude, encoderContext)
-
-    bsonWriter.writeName("lastUpdated")
-    timestampCodec.encode(bsonWriter, value.lastUpdated, encoderContext)
-
-    if (value.lastSurvey.isDefined) {
-      bsonWriter.writeName("lastSurvey")
-      dayCodec.encode(bsonWriter, value.lastSurvey.get, encoderContext)
-    }
 
     if (value.country.isDefined) {
       bsonWriter.writeName("country")

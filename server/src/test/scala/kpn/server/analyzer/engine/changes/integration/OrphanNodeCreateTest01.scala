@@ -54,6 +54,7 @@ class OrphanNodeCreateTest01 extends IntegrationTest {
         base = newNodeBaseData(
           raw = newRaw(
             version = 1,
+            timestamp = Timestamp(2015, 8, 11, 0, 0, 0),
             tags = newNodeTags("01")
           ),
           name = Some("01"),
@@ -64,7 +65,6 @@ class OrphanNodeCreateTest01 extends IntegrationTest {
               "01"
             )
           ),
-          lastUpdated = Timestamp(2015, 8, 11, 0, 0, 0),
           country = Some(Country.nl),
           locations = Seq("nl")
         ),

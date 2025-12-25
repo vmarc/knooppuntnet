@@ -3,7 +3,6 @@ package kpn.core.doc
 import kpn.api.common.Fact
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
-import kpn.api.common.data.MetaData
 import kpn.api.common.data.Tagable
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
@@ -30,14 +29,6 @@ case class NodeDoc(
   def deactivated: NodeDoc = {
     copy(
       active = false
-    )
-  }
-
-  def toMeta: MetaData = {
-    MetaData(
-      base.raw.version,
-      base.lastUpdated,
-      base.raw.changeSetId
     )
   }
 

@@ -155,10 +155,9 @@ object TestObjects {
     raw: Raw = newRaw(),
     name: Option[String] = None,
     names: Seq[NodeName] = Seq.empty,
+    lastSurvey: Option[Day] = None,
     latitude: String = "0",
     longitude: String = "0",
-    lastUpdated: Timestamp = Timestamps.default,
-    lastSurvey: Option[Day] = None,
     country: Option[Country] = None,
     locations: Seq[String] = Seq.empty,
   ): NodeBaseData = {
@@ -166,10 +165,9 @@ object TestObjects {
       raw,
       name,
       names,
+      lastSurvey,
       latitude,
       longitude,
-      lastUpdated,
-      lastSurvey,
       country,
       locations
     )

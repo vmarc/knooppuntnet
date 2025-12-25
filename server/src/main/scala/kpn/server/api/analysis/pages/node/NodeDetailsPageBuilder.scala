@@ -71,7 +71,7 @@ class NodeDetailsPageBuilder(
       names = context.nodeDoc.base.names,
       latitude = context.nodeDoc.base.latitude,
       longitude = context.nodeDoc.base.longitude,
-      lastUpdated = context.nodeDoc.base.lastUpdated,
+      lastUpdated = context.nodeDoc.base.raw.timestamp,
       lastSurvey = context.nodeDoc.base.lastSurvey,
       tags = context.nodeDoc.tags,
       facts = context.nodeDoc.facts,

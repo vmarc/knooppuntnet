@@ -115,7 +115,6 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
               newNodeName(RouteType.hiking, RouteScope.local, "Teumelet"),
               newNodeName(RouteType.hiking, RouteScope.regional, "o")
             ),
-            lastUpdated = Timestamp(2021, 11, 6, 21, 23, 13),
             country = Some(Country.nl),
             locations = Seq(
               "nl"
