@@ -71,6 +71,14 @@ class RouteMainAnalyzer(
       }
     }
 
+    val relationCount = context.structureRows.count(_.relation.nonEmpty)
+    val relationLevels = if (context.structureRows.nonEmpty) {
+      context.structureRows.map(_.level).max
+    }
+    else {
+      1
+    }
+
     RouteDoc(
       context.route._id, // routeId
       context.route.active,
@@ -84,8 +92,8 @@ class RouteMainAnalyzer(
       context.paths,
       context.routeIds,
       context.structureRows,
-      context.structureRows.count(_.relation.nonEmpty),
-      context.structureRows.map(_.level).max,
+      relationCount,
+      relationLevels,
       context.parentRoutes,
       context.networkReferences,
       context.bounds,
