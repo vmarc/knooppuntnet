@@ -100,7 +100,6 @@ import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.BaseRouteSegmentElement
-import kpn.core.doc.DetailWay
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkRouteDetail
@@ -969,7 +968,6 @@ object TestObjects {
     segments: Seq[BaseRouteSegment] = Seq.empty,
     segmentElements: Seq[BaseRouteSegmentElement] = Seq.empty,
     paths: Seq[BaseRoutePath] = Seq.empty,
-    relation: Option[Relation] = None,
     subRelationTree: Option[RouteRelation] = None,
     subRouteIds: Seq[Long] = Seq.empty,
     bounds: Option[Bounds] = None
@@ -984,7 +982,6 @@ object TestObjects {
       segments,
       segmentElements,
       paths,
-      relation,
       subRelationTree,
       subRouteIds,
       bounds
@@ -1637,26 +1634,6 @@ object TestObjects {
       addedNodeIds,
       directionReversed,
       tagDiffs
-    )
-  }
-
-  def newDetailWay(
-    id: Long,
-    version: Long = 0,
-    changeSetId: Long = 1,
-    timestamp: Timestamp = Timestamps.default,
-    tags: Seq[Tag] = Seq.empty,
-    nodeIds: Seq[Long] = Seq.empty,
-    coordinates: String = "[]"
-  ): DetailWay = {
-    DetailWay(
-      id,
-      version,
-      changeSetId,
-      timestamp,
-      tags,
-      nodeIds,
-      coordinates
     )
   }
 }

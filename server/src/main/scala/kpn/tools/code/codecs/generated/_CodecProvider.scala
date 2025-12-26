@@ -341,8 +341,6 @@ import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.BaseRouteSegmentElement
-import kpn.core.doc.Detail
-import kpn.core.doc.DetailWay
 import kpn.core.doc.LocationName
 import kpn.core.doc.LocationNodeCount
 import kpn.core.doc.LocationPath
@@ -476,6 +474,7 @@ import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.DayCodec
 import kpn.tools.code.codecs.LongSetCodec
 import kpn.tools.code.codecs.PoeTranslationsCodec
+import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import kpn.tools.code.codecs.TranslationsCodec
@@ -738,9 +737,6 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[RouteDoc]) {
       return new RouteDocCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[Detail]) {
-      return new DetailCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[RouteBaseData]) {
       return new RouteBaseDataCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
@@ -758,9 +754,6 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[RawRouteDoc]) {
       return new RawRouteDocCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[DetailWay]) {
-      return new DetailWayCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[Distance]) {
       return new DistanceCodec(codecRegistry).asInstanceOf[Codec[T]]

@@ -11,7 +11,6 @@ import kpn.api.common.route.RouteInfo
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
 import kpn.core.doc.BaseRouteDoc
-import kpn.core.doc.Detail
 import kpn.core.doc.NetworkRouteDetail
 import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDoc
@@ -19,7 +18,6 @@ import kpn.core.doc.RouteRelation
 import kpn.core.doc.SubRouteData
 import kpn.core.doc.SuperSubSegmentInfo
 import kpn.core.util.Log
-import kpn.core.util.Util
 import kpn.database.actions.routes.MongoQueryBaseRouteIds
 import kpn.database.actions.routes.MongoQueryKnownRouteIds
 import kpn.database.actions.routes.MongoQueryNetworkRouteDetails
@@ -49,7 +47,6 @@ import kpn.database.base.StringId
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
-import kpn.server.json.Json
 import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.sync.Transaction
 import org.springframework.stereotype.Component
@@ -184,20 +181,6 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
   }
 
   override def saveBaseRoute(baseRoute: BaseRouteDoc): Unit = {
-
-    println(s"BaseRouteDoc=${Util.humanReadableBytes(Json.string(baseRoute).length)}")
-    println(s"BaseRouteDoc.base=${Util.humanReadableBytes(Json.string(baseRoute.base).length)}")
-    baseRoute.relation match {
-      case Some(relation) =>
-        val detail = Detail.from(relation)
-        println(s"BaseRouteDoc.relation=${Util.humanReadableBytes(Json.string(relation).length)}")
-        println(s"BaseRouteDoc.detail=${Util.humanReadableBytes(Json.string(detail).length)}")
-      case None =>
-        println("BaseRouteDoc.relation=None")
-    }
-
-    println(s"BaseRouteDoc.segmentElements=${Util.humanReadableBytes(Json.string(baseRoute.segmentElements).length)}")
-
     database.baseRoutes.save(baseRoute, log)
   }
 

@@ -1,19 +1,20 @@
 package kpn.core.history
 
+import kpn.api.common.data.Way
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayUpdate
 import kpn.api.custom.Tags
-import kpn.core.doc.DetailWay
-import kpn.core.test.TestObjects.newDetailWay
+import kpn.core.test.TestObjects.newNode
+import kpn.core.test.TestObjects.newWay
 import kpn.core.test.TestObjects.newWayUpdate
 import kpn.core.util.UnitTest
 
 class WayDiffAnalyzerTest extends UnitTest {
 
   test("node removed") {
-    val before = newDetailWay(101, version = 2, nodeIds = Seq(1001, 1002))
-    val after = newDetailWay(101, version = 3, nodeIds = Seq(1001))
+    val before = newWay(101, version = 2, nodes = Vector(newNode(1001), newNode(1002)))
+    val after = newWay(101, version = 3, nodes = Vector(newNode(1001)))
     assertEqual(
       wayUpdate(before, after),
       newWayUpdate(
@@ -26,8 +27,8 @@ class WayDiffAnalyzerTest extends UnitTest {
   }
 
   test("node added") {
-    val before = newDetailWay(101, version = 2, nodeIds = Seq(1001))
-    val after = newDetailWay(101, version = 3, nodeIds = Seq(1001, 1002))
+    val before = newWay(101, version = 2, nodes = Vector(newNode(1001)))
+    val after = newWay(101, version = 3, nodes = Vector(newNode(1001), newNode(1002)))
     assertEqual(
       wayUpdate(before, after),
       newWayUpdate(
@@ -40,9 +41,9 @@ class WayDiffAnalyzerTest extends UnitTest {
   }
 
   test("tags changed") {
-    val nodeIds = Seq(1001L, 1002L)
-    val before = newDetailWay(101, version = 2, nodeIds = nodeIds, tags = Tags.from("a" -> "1"))
-    val after = newDetailWay(101, version = 3, nodeIds = nodeIds, tags = Tags.from("a" -> "2"))
+    val nodes = Vector(newNode(1001), newNode(1002))
+    val before = newWay(101, version = 2, nodes = nodes, tags = Tags.from("a" -> "1"))
+    val after = newWay(101, version = 3, nodes = nodes, tags = Tags.from("a" -> "2"))
     assertEqual(
       wayUpdate(before, after),
       newWayUpdate(
@@ -62,8 +63,8 @@ class WayDiffAnalyzerTest extends UnitTest {
   }
 
   test("direction reversed") {
-    val before = newDetailWay(101, version = 2, nodeIds = Seq(1001, 1002))
-    val after = newDetailWay(101, version = 3, nodeIds = Seq(1002, 1001))
+    val before = newWay(101, version = 2, nodes = Vector(newNode(1001), newNode(1002)))
+    val after = newWay(101, version = 3, nodes = Vector(newNode(1002), newNode(1001)))
     assertEqual(
       wayUpdate(before, after),
       newWayUpdate(
@@ -75,7 +76,7 @@ class WayDiffAnalyzerTest extends UnitTest {
     )
   }
 
-  private def wayUpdate(wayBefore: DetailWay, wayAfter: DetailWay): WayUpdate = {
+  private def wayUpdate(wayBefore: Way, wayAfter: Way): WayUpdate = {
     new WayDiffAnalyzer(wayBefore, wayAfter).analysis.get
   }
 }

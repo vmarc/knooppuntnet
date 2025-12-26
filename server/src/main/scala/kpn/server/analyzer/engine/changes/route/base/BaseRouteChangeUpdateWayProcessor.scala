@@ -2,15 +2,15 @@ package kpn.server.analyzer.engine.changes.route.base
 
 import kpn.api.common.Bounds
 import kpn.api.common.ChangeType
-import kpn.api.common.Relation
 import kpn.api.common.changes.details.BaseRouteChange
+import kpn.api.common.data.Way
 import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.WayInfo
 import kpn.api.common.diff.WayUpdate
 import kpn.api.common.route.GeometryDiff
-import kpn.core.doc.Detail
 import kpn.core.history.WayDiffAnalyzer
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import org.springframework.stereotype.Component
 
@@ -21,17 +21,15 @@ class BaseRouteChangeUpdateWayProcessor {
 
   def process(
     changeSetContext: ChangeSetContext,
-    before: Detail,
-    after: Detail,
-    oldBeforeRelation: Relation,
-    oldAfterRelation: Relation,
+    before: BaseRouteAnalysisContext,
+    after: BaseRouteAnalysisContext
   ): ChangeSetContext = {
 
-    val wayDiffsInfo = analyzeWayDiffs(before, after)
+    val wayDiffsInfo = analyzeWayDiffs(before.relation.ways, after.relation.ways)
 
-    new RouteGeometryAnalyzer().analyze(oldBeforeRelation, oldAfterRelation) match {
+    new RouteGeometryAnalyzer().analyze(before.relation, after.relation) match {
       case Some((geometryDiff: GeometryDiff, bounds: Bounds)) =>
-        val key = changeSetContext.buildChangeKey(oldAfterRelation.id)
+        val key = changeSetContext.buildChangeKey(after.relation.id)
         val change = BaseRouteChange(
           _id = key.toId,
           key = key,
@@ -47,7 +45,7 @@ class BaseRouteChangeUpdateWayProcessor {
         )
       case None =>
         if (wayDiffsInfo.nonEmpty) {
-          val key = changeSetContext.buildChangeKey(oldAfterRelation.id)
+          val key = changeSetContext.buildChangeKey(after.relation.id)
           val change = BaseRouteChange(
             _id = key.toId,
             key = key,
@@ -68,10 +66,10 @@ class BaseRouteChangeUpdateWayProcessor {
     }
   }
 
-  private def analyzeWayDiffs(before: Detail, after: Detail): Option[WayDiffsInfo] = {
+  private def analyzeWayDiffs(before: Seq[Way], after: Seq[Way]): Option[WayDiffsInfo] = {
 
-    val wayIdsBefore = before.ways.map(_.id).toSet
-    val wayIdsAfter = after.ways.map(_.id).toSet
+    val wayIdsBefore = before.map(_.id).toSet
+    val wayIdsAfter = after.map(_.id).toSet
     val wayIdsCommon = wayIdsBefore intersect wayIdsAfter
 
     val removed = toWayInfos(before, wayIdsBefore -- wayIdsAfter)
@@ -87,13 +85,13 @@ class BaseRouteChangeUpdateWayProcessor {
   }
 
   private def analyzeUpdatedWays(
-    before: Detail,
-    after: Detail,
+    before: Seq[Way],
+    after: Seq[Way],
     wayIds: Set[Long]
   ): Seq[WayUpdate] = {
     wayIds.toSeq.sorted.flatMap { wayId =>
-      val wayBeforeOption = before.ways.find(_.id == wayId)
-      val wayAfterOption = after.ways.find(_.id == wayId)
+      val wayBeforeOption = before.find(_.id == wayId)
+      val wayAfterOption = after.find(_.id == wayId)
       (wayBeforeOption, wayAfterOption) match {
         case (Some(wayBefore), Some(wayAfter)) =>
           new WayDiffAnalyzer(wayBefore, wayAfter).analysis
@@ -103,9 +101,9 @@ class BaseRouteChangeUpdateWayProcessor {
     }
   }
 
-  private def toWayInfos(relation: Detail, wayIds: Set[Long]): Seq[WayInfo] = {
+  private def toWayInfos(ways: Seq[Way], wayIds: Set[Long]): Seq[WayInfo] = {
     wayIds.toSeq.flatMap { wayId =>
-      relation.ways.find(_.id == wayId).map(WayInfo.from)
+      ways.find(_.id == wayId).map(WayInfo.from)
     }
   }
 }

@@ -2,7 +2,6 @@ package kpn.core.doc
 
 import kpn.api.common.Bounds
 import kpn.api.common.Fact
-import kpn.api.common.Relation
 import kpn.api.common.common.Ref
 import kpn.api.common.data.Tagable
 import kpn.api.common.route.BaseRouteSegment
@@ -19,7 +18,6 @@ case class BaseRouteDoc(
   segments: Seq[BaseRouteSegment],
   segmentElements: Seq[BaseRouteSegmentElement],
   paths: Seq[BaseRoutePath],
-  relation: Option[Relation],
   subRelationTree: Option[RouteRelation],
   subRouteIds: Seq[Long],
   bounds: Option[Bounds],

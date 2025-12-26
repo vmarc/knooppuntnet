@@ -1,8 +1,6 @@
 package kpn.server.analyzer.engine.changes.route.base
 
 import kpn.api.common.Fact
-import kpn.core.doc.BaseRouteDoc
-import kpn.core.doc.Detail
 import kpn.core.doc.RawRouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
@@ -51,13 +49,25 @@ class BaseRouteChangeUpdateProcessor(
     }
 
     private def processRoute(changeSetContext: ChangeSetContext, rawRouteDoc: RawRouteDoc): ChangeSetContext = {
-      val context = baseRouteMainAnalyzer.analyze(rawRouteDoc.relation, rawRouteDoc.subRelationTree)
-      if (context.abort) {
-        handleAbortedRouteAnalysis(changeSetContext, context)
+      val afterContext = baseRouteMainAnalyzer.analyze(rawRouteDoc.relation, rawRouteDoc.subRelationTree)
+      if (afterContext.abort) {
+        handleAbortedRouteAnalysis(changeSetContext, afterContext)
       }
       else {
-        val beforeOption = routeRepository.findBaseRouteById(routeId)
-        processRouteUpdate(changeSetContext, beforeOption, context)
+        rawDataRepository.route(changeSetContext.changeSet.timestampBefore, routeId) match {
+          case None =>
+            log.warn(s"overpass before route $routeId not found at ${changeSetContext.changeSet.timestampBefore.yyyymmddhhmmss}")
+            changeSetContext
+          case Some(beforeRawRouteDoc) =>
+            val beforeContext = baseRouteMainAnalyzer.analyze(beforeRawRouteDoc.relation, beforeRawRouteDoc.subRelationTree)
+            if (beforeContext.abort) {
+              throw new IllegalStateException("properly handle this situation, just as if the route is newly created")
+              handleAbortedRouteAnalysis(changeSetContext, afterContext)
+            }
+            else {
+              processRouteUpdate(changeSetContext, beforeContext, afterContext)
+            }
+        }
       }
     }
 
@@ -72,20 +82,20 @@ class BaseRouteChangeUpdateProcessor(
 
     private def processRouteUpdate(
       changeSetContext: ChangeSetContext,
-      beforeOption: Option[BaseRouteDoc],
-      context: BaseRouteAnalysisContext
+      beforeContext: BaseRouteAnalysisContext,
+      afterContext: BaseRouteAnalysisContext
     ): ChangeSetContext = {
 
-      analysisContext.watched.routes.add(routeId, context.elementIds)
+      analysisContext.watched.routes.add(routeId, afterContext.elementIds)
 
-      val baseRouteDoc = baseRouteDocBuilder.build(context)
+      val baseRouteDoc = baseRouteDocBuilder.build(afterContext)
       routeRepository.saveBaseRoute(baseRouteDoc)
 
-      val updatedChangeSetContext1 = baseRouteChangeUpdateTileProcessor.process(changeSetContext, context)
-      val updatedChangeSetContext2 = processWayUpdates(updatedChangeSetContext1, beforeOption, baseRouteDoc)
+      val updatedChangeSetContext1 = baseRouteChangeUpdateTileProcessor.process(changeSetContext, afterContext)
+      val updatedChangeSetContext2 = processWayUpdates(updatedChangeSetContext1, beforeContext, afterContext)
 
-      val beforeNodeIds = beforeOption.toSeq.flatMap(_.base.nodes.nodeIds).toSet
-      val afterNodeIds = baseRouteDoc.base.nodes.nodeIds.toSet
+      val beforeNodeIds = beforeContext.routeNodesAnalysis.nodeIds.toSet
+      val afterNodeIds = afterContext.routeNodesAnalysis.nodeIds.toSet
       val addedNodeIds = afterNodeIds -- beforeNodeIds
       val removedNodeIds = beforeNodeIds -- afterNodeIds
       val impactedNodeIds = (addedNodeIds ++ removedNodeIds).toSeq.sorted
@@ -97,26 +107,13 @@ class BaseRouteChangeUpdateProcessor(
 
   private def processWayUpdates(
     changeSetContext: ChangeSetContext,
-    beforeOption: Option[BaseRouteDoc],
-    afterBaseRouteDoc: BaseRouteDoc
+    before: BaseRouteAnalysisContext,
+    after: BaseRouteAnalysisContext
   ): ChangeSetContext = {
-
-    val beforeDetailOption = beforeOption.flatMap(_.relation).map(Detail.from)
-    val afterDetailOption = afterBaseRouteDoc.relation.map(Detail.from)
-
-    val oldBeforeRelation = beforeOption.flatMap(_.relation)
-    val oldAfterRelation = afterBaseRouteDoc.relation
-
-    (beforeDetailOption, afterDetailOption) match {
-      case (Some(before), Some(after)) =>
-        baseRouteChangeUpdateWayProcessor.process(
-          changeSetContext,
-          before,
-          after,
-          oldBeforeRelation.get,
-          oldAfterRelation.get
-        )
-      case _ => changeSetContext
-    }
+    baseRouteChangeUpdateWayProcessor.process(
+      changeSetContext,
+      before,
+      after
+    )
   }
 }

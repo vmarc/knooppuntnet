@@ -4,7 +4,6 @@ package kpn.tools.code.codecs.generated
 
 import kpn.api.common.Bounds
 import kpn.api.common.Fact
-import kpn.api.common.Relation
 import kpn.api.common.route.BaseRouteSegment
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.BaseRoutePath
@@ -31,7 +30,6 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
   private val elementIdsCodec = registry.get(classOf[ElementIds])
   private val factCodec = registry.get(classOf[Fact])
   private val longCodec = registry.get(classOf[Long])
-  private val relationCodec = registry.get(classOf[Relation])
   private val routeBaseDataCodec = registry.get(classOf[RouteBaseData])
   private val routeRelationCodec = registry.get(classOf[RouteRelation])
   private val stringCodec = registry.get(classOf[String])
@@ -48,7 +46,6 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
     var segments: Seq[BaseRouteSegment] = null
     var segmentElements: Seq[BaseRouteSegmentElement] = null
     var paths: Seq[BaseRoutePath] = null
-    var relation: Option[Relation] = None
     var subRelationTree: Option[RouteRelation] = None
     var subRouteIds: Seq[Long] = null
     var bounds: Option[Bounds] = None
@@ -106,9 +103,6 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
         bsonReader.readEndArray()
         paths = valueBuffer.toSeq
       }
-      else if (fieldName == "relation") {
-        relation = Some(relationCodec.decode(bsonReader, decoderContext))
-      }
       else if (fieldName == "subRelationTree") {
         subRelationTree = Some(routeRelationCodec.decode(bsonReader, decoderContext))
       }
@@ -142,7 +136,6 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
       segments,
       segmentElements,
       paths,
-      relation,
       subRelationTree,
       subRouteIds,
       bounds,
@@ -186,11 +179,6 @@ class BaseRouteDocCodec(registry: CodecRegistry) extends Codec[BaseRouteDoc] {
     bsonWriter.writeStartArray()
     value.paths.foreach(v => baseRoutePathCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
-
-    if (value.relation.isDefined) {
-      bsonWriter.writeName("relation")
-      relationCodec.encode(bsonWriter, value.relation.get, encoderContext)
-    }
 
     if (value.subRelationTree.isDefined) {
       bsonWriter.writeName("subRelationTree")

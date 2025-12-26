@@ -1,9 +1,9 @@
 package kpn.core.history
 
+import kpn.api.common.data.Way
 import kpn.api.common.diff.WayUpdate
-import kpn.core.doc.DetailWay
 
-class WayDiffAnalyzer(wayBefore: DetailWay, wayAfter: DetailWay) {
+class WayDiffAnalyzer(wayBefore: Way, wayAfter: Way) {
 
   def analysis: Option[WayUpdate] = {
 

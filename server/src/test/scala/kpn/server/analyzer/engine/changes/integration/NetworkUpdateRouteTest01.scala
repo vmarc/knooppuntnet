@@ -12,7 +12,6 @@ import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
-import kpn.api.common.data.Member
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
 import kpn.api.common.diff.IdDiffs
@@ -29,7 +28,6 @@ import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.RouteStructureWay
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Subset
-import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.Label
@@ -45,10 +43,8 @@ import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newLink
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newNetworkChange
-import kpn.core.test.TestObjects.newNodeWithName
 import kpn.core.test.TestObjects.newOrphanRouteInfo
 import kpn.core.test.TestObjects.newRaw
-import kpn.core.test.TestObjects.newRelation
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
@@ -59,7 +55,6 @@ import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeChange
 import kpn.core.test.TestObjects.newRouteTags
 import kpn.core.test.TestObjects.newSuperSegment
-import kpn.core.test.TestObjects.newWay
 import kpn.core.test.Timestamps
 import kpn.server.analyzer.engine.context.ElementIds
 
@@ -221,34 +216,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             name = "backward",
             elementIds = Seq(1),
           ),
-        ),
-        relation = Some(
-          newRelation(
-            11,
-            members = Seq(
-              Member(
-                way = Some(
-                  newWay(
-                    101,
-                    nodes = Vector(
-                      newNodeWithName(1001, "01"),
-                      newNodeWithName(1002, "02"),
-                    ),
-                    tags = Tags.from(
-                      "highway" -> "unclassified"
-                    )
-                  )
-                )
-              )
-            ),
-            tags = Tags.from(
-              "network" -> "rwn",
-              "type" -> "route",
-              "route" -> "foot",
-              "ref" -> "01-02",
-              "network:type" -> "node_network"
-            )
-          )
         ),
         bounds = Some(Bounds())
       )

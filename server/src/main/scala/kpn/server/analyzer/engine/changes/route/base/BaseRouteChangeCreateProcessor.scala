@@ -74,7 +74,7 @@ class BaseRouteChangeCreateProcessor(
     private def processRouteChange(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
 
       val wayDiffs = if (context.relation.ways.nonEmpty) {
-        val added = context.relation.ways.map(WayInfo.oldFrom)
+        val added = context.relation.ways.map(WayInfo.from)
         Some(
           WayDiffsInfo(
             added = added,
