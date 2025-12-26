@@ -53,8 +53,8 @@ import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeDeleteProces
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeDeleterImpl
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateProcessor
-import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateTileProcessorImpl
-import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateWayProcessorImpl
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateTileProcessor
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateWayProcessor
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeCreateProcessor
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeDeleteProcessor
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeProcessor
@@ -161,7 +161,7 @@ class IntegrationTestContext(
 
   val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzer(nodeRepository)
 
-  private val routeTileChangeAnalyzer = new BaseRouteChangeUpdateTileProcessorImpl(routeRepository)
+  private val routeTileChangeAnalyzer = new BaseRouteChangeUpdateTileProcessor(routeRepository)
 
   private val changeSetInfoUpdater = new ChangeSetInfoUpdater(
     changeSetInfoRepository,
@@ -340,7 +340,7 @@ class IntegrationTestContext(
         routeRepository,
       )
 
-      val baseRouteChangeUpdateWayProcessor = new BaseRouteChangeUpdateWayProcessorImpl()
+      val baseRouteChangeUpdateWayProcessor = new BaseRouteChangeUpdateWayProcessor()
 
       val baseRouteChangeUpdateProcessor = new BaseRouteChangeUpdateProcessor(
         analysisContext,

@@ -37,7 +37,7 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with Stubs {
     val routeRepository: Stub[RouteRepository] = stub[RouteRepository]
     (routeRepository.saveRouteTile _).returnsWith(())
     (routeRepository.deleteRouteTile _).returnsWith(())
-    private val processor = new BaseRouteChangeUpdateTileProcessorImpl(routeRepository)
+    private val processor = new BaseRouteChangeUpdateTileProcessor(routeRepository)
 
     private val context = BaseRouteAnalysisContext(
       relation = newRelation(id = 11),

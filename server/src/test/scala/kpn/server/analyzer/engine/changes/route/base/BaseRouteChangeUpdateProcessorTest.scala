@@ -39,12 +39,17 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
     val baseRouteMainAnalyzer: Stub[BaseRouteMainAnalyzer] = stub[BaseRouteMainAnalyzer]
     val rawDataRepository: Stub[RawDataRepository] = stub[RawDataRepository]
     val baseRouteDocBuilder: Stub[BaseRouteDocBuilder] = stub[BaseRouteDocBuilder]
-    val baseRouteChangeUpdateWayProcessor: BaseRouteChangeUpdateWayProcessor = (changeSetContext: ChangeSetContext, before: Detail, after: Detail, oldBeforeRelation: Relation, oldfterRelation: Relation) => {
-      changeSetContext
+    val baseRouteChangeUpdateWayProcessor: Stub[BaseRouteChangeUpdateWayProcessor] = stub[BaseRouteChangeUpdateWayProcessor]
+    (baseRouteChangeUpdateWayProcessor.process _).returns {
+      case (changeSetContext: ChangeSetContext, before: Detail, after: Detail, oldBeforeRelation: Relation, oldAfterRelation: Relation) => changeSetContext
     }
-    val routeTileChangeAnalyzer: BaseRouteChangeUpdateTileProcessor = (changeSetContext: ChangeSetContext, _) => {
-      changeSetContext.withImpact(tileIds = Seq("updated-tile"))
+
+    val routeTileChangeAnalyzer: Stub[BaseRouteChangeUpdateTileProcessor] = stub[BaseRouteChangeUpdateTileProcessor]
+    (routeTileChangeAnalyzer.process _).returns {
+      case (changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext) =>
+        changeSetContext.withImpact(tileIds = Seq("updated-tile"))
     }
+
     val baseRouteDeleter: BaseRouteChangeDeleterMock = new BaseRouteChangeDeleterMock()
 
     private val processor = new BaseRouteChangeUpdateProcessor(
