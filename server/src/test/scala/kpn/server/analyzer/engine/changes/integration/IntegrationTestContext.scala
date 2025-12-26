@@ -14,7 +14,6 @@ import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkExtraAn
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkNodeDocAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BaseNodeBulkAnalyzer
-import kpn.server.analyzer.engine.analysis.node.BaseNodeBulkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.BaseNodeMainAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeCountryAnalyzer
@@ -39,7 +38,7 @@ import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRo
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteSuperSegmentAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessorPipeline
 import kpn.server.analyzer.engine.changes.ChangeSaver
-import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
+import kpn.server.analyzer.engine.changes.ElementIdAnalyzer
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.base.BaseNetworkChangeAnalyzer
 import kpn.server.analyzer.engine.changes.network.base.BaseNetworkChangeProcessor
@@ -60,12 +59,11 @@ import kpn.server.analyzer.engine.changes.route.main.RouteChangeDeleteProcessor
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeUpdateProcessor
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
 import kpn.server.analyzer.engine.tile.NodeTileCalculator
-import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.NodeTileChangeAnalyzerImpl
+import kpn.server.analyzer.engine.tile.NodeTileChangeAnalyzer
 import kpn.server.analyzer.engine.tile.RouteTileCache
-import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
+import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
 import kpn.server.analyzer.full.MainFullAnalyzer
 import kpn.server.analyzer.full.analyzers.FullAnalysisPipeline
 import kpn.server.analyzer.full.analyzers.FullBaseNetworkAnalyzer
@@ -80,14 +78,13 @@ import kpn.server.analyzer.full.analyzers.InitialRouteChangeBuilder
 import kpn.server.analyzer.full.analyzers.SingleBaseRouteAnalyzer
 import kpn.server.analyzer.load.AnalysisContextLoader
 import kpn.server.repository.BlacklistRepository
-import kpn.server.repository.ChangeSetInfoRepositoryImpl
-import kpn.server.repository.ChangeSetRepositoryImpl
-import kpn.server.repository.NetworkInfoRepositoryImpl
-import kpn.server.repository.NetworkRepositoryImpl
+import kpn.server.repository.ChangeSetInfoRepository
+import kpn.server.repository.ChangeSetRepository
+import kpn.server.repository.NetworkInfoRepository
+import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NodeRepository
-import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RawDataRepositoryImpl
-import kpn.server.repository.RouteRepositoryImpl
+import kpn.server.repository.RouteRepository
 import kpn.server.repository.TaskRepository
 import org.scalamock.stubs.Stubs
 
@@ -112,16 +109,16 @@ class IntegrationTestContext(
 
   private implicit val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
 
-  private val changeSetRepository = new ChangeSetRepositoryImpl(database)
-  val nodeRepository = new NodeRepositoryImpl(database)
+  private val changeSetRepository = new ChangeSetRepository(database)
+  val nodeRepository = new NodeRepository(database)
 
-  private val routeRepository = new RouteRepositoryImpl(database)
-  private val baseRouteRepository = new RouteRepositoryImpl(database)
-  private val networkRepository = new NetworkRepositoryImpl(database)
+  private val routeRepository = new RouteRepository(database)
+  private val baseRouteRepository = new RouteRepository(database)
+  private val networkRepository = new NetworkRepository(database)
 
   private val rawDataRepository = new RawDataRepositoryImpl(overpassRepository)
-  private val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)
-  private val networkInfoRepository = new NetworkInfoRepositoryImpl(database)
+  private val changeSetInfoRepository = new ChangeSetInfoRepository(database)
+  private val networkInfoRepository = new NetworkInfoRepository(database)
 
   private val taskRepository = stub[TaskRepository]
   (taskRepository.exists _).returnsWith(false)
@@ -131,7 +128,7 @@ class IntegrationTestContext(
   (blacklistRepository.get _).returnsWith(Blacklist())
 
   private val routeTileCache = new RouteTileCache()
-  private val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
+  private val lineSegmentTileCalculator = new LineSegmentTileCalculator(routeTileCache)
   private val routeTileAnalyzer = new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
   private val routeCountryAnalyzer = new BaseRouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
   private val routeLocationAnalyzer = new BaseRouteLocationAnalyzerMock()
@@ -157,7 +154,7 @@ class IntegrationTestContext(
     )
   }
 
-  private val elementIdAnalyzer = new ElementIdAnalyzerImpl(analysisContext)
+  private val elementIdAnalyzer = new ElementIdAnalyzer(analysisContext)
 
   val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzer(nodeRepository)
 
@@ -186,8 +183,8 @@ class IntegrationTestContext(
     blacklistRepository
   )
 
-  private val nodeTileChangeAnalyzer = new NodeTileChangeAnalyzerImpl(
-    new TileDataNodeBuilderImpl()
+  private val nodeTileChangeAnalyzer = new NodeTileChangeAnalyzer(
+    new TileDataNodeBuilder()
   )
 
   private val bulkNodeAnalyzer = {
@@ -253,7 +250,7 @@ class IntegrationTestContext(
 
   private val baseNodeMainAnalyzer = {
     val locationAnalyzer: LocationAnalyzer = new LocationAnalyzerFixed()
-    val nodeTileCalculator: NodeTileCalculator = new NodeTileCalculatorImpl(new RouteTileCache())
+    val nodeTileCalculator: NodeTileCalculator = new NodeTileCalculator(new RouteTileCache())
     val baseNodeCountryAnalyzer = new BaseNodeCountryAnalyzer(locationAnalyzer)
     val baseNodeLocationAnalyzer = new BaseNodeLocationAnalyzer(locationAnalyzer)
     val baseNodeTileAnalyzer = new BaseNodeTileAnalyzer(nodeTileCalculator)
@@ -285,7 +282,7 @@ class IntegrationTestContext(
       networkInfoRepository
     )
 
-    val baseNodeBulkAnalyzer = new BaseNodeBulkAnalyzerImpl(
+    val baseNodeBulkAnalyzer = new BaseNodeBulkAnalyzer(
       rawDataRepository,
       baseNodeMainAnalyzer,
     )

@@ -1,9 +1,14 @@
 package kpn.server.repository
 
+import kpn.database.actions.statistics.MongoQueryStatistics
 import kpn.database.actions.statistics.StatisticLongValues
+import kpn.database.base.Database
+import org.springframework.stereotype.Component
 
-trait StatisticsRepository {
+@Component
+class StatisticsRepository(database: Database) {
 
-  def statisticValues(): Seq[StatisticLongValues]
-
+  def statisticValues(): Seq[StatisticLongValues] = {
+    new MongoQueryStatistics(database).execute()
+  }
 }

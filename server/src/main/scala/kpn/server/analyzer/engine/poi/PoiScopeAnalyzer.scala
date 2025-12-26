@@ -1,7 +1,25 @@
 package kpn.server.analyzer.engine.poi
 
+import kpn.api.common.Country
 import kpn.api.common.LatLon
+import kpn.core.poi.PoiLocation
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
+import org.springframework.stereotype.Component
 
-trait PoiScopeAnalyzer {
-  def inScope(latLon: LatLon): Boolean
+@Component
+class PoiScopeAnalyzer(locationAnalyzer: LocationAnalyzer) {
+  def inScope(latLon: LatLon): Boolean = {
+    val lat = latLon.lat
+    val lon = latLon.lon
+    if (PoiLocation.simpleBoundingBoxes.exists(_.contains(lon, lat))) {
+      true
+    }
+    else if (PoiLocation.belgiumAndNetherlands.contains(lon, lat)) {
+      val countries = locationAnalyzer.countries(latLon)
+      countries.contains(Country.nl) || countries.contains(Country.be)
+    }
+    else {
+      false
+    }
+  }
 }

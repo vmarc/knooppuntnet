@@ -8,9 +8,7 @@ import kpn.database.util.Mongo
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorGroupRepository
-import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepository
-import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 
 import scala.xml.XML
 
@@ -19,8 +17,8 @@ object MonitorRouteReportRoleUsageTool {
 
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-monitor") { database =>
-      val groupRepository = new MonitorGroupRepositoryImpl(database)
-      val routeRepository = new MonitorRouteRepositoryImpl(database)
+      val groupRepository = new MonitorGroupRepository(database)
+      val routeRepository = new MonitorRouteRepository(database)
       val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
       val tool = new MonitorRouteReportRoleUsageTool(groupRepository, routeRepository, overpassQueryExecutor)
       tool.report()

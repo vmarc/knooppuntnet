@@ -15,10 +15,10 @@ import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
 
 @Component
-class MonitorRouteOsmSegmentAnalyzerImpl extends MonitorRouteOsmSegmentAnalyzer {
+class MonitorRouteOsmSegmentAnalyzer {
 
   private val geometryFactory = new GeometryFactory
-  private val log = Log(classOf[MonitorRouteOsmSegmentAnalyzerImpl])
+  private val log = Log(classOf[MonitorRouteOsmSegmentAnalyzer])
 
   def analyze(wayMembers: Seq[Member]): MonitorRouteOsmSegmentAnalysis = {
 

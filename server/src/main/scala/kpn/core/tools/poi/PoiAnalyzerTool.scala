@@ -7,7 +7,6 @@ import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiDefinition
 import kpn.core.poi.PoiGroupDefinition
 import kpn.core.poi.PoiLoader
-import kpn.core.poi.PoiLoaderImpl
 import kpn.core.poi.PoiLocation
 import kpn.core.poi.tags.TagExpressionFormatter
 import kpn.core.util.Log
@@ -18,11 +17,8 @@ import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.poi.PoiScopeAnalyzer
-import kpn.server.analyzer.engine.poi.PoiScopeAnalyzerImpl
 import kpn.server.analyzer.engine.tile.PoiTileCalculator
-import kpn.server.analyzer.engine.tile.PoiTileCalculatorImpl
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
-import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzerImpl
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.PoiRepositoryImpl
 
@@ -41,13 +37,13 @@ object PoiAnalyzerTool extends Tool[PoiAnalyzerToolOptions] {
   private def buildTool(options: PoiAnalyzerToolOptions, database: Database): PoiAnalyzerTool = {
     val poiLoader = {
       val overpassQueryExecutor = new OverpassQueryExecutorImpl()
-      new PoiLoaderImpl(overpassQueryExecutor)
+      new PoiLoader(overpassQueryExecutor)
     }
     val poiRepository = new PoiRepositoryImpl(database)
     val locationAnalyzer = new LocationAnalyzerImpl(true, false)
-    val poiScopeAnalyzer = new PoiScopeAnalyzerImpl(locationAnalyzer)
-    val poiTileCalculator: PoiTileCalculator = new PoiTileCalculatorImpl()
-    val masterPoiAnalyzer = new MasterPoiAnalyzerImpl()
+    val poiScopeAnalyzer = new PoiScopeAnalyzer(locationAnalyzer)
+    val poiTileCalculator: PoiTileCalculator = new PoiTileCalculator()
+    val masterPoiAnalyzer = new MasterPoiAnalyzer()
     new PoiAnalyzerTool(
       poiLoader,
       poiScopeAnalyzer,

@@ -64,6 +64,6 @@ class ChangeSetInfoRepositoryTest extends MongoTest {
   }
 
   private def withRepository(f: ChangeSetInfoRepository => Unit): Unit = {
-    f(new ChangeSetInfoRepositoryImpl(database))
+    f(new ChangeSetInfoRepository(database))
   }
 }

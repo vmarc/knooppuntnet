@@ -3,7 +3,7 @@ package kpn.core.tools.support
 import kpn.database.base.Database
 import kpn.database.base.Exit
 import kpn.database.util.Mongo
-import kpn.server.repository.RouteRepositoryImpl
+import kpn.server.repository.RouteRepository
 
 object FindCircularRoutesTool {
   def main(args: Array[String]): Unit = {
@@ -21,7 +21,7 @@ object FindCircularRoutesTool {
 
 class FindCircularRoutesTool(database: Database) {
 
-  private val routeRepository = new RouteRepositoryImpl(database)
+  private val routeRepository = new RouteRepository(database)
 
   def report(): Unit = {
     println("Collecting route ids")

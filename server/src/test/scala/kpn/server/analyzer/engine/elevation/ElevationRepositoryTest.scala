@@ -6,7 +6,7 @@ import kpn.server.analyzer.engine.analysis.common.Converter
 
 class ElevationRepositoryTest extends UnitTest {
 
-  private val repo = new ElevationRepositoryImpl()
+  private val repo = new ElevationRepository()
 
   ignore("Essen") {
     val essen = LatLonImpl.from(51.46774, 4.46839)

@@ -1,10 +1,20 @@
 package kpn.core.tools.next.database
 
 import kpn.core.tools.next.domain.NextRouteRelation
+import kpn.core.util.Log
+import kpn.server.repository.RouteRepository
+import org.springframework.stereotype.Component
 
-trait NextRepository {
+@Component
+class NextRepository(database: NextDatabase) {
 
-  def nextRouteRelation(routeId: Long): Option[NextRouteRelation]
+  private val log = Log(classOf[RouteRepository])
 
-  def allRouteIds(): Seq[Long]
+  def nextRouteRelation(routeId: Long): Option[NextRouteRelation] = {
+    database.routeRelations.findById(routeId)
+  }
+
+  def allRouteIds(): Seq[Long] = {
+    database.routeRelations.ids()
+  }
 }

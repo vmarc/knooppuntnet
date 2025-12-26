@@ -36,6 +36,7 @@ class RawDataTool(database: Database, repository: RawDataRepository) {
   def loadSingleRoute(routeId: Long): Unit = {
     repository.route(timestamp, routeId) match {
       case Some(rawRoute) => database.rawRoutes.save(rawRoute)
+      case None =>
     }
   }
 

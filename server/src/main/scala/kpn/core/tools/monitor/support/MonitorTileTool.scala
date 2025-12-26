@@ -6,7 +6,7 @@ import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.TileId
-import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
+import kpn.server.monitor.repository.MonitorRouteRepository
 
 object MonitorTileTool {
   def main(args: Array[String]): Unit = {
@@ -20,7 +20,7 @@ object MonitorTileTool {
 class MonitorTileTool(database: Database) {
   private val log = Log(classOf[MonitorTileTool])
 
-  private val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
+  private val monitorRouteRepository = new MonitorRouteRepository(database)
 
   def generate(): Unit = {
     val encoder = buildMonitorTileEncoder()

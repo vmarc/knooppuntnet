@@ -9,7 +9,7 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocatio
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.structure.RouteDetailAnalysisTestContext
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
-import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
 import kpn.server.analyzer.engine.tile.RouteTileCache
 
 class StructureTestSetup(val data: Data) {
@@ -29,7 +29,7 @@ class StructureTestSetup(val data: Data) {
 
   def analyze(traceEnabled: Boolean = false): RouteDetailAnalysisTestContext = {
     val routeTileCache = new RouteTileCache()
-    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
+    val lineSegmentTileCalculator = new LineSegmentTileCalculator(routeTileCache)
     val routeTileAnalyzer = new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
     val routeCountryAnalyzer = new BaseRouteCountryAnalyzerMock()
     val routeLocationAnalyzer = new BaseRouteLocationAnalyzerMock()

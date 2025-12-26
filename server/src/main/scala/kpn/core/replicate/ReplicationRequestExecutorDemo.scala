@@ -4,6 +4,6 @@ import kpn.api.common.ReplicationId
 
 object ReplicationRequestExecutorDemo {
   def main(args: Array[String]): Unit = {
-    println(new ReplicationRequestExecutorImpl().requestStateFile(ReplicationId(5, 829, 46)))
+    println(new ReplicationRequestExecutor().requestStateFile(ReplicationId(5, 829, 46)))
   }
 }

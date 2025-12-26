@@ -6,14 +6,12 @@ import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tile.RouteTileEncoder
 import kpn.server.analyzer.engine.tiles.TileData
-import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
-import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
+import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
+import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.repository.NodeRepository
-import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepository
-import kpn.server.repository.RouteRepositoryImpl
 
 object SingleTileTool {
   private val log = Log(classOf[TileTool])
@@ -28,11 +26,11 @@ object SingleTileTool {
   }
 
   private def buildTool(database: Database, tileDir: String): SingleTileTool = {
-    val nodeRepository = new NodeRepositoryImpl(database)
-    val routeRepository = new RouteRepositoryImpl(database)
+    val nodeRepository = new NodeRepository(database)
+    val routeRepository = new RouteRepository(database)
     val routeTileEncoder = {
-      val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
-      val tileDataNodeBuilder = new TileDataNodeBuilderImpl()
+      val vectorTileFileRepository = new TileFileRepository(tileDir, "mvt")
+      val tileDataNodeBuilder = new TileDataNodeBuilder()
       new RouteTileEncoder(
         vectorTileFileRepository,
         tileDataNodeBuilder

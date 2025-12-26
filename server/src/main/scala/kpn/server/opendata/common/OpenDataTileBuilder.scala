@@ -1,8 +1,8 @@
 package kpn.server.opendata.common
 
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
+import kpn.server.analyzer.engine.tile.NodeTileCalculator
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.analyzer.engine.tile.ZoomLevel
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
@@ -18,8 +18,8 @@ class OpenDataTileBuilder(nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute], 
 
   private val log = Log(classOf[OpenDataTileBuilder])
   private val routeTileCache = new RouteTileCache()
-  private val nodeTileCalculator = new NodeTileCalculatorImpl(routeTileCache)
-  private val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
+  private val nodeTileCalculator = new NodeTileCalculator(routeTileCache)
+  private val lineSegmentTileCalculator = new LineSegmentTileCalculator(routeTileCache)
 
   def build(): Unit = {
     val zoomLevels = ZoomLevel.minZoomOpenData to ZoomLevel.vectorTileMaxZoom

@@ -4,8 +4,8 @@ import kpn.core.util.Log
 import kpn.core.util.Util
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
-import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
+import kpn.server.monitor.repository.MonitorGroupRepository
+import kpn.server.monitor.repository.MonitorRouteRepository
 
 object RouteStateTool {
   def main(args: Array[String]): Unit = {
@@ -23,8 +23,8 @@ class RouteStateTool(database: Database) {
     val groupName = "fr-nwn"
     val routeName = "GTJ"
 
-    val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
-    val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
+    val monitorGroupRepository = new MonitorGroupRepository(database)
+    val monitorRouteRepository = new MonitorRouteRepository(database)
 
     val group = log.infoElapsed {
       val result = monitorGroupRepository.groupByName(groupName).get

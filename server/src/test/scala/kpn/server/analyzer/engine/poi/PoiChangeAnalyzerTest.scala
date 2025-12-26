@@ -18,7 +18,6 @@ import kpn.server.analyzer.engine.tile.PoiTileCalculator
 import kpn.server.analyzer.engine.tiles.domain.PoiTiles
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
-import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzerImpl
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.TaskRepository
 import kpn.server.repository.TaskRepositoryMock
@@ -650,7 +649,7 @@ class PoiChangeAnalyzerTest extends UnitTest with Stubs {
     val poiScopeAnalyzer: Stub[PoiScopeAnalyzer] = stub[PoiScopeAnalyzer]
     val locationAnalyzer: Stub[LocationAnalyzer] = stub[LocationAnalyzer]
     (locationAnalyzer.findLocations _).returnsWith(Seq.empty)
-    val masterPoiAnalyzer: MasterPoiAnalyzer = new MasterPoiAnalyzerImpl()
+    val masterPoiAnalyzer: MasterPoiAnalyzer = new MasterPoiAnalyzer()
 
     val poiChangeAnalyzer: PoiChangeAnalyzer = new PoiChangeAnalyzer(
       analyzerPoiUpdateEnabled = true,

@@ -17,8 +17,8 @@ import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.toWorldCoordi
 import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.domain.TileId
-import kpn.server.monitor.repository.MonitorRelationRepositoryImpl
-import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
+import kpn.server.monitor.repository.MonitorRelationRepository
+import kpn.server.monitor.repository.MonitorRouteRepository
 import no.ecc.vectortile.VectorTileEncoder
 import org.apache.commons.io.FileUtils
 import org.geotools.data.geojson.GeoJSONReader
@@ -29,8 +29,8 @@ import org.locationtech.jts.geom.LineString
 import java.io.File
 
 class OldMonitorTileToolConfig(val database: Database) {
-  val routeRepository = new MonitorRouteRepositoryImpl(database)
-  val relationRepository = new MonitorRelationRepositoryImpl(database)
+  val routeRepository = new MonitorRouteRepository(database)
+  val relationRepository = new MonitorRelationRepository(database)
 }
 
 case class TileRelationSegment(

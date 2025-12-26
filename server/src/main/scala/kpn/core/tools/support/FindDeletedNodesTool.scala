@@ -8,7 +8,7 @@ import kpn.core.overpass.QueryNodes
 import kpn.database.base.Database
 import kpn.database.base.Exit
 import kpn.database.util.Mongo
-import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.NodeRepository
 import org.xml.sax.SAXParseException
 
 import scala.xml.XML
@@ -35,7 +35,7 @@ class FindDeletedNodesTool(
   executor: OverpassQueryExecutor
 ) {
 
-  private val nodeRepository = new NodeRepositoryImpl(database)
+  private val nodeRepository = new NodeRepository(database)
 
   def report(): Unit = {
     println("Collecting node ids")

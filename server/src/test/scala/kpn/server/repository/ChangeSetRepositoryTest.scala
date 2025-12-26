@@ -376,7 +376,7 @@ class ChangeSetRepositoryTest extends MongoTest {
   }
 
   private def withChangeSetRepository(f: ChangeSetRepository => Unit): Unit = {
-    val repository: ChangeSetRepository = new ChangeSetRepositoryImpl(database)
+    val repository: ChangeSetRepository = new ChangeSetRepository(database)
     f(repository)
   }
 }

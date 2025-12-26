@@ -11,7 +11,6 @@ import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelationStructure
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.next.database.NextDatabase
-import kpn.core.tools.next.database.NextDatabaseImpl
 import kpn.core.tools.next.domain.NextRouteRelation
 import kpn.core.util.Log
 import kpn.database.util.Mongo.codecRegistry
@@ -28,7 +27,7 @@ object NextCreateRouteRelationsTool {
     val client = MongoClients.create("mongodb://localhost:27017")
     try {
       val mongoDatabase = client.getDatabase("kpn-next").withCodecRegistry(codecRegistry)
-      val database = new NextDatabaseImpl(mongoDatabase)
+      val database = new NextDatabase(mongoDatabase)
       val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
       val tool = new NextCreateRouteRelationsTool(database, overpassQueryExecutor)
       tool.createRouteRelations()

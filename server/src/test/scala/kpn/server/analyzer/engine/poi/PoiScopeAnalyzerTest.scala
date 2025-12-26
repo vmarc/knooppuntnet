@@ -8,7 +8,7 @@ class PoiScopeAnalyzerTest extends UnitTest {
 
   val poiScopeAnalyzer: PoiScopeAnalyzer = {
     val countryAnalyzer = LocationAnalyzerTest.locationAnalyzer
-    new PoiScopeAnalyzerImpl(countryAnalyzer)
+    new PoiScopeAnalyzer(countryAnalyzer)
   }
 
   test("BE Antwerp") {

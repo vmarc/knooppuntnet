@@ -8,14 +8,14 @@ import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteMemberInfo
 import kpn.core.test.TestObjects.newRouteRelation
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.repository.RouteRepositoryImpl
+import kpn.server.repository.RouteRepository
 
 class RouteIdsAnalyzerTest extends MongoTest {
 
   test("route id when there is no subRelationTree") {
 
     // setup
-    val baseRouteRepository = new RouteRepositoryImpl(database)
+    val baseRouteRepository = new RouteRepository(database)
     val routeIdsAnalyzer = new RouteIdsAnalyzer(baseRouteRepository)
 
     val baseRouteDoc = newBaseRouteDoc(11L)
@@ -34,7 +34,7 @@ class RouteIdsAnalyzerTest extends MongoTest {
   test("route ids from subRelationTree") {
 
     // setup
-    val baseRouteRepository = new RouteRepositoryImpl(database)
+    val baseRouteRepository = new RouteRepository(database)
     val routeIdsAnalyzer = new RouteIdsAnalyzer(baseRouteRepository)
 
     val baseRouteDoc = newBaseRouteDoc(
@@ -80,7 +80,7 @@ class RouteIdsAnalyzerTest extends MongoTest {
   test("relation ids from route members") {
 
     // setup
-    val baseRouteRepository = new RouteRepositoryImpl(database)
+    val baseRouteRepository = new RouteRepository(database)
     val routeIdsAnalyzer = new RouteIdsAnalyzer(baseRouteRepository)
 
     val baseRouteDoc = newBaseRouteDoc(

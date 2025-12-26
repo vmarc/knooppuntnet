@@ -101,7 +101,7 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
     val from = getOrAssignNodeNumber(fromNode.id, nodeMap, nodeNumberIterator)
     val to = getOrAssignNodeNumber(toNode.id, nodeMap, nodeNumberIterator)
 
-    val accessible = new AccessibilityAnalyzerImpl().accessible(
+    val accessible = new AccessibilityAnalyzer().accessible(
       wayMember.role,
       context.routeTypes.head, //TODO redesign - support multiple routeTypes
       way

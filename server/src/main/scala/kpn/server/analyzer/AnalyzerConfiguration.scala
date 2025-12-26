@@ -5,7 +5,6 @@ import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
-import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.OsmChangeRepositoryImpl
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApi
@@ -22,7 +21,7 @@ class AnalyzerConfiguration {
   def dirs: Dirs = Dirs()
 
   @Bean
-  def statusRepository: StatusRepository = new StatusRepositoryImpl(dirs)
+  def statusRepository: StatusRepository = new StatusRepository(dirs)
 
   @Bean
   def overpassQueryExecutor(

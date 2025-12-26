@@ -2,7 +2,7 @@ package kpn.core.tools.support
 
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.repository.RouteRepositoryImpl
+import kpn.server.repository.RouteRepository
 
 /*
   Prepares an overview of all values for tag "colour" that can be found
@@ -33,7 +33,7 @@ class RouteColoursTool(database: Database) {
     "yellow"
   )
 
-  private val routeRepository = new RouteRepositoryImpl(database)
+  private val routeRepository = new RouteRepository(database)
 
   def report(): Unit = {
     println("Collecting route ids")

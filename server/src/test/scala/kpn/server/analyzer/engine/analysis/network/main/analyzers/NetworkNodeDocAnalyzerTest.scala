@@ -9,7 +9,7 @@ import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkRouteDetail
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.Timestamps
-import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.NodeRepository
 
 class NetworkNodeDocAnalyzerTest extends MongoTest {
 
@@ -44,7 +44,7 @@ class NetworkNodeDocAnalyzerTest extends MongoTest {
     database.nodes.save(newNodeDoc(1003L))
     database.nodes.save(newNodeDoc(1004L))
 
-    val nodeRepository = new NodeRepositoryImpl(database)
+    val nodeRepository = new NodeRepository(database)
     val analyzer = new NetworkNodeDocAnalyzer(nodeRepository)
     val updatedContext = analyzer.analyze(context)
 

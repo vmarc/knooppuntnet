@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine
 
-import java.io.File
-
 import kpn.core.util.UnitTest
+
+import java.io.File
 
 class AnalysisTimeRepositoryTest extends UnitTest {
 
@@ -19,10 +19,10 @@ class AnalysisTimeRepositoryTest extends UnitTest {
     }
   }
 
-  private def withRepository(fn: AnalysisTimeRepositoryImpl => Unit): Unit = {
+  private def withRepository(fn: AnalysisTimeRepository => Unit): Unit = {
     val repositoryFile = "/tmp/repository"
     new File(repositoryFile).delete()
-    val repo = new AnalysisTimeRepositoryImpl(repositoryFile)
+    val repo = new AnalysisTimeRepository(repositoryFile)
     fn(repo)
   }
 }

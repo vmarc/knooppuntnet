@@ -8,7 +8,7 @@ import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
-import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.repository.RouteRepository
 import org.scalamock.stubs.Stubs
@@ -26,7 +26,7 @@ class RouteAnalyzerRouteDetailWithoutWaysTest extends UnitTest with Stubs {
 
     val locationAnalyzer = new LocationAnalyzerFixed()
     val routeTileCache = new RouteTileCache()
-    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
+    val lineSegmentTileCalculator = new LineSegmentTileCalculator(routeTileCache)
     val routeTileAnalyzer = new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
     val routeRepository = stub[RouteRepository]
     val routeCountryAnalyzer = new BaseRouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)

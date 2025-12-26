@@ -11,8 +11,8 @@ import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.OsmChange
 import kpn.server.analyzer.engine.changes.changes.OsmChangeParser
-import kpn.server.analyzer.engine.tile.PoiTileCalculatorImpl
-import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzerImpl
+import kpn.server.analyzer.engine.tile.PoiTileCalculator
+import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
 import kpn.server.repository.PoiRepositoryImpl
 import kpn.server.repository.TaskRepository
 
@@ -121,12 +121,12 @@ object PoiChangeAnalyzerPerformanceTool {
       val osmChangeRepository = new OsmChangeRepositoryTestImpl()
       val knownPoiCache = new KnownPoiCacheTestImpl()
       val poiRepository = new PoiRepositoryTestImpl(database)
-      val tileCalculator = new PoiTileCalculatorImpl()
+      val tileCalculator = new PoiTileCalculator()
       val taskRepository = new TaskRepositoryTestImpl()
       val poiQueryExecutor = new PoiQueryExecutor(overpassQueryExecutor)
       val locationAnalyzer = new LocationAnalyzerImpl(analyzerEnabled = true, development = false)
-      val poiScopeAnalyzer = new PoiScopeAnalyzerImpl(locationAnalyzer)
-      val masterPoiAnalyzer = new MasterPoiAnalyzerImpl()
+      val poiScopeAnalyzer = new PoiScopeAnalyzer(locationAnalyzer)
+      val masterPoiAnalyzer = new MasterPoiAnalyzer()
       val poiChangeAnalyzer = new PoiChangeAnalyzer(
         analyzerPoiUpdateEnabled = true,
         knownPoiCache,

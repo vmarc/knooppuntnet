@@ -15,7 +15,7 @@ import kpn.core.test.TestObjects.newRawWay
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
-import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
+import kpn.server.analyzer.engine.changes.ElementIdAnalyzer
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.data.BlacklistEntry
@@ -159,7 +159,7 @@ class BaseRouteChangeAnalyzerTest extends UnitTest {
     }
 
     implicit val analysisExecutionContext: ExecutionContext = ExecutionContext.fromExecutor(Executors.newSingleThreadExecutor())
-    private val elementIdAnalyzer = new ElementIdAnalyzerImpl(analysisContext)
+    private val elementIdAnalyzer = new ElementIdAnalyzer(analysisContext)
 
     def analyze(change: Change): ElementChanges = {
       val changeSet = newChangeSet(changes = Seq(change))

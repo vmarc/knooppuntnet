@@ -4,18 +4,16 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.status.ActionTimestamp
 import kpn.core.metrics.ReplicationAction
 import kpn.core.tools.config.Dirs
-import kpn.core.tools.status.StatusRepositoryImpl
+import kpn.core.tools.status.StatusRepository
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
 import kpn.database.base.MetricsDatabase
-import kpn.database.base.MetricsDatabaseImpl
 import kpn.database.base.Options
 import kpn.database.base.Tool
 import kpn.database.util.Mongo.client
 import kpn.database.util.Mongo.codecRegistry
 import kpn.server.analyzer.engine.changes.OsmChangeReader
 import kpn.server.repository.MetricsRepository
-import kpn.server.repository.MetricsRepositoryImpl
 
 import java.io.File
 
@@ -44,7 +42,7 @@ object ReplicatorTool extends Tool[ReplicatorToolOptions] {
     val mongoClient = client
     try {
       val mongoDatabase = mongoClient.getDatabase(options.actionsDatabaseName).withCodecRegistry(codecRegistry)
-      val database = new MetricsDatabaseImpl(mongoDatabase)
+      val database = new MetricsDatabase(mongoDatabase)
       val tool = buildTool(options, database)
       try {
         tool.launch()
@@ -60,10 +58,10 @@ object ReplicatorTool extends Tool[ReplicatorToolOptions] {
 
   private def buildTool(options: ReplicatorToolOptions, database: MetricsDatabase): ReplicatorTool = {
     val dirs = Dirs()
-    val statusRepository = new StatusRepositoryImpl(dirs)
-    val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
-    val replicationRequestExecutor = new ReplicationRequestExecutorImpl()
-    val metricsRepository = new MetricsRepositoryImpl(database)
+    val statusRepository = new StatusRepository(dirs)
+    val replicationStateRepository = new ReplicationStateRepository(dirs.replicate)
+    val replicationRequestExecutor = new ReplicationRequestExecutor()
+    val metricsRepository = new MetricsRepository(database)
     new ReplicatorTool(
       dirs.replicate,
       statusRepository,
@@ -89,7 +87,7 @@ import kpn.core.replicate.ReplicationResultCode.*
 
 class ReplicatorTool(
   replicateDir: File,
-  statusRepository: StatusRepositoryImpl,
+  statusRepository: StatusRepository,
   replicationStateRepository: ReplicationStateRepository,
   replicationRequestExecutor: ReplicationRequestExecutor,
   metricsRepository: MetricsRepository

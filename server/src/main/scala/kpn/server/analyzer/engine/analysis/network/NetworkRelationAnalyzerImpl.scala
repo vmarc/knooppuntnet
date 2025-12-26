@@ -7,9 +7,7 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkRelationAnalyzerImpl(
-  locationAnalyzer: LocationAnalyzer
-) extends NetworkRelationAnalyzer {
+class NetworkRelationAnalyzerImpl(locationAnalyzer: LocationAnalyzer) {
 
   def analyze(relation: Relation): NetworkRelationAnalysis = {
 

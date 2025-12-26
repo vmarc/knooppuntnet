@@ -5,9 +5,9 @@ import kpn.database.base.Database
 import kpn.database.base.Options
 import kpn.database.base.Tool
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.poi.PoiTileBuilderImpl
-import kpn.server.analyzer.engine.poi.PoiTileUpdaterImpl
-import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
+import kpn.server.analyzer.engine.poi.PoiTileBuilder
+import kpn.server.analyzer.engine.poi.PoiTileUpdater
+import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.vector.PoiVectorTileBuilder
 import kpn.server.repository.PoiRepositoryImpl
 import kpn.server.repository.TaskRepositoryImpl
@@ -28,15 +28,15 @@ object PoiTileUpdateTool extends Tool[PoiTileUpdateToolOptions] {
     val poiTileBuilder = {
       val tileBuilder = new PoiVectorTileBuilder()
       val poiRepository = new PoiRepositoryImpl(database)
-      val tileFileRepository = new TileFileRepositoryImpl(options.tileDir, "mvt")
-      new PoiTileBuilderImpl(
+      val tileFileRepository = new TileFileRepository(options.tileDir, "mvt")
+      new PoiTileBuilder(
         poiRepository,
         tileFileRepository,
         tileBuilder
       )
     }
     val taskRepository = new TaskRepositoryImpl(database)
-    val poiTileUpdater = new PoiTileUpdaterImpl(
+    val poiTileUpdater = new PoiTileUpdater(
       poiTileBuilder,
       taskRepository
     )
@@ -44,7 +44,7 @@ object PoiTileUpdateTool extends Tool[PoiTileUpdateToolOptions] {
   }
 }
 
-class PoiTileUpdateTool(poiTileUpdaterImpl: PoiTileUpdaterImpl) {
+class PoiTileUpdateTool(poiTileUpdaterImpl: PoiTileUpdater) {
 
   private val log = Log(classOf[PoiTileUpdateTool])
 

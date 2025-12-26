@@ -1,8 +1,8 @@
 package kpn.core.tools.operation
 
-import kpn.core.replicate.ReplicationStateRepositoryImpl
+import kpn.core.replicate.ReplicationStateRepository
 import kpn.core.tools.config.Dirs
-import kpn.core.tools.status.StatusRepositoryImpl
+import kpn.core.tools.status.StatusRepository
 import kpn.core.tools.support.Stop
 
 import scala.sys.process.Process
@@ -11,9 +11,9 @@ class OperationActions {
 
   private val dirs = Dirs()
   private val systemStatus = new SystemStatus(
-    new ProcessReporterImpl(),
-    new StatusRepositoryImpl(dirs),
-    new ReplicationStateRepositoryImpl(dirs.replicate)
+    new ProcessReporter(),
+    new StatusRepository(dirs),
+    new ReplicationStateRepository(dirs.replicate)
   )
 
   def status(web: Boolean): String = {

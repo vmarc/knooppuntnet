@@ -97,7 +97,7 @@ class RouteLocatorTest extends UnitTest {
 
     val segments = baseRouteSegmentAnalyzer.analyze()
 
-    val locator = new RouteLocatorImpl(LocationAnalyzerTest.locationAnalyzer)
+    val locator = new RouteLocator(LocationAnalyzerTest.locationAnalyzer)
     locator.locate(segments)
   }
 }

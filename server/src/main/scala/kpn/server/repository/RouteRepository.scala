@@ -1,5 +1,8 @@
 package kpn.server.repository
 
+import com.mongodb.client.model.Aggregates.project
+import com.mongodb.client.model.Projections.fields
+import com.mongodb.client.model.Projections.include
 import kpn.api.common.Bounds
 import kpn.api.common.Country
 import kpn.api.common.RouteType
@@ -14,77 +17,218 @@ import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.doc.SubRouteData
 import kpn.core.doc.SuperSubSegmentInfo
+import kpn.core.util.Log
+import kpn.database.actions.routes.MongoQueryBaseRouteIds
+import kpn.database.actions.routes.MongoQueryKnownRouteIds
+import kpn.database.actions.routes.MongoQueryNetworkRouteDetails
+import kpn.database.actions.routes.MongoQueryParentRoutes
+import kpn.database.actions.routes.MongoQueryRouteActiveIds
+import kpn.database.actions.routes.MongoQueryRouteBounds
+import kpn.database.actions.routes.MongoQueryRouteCountry
+import kpn.database.actions.routes.MongoQueryRouteDetailsData
+import kpn.database.actions.routes.MongoQueryRouteElementIds
+import kpn.database.actions.routes.MongoQueryRouteIds
+import kpn.database.actions.routes.MongoQueryRouteInfo
+import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
+import kpn.database.actions.routes.MongoQueryRouteSearchResults
+import kpn.database.actions.routes.MongoQueryRouteSegmentCoordinates
+import kpn.database.actions.routes.MongoQueryRouteSegmentCount
+import kpn.database.actions.routes.MongoQueryRouteSegments
+import kpn.database.actions.routes.MongoQueryRouteTileIds
+import kpn.database.actions.routes.MongoQueryRouteTileInfos
+import kpn.database.actions.routes.MongoQueryRoutes
+import kpn.database.actions.routes.MongoQuerySubRelationTree
+import kpn.database.actions.routes.MongoQuerySubRouteData
 import kpn.database.actions.routes.RouteDetailsData
+import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.equal
+import kpn.database.base.MongoAggregates.filter
+import kpn.database.base.StringId
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.domain.MonitorSegment
+import kpn.server.sync.Transaction
+import org.springframework.stereotype.Component
 
-trait RouteRepository {
+@Component
+class RouteRepository(database: Database) {
 
-  def allRouteIds(): Seq[Long]
+  private val log = Log(classOf[RouteRepository])
 
-  def activeRouteIds(): Seq[Long]
+  def allRouteIds(): Seq[Long] = {
+    database.routes.ids(log)
+  }
 
-  def activeBaseRouteIds(): Seq[Long]
+  def activeRouteIds(): Seq[Long] = {
+    new MongoQueryRouteIds(database).execute(log).sorted
+  }
 
-  def tileIds(routeType: RouteType): Seq[TileId]
+  def activeBaseRouteIds(): Seq[Long] = {
+    new MongoQueryBaseRouteIds(database).execute(log).sorted
+  }
 
-  def saveRoute(route: RouteDoc): Unit
+  def tileIds(routeType: RouteType): Seq[TileId] = {
+    new MongoQueryRouteTileIds(database).execute(routeType, log)
+  }
 
-  def saveRouteTile(routeTileInfo: RouteTileInfo): Unit
+  def saveRoute(routeDoc: RouteDoc): Unit = {
+    database.routes.save(routeDoc, log)
+    database.transactions.save(Transaction.routeUpdate(routeDoc._id))
+  }
 
-  def routeTiles(routeId: Long): Seq[RouteTileInfo]
+  def saveRouteTile(routeTileInfo: RouteTileInfo): Unit = {
+    database.routeTiles.save(routeTileInfo, log)
+  }
 
-  def routeTileIds(routeId: Long): Seq[String]
+  def routeTiles(routeId: Long): Seq[RouteTileInfo] = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        filter(
+          equal("routeId", routeId),
+        )
+      )
+      val docs = database.routeTiles.aggregate(pipeline, classOf[RouteTileInfo], log)
+      (s"find tile docs route $routeId", docs)
+    }
+  }
 
-  def tileInfosByZoomLevel(routeType: RouteType, zoomLevel: Int): Seq[RouteTileInfo]
+  def routeTileIds(routeId: Long): Seq[String] = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        filter(
+          equal("routeId", routeId),
+        ),
+        project(
+          fields(
+            include("_id")
+          )
+        )
+      )
+      val ids = database.routeTiles.aggregate(pipeline, classOf[StringId], log).map(_._id)
+      (s"found ${ids.size} tile doc ids for route $routeId", ids)
+    }
+  }
 
-  def tileInfosByTileId(routeType: RouteType, tileId: TileId): Seq[RouteTileInfo]
+  def tileInfosByZoomLevel(routeType: RouteType, zoomLevel: Int): Seq[RouteTileInfo] = {
+    new MongoQueryRouteTileInfos(database).byZoomLevel(routeType, zoomLevel, log)
+  }
 
-  def deleteRouteTiles(routeId: Long): Unit
+  def tileInfosByTileId(routeType: RouteType, tileId: TileId): Seq[RouteTileInfo] = {
+    new MongoQueryRouteTileInfos(database).byTileId(routeType, tileId, log)
+  }
 
-  def deleteRouteTile(tileId: String): Unit
+  def deleteRouteTiles(routeId: Long): Unit = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        filter(
+          equal("routeId", routeId),
+        ),
+        project(
+          include("_id")
+        )
+      )
+      val tileDocIds = database.routeTiles.aggregate(pipeline, classOf[StringId], log)
+      tileDocIds.foreach { tileDocId =>
+        database.routeTiles.deleteByStringId(tileDocId._id, log)
+      }
+      (s"delete tile docs route $routeId", ())
+    }
+  }
 
-  def bulkSaveRoutes(routes: Seq[RouteDoc]): Unit
+  def deleteRouteTile(tileId: String): Unit = {
+    log.debugElapsed {
+      database.routeTiles.deleteByStringId(tileId, log)
+      (s"delete route tile doc $tileId", ())
+    }
+  }
 
-  def findRouteById(routeId: Long): Option[RouteDoc]
+  def bulkSaveRoutes(routeDocs: Seq[RouteDoc]): Unit = {
+    database.routes.bulkSave(routeDocs, log)
+    val transactions = routeDocs.map { routeDoc =>
+      val transaction = Transaction.routeUpdate(routeDoc._id)
+      database.transactions.save(transaction)
+    }
+  }
 
-  def routeInfo(routeId: Long): Option[RouteInfo]
+  def findRouteById(routeId: Long): Option[RouteDoc] = {
+    database.routes.findById(routeId, log)
+  }
 
-  def routeSegmentCount(routeId: Long): Option[Long]
+  def routeInfo(routeId: Long): Option[RouteInfo] = {
+    new MongoQueryRouteInfo(database).execute(routeId, log)
+  }
 
-  def networkReferences(routeId: Long): Seq[Reference]
+  def routeSegmentCount(routeId: Long): Option[Long] = {
+    new MongoQueryRouteSegmentCount(database).execute(routeId, log)
+  }
 
-  def routeCountry(routeId: Long): Option[Country]
+  def networkReferences(routeId: Long): Seq[Reference] = {
+    new MongoQueryRouteNetworkReferences(database).execute(routeId, log)
+  }
 
-  def explore(query: ConditionGroup): RouteList
+  def routeCountry(routeId: Long): Option[Country] = {
+    new MongoQueryRouteCountry(database).execute(routeId)
+  }
 
-  def activeRouteElementIds(): Seq[ReferencedElementIds]
+  def explore(query: ConditionGroup): RouteList = {
+    val routeIds = new MongoQueryRoutes(database).execute(query)
+    new MongoQueryRouteSearchResults(database).execute(routeIds)
+  }
 
-  def saveBaseRoute(baseRoute: BaseRouteDoc): Unit
+  def activeRouteElementIds(): Seq[ReferencedElementIds] = {
+    new MongoQueryRouteElementIds(database).execute()
+  }
 
-  def bulkSaveBaseRoutes(baseRoutes: Seq[BaseRouteDoc]): Unit
+  def saveBaseRoute(baseRoute: BaseRouteDoc): Unit = {
+    database.baseRoutes.save(baseRoute, log)
+  }
 
-  def findBaseRouteById(routeId: Long): Option[BaseRouteDoc]
+  def bulkSaveBaseRoutes(baseRoutes: Seq[BaseRouteDoc]): Unit = {
+    database.baseRoutes.bulkSave(baseRoutes, log)
+  }
 
-  def filterKnownBaseRoutes(routeIds: Set[Long]): Set[Long]
+  def findBaseRouteById(routeId: Long): Option[BaseRouteDoc] = {
+    database.baseRoutes.findById(routeId, log)
+  }
 
-  def bounds(routeIds: Seq[Long]): Option[Bounds]
+  def filterKnownBaseRoutes(routeIds: Set[Long]): Set[Long] = {
+    new MongoQueryKnownRouteIds(database).execute(routeIds.toSeq, log).toSet
+  }
 
-  def segments(routeIds: Seq[Long]): Seq[SuperSubSegmentInfo]
+  def bounds(routeIds: Seq[Long]): Option[Bounds] = {
+    new MongoQueryRouteBounds(database).execute(routeIds, log)
+  }
 
-  def routeActiveIds(routeIds: Seq[Long]): Seq[Long]
+  def segments(routeIds: Seq[Long]): Seq[SuperSubSegmentInfo] = {
+    new MongoQueryRouteSegments(database).execute(routeIds, log)
+  }
 
-  def subRouteData(routeId: Long): Option[SubRouteData]
+  def routeActiveIds(routeIds: Seq[Long]): Seq[Long] = {
+    new MongoQueryRouteActiveIds(database).execute(routeIds, log)
+  }
 
-  def parentRoutes(routeId: Long): Seq[ParentRouteData]
+  def subRouteData(routeId: Long): Option[SubRouteData] = {
+    new MongoQuerySubRouteData(database).execute(routeId)
+  }
 
-  def networkRouteDetails(routeIds: Seq[Long]): Seq[NetworkRouteDetail]
+  def parentRoutes(routeId: Long): Seq[ParentRouteData] = {
+    new MongoQueryParentRoutes(database).execute(routeId)
+  }
 
-  def subRelationTree(routeId: Long): Option[RouteRelation]
+  def networkRouteDetails(routeIds: Seq[Long]): Seq[NetworkRouteDetail] = {
+    new MongoQueryNetworkRouteDetails(database).execute(routeIds)
+  }
 
-  def segmentCoordinates(routeIds: Seq[Long]): Seq[MonitorSegment]
+  def subRelationTree(routeId: Long): Option[RouteRelation] = {
+    new MongoQuerySubRelationTree(database).execute(routeId)
+  }
 
-  def routeDetails(routeId: Long): Option[RouteDetailsData]
+  def segmentCoordinates(routeIds: Seq[Long]): Seq[MonitorSegment] = {
+    new MongoQueryRouteSegmentCoordinates(database).execute(routeIds)
+  }
+
+  def routeDetails(routeId: Long): Option[RouteDetailsData] = {
+    new MongoQueryRouteDetailsData(database).execute(routeId)
+  }
 }

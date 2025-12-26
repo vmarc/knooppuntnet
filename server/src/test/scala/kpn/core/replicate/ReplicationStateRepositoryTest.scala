@@ -1,10 +1,10 @@
 package kpn.core.replicate
 
-import java.io.File
-
 import kpn.api.common.ReplicationId
 import kpn.api.custom.Timestamp
 import kpn.core.util.UnitTest
+
+import java.io.File
 
 class ReplicationStateRepositoryTest extends UnitTest {
 
@@ -39,7 +39,7 @@ class ReplicationStateRepositoryTest extends UnitTest {
   }
 
   private def testTimestamp(state: String): Unit = {
-    val repo = new ReplicationStateRepositoryImpl(new File("/tmp"))
+    val repo = new ReplicationStateRepository(new File("/tmp"))
     val replicationId = ReplicationId(1712505)
     repo.write(replicationId, state)
     repo.read(replicationId) should equal(Timestamp(2015, 12, 21, 10, 55, 1))

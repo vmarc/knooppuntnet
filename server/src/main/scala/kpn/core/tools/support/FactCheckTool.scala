@@ -12,8 +12,8 @@ import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
-import kpn.server.repository.FactRepositoryImpl
-import kpn.server.repository.SubsetRepositoryImpl
+import kpn.server.repository.FactRepository
+import kpn.server.repository.SubsetRepository
 
 object FactCheckTool {
   def main(args: Array[String]): Unit = {
@@ -27,8 +27,8 @@ object FactCheckTool {
 }
 
 class FactCheckTool(database: Database) {
-  private val subsetRepository = new SubsetRepositoryImpl(database)
-  private val factRepository = new FactRepositoryImpl(database)
+  private val subsetRepository = new SubsetRepository(database)
+  private val factRepository = new FactRepository(database)
 
   def statisticsBasedQuery(): Unit = {
     val factCounts = subsetRepository.subsetFactCounts(Subset.frHiking)

@@ -4,7 +4,7 @@ import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.planner.graph.GraphEdge
-import kpn.core.planner.graph.NodeNetworkGraphImpl
+import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.test.TestObjects.legEndRoute
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newRouteBaseData
@@ -36,7 +36,7 @@ class GraphTestData extends Stubs {
 
   val graphRepository: GraphRepository = {
 
-    val graph = new NodeNetworkGraphImpl()
+    val graph = new NodeNetworkGraph()
     graph.add(GraphEdge(node1.id, node2.id, 1, proposed = false, legEndRoute1.trackPathKeys.head))
     graph.add(GraphEdge(node2.id, node3.id, 2, proposed = false, legEndRoute2.trackPathKeys.head))
     graph.add(GraphEdge(node3.id, node4.id, 5, proposed = false, legEndRoute3.trackPathKeys.head))

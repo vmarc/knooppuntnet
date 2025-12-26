@@ -3,7 +3,7 @@ package kpn.database.actions.monitor
 import kpn.core.test.MongoTest
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.domain.MonitorStateTile
-import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
+import kpn.server.monitor.repository.MonitorRouteRepository
 import org.bson.types.ObjectId
 
 class MongoQueryMonitorStateTileIdsTest extends MongoTest {
@@ -24,7 +24,7 @@ class MongoQueryMonitorStateTileIdsTest extends MongoTest {
 
   private def setupStateTiles(): Unit = {
 
-    val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
+    val monitorRouteRepository = new MonitorRouteRepository(database)
 
     monitorRouteRepository.saveStateTile(
       MonitorStateTile(

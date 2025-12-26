@@ -9,10 +9,9 @@ import e2e.pages.Application
 import kpn.api.common.common.User
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.database.base.Database
-import kpn.database.base.DatabaseImpl
 import kpn.database.util.Mongo
-import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
-import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
+import kpn.server.monitor.repository.MonitorGroupRepository
+import kpn.server.monitor.repository.MonitorRouteRepository
 
 import java.nio.file.Paths
 import java.util.regex.Pattern
@@ -25,7 +24,7 @@ class ApplicationTest extends EndToEndTest {
   override def beforeEach(): Unit = {
     super.beforeEach()
     mongoClient = Mongo.client
-    database = new DatabaseImpl(mongoClient.getDatabase("kpn-test").withCodecRegistry(Mongo.codecRegistry))
+    database = new Database(mongoClient.getDatabase("kpn-test").withCodecRegistry(Mongo.codecRegistry))
   }
 
   override def afterEach(): Unit = {
@@ -289,8 +288,8 @@ class ApplicationTest extends EndToEndTest {
     waitForVisible(app.routeSaveDialog.routeSaved)
     click(app.routeSaveDialog.backToGroupButton)
 
-    val groupRepository = new MonitorGroupRepositoryImpl(database)
-    val routeRepository = new MonitorRouteRepositoryImpl(database)
+    val groupRepository = new MonitorGroupRepository(database)
+    val routeRepository = new MonitorRouteRepository(database)
 
     val group = groupRepository.groupByName("group1").get
     val route = routeRepository.routeByName(group._id, "route1").get
@@ -344,8 +343,8 @@ class ApplicationTest extends EndToEndTest {
     waitForVisible(app.routeSaveDialog.routeSaved)
     click(app.routeSaveDialog.backToGroupButton)
 
-    val groupRepository = new MonitorGroupRepositoryImpl(database)
-    val routeRepository = new MonitorRouteRepositoryImpl(database)
+    val groupRepository = new MonitorGroupRepository(database)
+    val routeRepository = new MonitorRouteRepository(database)
 
     val group = groupRepository.groupByName("group1").get
     val route = routeRepository.routeByName(group._id, "route1").get
@@ -407,8 +406,8 @@ class ApplicationTest extends EndToEndTest {
     waitForVisible(app.routeSaveDialog.routeSaved)
     click(app.routeSaveDialog.backToGroupButton)
 
-    val groupRepository = new MonitorGroupRepositoryImpl(database)
-    val routeRepository = new MonitorRouteRepositoryImpl(database)
+    val groupRepository = new MonitorGroupRepository(database)
+    val routeRepository = new MonitorRouteRepository(database)
 
     val group = groupRepository.groupByName("group1").get
     val route = routeRepository.routeByName(group._id, "route1").get

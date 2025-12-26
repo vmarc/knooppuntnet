@@ -17,7 +17,7 @@ class NodeNetworkGraphTest extends UnitTest {
     val leg13 = TrackPathKey(13, 1)
     val leg34 = TrackPathKey(34, 1)
 
-    val graph = new NodeNetworkGraphImpl()
+    val graph = new NodeNetworkGraph()
     graph.add(GraphEdge(1, 2, 2, proposed = false, leg12))
     graph.add(GraphEdge(2, 4, 2, proposed = false, leg14))
     graph.add(GraphEdge(1, 3, 1, proposed = false, leg13))
@@ -40,12 +40,12 @@ class NodeNetworkGraphTest extends UnitTest {
   }
 
   test("source node not in graph") {
-    val graph = new NodeNetworkGraphImpl()
+    val graph = new NodeNetworkGraph()
     graph.findPath("1", "4", proposed = false) should equal(None)
   }
 
   test("sink node not in graph") {
-    val graph = new NodeNetworkGraphImpl()
+    val graph = new NodeNetworkGraph()
     graph.add(GraphEdge(1, 2, 1, proposed = false, TrackPathKey(12, 1)))
     graph.findPath("1", "4", proposed = false) should equal(None)
   }

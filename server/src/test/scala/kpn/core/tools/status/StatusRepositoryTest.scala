@@ -1,10 +1,10 @@
 package kpn.core.tools.status
 
-import java.io.File
-
 import kpn.api.common.ReplicationId
 import kpn.core.tools.config.Dirs
 import kpn.core.util.UnitTest
+
+import java.io.File
 
 class StatusRepositoryTest extends UnitTest {
 
@@ -14,7 +14,7 @@ class StatusRepositoryTest extends UnitTest {
     try {
       val dirs = new Dirs(file)
 
-      val repository = new StatusRepositoryImpl(dirs)
+      val repository = new StatusRepository(dirs)
 
       val replicationId = ReplicationId(1, 2, 3)
 
@@ -34,7 +34,7 @@ class StatusRepositoryTest extends UnitTest {
     try {
       val dirs = new Dirs(file)
 
-      val repository = new StatusRepositoryImpl(dirs)
+      val repository = new StatusRepository(dirs)
 
       repository.analysisStatus1 should equal(None)
     }
@@ -43,5 +43,4 @@ class StatusRepositoryTest extends UnitTest {
       ()
     }
   }
-
 }

@@ -3,13 +3,11 @@ package kpn.core.tools.next.support
 import com.mongodb.client.MongoClients
 import kpn.api.common.Relation
 import kpn.core.tools.next.database.NextDatabase
-import kpn.core.tools.next.database.NextDatabaseImpl
 import kpn.core.tools.next.domain.NextRouteState
 import kpn.core.util.Log
 import kpn.database.util.Mongo.codecRegistry
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
-import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.wayToWorldCoordinates
 import kpn.server.analyzer.engine.tiles.domain.Tile
@@ -20,8 +18,8 @@ object NextCreateRouteStatesTool {
     val client = MongoClients.create("mongodb://localhost:27017")
     try {
       val mongoDatabase = client.getDatabase("kpn-next").withCodecRegistry(codecRegistry)
-      val database = new NextDatabaseImpl(mongoDatabase)
-      val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(new RouteTileCache())
+      val database = new NextDatabase(mongoDatabase)
+      val lineSegmentTileCalculator = new LineSegmentTileCalculator(new RouteTileCache())
       val tool = new NextCreateRouteStatesTool(database, lineSegmentTileCalculator)
       tool.createRelationStates()
     } finally {

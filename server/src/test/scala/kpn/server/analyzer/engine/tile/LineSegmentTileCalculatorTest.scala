@@ -8,7 +8,7 @@ import org.locationtech.jts.geom.LineSegment
 class LineSegmentTileCalculatorTest extends UnitTest {
 
   private val t = new TileTestSetup()
-  private val linesTileCalculator = new LineSegmentTileCalculatorImpl(t.routeTileCache)
+  private val linesTileCalculator = new LineSegmentTileCalculator(t.routeTileCache)
 
   test("single tile route in center tile") {
 

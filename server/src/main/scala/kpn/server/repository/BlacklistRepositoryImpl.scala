@@ -12,7 +12,7 @@ class BlacklistRepositoryImpl(database: Database) extends BlacklistRepository {
   private var cachedBlackList: Option[Blacklist] = None
   private var cachedTimestamp: Option[Long] = None
 
-  def get(now: Long): Blacklist = {
+  override def get(now: Long): Blacklist = {
     if (cachedTimestamp.isEmpty || cachedTimestamp.get < (now - CACHE_TIMEOUT_MILLIS)) {
       val blacklist = database.blacklists.findByStringId(Blacklist.id).getOrElse(Blacklist())
       cachedBlackList = Some(blacklist)
@@ -24,7 +24,7 @@ class BlacklistRepositoryImpl(database: Database) extends BlacklistRepository {
     }
   }
 
-  def save(blacklist: Blacklist, now: Long): Unit = {
+  override def save(blacklist: Blacklist, now: Long): Unit = {
     database.blacklists.save(blacklist)
     cachedBlackList = Some(blacklist)
     cachedTimestamp = Some(now)

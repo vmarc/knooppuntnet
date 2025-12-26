@@ -5,12 +5,12 @@ import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.repository.RouteRepositoryImpl
+import kpn.server.repository.RouteRepository
 
 class RouteParentsAnalyzerTest extends MongoTest {
 
   test("two levels of parent routes") {
-    val baseRouteRepository = new RouteRepositoryImpl(database)
+    val baseRouteRepository = new RouteRepository(database)
     val analyzer = new RouteParentAnalyzer(baseRouteRepository)
 
     baseRouteRepository.saveBaseRoute(
@@ -78,7 +78,7 @@ class RouteParentsAnalyzerTest extends MongoTest {
   }
 
   test("protect against indirect self referential routes") {
-    val baseRouteRepository = new RouteRepositoryImpl(database)
+    val baseRouteRepository = new RouteRepository(database)
     val analyzer = new RouteParentAnalyzer(baseRouteRepository)
 
     baseRouteRepository.saveBaseRoute(

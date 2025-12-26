@@ -4,44 +4,93 @@ import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.NodeDoc
+import kpn.core.util.Log
+import kpn.database.actions.nodes.MongoQueryBaseNodeIds
+import kpn.database.actions.nodes.MongoQueryKnownNodeIds
+import kpn.database.actions.nodes.MongoQueryNodeBaseRouteReferences
+import kpn.database.actions.nodes.MongoQueryNodeIds
+import kpn.database.actions.nodes.MongoQueryNodeTileIds
+import kpn.database.actions.nodes.MongoQueryNodeTileInfos
+import kpn.database.actions.nodes.MongoQueryNodes
+import kpn.database.base.Database
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
+import org.springframework.stereotype.Component
 
-trait NodeRepository {
+@Component
+class NodeRepository(database: Database) {
 
-  def allNodeIds(): Seq[Long]
+  private val log = Log(classOf[NodeRepository])
 
-  def activeNodeIds(): Seq[Long]
+  def allNodeIds(): Seq[Long] = {
+    database.nodes.ids(log)
+  }
 
-  def activeBaseNodeIds(): Seq[Long]
+  def activeNodeIds(): Seq[Long] = {
+    new MongoQueryNodeIds(database).execute()
+  }
 
-  def saveBaseNode(baseNode: BaseNodeDoc): Unit
+  def activeBaseNodeIds(): Seq[Long] = {
+    new MongoQueryBaseNodeIds(database).execute()
+  }
 
-  def save(node: NodeDoc): Unit
+  def saveBaseNode(baseNode: BaseNodeDoc): Unit = {
+    database.baseNodes.save(baseNode)
+  }
 
-  def bulkSaveBaseNodes(baseNodeDocs: Seq[BaseNodeDoc]): Unit
+  def save(nodeDoc: NodeDoc): Unit = {
+    database.nodes.save(nodeDoc)
+  }
 
-  def bulkSave(nodes: NodeDoc*): Unit
+  def bulkSaveBaseNodes(baseNodeDocs: Seq[BaseNodeDoc]): Unit = {
+    database.baseNodes.bulkSave(baseNodeDocs)
+  }
 
-  def delete(nodeId: Long): Unit
+  def bulkSave(nodeDocs: NodeDoc*): Unit = {
+    database.nodes.bulkSave(nodeDocs)
+  }
 
-  def nodeWithId(nodeId: Long): Option[NodeDoc]
+  def delete(nodeId: Long): Unit = {
+    database.nodes.delete(nodeId, log)
+  }
 
-  def baseNodeWithId(nodeId: Long): Option[BaseNodeDoc]
+  def nodeWithId(nodeId: Long): Option[NodeDoc] = {
+    database.nodes.findById(nodeId, log)
+  }
 
-  def baseNodesWithIds(nodeIds: Seq[Long]): Seq[BaseNodeDoc]
+  def nodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc] = {
+    database.nodes.findByIds(nodeIds, log)
+  }
 
-  def nodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc]
+  def activeNodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc] = {
+    new MongoQueryNodes(database: Database).execute(nodeIds)
+  }
 
-  def activeNodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc]
+  def baseNodeWithId(nodeId: Long): Option[BaseNodeDoc] = {
+    database.baseNodes.findById(nodeId, log)
+  }
 
-  def nodeRouteReferences(nodeId: Long): Seq[Reference]
+  def baseNodesWithIds(nodeIds: Seq[Long]): Seq[BaseNodeDoc] = {
+    database.baseNodes.findByIds(nodeIds, log)
+  }
 
-  def filterKnown(nodeIds: Set[Long]): Set[Long]
+  def nodeRouteReferences(nodeId: Long): Seq[Reference] = {
+    new MongoQueryNodeBaseRouteReferences(database).execute(nodeId)
+  }
 
-  def tileIds(routeType: RouteType): Seq[TileId]
+  def filterKnown(nodeIds: Set[Long]): Set[Long] = {
+    new MongoQueryKnownNodeIds(database).execute(nodeIds.toSeq).toSet
+  }
 
-  def tileInfosByZoomLevel(routeType: RouteType, zoomLevel: Int): Seq[NodeTileInfo]
+  def tileIds(routeType: RouteType): Seq[TileId] = {
+    new MongoQueryNodeTileIds(database).execute(routeType)
+  }
 
-  def tileInfosByTileId(routeType: RouteType, tileId: TileId): Seq[NodeTileInfo]
+  def tileInfosByZoomLevel(routeType: RouteType, zoomLevel: Int): Seq[NodeTileInfo] = {
+    new MongoQueryNodeTileInfos(database).byZoomLevel(routeType, zoomLevel)
+  }
+
+  def tileInfosByTileId(routeType: RouteType, tileId: TileId): Seq[NodeTileInfo] = {
+    new MongoQueryNodeTileInfos(database).byTileId(routeType, tileId)
+  }
 }

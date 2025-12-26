@@ -7,9 +7,8 @@ import kpn.api.custom.Timestamp
 import kpn.core.metrics.UpdateAction
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
-import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.Log
-import kpn.database.base.MetricsDatabaseImpl
+import kpn.database.base.MetricsDatabase
 import kpn.database.base.Options
 import kpn.database.base.Tool
 import kpn.database.util.Mongo.client
@@ -17,7 +16,6 @@ import kpn.database.util.Mongo.codecRegistry
 import kpn.server.analyzer.engine.changes.MinuteDiffReader
 import kpn.server.analyzer.engine.changes.ReplicationStateReader
 import kpn.server.repository.MetricsRepository
-import kpn.server.repository.MetricsRepositoryImpl
 import org.apache.commons.io.FileUtils
 import org.apache.logging.log4j.ThreadContext
 
@@ -63,10 +61,10 @@ object UpdaterTool extends Tool[UpdaterToolOptions] {
 
   private def buildTool(mongoClient: MongoClient, options: UpdaterToolOptions): UpdaterTool = {
     val dirs = Dirs()
-    val statusRepository = new StatusRepositoryImpl(dirs)
-    val replicationStateRepository = new ReplicationStateRepositoryImpl(dirs.replicate)
-    val database = new MetricsDatabaseImpl(mongoClient.getDatabase(options.actionsDatabaseName).withCodecRegistry(codecRegistry))
-    val metricsRepository = new MetricsRepositoryImpl(database)
+    val statusRepository = new StatusRepository(dirs)
+    val replicationStateRepository = new ReplicationStateRepository(dirs.replicate)
+    val database = new MetricsDatabase(mongoClient.getDatabase(options.actionsDatabaseName).withCodecRegistry(codecRegistry))
+    val metricsRepository = new MetricsRepository(database)
     new UpdaterTool(options, statusRepository, metricsRepository, replicationStateRepository)
   }
 }

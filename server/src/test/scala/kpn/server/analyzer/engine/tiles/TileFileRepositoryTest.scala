@@ -16,7 +16,7 @@ class TileFileRepositoryTest extends UnitTest {
       createFile("/tmp/tiles/motorboat/11/1048/676.mvt")
       createFile("/tmp/tiles/motorboat/11/1048/677.mvt")
 
-      val repo = new TileFileRepositoryImpl("/tmp/tiles", "mvt")
+      val repo = new TileFileRepository("/tmp/tiles", "mvt")
 
       repo.existingTileNames("inline-skating", 11) should equal(Seq("inline-skating-11-1048-676"))
       repo.existingTileNames("motorboat", 11) should equal(Seq("motorboat-11-1048-676", "motorboat-11-1048-677"))
@@ -33,7 +33,7 @@ class TileFileRepositoryTest extends UnitTest {
       createFile("/tmp/tiles/horse-riding/surface/7/65/42.png")
       createFile("/tmp/tiles/horse-riding/surface/7/65/43.png")
 
-      val repo = new TileFileRepositoryImpl("/tmp/tiles", "png")
+      val repo = new TileFileRepository("/tmp/tiles", "png")
 
       repo.existingTileNames("horse-riding/surface", 7) should equal(
         Seq(
@@ -52,7 +52,7 @@ class TileFileRepositoryTest extends UnitTest {
 
     try {
 
-      val repo = new TileFileRepositoryImpl("/tmp/tiles", "mvt")
+      val repo = new TileFileRepository("/tmp/tiles", "mvt")
 
       val tileName1 = "inline-skating-11-1048-676"
       val tileName2 = "motorboat-11-1048-676"
@@ -82,7 +82,7 @@ class TileFileRepositoryTest extends UnitTest {
   test("delete png tiles") {
 
     try {
-      val repo = new TileFileRepositoryImpl("/tmp/tiles", "png")
+      val repo = new TileFileRepository("/tmp/tiles", "png")
 
       val tileName1 = "inline-skating-11-1049-676"
       val tileName2 = "inline-skating-surface-11-1049-676"
@@ -124,7 +124,7 @@ class TileFileRepositoryTest extends UnitTest {
     try {
       val file = new File("/tmp/tiles/cycling/survey/11/12/13.png")
 
-      val repo = new TileFileRepositoryImpl("/tmp/tiles", "png")
+      val repo = new TileFileRepository("/tmp/tiles", "png")
 
       val tile = RouteTiles.tile(TileId(11, 12, 13))
 

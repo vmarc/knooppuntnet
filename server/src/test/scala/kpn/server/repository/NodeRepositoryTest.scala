@@ -11,7 +11,7 @@ class NodeRepositoryTest extends MongoTest {
 
   test("nodeWithId") {
 
-    val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
+    val nodeRepository: NodeRepository = new NodeRepository(database)
 
     nodeRepository.save(newNodeDoc(1001))
     nodeRepository.save(newNodeDoc(1002))
@@ -25,7 +25,7 @@ class NodeRepositoryTest extends MongoTest {
 
   test("nodesWithIds") {
 
-    val nodeRepository = new NodeRepositoryImpl(database)
+    val nodeRepository = new NodeRepository(database)
 
     val node1001 = newNodeDoc(1001)
     val node1002 = newNodeDoc(1002, active = false)
@@ -44,7 +44,7 @@ class NodeRepositoryTest extends MongoTest {
 
   test("activeNodesWithIds") {
 
-    val nodeRepository = new NodeRepositoryImpl(database)
+    val nodeRepository = new NodeRepository(database)
 
     val node1001 = newNodeDoc(1001)
     val node1002 = newNodeDoc(1002, active = false)
@@ -62,7 +62,7 @@ class NodeRepositoryTest extends MongoTest {
 
   test("save") {
 
-    val nodeRepository = new NodeRepositoryImpl(database)
+    val nodeRepository = new NodeRepository(database)
 
     nodeRepository.save(buildNode(1001, "01"))
     nodeRepository.save(buildNode(1002, "02"))
@@ -98,7 +98,7 @@ class NodeRepositoryTest extends MongoTest {
 
   test("save same network multiple times (delete before save)") {
 
-    val nodeRepository = new NodeRepositoryImpl(database)
+    val nodeRepository = new NodeRepository(database)
 
     nodeRepository.save(newNodeDoc(1001))
     nodeRepository.save(newNodeDoc(1001))
@@ -112,7 +112,7 @@ class NodeRepositoryTest extends MongoTest {
 
   test("filterKnown") {
 
-    val nodeRepository = new NodeRepositoryImpl(database)
+    val nodeRepository = new NodeRepository(database)
 
     nodeRepository.save(newNodeDoc(1001))
     nodeRepository.save(newNodeDoc(1002))

@@ -7,7 +7,7 @@ import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Exit
 import kpn.database.util.Mongo
-import kpn.server.repository.RouteRepositoryImpl
+import kpn.server.repository.RouteRepository
 
 import scala.xml.XML
 
@@ -37,7 +37,7 @@ class FindDeletedRoutesTool(database: Database, overpassQueryExecutor: OverpassQ
 
   private val log = Log(classOf[FindDeletedRoutesTool])
 
-  private val routeRepository = new RouteRepositoryImpl(database)
+  private val routeRepository = new RouteRepository(database)
 
   def report(): Unit = {
     log.info("Collecting route ids")

@@ -18,7 +18,7 @@ class FactRepositoryTest extends MongoTest {
 
   test("routeFacts") {
 
-    val networkRepository = new NetworkRepositoryImpl(database)
+    val networkRepository = new NetworkRepository(database)
     networkRepository.save(
       newNetworkDoc(
         1,
@@ -70,7 +70,7 @@ class FactRepositoryTest extends MongoTest {
 
     pendingRedesignNonAnalysis() // used in SubsetFactDetailsPageBuilder and FactCheckTool
 
-    val repository = new FactRepositoryImpl(database)
+    val repository = new FactRepository(database)
     assertEqual(
       repository.factsPerNetwork(Subset.beHiking, Fact.RouteUnusedSegments),
       Seq(
@@ -95,7 +95,7 @@ class FactRepositoryTest extends MongoTest {
 
   test("nodeFacts") {
 
-    val networkRepository = new NetworkRepositoryImpl(database)
+    val networkRepository = new NetworkRepository(database)
     networkRepository.save(
       newNetworkDoc(
         1,
@@ -132,7 +132,7 @@ class FactRepositoryTest extends MongoTest {
 
     pendingRedesignNonAnalysis() // used in SubsetFactDetailsPageBuilder and FactCheckTool
 
-    val repository = new FactRepositoryImpl(database)
+    val repository = new FactRepository(database)
     assertEqual(
       repository.factsPerNetwork(Subset.beHiking, Fact.IntegrityCheckFailed),
       Seq(

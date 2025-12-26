@@ -9,13 +9,11 @@ import kpn.database.base.Tool
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tile.RouteTileEncoder
 import kpn.server.analyzer.engine.tile.ZoomLevel
-import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
-import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
+import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
+import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.TilesData
 import kpn.server.repository.NodeRepository
-import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepository
-import kpn.server.repository.RouteRepositoryImpl
 
 /*
   Generates tiles for all nodes and routes in the database.
@@ -37,10 +35,10 @@ object TileTool extends Tool[TileToolOptions] {
   }
 
   private def buildTool(database: Database, tileDir: String): TileTool = {
-    val nodeRepository = new NodeRepositoryImpl(database)
-    val routeRepository = new RouteRepositoryImpl(database)
-    val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
-    val tileDataNodeBuilder = new TileDataNodeBuilderImpl()
+    val nodeRepository = new NodeRepository(database)
+    val routeRepository = new RouteRepository(database)
+    val vectorTileFileRepository = new TileFileRepository(tileDir, "mvt")
+    val tileDataNodeBuilder = new TileDataNodeBuilder()
     val routeTileEncoder = new RouteTileEncoder(
       vectorTileFileRepository,
       tileDataNodeBuilder

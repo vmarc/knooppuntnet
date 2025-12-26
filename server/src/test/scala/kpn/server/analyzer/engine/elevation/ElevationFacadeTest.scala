@@ -26,7 +26,7 @@ class ElevationFacadeTest extends UnitTest {
     printInfo("original", forwardPath)
     printInfo("sampleCoordinates", sampleCoordinates)
 
-    val repo = new ElevationRepositoryImpl()
+    val repo = new ElevationRepository()
 
     // calculate elevations first time to warm up the tile cache
     sampleCoordinates.flatMap(repo.elevation)

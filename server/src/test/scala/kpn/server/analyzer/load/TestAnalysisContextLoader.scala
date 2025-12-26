@@ -5,9 +5,9 @@ import kpn.core.util.Util
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.load.TestAnalysisContextLoader.log
-import kpn.server.repository.NetworkRepositoryImpl
-import kpn.server.repository.NodeRepositoryImpl
-import kpn.server.repository.RouteRepositoryImpl
+import kpn.server.repository.NetworkRepository
+import kpn.server.repository.NodeRepository
+import kpn.server.repository.RouteRepository
 
 object TestAnalysisContextLoader {
 
@@ -17,9 +17,9 @@ object TestAnalysisContextLoader {
     Mongo.executeIn("kpn-laptop") { database =>
       val analysisContext = new AnalysisContext()
       val loader: AnalysisContextLoader = {
-        val networkRepository = new NetworkRepositoryImpl(database)
-        val routeRepository = new RouteRepositoryImpl(database)
-        val nodeRepository = new NodeRepositoryImpl(database)
+        val networkRepository = new NetworkRepository(database)
+        val routeRepository = new RouteRepository(database)
+        val nodeRepository = new NodeRepository(database)
         new AnalysisContextLoader(
           analysisContext,
           networkRepository,

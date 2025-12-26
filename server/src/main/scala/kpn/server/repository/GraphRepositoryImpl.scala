@@ -2,7 +2,6 @@ package kpn.server.repository
 
 import kpn.api.common.RouteType
 import kpn.core.planner.graph.NodeNetworkGraph
-import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.core.util.Log
 import kpn.database.actions.graph.MongoQueryGraphEdges
 import kpn.database.base.Database
@@ -28,7 +27,7 @@ class GraphRepositoryImpl(
         graphs = {
           val graphEdges = new MongoQueryGraphEdges(database).execute()
           graphEdges.map { edges =>
-            val graph = new NodeNetworkGraphImpl()
+            val graph = new NodeNetworkGraph()
             edges.edges.foreach(graph.add)
             (edges.routeType.entryName, graph)
           }.toMap

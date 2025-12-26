@@ -4,12 +4,37 @@ import kpn.api.common.FactCount
 import kpn.api.common.subset.SubsetInfo
 import kpn.api.common.subset.SubsetMapNetwork
 import kpn.api.custom.Subset
+import kpn.core.analysis.Facts
+import kpn.core.util.Log
+import kpn.database.actions.statistics.MongoQueryStatistics
+import kpn.database.actions.subsets.MongoQuerySubsetInfo
+import kpn.database.actions.subsets.MongoQuerySubsetMapNetworks
+import kpn.database.base.Database
+import org.springframework.stereotype.Component
 
-trait SubsetRepository {
+@Component
+class SubsetRepository(database: Database) {
 
-  def subsetInfo(subset: Subset): SubsetInfo
+  private val log = Log(classOf[SubsetRepository])
 
-  def subsetFactCounts(subset: Subset): Seq[FactCount]
+  def subsetInfo(subset: Subset): SubsetInfo = {
+    new MongoQuerySubsetInfo(database).execute(subset, log)
+  }
 
-  def subsetMapNetworks(subset: Subset): Seq[SubsetMapNetwork]
+  def subsetFactCounts(subset: Subset): Seq[FactCount] = {
+    val statisticValuess = new MongoQueryStatistics(database).execute()
+    Facts.reportedFacts.flatMap { fact =>
+      statisticValuess.find(_._id == s"${fact.entryName}Count") match {
+        case None => Seq.empty
+        case Some(statisticValues) =>
+          statisticValues.values.filter(_.isSubset(subset)).map { sv =>
+            FactCount(fact, sv.value)
+          }
+      }
+    }
+  }
+
+  def subsetMapNetworks(subset: Subset): Seq[SubsetMapNetwork] = {
+    new MongoQuerySubsetMapNetworks(database).execute(subset, log)
+  }
 }

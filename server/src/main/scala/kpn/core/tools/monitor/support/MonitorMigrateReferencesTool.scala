@@ -3,11 +3,11 @@ package kpn.core.tools.monitor.support
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.monitor.domain.MonitorReference
-import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
+import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.route.update.MonitorReferenceBuilder
 import org.bson.types.ObjectId
 import org.locationtech.jts.geom.Geometry
@@ -25,9 +25,9 @@ object MonitorMigrateReferencesTool {
 
 class MonitorMigrateReferencesTool(database: Database) {
   private val log = Log(classOf[MonitorMigrateReferencesTool])
-  private val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
+  private val monitorRouteRepository = new MonitorRouteRepository(database)
   private val routeTileCache = new RouteTileCache()
-  private val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
+  private val lineSegmentTileCalculator = new LineSegmentTileCalculator(routeTileCache)
   private val referenceBuilder = new MonitorReferenceBuilder(lineSegmentTileCalculator)
 
   def migrate(): Unit = {

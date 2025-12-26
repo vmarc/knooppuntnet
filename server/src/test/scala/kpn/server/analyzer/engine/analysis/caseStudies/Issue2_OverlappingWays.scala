@@ -14,7 +14,7 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysi
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
-import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.json.Json
 import kpn.server.repository.RouteRepository
@@ -99,7 +99,7 @@ class Issue2_OverlappingWays extends UnitTest with Stubs {
     )
 
     val routeTileCache = new RouteTileCache()
-    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
+    val lineSegmentTileCalculator = new LineSegmentTileCalculator(routeTileCache)
     val routeTileAnalyzer = new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
     val locationAnalyzer = LocationAnalyzerTest.locationAnalyzer
     val routeRepository = stub[RouteRepository]

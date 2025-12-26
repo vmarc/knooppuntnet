@@ -1,16 +1,32 @@
 package kpn.server.repository
 
 import kpn.api.common.changes.ChangeSetInfo
+import kpn.core.util.Log
+import kpn.database.base.Database
+import org.springframework.stereotype.Component
 
-class ChangeSetInfoRepository {
+@Component
+class ChangeSetInfoRepository(database: Database) {
 
-  def save(changeSetInfo: ChangeSetInfo): Unit = {}
+  private val log = Log(classOf[ChangeSetInfoRepository])
 
-  def get(changeSetId: Long): Option[ChangeSetInfo] = None
+  def save(changeSetInfo: ChangeSetInfo): Unit = {
+    database.changeSets.save(changeSetInfo, log)
+  }
 
-  def all(changeSetIds: Seq[Long]): Seq[ChangeSetInfo] = Seq.empty
+  def get(changeSetId: Long): Option[ChangeSetInfo] = {
+    database.changeSets.findById(changeSetId, log)
+  }
 
-  def exists(changeSetId: Long): Boolean = false
+  def all(changeSetIds: Seq[Long]): Seq[ChangeSetInfo] = {
+    database.changeSets.findByIds(changeSetIds, log)
+  }
 
-  def delete(changeSetId: Long): Unit = {}
+  def exists(changeSetId: Long): Boolean = {
+    database.changeSets.findById(changeSetId, log).isDefined
+  }
+
+  def delete(changeSetId: Long): Unit = {
+    database.changeSets.delete(changeSetId, log)
+  }
 }

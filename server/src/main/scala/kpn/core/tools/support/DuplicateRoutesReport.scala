@@ -5,7 +5,7 @@ import kpn.api.common.RouteType
 import kpn.api.common.data.MemberType
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.repository.RouteRepositoryImpl
+import kpn.server.repository.RouteRepository
 
 object DuplicateRoutesReport {
   def main(args: Array[String]): Unit = {
@@ -41,7 +41,7 @@ class DuplicateRoutesReport(database: Database) {
 
   implicit def overlapOrdering: Ordering[Overlap] = Ordering.by(o => (o.name, o.routeId1, o.routeId2))
 
-  private val routeRepository = new RouteRepositoryImpl(database)
+  private val routeRepository = new RouteRepository(database)
 
   def run(): Unit = {
 

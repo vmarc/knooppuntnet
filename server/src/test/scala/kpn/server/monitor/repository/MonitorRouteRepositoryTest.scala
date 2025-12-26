@@ -18,7 +18,7 @@ class MonitorRouteRepositoryTest extends MongoTest {
   test("changes/changesCount") {
     pendingRedesign()
 
-    val routeRepository = new MonitorRouteRepositoryImpl(database)
+    val routeRepository = new MonitorRouteRepository(database)
 
     val change1 = buildChange("group-1", 101, 1, Timestamp(2020, 8, 11), happy = false)
     val change2 = buildChange("group-1", 101, 2, Timestamp(2020, 8, 12), happy = true)
@@ -106,7 +106,7 @@ class MonitorRouteRepositoryTest extends MongoTest {
     database.monitorReferences.findByObjectId(reference._id) should equal(Some(reference))
     database.monitorStates.findByObjectId(state._id) should equal(Some(state))
 
-    val routeRepository = new MonitorRouteRepositoryImpl(database)
+    val routeRepository = new MonitorRouteRepository(database)
     routeRepository.deleteRoute(route._id)
 
     database.monitorRoutes.findByObjectId(route._id) should equal(None)
@@ -140,7 +140,7 @@ class MonitorRouteRepositoryTest extends MongoTest {
     database.monitorReferences.save(reference1)
     database.monitorReferences.save(reference2)
 
-    val routeRepository = new MonitorRouteRepositoryImpl(database)
+    val routeRepository = new MonitorRouteRepository(database)
     val distance = routeRepository.superRouteReferenceSummary(route._id)
 
     distance should equal(Some(300L))
@@ -194,7 +194,7 @@ class MonitorRouteRepositoryTest extends MongoTest {
     database.monitorStates.save(state1)
     database.monitorStates.save(state2)
 
-    val routeRepository = new MonitorRouteRepositoryImpl(database)
+    val routeRepository = new MonitorRouteRepository(database)
     routeRepository.superRouteStateSummary(route._id) match {
       case None => fail("could not retrieve state summary")
       case Some(monitorStateSummary) =>
@@ -226,7 +226,7 @@ class MonitorRouteRepositoryTest extends MongoTest {
     database.monitorReferences.save(reference1)
     database.monitorReferences.save(reference2)
 
-    val routeRepository = new MonitorRouteRepositoryImpl(database)
+    val routeRepository = new MonitorRouteRepository(database)
 
     assertEqual(
       routeRepository.reference(route._id, None),

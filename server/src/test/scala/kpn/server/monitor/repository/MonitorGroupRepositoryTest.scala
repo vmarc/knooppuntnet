@@ -10,7 +10,7 @@ class MonitorGroupRepositoryTest extends MongoTest {
 
   test("all/add/delete") {
 
-    val repository = new MonitorGroupRepositoryImpl(database)
+    val repository = new MonitorGroupRepository(database)
 
     repository.groups() shouldBe empty
     repository.groupByName("name1") should equal(None)
@@ -46,7 +46,7 @@ class MonitorGroupRepositoryTest extends MongoTest {
 
   test("groupRoutes") {
 
-    val groupRepository = new MonitorGroupRepositoryImpl(database)
+    val groupRepository = new MonitorGroupRepository(database)
 
     val group = newMonitorGroup("group-name", "group description")
     groupRepository.saveGroup(group)
@@ -98,7 +98,7 @@ class MonitorGroupRepositoryTest extends MongoTest {
     database.monitorStates.findByObjectId(state1._id) should equal(Some(state1))
     database.monitorStates.findByObjectId(state2._id) should equal(Some(state2))
 
-    val groupRepository = new MonitorGroupRepositoryImpl(database)
+    val groupRepository = new MonitorGroupRepository(database)
     groupRepository.deleteGroup(group._id)
 
     database.monitorGroups.findByObjectId(group._id) should equal(None)

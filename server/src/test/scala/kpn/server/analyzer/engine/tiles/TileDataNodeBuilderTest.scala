@@ -378,6 +378,6 @@ class TileDataNodeBuilderTest extends UnitTest {
   }
 
   private def tileDataNodeBuilder: TileDataNodeBuilder = {
-    new TileDataNodeBuilderImpl()
+    new TileDataNodeBuilder()
   }
 }

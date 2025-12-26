@@ -3,8 +3,8 @@ package kpn.core.tools.support
 import kpn.database.base.Database
 import kpn.database.base.Exit
 import kpn.database.util.Mongo
-import kpn.server.repository.NetworkRepositoryImpl
-import kpn.server.repository.RouteRepositoryImpl
+import kpn.server.repository.NetworkRepository
+import kpn.server.repository.RouteRepository
 
 object FindNetworksThatBecameRoutesTool {
 
@@ -23,8 +23,8 @@ object FindNetworksThatBecameRoutesTool {
 
 class FindNetworksThatBecameRoutesTool(database: Database) {
 
-  private val networkRepository = new NetworkRepositoryImpl(database)
-  private val routeRepository = new RouteRepositoryImpl(database)
+  private val networkRepository = new NetworkRepository(database)
+  private val routeRepository = new RouteRepository(database)
 
   def report(): Unit = {
     println("Collecting network ids")

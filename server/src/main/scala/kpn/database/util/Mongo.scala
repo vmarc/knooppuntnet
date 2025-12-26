@@ -5,9 +5,7 @@ import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoClients
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.next.database.NextDatabase
-import kpn.core.tools.next.database.NextDatabaseImpl
 import kpn.database.base.Database
-import kpn.database.base.DatabaseImpl
 import kpn.database.base.Types.MongoPipeline
 import kpn.tools.code.codecs.ScalaBooleanCodec
 import kpn.tools.code.codecs.ScalaDoubleCodec
@@ -76,11 +74,11 @@ object Mongo {
   }
 
   def database(mongoClient: MongoClient, databaseName: String): Database = {
-    new DatabaseImpl(mongoClient.getDatabase(databaseName).withCodecRegistry(codecRegistry))
+    new Database(mongoClient.getDatabase(databaseName).withCodecRegistry(codecRegistry))
   }
 
   def nextDatabase(mongoClient: MongoClient, databaseName: String): NextDatabase = {
-    new NextDatabaseImpl(mongoClient.getDatabase(databaseName).withCodecRegistry(codecRegistry))
+    new NextDatabase(mongoClient.getDatabase(databaseName).withCodecRegistry(codecRegistry))
   }
 
   def url: String = {

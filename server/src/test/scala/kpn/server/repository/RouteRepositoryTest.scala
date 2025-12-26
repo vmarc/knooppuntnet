@@ -17,7 +17,7 @@ class RouteRepositoryTest extends MongoTest {
 
   test("saveBaseRoute/findBaseRouteById") {
 
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = new RouteRepository(database)
 
     routeRepository.saveBaseRoute(newBaseRouteDoc(10))
     routeRepository.saveBaseRoute(newBaseRouteDoc(20))
@@ -46,7 +46,7 @@ class RouteRepositoryTest extends MongoTest {
       )
     )
 
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = new RouteRepository(database)
     routeRepository.networkReferences(10) should equal(
       Seq(
         Reference(
@@ -62,7 +62,7 @@ class RouteRepositoryTest extends MongoTest {
 
   test("save/update/delete") {
 
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = new RouteRepository(database)
 
     // first save
     routeRepository.saveBaseRoute(newBaseRouteDoc(10, base = newRouteBaseData(name = "01-02")))
@@ -98,7 +98,7 @@ class RouteRepositoryTest extends MongoTest {
 
   test("filterKnown") {
 
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = new RouteRepository(database)
 
     routeRepository.saveBaseRoute(newBaseRouteDoc(10))
     routeRepository.saveBaseRoute(newBaseRouteDoc(20))
@@ -109,7 +109,7 @@ class RouteRepositoryTest extends MongoTest {
 
   test("find route tile ids") {
 
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = new RouteRepository(database)
 
     routeRepository.saveRouteTile(newRouteTileInfo("tile-1", 11))
     routeRepository.saveRouteTile(newRouteTileInfo("tile-2", 11))
@@ -122,7 +122,7 @@ class RouteRepositoryTest extends MongoTest {
 
   test("delete route tiles") {
 
-    val routeRepository = new RouteRepositoryImpl(database)
+    val routeRepository = new RouteRepository(database)
 
     routeRepository.saveRouteTile(newRouteTileInfo("tile-1", 11))
     routeRepository.saveRouteTile(newRouteTileInfo("tile-2", 11))

@@ -3,7 +3,7 @@ package kpn.core.tools.analysis
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
+import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.analyzer.engine.analysis.network.base.BaseNetworkMainAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.NetworkMainAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkCountryAnalyzer
@@ -32,8 +32,8 @@ import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteNetworkRefe
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteSuperSegmentAnalyzer
-import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
+import kpn.server.analyzer.engine.tile.NodeTileCalculator
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.analyzer.full.MainFullAnalyzer
 import kpn.server.analyzer.full.analyzers.FullAnalysisPipeline
@@ -50,19 +50,14 @@ import kpn.server.analyzer.full.analyzers.SingleBaseRouteAnalyzer
 import kpn.server.analyzer.full.analyzers.SingleRouteAnalyzer
 import kpn.server.overpass.OverpassRepository
 import kpn.server.overpass.OverpassRepositoryImpl
-import kpn.server.repository.AnalysisRepositoryImpl
+import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.ChangeSetRepository
-import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.server.repository.NetworkInfoRepository
-import kpn.server.repository.NetworkInfoRepositoryImpl
 import kpn.server.repository.NetworkRepository
-import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepository
-import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RawDataRepositoryDevelopmentImpl
 import kpn.server.repository.RouteRepository
-import kpn.server.repository.RouteRepositoryImpl
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
@@ -75,7 +70,7 @@ class AnalysisConfiguration(
   // Database components
   private val mongoClient = Mongo.client
   private val database = Mongo.database(mongoClient, databaseName)
-  val analysisRepository = new AnalysisRepositoryImpl(database)
+  val analysisRepository = new AnalysisRepository(database)
 
   // Core repositories
   private val repositories = createRepositories()
@@ -97,11 +92,11 @@ class AnalysisConfiguration(
 
   // Repository factory methods
   private def createRepositories(): RepositoryGroup = {
-    val networkRepository = new NetworkRepositoryImpl(database)
-    val routeRepository = new RouteRepositoryImpl(database)
-    val nodeRepository = new NodeRepositoryImpl(database)
-    val changeSetRepository = new ChangeSetRepositoryImpl(database)
-    val networkInfoRepository = new NetworkInfoRepositoryImpl(database)
+    val networkRepository = new NetworkRepository(database)
+    val routeRepository = new RouteRepository(database)
+    val nodeRepository = new NodeRepository(database)
+    val changeSetRepository = new ChangeSetRepository(database)
+    val networkInfoRepository = new NetworkInfoRepository(database)
     val rawDataRepository = new RawDataRepositoryDevelopmentImpl(database)
     val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
     val overpassRepository = new OverpassRepositoryImpl(overpassQueryExecutor)
@@ -132,7 +127,7 @@ class AnalysisConfiguration(
   private def createBaseNodeMainAnalyzer(): BaseNodeMainAnalyzer = {
     val baseNodeLocationAnalyzer = new BaseNodeLocationAnalyzer(locationAnalyzer)
     val countryAnalyzer = new BaseNodeCountryAnalyzer(locationAnalyzer)
-    val nodeTileCalculator = new NodeTileCalculatorImpl(routeTileCache)
+    val nodeTileCalculator = new NodeTileCalculator(routeTileCache)
     val tileAnalyzer = new BaseNodeTileAnalyzer(nodeTileCalculator)
 
     new BaseNodeMainAnalyzer(
@@ -154,10 +149,10 @@ class AnalysisConfiguration(
 
   // Route analyzers
   private def createBaseRouteMainAnalyzer(): BaseRouteMainAnalyzer = {
-    val routeLocator = new RouteLocatorImpl(locationAnalyzer)
+    val routeLocator = new RouteLocator(locationAnalyzer)
     val routeLocationAnalyzer = new BaseRouteLocationAnalyzerImpl(repositories.routeRepository, routeLocator)
     val routeCountryAnalyzer = new BaseRouteCountryAnalyzerImpl(locationAnalyzer, repositories.routeRepository)
-    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(routeTileCache)
+    val lineSegmentTileCalculator = new LineSegmentTileCalculator(routeTileCache)
     val routeTileAnalyzer = new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
 
     new BaseRouteMainAnalyzer(

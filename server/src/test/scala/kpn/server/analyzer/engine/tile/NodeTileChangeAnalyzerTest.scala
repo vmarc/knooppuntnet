@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.tile
 import kpn.core.doc.NodeDoc
 import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
+import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
 
 class NodeTileChangeAnalyzerTest extends UnitTest {
 
@@ -20,7 +20,7 @@ class NodeTileChangeAnalyzerTest extends UnitTest {
   }
 
   private def impactedTiles(before: NodeDoc, after: NodeDoc): Seq[String] = {
-    val tileChangeAnalyzer = new NodeTileChangeAnalyzerImpl(new TileDataNodeBuilderImpl())
+    val tileChangeAnalyzer = new NodeTileChangeAnalyzer(new TileDataNodeBuilder())
     tileChangeAnalyzer.impactedTiles(before, after)
   }
 }

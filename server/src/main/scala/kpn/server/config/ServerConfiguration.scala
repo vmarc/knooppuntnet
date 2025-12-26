@@ -3,14 +3,11 @@ package kpn.server.config
 import com.mongodb.client.MongoClients
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
 import kpn.database.base.Database
-import kpn.database.base.DatabaseImpl
 import kpn.database.base.MetricsDatabase
-import kpn.database.base.MetricsDatabaseImpl
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.tiles.TileFileRepository
-import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -110,12 +107,12 @@ class ServerConfiguration {
 
   @Bean
   def rasterTileRepository(tileRoot: String): TileFileRepository = {
-    new TileFileRepositoryImpl(tileRoot, "png")
+    new TileFileRepository(tileRoot, "png")
   }
 
   @Bean
   def vectorTileRepository(tileRoot: String): TileFileRepository = {
-    new TileFileRepositoryImpl(tileRoot, "mvt")
+    new TileFileRepository(tileRoot, "mvt")
   }
 
   @Bean
@@ -134,7 +131,7 @@ class ServerConfiguration {
     @Value("${app.database.name}") name: String,
   ): Database = {
     val mongoClient = MongoClients.create(url)
-    new DatabaseImpl(mongoClient.getDatabase(name).withCodecRegistry(Mongo.codecRegistry))
+    new Database(mongoClient.getDatabase(name).withCodecRegistry(Mongo.codecRegistry))
   }
 
   @Bean
@@ -143,7 +140,7 @@ class ServerConfiguration {
     @Value("${app.metrics-database.name}") name: String,
   ): MetricsDatabase = {
     val mongoClient = MongoClients.create(url)
-    new MetricsDatabaseImpl(mongoClient.getDatabase(name).withCodecRegistry(Mongo.codecRegistry))
+    new MetricsDatabase(mongoClient.getDatabase(name).withCodecRegistry(Mongo.codecRegistry))
   }
 
   @Bean def taskScheduler: TaskScheduler = {

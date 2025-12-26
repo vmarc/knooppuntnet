@@ -19,7 +19,7 @@ class LocationServiceTest extends UnitTest {
 
   private def translate(locationName: String): String = {
     val locationConfiguration = LocationConfigurationTest.locationConfiguration
-    val locationService = new LocationServiceImpl(locationConfiguration)
+    val locationService = new LocationService(locationConfiguration)
     locationService.toId(Language.NL, locationName)
   }
 }

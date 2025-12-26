@@ -14,7 +14,7 @@ import kpn.server.analyzer.engine.changes.OsmChangeRepositoryImpl
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerHelper
 import kpn.server.analyzer.engine.context.ElementIdMap
-import kpn.server.analyzer.engine.monitor.changes.MonitorChangeImpactAnalyzerImpl
+import kpn.server.analyzer.engine.monitor.changes.MonitorChangeImpactAnalyzer
 import org.apache.commons.io.FileUtils
 
 import java.io.File
@@ -51,7 +51,7 @@ object MonitorRouteCreateXmlsTool {
 class MonitorRouteCreateXmlsTool(overpassQueryExecutor: OverpassQueryExecutor, routeIds: Seq[Long]) {
 
   private val elementIdMap = new ElementIdMap()
-  private val monitorChangeImpactAnalyzer = new MonitorChangeImpactAnalyzerImpl()
+  private val monitorChangeImpactAnalyzer = new MonitorChangeImpactAnalyzer()
   private val osmChangeRepository = new OsmChangeRepositoryImpl(new File(s"${Dirs.root}/replicate"))
   private val log = Log(classOf[MonitorRouteCreateXmlsTool])
 

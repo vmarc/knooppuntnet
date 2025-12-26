@@ -6,7 +6,7 @@ object FullAnalysisTrigger {
 
   def shouldPerformFullAnalysis: Boolean = {
     val filename = "analysis-time"
-    new FullAnalysisTrigger(new AnalysisTimeRepositoryImpl(filename)).shouldPerformFullAnalysis
+    new FullAnalysisTrigger(new AnalysisTimeRepository(filename)).shouldPerformFullAnalysis
   }
 
   private val fullAnalysisTimes = Seq(

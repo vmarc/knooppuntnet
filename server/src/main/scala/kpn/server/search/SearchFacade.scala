@@ -3,9 +3,21 @@ package kpn.server.search
 import kpn.api.common.SearchResponse
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
+import kpn.server.repository.RouteRepository
+import org.springframework.stereotype.Component
 
-trait SearchFacade {
-  def search(query: String): Option[SearchResponse]
+@Component
+class SearchFacade(geocoder: Geocoder, routeRepository: RouteRepository) {
+  def search(query: String): Option[SearchResponse] = {
+    val geocodeLocations = geocoder.search(query)
+    Some(
+      SearchResponse(
+        geocodeLocations
+      )
+    )
+  }
 
-  def explore(query: ConditionGroup): RouteList
+  def explore(query: ConditionGroup): RouteList = {
+    routeRepository.explore(query)
+  }
 }

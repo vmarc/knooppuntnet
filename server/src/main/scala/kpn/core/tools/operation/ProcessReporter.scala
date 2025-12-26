@@ -1,5 +1,9 @@
 package kpn.core.tools.operation
 
-trait ProcessReporter {
-  def processes: List[String]
+import scala.sys.process.Process
+
+class ProcessReporter {
+  def processes: List[String] = {
+    Process("ps -ef").lazyLines.toList
+  }
 }

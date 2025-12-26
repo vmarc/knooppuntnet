@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.common.LatLon
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.PointTileCalculator
+import org.springframework.stereotype.Component
 
-trait NodeTileCalculator {
+@Component
+class NodeTileCalculator(routeTileCache: RouteTileCache)
+  extends PointTileCalculator(routeTileCache)
 
-  def tiles(z: Int, latLon: LatLon): Seq[Tile]
-}

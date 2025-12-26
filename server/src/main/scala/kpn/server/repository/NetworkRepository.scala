@@ -5,34 +5,75 @@ import kpn.api.common.network.NetworkAttributes
 import kpn.api.custom.Subset
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.NetworkDoc
+import kpn.core.util.Log
+import kpn.database.actions.networks.MongoQueryBaseNetworkIds
+import kpn.database.actions.networks.MongoQueryNetworkIds
+import kpn.database.actions.networks.MongoQuerySubsetNetworks
+import kpn.database.actions.nodes.MongoQueryNodeBaseNetworkReferences
+import kpn.database.actions.nodes.MongoQueryNodeNetworkReferences
+import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
+import kpn.database.base.Database
+import org.springframework.stereotype.Component
 
-trait NetworkRepository {
+@Component
+class NetworkRepository(database: Database) {
 
-  def allNetworkIds(): Seq[Long]
+  private val log = Log(classOf[NetworkRepository])
 
-  def baseNetworkIds(): Seq[Long]
+  def allNetworkIds(): Seq[Long] = {
+    database.networks.ids(log)
+  }
 
-  def activeNetworkIds(): Seq[Long]
+  def baseNetworkIds(): Seq[Long] = {
+    new MongoQueryBaseNetworkIds(database).execute()
+  }
 
-  def findById(networkId: Long): Option[NetworkDoc]
+  def activeNetworkIds(): Seq[Long] = {
+    new MongoQueryNetworkIds(database).execute()
+  }
 
-  def save(networkDoc: NetworkDoc): Unit
+  def findById(networkId: Long): Option[NetworkDoc] = {
+    database.networks.findById(networkId, log)
+  }
 
-  def bulkSave(networkDocs: Seq[NetworkDoc]): Unit
+  def save(networkDoc: NetworkDoc): Unit = {
+    database.networks.save(networkDoc, log)
+  }
 
-  def bulkSaveBaseNetworks(baseNetworkDocs: Seq[BaseNetworkDoc]): Unit
+  def bulkSave(networkDocs: Seq[NetworkDoc]): Unit = {
+    database.networks.bulkSave(networkDocs, log)
+  }
 
-  def delete(networkId: Long): Unit
+  def bulkSaveBaseNetworks(baseNetworkDocs: Seq[BaseNetworkDoc]): Unit = {
+    database.baseNetworks.bulkSave(baseNetworkDocs, log)
+  }
 
-  def saveBaseNetwork(baseNetworkDoc: BaseNetworkDoc): Unit
+  def delete(networkId: Long): Unit = {
+    database.networks.delete(networkId, log)
+    database.baseNetworks.delete(networkId, log)
+  }
 
-  def findBaseNetworkById(networkId: Long): Option[BaseNetworkDoc]
+  def saveBaseNetwork(baseNetworkDoc: BaseNetworkDoc): Unit = {
+    database.baseNetworks.save(baseNetworkDoc)
+  }
 
-  def nodeBaseNetworkReferences(nodeId: Long): Seq[Reference]
+  def findBaseNetworkById(networkId: Long): Option[BaseNetworkDoc] = {
+    database.baseNetworks.findById(networkId, log)
+  }
 
-  def nodeNetworkReferences(nodeId: Long): Seq[Reference]
+  def nodeBaseNetworkReferences(nodeId: Long): Seq[Reference] = {
+    new MongoQueryNodeBaseNetworkReferences(database).execute(nodeId)
+  }
 
-  def routeNetworkReferences(routeId: Long): Seq[Reference]
+  def nodeNetworkReferences(nodeId: Long): Seq[Reference] = {
+    new MongoQueryNodeNetworkReferences(database).execute(nodeId)
+  }
 
-  def subsetNetworks(subset: Subset): Seq[NetworkAttributes]
+  def routeNetworkReferences(routeId: Long): Seq[Reference] = {
+    new MongoQueryRouteNetworkReferences(database).execute(routeId)
+  }
+
+  def subsetNetworks(subset: Subset): Seq[NetworkAttributes] = {
+    new MongoQuerySubsetNetworks(database).execute(subset)
+  }
 }

@@ -88,7 +88,7 @@ class FactRefRepositoryTest extends MongoTest {
   }
 
   private def repo(): FactRefRepository = {
-    new FactRefRepositoryImpl(database)
+    new FactRefRepository(database)
   }
 
   private def setupRoute(routeId: Long, subset: Subset, facts: Seq[Fact]): Unit = {

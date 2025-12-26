@@ -4,7 +4,7 @@ import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newMonitorReference
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.monitor.domain.MonitorReferenceTile
-import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
+import kpn.server.monitor.repository.MonitorRouteRepository
 import org.bson.types.ObjectId
 
 class MongoQueryMonitorReferenceTileIdsTest extends MongoTest {
@@ -27,7 +27,7 @@ class MongoQueryMonitorReferenceTileIdsTest extends MongoTest {
 
   private def setupReferences(): Unit = {
 
-    val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
+    val monitorRouteRepository = new MonitorRouteRepository(database)
 
     monitorRouteRepository.saveReference(
       newMonitorReference(

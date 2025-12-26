@@ -3,7 +3,6 @@ package kpn.core.tools.poi
 import kpn.core.tools.config.Dirs
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tiles.TileFileRepository
-import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.PoiRepositoryImpl
 
@@ -17,7 +16,7 @@ object PoiTileCleanTool {
     println("Start")
     Mongo.executeIn("kpn-prod") { poiDatabase =>
       val poiRepository = new PoiRepositoryImpl(poiDatabase)
-      val tileFileRepository = new TileFileRepositoryImpl(s"${Dirs.root}/tiles", "mvt")
+      val tileFileRepository = new TileFileRepository(s"${Dirs.root}/tiles", "mvt")
       new PoiTileCleanTool(poiRepository, tileFileRepository).clean()
     }
     println("Done")

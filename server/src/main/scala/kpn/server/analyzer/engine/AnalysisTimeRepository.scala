@@ -7,14 +7,7 @@ import java.io.File
 /**
  * Stores the timestamp when the most recent full analysis was performed.
  */
-trait AnalysisTimeRepository {
-  def get: Option[String]
-
-  // hhmm format? make sure this works OK around midnight; will need date also ?
-  def put(time: String): Unit
-}
-
-class AnalysisTimeRepositoryImpl(filename: String) extends AnalysisTimeRepository {
+class AnalysisTimeRepository(filename: String) {
 
   def get: Option[String] = {
     val file = new File(filename)
@@ -23,6 +16,7 @@ class AnalysisTimeRepositoryImpl(filename: String) extends AnalysisTimeRepositor
     }
   }
 
+  // hhmm format? make sure this works OK around midnight; will need date also ?
   def put(time: String): Unit = {
     val file = new File(filename)
     FileUtils.writeStringToFile(file, time, "UTF-8")

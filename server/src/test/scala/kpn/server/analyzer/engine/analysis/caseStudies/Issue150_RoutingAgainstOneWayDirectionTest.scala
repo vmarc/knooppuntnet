@@ -6,16 +6,16 @@ import kpn.api.common.planner.LegEnd
 import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.test.MongoTest
 import kpn.core.util.GeoJsonLineStringGeometry
-import kpn.server.api.planner.leg.LegBuilderImpl
+import kpn.server.api.planner.leg.LegBuilder
 import kpn.server.json.Json
 import kpn.server.repository.GraphRepositoryImpl
-import kpn.server.repository.RouteRepositoryImpl
+import kpn.server.repository.RouteRepository
 
 class Issue150_RoutingAgainstOneWayDirectionTest extends MongoTest {
 
   test("bicyle routing against one-way direction 1") {
 
-    val baseRouteRepository = new RouteRepositoryImpl(database)
+    val baseRouteRepository = new RouteRepository(database)
     val route1 = CaseStudy.baseRouteDoc("12410463")
     val route2 = CaseStudy.baseRouteDoc("1029893")
 
@@ -26,7 +26,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends MongoTest {
     val graphRepository = new GraphRepositoryImpl(database, graphLoadEnabled = true)
     graphRepository.loadGraphs()
 
-    val legBuilder = new LegBuilderImpl(graphRepository, baseRouteRepository)
+    val legBuilder = new LegBuilder(graphRepository, baseRouteRepository)
     val params = LegBuildParams(
       RouteType.cycling.entryName,
       LegEnd.node(7741683309L),
@@ -63,7 +63,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends MongoTest {
 
   test("bicyle routing against one-way direction") {
 
-    val baseRouteRepository = new RouteRepositoryImpl(database)
+    val baseRouteRepository = new RouteRepository(database)
     val route1 = CaseStudy.baseRouteDoc("12410463")
     val route2 = CaseStudy.baseRouteDoc("1029893")
 

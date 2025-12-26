@@ -211,7 +211,7 @@ class LegBuilderTest extends UnitTest {
   }
 
   private def legBuilder(): LegBuilder = {
-    new LegBuilderImpl(data.graphRepository, data.baseRouteRepository)
+    new LegBuilder(data.graphRepository, data.baseRouteRepository)
   }
 
   private def planRoute(sourcePlanNode: PlanNode, sinkPlanNode: PlanNode): PlanRoute = {
