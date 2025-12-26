@@ -8,6 +8,7 @@ import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.WayInfo
 import kpn.api.common.diff.WayUpdate
 import kpn.api.common.route.GeometryDiff
+import kpn.core.doc.Detail
 import kpn.core.history.WayDiffAnalyzer
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -20,15 +21,18 @@ class BaseRouteChangeUpdateWayProcessorImpl extends BaseRouteChangeUpdateWayProc
 
   override def process(
     changeSetContext: ChangeSetContext,
-    before: Relation,
-    after: Relation,
+    before: Detail,
+    after: Detail,
+    oldBeforeRelation: Relation,
+    oldAfterRelation: Relation,
+
   ): ChangeSetContext = {
 
     val wayDiffsInfo = analyzeWayDiffs(before, after)
 
-    new RouteGeometryAnalyzer().analyze(before, after) match {
+    new RouteGeometryAnalyzer().analyze(oldBeforeRelation, oldAfterRelation) match {
       case Some((geometryDiff: GeometryDiff, bounds: Bounds)) =>
-        val key = changeSetContext.buildChangeKey(after.id)
+        val key = changeSetContext.buildChangeKey(oldAfterRelation.id)
         val change = BaseRouteChange(
           _id = key.toId,
           key = key,
@@ -44,7 +48,7 @@ class BaseRouteChangeUpdateWayProcessorImpl extends BaseRouteChangeUpdateWayProc
         )
       case None =>
         if (wayDiffsInfo.nonEmpty) {
-          val key = changeSetContext.buildChangeKey(after.id)
+          val key = changeSetContext.buildChangeKey(oldAfterRelation.id)
           val change = BaseRouteChange(
             _id = key.toId,
             key = key,
@@ -65,7 +69,7 @@ class BaseRouteChangeUpdateWayProcessorImpl extends BaseRouteChangeUpdateWayProc
     }
   }
 
-  private def analyzeWayDiffs(before: Relation, after: Relation): Option[WayDiffsInfo] = {
+  private def analyzeWayDiffs(before: Detail, after: Detail): Option[WayDiffsInfo] = {
 
     val wayIdsBefore = before.ways.map(_.id).toSet
     val wayIdsAfter = after.ways.map(_.id).toSet
@@ -84,8 +88,8 @@ class BaseRouteChangeUpdateWayProcessorImpl extends BaseRouteChangeUpdateWayProc
   }
 
   private def analyzeUpdatedWays(
-    before: Relation,
-    after: Relation,
+    before: Detail,
+    after: Detail,
     wayIds: Set[Long]
   ): Seq[WayUpdate] = {
     wayIds.toSeq.sorted.flatMap { wayId =>
@@ -100,7 +104,7 @@ class BaseRouteChangeUpdateWayProcessorImpl extends BaseRouteChangeUpdateWayProc
     }
   }
 
-  private def toWayInfos(relation: Relation, wayIds: Set[Long]): Seq[WayInfo] = {
+  private def toWayInfos(relation: Detail, wayIds: Set[Long]): Seq[WayInfo] = {
     wayIds.toSeq.flatMap { wayId =>
       relation.ways.find(_.id == wayId).map(WayInfo.from)
     }

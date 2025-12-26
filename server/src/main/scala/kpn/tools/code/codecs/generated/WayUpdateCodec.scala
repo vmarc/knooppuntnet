@@ -3,8 +3,6 @@
 package kpn.tools.code.codecs.generated
 
 import kpn.api.common.data.MetaData
-import kpn.api.common.data.Node
-import kpn.api.common.diff.NodeUpdate
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayUpdate
 import kpn.tools.code.codecs.Codecs
@@ -21,8 +19,6 @@ class WayUpdateCodec(registry: CodecRegistry) extends Codec[WayUpdate] {
   private val booleanCodec = registry.get(classOf[Boolean])
   private val longCodec = registry.get(classOf[Long])
   private val metaDataCodec = registry.get(classOf[MetaData])
-  private val nodeCodec = registry.get(classOf[Node])
-  private val nodeUpdateCodec = registry.get(classOf[NodeUpdate])
   private val tagDiffsCodec = registry.get(classOf[TagDiffs])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): WayUpdate = {
@@ -31,9 +27,8 @@ class WayUpdateCodec(registry: CodecRegistry) extends Codec[WayUpdate] {
     var id: Long = 0
     var before: MetaData = null
     var after: MetaData = null
-    var removedNodes: Seq[Node] = null
-    var addedNodes: Seq[Node] = null
-    var updatedNodes: Seq[NodeUpdate] = null
+    var removedNodeIds: Seq[Long] = null
+    var addedNodeIds: Seq[Long] = null
     var directionReversed: Boolean = false
     var tagDiffs: Option[TagDiffs] = None
 
@@ -48,32 +43,23 @@ class WayUpdateCodec(registry: CodecRegistry) extends Codec[WayUpdate] {
       else if (fieldName == "after") {
         after = metaDataCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "removedNodes") {
+      else if (fieldName == "removedNodeIds") {
         bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[Node]()
+        val valueBuffer = scala.collection.mutable.Buffer[Long]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += nodeCodec.decode(bsonReader, decoderContext)
+          valueBuffer += longCodec.decode(bsonReader, decoderContext)
         }
         bsonReader.readEndArray()
-        removedNodes = valueBuffer.toSeq
+        removedNodeIds = valueBuffer.toSeq
       }
-      else if (fieldName == "addedNodes") {
+      else if (fieldName == "addedNodeIds") {
         bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[Node]()
+        val valueBuffer = scala.collection.mutable.Buffer[Long]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += nodeCodec.decode(bsonReader, decoderContext)
+          valueBuffer += longCodec.decode(bsonReader, decoderContext)
         }
         bsonReader.readEndArray()
-        addedNodes = valueBuffer.toSeq
-      }
-      else if (fieldName == "updatedNodes") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[NodeUpdate]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += nodeUpdateCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        updatedNodes = valueBuffer.toSeq
+        addedNodeIds = valueBuffer.toSeq
       }
       else if (fieldName == "directionReversed") {
         directionReversed = booleanCodec.decode(bsonReader, decoderContext)
@@ -93,9 +79,8 @@ class WayUpdateCodec(registry: CodecRegistry) extends Codec[WayUpdate] {
       id,
       before,
       after,
-      removedNodes,
-      addedNodes,
-      updatedNodes,
+      removedNodeIds,
+      addedNodeIds,
       directionReversed,
       tagDiffs,
     )
@@ -113,19 +98,14 @@ class WayUpdateCodec(registry: CodecRegistry) extends Codec[WayUpdate] {
     bsonWriter.writeName("after")
     metaDataCodec.encode(bsonWriter, value.after, encoderContext)
 
-    bsonWriter.writeName("removedNodes")
+    bsonWriter.writeName("removedNodeIds")
     bsonWriter.writeStartArray()
-    value.removedNodes.foreach(v => nodeCodec.encode(bsonWriter, v, encoderContext))
+    value.removedNodeIds.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
-    bsonWriter.writeName("addedNodes")
+    bsonWriter.writeName("addedNodeIds")
     bsonWriter.writeStartArray()
-    value.addedNodes.foreach(v => nodeCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
-
-    bsonWriter.writeName("updatedNodes")
-    bsonWriter.writeStartArray()
-    value.updatedNodes.foreach(v => nodeUpdateCodec.encode(bsonWriter, v, encoderContext))
+    value.addedNodeIds.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
     bsonWriter.writeName("directionReversed")

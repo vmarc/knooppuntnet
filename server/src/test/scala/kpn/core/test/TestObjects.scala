@@ -56,6 +56,7 @@ import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.WayInfo
+import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.network.NodeRouteReferenceDiffs
 import kpn.api.common.diff.node.NodeMoved
@@ -99,6 +100,7 @@ import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.BaseRouteSegmentElement
+import kpn.core.doc.DetailWay
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkRouteDetail
@@ -1617,4 +1619,45 @@ object TestObjects {
       relations
     )
   }
+
+  def newWayUpdate(
+    id: Long,
+    before: MetaData,
+    after: MetaData,
+    removedNodeIds: Seq[Long] = Seq.empty,
+    addedNodeIds: Seq[Long] = Seq.empty,
+    directionReversed: Boolean = false,
+    tagDiffs: Option[TagDiffs] = None
+  ): WayUpdate = {
+    WayUpdate(
+      id,
+      before,
+      after,
+      removedNodeIds,
+      addedNodeIds,
+      directionReversed,
+      tagDiffs
+    )
+  }
+
+  def newDetailWay(
+    id: Long,
+    version: Long = 0,
+    changeSetId: Long = 1,
+    timestamp: Timestamp = Timestamps.default,
+    tags: Seq[Tag] = Seq.empty,
+    nodeIds: Seq[Long] = Seq.empty,
+    coordinates: String = "[]"
+  ): DetailWay = {
+    DetailWay(
+      id,
+      version,
+      changeSetId,
+      timestamp,
+      tags,
+      nodeIds,
+      coordinates
+    )
+  }
 }
+

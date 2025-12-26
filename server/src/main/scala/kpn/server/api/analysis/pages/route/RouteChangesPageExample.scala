@@ -5,8 +5,6 @@ import kpn.api.common.Fact
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
-import kpn.api.common.data.Node
-import kpn.api.common.diff.NodeUpdate
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayDiffsInfo
@@ -197,52 +195,8 @@ object RouteChangesPageExample {
           timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
           changeSetId = 1
         ),
-        removedNodes = Seq(
-          Node(
-            id = 1001,
-            latitude = "",
-            longitude = "",
-            version = 1,
-            timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
-            changeSetId = 2,
-            tags = Seq.empty
-          )
-        ),
-        addedNodes = Seq(
-          Node(
-            id = 1001,
-            latitude = "",
-            longitude = "",
-            version = 1,
-            timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
-            changeSetId = 2,
-            tags = Seq.empty
-          )
-        ),
-        updatedNodes = Seq(
-          NodeUpdate(
-            before = Node(
-              id = 1001,
-              latitude = "",
-              longitude = "",
-              version = 1,
-              timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
-              changeSetId = 2,
-              tags = Seq.empty
-            ),
-            after = Node(
-              id = 1001,
-              latitude = "",
-              longitude = "",
-              version = 1,
-              timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
-              changeSetId = 2,
-              tags = Seq.empty
-            ),
-            tagDiffs = None, //  Option[TagDiffs]
-            nodeMoved = None // Option[NodeMoved]
-          )
-        ),
+        removedNodeIds = Seq(1001),
+        addedNodeIds = Seq(1001),
         directionReversed = true,
         tagDiffs = None // Option[TagDiffs]
       )

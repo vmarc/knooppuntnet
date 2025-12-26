@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.changes.route.base
 
 import kpn.api.common.Fact
 import kpn.core.doc.BaseRouteDoc
+import kpn.core.doc.Detail
 import kpn.core.doc.RawRouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
@@ -100,12 +101,21 @@ class BaseRouteChangeUpdateProcessor(
     afterBaseRouteDoc: BaseRouteDoc
   ): ChangeSetContext = {
 
-    val beforeRelationOption = beforeOption.flatMap(_.relation)
-    val afterRelationOption = afterBaseRouteDoc.relation
+    val beforeDetailOption = beforeOption.flatMap(_.relation).map(Detail.from)
+    val afterDetailOption = afterBaseRouteDoc.relation.map(Detail.from)
 
-    (beforeRelationOption, afterRelationOption) match {
+    val oldBeforeRelation = beforeOption.flatMap(_.relation)
+    val oldAfterRelation = afterBaseRouteDoc.relation
+
+    (beforeDetailOption, afterDetailOption) match {
       case (Some(before), Some(after)) =>
-        baseRouteChangeUpdateWayProcessor.process(changeSetContext, before, after)
+        baseRouteChangeUpdateWayProcessor.process(
+          changeSetContext,
+          before,
+          after,
+          oldBeforeRelation.get,
+          oldAfterRelation.get
+        )
       case _ => changeSetContext
     }
   }

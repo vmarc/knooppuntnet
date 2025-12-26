@@ -21,6 +21,14 @@ class CoordinateCodecTest extends UnitTest {
     encoded should equal("[[5.1234,51.4321],[1111000,1111000],[1111000,1111000]]")
   }
 
+  test("encode / decode empty coordinate string") {
+    val coordinateString = ""
+    val encoded = encode(coordinateString)
+    val decodedCoordinateString = decode(encoded)
+    decodedCoordinateString should equal("[]")
+    encoded should equal("[]")
+  }
+
   test("encode / decode empty coordinate list") {
     val coordinateString = "[]"
     val encoded = encode(coordinateString)
@@ -46,6 +54,9 @@ class CoordinateCodecTest extends UnitTest {
   }
 
   private def encode(coordinateString: String): String = {
+    if (coordinateString.isEmpty) {
+      return "[]"
+    }
     val coordinates = CoordinateUtil.stringToCoordinates(coordinateString)
     CoordinateCodec.encode(coordinates)
   }

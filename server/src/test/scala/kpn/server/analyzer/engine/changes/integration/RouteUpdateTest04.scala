@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.data.MemberType
-import kpn.api.common.diff.WayUpdate
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newWayUpdate
 
 class RouteUpdateTest04 extends IntegrationTest {
 
@@ -43,7 +43,7 @@ class RouteUpdateTest04 extends IntegrationTest {
       assertEqual(
         baseRouteChange.wayDiffs.map(_.updated).get,
         Seq(
-          WayUpdate(
+          newWayUpdate(
             101,
             before = newMetaData(),
             after = newMetaData(),

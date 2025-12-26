@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { RawNode } from '@api/common/data/raw/raw-node';
-import { NodeUpdate } from '@api/common/diff/node-update';
 import { WayUpdate } from '@api/common/diff/way-update';
 import { NodeListComponent } from '@app/shared/components/link/node-list.component';
 import { OsmLinkWayComponent } from '@app/shared/components/link/osm-link-way.component';
@@ -43,30 +41,21 @@ import { TagDiffsComponent } from '../tag-diffs.component';
           </div>
         }
 
-        @if (wayUpdate().removedNodes.length > 0) {
+        @if (wayUpdate().removedNodeIds.length > 0) {
           <div class="kpn-detail">
             <span class="kpn-label" i18n="@@route-change.way-update.removed-nodes">
               Removed node(s)
             </span>
-            <ui-node-list [nodeIds]="nodeIds(wayUpdate().removedNodes)" />
+            <ui-node-list [nodeIds]="wayUpdate().removedNodeIds" />
           </div>
         }
 
-        @if (wayUpdate().addedNodes.length > 0) {
+        @if (wayUpdate().addedNodeIds.length > 0) {
           <div class="kpn-detail">
             <span class="kpn-label" i18n="@@route-change.way-update.added-nodes"
               >Added node(s)</span
             >
-            <ui-node-list [nodeIds]="nodeIds(wayUpdate().addedNodes)" />
-          </div>
-        }
-
-        @if (wayUpdate().updatedNodes.length > 0) {
-          <div class="kpn-detail">
-            <span class="kpn-label" i18n="@@route-change.way-update.updated-nodes">
-              Updated node(s)
-            </span>
-            <ui-node-list [nodeIds]="nodeUpdateIds(wayUpdate().updatedNodes)" />
+            <ui-node-list [nodeIds]="wayUpdate().addedNodeIds" />
           </div>
         }
 
@@ -82,14 +71,6 @@ import { TagDiffsComponent } from '../tag-diffs.component';
 })
 export class RouteChangeWayUpdatedComponent {
   readonly wayUpdate = input.required<WayUpdate>();
-
-  nodeIds(nodes: RawNode[]): number[] {
-    return nodes.map((node) => node.id);
-  }
-
-  nodeUpdateIds(nodes: NodeUpdate[]): number[] {
-    return nodes.map((node) => node.after.id);
-  }
 
   isNewVersion(wayUpdate: WayUpdate): boolean {
     return wayUpdate.before.version !== wayUpdate.after.version;

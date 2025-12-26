@@ -4,6 +4,7 @@ import kpn.api.common.Fact
 import kpn.api.common.Relation
 import kpn.api.common.RouteType
 import kpn.api.common.route.RouteNodes
+import kpn.core.doc.Detail
 import kpn.core.doc.RawRouteDoc
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newChangeSetContext
@@ -38,7 +39,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
     val baseRouteMainAnalyzer: Stub[BaseRouteMainAnalyzer] = stub[BaseRouteMainAnalyzer]
     val rawDataRepository: Stub[RawDataRepository] = stub[RawDataRepository]
     val baseRouteDocBuilder: Stub[BaseRouteDocBuilder] = stub[BaseRouteDocBuilder]
-    val baseRouteChangeUpdateWayProcessor: BaseRouteChangeUpdateWayProcessor = (changeSetContext: ChangeSetContext, before: Relation, after: Relation) => {
+    val baseRouteChangeUpdateWayProcessor: BaseRouteChangeUpdateWayProcessor = (changeSetContext: ChangeSetContext, before: Detail, after: Detail, oldBeforeRelation: Relation, oldfterRelation: Relation) => {
       changeSetContext
     }
     val routeTileChangeAnalyzer: BaseRouteChangeUpdateTileProcessor = (changeSetContext: ChangeSetContext, _) => {

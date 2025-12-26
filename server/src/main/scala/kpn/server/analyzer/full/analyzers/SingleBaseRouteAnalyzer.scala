@@ -82,7 +82,7 @@ class SingleBaseRouteAnalyzer(
     context: BaseRouteAnalysisContext
   ): Option[BaseRouteChange] = {
     initialAnalysisChangeSetContext.flatMap { changeSetContext =>
-      val addedWays = context.relation.members.flatMap(_.way.map(WayInfo.from))
+      val addedWays = context.relation.members.flatMap(_.way.map(WayInfo.oldFrom))
       if (addedWays.nonEmpty) {
         val wayDiffsInfo = Some(
           WayDiffsInfo(

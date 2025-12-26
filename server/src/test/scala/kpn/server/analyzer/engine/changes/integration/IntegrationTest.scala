@@ -242,7 +242,7 @@ class IntegrationTest extends MongoTest {
 
   def findBaseRouteChangeById(id: String): BaseRouteChange = {
     database.baseRouteChanges.findByStringId(id).getOrElse {
-      val ids = database.routeChanges.stringIds()
+      val ids = database.baseRouteChanges.stringIds()
       if (ids.isEmpty) {
         fail(s"Could not find BaseRouteChange $id, no base route changes in database")
       }
