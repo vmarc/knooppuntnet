@@ -4,7 +4,7 @@ object Timestamp {
 
   val redaction: Timestamp = Timestamp(2012, 9, 12, 6, 55, 0)
   // val analysisStart: Timestamp = Timestamp(2019, 11, 1, 0, 0, 0) // 003/739/602
-  val analysisStart: Timestamp = Timestamp(2024, 6, 12, 2, 15, 5) // 006/129/560 state of the initial server-1 database download
+  val analysisStart: Timestamp = Timestamp(2025, 12, 15, 0, 0, 0) // 006/900/377 state of the initial server-2 database download
 
   implicit def timestampOrdering: Ordering[Timestamp] = (x: Timestamp, y: Timestamp) => {
     x.compareTo(y)
