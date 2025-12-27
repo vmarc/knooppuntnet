@@ -7,7 +7,7 @@ import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.repository.NodeRepository
-import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteTileRepository
 import kpn.server.repository.TaskRepository
 import org.springframework.stereotype.Component
 
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component
 class TileUpdater(
   taskRepository: TaskRepository,
   nodeRepository: NodeRepository,
-  routeRepository: RouteRepository,
+  routeTileRepository: RouteTileRepository,
   routeTileCache: RouteTileCache,
   routeTileEncoder: RouteTileEncoder
 ) {
@@ -62,6 +62,6 @@ class TileUpdater(
   }
 
   private def collectTileDataRoutes(routeType: RouteType, tile: Tile): Seq[RouteTileInfo] = {
-    routeRepository.tileInfosByTileId(routeType, tile.id)
+    routeTileRepository.tileInfosByTileId(routeType, tile.id)
   }
 }

@@ -85,6 +85,7 @@ import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.RawDataRepositoryImpl
 import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteTileRepository
 import kpn.server.repository.TaskRepository
 import org.scalamock.stubs.Stubs
 
@@ -113,6 +114,7 @@ class IntegrationTestContext(
   val nodeRepository = new NodeRepository(database)
 
   private val routeRepository = new RouteRepository(database)
+  private val routeTileRepository = new RouteTileRepository(database)
   private val baseRouteRepository = new RouteRepository(database)
   private val networkRepository = new NetworkRepository(database)
 
@@ -158,7 +160,7 @@ class IntegrationTestContext(
 
   val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzer(nodeRepository)
 
-  private val routeTileChangeAnalyzer = new BaseRouteChangeUpdateTileProcessor(routeRepository)
+  private val routeTileChangeAnalyzer = new BaseRouteChangeUpdateTileProcessor(routeTileRepository)
 
   private val changeSetInfoUpdater = new ChangeSetInfoUpdater(
     changeSetInfoRepository,
@@ -328,6 +330,7 @@ class IntegrationTestContext(
         analysisContext,
         rawDataRepository,
         routeRepository,
+        routeTileRepository,
         baseRouteMainAnalyzer,
         baseRouteDocBuilder
       )
@@ -335,6 +338,7 @@ class IntegrationTestContext(
       val baseRouteDeleter = new BaseRouteChangeDeleterImpl(
         analysisContext,
         routeRepository,
+        routeTileRepository
       )
 
       val baseRouteChangeUpdateWayProcessor = new BaseRouteChangeUpdateWayProcessor()
@@ -393,6 +397,7 @@ class IntegrationTestContext(
     val singleBaseRouteAnalyzer = new SingleBaseRouteAnalyzer(
       rawDataRepository,
       routeRepository,
+      routeTileRepository,
       changeSetRepository,
       baseRouteMainAnalyzer,
       baseRouteDocBuilder

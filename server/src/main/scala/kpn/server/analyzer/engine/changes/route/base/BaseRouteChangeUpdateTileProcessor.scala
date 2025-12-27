@@ -3,23 +3,21 @@ package kpn.server.analyzer.engine.changes.route.base
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteTileRepository
 import org.springframework.stereotype.Component
 
 @Component
-class BaseRouteChangeUpdateTileProcessor(
-  routeRepository: RouteRepository
-) {
+class BaseRouteChangeUpdateTileProcessor(routeTileRepository: RouteTileRepository) {
 
-  case class TileActions(deletes: Set[String], saves: Set[String]) {
-    def tileIds: Seq[String] = (deletes ++ saves).toSeq.sorted
+  case class TileActions(deleteTileIds: Set[String], saveTileIds: Set[String]) {
+    def tileIds: Seq[String] = (deleteTileIds ++ saveTileIds).toSeq.sorted
   }
 
   def process(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
-    val beforeRouteTileInfos = routeRepository.routeTiles(context.routeId)
+    val beforeRouteTileInfos = routeTileRepository.routeTiles(context.routeId)
     val afterRouteTileInfos = RouteTileInfoBuilder.build(context)
     val tileActions = analyzeTileActions(beforeRouteTileInfos, afterRouteTileInfos)
-    applyTileUpdates(tileActions, afterRouteTileInfos)
+    applyRouteTileUpdates(tileActions, afterRouteTileInfos)
     changeSetContext.withImpact(
       tileIds = tileActions.tileIds
     )
@@ -29,30 +27,30 @@ class BaseRouteChangeUpdateTileProcessor(
     val beforeTileIds = beforeRouteTileInfos.map(_._id).toSet
     val afterTileIds = afterRouteTileInfos.map(_._id).toSet
 
-    val creates = afterTileIds -- beforeTileIds
-    val deletes = beforeTileIds -- afterTileIds
-    val commons = afterTileIds.intersect(beforeTileIds)
+    val createTileIds = afterTileIds -- beforeTileIds
+    val deleteTileIds = beforeTileIds -- afterTileIds
+    val commonTileIds = afterTileIds.intersect(beforeTileIds)
 
-    val changes = commons.filter { tileId =>
+    val changeTileIds = commonTileIds.filter { tileId =>
       val before = beforeRouteTileInfos.find(_._id == tileId)
       val after = afterRouteTileInfos.find(_._id == tileId)
       before != after
     }
-    TileActions(deletes, creates ++ changes)
+    TileActions(deleteTileIds, createTileIds ++ changeTileIds)
   }
 
-  private def applyTileUpdates(tileActions: TileActions, afterTileDocs: Seq[RouteTileInfo]): Unit = {
-    applyTileDeletes(tileActions.deletes)
-    applyTileSaves(tileActions.saves, afterTileDocs)
+  private def applyRouteTileUpdates(tileActions: TileActions, afterTileDocs: Seq[RouteTileInfo]): Unit = {
+    applyRouteTileDeletes(tileActions.deleteTileIds)
+    applyRouteTileSaves(tileActions.saveTileIds, afterTileDocs)
   }
 
-  private def applyTileDeletes(deletes: Set[String]): Unit = {
-    deletes.foreach(routeRepository.deleteRouteTile)
+  private def applyRouteTileDeletes(deleteTileIds: Set[String]): Unit = {
+    deleteTileIds.foreach(routeTileRepository.deleteRouteTile)
   }
 
-  private def applyTileSaves(saves: Set[String], afterRouteTileInfos: Seq[RouteTileInfo]): Unit = {
+  private def applyRouteTileSaves(saveTileIds: Set[String], afterRouteTileInfos: Seq[RouteTileInfo]): Unit = {
     afterRouteTileInfos
-      .filter(doc => saves.contains(doc._id))
-      .foreach(routeRepository.saveRouteTile)
+      .filter(doc => saveTileIds.contains(doc._id))
+      .foreach(routeTileRepository.saveRouteTile)
   }
 }

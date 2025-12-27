@@ -17,6 +17,7 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteTileRepository
 import org.springframework.stereotype.Component
 
 @Component
@@ -24,6 +25,7 @@ class BaseRouteChangeCreateProcessor(
   analysisContext: AnalysisContext,
   rawDataRepository: RawDataRepository,
   routeRepository: RouteRepository,
+  routeTileRepository: RouteTileRepository,
   baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
   baseRouteDocBuilder: BaseRouteDocBuilder
 ) extends BaseRouteChangeSubProcessor {
@@ -145,7 +147,7 @@ class BaseRouteChangeCreateProcessor(
 
     private def updateRouteTileInfos(context: BaseRouteAnalysisContext): Unit = {
       val routeTileInfos = RouteTileInfoBuilder.build(context)
-      routeTileInfos.foreach(routeRepository.saveRouteTile)
+      routeTileInfos.foreach(routeTileRepository.saveRouteTile)
     }
 
     private def updateWatchedRoutes(context: BaseRouteAnalysisContext): Unit = {

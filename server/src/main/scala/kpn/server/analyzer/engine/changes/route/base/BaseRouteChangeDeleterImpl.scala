@@ -5,12 +5,14 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteTileRepository
 import org.springframework.stereotype.Component
 
 @Component
 class BaseRouteChangeDeleterImpl(
   analysisContext: AnalysisContext,
   routeRepository: RouteRepository,
+  routeTileRepository: RouteTileRepository
 ) extends BaseRouteChangeDeleter {
 
   private val defaultLog = Log(classOf[BaseRouteChangeDeleterImpl])
@@ -37,8 +39,8 @@ class BaseRouteChangeDeleterImpl(
     }
 
     private def deleteRouteTiles(changeSetContext: ChangeSetContext): ChangeSetContext = {
-      val tileIds = routeRepository.routeTileIds(routeId)
-      tileIds.foreach(routeRepository.deleteRouteTile)
+      val tileIds = routeTileRepository.routeTileIds(routeId)
+      tileIds.foreach(routeTileRepository.deleteRouteTile)
       changeSetContext.withImpact(tileIds = tileIds)
     }
 

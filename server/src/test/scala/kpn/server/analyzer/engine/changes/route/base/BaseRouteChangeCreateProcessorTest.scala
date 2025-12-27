@@ -24,6 +24,7 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteTileRepository
 import org.scalamock.stubs.Stub
 import org.scalamock.stubs.Stubs
 
@@ -33,6 +34,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with Stubs {
     val log: MockLog = Log.mock
     val analysisContext = new AnalysisContext()
     val routeRepository: Stub[RouteRepository] = stub[RouteRepository]
+    val routeTileRepository: Stub[RouteTileRepository] = stub[RouteTileRepository]
     val baseRouteMainAnalyzer: Stub[BaseRouteMainAnalyzer] = stub[BaseRouteMainAnalyzer]
     val rawDataRepository: Stub[RawDataRepository] = stub[RawDataRepository]
     val baseRouteDocBuilder: Stub[BaseRouteDocBuilder] = stub[BaseRouteDocBuilder]
@@ -40,6 +42,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with Stubs {
       analysisContext,
       rawDataRepository,
       routeRepository,
+      routeTileRepository,
       baseRouteMainAnalyzer,
       baseRouteDocBuilder
     )
@@ -64,7 +67,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with Stubs {
     (setup.baseRouteDocBuilder.build _).returnsWith(baseRouteDoc)
 
     (setup.routeRepository.saveBaseRoute _).returnsWith(())
-    (setup.routeRepository.saveRouteTile _).returnsWith(())
+    (setup.routeTileRepository.saveRouteTile _).returnsWith(())
 
     // execute
     val updatedChangeSetContext = setup.process()
@@ -79,7 +82,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with Stubs {
     )
 
     (setup.routeRepository.saveBaseRoute _).calls.map(_._id) should equal(Seq(11))
-    (setup.routeRepository.saveRouteTile _).calls.map(_._id) should equal(Seq("1-1-1-11", "2-2-2-11"))
+    (setup.routeTileRepository.saveRouteTile _).calls.map(_._id) should equal(Seq("1-1-1-11", "2-2-2-11"))
 
     assertEqual(updatedChangeSetContext.impactedTileIds, Seq("1-1-1-11", "2-2-2-11"))
     assertEqual(updatedChangeSetContext.impactedNodeIds, Seq(1001, 1002))
@@ -145,7 +148,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with Stubs {
 
     (setup.baseRouteDocBuilder.build _).times should equal(0)
     (setup.routeRepository.saveBaseRoute _).times should equal(0)
-    (setup.routeRepository.saveRouteTile _).times should equal(0)
+    (setup.routeTileRepository.saveRouteTile _).times should equal(0)
   }
 
   test("route analysis is aborted with LostRouteTags") {
@@ -172,7 +175,7 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with Stubs {
     )
 
     (setup.routeRepository.saveBaseRoute _).calls.map(_._id) should equal(Seq(11))
-    (setup.routeRepository.saveRouteTile _).calls.map(_._id) should equal(Seq("1-1-1-11", "2-2-2-11"))
+    (setup.routeTileRepository.saveRouteTile _).calls.map(_._id) should equal(Seq("1-1-1-11", "2-2-2-11"))
 
     assertEqual(updatedChangeSetContext.impactedTileIds, Seq("1-1-1-11", "2-2-2-11"))
     assertEqual(updatedChangeSetContext.impactedNodeIds, Seq(1001, 1002))

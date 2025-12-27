@@ -20,12 +20,14 @@ import kpn.server.analyzer.engine.changes.route.base.RouteGeometryAnalyzer
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteTileRepository
 import org.springframework.stereotype.Component
 
 @Component
 class SingleBaseRouteAnalyzer(
   rawDataRepository: RawDataRepository,
   routeRepository: RouteRepository,
+  routeTileRepository: RouteTileRepository,
   changeSetRepository: ChangeSetRepository,
   baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
   baseRouteDocBuilder: BaseRouteDocBuilder,
@@ -115,7 +117,7 @@ class SingleBaseRouteAnalyzer(
   private def saveTileData(context: BaseRouteAnalysisContext): Unit = {
     context.tileDatas.foreach { tileData =>
       val doc = buildRouteTileInfo(context, tileData)
-      routeRepository.saveRouteTile(doc)
+      routeTileRepository.saveRouteTile(doc)
     }
   }
 

@@ -11,7 +11,6 @@ import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteBaseData
-import kpn.core.test.TestObjects.newRouteTileInfo
 
 class RouteRepositoryTest extends MongoTest {
 
@@ -105,35 +104,5 @@ class RouteRepositoryTest extends MongoTest {
 
     routeRepository.filterKnownBaseRoutes(Set(5, 10, 15)) should equal(Set(10))
     routeRepository.filterKnownBaseRoutes(Set(10, 20, 30)) should equal(Set(10, 20))
-  }
-
-  test("find route tile ids") {
-
-    val routeRepository = new RouteRepository(database)
-
-    routeRepository.saveRouteTile(newRouteTileInfo("tile-1", 11))
-    routeRepository.saveRouteTile(newRouteTileInfo("tile-2", 11))
-
-    assertEqual(
-      routeRepository.routeTileIds(11),
-      Seq("tile-1", "tile-2")
-    )
-  }
-
-  test("delete route tiles") {
-
-    val routeRepository = new RouteRepository(database)
-
-    routeRepository.saveRouteTile(newRouteTileInfo("tile-1", 11))
-    routeRepository.saveRouteTile(newRouteTileInfo("tile-2", 11))
-
-    assertEqual(
-      routeRepository.routeTiles(11).map(_._id),
-      Seq("tile-1", "tile-2")
-    )
-
-    routeRepository.deleteRouteTiles(11)
-
-    routeRepository.routeTiles(11) shouldBe empty
   }
 }

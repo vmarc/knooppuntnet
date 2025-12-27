@@ -58,6 +58,7 @@ import kpn.server.repository.NodeRepository
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RawDataRepositoryDevelopmentImpl
 import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteTileRepository
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
@@ -94,6 +95,7 @@ class AnalysisConfiguration(
   private def createRepositories(): RepositoryGroup = {
     val networkRepository = new NetworkRepository(database)
     val routeRepository = new RouteRepository(database)
+    val routeTileRepository = new RouteTileRepository(database)
     val nodeRepository = new NodeRepository(database)
     val changeSetRepository = new ChangeSetRepository(database)
     val networkInfoRepository = new NetworkInfoRepository(database)
@@ -104,6 +106,7 @@ class AnalysisConfiguration(
     RepositoryGroup(
       networkRepository,
       routeRepository,
+      routeTileRepository,
       nodeRepository,
       changeSetRepository,
       networkInfoRepository,
@@ -205,6 +208,7 @@ class AnalysisConfiguration(
     new SingleBaseRouteAnalyzer(
       repositories.rawDataRepository,
       repositories.routeRepository,
+      repositories.routeTileRepository,
       repositories.changeSetRepository,
       baseRouteMainAnalyzer,
       baseRouteDocBuilder
@@ -315,6 +319,7 @@ class AnalysisConfiguration(
   private case class RepositoryGroup(
     networkRepository: NetworkRepository,
     routeRepository: RouteRepository,
+    routeTileRepository: RouteTileRepository,
     nodeRepository: NodeRepository,
     changeSetRepository: ChangeSetRepository,
     networkInfoRepository: NetworkInfoRepository,

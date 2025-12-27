@@ -8,7 +8,7 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.RouteNameAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteTileRepository
 import org.scalamock.stubs.Stub
 import org.scalamock.stubs.Stubs
 
@@ -23,7 +23,7 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with Stubs {
 
     // verify
     setup.assertTileDeleted("1-1-1-11")
-    (setup.routeRepository.saveRouteTile _).calls.map(_._id) should equal(Seq("1-1-3-11", "1-1-4-11"))
+    (setup.routeTileRepository.saveRouteTile _).calls.map(_._id) should equal(Seq("1-1-3-11", "1-1-4-11"))
     changeSetContext.impactedTileIds should equal(
       Seq(
         "1-1-1-11",
@@ -34,10 +34,10 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with Stubs {
   }
 
   private class Setup {
-    val routeRepository: Stub[RouteRepository] = stub[RouteRepository]
-    (routeRepository.saveRouteTile _).returnsWith(())
-    (routeRepository.deleteRouteTile _).returnsWith(())
-    private val processor = new BaseRouteChangeUpdateTileProcessor(routeRepository)
+    val routeTileRepository: Stub[RouteTileRepository] = stub[RouteTileRepository]
+    (routeTileRepository.saveRouteTile _).returnsWith(())
+    (routeTileRepository.deleteRouteTile _).returnsWith(())
+    private val processor = new BaseRouteChangeUpdateTileProcessor(routeTileRepository)
 
     private val context = BaseRouteAnalysisContext(
       relation = newRelation(id = 11),
@@ -67,14 +67,14 @@ class BaseRouteChangeUpdateTileProcessorTest extends UnitTest with Stubs {
     )
 
     private val beforeRouteTileInfos = RouteTileInfoBuilder.build(beforeContext)
-    (routeRepository.routeTiles _).returnsWith(beforeRouteTileInfos)
+    (routeTileRepository.routeTiles _).returnsWith(beforeRouteTileInfos)
 
     def process(): ChangeSetContext = {
       processor.process(newChangeSetContext(), afterContext)
     }
 
     def assertTileDeleted(tileId: String): Unit = {
-      (routeRepository.deleteRouteTile _).calls should equal(Seq(tileId))
+      (routeTileRepository.deleteRouteTile _).calls should equal(Seq(tileId))
     }
   }
 }

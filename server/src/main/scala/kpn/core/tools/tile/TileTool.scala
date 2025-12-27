@@ -13,7 +13,7 @@ import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
 import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.TilesData
 import kpn.server.repository.NodeRepository
-import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteTileRepository
 
 /*
   Generates tiles for all nodes and routes in the database.
@@ -36,7 +36,7 @@ object TileTool extends Tool[TileToolOptions] {
 
   private def buildTool(database: Database, tileDir: String): TileTool = {
     val nodeRepository = new NodeRepository(database)
-    val routeRepository = new RouteRepository(database)
+    val routeTileRepository = new RouteTileRepository(database)
     val vectorTileFileRepository = new TileFileRepository(tileDir, "mvt")
     val tileDataNodeBuilder = new TileDataNodeBuilder()
     val routeTileEncoder = new RouteTileEncoder(
@@ -45,7 +45,7 @@ object TileTool extends Tool[TileToolOptions] {
     )
     new TileTool(
       nodeRepository,
-      routeRepository,
+      routeTileRepository,
       routeTileEncoder
     )
   }
@@ -53,7 +53,7 @@ object TileTool extends Tool[TileToolOptions] {
 
 class TileTool(
   nodeRepository: NodeRepository,
-  routeRepository: RouteRepository,
+  routeTileRepository: RouteTileRepository,
   routeTileEncoder: RouteTileEncoder
 ) {
   private val log = Log(classOf[TileTool])
@@ -84,7 +84,7 @@ class TileTool(
 
   private def collectTileData(routeType: RouteType, zoomLevel: Int): TilesData = {
     val nodeTileInfos = nodeRepository.tileInfosByZoomLevel(routeType, zoomLevel)
-    val routeTileInfos = routeRepository.tileInfosByZoomLevel(routeType, zoomLevel)
+    val routeTileInfos = routeTileRepository.tileInfosByZoomLevel(routeType, zoomLevel)
 
     val nodeTileInfosByTileName = nodeTileInfos.groupBy(_.tileName)
     val routeTileInfosByTileName = routeTileInfos.groupBy(_.tileName)

@@ -13,6 +13,7 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteTileRepository
 import org.scalamock.stubs.Stub
 import org.scalamock.stubs.Stubs
 
@@ -23,9 +24,11 @@ class BaseRouteChangeDeleterTest extends UnitTest with Stubs {
     val analysisContext = new AnalysisContext()
     analysisContext.watched.routes.add(11, ElementIds.from(nodeIds = Set(1001, 1002)))
     val routeRepository: Stub[RouteRepository] = stub[RouteRepository]
+    val routeTileRepository: Stub[RouteTileRepository] = stub[RouteTileRepository]
     val deleter = new BaseRouteChangeDeleterImpl(
       analysisContext,
       routeRepository,
+      routeTileRepository
     )
 
     def delete(): ChangeSetContext = {
@@ -38,16 +41,16 @@ class BaseRouteChangeDeleterTest extends UnitTest with Stubs {
     // setup
     val setup = new Setup()
     (setup.routeRepository.findBaseRouteById _).returns { case 11 => Some(buildBaseRouteDoc()) }
-    (setup.routeRepository.routeTileIds _).returns { case 11 => Seq("tile-1", "tile-2") }
-    (setup.routeRepository.deleteRouteTile _).returnsWith(())
     (setup.routeRepository.saveBaseRoute _).returnsWith(())
+    (setup.routeTileRepository.routeTileIds _).returns { case 11 => Seq("tile-1", "tile-2") }
+    (setup.routeTileRepository.deleteRouteTile _).returnsWith(())
 
     // execute
     val changeSetContext = setup.delete()
 
     // verify
     setup.analysisContext.watched.routes.size should equal(0)
-    (setup.routeRepository.deleteRouteTile _).calls should equal(Seq("tile-1", "tile-2"))
+    (setup.routeTileRepository.deleteRouteTile _).calls should equal(Seq("tile-1", "tile-2"))
     (setup.routeRepository.saveBaseRoute _).calls.map(_.active) should equal(Seq(false))
 
     assertEqual(changeSetContext.impactedNodeIds, Seq(1001, 1002))
@@ -60,9 +63,9 @@ class BaseRouteChangeDeleterTest extends UnitTest with Stubs {
     // setup
     val setup = new Setup()
     (setup.routeRepository.findBaseRouteById _).returns { case 11 => None }
-    (setup.routeRepository.routeTileIds _).returns { case 11 => Seq.empty }
     (setup.routeRepository.saveBaseRoute _).returnsWith(())
-    (setup.routeRepository.deleteRouteTile _).returnsWith(())
+    (setup.routeTileRepository.routeTileIds _).returns { case 11 => Seq.empty }
+    (setup.routeTileRepository.deleteRouteTile _).returnsWith(())
 
     // execute
     val changeSetContext = setup.delete()
@@ -70,7 +73,7 @@ class BaseRouteChangeDeleterTest extends UnitTest with Stubs {
     // verify
     setup.analysisContext.watched.routes.size should equal(0)
     (setup.routeRepository.saveBaseRoute _).times should equal(0)
-    (setup.routeRepository.deleteRouteTile _).times should equal(0)
+    (setup.routeTileRepository.deleteRouteTile _).times should equal(0)
     assertEqual(
       setup.log.messages,
       Seq(
@@ -85,9 +88,9 @@ class BaseRouteChangeDeleterTest extends UnitTest with Stubs {
 
     // setup
     val setup = new Setup()
-    (setup.routeRepository.deleteRouteTile _).returnsWith(())
     (setup.routeRepository.findBaseRouteById _).returns { case 11 => None }
-    (setup.routeRepository.routeTileIds _).returns { case 11 => Seq("tile-1", "tile-2") }
+    (setup.routeTileRepository.deleteRouteTile _).returnsWith(())
+    (setup.routeTileRepository.routeTileIds _).returns { case 11 => Seq("tile-1", "tile-2") }
 
     // execute
     val changeSetContext = setup.delete()
@@ -95,7 +98,7 @@ class BaseRouteChangeDeleterTest extends UnitTest with Stubs {
     // verify
     setup.analysisContext.watched.routes.size should equal(0)
     (setup.routeRepository.saveBaseRoute _).times should equal(0)
-    (setup.routeRepository.deleteRouteTile _).calls should equal(Seq("tile-1", "tile-2"))
+    (setup.routeTileRepository.deleteRouteTile _).calls should equal(Seq("tile-1", "tile-2"))
     assertEqual(
       setup.log.messages,
       Seq(

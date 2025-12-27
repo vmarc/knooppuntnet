@@ -11,7 +11,7 @@ import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.domain.RouteTiles
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.repository.NodeRepository
-import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteTileRepository
 
 object SingleTileTool {
   private val log = Log(classOf[TileTool])
@@ -27,7 +27,7 @@ object SingleTileTool {
 
   private def buildTool(database: Database, tileDir: String): SingleTileTool = {
     val nodeRepository = new NodeRepository(database)
-    val routeRepository = new RouteRepository(database)
+    val routeTileRepository = new RouteTileRepository(database)
     val routeTileEncoder = {
       val vectorTileFileRepository = new TileFileRepository(tileDir, "mvt")
       val tileDataNodeBuilder = new TileDataNodeBuilder()
@@ -38,7 +38,7 @@ object SingleTileTool {
     }
     new SingleTileTool(
       nodeRepository,
-      routeRepository,
+      routeTileRepository,
       routeTileEncoder
     )
   }
@@ -46,12 +46,12 @@ object SingleTileTool {
 
 class SingleTileTool(
   nodeRepository: NodeRepository,
-  routeRepository: RouteRepository,
+  routeTileRepository: RouteTileRepository,
   routeTileEncoder: RouteTileEncoder
 ) {
 
   def makeRouteTiles(routeId: Long): Unit = {
-    val routeTileInfos = routeRepository.routeTiles(routeId)
+    val routeTileInfos = routeTileRepository.routeTiles(routeId)
     routeTileInfos.foreach { routeTileInfo =>
       routeTileInfo.routeTypes.foreach { routeType =>
         make(routeType, routeTileInfo.z.toInt, routeTileInfo.x.toInt, routeTileInfo.y.toInt)
@@ -67,7 +67,7 @@ class SingleTileTool(
   private def buildTileData(routeType: RouteType, z: Int, x: Int, y: Int) = {
     val tileId = TileId(z, x, y)
     val nodeTileInfos = nodeRepository.tileInfosByTileId(routeType, tileId)
-    val routeTileInfos = routeRepository.tileInfosByTileId(routeType, tileId)
+    val routeTileInfos = routeTileRepository.tileInfosByTileId(routeType, tileId)
     val tile = RouteTiles.tile(tileId)
     val tileData = TileData(
       routeType,
