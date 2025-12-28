@@ -17,7 +17,7 @@ object RouteDetails {
     RouteDetails(
       routeDetailsData.id,
       routeDetailsData.active,
-      routeDetailsData.core,
+      routeDetailsData.raw,
       routeDetailsData.countries,
       routeDetailsData.nodeNetwork,
       routeDetailsData.routeTypes,

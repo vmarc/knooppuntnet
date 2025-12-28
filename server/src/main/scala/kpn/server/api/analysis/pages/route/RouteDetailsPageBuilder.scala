@@ -42,7 +42,7 @@ class RouteDetailsPageBuilder(
     RouteDetails.from(routeDetailsData, locationCandidateInfos)
   }
 
-  private def buildLocationCandidateInfos(language: Language, routeDetailsData: RouteDetailsData) = {
+  private def buildLocationCandidateInfos(language: Language, routeDetailsData: RouteDetailsData): Seq[LocationCandidateInfo] = {
     routeDetailsData.locationAnalysis.candidates.map { candidate =>
       val locationNames = candidate.location.names
       val locationInfos = locationService.toInfos(language, locationNames, locationNames)

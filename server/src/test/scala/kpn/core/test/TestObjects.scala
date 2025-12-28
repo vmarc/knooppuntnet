@@ -1010,6 +1010,36 @@ object TestObjects {
     )
   }
 
+  def newRouteSegment(
+    id: Long = 0,
+    startNodeId: Long = 0,
+    endNodeId: Long = 0,
+    meters: Long = 0,
+    bounds: Bounds = Bounds(),
+    elementIds: Seq[Long] = Seq.empty
+  ): RouteSegment = {
+    RouteSegment(
+      id,
+      startNodeId,
+      endNodeId,
+      meters,
+      bounds,
+      elementIds
+    )
+  }
+
+  def newRoutePath(
+    id: Long = 0,
+    name: String = "forward",
+    elementIds: Seq[Long] = Seq.empty
+  ): RoutePath = {
+    RoutePath(
+      id,
+      name,
+      elementIds
+    )
+  }
+
   def newNodeRouteReferenceDiffs(
     removed: Seq[Ref] = Seq.empty,
     added: Seq[Ref] = Seq.empty,

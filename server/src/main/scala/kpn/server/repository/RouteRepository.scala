@@ -21,7 +21,7 @@ import kpn.database.actions.routes.MongoQueryParentRoutes
 import kpn.database.actions.routes.MongoQueryRouteActiveIds
 import kpn.database.actions.routes.MongoQueryRouteBounds
 import kpn.database.actions.routes.MongoQueryRouteCountry
-import kpn.database.actions.routes.MongoQueryRouteDetailsData
+import kpn.database.actions.routes.MongoQueryRouteDetails
 import kpn.database.actions.routes.MongoQueryRouteElementIds
 import kpn.database.actions.routes.MongoQueryRouteIds
 import kpn.database.actions.routes.MongoQueryRouteInfo
@@ -148,6 +148,6 @@ class RouteRepository(database: Database) {
   }
 
   def routeDetails(routeId: Long): Option[RouteDetailsData] = {
-    new MongoQueryRouteDetailsData(database).execute(routeId)
+    new MongoQueryRouteDetails(database).execute(routeId)
   }
 }

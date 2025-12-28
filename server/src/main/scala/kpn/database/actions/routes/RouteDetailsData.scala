@@ -17,7 +17,7 @@ import kpn.core.doc.Storable
 case class RouteDetailsData(
   id: Long,
   active: Boolean,
-  core: Raw,
+  raw: Raw,
   countries: Seq[Country],
   nodeNetwork: Boolean,
   routeTypes: Seq[RouteType],

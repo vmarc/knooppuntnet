@@ -47,7 +47,7 @@ class RouteDetailsDataCodec(registry: CodecRegistry) extends Codec[RouteDetailsD
 
     var id: Long = 0
     var active: Boolean = false
-    var core: Raw = null
+    var raw: Raw = null
     var countries: Seq[Country] = null
     var nodeNetwork: Boolean = false
     var routeTypes: Seq[RouteType] = null
@@ -82,8 +82,8 @@ class RouteDetailsDataCodec(registry: CodecRegistry) extends Codec[RouteDetailsD
       else if (fieldName == "active") {
         active = booleanCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "core") {
-        core = rawCodec.decode(bsonReader, decoderContext)
+      else if (fieldName == "raw") {
+        raw = rawCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "countries") {
         bsonReader.readStartArray()
@@ -225,7 +225,7 @@ class RouteDetailsDataCodec(registry: CodecRegistry) extends Codec[RouteDetailsD
     RouteDetailsData(
       id,
       active,
-      core,
+      raw,
       countries,
       nodeNetwork,
       routeTypes,
@@ -263,8 +263,8 @@ class RouteDetailsDataCodec(registry: CodecRegistry) extends Codec[RouteDetailsD
     bsonWriter.writeName("active")
     booleanCodec.encode(bsonWriter, value.active, encoderContext)
 
-    bsonWriter.writeName("core")
-    rawCodec.encode(bsonWriter, value.core, encoderContext)
+    bsonWriter.writeName("raw")
+    rawCodec.encode(bsonWriter, value.raw, encoderContext)
 
     bsonWriter.writeName("countries")
     bsonWriter.writeStartArray()

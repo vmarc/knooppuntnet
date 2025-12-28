@@ -10,6 +10,7 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
@@ -21,7 +22,8 @@ class BaseRouteChangeUpdateProcessor(
   baseRouteDocBuilder: BaseRouteDocBuilder,
   baseRouteChangeUpdateWayProcessor: BaseRouteChangeUpdateWayProcessor,
   baseRouteChangeUpdateTileProcessor: BaseRouteChangeUpdateTileProcessor,
-  baseRouteDeleter: BaseRouteChangeDeleter,
+  baseRouteChangeDeleter: BaseRouteChangeDeleter,
+  @Autowired(required = false)
   log: Log = Log(classOf[BaseRouteChangeUpdateProcessor])
 ) extends BaseRouteChangeSubProcessor {
 
@@ -62,7 +64,7 @@ class BaseRouteChangeUpdateProcessor(
 
   private def handleAbortedRouteAnalysis(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext, routeId: Long): ChangeSetContext = {
     if (context.facts.contains(Fact.RouteTagMissing)) {
-      baseRouteDeleter.delete(changeSetContext, routeId)
+      baseRouteChangeDeleter.delete(changeSetContext, routeId)
     }
     else {
       changeSetContext
