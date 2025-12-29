@@ -99,9 +99,7 @@ class MongoQueryRouteDetailTest extends MongoTest {
       RouteDetailsData(
         id = 11,
         active = true,
-        raw = newRaw(
-
-        ),
+        raw = newRaw(),
         countries = Seq(Country.nl),
         nodeNetwork = true,
         routeTypes = Seq(RouteType.hiking),
