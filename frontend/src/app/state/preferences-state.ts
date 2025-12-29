@@ -8,7 +8,7 @@ export class PreferencesState {
   // TODO SIGNAL not used anymore? re-introduce?
   private readonly _extraLayers = signal<boolean>(false);
   private readonly _pageSize = signal<number>(25);
-  private readonly _impact = signal<boolean>(true);
+  private readonly _impact = signal<boolean>(false);
   private readonly _showLegend = signal<boolean>(true);
   private readonly _showOptions = signal<boolean>(true);
   private readonly _showProposed = signal<boolean>(true);
