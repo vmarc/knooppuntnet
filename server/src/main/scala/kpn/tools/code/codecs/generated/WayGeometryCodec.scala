@@ -2,7 +2,6 @@
 
 package kpn.tools.code.codecs.generated
 
-import kpn.api.common.LatLonImpl
 import kpn.api.common.route.WayGeometry
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
@@ -15,28 +14,22 @@ import org.bson.codecs.configuration.CodecRegistry
 
 class WayGeometryCodec(registry: CodecRegistry) extends Codec[WayGeometry] {
 
-  private val latLonImplCodec = registry.get(classOf[LatLonImpl])
   private val longCodec = registry.get(classOf[Long])
+  private val stringCodec = registry.get(classOf[String])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): WayGeometry = {
     bsonReader.readStartDocument()
 
-    var id: Long = 0
-    var nodes: Seq[LatLonImpl] = null
+    var wayId: Long = 0
+    var line: String = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
-      if (fieldName == "id") {
-        id = longCodec.decode(bsonReader, decoderContext)
+      if (fieldName == "wayId") {
+        wayId = longCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "nodes") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[LatLonImpl]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += latLonImplCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        nodes = valueBuffer.toSeq
+      else if (fieldName == "line") {
+        line = stringCodec.decode(bsonReader, decoderContext)
       }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in WayGeometryCodec.decode()")
@@ -47,21 +40,19 @@ class WayGeometryCodec(registry: CodecRegistry) extends Codec[WayGeometry] {
     bsonReader.readEndDocument()
 
     WayGeometry(
-      id,
-      nodes,
+      wayId,
+      line,
     )
   }
 
   override def encode(bsonWriter: BsonWriter, value: WayGeometry, encoderContext: EncoderContext): Unit = {
     bsonWriter.writeStartDocument()
 
-    bsonWriter.writeName("id")
-    longCodec.encode(bsonWriter, value.id, encoderContext)
+    bsonWriter.writeName("wayId")
+    longCodec.encode(bsonWriter, value.wayId, encoderContext)
 
-    bsonWriter.writeName("nodes")
-    bsonWriter.writeStartArray()
-    value.nodes.foreach(v => latLonImplCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
+    bsonWriter.writeName("line")
+    stringCodec.encode(bsonWriter, value.line, encoderContext)
 
     bsonWriter.writeEndDocument()
   }

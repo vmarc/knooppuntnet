@@ -1,5 +1,7 @@
 package kpn.server.analyzer.engine.tiles.domain
 
+import kpn.server.domain.LongCoordinate
+import kpn.server.domain.StringCoordinate
 import org.locationtech.jts.geom.Coordinate
 
 /**
@@ -10,10 +12,6 @@ import org.locationtech.jts.geom.Coordinate
 object CoordinateCodec {
 
   private val CoordinatePrecision = 10000000 // 7 decimal places precision
-
-  case class StringCoordinate(x: String, y: String)
-
-  case class LongCoordinate(x: Long, y: Long)
 
   /**
    * Encodes an array of coordinates into a compact string representation using delta encoding.
@@ -27,6 +25,15 @@ object CoordinateCodec {
     }
     val longCoordinates = coordinates.map(toLongCoordinate)
     val encoded = toStringCoordinate(coordinates.head) +: deltaEncode(longCoordinates)
+    format(encoded)
+  }
+
+  def encodeStringCoordinates(coordinates: Array[StringCoordinate]): String = {
+    if (coordinates.isEmpty) {
+      return "[]"
+    }
+    val longCoordinates = coordinates.map(stringCoordinateToLongCoordinate2)
+    val encoded = coordinates.head +: deltaEncode(longCoordinates)
     format(encoded)
   }
 
@@ -116,6 +123,12 @@ object CoordinateCodec {
 
   private def stringCoordinateToLongCoordinate(coordinate: StringCoordinate): LongCoordinate = {
     LongCoordinate(coordinate.x.toLong, coordinate.y.toLong)
+  }
+
+  private def stringCoordinateToLongCoordinate2(coordinate: StringCoordinate): LongCoordinate = {
+    val x = Math.round(coordinate.x.toDouble * CoordinatePrecision)
+    val y = Math.round(coordinate.y.toDouble * CoordinatePrecision)
+    LongCoordinate(x, y)
   }
 
   private def format(coordinates: Array[StringCoordinate]): String = {

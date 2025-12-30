@@ -3,6 +3,8 @@
 package kpn.tools.code.codecs.generated
 
 import kpn.api.common.route.GeometryDiff
+import kpn.api.common.route.WayGeometry
+import kpn.api.common.route.WayGeometryUpdate
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
 import org.bson.BsonType
@@ -14,43 +16,34 @@ import org.bson.codecs.configuration.CodecRegistry
 
 class GeometryDiffCodec(registry: CodecRegistry) extends Codec[GeometryDiff] {
 
-  private val stringCodec = registry.get(classOf[String])
+  private val wayGeometryCodec = registry.get(classOf[WayGeometry])
+  private val wayGeometryUpdateCodec = registry.get(classOf[WayGeometryUpdate])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): GeometryDiff = {
     bsonReader.readStartDocument()
 
-    var common: Seq[String] = null
-    var before: Seq[String] = null
-    var after: Seq[String] = null
+    var common: Seq[WayGeometry] = null
+    var update: Seq[WayGeometryUpdate] = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
       if (fieldName == "common") {
         bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[String]()
+        val valueBuffer = scala.collection.mutable.Buffer[WayGeometry]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += stringCodec.decode(bsonReader, decoderContext)
+          valueBuffer += wayGeometryCodec.decode(bsonReader, decoderContext)
         }
         bsonReader.readEndArray()
         common = valueBuffer.toSeq
       }
-      else if (fieldName == "before") {
+      else if (fieldName == "update") {
         bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[String]()
+        val valueBuffer = scala.collection.mutable.Buffer[WayGeometryUpdate]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += stringCodec.decode(bsonReader, decoderContext)
+          valueBuffer += wayGeometryUpdateCodec.decode(bsonReader, decoderContext)
         }
         bsonReader.readEndArray()
-        before = valueBuffer.toSeq
-      }
-      else if (fieldName == "after") {
-        bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[String]()
-        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += stringCodec.decode(bsonReader, decoderContext)
-        }
-        bsonReader.readEndArray()
-        after = valueBuffer.toSeq
+        update = valueBuffer.toSeq
       }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in GeometryDiffCodec.decode()")
@@ -62,8 +55,7 @@ class GeometryDiffCodec(registry: CodecRegistry) extends Codec[GeometryDiff] {
 
     GeometryDiff(
       common,
-      before,
-      after,
+      update,
     )
   }
 
@@ -72,17 +64,12 @@ class GeometryDiffCodec(registry: CodecRegistry) extends Codec[GeometryDiff] {
 
     bsonWriter.writeName("common")
     bsonWriter.writeStartArray()
-    value.common.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
+    value.common.foreach(v => wayGeometryCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
-    bsonWriter.writeName("before")
+    bsonWriter.writeName("update")
     bsonWriter.writeStartArray()
-    value.before.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
-    bsonWriter.writeEndArray()
-
-    bsonWriter.writeName("after")
-    bsonWriter.writeStartArray()
-    value.after.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
+    value.update.foreach(v => wayGeometryUpdateCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
     bsonWriter.writeEndDocument()

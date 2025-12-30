@@ -286,6 +286,7 @@ import kpn.api.common.route.SegmentRouteInfo
 import kpn.api.common.route.StructureRow
 import kpn.api.common.route.WayDirection
 import kpn.api.common.route.WayGeometry
+import kpn.api.common.route.WayGeometryUpdate
 import kpn.api.common.search.Condition
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.ConditionGroupOperator
@@ -474,7 +475,6 @@ import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.DayCodec
 import kpn.tools.code.codecs.LongSetCodec
 import kpn.tools.code.codecs.PoeTranslationsCodec
-import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import kpn.tools.code.codecs.TranslationsCodec
@@ -1129,6 +1129,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[SurveyDateInfo]) {
       return new SurveyDateInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[WayGeometryUpdate]) {
+      return new WayGeometryUpdateCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[RouteInfoAnalysis]) {
       return new RouteInfoAnalysisCodec(codecRegistry).asInstanceOf[Codec[T]]
