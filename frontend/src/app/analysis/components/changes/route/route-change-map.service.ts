@@ -25,7 +25,7 @@ export class RouteChangeMapService extends OpenlayersMapService {
         layers: this.layers,
         controls: MapControls.build(),
         view: new View({
-          minZoom: ZoomLevel.vectorTileMinZoom,
+          minZoom: ZoomLevel.newMinZoom,
           maxZoom: ZoomLevel.maxZoom,
         }),
       })
