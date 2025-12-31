@@ -96,8 +96,8 @@ class BaseRouteChangeCreateProcessor(
           WayGeometryUpdate(
             wayId = way.id,
             common = None,
-            before = None,
-            after = Some(Seq(line))
+            added = Some(Seq(line)),
+            removed = None
           )
         }
         Some(

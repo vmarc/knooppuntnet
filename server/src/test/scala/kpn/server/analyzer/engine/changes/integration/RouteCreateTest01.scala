@@ -16,7 +16,6 @@ import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.route.GeometryDiff
-import kpn.api.common.route.WayGeometryUpdate
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
@@ -40,6 +39,7 @@ import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
 import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeChange
+import kpn.core.test.TestObjects.newWayGeometryUpdate
 import kpn.core.test.TestObjects.newWayInfo
 
 class RouteCreateTest01 extends IntegrationTest {
@@ -204,11 +204,9 @@ class RouteCreateTest01 extends IntegrationTest {
           GeometryDiff(
             common = Seq.empty,
             update = Seq(
-              WayGeometryUpdate(
+              newWayGeometryUpdate(
                 wayId = 101,
-                common = None,
-                before = None,
-                after = Some(
+                added = Some(
                   Seq("[[0.0,0.0],[0,0]]")
                 )
               )

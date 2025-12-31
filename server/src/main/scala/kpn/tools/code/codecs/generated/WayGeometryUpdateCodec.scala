@@ -22,8 +22,8 @@ class WayGeometryUpdateCodec(registry: CodecRegistry) extends Codec[WayGeometryU
 
     var wayId: Long = 0
     var common: Option[Seq[String]] = None
-    var before: Option[Seq[String]] = None
-    var after: Option[Seq[String]] = None
+    var added: Option[Seq[String]] = None
+    var removed: Option[Seq[String]] = None
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -39,23 +39,23 @@ class WayGeometryUpdateCodec(registry: CodecRegistry) extends Codec[WayGeometryU
         bsonReader.readEndArray()
         common = Some(valueBuffer.toSeq)
       }
-      else if (fieldName == "before") {
+      else if (fieldName == "added") {
         bsonReader.readStartArray()
         val valueBuffer = scala.collection.mutable.Buffer[String]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
           valueBuffer += stringCodec.decode(bsonReader, decoderContext)
         }
         bsonReader.readEndArray()
-        before = Some(valueBuffer.toSeq)
+        added = Some(valueBuffer.toSeq)
       }
-      else if (fieldName == "after") {
+      else if (fieldName == "removed") {
         bsonReader.readStartArray()
         val valueBuffer = scala.collection.mutable.Buffer[String]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
           valueBuffer += stringCodec.decode(bsonReader, decoderContext)
         }
         bsonReader.readEndArray()
-        after = Some(valueBuffer.toSeq)
+        removed = Some(valueBuffer.toSeq)
       }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in WayGeometryUpdateCodec.decode()")
@@ -68,8 +68,8 @@ class WayGeometryUpdateCodec(registry: CodecRegistry) extends Codec[WayGeometryU
     WayGeometryUpdate(
       wayId,
       common,
-      before,
-      after,
+      added,
+      removed,
     )
   }
 
@@ -86,17 +86,17 @@ class WayGeometryUpdateCodec(registry: CodecRegistry) extends Codec[WayGeometryU
       bsonWriter.writeEndArray()
     }
 
-    if (value.before.isDefined) {
-      bsonWriter.writeName("before")
+    if (value.added.isDefined) {
+      bsonWriter.writeName("added")
       bsonWriter.writeStartArray()
-      value.before.get.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
+      value.added.get.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
       bsonWriter.writeEndArray()
     }
 
-    if (value.after.isDefined) {
-      bsonWriter.writeName("after")
+    if (value.removed.isDefined) {
+      bsonWriter.writeName("removed")
       bsonWriter.writeStartArray()
-      value.after.get.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
+      value.removed.get.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
       bsonWriter.writeEndArray()
     }
 

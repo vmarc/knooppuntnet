@@ -3,6 +3,6 @@
 export interface WayGeometryUpdate {
   readonly wayId: number;
   readonly common?: string[];
-  readonly before?: string[];
-  readonly after?: string[];
+  readonly added?: string[];
+  readonly removed?: string[];
 }

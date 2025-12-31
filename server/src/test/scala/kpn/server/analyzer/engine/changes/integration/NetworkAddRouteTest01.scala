@@ -23,7 +23,6 @@ import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.route.GeometryDiff
-import kpn.api.common.route.WayGeometryUpdate
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
@@ -49,6 +48,7 @@ import kpn.core.test.TestObjects.newRouteData
 import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeChange
 import kpn.core.test.TestObjects.newRouteTags
+import kpn.core.test.TestObjects.newWayGeometryUpdate
 import kpn.core.test.TestObjects.newWayInfo
 import kpn.core.test.Timestamps
 
@@ -249,11 +249,9 @@ class NetworkAddRouteTest01 extends IntegrationTest {
           GeometryDiff(
             common = Seq.empty,
             update = Seq(
-              WayGeometryUpdate(
+              newWayGeometryUpdate(
                 wayId = 101,
-                common = None,
-                before = None,
-                after = Some(
+                added = Some(
                   Seq("[[0.0,0.0],[0,0]]")
                 )
               )
