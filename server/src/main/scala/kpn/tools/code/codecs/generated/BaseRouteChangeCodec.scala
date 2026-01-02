@@ -2,7 +2,6 @@
 
 package kpn.tools.code.codecs.generated
 
-import kpn.api.common.Bounds
 import kpn.api.common.ChangeType
 import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.ChangeKey
@@ -20,7 +19,6 @@ import org.bson.codecs.configuration.CodecRegistry
 
 class BaseRouteChangeCodec(registry: CodecRegistry) extends Codec[BaseRouteChange] {
 
-  private val boundsCodec = registry.get(classOf[Bounds])
   private val changeKeyCodec = registry.get(classOf[ChangeKey])
   private val changeTypeCodec = registry.get(classOf[ChangeType])
   private val geometryDiffCodec = registry.get(classOf[GeometryDiff])
@@ -37,7 +35,6 @@ class BaseRouteChangeCodec(registry: CodecRegistry) extends Codec[BaseRouteChang
     var routeDiff: RouteDiff = null
     var wayDiffs: Option[WayDiffsInfo] = None
     var geometryDiff: Option[GeometryDiff] = None
-    var bounds: Option[Bounds] = None
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -59,9 +56,6 @@ class BaseRouteChangeCodec(registry: CodecRegistry) extends Codec[BaseRouteChang
       else if (fieldName == "geometryDiff") {
         geometryDiff = Some(geometryDiffCodec.decode(bsonReader, decoderContext))
       }
-      else if (fieldName == "bounds") {
-        bounds = Some(boundsCodec.decode(bsonReader, decoderContext))
-      }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in BaseRouteChangeCodec.decode()")
         bsonReader.skipValue()
@@ -77,7 +71,6 @@ class BaseRouteChangeCodec(registry: CodecRegistry) extends Codec[BaseRouteChang
       routeDiff,
       wayDiffs,
       geometryDiff,
-      bounds,
     )
   }
 
@@ -104,11 +97,6 @@ class BaseRouteChangeCodec(registry: CodecRegistry) extends Codec[BaseRouteChang
     if (value.geometryDiff.isDefined) {
       bsonWriter.writeName("geometryDiff")
       geometryDiffCodec.encode(bsonWriter, value.geometryDiff.get, encoderContext)
-    }
-
-    if (value.bounds.isDefined) {
-      bsonWriter.writeName("bounds")
-      boundsCodec.encode(bsonWriter, value.bounds.get, encoderContext)
     }
 
     bsonWriter.writeEndDocument()

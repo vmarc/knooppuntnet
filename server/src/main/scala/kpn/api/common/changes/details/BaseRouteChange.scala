@@ -1,6 +1,5 @@
 package kpn.api.common.changes.details
 
-import kpn.api.common.Bounds
 import kpn.api.common.ChangeType
 import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.route.RouteDiff
@@ -13,8 +12,7 @@ case class BaseRouteChange(
   changeType: ChangeType,
   routeDiff: RouteDiff,
   wayDiffs: Option[WayDiffsInfo],
-  geometryDiff: Option[GeometryDiff],
-  bounds: Option[Bounds],
+  geometryDiff: Option[GeometryDiff]
 ) extends WithStringId {
 
   def routeId: Long = key.elementId

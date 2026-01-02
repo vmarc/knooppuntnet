@@ -21,7 +21,7 @@ import { RouteDiffComponent } from './route-diff.component';
         <ui-route-change-map
           [geometryDiff]="routeChangeInfo().geometryDiff"
           [nodeChanges]="routeChangeInfo().nodeChanges"
-          [bounds]="routeChangeInfo().bounds"
+          [bounds]="routeChangeInfo().geometryDiff.bounds"
         />
       </div>
     }

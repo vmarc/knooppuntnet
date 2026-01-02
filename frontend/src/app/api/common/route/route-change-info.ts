@@ -1,6 +1,5 @@
 // this file is generated, please do not modify
 
-import { Bounds } from '@api/common/bounds';
 import { ChangeType } from '@api/common/change-type';
 import { ChangeSetInfo } from '@api/common/changes/change-set-info';
 import { ChangeKey } from '@api/common/changes/details/change-key';
@@ -26,7 +25,6 @@ export interface RouteChangeInfo {
   readonly changeSetInfo?: ChangeSetInfo;
   readonly wayDiffs?: WayDiffsInfo;
   readonly geometryDiff?: GeometryDiff;
-  readonly bounds?: Bounds;
   readonly happy: boolean;
   readonly investigate: boolean;
 }

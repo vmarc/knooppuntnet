@@ -37,7 +37,6 @@ object RouteChangeInfoBuilder {
       changeSetInfo = changeSetInfo,
       wayDiffs = baseRouteChangeOption.flatMap(_.wayDiffs),
       geometryDiff = baseRouteChangeOption.flatMap(_.geometryDiff),
-      bounds = baseRouteChangeOption.flatMap(_.bounds),
       happy = routeChange.happy,
       investigate = routeChange.investigate
     )

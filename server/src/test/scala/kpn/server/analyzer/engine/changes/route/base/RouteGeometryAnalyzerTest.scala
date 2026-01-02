@@ -38,12 +38,10 @@ class RouteGeometryAnalyzerTest extends UnitTest {
     val relation = before.data.relations(11)
 
     // execute
-    val result = analyzer.initialAnalyze(relation)
+    val geometryDiff = analyzer.initialAnalyze(relation)
 
     // verify
-    result._2 should equal(Bounds(1.0001, 1.0001, 1.0003, 1.0003))
-
-    result._1 should equal(
+    geometryDiff.get should equal(
       GeometryDiff(
         common = Seq.empty,
         update = Seq(
@@ -63,7 +61,8 @@ class RouteGeometryAnalyzerTest extends UnitTest {
               )
             )
           )
-        )
+        ),
+        bounds = Bounds(1.0001, 1.0001, 1.0003, 1.0003)
       )
     )
   }
@@ -138,12 +137,10 @@ class RouteGeometryAnalyzerTest extends UnitTest {
     val relationAfter = after.data.relations(11)
 
     // execute
-    val result = analyzer.analyze(relationBefore, relationAfter).get
+    val geometryDiff = analyzer.analyze(relationBefore, relationAfter).get
 
     // verify
-    result._2 should equal(Bounds(1.0002, 1.0002, 1.0003, 1.0003))
-
-    result._1 should equal(
+    geometryDiff should equal(
       GeometryDiff(
         common = Seq(
           WayGeometry(
@@ -160,7 +157,8 @@ class RouteGeometryAnalyzerTest extends UnitTest {
               )
             )
           )
-        )
+        ),
+        bounds = Bounds(1.0002, 1.0002, 1.0003, 1.0003)
       )
     )
   }
@@ -206,12 +204,10 @@ class RouteGeometryAnalyzerTest extends UnitTest {
     val relationAfter = after.data.relations(11)
 
     // execute
-    val result = analyzer.analyze(relationBefore, relationAfter).get
+    val geometryDiff = analyzer.analyze(relationBefore, relationAfter).get
 
     // verify
-    result._2 should equal(Bounds(1.0002, 1.0002, 1.0003, 1.0003))
-
-    result._1 should equal(
+    geometryDiff should equal(
       GeometryDiff(
         common = Seq(
           WayGeometry(
@@ -227,7 +223,8 @@ class RouteGeometryAnalyzerTest extends UnitTest {
               )
             )
           )
-        )
+        ),
+        bounds = Bounds(1.0002, 1.0002, 1.0003, 1.0003)
       )
     )
   }
@@ -269,12 +266,10 @@ class RouteGeometryAnalyzerTest extends UnitTest {
     val relationAfter = after.data.relations(11)
 
     // execute
-    val result = analyzer.analyze(relationBefore, relationAfter).get
+    val geometryDiff = analyzer.analyze(relationBefore, relationAfter).get
 
     // verify
-    result._2 should equal(Bounds(1.0001, 1.0001, 1.0003, 1.0003))
-
-    result._1 should equal(
+    geometryDiff should equal(
       GeometryDiff(
         common = Seq.empty,
         update = Seq(
@@ -291,7 +286,8 @@ class RouteGeometryAnalyzerTest extends UnitTest {
               )
             )
           )
-        )
+        ),
+        bounds = Bounds(1.0001, 1.0001, 1.0003, 1.0003)
       )
     )
   }

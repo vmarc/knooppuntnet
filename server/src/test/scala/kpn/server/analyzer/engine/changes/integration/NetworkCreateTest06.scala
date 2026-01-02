@@ -180,11 +180,9 @@ class NetworkCreateTest06 extends IntegrationTest {
                   Seq(WayLine(2, 0, "[[0.0,0.0],[0,0]]"))
                 )
               )
-            )
+            ),
+            bounds = Bounds()
           )
-        ),
-        bounds = Some(
-          Bounds()
         )
       )
     )

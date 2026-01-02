@@ -2,6 +2,7 @@
 
 package kpn.tools.code.codecs.generated
 
+import kpn.api.common.Bounds
 import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.GeometryDiffInfo
 import kpn.api.common.route.WayGeometry
@@ -17,6 +18,7 @@ import org.bson.codecs.configuration.CodecRegistry
 
 class GeometryDiffCodec(registry: CodecRegistry) extends Codec[GeometryDiff] {
 
+  private val boundsCodec = registry.get(classOf[Bounds])
   private val geometryDiffInfoCodec = registry.get(classOf[GeometryDiffInfo])
   private val wayGeometryCodec = registry.get(classOf[WayGeometry])
   private val wayGeometryUpdateCodec = registry.get(classOf[WayGeometryUpdate])
@@ -27,6 +29,7 @@ class GeometryDiffCodec(registry: CodecRegistry) extends Codec[GeometryDiff] {
     var info: GeometryDiffInfo = null
     var common: Seq[WayGeometry] = null
     var update: Seq[WayGeometryUpdate] = null
+    var bounds: Bounds = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -51,6 +54,9 @@ class GeometryDiffCodec(registry: CodecRegistry) extends Codec[GeometryDiff] {
         bsonReader.readEndArray()
         update = valueBuffer.toSeq
       }
+      else if (fieldName == "bounds") {
+        bounds = boundsCodec.decode(bsonReader, decoderContext)
+      }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in GeometryDiffCodec.decode()")
         bsonReader.skipValue()
@@ -63,6 +69,7 @@ class GeometryDiffCodec(registry: CodecRegistry) extends Codec[GeometryDiff] {
       info,
       common,
       update,
+      bounds,
     )
   }
 
@@ -81,6 +88,9 @@ class GeometryDiffCodec(registry: CodecRegistry) extends Codec[GeometryDiff] {
     bsonWriter.writeStartArray()
     value.update.foreach(v => wayGeometryUpdateCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
+
+    bsonWriter.writeName("bounds")
+    boundsCodec.encode(bsonWriter, value.bounds, encoderContext)
 
     bsonWriter.writeEndDocument()
   }

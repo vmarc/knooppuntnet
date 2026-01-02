@@ -385,8 +385,7 @@ object TestObjects {
     changeType: ChangeType = ChangeType.Update,
     routeDiff: RouteDiff = RouteDiff.empty,
     wayDiffs: Option[WayDiffsInfo] = None,
-    geometryDiff: Option[GeometryDiff] = None,
-    bounds: Option[Bounds] = None,
+    geometryDiff: Option[GeometryDiff] = None
   ): BaseRouteChange = {
     BaseRouteChange(
       _id,
@@ -394,8 +393,7 @@ object TestObjects {
       changeType,
       routeDiff,
       wayDiffs,
-      geometryDiff,
-      bounds
+      geometryDiff
     )
   }
 

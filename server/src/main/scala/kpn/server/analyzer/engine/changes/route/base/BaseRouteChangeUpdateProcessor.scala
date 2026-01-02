@@ -88,10 +88,10 @@ class BaseRouteChangeUpdateProcessor(
     routeRepository.saveBaseRoute(baseRouteDoc)
 
     val routeDiff = baseRouteDiffAnalyzer.analyze(beforeContext, afterContext)
-    val result = routeGeometryAnalyzer.analyze(beforeContext.relation, afterContext.relation)
+    val geometryDiff = routeGeometryAnalyzer.analyze(beforeContext.relation, afterContext.relation)
     val wayDiffsInfo = baseRouteChangeUpdateWayProcessor.process(beforeContext, afterContext)
 
-    val updatedChangeSetContext1 = if (routeDiff.nonEmpty || result.nonEmpty || wayDiffsInfo.nonEmpty) {
+    val updatedChangeSetContext1 = if (routeDiff.nonEmpty || geometryDiff.nonEmpty || wayDiffsInfo.nonEmpty) {
       val key = changeSetContext.buildChangeKey(afterContext.relation.id)
       val change = BaseRouteChange(
         _id = key.toId,
@@ -99,8 +99,7 @@ class BaseRouteChangeUpdateProcessor(
         changeType = ChangeType.Update,
         routeDiff,
         wayDiffsInfo,
-        result.map(_._1),
-        result.map(_._2)
+        geometryDiff
       )
       changeSetContext.copy(
         changes = changeSetContext.changes.copy(

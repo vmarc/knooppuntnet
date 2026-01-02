@@ -69,7 +69,6 @@ object RouteChangesPageExample {
           )
         ),
         geometryDiff = None,
-        bounds = None,
         happy = true,
         investigate = true
       )

@@ -1,6 +1,5 @@
 // this file is generated, please do not modify
 
-import { Bounds } from '@api/common/bounds';
 import { ChangeType } from '@api/common/change-type';
 import { WayDiffsInfo } from '@api/common/diff/way-diffs-info';
 import { RouteDiff } from '@api/common/diff/route/route-diff';
@@ -14,5 +13,4 @@ export interface BaseRouteChange {
   readonly routeDiff: RouteDiff;
   readonly wayDiffs?: WayDiffsInfo;
   readonly geometryDiff?: GeometryDiff;
-  readonly bounds?: Bounds;
 }

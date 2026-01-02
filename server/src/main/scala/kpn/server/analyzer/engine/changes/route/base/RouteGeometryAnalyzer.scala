@@ -34,32 +34,35 @@ class RouteGeometryAnalyzer {
 
   private val geometryFactory = new GeometryFactory
 
-  def initialAnalyze(after: Relation): (GeometryDiff, Bounds) = {
-    val bounds = Bounds.from(after.ways.flatMap(_.nodes))
-    val geometryDiff = calculateInitialGeometryDiff(after)
-    (geometryDiff, bounds)
+  def initialAnalyze(after: Relation): Option[GeometryDiff] = {
+    if (after.ways.nonEmpty) {
+      val bounds = Bounds.from(after.ways.flatMap(_.nodes))
+      val waysAfter = toWayCoordinates(after)
+      val update = waysAfter.map { wayCoordinates =>
+        WayGeometryUpdate(
+          wayCoordinates.wayId,
+          common = None,
+          removed = None,
+          added = Some(Seq(WayLine.from(wayCoordinates)))
+        )
+      }
+      Some(
+        GeometryDiff(
+          common = Seq.empty,
+          update = update,
+          bounds = bounds
+        )
+      )
+    }
+    else {
+      None
+    }
   }
 
-  def analyze(before: Relation, after: Relation): Option[(GeometryDiff, Bounds)] = {
+  def analyze(before: Relation, after: Relation): Option[GeometryDiff] = {
     val waysBefore = toWayCoordinates(before)
     val waysAfter = toWayCoordinates(after)
     analyzeWayChanges(waysBefore, waysAfter)
-  }
-
-  private def calculateInitialGeometryDiff(after: Relation): GeometryDiff = {
-    val waysAfter = toWayCoordinates(after)
-    val update = waysAfter.map { wayCoordinates =>
-      WayGeometryUpdate(
-        wayCoordinates.wayId,
-        common = None,
-        removed = None,
-        added = Some(Seq(WayLine.from(wayCoordinates)))
-      )
-    }
-    GeometryDiff(
-      common = Seq.empty,
-      update = update
-    )
   }
 
   private def toWayCoordinates(relation: Relation): Seq[WayCoordinates] = {
@@ -71,7 +74,7 @@ class RouteGeometryAnalyzer {
     }
   }
 
-  private def analyzeWayChanges(beforeWays: Seq[WayCoordinates], afterWays: Seq[WayCoordinates]): Option[(GeometryDiff, Bounds)] = {
+  private def analyzeWayChanges(beforeWays: Seq[WayCoordinates], afterWays: Seq[WayCoordinates]): Option[GeometryDiff] = {
 
     val geometryDiffWayIds = RouteGeometryWayAnalyzer.analyze(beforeWays, afterWays)
 
@@ -90,11 +93,9 @@ class RouteGeometryAnalyzer {
 
       val bounds = calculateBounds(addedWays, removedWays, updatedCoordinateDiffs)
 
-      (
-        GeometryDiff(
-          common = unchangedGeometries,
-          update = addedGeometries ++ removedGeometries ++ wayGeometryUpdates
-        ),
+      GeometryDiff(
+        common = unchangedGeometries,
+        update = addedGeometries ++ removedGeometries ++ wayGeometryUpdates,
         bounds
       )
     }

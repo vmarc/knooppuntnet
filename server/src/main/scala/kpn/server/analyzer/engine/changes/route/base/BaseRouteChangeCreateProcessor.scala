@@ -90,6 +90,7 @@ class BaseRouteChangeCreateProcessor(
       }
 
       val geometryDiff = if (context.relation.ways.nonEmpty) {
+        val bounds = Bounds.from(context.relation.ways.flatMap(_.nodes))
         val added = context.relation.ways.map { way =>
           val wayLine = WayLine.fromLatLons(way.nodes)
           WayGeometryUpdate(
@@ -102,17 +103,9 @@ class BaseRouteChangeCreateProcessor(
         Some(
           GeometryDiff(
             common = Seq.empty,
-            update = added
+            update = added,
+            bounds
           )
-        )
-      }
-      else {
-        None
-      }
-
-      val bounds = if (context.relation.ways.nonEmpty) {
-        Some(
-          Bounds.from(context.relation.ways.flatMap(_.nodes))
         )
       }
       else {
@@ -126,8 +119,7 @@ class BaseRouteChangeCreateProcessor(
         changeType = ChangeType.Create,
         routeDiff = RouteDiff.empty,
         wayDiffs,
-        geometryDiff,
-        bounds
+        geometryDiff
       )
 
       changeSetContext.copy(

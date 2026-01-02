@@ -1,13 +1,11 @@
 package kpn.server.analyzer.full.analyzers
 
-import kpn.api.common.Bounds
 import kpn.api.common.ChangeType
 import kpn.api.common.Relation
 import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.WayInfo
 import kpn.api.common.diff.route.RouteDiff
-import kpn.api.common.route.GeometryDiff
 import kpn.api.custom.Timestamp
 import kpn.core.doc.RouteRelation
 import kpn.core.util.Log
@@ -96,7 +94,7 @@ class SingleBaseRouteAnalyzer(
         )
         val key = changeSetContext.buildChangeKey(context.routeId)
 
-        val (geometryDiff: GeometryDiff, bounds: Bounds) = new RouteGeometryAnalyzer().initialAnalyze(context.relation)
+        val geometryDiff = new RouteGeometryAnalyzer().initialAnalyze(context.relation)
 
         Some(
           BaseRouteChange(
@@ -105,8 +103,7 @@ class SingleBaseRouteAnalyzer(
             changeType = ChangeType.InitialValue,
             routeDiff = RouteDiff.empty,
             wayDiffs = wayDiffsInfo,
-            Some(geometryDiff),
-            Some(bounds)
+            geometryDiff = geometryDiff
           )
         )
       }

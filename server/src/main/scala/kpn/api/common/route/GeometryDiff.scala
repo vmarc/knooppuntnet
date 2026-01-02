@@ -1,10 +1,13 @@
 package kpn.api.common.route
 
+import kpn.api.common.Bounds
+
 object GeometryDiff {
 
   def apply(
     common: Seq[WayGeometry],
-    update: Seq[WayGeometryUpdate]
+    update: Seq[WayGeometryUpdate],
+    bounds: Bounds
   ): GeometryDiff = {
 
     val commonDetail = GeometryDiffInfoDetail(
@@ -34,7 +37,8 @@ object GeometryDiff {
     GeometryDiff(
       info,
       common,
-      update
+      update,
+      bounds
     )
   }
 }
@@ -42,5 +46,6 @@ object GeometryDiff {
 case class GeometryDiff(
   info: GeometryDiffInfo,
   common: Seq[WayGeometry],
-  update: Seq[WayGeometryUpdate]
+  update: Seq[WayGeometryUpdate],
+  bounds: Bounds
 )

@@ -1,6 +1,5 @@
 package kpn.api.common.route
 
-import kpn.api.common.Bounds
 import kpn.api.common.ChangeType
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.ChangeKey
@@ -23,7 +22,6 @@ case class RouteChangeInfo(
   changeSetInfo: Option[ChangeSetInfo],
   wayDiffs: Option[WayDiffsInfo],
   geometryDiff: Option[GeometryDiff],
-  bounds: Option[Bounds],
   happy: Boolean,
   investigate: Boolean
 )

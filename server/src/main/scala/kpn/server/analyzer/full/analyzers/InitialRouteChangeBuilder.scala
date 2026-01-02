@@ -59,8 +59,7 @@ class InitialRouteChangeBuilder(
           tagDiffs = None
         ),
         wayDiffs = None,
-        geometryDiff = None,
-        bounds = None
+        geometryDiff = None
       )
     )
 

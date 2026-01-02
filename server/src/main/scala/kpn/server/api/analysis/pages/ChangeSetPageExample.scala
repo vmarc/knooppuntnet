@@ -596,7 +596,6 @@ object ChangeSetPageExample {
         changeSetInfo = None, // no need to populate, already provided above
         wayDiffs = None,
         geometryDiff = None,
-        bounds = None,
         happy = true,
         investigate = true
       )

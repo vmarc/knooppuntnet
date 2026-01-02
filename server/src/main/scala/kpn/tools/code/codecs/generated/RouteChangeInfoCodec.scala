@@ -2,7 +2,6 @@
 
 package kpn.tools.code.codecs.generated
 
-import kpn.api.common.Bounds
 import kpn.api.common.ChangeType
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.ChangeKey
@@ -25,7 +24,6 @@ import org.bson.codecs.configuration.CodecRegistry
 class RouteChangeInfoCodec(registry: CodecRegistry) extends Codec[RouteChangeInfo] {
 
   private val booleanCodec = registry.get(classOf[Boolean])
-  private val boundsCodec = registry.get(classOf[Bounds])
   private val changeKeyCodec = registry.get(classOf[ChangeKey])
   private val changeSetInfoCodec = registry.get(classOf[ChangeSetInfo])
   private val changeTypeCodec = registry.get(classOf[ChangeType])
@@ -55,7 +53,6 @@ class RouteChangeInfoCodec(registry: CodecRegistry) extends Codec[RouteChangeInf
     var changeSetInfo: Option[ChangeSetInfo] = None
     var wayDiffs: Option[WayDiffsInfo] = None
     var geometryDiff: Option[GeometryDiff] = None
-    var bounds: Option[Bounds] = None
     var happy: Boolean = false
     var investigate: Boolean = false
 
@@ -115,9 +112,6 @@ class RouteChangeInfoCodec(registry: CodecRegistry) extends Codec[RouteChangeInf
       else if (fieldName == "geometryDiff") {
         geometryDiff = Some(geometryDiffCodec.decode(bsonReader, decoderContext))
       }
-      else if (fieldName == "bounds") {
-        bounds = Some(boundsCodec.decode(bsonReader, decoderContext))
-      }
       else if (fieldName == "happy") {
         happy = booleanCodec.decode(bsonReader, decoderContext)
       }
@@ -147,7 +141,6 @@ class RouteChangeInfoCodec(registry: CodecRegistry) extends Codec[RouteChangeInf
       changeSetInfo,
       wayDiffs,
       geometryDiff,
-      bounds,
       happy,
       investigate,
     )
@@ -214,11 +207,6 @@ class RouteChangeInfoCodec(registry: CodecRegistry) extends Codec[RouteChangeInf
     if (value.geometryDiff.isDefined) {
       bsonWriter.writeName("geometryDiff")
       geometryDiffCodec.encode(bsonWriter, value.geometryDiff.get, encoderContext)
-    }
-
-    if (value.bounds.isDefined) {
-      bsonWriter.writeName("bounds")
-      boundsCodec.encode(bsonWriter, value.bounds.get, encoderContext)
     }
 
     bsonWriter.writeName("happy")
