@@ -2,18 +2,15 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouteChangeInfo } from '@api/common/route/route-change-info';
+import { RouteChangeWayDiffsComponent } from './route-change-way-diffs.component';
 import { RouteChangeGeometryDiffInfoComponent } from './route-change-geometry-diff-info.component';
 import { RouteChangeMapComponent } from './route-change-map.component';
-import { RouteChangeWayAddedComponent } from './route-change-way-added.component';
-import { RouteChangeWayRemovedComponent } from './route-change-way-removed.component';
-import { RouteChangeWayUpdatedComponent } from './route-change-way-updated.component';
 import { RouteDiffComponent } from './route-diff.component';
 
 @Component({
   selector: 'ui-route-change-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
     <ui-route-diff [diffs]="routeChangeInfo().diffs" />
 
     @if (!routeChangeInfo().geometryDiff) {
@@ -29,31 +26,15 @@ import { RouteDiffComponent } from './route-diff.component';
       </div>
     }
 
-    @if (routeChangeInfo()?.wayDiffs?.removed) {
-      @for (removedWayInfo of routeChangeInfo().wayDiffs.removed; track $index) {
-        <ui-route-change-way-removed [wayInfo]="removedWayInfo" />
-      }
-    }
-
-    @if (routeChangeInfo()?.wayDiffs?.added) {
-      @for (addedWayInfo of routeChangeInfo().wayDiffs.added; track $index) {
-        <ui-route-change-way-added [routeChangeInfo]="routeChangeInfo()" [wayInfo]="addedWayInfo" />
-      }
-    }
-
-    @if (routeChangeInfo()?.wayDiffs?.updated) {
-      @for (wayUpdate of routeChangeInfo().wayDiffs.updated; track $index) {
-        <ui-route-change-way-updated [wayUpdate]="wayUpdate" />
-      }
+    @if (routeChangeInfo()?.wayDiffs) {
+      <ui-route-change-way-diffs [routeChangeInfo]="routeChangeInfo()" />
     }
   `,
   imports: [
     RouteChangeMapComponent,
-    RouteChangeWayAddedComponent,
-    RouteChangeWayRemovedComponent,
-    RouteChangeWayUpdatedComponent,
     RouteDiffComponent,
     RouteChangeGeometryDiffInfoComponent,
+    RouteChangeWayDiffsComponent,
   ],
 })
 export class RouteChangeDetailComponent {

@@ -17,8 +17,14 @@ import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.
       <span>{{ title() }}</span>
       <div class="kpn-brackets">
         <div class="kpn-comma-list">
-          <span>{{ detail().wayCount }} <span>ways</span></span>
-          <span>{{ detail().nodeCount | integer }} <span>nodes</span></span>
+          <span class="kpn-space-separated">
+            <span>{{ detail().wayCount }}</span>
+            <span>ways</span>
+          </span>
+          <span class="kpn-space-separated">
+            <span>{{ detail().nodeCount | integer }}</span>
+            <span>nodes</span>
+          </span>
           <span>{{ detail().meters | distance }} </span>
         </div>
       </div>
