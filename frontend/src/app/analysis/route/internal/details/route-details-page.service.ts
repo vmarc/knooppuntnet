@@ -1,10 +1,10 @@
-import { effect } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/shared/services/api.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { FocusElements } from '@app/state/focus-elements';
 import { MapService } from '@app/map/map.service';
 import { State } from '@app/state/state';
@@ -15,17 +15,15 @@ export class RouteDetailsPageService {
   private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly routeService = inject(RouteService);
+  private readonly routerService = inject(RouterService);
   private readonly mapService = inject(MapService);
 
   private readonly _response = signal<ApiResponse<RouteDetailsPage>>(null);
   readonly response = this._response.asReadonly();
 
-  constructor() {
-    effect(() => this.load(this.routeService.routeIdParam()));
-  }
-
-  private load(routeId: number) {
-    this.routeService.onInit(routeId);
+  onInit() {
+    const routeId = +this.routerService.param('routeId');
+    this.routeService.onInit('details', routeId);
     this.apiService.routeDetails(routeId).subscribe((response) => {
       this._response.set(response);
       if (response.result?.details) {

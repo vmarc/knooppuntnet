@@ -77,13 +77,10 @@ export class RouteChangeLayers {
     unchanged.forEach((wayGeometry) => {
       const line = wayGeometry.line;
       const coordinates = CoordinateCodec.decode(line);
-
       const transformedCoordinates = coordinates.map((coord) => fromLonLat([coord[1], coord[0]]));
-      console.log('coordinates', coordinates, transformedCoordinates);
       const feature = new Feature(new LineString(transformedCoordinates));
       feature.set('wayId', wayGeometry.wayId);
       feature.setStyle(style);
-      console.log('add unchanged feature', feature);
       source.addFeature(feature);
     });
 

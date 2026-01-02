@@ -14,9 +14,6 @@ import { State } from '@app/state/state';
 export class RouteService {
   private readonly state = inject(State);
 
-  private readonly _routeIdParam = signal<number>(undefined);
-  readonly routeIdParam = this._routeIdParam.asReadonly();
-
   private readonly _routeNotFound = signal<boolean>(false);
   readonly routeNotFound = this._routeNotFound.asReadonly();
 
@@ -38,11 +35,8 @@ export class RouteService {
 
   private location = inject(Location);
 
-  onPage(pageName: RoutePageName): void {
+  onInit(pageName: RoutePageName, newRouteId: number): void {
     this._pageName.set(pageName);
-  }
-
-  onInit(newRouteId: number): void {
     this.updateRouteNotFound(false);
     const oldRouteId = this.routeId();
     if (!oldRouteId || oldRouteId !== newRouteId) {
@@ -76,9 +70,5 @@ export class RouteService {
 
   updateRouteNotFound(value: boolean): void {
     this._routeNotFound.set(value);
-  }
-
-  updateRouteId(routeId: number): void {
-    this._routeIdParam.set(routeId);
   }
 }

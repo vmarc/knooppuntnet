@@ -1,4 +1,5 @@
 import { NgClass } from '@angular/common';
+import { effect } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -43,4 +44,10 @@ export class PageMenuOptionComponent {
     | undefined
   >();
   readonly elementCount = input<number | undefined>();
+
+  constructor() {
+    effect(() => {
+      console.log('menu-option=' + this.link() + ', active=' + this.active());
+    });
+  }
 }

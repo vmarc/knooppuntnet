@@ -1,6 +1,3 @@
-import { effect } from '@angular/core';
-import { inject } from '@angular/core';
-import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
@@ -21,12 +18,4 @@ import { RouterService } from '@app/shared/services/router.service';
   imports: [RouterOutlet, PageComponent, RoutePageHeaderComponent],
   providers: [RouterService],
 })
-export class RouteComponent {
-  private routeService = inject(RouteService);
-
-  readonly routeId = input.required<string>();
-
-  constructor() {
-    effect(() => this.routeService.updateRouteId(+this.routeId()));
-  }
-}
+export class RouteComponent {}

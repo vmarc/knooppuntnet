@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { RouteChangesComponent } from './components/route-changes.component';
-import { RouterService } from '@app/shared/services/router.service';
 import { UserLinkLoginComponent } from '@app/shared/user/user-link-login.component';
 import { RouteChangesPageService } from './route-changes-page.service';
 
@@ -35,7 +34,7 @@ import { RouteChangesPageService } from './route-changes-page.service';
       </div>
     }
   `,
-  providers: [RouteChangesPageService, RouterService],
+  providers: [RouteChangesPageService],
   imports: [RouteChangesComponent, UserLinkLoginComponent],
 })
 export class RouteChangesPageComponent implements OnInit {

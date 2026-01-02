@@ -1,10 +1,10 @@
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RoutePath } from '@api/common/route/route-path';
 import { RoutePathListComponent } from '@app/shared/components/route/paths/route-path-list.component';
 import { RoutePathsPageService } from './route-paths-page.service';
-import { RouterService } from '@app/shared/services/router.service';
 
 @Component({
   selector: 'ui-route-paths-page',
@@ -14,13 +14,17 @@ import { RouterService } from '@app/shared/services/router.service';
       <ui-route-path-list [paths]="paths()" (selectChange)="selectPath($event)" />
     }
   `,
-  providers: [RoutePathsPageService, RouterService],
+  providers: [RoutePathsPageService],
   imports: [RoutePathListComponent],
 })
-export class RoutePathsPageComponent {
+export class RoutePathsPageComponent implements OnInit {
   private readonly service = inject(RoutePathsPageService);
   protected readonly response = this.service.response;
   protected readonly paths = () => this.response()?.result?.paths;
+
+  ngOnInit(): void {
+    this.service.onInit();
+  }
 
   selectPath(path: RoutePath) {
     // TODO redesign - this.service.selectPath(path);

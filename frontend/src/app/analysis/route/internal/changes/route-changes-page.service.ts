@@ -39,12 +39,9 @@ export class RouteChangesPageService implements ChangesService {
   readonly filterOptions = computed(() => this.response()?.result?.filterOptions);
   readonly changeCount = this.routeService.changeCount;
 
-  constructor() {
-    // effect(() => this.load(this.routeService.routeIdParam()));
-  }
-
   onInit(): void {
-    this.routeService.onPage('changes');
+    const routeId = +this.routerService.param('routeId');
+    this.routeService.onInit('changes', routeId);
     const params = this.routerService.params();
     const queryParams = this.routerService.queryParams();
     const uniqueQueryParams = Util.uniqueParams(queryParams);

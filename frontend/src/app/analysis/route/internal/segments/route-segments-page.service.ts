@@ -1,4 +1,3 @@
-import { effect } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
@@ -8,6 +7,7 @@ import { SegmentInfo } from '@api/common/route/segment-info';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/shared/services/api.service';
 import { MapService } from '@app/map/map.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { SegmentMap } from '@app/state/segment-map';
 import { State } from '@app/state/state';
 import { RouteService } from '../route.service';
@@ -17,6 +17,7 @@ export class RouteSegmentsPageService {
   private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly routeService = inject(RouteService);
+  private readonly routerService = inject(RouterService);
   private readonly mapService = inject(MapService);
 
   private readonly _selectedSegment = signal<RouteSegment>(null);
@@ -25,12 +26,16 @@ export class RouteSegmentsPageService {
   private readonly _response = signal<ApiResponse<RouteSegmentsPage>>(null);
   readonly response = this._response.asReadonly();
 
-  constructor() {
-    effect(() => this.load(this.routeService.routeIdParam()));
-  }
-
-  private load(routeId: number) {
+  onInit() {
+    const routeId = +this.routerService.param('routeId');
+    this.routeService.onInit('segments', routeId);
     this.apiService.routeSegments(this.routeService.routeId()).subscribe((response) => {
+      if (response.result?.routeInfo) {
+        this.routeService.updateRoute(response.result.routeInfo);
+      } else {
+        this.routeService.updateRouteNotFound(true);
+      }
+
       this._response.set(response);
       const segments = this.response().result?.segments ?? [];
       const relationIds = segments.flatMap((segment) =>
