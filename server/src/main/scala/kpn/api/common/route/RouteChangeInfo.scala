@@ -17,7 +17,7 @@ case class RouteChangeInfo(
   comment: Option[String],
   before: Option[MetaData],
   after: Option[MetaData],
-  diffs: RouteDiff,
+  diffs: Option[RouteDiff],
   nodes: Seq[RouteNode],
   nodeChanges: Seq[RouteNodeChange],
   changeSetInfo: Option[ChangeSetInfo],

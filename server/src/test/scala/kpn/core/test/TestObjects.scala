@@ -61,6 +61,9 @@ import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.network.NodeRouteReferenceDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.common.diff.route.RouteNameDiff
+import kpn.api.common.diff.route.RouteNodeDiff
+import kpn.api.common.diff.route.RouteRoleDiff
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.api.common.monitor.MonitorReferenceType
@@ -346,7 +349,6 @@ object TestObjects {
     removedFromNetwork: Seq[Ref] = Seq.empty,
     before: Option[RouteData] = None,
     after: Option[RouteData] = None,
-    diffs: RouteDiff = RouteDiff(),
     nodeChanges: Seq[RouteNodeChange] = Seq.empty,
     facts: Seq[Fact] = Seq.empty,
     happy: Boolean = false,
@@ -366,7 +368,6 @@ object TestObjects {
       removedFromNetwork,
       before,
       after,
-      diffs,
       nodeChanges,
       facts,
       happy,
@@ -382,6 +383,7 @@ object TestObjects {
     _id: String,
     key: ChangeKey = newChangeKey(),
     changeType: ChangeType = ChangeType.Update,
+    routeDiff: RouteDiff = RouteDiff.empty,
     wayDiffs: Option[WayDiffsInfo] = None,
     geometryDiff: Option[GeometryDiff] = None,
     bounds: Option[Bounds] = None,
@@ -390,9 +392,28 @@ object TestObjects {
       _id,
       key,
       changeType,
+      routeDiff,
       wayDiffs,
       geometryDiff,
       bounds
+    )
+  }
+
+  def newRouteDiff(
+    nameDiff: Option[RouteNameDiff] = None,
+    roleDiff: Option[RouteRoleDiff] = None,
+    factDiffs: Option[FactDiffs] = None,
+    nodeDiffs: Seq[RouteNodeDiff] = Seq.empty,
+    memberOrderChanged: Boolean = false,
+    tagDiffs: Option[TagDiffs] = None
+  ): RouteDiff = {
+    RouteDiff(
+      nameDiff,
+      roleDiff,
+      factDiffs,
+      nodeDiffs,
+      memberOrderChanged,
+      tagDiffs
     )
   }
 

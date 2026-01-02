@@ -5,7 +5,6 @@ import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.diff.RouteData
-import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.RouteNodeChange
 import kpn.core.doc.RouteDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -47,7 +46,6 @@ class RouteChangeDeleteProcessor {
             removedFromNetwork = removedFromNetwork,
             before = Some(beforeRouteData),
             after = None,
-            diffs = RouteDiff(),
             nodeChanges = nodeChanges,
             facts = Seq(Fact.Deleted),
           )

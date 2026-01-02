@@ -1,17 +1,12 @@
 package kpn.server.analyzer.engine.changes.route.base
 
-import kpn.api.common.Bounds
-import kpn.api.common.ChangeType
-import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.data.Way
 import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.WayInfo
 import kpn.api.common.diff.WayUpdate
-import kpn.api.common.route.GeometryDiff
 import kpn.core.history.WayDiffAnalyzer
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
-import kpn.server.analyzer.engine.changes.ChangeSetContext
 import org.springframework.stereotype.Component
 
 @Component
@@ -20,50 +15,10 @@ class BaseRouteChangeUpdateWayProcessor {
   private val log = Log(classOf[BaseRouteChangeUpdateWayProcessor])
 
   def process(
-    changeSetContext: ChangeSetContext,
     before: BaseRouteAnalysisContext,
     after: BaseRouteAnalysisContext
-  ): ChangeSetContext = {
-
-    val wayDiffsInfo = analyzeWayDiffs(before.relation.ways, after.relation.ways)
-
-    new RouteGeometryAnalyzer().analyze(before.relation, after.relation) match {
-      case Some((geometryDiff: GeometryDiff, bounds: Bounds)) =>
-        val key = changeSetContext.buildChangeKey(after.relation.id)
-        val change = BaseRouteChange(
-          _id = key.toId,
-          key = key,
-          changeType = ChangeType.Update,
-          wayDiffsInfo,
-          Some(geometryDiff),
-          Some(bounds)
-        )
-        changeSetContext.copy(
-          changes = changeSetContext.changes.copy(
-            baseRouteChanges = changeSetContext.changes.baseRouteChanges :+ change
-          )
-        )
-      case None =>
-        if (wayDiffsInfo.nonEmpty) {
-          val key = changeSetContext.buildChangeKey(after.relation.id)
-          val change = BaseRouteChange(
-            _id = key.toId,
-            key = key,
-            changeType = ChangeType.Update,
-            wayDiffsInfo,
-            None,
-            None
-          )
-          changeSetContext.copy(
-            changes = changeSetContext.changes.copy(
-              baseRouteChanges = changeSetContext.changes.baseRouteChanges :+ change
-            )
-          )
-        }
-        else {
-          changeSetContext
-        }
-    }
+  ): Option[WayDiffsInfo] = {
+    analyzeWayDiffs(before.relation.ways, after.relation.ways)
   }
 
   private def analyzeWayDiffs(before: Seq[Way], after: Seq[Way]): Option[WayDiffsInfo] = {

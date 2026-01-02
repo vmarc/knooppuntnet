@@ -6,6 +6,7 @@ import kpn.api.common.Relation
 import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.WayInfo
+import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.GeometryDiff
 import kpn.api.custom.Timestamp
 import kpn.core.doc.RouteRelation
@@ -102,6 +103,7 @@ class SingleBaseRouteAnalyzer(
             key.toId,
             key = key,
             changeType = ChangeType.InitialValue,
+            routeDiff = RouteDiff.empty,
             wayDiffs = wayDiffsInfo,
             Some(geometryDiff),
             Some(bounds)

@@ -57,7 +57,7 @@ object RouteChangesPageExample {
         comment = Some("comment"),
         before = None, // TODO CHANGE provide some value
         after = None, // TODO CHANGE provide some value
-        diffs = routeDiff(),
+        diffs = Some(routeDiff()),
         nodes = Seq.empty,
         nodeChanges = Seq.empty,
         changeSetInfo = None, //Some(ChangeSetInfo()),  TODO do we actually show this???
@@ -78,7 +78,7 @@ object RouteChangesPageExample {
 
   private def routeDiff(): RouteDiff = {
     RouteDiff(
-      nameDiff = Some(RouteNameDiff("before", "after")),
+      nameDiff = Some(RouteNameDiff(Some("before"), Some("after"))),
       roleDiff = Some(RouteRoleDiff(Some("before"), Some("after"))),
       factDiffs = Some(routeFactDiffs()),
       nodeDiffs = routeNodeDiffs(),

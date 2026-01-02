@@ -4,9 +4,9 @@ import kpn.api.common.Fact
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.common.FactDiffs
-import kpn.api.common.diff.route.RouteDiff
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newRouteDiff
 
 class RouteUpdateTest08 extends IntegrationTest {
 
@@ -42,10 +42,10 @@ class RouteUpdateTest08 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
       processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
-      val routeChange = findRouteChangeById("1:1:11")
+      val baseRouteChange = findBaseRouteChangeById("1:1:11")
       assertEqual(
-        routeChange.diffs,
-        RouteDiff(
+        baseRouteChange.routeDiff,
+        newRouteDiff(
           factDiffs = Some(
             FactDiffs(
               introduced = Seq(

@@ -180,7 +180,7 @@ class RouteDiffAnalyzerTest extends UnitTest with Stubs {
       networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
-    val expectedNameDiff = Some(RouteNameDiff("01-02", "02-01"))
+    val expectedNameDiff = Some(RouteNameDiff(Some("01-02"), Some("02-01")))
 
     val expectedTagDiff = Some(
       TagDiffs(

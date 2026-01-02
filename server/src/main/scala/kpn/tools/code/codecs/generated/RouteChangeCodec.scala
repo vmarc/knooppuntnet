@@ -9,7 +9,6 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.RouteData
-import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.RouteNodeChange
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
@@ -28,7 +27,6 @@ class RouteChangeCodec(registry: CodecRegistry) extends Codec[RouteChange] {
   private val factCodec = registry.get(classOf[Fact])
   private val refCodec = registry.get(classOf[Ref])
   private val routeDataCodec = registry.get(classOf[RouteData])
-  private val routeDiffCodec = registry.get(classOf[RouteDiff])
   private val routeLocationAnalysisCodec = registry.get(classOf[RouteLocationAnalysis])
   private val routeNodeChangeCodec = registry.get(classOf[RouteNodeChange])
   private val stringCodec = registry.get(classOf[String])
@@ -45,7 +43,6 @@ class RouteChangeCodec(registry: CodecRegistry) extends Codec[RouteChange] {
     var removedFromNetwork: Seq[Ref] = null
     var before: Option[RouteData] = None
     var after: Option[RouteData] = None
-    var diffs: RouteDiff = null
     var nodeChanges: Seq[RouteNodeChange] = null
     var facts: Seq[Fact] = null
     var happy: Boolean = false
@@ -95,9 +92,6 @@ class RouteChangeCodec(registry: CodecRegistry) extends Codec[RouteChange] {
       }
       else if (fieldName == "after") {
         after = Some(routeDataCodec.decode(bsonReader, decoderContext))
-      }
-      else if (fieldName == "diffs") {
-        diffs = routeDiffCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "nodeChanges") {
         bsonReader.readStartArray()
@@ -153,7 +147,6 @@ class RouteChangeCodec(registry: CodecRegistry) extends Codec[RouteChange] {
       removedFromNetwork,
       before,
       after,
-      diffs,
       nodeChanges,
       facts,
       happy,
@@ -202,9 +195,6 @@ class RouteChangeCodec(registry: CodecRegistry) extends Codec[RouteChange] {
       bsonWriter.writeName("after")
       routeDataCodec.encode(bsonWriter, value.after.get, encoderContext)
     }
-
-    bsonWriter.writeName("diffs")
-    routeDiffCodec.encode(bsonWriter, value.diffs, encoderContext)
 
     bsonWriter.writeName("nodeChanges")
     bsonWriter.writeStartArray()

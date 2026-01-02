@@ -16,9 +16,6 @@ class RouteChangeUpdateProcessor() {
 
   def process(context: ChangeSetContext, before: RouteDoc, after: RouteDoc, routeId: Long): Option[RouteChangeContext] = {
 
-    //    val lostRouteTags = TagInterpreter.isRouteRelation(relationBefore) &&
-    //      !TagInterpreter.isRouteRelation(relationAfter)
-
     //    baseRouteMainAnalyzer.analyze(relationBefore, None /* TODO redesign - subRelationTree */) match {
     //      case None => None
     //      case Some(contextBefore) =>
@@ -75,7 +72,6 @@ class RouteChangeUpdateProcessor() {
             removedFromNetwork = removedFromNetwork,
             before = Some(routeUpdate.before),
             after = Some(routeUpdate.after),
-            diffs = routeUpdate.diffs,
             nodeChanges = nodeChanges,
             facts = routeUpdate.facts,
           )

@@ -10,8 +10,8 @@ import kpn.api.custom.Subset
 case class RouteUpdate(
   before: RouteData,
   after: RouteData,
-  diffs: RouteDiff = RouteDiff(),
-  facts: Seq[Fact] = Seq.empty
+  diffs: RouteDiff,
+  facts: Seq[Fact]
 ) {
 
   def subsets: Seq[Subset] = (before.subsets ++ after.subsets).distinct.sorted

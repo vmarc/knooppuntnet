@@ -12,10 +12,10 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.common.FactDiffs
-import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newBaseRouteChange
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetSummary
@@ -27,6 +27,7 @@ import kpn.core.test.TestObjects.newOrphanNodeInfo
 import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
+import kpn.core.test.TestObjects.newRouteDiff
 import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeChange
 
@@ -69,6 +70,7 @@ class RouteDeleteTest03 extends IntegrationTest {
 
       assertBaseRoute()
       assertRoute()
+      assertBaseRouteChange()
       assertRouteChange()
       assertNodeChange1001()
       assertNodeChange1002()
@@ -91,6 +93,28 @@ class RouteDeleteTest03 extends IntegrationTest {
     assert(!routeDoc.active)
   }
 
+  private def assertBaseRouteChange(): Unit = {
+
+    assertEqual(
+      findBaseRouteChangeById("1:1:11"),
+      newBaseRouteChange(
+        "1:1:11",
+        newChangeKey(elementId = 11),
+        ChangeType.Update,
+        routeDiff = newRouteDiff(
+          factDiffs = Some(
+            FactDiffs(
+              introduced = Seq(
+                RouteUnexpectedRelation,
+                RouteBroken
+              ),
+            )
+          )
+        )
+      )
+    )
+  }
+
   private def assertRouteChange(): Unit = {
 
     assertEqual(
@@ -103,7 +127,6 @@ class RouteDeleteTest03 extends IntegrationTest {
           newRouteData(
             relationId = 11,
             raw = newRaw(
-              changeSetId = 1,
               tags = Tags.from(
                 "network" -> "rwn",
                 "type" -> "route",
@@ -125,7 +148,6 @@ class RouteDeleteTest03 extends IntegrationTest {
           newRouteData(
             relationId = 11,
             raw = newRaw(
-              changeSetId = 1,
               tags = Tags.from(
                 "network" -> "rwn",
                 "type" -> "route",
@@ -150,16 +172,6 @@ class RouteDeleteTest03 extends IntegrationTest {
         nodeChanges = Seq(
           newRouteNodeChange(1001),
           newRouteNodeChange(1002)
-        ),
-        diffs = RouteDiff(
-          factDiffs = Some(
-            FactDiffs(
-              introduced = Seq(
-                RouteUnexpectedRelation,
-                RouteBroken
-              ),
-            )
-          )
         ),
         investigate = true,
         locationInvestigate = true,

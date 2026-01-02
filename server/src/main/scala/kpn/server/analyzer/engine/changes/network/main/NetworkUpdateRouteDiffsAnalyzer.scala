@@ -75,7 +75,7 @@ object NetworkUpdateRouteDiffsAnalyzer {
   }
 
   private def isRelevant(routeChange: RouteChange, baseRouteChange: Option[BaseRouteChange], networkId: Long): Boolean = {
-    val diffsChanged = routeChange.diffs.nonEmpty
+    val diffsChanged = baseRouteChange.toSeq.exists(_.routeDiff.nonEmpty)
     val factsChanged = routeChange.facts.nonEmpty
     networkChanged(routeChange, networkId) ||
       routeChanged(routeChange) ||

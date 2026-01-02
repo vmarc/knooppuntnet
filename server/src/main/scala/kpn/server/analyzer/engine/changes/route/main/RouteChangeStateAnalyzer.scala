@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.changes.route.main
 import kpn.api.common.ChangeType
 import kpn.api.common.Fact
 import kpn.api.common.changes.details.RouteChange
-import kpn.core.analysis.Facts
 
 object RouteChangeStateAnalyzer {
   def analyzed(routeChange: RouteChange): RouteChange = {
@@ -41,7 +40,7 @@ class RouteChangeStateAnalyzer(routeChange: RouteChange) {
     }
 
     routeChange.addedToNetwork.nonEmpty ||
-      routeChange.diffs.happy ||
+      //      routeChange.diffs.happy ||
       hasFact(Fact.Added)
   }
 
@@ -56,7 +55,7 @@ class RouteChangeStateAnalyzer(routeChange: RouteChange) {
     }
 
     routeChange.addedToNetwork.nonEmpty ||
-      routeChange.diffs.happy ||
+      //      routeChange.diffs.happy ||
       hasFact(Fact.Added)
   }
 
@@ -71,7 +70,7 @@ class RouteChangeStateAnalyzer(routeChange: RouteChange) {
     }
 
     routeChange.removedFromNetwork.nonEmpty ||
-      routeChange.diffs.investigate ||
+      //      routeChange.diffs.investigate ||
       hasFact(Fact.Deleted) ||
       hasFact(Fact.LostRouteTags)
   }
@@ -90,11 +89,12 @@ class RouteChangeStateAnalyzer(routeChange: RouteChange) {
       return true
     }
 
-    routeChange.diffs.factDiffs match {
-      case Some(factDiffs) =>
-        factDiffs.introduced.filter(Facts.isError).exists(Facts.locationFacts.contains)
-      case None => false
-    }
+    //    routeChange.diffs.factDiffs match {
+    //      case Some(factDiffs) =>
+    //        factDiffs.introduced.filter(Facts.isError).exists(Facts.locationFacts.contains)
+    //      case None => false
+    //    }
+    false
   }
 
   private def hasFact(fact: Fact): Boolean = {

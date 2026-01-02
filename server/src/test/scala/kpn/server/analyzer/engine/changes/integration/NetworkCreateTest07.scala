@@ -17,11 +17,11 @@ import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
-import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newBaseRouteChange
 import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetNetwork
@@ -31,6 +31,7 @@ import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
+import kpn.core.test.TestObjects.newRouteDiff
 import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeChange
 
@@ -96,6 +97,7 @@ class NetworkCreateTest07 extends IntegrationTest {
 
       assertNetwork()
       assertNetworkChange()
+      assertBaseRouteChange()
       assertRouteChange()
       assertChangeSetSummary()
     }
@@ -135,6 +137,33 @@ class NetworkCreateTest07 extends IntegrationTest {
         routeDiffs = RefDiffs(added = Seq(Ref(11, "01-02"))),
         happy = true,
         impact = true,
+      )
+    )
+  }
+
+  private def assertBaseRouteChange(): Unit = {
+    assertEqual(
+      findBaseRouteChangeById("1:1:11"),
+      newBaseRouteChange(
+        "1:1:11",
+        newChangeKey(elementId = 11),
+        ChangeType.Update,
+        routeDiff = newRouteDiff(
+          tagDiffs = Some(
+            TagDiffs(
+              mainTags = Seq(
+                TagDiff.same("ref", "01-02"),
+                TagDiff.same("network", "rwn"),
+                TagDiff.same("type", "route"),
+                TagDiff.same("route", "foot"),
+                TagDiff.same("network:type", "node_network")
+              ),
+              extraTags = Seq(
+                TagDiff.add("newkey", "value")
+              )
+            )
+          )
+        )
       )
     )
   }
@@ -187,22 +216,6 @@ class NetworkCreateTest07 extends IntegrationTest {
             networkNodes = Seq(
               newRouteNode(1001, "01"),
               newRouteNode(1002, "02")
-            )
-          )
-        ),
-        diffs = RouteDiff(
-          tagDiffs = Some(
-            TagDiffs(
-              mainTags = Seq(
-                TagDiff.same("ref", "01-02"),
-                TagDiff.same("network", "rwn"),
-                TagDiff.same("type", "route"),
-                TagDiff.same("route", "foot"),
-                TagDiff.same("network:type", "node_network")
-              ),
-              extraTags = Seq(
-                TagDiff.add("newkey", "value")
-              )
             )
           )
         ),

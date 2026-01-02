@@ -216,7 +216,7 @@ class ChangeSetSummaryBuilder {
 
   private def collectOrphanNodeChanges(context: ChangeSetContext): Seq[NodeChange] = {
     val networkChangeReferencedNodeIds = context.changes.networkChanges.flatMap(_.nodeDiffs.ids)
-    val routeChangeReferencedNodeIds = context.changes.routeChanges.flatMap(_.diffs.nodeDiffs.map(_.referencedNodeIds))
+    val routeChangeReferencedNodeIds = context.changes.baseRouteChanges.flatMap(_.routeDiff.nodeDiffs.map(_.referencedNodeIds))
     val referencedNodeIds = networkChangeReferencedNodeIds ++ routeChangeReferencedNodeIds
     context.changes.nodeChanges.filter(nodeChange => !referencedNodeIds.contains(nodeChange.id))
   }

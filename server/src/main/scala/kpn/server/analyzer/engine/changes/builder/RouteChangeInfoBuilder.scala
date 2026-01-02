@@ -31,7 +31,7 @@ object RouteChangeInfoBuilder {
       comment = comment,
       before = routeChange.before.map(_.raw.meta),
       after = routeChange.after.map(_.raw.meta),
-      diffs = routeChange.diffs,
+      diffs = baseRouteChangeOption.map(_.routeDiff),
       routeData.networkNodes,
       routeChange.nodeChanges,
       changeSetInfo = changeSetInfo,

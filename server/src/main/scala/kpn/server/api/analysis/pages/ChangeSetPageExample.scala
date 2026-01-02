@@ -25,7 +25,6 @@ import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
-import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.node.NodeChangeInfo
 import kpn.api.common.route.RouteChangeInfo
 import kpn.api.custom.Subset
@@ -591,7 +590,7 @@ object ChangeSetPageExample {
             changeSetId = 1
           )
         ),
-        diffs = RouteDiff(),
+        diffs = None,
         nodes = Seq.empty,
         nodeChanges = Seq.empty,
         changeSetInfo = None, // no need to populate, already provided above

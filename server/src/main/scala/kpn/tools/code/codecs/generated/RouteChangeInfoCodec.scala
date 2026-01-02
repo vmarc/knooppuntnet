@@ -49,7 +49,7 @@ class RouteChangeInfoCodec(registry: CodecRegistry) extends Codec[RouteChangeInf
     var comment: Option[String] = None
     var before: Option[MetaData] = None
     var after: Option[MetaData] = None
-    var diffs: RouteDiff = null
+    var diffs: Option[RouteDiff] = None
     var nodes: Seq[RouteNode] = null
     var nodeChanges: Seq[RouteNodeChange] = null
     var changeSetInfo: Option[ChangeSetInfo] = None
@@ -86,7 +86,7 @@ class RouteChangeInfoCodec(registry: CodecRegistry) extends Codec[RouteChangeInf
         after = Some(metaDataCodec.decode(bsonReader, decoderContext))
       }
       else if (fieldName == "diffs") {
-        diffs = routeDiffCodec.decode(bsonReader, decoderContext)
+        diffs = Some(routeDiffCodec.decode(bsonReader, decoderContext))
       }
       else if (fieldName == "nodes") {
         bsonReader.readStartArray()
@@ -186,8 +186,10 @@ class RouteChangeInfoCodec(registry: CodecRegistry) extends Codec[RouteChangeInf
       metaDataCodec.encode(bsonWriter, value.after.get, encoderContext)
     }
 
-    bsonWriter.writeName("diffs")
-    routeDiffCodec.encode(bsonWriter, value.diffs, encoderContext)
+    if (value.diffs.isDefined) {
+      bsonWriter.writeName("diffs")
+      routeDiffCodec.encode(bsonWriter, value.diffs.get, encoderContext)
+    }
 
     bsonWriter.writeName("nodes")
     bsonWriter.writeStartArray()

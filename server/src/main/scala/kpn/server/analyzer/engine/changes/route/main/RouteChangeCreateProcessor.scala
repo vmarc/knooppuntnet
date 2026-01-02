@@ -4,8 +4,6 @@ import kpn.api.common.ChangeType
 import kpn.api.common.ElementChangeType
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.diff.RouteData
-import kpn.api.common.diff.common.FactDiffs
-import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.RouteNodeChange
 import kpn.core.doc.RouteDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -15,12 +13,6 @@ import org.springframework.stereotype.Component
 class RouteChangeCreateProcessor {
 
   def process(context: ChangeSetContext, routeDocAfter: RouteDoc, routeId: Long): Option[RouteChangeContext] = {
-
-    val factDiffs = Option.when(routeDocAfter.facts.nonEmpty) {
-      FactDiffs(
-        introduced = routeDocAfter.facts
-      )
-    }
 
     val impactedNodeIds: Seq[Long] = routeDocAfter.base.nodes.nodeIds
 
@@ -51,9 +43,6 @@ class RouteChangeCreateProcessor {
             removedFromNetwork = Seq.empty,
             before = None,
             after = Some(RouteData.from(routeDocAfter)),
-            diffs = RouteDiff(
-              factDiffs = factDiffs
-            ),
             nodeChanges = nodeChanges,
             facts = Seq.empty,
           )

@@ -2,6 +2,7 @@ package kpn.server.analyzer.full.analyzers
 
 import kpn.api.common.ChangeType
 import kpn.api.common.ElementChangeType
+import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.common.FactDiffs
@@ -44,6 +45,25 @@ class InitialRouteChangeBuilder(
       )
     }
 
+    changeSetRepository.saveBaseRouteChange(
+      BaseRouteChange(
+        _id = key.toId,
+        key = key,
+        changeType = ChangeType.InitialValue,
+        routeDiff = RouteDiff(
+          nameDiff = None,
+          roleDiff = None,
+          factDiffs = Some(FactDiffs(remaining = facts)),
+          nodeDiffs = Seq.empty,
+          memberOrderChanged = false,
+          tagDiffs = None
+        ),
+        wayDiffs = None,
+        geometryDiff = None,
+        bounds = None
+      )
+    )
+
     changeSetRepository.saveRouteChange(
       RouteChange(
         _id = key.toId,
@@ -55,7 +75,6 @@ class InitialRouteChangeBuilder(
         removedFromNetwork = Seq.empty,
         before = None,
         after = Some(routeData),
-        diffs = RouteDiff(factDiffs = Some(FactDiffs(remaining = facts))),
         nodeChanges = nodeChanges,
         facts = routeDoc.facts,
         investigate = facts.nonEmpty,

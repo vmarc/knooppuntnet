@@ -293,7 +293,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
     val baseRouteDocBuilder = new BaseRouteDocBuilder()
     val baseRouteChangeUpdateWayProcessor: Stub[BaseRouteChangeUpdateWayProcessor] = stub[BaseRouteChangeUpdateWayProcessor]
     (baseRouteChangeUpdateWayProcessor.process _).returns {
-      case (changeSetContext: ChangeSetContext, before: BaseRouteAnalysisContext, after: BaseRouteAnalysisContext) => changeSetContext
+      case (before: BaseRouteAnalysisContext, after: BaseRouteAnalysisContext) => None
     }
 
     val routeTileChangeAnalyzer: Stub[BaseRouteChangeUpdateTileProcessor] = stub[BaseRouteChangeUpdateTileProcessor]
@@ -304,6 +304,9 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
 
     val baseRouteDeleter: BaseRouteChangeDeleterMock = new BaseRouteChangeDeleterMock()
 
+    val baseRouteDiffAnalyzer = new BaseRouteDiffAnalyzer()
+    val routeGeometryAnalyzer = new RouteGeometryAnalyzer()
+
     private val processor = new BaseRouteChangeUpdateProcessor(
       analysisContext,
       rawDataRepository,
@@ -311,6 +314,8 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
       baseRouteMainAnalyzer,
       baseRouteDocBuilder,
       baseRouteChangeUpdateWayProcessor,
+      baseRouteDiffAnalyzer,
+      routeGeometryAnalyzer,
       routeTileChangeAnalyzer,
       baseRouteDeleter,
       log

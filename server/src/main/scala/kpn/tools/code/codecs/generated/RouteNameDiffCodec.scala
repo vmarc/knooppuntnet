@@ -19,16 +19,16 @@ class RouteNameDiffCodec(registry: CodecRegistry) extends Codec[RouteNameDiff] {
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): RouteNameDiff = {
     bsonReader.readStartDocument()
 
-    var before: String = null
-    var after: String = null
+    var before: Option[String] = None
+    var after: Option[String] = None
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
       if (fieldName == "before") {
-        before = stringCodec.decode(bsonReader, decoderContext)
+        before = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else if (fieldName == "after") {
-        after = stringCodec.decode(bsonReader, decoderContext)
+        after = Some(stringCodec.decode(bsonReader, decoderContext))
       }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in RouteNameDiffCodec.decode()")
@@ -47,11 +47,15 @@ class RouteNameDiffCodec(registry: CodecRegistry) extends Codec[RouteNameDiff] {
   override def encode(bsonWriter: BsonWriter, value: RouteNameDiff, encoderContext: EncoderContext): Unit = {
     bsonWriter.writeStartDocument()
 
-    bsonWriter.writeName("before")
-    stringCodec.encode(bsonWriter, value.before, encoderContext)
+    if (value.before.isDefined) {
+      bsonWriter.writeName("before")
+      stringCodec.encode(bsonWriter, value.before.get, encoderContext)
+    }
 
-    bsonWriter.writeName("after")
-    stringCodec.encode(bsonWriter, value.after, encoderContext)
+    if (value.after.isDefined) {
+      bsonWriter.writeName("after")
+      stringCodec.encode(bsonWriter, value.after.get, encoderContext)
+    }
 
     bsonWriter.writeEndDocument()
   }

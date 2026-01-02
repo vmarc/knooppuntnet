@@ -61,6 +61,8 @@ import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateProcessor
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateTileProcessor
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateWayProcessor
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteDiffAnalyzer
+import kpn.server.analyzer.engine.changes.route.base.RouteGeometryAnalyzer
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeCreateProcessor
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeDeleteProcessor
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeProcessor
@@ -341,6 +343,8 @@ class SingleRouteChangeAnalyzerConfiguration(database: Database) {
       )
 
       val baseRouteChangeUpdateWayProcessor = new BaseRouteChangeUpdateWayProcessor()
+      val baseRouteDiffAnalyzer = new BaseRouteDiffAnalyzer()
+      val routeGeometryAnalyzer = new RouteGeometryAnalyzer()
 
       val baseRouteChangeUpdateProcessor = new BaseRouteChangeUpdateProcessor(
         analysisContext,
@@ -349,6 +353,8 @@ class SingleRouteChangeAnalyzerConfiguration(database: Database) {
         baseRouteMainAnalyzer,
         baseRouteDocBuilder,
         baseRouteChangeUpdateWayProcessor,
+        baseRouteDiffAnalyzer,
+        routeGeometryAnalyzer,
         routeTileChangeAnalyzer,
         baseRouteDeleter
       )

@@ -4,13 +4,26 @@ import kpn.api.common.common.ReferencedElements
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 
+object RouteDiff {
+  def empty: RouteDiff = {
+    RouteDiff(
+      nameDiff = None,
+      roleDiff = None,
+      factDiffs = None,
+      nodeDiffs = Seq.empty,
+      memberOrderChanged = false,
+      tagDiffs = None
+    )
+  }
+}
+
 case class RouteDiff(
-  nameDiff: Option[RouteNameDiff] = None,
-  roleDiff: Option[RouteRoleDiff] = None,
-  factDiffs: Option[FactDiffs] = None,
-  nodeDiffs: Seq[RouteNodeDiff] = Seq.empty,
-  memberOrderChanged: Boolean = false,
-  tagDiffs: Option[TagDiffs] = None
+  nameDiff: Option[RouteNameDiff],
+  roleDiff: Option[RouteRoleDiff],
+  factDiffs: Option[FactDiffs],
+  nodeDiffs: Seq[RouteNodeDiff],
+  memberOrderChanged: Boolean,
+  tagDiffs: Option[TagDiffs]
 ) {
 
   def isEmpty: Boolean = !nonEmpty

@@ -42,17 +42,17 @@ class RouteUpdateTest05 extends IntegrationTest {
 
       processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
-      val routeChange = findRouteChangeById("1:1:11")
+      val baseRouteChange = findBaseRouteChangeById("1:1:11")
 
       assertEqual(
-        routeChange.diffs.nameDiff,
+        baseRouteChange.routeDiff.nameDiff,
         Some(
-          RouteNameDiff("01-02", "02-01")
+          RouteNameDiff(Some("01-02"), Some("02-01"))
         )
       )
 
       assertEqual(
-        routeChange.diffs.tagDiffs,
+        baseRouteChange.routeDiff.tagDiffs,
         Some(
           TagDiffs(
             Seq(

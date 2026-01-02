@@ -10,10 +10,10 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
-import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newBaseRouteChange
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetSummary
@@ -22,6 +22,7 @@ import kpn.core.test.TestObjects.newOrphanRouteInfo
 import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
+import kpn.core.test.TestObjects.newRouteDiff
 import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeChange
 
@@ -58,6 +59,7 @@ class RouteUpdateTest01 extends IntegrationTest {
       assert(watched.routes.contains(11))
 
       assertRoute()
+      assertBaseRouteChange()
       assertRouteChange()
       assertOrphanRoute()
       database.nodeChanges shouldBe empty
@@ -71,6 +73,33 @@ class RouteUpdateTest01 extends IntegrationTest {
     assert(routeDoc.active)
   }
 
+  private def assertBaseRouteChange(): Unit = {
+    assertEqual(
+      findBaseRouteChangeById("1:1:11"),
+      newBaseRouteChange(
+        "1:1:11",
+        newChangeKey(elementId = 11),
+        ChangeType.Update,
+        routeDiff = newRouteDiff(
+          tagDiffs = Some(
+            TagDiffs(
+              mainTags = Seq(
+                TagDiff.same("ref", "01-02"),
+                TagDiff.same("network", "rwn"),
+                TagDiff.same("type", "route"),
+                TagDiff.same("route", "foot"),
+                TagDiff.same("network:type", "node_network")
+              ),
+              extraTags = Seq(
+                TagDiff.update("key", "value1", "value2")
+              )
+            )
+          )
+        )
+      )
+    )
+  }
+
   private def assertRouteChange(): Unit = {
     assertEqual(
       findRouteChangeById("1:1:11"),
@@ -82,7 +111,6 @@ class RouteUpdateTest01 extends IntegrationTest {
           newRouteData(
             relationId = 11,
             raw = newRaw(
-              changeSetId = 1,
               tags = Tags.from(
                 "network" -> "rwn",
                 "type" -> "route",
@@ -105,7 +133,6 @@ class RouteUpdateTest01 extends IntegrationTest {
           newRouteData(
             relationId = 11,
             raw = newRaw(
-              changeSetId = 1,
               tags = Tags.from(
                 "network" -> "rwn",
                 "type" -> "route",
@@ -122,22 +149,6 @@ class RouteUpdateTest01 extends IntegrationTest {
               newRouteNode(1001, "01"),
               newRouteNode(1002, "02")
             ),
-          )
-        ),
-        diffs = RouteDiff(
-          tagDiffs = Some(
-            TagDiffs(
-              mainTags = Seq(
-                TagDiff.same("ref", "01-02"),
-                TagDiff.same("network", "rwn"),
-                TagDiff.same("type", "route"),
-                TagDiff.same("route", "foot"),
-                TagDiff.same("network:type", "node_network")
-              ),
-              extraTags = Seq(
-                TagDiff.update("key", "value1", "value2")
-              )
-            )
           )
         ),
         nodeChanges = Seq(

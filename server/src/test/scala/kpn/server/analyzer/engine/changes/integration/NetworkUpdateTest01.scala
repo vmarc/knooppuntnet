@@ -14,7 +14,6 @@ import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayDiffsInfo
-import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
@@ -32,6 +31,7 @@ import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
+import kpn.core.test.TestObjects.newRouteDiff
 import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeChange
 import kpn.core.test.TestObjects.newRouteTags
@@ -113,6 +113,25 @@ class NetworkUpdateTest01 extends IntegrationTest {
         "1:1:11",
         newChangeKey(elementId = 11),
         ChangeType.Update,
+        routeDiff = newRouteDiff(
+          nameDiff = Some(
+            RouteNameDiff(
+              before = Some("01-02"),
+              after = Some("01-03")
+            )
+          ),
+          tagDiffs = Some(
+            TagDiffs(
+              mainTags = Seq(
+                TagDiff.update("ref", "01-02", "01-03"),
+                TagDiff.same("network", "rwn"),
+                TagDiff.same("type", "route"),
+                TagDiff.same("route", "foot"),
+                TagDiff.same("network:type", "node_network")
+              )
+            )
+          )
+        ),
         wayDiffs = Some(
           WayDiffsInfo(
             updated = Seq(
@@ -172,25 +191,6 @@ class NetworkUpdateTest01 extends IntegrationTest {
             networkNodes = Seq(
               newRouteNode(1001, "01"),
               newRouteNode(1002, "03")
-            )
-          )
-        ),
-        diffs = RouteDiff(
-          nameDiff = Some(
-            RouteNameDiff(
-              before = "01-02",
-              after = "01-03"
-            )
-          ),
-          tagDiffs = Some(
-            TagDiffs(
-              mainTags = Seq(
-                TagDiff.update("ref", "01-02", "01-03"),
-                TagDiff.same("network", "rwn"),
-                TagDiff.same("type", "route"),
-                TagDiff.same("route", "foot"),
-                TagDiff.same("network:type", "node_network")
-              )
             )
           )
         ),
