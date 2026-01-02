@@ -3,6 +3,7 @@ package kpn.core.util
 import kpn.api.common.LatLon
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
+import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.LineString
 
 import scala.math.asin
@@ -46,13 +47,16 @@ object Haversine {
   }
 
   def meters(lineString: LineString): Double = {
-    val coordinates = lineString.getCoordinates
-    if (coordinates.size < 2) {
+    meters(lineString.getCoordinates)
+  }
+
+  def meters(coordinates: Array[Coordinate]): Double = {
+    if (coordinates.sizeIs < 2) {
       0
     }
     else {
       val km = coordinates.sliding(2).map { case Array(coordinate1, coordinate2) =>
-        Haversine.km(coordinate1.getY, coordinate1.getX, coordinate2.getY, coordinate2.getX)
+        Haversine.km(coordinate1.y, coordinate1.x, coordinate2.y, coordinate2.x)
       }.sum
       km * 1000
     }

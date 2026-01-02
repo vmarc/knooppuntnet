@@ -89,6 +89,7 @@ import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.WayGeometryUpdate
+import kpn.api.common.route.WayLine
 import kpn.api.custom.Change
 import kpn.api.custom.Day
 import kpn.api.custom.Subset
@@ -1670,9 +1671,9 @@ object TestObjects {
 
   def newWayGeometryUpdate(
     wayId: Long,
-    common: Option[Seq[String]] = None,
-    added: Option[Seq[String]] = None,
-    removed: Option[Seq[String]] = None
+    common: Option[Seq[WayLine]] = None,
+    added: Option[Seq[WayLine]] = None,
+    removed: Option[Seq[WayLine]] = None
   ): WayGeometryUpdate = {
     WayGeometryUpdate(
       wayId,

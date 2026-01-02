@@ -3,6 +3,7 @@
 package kpn.tools.code.codecs.generated
 
 import kpn.api.common.route.WayGeometry
+import kpn.api.common.route.WayLine
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
 import org.bson.BsonType
@@ -15,13 +16,13 @@ import org.bson.codecs.configuration.CodecRegistry
 class WayGeometryCodec(registry: CodecRegistry) extends Codec[WayGeometry] {
 
   private val longCodec = registry.get(classOf[Long])
-  private val stringCodec = registry.get(classOf[String])
+  private val wayLineCodec = registry.get(classOf[WayLine])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): WayGeometry = {
     bsonReader.readStartDocument()
 
     var wayId: Long = 0
-    var line: String = null
+    var line: WayLine = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -29,7 +30,7 @@ class WayGeometryCodec(registry: CodecRegistry) extends Codec[WayGeometry] {
         wayId = longCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "line") {
-        line = stringCodec.decode(bsonReader, decoderContext)
+        line = wayLineCodec.decode(bsonReader, decoderContext)
       }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in WayGeometryCodec.decode()")
@@ -52,7 +53,7 @@ class WayGeometryCodec(registry: CodecRegistry) extends Codec[WayGeometry] {
     longCodec.encode(bsonWriter, value.wayId, encoderContext)
 
     bsonWriter.writeName("line")
-    stringCodec.encode(bsonWriter, value.line, encoderContext)
+    wayLineCodec.encode(bsonWriter, value.line, encoderContext)
 
     bsonWriter.writeEndDocument()
   }

@@ -5,8 +5,10 @@ import kpn.api.common.Relation
 import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.WayGeometry
 import kpn.api.common.route.WayGeometryUpdate
+import kpn.api.common.route.WayLine
 import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.domain.StringCoordinate
+import org.locationtech.jts.geom.GeometryFactory
 
 case class GeometryDiffCoordinates(
   wayId: Long,
@@ -28,6 +30,8 @@ case class GeometryDiffWayIds(
 
 class RouteGeometryAnalyzer {
 
+  private val geometryFactory = new GeometryFactory
+
   def initialAnalyze(after: Relation): (GeometryDiff, Bounds) = {
     val bounds = Bounds.from(after.ways.flatMap(_.nodes))
     val geometryDiff = calculateInitialGeometryDiff(after)
@@ -43,12 +47,11 @@ class RouteGeometryAnalyzer {
   private def calculateInitialGeometryDiff(after: Relation): GeometryDiff = {
     val waysAfter = toWayCoordinates(after)
     val update = waysAfter.map { wayCoordinates =>
-      val line = encode(wayCoordinates.coordinates)
       WayGeometryUpdate(
         wayCoordinates.wayId,
         common = None,
         removed = None,
-        added = Some(Seq(line))
+        added = Some(Seq(WayLine.from(wayCoordinates)))
       )
     }
     GeometryDiff(
@@ -109,8 +112,8 @@ class RouteGeometryAnalyzer {
     }
   }
 
-  private def toLines(coordinateSequences: Seq[Seq[StringCoordinate]]): Option[Seq[String]] = {
-    Option.when(coordinateSequences.nonEmpty)(coordinateSequences.map(encode))
+  private def toLines(coordinateSequences: Seq[Seq[StringCoordinate]]): Option[Seq[WayLine]] = {
+    Option.when(coordinateSequences.nonEmpty)(coordinateSequences.map(WayLine.fromLatLons))
   }
 
   private def calculateDiffs(beforeWays: Seq[WayCoordinates], afterWays: Seq[WayCoordinates], updated: Set[Long]): Seq[GeometryDiffCoordinates] = {
@@ -152,7 +155,7 @@ class RouteGeometryAnalyzer {
     unchangedWays.map { wc =>
       WayGeometry(
         wayId = wc.wayId,
-        line = encode(wc.coordinates)
+        line = WayLine.from(wc)
       )
     }
   }
@@ -162,7 +165,7 @@ class RouteGeometryAnalyzer {
       WayGeometryUpdate(
         wayId = wc.wayId,
         common = None,
-        removed = Some(Seq(encode(wc.coordinates))),
+        removed = Some(Seq(WayLine.from(wc))),
         added = None
       )
     }
@@ -174,7 +177,7 @@ class RouteGeometryAnalyzer {
         wayId = wc.wayId,
         common = None,
         removed = None,
-        added = Some(Seq(encode(wc.coordinates)))
+        added = Some(Seq(WayLine.from(wc)))
       )
     }
   }

@@ -76,7 +76,7 @@ export class RouteChangeLayers {
     const source = new VectorSource();
     unchanged.forEach((wayGeometry) => {
       const line = wayGeometry.line;
-      const coordinates = CoordinateCodec.decode(line);
+      const coordinates = CoordinateCodec.decode(line.line);
       const transformedCoordinates = coordinates.map((coord) => fromLonLat([coord[1], coord[0]]));
       const feature = new Feature(new LineString(transformedCoordinates));
       feature.set('wayId', wayGeometry.wayId);
@@ -122,7 +122,7 @@ export class RouteChangeLayers {
     const source = new VectorSource();
     wayGeometries.forEach((wayGeometry) => {
       const line = wayGeometry.line;
-      const coordinates = CoordinateCodec.decode(line);
+      const coordinates = CoordinateCodec.decode(line.line);
       const transformedCoordinates = coordinates.map((coord) => fromLonLat([coord[1], coord[0]]));
       const feature = new Feature(new LineString(transformedCoordinates));
       feature.set('wayId', wayGeometry.wayId);
@@ -169,7 +169,7 @@ export class RouteChangeLayers {
     const source = new VectorSource();
     wayGeometries.forEach((wayGeometry) => {
       const line = wayGeometry.line;
-      const coordinates = CoordinateCodec.decode(line);
+      const coordinates = CoordinateCodec.decode(line.line);
       const transformedCoordinates = coordinates.map((coord) => fromLonLat([coord[1], coord[0]]));
       const feature = new Feature(new LineString(transformedCoordinates));
       feature.set('wayId', wayGeometry.wayId);

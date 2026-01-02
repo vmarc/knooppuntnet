@@ -3,6 +3,7 @@
 package kpn.tools.code.codecs.generated
 
 import kpn.api.common.route.WayGeometryUpdate
+import kpn.api.common.route.WayLine
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
 import org.bson.BsonType
@@ -15,15 +16,15 @@ import org.bson.codecs.configuration.CodecRegistry
 class WayGeometryUpdateCodec(registry: CodecRegistry) extends Codec[WayGeometryUpdate] {
 
   private val longCodec = registry.get(classOf[Long])
-  private val stringCodec = registry.get(classOf[String])
+  private val wayLineCodec = registry.get(classOf[WayLine])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): WayGeometryUpdate = {
     bsonReader.readStartDocument()
 
     var wayId: Long = 0
-    var common: Option[Seq[String]] = None
-    var added: Option[Seq[String]] = None
-    var removed: Option[Seq[String]] = None
+    var common: Option[Seq[WayLine]] = None
+    var added: Option[Seq[WayLine]] = None
+    var removed: Option[Seq[WayLine]] = None
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -32,27 +33,27 @@ class WayGeometryUpdateCodec(registry: CodecRegistry) extends Codec[WayGeometryU
       }
       else if (fieldName == "common") {
         bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[String]()
+        val valueBuffer = scala.collection.mutable.Buffer[WayLine]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += stringCodec.decode(bsonReader, decoderContext)
+          valueBuffer += wayLineCodec.decode(bsonReader, decoderContext)
         }
         bsonReader.readEndArray()
         common = Some(valueBuffer.toSeq)
       }
       else if (fieldName == "added") {
         bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[String]()
+        val valueBuffer = scala.collection.mutable.Buffer[WayLine]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += stringCodec.decode(bsonReader, decoderContext)
+          valueBuffer += wayLineCodec.decode(bsonReader, decoderContext)
         }
         bsonReader.readEndArray()
         added = Some(valueBuffer.toSeq)
       }
       else if (fieldName == "removed") {
         bsonReader.readStartArray()
-        val valueBuffer = scala.collection.mutable.Buffer[String]()
+        val valueBuffer = scala.collection.mutable.Buffer[WayLine]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
-          valueBuffer += stringCodec.decode(bsonReader, decoderContext)
+          valueBuffer += wayLineCodec.decode(bsonReader, decoderContext)
         }
         bsonReader.readEndArray()
         removed = Some(valueBuffer.toSeq)
@@ -82,21 +83,21 @@ class WayGeometryUpdateCodec(registry: CodecRegistry) extends Codec[WayGeometryU
     if (value.common.isDefined) {
       bsonWriter.writeName("common")
       bsonWriter.writeStartArray()
-      value.common.get.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
+      value.common.get.foreach(v => wayLineCodec.encode(bsonWriter, v, encoderContext))
       bsonWriter.writeEndArray()
     }
 
     if (value.added.isDefined) {
       bsonWriter.writeName("added")
       bsonWriter.writeStartArray()
-      value.added.get.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
+      value.added.get.foreach(v => wayLineCodec.encode(bsonWriter, v, encoderContext))
       bsonWriter.writeEndArray()
     }
 
     if (value.removed.isDefined) {
       bsonWriter.writeName("removed")
       bsonWriter.writeStartArray()
-      value.removed.get.foreach(v => stringCodec.encode(bsonWriter, v, encoderContext))
+      value.removed.get.foreach(v => wayLineCodec.encode(bsonWriter, v, encoderContext))
       bsonWriter.writeEndArray()
     }
 

@@ -131,7 +131,7 @@ object CoordinateCodec {
     LongCoordinate(x, y)
   }
 
-  private def format(coordinates: Array[StringCoordinate]): String = {
+  private def format(coordinates: Seq[StringCoordinate]): String = {
     coordinates.map(c => s"[${c.x},${c.y}]").mkString("[", ",", "]")
   }
 }

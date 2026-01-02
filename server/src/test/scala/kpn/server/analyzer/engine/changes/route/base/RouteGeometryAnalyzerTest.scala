@@ -4,6 +4,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
 import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.WayGeometry
+import kpn.api.common.route.WayLine
 import kpn.core.test.TestData
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newWayGeometryUpdate
@@ -50,7 +51,7 @@ class RouteGeometryAnalyzerTest extends UnitTest {
             wayId = 101,
             added = Some(
               Seq(
-                "[[1.0001,1.0001],[1000,1000]]"
+                WayLine(2, 15, "[[1.0001,1.0001],[1000,1000]]")
               )
             )
           ),
@@ -58,7 +59,7 @@ class RouteGeometryAnalyzerTest extends UnitTest {
             wayId = 102,
             added = Some(
               Seq(
-                "[[1.0002,1.0002],[1000,1000]]"
+                WayLine(2, 15, "[[1.0002,1.0002],[1000,1000]]")
               )
             )
           )
@@ -146,7 +147,7 @@ class RouteGeometryAnalyzerTest extends UnitTest {
       GeometryDiff(
         common = Seq(
           WayGeometry(
-            101, "[[1.0001,1.0001],[1000,1000]]"
+            101, WayLine(2, 15, "[[1.0001,1.0001],[1000,1000]]")
           ),
 
         ),
@@ -155,7 +156,7 @@ class RouteGeometryAnalyzerTest extends UnitTest {
             wayId = 102,
             added = Some(
               Seq(
-                "[[1.0002,1.0002],[1000,1000]]"
+                WayLine(2, 15, "[[1.0002,1.0002],[1000,1000]]")
               )
             )
           )
@@ -214,7 +215,7 @@ class RouteGeometryAnalyzerTest extends UnitTest {
       GeometryDiff(
         common = Seq(
           WayGeometry(
-            101, "[[1.0001,1.0001],[1000,1000]]"
+            101, WayLine(2, 15, "[[1.0001,1.0001],[1000,1000]]")
           )
         ),
         update = Seq(
@@ -222,7 +223,7 @@ class RouteGeometryAnalyzerTest extends UnitTest {
             wayId = 102,
             removed = Some(
               Seq(
-                "[[1.0002,1.0002],[1000,1000]]"
+                WayLine(2, 15, "[[1.0002,1.0002],[1000,1000]]")
               )
             )
           )
@@ -281,12 +282,12 @@ class RouteGeometryAnalyzerTest extends UnitTest {
             wayId = 101,
             removed = Some(
               Seq(
-                "[[1.0001,1.0001],[1000,1000]]"
+                WayLine(2, 16, "[[1.0001,1.0001],[1000,1000]]")
               )
             ),
             added = Some(
               Seq(
-                "[[1.0001,1.0001],[2000,2000]]"
+                WayLine(2, 31, "[[1.0001,1.0001],[2000,2000]]")
               )
             )
           )

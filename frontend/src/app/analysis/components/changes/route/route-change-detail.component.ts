@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouteChangeInfo } from '@api/common/route/route-change-info';
+import { RouteChangeGeometryDiffInfoComponent } from './route-change-geometry-diff-info.component';
 import { RouteChangeMapComponent } from './route-change-map.component';
 import { RouteChangeWayAddedComponent } from './route-change-way-added.component';
 import { RouteChangeWayRemovedComponent } from './route-change-way-removed.component';
@@ -19,6 +20,7 @@ import { RouteDiffComponent } from './route-diff.component';
       <div class="kpn-detail" i18n="@@route-change.no-geometry-diff">No geometry change</div>
     } @else {
       <div class="kpn-detail">
+        <ui-route-change-geometry-diff-info [geometryDiff]="routeChangeInfo().geometryDiff" />
         <ui-route-change-map
           [geometryDiff]="routeChangeInfo().geometryDiff"
           [nodeChanges]="routeChangeInfo().nodeChanges"
@@ -51,6 +53,7 @@ import { RouteDiffComponent } from './route-diff.component';
     RouteChangeWayRemovedComponent,
     RouteChangeWayUpdatedComponent,
     RouteDiffComponent,
+    RouteChangeGeometryDiffInfoComponent,
   ],
 })
 export class RouteChangeDetailComponent {

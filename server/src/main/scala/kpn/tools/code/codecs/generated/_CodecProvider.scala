@@ -256,6 +256,8 @@ import kpn.api.common.poi.PoiGroup
 import kpn.api.common.poi.PoiLocationsPage
 import kpn.api.common.route.BaseRouteSegment
 import kpn.api.common.route.GeometryDiff
+import kpn.api.common.route.GeometryDiffInfo
+import kpn.api.common.route.GeometryDiffInfoDetail
 import kpn.api.common.route.Link
 import kpn.api.common.route.LinkDirection
 import kpn.api.common.route.LinkInfo
@@ -287,6 +289,7 @@ import kpn.api.common.route.StructureRow
 import kpn.api.common.route.WayDirection
 import kpn.api.common.route.WayGeometry
 import kpn.api.common.route.WayGeometryUpdate
+import kpn.api.common.route.WayLine
 import kpn.api.common.search.Condition
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.ConditionGroupOperator
@@ -475,6 +478,7 @@ import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.DayCodec
 import kpn.tools.code.codecs.LongSetCodec
 import kpn.tools.code.codecs.PoeTranslationsCodec
+import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import kpn.tools.code.codecs.TranslationsCodec
@@ -1157,6 +1161,9 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[RouteNetworkNodeInfo]) {
       return new RouteNetworkNodeInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[GeometryDiffInfo]) {
+      return new GeometryDiffInfoCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[BaseRouteSegment]) {
       return new BaseRouteSegmentCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
@@ -1166,6 +1173,9 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[Link]) {
       return new LinkCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[GeometryDiffInfoDetail]) {
+      return new GeometryDiffInfoDetailCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[RouteStructureRow]) {
       return new RouteStructureRowCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
@@ -1174,6 +1184,9 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[RouteStructureWay]) {
       return new RouteStructureWayCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[WayLine]) {
+      return new WayLineCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[StructureRow]) {
       return new StructureRowCodec(codecRegistry).asInstanceOf[Codec[T]]

@@ -3,6 +3,7 @@
 package kpn.tools.code.codecs.generated
 
 import kpn.api.common.route.GeometryDiff
+import kpn.api.common.route.GeometryDiffInfo
 import kpn.api.common.route.WayGeometry
 import kpn.api.common.route.WayGeometryUpdate
 import kpn.tools.code.codecs.Codecs
@@ -16,18 +17,23 @@ import org.bson.codecs.configuration.CodecRegistry
 
 class GeometryDiffCodec(registry: CodecRegistry) extends Codec[GeometryDiff] {
 
+  private val geometryDiffInfoCodec = registry.get(classOf[GeometryDiffInfo])
   private val wayGeometryCodec = registry.get(classOf[WayGeometry])
   private val wayGeometryUpdateCodec = registry.get(classOf[WayGeometryUpdate])
 
   override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): GeometryDiff = {
     bsonReader.readStartDocument()
 
+    var info: GeometryDiffInfo = null
     var common: Seq[WayGeometry] = null
     var update: Seq[WayGeometryUpdate] = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
-      if (fieldName == "common") {
+      if (fieldName == "info") {
+        info = geometryDiffInfoCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "common") {
         bsonReader.readStartArray()
         val valueBuffer = scala.collection.mutable.Buffer[WayGeometry]()
         while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
@@ -54,6 +60,7 @@ class GeometryDiffCodec(registry: CodecRegistry) extends Codec[GeometryDiff] {
     bsonReader.readEndDocument()
 
     GeometryDiff(
+      info,
       common,
       update,
     )
@@ -61,6 +68,9 @@ class GeometryDiffCodec(registry: CodecRegistry) extends Codec[GeometryDiff] {
 
   override def encode(bsonWriter: BsonWriter, value: GeometryDiff, encoderContext: EncoderContext): Unit = {
     bsonWriter.writeStartDocument()
+
+    bsonWriter.writeName("info")
+    geometryDiffInfoCodec.encode(bsonWriter, value.info, encoderContext)
 
     bsonWriter.writeName("common")
     bsonWriter.writeStartArray()

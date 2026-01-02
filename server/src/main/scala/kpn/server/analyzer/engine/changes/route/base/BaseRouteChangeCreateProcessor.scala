@@ -8,6 +8,7 @@ import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.WayInfo
 import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.WayGeometryUpdate
+import kpn.api.common.route.WayLine
 import kpn.core.doc.RawRouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
@@ -15,11 +16,9 @@ import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.RouteTileRepository
-import org.locationtech.jts.geom.Coordinate
 import org.springframework.stereotype.Component
 
 @Component
@@ -91,12 +90,11 @@ class BaseRouteChangeCreateProcessor(
 
       val geometryDiff = if (context.relation.ways.nonEmpty) {
         val added = context.relation.ways.map { way =>
-          val coordinates = way.nodes.map(node => new Coordinate(node.lat, node.lon))
-          val line = CoordinateCodec.encode(coordinates.toArray)
+          val wayLine = WayLine.fromLatLons(way.nodes)
           WayGeometryUpdate(
             wayId = way.id,
             common = None,
-            added = Some(Seq(line)),
+            added = Some(Seq(wayLine)),
             removed = None
           )
         }

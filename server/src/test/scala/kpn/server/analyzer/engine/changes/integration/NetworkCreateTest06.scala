@@ -21,6 +21,7 @@ import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.route.GeometryDiff
+import kpn.api.common.route.WayLine
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -176,7 +177,7 @@ class NetworkCreateTest06 extends IntegrationTest {
               newWayGeometryUpdate(
                 wayId = 101,
                 added = Some(
-                  Seq("[[0.0,0.0],[0,0]]")
+                  Seq(WayLine(2, 0, "[[0.0,0.0],[0,0]]"))
                 )
               )
             )
