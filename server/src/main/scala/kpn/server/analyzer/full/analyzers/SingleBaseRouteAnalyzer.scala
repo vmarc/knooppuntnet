@@ -101,6 +101,8 @@ class SingleBaseRouteAnalyzer(
             key.toId,
             key = key,
             changeType = ChangeType.InitialValue,
+            before = None,
+            after = Some(context.relation.toMeta),
             routeDiff = RouteDiff.empty,
             wayDiffs = wayDiffsInfo,
             geometryDiff = geometryDiff

@@ -18,6 +18,7 @@ import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
 import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newOrphanRouteInfo
 import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteChange
@@ -38,7 +39,8 @@ class RouteUpdateTest01 extends IntegrationTest {
         Seq(
           newMember(MemberType.Way, 101)
         ),
-        Tags.from("key" -> "value1")
+        Tags.from("key" -> "value1"),
+        1
       )
 
     val dataAfter = OverpassData()
@@ -49,7 +51,8 @@ class RouteUpdateTest01 extends IntegrationTest {
         Seq(
           newMember(MemberType.Way, 101)
         ),
-        Tags.from("key" -> "value2")
+        Tags.from("key" -> "value2"),
+        2
       )
 
     testIntegration(dataBefore, dataAfter) {
@@ -80,6 +83,12 @@ class RouteUpdateTest01 extends IntegrationTest {
         "1:1:11",
         newChangeKey(elementId = 11),
         ChangeType.Update,
+        before = Some(
+          newMetaData(version = 1)
+        ),
+        after = Some(
+          newMetaData(version = 2)
+        ),
         routeDiff = newRouteDiff(
           tagDiffs = Some(
             TagDiffs(
@@ -111,6 +120,7 @@ class RouteUpdateTest01 extends IntegrationTest {
           newRouteData(
             relationId = 11,
             raw = newRaw(
+              version = 1,
               tags = Tags.from(
                 "network" -> "rwn",
                 "type" -> "route",
@@ -133,6 +143,7 @@ class RouteUpdateTest01 extends IntegrationTest {
           newRouteData(
             relationId = 11,
             raw = newRaw(
+              version = 2,
               tags = Tags.from(
                 "network" -> "rwn",
                 "type" -> "route",

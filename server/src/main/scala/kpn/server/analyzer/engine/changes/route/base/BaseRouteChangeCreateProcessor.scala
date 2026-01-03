@@ -117,6 +117,8 @@ class BaseRouteChangeCreateProcessor(
         _id = key.toId,
         key = key,
         changeType = ChangeType.Create,
+        before = None,
+        after = Some(context.relation.toMeta),
         routeDiff = RouteDiff.empty,
         wayDiffs,
         geometryDiff

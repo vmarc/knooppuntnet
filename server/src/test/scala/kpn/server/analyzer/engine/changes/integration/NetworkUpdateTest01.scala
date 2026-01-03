@@ -39,7 +39,7 @@ import kpn.core.test.TestObjects.newWayUpdate
 
 class NetworkUpdateTest01 extends IntegrationTest {
 
-  test("FAIL NODE NAME CHANGE NOT DETECTED network update - node and route name changed") {
+  test("network update - node and route name changed") {
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -50,7 +50,8 @@ class NetworkUpdateTest01 extends IntegrationTest {
         "01-02",
         Seq(
           newMember(MemberType.Way, 101)
-        )
+        ),
+        version = 1
       )
       .networkRelation(
         1,
@@ -69,7 +70,8 @@ class NetworkUpdateTest01 extends IntegrationTest {
         "01-03", // <-- route name changed
         Seq(
           newMember(MemberType.Way, 101)
-        )
+        ),
+        version = 2
       )
       .networkRelation(
         1,
@@ -113,6 +115,12 @@ class NetworkUpdateTest01 extends IntegrationTest {
         "1:1:11",
         newChangeKey(elementId = 11),
         ChangeType.Update,
+        before = Some(
+          newMetaData(1)
+        ),
+        after = Some(
+          newMetaData(2)
+        ),
         routeDiff = newRouteDiff(
           nameDiff = Some(
             RouteNameDiff(
@@ -168,6 +176,7 @@ class NetworkUpdateTest01 extends IntegrationTest {
           newRouteData(
             relationId = 11,
             raw = newRaw(
+              version = 1,
               tags = newRouteTags("01-02")
             ),
             countries = Seq(Country.nl),
@@ -183,6 +192,7 @@ class NetworkUpdateTest01 extends IntegrationTest {
           newRouteData(
             relationId = 11,
             raw = newRaw(
+              version = 2,
               tags = newRouteTags("01-03")
             ),
             countries = Seq(Country.nl),

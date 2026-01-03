@@ -5,6 +5,7 @@ package kpn.tools.code.codecs.generated
 import kpn.api.common.ChangeType
 import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.ChangeKey
+import kpn.api.common.data.MetaData
 import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.GeometryDiff
@@ -22,6 +23,7 @@ class BaseRouteChangeCodec(registry: CodecRegistry) extends Codec[BaseRouteChang
   private val changeKeyCodec = registry.get(classOf[ChangeKey])
   private val changeTypeCodec = registry.get(classOf[ChangeType])
   private val geometryDiffCodec = registry.get(classOf[GeometryDiff])
+  private val metaDataCodec = registry.get(classOf[MetaData])
   private val routeDiffCodec = registry.get(classOf[RouteDiff])
   private val stringCodec = registry.get(classOf[String])
   private val wayDiffsInfoCodec = registry.get(classOf[WayDiffsInfo])
@@ -32,6 +34,8 @@ class BaseRouteChangeCodec(registry: CodecRegistry) extends Codec[BaseRouteChang
     var _id: String = null
     var key: ChangeKey = null
     var changeType: ChangeType = null
+    var before: Option[MetaData] = None
+    var after: Option[MetaData] = None
     var routeDiff: RouteDiff = null
     var wayDiffs: Option[WayDiffsInfo] = None
     var geometryDiff: Option[GeometryDiff] = None
@@ -46,6 +50,12 @@ class BaseRouteChangeCodec(registry: CodecRegistry) extends Codec[BaseRouteChang
       }
       else if (fieldName == "changeType") {
         changeType = changeTypeCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "before") {
+        before = Some(metaDataCodec.decode(bsonReader, decoderContext))
+      }
+      else if (fieldName == "after") {
+        after = Some(metaDataCodec.decode(bsonReader, decoderContext))
       }
       else if (fieldName == "routeDiff") {
         routeDiff = routeDiffCodec.decode(bsonReader, decoderContext)
@@ -68,6 +78,8 @@ class BaseRouteChangeCodec(registry: CodecRegistry) extends Codec[BaseRouteChang
       _id,
       key,
       changeType,
+      before,
+      after,
       routeDiff,
       wayDiffs,
       geometryDiff,
@@ -85,6 +97,16 @@ class BaseRouteChangeCodec(registry: CodecRegistry) extends Codec[BaseRouteChang
 
     bsonWriter.writeName("changeType")
     changeTypeCodec.encode(bsonWriter, value.changeType, encoderContext)
+
+    if (value.before.isDefined) {
+      bsonWriter.writeName("before")
+      metaDataCodec.encode(bsonWriter, value.before.get, encoderContext)
+    }
+
+    if (value.after.isDefined) {
+      bsonWriter.writeName("after")
+      metaDataCodec.encode(bsonWriter, value.after.get, encoderContext)
+    }
 
     bsonWriter.writeName("routeDiff")
     routeDiffCodec.encode(bsonWriter, value.routeDiff, encoderContext)

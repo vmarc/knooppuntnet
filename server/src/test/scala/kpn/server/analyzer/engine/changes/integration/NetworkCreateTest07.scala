@@ -27,6 +27,7 @@ import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetNetwork
 import kpn.core.test.TestObjects.newChangeSetSummary
 import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteChange
@@ -148,6 +149,12 @@ class NetworkCreateTest07 extends IntegrationTest {
         "1:1:11",
         newChangeKey(elementId = 11),
         ChangeType.Update,
+        before = Some(
+          newMetaData()
+        ),
+        after = Some(
+          newMetaData()
+        ),
         routeDiff = newRouteDiff(
           tagDiffs = Some(
             TagDiffs(

@@ -383,6 +383,8 @@ object TestObjects {
     _id: String,
     key: ChangeKey = newChangeKey(),
     changeType: ChangeType = ChangeType.Update,
+    before: Option[MetaData] = None,
+    after: Option[MetaData] = None,
     routeDiff: RouteDiff = RouteDiff.empty,
     wayDiffs: Option[WayDiffsInfo] = None,
     geometryDiff: Option[GeometryDiff] = None
@@ -391,6 +393,8 @@ object TestObjects {
       _id,
       key,
       changeType,
+      before,
+      after,
       routeDiff,
       wayDiffs,
       geometryDiff

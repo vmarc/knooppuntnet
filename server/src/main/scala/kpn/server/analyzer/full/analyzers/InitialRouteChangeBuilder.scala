@@ -50,6 +50,8 @@ class InitialRouteChangeBuilder(
         _id = key.toId,
         key = key,
         changeType = ChangeType.InitialValue,
+        before = None,
+        after = Some(routeDoc.base.raw.meta),
         routeDiff = RouteDiff(
           nameDiff = None,
           roleDiff = None,

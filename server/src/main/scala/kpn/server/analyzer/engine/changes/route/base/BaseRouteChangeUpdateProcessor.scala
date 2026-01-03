@@ -97,6 +97,8 @@ class BaseRouteChangeUpdateProcessor(
         _id = key.toId,
         key = key,
         changeType = ChangeType.Update,
+        before = Some(beforeContext.relation.toMeta),
+        after = Some(afterContext.relation.toMeta),
         routeDiff,
         wayDiffsInfo,
         geometryDiff

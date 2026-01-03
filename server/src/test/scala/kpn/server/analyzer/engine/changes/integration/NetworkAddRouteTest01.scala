@@ -234,6 +234,9 @@ class NetworkAddRouteTest01 extends IntegrationTest {
         "1:1:11",
         newChangeKey(elementId = 11),
         ChangeType.Create,
+        after = Some(
+          newMetaData()
+        ),
         wayDiffs = Some(
           WayDiffsInfo(
             added = Seq(

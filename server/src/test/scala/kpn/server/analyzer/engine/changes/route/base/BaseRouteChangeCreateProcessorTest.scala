@@ -8,6 +8,7 @@ import kpn.core.test.TestObjects.newBaseRouteChange
 import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetContext
+import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newRelation
 import kpn.core.test.TestObjects.newRouteNodeAnalysis
 import kpn.core.test.TestObjects.newRouteTileData
@@ -95,6 +96,9 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with Stubs {
           _id = "1:1:11",
           key = newChangeKey(elementId = 11),
           changeType = ChangeType.Create,
+          after = Some(
+            newMetaData()
+          ),
         )
       )
     )
