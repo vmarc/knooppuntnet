@@ -45,11 +45,12 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with Stubs {
       routeRepository,
       routeTileRepository,
       baseRouteMainAnalyzer,
-      baseRouteDocBuilder
+      baseRouteDocBuilder,
+      log
     )
 
     def process(): ChangeSetContext = {
-      processor.loggedProcess(log, newChangeSetContext(), 11)
+      processor.process(newChangeSetContext(), 11)
     }
   }
 

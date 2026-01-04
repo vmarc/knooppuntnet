@@ -20,6 +20,7 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.RouteTileRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
@@ -29,139 +30,128 @@ class BaseRouteChangeCreateProcessor(
   routeRepository: RouteRepository,
   routeTileRepository: RouteTileRepository,
   baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
-  baseRouteDocBuilder: BaseRouteDocBuilder
+  baseRouteDocBuilder: BaseRouteDocBuilder,
+  @Autowired(required = false)
+  log: Log = Log(classOf[BaseRouteChangeCreateProcessor])
 ) extends BaseRouteChangeSubProcessor {
 
-  private val defaultLog = Log(classOf[BaseRouteChangeCreateProcessor])
-
   def process(changeSetContext: ChangeSetContext, routeId: Long): ChangeSetContext = {
-    loggedProcess(defaultLog, changeSetContext, routeId)
-  }
-
-  def loggedProcess(log: Log, changeSetContext: ChangeSetContext, routeId: Long): ChangeSetContext = {
-    new Creater(log, routeId).create(changeSetContext)
-  }
-
-  private class Creater(log: Log, routeId: Long) {
-
-    def create(changeSetContext: ChangeSetContext): ChangeSetContext = {
-      val updatedChangeSetContext = rawDataRepository.route(changeSetContext.changeSet.timestampAfter, routeId) match {
-        case Some(rawRouteDoc) => processRoute(changeSetContext, rawRouteDoc)
-        case None =>
-          log.warn(s"overpass route $routeId not found")
-          changeSetContext
-      }
-      updatedChangeSetContext.withImpact(
-        routeIds = Seq(routeId),
-      )
-    }
-
-    private def processRoute(changeSetContext: ChangeSetContext, rawRouteDoc: RawRouteDoc): ChangeSetContext = {
-      val context = baseRouteMainAnalyzer.analyze(rawRouteDoc.relation, rawRouteDoc.subRelationTree)
-      if (context.abort) {
-        handleAbortedRouteAnalysis(changeSetContext, context)
-      }
-      else {
-        processRouteAnalysisResult(changeSetContext, context)
-      }
-    }
-
-    private def processRouteAnalysisResult(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
-      val changeSetContext1 = processRouteChange(changeSetContext, context)
-      updateRouteData(context)
-      changeSetContext1.withImpact(
-        tileIds = context.tiles,
-        nodeIds = context.routeNodesAnalysis.nodeIds,
-      )
-    }
-
-    private def processRouteChange(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
-
-      val wayDiffs = if (context.relation.ways.nonEmpty) {
-        val added = context.relation.ways.map(WayInfo.from)
-        Some(
-          WayDiffsInfo(
-            added = added,
-          )
-        )
-      }
-      else {
-        None
-      }
-
-      val geometryDiff = if (context.relation.ways.nonEmpty) {
-        val bounds = Bounds.from(context.relation.ways.flatMap(_.nodes))
-        val added = context.relation.ways.map { way =>
-          val wayLine = WayLine.fromLatLons(way.nodes)
-          WayGeometryUpdate(
-            wayId = way.id,
-            common = None,
-            added = Some(Seq(wayLine)),
-            removed = None
-          )
-        }
-        Some(
-          GeometryDiff(
-            common = Seq.empty,
-            update = added,
-            bounds
-          )
-        )
-      }
-      else {
-        None
-      }
-
-      val key = changeSetContext.buildChangeKey(routeId)
-      val change = BaseRouteChange(
-        _id = key.toId,
-        key = key,
-        changeType = ChangeType.Create,
-        before = None,
-        after = Some(context.relation.toMeta),
-        routeDiff = RouteDiff.empty,
-        wayDiffs,
-        geometryDiff
-      )
-
-      changeSetContext.copy(
-        changes = changeSetContext.changes.copy(
-          baseRouteChanges = changeSetContext.changes.baseRouteChanges :+ change,
-        )
-      )
-    }
-
-    private def handleAbortedRouteAnalysis(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
-      if (context.facts.contains(Fact.LostRouteTags)) {
-        val baseRouteDoc = baseRouteDocBuilder.build(context)
-        changeSetContext.withImpact(
-          tileIds = context.tiles,
-          nodeIds = baseRouteDoc.base.nodes.nodeIds,
-        )
-      }
-      else {
+    val updatedChangeSetContext = rawDataRepository.route(changeSetContext.changeSet.timestampAfter, routeId) match {
+      case Some(rawRouteDoc) => processRoute(changeSetContext, rawRouteDoc)
+      case None =>
+        log.warn(s"overpass route $routeId not found")
         changeSetContext
+    }
+    updatedChangeSetContext.withImpact(
+      routeIds = Seq(routeId),
+    )
+  }
+
+  private def processRoute(changeSetContext: ChangeSetContext, rawRouteDoc: RawRouteDoc): ChangeSetContext = {
+    val context = baseRouteMainAnalyzer.analyze(rawRouteDoc.relation, rawRouteDoc.subRelationTree)
+    if (context.abort) {
+      handleAbortedRouteAnalysis(changeSetContext, context)
+    }
+    else {
+      processRouteAnalysisResult(changeSetContext, context)
+    }
+  }
+
+  private def processRouteAnalysisResult(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
+    val changeSetContext1 = processRouteChange(changeSetContext, context)
+    updateRouteData(context)
+    changeSetContext1.withImpact(
+      tileIds = context.tiles,
+      nodeIds = context.routeNodesAnalysis.nodeIds,
+    )
+  }
+
+  private def processRouteChange(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
+
+    val wayDiffs = if (context.relation.ways.nonEmpty) {
+      val added = context.relation.ways.map(WayInfo.from)
+      Some(
+        WayDiffsInfo(
+          added = added,
+        )
+      )
+    }
+    else {
+      None
+    }
+
+    val geometryDiff = if (context.relation.ways.nonEmpty) {
+      val bounds = Bounds.from(context.relation.ways.flatMap(_.nodes))
+      val added = context.relation.ways.map { way =>
+        val wayLine = WayLine.fromLatLons(way.nodes)
+        WayGeometryUpdate(
+          wayId = way.id,
+          common = None,
+          added = Some(Seq(wayLine)),
+          removed = None
+        )
       }
+      Some(
+        GeometryDiff(
+          common = Seq.empty,
+          update = added,
+          bounds
+        )
+      )
+    }
+    else {
+      None
     }
 
-    private def updateRouteData(context: BaseRouteAnalysisContext): Unit = {
-      updateWatchedRoutes(context)
-      updateBaseRouteDoc(context)
-      updateRouteTileInfos(context)
-    }
+    val key = changeSetContext.buildChangeKey(context.routeId)
+    val change = BaseRouteChange(
+      _id = key.toId,
+      key = key,
+      changeType = ChangeType.Create,
+      before = None,
+      after = Some(context.relation.toMeta),
+      routeDiff = RouteDiff.empty,
+      wayDiffs,
+      geometryDiff
+    )
 
-    private def updateBaseRouteDoc(context: BaseRouteAnalysisContext): Unit = {
+    changeSetContext.copy(
+      changes = changeSetContext.changes.copy(
+        baseRouteChanges = changeSetContext.changes.baseRouteChanges :+ change,
+      )
+    )
+  }
+
+  private def handleAbortedRouteAnalysis(changeSetContext: ChangeSetContext, context: BaseRouteAnalysisContext): ChangeSetContext = {
+    if (context.facts.contains(Fact.LostRouteTags)) {
       val baseRouteDoc = baseRouteDocBuilder.build(context)
-      routeRepository.saveBaseRoute(baseRouteDoc)
+      changeSetContext.withImpact(
+        tileIds = context.tiles,
+        nodeIds = baseRouteDoc.base.nodes.nodeIds,
+      )
     }
+    else {
+      changeSetContext
+    }
+  }
 
-    private def updateRouteTileInfos(context: BaseRouteAnalysisContext): Unit = {
-      val routeTileInfos = RouteTileInfoBuilder.build(context)
-      routeTileInfos.foreach(routeTileRepository.saveRouteTile)
-    }
+  private def updateRouteData(context: BaseRouteAnalysisContext): Unit = {
+    updateWatchedRoutes(context)
+    updateBaseRouteDoc(context)
+    updateRouteTileInfos(context)
+  }
 
-    private def updateWatchedRoutes(context: BaseRouteAnalysisContext): Unit = {
-      analysisContext.watched.routes.add(context.relation.id, context.elementIds)
-    }
+  private def updateBaseRouteDoc(context: BaseRouteAnalysisContext): Unit = {
+    val baseRouteDoc = baseRouteDocBuilder.build(context)
+    routeRepository.saveBaseRoute(baseRouteDoc)
+  }
+
+  private def updateRouteTileInfos(context: BaseRouteAnalysisContext): Unit = {
+    val routeTileInfos = RouteTileInfoBuilder.build(context)
+    routeTileInfos.foreach(routeTileRepository.saveRouteTile)
+  }
+
+  private def updateWatchedRoutes(context: BaseRouteAnalysisContext): Unit = {
+    analysisContext.watched.routes.add(context.relation.id, context.elementIds)
   }
 }

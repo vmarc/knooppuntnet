@@ -57,7 +57,7 @@ class BaseRouteChangeProcessorTest extends UnitTest with Stubs {
       changeSetContext.copy(baseRouteUpdatedIds = changeSetContext.baseRouteUpdatedIds :+ routeId)
     }
     (deleteProcessor.process _).returns { case (changeSetContext: ChangeSetContext, routeId: Long) =>
-      //        // add routeId to baseRouteDeletedIds to indicate that processor was called
+      // add routeId to baseRouteDeletedIds to indicate that processor was called
       changeSetContext.copy(baseRouteDeletedIds = changeSetContext.baseRouteDeletedIds :+ routeId)
     }
 

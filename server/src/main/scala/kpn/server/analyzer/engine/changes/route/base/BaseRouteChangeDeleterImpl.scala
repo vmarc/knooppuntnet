@@ -6,58 +6,48 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.RouteTileRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
 class BaseRouteChangeDeleterImpl(
   analysisContext: AnalysisContext,
   routeRepository: RouteRepository,
-  routeTileRepository: RouteTileRepository
+  routeTileRepository: RouteTileRepository,
+  @Autowired(required = false)
+  log: Log = Log(classOf[BaseRouteChangeDeleterImpl])
 ) extends BaseRouteChangeDeleter {
 
-  private val defaultLog = Log(classOf[BaseRouteChangeDeleterImpl])
-
   def delete(changeSetContext: ChangeSetContext, routeId: Long): ChangeSetContext = {
-    loggedDelete(defaultLog, changeSetContext, routeId)
+    unwatchRoute(routeId)
+    val context1 = deleteRouteTiles(changeSetContext, routeId)
+    val context2 = deleteBaseRouteDoc(context1, routeId)
+    context2.withImpact(routeIds = Seq(routeId))
   }
 
-  def loggedDelete(log: Log, changeSetContext: ChangeSetContext, routeId: Long): ChangeSetContext = {
-    new Deleter(log, routeId).delete(changeSetContext)
+  private def unwatchRoute(routeId: Long): Unit = {
+    analysisContext.watched.routes.delete(routeId)
   }
 
-  private class Deleter(log: Log, routeId: Long) {
+  private def deleteRouteTiles(changeSetContext: ChangeSetContext, routeId: Long): ChangeSetContext = {
+    val tileIds = routeTileRepository.routeTileIds(routeId)
+    tileIds.foreach(routeTileRepository.deleteRouteTile)
+    changeSetContext.withImpact(tileIds = tileIds)
+  }
 
-    def delete(changeSetContext: ChangeSetContext): ChangeSetContext = {
-      unwatchRoute()
-      val context1 = deleteRouteTiles(changeSetContext)
-      val context2 = deleteBaseRouteDoc(context1)
-      context2.withImpact(routeIds = Seq(routeId))
+  private def deleteBaseRouteDoc(changeSetContext: ChangeSetContext, routeId: Long): ChangeSetContext = {
+    routeRepository.findBaseRouteById(routeId) match {
+      case Some(baseRouteDoc) => deactivateBaseRouteDoc(changeSetContext, baseRouteDoc)
+      case None =>
+        log.warn(s"route $routeId not found")
+        changeSetContext
     }
+  }
 
-    private def unwatchRoute(): Unit = {
-      analysisContext.watched.routes.delete(routeId)
-    }
-
-    private def deleteRouteTiles(changeSetContext: ChangeSetContext): ChangeSetContext = {
-      val tileIds = routeTileRepository.routeTileIds(routeId)
-      tileIds.foreach(routeTileRepository.deleteRouteTile)
-      changeSetContext.withImpact(tileIds = tileIds)
-    }
-
-    private def deleteBaseRouteDoc(changeSetContext: ChangeSetContext): ChangeSetContext = {
-      routeRepository.findBaseRouteById(routeId) match {
-        case Some(baseRouteDoc) => deactivateBaseRouteDoc(changeSetContext, baseRouteDoc)
-        case None =>
-          log.warn(s"route $routeId not found")
-          changeSetContext
-      }
-    }
-
-    private def deactivateBaseRouteDoc(changeSetContext: ChangeSetContext, baseRouteDoc: BaseRouteDoc): ChangeSetContext = {
-      routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
-      changeSetContext.withImpact(
-        nodeIds = baseRouteDoc.base.nodes.nodeIds
-      )
-    }
+  private def deactivateBaseRouteDoc(changeSetContext: ChangeSetContext, baseRouteDoc: BaseRouteDoc): ChangeSetContext = {
+    routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
+    changeSetContext.withImpact(
+      nodeIds = baseRouteDoc.base.nodes.nodeIds
+    )
   }
 }

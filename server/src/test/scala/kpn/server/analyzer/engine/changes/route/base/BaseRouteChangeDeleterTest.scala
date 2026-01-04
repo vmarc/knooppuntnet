@@ -28,11 +28,12 @@ class BaseRouteChangeDeleterTest extends UnitTest with Stubs {
     val deleter = new BaseRouteChangeDeleterImpl(
       analysisContext,
       routeRepository,
-      routeTileRepository
+      routeTileRepository,
+      log
     )
 
     def delete(): ChangeSetContext = {
-      deleter.loggedDelete(log, newChangeSetContext(), 11)
+      deleter.delete(newChangeSetContext(), 11)
     }
   }
 
