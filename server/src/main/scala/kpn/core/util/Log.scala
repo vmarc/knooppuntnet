@@ -138,6 +138,8 @@ class MockLog extends Log {
 
   def messages: Seq[String] = messageBuffer.toSeq
 
+  def warnings: Seq[String] = messages.filter(_.startsWith("WARN"))
+
   def isTraceEnabled = true
 
   def isDebugEnabled = true

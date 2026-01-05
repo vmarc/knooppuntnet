@@ -210,7 +210,6 @@ class SingleRouteChangeAnalyzerConfiguration(database: Database) {
   private val routeChangeDeleteProcessor = new RouteChangeDeleteProcessor()
 
   private val routeChangeProcessor: RouteChangeProcessor = new RouteChangeProcessor(
-    analysisContext,
     routeMainAnalyzer,
     routeRepository,
     routeChangeCreateProcessor,

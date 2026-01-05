@@ -173,8 +173,7 @@ class IntegrationTestContext(
   private val routeChangeUpdateProcessor = new RouteChangeUpdateProcessor()
   private val routeChangeDeleteProcessor = new RouteChangeDeleteProcessor()
 
-  private val routeChangeProcessor: RouteChangeProcessor = new RouteChangeProcessor(
-    analysisContext,
+  private val routeChangeProcessor = new RouteChangeProcessor(
     routeMainAnalyzer,
     routeRepository,
     routeChangeCreateProcessor,
