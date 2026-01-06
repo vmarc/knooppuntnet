@@ -40,7 +40,7 @@ class RouteUpdateTest01 extends IntegrationTest {
           newMember(MemberType.Way, 101)
         ),
         Tags.from("key" -> "value1"),
-        1
+        version = 1
       )
 
     val dataAfter = OverpassData()
@@ -52,7 +52,7 @@ class RouteUpdateTest01 extends IntegrationTest {
           newMember(MemberType.Way, 101)
         ),
         Tags.from("key" -> "value2"),
-        2
+        version = 2
       )
 
     testIntegration(dataBefore, dataAfter) {

@@ -97,13 +97,13 @@ class BaseRouteDiffAnalyzer {
     val beforeMembers = before.routeMembers
     val afterMembers = after.routeMembers
 
-    if (beforeMembers.sizeIs == afterMembers.sizeIs) {
-      false
+    if (beforeMembers.sizeIs == afterMembers.size) {
+      val beforeMemberIds = beforeMembers.map(member => member.memberType -> member.id)
+      val afterMemberIds = afterMembers.map(member => member.memberType -> member.id)
+      beforeMemberIds != afterMemberIds && beforeMemberIds.toSet == afterMemberIds.toSet
     }
     else {
-      val beforeMemberIds = beforeMembers.map(member => member.memberType -> member.id)
-      val afterMemberIds = beforeMembers.map(member => member.memberType -> member.id)
-      beforeMemberIds != afterMemberIds && beforeMemberIds.toSet == afterMemberIds.toSet
+      false
     }
   }
 
