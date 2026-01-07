@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
+import kpn.api.common.common.Ref
 import kpn.api.common.data.Node
 import kpn.api.common.route.RouteNode
 
@@ -17,6 +18,13 @@ case class RouteNodeAnalysis(
       name,
       alternateName,
       isInWay
+    )
+  }
+
+  def toRef: Ref = {
+    Ref(
+      node.id,
+      name
     )
   }
 }

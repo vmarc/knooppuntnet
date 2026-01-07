@@ -4,6 +4,7 @@ import com.mongodb.client.model.Filters.and
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
+import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -25,12 +26,14 @@ class MongoQueryChangeSet(database: Database) {
     findSummaries(changeSetId, replicationId).map { changeSetSummary =>
       val replicationNumber = changeSetSummary.key.replicationNumber
       val networkChanges = findNetworkChanges(changeSetId, replicationNumber)
+      val baseRouteChanges = findBaseRouteChanges(changeSetId, replicationNumber)
       val routeChanges = findRouteChanges(changeSetId, replicationNumber)
       val nodeChanges = findNodeChanges(changeSetId, replicationNumber)
 
       ChangeSetData(
         changeSetSummary,
         networkChanges,
+        baseRouteChanges,
         routeChanges,
         nodeChanges
       )
@@ -66,6 +69,13 @@ class MongoQueryChangeSet(database: Database) {
     findChanges(changeSetId, replicationNumber) { pipeline =>
       val networkChanges = database.networkChanges.aggregate(pipeline, classOf[NetworkChange])
       (s"${networkChanges.size} network changes", networkChanges)
+    }
+  }
+
+  private def findBaseRouteChanges(changeSetId: Long, replicationNumber: Long): Seq[BaseRouteChange] = {
+    findChanges(changeSetId, replicationNumber) { pipeline =>
+      val routeChanges = database.baseRouteChanges.aggregate(pipeline, classOf[BaseRouteChange])
+      (s"${routeChanges.size} route changes", routeChanges)
     }
   }
 

@@ -53,9 +53,13 @@ import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeDeleterImpl
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateProcessor
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateTileProcessor
-import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeUpdateWayProcessor
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteDiffAnalyzer
-import kpn.server.analyzer.engine.changes.route.base.RouteGeometryAnalyzer
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteDiffFactsAnalyzer
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteDiffGeometryAnalyzer
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteDiffMemberAnalyzer
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteDiffNameAnalyzer
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteDiffNodesAnalyzer
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteDiffWaysAnalyzer
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeCreateProcessor
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeDeleteProcessor
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeProcessor
@@ -342,9 +346,22 @@ class IntegrationTestContext(
         routeTileRepository
       )
 
-      val baseRouteChangeUpdateWayProcessor = new BaseRouteChangeUpdateWayProcessor()
-      val baseRouteDiffAnalyzer = new BaseRouteDiffAnalyzer()
-      val routeGeometryAnalyzer = new RouteGeometryAnalyzer()
+      val baseRouteDiffAnalyzer = {
+        val baseRouteDiffNameAnalyzer = new BaseRouteDiffNameAnalyzer()
+        val baseRouteDiffFactsAnalyzer = new BaseRouteDiffFactsAnalyzer()
+        val baseRouteDiffNodesAnalyzer = new BaseRouteDiffNodesAnalyzer()
+        val baseRouteDiffMemberAnalyzer = new BaseRouteDiffMemberAnalyzer()
+        val baseRouteDiffGeometryAnalyzer = new BaseRouteDiffGeometryAnalyzer()
+        val baseRouteChangeUpdateWayProcessor = new BaseRouteDiffWaysAnalyzer()
+        new BaseRouteDiffAnalyzer(
+          baseRouteDiffNameAnalyzer,
+          baseRouteDiffFactsAnalyzer,
+          baseRouteDiffNodesAnalyzer,
+          baseRouteDiffMemberAnalyzer,
+          baseRouteDiffGeometryAnalyzer,
+          baseRouteChangeUpdateWayProcessor
+        )
+      }
 
       val baseRouteChangeUpdateProcessor = new BaseRouteChangeUpdateProcessor(
         analysisContext,
@@ -352,9 +369,7 @@ class IntegrationTestContext(
         routeRepository,
         baseRouteMainAnalyzer,
         baseRouteDocBuilder,
-        baseRouteChangeUpdateWayProcessor,
         baseRouteDiffAnalyzer,
-        routeGeometryAnalyzer,
         routeTileChangeAnalyzer,
         baseRouteDeleter
       )

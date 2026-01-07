@@ -30,7 +30,7 @@ case class GeometryDiffWayIds(
 }
 
 @Component
-class RouteGeometryAnalyzer {
+class BaseRouteDiffGeometryAnalyzer {
 
   private val geometryFactory = new GeometryFactory
 

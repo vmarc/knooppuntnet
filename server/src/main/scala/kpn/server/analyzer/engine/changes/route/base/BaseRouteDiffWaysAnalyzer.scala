@@ -10,11 +10,11 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysi
 import org.springframework.stereotype.Component
 
 @Component
-class BaseRouteChangeUpdateWayProcessor {
+class BaseRouteDiffWaysAnalyzer {
 
-  private val log = Log(classOf[BaseRouteChangeUpdateWayProcessor])
+  private val log = Log(classOf[BaseRouteDiffWaysAnalyzer])
 
-  def process(
+  def analyze(
     before: BaseRouteAnalysisContext,
     after: BaseRouteAnalysisContext
   ): Option[WayDiffsInfo] = {

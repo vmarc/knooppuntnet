@@ -1,8 +1,6 @@
 package kpn.server.analyzer.engine.changes.route.base
 
-import kpn.api.common.ChangeType
 import kpn.api.common.Fact
-import kpn.api.common.changes.details.BaseRouteChange
 import kpn.core.doc.RawRouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
@@ -22,9 +20,7 @@ class BaseRouteChangeUpdateProcessor(
   routeRepository: RouteRepository,
   baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
   baseRouteDocBuilder: BaseRouteDocBuilder,
-  baseRouteChangeUpdateWayProcessor: BaseRouteChangeUpdateWayProcessor,
   baseRouteDiffAnalyzer: BaseRouteDiffAnalyzer,
-  routeGeometryAnalyzer: RouteGeometryAnalyzer,
   baseRouteChangeUpdateTileProcessor: BaseRouteChangeUpdateTileProcessor,
   baseRouteChangeDeleter: BaseRouteChangeDeleter,
   @Autowired(required = false)
@@ -87,34 +83,8 @@ class BaseRouteChangeUpdateProcessor(
     val baseRouteDoc = baseRouteDocBuilder.build(afterContext)
     routeRepository.saveBaseRoute(baseRouteDoc)
 
-    val routeDiff = baseRouteDiffAnalyzer.analyze(beforeContext, afterContext)
-    val geometryDiff = routeGeometryAnalyzer.analyze(beforeContext.relation, afterContext.relation)
-    val wayDiffsInfo = baseRouteChangeUpdateWayProcessor.process(beforeContext, afterContext)
-
-    val updatedChangeSetContext1 = if (routeDiff.nonEmpty || geometryDiff.nonEmpty || wayDiffsInfo.nonEmpty) {
-      val key = changeSetContext.buildChangeKey(afterContext.relation.id)
-      val change = BaseRouteChange(
-        _id = key.toId,
-        key = key,
-        changeType = ChangeType.Update,
-        before = Some(beforeContext.relation.toMeta),
-        after = Some(afterContext.relation.toMeta),
-        routeDiff,
-        wayDiffsInfo,
-        geometryDiff
-      )
-      changeSetContext.copy(
-        changes = changeSetContext.changes.copy(
-          baseRouteChanges = changeSetContext.changes.baseRouteChanges :+ change
-        )
-      )
-    }
-    else {
-      changeSetContext
-    }
-
+    val updatedChangeSetContext1 = baseRouteDiffAnalyzer.analyze(changeSetContext, beforeContext, afterContext)
     val updatedChangeSetContext2 = baseRouteChangeUpdateTileProcessor.process(updatedChangeSetContext1, afterContext)
-
     determineImpactedNodes(updatedChangeSetContext2, beforeContext, afterContext)
   }
 

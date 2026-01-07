@@ -291,8 +291,8 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
     )
     val rawDataRepository: Stub[RawDataRepository] = stub[RawDataRepository]
     val baseRouteDocBuilder = new BaseRouteDocBuilder()
-    val baseRouteChangeUpdateWayProcessor: Stub[BaseRouteChangeUpdateWayProcessor] = stub[BaseRouteChangeUpdateWayProcessor]
-    (baseRouteChangeUpdateWayProcessor.process _).returns {
+    val baseRouteDiffWaysAnalyzer: Stub[BaseRouteDiffWaysAnalyzer] = stub[BaseRouteDiffWaysAnalyzer]
+    (baseRouteDiffWaysAnalyzer.analyze _).returns {
       case (before: BaseRouteAnalysisContext, after: BaseRouteAnalysisContext) => None
     }
 
@@ -304,8 +304,21 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
 
     val baseRouteDeleter: BaseRouteChangeDeleterMock = new BaseRouteChangeDeleterMock()
 
-    val baseRouteDiffAnalyzer = new BaseRouteDiffAnalyzer()
-    val routeGeometryAnalyzer = new RouteGeometryAnalyzer()
+    private val baseRouteDiffAnalyzer = {
+      val baseRouteDiffNameAnalyzer = new BaseRouteDiffNameAnalyzer()
+      val baseRouteDiffFactsAnalyzer = new BaseRouteDiffFactsAnalyzer()
+      val baseRouteDiffNodesAnalyzer = new BaseRouteDiffNodesAnalyzer()
+      val baseRouteDiffMemberAnalyzer = new BaseRouteDiffMemberAnalyzer()
+      val babseRouteDiffGeometryAnalyzer = new BaseRouteDiffGeometryAnalyzer()
+      new BaseRouteDiffAnalyzer(
+        baseRouteDiffNameAnalyzer,
+        baseRouteDiffFactsAnalyzer,
+        baseRouteDiffNodesAnalyzer,
+        baseRouteDiffMemberAnalyzer,
+        babseRouteDiffGeometryAnalyzer,
+        baseRouteDiffWaysAnalyzer
+      )
+    }
 
     private val processor = new BaseRouteChangeUpdateProcessor(
       analysisContext,
@@ -313,9 +326,7 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
       routeRepository,
       baseRouteMainAnalyzer,
       baseRouteDocBuilder,
-      baseRouteChangeUpdateWayProcessor,
       baseRouteDiffAnalyzer,
-      routeGeometryAnalyzer,
       routeTileChangeAnalyzer,
       baseRouteDeleter,
       log

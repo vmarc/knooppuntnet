@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.common.Ref
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.changes.route.base.BaseRouteDiffAnalyzer
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteDiffNodesAnalyzer
 
 //  changeSetId = 104737699L
 //  replicationNumber = 4542690L
@@ -23,10 +23,10 @@ class Issue183_DeletedNode1 extends UnitTest {
     deletedNodeAfter.node.id should equal(replacementNodeId)
     deletedNodeAfter.name should equal("59")
 
-    val routeDiff = new BaseRouteDiffAnalyzer().analyze(contextBefore, contextAfter)
+    val nodeDiffs = new BaseRouteDiffNodesAnalyzer().analyze(contextBefore, contextAfter)
 
-    val addedNode = routeDiff.nodeDiffs.head.added.head
-    val removedNode = routeDiff.nodeDiffs.head.removed.head
+    val addedNode = nodeDiffs.head.added.head
+    val removedNode = nodeDiffs.head.removed.head
     addedNode should equal(Ref(replacementNodeId, "59"))
     removedNode should equal(Ref(deletedNodeId, "59"))
   }

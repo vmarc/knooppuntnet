@@ -4,6 +4,7 @@ package kpn.tools.code.codecs.generated
 
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.changes.ChangeSetData
+import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
@@ -18,6 +19,7 @@ import org.bson.codecs.configuration.CodecRegistry
 
 class ChangeSetDataCodec(registry: CodecRegistry) extends Codec[ChangeSetData] {
 
+  private val baseRouteChangeCodec = registry.get(classOf[BaseRouteChange])
   private val changeSetSummaryCodec = registry.get(classOf[ChangeSetSummary])
   private val networkChangeCodec = registry.get(classOf[NetworkChange])
   private val nodeChangeCodec = registry.get(classOf[NodeChange])
@@ -28,6 +30,7 @@ class ChangeSetDataCodec(registry: CodecRegistry) extends Codec[ChangeSetData] {
 
     var summary: ChangeSetSummary = null
     var networkChanges: Seq[NetworkChange] = null
+    var baseRouteChanges: Seq[BaseRouteChange] = null
     var routeChanges: Seq[RouteChange] = null
     var nodeChanges: Seq[NodeChange] = null
 
@@ -44,6 +47,15 @@ class ChangeSetDataCodec(registry: CodecRegistry) extends Codec[ChangeSetData] {
         }
         bsonReader.readEndArray()
         networkChanges = valueBuffer.toSeq
+      }
+      else if (fieldName == "baseRouteChanges") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[BaseRouteChange]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += baseRouteChangeCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        baseRouteChanges = valueBuffer.toSeq
       }
       else if (fieldName == "routeChanges") {
         bsonReader.readStartArray()
@@ -74,6 +86,7 @@ class ChangeSetDataCodec(registry: CodecRegistry) extends Codec[ChangeSetData] {
     ChangeSetData(
       summary,
       networkChanges,
+      baseRouteChanges,
       routeChanges,
       nodeChanges,
     )
@@ -88,6 +101,11 @@ class ChangeSetDataCodec(registry: CodecRegistry) extends Codec[ChangeSetData] {
     bsonWriter.writeName("networkChanges")
     bsonWriter.writeStartArray()
     value.networkChanges.foreach(v => networkChangeCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
+
+    bsonWriter.writeName("baseRouteChanges")
+    bsonWriter.writeStartArray()
+    value.baseRouteChanges.foreach(v => baseRouteChangeCodec.encode(bsonWriter, v, encoderContext))
     bsonWriter.writeEndArray()
 
     bsonWriter.writeName("routeChanges")

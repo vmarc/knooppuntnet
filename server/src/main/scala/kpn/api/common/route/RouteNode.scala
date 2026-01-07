@@ -8,8 +8,5 @@ case class RouteNode(
   longitude: String,
   name: String,
   alternateName: String,
-  //  longName: Option[String] = None,
-  //  definedInRelation: Boolean = false,
-  //  definedInWay: Boolean = false,
   isInWay: Boolean,
 ) extends LatLon

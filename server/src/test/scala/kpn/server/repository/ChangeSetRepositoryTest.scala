@@ -65,6 +65,7 @@ class ChangeSetRepositoryTest extends MongoTest {
           ChangeSetData(
             changeSetSummary1,
             Seq(networkChange1),
+            Seq.empty,
             Seq(routeChange1),
             Seq(nodeChange1)
           )
@@ -76,6 +77,7 @@ class ChangeSetRepositoryTest extends MongoTest {
           ChangeSetData(
             changeSetSummary2,
             Seq(networkChange2),
+            Seq.empty,
             Seq(routeChange2),
             Seq(nodeChange2)
           )
@@ -87,12 +89,14 @@ class ChangeSetRepositoryTest extends MongoTest {
           ChangeSetData(
             changeSetSummary1,
             Seq(networkChange1),
+            Seq.empty,
             Seq(routeChange1),
             Seq(nodeChange1)
           ),
           ChangeSetData(
             changeSetSummary2,
             Seq(networkChange2),
+            Seq.empty,
             Seq(routeChange2),
             Seq(nodeChange2)
           )

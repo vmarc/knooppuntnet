@@ -10,9 +10,9 @@ import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newWayGeometryUpdate
 import kpn.core.util.UnitTest
 
-class RouteGeometryAnalyzerTest extends UnitTest {
+class BaseRouteDiffGeometryAnalyzerTest extends UnitTest {
 
-  private val analyzer = new RouteGeometryAnalyzer()
+  private val analyzer = new BaseRouteDiffGeometryAnalyzer()
 
   test("geometry diff for newly created route") {
 

@@ -1,13 +1,18 @@
 package kpn.server.analyzer.engine.changes.route.base
 
 import kpn.api.common.data.MemberType
+import kpn.api.common.diff.WayInfo
+import kpn.api.custom.Tags
 import kpn.core.test.TestData
 import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newWayUpdate
+import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import org.scalamock.stubs.Stubs
 
-class BaseRouteChangeUpdateWayProcessorTest extends UnitTest with Stubs {
+class BaseRouteDiffWaysAnalyzerTest extends UnitTest with Stubs {
 
   test("removed way") {
 
@@ -56,8 +61,21 @@ class BaseRouteChangeUpdateWayProcessorTest extends UnitTest with Stubs {
       None
     )
 
-    val wayDiffsInfo = new BaseRouteChangeUpdateWayProcessor().process(before, after).get
-    wayDiffsInfo.removed.map(_.id) should equal(Seq(102)) // TODO compare complete WayInfo objects
+    val wayDiffsInfo = new BaseRouteDiffWaysAnalyzer().analyze(before, after).get
+    assertEqual(
+      wayDiffsInfo.removed,
+      Seq(
+        WayInfo(
+          id = 102,
+          version = 0,
+          changeSetId = 1,
+          timestamp = Timestamps.default, // "2015-08-11T00:00:00Z",
+          tags = Tags.from(
+            "highway" -> "unclassified"
+          )
+        )
+      )
+    )
   }
 
   test("added way") {
@@ -107,8 +125,21 @@ class BaseRouteChangeUpdateWayProcessorTest extends UnitTest with Stubs {
       None
     )
 
-    val wayDiffsInfo = new BaseRouteChangeUpdateWayProcessor().process(before, after).get
-    wayDiffsInfo.added.map(_.id) should equal(Seq(102)) // TODO compare complete WayInfo objects
+    val wayDiffsInfo = new BaseRouteDiffWaysAnalyzer().analyze(before, after).get
+    assertEqual(
+      wayDiffsInfo.added,
+      Seq(
+        WayInfo(
+          id = 102,
+          version = 0,
+          changeSetId = 1,
+          timestamp = Timestamps.default, // "2015-08-11T00:00:00Z",
+          tags = Tags.from(
+            "highway" -> "unclassified"
+          )
+        )
+      )
+    )
   }
 
   test("updated way") {
@@ -153,7 +184,17 @@ class BaseRouteChangeUpdateWayProcessorTest extends UnitTest with Stubs {
       None
     )
 
-    val wayDiffsInfo = new BaseRouteChangeUpdateWayProcessor().process(before, after).get
-    wayDiffsInfo.updated.map(_.id) should equal(Seq(101)) // TODO compare complete WayUpdate objects
+    val wayDiffsInfo = new BaseRouteDiffWaysAnalyzer().analyze(before, after).get
+    assertEqual(
+      wayDiffsInfo.updated,
+      Seq(
+        newWayUpdate(
+          id = 101,
+          before = newMetaData(),
+          after = newMetaData(),
+          directionReversed = true
+        )
+      )
+    )
   }
 }

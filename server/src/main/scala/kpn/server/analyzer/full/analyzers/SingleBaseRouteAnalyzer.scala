@@ -15,7 +15,7 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysi
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.changes.route.base.RouteGeometryAnalyzer
+import kpn.server.analyzer.engine.changes.route.base.BaseRouteDiffGeometryAnalyzer
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
@@ -94,7 +94,7 @@ class SingleBaseRouteAnalyzer(
         )
         val key = changeSetContext.buildChangeKey(context.routeId)
 
-        val geometryDiff = new RouteGeometryAnalyzer().initialAnalyze(context.relation)
+        val geometryDiff = new BaseRouteDiffGeometryAnalyzer().initialAnalyze(context.relation)
 
         Some(
           BaseRouteChange(
