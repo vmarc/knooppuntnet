@@ -427,8 +427,7 @@ object TestObjects {
     name: String = "",
     networkNodes: Seq[RouteNode] = Seq.empty,
     facts: Seq[Fact] = Seq.empty,
-    meters: Long = 0,
-    locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty)
+    meters: Long = 0
   ): RouteData = {
     RouteData(
       relationId,
@@ -438,8 +437,7 @@ object TestObjects {
       name,
       networkNodes,
       facts,
-      meters,
-      locationAnalysis
+      meters
     )
   }
 

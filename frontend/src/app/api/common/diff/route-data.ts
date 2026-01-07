@@ -2,7 +2,6 @@
 
 import { Country } from '@api/common/country';
 import { Fact } from '@api/common/fact';
-import { RouteLocationAnalysis } from '@api/common/route-location-analysis';
 import { RouteType } from '@api/common/route-type';
 import { Raw } from '@api/common/data/raw/raw';
 import { RouteNode } from '@api/common/route/route-node';
@@ -16,5 +15,4 @@ export interface RouteData {
   readonly networkNodes: RouteNode[];
   readonly facts: Fact[];
   readonly meters: number;
-  readonly locationAnalysis: RouteLocationAnalysis;
 }

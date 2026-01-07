@@ -4,7 +4,6 @@ package kpn.tools.code.codecs.generated
 
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteType
 import kpn.api.common.data.raw.Raw
 import kpn.api.common.diff.RouteData
@@ -24,7 +23,6 @@ class RouteDataCodec(registry: CodecRegistry) extends Codec[RouteData] {
   private val factCodec = registry.get(classOf[Fact])
   private val longCodec = registry.get(classOf[Long])
   private val rawCodec = registry.get(classOf[Raw])
-  private val routeLocationAnalysisCodec = registry.get(classOf[RouteLocationAnalysis])
   private val routeNodeCodec = registry.get(classOf[RouteNode])
   private val routeTypeCodec = registry.get(classOf[RouteType])
   private val stringCodec = registry.get(classOf[String])
@@ -40,7 +38,6 @@ class RouteDataCodec(registry: CodecRegistry) extends Codec[RouteData] {
     var networkNodes: Seq[RouteNode] = null
     var facts: Seq[Fact] = null
     var meters: Long = 0
-    var locationAnalysis: RouteLocationAnalysis = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -92,9 +89,6 @@ class RouteDataCodec(registry: CodecRegistry) extends Codec[RouteData] {
       else if (fieldName == "meters") {
         meters = longCodec.decode(bsonReader, decoderContext)
       }
-      else if (fieldName == "locationAnalysis") {
-        locationAnalysis = routeLocationAnalysisCodec.decode(bsonReader, decoderContext)
-      }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in RouteDataCodec.decode()")
         bsonReader.skipValue()
@@ -112,7 +106,6 @@ class RouteDataCodec(registry: CodecRegistry) extends Codec[RouteData] {
       networkNodes,
       facts,
       meters,
-      locationAnalysis,
     )
   }
 
@@ -150,9 +143,6 @@ class RouteDataCodec(registry: CodecRegistry) extends Codec[RouteData] {
 
     bsonWriter.writeName("meters")
     longCodec.encode(bsonWriter, value.meters, encoderContext)
-
-    bsonWriter.writeName("locationAnalysis")
-    routeLocationAnalysisCodec.encode(bsonWriter, value.locationAnalysis, encoderContext)
 
     bsonWriter.writeEndDocument()
   }

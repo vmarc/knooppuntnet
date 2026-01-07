@@ -2,7 +2,6 @@ package kpn.api.common.diff
 
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
 import kpn.api.common.data.Tagable
@@ -25,8 +24,7 @@ object RouteData {
       name = routeDoc.base.name,
       networkNodes = routeDoc.base.nodes.nodes,
       facts = routeDoc.facts,
-      meters = routeDoc.base.meters,
-      locationAnalysis = routeDoc.base.locationAnalysis
+      meters = routeDoc.base.meters
     )
   }
 
@@ -39,8 +37,7 @@ object RouteData {
       context.routeNameAnalysis.name.getOrElse("no-name"),
       context.routeNodesAnalysis.nodes.map(_.toRouteNode),
       context.facts,
-      context.structure.nodeNetworkPaths.map(_.meters).sum,
-      context.locationAnalysis
+      context.structure.nodeNetworkPaths.map(_.meters).sum
     )
   }
 }
@@ -53,8 +50,7 @@ case class RouteData(
   name: String,
   networkNodes: Seq[RouteNode],
   facts: Seq[Fact],
-  meters: Long,
-  locationAnalysis: RouteLocationAnalysis
+  meters: Long
 ) extends Tagable {
 
   def toRef: Ref = Ref(relationId, name)

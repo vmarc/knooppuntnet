@@ -32,8 +32,7 @@ class InitialRouteChangeBuilder(
       routeDoc.base.name: String,
       routeDoc.base.nodes.nodes,
       routeDoc.facts,
-      routeDoc.base.meters,
-      routeDoc.base.locationAnalysis
+      routeDoc.base.meters
     )
 
     val nodeChanges = routeDoc.base.nodes.nodes.map { node =>
