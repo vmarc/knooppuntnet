@@ -6,5 +6,6 @@ export interface RouteNode {
   readonly longitude: string;
   readonly name: string;
   readonly alternateName: string;
+  readonly longName?: string;
   readonly isInWay: boolean;
 }

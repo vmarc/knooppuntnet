@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
+import kpn.core.test.TestObjects.newNode
 import kpn.core.test.TestObjects.newRouteNodeAnalysis
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
@@ -14,8 +15,8 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _routeNameAnalysis = Some(RouteNameAnalysis()),
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
-          startNode = Some(newRouteNodeAnalysis(1001, "01")),
-          endNode = Some(newRouteNodeAnalysis(1002, "02")),
+          startNode = Some(newRouteNodeAnalysis(newNode(), "01")),
+          endNode = Some(newRouteNodeAnalysis(newNode(1002), "02")),
         )
       ),
     )
@@ -37,8 +38,8 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _routeNameAnalysis = Some(RouteNameAnalysis()),
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
-          startNode = Some(newRouteNodeAnalysis(1001, "a")),
-          endNode = Some(newRouteNodeAnalysis(1002, "b")),
+          startNode = Some(newRouteNodeAnalysis(newNode(), "a")),
+          endNode = Some(newRouteNodeAnalysis(newNode(1002), "b")),
         )
       )
     )
@@ -61,8 +62,8 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       ),
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
-          startNode = Some(newRouteNodeAnalysis(1001, "01")),
-          endNode = Some(newRouteNodeAnalysis(1002, "02")),
+          startNode = Some(newRouteNodeAnalysis(newNode(), "01")),
+          endNode = Some(newRouteNodeAnalysis(newNode(1002), "02")),
         )
       )
     )
@@ -85,7 +86,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
           startNode = None,
-          endNode = Some(newRouteNodeAnalysis(1002, "02")),
+          endNode = Some(newRouteNodeAnalysis(newNode(1002), "02")),
         )
       )
     )
@@ -102,7 +103,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       ),
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
-          startNode = Some(newRouteNodeAnalysis(1001, "01")),
+          startNode = Some(newRouteNodeAnalysis(newNode(), "01")),
           endNode = None,
         )
       )

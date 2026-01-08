@@ -9,6 +9,7 @@ import kpn.core.test.TestObjects.newBaseRouteDoc
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetContext
 import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNode
 import kpn.core.test.TestObjects.newRelation
 import kpn.core.test.TestObjects.newRouteNodeAnalysis
 import kpn.core.test.TestObjects.newRouteTileData
@@ -208,8 +209,8 @@ class BaseRouteChangeCreateProcessorTest extends UnitTest with Stubs {
       ),
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
-          startNode = Some(newRouteNodeAnalysis(1001, "01")),
-          endNode = Some(newRouteNodeAnalysis(1002, "02")),
+          startNode = Some(newRouteNodeAnalysis(newNode(), "01")),
+          endNode = Some(newRouteNodeAnalysis(newNode(1002), "02")),
         )
       ),
       tiles = Seq(

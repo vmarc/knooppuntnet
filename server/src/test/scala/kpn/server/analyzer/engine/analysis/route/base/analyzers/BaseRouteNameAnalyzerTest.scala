@@ -5,6 +5,7 @@ import kpn.api.common.data.raw.RawData
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
+import kpn.core.test.TestObjects.newNode
 import kpn.core.test.TestObjects.newRawRelation
 import kpn.core.test.TestObjects.newRouteNodeAnalysis
 import kpn.core.util.UnitTest
@@ -321,14 +322,8 @@ class BaseRouteNameAnalyzerTest extends UnitTest {
   test("route name based on single node in ways and/or relation") {
     val routeNodesAnalysis = RouteNodesAnalysis(
       startNode = Some(
-        newRouteNodeAnalysis(1001, "01")
+        newRouteNodeAnalysis(newNode(), "01")
       )
-
-      //        1001L -> RouteNodeInfo(
-      //        newNode(1001),
-      //        "01",
-      //        None
-      //      )
     )
     val routeNameAnalysis = analyzeRouteName(Seq.empty, routeNodesAnalysis)
     assertEqual(
@@ -346,7 +341,7 @@ class BaseRouteNameAnalyzerTest extends UnitTest {
 
     val routeNodesAnalysis = RouteNodesAnalysis(
       startNode = Some(
-        newRouteNodeAnalysis(1001, "node-name")
+        newRouteNodeAnalysis(newNode(), "node-name")
       )
     )
 
@@ -366,10 +361,10 @@ class BaseRouteNameAnalyzerTest extends UnitTest {
 
     val routeNodesAnalysis = RouteNodesAnalysis(
       startNode = Some(
-        newRouteNodeAnalysis(1001, "01")
+        newRouteNodeAnalysis(newNode(), "01")
       ),
       endNode = Some(
-        newRouteNodeAnalysis(1002, "02")
+        newRouteNodeAnalysis(newNode(1002), "02")
       )
     )
 

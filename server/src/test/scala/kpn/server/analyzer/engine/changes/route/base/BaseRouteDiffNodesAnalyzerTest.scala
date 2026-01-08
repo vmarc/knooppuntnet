@@ -4,6 +4,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.diff.route.RouteNodeDiff
 import kpn.core.test.TestObjects.newNode
 import kpn.core.test.TestObjects.newRelation
+import kpn.core.test.TestObjects.newRouteNodeAnalysis
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
@@ -20,11 +21,9 @@ class BaseRouteDiffNodesAnalyzerTest extends UnitTest with Stubs {
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
           startNode = Some(
-            RouteNodeAnalysis(
+            newRouteNodeAnalysis(
               node = newNode(),
-              name = "01",
-              alternateName = "",
-              isInWay = false
+              name = "01"
             )
           )
         )
@@ -41,6 +40,7 @@ class BaseRouteDiffNodesAnalyzerTest extends UnitTest with Stubs {
               node = newNode(1002),
               name = "02",
               alternateName = "",
+              longName = None,
               isInWay = false
             )
           )
@@ -74,11 +74,9 @@ class BaseRouteDiffNodesAnalyzerTest extends UnitTest with Stubs {
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
           endNode = Some(
-            RouteNodeAnalysis(
+            newRouteNodeAnalysis(
               node = newNode(),
-              name = "01",
-              alternateName = "",
-              isInWay = false
+              name = "01"
             )
           )
         )
@@ -91,11 +89,9 @@ class BaseRouteDiffNodesAnalyzerTest extends UnitTest with Stubs {
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
           endNode = Some(
-            RouteNodeAnalysis(
+            newRouteNodeAnalysis(
               node = newNode(1002),
-              name = "02",
-              alternateName = "",
-              isInWay = false
+              name = "02"
             )
           )
         )
@@ -128,11 +124,9 @@ class BaseRouteDiffNodesAnalyzerTest extends UnitTest with Stubs {
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
           startTentacleNodes = Seq(
-            RouteNodeAnalysis(
+            newRouteNodeAnalysis(
               node = newNode(),
-              name = "01",
-              alternateName = "",
-              isInWay = false
+              name = "01"
             )
           ),
         )
@@ -145,11 +139,9 @@ class BaseRouteDiffNodesAnalyzerTest extends UnitTest with Stubs {
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
           startTentacleNodes = Seq(
-            RouteNodeAnalysis(
+            newRouteNodeAnalysis(
               node = newNode(1002),
-              name = "02",
-              alternateName = "",
-              isInWay = false
+              name = "02"
             )
           )
         )
@@ -182,11 +174,9 @@ class BaseRouteDiffNodesAnalyzerTest extends UnitTest with Stubs {
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
           endTentacleNodes = Seq(
-            RouteNodeAnalysis(
+            newRouteNodeAnalysis(
               node = newNode(),
-              name = "01",
-              alternateName = "",
-              isInWay = false
+              name = "01"
             )
           )
         )
@@ -199,11 +189,9 @@ class BaseRouteDiffNodesAnalyzerTest extends UnitTest with Stubs {
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
           endTentacleNodes = Seq(
-            RouteNodeAnalysis(
+            newRouteNodeAnalysis(
               node = newNode(1002),
-              name = "02",
-              alternateName = "",
-              isInWay = false
+              name = "02"
             )
           )
         )
@@ -236,11 +224,9 @@ class BaseRouteDiffNodesAnalyzerTest extends UnitTest with Stubs {
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
           redundantNodes = Seq(
-            RouteNodeAnalysis(
+            newRouteNodeAnalysis(
               node = newNode(),
-              name = "01",
-              alternateName = "",
-              isInWay = false
+              name = "01"
             )
           )
         )
@@ -253,11 +239,9 @@ class BaseRouteDiffNodesAnalyzerTest extends UnitTest with Stubs {
       _routeNodesAnalysis = Some(
         RouteNodesAnalysis(
           redundantNodes = Seq(
-            RouteNodeAnalysis(
+            newRouteNodeAnalysis(
               node = newNode(1002),
-              name = "02",
-              alternateName = "",
-              isInWay = false
+              name = "02"
             )
           )
         )

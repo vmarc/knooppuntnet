@@ -8,6 +8,7 @@ case class RouteNodeAnalysis(
   node: Node,
   name: String,
   alternateName: String,
+  longName: Option[String],
   isInWay: Boolean,
 ) {
   def toRouteNode: RouteNode = {
@@ -17,6 +18,7 @@ case class RouteNodeAnalysis(
       node.longitude,
       name,
       alternateName,
+      longName,
       isInWay
     )
   }

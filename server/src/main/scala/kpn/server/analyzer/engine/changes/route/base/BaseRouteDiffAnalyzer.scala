@@ -15,7 +15,7 @@ class BaseRouteDiffAnalyzer(
   baseRouteDiffNodesAnalyzer: BaseRouteDiffNodesAnalyzer,
   baseRouteDiffMemberAnalyzer: BaseRouteDiffMemberAnalyzer,
   baseRouteDiffGeometryAnalyzer: BaseRouteDiffGeometryAnalyzer,
-  baseRouteDiffWaysAnalyzer: BaseRouteDiffWaysAnalyzer,
+  baseRouteDiffWaysAnalyzer: BaseRouteDiffWaysAnalyzer
 ) {
 
   def analyze(

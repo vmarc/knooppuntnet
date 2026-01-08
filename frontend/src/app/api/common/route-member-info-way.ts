@@ -12,6 +12,7 @@ export interface RouteMemberInfoWay {
   readonly timestamp: Timestamp;
   readonly surface: string;
   readonly accessible: boolean;
+  readonly ferry: boolean;
   readonly distance: number;
   readonly nodeCount: string;
   readonly oneWay: WayDirection;

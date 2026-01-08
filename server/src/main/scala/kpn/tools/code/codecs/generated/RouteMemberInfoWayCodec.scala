@@ -36,6 +36,7 @@ class RouteMemberInfoWayCodec(registry: CodecRegistry) extends Codec[RouteMember
     var timestamp: Timestamp = null
     var surface: String = null
     var accessible: Boolean = false
+    var ferry: Boolean = false
     var distance: Long = 0
     var nodeCount: String = null
     var oneWay: WayDirection = null
@@ -64,6 +65,9 @@ class RouteMemberInfoWayCodec(registry: CodecRegistry) extends Codec[RouteMember
       }
       else if (fieldName == "accessible") {
         accessible = booleanCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "ferry") {
+        ferry = booleanCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "distance") {
         distance = longCodec.decode(bsonReader, decoderContext)
@@ -100,6 +104,7 @@ class RouteMemberInfoWayCodec(registry: CodecRegistry) extends Codec[RouteMember
       timestamp,
       surface,
       accessible,
+      ferry,
       distance,
       nodeCount,
       oneWay,
@@ -129,6 +134,9 @@ class RouteMemberInfoWayCodec(registry: CodecRegistry) extends Codec[RouteMember
 
     bsonWriter.writeName("accessible")
     booleanCodec.encode(bsonWriter, value.accessible, encoderContext)
+
+    bsonWriter.writeName("ferry")
+    booleanCodec.encode(bsonWriter, value.ferry, encoderContext)
 
     bsonWriter.writeName("distance")
     longCodec.encode(bsonWriter, value.distance, encoderContext)

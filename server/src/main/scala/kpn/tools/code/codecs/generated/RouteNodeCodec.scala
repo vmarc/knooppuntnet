@@ -26,6 +26,7 @@ class RouteNodeCodec(registry: CodecRegistry) extends Codec[RouteNode] {
     var longitude: String = null
     var name: String = null
     var alternateName: String = null
+    var longName: Option[String] = None
     var isInWay: Boolean = false
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
@@ -45,6 +46,9 @@ class RouteNodeCodec(registry: CodecRegistry) extends Codec[RouteNode] {
       else if (fieldName == "alternateName") {
         alternateName = stringCodec.decode(bsonReader, decoderContext)
       }
+      else if (fieldName == "longName") {
+        longName = Some(stringCodec.decode(bsonReader, decoderContext))
+      }
       else if (fieldName == "isInWay") {
         isInWay = booleanCodec.decode(bsonReader, decoderContext)
       }
@@ -62,6 +66,7 @@ class RouteNodeCodec(registry: CodecRegistry) extends Codec[RouteNode] {
       longitude,
       name,
       alternateName,
+      longName,
       isInWay,
     )
   }
@@ -83,6 +88,11 @@ class RouteNodeCodec(registry: CodecRegistry) extends Codec[RouteNode] {
 
     bsonWriter.writeName("alternateName")
     stringCodec.encode(bsonWriter, value.alternateName, encoderContext)
+
+    if (value.longName.isDefined) {
+      bsonWriter.writeName("longName")
+      stringCodec.encode(bsonWriter, value.longName.get, encoderContext)
+    }
 
     bsonWriter.writeName("isInWay")
     booleanCodec.encode(bsonWriter, value.isInWay, encoderContext)

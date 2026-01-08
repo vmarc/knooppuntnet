@@ -206,6 +206,7 @@ object TestObjects {
       longitude = "0",
       name = name,
       alternateName = name,
+      longName = None,
       isInWay = true,
     )
   }
@@ -1617,14 +1618,18 @@ object TestObjects {
   }
 
   def newRouteNodeAnalysis(
-    id: Long = 0,
+    node: Node = newNode(0),
     name: String = "",
+    alternateName: String = "",
+    longName: Option[String] = None,
+    isInWay: Boolean = false
   ): RouteNodeAnalysis = {
     RouteNodeAnalysis(
-      node = newNode(id),
-      name = name,
-      alternateName = "",
-      isInWay = false,
+      node,
+      name,
+      alternateName,
+      longName,
+      isInWay
     )
   }
 

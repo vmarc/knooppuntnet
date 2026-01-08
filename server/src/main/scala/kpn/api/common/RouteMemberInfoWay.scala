@@ -12,6 +12,7 @@ case class RouteMemberInfoWay(
   timestamp: Timestamp,
   surface: String,
   accessible: Boolean,
+  ferry: Boolean,
   distance: Long,
   nodeCount: String,
   oneWay: WayDirection,

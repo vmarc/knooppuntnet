@@ -77,8 +77,8 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest {
     )
 
     val routeNodesAnalysis = RouteNodesAnalysis(
-      startNode = startNodeName.map(name => RouteNodeAnalysis(newNode(), name = name, alternateName = name, isInWay = true)),
-      endNode = endNodeName.map(name => RouteNodeAnalysis(newNode(), name = name, alternateName = name, isInWay = true)),
+      startNode = startNodeName.map(name => RouteNodeAnalysis(newNode(), name = name, alternateName = name, longName = None, isInWay = true)),
+      endNode = endNodeName.map(name => RouteNodeAnalysis(newNode(), name = name, alternateName = name, longName = None, isInWay = true)),
     )
 
     val context = buildContext(nodeNetwork).

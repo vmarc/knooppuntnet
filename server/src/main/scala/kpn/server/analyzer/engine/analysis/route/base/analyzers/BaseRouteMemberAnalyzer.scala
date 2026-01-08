@@ -49,7 +49,6 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
         Some(processRelationIdMember(member))
       }
       else {
-        // TODO redesign - process relationMember
         None
       }
     }
@@ -101,15 +100,15 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
     val from = getOrAssignNodeNumber(fromNode.id, nodeMap, nodeNumberIterator)
     val to = getOrAssignNodeNumber(toNode.id, nodeMap, nodeNumberIterator)
 
-    val accessible = new AccessibilityAnalyzer().accessible(
-      wayMember.role,
-      context.routeTypes.head, //TODO redesign - support multiple routeTypes
-      way
-    )
+    val accessible = context.routeTypes.exists { routeType =>
+      AccessibilityAnalyzer.accessible(
+        wayMember.role,
+        routeType,
+        way
+      )
+    }
 
-    // way.tags.has("route", "ferry") TODO draw boat icon?
-
-    // some ways have <tag k="route" v="bicycle"/>; Is this enough to decide that this is ok ???
+    val ferry = way.hasTag("route", "ferry")
 
     val routeNetworkNodeInfos = buildRouteNetworkNodeInfos(wayNetworkNodes)
     val wayType = new RouteWayTypeAnalyzer().analyze(wayMember)
@@ -142,6 +141,7 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
           nodes = routeNetworkNodeInfos,
           timestamp = way.timestamp,
           accessible = accessible,
+          ferry = ferry,
           surface = surface,
           distance = way.length,
           nodeCount = way.nodes.size.toString,
@@ -161,7 +161,7 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
         rn.nodeId,
         rn.name,
         rn.alternateName,
-        None, // TODO redesign
+        rn.longName,
         rn.latitude,
         rn.longitude
       )

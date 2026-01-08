@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.common.Fact
+import kpn.api.common.NodeName
 import kpn.api.common.Relation
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
@@ -195,31 +196,32 @@ class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
   }
 
   private def wayNodeData(routeType: RouteType, routeScope: RouteScope, node: Node): Option[RouteNodeAnalysis] = {
-    nodeName(routeType, routeScope, node).map { name =>
+    nodeName(routeType, routeScope, node).map { nodeName =>
       RouteNodeAnalysis(
         node,
-        name,
-        name,
+        nodeName.name,
+        nodeName.name,
+        nodeName.longName,
         isInWay = true
       )
     }
   }
 
   private def standaloneNodeData(routeType: RouteType, routeScope: RouteScope, node: Node): Option[RouteNodeAnalysis] = {
-    nodeName(routeType, routeScope, node).map { name =>
+    nodeName(routeType, routeScope, node).map { nodeName =>
       RouteNodeAnalysis(
         node,
-        name,
-        name,
+        nodeName.name,
+        nodeName.name,
+        nodeName.longName,
         isInWay = false
       )
     }
   }
 
-  private def nodeName(routeType: RouteType, routeScope: RouteScope, node: Node): Option[String] = {
+  private def nodeName(routeType: RouteType, routeScope: RouteScope, node: Node): Option[NodeName] = {
     NodeNameAnalyzer.analyze(node)
       .find(nodeName => nodeName.routeType == routeType && nodeName.routeScope == routeScope)
-      .map(_.name)
   }
 
   private def withSuffixes(nodeDatas: Seq[RouteNodeAnalysis]): Seq[RouteNodeAnalysis] = {

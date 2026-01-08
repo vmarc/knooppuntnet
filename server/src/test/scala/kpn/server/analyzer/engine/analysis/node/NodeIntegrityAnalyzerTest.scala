@@ -147,7 +147,8 @@ class NodeIntegrityAnalyzerTest extends UnitTest {
             networkNode.node.latitude,
             networkNode.node.longitude,
             networkNode.name,
-            networkNode.name, // TODO redesign - alternateName
+            networkNode.name,
+            networkNode.longName,
             isInWay = true,
           )
         )
