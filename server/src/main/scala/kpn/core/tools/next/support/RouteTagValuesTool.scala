@@ -6,9 +6,12 @@ import com.mongodb.client.model.Aggregates.sort
 import com.mongodb.client.model.Aggregates.unwind
 import com.mongodb.client.model.Sorts.descending
 import com.mongodb.client.model.Sorts.orderBy
+import kpn.core.doc.Storable
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo
+
+case class TagCount(_id: String, count: Long) extends Storable
 
 // report all values used for the "route" tag
 object RouteTagValuesTool {

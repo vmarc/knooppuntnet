@@ -10,12 +10,15 @@ import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.client.model.Sorts.orderBy
+import kpn.core.doc.Storable
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.StringId
 import kpn.database.util.Mongo
+
+case class NodeImageTag(nodeId: Long, key: String, value: String) extends Storable
 
 object FindNodesWithImagesTool {
   def main(args: Array[String]): Unit = {

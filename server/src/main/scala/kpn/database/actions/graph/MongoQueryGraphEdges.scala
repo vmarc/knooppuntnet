@@ -8,6 +8,7 @@ import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import kpn.api.common.RouteType
 import kpn.api.common.common.TrackPathKey
+import kpn.core.doc.Storable
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.util.Log
 import kpn.database.actions.graph.MongoQueryGraphEdges.log
@@ -17,6 +18,16 @@ import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
 import kpn.server.repository.GraphEdges
+
+case class RouteGraphEdge(
+  routeType: RouteType,
+  proposed: Boolean,
+  _id: Long,
+  pathId: Long,
+  sourceNodeId: Long,
+  sinkNodeId: Long,
+  meters: Long
+) extends Storable
 
 object MongoQueryGraphEdges {
   private val log = Log(classOf[MongoQueryGraphEdges])

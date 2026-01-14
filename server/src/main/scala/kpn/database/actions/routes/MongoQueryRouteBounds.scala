@@ -8,12 +8,15 @@ import com.mongodb.client.model.Projections.exclude
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import kpn.api.common.Bounds
+import kpn.core.doc.Storable
 import kpn.core.util.Log
 import kpn.core.util.Util
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
+
+case class BoundsResult(bounds: Bounds) extends Storable
 
 object MongoQueryRouteBounds {
   private val log = Log(classOf[MongoQueryRouteBounds])

@@ -27,6 +27,7 @@ import kpn.core.doc.Label
 import kpn.core.doc.Storable
 import kpn.core.util.Log
 import kpn.core.util.RouteSymbol
+import kpn.database.base.CountResult
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.ffacet
@@ -34,6 +35,14 @@ import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.bson.conversions.Bson
+
+case class RouteFilterOptionQueryResult(
+  factsTotalRouteCount: Seq[CountResult],
+  facts: Seq[ServerFilterGroup],
+  proposed: Seq[ServerFilterGroup],
+  survey: Seq[ServerFilterGroup],
+  lastUpdated: Seq[ServerFilterGroup],
+) extends Storable
 
 case class LocationRouteInfoData(
   id: Long,

@@ -5,11 +5,20 @@ import com.mongodb.client.model.Aggregates.unwind
 import com.mongodb.client.model.Projections.computed
 import com.mongodb.client.model.Projections.elemMatch
 import com.mongodb.client.model.Projections.fields
+import kpn.api.common.Country
+import kpn.api.common.RouteType
+import kpn.core.doc.Storable
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo
+
+case class SpecialNode(
+  nodeId: Long,
+  country: Country,
+  routeType: RouteType
+) extends Storable
 
 object FindSpecialNodesTool {
   def main(args: Array[String]): Unit = {

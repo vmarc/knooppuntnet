@@ -11,10 +11,10 @@ class ImpactedRouteIdsTest extends UnitTest {
     impactedRouteIds.add(2)
 
     impactedRouteIds.hasNext should equal(true)
-    impactedRouteIds.next should equal(1)
+    impactedRouteIds.next() should equal(1)
 
     impactedRouteIds.hasNext should equal(true)
-    impactedRouteIds.next should equal(2)
+    impactedRouteIds.next() should equal(2)
 
     impactedRouteIds.hasNext should equal(false)
   }
@@ -25,7 +25,7 @@ class ImpactedRouteIdsTest extends UnitTest {
     impactedRouteIds.add(1)
 
     impactedRouteIds.hasNext should equal(true)
-    impactedRouteIds.next should equal(1)
+    impactedRouteIds.next() should equal(1)
 
     impactedRouteIds.add(1)
     impactedRouteIds.hasNext should equal(false)
@@ -38,7 +38,7 @@ class ImpactedRouteIdsTest extends UnitTest {
     impactedRouteIds.add(1)
 
     impactedRouteIds.hasNext should equal(true)
-    impactedRouteIds.next should equal(1)
+    impactedRouteIds.next() should equal(1)
 
     impactedRouteIds.hasNext should equal(false)
   }

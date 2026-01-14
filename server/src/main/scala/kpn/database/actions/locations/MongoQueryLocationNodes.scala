@@ -23,6 +23,7 @@ import kpn.api.common.location.LocationNodeOptions
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.ScopedRouteType
 import kpn.core.doc.Label
+import kpn.core.doc.Storable
 import kpn.core.util.Log
 import kpn.database.base.CountResult
 import kpn.database.base.Database
@@ -32,6 +33,21 @@ import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.bson.conversions.Bson
+
+case class NodeFilterOptionQueryResult(
+  factsTotalNodeCount: Seq[CountResult],
+  facts: Seq[ServerFilterGroup],
+  proposed: Seq[ServerFilterGroup],
+  survey: Seq[ServerFilterGroup],
+  lastUpdated: Seq[ServerFilterGroup],
+  integrityCheckCount: Seq[CountResult],
+  integrityCheckTotalNodeCount: Seq[CountResult],
+  integrityCheckFailedCount: Seq[CountResult],
+  integrityCheckFailedTotalNodeCount: Seq[CountResult],
+  referencedInRoutesCount: Seq[CountResult],
+  referencedInRoutesTotalNodeCount: Seq[CountResult],
+  totalNodeCount: Seq[CountResult],
+) extends Storable
 
 class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo) {
   private val log = Log(classOf[MongoQueryLocationNodes])

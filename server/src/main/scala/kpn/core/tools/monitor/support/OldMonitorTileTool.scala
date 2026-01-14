@@ -6,6 +6,8 @@ import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
+import kpn.api.common.monitor.MonitorRouteSegment
+import kpn.core.doc.Storable
 import kpn.core.tools.config.Dirs
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -27,6 +29,10 @@ import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 
 import java.io.File
+
+case class OsmSegments(
+  osmSegments: Seq[MonitorRouteSegment],
+) extends Storable
 
 class OldMonitorTileToolConfig(val database: Database) {
   val routeRepository = new MonitorRouteRepository(database)
