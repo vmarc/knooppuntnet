@@ -261,7 +261,6 @@ class AnalysisConfiguration(
     )
 
     val bulkNodeAnalyzer = new BulkNodeAnalyzer(
-      repositories.rawDataRepository,
       nodeMainAnalyzer,
       repositories.nodeRepository
     )
@@ -271,7 +270,6 @@ class AnalysisConfiguration(
     )
 
     val fullNodeAnalyzer = new FullNodeAnalyzer(
-      repositories.rawDataRepository,
       repositories.nodeRepository,
       bulkNodeAnalyzer,
       initialNodeChangeBuilder

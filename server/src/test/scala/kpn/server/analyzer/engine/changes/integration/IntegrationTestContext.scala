@@ -202,7 +202,6 @@ class IntegrationTestContext(
       nodeNetworkReferencesAnalyzer,
     )
     new BulkNodeAnalyzer(
-      rawDataRepository,
       nodeMainAnalyzer,
       nodeRepository,
     )
@@ -271,7 +270,6 @@ class IntegrationTestContext(
   private val fullNodeAnalyzer = {
     val initialNodeChangeBuilder = new InitialNodeChangeBuilder(changeSetRepository)
     new FullNodeAnalyzer(
-      rawDataRepository,
       nodeRepository,
       bulkNodeAnalyzer,
       initialNodeChangeBuilder

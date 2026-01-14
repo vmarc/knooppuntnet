@@ -237,7 +237,6 @@ class SingleRouteChangeAnalyzerConfiguration(database: Database) {
       nodeNetworkReferencesAnalyzer,
     )
     new BulkNodeAnalyzer(
-      rawDataRepository,
       nodeMainAnalyzer,
       nodeRepository,
     )

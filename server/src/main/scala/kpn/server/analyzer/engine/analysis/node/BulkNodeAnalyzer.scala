@@ -5,12 +5,10 @@ import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.main.NodeMainAnalyzer
 import kpn.server.repository.NodeRepository
-import kpn.server.repository.RawDataRepository
 import org.springframework.stereotype.Component
 
 @Component
 class BulkNodeAnalyzer(
-  rawDataRepository: RawDataRepository,
   nodeMainAnalyzer: NodeMainAnalyzer,
   nodeRepository: NodeRepository,
 ) {

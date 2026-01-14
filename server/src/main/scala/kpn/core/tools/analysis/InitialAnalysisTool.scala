@@ -13,7 +13,7 @@ import kpn.server.repository.AnalysisRepository
 
 /*
   Loads the initial analysis state with the information on "2019-11-01 00:00:00" (arbitrary taken
-  as the start of the use of the new tagging scheme using "network:type=node_network").
+  as the start of the use of the new tagging scheme using "network:type=node_network": Timestamp.analysisStart).
   For all nodes and routes an initial NodeChange/RouteChange/NetworkChange document is created. These documents
   can be used to display the oldest known state of the nodes and routes in the changes pages.
  */

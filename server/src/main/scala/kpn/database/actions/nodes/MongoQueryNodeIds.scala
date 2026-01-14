@@ -17,7 +17,7 @@ object MongoQueryNodeIds {
 class MongoQueryNodeIds(database: Database) {
 
   def execute(): Seq[Long] = {
-    log.debugElapsed {
+    log.infoElapsed {
       val pipeline = Seq(
         filter(
           equal("active", true),

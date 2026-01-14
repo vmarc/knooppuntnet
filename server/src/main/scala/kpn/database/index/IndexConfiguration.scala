@@ -129,7 +129,7 @@ class IndexConfiguration(database: Database) {
         "route-node-references",
         "active",
         "base.nodeNetwork",
-        "nodeRefs"
+        "base.networkNodeIds"
       ),
       Index( // support MongoQueryParentRoutes
         database.baseRoutes,

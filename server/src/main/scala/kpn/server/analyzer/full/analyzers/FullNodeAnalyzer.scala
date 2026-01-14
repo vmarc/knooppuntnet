@@ -3,12 +3,10 @@ package kpn.server.analyzer.full.analyzers
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.repository.NodeRepository
-import kpn.server.repository.RawDataRepository
 import org.springframework.stereotype.Component
 
 @Component
 class FullNodeAnalyzer(
-  rawDataRepository: RawDataRepository,
   nodeRepository: NodeRepository,
   bulkNodeAnalyzer: BulkNodeAnalyzer,
   initialNodeChangeBuilder: InitialNodeChangeBuilder
