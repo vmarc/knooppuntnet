@@ -18,13 +18,15 @@ object RawDataTool {
   val timestamp: Timestamp = Timestamp.analysisStart
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn") { database =>
+    Mongo.executeIn("test") { database =>
       val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
       val overpassRepository = new OverpassRepositoryImpl(overpassQueryExecutor)
       val repository = new RawDataRepositoryImpl(overpassRepository)
       val tool = new RawDataTool(database, repository)
-      // tool.loadSingleRoute(11140514)
-      tool.load()
+      tool.loadSingleRoute(301671)
+      tool.loadSingleRoute(301672)
+      tool.loadSingleRoute(10984298)
+      //tool.load()
     }
   }
 }

@@ -92,7 +92,7 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
       relation,
       None,
       nodeNetwork = nodeNetwork,
-      scopedRouteTypeOption = Some(routeTestData.scopedRouteType)
+      _scopedRouteType = Some(Some(routeTestData.scopedRouteType))
     )
 
     BaseRouteUnexpectedNodeAnalyzer.analyze(context)

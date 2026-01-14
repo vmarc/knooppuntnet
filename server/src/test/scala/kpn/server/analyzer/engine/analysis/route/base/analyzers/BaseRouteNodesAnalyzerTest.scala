@@ -563,7 +563,7 @@ class BaseRouteNodesAnalyzerTest extends UnitTest {
           nodeNetwork = true,
           _routeTypes = Some(Seq(RouteType.hiking)),
           _scopes = Some(Seq(RouteScope.regional)),
-          scopedRouteTypeOption = Some(ScopedRouteType.rwn),
+          _scopedRouteType = Some(Some(ScopedRouteType.rwn)),
           proposed = proposed,
         )
       )

@@ -36,7 +36,7 @@ case class BaseRouteAnalysisContext(
   proposed: Boolean = false,
   _routeTypes: Option[Seq[RouteType]] = None,
   _scopes: Option[Seq[RouteScope]] = None,
-  scopedRouteTypeOption: Option[ScopedRouteType] = None,
+  _scopedRouteType: Option[Option[ScopedRouteType]] = None,
   _countries: Option[Seq[Country]] = None,
   _links: Option[RouteLinks] = None,
   _analysisSegments: Option[Seq[RouteAnalysisSegment]] = None,
@@ -72,8 +72,8 @@ case class BaseRouteAnalysisContext(
     relation.id
   }
 
-  def scopedRouteType: ScopedRouteType = {
-    scopedRouteTypeOption.getOrElse {
+  def scopedRouteType: Option[ScopedRouteType] = {
+    _scopedRouteType.getOrElse {
       throw new IllegalArgumentException("trying to use scopedRouteType before definition")
     }
   }

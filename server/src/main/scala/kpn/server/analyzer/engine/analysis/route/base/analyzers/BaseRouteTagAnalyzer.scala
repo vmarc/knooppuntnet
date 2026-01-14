@@ -31,20 +31,20 @@ class BaseRouteTagAnalyzer(context: BaseRouteAnalysisContext) {
           val facts = ListBuffer[Fact]()
           val scopedRouteTypeOption = context.relation.tagValue("network").flatMap { key =>
             ScopedRouteType.withKey(key).flatMap { scopedRouteType =>
-              facts.addAll(assertTagValueMatchesrouteType(scopedRouteType.routeType, routeTagValue))
+              facts.addAll(assertTagValueMatchesRouteType(scopedRouteType.routeType, routeTagValue))
               Some(scopedRouteType)
             }
           }
           context.copy(
             superRoute = superRoute,
             nodeNetwork = nodeNetwork,
-            scopedRouteTypeOption = scopedRouteTypeOption
+            _scopedRouteType = Some(scopedRouteTypeOption)
           ).withFacts(facts.toSeq *)
       }
     }
   }
 
-  private def assertTagValueMatchesrouteType(routeType: RouteType, routeTagValue: String): Seq[Fact] = {
+  private def assertTagValueMatchesRouteType(routeType: RouteType, routeTagValue: String): Seq[Fact] = {
 
     val routeTagValues = Tags.splitAndNormalize(routeTagValue)
 

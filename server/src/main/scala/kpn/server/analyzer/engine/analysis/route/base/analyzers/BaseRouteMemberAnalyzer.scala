@@ -184,7 +184,9 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
   private def filterValidRouteMembers(): Seq[Member] = {
     context.relation.members.filter { member =>
       if (context.nodeNetwork) {
-        TagInterpreter.isValidNetworkMember(context.scopedRouteType, member)
+        context.scopedRouteType.exists(scopedRouteType =>
+          TagInterpreter.isValidNetworkMember(scopedRouteType, member)
+        )
       }
       else {
         true
@@ -209,7 +211,9 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
   private def getWayNetworkNodes(way: Way): Vector[RouteNodeAnalysis] = {
     way.nodes.filter { n =>
       if (context.nodeNetwork) {
-        TagInterpreter.isReferencedNetworkNode(context.scopedRouteType, n)
+        context.scopedRouteType.exists(scopedRouteType =>
+          TagInterpreter.isReferencedNetworkNode(scopedRouteType, n)
+        )
       } else {
         false
       }

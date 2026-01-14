@@ -13,7 +13,7 @@ object DownloadRelationTool {
 
   private val overpassUrl = "http://server-1:9005/api/overpass"
   private val routes = Seq(
-    "route 1" -> 10015252,
+    "route 1" -> 2804113,
   )
 
   def main(args: Array[String]): Unit = {
