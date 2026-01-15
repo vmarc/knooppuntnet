@@ -20,7 +20,7 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
       <p class="kpn-comma-list">
         <span>
           <!-- nested spans needed to combine the ::after's in kpn-comma-list and kpn-km -->
-          <span class="kpn-km">{{ page().attributes.km | integer }}</span>
+          <span class="kpn-km">{{ page().detail.km | integer }}</span>
         </span>
         <span>
           {{ page().summary.nodeCount | integer }}
@@ -34,10 +34,10 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
     }
 
     <p>
-      <ui-country-name [country]="page().attributes.country" />
+      <ui-country-name [country]="page().country" />
     </p>
 
-    @if (page().active && page().attributes.brokenRouteCount > 0) {
+    @if (page().active && page().detail.brokenRouteCount > 0) {
       <p class="kpn-line">
         <ui-icon-warning />
         <span i18n="@@network-details.contains-broken-routes">
@@ -57,8 +57,8 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
     }
 
     <div class="kpn-line">
-      {{ page().attributes.id }}
-      <ui-action-button-relation [relationId]="page().attributes.id" />
+      {{ networkId() }}
+      <ui-action-button-relation [relationId]="networkId()" />
     </div>
   `,
   imports: [
@@ -71,6 +71,7 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
   ],
 })
 export class NetworkSummaryComponent {
+  readonly networkId = input.required<number>();
   readonly page = input.required<NetworkDetailsPage>();
 
   isProposed() {

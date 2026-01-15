@@ -107,7 +107,7 @@ class RouteDeleteTest03 extends IntegrationTest {
               introduced = Seq(
                 RouteUnexpectedRelation,
                 RouteBroken
-              ),
+              )
             )
           )
         )

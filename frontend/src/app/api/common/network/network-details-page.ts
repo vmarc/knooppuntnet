@@ -1,14 +1,14 @@
 // this file is generated, please do not modify
 
-import { NetworkFacts } from '@api/common/network-facts';
+import { Country } from '@api/common/country';
 import { Tag } from '@api/custom/tag';
-import { NetworkAttributes } from './network-attributes';
+import { NetworkDetail } from './network-detail';
 import { NetworkSummary } from './network-summary';
 
 export interface NetworkDetailsPage {
   readonly summary: NetworkSummary;
   readonly active: boolean;
-  readonly attributes: NetworkAttributes;
+  readonly country?: Country;
+  readonly detail: NetworkDetail;
   readonly tags: Tag[];
-  readonly facts: NetworkFacts;
 }

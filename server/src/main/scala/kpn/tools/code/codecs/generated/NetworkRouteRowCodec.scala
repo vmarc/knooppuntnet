@@ -2,6 +2,7 @@
 
 package kpn.tools.code.codecs.generated
 
+import kpn.api.common.Fact
 import kpn.api.common.network.NetworkRouteRow
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
@@ -18,6 +19,7 @@ class NetworkRouteRowCodec(registry: CodecRegistry) extends Codec[NetworkRouteRo
 
   private val booleanCodec = registry.get(classOf[Boolean])
   private val dayCodec = registry.get(classOf[Day])
+  private val factCodec = registry.get(classOf[Fact])
   private val longCodec = registry.get(classOf[Long])
   private val stringCodec = registry.get(classOf[String])
   private val timestampCodec = registry.get(classOf[Timestamp])
@@ -35,6 +37,7 @@ class NetworkRouteRowCodec(registry: CodecRegistry) extends Codec[NetworkRouteRo
     var lastUpdated: Timestamp = null
     var lastSurvey: Option[Day] = None
     var proposed: Boolean = false
+    var facts: Seq[Fact] = null
     var symbol: Option[String] = None
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
@@ -69,6 +72,15 @@ class NetworkRouteRowCodec(registry: CodecRegistry) extends Codec[NetworkRouteRo
       else if (fieldName == "proposed") {
         proposed = booleanCodec.decode(bsonReader, decoderContext)
       }
+      else if (fieldName == "facts") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[Fact]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += factCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        facts = valueBuffer.toSeq
+      }
       else if (fieldName == "symbol") {
         symbol = Some(stringCodec.decode(bsonReader, decoderContext))
       }
@@ -91,6 +103,7 @@ class NetworkRouteRowCodec(registry: CodecRegistry) extends Codec[NetworkRouteRo
       lastUpdated,
       lastSurvey,
       proposed,
+      facts,
       symbol,
     )
   }
@@ -131,6 +144,11 @@ class NetworkRouteRowCodec(registry: CodecRegistry) extends Codec[NetworkRouteRo
 
     bsonWriter.writeName("proposed")
     booleanCodec.encode(bsonWriter, value.proposed, encoderContext)
+
+    bsonWriter.writeName("facts")
+    bsonWriter.writeStartArray()
+    value.facts.foreach(v => factCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
 
     if (value.symbol.isDefined) {
       bsonWriter.writeName("symbol")

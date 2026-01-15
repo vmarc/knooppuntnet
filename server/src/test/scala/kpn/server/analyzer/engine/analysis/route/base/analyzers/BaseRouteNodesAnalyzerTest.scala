@@ -11,6 +11,23 @@ import kpn.server.analyzer.engine.analysis.route.RouteTestData
 
 class BaseRouteNodesAnalyzerTest extends UnitTest {
 
+  test("ISSUE") {
+
+    val d = new RouteTestData("01-01") {
+      node(1, "01")
+      node(2, "01")
+      memberWay(5, "", 1, 2)
+    }
+
+    assertEqual(
+      analyze(d),
+      Seq(
+        "start=1(01.a)W",
+        "end=2(01.b)W"
+      )
+    )
+  }
+
   test("no nodes") {
 
     val d = new RouteTestData("01-02") {

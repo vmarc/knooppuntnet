@@ -12,6 +12,8 @@ export class NetworkDetailsPageService {
   private readonly _response = signal<ApiResponse<NetworkDetailsPage>>(null);
   readonly response = this._response.asReadonly();
 
+  readonly networkId = this.networkService.networkId;
+
   onInit(): void {
     this.networkService.updatePageName('details');
     this.apiService.networkDetails(this.networkService.networkId()).subscribe((response) => {

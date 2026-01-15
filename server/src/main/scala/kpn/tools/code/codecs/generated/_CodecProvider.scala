@@ -442,6 +442,9 @@ import kpn.server.analyzer.engine.context.ChangeElementIds
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
+import kpn.server.api.analysis.pages.network.NetworkChangesPageData
+import kpn.server.api.analysis.pages.network.NetworkDetailsPageData
+import kpn.server.api.analysis.pages.network.NetworkFactsPageData
 import kpn.server.api.analysis.pages.network.NetworkNodesPageData
 import kpn.server.api.analysis.pages.network.NetworkRoutesPageData
 import kpn.server.api.status.DatabaseInfo
@@ -839,11 +842,20 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[GrafanaQuery]) {
       return new GrafanaQueryCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
+    if (aClass == classOf[NetworkDetailsPageData]) {
+      return new NetworkDetailsPageDataCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NetworkChangesPageData]) {
+      return new NetworkChangesPageDataCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
     if (aClass == classOf[NetworkNodesPageData]) {
       return new NetworkNodesPageDataCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[NetworkRoutesPageData]) {
       return new NetworkRoutesPageDataCodec(codecRegistry).asInstanceOf[Codec[T]]
+    }
+    if (aClass == classOf[NetworkFactsPageData]) {
+      return new NetworkFactsPageDataCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[DatabaseSizes]) {
       return new DatabaseSizesCodec(codecRegistry).asInstanceOf[Codec[T]]

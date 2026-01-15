@@ -9,7 +9,6 @@ import kpn.api.common.network.NetworkFactsPage
 object NetworkFactsPageExample {
 
   val page: NetworkFactsPage = NetworkFactsPage(
-    1L,
     NetworkDetailsPageExample.networkSummary(),
     Seq(
       NetworkFact(
@@ -82,5 +81,4 @@ object NetworkFactsPageExample {
       )
     )
   )
-
 }

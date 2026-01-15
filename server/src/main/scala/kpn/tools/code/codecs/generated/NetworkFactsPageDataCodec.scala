@@ -3,8 +3,8 @@
 package kpn.tools.code.codecs.generated
 
 import kpn.api.common.NetworkFact
-import kpn.api.common.network.NetworkFactsPage
 import kpn.api.common.network.NetworkSummary
+import kpn.server.api.analysis.pages.network.NetworkFactsPageData
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
 import org.bson.BsonType
@@ -14,12 +14,12 @@ import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
 import org.bson.codecs.configuration.CodecRegistry
 
-class NetworkFactsPageCodec(registry: CodecRegistry) extends Codec[NetworkFactsPage] {
+class NetworkFactsPageDataCodec(registry: CodecRegistry) extends Codec[NetworkFactsPageData] {
 
   private val networkFactCodec = registry.get(classOf[NetworkFact])
   private val networkSummaryCodec = registry.get(classOf[NetworkSummary])
 
-  override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): NetworkFactsPage = {
+  override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): NetworkFactsPageData = {
     bsonReader.readStartDocument()
 
     var summary: NetworkSummary = null
@@ -40,20 +40,20 @@ class NetworkFactsPageCodec(registry: CodecRegistry) extends Codec[NetworkFactsP
         facts = valueBuffer.toSeq
       }
       else {
-        Codecs.warn(s"Unknown field name: $fieldName in NetworkFactsPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkFactsPageDataCodec.decode()")
         bsonReader.skipValue()
       }
     }
 
     bsonReader.readEndDocument()
 
-    NetworkFactsPage(
+    NetworkFactsPageData(
       summary,
       facts,
     )
   }
 
-  override def encode(bsonWriter: BsonWriter, value: NetworkFactsPage, encoderContext: EncoderContext): Unit = {
+  override def encode(bsonWriter: BsonWriter, value: NetworkFactsPageData, encoderContext: EncoderContext): Unit = {
     bsonWriter.writeStartDocument()
 
     bsonWriter.writeName("summary")
@@ -67,7 +67,7 @@ class NetworkFactsPageCodec(registry: CodecRegistry) extends Codec[NetworkFactsP
     bsonWriter.writeEndDocument()
   }
 
-  override def getEncoderClass: Class[NetworkFactsPage] = {
-    classOf[NetworkFactsPage]
+  override def getEncoderClass: Class[NetworkFactsPageData] = {
+    classOf[NetworkFactsPageData]
   }
 }

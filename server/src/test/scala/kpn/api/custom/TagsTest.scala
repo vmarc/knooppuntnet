@@ -8,21 +8,21 @@ class TagsTest extends UnitTest {
   private case class TestObject(tags: Seq[Tag]) extends Tagable
 
   test("hasTag - false when tag is missing") {
-    assert(!TestObject(Seq.empty).hasTag("key"))
+    TestObject(Seq.empty).hasTag("key") should equal(false)
   }
 
   test("hasTag - tag with single value") {
     val taggable = taggableWithTagValue("value")
-    assert(taggable.hasTag("key"))
-    assert(taggable.hasTag("key", "value"))
-    assert(!taggable.hasTag("key", "bla"))
+    taggable.hasTag("key") should equal(true)
+    taggable.hasTag("key", "value") should equal(true)
+    taggable.hasTag("key", "bla") should equal(false)
   }
 
   test("hasTag - tag with multiple values") {
     val taggable = taggableWithTagValue("value1;value2")
-    assert(taggable.hasTag("key", "value1"))
-    assert(taggable.hasTag("key", "value2"))
-    assert(!taggable.hasTag("key", "bla"))
+    taggable.hasTag("key", "value1") should equal(true)
+    taggable.hasTag("key", "value2") should equal(true)
+    taggable.hasTag("key", "bla") should equal(false)
   }
 
   test("values - no values when tag is missing") {

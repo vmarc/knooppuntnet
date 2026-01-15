@@ -4,7 +4,7 @@ import kpn.api.common.network.NetworkNodeRow
 import kpn.api.common.network.NetworkNodesPage
 import kpn.api.custom.ScopedRouteType
 import kpn.core.util.Log
-import kpn.database.actions.networks.MongoQueryNetworkNodes
+import kpn.database.actions.networks.MongoQueryNetworkNodesPageData
 import kpn.database.base.Database
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import kpn.server.api.analysis.pages.TimeInfoBuilder
@@ -41,7 +41,7 @@ class NetworkNodesPageBuilder(
   }
 
   private def queryNodes(networkId: Long): Option[NetworkNodesPageData] = {
-    new MongoQueryNetworkNodes(database).execute(networkId)
+    new MongoQueryNetworkNodesPageData(database).execute(networkId)
   }
 
   private def nodesWithRouteReferences(data: NetworkNodesPageData): Seq[NetworkNodeRow] = {

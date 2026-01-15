@@ -13,7 +13,7 @@ import { NetworkDetailsPageService } from './network-details-page.service';
   template: `
     @if (service.response(); as response) {
       <div class="kpn-spacer-above">
-        <ui-network-details [response]="response" />
+        <ui-network-details [networkId]="networkId()" [response]="response" />
       </div>
     }
     <ui-network-map-sidebar />
@@ -23,6 +23,7 @@ import { NetworkDetailsPageService } from './network-details-page.service';
 })
 export class NetworkDetailsPageComponent implements OnInit {
   protected readonly service = inject(NetworkDetailsPageService);
+  readonly networkId = this.service.networkId;
 
   ngOnInit(): void {
     this.service.onInit();

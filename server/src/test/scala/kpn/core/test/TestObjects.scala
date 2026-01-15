@@ -31,6 +31,7 @@ import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.NetworkChange
+import kpn.api.common.changes.details.NetworkChangeInfo
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.changes.details.RefChanges
@@ -1708,5 +1709,49 @@ object TestObjects {
       removed
     )
   }
+
+  def newNetworkChangeInfo(
+    rowIndex: Long = 0,
+    comment: Option[String] = None,
+    key: ChangeKey = newChangeKey(),
+    changeType: ChangeType = ChangeType.Update,
+    country: Option[Country] = None,
+    routeType: RouteType = RouteType.hiking,
+    networkId: Long = 0,
+    networkName: Option[String] = None,
+    before: Option[MetaData] = None,
+    after: Option[MetaData] = None,
+    networkDataUpdated: Boolean = false,
+    networkNodes: RefDiffs = RefDiffs(),
+    routes: RefDiffs = RefDiffs(),
+    nodes: IdDiffs = IdDiffs(),
+    ways: IdDiffs = IdDiffs(),
+    relations: IdDiffs = IdDiffs(),
+    happy: Boolean = false,
+    investigate: Boolean = false
+  ): NetworkChangeInfo = {
+    NetworkChangeInfo(
+      rowIndex,
+      comment,
+      key,
+      changeType,
+      country,
+      routeType,
+      networkId,
+      networkName,
+      before,
+      after,
+      networkDataUpdated,
+      networkNodes,
+      routes,
+      nodes,
+      ways,
+      relations,
+      happy,
+      investigate
+    )
+  }
 }
+
+
 

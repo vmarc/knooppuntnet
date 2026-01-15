@@ -44,6 +44,7 @@ class MongoQuerySubsetNetworks(database: Database) {
       sort(orderBy(ascending("base.name"))),
       project(
         fields(
+          computed("id", "$_id"),
           include("country"),
           computed("routeType", "$base.routeType"),
           computed("routeScope", "$base.routeScope"),

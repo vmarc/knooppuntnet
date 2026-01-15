@@ -3,8 +3,8 @@ package kpn.server.api.analysis.pages.network
 import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.network.NetworkChangesPage
-import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
+import kpn.database.actions.networks.MongoQueryNetworkChangesPageData
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.changes.builder.NetworkChangeInfoBuilder
 import kpn.server.config.RequestContext
@@ -34,25 +34,26 @@ class NetworkChangesPageBuilder(
     networkId: Long,
     parameters: ChangesParameters
   ): Option[NetworkChangesPage] = {
-    database.networks.findById(networkId, log).map { networkDoc =>
-      buildNetworkChangesPage(parameters, networkDoc)
+    query(networkId).map { pageData =>
+      buildNetworkChangesPage(networkId, parameters, pageData)
     }
   }
 
   private def buildNetworkChangesPage(
+    networkId: Long,
     parameters: ChangesParameters,
-    networkDoc: NetworkDoc
+    pageData: NetworkChangesPageData
   ): NetworkChangesPage = {
 
     val filterOptions = if (RequestContext.isLoggedIn) {
-      networkInfoRepository.networkChangesFilter(networkDoc._id, parameters.year, parameters.month, parameters.day)
+      networkInfoRepository.networkChangesFilter(networkId, parameters.year, parameters.month, parameters.day)
     }
     else {
       Seq.empty
     }
 
     val changes = if (RequestContext.isLoggedIn) {
-      networkInfoRepository.networkChanges(networkDoc._id, parameters)
+      networkInfoRepository.networkChanges(networkId, parameters)
     }
     else {
       Seq.empty
@@ -67,10 +68,14 @@ class NetworkChangesPageBuilder(
     }
 
     NetworkChangesPage(
-      networkDoc.summary,
+      pageData.summary,
       filterOptions,
       networkUpdateInfos,
       changeCount
     )
+  }
+
+  private def query(networkId: Long): Option[NetworkChangesPageData] = {
+    new MongoQueryNetworkChangesPageData(database).execute(networkId)
   }
 }

@@ -2,20 +2,13 @@ package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
-import kpn.api.common.NetworkExtraMemberNode
-import kpn.api.common.NetworkExtraMemberRelation
-import kpn.api.common.NetworkExtraMemberWay
-import kpn.api.common.NetworkFacts
-import kpn.api.common.NetworkIntegrityCheck
-import kpn.api.common.NetworkIntegrityCheckFailed
-import kpn.api.common.NetworkNameMissing
-import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.network.Integrity
-import kpn.api.common.network.NetworkAttributes
+import kpn.api.common.network.NetworkDetail
 import kpn.api.common.network.NetworkDetailsPage
 import kpn.api.common.network.NetworkSummary
+import kpn.api.custom.Day
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -26,9 +19,9 @@ object NetworkDetailsPageExample {
     NetworkDetailsPage(
       networkSummary(),
       active = false,
-      networkAttributes(),
-      tags(),
-      facts()
+      country = Some(Country.nl),
+      detail = networkDetail(),
+      tags = tags()
     )
   }
 
@@ -43,20 +36,16 @@ object NetworkDetailsPageExample {
     )
   }
 
-  def networkAttributes(): NetworkAttributes = {
+  def networkDetail(): NetworkDetail = {
 
     val essen = LatLonImpl("51.46774", "4.46839")
 
-    NetworkAttributes(
-      id = 1L,
-      country = Some(Country.nl),
-      routeType = RouteType.hiking,
-      routeScope = RouteScope.regional,
-      name = Some("Network One"),
+    NetworkDetail(
       km = 12,
       meters = 1234,
-      nodeCount = 3,
-      routeCount = 4,
+      lastUpdated = Timestamp(2020, 1, 1),
+      relationLastUpdated = Timestamp(2019, 1, 1),
+      lastSurvey = Some(Day(2025, 12)),
       brokenRouteCount = 2,
       brokenRoutePercentage = "50%",
       integrity = Integrity(
@@ -71,8 +60,6 @@ object NetworkDetailsPageExample {
       ),
       inaccessibleRouteCount = 1,
       connectionCount = 2,
-      lastUpdated = Timestamp(2020, 1, 1),
-      relationLastUpdated = Timestamp(2019, 1, 1),
       center = Some(essen)
     )
   }
@@ -82,63 +69,6 @@ object NetworkDetailsPageExample {
       "one" -> "een",
       "two" -> "twee",
       "three" -> "drie"
-    )
-  }
-
-  private def facts(): NetworkFacts = {
-
-    NetworkFacts(
-      networkExtraMemberNode = Some(
-        Seq(
-          NetworkExtraMemberNode(1),
-          NetworkExtraMemberNode(2),
-          NetworkExtraMemberNode(3)
-        )
-      ),
-      networkExtraMemberWay = Some(
-        Seq(
-          NetworkExtraMemberWay(11),
-          NetworkExtraMemberWay(12),
-          NetworkExtraMemberWay(13)
-        )
-      ),
-      networkExtraMemberRelation = Some(
-        Seq(
-          NetworkExtraMemberRelation(1),
-          NetworkExtraMemberRelation(2),
-          NetworkExtraMemberRelation(3)
-        )
-      ),
-      integrityCheck = Some(
-        NetworkIntegrityCheck(
-          count = 3,
-          failed = 2
-        )
-      ),
-      integrityCheckFailed = Some(
-        NetworkIntegrityCheckFailed(
-          count = 3,
-          checks = Seq(
-            NodeIntegrityCheck(
-              nodeName = "01",
-              nodeId = 1,
-              actual = 2,
-              expected = 3,
-              failed = true
-            ),
-            NodeIntegrityCheck(
-              nodeName = "02",
-              nodeId = 2,
-              actual = 4,
-              expected = 4,
-              failed = false
-            )
-          )
-        )
-      ),
-      nameMissing = Some(
-        NetworkNameMissing()
-      )
     )
   }
 }

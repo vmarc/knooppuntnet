@@ -4,7 +4,6 @@ import { NetworkFact } from '@api/common/network-fact';
 import { NetworkSummary } from './network-summary';
 
 export interface NetworkFactsPage {
-  readonly _id: number;
   readonly summary: NetworkSummary;
   readonly facts: NetworkFact[];
 }

@@ -4,9 +4,9 @@ package kpn.tools.code.codecs.generated
 
 import kpn.api.common.Country
 import kpn.api.common.network.NetworkDetail
-import kpn.api.common.network.NetworkDetailsPage
 import kpn.api.common.network.NetworkSummary
 import kpn.api.custom.Tag
+import kpn.server.api.analysis.pages.network.NetworkDetailsPageData
 import kpn.tools.code.codecs.Codecs
 import org.bson.BsonReader
 import org.bson.BsonType
@@ -16,7 +16,7 @@ import org.bson.codecs.DecoderContext
 import org.bson.codecs.EncoderContext
 import org.bson.codecs.configuration.CodecRegistry
 
-class NetworkDetailsPageCodec(registry: CodecRegistry) extends Codec[NetworkDetailsPage] {
+class NetworkDetailsPageDataCodec(registry: CodecRegistry) extends Codec[NetworkDetailsPageData] {
 
   private val booleanCodec = registry.get(classOf[Boolean])
   private val countryCodec = registry.get(classOf[Country])
@@ -24,7 +24,7 @@ class NetworkDetailsPageCodec(registry: CodecRegistry) extends Codec[NetworkDeta
   private val networkSummaryCodec = registry.get(classOf[NetworkSummary])
   private val tagCodec = registry.get(classOf[Tag])
 
-  override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): NetworkDetailsPage = {
+  override def decode(bsonReader: BsonReader, decoderContext: DecoderContext): NetworkDetailsPageData = {
     bsonReader.readStartDocument()
 
     var summary: NetworkSummary = null
@@ -57,14 +57,14 @@ class NetworkDetailsPageCodec(registry: CodecRegistry) extends Codec[NetworkDeta
         tags = valueBuffer.toSeq
       }
       else {
-        Codecs.warn(s"Unknown field name: $fieldName in NetworkDetailsPageCodec.decode()")
+        Codecs.warn(s"Unknown field name: $fieldName in NetworkDetailsPageDataCodec.decode()")
         bsonReader.skipValue()
       }
     }
 
     bsonReader.readEndDocument()
 
-    NetworkDetailsPage(
+    NetworkDetailsPageData(
       summary,
       active,
       country,
@@ -73,7 +73,7 @@ class NetworkDetailsPageCodec(registry: CodecRegistry) extends Codec[NetworkDeta
     )
   }
 
-  override def encode(bsonWriter: BsonWriter, value: NetworkDetailsPage, encoderContext: EncoderContext): Unit = {
+  override def encode(bsonWriter: BsonWriter, value: NetworkDetailsPageData, encoderContext: EncoderContext): Unit = {
     bsonWriter.writeStartDocument()
 
     bsonWriter.writeName("summary")
@@ -98,7 +98,7 @@ class NetworkDetailsPageCodec(registry: CodecRegistry) extends Codec[NetworkDeta
     bsonWriter.writeEndDocument()
   }
 
-  override def getEncoderClass: Class[NetworkDetailsPage] = {
-    classOf[NetworkDetailsPage]
+  override def getEncoderClass: Class[NetworkDetailsPageData] = {
+    classOf[NetworkDetailsPageData]
   }
 }

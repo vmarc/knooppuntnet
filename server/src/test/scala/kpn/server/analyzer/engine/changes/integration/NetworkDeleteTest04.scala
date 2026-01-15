@@ -168,7 +168,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
             Subset.nlHiking,
             ChangeSetElementRefs(
               added = Seq(
-                newChangeSetElementRef(1, "01-02", happy = true, investigate = true)
+                newChangeSetElementRef(1, "01-02", happy = true)
               )
             )
           )
@@ -205,8 +205,8 @@ class NetworkDeleteTest04 extends IntegrationTest {
     networkChange.changeType should equal(ChangeType.Delete)
     networkChange.routeType should equal(RouteType.hiking)
     networkChange.networkName should equal(Some("01-02"))
-    assert(!networkChange.happy)
-    assert(networkChange.investigate)
+    networkChange.happy should equal(false)
+    networkChange.investigate should equal(true)
   }
 
   private def assertRouteChange(): Unit = {
@@ -214,7 +214,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
     routeChange.key.changeSetId should equal(1)
     routeChange.key.elementId should equal(1)
     routeChange.changeType should equal(ChangeType.Create)
-    assert(routeChange.happy)
-    assert(routeChange.investigate)
+    routeChange.happy should equal(true)
+    routeChange.investigate should equal(false)
   }
 }

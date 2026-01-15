@@ -15,7 +15,7 @@ import { NetworkSummaryComponent } from './network-summary.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-data title="Summary" i18n-title="@@network-details.summary">
-      <ui-network-summary [page]="response().result" />
+      <ui-network-summary [networkId]="networkId()" [page]="response().result" />
     </ui-data>
 
     <div class="data2">
@@ -32,12 +32,12 @@ import { NetworkSummaryComponent } from './network-summary.component';
         <span i18n="@@network-details.last-updated">Last updated</span>
       </div>
       <div class="body">
-        <ui-timestamp [timestamp]="response().result.attributes.lastUpdated" />
+        <ui-timestamp [timestamp]="response().result.detail.lastUpdated" />
       </div>
     </div>
 
     <ui-data title="Relation last updated" i18n-title="@@network-details.relation-last-updated">
-      <ui-timestamp [timestamp]="response().result.attributes.relationLastUpdated" />
+      <ui-timestamp [timestamp]="response().result.detail.relationLastUpdated" />
     </ui-data>
 
     <ui-data title="Tags" i18n-title="@@network-details.tags">
@@ -48,6 +48,7 @@ import { NetworkSummaryComponent } from './network-summary.component';
   imports: [DataComponent, NetworkSummaryComponent, TagTableComponent, TimestampComponent],
 })
 export class NetworkDetailsComponent implements OnInit {
+  readonly networkId = input.required<number>();
   readonly response = input.required<ApiResponse<NetworkDetailsPage>>();
 
   tags: InterpretedTags;
