@@ -8,7 +8,9 @@ import kpn.api.common.network.NetworkFactsPage
 import kpn.api.common.network.NetworkSummary
 import kpn.core.doc.NetworkDoc
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newNetworkBaseData
+import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNetworkDoc
 
 class NetworkFactsPageBuilderTest extends MongoTest {
@@ -22,6 +24,7 @@ class NetworkFactsPageBuilderTest extends MongoTest {
     // setup
     val networkDoc = buildNetworkDoc()
     database.networks.save(networkDoc)
+    database.networkChanges.save(newNetworkChange(key = newChangeKey(elementId = 2)))
 
     // execute
     val result = build(2)
@@ -37,6 +40,7 @@ class NetworkFactsPageBuilderTest extends MongoTest {
           factCount = 1,
           nodeCount = 10,
           routeCount = 15,
+          changeCount = 1
         ),
         facts = networkDoc.facts
       )

@@ -102,7 +102,7 @@ export class NetworkPageHeaderComponent {
         pageName: 'changes',
         pageLink: link + '/changes',
         label: $localize`:@@network-page.menu.changes:Changes`,
-        elementCount: 999,
+        elementCount: summary?.changeCount,
       },
     ];
   });

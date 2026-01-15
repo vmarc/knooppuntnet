@@ -1370,6 +1370,7 @@ object TestObjects {
     factCount: Long = 0,
     nodeCount: Long = 0,
     routeCount: Long = 0,
+    changeCount: Long = 0
   ): NetworkSummary = {
     NetworkSummary(
       name,
@@ -1378,6 +1379,7 @@ object TestObjects {
       factCount,
       nodeCount,
       routeCount,
+      changeCount
     )
   }
 

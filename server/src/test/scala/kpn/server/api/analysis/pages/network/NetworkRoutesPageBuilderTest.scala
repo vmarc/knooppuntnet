@@ -3,6 +3,7 @@ package kpn.server.api.analysis.pages.network
 import kpn.api.common.Fact
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkRoutesPage
 import kpn.api.common.network.NetworkSummary
@@ -10,7 +11,9 @@ import kpn.api.custom.Tags
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkRouteDetail
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newNetworkBaseData
+import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.Timestamps
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
@@ -26,6 +29,10 @@ class NetworkRoutesPageBuilderTest extends MongoTest {
 
     // setup
     database.networks.save(buildNetworkDoc())
+    database.networkChanges.save(buildNetworkChange(1, 2))
+    database.networkChanges.save(buildNetworkChange(2, 2))
+    database.networkChanges.save(buildNetworkChange(3, 2))
+    database.networkChanges.save(buildNetworkChange(4, 3))
 
     // execute
     val result = build(2)
@@ -44,6 +51,7 @@ class NetworkRoutesPageBuilderTest extends MongoTest {
           factCount = 5,
           nodeCount = 10,
           routeCount = 15,
+          changeCount = 3
         ),
         routes = Seq(
           NetworkRouteRow(
@@ -95,6 +103,12 @@ class NetworkRoutesPageBuilderTest extends MongoTest {
       factCount = 5,
       nodeCount = 10,
       routeCount = 15,
+    )
+  }
+
+  private def buildNetworkChange(replicationNumber: Int, elementId: Long): NetworkChange = {
+    newNetworkChange(
+      key = newChangeKey(replicationNumber = replicationNumber, elementId = elementId),
     )
   }
 

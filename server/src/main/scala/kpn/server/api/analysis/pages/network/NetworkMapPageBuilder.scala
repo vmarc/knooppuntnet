@@ -47,7 +47,7 @@ class NetworkMapPageBuilder(
     val connectionRouteIds = network.routes.filter(_.roleConnection).map(_.id)
 
     NetworkMapPage(
-      network.summary,
+      null,
       nodes,
       networkNodeIds,
       connectionNodeIds,

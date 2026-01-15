@@ -30,6 +30,7 @@ class NetworkSummaryCodec(registry: CodecRegistry) extends Codec[NetworkSummary]
     var factCount: Long = 0
     var nodeCount: Long = 0
     var routeCount: Long = 0
+    var changeCount: Long = 0
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
       val fieldName = bsonReader.readName
@@ -51,6 +52,9 @@ class NetworkSummaryCodec(registry: CodecRegistry) extends Codec[NetworkSummary]
       else if (fieldName == "routeCount") {
         routeCount = longCodec.decode(bsonReader, decoderContext)
       }
+      else if (fieldName == "changeCount") {
+        changeCount = longCodec.decode(bsonReader, decoderContext)
+      }
       else {
         Codecs.warn(s"Unknown field name: $fieldName in NetworkSummaryCodec.decode()")
         bsonReader.skipValue()
@@ -66,6 +70,7 @@ class NetworkSummaryCodec(registry: CodecRegistry) extends Codec[NetworkSummary]
       factCount,
       nodeCount,
       routeCount,
+      changeCount,
     )
   }
 
@@ -91,6 +96,9 @@ class NetworkSummaryCodec(registry: CodecRegistry) extends Codec[NetworkSummary]
 
     bsonWriter.writeName("routeCount")
     longCodec.encode(bsonWriter, value.routeCount, encoderContext)
+
+    bsonWriter.writeName("changeCount")
+    longCodec.encode(bsonWriter, value.changeCount, encoderContext)
 
     bsonWriter.writeEndDocument()
   }

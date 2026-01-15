@@ -1,9 +1,7 @@
 package kpn.database.actions.networks
 
 import com.mongodb.client.model.Aggregates.project
-import com.mongodb.client.model.Projections.computed
 import com.mongodb.client.model.Projections.excludeId
-import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import kpn.core.util.Log
 import kpn.database.actions.networks.MongoQueryNetworkNodesPageData.log
@@ -32,15 +30,10 @@ class MongoQueryNetworkNodesPageData(database: Database) {
       filter(
         equal("_id", networkId)
       ),
+      NetworkPipeline.lookupChangeCount(database, networkId),
       project(
-        fields(
+        NetworkPipeline.fields(
           excludeId(),
-          computed("summary.name", "$base.name"),
-          computed("summary.routeType", "$base.routeType"),
-          computed("summary.routeScope", "$base.routeScope"),
-          computed("summary.factCount", "$factCount"),
-          computed("summary.nodeCount", "$nodeCount"),
-          computed("summary.routeCount", "$routeCount"),
           include("nodes")
         )
       )

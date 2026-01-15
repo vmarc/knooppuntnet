@@ -30,6 +30,10 @@ object MongoAggregates {
     com.mongodb.client.model.Aggregates.unionWith(collection, seqToList(pipeline))
   }
 
+  def lookup(collection: String, pipeline: MongoPipeline, field: String): Bson = {
+    com.mongodb.client.model.Aggregates.lookup(collection, seqToList(pipeline), field)
+  }
+
   def arrayEmpty(field: String): Bson = {
     BsonDocument.parse(s"""{$field: { $$exists: true, $$size: 0}}""")
   }

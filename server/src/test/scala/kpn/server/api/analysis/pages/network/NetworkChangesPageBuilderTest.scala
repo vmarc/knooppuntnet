@@ -44,6 +44,7 @@ class NetworkChangesPageBuilderTest extends MongoTest {
           factCount = 5,
           nodeCount = 10,
           routeCount = 15,
+          changeCount = 1
         ),
         filterOptions = Seq(
           ChangesFilterOption(

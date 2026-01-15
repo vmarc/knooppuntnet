@@ -7,7 +7,6 @@ import kpn.api.common.data.Tagable
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.network.NetworkBaseData
 import kpn.api.common.network.NetworkDetail
-import kpn.api.common.network.NetworkSummary
 import kpn.api.custom.Tag
 import org.bson.types.ObjectId
 
@@ -28,17 +27,6 @@ case class NetworkDoc(
   extraRelationIds: Seq[Long],
   stamp: Option[ObjectId],
 ) extends WithId with Tagable {
-
-  def summary: NetworkSummary = {
-    NetworkSummary(
-      name = base.name,
-      routeType = base.routeType,
-      routeScope = base.routeScope,
-      factCount = factCount,
-      nodeCount = nodeCount,
-      routeCount = routeCount
-    )
-  }
 
   def memberNodeIds: Seq[Long] = {
     membersTypeRefs(MemberType.Node)

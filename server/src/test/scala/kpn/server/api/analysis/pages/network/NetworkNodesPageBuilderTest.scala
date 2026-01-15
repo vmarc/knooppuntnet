@@ -10,7 +10,9 @@ import kpn.api.common.network.NetworkSummary
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.test.MongoTest
+import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newNetworkBaseData
+import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
 import kpn.core.test.TestObjects.newRouteBaseData
@@ -31,6 +33,7 @@ class NetworkNodesPageBuilderTest extends MongoTest {
     // setup
     database.networks.save(buildNetworkDoc())
     database.routes.save(buildRouteDoc())
+    database.networkChanges.save(newNetworkChange(key = newChangeKey(elementId = 2)))
 
     // execute
     val result = build(2)
@@ -48,6 +51,7 @@ class NetworkNodesPageBuilderTest extends MongoTest {
           factCount = 5,
           nodeCount = 10,
           routeCount = 15,
+          changeCount = 1
         ),
         nodes = Seq(
           NetworkNodeRow(
