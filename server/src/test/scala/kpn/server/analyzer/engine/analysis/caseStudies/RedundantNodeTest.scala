@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.Fact.RouteNotBackward
-import kpn.api.common.Fact.RouteNotContinious
 import kpn.api.common.Fact.RouteNotForward
 import kpn.api.common.Fact.RouteRedundantNodes
 import kpn.core.util.UnitTest
@@ -16,6 +15,5 @@ class RedundantNodeTest extends UnitTest {
 
     context.facts shouldNot contain(RouteNotBackward)
     context.facts shouldNot contain(RouteNotForward)
-    context.facts shouldNot contain(RouteNotContinious)
   }
 }

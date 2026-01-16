@@ -11,6 +11,5 @@ class CycleWayOppositeTest extends UnitTest {
 
     assert(!route.facts.contains(Fact.RouteNotBackward))
     assert(!route.facts.contains(Fact.RouteNotForward))
-    assert(!route.facts.contains(Fact.RouteNotContinious))
   }
 }

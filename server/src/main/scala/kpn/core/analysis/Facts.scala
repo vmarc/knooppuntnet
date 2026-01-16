@@ -20,7 +20,6 @@ object Facts {
   def level(fact: Fact): FactLevel = {
     fact match {
       case Fact.RouteUnsupportedRouteType => FactLevel.ERROR
-      case Fact.RouteNotContinious => FactLevel.ERROR
       case Fact.RouteNotForward => FactLevel.ERROR
       case Fact.RouteNotBackward => FactLevel.ERROR
       case Fact.RouteUnusedSegments => FactLevel.ERROR
@@ -88,7 +87,6 @@ object Facts {
   }
 
   val locationFacts: Seq[Fact] = Seq(
-    Fact.RouteNotContinious,
     Fact.RouteNotForward,
     Fact.RouteNotBackward,
     Fact.RouteUnusedSegments,
@@ -137,7 +135,7 @@ object Facts {
     errorFacts ++ infoFacts
   }
 
-  val redundantFacts: Set[Fact] = Set(Fact.RouteBroken, Fact.RouteNotContinious)
+  val redundantFacts: Set[Fact] = Set(Fact.RouteBroken)
 
   def withoutRedundantFacts(facts: Seq[Fact]): Seq[Fact] = {
     facts.filterNot(redundantFacts.contains)

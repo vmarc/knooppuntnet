@@ -36,7 +36,6 @@ import { FactRouteNameMissingComponent } from './descriptions/fact-route-name-mi
 import { FactRouteNodeMissingInWaysComponent } from './descriptions/fact-route-node-missing-in-ways.component';
 import { FactRouteNodeNameMismatchComponent } from './descriptions/fact-route-node-name-mismatch.component';
 import { FactRouteNotBackwardComponent } from './descriptions/fact-route-not-backward.component';
-import { FactRouteNotContiniousComponent } from './descriptions/fact-route-not-continious.component';
 import { FactRouteNotForwardComponent } from './descriptions/fact-route-not-forward.component';
 import { FactRouteNotOneWayComponent } from './descriptions/fact-route-not-one-way.component';
 import { FactRouteOneWayComponent } from './descriptions/fact-route-one-way.component';
@@ -91,7 +90,6 @@ export class FactDescriptionComponent {
     RouteNodeMissingInWays: FactRouteNodeMissingInWaysComponent,
     RouteNodeNameMismatch: FactRouteNodeNameMismatchComponent,
     RouteNotBackward: FactRouteNotBackwardComponent,
-    RouteNotContinious: FactRouteNotContiniousComponent,
     RouteNotForward: FactRouteNotForwardComponent,
     RouteNotOneWay: FactRouteNotOneWayComponent,
     RouteOneWay: FactRouteOneWayComponent,

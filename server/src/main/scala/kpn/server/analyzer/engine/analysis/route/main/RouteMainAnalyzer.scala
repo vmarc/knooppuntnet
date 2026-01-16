@@ -63,7 +63,6 @@ class RouteMainAnalyzer(
 
   private def buildRouteDoc(context: RouteAnalysisContext): RouteDoc = {
     val facts: ListBuffer[Fact] = ListBuffer[Fact]()
-    facts ++= context.route.facts
     facts ++= context.facts
     if (facts.exists(Facts.isError)) {
       if (!facts.contains(RouteBroken)) {

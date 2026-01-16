@@ -4,7 +4,6 @@ import kpn.api.common.Fact
 import kpn.api.common.Fact.RouteAnalysisFailed
 import kpn.api.common.Fact.RouteNodeMissingInWays
 import kpn.api.common.Fact.RouteNotBackward
-import kpn.api.common.Fact.RouteNotContinious
 import kpn.api.common.Fact.RouteNotForward
 import kpn.api.common.Fact.RouteNotOneWay
 import kpn.api.common.Fact.RouteOneWay
@@ -69,15 +68,6 @@ class BaseRouteStructureAnalyzer(context: BaseRouteAnalysisContext) {
         }
         facts += RouteNotForward
         facts += RouteNotBackward
-      }
-
-      if (!Seq(RouteNodeMissingInWays, RouteOneWay).exists(facts.contains)) {
-        if (!isSingleWayRoundabout) {
-          if (structure.forwardPath.isEmpty || /* segmentAnalysis.structure.forwardPath.get.broken ||*/
-            structure.backwardPath.isEmpty /*|| segmentAnalysis.structure.backwardPath.get.broken*/ ) {
-            facts += RouteNotContinious
-          }
-        }
       }
 
       if (!Seq(RouteNotForward, RouteNotBackward).exists(facts.contains)) {

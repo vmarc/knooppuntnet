@@ -61,8 +61,6 @@ export class FactNameComponent implements OnInit {
       this.factName = $localize`:@@fact.name.route-node-name-mismatch:RouteNodeNameMismatch`;
     } else if (this.fact() === 'RouteNotBackward') {
       this.factName = $localize`:@@fact.name.route-not-backward:RouteNotBackward`;
-    } else if (this.fact() === 'RouteNotContinious') {
-      this.factName = $localize`:@@fact.name.route-not-continious:RouteNotContinious`;
     } else if (this.fact() === 'RouteNotForward') {
       this.factName = $localize`:@@fact.name.route-not-forward:RouteNotForward`;
     } else if (this.fact() === 'RouteNotOneWay') {

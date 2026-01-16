@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.Fact.RouteBroken
 import kpn.api.common.Fact.RouteNotBackward
-import kpn.api.common.Fact.RouteNotContinious
 import kpn.api.common.Fact.RouteNotForward
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.data.MemberType
@@ -53,7 +52,6 @@ class RouteUpdateTest07 extends IntegrationTest {
           RouteNotBackward,
           RouteNotForward,
           RouteBroken,
-          RouteNotContinious,
         )
       )
     }

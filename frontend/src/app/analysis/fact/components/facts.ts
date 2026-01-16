@@ -60,7 +60,6 @@ export class Facts {
     new FactDefinition('RouteNodeMissingInWays', 'error', FactElement.route),
     new FactDefinition('RouteNodeNameMismatch', 'info', FactElement.route),
     new FactDefinition('RouteNotBackward', 'error', FactElement.route),
-    new FactDefinition('RouteNotContinious', 'error', FactElement.route),
     new FactDefinition('RouteNotForward', 'error', FactElement.route),
     new FactDefinition('RouteNotOneWay', 'info', FactElement.route),
     new FactDefinition('RouteOneWay', 'info', FactElement.route),

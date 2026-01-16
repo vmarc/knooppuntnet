@@ -12,8 +12,6 @@ object Fact extends Enum[Fact] {
   final case object RouteUnsupportedRouteType extends Fact
 
   // errors
-  final case object RouteNotContinious extends Fact
-
   final case object RouteNotForward extends Fact
 
   final case object RouteNotBackward extends Fact

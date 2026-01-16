@@ -61,7 +61,6 @@ object RouteDetailsPageExample {
       lastUpdated = Timestamp(2020, 10, 11, 12, 34, 56),
       lastSurvey = Some(Day(2020, 11, 8)),
       facts = Seq(
-        Fact.RouteNotContinious,
         Fact.RouteNotForward,
         Fact.RouteNotBackward,
         Fact.RouteUnusedSegments,

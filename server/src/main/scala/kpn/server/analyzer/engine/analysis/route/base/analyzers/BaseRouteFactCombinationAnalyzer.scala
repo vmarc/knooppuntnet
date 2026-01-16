@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.route.base.analyzers
 import kpn.api.common.Fact.RouteIncomplete
 import kpn.api.common.Fact.RouteNodeMissingInWays
 import kpn.api.common.Fact.RouteNotBackward
-import kpn.api.common.Fact.RouteNotContinious
 import kpn.api.common.Fact.RouteNotForward
 import kpn.api.common.Fact.RouteRedundantNodes
 import kpn.api.common.Fact.RouteUnusedSegments
@@ -21,7 +20,6 @@ class BaseRouteFactCombinationAnalyzer(context: BaseRouteAnalysisContext) {
 
     val excludedFacts = context.facts.filter {
       case RouteUnusedSegments => context.hasFact(RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward)
-      case RouteNotContinious => context.hasFact(RouteNodeMissingInWays, RouteWithoutWays, RouteIncomplete)
       case RouteNotForward => context.hasFact(RouteWithoutWays)
       case RouteNotBackward => context.hasFact(RouteWithoutWays)
       case RouteNodeMissingInWays => context.hasFact(RouteWithoutWays, RouteIncomplete)

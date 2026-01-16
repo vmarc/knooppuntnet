@@ -65,12 +65,23 @@ export class OverviewConfigurationService {
 
     configurations.push(
       new StatisticConfiguration(
-        'RouteNotContiniousCount',
-        'RouteNotContinious',
+        'RouteNotForwardCount',
+        'RouteNotForward',
         false,
         factDetailCounts,
-        $localize`:@@stats.route-not-continious.name:RouteNotContinious`,
-        $localize`:@@stats.route-not-continious.comment:Number of broken routes.`
+        $localize`:@@stats.route-not-forward.name:RouteNotForward`,
+        $localize`:@@stats.route-not-forward.comment:Number of routes without forward path.`
+      )
+    );
+
+    configurations.push(
+      new StatisticConfiguration(
+        'RouteNotBackwardCount',
+        'RouteNotBackward',
+        false,
+        factDetailCounts,
+        $localize`:@@stats.route-not-backward.name:RouteNotBackward`,
+        $localize`:@@stats.route-not-backward.comment:Number of routes without backward path.`
       )
     );
 

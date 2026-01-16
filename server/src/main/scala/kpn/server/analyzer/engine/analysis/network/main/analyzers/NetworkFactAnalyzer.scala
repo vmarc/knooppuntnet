@@ -2,9 +2,6 @@ package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.Check
 import kpn.api.common.Fact
-import kpn.api.common.Fact.RouteBroken
-import kpn.api.common.Fact.RouteNotBackward
-import kpn.api.common.Fact.RouteNotForward
 import kpn.api.common.NetworkFact
 import kpn.api.common.common.Ref
 import kpn.core.analysis.Facts
@@ -77,7 +74,7 @@ class NetworkFactAnalyzer(context: NetworkAnalysisContext, nodeMemberMissingAnal
   }
 
   private def collectRouteFacts(context: NetworkAnalysisContext): Seq[NetworkFact] = {
-    val facts = context.routeDetails.flatMap(_.facts).filterNot(isIgnoredFact).distinct.sortBy(_.entryName)
+    val facts = context.routeDetails.flatMap(_.facts).distinct.sortBy(_.entryName)
     facts.map { fact =>
       val routes = context.routeDetails.filter(_.facts.contains(fact))
       val routeIds = routes.map(_.id)
@@ -124,13 +121,5 @@ class NetworkFactAnalyzer(context: NetworkAnalysisContext, nodeMemberMissingAnal
     else {
       Seq.empty
     }
-  }
-
-  private def isIgnoredFact(fact: Fact): Boolean = {
-    Seq(
-      RouteBroken, // already covered by other facts
-      RouteNotForward, // already covered by RouteNotContinious
-      RouteNotBackward // already covered by RouteNotContinious
-    ).contains(fact)
   }
 }

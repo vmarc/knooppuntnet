@@ -34,7 +34,6 @@ export type Fact =
   | 'RouteNodeMissingInWays'
   | 'RouteNodeNameMismatch'
   | 'RouteNotBackward'
-  | 'RouteNotContinious'
   | 'RouteNotForward'
   | 'RouteNotOneWay'
   | 'RouteOneWay'

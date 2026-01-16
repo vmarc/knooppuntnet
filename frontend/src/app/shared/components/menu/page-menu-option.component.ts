@@ -13,7 +13,7 @@ import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.
     <a [routerLink]="link()" [ngClass]="{ active: active() }" [state]="state()" class="link">
       <ng-content />
       @if (!!elementCount()) {
-        <span class="element-count"> ({{ elementCount() | integer }}) </span>
+        <span class="element-count"> ({{ elementCount() | integer }})</span>
       }
     </a>
   `,
@@ -44,10 +44,4 @@ export class PageMenuOptionComponent {
     | undefined
   >();
   readonly elementCount = input<number | undefined>();
-
-  constructor() {
-    effect(() => {
-      console.log('menu-option=' + this.link() + ', active=' + this.active());
-    });
-  }
 }
