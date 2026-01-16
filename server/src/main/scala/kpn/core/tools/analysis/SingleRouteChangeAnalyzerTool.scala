@@ -91,8 +91,98 @@ import kpn.server.repository.RouteTileRepository
 import kpn.server.repository.TaskRepositoryImpl
 
 object SingleRouteChangeAnalyzerTool {
+
+  private val routeIds: Seq[Long] = Seq(
+    1101490,
+    15822027,
+    12741451,
+    15822028,
+    12939140,
+    153045,
+    17400372,
+    8142601,
+    1067235,
+    1503490,
+    17942394,
+    1503489,
+    2964482,
+    145964,
+    16399462,
+    1204655,
+    124190,
+    16399460,
+    12954486,
+    105676,
+    105677,
+    1598415,
+    10985193,
+    3930047,
+    3729933,
+    9432838,
+    14531804,
+    17448757,
+    3873330,
+    17147360,
+    10985186,
+    165875,
+    1694837,
+    276168,
+    17997689,
+    13123100,
+    17147351,
+    1124903,
+    15842596,
+    145961,
+    11193961,
+    660629,
+    12741819,
+    1687655,
+    10130460,
+    145960,
+    6303592,
+    124189,
+    1615593,
+    157154,
+    1123569,
+    15822023,
+    105960,
+    105673,
+    1615590,
+    105961,
+    12530925,
+    271758,
+    17375779,
+    17998539,
+    17998537,
+    11660904,
+    7498220,
+    15822019,
+    6576301,
+    910536,
+    17549533,
+    16858304,
+    157158,
+    7498218,
+    17549527,
+    1687473,
+    1125025,
+    2473407,
+    1103478,
+    951327,
+    157155,
+    105962,
+    105963,
+    197943,
+    112252,
+    4844401,
+    10405591,
+    1797904,
+    17998410,
+    6303593,
+    10543366,
+  )
+
   def main(args: Array[String]): Unit = {
-    val relationId = 11140514
     val replicationId = ReplicationId(0)
     val changeSetId = 176115830
     val timestamp = Timestamp.apply(2025, 12, 18, 22, 30, 30)
@@ -110,9 +200,9 @@ object SingleRouteChangeAnalyzerTool {
             action = ChangeAction.Modify,
             nodes = Seq.empty, // Seq[RawNode],
             ways = Seq.empty, // Seq[RawWay],
-            relations = Seq(
+            relations = routeIds.map { routeId =>
               RawRelation(
-                id = relationId,
+                id = routeId,
                 version = 0,
                 timestamp = timestamp,
                 changeSetId = changeSetId,
@@ -122,16 +212,17 @@ object SingleRouteChangeAnalyzerTool {
                   "route" -> "hiking"
                 )
               )
-            )
+            }
           )
         )
       )
     )
 
-    Mongo.executeIn("test") { database =>
+    Mongo.devServerExecuteIn("kpn") { database =>
       val configuration = new SingleRouteChangeAnalyzerConfiguration(database)
-      configuration.analysisContext.watched.routes.add(relationId, ElementIds())
-
+      routeIds.foreach { routeId =>
+        configuration.analysisContext.watched.routes.add(routeId, ElementIds())
+      }
       val processor = new ChangeSetProcessor(configuration.changeProcessorPipeline)
       processor.processChangeSets(replicationId, changeSets)
     }

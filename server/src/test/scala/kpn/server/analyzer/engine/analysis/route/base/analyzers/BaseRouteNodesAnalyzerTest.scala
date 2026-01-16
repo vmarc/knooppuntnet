@@ -11,23 +11,6 @@ import kpn.server.analyzer.engine.analysis.route.RouteTestData
 
 class BaseRouteNodesAnalyzerTest extends UnitTest {
 
-  test("ISSUE") {
-
-    val d = new RouteTestData("01-01") {
-      node(1, "01")
-      node(2, "01")
-      memberWay(5, "", 1, 2)
-    }
-
-    assertEqual(
-      analyze(d),
-      Seq(
-        "start=1(01.a)W",
-        "end=2(01.b)W"
-      )
-    )
-  }
-
   test("no nodes") {
 
     val d = new RouteTestData("01-02") {
@@ -317,6 +300,23 @@ class BaseRouteNodesAnalyzerTest extends UnitTest {
     )
   }
 
+  test("start and end node have the same name") {
+
+    val d = new RouteTestData("01-01") {
+      node(1, "01")
+      node(2, "01")
+      memberWay(5, "", 1, 2)
+    }
+
+    assertEqual(
+      analyze(d),
+      Seq(
+        "start=1(01)W",
+        "end=2(01)W"
+      )
+    )
+  }
+
   test("no start node in route name") { // TODO redesign - this test does not belong here (route name irrelevant)?
 
     val d = new RouteTestData("-02") {
@@ -413,9 +413,9 @@ class BaseRouteNodesAnalyzerTest extends UnitTest {
     assertEqual(
       analyze(d),
       Seq(
-        "start=3(01.a)W",
-        "start-tentacle=2(01.b)W",
-        "start-tentacle=1(01.c)W",
+        "start=1(01)W",
+        "end=2(01.a)W",
+        "end-tentacle=3(01.b)W",
       )
     )
   }

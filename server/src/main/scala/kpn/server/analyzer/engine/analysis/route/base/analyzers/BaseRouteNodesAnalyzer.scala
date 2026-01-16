@@ -62,28 +62,68 @@ class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
   }
 
   private def analyzeRouteWithSingleRouteTypeNodes(routeType: RouteType, nodeDatas: Seq[RouteNodeAnalysis]): BaseRouteAnalysisContext = {
-    val wayRouteNodeDatas = nodeDatas.filter(_.isInWay)
-    val startNodeName = determineStartNodeName(nodeDatas, wayRouteNodeDatas)
-    val endNodeNameOption: Option[String] = determineEndNodeName(startNodeName, nodeDatas, wayRouteNodeDatas)
 
-    val startNodes = withSuffixes(nodeDatas.filter(_.name == startNodeName).reverse)
-    val endNodes = withSuffixes(nodeDatas.filter(n => endNodeNameOption.contains(n.name)))
-    val nodeIds = startNodes.map(_.node.id) ++ endNodes.map(_.node.id)
-    val redundantNodes = nodeDatas.filterNot(n => nodeIds.contains(n.node.id) || n.name == "*")
+    if (nodeDatas.sizeIs == 1) {
+      val routeNodeAnalysis = RouteNodesAnalysis(
+        startNode = nodeDatas.headOption,
+        endNode = None,
+        startTentacleNodes = Seq.empty,
+        endTentacleNodes = Seq.empty,
+        redundantNodes = Seq.empty
+      )
+      context.copy(
+        _routeNodesAnalysis = Some(routeNodeAnalysis)
+      )
+    }
+    else {
+      val wayRouteNodeDatas = nodeDatas.filter(_.isInWay)
+      val allNodesHaveTheSameName = wayRouteNodeDatas.map(_.name).distinct.sizeIs == 1
 
-    val routeNodeAnalysis = RouteNodesAnalysis(
-      startNode = startNodes.headOption,
-      endNode = endNodes.headOption,
-      startTentacleNodes = startNodes.drop(1),
-      endTentacleNodes = endNodes.drop(1),
-      redundantNodes = redundantNodes
-    )
+      if (allNodesHaveTheSameName) {
+        val nodeName = determineStartNodeName(nodeDatas, wayRouteNodeDatas)
 
-    val facts: ListBuffer[Fact] = analyzeFacts(routeNodeAnalysis)
+        val startNode = wayRouteNodeDatas.headOption
+        val endNodes = withSuffixes(wayRouteNodeDatas.tail)
+        val endNode = endNodes.headOption
+        val endTentacleNodes = endNodes.tail
 
-    context.copy(
-      _routeNodesAnalysis = Some(routeNodeAnalysis)
-    ).withFacts(facts.toSeq *)
+        val routeNodeAnalysis = RouteNodesAnalysis(
+          startNode = startNode,
+          endNode = endNode,
+          startTentacleNodes = Seq.empty,
+          endTentacleNodes = endTentacleNodes,
+          redundantNodes = Seq.empty
+        )
+        val facts: ListBuffer[Fact] = analyzeFacts(routeNodeAnalysis)
+
+        context.copy(
+          _routeNodesAnalysis = Some(routeNodeAnalysis)
+        ).withFacts(facts.toSeq *)
+      }
+      else {
+        val startNodeName = determineStartNodeName(nodeDatas, wayRouteNodeDatas)
+        val endNodeNameOption: Option[String] = determineEndNodeName(startNodeName, nodeDatas, wayRouteNodeDatas)
+
+        val startNodes = withSuffixes(nodeDatas.filter(_.name == startNodeName).reverse)
+        val endNodes = withSuffixes(nodeDatas.filter(n => endNodeNameOption.contains(n.name)))
+        val nodeIds = startNodes.map(_.node.id) ++ endNodes.map(_.node.id)
+        val redundantNodes = nodeDatas.filterNot(n => nodeIds.contains(n.node.id) || n.name == "*")
+
+        val routeNodeAnalysis = RouteNodesAnalysis(
+          startNode = startNodes.headOption,
+          endNode = endNodes.headOption,
+          startTentacleNodes = startNodes.drop(1),
+          endTentacleNodes = endNodes.drop(1),
+          redundantNodes = redundantNodes
+        )
+
+        val facts: ListBuffer[Fact] = analyzeFacts(routeNodeAnalysis)
+
+        context.copy(
+          _routeNodesAnalysis = Some(routeNodeAnalysis)
+        ).withFacts(facts.toSeq *)
+      }
+    }
   }
 
   private def analyzeFacts(routeNodeAnalysis: RouteNodesAnalysis) = {

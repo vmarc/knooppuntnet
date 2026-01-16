@@ -55,12 +55,20 @@ object Mongo {
     MongoClients.create(webUrl)
   }
 
+  def devServerClient: MongoClient = {
+    MongoClients.create(devServerUrl)
+  }
+
   def executeIn(databaseName: String)(action: Database => Unit): Unit = {
     executeIn(client, databaseName)(action)
   }
 
   def webExecuteIn(databaseName: String)(action: Database => Unit): Unit = {
     executeIn(webClient, databaseName)(action)
+  }
+
+  def devServerExecuteIn(databaseName: String)(action: Database => Unit): Unit = {
+    executeIn(devServerClient, databaseName)(action)
   }
 
   private def executeIn(mongoClient: MongoClient, databaseName: String)(action: Database => Unit): Unit = {
@@ -87,6 +95,10 @@ object Mongo {
 
   def webUrl: String = {
     urlProperty("web.mongodb.url")
+  }
+
+  def devServerUrl: String = {
+    urlProperty("dev.mongodb.url")
   }
 
   private def urlProperty(property: String): String = {

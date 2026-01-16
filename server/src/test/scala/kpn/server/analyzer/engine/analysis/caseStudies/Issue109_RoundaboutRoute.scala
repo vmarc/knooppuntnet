@@ -10,16 +10,16 @@ class Issue109_RoundaboutRoute extends UnitTest {
 
     context.routeNameAnalysis.name should equal(Some("45-45"))
 
-    context.routeNodesAnalysis.startNode.map(_.alternateName) should equal(Some("45.a"))
-    context.routeNodesAnalysis.startTentacleNodes.map(_.alternateName) should equal(
+    context.routeNodesAnalysis.startNode.map(_.alternateName) should equal(Some("45"))
+    context.routeNodesAnalysis.endNode.map(_.alternateName) should equal(Some("45.a"))
+    context.routeNodesAnalysis.endTentacleNodes.map(_.alternateName) should equal(
       Seq(
         "45.b",
         "45.c",
         "45.d",
         "45.e",
         "45.f",
-        "45.g",
-        "45.h"
+        "45.g"
       )
     )
     pendingRedesignLoop()

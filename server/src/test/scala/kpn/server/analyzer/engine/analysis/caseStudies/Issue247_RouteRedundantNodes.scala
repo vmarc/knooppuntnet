@@ -13,9 +13,8 @@ class Issue247_RouteRedundantNodes extends UnitTest {
 
     route.facts shouldNot contain(Fact.RouteRedundantNodes)
 
-    route.base.nodes.startNode.map(_.alternateName) should equal(Some("?.a"))
-    route.base.nodes.startTentacleNodes.map(_.alternateName) should equal(Seq("?.b"))
-    route.base.nodes.endNode should equal(None)
+    route.base.nodes.startNode.map(_.alternateName) should equal(Some("?"))
+    route.base.nodes.endNode.map(_.alternateName) should equal(Some("?"))
 
     route.base.name should equal("?-?")
 
