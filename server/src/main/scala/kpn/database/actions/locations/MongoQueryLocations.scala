@@ -17,7 +17,6 @@ import kpn.database.base.CountResult
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
-import kpn.database.base.MongoAggregates.notEqual
 import kpn.database.base.MongoAggregates.unionWith
 import kpn.database.base.Types.MongoPipeline
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
@@ -131,13 +130,6 @@ class MongoQueryLocations(database: Database) {
   private def routeFactCountPipeline(subset: Subset): MongoPipeline = {
     selectLocations(subset) ++ Seq(
       unwind("$facts"),
-      filter(
-        and(
-          notEqual("facts", "RouteBroken"),
-          notEqual("facts", "RouteNotForward"),
-          notEqual("facts", "RouteNotBackward"),
-        )
-      ),
       groupByLocation,
       project(
         fields(

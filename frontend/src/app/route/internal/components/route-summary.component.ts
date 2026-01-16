@@ -101,11 +101,11 @@ export class RouteSummaryComponent {
   readonly route = input.required<RouteDetails>();
 
   isRouteBroken() {
-    return this.route().facts.includes('RouteBroken');
+    return this.route().broken === true;
   }
 
   isRouteIncomplete() {
-    return this.route().facts.includes('RouteIncomplete');
+    return this.route().incomplete === true;
   }
 
   isProposed() {

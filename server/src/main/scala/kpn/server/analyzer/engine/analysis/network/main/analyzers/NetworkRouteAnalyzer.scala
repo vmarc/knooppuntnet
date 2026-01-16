@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.Fact
 import kpn.api.common.data.MemberType
+import kpn.core.analysis.Facts
 import kpn.core.doc.NetworkRouteDetail
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
@@ -22,7 +23,7 @@ class NetworkRouteAnalyzer(routeRepository: RouteRepository) extends NetworkAnal
       val role = context.network.base.members
         .find(member => member.memberType == MemberType.Relation && member.ref == networkRouteDetail.id)
         .flatMap(_.role)
-      val investigate = networkRouteDetail.facts.contains(Fact.RouteBroken)
+      val investigate = networkRouteDetail.facts.exists(Facts.isError)
       val accessible = !networkRouteDetail.facts.contains(Fact.RouteInaccessible)
       val roleConnection = role.contains("connection")
       networkRouteDetail.copy(

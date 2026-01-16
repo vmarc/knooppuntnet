@@ -21,7 +21,7 @@ class RouteLabelsAnalyzerTest extends UnitTest {
       RouteLabelsAnalyzer.analyze(context).labels,
       Seq(
         "broken",
-        Label.fact(Fact.RouteBroken),
+        Label.fact(Fact.RouteNotForward),
         Label.facts,
         Label.location("Essen"),
         Label.location(Country.be.entryName),
@@ -71,7 +71,7 @@ class RouteLabelsAnalyzerTest extends UnitTest {
       RouteLabelsAnalyzer.analyze(updatedContext).labels,
       Seq(
         "broken",
-        Label.fact(Fact.RouteBroken),
+        Label.fact(Fact.RouteNotForward),
         Label.facts,
         Label.location(Country.be.entryName),
         Label.routeType(RouteType.hiking),
@@ -100,7 +100,7 @@ class RouteLabelsAnalyzerTest extends UnitTest {
             )
         ),
       ),
-      facts = Seq(Fact.RouteBroken),
+      facts = Seq(Fact.RouteNotForward),
     )
   }
 }

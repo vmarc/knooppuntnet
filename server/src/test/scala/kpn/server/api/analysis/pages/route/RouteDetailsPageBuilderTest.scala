@@ -70,6 +70,8 @@ class RouteDetailsPageBuilderTest extends UnitTest with Stubs {
           name = "01-02",
           meters = 123,
           wayCount = 5,
+          broken = false,
+          incomplete = false,
           proposed = true,
           lastUpdated = Timestamps.default,
           lastSurvey = Some(Day(2025, 12, 25)),

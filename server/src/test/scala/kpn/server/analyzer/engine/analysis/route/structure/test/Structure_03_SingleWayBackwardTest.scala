@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
-import kpn.api.common.Fact.RouteBroken
 import kpn.api.common.Fact.RouteNotBackward
 import kpn.core.util.UnitTest
 
@@ -15,7 +14,7 @@ class Structure_03_SingleWayBackwardTest extends UnitTest {
 
     assertEqual(
       context.facts,
-      Set(RouteNotBackward, RouteBroken)
+      Set(RouteNotBackward)
     )
 
     assertEqual(

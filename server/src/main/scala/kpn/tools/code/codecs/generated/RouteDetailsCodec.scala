@@ -55,6 +55,8 @@ class RouteDetailsCodec(registry: CodecRegistry) extends Codec[RouteDetails] {
     var name: String = null
     var meters: Long = 0
     var wayCount: Long = 0
+    var broken: Boolean = false
+    var incomplete: Boolean = false
     var proposed: Boolean = false
     var lastUpdated: Timestamp = null
     var lastSurvey: Option[Day] = None
@@ -123,6 +125,12 @@ class RouteDetailsCodec(registry: CodecRegistry) extends Codec[RouteDetails] {
       }
       else if (fieldName == "wayCount") {
         wayCount = longCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "broken") {
+        broken = booleanCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "incomplete") {
+        incomplete = booleanCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "proposed") {
         proposed = booleanCodec.decode(bsonReader, decoderContext)
@@ -239,6 +247,8 @@ class RouteDetailsCodec(registry: CodecRegistry) extends Codec[RouteDetails] {
       name,
       meters,
       wayCount,
+      broken,
+      incomplete,
       proposed,
       lastUpdated,
       lastSurvey,
@@ -298,6 +308,12 @@ class RouteDetailsCodec(registry: CodecRegistry) extends Codec[RouteDetails] {
 
     bsonWriter.writeName("wayCount")
     longCodec.encode(bsonWriter, value.wayCount, encoderContext)
+
+    bsonWriter.writeName("broken")
+    booleanCodec.encode(bsonWriter, value.broken, encoderContext)
+
+    bsonWriter.writeName("incomplete")
+    booleanCodec.encode(bsonWriter, value.incomplete, encoderContext)
 
     bsonWriter.writeName("proposed")
     booleanCodec.encode(bsonWriter, value.proposed, encoderContext)

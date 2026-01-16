@@ -24,6 +24,8 @@ export interface RouteDetails {
   readonly name: string;
   readonly meters: number;
   readonly wayCount: number;
+  readonly broken: boolean;
+  readonly incomplete: boolean;
   readonly proposed: boolean;
   readonly lastUpdated: Timestamp;
   readonly lastSurvey?: Day;

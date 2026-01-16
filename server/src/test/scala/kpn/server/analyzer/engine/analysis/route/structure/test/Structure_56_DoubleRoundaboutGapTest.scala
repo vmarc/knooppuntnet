@@ -24,8 +24,7 @@ class Structure_56_DoubleRoundaboutGapTest extends UnitTest {
     assertEqual(
       context.facts,
       Set(
-        Fact.RouteNotBackward,
-        Fact.RouteBroken,
+        Fact.RouteNotBackward
       )
     )
 

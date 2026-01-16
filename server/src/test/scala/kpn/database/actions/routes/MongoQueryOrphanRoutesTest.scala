@@ -1,6 +1,5 @@
 package kpn.database.actions.routes
 
-import kpn.api.common.Fact
 import kpn.api.common.OrphanRouteInfo
 import kpn.api.custom.Day
 import kpn.core.test.MongoTest
@@ -17,13 +16,13 @@ class MongoQueryOrphanRoutesTest extends MongoTest {
     database.routes.save(
       newRouteDoc(
         11L,
+        labels = Seq("broken"),
         base = newRouteBaseData(
           name = "route 11",
           meters = 1011,
           lastSurvey = Some(Day(2015, 8, 11)),
           lastUpdated = Timestamps.default,
-        ),
-        facts = Seq(Fact.RouteBroken, Fact.RouteInaccessible)
+        )
       )
     )
 
@@ -35,8 +34,7 @@ class MongoQueryOrphanRoutesTest extends MongoTest {
           meters = 1012,
           lastSurvey = Some(Day(2015, 8, 12)),
           lastUpdated = Timestamps.default,
-        ),
-        facts = Seq(Fact.RouteInaccessible)
+        )
       )
     )
 
@@ -49,7 +47,7 @@ class MongoQueryOrphanRoutesTest extends MongoTest {
           meters = 1011,
           lastSurvey = Some("2015-08-11"),
           lastUpdated = Timestamps.default,
-          facts = Seq(Fact.RouteBroken, Fact.RouteInaccessible),
+          facts = Seq.empty,
           investigate = true
         ),
         OrphanRouteInfo(
@@ -58,7 +56,7 @@ class MongoQueryOrphanRoutesTest extends MongoTest {
           meters = 1012,
           lastSurvey = Some("2015-08-12"),
           lastUpdated = Timestamps.default,
-          facts = Seq(Fact.RouteInaccessible),
+          facts = Seq.empty,
           investigate = false
         )
       )

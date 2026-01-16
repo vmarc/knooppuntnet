@@ -23,7 +23,7 @@ class Structure_N23_Test extends UnitTest {
     context.segments.foreach(a => println(s""""$a","""))
     context.paths.foreach(a => println(s""""$a","""))
 
-    pendingRedesign() // context.facts.shouldMatchTo(Set(RouteNotForward, RouteBroken))
+    pendingRedesign() // context.facts.shouldMatchTo(Set(RouteNotForward))
     assertEqual(
       context.links,
       Seq(

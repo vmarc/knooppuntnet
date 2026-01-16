@@ -16,7 +16,6 @@ import kpn.database.base.CountResult
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
-import kpn.database.base.MongoAggregates.notEqual
 import kpn.database.base.MongoAggregates.unionWith
 import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.Types.MongoPipeline
@@ -129,13 +128,6 @@ class MongoQueryLocationFactCount(database: Database) {
         )
       ),
       unwind("$facts"),
-      filter(
-        and(
-          notEqual("facts", "RouteBroken"),
-          notEqual("facts", "RouteNotForward"),
-          notEqual("facts", "RouteNotBackward"),
-        )
-      ),
       project(
         fields(
           excludeId(),

@@ -49,8 +49,7 @@ class RouteUpdateTest08 extends IntegrationTest {
           factDiffs = Some(
             FactDiffs(
               introduced = Seq(
-                Fact.RouteUnexpectedRelation,
-                Fact.RouteBroken
+                Fact.RouteUnexpectedRelation
               )
             )
           )

@@ -22,7 +22,6 @@ import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.arrayEmpty
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
-import kpn.database.base.MongoAggregates.notEqual
 import kpn.database.base.MongoAggregates.unionWith
 import kpn.database.base.MongoProjections.arraySize
 import kpn.database.base.MongoProjections.concat
@@ -573,13 +572,6 @@ class StatisticsUpdater(
       unwind("$facts"),
       unwind("$base.countries"),
       unwind("$base.routeTypes"),
-      filter(
-        and(
-          notEqual("facts", "RouteBroken"),
-          notEqual("facts", "RouteNotForward"),
-          notEqual("facts", "RouteNotBackward"),
-        )
-      ),
       group(
         new Document(
           java.util.Map.of(

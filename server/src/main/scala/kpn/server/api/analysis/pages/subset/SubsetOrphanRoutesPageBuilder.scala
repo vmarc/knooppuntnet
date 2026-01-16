@@ -1,9 +1,7 @@
 package kpn.server.api.analysis.pages.subset
 
-import kpn.api.common.OrphanRouteInfo
 import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.custom.Subset
-import kpn.core.analysis.Facts
 import kpn.core.util.Log
 import kpn.database.actions.subsets.MongoQuerySubsetInfo
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanRoutes
@@ -23,21 +21,11 @@ class SubsetOrphanRoutesPageBuilder(database: Database) {
     val routes = new MongoQuerySubsetOrphanRoutes(database)
       .execute(subset, log)
       .sortBy(_.name)
-      .map(withoutRedundantFacts)
 
     SubsetOrphanRoutesPage(
       TimeInfoBuilder.timeInfo,
       subsetInfo,
       routes
     )
-  }
-
-  private def withoutRedundantFacts(route: OrphanRouteInfo): OrphanRouteInfo = {
-    if (route.facts.exists(Facts.redundantFacts.contains)) {
-      route.copy(facts = Facts.withoutRedundantFacts(route.facts))
-    }
-    else {
-      route
-    }
   }
 }

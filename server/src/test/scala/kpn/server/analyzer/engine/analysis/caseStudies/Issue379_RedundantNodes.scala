@@ -9,8 +9,7 @@ class Issue379_RedundantNodes extends UnitTest {
     val route = CaseStudy.baseRouteDoc("17574316")
     route.facts should equal(
       Seq(
-        Fact.RouteRedundantNodes,
-        Fact.RouteBroken
+        Fact.RouteRedundantNodes
       )
     )
   }

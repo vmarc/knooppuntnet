@@ -17,7 +17,7 @@ import { Facts } from './facts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@route.facts">Facts</p>
-    @for (factInfo of filteredFactInfos; track $index) {
+    @for (factInfo of factInfos(); track $index) {
       <div class="fact">
         <div>
           <ui-fact-level [factLevel]="factLevel(factInfo)" class="level" />
@@ -95,10 +95,6 @@ import { Facts } from './facts';
 })
 export class FactsComponent {
   readonly factInfos = input.required<FactInfo[]>();
-
-  get filteredFactInfos(): FactInfo[] {
-    return this.factInfos().filter((factInfo) => factInfo.fact !== 'RouteBroken');
-  }
 
   factLevel(factInfo: FactInfo): FactLevel {
     return Facts.factLevel(factInfo.fact);

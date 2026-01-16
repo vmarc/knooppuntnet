@@ -25,7 +25,6 @@ import { FactNodeMemberMissingComponent } from './descriptions/fact-node-member-
 import { FactOrphanNodeComponent } from './descriptions/fact-orphan-node.component';
 import { FactOrphanRouteComponent } from './descriptions/fact-orphan-route.component';
 import { FactRouteAnalysisFailedComponent } from './descriptions/fact-route-analysis-failed.component';
-import { FactRouteBrokenComponent } from './descriptions/fact-route-broken.component';
 import { FactRouteFixmetodoComponent } from './descriptions/fact-route-fixmetodo.component';
 import { FactRouteInaccessibleComponent } from './descriptions/fact-route-inaccessible.component';
 import { FactRouteIncompleteOkComponent } from './descriptions/fact-route-incomplete-ok.component';
@@ -82,7 +81,6 @@ export class FactDescriptionComponent {
     OrphanNode: FactOrphanNodeComponent,
     OrphanRoute: FactOrphanRouteComponent,
     RouteAnalysisFailed: FactRouteAnalysisFailedComponent,
-    RouteBroken: FactRouteBrokenComponent,
     RouteFixmetodo: FactRouteFixmetodoComponent,
     RouteIncomplete: FactRouteIncompleteComponent,
     RouteIncompleteOk: FactRouteIncompleteOkComponent,

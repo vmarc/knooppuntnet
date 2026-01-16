@@ -4,9 +4,9 @@ import kpn.api.common.Country
 import kpn.api.common.Country.de
 import kpn.api.common.Country.nl
 import kpn.api.common.Fact
-import kpn.api.common.Fact.RouteBroken
 import kpn.api.common.Fact.RouteFixmetodo
 import kpn.api.common.Fact.RouteInaccessible
+import kpn.api.common.Fact.RouteNotForward
 import kpn.api.common.Fact.RouteWithoutWays
 import kpn.api.common.RouteType
 import kpn.api.common.RouteType.cycling
@@ -20,21 +20,21 @@ class StatisticsUpdateSubsetRouteFactsTest extends MongoTest {
 
   test("execute") {
 
-    buildRoute(11L, nl, hiking, Seq(RouteBroken, RouteInaccessible))
-    buildRoute(12L, nl, hiking, Seq(RouteBroken, RouteFixmetodo))
-    buildRoute(13L, nl, cycling, Seq(RouteBroken))
-    buildRoute(14L, de, hiking, Seq(RouteBroken))
-    buildRoute(15L, de, hiking, Seq(RouteBroken))
-    buildRoute(16L, de, cycling, Seq(RouteBroken))
-    buildRoute(17L, de, cycling, Seq(RouteBroken), active = false)
+    buildRoute(11L, nl, hiking, Seq(RouteNotForward, RouteInaccessible))
+    buildRoute(12L, nl, hiking, Seq(RouteNotForward, RouteFixmetodo))
+    buildRoute(13L, nl, cycling, Seq(RouteNotForward))
+    buildRoute(14L, de, hiking, Seq(RouteNotForward))
+    buildRoute(15L, de, hiking, Seq(RouteNotForward))
+    buildRoute(16L, de, cycling, Seq(RouteNotForward))
+    buildRoute(17L, de, cycling, Seq(RouteNotForward), active = false)
 
     new StatisticsUpdater(database).execute()
     val counts = new MongoQueryStatistics(database).execute()
 
     assertEqual(
-      counts.find(_._id == "RouteBrokenCount").get,
+      counts.find(_._id == "RouteNotForwardCount").get,
       StatisticLongValues(
-        "RouteBrokenCount",
+        "RouteNotForwardCount",
         Seq(
           StatisticLongValue(de, cycling, 1L),
           StatisticLongValue(de, hiking, 2L),
@@ -65,16 +65,19 @@ class StatisticsUpdateSubsetRouteFactsTest extends MongoTest {
 
   test("multiple updates, only last situation reflected in the statistics") {
 
-    buildRoute(11L, nl, hiking, Seq(RouteBroken))
+    buildRoute(11L, nl, hiking, Seq(RouteNotForward))
 
     new StatisticsUpdater(database).execute()
     val counts1 = new MongoQueryStatistics(database).execute()
 
-    counts1 should contain(
-      StatisticLongValues(
-        "RouteBrokenCount",
-        Seq(
-          StatisticLongValue(nl, hiking, 1L)
+    assertEqual(
+      counts1.filter(_._id == "RouteNotForwardCount"),
+      Seq(
+        StatisticLongValues(
+          "RouteNotForwardCount",
+          Seq(
+            StatisticLongValue(nl, hiking, 1L)
+          )
         )
       )
     )
@@ -84,16 +87,19 @@ class StatisticsUpdateSubsetRouteFactsTest extends MongoTest {
     new StatisticsUpdater(database).execute()
     val counts2 = new MongoQueryStatistics(database).execute()
 
-    counts2 should contain(
-      StatisticLongValues(
-        "RouteWithoutWaysCount",
-        Seq(
-          StatisticLongValue(nl, hiking, 1L)
+    assertEqual(
+      counts2.filter(_._id == "RouteWithoutWaysCount"),
+      Seq(
+        StatisticLongValues(
+          "RouteWithoutWaysCount",
+          Seq(
+            StatisticLongValue(nl, hiking, 1L)
+          )
         )
       )
     )
 
-    counts2.filter(_._id == "RouteBrokenCount") should equal(Seq.empty)
+    counts2.filter(_._id == "RouteNotForwardCount") should equal(Seq.empty)
   }
 
   private def buildRoute(routeId: Long, country: Country, routeType: RouteType, facts: Seq[Fact], active: Boolean = true): Unit = {

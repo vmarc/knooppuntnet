@@ -46,11 +46,15 @@ class StatisticsUpdateSubsetFactCountTest extends MongoTest {
     new StatisticsUpdater(database).execute()
     val counts = new MongoQueryStatistics(database).execute()
 
-    counts should contain(
-      StatisticLongValues(
-        "FactCount",
-        Seq(
-          StatisticLongValue(nl, hiking, 1L),
+    assertEqual(
+      counts.filter(_._id == "FactCount"),
+      Seq(
+        StatisticLongValues(
+          "FactCount",
+          Seq(
+            StatisticLongValue(de, hiking, 2L),
+            StatisticLongValue(nl, hiking, 1L),
+          )
         )
       )
     )
@@ -63,13 +67,16 @@ class StatisticsUpdateSubsetFactCountTest extends MongoTest {
     new StatisticsUpdater(database).execute()
     val counts = new MongoQueryStatistics(database).execute()
 
-    counts should contain(
-      StatisticLongValues(
-        "FactCount",
-        Seq(
-          StatisticLongValue(de, cycling, 1L),
-          StatisticLongValue(de, hiking, 2L),
-          StatisticLongValue(nl, hiking, 4L),
+    assertEqual(
+      counts.filter(_._id == "FactCount"),
+      Seq(
+        StatisticLongValues(
+          "FactCount",
+          Seq(
+            StatisticLongValue(de, cycling, 1L),
+            StatisticLongValue(de, hiking, 2L),
+            StatisticLongValue(nl, hiking, 4L),
+          )
         )
       )
     )
@@ -84,13 +91,16 @@ class StatisticsUpdateSubsetFactCountTest extends MongoTest {
     new StatisticsUpdater(database).execute()
     val counts = new MongoQueryStatistics(database).execute()
 
-    counts should contain(
-      StatisticLongValues(
-        "FactCount",
-        Seq(
-          StatisticLongValue(de, cycling, 2L),
-          StatisticLongValue(de, hiking, 4L),
-          StatisticLongValue(nl, hiking, 9L),
+    assertEqual(
+      counts.filter(_._id == "FactCount"),
+      Seq(
+        StatisticLongValues(
+          "FactCount",
+          Seq(
+            StatisticLongValue(de, cycling, 2L),
+            StatisticLongValue(de, hiking, 6L),
+            StatisticLongValue(nl, hiking, 9L),
+          )
         )
       )
     )
@@ -125,13 +135,11 @@ class StatisticsUpdateSubsetFactCountTest extends MongoTest {
   }
 
   private def buildRoutes(): Unit = {
-    buildRoute(11L, nl, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward, Fact.RouteInaccessible))
-    buildRoute(12L, nl, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward, Fact.RouteNotBackward))
-    buildRoute(13L, nl, hiking, Seq.empty)
-    buildRoute(14L, de, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward))
-    buildRoute(15L, de, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward))
-    buildRoute(16L, de, cycling, Seq(Fact.RouteBroken, Fact.RouteNotForward))
-    buildRoute(17L, de, cycling, Seq(Fact.RouteBroken, Fact.RouteNotForward), active = false)
+    buildRoute(11L, nl, hiking, Seq(Fact.RouteInaccessible))
+    buildRoute(12L, nl, hiking, Seq.empty)
+    buildRoute(13L, de, hiking, Seq(Fact.RouteInaccessible))
+    buildRoute(14L, de, hiking, Seq(Fact.RouteInaccessible))
+    buildRoute(15L, de, cycling, Seq(Fact.RouteInaccessible), active = false)
   }
 
   private def buildRoute(

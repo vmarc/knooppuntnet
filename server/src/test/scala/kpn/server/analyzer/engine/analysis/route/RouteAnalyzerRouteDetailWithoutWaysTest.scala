@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.api.common.Fact.RouteBroken
 import kpn.api.common.Fact.RouteWithoutWays
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
@@ -39,7 +38,7 @@ class RouteAnalyzerRouteDetailWithoutWaysTest extends UnitTest with Stubs {
     val context = routeAnalyzer.analyze(relation, None)
     assertEqual(
       context.facts.toSet,
-      Set(RouteWithoutWays, RouteBroken)
+      Set(RouteWithoutWays)
     )
   }
 }

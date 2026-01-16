@@ -45,8 +45,6 @@ export class FactNameComponent implements OnInit {
       this.factName = $localize`:@@fact.name.orphan-route:OrphanRoute`;
     } else if (this.fact() === 'RouteAnalysisFailed') {
       this.factName = $localize`:@@fact.name.route-analysis-failed:RouteAnalysisFailed`;
-    } else if (this.fact() === 'RouteBroken') {
-      this.factName = $localize`:@@fact.name.route-broken:RouteBroken`;
     } else if (this.fact() === 'RouteFixmetodo') {
       this.factName = $localize`:@@fact.name.route-fixmetodo:RouteFixmetodo`;
     } else if (this.fact() === 'RouteIncomplete') {

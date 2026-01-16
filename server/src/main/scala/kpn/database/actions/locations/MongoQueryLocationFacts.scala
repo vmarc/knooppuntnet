@@ -18,7 +18,6 @@ import kpn.database.actions.locations.MongoQueryLocationFacts.log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
-import kpn.database.base.MongoAggregates.notEqual
 import kpn.database.base.MongoAggregates.unionWith
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo
@@ -160,13 +159,6 @@ class MongoQueryLocationFacts(database: Database) {
     Seq(
       mainFilter,
       unwind("$facts"),
-      filter(
-        and(
-          notEqual("facts", "RouteBroken"),
-          notEqual("facts", "RouteNotForward"),
-          notEqual("facts", "RouteNotBackward"),
-        )
-      ),
       project(
         fields(
           excludeId(),

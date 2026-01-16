@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
-import kpn.api.common.Fact
+import kpn.core.analysis.Facts
 import kpn.core.doc.Label
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
@@ -31,7 +31,7 @@ class RouteLabelsAnalyzer(context: RouteAnalysisContext) {
     Seq(
       if (context.route.base.lastSurvey.isDefined) Some(Label.survey) else None,
       if (context.facts.nonEmpty) Some(Label.facts) else None,
-      if (context.facts.contains(Fact.RouteBroken)) Some("broken") else None,
+      if (context.facts.exists(Facts.isError)) Some("broken") else None,
     ).flatten
   }
 

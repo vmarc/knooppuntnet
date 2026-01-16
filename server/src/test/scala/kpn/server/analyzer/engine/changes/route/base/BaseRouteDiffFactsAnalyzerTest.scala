@@ -25,7 +25,6 @@ class BaseRouteDiffFactsAnalyzerTest extends UnitTest with Stubs {
       None,
       facts = Seq(
         Fact.RouteUnexpectedRelation, // introduced
-        Fact.RouteBroken, // introduced
         Fact.RouteInaccessible // remaining
       )
     )
@@ -38,8 +37,7 @@ class BaseRouteDiffFactsAnalyzerTest extends UnitTest with Stubs {
             Fact.RouteUnexpectedNode
           ),
           introduced = Seq(
-            Fact.RouteUnexpectedRelation,
-            Fact.RouteBroken
+            Fact.RouteUnexpectedRelation
           ),
           remaining = Seq(
             Fact.RouteInaccessible

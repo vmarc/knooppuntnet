@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
-import kpn.api.common.Fact.RouteBroken
 import kpn.api.common.Fact.RouteNotBackward
 import kpn.api.common.Fact.RouteNotForward
 import kpn.core.util.UnitTest
@@ -26,8 +25,7 @@ class Structure_46_ForwardForwardGapTest extends UnitTest {
       context.facts,
       Set(
         RouteNotForward,
-        RouteNotBackward,
-        RouteBroken
+        RouteNotBackward
       )
     )
 

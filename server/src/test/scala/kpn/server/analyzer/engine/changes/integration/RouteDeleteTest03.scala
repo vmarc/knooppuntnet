@@ -5,7 +5,6 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
-import kpn.api.common.Fact.RouteBroken
 import kpn.api.common.Fact.RouteUnexpectedRelation
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
@@ -105,8 +104,7 @@ class RouteDeleteTest03 extends IntegrationTest {
           factDiffs = Some(
             FactDiffs(
               introduced = Seq(
-                RouteUnexpectedRelation,
-                RouteBroken
+                RouteUnexpectedRelation
               )
             )
           )
@@ -164,8 +162,7 @@ class RouteDeleteTest03 extends IntegrationTest {
               newRouteNode(1002, "02")
             ),
             facts = Seq(
-              RouteUnexpectedRelation,
-              RouteBroken
+              RouteUnexpectedRelation
             )
           )
         ),

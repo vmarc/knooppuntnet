@@ -80,8 +80,6 @@ object Fact extends Enum[Fact] {
   final case object RouteIncompleteOk extends Fact
 
   // other
-  final case object RouteBroken extends Fact
-
   final case object IntegrityCheck extends Fact
 
   final case object Added extends Fact

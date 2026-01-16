@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.common.Fact.RouteBroken
 import kpn.api.common.Fact.RouteNotBackward
 import kpn.api.common.Fact.RouteNotForward
 import kpn.api.common.changes.ChangeAction
@@ -50,8 +49,7 @@ class RouteUpdateTest07 extends IntegrationTest {
         baseRouteChange.routeDiff.factDiffs.get.introduced.toSet,
         Set(
           RouteNotBackward,
-          RouteNotForward,
-          RouteBroken,
+          RouteNotForward
         )
       )
     }

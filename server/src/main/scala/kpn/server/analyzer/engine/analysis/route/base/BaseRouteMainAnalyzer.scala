@@ -1,9 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.base
 
-import kpn.api.common.Fact
-import kpn.api.common.Fact.RouteBroken
 import kpn.api.common.Relation
-import kpn.core.analysis.Facts
 import kpn.core.doc.RouteRelation
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
@@ -40,7 +37,6 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteWithout
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
-import scala.collection.mutable.ListBuffer
 
 @Component
 class BaseRouteMainAnalyzer(
@@ -107,16 +103,7 @@ class BaseRouteMainAnalyzer(
   ): BaseRouteAnalysisContext = {
 
     if (context.abort || analyzers.isEmpty) {
-      val facts: ListBuffer[Fact] = ListBuffer[Fact]()
-      facts ++= context.facts
-      if (facts.exists(Facts.isError)) {
-        if (!facts.contains(RouteBroken)) {
-          facts += RouteBroken
-        }
-      }
-      context.copy(
-        facts = facts.toSeq,
-      )
+      context
     }
     else {
       val newContext = analyzers.head.analyze(context)

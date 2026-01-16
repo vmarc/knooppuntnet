@@ -79,7 +79,7 @@ class MongoQueryLocationFactCountTest extends MongoTest {
           Label.routeType(RouteType.hiking),
           Label.location(Country.be.entryName)
         ),
-        facts = Seq(Fact.RouteWithoutWays, Fact.RouteBroken),
+        facts = Seq(Fact.RouteWithoutWays),
       )
     )
 
@@ -102,7 +102,7 @@ class MongoQueryLocationFactCountTest extends MongoTest {
           Label.routeType(RouteType.hiking),
           Label.location(Country.be.entryName)
         ),
-        facts = Seq(Fact.RouteWithoutWays, Fact.RouteBroken),
+        facts = Seq(Fact.RouteWithoutWays),
       )
     )
 

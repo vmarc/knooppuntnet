@@ -10,10 +10,13 @@ import kpn.api.common.data.raw.Raw
 import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
+import kpn.core.analysis.Facts
 import kpn.database.actions.routes.RouteDetailsData
 
 object RouteDetails {
   def from(routeDetailsData: RouteDetailsData, locationCandidateInfos: Seq[LocationCandidateInfo]): RouteDetails = {
+    val broken = routeDetailsData.facts.exists(Facts.isError)
+    val incomplete = routeDetailsData.facts.contains(Fact.RouteIncomplete)
     RouteDetails(
       routeDetailsData.id,
       routeDetailsData.active,
@@ -25,6 +28,8 @@ object RouteDetails {
       routeDetailsData.name,
       routeDetailsData.meters,
       routeDetailsData.wayCount,
+      broken,
+      incomplete,
       routeDetailsData.proposed,
       routeDetailsData.lastUpdated,
       routeDetailsData.lastSurvey,
@@ -58,6 +63,8 @@ case class RouteDetails(
   name: String,
   meters: Long,
   wayCount: Long,
+  broken: Boolean,
+  incomplete: Boolean,
   proposed: Boolean,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],

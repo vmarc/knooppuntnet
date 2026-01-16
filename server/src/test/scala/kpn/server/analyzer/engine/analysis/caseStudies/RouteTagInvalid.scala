@@ -8,6 +8,6 @@ class RouteTagInvalid extends UnitTest {
 
   test("mismatch between route=hiking and network=lcn (cycling)") {
     val route = CaseStudy.baseRouteDoc("10993501")
-    route.facts should equal(Seq(Fact.RouteTagInvalid, RouteWithoutNodes, Fact.RouteBroken))
+    route.facts should equal(Seq(Fact.RouteTagInvalid, RouteWithoutNodes))
   }
 }

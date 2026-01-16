@@ -65,8 +65,6 @@ object Facts {
       case Fact.RouteIncompleteOk => FactLevel.INFO
 
       // other
-      case Fact.RouteBroken => FactLevel.OTHER
-
       case Fact.IntegrityCheck => FactLevel.OTHER
 
       case Fact.Added => FactLevel.OTHER
@@ -109,7 +107,6 @@ object Facts {
     Fact.RouteOneWay,
     Fact.RouteNotOneWay,
     Fact.RouteIncompleteOk,
-    Fact.RouteBroken,
     Fact.Added,
     Fact.Deleted,
     Fact.LostHikingNodeTag,
@@ -133,11 +130,5 @@ object Facts {
       filterNot(_ == Fact.RouteNotBackward)
     val infoFacts: Seq[Fact] = Fact.values.filter(Facts.isInfo)
     errorFacts ++ infoFacts
-  }
-
-  val redundantFacts: Set[Fact] = Set(Fact.RouteBroken)
-
-  def withoutRedundantFacts(facts: Seq[Fact]): Seq[Fact] = {
-    facts.filterNot(redundantFacts.contains)
   }
 }

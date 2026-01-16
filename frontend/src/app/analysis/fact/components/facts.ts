@@ -51,7 +51,6 @@ export class Facts {
     new FactDefinition('OrphanNode', 'error'),
     new FactDefinition('OrphanRoute', 'error'),
     new FactDefinition('RouteAnalysisFailed', 'error', FactElement.route),
-    new FactDefinition('RouteBroken', 'other', FactElement.route),
     new FactDefinition('RouteFixmetodo', 'error', FactElement.route),
     new FactDefinition('RouteIncomplete', 'info', FactElement.route),
     new FactDefinition('RouteIncompleteOk', 'info', FactElement.route),

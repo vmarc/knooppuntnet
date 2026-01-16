@@ -22,7 +22,6 @@ export type Fact =
   | 'OrphanNode'
   | 'OrphanRoute'
   | 'RouteAnalysisFailed'
-  | 'RouteBroken'
   | 'RouteFixmetodo'
   | 'RouteInaccessible'
   | 'RouteIncomplete'
