@@ -35,8 +35,9 @@ class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator
     val tileSegments = buildTileSegments(context)
     val tiles = determineTiles(context.relation)
     val tileDatas = buildTileDatas(context, tileSegments, tiles)
+    val tileNames = context.routeTypes.flatMap(routeType => tiles.map(tiles => s"${routeType.entryName}-${tiles.name}"))
     context.copy(
-      tiles = tiles.map(_.name),
+      tiles = tileNames,
       _tileDatas = Some(tileDatas)
     )
   }

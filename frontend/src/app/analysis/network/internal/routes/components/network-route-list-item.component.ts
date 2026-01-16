@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkRouteRow } from '@api/common/network/network-route-row';
 import { RouteType } from '@api/common/route-type';
+import { FactsLineComponent } from '@app/analysis/fact/components/facts-line.component';
 import { DayComponent } from '@app/shared/components/day/day.component';
 import { DayPipe } from '@app/shared/components/format/day.pipe';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
@@ -14,6 +15,8 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
   selector: 'ui-network-route-list-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/cyclomatic-complexity -->
+
     @let route = row();
     <div class="kpn-line">
       <span>{{ rowNumber() }}</span>
@@ -51,12 +54,17 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
     @if (route.proposed) {
       <div class="kpn-line" i18n="@@network-routes.table.proposed">Proposed</div>
     }
+
+    @if (route.facts) {
+      <ui-facts-line [facts]="route.facts" />
+    }
   `,
   imports: [
     ActionButtonRouteComponent,
     DayComponent,
     DayPipe,
     DistancePipe,
+    FactsLineComponent,
     LinkRouteComponent,
     SymbolComponent,
   ],

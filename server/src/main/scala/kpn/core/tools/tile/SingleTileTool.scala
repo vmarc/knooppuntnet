@@ -17,10 +17,10 @@ object SingleTileTool {
   private val log = Log(classOf[TileTool])
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-laptop") { database =>
+    Mongo.devServerExecuteIn("kpn") { database =>
       val tool = buildTool(database, "/Users/marc/kpn/tiles")
-      tool.makeRouteTiles(3669758)
-      // tool.make(RouteType.cycling, 6, 32, 21)
+      // tool.makeRouteTiles(3669758)
+      tool.make(RouteType.cycling, 13, 4239, 2710)
     }
     log.info("Done")
   }

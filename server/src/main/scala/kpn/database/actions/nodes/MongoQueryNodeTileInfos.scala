@@ -81,6 +81,7 @@ class MongoQueryNodeTileInfos(database: Database) {
       ),
       project(
         fields(
+          excludeId(),
           computed("tileName", tileId.name),
           computed("nodeId", "$_id"),
           computed("names", "$base.names"),

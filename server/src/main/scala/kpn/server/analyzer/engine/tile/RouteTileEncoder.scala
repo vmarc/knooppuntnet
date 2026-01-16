@@ -2,12 +2,12 @@ package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.FeatureLayer
 import kpn.api.common.RouteType
+import kpn.core.util.CoordinateUtil
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
 import kpn.server.analyzer.engine.tiles.TileFileRepository
-import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
@@ -89,7 +89,7 @@ class RouteTileEncoder(
   }
 
   private def buildRouteLineString(line: String): LineString = {
-    val coordinates = CoordinateCodec.decode(line)
+    val coordinates = CoordinateUtil.stringToCoordinates(line)
     geometryFactory.createLineString(coordinates)
   }
 
