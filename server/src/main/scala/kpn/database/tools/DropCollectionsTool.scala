@@ -4,7 +4,7 @@ import kpn.database.util.Mongo
 
 object DropCollectionsTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("test") { database =>
+    Mongo.devServerExecuteIn("kpn") { database =>
       DropCollections.execute(database)
     }
   }

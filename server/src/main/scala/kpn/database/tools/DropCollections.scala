@@ -17,6 +17,7 @@ object DropCollections {
     database.networkChanges.drop()
     database.routeChanges.drop()
     database.routeTiles.drop()
+    database.baseRouteChanges.drop()
 
     database.statistics.drop()
     database.status.drop()

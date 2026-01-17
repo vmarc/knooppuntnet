@@ -23,7 +23,9 @@ object RawDataTool {
       val overpassRepository = new OverpassRepositoryImpl(overpassQueryExecutor)
       val repository = new RawDataRepositoryImpl(overpassRepository)
       val tool = new RawDataTool(database, repository)
-      tool.loadSingleRoute(153045)
+      tool.loadSingleRoute(963212)
+      tool.loadSingleRoute(171840)
+      tool.loadSingleRoute(1467654)
       //tool.load()
     }
   }

@@ -11,6 +11,7 @@ import kpn.core.common.TimestampUtil
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.tools.config.Dirs
+import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
@@ -78,7 +79,6 @@ import kpn.server.analyzer.engine.tile.NodeTileCalculator
 import kpn.server.analyzer.engine.tile.NodeTileChangeAnalyzer
 import kpn.server.analyzer.engine.tile.RouteTileCache
 import kpn.server.analyzer.engine.tile.RouteTileEncoder
-import kpn.server.analyzer.engine.tile.TileTask
 import kpn.server.analyzer.engine.tile.TileUpdater
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
 import kpn.server.analyzer.engine.tiles.TileFileRepository
@@ -157,6 +157,7 @@ object SingleRouteChangeAnalyzerTool {
     val replicationId = ReplicationId(0)
     val changeSetId = 176115830
     val timestamp = Timestamp.apply(2025, 12, 18, 22, 30, 30)
+    val log = Log(classOf[SingleRouteChangeAnalyzerTool])
 
     val changeSets = Seq(
       ChangeSet(
@@ -189,17 +190,21 @@ object SingleRouteChangeAnalyzerTool {
       )
     )
 
-    Mongo.devServerExecuteIn("kpn") { database =>
+    Mongo.executeIn("test") { database =>
       val configuration = new SingleRouteChangeAnalyzerConfiguration(database)
       //      routeIds.foreach { routeId =>
       //        configuration.analysisContext.watched.routes.add(routeId, ElementIds())
       //      }
-      val processor = new ChangeSetProcessor(configuration.changeProcessorPipeline)
-      val replicationContext = processor.processChangeSets(replicationId, changeSets)
-      replicationContext.tiles.foreach { tile =>
-        configuration.taskRepository.add(TileTask.task(tile))
+
+      log.infoElapsed {
+        val processor = new ChangeSetProcessor(configuration.changeProcessorPipeline)
+        val replicationContext = processor.processChangeSets(replicationId, changeSets)
+        ("", "")
       }
-      configuration.tileUpdater.update()
+      //      replicationContext.tiles.foreach { tile =>
+      //        configuration.taskRepository.add(TileTask.task(tile))
+      //      }
+      //      configuration.tileUpdater.update()
     }
   }
 }
