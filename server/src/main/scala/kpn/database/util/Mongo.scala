@@ -89,15 +89,15 @@ object Mongo {
     new NextDatabase(mongoClient.getDatabase(databaseName).withCodecRegistry(codecRegistry))
   }
 
-  def url: String = {
+  private def url: String = {
     urlProperty("mongodb.url")
   }
 
-  def webUrl: String = {
+  private def webUrl: String = {
     urlProperty("web.mongodb.url")
   }
 
-  def devServerUrl: String = {
+  private def devServerUrl: String = {
     urlProperty("dev.mongodb.url")
   }
 

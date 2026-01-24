@@ -34,7 +34,7 @@ import org.springframework.stereotype.Component
 
 object StatisticsUpdater {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-laptop") { database =>
+    Mongo.devServerExecuteIn("kpn") { database =>
       new StatisticsUpdater(database).execute()
     }
   }
@@ -129,6 +129,7 @@ class StatisticsUpdater(
       filter(
         and(
           equal("active", true),
+          equal("base.nodeNetwork", true),
           exists("base.countries.0")
         )
       ),
@@ -152,6 +153,7 @@ class StatisticsUpdater(
       filter(
         and(
           equal("active", true),
+          equal("base.nodeNetwork", true),
           arrayEmpty("networkReferences"),
         )
       ),
@@ -216,6 +218,7 @@ class StatisticsUpdater(
       filter(
         and(
           equal("active", true),
+          equal("base.nodeNetwork", true),
           exists("base.countries.0"),
           exists("facts")
         )
@@ -432,6 +435,7 @@ class StatisticsUpdater(
       filter(
         and(
           equal("active", true),
+          equal("base.nodeNetwork", true),
           exists("base.countries.0")
         )
       ),

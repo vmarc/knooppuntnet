@@ -4,6 +4,7 @@ import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Aggregates.sort
 import com.mongodb.client.model.Filters.and
 import com.mongodb.client.model.Projections.computed
+import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.Sorts.ascending
@@ -44,6 +45,7 @@ class MongoQuerySubsetNetworks(database: Database) {
       sort(orderBy(ascending("base.name"))),
       project(
         fields(
+          excludeId(),
           computed("id", "$_id"),
           include("country"),
           computed("routeType", "$base.routeType"),
@@ -60,7 +62,7 @@ class MongoQuerySubsetNetworks(database: Database) {
           computed("connectionCount", "$detail.connectionCount"),
           computed("lastUpdated", "$detail.lastUpdated"),
           computed("relationLastUpdated", "$detail.relationLastUpdated"),
-          computed(" center", "$detail.center"),
+          computed("center", "$detail.center"),
         )
       )
     )
