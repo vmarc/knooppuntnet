@@ -1,12 +1,33 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { AfterViewInit } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { Map as MaplibreMap } from 'maplibre-gl';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  template: `
-    <div>Map</div>
-  `
+  template: `<div id="map"></div>`,
+  styles: `
+    #map {
+      width: 500px;
+      height: 500px;
+    }
+  `,
 })
-export class App {
+export class App implements AfterViewInit, OnDestroy {
+  mapInstance: MaplibreMap | null = null;
+
+  ngAfterViewInit(): void {
+    this.mapInstance = new MaplibreMap({
+      container: 'map',
+      style: 'https://demotiles.maplibre.org/globe.json',
+      center: [0, 0],
+      zoom: 2,
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.mapInstance) {
+      this.mapInstance.remove();
+    }
+  }
 }
