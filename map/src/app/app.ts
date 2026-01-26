@@ -10,6 +10,7 @@ import { RouterOutlet } from '@angular/router';
         <li><a routerLink="osm-raster-tiles">OSM raster tiles</a></li>
         <li><a routerLink="osm-vector-tiles">OSM vector tiles</a></li>
         <li><a routerLink="globe">Maplibre globe demo map</a></li>
+        <li><a routerLink="route-tiles">Route tiles</a></li>
       </ol>
     </div>
     <router-outlet />
