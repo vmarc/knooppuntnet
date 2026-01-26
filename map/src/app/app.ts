@@ -1,33 +1,25 @@
 import { Component } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { Map as MaplibreMap } from 'maplibre-gl';
+import { RouterLink } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  template: `<div id="map"></div>`,
+  template: `
+    <div class="menu">
+      <ol>
+        <li><a routerLink="osm-raster-tiles">OSM raster tiles</a></li>
+        <li><a routerLink="osm-vector-tiles">OSM vector tiles</a></li>
+        <li><a routerLink="globe">Maplibre globe demo map</a></li>
+      </ol>
+    </div>
+    <router-outlet />
+  `,
   styles: `
-    #map {
-      width: 500px;
-      height: 500px;
+    .menu {
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
     }
   `,
+  imports: [RouterLink, RouterOutlet],
 })
-export class App implements AfterViewInit, OnDestroy {
-  mapInstance: MaplibreMap | null = null;
-
-  ngAfterViewInit(): void {
-    this.mapInstance = new MaplibreMap({
-      container: 'map',
-      style: 'https://demotiles.maplibre.org/globe.json',
-      center: [0, 0],
-      zoom: 2,
-    });
-  }
-
-  ngOnDestroy(): void {
-    if (this.mapInstance) {
-      this.mapInstance.remove();
-    }
-  }
-}
+export class App {}
