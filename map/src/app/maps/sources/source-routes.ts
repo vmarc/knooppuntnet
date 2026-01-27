@@ -6,6 +6,7 @@ export class SourceRoutes {
     map.addSource('routes', {
       type: 'vector',
       tiles: ['http://localhost:4200/tiles/hiking/{z}/{x}/{y}.mvt'],
+      maxzoom: 13,
     });
     map.addLayer({
       id: 'node-route',
