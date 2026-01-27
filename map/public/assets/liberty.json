@@ -10,7 +10,7 @@
     "openmaptiles": { "type": "vector", "url": "https://tiles.openfreemap.org/planet" }
   },
   "sprite": "https://tiles.openfreemap.org/sprites/ofm_f384/ofm",
-  "glyphs": "https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf",
+  "glyphs": "http://localhost:4200/assets/fonts/{fontstack}/{range}.pbf",
   "layers": [
     { "id": "background", "type": "background", "paint": { "background-color": "#f8f4f0" } },
     {
