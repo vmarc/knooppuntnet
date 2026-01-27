@@ -10,6 +10,7 @@ object FeatureLayer extends Enum[FeatureLayer] {
 
   val values: IndexedSeq[FeatureLayer] = findValues
 
+  // route tiles
   final case object route extends FeatureLayer
 
   final case object node extends FeatureLayer
@@ -18,16 +19,7 @@ object FeatureLayer extends Enum[FeatureLayer] {
 
   final case object errorNode extends FeatureLayer
 
-  final case object errorOrphanNode extends FeatureLayer
-
-  final case object orphanNode extends FeatureLayer
-
-  final case object orphanRoute extends FeatureLayer
-
-  final case object incompleteRoute extends FeatureLayer
-
-  final case object errorRoute extends FeatureLayer
-
+  // other
   final case object opendataNode extends FeatureLayer
 
   final case object opendataRoute extends FeatureLayer
