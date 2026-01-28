@@ -1,5 +1,5 @@
 import { Marker } from '@app/ol/domain/marker';
-import { OldLayers } from '@app/ol/layers/old-layers';
+import { OldOldLayers } from '@app/ol/layers/old-old-layers';
 import { Coordinate } from 'ol/coordinate';
 import Feature from 'ol/Feature';
 import LineString from 'ol/geom/LineString';
@@ -26,7 +26,7 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayer {
   private source = new VectorSource();
 
   private layer = new VectorLayer({
-    zIndex: OldLayers.zIndexPlannerRouteLayer,
+    zIndex: OldOldLayers.zIndexPlannerRouteLayer,
     source: this.source,
   });
 

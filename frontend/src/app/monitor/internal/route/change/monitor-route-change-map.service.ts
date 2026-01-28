@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
-import { OldBackgroundLayer } from '@app/ol/layers/old-background-layer';
+import { OldOldBackgroundLayer } from '@app/ol/layers/old-old-background-layer';
 import { MapControls } from '@app/ol/layers/map-controls';
-import { OldMapLayer } from '@app/ol/layers/old-map-layer';
-import { OldMapLayerRegistry } from '@app/ol/layers/old-map-layer-registry';
-import { OldOsmLayer } from '@app/ol/layers/old-osm-layer';
+import { OldOldMapLayer } from '@app/ol/layers/old-old-map-layer';
+import { OldOldMapLayerRegistry } from '@app/ol/layers/old-old-map-layer-registry';
+import { OldOldOsmLayer } from '@app/ol/layers/old-old-osm-layer';
 import { OpenlayersMapService } from '@app/ol/services/openlayers-map-service';
 import { Util } from '@app/shared/components/util';
 import Feature from 'ol/Feature';
@@ -51,16 +51,16 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     deviation: MonitorRouteDeviation,
     routeSegments: MonitorRouteSegment[]
   ): void {
-    const registry = new OldMapLayerRegistry();
-    registry.register([], OldBackgroundLayer.build(), true);
-    registry.register([], OldOsmLayer.build(), false);
+    const registry = new OldOldMapLayerRegistry();
+    registry.register([], OldOldBackgroundLayer.build(), true);
+    registry.register([], OldOldOsmLayer.build(), false);
     registry.register([], this.buildReferenceLayer(referenceJson), true);
     registry.register([], this.buildNokSegmentLayer(deviation), true);
     registry.register([], this.buildOsmRelationLayer(routeSegments), true);
     this.register(registry);
   }
 
-  private buildReferenceLayer(referenceJson: string): OldMapLayer {
+  private buildReferenceLayer(referenceJson: string): OldOldMapLayer {
     const layerStyle = this.fixedStyle('blue', 4);
     const features = new GeoJSON().readFeatures(referenceJson, {
       featureProjection: 'EPSG:3857',
@@ -72,10 +72,10 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     });
 
     layer.set('name', 'GPX reference'); // TODO planner: set elsewhere?
-    return OldMapLayer.build('gpx-reference-layer', 'GPX reference', layer);
+    return OldOldMapLayer.build('gpx-reference-layer', 'GPX reference', layer);
   }
 
-  private buildNokSegmentLayer(deviation: MonitorRouteDeviation): OldMapLayer {
+  private buildNokSegmentLayer(deviation: MonitorRouteDeviation): OldOldMapLayer {
     const layerStyle = this.fixedStyle('red', 4);
     const features: Feature<Geometry>[] = []; // new GeoJSON().readFeatures(deviation.geoJson, {
     //   featureProjection: 'EPSG:3857',
@@ -87,10 +87,10 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
       style: () => layerStyle,
     });
     layer.set('name', 'Not OK segment'); // TODO planner: set elsewhere?
-    return OldMapLayer.build('not-ok-layer', 'Not OK', layer);
+    return OldOldMapLayer.build('not-ok-layer', 'Not OK', layer);
   }
 
-  private buildOsmRelationLayer(routeSegments: MonitorRouteSegment[]): OldMapLayer {
+  private buildOsmRelationLayer(routeSegments: MonitorRouteSegment[]): OldOldMapLayer {
     const thickStyle = this.fixedStyle('yellow', 10);
     const features = [];
     routeSegments.forEach((segment) => {
@@ -108,7 +108,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
       style: () => thickStyle,
     });
     layer.set('name', 'OSM Relation'); // TODO planner: set elsewhere?
-    return OldMapLayer.build('osm-relation-layer', 'OSM relation', layer);
+    return OldOldMapLayer.build('osm-relation-layer', 'OSM relation', layer);
   }
 
   private fixedStyle(color: string, width: number): Style {

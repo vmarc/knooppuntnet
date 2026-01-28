@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { OldPoiService } from '@app/shared/services/old-poi.service';
+import { OldOldPoiService } from '@app/shared/services/old-old-poi.service';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
@@ -67,7 +67,7 @@ export class PoiGroupComponent {
   readonly name = input.required<string>();
   readonly title = input.required<string>();
 
-  private readonly poiService = inject(OldPoiService);
+  private readonly poiService = inject(OldOldPoiService);
 
   isEnabled(): boolean {
     return this.poiService.isGroupEnabled(this.name());

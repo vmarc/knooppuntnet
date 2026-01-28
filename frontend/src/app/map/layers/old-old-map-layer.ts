@@ -1,9 +1,9 @@
 import { RouteType } from '@api/common/route-type';
 import BaseLayer from 'ol/layer/Base';
 
-export class OldMapLayer {
-  static build(id: string, name: string, layer: BaseLayer): OldMapLayer {
-    return new OldMapLayer(id, name, -Infinity, Infinity, layer, null);
+export class OldOldMapLayer {
+  static build(id: string, name: string, layer: BaseLayer): OldOldMapLayer {
+    return new OldOldMapLayer(id, name, -Infinity, Infinity, layer, null);
   }
 
   constructor(

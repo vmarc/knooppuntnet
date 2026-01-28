@@ -17,8 +17,8 @@ import { provideRouter } from '@angular/router';
 import { Router } from '@angular/router';
 import { PreferencesService } from '@app/shared/core/preferences/preferences.service';
 import { ApiService } from '@app/shared/services/api.service';
-import { OldPoiService } from '@app/shared/services/old-poi.service';
-import { OldPoiNameService } from '@app/shared/services/old-poi-name.service';
+import { OldOldPoiService } from '@app/shared/services/old-old-poi.service';
+import { OldOldPoiNameService } from '@app/shared/services/old-old-poi-name.service';
 import { EditService } from '@app/shared/components/edit.service';
 import { PageWidthService } from '@app/shared/components/page-width.service';
 import { PageService } from '@app/shared/components/page.service';
@@ -150,8 +150,8 @@ export const appConfig: ApplicationConfig = {
     MapRoutePopupInteractionService,
     MapService,
     NzModalService,
-    OldPoiNameService,
-    OldPoiService,
+    OldOldPoiNameService,
+    OldOldPoiService,
     PageService,
     PageWidthService,
     PlannerMapLayerService,

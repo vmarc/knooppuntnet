@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OldPoiService } from '@app/shared/services/old-poi.service';
+import { OldOldPoiService } from '@app/shared/services/old-old-poi.service';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
@@ -48,7 +48,7 @@ import { MapPoiConfigComponent } from './poi/map-poi-config.component';
   ],
 })
 export class PlannerSideBarPoiConfigurationComponent {
-  private readonly poiService = inject(OldPoiService);
+  private readonly poiService = inject(OldOldPoiService);
 
   enabledChanged(checked: boolean) {
     this.poiService.updateEnabled(checked);

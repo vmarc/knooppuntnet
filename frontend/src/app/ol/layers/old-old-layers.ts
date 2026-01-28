@@ -1,4 +1,4 @@
-export class OldLayers {
+export class OldOldLayers {
   static zIndexOsmLayer = 90;
   static zIndexGpxLayer = 80;
   static zIndexPlannerMarkerLayer = 70;

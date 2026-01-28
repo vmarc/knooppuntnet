@@ -1,13 +1,13 @@
-import { OldMapLayer } from '@app/ol/layers/old-map-layer';
+import { OldOldMapLayer } from '@app/ol/layers/old-old-map-layer';
 import { MapLayerState } from '../domain/map-layer-state';
 
-export class OldMapLayerRegistry {
-  layers: OldMapLayer[] = [];
+export class OldOldMapLayerRegistry {
+  layers: OldOldMapLayer[] = [];
   layerStates: MapLayerState[] = [];
 
   register(
     urlLayerIds: string[],
-    mapLayer: OldMapLayer,
+    mapLayer: OldOldMapLayer,
     defaultVisible: boolean,
     enabled?: boolean
   ): void {
@@ -30,7 +30,7 @@ export class OldMapLayerRegistry {
 
   registerAll(
     urlLayerIds: string[],
-    mapLayers: OldMapLayer[],
+    mapLayers: OldOldMapLayer[],
     defaultVisible: boolean,
     enabled?: boolean
   ): void {

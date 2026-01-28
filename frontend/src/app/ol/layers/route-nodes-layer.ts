@@ -3,11 +3,11 @@ import { OlUtil } from '@app/ol/ol-util';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Marker } from '../domain/marker';
-import { OldLayers } from './old-layers';
-import { OldMapLayer } from './old-map-layer';
+import { OldOldLayers } from './old-old-layers';
+import { OldOldMapLayer } from './old-old-map-layer';
 
 export class RouteNodesLayer {
-  static build(nodeChanges: RouteNodeChange[]): OldMapLayer {
+  static build(nodeChanges: RouteNodeChange[]): OldOldMapLayer {
     if (nodeChanges.length === 0) {
       return null;
     }
@@ -28,10 +28,10 @@ export class RouteNodesLayer {
       source.addFeature(nodeMarker);
     });
     const layer = new VectorLayer({
-      zIndex: OldLayers.zIndexNetworkNodesLayer,
+      zIndex: OldOldLayers.zIndexNetworkNodesLayer,
       source,
     });
     const name = $localize`:@@map.layer.route-nodes:Nodes`;
-    return OldMapLayer.build('route-nodes-layer', name, layer);
+    return OldOldMapLayer.build('route-nodes-layer', name, layer);
   }
 }

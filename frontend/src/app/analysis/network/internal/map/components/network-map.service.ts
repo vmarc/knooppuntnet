@@ -4,14 +4,14 @@ import { Injectable } from '@angular/core';
 import { NetworkMapPage } from '@api/common/network/network-map-page';
 import { CachedMapPosition } from '@app/ol/domain/cached-map-position';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
-import { OldOpenDataLayers } from '@app/ol/layers/old-open-data-layers';
-import { OldBackgroundLayer } from '@app/ol/layers/old-background-layer';
+import { OldOldOpenDataLayers } from '@app/ol/layers/old-old-open-data-layers';
+import { OldOldBackgroundLayer } from '@app/ol/layers/old-old-background-layer';
 import { MapControls } from '@app/ol/layers/map-controls';
-import { OldMapLayerRegistry } from '@app/ol/layers/old-map-layer-registry';
+import { OldOldMapLayerRegistry } from '@app/ol/layers/old-old-map-layer-registry';
 import { NetworkNodesBitmapTileLayer } from '@app/ol/layers/network-nodes-bitmap-tile-layer';
 import { NetworkNodesMarkerLayer } from '@app/ol/layers/network-nodes-marker-layer';
 import { NetworkNodesVectorTileLayer } from '@app/ol/layers/network-nodes-vector-tile-layer';
-import { OldOsmLayer } from '@app/ol/layers/old-osm-layer';
+import { OldOldOsmLayer } from '@app/ol/layers/old-old-osm-layer';
 import { TileDebug256Layer } from '@app/ol/layers/tile-debug-256-layer';
 import { MapClickService } from '@app/ol/services/map-click.service';
 import { MapZoomService } from '@app/ol/services/map-zoom.service';
@@ -89,9 +89,9 @@ export class NetworkMapService extends OpenlayersMapService {
   }
 
   private registerLayers(page: NetworkMapPage, urlLayerIds: string[]): void {
-    const registry = new OldMapLayerRegistry();
-    registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
-    registry.register(urlLayerIds, OldOsmLayer.build(), false);
+    const registry = new OldOldMapLayerRegistry();
+    registry.register(urlLayerIds, OldOldBackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OldOldOsmLayer.build(), false);
     const networkNodesLayers = [
       NetworkNodesBitmapTileLayer.build(page.summary.routeType),
       NetworkNodesVectorTileLayer.build(
@@ -104,7 +104,7 @@ export class NetworkMapService extends OpenlayersMapService {
     ];
     registry.registerAll(urlLayerIds, networkNodesLayers, true);
     registry.register(urlLayerIds, NetworkNodesMarkerLayer.build(page.nodes), true);
-    OldOpenDataLayers.register(registry, page.summary.routeType, urlLayerIds);
+    OldOldOpenDataLayers.register(registry, page.summary.routeType, urlLayerIds);
     registry.register(urlLayerIds, TileDebug256Layer.build(), false);
     this.register(registry);
   }

@@ -1,36 +1,36 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { OlUtil } from '@app/ol/ol-util';
-import { OldPoiService } from '@app/shared/services/old-poi.service';
+import { OldOldPoiService } from '@app/shared/services/old-old-poi.service';
 import { StyleFunction } from 'ol/style/Style';
 import { ZoomLevel } from '../domain/zoom-level';
-import { OldPoiTileLayer } from '../layers/old-poi-tile-layer';
-import { OldMapLayer } from '../layers/old-map-layer';
-import { OldPoiStyleMap } from '../style/old-poi-style-map';
+import { OldOldPoiTileLayer } from '../layers/old-old-poi-tile-layer';
+import { OldOldMapLayer } from '../layers/old-old-map-layer';
+import { OldOldPoiStyleMap } from '../style/old-old-poi-style-map';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OldPoiTileLayerService {
-  private readonly poiService = inject(OldPoiService);
+  private readonly poiService = inject(OldOldPoiService);
 
   static poiLayerId = 'pois';
-  poiStyleMap: OldPoiStyleMap;
+  poiStyleMap: OldOldPoiStyleMap;
 
   constructor() {
     console.log('OldPoiTileLayerService.constructor');
     this.poiService.poiConfiguration.subscribe((configuration) => {
       if (configuration !== null) {
-        this.poiStyleMap = new OldPoiStyleMap(configuration);
+        this.poiStyleMap = new OldOldPoiStyleMap(configuration);
       }
     });
   }
 
-  public buildLayer(): OldMapLayer {
-    const layer = new OldPoiTileLayer().build();
+  public buildLayer(): OldOldMapLayer {
+    const layer = new OldOldPoiTileLayer().build();
     layer.setStyle(this.poiStyleFunction());
     this.poiService.changeCount.subscribe(() => layer.changed());
-    return new OldMapLayer(
+    return new OldOldMapLayer(
       OldPoiTileLayerService.poiLayerId,
       OldPoiTileLayerService.poiLayerId,
       ZoomLevel.poiTileMinZoom,

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { PoiAnalysis } from '@api/common/poi-analysis';
-import { OldPoiService } from '@app/shared/services/old-poi.service';
+import { OldOldPoiService } from '@app/shared/services/old-old-poi.service';
 
 @Component({
   selector: 'ui-poi-analysis',
@@ -249,7 +249,7 @@ import { OldPoiService } from '@app/shared/services/old-poi.service';
 export class PoiAnalysisComponent {
   readonly poi = input.required<PoiAnalysis>();
 
-  private readonly poiService = inject(OldPoiService);
+  private readonly poiService = inject(OldOldPoiService);
 
   layerName(): string {
     const layer = this.poi().layers[0];

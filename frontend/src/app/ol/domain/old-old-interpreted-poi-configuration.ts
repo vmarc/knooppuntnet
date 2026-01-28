@@ -3,7 +3,7 @@ import { ClientPoiDefinition } from '@api/common/tiles/client-poi-definition';
 import { ClientPoiGroupDefinition } from '@api/common/tiles/client-poi-group-definition';
 import { Map } from 'immutable';
 
-export class OldInterpretedPoiConfiguration {
+export class OldOldInterpretedPoiConfiguration {
   private readonly poiDefinitionMap: Map<string, ClientPoiDefinition>;
 
   constructor(private configuration: ClientPoiConfiguration) {

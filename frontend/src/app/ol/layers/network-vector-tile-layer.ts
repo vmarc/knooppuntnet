@@ -5,11 +5,11 @@ import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import { StyleFunction } from 'ol/style/Style';
 import { ZoomLevel } from '../domain/zoom-level';
-import { OldLayers } from './old-layers';
-import { OldMapLayer } from './old-map-layer';
+import { OldOldLayers } from './old-old-layers';
+import { OldOldMapLayer } from './old-old-map-layer';
 
 export class NetworkVectorTileLayer {
-  public static oldBuild(routeType: RouteType, styleFunction: StyleFunction): OldMapLayer {
+  public static oldBuild(routeType: RouteType, styleFunction: StyleFunction): OldOldMapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -19,14 +19,14 @@ export class NetworkVectorTileLayer {
     });
 
     const layer = new VectorTileLayer({
-      zIndex: OldLayers.zIndexNetworkLayer,
+      zIndex: OldOldLayers.zIndexNetworkLayer,
       source,
       renderMode: 'vector',
     });
 
     layer.setStyle(styleFunction);
     const name = Translations.get(`route-type.${routeType}`);
-    return new OldMapLayer(
+    return new OldOldMapLayer(
       routeType,
       name,
       ZoomLevel.vectorTileMinZoom,
@@ -38,7 +38,7 @@ export class NetworkVectorTileLayer {
     );
   }
 
-  public static build(routeType: RouteType, styleFunction: StyleFunction): OldMapLayer {
+  public static build(routeType: RouteType, styleFunction: StyleFunction): OldOldMapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -48,7 +48,7 @@ export class NetworkVectorTileLayer {
     });
 
     const layer = new VectorTileLayer({
-      zIndex: OldLayers.zIndexNetworkLayer,
+      zIndex: OldOldLayers.zIndexNetworkLayer,
       className: `${routeType} - network`,
       declutter: false,
       source,
@@ -57,7 +57,7 @@ export class NetworkVectorTileLayer {
     });
 
     const name = Translations.get(`route-type.${routeType}`);
-    return new OldMapLayer(
+    return new OldOldMapLayer(
       routeType,
       name,
       ZoomLevel.vectorTileMinZoom,

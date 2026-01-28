@@ -5,8 +5,8 @@ import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import { ZoomLevel } from '../domain/zoom-level';
 import { NetworkMapStyle } from '../style/network-map-style';
-import { OldLayers } from './old-layers';
-import { OldMapLayer } from './old-map-layer';
+import { OldOldLayers } from './old-old-layers';
+import { OldOldMapLayer } from './old-old-map-layer';
 
 export class NetworkNodesVectorTileLayer {
   static build(
@@ -15,7 +15,7 @@ export class NetworkNodesVectorTileLayer {
     connectionNodeIds: number[],
     networkRouteIds: number[],
     connectionRouteIds: number[]
-  ): OldMapLayer {
+  ): OldOldMapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -25,7 +25,7 @@ export class NetworkNodesVectorTileLayer {
     });
 
     const layer = new VectorTileLayer({
-      zIndex: OldLayers.zIndexNetworkLayer,
+      zIndex: OldOldLayers.zIndexNetworkLayer,
       className: 'network-layer',
       source,
       renderMode: 'vector',
@@ -40,7 +40,7 @@ export class NetworkNodesVectorTileLayer {
     layer.setStyle(nodeMapStyle);
 
     const name = Translations.get(`route-type.${routeType}`);
-    return new OldMapLayer(
+    return new OldOldMapLayer(
       `network-nodes-${routeType}-layer`,
       name,
       ZoomLevel.vectorTileMinZoom,

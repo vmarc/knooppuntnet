@@ -3,10 +3,10 @@ import { Translations } from '@app/shared/i18n/translations';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import { ZoomLevel } from '../domain/zoom-level';
-import { OldMapLayer } from './old-map-layer';
+import { OldOldMapLayer } from './old-old-map-layer';
 
 export class NetworkNodesBitmapTileLayer {
-  static build(routeType: RouteType): OldMapLayer {
+  static build(routeType: RouteType): OldOldMapLayer {
     const layer = new TileLayer({
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
@@ -15,7 +15,7 @@ export class NetworkNodesBitmapTileLayer {
       }),
     });
     const name = Translations.get(`route-type.${routeType}`);
-    return new OldMapLayer(
+    return new OldOldMapLayer(
       `network-nodes-${routeType}-layer`,
       name,
       ZoomLevel.bitmapTileMinZoom,

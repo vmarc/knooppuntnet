@@ -3,10 +3,10 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
-import { OldMapLayer } from './old-map-layer';
+import { OldOldMapLayer } from './old-old-map-layer';
 
 export class PoiAreasLayer {
-  static build(geoJson: string): OldMapLayer {
+  static build(geoJson: string): OldOldMapLayer {
     const features = new GeoJSON().readFeatures(geoJson, {
       featureProjection: 'EPSG:3857',
     });
@@ -28,6 +28,6 @@ export class PoiAreasLayer {
     });
 
     const name = $localize`:@@map.layer.poi-areas:Poi areas`;
-    return OldMapLayer.build('poi-areas-layer', name, layer);
+    return OldOldMapLayer.build('poi-areas-layer', name, layer);
   }
 }

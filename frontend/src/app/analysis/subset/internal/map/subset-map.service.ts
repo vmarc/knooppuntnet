@@ -4,9 +4,9 @@ import { Bounds } from '@api/common/bounds';
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 import { MapPosition } from '@app/ol/domain/map-position';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
-import { OldMapLayerRegistry } from '@app/ol/layers/old-map-layer-registry';
-import { OldBackgroundLayer } from '@app/ol/layers/old-background-layer';
-import { OldOsmLayer } from '@app/ol/layers/old-osm-layer';
+import { OldOldMapLayerRegistry } from '@app/ol/layers/old-old-map-layer-registry';
+import { OldOldBackgroundLayer } from '@app/ol/layers/old-old-background-layer';
+import { OldOldOsmLayer } from '@app/ol/layers/old-old-osm-layer';
 import { NetworkMarkerLayer } from '@app/ol/layers/network-marker-layer';
 import { MapControls } from '@app/ol/layers/map-controls';
 import { OpenlayersMapService } from '@app/ol/services/openlayers-map-service';
@@ -68,9 +68,9 @@ export class SubsetMapService extends OpenlayersMapService {
   }
 
   private registerLayers(networks: SubsetMapNetwork[], urlLayerIds: string[]): void {
-    const registry = new OldMapLayerRegistry();
-    registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
-    registry.register(urlLayerIds, OldOsmLayer.build(), false);
+    const registry = new OldOldMapLayerRegistry();
+    registry.register(urlLayerIds, OldOldBackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OldOldOsmLayer.build(), false);
     registry.register(urlLayerIds, new NetworkMarkerLayer().build(networks), true);
     this.register(registry);
   }

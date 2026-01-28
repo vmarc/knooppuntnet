@@ -9,14 +9,14 @@ import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { CachedMapPosition } from '@app/ol/domain/cached-map-position';
 import { MapPosition } from '@app/ol/domain/map-position';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
-import { OldOpenDataLayers } from '@app/ol/layers/old-open-data-layers';
-import { OldBackgroundLayer } from '@app/ol/layers/old-background-layer';
-import { OldOsmLayer } from '@app/ol/layers/old-osm-layer';
+import { OldOldOpenDataLayers } from '@app/ol/layers/old-old-open-data-layers';
+import { OldOldBackgroundLayer } from '@app/ol/layers/old-old-background-layer';
+import { OldOldOsmLayer } from '@app/ol/layers/old-old-osm-layer';
 import { NetworkVectorTileLayer } from '@app/ol/layers/network-vector-tile-layer';
 import { NetworkBitmapTileLayer } from '@app/ol/layers/network-bitmap-tile-layer';
 import { LocationBoundaryLayer } from '@app/ol/layers/location-boundary-layer';
 import { MapControls } from '@app/ol/layers/map-controls';
-import { OldMapLayerRegistry } from '@app/ol/layers/old-map-layer-registry';
+import { OldOldMapLayerRegistry } from '@app/ol/layers/old-old-map-layer-registry';
 import { OpenlayersMapService } from '@app/ol/services/openlayers-map-service';
 import { MapClickService } from '@app/ol/services/map-click.service';
 import { MainMapStyleParameters } from '@app/ol/style/main-map-style-parameters';
@@ -105,15 +105,15 @@ export class LocationMapService extends OpenlayersMapService {
       NetworkBitmapTileLayer.build(routeType, 'analysis'),
     ];
 
-    const registry = new OldMapLayerRegistry();
-    registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
-    registry.register(urlLayerIds, OldOsmLayer.build(), false);
+    const registry = new OldOldMapLayerRegistry();
+    registry.register(urlLayerIds, OldOldBackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OldOldOsmLayer.build(), false);
     registry.registerAll(urlLayerIds, networkLayers, true);
     registry.register(urlLayerIds, LocationBoundaryLayer.build(geoJson), true);
     if (geoJson2) {
       registry.register(urlLayerIds, LocationBoundaryLayer.build2(geoJson2), true);
     }
-    OldOpenDataLayers.register(registry, routeType, urlLayerIds);
+    OldOldOpenDataLayers.register(registry, routeType, urlLayerIds);
     this.register(registry);
   }
 

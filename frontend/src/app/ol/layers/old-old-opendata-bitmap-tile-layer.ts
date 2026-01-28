@@ -2,10 +2,10 @@ import { RouteType } from '@api/common/route-type';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import { ZoomLevel } from '../domain/zoom-level';
-import { OldMapLayer } from './old-map-layer';
+import { OldOldMapLayer } from './old-old-map-layer';
 
-export class OldOpendataBitmapTileLayer {
-  static build(routeType: RouteType, id: string, layerName: string, dir: string): OldMapLayer {
+export class OldOldOpendataBitmapTileLayer {
+  static build(routeType: RouteType, id: string, layerName: string, dir: string): OldOldMapLayer {
     const layer = new TileLayer<XYZ>({
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
@@ -14,7 +14,7 @@ export class OldOpendataBitmapTileLayer {
       }),
     });
 
-    return new OldMapLayer(
+    return new OldOldMapLayer(
       id,
       layerName,
       ZoomLevel.bitmapTileMinZoom,

@@ -1,15 +1,15 @@
 import { RouteType } from '@api/common/route-type';
 import { Translations } from '@app/shared/i18n/translations';
-import { OldMapLayer } from '@app/ol/layers/old-map-layer';
+import { OldOldMapLayer } from '@app/ol/layers/old-old-map-layer';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapMode } from '../../map/domain/map-mode';
 
 export class NetworkBitmapTileLayer {
-  public static build(routeType: RouteType, mapMode: MapMode): OldMapLayer {
+  public static build(routeType: RouteType, mapMode: MapMode): OldOldMapLayer {
     const name = Translations.get(`route-type.${routeType}`);
-    return new OldMapLayer(
+    return new OldOldMapLayer(
       routeType,
       name,
       ZoomLevel.bitmapTileMinZoom,

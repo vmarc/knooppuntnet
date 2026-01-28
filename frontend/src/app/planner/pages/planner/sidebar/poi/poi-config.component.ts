@@ -4,7 +4,7 @@ import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { OldPoiService } from '@app/shared/services/old-poi.service';
+import { OldOldPoiService } from '@app/shared/services/old-old-poi.service';
 import { Subscriptions } from '@app/util/subscriptions';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { NzRadioComponent } from 'ng-zorro-antd/radio';
@@ -87,7 +87,7 @@ import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
 export class PoiConfigComponent implements OnInit, OnDestroy {
   readonly poiId = input.required<string>();
 
-  private readonly poiService = inject(OldPoiService);
+  private readonly poiService = inject(OldOldPoiService);
 
   protected icon: string;
   protected minLevel = 0;

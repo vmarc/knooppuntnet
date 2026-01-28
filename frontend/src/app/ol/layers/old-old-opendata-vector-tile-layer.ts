@@ -9,15 +9,15 @@ import Stroke from 'ol/style/Stroke';
 import Style, { StyleFunction } from 'ol/style/Style';
 import Text from 'ol/style/Text';
 import { ZoomLevel } from '../domain/zoom-level';
-import { OldLayers } from './old-layers';
-import { OldMapLayer } from './old-map-layer';
+import { OldOldLayers } from './old-old-layers';
+import { OldOldMapLayer } from './old-old-map-layer';
 
-export class OldOpendataVectorTileLayer {
+export class OldOldOpendataVectorTileLayer {
   private static readonly largeMaxZoomResolution = /* zoomLevel 13 */ 19.109;
   private static readonly smallStyle = this.buildSmallStyle();
   private static readonly largeStyle = this.buildLargeStyle();
 
-  static build(routeType: RouteType, id: string, name: string, dir: string): OldMapLayer {
+  static build(routeType: RouteType, id: string, name: string, dir: string): OldOldMapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -27,7 +27,7 @@ export class OldOpendataVectorTileLayer {
     });
 
     const layer = new VectorTileLayer({
-      zIndex: OldLayers.zIndexPoiLayer,
+      zIndex: OldOldLayers.zIndexPoiLayer,
       source,
       renderBuffer: 40,
       declutter: false,
@@ -37,7 +37,7 @@ export class OldOpendataVectorTileLayer {
 
     layer.setStyle(this.styleFunction());
 
-    return new OldMapLayer(
+    return new OldOldMapLayer(
       id,
       name,
       ZoomLevel.vectorTileMinZoom,

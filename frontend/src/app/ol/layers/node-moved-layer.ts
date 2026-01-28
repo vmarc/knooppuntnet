@@ -7,10 +7,10 @@ import VectorSource from 'ol/source/Vector';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import { Marker } from '../domain/marker';
-import { OldMapLayer } from './old-map-layer';
+import { OldOldMapLayer } from './old-old-map-layer';
 
 export class NodeMovedLayer {
-  public static build(nodeMoved: NodeMoved): OldMapLayer {
+  public static build(nodeMoved: NodeMoved): OldOldMapLayer {
     const before = OlUtil.latLonToCoordinate(nodeMoved.before);
     const after = OlUtil.latLonToCoordinate(nodeMoved.after);
     const nodeMarker = Marker.create('blue', after);
@@ -33,6 +33,6 @@ export class NodeMovedLayer {
     });
 
     const name = $localize`:@@map.layer.node-moved:Node moved`;
-    return OldMapLayer.build('node-moved-layer', name, layer);
+    return OldOldMapLayer.build('node-moved-layer', name, layer);
   }
 }

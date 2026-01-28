@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 
-export class OldPoiNameService {
+export class OldOldPoiNameService {
   buildPoiNames(): Map<string, string> {
     const keysAndValues: Array<[string, string]> = [];
     keysAndValues.push(['alcohol', $localize`:@@poi.alcohol:Alcohol`]);

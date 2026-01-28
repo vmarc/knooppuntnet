@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { OlUtil } from '@app/ol/ol-util';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import { NetworkBitmapTileLayer } from '@app/ol/layers/network-bitmap-tile-layer';
-import { OldMapLayerRegistry } from '@app/ol/layers/old-map-layer-registry';
-import { OldOsmLayer } from '@app/ol/layers/old-osm-layer';
+import { OldOldMapLayerRegistry } from '@app/ol/layers/old-old-map-layer-registry';
+import { OldOldOsmLayer } from '@app/ol/layers/old-old-osm-layer';
 import { PoiAreasLayer } from '@app/ol/layers/poi-areas-layer';
-import { OldBackgroundLayer } from '@app/ol/layers/old-background-layer';
+import { OldOldBackgroundLayer } from '@app/ol/layers/old-old-background-layer';
 import { MapControls } from '@app/ol/layers/map-controls';
 import { OpenlayersMapService } from '@app/ol/services/openlayers-map-service';
 import Map from 'ol/Map';
@@ -34,9 +34,9 @@ export class PoiMapService extends OpenlayersMapService {
   }
 
   private registerLayers(geoJson: string): void {
-    const registry = new OldMapLayerRegistry();
-    registry.register([], OldBackgroundLayer.build(), true);
-    registry.register([], OldOsmLayer.build(), false);
+    const registry = new OldOldMapLayerRegistry();
+    registry.register([], OldOldBackgroundLayer.build(), true);
+    registry.register([], OldOldOsmLayer.build(), false);
 
     registry.register([], NetworkBitmapTileLayer.build('cycling', 'analysis'), true);
 

@@ -10,11 +10,11 @@ import { fromLonLat } from 'ol/proj';
 import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
-import { OldLayers } from './old-layers';
-import { OldMapLayer } from './old-map-layer';
+import { OldOldLayers } from './old-old-layers';
+import { OldOldMapLayer } from './old-old-map-layer';
 
 export class RouteChangeLayers {
-  build(geometryDiff: GeometryDiff): List<OldMapLayer> {
+  build(geometryDiff: GeometryDiff): List<OldOldMapLayer> {
     const unchanged = this.unchangedLayer(
       'map.layer.unchanged',
       $localize`:@@map.layer.unchanged:Unchanged`,
@@ -48,7 +48,7 @@ export class RouteChangeLayers {
     geometryDiff: GeometryDiff,
     width: number,
     color: Color
-  ): OldMapLayer {
+  ): OldOldMapLayer {
     const unchanged: WayGeometry[] = [];
     unchanged.push(...geometryDiff.common);
     const wayGeometries = geometryDiff.update.flatMap((update) => {
@@ -85,10 +85,10 @@ export class RouteChangeLayers {
     });
 
     const layer = new VectorLayer({
-      zIndex: OldLayers.zIndexNetworkLayer,
+      zIndex: OldOldLayers.zIndexNetworkLayer,
       source,
     });
-    return OldMapLayer.build(id, name, layer);
+    return OldOldMapLayer.build(id, name, layer);
   }
 
   private addedLayer(
@@ -97,7 +97,7 @@ export class RouteChangeLayers {
     geometryDiff: GeometryDiff,
     width: number,
     color: Color
-  ): OldMapLayer {
+  ): OldOldMapLayer {
     const wayGeometries = geometryDiff.update.flatMap((update) => {
       if (update.added && update.added.length > 0) {
         return update.added.map((line) => {
@@ -131,10 +131,10 @@ export class RouteChangeLayers {
     });
 
     const layer = new VectorLayer({
-      zIndex: OldLayers.zIndexNetworkLayer,
+      zIndex: OldOldLayers.zIndexNetworkLayer,
       source,
     });
-    return OldMapLayer.build(id, name, layer);
+    return OldOldMapLayer.build(id, name, layer);
   }
 
   private removedLayer(
@@ -143,7 +143,7 @@ export class RouteChangeLayers {
     geometryDiff: GeometryDiff,
     width: number,
     color: Color
-  ): OldMapLayer {
+  ): OldOldMapLayer {
     const wayGeometries = geometryDiff.update.flatMap((update) => {
       if (update.removed && update.removed.length > 0) {
         return update.removed.map((line) => {
@@ -178,9 +178,9 @@ export class RouteChangeLayers {
     });
 
     const layer = new VectorLayer({
-      zIndex: OldLayers.zIndexNetworkLayer,
+      zIndex: OldOldLayers.zIndexNetworkLayer,
       source,
     });
-    return OldMapLayer.build(id, name, layer);
+    return OldOldMapLayer.build(id, name, layer);
   }
 }

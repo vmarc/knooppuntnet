@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MapZoomService } from '@app/ol/services/map-zoom.service';
 import { MainMapStyleParameters } from '@app/ol/style/main-map-style-parameters';
-import { OldPoiService } from '@app/shared/services/old-poi.service';
+import { OldOldPoiService } from '@app/shared/services/old-old-poi.service';
 import { State } from '@app/state/state';
 import { Subscriptions } from '@app/util/subscriptions';
 import Map from 'ol/Map';
@@ -18,7 +18,7 @@ import { PlannerService } from './planner.service';
 export class PlannerMapService {
   private readonly state = inject(State);
   private readonly plannerService = inject(PlannerService);
-  private readonly poiService = inject(OldPoiService);
+  private readonly poiService = inject(OldOldPoiService);
   private readonly mapZoomService = inject(MapZoomService);
   private readonly sharedStateService = inject(SharedStateService);
 
@@ -120,7 +120,7 @@ export class PlannerMapService {
   //   }
   // }
 
-  // protected override layerVisible(mapLayer: OldMapLayer): boolean {
+  // protected override layerVisible(mapLayer: OldOldMapLayer): boolean {
   //   if (!!mapLayer.routeType && mapLayer.routeType !== this.state.page.routeType()) {
   //     return false;
   //   }

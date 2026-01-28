@@ -4,12 +4,12 @@ import VectorSource from 'ol/source/Vector';
 import { Style } from 'ol/style';
 import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
-import { OldMapLayer } from './old-map-layer';
+import { OldOldMapLayer } from './old-old-map-layer';
 
 export class LocationBoundaryLayer {
   static id = 'location-boundary';
 
-  static build(geoJson: string): OldMapLayer {
+  static build(geoJson: string): OldOldMapLayer {
     const features = new GeoJSON().readFeatures(geoJson, {
       featureProjection: 'EPSG:3857',
     });
@@ -35,10 +35,10 @@ export class LocationBoundaryLayer {
     });
 
     const name = $localize`:@@map.layer.boundary:Boundary`;
-    return OldMapLayer.build('location-boundary', name, layer);
+    return OldOldMapLayer.build('location-boundary', name, layer);
   }
 
-  static build2(geoJson: string): OldMapLayer {
+  static build2(geoJson: string): OldOldMapLayer {
     const features = new GeoJSON().readFeatures(geoJson, {
       featureProjection: 'EPSG:3857',
     });
@@ -61,6 +61,6 @@ export class LocationBoundaryLayer {
     });
 
     const name = $localize`:@@map.layer.boundary:Boundary`;
-    return OldMapLayer.build('location-boundary-2', name, layer);
+    return OldOldMapLayer.build('location-boundary-2', name, layer);
   }
 }

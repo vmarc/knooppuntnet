@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { NodeMoved } from '@api/common/diff/node/node-moved';
 import { OlUtil } from '@app/ol/ol-util';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
-import { OldBackgroundLayer } from '@app/ol/layers/old-background-layer';
-import { OldOsmLayer } from '@app/ol/layers/old-osm-layer';
+import { OldOldBackgroundLayer } from '@app/ol/layers/old-old-background-layer';
+import { OldOldOsmLayer } from '@app/ol/layers/old-old-osm-layer';
 import { MapControls } from '@app/ol/layers/map-controls';
 import { NodeMovedLayer } from '@app/ol/layers/node-moved-layer';
-import { OldMapLayerRegistry } from '@app/ol/layers/old-map-layer-registry';
+import { OldOldMapLayerRegistry } from '@app/ol/layers/old-old-map-layer-registry';
 import { OpenlayersMapService } from '@app/ol/services/openlayers-map-service';
 import Map from 'ol/Map';
 import View from 'ol/View';
@@ -33,9 +33,9 @@ export class NodeMovedMapService extends OpenlayersMapService {
   }
 
   private registerLayers(nodeMoved: NodeMoved): void {
-    const registry = new OldMapLayerRegistry();
-    registry.register([], OldBackgroundLayer.build(), true);
-    registry.register([], OldOsmLayer.build(), false);
+    const registry = new OldOldMapLayerRegistry();
+    registry.register([], OldOldBackgroundLayer.build(), true);
+    registry.register([], OldOldOsmLayer.build(), false);
     registry.register([], NodeMovedLayer.build(nodeMoved), true);
     this.register(registry);
   }

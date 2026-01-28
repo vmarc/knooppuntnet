@@ -1,5 +1,5 @@
 import { Marker } from '@app/ol/domain/marker';
-import { OldLayers } from '@app/ol/layers/old-layers';
+import { OldOldLayers } from '@app/ol/layers/old-old-layers';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import Feature from 'ol/Feature';
@@ -16,7 +16,7 @@ export class PlannerMarkerLayerImpl extends PlannerMarkerLayer {
   private source = new VectorSource();
 
   private layer = new VectorLayer({
-    zIndex: OldLayers.zIndexPlannerMarkerLayer,
+    zIndex: OldOldLayers.zIndexPlannerMarkerLayer,
     source: this.source,
   });
 

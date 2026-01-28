@@ -23,10 +23,10 @@ import { debounceTime } from 'rxjs/operators';
 import { MapGeocoder } from '../domain/map-geocoder';
 import { MapLayerState } from '../domain/map-layer-state';
 import { MapPosition } from '../domain/map-position';
-import { OldMapLayer } from '../layers/old-map-layer';
-import { OldMapLayerRegistry } from '../layers/old-map-layer-registry';
-import { OldOsmLayer } from '../layers/old-osm-layer';
-import { OldBackgroundLayer } from '../layers/old-background-layer';
+import { OldOldMapLayer } from '../layers/old-old-map-layer';
+import { OldOldMapLayerRegistry } from '../layers/old-old-map-layer-registry';
+import { OldOldOsmLayer } from '../layers/old-old-osm-layer';
+import { OldOldBackgroundLayer } from '../layers/old-old-background-layer';
 
 export const MAP_SERVICE_TOKEN = new InjectionToken<OpenlayersMapService>('MAP_SERVICE_TOKEN');
 
@@ -40,7 +40,7 @@ export abstract class OpenlayersMapService {
 
   private readonly _layerStates = signal<MapLayerState[]>([]);
 
-  protected mapLayers: OldMapLayer[] = [];
+  protected mapLayers: OldOldMapLayer[] = [];
 
   readonly layerStates = this._layerStates.asReadonly();
 
@@ -93,7 +93,7 @@ export abstract class OpenlayersMapService {
     return this.mapLayers.map((mapLayer) => mapLayer.layer);
   }
 
-  protected register(registry: OldMapLayerRegistry): void {
+  protected register(registry: OldOldMapLayerRegistry): void {
     this.mapLayers = registry.layers;
     this._layerStates.set(registry.layerStates);
   }
@@ -113,13 +113,13 @@ export abstract class OpenlayersMapService {
     const visible = change.visible;
 
     const mapLayerStates = this._layerStates().map((layerState) => {
-      if (layerState.id === OldBackgroundLayer.id && layerId === OldOsmLayer.id && visible) {
+      if (layerState.id === OldOldBackgroundLayer.id && layerId === OldOldOsmLayer.id && visible) {
         return {
           ...layerState,
           visible: false,
         };
       }
-      if (layerState.id === OldOsmLayer.id && layerId === OldBackgroundLayer.id && visible) {
+      if (layerState.id === OldOldOsmLayer.id && layerId === OldOldBackgroundLayer.id && visible) {
         return {
           ...layerState,
           visible: false,
@@ -157,7 +157,7 @@ export abstract class OpenlayersMapService {
     }
   }
 
-  protected layerVisible(mapLayer: OldMapLayer): boolean {
+  protected layerVisible(mapLayer: OldOldMapLayer): boolean {
     const mapLayerState = this.layerStates().find((layerState) => layerState.id === mapLayer.id);
     if (mapLayerState) {
       const zoom = this._mapPosition$.value.zoom;

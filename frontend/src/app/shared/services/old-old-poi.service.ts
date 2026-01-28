@@ -1,28 +1,27 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { OldInterpretedPoiConfiguration } from '@app/ol/domain/old-interpreted-poi-configuration';
+import { OldOldInterpretedPoiConfiguration } from '@app/ol/domain/old-old-interpreted-poi-configuration';
 import { Map } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
 import { ApiService } from './api.service';
 import { BrowserStorageService } from './browser-storage.service';
-import { OldPoiNameService } from './old-poi-name.service';
-import { OldPoiGroupPreference } from './old-poi-preferences';
-import { OldPoiPreference } from './old-poi-preferences';
-import { OldPoiPreferences } from './old-poi-preferences';
+import { OldOldPoiNameService } from './old-old-poi-name.service';
+import { OldOldPoiGroupPreference } from './old-old-poi-preferences';
+import { OldOldPoiPreference } from './old-old-poi-preferences';
+import { OldOldPoiPreferences } from './old-old-poi-preferences';
 
 @Injectable()
-export class OldPoiService {
+export class OldOldPoiService {
   private readonly apiService = inject(ApiService);
-  private readonly poiNameService = inject(OldPoiNameService);
+  private readonly poiNameService = inject(OldOldPoiNameService);
   private readonly browserStorageService = inject(BrowserStorageService);
 
   readonly changeCount: BehaviorSubject<number> = new BehaviorSubject(0);
   poiActive = Map<string, boolean>();
-  readonly poiConfiguration: BehaviorSubject<OldInterpretedPoiConfiguration> = new BehaviorSubject(
-    null
-  );
+  readonly poiConfiguration: BehaviorSubject<OldOldInterpretedPoiConfiguration> =
+    new BehaviorSubject(null);
   private zoomLevel: number;
-  private poiPreferences: OldPoiPreferences;
+  private poiPreferences: OldOldPoiPreferences;
   private readonly poiNames: Map<string, string> = this.poiNameService.buildPoiNames();
 
   constructor() {
@@ -48,7 +47,7 @@ export class OldPoiService {
     } else {
       const json = this.browserStorageService.get('poi-config');
       if (json !== null) {
-        const pref = OldPoiPreferences.fromJSON(JSON.parse(json));
+        const pref = OldOldPoiPreferences.fromJSON(JSON.parse(json));
         return pref.enabled;
       }
     }
@@ -148,13 +147,16 @@ export class OldPoiService {
 
   private loadPoiConfiguration() {
     this.apiService.poiConfiguration().subscribe((response) => {
-      this.poiConfiguration.next(new OldInterpretedPoiConfiguration(response.result));
+      this.poiConfiguration.next(new OldOldInterpretedPoiConfiguration(response.result));
       this.initPoiConfig();
       this.updatePoiActive();
     });
   }
 
-  private updateGroup(groupName: string, action: (groupPreference: OldPoiGroupPreference) => void) {
+  private updateGroup(
+    groupName: string,
+    action: (groupPreference: OldOldPoiGroupPreference) => void
+  ) {
     if (this.poiPreferences != null) {
       const groupPreference = this.poiPreferences.groups.get(groupName);
       if (groupPreference != null) {
@@ -168,23 +170,26 @@ export class OldPoiService {
   private initPoiConfig() {
     const json = this.browserStorageService.get('poi-config');
     if (json !== null) {
-      this.poiPreferences = OldPoiPreferences.fromJSON(JSON.parse(json));
+      this.poiPreferences = OldOldPoiPreferences.fromJSON(JSON.parse(json));
       // TODO make sure that changes to poi and poi group definitions are taken into account (work with configuration versions?)
     } else {
-      const groupEntries: Array<[string, OldPoiGroupPreference]> = [];
+      const groupEntries: Array<[string, OldOldPoiGroupPreference]> = [];
       this.poiConfiguration.value.getGroupDefinitions().forEach((groupDefinition) => {
-        const poiEntries: Array<[string, OldPoiPreference]> = [];
+        const poiEntries: Array<[string, OldOldPoiPreference]> = [];
         groupDefinition.poiDefinitions.forEach((poiDefinition) => {
-          poiEntries.push([poiDefinition.name, new OldPoiPreference(poiDefinition.defaultLevel)]);
+          poiEntries.push([
+            poiDefinition.name,
+            new OldOldPoiPreference(poiDefinition.defaultLevel),
+          ]);
         });
-        const pois = Map<string, OldPoiPreference>(poiEntries);
+        const pois = Map<string, OldOldPoiPreference>(poiEntries);
         groupEntries.push([
           groupDefinition.name,
-          new OldPoiGroupPreference(groupDefinition.enabledDefault, pois),
+          new OldOldPoiGroupPreference(groupDefinition.enabledDefault, pois),
         ]);
       });
-      const groups = Map<string, OldPoiGroupPreference>(groupEntries);
-      this.poiPreferences = new OldPoiPreferences(groups, false);
+      const groups = Map<string, OldOldPoiGroupPreference>(groupEntries);
+      this.poiPreferences = new OldOldPoiPreferences(groups, false);
     }
   }
 
