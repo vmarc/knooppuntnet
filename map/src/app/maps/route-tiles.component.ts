@@ -24,7 +24,14 @@ import { NewMapService } from './new-map.service';
       <button (click)="initRouteType('mtb')">mtb</button>
     </div>
     <div>
-      <button>Click me</button>
+      <span>node route layer:</span>
+      <button (click)="hideNodeRouteLayer()">hide</button>
+      <button (click)="showNodeRouteLayer()">show</button>
+    </div>
+    <div>
+      <span>non node route layer:</span>
+      <button (click)="hideRouteLayer()">hide</button>
+      <button (click)="showRouteLayer()">show</button>
     </div>
   `,
   styles: `
@@ -63,5 +70,21 @@ export class RouteTilesComponent implements AfterViewInit, OnDestroy {
 
   initRouteType(routeType: string): void {
     this.service.initRouteType(routeType);
+  }
+
+  hideRouteLayer(): void {
+    this.service.hideRouteLayer();
+  }
+
+  showRouteLayer(): void {
+    this.service.showRouteLayer();
+  }
+
+  hideNodeRouteLayer(): void {
+    this.service.hideNodeRouteLayer();
+  }
+
+  showNodeRouteLayer(): void {
+    this.service.showNodeRouteLayer();
   }
 }

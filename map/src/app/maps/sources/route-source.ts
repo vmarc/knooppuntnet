@@ -6,6 +6,7 @@ import { MapLayerId } from '../constants/map-layer-id';
 export class RouteSource {
   static init(map: MaplibreMap, routeType: string): void {
     this.initSource(map, routeType);
+    this.initLayerRoute(map);
     this.initLayerNodeRoute(map);
     this.initLayerNodeRouteArrows(map);
     this.initLayerNode(map);
@@ -13,6 +14,7 @@ export class RouteSource {
   }
 
   static remove(map: MaplibreMap): void {
+    map.removeLayer(MapLayerId.ROUTE);
     map.removeLayer(MapLayerId.NODE_ROUTE);
     map.removeLayer(MapLayerId.NODE_ROUTE_ARROWS);
     map.removeLayer(MapLayerId.NODE);
@@ -28,11 +30,29 @@ export class RouteSource {
     });
   }
 
+  private static initLayerRoute(map: MaplibreMap): void {
+    map.addLayer({
+      id: MapLayerId.ROUTE,
+      type: 'line',
+      source: SourceId.ROUTES,
+      'source-layer': RouteTileLayerId.ROUTE,
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round',
+        visibility: 'none',
+      },
+      paint: {
+        'line-color': '#0000ff',
+        'line-width': 3,
+      },
+    });
+  }
+
   private static initLayerNodeRoute(map: MaplibreMap): void {
     map.addLayer({
       id: MapLayerId.NODE_ROUTE,
       type: 'line',
-      source: 'routes',
+      source: SourceId.ROUTES,
       'source-layer': RouteTileLayerId.NODE_ROUTE,
       layout: {
         'line-join': 'round',
@@ -55,7 +75,7 @@ export class RouteSource {
     map.addLayer({
       id: MapLayerId.NODE_ROUTE_ARROWS,
       type: 'symbol',
-      source: 'routes',
+      source: SourceId.ROUTES,
       'source-layer': RouteTileLayerId.NODE_ROUTE,
       layout: {
         'symbol-placement': 'line',
@@ -71,7 +91,7 @@ export class RouteSource {
     map.addLayer({
       id: MapLayerId.NODE,
       type: 'circle',
-      source: 'routes',
+      source: SourceId.ROUTES,
       'source-layer': RouteTileLayerId.NODE,
       paint: {
         'circle-radius': 10,
@@ -86,7 +106,7 @@ export class RouteSource {
     map.addLayer({
       id: MapLayerId.NODE_NAME,
       type: 'symbol',
-      source: 'routes',
+      source: SourceId.ROUTES,
       'source-layer': RouteTileLayerId.NODE,
       layout: {
         'text-field': ['get', 'ref'],

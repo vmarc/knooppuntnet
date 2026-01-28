@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Map as MaplibreMap } from 'maplibre-gl';
 import { RouteSource } from './sources/route-source';
 import { FilterSpecification } from '@maplibre/maplibre-gl-style-spec';
+import { MapLayerId } from './constants/map-layer-id';
 
 @Injectable({
   providedIn: 'root',
@@ -34,13 +35,6 @@ export class NewMapService {
     this.filterRoutes(null);
   }
 
-  private filterRoutes(filter: FilterSpecification | null): void {
-    if (this.map) {
-      this.map.setFilter('node-route', filter);
-      this.map.setFilter('node-route-arrows', filter);
-    }
-  }
-
   destroy(): void {
     if (this.map) {
       this.map.remove();
@@ -54,6 +48,42 @@ export class NewMapService {
     }
   }
 
+  hideRouteLayer(): void {
+    if (this.map) {
+      this.map.setLayoutProperty(MapLayerId.ROUTE, 'visibility', 'none');
+    }
+  }
+
+  showRouteLayer(): void {
+    if (this.map) {
+      this.map.setLayoutProperty(MapLayerId.ROUTE, 'visibility', 'visible');
+    }
+  }
+
+  hideNodeRouteLayer(): void {
+    if (this.map) {
+      this.map.setLayoutProperty(MapLayerId.NODE_ROUTE, 'visibility', 'none');
+      this.map.setLayoutProperty(MapLayerId.NODE_ROUTE_ARROWS, 'visibility', 'none');
+      this.map.setLayoutProperty(MapLayerId.NODE, 'visibility', 'none');
+      this.map.setLayoutProperty(MapLayerId.NODE_NAME, 'visibility', 'none');
+    }
+  }
+
+  showNodeRouteLayer(): void {
+    if (this.map) {
+      this.map.setLayoutProperty(MapLayerId.NODE_ROUTE, 'visibility', 'visible');
+      this.map.setLayoutProperty(MapLayerId.NODE_ROUTE_ARROWS, 'visibility', 'visible');
+      this.map.setLayoutProperty(MapLayerId.NODE, 'visibility', 'visible');
+      this.map.setLayoutProperty(MapLayerId.NODE_NAME, 'visibility', 'visible');
+    }
+  }
+
+  private filterRoutes(filter: FilterSpecification | null): void {
+    if (this.map) {
+      this.map.setFilter('node-route', filter);
+      this.map.setFilter('node-route-arrows', filter);
+    }
+  }
   private preventImageMissingWarning(map: MaplibreMap): void {
     map.on('styleimagemissing', (e) => {
       // Add a transparent image to prevent the warning
