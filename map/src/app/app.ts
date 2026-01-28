@@ -7,6 +7,7 @@ import { RouterOutlet } from '@angular/router';
   template: `
     <div class="menu">
       <ol>
+        <li><a routerLink=".">Home</a></li>
         <li><a routerLink="route-tiles">Route tiles</a></li>
       </ol>
     </div>

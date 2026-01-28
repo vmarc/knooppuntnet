@@ -1,6 +1,6 @@
 // see FeatureLayer.scala
 
-export class RouteTileLayers {
+export class RouteTileLayerId {
   static NODE = 'node';
   static ERROR_NODE = 'error-node';
   static NODE_ROUTE = 'node-route';
