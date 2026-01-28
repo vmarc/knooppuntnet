@@ -6,6 +6,8 @@ import { MapLayerId } from '../constants/map-layer-id';
 export class RouteSource {
   static init(map: MaplibreMap, routeType: string): void {
     this.initSource(map, routeType);
+    // this.initLayerRouteSurface(map);
+    // this.initLayerNodeRouteSurface(map);
     this.initLayerRoute(map);
     this.initLayerNodeRoute(map);
     this.initLayerNodeRouteArrows(map);
@@ -14,11 +16,11 @@ export class RouteSource {
   }
 
   static remove(map: MaplibreMap): void {
-    map.removeLayer(MapLayerId.ROUTE);
-    map.removeLayer(MapLayerId.NODE_ROUTE);
-    map.removeLayer(MapLayerId.NODE_ROUTE_ARROWS);
-    map.removeLayer(MapLayerId.NODE);
-    map.removeLayer(MapLayerId.NODE_NAME);
+    MapLayerId.routeLayers.forEach((layerId) => {
+      if (map.getLayer(layerId)) {
+        map.removeLayer(layerId);
+      }
+    });
     map.removeSource(SourceId.ROUTES);
   }
 
@@ -113,6 +115,55 @@ export class RouteSource {
         //'text-font': ['Roboto Regular'],
         'text-size': 12,
         'text-anchor': 'center',
+      },
+    });
+  }
+
+  private static initLayerRouteSurface(map: MaplibreMap): void {
+    map.addLayer({
+      id: MapLayerId.ROUTE_SURFACE,
+      type: 'line',
+      source: SourceId.ROUTES,
+      'source-layer': RouteTileLayerId.ROUTE,
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round',
+      },
+      paint: {
+        'line-color': [
+          'match',
+          ['get', 'surface'],
+          'unpaved',
+          'green',
+          'unknown',
+          'orange',
+          'blue', // default
+        ],
+        'line-width': 3,
+      },
+    });
+  }
+  private static initLayerNodeRouteSurface(map: MaplibreMap): void {
+    map.addLayer({
+      id: MapLayerId.NODE_ROUTE_SURFACE,
+      type: 'line',
+      source: SourceId.ROUTES,
+      'source-layer': RouteTileLayerId.NODE_ROUTE,
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round',
+      },
+      paint: {
+        'line-color': [
+          'match',
+          ['get', 'surface'],
+          'unpaved',
+          'green',
+          'unknown',
+          'orange',
+          'blue', // default
+        ],
+        'line-width': 3,
       },
     });
   }
