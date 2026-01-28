@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteRelationInfo } from '@api/common/monitor/monitor-route-relation-info';
 import { SegmentInfo } from '@api/common/route/segment-info';
-import { SegmentColors } from '@app/map/domain/segment-colors';
+import { SegmentColors } from '@app/mapold/domain/segment-colors';
 import { LegendLineComponent } from '@app/shared/components/legend-line';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { SegmentPopupEvent } from '@app/shared/components/route/segments/segment-popup-event';

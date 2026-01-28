@@ -1,5 +1,5 @@
 import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
-import { MapMode } from '@app/map/domain/map-mode';
+import { MapMode } from '@app/mapold/domain/map-mode';
 
 export class MainMapStyleParameters {
   constructor(

@@ -1,5 +1,5 @@
 import { SegmentInfo } from '@api/common/route/segment-info';
-import { SegmentColors } from '@app/map/domain/segment-colors';
+import { SegmentColors } from '@app/mapold/domain/segment-colors';
 
 export class SegmentMap {
   constructor(private segmentMap: Map<string, number>) {}

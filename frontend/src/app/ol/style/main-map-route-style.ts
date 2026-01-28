@@ -1,4 +1,4 @@
-import { ExploreStyleConstants } from '@app/map/style/explore-style-constants';
+import { ExploreStyleConstants } from '@app/mapold/style/explore-style-constants';
 import { Color } from 'ol/color';
 import { FeatureLike } from 'ol/Feature';
 import Stroke from 'ol/style/Stroke';

@@ -18,6 +18,7 @@ export const sheriffConfig: SheriffConfig = {
     'src/app/analysis/subset': 'noTag',
     'src/app/analysis/components': 'noTag',
     'src/app/explore': 'noTag',
+    'src/app/mapold': 'noTag',
     'src/app/map': 'noTag',
     'src/app/planner': 'noTag',
     'src/app/monitor': 'noTag',

@@ -6,7 +6,7 @@ import { RouteListItem } from '@api/common/search/route-list-item';
 import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { ListComponent } from '@app/shared/components/list/list.component';
 import { State } from '@app/state/state';
-import { MapService } from '@app/map/map.service';
+import { OldMapService } from '@app/mapold/old-map.service';
 import { ScopeIconComponent } from '../scope-icon.component';
 import { SearchRouteComponent } from './search-route.component';
 
@@ -91,7 +91,7 @@ import { SearchRouteComponent } from './search-route.component';
 })
 export class SearchRoutesComponent {
   private readonly state = inject(State);
-  private readonly mapService = inject(MapService);
+  private readonly mapService = inject(OldMapService);
   readonly routeType = computed(() => this.state.page.routeType());
   readonly routeList = computed(() => this.state.explore.routeList());
   readonly selectedResult = computed(() => this.state.explore.selectedRouteListItem());

@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { MapService } from '@app/map/map.service';
+import { OldMapService } from '@app/mapold/old-map.service';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
@@ -19,7 +19,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   imports: [NzButtonComponent, NzIconDirective],
 })
 export class PlannerSidebarFitRouteComponent {
-  private readonly mapService = inject(MapService);
+  private readonly mapService = inject(OldMapService);
 
   zoomToFitRoute(): void {
     this.mapService.zoomInToRoute();

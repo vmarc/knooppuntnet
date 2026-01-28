@@ -29,10 +29,10 @@ import { provideNzIcons } from 'ng-zorro-antd/icon';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { provideMarkdown } from 'ngx-markdown';
 import { appRoutes } from './app-routes';
-import { MapInteractionsService } from './map/map-interactions.service';
-import { MapService } from './map/map.service';
-import { PoiService } from './map/poi/poi.service';
-import { MapRoutePopupInteractionService } from './map/popup/map-route-popup-interaction.service';
+import { MapInteractionsService } from '@app/mapold/map-interactions.service';
+import { OldMapService } from '@app/mapold/old-map.service';
+import { PoiService } from '@app/mapold/poi/poi.service';
+import { MapRoutePopupInteractionService } from '@app/mapold/popup/map-route-popup-interaction.service';
 import { PlannerPopupService } from './planner/domain/context/planner-popup-service';
 import { PlannerMapLayerService } from './planner/pages/planner/planner-map-layer.service';
 import { PlannerStateService } from './planner/pages/planner/planner-state.service';
@@ -148,7 +148,7 @@ export const appConfig: ApplicationConfig = {
     EditService,
     MapInteractionsService,
     MapRoutePopupInteractionService,
-    MapService,
+    OldMapService,
     NzModalService,
     OldOldPoiNameService,
     OldOldPoiService,

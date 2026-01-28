@@ -1,6 +1,6 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
-import { MapMode } from '@app/map/domain/map-mode';
+import { MapMode } from '@app/mapold/domain/map-mode';
 import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { MapLayerState } from '@app/ol/domain/map-layer-state';
 import { MonitorMapMode } from '@app/state/monitor/monitor-map-mode';

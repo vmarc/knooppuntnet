@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouteScope } from '@api/common/route-scope';
 import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
-import { ExploreStyleStandard } from '../map/style/explore-style-standard';
+import { ExploreStyleStandard } from '@app/mapold/style/explore-style-standard';
 
 @Component({
   selector: 'ui-scope-icon',

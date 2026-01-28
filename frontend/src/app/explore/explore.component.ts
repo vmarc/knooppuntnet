@@ -28,7 +28,7 @@ import { NzInputDirective } from 'ng-zorro-antd/input';
 import { NzInputGroupComponent } from 'ng-zorro-antd/input';
 import { NzInputGroupWhitSuffixOrPrefixDirective } from 'ng-zorro-antd/input';
 import { NzSegmentedComponent } from 'ng-zorro-antd/segmented';
-import { MapService } from '../map/map.service';
+import { OldMapService } from '@app/mapold/old-map.service';
 import { PageComponent } from '../shared/components/page/page.component';
 import { SearchComponent } from './advanced/search.component';
 import { ExploreRoutesComponent } from './explore-routes.component';
@@ -114,7 +114,7 @@ import { ExploreRoutesComponent } from './explore-routes.component';
 })
 export class ExploreComponent implements OnInit {
   private readonly apiService = inject(ApiService);
-  private readonly mapService = inject(MapService);
+  private readonly mapService = inject(OldMapService);
   private readonly state = inject(State);
   readonly geocoderLocations = signal<GeocoderLocation[]>([]);
   readonly query = new FormControl<string>('');

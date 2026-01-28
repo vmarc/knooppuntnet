@@ -1,4 +1,4 @@
-import { RouteSegmentStyle } from '@app/map/style/route-segment-style';
+import { RouteSegmentStyle } from '@app/mapold/style/route-segment-style';
 import { MapStyleOptions } from '@app/state/map-style-options';
 import { FeatureLike } from 'ol/Feature';
 import Stroke from 'ol/style/Stroke';

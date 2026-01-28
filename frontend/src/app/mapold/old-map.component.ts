@@ -10,14 +10,14 @@ import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PoiService } from '@app/map/poi/poi.service';
+import { PoiService } from '@app/mapold/poi/poi.service';
 import { MapRoutePopupRoute } from '@app/state/map-route-popup-route';
 import { Coordinate } from 'ol/coordinate';
 import { MapRoutePopupComponent } from './popup/map-route-popup.component';
-import { MapService } from './map.service';
+import { OldMapService } from './old-map.service';
 
 @Component({
-  selector: 'ui-map',
+  selector: 'ui-old-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="main-map" class="main-map" #overlayOrigin (mouseleave)="onMouseLeave()"></div>
@@ -53,8 +53,8 @@ import { MapService } from './map.service';
   ],
   imports: [CdkPortal, MapRoutePopupComponent],
 })
-export class MapComponent implements AfterViewInit, OnDestroy {
-  private readonly mapService = inject(MapService);
+export class OldMapComponent implements AfterViewInit, OnDestroy {
+  private readonly mapService = inject(OldMapService);
   private readonly poiService = inject(PoiService);
   private readonly overlay = inject(Overlay);
   private readonly elementRef = viewChild<ElementRef>('overlayOrigin');

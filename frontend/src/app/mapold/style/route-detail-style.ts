@@ -1,4 +1,4 @@
-import { ExploreStyleConstants } from '@app/map/style/explore-style-constants';
+import { ExploreStyleConstants } from '@app/mapold/style/explore-style-constants';
 import { Marker } from '@app/ol/domain/marker';
 import { OlUtil } from '@app/ol/ol-util';
 import { FeatureLike } from 'ol/Feature';

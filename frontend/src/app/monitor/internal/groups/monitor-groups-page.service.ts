@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorGroupsPageGroup } from '@api/common/monitor/monitor-groups-page-group';
-import { MapService } from '@app/map/map.service';
+import { OldMapService } from '@app/mapold/old-map.service';
 import { State } from '@app/state/state';
 import { MonitorService } from '../monitor.service';
 import { initialState } from './monitor-groups-page.state';
@@ -11,7 +11,7 @@ import { MonitorGroupsPageState } from './monitor-groups-page.state';
 @Injectable()
 export class MonitorGroupsPageService {
   private readonly state = inject(State);
-  private readonly mapService = inject(MapService);
+  private readonly mapService = inject(OldMapService);
   private readonly monitorService = inject(MonitorService);
 
   private readonly _pageState = signal<MonitorGroupsPageState>(initialState);

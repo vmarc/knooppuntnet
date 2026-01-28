@@ -7,14 +7,14 @@ import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { RouteTypes } from '@app/shared/kpn/common/route-types';
 import { ApiService } from '@app/shared/services/api.service';
-import { MapService } from '@app/map/map.service';
+import { OldMapService } from '@app/mapold/old-map.service';
 import { NodeService } from '../node.service';
 
 @Injectable()
 export class NodeDetailsPageService {
   private readonly apiService = inject(ApiService);
   private readonly nodeService = inject(NodeService);
-  private readonly mapService = inject(MapService);
+  private readonly mapService = inject(OldMapService);
 
   private readonly _response = signal<ApiResponse<NodeDetailsPage>>(null);
   readonly response = this._response.asReadonly();

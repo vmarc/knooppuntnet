@@ -1,4 +1,4 @@
-import { RouteSegmentStyle } from '@app/map/style/route-segment-style';
+import { RouteSegmentStyle } from '@app/mapold/style/route-segment-style';
 import { OlUtil } from '@app/ol/ol-util';
 import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { MainMapNodeStyle } from '@app/ol/style/main-map-node-style';

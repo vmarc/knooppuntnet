@@ -1,8 +1,8 @@
 import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
-import { RouteSegmentsStyle } from '@app/map/style/route-segments-style';
-import { RouteDetailStyle } from '@app/map/style/route-detail-style';
+import { RouteSegmentsStyle } from '@app/mapold/style/route-segments-style';
+import { RouteDetailStyle } from '@app/mapold/style/route-detail-style';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import { MonitorMapState } from '@app/state/monitor/monitor-map-state';
 import { FeatureLike } from 'ol/Feature';

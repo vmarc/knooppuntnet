@@ -5,7 +5,7 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { fromLonLat } from 'ol/proj';
-import { MapService } from '@app/map/map.service';
+import { OldMapService } from '@app/mapold/old-map.service';
 import { GeolocationPermissionDeniedDialogComponent } from './geolocation-permission-denied-dialog.component';
 import { GeolocationTimeoutDialogComponent } from './geolocation-timeout-dialog.component';
 import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable-dialog.component';
@@ -27,7 +27,7 @@ import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable
   imports: [NzButtonComponent, NzIconDirective],
 })
 export class GeolocationButtonComponent {
-  private readonly mapService = inject(MapService);
+  private readonly mapService = inject(OldMapService);
   private readonly modalService = inject(NzModalService);
   private readonly document = inject(DOCUMENT);
   private readonly navigator = this.document?.defaultView?.navigator;

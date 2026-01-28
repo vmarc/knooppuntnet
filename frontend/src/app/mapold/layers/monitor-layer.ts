@@ -1,6 +1,6 @@
 import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
-import { MonitorLayerStyle } from '@app/map/style/monitor-layer-style';
+import { MonitorLayerStyle } from '@app/mapold/style/monitor-layer-style';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import { MapStyleOptions } from '@app/state/map-style-options';
 import { MonitorMapState } from '@app/state/monitor/monitor-map-state';

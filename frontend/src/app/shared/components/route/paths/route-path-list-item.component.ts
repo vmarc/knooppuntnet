@@ -3,7 +3,7 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RoutePath } from '@api/common/route/route-path';
-import { SegmentColors } from '@app/map/domain/segment-colors';
+import { SegmentColors } from '@app/mapold/domain/segment-colors';
 import { LegendLineComponent } from '@app/shared/components/legend-line';
 
 @Component({

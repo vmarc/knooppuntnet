@@ -4,7 +4,7 @@ import { OldOldMapLayer } from '@app/ol/layers/old-old-map-layer';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import { ZoomLevel } from '../domain/zoom-level';
-import { MapMode } from '../../map/domain/map-mode';
+import { MapMode } from '@app/mapold/domain/map-mode';
 
 export class NetworkBitmapTileLayer {
   public static build(routeType: RouteType, mapMode: MapMode): OldOldMapLayer {

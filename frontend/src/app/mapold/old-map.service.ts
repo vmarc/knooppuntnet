@@ -11,7 +11,7 @@ import { LegNotFoundDialogComponent } from '@app/ol/components/leg-not-found-dia
 import { LegHttpErrorDialogComponent } from '@app/ol/components/leg-http-error.dialog';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import { MapControls } from '@app/ol/layers/map-controls';
-import { MapMode } from '@app/map/domain/map-mode';
+import { MapMode } from '@app/mapold/domain/map-mode';
 import { ApiService } from '@app/shared/services/api.service';
 import { Util } from '@app/shared/components/util';
 import { State } from '@app/state/state';
@@ -36,7 +36,7 @@ import { MapInteractionsService } from './map-interactions.service';
 import { MapRoutePopupAction } from './popup/map-route-popup-handler';
 
 @Injectable()
-export class MapService {
+export class OldMapService {
   private readonly state = inject(State);
   private _map: Map;
 

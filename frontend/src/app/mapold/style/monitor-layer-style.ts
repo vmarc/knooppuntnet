@@ -1,4 +1,4 @@
-import { RouteSegmentStyle } from '@app/map/style/route-segment-style';
+import { RouteSegmentStyle } from '@app/mapold/style/route-segment-style';
 import { MapStyleOptions } from '@app/state/map-style-options';
 import { MonitorMapState } from '@app/state/monitor/monitor-map-state';
 import { FeatureLike } from 'ol/Feature';

@@ -1,4 +1,4 @@
-import { MapMode } from '@app/map/domain/map-mode';
+import { MapMode } from '@app/mapold/domain/map-mode';
 import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { SegmentMap } from '@app/state/segment-map';
 import { FocusElements } from './focus-elements';

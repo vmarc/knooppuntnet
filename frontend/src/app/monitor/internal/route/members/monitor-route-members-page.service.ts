@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteMembersPage } from '@api/common/monitor/monitor-route-members-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { MapService } from '@app/map/map.service';
+import { OldMapService } from '@app/mapold/old-map.service';
 import { MonitorRouteService } from '@app/monitor/internal/route/monitor-route.service';
 import { State } from '@app/state/state';
 import { MonitorService } from '../../monitor.service';
@@ -13,7 +13,7 @@ export class MonitorRouteMembersPageService {
   private readonly state = inject(State);
   private readonly monitorService = inject(MonitorService);
   private readonly monitorRouteService = inject(MonitorRouteService);
-  private readonly mapService = inject(MapService);
+  private readonly mapService = inject(OldMapService);
 
   private readonly _response = signal<ApiResponse<MonitorRouteMembersPage>>(undefined);
   readonly response = this._response.asReadonly();

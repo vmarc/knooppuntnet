@@ -1,7 +1,7 @@
 import { computed } from '@angular/core';
 import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
-import { MonitorLayer } from '@app/map/layers/monitor-layer';
+import { MonitorLayer } from '@app/mapold/layers/monitor-layer';
 import { MonitorMapState } from '@app/state/monitor/monitor-map-state';
 import { State } from '@app/state/state';
 import { LayersState } from '@app/state/layers-state';

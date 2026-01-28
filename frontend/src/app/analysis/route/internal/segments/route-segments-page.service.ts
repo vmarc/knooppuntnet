@@ -6,7 +6,7 @@ import { RouteSegmentsPage } from '@api/common/route/route-segments-page';
 import { SegmentInfo } from '@api/common/route/segment-info';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/shared/services/api.service';
-import { MapService } from '@app/map/map.service';
+import { OldMapService } from '@app/mapold/old-map.service';
 import { RouterService } from '@app/shared/services/router.service';
 import { SegmentMap } from '@app/state/segment-map';
 import { State } from '@app/state/state';
@@ -18,7 +18,7 @@ export class RouteSegmentsPageService {
   private readonly apiService = inject(ApiService);
   private readonly routeService = inject(RouteService);
   private readonly routerService = inject(RouterService);
-  private readonly mapService = inject(MapService);
+  private readonly mapService = inject(OldMapService);
 
   private readonly _selectedSegment = signal<RouteSegment>(null);
   readonly selectedSegment = this._selectedSegment.asReadonly();

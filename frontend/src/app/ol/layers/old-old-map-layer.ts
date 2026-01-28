@@ -1,6 +1,6 @@
 import { RouteType } from '@api/common/route-type';
 import BaseLayer from 'ol/layer/Base';
-import { MapMode } from '../../map/domain/map-mode';
+import { MapMode } from '@app/mapold/domain/map-mode';
 import { MapTile } from '../services/map-tile';
 
 export class OldOldMapLayer {

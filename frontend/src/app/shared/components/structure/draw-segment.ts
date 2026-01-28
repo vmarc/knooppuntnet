@@ -1,4 +1,4 @@
-import { SegmentColors } from '@app/map/domain/segment-colors';
+import { SegmentColors } from '@app/mapold/domain/segment-colors';
 
 export class DrawSegment {
   constructor(

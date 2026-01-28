@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MapMode } from '@app/map/domain/map-mode';
+import { MapMode } from '@app/mapold/domain/map-mode';
 import { State } from '@app/state/state';
 import { NzSegmentedComponent } from 'ng-zorro-antd/segmented';
 
