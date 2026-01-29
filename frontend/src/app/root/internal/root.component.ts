@@ -7,10 +7,10 @@ import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MapComponent } from '@app/map/map.component';
 import { SidebarFooterComponent } from '@app/shared/components/sidebar/sidebar-footer.component';
 import { NzContentComponent } from 'ng-zorro-antd/layout';
 import { NzLayoutComponent } from 'ng-zorro-antd/layout';
-import { OldMapComponent } from '@app/mapold/old-map.component';
 import { State } from '@app/state/state';
 import { NzSplitterPanelComponent } from 'ng-zorro-antd/splitter';
 import { NzSplitterComponent } from 'ng-zorro-antd/splitter';
@@ -41,7 +41,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
           </div>
           <div [ngClass]="{ hidden: hideMap() }">
             <div class="map-panel-container content">
-              <ui-old-map />
+              <ui-map />
             </div>
           </div>
         } @else {
@@ -58,7 +58,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
                 </div>
               </nz-splitter-panel>
               <nz-splitter-panel nzDefaultSize="60%" [nzCollapsible]="true">
-                <ui-old-map />
+                <ui-map />
               </nz-splitter-panel>
             </nz-splitter>
           </div>
@@ -108,7 +108,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     }
   `,
   imports: [
-    OldMapComponent,
+    MapComponent,
     NgClass,
     NgTemplateOutlet,
     NzContentComponent,

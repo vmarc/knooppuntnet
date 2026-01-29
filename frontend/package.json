@@ -56,6 +56,7 @@
     "ol": "9.1.0",
     "ol-geocoder": "4.3.3",
     "ol-mapbox-style": "12.3.2",
+    "maplibre-gl": "^5.16.0",
     "rxjs": "~7.8.1",
     "source-map-explorer": "^2.5.3",
     "tslib": "^2.6.3",

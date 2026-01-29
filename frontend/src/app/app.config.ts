@@ -15,6 +15,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { withComponentInputBinding } from '@angular/router';
 import { provideRouter } from '@angular/router';
 import { Router } from '@angular/router';
+import { MapService } from '@app/map/map.service';
 import { PreferencesService } from '@app/shared/core/preferences/preferences.service';
 import { ApiService } from '@app/shared/services/api.service';
 import { OldOldPoiService } from '@app/shared/services/old-old-poi.service';
@@ -148,6 +149,7 @@ export const appConfig: ApplicationConfig = {
     EditService,
     MapInteractionsService,
     MapRoutePopupInteractionService,
+    MapService,
     OldMapService,
     NzModalService,
     OldOldPoiNameService,
