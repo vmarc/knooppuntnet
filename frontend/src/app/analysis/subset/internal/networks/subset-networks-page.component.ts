@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -50,12 +51,16 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
     IntegerFormatPipe,
   ],
 })
-export class SubsetNetworksPageComponent implements OnInit {
+export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
   protected readonly service = inject(SubsetNetworksPageService);
   private readonly pageWidthService = inject(PageWidthService);
   protected readonly large = this.pageWidthService.isVeryLarge;
 
   ngOnInit(): void {
     this.service.onInit();
+  }
+
+  ngOnDestroy(): void {
+    this.service.onDestroy();
   }
 }

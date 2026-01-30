@@ -34,10 +34,6 @@ export class StyleColor {
     let color = StyleColor.gray;
     if ('route' === featureLayer) {
       color = StyleColor.analysisOk;
-    } else if ('incomplete-route' === featureLayer) {
-      color = StyleColor.analysisError;
-    } else if ('error-route' === featureLayer) {
-      color = StyleColor.analysisError;
     }
     return color;
   }

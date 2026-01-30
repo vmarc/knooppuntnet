@@ -1,5 +1,6 @@
 // this file is generated, please do not modify
 
+import { Bounds } from '@api/common/bounds';
 import { NetworkAttributes } from '@api/common/network/network-attributes';
 import { SubsetInfo } from './subset-info';
 
@@ -15,5 +16,6 @@ export interface SubsetNetworksPage {
   readonly brokenRoutePercentage: string;
   readonly inaccessibleRouteCount: number;
   readonly analysisUpdatedTime: string;
+  readonly bounds?: Bounds;
   readonly networks: NetworkAttributes[];
 }

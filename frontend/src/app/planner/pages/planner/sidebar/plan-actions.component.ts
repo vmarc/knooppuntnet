@@ -87,7 +87,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
 export class PlanActionsComponent {
   private readonly plannerService = inject(PlannerService);
   private readonly pageWidthService = inject(PageWidthService);
-  private readonly modelService = inject(NzModalService);
+  private readonly modalService = inject(NzModalService);
   private readonly injector = inject(Injector);
 
   readonly plan = this.plannerService.context.plan;
@@ -123,7 +123,7 @@ export class PlanActionsComponent {
   }
 
   output(): void {
-    this.modelService.create({
+    this.modalService.create({
       nzContent: PlanOutputDialogComponent,
       nzFooter: null,
     });

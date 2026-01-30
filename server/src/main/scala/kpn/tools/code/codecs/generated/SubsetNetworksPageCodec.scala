@@ -2,6 +2,7 @@
 
 package kpn.tools.code.codecs.generated
 
+import kpn.api.common.Bounds
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.subset.SubsetInfo
 import kpn.api.common.subset.SubsetNetworksPage
@@ -16,6 +17,7 @@ import org.bson.codecs.configuration.CodecRegistry
 
 class SubsetNetworksPageCodec(registry: CodecRegistry) extends Codec[SubsetNetworksPage] {
 
+  private val boundsCodec = registry.get(classOf[Bounds])
   private val longCodec = registry.get(classOf[Long])
   private val networkAttributesCodec = registry.get(classOf[NetworkAttributes])
   private val stringCodec = registry.get(classOf[String])
@@ -35,6 +37,7 @@ class SubsetNetworksPageCodec(registry: CodecRegistry) extends Codec[SubsetNetwo
     var brokenRoutePercentage: String = null
     var inaccessibleRouteCount: Long = 0
     var analysisUpdatedTime: String = null
+    var bounds: Option[Bounds] = None
     var networks: Seq[NetworkAttributes] = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
@@ -72,6 +75,9 @@ class SubsetNetworksPageCodec(registry: CodecRegistry) extends Codec[SubsetNetwo
       else if (fieldName == "analysisUpdatedTime") {
         analysisUpdatedTime = stringCodec.decode(bsonReader, decoderContext)
       }
+      else if (fieldName == "bounds") {
+        bounds = Some(boundsCodec.decode(bsonReader, decoderContext))
+      }
       else if (fieldName == "networks") {
         bsonReader.readStartArray()
         val valueBuffer = scala.collection.mutable.Buffer[NetworkAttributes]()
@@ -101,6 +107,7 @@ class SubsetNetworksPageCodec(registry: CodecRegistry) extends Codec[SubsetNetwo
       brokenRoutePercentage,
       inaccessibleRouteCount,
       analysisUpdatedTime,
+      bounds,
       networks,
     )
   }
@@ -140,6 +147,11 @@ class SubsetNetworksPageCodec(registry: CodecRegistry) extends Codec[SubsetNetwo
 
     bsonWriter.writeName("analysisUpdatedTime")
     stringCodec.encode(bsonWriter, value.analysisUpdatedTime, encoderContext)
+
+    if (value.bounds.isDefined) {
+      bsonWriter.writeName("bounds")
+      boundsCodec.encode(bsonWriter, value.bounds.get, encoderContext)
+    }
 
     bsonWriter.writeName("networks")
     bsonWriter.writeStartArray()

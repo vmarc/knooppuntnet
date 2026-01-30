@@ -703,3 +703,11 @@ input[type=number] {
   max-width: 40em;
   margin-top: 1em;
 }
+
+.kpn-marker {
+  cursor: pointer;
+}
+
+.kpn-marker-popup {
+  min-width: 300px;
+}

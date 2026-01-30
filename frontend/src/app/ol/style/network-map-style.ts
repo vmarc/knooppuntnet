@@ -91,9 +91,9 @@ export class NetworkMapStyle {
     let routeColor = StyleColor.networkOut;
     if (this.networkRouteIds.includes(routeId)) {
       routeColor = StyleColor.networkIn;
-      if ('incomplete-route' === featureLayer || 'error-route' === featureLayer) {
-        routeColor = StyleColor.analysisError;
-      }
+      // if ('incomplete-route' === featureLayer || 'error-route' === featureLayer) {
+      //   routeColor = StyleColor.analysisError;
+      // }
     } else if (this.connectionRouteIds.includes(routeId)) {
       routeColor = StyleColor.networkConnection;
     }

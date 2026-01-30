@@ -1,5 +1,6 @@
 package kpn.server.api.analysis.pages.subset
 
+import kpn.api.common.Bounds
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.custom.Subset
@@ -28,6 +29,10 @@ class SubsetNetworksPageBuilder(
     val brokenRouteCount = networkAttributess.map(_.brokenRouteCount).sum
     val brokenRoutePercentage = percentage(brokenRouteCount, routeCount)
 
+    val bounds = Option.when(networkAttributess.nonEmpty) {
+      Bounds.from(networkAttributess.flatMap(_.center), 0.15)
+    }
+
     SubsetNetworksPage(
       subsetInfo,
       km = networkAttributess.map(_.meters).sum / 1000,
@@ -40,6 +45,7 @@ class SubsetNetworksPageBuilder(
       brokenRoutePercentage = brokenRoutePercentage,
       inaccessibleRouteCount = networkAttributess.map(_.inaccessibleRouteCount).sum,
       analysisUpdatedTime = "TODO",
+      bounds,
       networks = networkAttributess
     )
   }

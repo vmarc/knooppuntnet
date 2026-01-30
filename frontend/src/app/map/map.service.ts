@@ -1,5 +1,11 @@
 import { effect } from '@angular/core';
 import { Injectable, inject } from '@angular/core';
+import { Bounds } from '@api/common/bounds';
+import { LngLatBounds } from 'maplibre-gl';
+import { Marker } from 'maplibre-gl';
+import { FullscreenControl } from 'maplibre-gl';
+import { GeolocateControl } from 'maplibre-gl';
+import { NavigationControl } from 'maplibre-gl';
 import { Map as MaplibreMap } from 'maplibre-gl';
 import { RouteSource } from './sources/route-source';
 import { FilterSpecification } from '@maplibre/maplibre-gl-style-spec';
@@ -30,6 +36,18 @@ export class MapService {
     this.map = mapLibreMap;
     this.preventImageMissingWarning(mapLibreMap);
 
+    mapLibreMap.addControl(new FullscreenControl({}));
+
+    mapLibreMap.addControl(
+      new NavigationControl({
+        showZoom: true,
+        showCompass: false,
+        visualizePitch: false,
+        visualizeRoll: false,
+      })
+    );
+    mapLibreMap.addControl(new GeolocateControl({}));
+
     mapLibreMap.loadImage('/assets/arrow.png').then((response) => {
       mapLibreMap.addImage('node-route-arrow', response.data);
     });
@@ -40,16 +58,22 @@ export class MapService {
     });
   }
 
-  private updateBackgroundVisibility(value: string): void {
+  destroy(): void {
     if (this.map) {
-      const layers = this.map.getStyle().layers;
-      layers.forEach((layer) => {
-        if (layer['source'] === 'openmaptiles' || layer.id == 'background') {
-          this.map.setLayoutProperty(layer.id, 'visibility', value);
-        }
-      });
-    } else {
-      console.error('map not initialized while trying to update background visibility');
+      this.map.remove();
+    }
+  }
+
+  fitBounds(bounds: Bounds): void {
+    if (this.map) {
+      const b = new LngLatBounds([bounds.minLon, bounds.minLat, bounds.maxLon, bounds.maxLat]);
+      this.map.fitBounds(b);
+    }
+  }
+
+  addMarker(marker: Marker): void {
+    if (this.map) {
+      marker.addTo(this.map);
     }
   }
 
@@ -60,12 +84,6 @@ export class MapService {
 
   resetRouteSelection(): void {
     this.filterRoutes(null);
-  }
-
-  destroy(): void {
-    if (this.map) {
-      this.map.remove();
-    }
   }
 
   initRouteType(routeType: string): void {
@@ -122,6 +140,19 @@ export class MapService {
     }
   }
 
+  private updateBackgroundVisibility(value: string): void {
+    if (this.map) {
+      const layers = this.map.getStyle().layers;
+      layers.forEach((layer) => {
+        if (layer['source'] === 'openmaptiles' || layer.id == 'background') {
+          this.map.setLayoutProperty(layer.id, 'visibility', value);
+        }
+      });
+    } else {
+      console.error('map not initialized while trying to update background visibility');
+    }
+  }
+
   private filterRoutes(filter: FilterSpecification | null): void {
     if (this.map) {
       this.map.setFilter('node-route', filter);
@@ -130,6 +161,7 @@ export class MapService {
       console.error('map not initialized while trying to filter routes');
     }
   }
+
   private preventImageMissingWarning(map: MaplibreMap): void {
     map.on('styleimagemissing', (e) => {
       // Add a transparent image to prevent the warning
