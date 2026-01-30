@@ -80,10 +80,15 @@ class RouteTileEncoder(
 
   private def buildRouteSegmentsFeatures(zoomLevel: Int, routeTileInfo: RouteTileInfo): Seq[Feature] = {
     routeTileInfo.segments.flatMap { segment =>
-      val userData = buildRouteUserData(zoomLevel, routeTileInfo, segment)
-      segment.lines.map { line =>
-        val lineString = buildRouteLineString(line)
-        Feature(routeTileInfo.layer, userData, lineString)
+      val lineStrings = segment.lines.map(buildRouteLineString).filter(_.getLength > 0.5)
+      if (lineStrings.nonEmpty) {
+        val userData = buildRouteUserData(zoomLevel, routeTileInfo, segment)
+        lineStrings.map { lineString =>
+          Feature(routeTileInfo.layer, userData, lineString)
+        }
+      }
+      else {
+        Seq.empty
       }
     }
   }
@@ -96,6 +101,7 @@ class RouteTileEncoder(
   private def buildRouteUserData(zoomLevel: Int, routeTileInfo: RouteTileInfo, segment: RouteTileSegment): Map[String, String] = {
     if (routeTileInfo.layer == FeatureLayer.nodeRoute && zoomLevel < ZoomLevel.minZoomNodeNetworkUserData) {
       Seq(
+        Some("routeId" -> routeTileInfo.routeId.toString),
         routeTileInfo.survey.map(survey => "survey" -> survey),
         routeTileInfo.error.map(error => "error" -> error)
       ).flatten.toMap
