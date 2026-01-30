@@ -4,8 +4,6 @@ import { SubsetComponent } from '@app/analysis/subset/internal/subset.component'
 import { SubsetChangesPageComponent } from './internal/changes/subset-changes-page.component';
 import { SubsetFactDetailsPageComponent } from './internal/fact-details/subset-fact-details-page.component';
 import { SubsetFactsPageComponent } from './internal/facts/subset-facts-page.component';
-import { SubsetMapPageComponent } from './internal/map/subset-map-page.component';
-import { SubsetMapService } from './internal/map/subset-map.service';
 import { SubsetNetworksPageComponent } from './internal/networks/subset-networks-page.component';
 import { SubsetOrphanNodesPageComponent } from './internal/orphan-nodes/subset-orphan-nodes-page.component';
 import { SubsetOrphanRoutesPageComponent } from './internal/orphan-routes/subset-orphan-routes-page.component';
@@ -14,7 +12,7 @@ export const subsetRoutes: Routes = [
   {
     path: ':routeType/:country',
     component: SubsetComponent,
-    providers: [AnalysisStrategyService, SubsetMapService],
+    providers: [AnalysisStrategyService],
     children: [
       {
         path: 'networks',
@@ -31,10 +29,6 @@ export const subsetRoutes: Routes = [
       {
         path: 'orphan-routes',
         component: SubsetOrphanRoutesPageComponent,
-      },
-      {
-        path: 'map',
-        component: SubsetMapPageComponent,
       },
       {
         path: 'changes',

@@ -40,7 +40,6 @@ import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.common.subset.SubsetFactRefs
 import kpn.api.common.subset.SubsetFactsPage
-import kpn.api.common.subset.SubsetMapPage
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
@@ -77,7 +76,6 @@ import kpn.server.api.analysis.pages.subset.SubsetChangesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetFactDetailsPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetFactRefsBuilder
 import kpn.server.api.analysis.pages.subset.SubsetFactsPageBuilder
-import kpn.server.api.analysis.pages.subset.SubsetMapPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetNetworksPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanNodesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanRoutesPageBuilder
@@ -110,7 +108,6 @@ class AnalysisFacade(
   subsetChangesPageBuilder: SubsetChangesPageBuilder,
   subsetOrphanRoutesPageBuilder: SubsetOrphanRoutesPageBuilder,
   subsetOrphanNodesPageBuilder: SubsetOrphanNodesPageBuilder,
-  subsetMapPageBuilder: SubsetMapPageBuilder,
   changesPageBuilder: ChangesPageBuilder,
   changeSetPageBuilder: ChangeSetPageBuilder,
   networkChangesPageBuilder: NetworkChangesPageBuilder,
@@ -242,12 +239,6 @@ class AnalysisFacade(
   def subsetOrphanNodes(subset: Subset): ApiResponse[SubsetOrphanNodesPage] = {
     api.execute("subset-orphan-nodes", subset.string) {
       reply(Some(subsetOrphanNodesPageBuilder.build(subset)))
-    }
-  }
-
-  def subsetMap(subset: Subset): ApiResponse[SubsetMapPage] = {
-    api.execute("subset-map", subset.string) {
-      reply(Some(subsetMapPageBuilder.build(subset)))
     }
   }
 

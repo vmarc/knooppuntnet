@@ -323,8 +323,6 @@ import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.common.subset.SubsetFactRefs
 import kpn.api.common.subset.SubsetFactsPage
 import kpn.api.common.subset.SubsetInfo
-import kpn.api.common.subset.SubsetMapNetwork
-import kpn.api.common.subset.SubsetMapPage
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
@@ -481,7 +479,6 @@ import kpn.server.sync.Transaction
 import kpn.tools.code.codecs.DayCodec
 import kpn.tools.code.codecs.LongSetCodec
 import kpn.tools.code.codecs.PoeTranslationsCodec
-import kpn.tools.code.codecs.ScalaLongCodec
 import kpn.tools.code.codecs.TagCodec
 import kpn.tools.code.codecs.TimestampCodec
 import kpn.tools.code.codecs.TranslationsCodec
@@ -957,9 +954,6 @@ class _CodecProvider extends CodecProvider {
     if (aClass == classOf[SubsetFactRefs]) {
       return new SubsetFactRefsCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
-    if (aClass == classOf[SubsetMapNetwork]) {
-      return new SubsetMapNetworkCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
     if (aClass == classOf[SubsetChangesPage]) {
       return new SubsetChangesPageCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
@@ -977,9 +971,6 @@ class _CodecProvider extends CodecProvider {
     }
     if (aClass == classOf[SubsetFactsPage]) {
       return new SubsetFactsPageCodec(codecRegistry).asInstanceOf[Codec[T]]
-    }
-    if (aClass == classOf[SubsetMapPage]) {
-      return new SubsetMapPageCodec(codecRegistry).asInstanceOf[Codec[T]]
     }
     if (aClass == classOf[ChangeSetSummaryNetworkInfo]) {
       return new ChangeSetSummaryNetworkInfoCodec(codecRegistry).asInstanceOf[Codec[T]]

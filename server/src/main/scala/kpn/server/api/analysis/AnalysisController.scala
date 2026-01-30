@@ -43,7 +43,6 @@ import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.common.subset.SubsetFactRefs
 import kpn.api.common.subset.SubsetFactsPage
-import kpn.api.common.subset.SubsetMapPage
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
@@ -140,17 +139,6 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   ): ApiResponse[SubsetOrphanRoutesPage] = {
     Subset.of(country, routeType) match {
       case Some(subset) => analysisFacade.subsetOrphanRoutes(subset)
-      case None => notFound()
-    }
-  }
-
-  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/map"))
-  def subsetMap(
-    @PathVariable country: Country,
-    @PathVariable routeType: RouteType
-  ): ApiResponse[SubsetMapPage] = {
-    Subset.of(country, routeType) match {
-      case Some(subset) => analysisFacade.subsetMap(subset)
       case None => notFound()
     }
   }

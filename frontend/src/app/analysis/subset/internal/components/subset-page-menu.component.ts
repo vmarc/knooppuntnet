@@ -47,7 +47,6 @@ export class SubsetPageMenuComponent {
         label: $localize`:@@subset-page.menu.orphan-routes:Free routes`,
         elementCount: subsetInfo?.orphanRouteCount,
       },
-      { pageName: 'map', pageLink: link + 'map', label: $localize`:@@subset-page.menu.map:Map` },
       {
         pageName: 'changes',
         pageLink: link + 'changes',

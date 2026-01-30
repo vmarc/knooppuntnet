@@ -52,7 +52,6 @@ import { SystemStatusPage } from '@api/common/status/system-status-page';
 import { SubsetChangesPage } from '@api/common/subset/subset-changes-page';
 import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
 import { SubsetFactsPage } from '@api/common/subset/subset-facts-page';
-import { SubsetMapPage } from '@api/common/subset/subset-map-page';
 import { SubsetNetworksPage } from '@api/common/subset/subset-networks-page';
 import { SubsetOrphanNodesPage } from '@api/common/subset/subset-orphan-nodes-page';
 import { SubsetOrphanRoutesPage } from '@api/common/subset/subset-orphan-routes-page';
@@ -110,11 +109,6 @@ export class ApiService {
 
   subsetOrphanRoutes(subset: Subset): Observable<ApiResponse<SubsetOrphanRoutesPage>> {
     const url = this.subsetUrl(subset, 'orphan-routes');
-    return this.http.get(url);
-  }
-
-  subsetMap(subset: Subset): Observable<ApiResponse<SubsetMapPage>> {
-    const url = this.subsetUrl(subset, 'map');
     return this.http.get(url);
   }
 
