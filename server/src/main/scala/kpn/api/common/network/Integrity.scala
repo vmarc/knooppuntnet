@@ -3,7 +3,7 @@ package kpn.api.common.network
 case class Integrity(
   isOk: Boolean = true,
   hasChecks: Boolean = false,
-  count: String = "-",
+  count: Long = 0,
   okCount: Long = 0,
   nokCount: Long = 0,
   coverage: String = "-",

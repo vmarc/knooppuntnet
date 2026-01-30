@@ -5,11 +5,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
-import { PageWidthService } from '@app/shared/components/page-width.service';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 import { MarkdownComponent } from 'ngx-markdown';
 import { SubsetNetworkListComponent } from './components/subset-network-list.component';
-import { SubsetNetworkTableComponent } from './components/subset-network-table.component';
 import { SubsetNetworksPageService } from './subset-networks-page.service';
 
 @Component({
@@ -31,11 +29,7 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
                 response.result.routeCount | integer
               }}__ routes with an overall length of __{{ response.result.km | integer }}__ km._
             </markdown>
-            @if (large()) {
-              <ui-subset-network-table [networks]="response.result.networks" />
-            } @else {
-              <ui-subset-network-list [networks]="response.result.networks" />
-            }
+            <ui-subset-network-list [networks]="response.result.networks" />
           </div>
         }
       </div>
@@ -47,14 +41,11 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
     MarkdownComponent,
     SituationOnComponent,
     SubsetNetworkListComponent,
-    SubsetNetworkTableComponent,
     IntegerFormatPipe,
   ],
 })
 export class SubsetNetworksPageComponent implements OnInit, OnDestroy {
   protected readonly service = inject(SubsetNetworksPageService);
-  private readonly pageWidthService = inject(PageWidthService);
-  protected readonly large = this.pageWidthService.isVeryLarge;
 
   ngOnInit(): void {
     this.service.onInit();

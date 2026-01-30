@@ -52,7 +52,7 @@ object NetworkDetailsPageExample {
       integrity = Integrity(
         isOk = false,
         hasChecks = true,
-        count = "3",
+        count = 3,
         okCount = 1,
         nokCount = 2,
         coverage = "50%",

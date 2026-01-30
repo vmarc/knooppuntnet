@@ -3,7 +3,7 @@
 export interface Integrity {
   readonly isOk: boolean;
   readonly hasChecks: boolean;
-  readonly count: string;
+  readonly count: number;
   readonly okCount: number;
   readonly nokCount: number;
   readonly coverage: string;

@@ -25,6 +25,40 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
       {{ network().km | integer }} km, {{ network().nodeCount | integer }} nodes,
       {{ network().routeCount | integer }} routes
     </div>
+
+    @if (network().connectionCount > 0) {
+      <div>{{ network().connectionCount | integer }} connections</div>
+    }
+
+    @if (network().brokenRouteCount > 0) {
+      <div class="kpn-comma-list">
+        <span i18n="@@subset-network.broken-routes">
+          {{ network().brokenRouteCount | integer }} broken routes</span
+        >
+        <span class="kpn-warning">{{ network().brokenRoutePercentage }}</span>
+      </div>
+    }
+
+    @if (network().integrity.hasChecks) {
+      <div>
+        <div class="kpn-comma-list">
+          <span>
+            <span i18n="@@subset-network.integrity.checks">
+              {{ network().integrity.count | integer }} integrity checks</span
+            >
+            <span class="kpn-brackets">{{ network().integrity.coverage }}</span>
+          </span>
+          <span>
+            @if (network().integrity.nokCount > 0) {
+              not ok:
+              <span class="kpn-warning">{{ network().integrity.nokRate }}</span>
+            } @else {
+              <span i18n="@@subset-network.integrity.all-ok">all ok!</span>
+            }
+          </span>
+        </div>
+      </div>
+    }
   `,
   styles: `
     .percentage {
@@ -37,12 +71,7 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
       white-space: nowrap;
     }
   `,
-  imports: [
-    IntegerFormatPipe,
-    LinkNetworkDetailsComponent,
-    SubsetNetworkHappyComponent,
-    IntegerFormatPipe,
-  ],
+  imports: [IntegerFormatPipe, LinkNetworkDetailsComponent, SubsetNetworkHappyComponent],
 })
 export class SubsetNetworkComponent implements OnInit {
   readonly network = input.required<NetworkAttributes>();

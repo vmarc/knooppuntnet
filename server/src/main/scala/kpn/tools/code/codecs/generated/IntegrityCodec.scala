@@ -23,7 +23,7 @@ class IntegrityCodec(registry: CodecRegistry) extends Codec[Integrity] {
 
     var isOk: Boolean = false
     var hasChecks: Boolean = false
-    var count: String = null
+    var count: Long = 0
     var okCount: Long = 0
     var nokCount: Long = 0
     var coverage: String = null
@@ -39,7 +39,11 @@ class IntegrityCodec(registry: CodecRegistry) extends Codec[Integrity] {
         hasChecks = booleanCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "count") {
-        count = stringCodec.decode(bsonReader, decoderContext)
+        // TODO count is a string in the database, but a long in the API. Cleanup after regenerating network docs.
+        val countString = stringCodec.decode(bsonReader, decoderContext)
+        if (countString.forall(_.isDigit)) {
+          count = countString.toLong
+        }
       }
       else if (fieldName == "okCount") {
         okCount = longCodec.decode(bsonReader, decoderContext)
@@ -86,7 +90,7 @@ class IntegrityCodec(registry: CodecRegistry) extends Codec[Integrity] {
     booleanCodec.encode(bsonWriter, value.hasChecks, encoderContext)
 
     bsonWriter.writeName("count")
-    stringCodec.encode(bsonWriter, value.count, encoderContext)
+    longCodec.encode(bsonWriter, value.count, encoderContext)
 
     bsonWriter.writeName("okCount")
     longCodec.encode(bsonWriter, value.okCount, encoderContext)

@@ -17,7 +17,7 @@ class NetworkIntegrityAnalyzer(context: NetworkAnalysisContext) {
 
     val isOk = if (networkNodeIntegrities.isEmpty) true else networkNodeIntegrities.forall(_.ok)
     val hasChecks = networkNodeIntegrities.nonEmpty
-    val count = if (networkNodeIntegrities.isEmpty) "-" else networkNodeIntegrities.size.toString
+    val count = networkNodeIntegrities.size
     val okCount = networkNodeIntegrities.count(_.ok)
     val nokCount = networkNodeIntegrities.count(_.notOk)
     val coverage = percentage(networkNodeIntegrities.size, context.nodeDocs.size)
