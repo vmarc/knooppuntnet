@@ -8,10 +8,8 @@ import { LayersState } from '@app/state/layers-state';
 import { MapStyleOptions } from '@app/state/map-style-options';
 import { PoiStyleMap } from '@app/state/poi/poi-style-map';
 import { OpendataTileLayer } from './opendata-tile-layer';
-import { StandardBackground } from './standard-background';
 import { GridLayer } from './grid-layer';
 import { MapLayer } from './map-layer';
-import { OsmBackgroundLayer } from './osm-background-layer';
 import { PoiLayer } from './poi-layer';
 import { RouteLayer } from './route-layer';
 
@@ -32,8 +30,6 @@ export class Layers {
   ) {
     this.poiLayer = PoiLayer.build(poiStyleMap, poiActive);
     this.all = [
-      StandardBackground.build(),
-      OsmBackgroundLayer.build(),
       GridLayer.build(),
       new RouteLayer(styleOptions, monitorMapState).build('cycling'),
       new RouteLayer(styleOptions, monitorMapState).build('hiking'),

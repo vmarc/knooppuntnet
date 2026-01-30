@@ -10,8 +10,6 @@ import { CachedMapPosition } from '@app/ol/domain/cached-map-position';
 import { MapPosition } from '@app/ol/domain/map-position';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import { OldOldOpenDataLayers } from '@app/ol/layers/old-old-open-data-layers';
-import { OldOldBackgroundLayer } from '@app/ol/layers/old-old-background-layer';
-import { OldOldOsmLayer } from '@app/ol/layers/old-old-osm-layer';
 import { NetworkVectorTileLayer } from '@app/ol/layers/network-vector-tile-layer';
 import { NetworkBitmapTileLayer } from '@app/ol/layers/network-bitmap-tile-layer';
 import { LocationBoundaryLayer } from '@app/ol/layers/location-boundary-layer';
@@ -106,8 +104,6 @@ export class LocationMapService extends OpenlayersMapService {
     ];
 
     const registry = new OldOldMapLayerRegistry();
-    registry.register(urlLayerIds, OldOldBackgroundLayer.build(), true);
-    registry.register(urlLayerIds, OldOldOsmLayer.build(), false);
     registry.registerAll(urlLayerIds, networkLayers, true);
     registry.register(urlLayerIds, LocationBoundaryLayer.build(geoJson), true);
     if (geoJson2) {

@@ -5,10 +5,8 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import { ViewOptions } from 'ol/View';
 import { ZoomLevel } from '../domain/zoom-level';
-import { OldOldBackgroundLayer } from '../layers/old-old-background-layer';
 import { MapControls } from '../layers/map-controls';
 import { OldOldMapLayerRegistry } from '../layers/old-old-map-layer-registry';
-import { OldOldOsmLayer } from '../layers/old-old-osm-layer';
 import { PoiMarkerLayer } from '../layers/poi-marker-layer';
 import { OpenlayersMapService } from '../services/openlayers-map-service';
 
@@ -43,8 +41,6 @@ export class PoiDetailMapService extends OpenlayersMapService {
 
   private registerLayers(poiDetail: PoiDetail): void {
     const registry = new OldOldMapLayerRegistry();
-    registry.register([], OldOldBackgroundLayer.build(), true);
-    registry.register([], OldOldOsmLayer.build(), false);
     registry.register([], PoiMarkerLayer.build(poiDetail), true);
     this.register(registry);
   }

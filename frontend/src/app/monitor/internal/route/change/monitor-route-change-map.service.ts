@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
-import { OldOldBackgroundLayer } from '@app/ol/layers/old-old-background-layer';
 import { MapControls } from '@app/ol/layers/map-controls';
 import { OldOldMapLayer } from '@app/ol/layers/old-old-map-layer';
 import { OldOldMapLayerRegistry } from '@app/ol/layers/old-old-map-layer-registry';
-import { OldOldOsmLayer } from '@app/ol/layers/old-old-osm-layer';
 import { OpenlayersMapService } from '@app/ol/services/openlayers-map-service';
 import { Util } from '@app/shared/components/util';
 import Feature from 'ol/Feature';
@@ -52,8 +50,6 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     routeSegments: MonitorRouteSegment[]
   ): void {
     const registry = new OldOldMapLayerRegistry();
-    registry.register([], OldOldBackgroundLayer.build(), true);
-    registry.register([], OldOldOsmLayer.build(), false);
     registry.register([], this.buildReferenceLayer(referenceJson), true);
     registry.register([], this.buildNokSegmentLayer(deviation), true);
     registry.register([], this.buildOsmRelationLayer(routeSegments), true);

@@ -1,3 +1,4 @@
+import { effect } from '@angular/core';
 import { Injectable, inject } from '@angular/core';
 import { Map as MaplibreMap } from 'maplibre-gl';
 import { RouteSource } from './sources/route-source';
@@ -9,6 +10,15 @@ import { State } from '@app/state/state';
 export class MapService {
   private readonly state = inject(State);
   private map: MaplibreMap | null = null;
+
+  constructor() {
+    effect(() => {
+      const enabled = this.state.map.layers.backgroundLayerEnabled();
+      if (this.map) {
+        this.updateBackgroundVisibility(enabled ? 'visible' : 'none');
+      }
+    });
+  }
 
   init(): void {
     const mapLibreMap = new MaplibreMap({
@@ -30,21 +40,17 @@ export class MapService {
     });
   }
 
-  hideOsmBackground(): void {
-    this.updateOsmBackgroundVisibility('none');
-  }
-
-  showOsmBackground(): void {
-    this.updateOsmBackgroundVisibility('visible');
-  }
-
-  private updateOsmBackgroundVisibility(value: string): void {
-    const layers = this.map.getStyle().layers;
-    layers.forEach((layer) => {
-      if (layer['source'] === 'openmaptiles' || layer.id == 'background') {
-        this.map.setLayoutProperty(layer.id, 'visibility', value);
-      }
-    });
+  private updateBackgroundVisibility(value: string): void {
+    if (this.map) {
+      const layers = this.map.getStyle().layers;
+      layers.forEach((layer) => {
+        if (layer['source'] === 'openmaptiles' || layer.id == 'background') {
+          this.map.setLayoutProperty(layer.id, 'visibility', value);
+        }
+      });
+    } else {
+      console.error('map not initialized while trying to update background visibility');
+    }
   }
 
   selectRoutes(routeIds: string[]): void {
@@ -73,18 +79,24 @@ export class MapService {
           RouteSource.init(this.map, routeType);
         });
       }
+    } else {
+      console.error('map not initialized while trying to initialize route type');
     }
   }
 
   hideRouteLayer(): void {
     if (this.map) {
       this.map.setLayoutProperty(MapLayerId.ROUTE, 'visibility', 'none');
+    } else {
+      console.error('map not initialized while trying to hide route layer');
     }
   }
 
   showRouteLayer(): void {
     if (this.map) {
       this.map.setLayoutProperty(MapLayerId.ROUTE, 'visibility', 'visible');
+    } else {
+      console.error('map not initialized while trying to show route layer');
     }
   }
 
@@ -94,6 +106,8 @@ export class MapService {
       this.map.setLayoutProperty(MapLayerId.NODE_ROUTE_ARROWS, 'visibility', 'none');
       this.map.setLayoutProperty(MapLayerId.NODE, 'visibility', 'none');
       this.map.setLayoutProperty(MapLayerId.NODE_NAME, 'visibility', 'none');
+    } else {
+      console.error('map not initialized while trying to hide node route layer');
     }
   }
 
@@ -103,6 +117,8 @@ export class MapService {
       this.map.setLayoutProperty(MapLayerId.NODE_ROUTE_ARROWS, 'visibility', 'visible');
       this.map.setLayoutProperty(MapLayerId.NODE, 'visibility', 'visible');
       this.map.setLayoutProperty(MapLayerId.NODE_NAME, 'visibility', 'visible');
+    } else {
+      console.error('map not initialized while trying to show node route layer');
     }
   }
 
@@ -110,6 +126,8 @@ export class MapService {
     if (this.map) {
       this.map.setFilter('node-route', filter);
       this.map.setFilter('node-route-arrows', filter);
+    } else {
+      console.error('map not initialized while trying to filter routes');
     }
   }
   private preventImageMissingWarning(map: MaplibreMap): void {

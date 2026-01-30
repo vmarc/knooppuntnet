@@ -14,14 +14,8 @@ import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
     <div class="kpn-menu-items">
       <div>
         <ui-menu-item-checkbox
-          [value]="standardBackgroundLayerEnabled()"
-          (toggle)="toggleStandardBackgroundLayerEnabled()"
-          i18n-label="@@map.layer.standard-background"
-          label="Standard background"
-        />
-        <ui-menu-item-checkbox
-          [value]="osmBackgroundLayerEnabled()"
-          (toggle)="toggleOsmBackgroundLayerEnabled()"
+          [value]="backgroundLayerEnabled()"
+          (toggle)="toggleBackgroundLayerEnabled()"
           i18n-label="@@map.layer.osm-background"
           label="OSM background"
         />
@@ -79,8 +73,7 @@ export class SettingsMenuLayersComponent {
   private readonly state = inject(State);
   private readonly layers = this.state.map.layers;
   protected readonly routeType = this.state.page.routeType;
-  protected readonly standardBackgroundLayerEnabled = this.layers.standardBackgroundLayerEnabled;
-  protected readonly osmBackgroundLayerEnabled = this.layers.osmBackgroundLayerEnabled;
+  protected readonly backgroundLayerEnabled = this.layers.backgroundLayerEnabled;
   protected readonly flandersOpenDataLayerEnabled = this.layers.flandersOpenDataLayerEnabled;
   protected readonly netherlandsOpenDataLayerEnabled = this.layers.netherlandsOpenDataLayerEnabled;
   protected readonly franceOpenDataLayerEnabled = this.layers.franceOpenDataLayerEnabled;
@@ -89,14 +82,9 @@ export class SettingsMenuLayersComponent {
 
   protected readonly routeTypeLabel = computed(() => Translations.routeTypeLabel(this.routeType()));
 
-  toggleStandardBackgroundLayerEnabled(): void {
-    const value = this.standardBackgroundLayerEnabled();
-    this.layers.updateStandardBackgroundLayerEnabled(!value);
-  }
-
-  toggleOsmBackgroundLayerEnabled(): void {
-    const value = this.osmBackgroundLayerEnabled();
-    this.layers.updateOsmBackgroundLayerEnabled(!value);
+  toggleBackgroundLayerEnabled(): void {
+    const value = this.backgroundLayerEnabled();
+    this.layers.updateBackgroundLayerEnabled(!value);
   }
 
   toggleFlandersOpenDataLayerEnabled(): void {

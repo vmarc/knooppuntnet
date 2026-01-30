@@ -7,14 +7,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
-import { Bounds } from '@api/common/bounds';
 import { UniqueId } from '@app/shared/kpn/common/unique-id';
 import { PageService } from '@app/shared/components/page.service';
 import { Subscriptions } from '@app/util/subscriptions';
 import { Coordinate } from 'ol/coordinate';
 import BaseLayer from 'ol/layer/Base';
 import Map from 'ol/Map';
-import { transformExtent } from 'ol/proj';
 import { toLonLat } from 'ol/proj';
 import { BehaviorSubject } from 'rxjs';
 import { fromEvent } from 'rxjs';
@@ -25,8 +23,6 @@ import { MapLayerState } from '../domain/map-layer-state';
 import { MapPosition } from '../domain/map-position';
 import { OldOldMapLayer } from '../layers/old-old-map-layer';
 import { OldOldMapLayerRegistry } from '../layers/old-old-map-layer-registry';
-import { OldOldOsmLayer } from '../layers/old-old-osm-layer';
-import { OldOldBackgroundLayer } from '../layers/old-old-background-layer';
 
 export const MAP_SERVICE_TOKEN = new InjectionToken<OpenlayersMapService>('MAP_SERVICE_TOKEN');
 
@@ -85,10 +81,6 @@ export abstract class OpenlayersMapService {
     return this._map;
   }
 
-  protected updateLayerStates(layerStates: MapLayerState[]) {
-    this._layerStates.set(layerStates);
-  }
-
   protected get layers(): BaseLayer[] {
     return this.mapLayers.map((mapLayer) => mapLayer.layer);
   }
@@ -106,37 +98,6 @@ export abstract class OpenlayersMapService {
       this.map.dispose();
       this.map.setTarget(null);
     }
-  }
-
-  layerStateChange(change: MapLayerState): void {
-    const layerId = change.id;
-    const visible = change.visible;
-
-    const mapLayerStates = this._layerStates().map((layerState) => {
-      if (layerState.id === OldOldBackgroundLayer.id && layerId === OldOldOsmLayer.id && visible) {
-        return {
-          ...layerState,
-          visible: false,
-        };
-      }
-      if (layerState.id === OldOldOsmLayer.id && layerId === OldOldBackgroundLayer.id && visible) {
-        return {
-          ...layerState,
-          visible: false,
-        };
-      }
-      if (layerState.id === layerId) {
-        return {
-          ...layerState,
-          visible,
-        };
-      }
-      return layerState;
-    });
-
-    this._layerStates.set(mapLayerStates);
-
-    this.updateLayerVisibility();
   }
 
   updateLayerVisibility(): void {
@@ -172,20 +133,6 @@ export abstract class OpenlayersMapService {
       return visible;
     }
     return false;
-  }
-
-  mapBounds(): Bounds {
-    if (this._map) {
-      const extent = this._map.getView().calculateExtent(this._map.getSize());
-      const transformedExtent = transformExtent(extent, 'EPSG:3857', 'EPSG:4326');
-      return {
-        minLat: transformedExtent[1],
-        minLon: transformedExtent[0],
-        maxLat: transformedExtent[3],
-        maxLon: transformedExtent[2],
-      };
-    }
-    return null;
   }
 
   private updateSize(): void {
