@@ -1,1 +1,1 @@
-export type NetworkPage = 'details' | 'facts' | 'nodes' | 'routes' | 'map' | 'changes';
+export type NetworkPage = 'details' | 'facts' | 'nodes' | 'routes' | 'changes';

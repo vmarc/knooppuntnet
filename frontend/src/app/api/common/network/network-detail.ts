@@ -1,5 +1,6 @@
 // this file is generated, please do not modify
 
+import { Bounds } from '@api/common/bounds';
 import { LatLonImpl } from '@api/common/lat-lon-impl';
 import { Day } from '@api/custom/day';
 import { Timestamp } from '@api/custom/timestamp';
@@ -16,5 +17,6 @@ export interface NetworkDetail {
   readonly integrity: Integrity;
   readonly inaccessibleRouteCount: number;
   readonly connectionCount: number;
+  readonly bounds?: Bounds;
   readonly center?: LatLonImpl;
 }

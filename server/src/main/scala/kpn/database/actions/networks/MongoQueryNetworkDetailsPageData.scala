@@ -38,6 +38,10 @@ class MongoQueryNetworkDetailsPageData(database: Database) {
           include("active"),
           include("country"),
           include("detail"),
+          include("networkNodeIds"),
+          include("connectionNodeIds"),
+          include("networkRouteIds"),
+          include("connectionRouteIds"),
           computed("tags", "$base.raw.tags"),
         )
       )

@@ -25,6 +25,10 @@ case class NetworkDoc(
   extraNodeIds: Seq[Long],
   extraWayIds: Seq[Long],
   extraRelationIds: Seq[Long],
+  networkNodeIds: Seq[Long],
+  connectionNodeIds: Seq[Long],
+  networkRouteIds: Seq[Long],
+  connectionRouteIds: Seq[Long],
   stamp: Option[ObjectId],
 ) extends WithId with Tagable {
 

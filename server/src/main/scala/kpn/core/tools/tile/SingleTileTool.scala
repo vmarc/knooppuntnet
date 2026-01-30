@@ -20,7 +20,8 @@ object SingleTileTool {
     Mongo.devServerExecuteIn("kpn") { database =>
       val tool = buildTool(database, "/Users/marc/kpn/tiles")
       // tool.makeRouteTiles(3669758)
-      tool.make(RouteType.cycling, 13, 4239, 2710)
+      tool.make(RouteType.hiking, 7, 65, 42)
+      tool.make(RouteType.hiking, 6, 32, 21)
     }
     log.info("Done")
   }

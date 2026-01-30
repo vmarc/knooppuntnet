@@ -1,5 +1,6 @@
 package kpn.api.common.network
 
+import kpn.api.common.Bounds
 import kpn.api.common.LatLonImpl
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
@@ -15,5 +16,6 @@ case class NetworkDetail(
   integrity: Integrity,
   inaccessibleRouteCount: Long,
   connectionCount: Long,
+  bounds: Option[Bounds],
   center: Option[LatLonImpl],
 )

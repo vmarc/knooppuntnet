@@ -1,11 +1,13 @@
 package kpn.server.analyzer.engine.analysis.network.main
 
+import kpn.api.common.Bounds
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.network.NetworkDetail
 import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.NetworkDoc
+import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkAnalysisContext
@@ -83,6 +85,11 @@ class NetworkMainAnalyzer(
         context.network.base.copy(members = Seq.empty)
       }
 
+      val networkNodeIds = context.nodeDetails.filterNot(isConnection).map(_.id)
+      val connectionNodeIds = context.nodeDetails.filter(isConnection).map(_.id)
+      val networkRouteIds = context.routeDetails.filterNot(_.roleConnection).map(_.id)
+      val connectionRouteIds = context.routeDetails.filter(_.roleConnection).map(_.id)
+
       Some(
         NetworkDoc(
           _id = context.network._id,
@@ -99,6 +106,10 @@ class NetworkMainAnalyzer(
           extraNodeIds = context.extraNodeIds,
           extraWayIds = context.extraWayIds,
           extraRelationIds = context.extraRelationIds,
+          networkNodeIds = networkNodeIds,
+          connectionNodeIds = connectionNodeIds,
+          networkRouteIds = networkRouteIds,
+          connectionRouteIds = connectionRouteIds,
           stamp = None,
         )
       )
@@ -110,6 +121,10 @@ class NetworkMainAnalyzer(
   }
 
   private def buildDetail(context: NetworkAnalysisContext): NetworkDetail = {
+    val networkNodeInfos = context.nodeDetails.filter(node => node.definedInRelation)
+    val bounds = Option.when(networkNodeInfos.nonEmpty) {
+      Bounds.from(networkNodeInfos)
+    }
     NetworkDetail(
       context.km,
       context.meters,
@@ -121,7 +136,12 @@ class NetworkMainAnalyzer(
       context.integrity,
       context.inaccessibleRouteCount,
       context.connectionCount,
+      bounds,
       context.center
     )
+  }
+
+  private def isConnection(node: NetworkInfoNodeDetail): Boolean = {
+    node.roleConnection || node.connection
   }
 }

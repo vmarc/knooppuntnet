@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -21,11 +22,15 @@ import { NetworkDetailsPageService } from './network-details-page.service';
   providers: [NetworkDetailsPageService, AnalysisStrategyService],
   imports: [NetworkDetailsComponent, NetworkMapSidebarComponent],
 })
-export class NetworkDetailsPageComponent implements OnInit {
+export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
   protected readonly service = inject(NetworkDetailsPageService);
   readonly networkId = this.service.networkId;
 
   ngOnInit(): void {
     this.service.onInit();
+  }
+
+  ngOnDestroy(): void {
+    this.service.onDestroy();
   }
 }

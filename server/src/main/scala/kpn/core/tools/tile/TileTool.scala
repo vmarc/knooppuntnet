@@ -27,7 +27,7 @@ object TileTool extends Tool[TileToolOptions] {
   override def options: Options[TileToolOptions] = TileToolOptions
 
   override def execute(options: TileToolOptions): Unit = {
-    Mongo.executeIn(options.databaseName) { database =>
+    Mongo.devServerExecuteIn(options.databaseName) { database =>
       val tool = buildTool(database, options.tileDir)
       tool.process()
     }

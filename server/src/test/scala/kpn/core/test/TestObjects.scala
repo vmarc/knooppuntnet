@@ -596,7 +596,7 @@ object TestObjects {
   def newIntegrity(
     isOk: Boolean = true,
     hasChecks: Boolean = false,
-    count: String = "",
+    count: Int = 0,
     okCount: Int = 0,
     nokCount: Int = 0,
     coverage: String = "",
@@ -1343,6 +1343,10 @@ object TestObjects {
     extraNodeIds: Seq[Long] = Seq.empty,
     extraWayIds: Seq[Long] = Seq.empty,
     extraRelationIds: Seq[Long] = Seq.empty,
+    networkNodeIds: Seq[Long] = Seq.empty,
+    connectionNodeIds: Seq[Long] = Seq.empty,
+    networkRouteIds: Seq[Long] = Seq.empty,
+    connectionRouteIds: Seq[Long] = Seq.empty,
   ): NetworkDoc = {
     NetworkDoc(
       _id,
@@ -1359,6 +1363,10 @@ object TestObjects {
       extraNodeIds,
       extraWayIds,
       extraRelationIds,
+      networkNodeIds,
+      connectionNodeIds,
+      networkRouteIds,
+      connectionRouteIds,
       None
     )
   }
@@ -1458,6 +1466,7 @@ object TestObjects {
     integrity: Integrity = Integrity(),
     inaccessibleRouteCount: Long = 0,
     connectionCount: Long = 0,
+    bounds: Option[Bounds] = None,
     center: Option[LatLonImpl] = None
   ): NetworkDetail = {
     NetworkDetail(
@@ -1471,6 +1480,7 @@ object TestObjects {
       integrity,
       inaccessibleRouteCount,
       connectionCount,
+      bounds,
       center
     )
   }

@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.common.Bounds
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeType
@@ -151,6 +152,7 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
         country = Some(Country.nl),
         nodeCount = 1,
         detail = newNetworkDetail(
+          bounds = Some(Bounds()),
           center = Some(LatLonImpl("0.0", "0.0")),
         ),
         nodes = Seq(
@@ -159,6 +161,9 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
             name = "01",
             definedInRelation = true
           )
+        ),
+        networkNodeIds = Seq(
+          1001
         )
       )
     )

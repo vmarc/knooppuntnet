@@ -21,6 +21,10 @@ object NetworkDetailsPageExample {
       active = false,
       country = Some(Country.nl),
       detail = networkDetail(),
+      networkNodeIds = Seq.empty,
+      connectionNodeIds = Seq.empty,
+      networkRouteIds = Seq.empty,
+      connectionRouteIds = Seq.empty,
       tags = tags()
     )
   }
@@ -61,6 +65,7 @@ object NetworkDetailsPageExample {
       ),
       inaccessibleRouteCount = 1,
       connectionCount = 2,
+      bounds = None,
       center = Some(essen)
     )
   }

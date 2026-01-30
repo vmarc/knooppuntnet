@@ -106,7 +106,7 @@ class NetworkIntegrityAnalyzerTest extends UnitTest {
       Integrity(
         isOk = false,
         hasChecks = true,
-        count = "3",
+        count = 3,
         okCount = 1,
         nokCount = 2,
         coverage = "75,00%", // 4 nodes, 1 without integrity check

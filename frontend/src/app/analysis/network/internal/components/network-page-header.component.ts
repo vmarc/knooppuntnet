@@ -19,7 +19,6 @@ const PAGE_TITLE_MAP: Record<NetworkPage, string> = {
   facts: $localize`:@@network-facts.title:Facts`,
   nodes: $localize`:@@network-nodes.title:Nodes`,
   routes: $localize`:@@network-routes.title:Routes`,
-  map: $localize`:@@network-map.title:Map`,
   changes: $localize`:@@network-changes.title:Changes`,
 };
 
@@ -92,11 +91,6 @@ export class NetworkPageHeaderComponent {
         pageLink: link + '/routes',
         label: $localize`:@@network-page.menu.routes:Routes`,
         elementCount: summary?.routeCount,
-      },
-      {
-        pageName: 'map',
-        pageLink: link + '/map',
-        label: $localize`:@@network-page.menu.map:Map`,
       },
       {
         pageName: 'changes',

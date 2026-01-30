@@ -20,6 +20,7 @@ class NetworkDetailsPageCodec(registry: CodecRegistry) extends Codec[NetworkDeta
 
   private val booleanCodec = registry.get(classOf[Boolean])
   private val countryCodec = registry.get(classOf[Country])
+  private val longCodec = registry.get(classOf[Long])
   private val networkDetailCodec = registry.get(classOf[NetworkDetail])
   private val networkSummaryCodec = registry.get(classOf[NetworkSummary])
   private val tagCodec = registry.get(classOf[Tag])
@@ -31,6 +32,10 @@ class NetworkDetailsPageCodec(registry: CodecRegistry) extends Codec[NetworkDeta
     var active: Boolean = false
     var country: Option[Country] = None
     var detail: NetworkDetail = null
+    var networkNodeIds: Seq[Long] = null
+    var connectionNodeIds: Seq[Long] = null
+    var networkRouteIds: Seq[Long] = null
+    var connectionRouteIds: Seq[Long] = null
     var tags: Seq[Tag] = null
 
     while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
@@ -46,6 +51,42 @@ class NetworkDetailsPageCodec(registry: CodecRegistry) extends Codec[NetworkDeta
       }
       else if (fieldName == "detail") {
         detail = networkDetailCodec.decode(bsonReader, decoderContext)
+      }
+      else if (fieldName == "networkNodeIds") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[Long]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += longCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        networkNodeIds = valueBuffer.toSeq
+      }
+      else if (fieldName == "connectionNodeIds") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[Long]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += longCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        connectionNodeIds = valueBuffer.toSeq
+      }
+      else if (fieldName == "networkRouteIds") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[Long]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += longCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        networkRouteIds = valueBuffer.toSeq
+      }
+      else if (fieldName == "connectionRouteIds") {
+        bsonReader.readStartArray()
+        val valueBuffer = scala.collection.mutable.Buffer[Long]()
+        while (bsonReader.readBsonType != BsonType.END_OF_DOCUMENT) {
+          valueBuffer += longCodec.decode(bsonReader, decoderContext)
+        }
+        bsonReader.readEndArray()
+        connectionRouteIds = valueBuffer.toSeq
       }
       else if (fieldName == "tags") {
         bsonReader.readStartArray()
@@ -69,6 +110,10 @@ class NetworkDetailsPageCodec(registry: CodecRegistry) extends Codec[NetworkDeta
       active,
       country,
       detail,
+      networkNodeIds,
+      connectionNodeIds,
+      networkRouteIds,
+      connectionRouteIds,
       tags,
     )
   }
@@ -89,6 +134,26 @@ class NetworkDetailsPageCodec(registry: CodecRegistry) extends Codec[NetworkDeta
 
     bsonWriter.writeName("detail")
     networkDetailCodec.encode(bsonWriter, value.detail, encoderContext)
+
+    bsonWriter.writeName("networkNodeIds")
+    bsonWriter.writeStartArray()
+    value.networkNodeIds.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
+
+    bsonWriter.writeName("connectionNodeIds")
+    bsonWriter.writeStartArray()
+    value.connectionNodeIds.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
+
+    bsonWriter.writeName("networkRouteIds")
+    bsonWriter.writeStartArray()
+    value.networkRouteIds.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
+
+    bsonWriter.writeName("connectionRouteIds")
+    bsonWriter.writeStartArray()
+    value.connectionRouteIds.foreach(v => longCodec.encode(bsonWriter, v, encoderContext))
+    bsonWriter.writeEndArray()
 
     bsonWriter.writeName("tags")
     bsonWriter.writeStartArray()

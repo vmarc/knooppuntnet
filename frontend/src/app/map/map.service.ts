@@ -34,6 +34,8 @@ export class MapService {
       zoom: 13,
     });
     this.map = mapLibreMap;
+    mapLibreMap.showTileBoundaries = true;
+    // mapLibreMap.showCollisionBoxes = true;
     this.preventImageMissingWarning(mapLibreMap);
 
     mapLibreMap.addControl(new FullscreenControl({}));
@@ -46,7 +48,12 @@ export class MapService {
         visualizeRoll: false,
       })
     );
+
     mapLibreMap.addControl(new GeolocateControl({}));
+
+    // mapLibreMap.on('zoom', () => {
+    //   console.log('zoom changed ' + mapLibreMap.getZoom());
+    // });
 
     mapLibreMap.loadImage('/assets/arrow.png').then((response) => {
       mapLibreMap.addImage('node-route-arrow', response.data);
@@ -54,7 +61,6 @@ export class MapService {
 
     mapLibreMap.on('load', () => {
       RouteSource.init(mapLibreMap, this.state.preferences.routeType());
-      // this.hideOsmBackground();
     });
   }
 
@@ -79,6 +85,7 @@ export class MapService {
 
   selectRoutes(routeIds: string[]): void {
     const filter: FilterSpecification = ['in', ['get', 'routeId'], ['literal', routeIds]];
+    console.log('selectRoutes');
     this.filterRoutes(filter);
   }
 
@@ -155,8 +162,8 @@ export class MapService {
 
   private filterRoutes(filter: FilterSpecification | null): void {
     if (this.map) {
-      this.map.setFilter('node-route', filter);
-      this.map.setFilter('node-route-arrows', filter);
+      this.map.setFilter(MapLayerId.NODE_ROUTE, filter);
+      // this.map.setFilter(MapLayerId.NODE_ROUTE_ARROWS, filter);
     } else {
       console.error('map not initialized while trying to filter routes');
     }

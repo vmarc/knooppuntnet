@@ -11,7 +11,7 @@ export class RouteSource {
     // this.initLayerNodeRouteSurface(map);
     this.initLayerRoute(map);
     this.initLayerNodeRoute(map);
-    this.initLayerNodeRouteArrows(map);
+    // this.initLayerNodeRouteArrows(map);
     this.initLayerNode(map);
     this.initLayerNodeName(map);
   }
@@ -30,6 +30,7 @@ export class RouteSource {
       type: 'vector',
       tiles: [`http://localhost:4000/tiles/${routeType}/{z}/{x}/{y}.mvt`],
       maxzoom: 13,
+      minzoom: 6,
     });
   }
 
@@ -63,7 +64,7 @@ export class RouteSource {
       },
       paint: {
         'line-color': '#ff69b4',
-        'line-width': 3,
+        'line-width': 1,
       },
     });
   }

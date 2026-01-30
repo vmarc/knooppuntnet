@@ -39,11 +39,7 @@ class IntegrityCodec(registry: CodecRegistry) extends Codec[Integrity] {
         hasChecks = booleanCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "count") {
-        // TODO count is a string in the database, but a long in the API. Cleanup after regenerating network docs.
-        val countString = stringCodec.decode(bsonReader, decoderContext)
-        if (countString.forall(_.isDigit)) {
-          count = countString.toLong
-        }
+        count = longCodec.decode(bsonReader, decoderContext)
       }
       else if (fieldName == "okCount") {
         okCount = longCodec.decode(bsonReader, decoderContext)

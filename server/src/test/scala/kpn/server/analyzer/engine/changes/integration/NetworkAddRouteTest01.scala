@@ -145,6 +145,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
         routeCount = 1,
         country = Some(Country.nl),
         detail = newNetworkDetail(
+          bounds = Some(Bounds()),
           center = Some(LatLonImpl("0.0", "0.0")),
         ),
         nodes = Seq(
@@ -177,7 +178,14 @@ class NetworkAddRouteTest01 extends IntegrationTest {
               )
             )
           )
-        )
+        ),
+        networkNodeIds = Seq(
+          1001,
+          1002
+        ),
+        networkRouteIds = Seq(
+          11
+        ),
       )
     )
   }

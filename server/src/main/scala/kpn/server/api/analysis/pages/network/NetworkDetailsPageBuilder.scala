@@ -30,6 +30,10 @@ class NetworkDetailsPageBuilder(database: Database) {
       data.active,
       data.country,
       data.detail,
+      data.networkNodeIds,
+      data.connectionNodeIds,
+      data.networkRouteIds,
+      data.connectionRouteIds,
       data.tags
     )
   }
