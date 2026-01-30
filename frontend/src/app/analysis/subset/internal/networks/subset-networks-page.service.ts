@@ -3,7 +3,8 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SubsetNetworksPage } from '@api/common/subset/subset-networks-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { NetworkMarker } from '@app/analysis/subset/internal/networks/network-marker';
+import { NetworkMarker } from '@app/analysis/subset/internal/networks/map/network-marker';
+import { NetworkMarkerBuilder } from '@app/analysis/subset/internal/networks/map/network-marker-builder';
 import { MapService } from '@app/map/map.service';
 import { ApiService } from '@app/shared/services/api.service';
 import { SubsetService } from '../subset.service';
@@ -36,7 +37,7 @@ export class SubsetNetworksPageService {
 
   private addMarkers(page: SubsetNetworksPage): void {
     const bounds = page.bounds;
-    this.markers = page.networks.map((network) => new NetworkMarker(this.router, network));
+    this.markers = this.buildMarkers(page);
     this.markers.forEach((marker) => this.mapService.addMarker(marker.marker));
     this.mapService.fitBounds(bounds);
   }
@@ -44,5 +45,9 @@ export class SubsetNetworksPageService {
   private removeMarkers(): void {
     this.markers.forEach((marker) => marker.remove());
     this.markers = [];
+  }
+
+  private buildMarkers(page: SubsetNetworksPage): NetworkMarker[] {
+    return page.networks.map((network) => NetworkMarkerBuilder.build(this.router, network));
   }
 }
