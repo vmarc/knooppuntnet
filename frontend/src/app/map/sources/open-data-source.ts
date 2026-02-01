@@ -1,14 +1,18 @@
+import { OpenDataSourceIds } from '@app/map/sources/open-data-source-ids';
 import { Map as MaplibreMap } from 'maplibre-gl';
 
 export class OpenDataSource {
   private static TILE_ROUTE_LAYER = 'opendata-route';
   private static TILE_NODE_LAYER = 'opendata-node';
 
+  private ids: OpenDataSourceIds;
+
   constructor(
     private map: MaplibreMap,
     private country: string,
     private routeType: string
   ) {
+    this.ids = new OpenDataSourceIds(country, routeType);
     this.initSource();
     this.initLayerRoute();
     this.initLayerVirtualRoute();
@@ -18,11 +22,11 @@ export class OpenDataSource {
   }
 
   updateVisibility(visible: boolean): void {
-    this.updateLayerVisibility(this.layerIdRoute(), visible);
-    this.updateLayerVisibility(this.layerIdVirtualRoute(), visible);
-    this.updateLayerVisibility(this.layerIdNode(), visible);
-    this.updateLayerVisibility(this.layerIdVirtualNode(), visible);
-    this.updateLayerVisibility(this.layerIdNodeName(), visible);
+    this.updateLayerVisibility(this.ids.routeLayerId(), visible);
+    this.updateLayerVisibility(this.ids.virtualRouteLayerId(), visible);
+    this.updateLayerVisibility(this.ids.nodeLayerId(), visible);
+    this.updateLayerVisibility(this.ids.virtualNodeLayerId(), visible);
+    this.updateLayerVisibility(this.ids.nodeNameLayerId(), visible);
   }
 
   private updateLayerVisibility(layerId: string, visible: boolean): void {
@@ -30,16 +34,16 @@ export class OpenDataSource {
   }
 
   remove(): void {
-    this.map.removeLayer(this.layerIdRoute());
-    this.map.removeLayer(this.layerIdVirtualRoute());
-    this.map.removeLayer(this.layerIdNode());
-    this.map.removeLayer(this.layerIdVirtualNode());
-    this.map.removeLayer(this.layerIdNodeName());
-    this.map.removeSource(this.sourceId());
+    this.map.removeLayer(this.ids.routeLayerId());
+    this.map.removeLayer(this.ids.virtualRouteLayerId());
+    this.map.removeLayer(this.ids.nodeLayerId());
+    this.map.removeLayer(this.ids.virtualNodeLayerId());
+    this.map.removeLayer(this.ids.nodeNameLayerId());
+    this.map.removeSource(this.ids.sourceId());
   }
 
   private initSource(): void {
-    this.map.addSource(this.sourceId(), {
+    this.map.addSource(this.ids.sourceId(), {
       type: 'vector',
       tiles: [
         `http://localhost:4000/tiles/opendata/${this.country}/${this.routeType}/{z}/{x}/{y}.mvt`,
@@ -51,9 +55,9 @@ export class OpenDataSource {
 
   private initLayerRoute(): void {
     this.map.addLayer({
-      id: this.layerIdRoute(),
+      id: this.ids.routeLayerId(),
       type: 'line',
-      source: this.sourceId(),
+      source: this.ids.sourceId(),
       'source-layer': OpenDataSource.TILE_ROUTE_LAYER,
       filter: ['!=', 'virtual', 'true'],
       layout: {
@@ -70,9 +74,9 @@ export class OpenDataSource {
 
   private initLayerVirtualRoute(): void {
     this.map.addLayer({
-      id: this.layerIdVirtualRoute(),
+      id: this.ids.virtualRouteLayerId(),
       type: 'line',
-      source: this.sourceId(),
+      source: this.ids.sourceId(),
       'source-layer': OpenDataSource.TILE_ROUTE_LAYER,
       filter: ['==', 'virtual', 'true'],
       layout: {
@@ -90,9 +94,9 @@ export class OpenDataSource {
 
   private initLayerNode(): void {
     this.map.addLayer({
-      id: this.layerIdNode(),
+      id: this.ids.nodeLayerId(),
       type: 'circle',
-      source: this.sourceId(),
+      source: this.ids.sourceId(),
       'source-layer': OpenDataSource.TILE_NODE_LAYER,
       filter: ['!=', 'virtual', 'true'],
       layout: {
@@ -109,9 +113,9 @@ export class OpenDataSource {
 
   private initLayerNodeName(): void {
     this.map.addLayer({
-      id: this.layerIdNodeName(),
+      id: this.ids.nodeNameLayerId(),
       type: 'symbol',
-      source: this.sourceId(),
+      source: this.ids.sourceId(),
       'source-layer': OpenDataSource.TILE_NODE_LAYER,
       layout: {
         'text-field': ['get', 'name'],
@@ -125,9 +129,9 @@ export class OpenDataSource {
 
   private initLayerVirtualNode(): void {
     this.map.addLayer({
-      id: this.layerIdVirtualNode(),
+      id: this.ids.virtualNodeLayerId(),
       type: 'circle',
-      source: this.sourceId(),
+      source: this.ids.sourceId(),
       'source-layer': OpenDataSource.TILE_NODE_LAYER,
       filter: ['==', 'virtual', 'true'],
       layout: {
@@ -140,29 +144,5 @@ export class OpenDataSource {
         'circle-stroke-color': '#ff0000',
       },
     });
-  }
-
-  private sourceId(): string {
-    return `opendata-${this.country}-${this.routeType}`;
-  }
-
-  private layerIdRoute(): string {
-    return `opendata-${this.country}-${this.routeType}-route`;
-  }
-
-  private layerIdNode(): string {
-    return `opendata-${this.country}-${this.routeType}-node`;
-  }
-
-  private layerIdNodeName(): string {
-    return `opendata-${this.country}-${this.routeType}-nodename`;
-  }
-
-  private layerIdVirtualRoute(): string {
-    return `opendata-${this.country}-${this.routeType}-virtual-route`;
-  }
-
-  private layerIdVirtualNode(): string {
-    return `opendata-${this.country}-${this.routeType}-virtual-node`;
   }
 }

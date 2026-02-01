@@ -1,3 +1,4 @@
+import { RouteSourceIds } from './route-source-ids';
 import { Map as MaplibreMap } from 'maplibre-gl';
 
 export class RouteSource {
@@ -6,10 +7,13 @@ export class RouteSource {
   static TILE_LAYER_NODE_ROUTE = 'node-route';
   static TILE_LAYER_ROUTE = 'route';
 
+  private ids: RouteSourceIds;
+
   constructor(
     private map: MaplibreMap,
     private routeType: string
   ) {
+    this.ids = new RouteSourceIds(routeType);
     this.initSource();
     this.initLayerRouteSurface();
     this.initLayerNodeRouteSurface();
@@ -21,16 +25,16 @@ export class RouteSource {
   }
 
   remove(): void {
-    this.layerIds().forEach((layerId) => {
+    this.ids.layerIds().forEach((layerId) => {
       if (this.map.getLayer(layerId)) {
         this.map.removeLayer(layerId);
       }
     });
-    this.map.removeSource(this.sourceId());
+    this.map.removeSource(this.ids.sourceId());
   }
 
   private initSource(): void {
-    this.map.addSource(this.sourceId(), {
+    this.map.addSource(this.ids.sourceId(), {
       type: 'vector',
       tiles: [`http://localhost:4000/tiles/${this.routeType}/{z}/{x}/{y}.mvt`],
       maxzoom: 13,
@@ -40,9 +44,9 @@ export class RouteSource {
 
   private initLayerRoute(): void {
     this.map.addLayer({
-      id: this.layerIdRoute(),
+      id: this.ids.routeLayerId(),
       type: 'line',
-      source: this.sourceId(),
+      source: this.ids.sourceId(),
       'source-layer': RouteSource.TILE_LAYER_ROUTE,
       layout: {
         visibility: 'none',
@@ -58,9 +62,9 @@ export class RouteSource {
 
   private initLayerNodeRoute(): void {
     this.map.addLayer({
-      id: this.layerIdNodeRoute(),
+      id: this.ids.nodeRouteLayerId(),
       type: 'line',
-      source: this.sourceId(),
+      source: this.ids.sourceId(),
       'source-layer': RouteSource.TILE_LAYER_NODE_ROUTE,
       layout: {
         visibility: 'none',
@@ -76,9 +80,9 @@ export class RouteSource {
 
   private initLayerNodeRouteArrows(): void {
     this.map.addLayer({
-      id: this.layerIdNodeRouteArrow(),
+      id: this.ids.nodeRouteArrowLayerId(),
       type: 'symbol',
-      source: this.sourceId(),
+      source: this.ids.sourceId(),
       'source-layer': RouteSource.TILE_LAYER_NODE_ROUTE,
       layout: {
         visibility: 'none',
@@ -93,9 +97,9 @@ export class RouteSource {
 
   private initLayerNode(): void {
     this.map.addLayer({
-      id: this.layerIdNode(),
+      id: this.ids.nodeLayerId(),
       type: 'circle',
-      source: this.sourceId(),
+      source: this.ids.sourceId(),
       'source-layer': RouteSource.TILE_LAYER_NODE,
       minzoom: 12,
       layout: {
@@ -112,9 +116,9 @@ export class RouteSource {
 
   private initLayerNodeName(): void {
     this.map.addLayer({
-      id: this.layerIdNodeName(),
+      id: this.ids.nodeNameLayerId(),
       type: 'symbol',
-      source: this.sourceId(),
+      source: this.ids.sourceId(),
       'source-layer': RouteSource.TILE_LAYER_NODE,
       layout: {
         visibility: 'none',
@@ -128,9 +132,9 @@ export class RouteSource {
 
   private initLayerRouteSurface(): void {
     this.map.addLayer({
-      id: this.layerIdRouteSurface(),
+      id: this.ids.routeSurfaceLayerId(),
       type: 'line',
-      source: this.sourceId(),
+      source: this.ids.sourceId(),
       'source-layer': RouteSource.TILE_LAYER_ROUTE,
       layout: {
         visibility: 'none',
@@ -153,9 +157,9 @@ export class RouteSource {
   }
   private initLayerNodeRouteSurface(): void {
     this.map.addLayer({
-      id: this.layerIdNodeRouteSurface(),
+      id: this.ids.nodeRouteSurfaceLayerId(),
       type: 'line',
-      source: this.sourceId(),
+      source: this.ids.sourceId(),
       'source-layer': RouteSource.TILE_LAYER_NODE_ROUTE,
       layout: {
         visibility: 'none',
@@ -175,49 +179,5 @@ export class RouteSource {
         'line-width': 3,
       },
     });
-  }
-
-  private sourceId(): string {
-    return `route-${this.routeType}`;
-  }
-
-  private layerIds(): string[] {
-    return [
-      this.layerIdRoute(),
-      this.layerIdNodeRoute(),
-      this.layerIdNodeRouteArrow(),
-      this.layerIdNode(),
-      this.layerIdNodeName(),
-      this.layerIdRouteSurface(),
-      this.layerIdNodeRouteSurface(),
-    ];
-  }
-
-  private layerIdRoute(): string {
-    return `route-${this.routeType}-route`;
-  }
-
-  private layerIdNodeRoute(): string {
-    return `route-${this.routeType}-node-route`;
-  }
-
-  private layerIdNodeRouteArrow(): string {
-    return `route-${this.routeType}-node-route-arrow`;
-  }
-
-  private layerIdNode(): string {
-    return `route-${this.routeType}-node`;
-  }
-
-  private layerIdNodeName(): string {
-    return `route-${this.routeType}-node-name`;
-  }
-
-  private layerIdRouteSurface(): string {
-    return `route-${this.routeType}-route-surface`;
-  }
-
-  private layerIdNodeRouteSurface(): string {
-    return `route-${this.routeType}-node-route-surface`;
   }
 }

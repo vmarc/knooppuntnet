@@ -3,6 +3,7 @@ import { effect } from '@angular/core';
 import { Injectable, inject } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
 import { MapBuilder } from '@app/map/map-builder';
+import { RouteSourceIds } from '@app/map/sources/route-source-ids';
 import { Sources } from '@app/map/sources/sources';
 import { LngLatBounds } from 'maplibre-gl';
 import { Marker } from 'maplibre-gl';
@@ -22,8 +23,11 @@ export class MapService {
       const m = this._map();
       const s = this._sources();
       if (m && s) {
+        // TODO apply initial state from query parameters and local storage
         const enabled = this.state.map.layers.backgroundLayerEnabled();
         this.updateBackgroundVisibility(enabled ? 'visible' : 'none');
+        const layerId = new RouteSourceIds('hiking').nodeRouteLayerId();
+        this.map.setLayoutProperty(layerId, 'visibility', 'visible');
       }
     });
   }
@@ -35,7 +39,6 @@ export class MapService {
     });
     this.map.on('load', () => {
       this._sources.set(new Sources(this.map));
-      this.map.setLayoutProperty('route-hiking-node-route', 'visibility', 'visible');
     });
   }
 
@@ -102,7 +105,8 @@ export class MapService {
   }
 
   private filterRoutes(filter: FilterSpecification | null): void {
-    this.map.setFilter('route-hiking-node-route', filter);
+    const layerId = new RouteSourceIds('hiking').nodeRouteLayerId();
+    this.map.setFilter(layerId, filter);
     // this.map.setFilter(MapLayerId.NODE_ROUTE_ARROWS, filter);
   }
 
