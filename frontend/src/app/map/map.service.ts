@@ -1,6 +1,7 @@
 import { effect } from '@angular/core';
 import { Injectable, inject } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
+import { OpenDataSource } from '@app/map/sources/open-data-source';
 import { LngLatBounds } from 'maplibre-gl';
 import { Marker } from 'maplibre-gl';
 import { FullscreenControl } from 'maplibre-gl';
@@ -16,6 +17,12 @@ import { State } from '@app/state/state';
 export class MapService {
   private readonly state = inject(State);
   private map: MaplibreMap | null = null;
+
+  private flandersOpenDataHiking: OpenDataSource;
+  private flandersOpenDataCycling: OpenDataSource;
+  private netherlandsOpenDataHiking: OpenDataSource;
+  private netherlandsOpenDataCycling: OpenDataSource;
+  private franceOpenDataHiking: OpenDataSource;
 
   constructor() {
     effect(() => {
@@ -35,6 +42,9 @@ export class MapService {
     });
     this.map = mapLibreMap;
     mapLibreMap.showTileBoundaries = true;
+    mapLibreMap.dragRotate.disable();
+    mapLibreMap.touchZoomRotate.disableRotation();
+    mapLibreMap.keyboard.disableRotation();
     // mapLibreMap.showCollisionBoxes = true;
     this.preventImageMissingWarning(mapLibreMap);
 
@@ -60,12 +70,31 @@ export class MapService {
     });
 
     mapLibreMap.on('load', () => {
+      this.flandersOpenDataHiking = new OpenDataSource(mapLibreMap, 'flanders', 'hiking');
+      this.flandersOpenDataCycling = new OpenDataSource(mapLibreMap, 'flanders', 'cycling');
+      this.netherlandsOpenDataHiking = new OpenDataSource(mapLibreMap, 'netherlands', 'hiking');
+      this.netherlandsOpenDataCycling = new OpenDataSource(mapLibreMap, 'netherlands', 'cycling');
+      this.franceOpenDataHiking = new OpenDataSource(mapLibreMap, 'france', 'hiking');
+
+      this.flandersOpenDataHiking.init();
+      this.flandersOpenDataCycling.init();
+      this.netherlandsOpenDataHiking.init();
+      this.netherlandsOpenDataCycling.init();
+      this.franceOpenDataHiking.init();
+
+      //this.flandersOpenDataHiking.updateVisibility(true);
+
       RouteSource.init(mapLibreMap, this.state.preferences.routeType());
     });
   }
 
   destroy(): void {
     if (this.map) {
+      this.flandersOpenDataHiking.remove(); // TODO investigate whether this is needed (or already in this.map.remove()?)
+      this.flandersOpenDataCycling.remove();
+      this.netherlandsOpenDataHiking.remove();
+      this.netherlandsOpenDataCycling.remove();
+      this.franceOpenDataHiking.remove();
       this.map.remove();
     }
   }

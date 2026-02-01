@@ -47,7 +47,7 @@ export class RouteSource {
       },
       paint: {
         'line-color': '#0000ff',
-        'line-width': 3,
+        'line-width': ['step', ['zoom'], 0.5, 10, 2, 12, 3],
       },
     });
   }
@@ -63,8 +63,8 @@ export class RouteSource {
         'line-cap': 'round',
       },
       paint: {
-        'line-color': '#ff69b4',
-        'line-width': 1,
+        'line-color': '#0000ff',
+        'line-width': ['step', ['zoom'], 0.5, 10, 2, 12, 3],
       },
     });
   }
@@ -91,11 +91,12 @@ export class RouteSource {
       type: 'circle',
       source: SourceId.ROUTES,
       'source-layer': RouteTileLayerId.NODE,
+      minzoom: 12,
       paint: {
         'circle-radius': 10,
         'circle-color': '#ffffff',
-        'circle-stroke-width': 3,
-        'circle-stroke-color': '#ff69b4',
+        'circle-stroke-color': '#0000ff',
+        'circle-stroke-width': 2,
       },
     });
   }
