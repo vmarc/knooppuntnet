@@ -1,64 +1,51 @@
 import { Map as MaplibreMap } from 'maplibre-gl';
-import { RouteTileLayerId } from '../constants/route-tile-layer-id';
-import { SourceId } from '../constants/source-id';
-import { MapLayerId } from '../constants/map-layer-id';
 
 export class RouteSource {
-  static init(map: MaplibreMap, routeType: string): void {
-    console.log(`RouteSource.init(routeType=${routeType})`);
-    this.initSource(map, routeType);
-    // this.initLayerRouteSurface(map);
-    // this.initLayerNodeRouteSurface(map);
-    this.initLayerRoute(map);
-    this.initLayerNodeRoute(map);
-    // this.initLayerNodeRouteArrows(map);
-    this.initLayerNode(map);
-    this.initLayerNodeName(map);
+  static TILE_LAYER_NODE = 'node';
+  // TODO static TILE_LAYER_ERROR_NODE = 'error-node'; !!!
+  static TILE_LAYER_NODE_ROUTE = 'node-route';
+  static TILE_LAYER_ROUTE = 'route';
+
+  constructor(
+    private map: MaplibreMap,
+    private routeType: string
+  ) {
+    this.initSource();
+    this.initLayerRouteSurface();
+    this.initLayerNodeRouteSurface();
+    this.initLayerRoute();
+    this.initLayerNodeRoute();
+    this.initLayerNodeRouteArrows();
+    this.initLayerNode();
+    this.initLayerNodeName();
   }
 
-  static remove(map: MaplibreMap): void {
-    MapLayerId.routeLayers.forEach((layerId) => {
-      if (map.getLayer(layerId)) {
-        map.removeLayer(layerId);
+  remove(): void {
+    this.layerIds().forEach((layerId) => {
+      if (this.map.getLayer(layerId)) {
+        this.map.removeLayer(layerId);
       }
     });
-    map.removeSource(SourceId.ROUTES);
+    this.map.removeSource(this.sourceId());
   }
 
-  private static initSource(map: MaplibreMap, routeType: string): void {
-    map.addSource(SourceId.ROUTES, {
+  private initSource(): void {
+    this.map.addSource(this.sourceId(), {
       type: 'vector',
-      tiles: [`http://localhost:4000/tiles/${routeType}/{z}/{x}/{y}.mvt`],
+      tiles: [`http://localhost:4000/tiles/${this.routeType}/{z}/{x}/{y}.mvt`],
       maxzoom: 13,
       minzoom: 6,
     });
   }
 
-  private static initLayerRoute(map: MaplibreMap): void {
-    map.addLayer({
-      id: MapLayerId.ROUTE,
+  private initLayerRoute(): void {
+    this.map.addLayer({
+      id: this.layerIdRoute(),
       type: 'line',
-      source: SourceId.ROUTES,
-      'source-layer': RouteTileLayerId.ROUTE,
+      source: this.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_ROUTE,
       layout: {
-        'line-join': 'round',
-        'line-cap': 'round',
         visibility: 'none',
-      },
-      paint: {
-        'line-color': '#0000ff',
-        'line-width': ['step', ['zoom'], 0.5, 10, 2, 12, 3],
-      },
-    });
-  }
-
-  private static initLayerNodeRoute(map: MaplibreMap): void {
-    map.addLayer({
-      id: MapLayerId.NODE_ROUTE,
-      type: 'line',
-      source: SourceId.ROUTES,
-      'source-layer': RouteTileLayerId.NODE_ROUTE,
-      layout: {
         'line-join': 'round',
         'line-cap': 'round',
       },
@@ -69,13 +56,32 @@ export class RouteSource {
     });
   }
 
-  private static initLayerNodeRouteArrows(map: MaplibreMap): void {
-    map.addLayer({
-      id: MapLayerId.NODE_ROUTE_ARROWS,
-      type: 'symbol',
-      source: SourceId.ROUTES,
-      'source-layer': RouteTileLayerId.NODE_ROUTE,
+  private initLayerNodeRoute(): void {
+    this.map.addLayer({
+      id: this.layerIdNodeRoute(),
+      type: 'line',
+      source: this.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_NODE_ROUTE,
       layout: {
+        visibility: 'none',
+        'line-join': 'round',
+        'line-cap': 'round',
+      },
+      paint: {
+        'line-color': '#0000ff',
+        'line-width': ['step', ['zoom'], 0.5, 10, 2, 12, 3],
+      },
+    });
+  }
+
+  private initLayerNodeRouteArrows(): void {
+    this.map.addLayer({
+      id: this.layerIdNodeRouteArrow(),
+      type: 'symbol',
+      source: this.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_NODE_ROUTE,
+      layout: {
+        visibility: 'none',
         'symbol-placement': 'line',
         'icon-image': 'node-route-arrow',
         'icon-rotation-alignment': 'map',
@@ -85,13 +91,16 @@ export class RouteSource {
     });
   }
 
-  private static initLayerNode(map: MaplibreMap): void {
-    map.addLayer({
-      id: MapLayerId.NODE,
+  private initLayerNode(): void {
+    this.map.addLayer({
+      id: this.layerIdNode(),
       type: 'circle',
-      source: SourceId.ROUTES,
-      'source-layer': RouteTileLayerId.NODE,
+      source: this.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_NODE,
       minzoom: 12,
+      layout: {
+        visibility: 'none',
+      },
       paint: {
         'circle-radius': 10,
         'circle-color': '#ffffff',
@@ -101,13 +110,14 @@ export class RouteSource {
     });
   }
 
-  private static initLayerNodeName(map: MaplibreMap): void {
-    map.addLayer({
-      id: MapLayerId.NODE_NAME,
+  private initLayerNodeName(): void {
+    this.map.addLayer({
+      id: this.layerIdNodeName(),
       type: 'symbol',
-      source: SourceId.ROUTES,
-      'source-layer': RouteTileLayerId.NODE,
+      source: this.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_NODE,
       layout: {
+        visibility: 'none',
         'text-field': ['get', 'ref'],
         //'text-font': ['Roboto Regular'],
         'text-size': 12,
@@ -116,13 +126,14 @@ export class RouteSource {
     });
   }
 
-  private static initLayerRouteSurface(map: MaplibreMap): void {
-    map.addLayer({
-      id: MapLayerId.ROUTE_SURFACE,
+  private initLayerRouteSurface(): void {
+    this.map.addLayer({
+      id: this.layerIdRouteSurface(),
       type: 'line',
-      source: SourceId.ROUTES,
-      'source-layer': RouteTileLayerId.ROUTE,
+      source: this.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_ROUTE,
       layout: {
+        visibility: 'none',
         'line-join': 'round',
         'line-cap': 'round',
       },
@@ -140,13 +151,14 @@ export class RouteSource {
       },
     });
   }
-  private static initLayerNodeRouteSurface(map: MaplibreMap): void {
-    map.addLayer({
-      id: MapLayerId.NODE_ROUTE_SURFACE,
+  private initLayerNodeRouteSurface(): void {
+    this.map.addLayer({
+      id: this.layerIdNodeRouteSurface(),
       type: 'line',
-      source: SourceId.ROUTES,
-      'source-layer': RouteTileLayerId.NODE_ROUTE,
+      source: this.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_NODE_ROUTE,
       layout: {
+        visibility: 'none',
         'line-join': 'round',
         'line-cap': 'round',
       },
@@ -163,5 +175,49 @@ export class RouteSource {
         'line-width': 3,
       },
     });
+  }
+
+  private sourceId(): string {
+    return `route-${this.routeType}`;
+  }
+
+  private layerIds(): string[] {
+    return [
+      this.layerIdRoute(),
+      this.layerIdNodeRoute(),
+      this.layerIdNodeRouteArrow(),
+      this.layerIdNode(),
+      this.layerIdNodeName(),
+      this.layerIdRouteSurface(),
+      this.layerIdNodeRouteSurface(),
+    ];
+  }
+
+  private layerIdRoute(): string {
+    return `route-${this.routeType}-route`;
+  }
+
+  private layerIdNodeRoute(): string {
+    return `route-${this.routeType}-node-route`;
+  }
+
+  private layerIdNodeRouteArrow(): string {
+    return `route-${this.routeType}-node-route-arrow`;
+  }
+
+  private layerIdNode(): string {
+    return `route-${this.routeType}-node`;
+  }
+
+  private layerIdNodeName(): string {
+    return `route-${this.routeType}-node-name`;
+  }
+
+  private layerIdRouteSurface(): string {
+    return `route-${this.routeType}-route-surface`;
+  }
+
+  private layerIdNodeRouteSurface(): string {
+    return `route-${this.routeType}-node-route-surface`;
   }
 }

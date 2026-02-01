@@ -1,115 +1,63 @@
+import { signal } from '@angular/core';
 import { effect } from '@angular/core';
 import { Injectable, inject } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
-import { OpenDataSource } from '@app/map/sources/open-data-source';
+import { MapBuilder } from '@app/map/map-builder';
+import { Sources } from '@app/map/sources/sources';
 import { LngLatBounds } from 'maplibre-gl';
 import { Marker } from 'maplibre-gl';
-import { FullscreenControl } from 'maplibre-gl';
-import { GeolocateControl } from 'maplibre-gl';
-import { NavigationControl } from 'maplibre-gl';
 import { Map as MaplibreMap } from 'maplibre-gl';
-import { RouteSource } from './sources/route-source';
 import { FilterSpecification } from '@maplibre/maplibre-gl-style-spec';
-import { MapLayerId } from './constants/map-layer-id';
 import { State } from '@app/state/state';
 
 @Injectable()
 export class MapService {
   private readonly state = inject(State);
-  private map: MaplibreMap | null = null;
 
-  private flandersOpenDataHiking: OpenDataSource;
-  private flandersOpenDataCycling: OpenDataSource;
-  private netherlandsOpenDataHiking: OpenDataSource;
-  private netherlandsOpenDataCycling: OpenDataSource;
-  private franceOpenDataHiking: OpenDataSource;
+  private _map = signal<MaplibreMap | null>(null);
+  private _sources = signal<Sources | null>(null);
 
   constructor() {
     effect(() => {
-      const enabled = this.state.map.layers.backgroundLayerEnabled();
-      if (this.map) {
+      const m = this._map();
+      const s = this._sources();
+      if (m && s) {
+        const enabled = this.state.map.layers.backgroundLayerEnabled();
         this.updateBackgroundVisibility(enabled ? 'visible' : 'none');
       }
     });
   }
 
   init(): void {
-    const mapLibreMap = new MaplibreMap({
-      container: 'map',
-      style: '/assets/liberty.json',
-      center: [4.46839, 51.46774],
-      zoom: 13,
+    this._map.set(new MapBuilder().build());
+    this.map.loadImage('/assets/arrow.png').then((response) => {
+      this.map.addImage('node-route-arrow', response.data);
     });
-    this.map = mapLibreMap;
-    mapLibreMap.showTileBoundaries = true;
-    mapLibreMap.dragRotate.disable();
-    mapLibreMap.touchZoomRotate.disableRotation();
-    mapLibreMap.keyboard.disableRotation();
-    // mapLibreMap.showCollisionBoxes = true;
-    this.preventImageMissingWarning(mapLibreMap);
-
-    mapLibreMap.addControl(new FullscreenControl({}));
-
-    mapLibreMap.addControl(
-      new NavigationControl({
-        showZoom: true,
-        showCompass: false,
-        visualizePitch: false,
-        visualizeRoll: false,
-      })
-    );
-
-    mapLibreMap.addControl(new GeolocateControl({}));
-
-    // mapLibreMap.on('zoom', () => {
-    //   console.log('zoom changed ' + mapLibreMap.getZoom());
-    // });
-
-    mapLibreMap.loadImage('/assets/arrow.png').then((response) => {
-      mapLibreMap.addImage('node-route-arrow', response.data);
-    });
-
-    mapLibreMap.on('load', () => {
-      this.flandersOpenDataHiking = new OpenDataSource(mapLibreMap, 'flanders', 'hiking');
-      this.flandersOpenDataCycling = new OpenDataSource(mapLibreMap, 'flanders', 'cycling');
-      this.netherlandsOpenDataHiking = new OpenDataSource(mapLibreMap, 'netherlands', 'hiking');
-      this.netherlandsOpenDataCycling = new OpenDataSource(mapLibreMap, 'netherlands', 'cycling');
-      this.franceOpenDataHiking = new OpenDataSource(mapLibreMap, 'france', 'hiking');
-
-      this.flandersOpenDataHiking.init();
-      this.flandersOpenDataCycling.init();
-      this.netherlandsOpenDataHiking.init();
-      this.netherlandsOpenDataCycling.init();
-      this.franceOpenDataHiking.init();
-
-      //this.flandersOpenDataHiking.updateVisibility(true);
-
-      RouteSource.init(mapLibreMap, this.state.preferences.routeType());
+    this.map.on('load', () => {
+      this._sources.set(new Sources(this.map));
+      this.map.setLayoutProperty('route-hiking-node-route', 'visibility', 'visible');
     });
   }
 
   destroy(): void {
-    if (this.map) {
-      this.flandersOpenDataHiking.remove(); // TODO investigate whether this is needed (or already in this.map.remove()?)
-      this.flandersOpenDataCycling.remove();
-      this.netherlandsOpenDataHiking.remove();
-      this.netherlandsOpenDataCycling.remove();
-      this.franceOpenDataHiking.remove();
-      this.map.remove();
-    }
+    this.sources.remove(); // TODO investigate whether this is needed (or already in this.map.remove()?)
+    this.map.remove();
   }
 
   fitBounds(bounds: Bounds): void {
-    if (this.map) {
-      const b = new LngLatBounds([bounds.minLon, bounds.minLat, bounds.maxLon, bounds.maxLat]);
-      this.map.fitBounds(b);
-    }
+    const inset = 0.15;
+    const lonDelta = (bounds.maxLon - bounds.minLon) * inset;
+    const latDelta = (bounds.maxLat - bounds.minLat) * inset;
+    const minLon = bounds.minLon - lonDelta;
+    const minLat = bounds.minLat - latDelta;
+    const maxLon = bounds.maxLon + lonDelta;
+    const maxLat = bounds.maxLat + latDelta;
+    const b = new LngLatBounds([minLon, minLat, maxLon, maxLat]);
+    this.map.fitBounds(b);
   }
 
   addMarker(marker: Marker): void {
-    if (this.map) {
-      marker.addTo(this.map);
-    }
+    marker.addTo(this.map);
   }
 
   selectRoutes(routeIds: string[]): void {
@@ -122,90 +70,53 @@ export class MapService {
     this.filterRoutes(null);
   }
 
-  initRouteType(routeType: string): void {
-    if (this.map) {
-      if (this.map.loaded()) {
-        RouteSource.remove(this.map);
-        RouteSource.init(this.map, routeType);
-      } else {
-        this.map.on('load', () => {
-          RouteSource.remove(this.map);
-          RouteSource.init(this.map, routeType);
-        });
-      }
-    } else {
-      console.error('map not initialized while trying to initialize route type');
-    }
-  }
-
   hideRouteLayer(): void {
-    if (this.map) {
-      this.map.setLayoutProperty(MapLayerId.ROUTE, 'visibility', 'none');
-    } else {
-      console.error('map not initialized while trying to hide route layer');
-    }
+    // this.map.setLayoutProperty(MapLayerId.ROUTE, 'visibility', 'none');
   }
 
   showRouteLayer(): void {
-    if (this.map) {
-      this.map.setLayoutProperty(MapLayerId.ROUTE, 'visibility', 'visible');
-    } else {
-      console.error('map not initialized while trying to show route layer');
-    }
+    // this.map.setLayoutProperty(MapLayerId.ROUTE, 'visibility', 'visible');
   }
 
   hideNodeRouteLayer(): void {
-    if (this.map) {
-      this.map.setLayoutProperty(MapLayerId.NODE_ROUTE, 'visibility', 'none');
-      this.map.setLayoutProperty(MapLayerId.NODE_ROUTE_ARROWS, 'visibility', 'none');
-      this.map.setLayoutProperty(MapLayerId.NODE, 'visibility', 'none');
-      this.map.setLayoutProperty(MapLayerId.NODE_NAME, 'visibility', 'none');
-    } else {
-      console.error('map not initialized while trying to hide node route layer');
-    }
+    // this.map.setLayoutProperty(MapLayerId.NODE_ROUTE, 'visibility', 'none');
+    // this.map.setLayoutProperty(MapLayerId.NODE_ROUTE_ARROWS, 'visibility', 'none');
+    // this.map.setLayoutProperty(MapLayerId.NODE, 'visibility', 'none');
+    // this.map.setLayoutProperty(MapLayerId.NODE_NAME, 'visibility', 'none');
   }
 
   showNodeRouteLayer(): void {
-    if (this.map) {
-      this.map.setLayoutProperty(MapLayerId.NODE_ROUTE, 'visibility', 'visible');
-      this.map.setLayoutProperty(MapLayerId.NODE_ROUTE_ARROWS, 'visibility', 'visible');
-      this.map.setLayoutProperty(MapLayerId.NODE, 'visibility', 'visible');
-      this.map.setLayoutProperty(MapLayerId.NODE_NAME, 'visibility', 'visible');
-    } else {
-      console.error('map not initialized while trying to show node route layer');
-    }
+    // this.map.setLayoutProperty(MapLayerId.NODE_ROUTE, 'visibility', 'visible');
+    // this.map.setLayoutProperty(MapLayerId.NODE_ROUTE_ARROWS, 'visibility', 'visible');
+    // this.map.setLayoutProperty(MapLayerId.NODE, 'visibility', 'visible');
+    // this.map.setLayoutProperty(MapLayerId.NODE_NAME, 'visibility', 'visible');
   }
 
   private updateBackgroundVisibility(value: string): void {
-    if (this.map) {
-      const layers = this.map.getStyle().layers;
-      layers.forEach((layer) => {
-        if (layer['source'] === 'openmaptiles' || layer.id == 'background') {
-          this.map.setLayoutProperty(layer.id, 'visibility', value);
-        }
-      });
-    } else {
-      console.error('map not initialized while trying to update background visibility');
-    }
+    const layers = this.map.getStyle().layers;
+    layers.forEach((layer) => {
+      if (layer['source'] === 'openmaptiles' || layer.id == 'background') {
+        this.map.setLayoutProperty(layer.id, 'visibility', value);
+      }
+    });
   }
 
   private filterRoutes(filter: FilterSpecification | null): void {
-    if (this.map) {
-      this.map.setFilter(MapLayerId.NODE_ROUTE, filter);
-      // this.map.setFilter(MapLayerId.NODE_ROUTE_ARROWS, filter);
-    } else {
-      console.error('map not initialized while trying to filter routes');
-    }
+    this.map.setFilter('route-hiking-node-route', filter);
+    // this.map.setFilter(MapLayerId.NODE_ROUTE_ARROWS, filter);
   }
 
-  private preventImageMissingWarning(map: MaplibreMap): void {
-    map.on('styleimagemissing', (e) => {
-      // Add a transparent image to prevent the warning
-      map.addImage(e.id, {
-        width: 1,
-        height: 1,
-        data: new Uint8Array([0, 0, 0, 0]),
-      });
-    });
+  private get map(): MaplibreMap {
+    if (!this._map()) {
+      console.error('map not initialized while trying to access map');
+    }
+    return this._map();
+  }
+
+  private get sources(): Sources {
+    if (!this._sources()) {
+      console.error('map not initialized while trying to access sources');
+    }
+    return this._sources();
   }
 }

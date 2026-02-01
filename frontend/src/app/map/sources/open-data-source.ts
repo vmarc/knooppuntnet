@@ -8,9 +8,7 @@ export class OpenDataSource {
     private map: MaplibreMap,
     private country: string,
     private routeType: string
-  ) {}
-
-  init(): void {
+  ) {
     this.initSource();
     this.initLayerRoute();
     this.initLayerVirtualRoute();
