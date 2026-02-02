@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -19,10 +20,14 @@ import { NodeDetailsPageService } from './node-details-page.service';
   providers: [NodeDetailsPageService, RouterService],
   imports: [NodeDetailsComponent],
 })
-export class NodeDetailsPageComponent implements OnInit {
+export class NodeDetailsPageComponent implements OnInit, OnDestroy {
   protected service = inject(NodeDetailsPageService);
 
   ngOnInit(): void {
     this.service.onInit();
+  }
+
+  ngOnDestroy(): void {
+    this.service.onDestroy();
   }
 }

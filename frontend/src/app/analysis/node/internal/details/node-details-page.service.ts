@@ -5,16 +5,17 @@ import { inject } from '@angular/core';
 import { NodeInfo } from '@api/common/node-info';
 import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { MapService } from '@app/map/map.service';
 import { RouteTypes } from '@app/shared/kpn/common/route-types';
 import { ApiService } from '@app/shared/services/api.service';
-import { OldMapService } from '@app/mapold/old-map.service';
+import { Marker } from 'maplibre-gl';
 import { NodeService } from '../node.service';
 
 @Injectable()
 export class NodeDetailsPageService {
   private readonly apiService = inject(ApiService);
   private readonly nodeService = inject(NodeService);
-  private readonly mapService = inject(OldMapService);
+  private readonly mapService = inject(MapService);
 
   private readonly _response = signal<ApiResponse<NodeDetailsPage>>(null);
   readonly response = this._response.asReadonly();
@@ -27,6 +28,8 @@ export class NodeDetailsPageService {
     }
     return [];
   });
+
+  private marker: Marker | null = null;
 
   onInit(): void {
     this.nodeService.updatePageName('details');
@@ -42,13 +45,18 @@ export class NodeDetailsPageService {
     });
   }
 
+  onDestroy(): void {
+    if (this.marker) {
+      this.marker.remove();
+    }
+  }
+
   private focusOnNode(nodeInfo: NodeInfo): void {
-    this.mapService.focusNode(
-      {
-        latitude: nodeInfo.latitude,
-        longitude: nodeInfo.longitude,
-      },
-      nodeInfo.id.toString()
-    );
+    this.mapService.execute(() => {
+      this.marker = new Marker();
+      this.marker.setLngLat([+nodeInfo.longitude, +nodeInfo.latitude]);
+      this.mapService.addMarker(this.marker);
+      this.mapService.zoomTo(14, { lon: +nodeInfo.longitude, lat: +nodeInfo.latitude });
+    });
   }
 }

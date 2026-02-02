@@ -5,6 +5,7 @@ import { Bounds } from '@api/common/bounds';
 import { MapBuilder } from '@app/map/map-builder';
 import { RouteSourceIds } from '@app/map/sources/route-source-ids';
 import { Sources } from '@app/map/sources/sources';
+import { LngLatLike } from 'maplibre-gl';
 import { LngLatBounds } from 'maplibre-gl';
 import { Marker } from 'maplibre-gl';
 import { Map as MaplibreMap } from 'maplibre-gl';
@@ -18,6 +19,8 @@ export class MapService {
   private _map = signal<MaplibreMap | null>(null);
   private _sources = signal<Sources | null>(null);
 
+  private actions: (() => void)[] = [];
+
   constructor() {
     effect(() => {
       const m = this._map();
@@ -25,9 +28,13 @@ export class MapService {
       if (m && s) {
         // TODO apply initial state from query parameters and local storage
         const enabled = this.state.map.layers.backgroundLayerEnabled();
-        this.updateBackgroundVisibility(enabled ? 'visible' : 'none');
-        const layerId = new RouteSourceIds('hiking').nodeRouteLayerId();
-        this.map.setLayoutProperty(layerId, 'visibility', 'visible');
+        this.updateBackgroundVisibility(enabled);
+        this.updateVisibility(new RouteSourceIds('hiking').nodeRouteLayerId(), true);
+        this.updateVisibility(new RouteSourceIds('hiking').nodeLayerId(), true);
+        this.updateVisibility(new RouteSourceIds('hiking').nodeNameLayerId(), true);
+
+        this.actions.forEach((action) => action());
+        this.actions = [];
       }
     });
   }
@@ -47,6 +54,16 @@ export class MapService {
     this.map.remove();
   }
 
+  execute(action: () => void): void {
+    const m = this._map();
+    const s = this._sources();
+    if (m && s) {
+      action();
+    } else {
+      this.actions.push(action);
+    }
+  }
+
   fitBounds(bounds: Bounds): void {
     const inset = 0.15;
     const lonDelta = (bounds.maxLon - bounds.minLon) * inset;
@@ -57,6 +74,11 @@ export class MapService {
     const maxLat = bounds.maxLat + latDelta;
     const b = new LngLatBounds([minLon, minLat, maxLon, maxLat]);
     this.map.fitBounds(b);
+  }
+
+  zoomTo(zoom: number, center: LngLatLike): void {
+    this.map.setZoom(zoom);
+    this.map.setCenter(center);
   }
 
   addMarker(marker: Marker): void {
@@ -71,6 +93,17 @@ export class MapService {
 
   resetRouteSelection(): void {
     this.filterRoutes(null);
+  }
+
+  nodeFocus(nodeIds: string[]): void {
+    this.updateVisibility(new RouteSourceIds('hiking').nodeFocusLayerId(), true);
+    const filter: FilterSpecification = ['in', ['get', 'id'], ['literal', nodeIds]];
+    this.filterNodes(filter);
+  }
+
+  resetNodeFocus(): void {
+    this.updateVisibility(new RouteSourceIds('hiking').nodeFocusLayerId(), false);
+    this.filterNodes(null);
   }
 
   hideRouteLayer(): void {
@@ -95,19 +128,28 @@ export class MapService {
     // this.map.setLayoutProperty(MapLayerId.NODE_NAME, 'visibility', 'visible');
   }
 
-  private updateBackgroundVisibility(value: string): void {
+  private updateBackgroundVisibility(visible: boolean): void {
     const layers = this.map.getStyle().layers;
     layers.forEach((layer) => {
       if (layer['source'] === 'openmaptiles' || layer.id == 'background') {
-        this.map.setLayoutProperty(layer.id, 'visibility', value);
+        this.updateVisibility(layer.id, visible);
       }
     });
+  }
+
+  private updateVisibility(layerId: string, visble: boolean): void {
+    this.map.setLayoutProperty(layerId, 'visibility', visble ? 'visible' : 'none');
   }
 
   private filterRoutes(filter: FilterSpecification | null): void {
     const layerId = new RouteSourceIds('hiking').nodeRouteLayerId();
     this.map.setFilter(layerId, filter);
     // this.map.setFilter(MapLayerId.NODE_ROUTE_ARROWS, filter);
+  }
+
+  private filterNodes(filter: FilterSpecification | null): void {
+    const nodeLayerId = new RouteSourceIds('hiking').nodeFocusLayerId();
+    this.map.setFilter(nodeLayerId, filter);
   }
 
   private get map(): MaplibreMap {

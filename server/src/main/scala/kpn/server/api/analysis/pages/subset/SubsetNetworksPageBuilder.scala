@@ -30,7 +30,7 @@ class SubsetNetworksPageBuilder(
     val brokenRoutePercentage = percentage(brokenRouteCount, routeCount)
 
     val bounds = Option.when(networkAttributess.nonEmpty) {
-      Bounds.from(networkAttributess.flatMap(_.center), 0.15)
+      Bounds.from(networkAttributess.flatMap(_.center))
     }
 
     SubsetNetworksPage(

@@ -15,6 +15,7 @@ export class RouteSource {
   ) {
     this.ids = new RouteSourceIds(routeType);
     this.initSource();
+    this.initLayerNodeFocus();
     this.initLayerRouteSurface();
     this.initLayerNodeRouteSurface();
     this.initLayerRoute();
@@ -110,6 +111,25 @@ export class RouteSource {
         'circle-color': '#ffffff',
         'circle-stroke-color': '#0000ff',
         'circle-stroke-width': 2,
+      },
+    });
+  }
+
+  private initLayerNodeFocus(): void {
+    this.map.addLayer({
+      id: this.ids.nodeFocusLayerId(),
+      type: 'circle',
+      source: this.ids.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_NODE,
+      minzoom: 12,
+      layout: {
+        visibility: 'none',
+      },
+      paint: {
+        'circle-radius': 16,
+        'circle-color': '#ffff00',
+        'circle-stroke-color': '#ffff00',
+        'circle-stroke-width': 1,
       },
     });
   }

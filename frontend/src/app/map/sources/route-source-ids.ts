@@ -33,6 +33,10 @@ export class RouteSourceIds {
     return `route-${this.routeType}-node`;
   }
 
+  nodeFocusLayerId(): string {
+    return `route-${this.routeType}-node-focus`;
+  }
+
   nodeNameLayerId(): string {
     return `route-${this.routeType}-node-name`;
   }
