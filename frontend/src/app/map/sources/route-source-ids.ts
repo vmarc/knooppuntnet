@@ -9,8 +9,11 @@ export class RouteSourceIds {
     return [
       this.routeLayerId(),
       this.nodeRouteLayerId(),
+      this.nodeRouteSegmentLayerId(),
+      this.nodeRoutePathLayerId(),
       this.nodeRouteArrowLayerId(),
       this.nodeLayerId(),
+      this.nodeFocusLayerId(),
       this.nodeNameLayerId(),
       this.routeSurfaceLayerId(),
       this.nodeRouteSurfaceLayerId(),
@@ -23,6 +26,14 @@ export class RouteSourceIds {
 
   nodeRouteLayerId(): string {
     return `route-${this.routeType}-node-route`;
+  }
+
+  nodeRouteSegmentLayerId(): string {
+    return `route-${this.routeType}-node-route-segment`;
+  }
+
+  nodeRoutePathLayerId(): string {
+    return `route-${this.routeType}-node-route-path`;
   }
 
   nodeRouteArrowLayerId(): string {

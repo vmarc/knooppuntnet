@@ -1,3 +1,6 @@
+import { SegmentColors } from '@app/mapold/domain/segment-colors';
+import { ColorSpecification } from '@maplibre/maplibre-gl-style-spec';
+import { DataDrivenPropertyValueSpecification } from '@maplibre/maplibre-gl-style-spec';
 import { RouteSourceIds } from './route-source-ids';
 import { Map as MaplibreMap } from 'maplibre-gl';
 
@@ -20,6 +23,8 @@ export class RouteSource {
     this.initLayerNodeRouteSurface();
     this.initLayerRoute();
     this.initLayerNodeRoute();
+    this.initLayerNodeRouteSegment();
+    this.initLayerNodeRoutePath();
     this.initLayerNodeRouteArrows();
     this.initLayerNode();
     this.initLayerNodeName();
@@ -74,6 +79,60 @@ export class RouteSource {
       },
       paint: {
         'line-color': '#0000ff',
+        'line-width': ['step', ['zoom'], 0.5, 10, 2, 12, 3],
+      },
+    });
+  }
+
+  private initLayerNodeRouteSegment(): void {
+    const lineColorArray = ['match', ['get', 'segmentId']];
+
+    const colors = SegmentColors.colors;
+    for (let i = 0; i < colors.length; i++) {
+      lineColorArray.push((i + 1).toString());
+      lineColorArray.push(colors[i]);
+    }
+    lineColorArray.push('#eeeeee');
+
+    this.map.addLayer({
+      id: this.ids.nodeRouteSegmentLayerId(),
+      type: 'line',
+      source: this.ids.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_NODE_ROUTE,
+      layout: {
+        visibility: 'none',
+        'line-join': 'round',
+        'line-cap': 'round',
+      },
+      paint: {
+        'line-color': lineColorArray as DataDrivenPropertyValueSpecification<ColorSpecification>,
+        'line-width': ['step', ['zoom'], 0.5, 10, 2, 12, 3],
+      },
+    });
+  }
+
+  private initLayerNodeRoutePath(): void {
+    const lineColorArray = ['match', ['get', 'segmentElementId']];
+
+    const colors = SegmentColors.colors;
+    for (let i = 0; i < colors.length; i++) {
+      lineColorArray.push((i + 1).toString());
+      lineColorArray.push(colors[i]);
+    }
+    lineColorArray.push('#eeeeee');
+
+    this.map.addLayer({
+      id: this.ids.nodeRoutePathLayerId(),
+      type: 'line',
+      source: this.ids.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_NODE_ROUTE,
+      layout: {
+        visibility: 'none',
+        'line-join': 'round',
+        'line-cap': 'round',
+      },
+      paint: {
+        'line-color': lineColorArray as DataDrivenPropertyValueSpecification<ColorSpecification>,
         'line-width': ['step', ['zoom'], 0.5, 10, 2, 12, 3],
       },
     });

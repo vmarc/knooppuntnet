@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -17,13 +18,17 @@ import { RoutePathsPageService } from './route-paths-page.service';
   providers: [RoutePathsPageService],
   imports: [RoutePathListComponent],
 })
-export class RoutePathsPageComponent implements OnInit {
+export class RoutePathsPageComponent implements OnInit, OnDestroy {
   private readonly service = inject(RoutePathsPageService);
   protected readonly response = this.service.response;
   protected readonly paths = () => this.response()?.result?.paths;
 
   ngOnInit(): void {
     this.service.onInit();
+  }
+
+  ngOnDestroy(): void {
+    this.service.onDestroy();
   }
 
   selectPath(path: RoutePath) {

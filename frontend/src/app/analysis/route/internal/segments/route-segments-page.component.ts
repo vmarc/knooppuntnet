@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { signal } from '@angular/core';
 import { computed } from '@angular/core';
@@ -27,7 +28,7 @@ import { RouteSegmentsPageService } from './route-segments-page.service';
   providers: [RouteSegmentsPageService, NzContextMenuService],
   imports: [RouteSegmentsComponent],
 })
-export class RouteSegmentsPageComponent implements OnInit {
+export class RouteSegmentsPageComponent implements OnInit, OnDestroy {
   readonly service = inject(RouteSegmentsPageService);
   protected readonly response = this.service.response;
   protected readonly segments = computed(() => this.response()?.result?.segments);
@@ -38,6 +39,9 @@ export class RouteSegmentsPageComponent implements OnInit {
     this.service.onInit();
   }
 
+  ngOnDestroy() {
+    this.service.onDestroy();
+  }
   selectSegment(segment: SegmentInfo): void {
     this.service.selectSegment(segment);
   }

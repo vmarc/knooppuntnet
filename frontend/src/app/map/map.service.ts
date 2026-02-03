@@ -114,6 +114,14 @@ export class MapService {
     // this.map.setLayoutProperty(MapLayerId.ROUTE, 'visibility', 'visible');
   }
 
+  showLayer(layerId: string): void {
+    this.map.setLayoutProperty(layerId, 'visibility', 'visible');
+  }
+
+  hideLayer(layerId: string): void {
+    this.map.setLayoutProperty(layerId, 'visibility', 'none');
+  }
+
   hideNodeRouteLayer(): void {
     // this.map.setLayoutProperty(MapLayerId.NODE_ROUTE, 'visibility', 'none');
     // this.map.setLayoutProperty(MapLayerId.NODE_ROUTE_ARROWS, 'visibility', 'none');

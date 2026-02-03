@@ -5,8 +5,9 @@ import { RouteSegment } from '@api/common/route/route-segment';
 import { RouteSegmentsPage } from '@api/common/route/route-segments-page';
 import { SegmentInfo } from '@api/common/route/segment-info';
 import { ApiResponse } from '@api/custom/api-response';
+import { MapService } from '@app/map/map.service';
+import { RouteSourceIds } from '@app/map/sources/route-source-ids';
 import { ApiService } from '@app/shared/services/api.service';
-import { OldMapService } from '@app/mapold/old-map.service';
 import { RouterService } from '@app/shared/services/router.service';
 import { SegmentMap } from '@app/state/segment-map';
 import { State } from '@app/state/state';
@@ -18,7 +19,7 @@ export class RouteSegmentsPageService {
   private readonly apiService = inject(ApiService);
   private readonly routeService = inject(RouteService);
   private readonly routerService = inject(RouterService);
-  private readonly mapService = inject(OldMapService);
+  private readonly mapService = inject(MapService);
 
   private readonly _selectedSegment = signal<RouteSegment>(null);
   readonly selectedSegment = this._selectedSegment.asReadonly();
@@ -43,10 +44,19 @@ export class RouteSegmentsPageService {
       );
       const segmentMap = SegmentMap.from(segments);
       this.state.routeSegmentsPageOpened(segmentMap, this.routeService.routeId(), relationIds);
-      this.mapService.fitBounds(this.routeService.bounds());
+
+      this.mapService.execute(() => {
+        this.mapService.hideLayer(new RouteSourceIds('hiking').nodeRouteLayerId());
+        this.mapService.showLayer(new RouteSourceIds('hiking').nodeRouteSegmentLayerId());
+        this.mapService.fitBounds(this.routeService.bounds());
+      });
     });
   }
 
+  onDestroy(): void {
+    this.mapService.hideLayer(new RouteSourceIds('hiking').nodeRouteSegmentLayerId());
+    this.mapService.showLayer(new RouteSourceIds('hiking').nodeRouteLayerId());
+  }
   selectSegment(segment: SegmentInfo): void {
     this.mapService.fitBounds(segment.bounds);
   }

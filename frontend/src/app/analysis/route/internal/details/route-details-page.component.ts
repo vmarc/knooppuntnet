@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -16,11 +17,15 @@ import { RouteDetailsPageService } from './route-details-page.service';
   providers: [RouteDetailsPageService],
   imports: [RouteDetailsPageContentsComponent],
 })
-export class RouteDetailsPageComponent implements OnInit {
+export class RouteDetailsPageComponent implements OnInit, OnDestroy {
   private readonly service = inject(RouteDetailsPageService);
   protected readonly response = this.service.response;
 
   ngOnInit(): void {
     this.service.onInit();
+  }
+
+  ngOnDestroy(): void {
+    this.service.onDestroy();
   }
 }
