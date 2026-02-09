@@ -25,7 +25,7 @@ object ReplicatorTool extends Tool[ReplicatorToolOptions] {
    * Minimum number of seconds between pairs of requests to OSM (to prevent overload on API). This wait time will only
    * be used when we are in "catch up" mode. Once we are in sync, then the wait time will become longer (see WAIT).
    */
-  private val DELAY = 5
+  private val DELAY = 1
 
   /*
    * Number of seconds to wait before attempting to make new request to osm API when in sync. New minute diffs should
