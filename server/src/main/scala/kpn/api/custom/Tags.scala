@@ -56,5 +56,4 @@ case class Tags(tags: Seq[Tag]) {
   override def toString: String = {
     s"${getClass.getSimpleName}($tagString)"
   }
-
 }

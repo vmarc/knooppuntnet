@@ -148,7 +148,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "port": 4000,
+            "port": 4001,
             "proxyConfig": "src/proxy-dev.conf.mjs",
             "buildTarget": "frontend:build"
           },

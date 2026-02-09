@@ -65,7 +65,7 @@ case class LocationData(
       paths,
       name,
       namesOption,
-      tags
+      tags.tags
     )
   }
 
