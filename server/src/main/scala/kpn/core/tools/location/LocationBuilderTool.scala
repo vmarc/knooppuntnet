@@ -20,6 +20,7 @@ class LocationBuilderTool {
   private val root = s"${Dirs.root}/locations"
   private val boundaryVersion = "osm-boundaries-2021-11-01"
   private val boundaryVersion2 = "osm-boundaries-2023-06-05"
+  private val boundaryVersion3 = "osm-boundaries-2026-01-12"
 
   def build(): Unit = {
     build("be", "belgium", locationsBelgium())
@@ -29,6 +30,7 @@ class LocationBuilderTool {
     build("at", "austria", locationsAustria())
     build("es", "spain", locationsSpain())
     build("dk", "denmark", locationsDenmark())
+    build("pl", "poland", locationsPoland())
   }
 
   private def build(country: String, countryName: String, locationDatas: Seq[LocationData]): Unit = {
@@ -71,6 +73,10 @@ class LocationBuilderTool {
 
   private def locationsDenmark(): Seq[LocationData] = {
     new LocationBuilderDenmark(s"$root/$boundaryVersion2").build()
+  }
+
+  private def locationsPoland(): Seq[LocationData] = {
+    new LocationBuilderPoland(s"$root/$boundaryVersion3").build()
   }
 
   private def buildTree(datas: Seq[LocationData]): LocationTree = {

@@ -28,6 +28,7 @@ class LocationAnalyzerTest extends UnitTest with SharedTestObjects {
   private val de1 = node("50.36999258287717", "6.7291259765625")
   private val es1 = node("40.4166314", "-3.7038148") // Madrid
   private val es2 = node("41.6564984", "-0.8787286") // Zaragoza
+  private val pl1 = node("52.2319581", "21.0067249") // Warsaw
   private val unknown1 = node("1", "1")
   private val unknown2 = node("2", "2")
 
@@ -37,6 +38,7 @@ class LocationAnalyzerTest extends UnitTest with SharedTestObjects {
     locationAnalyzer.countries(de1) should equal(Seq(Country.de))
     locationAnalyzer.countries(es1) should equal(Seq(Country.es))
     locationAnalyzer.countries(es2) should equal(Seq(Country.es))
+    locationAnalyzer.countries(pl1) should equal(Seq(Country.pl))
   }
 
   test("outer 1 Baarle Nassau") {

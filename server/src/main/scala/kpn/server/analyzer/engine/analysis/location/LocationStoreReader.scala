@@ -34,7 +34,7 @@ class LocationStoreReader {
   }
 
   private def loadCountry(country: Country): LocationStoreCountry = {
-    log.info("Loading " + country.domain.toUpperCase)
+    log.info(s"Loading ${country.domain.toUpperCase}")
     val locationNameDefinitions = {
       val filename = s"$root/${country.domain}/locations.json"
       val string = FileUtils.readFileToString(new File(filename), "UTF-8")

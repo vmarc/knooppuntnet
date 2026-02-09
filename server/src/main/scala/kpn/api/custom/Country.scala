@@ -13,7 +13,8 @@ object Country {
   val at: Country = Country("at")
   val es: Country = Country("es")
   val dk: Country = Country("dk")
-  val all: Seq[Country] = Seq(nl, be, de, fr, at, es, dk)
+  val pl: Country = Country("pl")
+  val all: Seq[Country] = Seq(nl, be, de, fr, at, es, dk, pl)
 }
 
 case class Country(domain: String)

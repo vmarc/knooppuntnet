@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
 class LocationDefinitionTest extends UnitTest {
@@ -50,7 +49,7 @@ class LocationDefinitionTest extends UnitTest {
       name = name,
       locationNames = Map.empty,
       children = children,
-      tags = Tags.empty
+      tags = Seq.empty
     )
   }
 }
