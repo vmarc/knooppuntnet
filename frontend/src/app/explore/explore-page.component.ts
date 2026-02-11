@@ -7,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { GeocoderLocation } from '@api/common/geocoder-location';
+import { ExplorePageService } from '@app/explore/explore-page.service';
 import { BreadcrumbItem } from '@app/shared/components/breadcrumb/breadcrumb-item';
 import { BreadcrumbComponent } from '@app/shared/components/breadcrumb/breadcrumb.component';
 import { Breadcrumbs } from '@app/shared/components/breadcrumb/breadcrumbs';
@@ -34,7 +35,7 @@ import { SearchComponent } from './advanced/search.component';
 import { ExploreRoutesComponent } from './explore-routes.component';
 
 @Component({
-  selector: 'ui-explore',
+  selector: 'ui-explore-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ui-page>
@@ -112,7 +113,8 @@ import { ExploreRoutesComponent } from './explore-routes.component';
     SearchComponent,
   ],
 })
-export class ExploreComponent implements OnInit {
+export class ExplorePageComponent implements OnInit {
+  private readonly service = inject(ExplorePageService);
   private readonly apiService = inject(ApiService);
   private readonly mapService = inject(OldMapService);
   private readonly state = inject(State);
@@ -136,6 +138,7 @@ export class ExploreComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.service.onInit();
     this.state.map.updateSubject('explore');
   }
 

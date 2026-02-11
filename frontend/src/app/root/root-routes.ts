@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ExploreComponent } from '../explore/explore.component';
+import { ExplorePageComponent } from '../explore/explore-page.component';
 import { NotFoundPageComponent } from '../shared/base/pages/not-found/not-found-page.component';
 import { MenuComponent } from './internal/menu/menu.component';
 
@@ -10,7 +10,7 @@ export const rootRoutes: Routes = [
   },
   {
     path: 'explore',
-    component: ExploreComponent,
+    component: ExplorePageComponent,
   },
   {
     path: 'planner',

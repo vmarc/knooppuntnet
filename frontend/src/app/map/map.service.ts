@@ -2,7 +2,9 @@ import { signal } from '@angular/core';
 import { effect } from '@angular/core';
 import { Injectable, inject } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
+import { RouteType } from '@api/common/route-type';
 import { MapBuilder } from '@app/map/map-builder';
+import { RouteMapOptions } from '@app/map/sources/route-map-options';
 import { RouteSourceIds } from '@app/map/sources/route-source-ids';
 import { Sources } from '@app/map/sources/sources';
 import { LngLatLike } from 'maplibre-gl';
@@ -25,14 +27,12 @@ export class MapService {
     effect(() => {
       const m = this._map();
       const s = this._sources();
-      if (m && s) {
+      const options = this.state.map.routeMapOptions();
+      if (m && s && options) {
         // TODO apply initial state from query parameters and local storage
+        this.updateRouteSources(options);
         const enabled = this.state.map.layers.backgroundLayerEnabled();
         this.updateBackgroundVisibility(enabled);
-        this.updateVisibility(new RouteSourceIds('hiking').nodeRouteLayerId(), true);
-        this.updateVisibility(new RouteSourceIds('hiking').nodeLayerId(), true);
-        this.updateVisibility(new RouteSourceIds('hiking').nodeNameLayerId(), true);
-
         this.actions.forEach((action) => action());
         this.actions = [];
       }
@@ -57,11 +57,17 @@ export class MapService {
   execute(action: () => void): void {
     const m = this._map();
     const s = this._sources();
+    const options = this.state.map.routeMapOptions();
     if (m && s) {
+      this.updateRouteSources(options);
       action();
     } else {
       this.actions.push(action);
     }
+  }
+
+  updateRouteSources(options: RouteMapOptions): void {
+    this.sources.updateRouteSources(options);
   }
 
   fitBounds(bounds: Bounds): void {
@@ -85,25 +91,24 @@ export class MapService {
     marker.addTo(this.map);
   }
 
-  selectRoutes(routeIds: string[]): void {
+  selectRoutes(routeType: RouteType, routeIds: string[]): void {
     const filter: FilterSpecification = ['in', ['get', 'routeId'], ['literal', routeIds]];
-    console.log('selectRoutes');
-    this.filterRoutes(filter);
+    this.filterRoutes(routeType, filter);
   }
 
-  resetRouteSelection(): void {
-    this.filterRoutes(null);
+  resetRouteSelection(routeType: RouteType): void {
+    this.filterRoutes(routeType, null);
   }
 
-  nodeFocus(nodeIds: string[]): void {
-    this.updateVisibility(new RouteSourceIds('hiking').nodeFocusLayerId(), true);
+  nodeFocus(routeType: RouteType, nodeIds: string[]): void {
+    this.updateVisibility(new RouteSourceIds(routeType).nodeFocusLayerId(), true);
     const filter: FilterSpecification = ['in', ['get', 'id'], ['literal', nodeIds]];
-    this.filterNodes(filter);
+    this.filterNodes(routeType, filter);
   }
 
-  resetNodeFocus(): void {
-    this.updateVisibility(new RouteSourceIds('hiking').nodeFocusLayerId(), false);
-    this.filterNodes(null);
+  resetNodeFocus(routeType: RouteType): void {
+    this.updateVisibility(new RouteSourceIds(routeType).nodeFocusLayerId(), false);
+    this.filterNodes(routeType, null);
   }
 
   hideRouteLayer(): void {
@@ -122,20 +127,6 @@ export class MapService {
     this.map.setLayoutProperty(layerId, 'visibility', 'none');
   }
 
-  hideNodeRouteLayer(): void {
-    // this.map.setLayoutProperty(MapLayerId.NODE_ROUTE, 'visibility', 'none');
-    // this.map.setLayoutProperty(MapLayerId.NODE_ROUTE_ARROWS, 'visibility', 'none');
-    // this.map.setLayoutProperty(MapLayerId.NODE, 'visibility', 'none');
-    // this.map.setLayoutProperty(MapLayerId.NODE_NAME, 'visibility', 'none');
-  }
-
-  showNodeRouteLayer(): void {
-    // this.map.setLayoutProperty(MapLayerId.NODE_ROUTE, 'visibility', 'visible');
-    // this.map.setLayoutProperty(MapLayerId.NODE_ROUTE_ARROWS, 'visibility', 'visible');
-    // this.map.setLayoutProperty(MapLayerId.NODE, 'visibility', 'visible');
-    // this.map.setLayoutProperty(MapLayerId.NODE_NAME, 'visibility', 'visible');
-  }
-
   private updateBackgroundVisibility(visible: boolean): void {
     const layers = this.map.getStyle().layers;
     layers.forEach((layer) => {
@@ -149,14 +140,15 @@ export class MapService {
     this.map.setLayoutProperty(layerId, 'visibility', visble ? 'visible' : 'none');
   }
 
-  private filterRoutes(filter: FilterSpecification | null): void {
-    const layerId = new RouteSourceIds('hiking').nodeRouteLayerId();
+  private filterRoutes(routeType: RouteType, filter: FilterSpecification | null): void {
+    const layerId = new RouteSourceIds(routeType).nodeRouteLayerId();
+    console.log('filterRoutes', layerId, filter);
     this.map.setFilter(layerId, filter);
     // this.map.setFilter(MapLayerId.NODE_ROUTE_ARROWS, filter);
   }
 
-  private filterNodes(filter: FilterSpecification | null): void {
-    const nodeLayerId = new RouteSourceIds('hiking').nodeFocusLayerId();
+  private filterNodes(routeType: RouteType, filter: FilterSpecification | null): void {
+    const nodeLayerId = new RouteSourceIds(routeType).nodeFocusLayerId();
     this.map.setFilter(nodeLayerId, filter);
   }
 

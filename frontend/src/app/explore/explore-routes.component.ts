@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { ListComponent } from '@app/shared/components/list/list.component';
-import { ExploreService } from './explore.service';
+import { ExplorePageService } from './explore-page.service';
 import { ScopeIconComponent } from './scope-icon.component';
 
 @Component({
@@ -44,6 +44,6 @@ import { ScopeIconComponent } from './scope-icon.component';
   ],
 })
 export class ExploreRoutesComponent {
-  private readonly exploreService = inject(ExploreService);
+  private readonly exploreService = inject(ExplorePageService);
   readonly routes = this.exploreService.routes;
 }

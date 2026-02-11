@@ -1,5 +1,7 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
+import { RouteType } from '@api/common/route-type';
+import { RouteMapOptions } from '@app/map/sources/route-map-options';
 import { MapMode } from '@app/mapold/domain/map-mode';
 import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { MapLayerState } from '@app/ol/domain/map-layer-state';
@@ -23,7 +25,13 @@ export class MapState {
   private readonly _routePopupState = signal<MapRoutePopupState>(
     new MapRoutePopupState([], [0, 0])
   );
-  private readonly _mode = signal<MapMode>('analysis');
+
+  private readonly _routeType = signal<RouteType>('hiking');
+
+  private readonly _mode = signal<MapMode>('standard');
+
+  private readonly _routeIds = signal<number[]>([]);
+  private readonly _nodeIds = signal<number[]>([]);
 
   private readonly _focusElements = signal<FocusElements | undefined>(undefined);
   private readonly _segmentMap = signal<SegmentMap | undefined>(undefined);
@@ -50,6 +58,7 @@ export class MapState {
   readonly zoom = computed(() => Math.floor(this._viewZoom()));
   readonly center = this._center.asReadonly();
   readonly routePopupState = this._routePopupState.asReadonly();
+  readonly routeType = this._routeType.asReadonly();
   readonly mode = this._mode.asReadonly();
   readonly focusElements = this._focusElements.asReadonly();
   readonly segmentMap = this._segmentMap.asReadonly();
@@ -68,6 +77,21 @@ export class MapState {
   readonly monitorMatchEnabled = this._monitorMatchEnabled.asReadonly();
   readonly monitorDeviationEnabled = this._monitorDeviationEnabled.asReadonly();
   readonly monitorShowSegments = this._monitorShowSegments.asReadonly();
+
+  readonly routeMapOptions = computed(() => {
+    const options: RouteMapOptions = {
+      routeType: this.routeType(),
+      mapMode: this.mode(),
+      scopeInternational: this.scopes.scopeInternational(),
+      scopeNational: this.scopes.scopeNational(),
+      scopeRegional: this.scopes.scopeRegional(),
+      scopeLocal: this.scopes.scopeLocal(),
+      nodeRoutes: this.scopes.scopeNodeRoutes(),
+      routeIds: this._routeIds(),
+      nodeIds: this._nodeIds(),
+    };
+    return options;
+  });
 
   readonly mapStyleOptions = computed(() => {
     const options: MapStyleOptions = {
@@ -123,6 +147,10 @@ export class MapState {
 
   updateMode(value: MapMode): void {
     this._mode.set(value);
+  }
+
+  updateRouteType(value: RouteType): void {
+    this._routeType.set(value);
   }
 
   updateFocusElements(elements: FocusElements): void {
@@ -193,5 +221,10 @@ export class MapState {
 
   updateMonitorShowSegments(value: boolean): void {
     this._monitorShowSegments.set(value);
+  }
+
+  updateNodeRoutes(routeIds: number[], nodeIds: number[]): void {
+    this._routeIds.set(routeIds);
+    this._nodeIds.set(nodeIds);
   }
 }

@@ -17,6 +17,10 @@ export class RouteSourceIds {
       this.nodeNameLayerId(),
       this.routeSurfaceLayerId(),
       this.nodeRouteSurfaceLayerId(),
+      this.internationalLayerId(),
+      this.nationalLayerId(),
+      this.regionalLayerId(),
+      this.localLayerId(),
     ];
   }
 
@@ -58,5 +62,21 @@ export class RouteSourceIds {
 
   nodeRouteSurfaceLayerId(): string {
     return `route-${this.routeType}-node-route-surface`;
+  }
+
+  internationalLayerId(): string {
+    return `route-${this.routeType}-international`;
+  }
+
+  nationalLayerId(): string {
+    return `route-${this.routeType}-national`;
+  }
+
+  regionalLayerId(): string {
+    return `route-${this.routeType}-regional`;
+  }
+
+  localLayerId(): string {
+    return `route-${this.routeType}-local`;
   }
 }

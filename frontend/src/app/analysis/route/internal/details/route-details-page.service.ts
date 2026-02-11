@@ -35,30 +35,25 @@ export class RouteDetailsPageService {
         this.routeService.updateRoute(response.result.routeInfo);
         const details = response.result.details;
 
-        const routeIds = details.routeIds.map((id) => id.toString());
-        const nodeIds = new Array<string>();
+        const nodeIds = new Array<number>();
         if (details.nodes.startNode) {
-          nodeIds.push(details.nodes.startNode.nodeId.toString());
+          nodeIds.push(details.nodes.startNode.nodeId);
         }
         if (details.nodes.endNode) {
-          nodeIds.push(details.nodes.endNode.nodeId.toString());
+          nodeIds.push(details.nodes.endNode.nodeId);
         }
         details.nodes.startTentacleNodes
-          .map((node) => node.nodeId.toString())
+          .map((node) => node.nodeId)
           .forEach((nodeId) => nodeIds.push(nodeId));
         details.nodes.endTentacleNodes
-          .map((node) => node.nodeId.toString())
+          .map((node) => node.nodeId)
           .forEach((nodeId) => nodeIds.push(nodeId));
         details.nodes.redundantNodes
-          .map((node) => node.nodeId.toString())
+          .map((node) => node.nodeId)
           .forEach((nodeId) => nodeIds.push(nodeId));
-        const elements: FocusElements = {
-          nodeIds,
-          routeIds,
-        };
 
         this.state.routeDetailsPageOpened(this.routeService.routeId());
-        this.state.map.updateFocusElements(elements);
+        this.state.map.updateNodeRoutes(details.routeIds, nodeIds);
 
         if (details.nodes.startNode) {
           this.addMarker(details.nodes.startNode, '#00ff00');
@@ -71,6 +66,11 @@ export class RouteDetailsPageService {
         details.nodes.redundantNodes.forEach((node) => this.addMarker(node, '#ffff00'));
 
         this.markers.forEach((marker) => this.mapService.addMarker(marker));
+
+        this.mapService.execute(() => {
+          this.state.map.updateMode('route-details');
+        });
+
         this.mapService.fitBounds(this.routeService.bounds());
       }
     });

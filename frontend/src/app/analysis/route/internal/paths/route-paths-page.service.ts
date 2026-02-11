@@ -7,6 +7,7 @@ import { MapService } from '@app/map/map.service';
 import { RouteSourceIds } from '@app/map/sources/route-source-ids';
 import { ApiService } from '@app/shared/services/api.service';
 import { RouterService } from '@app/shared/services/router.service';
+import { State } from '@app/state/state';
 import { RouteService } from '../route.service';
 
 @Injectable()
@@ -14,6 +15,7 @@ export class RoutePathsPageService {
   private readonly apiService = inject(ApiService);
   private readonly routeService = inject(RouteService);
   private readonly routerService = inject(RouterService);
+  private readonly state = inject(State);
   private readonly mapService = inject(MapService);
 
   private readonly _response = signal<ApiResponse<RoutePathsPage>>(null);
@@ -26,10 +28,8 @@ export class RoutePathsPageService {
       this._response.set(response);
       if (response.result?.routeInfo) {
         this.routeService.updateRoute(response.result.routeInfo);
+        this.state.map.updateMode('route-paths');
         this.mapService.execute(() => {
-          this.mapService.hideLayer(new RouteSourceIds('hiking').nodeRouteLayerId());
-          this.mapService.hideLayer(new RouteSourceIds('hiking').nodeRouteSegmentLayerId());
-          this.mapService.showLayer(new RouteSourceIds('hiking').nodeRoutePathLayerId());
           this.mapService.fitBounds(this.routeService.bounds());
         });
       } else {

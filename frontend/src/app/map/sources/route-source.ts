@@ -18,6 +18,10 @@ export class RouteSource {
   ) {
     this.ids = new RouteSourceIds(routeType);
     this.initSource();
+    this.initLayerInternational();
+    this.initLayerNational();
+    this.initLayerRegional();
+    this.initLayerLocal();
     this.initLayerNodeFocus();
     this.initLayerRouteSurface();
     this.initLayerNodeRouteSurface();
@@ -44,7 +48,7 @@ export class RouteSource {
       type: 'vector',
       tiles: [`http://localhost:4000/tiles/${this.routeType}/{z}/{x}/{y}.mvt`],
       maxzoom: 13,
-      minzoom: 6,
+      minzoom: 2,
     });
   }
 
@@ -234,6 +238,7 @@ export class RouteSource {
       },
     });
   }
+
   private initLayerNodeRouteSurface(): void {
     this.map.addLayer({
       id: this.ids.nodeRouteSurfaceLayerId(),
@@ -255,6 +260,82 @@ export class RouteSource {
           'orange',
           'blue', // default
         ],
+        'line-width': 3,
+      },
+    });
+  }
+
+  private initLayerInternational(): void {
+    this.map.addLayer({
+      id: this.ids.internationalLayerId(),
+      type: 'line',
+      source: this.ids.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_ROUTE,
+      filter: ['==', ['get', 'scope'], 'international'],
+      layout: {
+        visibility: 'none',
+        'line-join': 'round',
+        'line-cap': 'round',
+      },
+      paint: {
+        'line-color': '#ff0000',
+        'line-width': ['interpolate', ['linear'], ['zoom'], 2, 1, 6, 2, 10, 3, 12, 7],
+      },
+    });
+  }
+
+  private initLayerNational(): void {
+    this.map.addLayer({
+      id: this.ids.nationalLayerId(),
+      type: 'line',
+      source: this.ids.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_ROUTE,
+      filter: ['==', ['get', 'scope'], 'national'],
+      layout: {
+        visibility: 'none',
+        'line-join': 'round',
+        'line-cap': 'round',
+      },
+      paint: {
+        'line-color': '#0000ff',
+        'line-width': ['interpolate', ['linear'], ['zoom'], 2, 1, 7, 1, 9, 2, 11, 4],
+      },
+    });
+  }
+
+  private initLayerRegional(): void {
+    this.map.addLayer({
+      id: this.ids.regionalLayerId(),
+      type: 'line',
+      source: this.ids.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_ROUTE,
+      filter: ['==', ['get', 'scope'], 'regional'],
+      layout: {
+        visibility: 'none',
+        'line-join': 'round',
+        'line-cap': 'round',
+      },
+      paint: {
+        'line-color': '#00cc00',
+        'line-width': ['interpolate', ['linear'], ['zoom'], 2, 1, 9, 1, 11, 4],
+      },
+    });
+  }
+
+  private initLayerLocal(): void {
+    this.map.addLayer({
+      id: this.ids.localLayerId(),
+      type: 'line',
+      source: this.ids.sourceId(),
+      'source-layer': RouteSource.TILE_LAYER_ROUTE,
+      filter: ['==', ['get', 'scope'], 'local'],
+      layout: {
+        visibility: 'none',
+        'line-join': 'round',
+        'line-cap': 'round',
+      },
+      paint: {
+        'line-color': '#ff8800',
         'line-width': 3,
       },
     });

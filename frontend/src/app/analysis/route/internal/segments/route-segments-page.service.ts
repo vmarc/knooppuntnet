@@ -44,10 +44,8 @@ export class RouteSegmentsPageService {
       );
       const segmentMap = SegmentMap.from(segments);
       this.state.routeSegmentsPageOpened(segmentMap, this.routeService.routeId(), relationIds);
-
+      this.state.map.updateMode('route-paths');
       this.mapService.execute(() => {
-        this.mapService.hideLayer(new RouteSourceIds('hiking').nodeRouteLayerId());
-        this.mapService.showLayer(new RouteSourceIds('hiking').nodeRouteSegmentLayerId());
         this.mapService.fitBounds(this.routeService.bounds());
       });
     });

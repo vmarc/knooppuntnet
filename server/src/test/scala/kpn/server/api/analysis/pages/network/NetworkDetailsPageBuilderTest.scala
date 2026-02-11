@@ -53,6 +53,10 @@ class NetworkDetailsPageBuilderTest extends MongoTest {
         active = true,
         country = Some(Country.nl),
         detail = networkDoc.detail,
+        networkNodeIds = Seq.empty,
+        connectionNodeIds = Seq.empty,
+        networkRouteIds = Seq.empty,
+        connectionRouteIds = Seq.empty,
         tags = Tags.from(
           "1" -> "one"
         )

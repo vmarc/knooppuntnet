@@ -7,9 +7,11 @@ import { NetworkMarker } from '@app/analysis/subset/internal/networks/map/networ
 import { NetworkMarkerBuilder } from '@app/analysis/subset/internal/networks/map/network-marker-builder';
 import { MapService } from '@app/map/map.service';
 import { ApiService } from '@app/shared/services/api.service';
+import { State } from '@app/state/state';
 import { SubsetService } from '../subset.service';
 
 export class SubsetNetworksPageService {
+  private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly subsetService = inject(SubsetService);
   private readonly mapService = inject(MapService);
@@ -25,7 +27,11 @@ export class SubsetNetworksPageService {
     this.apiService.subsetNetworks(this.subsetService.subset()).subscribe((response) => {
       if (response.result) {
         this.subsetService.setSubsetInfo(response.result.subsetInfo);
-        this.addMarkers(response.result);
+        this.state.map.updateRouteType(response.result.subsetInfo.routeType);
+        this.state.map.updateMode('analysis');
+        this.mapService.execute(() => {
+          this.addMarkers(response.result);
+        });
       }
       this._response.set(response);
     });
