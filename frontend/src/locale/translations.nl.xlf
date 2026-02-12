@@ -325,7 +325,7 @@
       in the OSM wiki pages. Other potential values are *"horse"*, *"motorboat"*, *"canoe"* and
       *"inline_skates"*.</source>
         <target>De verplichte *"route"* tag heeft een ongeldige waarde.
-Een fietsnetwerk-routerelatie moet een tag met sleutel *"route"* en waarde *"bicycle"* hebben. 
+Een fietsnetwerk-routerelatie moet een tag met sleutel *"route"* en waarde *"bicycle"* hebben.
 Een wandelnetwerk-routerelatie moet een tag met sleutel *"route"* en waarde *"foot"*, *"hiking"* of *"walking"* hebben. De waarde *"walking"* wordt vaak gevonden en door de analyse aanvaard, al is deze waarde niet gedocumenteerd in de OSM wiki-pagina's.
 Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , *"canoe"* , *"inline_skates"*.</target>
       </trans-unit>
@@ -2665,6 +2665,10 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
       <trans-unit datatype="html" id="country.nl">
         <source>The Netherlands</source>
         <target>Nederland</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="country.pl">
+        <source>Poland</source>
+        <target>Polen</target>
       </trans-unit>
       <trans-unit datatype="html" id="country.be">
         <source>Belgium</source>
@@ -5262,8 +5266,8 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-name-deprecated-note-tag.comment">
         <source>Routes where the route name was defined in the *"note"* tag. This is OK, but the use
-          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is 
-          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can 
+          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is
+          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can
           be used for naming routes.</source>
         <target>Routes waarvan de naam is gedefinieerd in de _"note"_ tag. Dit is OK, maar het gebruik van de _"note"_ voor het geven van een naam aan een route is niet langer de aangewezen manier. De _"note"_ tag dient eigenlijk om informatie aan andere mappers door te geven. De _"ref"_ en _"name"_ tags kunnen gebruikt worden om de route een naam te geven.</target>
       </trans-unit>

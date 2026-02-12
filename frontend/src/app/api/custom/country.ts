@@ -6,4 +6,5 @@ export enum Country {
   es = 'es',
   at = 'at',
   dk = 'dk',
+  pl = 'pl',
 }

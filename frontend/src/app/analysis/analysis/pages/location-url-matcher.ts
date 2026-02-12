@@ -10,7 +10,7 @@ export class LocationUrlMatcher {
     route: Route
   ): UrlMatchResult {
     const networkType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
-    const country = /(be)|(nl)|(de)|(fr)|(at)|(es)|(dk)/;
+    const country = /(be)|(nl)|(de)|(fr)|(at)|(es)|(dk)|(pl)/;
     const detail = /(details)|(nodes)|(routes)|(facts)|(map)|(changes)|(edit)/;
 
     if (
@@ -43,7 +43,7 @@ export class LocationUrlMatcher {
     route: Route
   ): UrlMatchResult {
     const networkType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
-    const country = /(be)|(nl)|(de)|(fr)|(at)|(es)/;
+    const country = /(be)|(nl)|(de)|(fr)|(at)|(es)|(pl)/;
     const target = /(networks)|(facts)|(orphan-nodes)|(orphan-routes)|(map)|(changes)/;
 
     if (

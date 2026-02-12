@@ -9,6 +9,7 @@ export class Countries {
     Country.at,
     Country.es,
     Country.dk,
+    Country.pl,
   ];
 
   public static withDomain(domain: string): Country {

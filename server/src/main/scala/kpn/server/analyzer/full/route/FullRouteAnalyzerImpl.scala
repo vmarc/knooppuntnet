@@ -28,7 +28,7 @@ class FullRouteAnalyzerImpl(
     Log.context("full-route-analysis") {
       log.infoElapsed {
         val existingRouteIds = collectActiveRouteIds()
-        val routeIds = collectOverpassRouteIds(context.timestamp)
+        val routeIds = collectOverpassRouteIds(context.timestamp).filter(_ != 18609325L)
         val analyzedRouteIds = analyzeRoutes(context.timestamp, routeIds)
         val obsoleteRouteIds = (existingRouteIds.toSet -- analyzedRouteIds).toSeq.sorted
         deactivateObsoleteRoutes(obsoleteRouteIds)
@@ -100,5 +100,4 @@ class FullRouteAnalyzerImpl(
       }
     }
   }
-
 }

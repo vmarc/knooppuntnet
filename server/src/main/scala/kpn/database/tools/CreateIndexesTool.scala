@@ -37,7 +37,7 @@ object CreateIndexesTool {
   )
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-monitor") { database =>
+    Mongo.executeIn("kpn-4") { database =>
       new CreateIndexesTool(database).createIndexes()
     }
   }

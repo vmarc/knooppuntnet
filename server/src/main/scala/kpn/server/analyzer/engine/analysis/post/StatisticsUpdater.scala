@@ -33,7 +33,7 @@ import org.springframework.stereotype.Component
 
 object StatisticsUpdater {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-prod") { database =>
+    Mongo.executeIn("kpn-4") { database =>
       new StatisticsUpdater(database).execute()
     }
   }

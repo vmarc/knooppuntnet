@@ -2685,6 +2685,10 @@
         <source>The Netherlands</source>
         <target>The Netherlands</target>
       </trans-unit>
+      <trans-unit datatype="html" id="country.pl">
+        <source>Poland</source>
+        <target>Poland</target>
+      </trans-unit>
       <trans-unit datatype="html" id="country.be">
         <source>Belgium</source>
         <target>Belgium</target>
@@ -5279,12 +5283,12 @@
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-name-deprecated-note-tag.comment">
         <source>Routes where the route name was defined in the *"note"* tag. This is OK, but the use
-          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is 
-          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can 
+          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is
+          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can
           be used for naming routes.</source>
         <target>Routes where the route name was defined in the *"note"* tag. This is OK, but the use
-          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is 
-          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can 
+          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is
+          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can
           be used for naming routes.</target>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.node-ref">

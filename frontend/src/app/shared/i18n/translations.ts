@@ -7,6 +7,7 @@ export class Translations {
     ['country.at', $localize`:@@country.at:Austria`],
     ['country.es', $localize`:@@country.es:Spain`],
     ['country.dk', $localize`:@@country.dk:Denmark`],
+    ['country.pl', $localize`:@@country.pl:Poland`],
     //
     ['network-type.hiking', $localize`:@@network-type.hiking:Hiking`],
     ['network-type.cycling', $localize`:@@network-type.cycling:Cycling`],

@@ -29,6 +29,9 @@ object Subset {
 
   val dkBicycle: Subset = Subset(Country.dk, NetworkType.cycling)
 
+  val plHiking: Subset = Subset(Country.pl, NetworkType.hiking)
+  val plBicycle: Subset = Subset(Country.pl, NetworkType.cycling)
+
   val all: Seq[Subset] = Seq(
     nlBicycle,
     beBicycle,
@@ -37,11 +40,13 @@ object Subset {
     atBicycle,
     esBicycle,
     dkBicycle,
+    plBicycle,
     nlHiking,
     beHiking,
     deHiking,
     frHiking,
     esHiking,
+    plHiking,
     nlHorseRiding,
     beHorseRiding,
     deHorseRiding,
@@ -63,11 +68,11 @@ object Subset {
 
 case class Subset(country: Country, networkType: NetworkType) extends Ordered[Subset] {
 
-  def key: String = country.domain + ":" + networkType.name
+  def key: String = s"${country.domain}:${networkType.name}"
 
-  def name: String = country.domain + "-" + networkType.name
+  def name: String = s"${country.domain}-${networkType.name}"
 
-  def string: String = country.domain + "/" + networkType.name
+  def string: String = s"${country.domain}/${networkType.name}"
 
   import scala.math.Ordered.orderingToOrdered
 

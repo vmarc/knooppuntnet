@@ -23,6 +23,8 @@ export class Subsets {
     { country: Country.es, networkType: NetworkType.cycling },
     { country: Country.es, networkType: NetworkType.hiking },
     { country: Country.dk, networkType: NetworkType.cycling },
+    { country: Country.pl, networkType: NetworkType.cycling },
+    { country: Country.pl, networkType: NetworkType.hiking },
   ];
 
   static key(subset: Subset): string {

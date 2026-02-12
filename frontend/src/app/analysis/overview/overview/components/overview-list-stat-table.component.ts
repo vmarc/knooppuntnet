@@ -127,6 +127,13 @@ import { OverviewListStatRowComponent } from './overview-list-stat-row.component
           [rowspan]="1"
         />
 
+        <kpn-overview-list-stat-row
+          [stat]="stat()"
+          [country]="country.pl"
+          [networkType]="networkType.cycling"
+          [rowspan]="1"
+        />
+
         <tr>
           <td colspan="2" i18n="@@overview.total">Total</td>
           <td class="value">

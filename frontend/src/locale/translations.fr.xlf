@@ -324,8 +324,8 @@
       *"walking"* is a value that is frequently found, but not actually documented as a valid value
       in the OSM wiki pages. Other potential values are *"horse"*, *"motorboat"*, *"canoe"* and
       *"inline_skates"*.</source>
-        <target>Valeur invalide dans l'attribut requis _"route"_ dans la relation d'itinéraire. 
-Une relation d'itinéraire cyclable doit avoir la valeur _"bicycle"_ dans son attribut _"route"_. 
+        <target>Valeur invalide dans l'attribut requis _"route"_ dans la relation d'itinéraire.
+Une relation d'itinéraire cyclable doit avoir la valeur _"bicycle"_ dans son attribut _"route"_.
 Une relation d'itinéraire pédestre doit avoir l'une des valeurs suivantes dans son attribut _"route"_: _"foot"_, _"hiking"_ ou _"walking"_. Notez que _"walking"_ est une valeur qui est fréquemment trouvée, mais qui n'est pas réellement documentée comme une valeur valide dans les pages wiki OSM. Les autres valeurs potentielles sont *"horse"*, *"motorboat"*, *"canoe"* et *"inline_skates"*.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-unexpected-node">
@@ -366,7 +366,7 @@ Une relation d'itinéraire pédestre doit avoir l'une des valeurs suivantes dans
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-incomplete-ok">
         <source>The route is marked as having an incomplete definition. A route definition is explicitely marked incomplete by adding a tag *"fixme"* with value *"incomplete"* in the route relation. But after analysis, the route seems to be ok.</source>
-        <target>L'itinéraire est marqué comme ayant une définition incomplète. Une définition d'itinéraire est explicitement marquée comme incomplète en ajoutant un attribut _"fixme"_ avec la valeur _"incomplete"_ dans la relation d'itinéraire. 
+        <target>L'itinéraire est marqué comme ayant une définition incomplète. Une définition d'itinéraire est explicitement marquée comme incomplète en ajoutant un attribut _"fixme"_ avec la valeur _"incomplete"_ dans la relation d'itinéraire.
 Mais après analyse, l'itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-node-name-mismatch">
@@ -2669,6 +2669,10 @@ L'itinéraire n'a pas été ajouté comme membre d'une [relation de réseau](htt
       <trans-unit datatype="html" id="country.nl">
         <source>The Netherlands</source>
         <target>Pays-Bas</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="country.pl">
+        <source>Poland</source>
+        <target>Polonge</target>
       </trans-unit>
       <trans-unit datatype="html" id="country.be">
         <source>Belgium</source>
@@ -5266,8 +5270,8 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-name-deprecated-note-tag.comment">
         <source>Routes where the route name was defined in the *"note"* tag. This is OK, but the use
-          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is 
-          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can 
+          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is
+          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can
           be used for naming routes.</source>
         <target>Le nom de cet itinéraire est défini dans l'attribut _"note"_. C'est OK, mais l'attribut _"note"_ n'est plus recommandé. L'idée est que _"note"_ soit réservé aux notes des cartoraphes. Les itinéraires peuvent être nommés avec les attributs _"ref"_ et _"name"_</target>
       </trans-unit>

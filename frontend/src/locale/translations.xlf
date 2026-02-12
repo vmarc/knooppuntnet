@@ -427,6 +427,21 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="country.pl" datatype="html">
+        <source>Poland</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
+          <context context-type="linenumber">83,84</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
+          <context context-type="linenumber">71,72</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-table-header.component.ts</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="network-type.hiking" datatype="html">
         <source>Hiking</source>
         <context-group purpose="location">
@@ -4497,7 +4512,7 @@
         <source>Total</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-list-stat-table.component.ts</context>
-          <context context-type="linenumber">131,132</context>
+          <context context-type="linenumber">138,139</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.overview" datatype="html">
@@ -4574,7 +4589,7 @@
         <source>Comment</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-table-header.component.ts</context>
-          <context context-type="linenumber">20,23</context>
+          <context context-type="linenumber">21,24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="overview-page.title" datatype="html">

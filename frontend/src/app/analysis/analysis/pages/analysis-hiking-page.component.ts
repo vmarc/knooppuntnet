@@ -63,6 +63,12 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
           i18n-title="@@country.es"
           title="Spain"
         />
+        <kpn-icon-button
+          [routerLink]="plLink()"
+          icon="poland"
+          i18n-title="@@country.pl"
+          title="Poland"
+        />
       </kpn-icon-buttons>
       <kpn-analysis-sidebar sidebar />
     </kpn-page>
@@ -86,6 +92,7 @@ export class AnalysisHikingPageComponent implements OnInit {
   protected readonly deLink = this.analysisStrategyService.link('hiking', 'de');
   protected readonly frLink = this.analysisStrategyService.link('hiking', 'fr');
   protected readonly esLink = this.analysisStrategyService.link('hiking', 'es');
+  protected readonly plLink = this.analysisStrategyService.link('hiking', 'pl');
 
   ngOnInit(): void {
     this.analysisStrategyService.init();

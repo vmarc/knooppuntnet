@@ -285,6 +285,9 @@
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
+      <trans-unit datatype="html" id="country.pl">
+        <source>Poland</source>
+      </trans-unit>
       <trans-unit datatype="html" id="country.fr">
         <source>France</source>
         <context-group purpose="location">
@@ -4457,8 +4460,8 @@
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-name-deprecated-note-tag.comment">
         <source>Routes where the route name was defined in the *"note"* tag. This is OK, but the use
-          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is 
-          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can 
+          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is
+          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can
           be used for naming routes.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-configuration.service.ts</context>
