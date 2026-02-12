@@ -2,14 +2,14 @@ package kpn.core.replicate
 
 import kpn.api.common.ReplicationId
 import kpn.api.common.status.ActionTimestamp
-import kpn.database.base.MetricsDatabaseImpl
 import kpn.core.metrics.ReplicationAction
-import kpn.database.util.Mongo.client
-import kpn.database.util.Mongo.codecRegistry
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
+import kpn.database.base.MetricsDatabaseImpl
+import kpn.database.util.Mongo.client
+import kpn.database.util.Mongo.codecRegistry
 import kpn.server.analyzer.engine.changes.OsmChangeReader
 import kpn.server.repository.MetricsRepository
 import kpn.server.repository.MetricsRepositoryImpl
@@ -24,7 +24,7 @@ object ReplicatorTool {
    * Minimum number of seconds between pairs of requests to OSM (to prevent overload on API). This wait time will only
    * be used when we are in "catch up" mode. Once we are in sync, then the wait time will become longer (see WAIT).
    */
-  private val DELAY = 5
+  private val DELAY = 1
 
   /*
    * Number of seconds to wait before attempting to make new request to osm API when in sync. New minute diffs should
