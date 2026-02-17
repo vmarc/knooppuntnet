@@ -106,6 +106,7 @@ class StatisticsUpdater(
       filter(
         and(
           equal("active", true),
+          exists("base.country"),
           arrayEmpty("routeReferences"),
           arrayEmpty("networkRelationReferences"),
         )
@@ -675,7 +676,7 @@ class StatisticsUpdater(
       group(
         new Document(
           java.util.Map.of(
-            "country", "$base.country",
+            "country", "$country",
             "routeType", "$routeType"
           )
         ),
@@ -706,7 +707,7 @@ class StatisticsUpdater(
       group(
         new Document(
           java.util.Map.of(
-            "country", "$base.country",
+            "country", "$country",
             "routeType", "$routeType"
           )
         ),

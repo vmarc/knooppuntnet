@@ -55,7 +55,13 @@ class MongoQueryStatistics(database: Database) {
     log.debugElapsed {
       val values = database.statistics.findAll(log).sortBy(_._id)
       val sorted = values.map { statisticLongValues =>
-        val sortedValues = statisticLongValues.values.sortBy(v => (v.country.entryName, v.routeType.entryName))
+        val sortedValues = statisticLongValues.values.sortBy { v =>
+          if (v.country == null) {
+            println("ddd")
+          }
+
+          (v.country.entryName, v.routeType.entryName)
+        }
         statisticLongValues.copy(values = sortedValues)
       }
       (s"${sorted.size} values", sorted)
