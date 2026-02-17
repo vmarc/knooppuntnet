@@ -67,7 +67,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.overview(toLanguage(language))
   }
 
-  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"))
+  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk|pl}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"))
   def subsetNetworks(
     @PathVariable country: Country,
     @PathVariable routeType: RouteType
@@ -78,7 +78,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     }
   }
 
-  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/facts"))
+  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk|pl}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/facts"))
   def subsetFacts(
     @PathVariable country: Country,
     @PathVariable routeType: RouteType
@@ -89,7 +89,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     }
   }
 
-  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}/refs"))
+  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk|pl}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}/refs"))
   def subsetFactRefs(
     @PathVariable country: Country,
     @PathVariable routeType: RouteType,
@@ -105,7 +105,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     }
   }
 
-  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}"))
+  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk|pl}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}"))
   def subsetFactDetails(
     @PathVariable country: Country,
     @PathVariable routeType: RouteType,
@@ -121,7 +121,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     }
   }
 
-  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-nodes"))
+  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk|pl}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-nodes"))
   def subsetOrphanNodes(
     @PathVariable country: Country,
     @PathVariable routeType: RouteType
@@ -132,7 +132,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     }
   }
 
-  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-routes"))
+  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk|pl}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-routes"))
   def subsetOrphanRoutes(
     @PathVariable country: Country,
     @PathVariable routeType: RouteType
@@ -143,7 +143,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     }
   }
 
-  @PostMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
+  @PostMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk|pl}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
   def subsetChanges(
     @PathVariable country: Country,
     @PathVariable routeType: RouteType,
@@ -341,7 +341,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     analysisFacade.locationMap(toLanguage(language), locationKey)
   }
 
-  @PostMapping(value = Array("/api/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{country:be|de|fr|nl|at|es|dk}/{location}/changes"))
+  @PostMapping(value = Array("/api/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{country:be|de|fr|nl|at|es|dk|pl}/{location}/changes"))
   def locationChanges(
     @RequestParam language: String,
     @PathVariable routeType: RouteType,

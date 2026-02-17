@@ -39,17 +39,17 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
   `,
   providers: [AnalysisStrategyService, RouterService],
   imports: [
+    AnalysisCountryLinkComponent,
     AnalysisStrategyComponent,
     BreadcrumbComponent,
     NzIconDirective,
     PageComponent,
     PageHeaderComponent,
-    AnalysisCountryLinkComponent,
   ],
 })
 export class AnalysisHikingPageComponent implements OnInit {
   private readonly analysisStrategyService = inject(AnalysisStrategyService);
-  protected readonly countries: Country[] = ['nl', 'be', 'de', 'fr', 'es'];
+  protected readonly countries: Country[] = ['nl', 'be', 'de', 'fr', 'es', 'pl'];
   protected readonly breadcrumbItems: BreadcrumbItem[] = [
     Breadcrumbs.home,
     Breadcrumbs.analysis,

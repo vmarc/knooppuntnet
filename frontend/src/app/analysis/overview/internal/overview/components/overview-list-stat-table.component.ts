@@ -33,10 +33,12 @@ import { OverviewListStatRowComponent } from './overview-list-stat-row.component
         <ui-overview-list-stat-row [stat]="stat()" country="at" routeType="cycling" [rowspan]="1" />
 
         <ui-overview-list-stat-row [stat]="stat()" country="es" routeType="cycling" [rowspan]="2" />
-
         <ui-overview-list-stat-row [stat]="stat()" country="es" routeType="hiking" />
 
         <ui-overview-list-stat-row [stat]="stat()" country="dk" routeType="cycling" [rowspan]="1" />
+
+        <ui-overview-list-stat-row [stat]="stat()" country="pl" routeType="cycling" [rowspan]="2" />
+        <ui-overview-list-stat-row [stat]="stat()" country="pl" routeType="hiking" />
 
         <tr>
           <td colspan="2" i18n="@@overview.total">Total</td>

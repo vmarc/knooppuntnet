@@ -55,7 +55,9 @@ class TranslationImportTool(root: String) {
   }
 
   private def writeTranslations(locale: String, translations: Translations): Unit = {
-    val file = new File(s"$root/locale/translations.$locale.json")
+    val filename = s"$root/locale/translations.$locale.json"
+    println(s"writing $filename")
+    val file = new File(filename)
     val writer = new FileWriter(file)
     try {
       writer.write(Json.pretty(translations))

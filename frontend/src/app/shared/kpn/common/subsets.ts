@@ -21,6 +21,8 @@ export class Subsets {
     { country: 'es', routeType: 'cycling' },
     { country: 'es', routeType: 'hiking' },
     { country: 'dk', routeType: 'cycling' },
+    { country: 'pl', routeType: 'cycling' },
+    { country: 'pl', routeType: 'hiking' },
   ];
 
   static key(subset: Subset): string {

@@ -8,6 +8,7 @@ export class Translations {
   static readonly countryAt = $localize`:@@country.at:Austria`;
   static readonly countryEs = $localize`:@@country.es:Spain`;
   static readonly countryDk = $localize`:@@country.dk:Denmark`;
+  static readonly countryPl = $localize`:@@country.pl:Poland`;
 
   static readonly routeTypeHiking = $localize`:@@route-type.hiking:Hiking`;
   static readonly routeTypeCycling = $localize`:@@route-type.cycling:Cycling`;
@@ -37,6 +38,7 @@ export class Translations {
     ['country.at', this.countryAt],
     ['country.es', this.countryEs],
     ['country.dk', this.countryDk],
+    ['country.pl', this.countryPl],
     //
     ['route-type.hiking', this.routeTypeHiking],
     ['route-type.cycling', this.routeTypeCycling],

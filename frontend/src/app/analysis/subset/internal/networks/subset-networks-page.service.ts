@@ -42,10 +42,12 @@ export class SubsetNetworksPageService {
   }
 
   private addMarkers(page: SubsetNetworksPage): void {
-    const bounds = page.bounds;
-    this.markers = this.buildMarkers(page);
-    this.markers.forEach((marker) => this.mapService.addMarker(marker.marker));
-    this.mapService.fitBounds(bounds);
+    if (page.bounds && page.networks && page.networks.length > 0) {
+      const bounds = page.bounds;
+      this.markers = this.buildMarkers(page);
+      this.markers.forEach((marker) => this.mapService.addMarker(marker.marker));
+      this.mapService.fitBounds(bounds);
+    }
   }
 
   private removeMarkers(): void {

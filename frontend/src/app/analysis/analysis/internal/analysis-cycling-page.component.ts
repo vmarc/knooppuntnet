@@ -51,7 +51,7 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
 })
 export class AnalysisCyclingPageComponent implements OnInit {
   private readonly analysisStrategyService = inject(AnalysisStrategyService);
-  protected readonly countries: Country[] = ['nl', 'be', 'de', 'fr', 'at', 'es', 'dk'];
+  protected readonly countries: Country[] = ['nl', 'be', 'de', 'fr', 'at', 'es', 'dk', 'pl'];
   protected readonly breadcrumbItems: BreadcrumbItem[] = [
     Breadcrumbs.home,
     Breadcrumbs.analysis,

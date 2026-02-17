@@ -7,4 +7,5 @@ export type Country =
   | 'dk'
   | 'es'
   | 'fr'
-  | 'nl';
+  | 'nl'
+  | 'pl';

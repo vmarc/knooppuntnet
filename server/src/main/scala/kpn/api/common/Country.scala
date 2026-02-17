@@ -22,4 +22,6 @@ object Country extends Enum[Country] {
   final case object es extends Country
 
   final case object dk extends Country
+
+  final case object pl extends Country
 }
