@@ -23,7 +23,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
           <ui-plan-action-button
             (action)="undo()"
             [enabled]="undoEnabled()"
-            icon="undo"
+            icon="undo-action"
             text="Undo"
             i18n-text="@@planner.action.undo"
             title="Undo the previous action"
@@ -34,7 +34,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
           <ui-plan-action-button
             (action)="redo()"
             [enabled]="redoEnabled()"
-            icon="redo"
+            icon="redo-action"
             text="Redo"
             i18n-text="@@planner.action.redo"
             title="Redo the action that was previously undone"
@@ -45,7 +45,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
           <ui-plan-action-button
             (action)="reset()"
             [enabled]="hasStartNode(plan)"
-            icon="poweroff"
+            icon="reset"
             text="Reset"
             i18n-text="@@planner.action.reset"
             title="Wipe out current route plan and restart route planning from scratch"
