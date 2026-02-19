@@ -36,9 +36,9 @@ describe('PlannerCommandReverse', () => {
     setup.routeLayer.expectRouteLegExists('12', leg1);
     setup.routeLayer.expectRouteLegExists('23', leg2);
 
-    expect(setup.context.plan().legs.size).toEqual(2);
-    expect(setup.context.plan().legs.get(0).featureId).toEqual('12');
-    expect(setup.context.plan().legs.get(1).featureId).toEqual('23');
+    expect(setup.context.plan().legs.length).toEqual(2);
+    expect(setup.context.plan().legs[0].featureId).toEqual('12');
+    expect(setup.context.plan().legs[1].featureId).toEqual('23');
 
     new PlanReverser(setup.context).reverse(setup.context.plan()).subscribe((newPlan) => {
       const reverseCommand = new PlannerCommandReverse(setup.context.plan(), newPlan);
@@ -46,17 +46,17 @@ describe('PlannerCommandReverse', () => {
 
       setup.markerLayer.expectFlagCount(3);
       setup.markerLayer.expectPlanFlagExists(setup.context.plan().sourceFlag);
-      setup.markerLayer.expectPlanFlagExists(setup.context.plan().legs.get(0).sinkFlag);
-      setup.markerLayer.expectPlanFlagExists(setup.context.plan().legs.get(1).sinkFlag);
+      setup.markerLayer.expectPlanFlagExists(setup.context.plan().legs[0].sinkFlag);
+      setup.markerLayer.expectPlanFlagExists(setup.context.plan().legs[1].sinkFlag);
 
       expect(setup.context.plan().sourceNode.nodeId).toEqual('1003');
       expect(setup.context.plan().sourceFlag.coordinate).toEqual([3, 3]);
 
       {
         const legs = setup.context.plan().legs;
-        expect(legs.size).toEqual(2);
-        expectViaFlagCoordinate(legs.get(0).sinkFlag, [2, 2]);
-        expectEndFlagCoordinate(legs.get(1).sinkFlag, [1, 1]);
+        expect(legs.length).toEqual(2);
+        expectViaFlagCoordinate(legs[0].sinkFlag, [2, 2]);
+        expectEndFlagCoordinate(legs[1].sinkFlag, [1, 1]);
       }
 
       reverseCommand.undo(setup.context);
@@ -68,9 +68,9 @@ describe('PlannerCommandReverse', () => {
       setup.routeLayer.expectRouteLegExists('12', leg1);
       setup.routeLayer.expectRouteLegExists('23', leg2);
 
-      expect(setup.context.plan().legs.size).toEqual(2);
-      expect(setup.context.plan().legs.get(0).featureId).toEqual('12');
-      expect(setup.context.plan().legs.get(1).featureId).toEqual('23');
+      expect(setup.context.plan().legs.length).toEqual(2);
+      expect(setup.context.plan().legs[0].featureId).toEqual('12');
+      expect(setup.context.plan().legs[1].featureId).toEqual('23');
     });
   });
 });

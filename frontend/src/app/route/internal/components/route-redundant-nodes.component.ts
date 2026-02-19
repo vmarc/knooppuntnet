@@ -17,5 +17,5 @@ import { RouteNodeComponent } from './route-node.component';
   imports: [RouteNodeComponent],
 })
 export class RouteRedundantNodesComponent {
-  readonly nodes = input.required<RouteNode[]>();
+  readonly nodes = input.required<ReadonlyArray<RouteNode>>();
 }

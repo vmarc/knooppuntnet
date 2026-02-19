@@ -10,5 +10,5 @@ export interface LocationRoutesPage {
   readonly summary: LocationSummary;
   readonly routeCount: number;
   readonly filter: LocationRouteOptions;
-  readonly routes: LocationRouteInfo[];
+  readonly routes: ReadonlyArray<LocationRouteInfo>;
 }

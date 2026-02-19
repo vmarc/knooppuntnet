@@ -1,4 +1,3 @@
-import { List } from 'immutable';
 import { describe } from 'vitest';
 import { it } from 'vitest';
 import { expect } from 'vitest';
@@ -23,7 +22,7 @@ describe('PlannerCommandMoveViaPoint', () => {
     const newLeg1 = PlanUtil.singleRoutePlanLeg('14', setup.node1, setup.node4, newViaFlag, null);
     const newLeg2 = PlanUtil.singleRoutePlanLeg('43', setup.node4, setup.node3, sinkFlag, null);
 
-    const plan = new Plan(setup.node1, sourceFlag, List([oldLeg1, oldLeg2]));
+    const plan = new Plan(setup.node1, sourceFlag, [oldLeg1, oldLeg2]);
     setup.context.execute(new PlannerCommandAddPlan(plan));
 
     const command = new PlannerCommandMoveViaPoint(oldLeg1, oldLeg2, newLeg1, newLeg2);
@@ -38,9 +37,9 @@ describe('PlannerCommandMoveViaPoint', () => {
     setup.routeLayer.expectRouteLegExists('43', newLeg2);
 
     expect(setup.context.plan().sourceNode.nodeId).toEqual('1001');
-    expect(setup.context.plan().legs.size).toEqual(2);
-    expect(setup.context.plan().legs.get(0).featureId).toEqual('14');
-    expect(setup.context.plan().legs.get(1).featureId).toEqual('43');
+    expect(setup.context.plan().legs.length).toEqual(2);
+    expect(setup.context.plan().legs[0].featureId).toEqual('14');
+    expect(setup.context.plan().legs[1].featureId).toEqual('43');
 
     command.undo(setup.context);
 
@@ -53,9 +52,9 @@ describe('PlannerCommandMoveViaPoint', () => {
     setup.routeLayer.expectRouteLegExists('23', oldLeg2);
 
     expect(setup.context.plan().sourceNode.nodeId).toEqual('1001');
-    expect(setup.context.plan().legs.size).toEqual(2);
-    expect(setup.context.plan().legs.get(0).featureId).toEqual('12');
-    expect(setup.context.plan().legs.get(1).featureId).toEqual('23');
+    expect(setup.context.plan().legs.length).toEqual(2);
+    expect(setup.context.plan().legs[0].featureId).toEqual('12');
+    expect(setup.context.plan().legs[1].featureId).toEqual('23');
 
     command.do(setup.context);
 
@@ -68,8 +67,8 @@ describe('PlannerCommandMoveViaPoint', () => {
     setup.routeLayer.expectRouteLegExists('43', newLeg2);
 
     expect(setup.context.plan().sourceNode.nodeId).toEqual('1001');
-    expect(setup.context.plan().legs.size).toEqual(2);
-    expect(setup.context.plan().legs.get(0).featureId).toEqual('14');
-    expect(setup.context.plan().legs.get(1).featureId).toEqual('43');
+    expect(setup.context.plan().legs.length).toEqual(2);
+    expect(setup.context.plan().legs[0].featureId).toEqual('14');
+    expect(setup.context.plan().legs[1].featureId).toEqual('43');
   });
 });

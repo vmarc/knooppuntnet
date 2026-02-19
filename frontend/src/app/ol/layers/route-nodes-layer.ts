@@ -7,7 +7,7 @@ import { OldOldLayers } from './old-old-layers';
 import { OldOldMapLayer } from './old-old-map-layer';
 
 export class RouteNodesLayer {
-  static build(nodeChanges: RouteNodeChange[]): OldOldMapLayer {
+  static build(nodeChanges: ReadonlyArray<RouteNodeChange>): OldOldMapLayer {
     if (nodeChanges.length === 0) {
       return null;
     }

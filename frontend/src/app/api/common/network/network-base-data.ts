@@ -10,5 +10,5 @@ export interface NetworkBaseData {
   readonly name?: string;
   readonly routeType: RouteType;
   readonly routeScope: RouteScope;
-  readonly members: RawMember[];
+  readonly members: ReadonlyArray<RawMember>;
 }

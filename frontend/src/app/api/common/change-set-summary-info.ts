@@ -9,7 +9,7 @@ export interface ChangeSetSummaryInfo {
   readonly rowIndex: number;
   readonly key: ChangeKey;
   readonly comment?: string;
-  readonly subsets: Subset[];
+  readonly subsets: ReadonlyArray<Subset>;
   readonly network?: ChangeSetSummaryNetworkInfo;
   readonly location?: ChangeSetSummaryLocationInfo;
   readonly happy: boolean;

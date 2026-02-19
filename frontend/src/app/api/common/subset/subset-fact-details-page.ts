@@ -7,5 +7,5 @@ import { SubsetInfo } from './subset-info';
 export interface SubsetFactDetailsPage {
   readonly subsetInfo: SubsetInfo;
   readonly fact: Fact;
-  readonly networks: NetworkFactRefs[];
+  readonly networks: ReadonlyArray<NetworkFactRefs>;
 }

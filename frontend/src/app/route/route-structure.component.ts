@@ -49,5 +49,5 @@ import { RouteStructureRowComponent } from './internal/components/structure/rout
 })
 export class RouteStructureComponent {
   readonly routeType = input.required<RouteType>();
-  readonly rows = input.required<StructureRow[]>();
+  readonly rows = input.required<ReadonlyArray<StructureRow>>();
 }

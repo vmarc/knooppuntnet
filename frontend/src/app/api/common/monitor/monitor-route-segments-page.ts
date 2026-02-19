@@ -7,6 +7,6 @@ import { MonitorRouteSummary } from './monitor-route-summary';
 export interface MonitorRouteSegmentsPage {
   readonly summary: MonitorRouteSummary;
   readonly meters: number;
-  readonly relations: MonitorRouteRelationInfo[];
-  readonly segments: SegmentInfo[];
+  readonly relations: ReadonlyArray<MonitorRouteRelationInfo>;
+  readonly segments: ReadonlyArray<SegmentInfo>;
 }

@@ -42,13 +42,13 @@ describe('SurveyDateFilter', () => {
     expect(filter.passes('2020-04-01')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), [null]);
-    expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
-    expect(filterOptionGroup.options.get(1).count).toEqual(1); // unknown
-    expect(filterOptionGroup.options.get(2).count).toEqual(0); // last month
-    expect(filterOptionGroup.options.get(3).count).toEqual(0); // last half year
-    expect(filterOptionGroup.options.get(4).count).toEqual(0); // last year
-    expect(filterOptionGroup.options.get(5).count).toEqual(0); // last two years
-    expect(filterOptionGroup.options.get(6).count).toEqual(0); // older
+    expect(filterOptionGroup.options[0].count).toEqual(1); // all
+    expect(filterOptionGroup.options[1].count).toEqual(1); // unknown
+    expect(filterOptionGroup.options[2].count).toEqual(0); // last month
+    expect(filterOptionGroup.options[3].count).toEqual(0); // last half year
+    expect(filterOptionGroup.options[4].count).toEqual(0); // last year
+    expect(filterOptionGroup.options[5].count).toEqual(0); // last two years
+    expect(filterOptionGroup.options[6].count).toEqual(0); // older
   });
 
   it('last month', () => {
@@ -58,13 +58,13 @@ describe('SurveyDateFilter', () => {
     expect(filter.passes('2020-04-01')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), ['2020-05-01']);
-    expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
-    expect(filterOptionGroup.options.get(1).count).toEqual(0); // unknown
-    expect(filterOptionGroup.options.get(2).count).toEqual(1); // last month
-    expect(filterOptionGroup.options.get(3).count).toEqual(0); // last half year
-    expect(filterOptionGroup.options.get(4).count).toEqual(0); // last year
-    expect(filterOptionGroup.options.get(5).count).toEqual(0); // last two years
-    expect(filterOptionGroup.options.get(6).count).toEqual(0); // older
+    expect(filterOptionGroup.options[0].count).toEqual(1); // all
+    expect(filterOptionGroup.options[1].count).toEqual(0); // unknown
+    expect(filterOptionGroup.options[2].count).toEqual(1); // last month
+    expect(filterOptionGroup.options[3].count).toEqual(0); // last half year
+    expect(filterOptionGroup.options[4].count).toEqual(0); // last year
+    expect(filterOptionGroup.options[5].count).toEqual(0); // last two years
+    expect(filterOptionGroup.options[6].count).toEqual(0); // older
   });
 
   it('last half year', () => {
@@ -75,13 +75,13 @@ describe('SurveyDateFilter', () => {
     expect(filter.passes('2019-11-06')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), ['2019-11-08']);
-    expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
-    expect(filterOptionGroup.options.get(1).count).toEqual(0); // unknown
-    expect(filterOptionGroup.options.get(2).count).toEqual(0); // last month
-    expect(filterOptionGroup.options.get(3).count).toEqual(1); // last half year
-    expect(filterOptionGroup.options.get(4).count).toEqual(0); // last year
-    expect(filterOptionGroup.options.get(5).count).toEqual(0); // last two years
-    expect(filterOptionGroup.options.get(6).count).toEqual(0); // older
+    expect(filterOptionGroup.options[0].count).toEqual(1); // all
+    expect(filterOptionGroup.options[1].count).toEqual(0); // unknown
+    expect(filterOptionGroup.options[2].count).toEqual(0); // last month
+    expect(filterOptionGroup.options[3].count).toEqual(1); // last half year
+    expect(filterOptionGroup.options[4].count).toEqual(0); // last year
+    expect(filterOptionGroup.options[5].count).toEqual(0); // last two years
+    expect(filterOptionGroup.options[6].count).toEqual(0); // older
   });
 
   it('last year', () => {
@@ -92,13 +92,13 @@ describe('SurveyDateFilter', () => {
     expect(filter.passes('2020-05-06')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), ['2019-05-08']);
-    expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
-    expect(filterOptionGroup.options.get(1).count).toEqual(0); // unknown
-    expect(filterOptionGroup.options.get(2).count).toEqual(0); // last month
-    expect(filterOptionGroup.options.get(3).count).toEqual(0); // last half year
-    expect(filterOptionGroup.options.get(4).count).toEqual(1); // last year
-    expect(filterOptionGroup.options.get(5).count).toEqual(0); // last two years
-    expect(filterOptionGroup.options.get(6).count).toEqual(0); // older
+    expect(filterOptionGroup.options[0].count).toEqual(1); // all
+    expect(filterOptionGroup.options[1].count).toEqual(0); // unknown
+    expect(filterOptionGroup.options[2].count).toEqual(0); // last month
+    expect(filterOptionGroup.options[3].count).toEqual(0); // last half year
+    expect(filterOptionGroup.options[4].count).toEqual(1); // last year
+    expect(filterOptionGroup.options[5].count).toEqual(0); // last two years
+    expect(filterOptionGroup.options[6].count).toEqual(0); // older
   });
 
   it('last two years', () => {
@@ -109,13 +109,13 @@ describe('SurveyDateFilter', () => {
     expect(filter.passes('2018-05-06')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), ['2018-05-08']);
-    expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
-    expect(filterOptionGroup.options.get(1).count).toEqual(0); // unknown
-    expect(filterOptionGroup.options.get(2).count).toEqual(0); // last month
-    expect(filterOptionGroup.options.get(3).count).toEqual(0); // last half year
-    expect(filterOptionGroup.options.get(4).count).toEqual(0); // last year
-    expect(filterOptionGroup.options.get(5).count).toEqual(1); // last two years
-    expect(filterOptionGroup.options.get(6).count).toEqual(0); // older
+    expect(filterOptionGroup.options[0].count).toEqual(1); // all
+    expect(filterOptionGroup.options[1].count).toEqual(0); // unknown
+    expect(filterOptionGroup.options[2].count).toEqual(0); // last month
+    expect(filterOptionGroup.options[3].count).toEqual(0); // last half year
+    expect(filterOptionGroup.options[4].count).toEqual(0); // last year
+    expect(filterOptionGroup.options[5].count).toEqual(1); // last two years
+    expect(filterOptionGroup.options[6].count).toEqual(0); // older
   });
 
   it('older', () => {
@@ -125,12 +125,12 @@ describe('SurveyDateFilter', () => {
     expect(filter.passes('2018-05-06')).toBeTruthy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), ['2018-05-06']);
-    expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
-    expect(filterOptionGroup.options.get(1).count).toEqual(0); // unknown
-    expect(filterOptionGroup.options.get(2).count).toEqual(0); // last month
-    expect(filterOptionGroup.options.get(3).count).toEqual(0); // last half year
-    expect(filterOptionGroup.options.get(4).count).toEqual(0); // last year
-    expect(filterOptionGroup.options.get(5).count).toEqual(0); // last two years
-    expect(filterOptionGroup.options.get(6).count).toEqual(1); // older
+    expect(filterOptionGroup.options[0].count).toEqual(1); // all
+    expect(filterOptionGroup.options[1].count).toEqual(0); // unknown
+    expect(filterOptionGroup.options[2].count).toEqual(0); // last month
+    expect(filterOptionGroup.options[3].count).toEqual(0); // last half year
+    expect(filterOptionGroup.options[4].count).toEqual(0); // last year
+    expect(filterOptionGroup.options[5].count).toEqual(0); // last two years
+    expect(filterOptionGroup.options[6].count).toEqual(1); // older
   });
 });

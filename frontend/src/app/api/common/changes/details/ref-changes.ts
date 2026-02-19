@@ -3,6 +3,6 @@
 import { Ref } from '@api/common/common/ref';
 
 export interface RefChanges {
-  readonly oldRefs: Ref[];
-  readonly newRefs: Ref[];
+  readonly oldRefs: ReadonlyArray<Ref>;
+  readonly newRefs: ReadonlyArray<Ref>;
 }

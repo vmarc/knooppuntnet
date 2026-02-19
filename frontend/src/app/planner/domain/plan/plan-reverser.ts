@@ -1,5 +1,4 @@
 import { LegEnd } from '@api/common/planner/leg-end';
-import { List } from 'immutable';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { PlannerContext } from '../context/planner-context';
@@ -14,30 +13,33 @@ export class PlanReverser {
   constructor(private readonly context: PlannerContext) {}
 
   reverse(oldPlan: Plan): Observable<Plan> {
-    if (oldPlan.legs.isEmpty()) {
+    if (oldPlan.legs.length === 0) {
       return of(oldPlan);
     }
 
-    return this.buildLegs(oldPlan.legs.reverse(), List()).pipe(
+    return this.buildLegs([...oldPlan.legs].reverse(), []).pipe(
       map((newLegs) => {
-        const sourceNode = newLegs.get(0).sourceNode;
+        const sourceNode = newLegs[0].sourceNode;
         const sourceFlag = PlanUtil.startFlag(sourceNode.coordinate);
         return new Plan(sourceNode, sourceFlag, newLegs);
       })
     );
   }
 
-  private buildLegs(oldLegs: List<PlanLeg>, result: List<PlanLeg>): Observable<List<PlanLeg>> {
-    if (oldLegs.isEmpty()) {
+  private buildLegs(
+    oldLegs: ReadonlyArray<PlanLeg>,
+    result: ReadonlyArray<PlanLeg>
+  ): Observable<ReadonlyArray<PlanLeg>> {
+    if (oldLegs.length === 0) {
       return of(result);
     }
     return this.buildLeg(oldLegs).pipe(
-      switchMap((newLegs) => this.buildLegs(oldLegs.shift(), result.concat(newLegs)))
+      switchMap((newLegs) => this.buildLegs(oldLegs.slice(1), result.concat(newLegs)))
     );
   }
 
-  private buildLeg(oldLegs: List<PlanLeg>): Observable<List<PlanLeg>> {
-    const oldLeg = oldLegs.get(0);
+  private buildLeg(oldLegs: ReadonlyArray<PlanLeg>): Observable<ReadonlyArray<PlanLeg>> {
+    const oldLeg = oldLegs[0];
     const source = PlanUtil.legEndNode(+oldLeg.sinkNode.nodeId);
 
     let sink: LegEnd;
@@ -51,7 +53,7 @@ export class PlanReverser {
     return firstLeg$.pipe(
       switchMap((firstLeg) => {
         let sinkFlagType = PlanFlagType.via;
-        if (oldLegs.size === 1) {
+        if (oldLegs.length === 1) {
           sinkFlagType = PlanFlagType.end;
         } else if (oldLeg.viaFlag) {
           sinkFlagType = PlanFlagType.invisible;
@@ -59,12 +61,12 @@ export class PlanReverser {
 
         if (!oldLeg.viaFlag) {
           const updated = firstLeg.withSinkFlag(firstLeg.sinkFlag.to(sinkFlagType));
-          return of(List([updated]));
+          return of([updated]);
         }
 
         if (firstLeg.sinkNode.nodeId === oldLeg.sourceNode.nodeId) {
           const updated = firstLeg.withSinkFlag(firstLeg.sinkFlag.to(sinkFlagType));
-          return of(List([updated]));
+          return of([updated]);
         }
 
         let firstLegSinkFlagType = PlanFlagType.invisible;
@@ -79,7 +81,7 @@ export class PlanReverser {
           firstLeg.sinkNode.nodeId,
           oldLeg.sourceNode.nodeId,
           sinkFlagType
-        ).pipe(map((extraLeg) => List([updatedFirstLeg, extraLeg])));
+        ).pipe(map((extraLeg) => [updatedFirstLeg, extraLeg]));
       })
     );
   }

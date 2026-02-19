@@ -43,14 +43,14 @@ describe('PlannerCommandMoveViaPointToViaRoute', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(2);
+      expect(legs.length).toEqual(2);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('12');
       expect(leg1.sourceNode.nodeId).toEqual('1001');
       expect(leg1.sinkNode.nodeId).toEqual('1002');
 
-      const leg2 = legs.get(1);
+      const leg2 = legs[1];
       expect(leg2.featureId).toEqual('23');
       expect(leg2.sourceNode.nodeId).toEqual('1002');
       expect(leg2.sinkNode.nodeId).toEqual('1003');
@@ -70,14 +70,14 @@ describe('PlannerCommandMoveViaPointToViaRoute', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(2);
+      expect(legs.length).toEqual(2);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('14');
       expect(leg1.sourceNode.nodeId).toEqual('1001');
       expect(leg1.sinkNode.nodeId).toEqual('1004');
 
-      const leg2 = legs.get(1);
+      const leg2 = legs[1];
       expect(leg2.featureId).toEqual('43');
       expect(leg2.sourceNode.nodeId).toEqual('1004');
       expect(leg2.sinkNode.nodeId).toEqual('1003');
@@ -94,9 +94,9 @@ describe('PlannerCommandMoveViaPointToViaRoute', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(2);
-      expect(legs.get(0).featureId).toEqual('12');
-      expect(legs.get(1).featureId).toEqual('23');
+      expect(legs.length).toEqual(2);
+      expect(legs[0].featureId).toEqual('12');
+      expect(legs[1].featureId).toEqual('23');
     }
   });
 });

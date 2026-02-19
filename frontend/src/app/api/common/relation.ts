@@ -9,6 +9,6 @@ export interface Relation {
   readonly version: number;
   readonly timestamp: Timestamp;
   readonly changeSetId: number;
-  readonly tags: Tag[];
-  readonly members: Member[];
+  readonly tags: ReadonlyArray<Tag>;
+  readonly members: ReadonlyArray<Member>;
 }

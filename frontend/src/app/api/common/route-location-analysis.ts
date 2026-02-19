@@ -5,6 +5,6 @@ import { LocationCandidate } from '@api/common/location/location-candidate';
 
 export interface RouteLocationAnalysis {
   readonly location?: Location;
-  readonly candidates: LocationCandidate[];
-  readonly locationNames: string[];
+  readonly candidates: ReadonlyArray<LocationCandidate>;
+  readonly locationNames: ReadonlyArray<string>;
 }

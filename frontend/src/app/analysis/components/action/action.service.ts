@@ -67,7 +67,7 @@ export class ActionService {
     this.josmLoad(`node${nodeId}`);
   }
 
-  josmLoadNodes(nodeIds: Array<number>): void {
+  josmLoadNodes(nodeIds: ReadonlyArray<number>): void {
     const objectString = nodeIds.map((nodeId) => `node${nodeId}`).join(',');
     this.josmLoad(objectString);
   }
@@ -76,7 +76,7 @@ export class ActionService {
     this.josmLoad(`way${wayId}`);
   }
 
-  josmLoadWays(wayIds: Array<number>): void {
+  josmLoadWays(wayIds: ReadonlyArray<number>): void {
     const objectString = wayIds.map((wayId) => `way${wayId}`).join(',');
     this.josmLoad(objectString);
   }
@@ -85,7 +85,7 @@ export class ActionService {
     this.josmLoad(`relation${relationId}`);
   }
 
-  josmLoadRelations(relationIds: Array<number>): void {
+  josmLoadRelations(relationIds: ReadonlyArray<number>): void {
     const objectString = relationIds.map((relationId) => `relation${relationId}`).join(',');
     this.josmLoad(objectString);
   }
@@ -94,7 +94,7 @@ export class ActionService {
     this.josmLoad(`relation${relationId}&relation_members=true`);
   }
 
-  josmLoadRelationsAndMembers(relationIds: Array<number>): void {
+  josmLoadRelationsAndMembers(relationIds: ReadonlyArray<number>): void {
     const relationIdsString = relationIds.map((relationId) => `relation${relationId}`).join(',');
     this.josmLoad(`${relationIdsString}&relation_members=true`);
   }

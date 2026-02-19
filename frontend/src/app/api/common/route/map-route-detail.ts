@@ -5,5 +5,5 @@ import { Ref } from '@api/common/common/ref';
 export interface MapRouteDetail {
   readonly id: number;
   readonly name: string;
-  readonly networkReferences: Ref[];
+  readonly networkReferences: ReadonlyArray<Ref>;
 }

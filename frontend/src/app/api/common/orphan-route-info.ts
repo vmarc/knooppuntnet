@@ -9,6 +9,6 @@ export interface OrphanRouteInfo {
   readonly meters: number;
   readonly lastSurvey?: string;
   readonly lastUpdated: Timestamp;
-  readonly facts: Fact[];
+  readonly facts: ReadonlyArray<Fact>;
   readonly investigate: boolean;
 }

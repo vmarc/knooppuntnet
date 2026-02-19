@@ -35,7 +35,7 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayer {
   }
 
   addFlag(flag: PlanFlag): void {
-    if (flag !== null && flag.flagType !== PlanFlagType.invisible) {
+    if (flag && flag.flagType !== PlanFlagType.invisible) {
       let markerColor = 'blue';
       if (flag.flagType === PlanFlagType.end) {
         markerColor = 'green';
@@ -51,7 +51,7 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayer {
   }
 
   removeFlag(flag: PlanFlag): void {
-    if (flag !== null) {
+    if (flag) {
       const feature = this.source.getFeatureById(flag.featureId);
       if (feature != null) {
         this.source.removeFeature(feature);
@@ -67,7 +67,7 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayer {
   }
 
   updateFlag(flag: PlanFlag): void {
-    if (flag !== null) {
+    if (flag) {
       this.removeFlagWithFeatureId(flag.featureId);
       this.addFlag(flag);
     }
@@ -83,9 +83,7 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayer {
   addPlanLeg(leg: PlanLeg): void {
     this.removePlanLeg(leg.featureId);
     const feature = new Feature(
-      new LineString(
-        leg.routes.flatMap((route) => PlanUtil.planRouteCoordinates(route).toArray()).toArray()
-      )
+      new LineString(leg.routes.flatMap((route) => PlanUtil.planRouteCoordinates(route)))
     );
     feature.setId(leg.featureId);
     feature.set('layer', 'leg');

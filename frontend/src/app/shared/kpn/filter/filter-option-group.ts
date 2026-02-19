@@ -1,13 +1,12 @@
 import { FilterOption } from './filter-option';
-import { List } from 'immutable';
 
 export class FilterOptionGroup {
-  readonly options: List<FilterOption>;
+  readonly options: ReadonlyArray<FilterOption>;
 
   constructor(
     readonly name: string,
-    ...options: FilterOption[]
+    ...options: ReadonlyArray<FilterOption>
   ) {
-    this.options = List(options);
+    this.options = options;
   }
 }

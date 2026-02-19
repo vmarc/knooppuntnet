@@ -2,7 +2,6 @@ import { LegBuildParams } from '@api/common/planner/leg-build-params';
 import { LegEnd } from '@api/common/planner/leg-end';
 import { RouteType } from '@api/common/route-type';
 import { ApiService } from '@app/shared/services/api.service';
-import { List } from 'immutable';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PlanLegData } from './plan-leg-data';
@@ -29,7 +28,7 @@ export class PlannerLegRepositoryImpl implements PlannerLegRepository {
           return new PlanLegData(
             response.result.source,
             response.result.sink,
-            List(response.result.routes)
+            response.result.routes
           );
         }
         throw new Error('leg-not-found');

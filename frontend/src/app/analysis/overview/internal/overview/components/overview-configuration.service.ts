@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Subset } from '@api/custom/subset';
 import { Subsets } from '@app/shared/kpn/common/subsets';
-import { List } from 'immutable';
 import { StatisticConfiguration } from '../../domain/statistic-configuration';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OverviewConfigurationService {
-  statisticConfigurations: List<StatisticConfiguration> = List(this.buildStatisticConfigurations());
+  statisticConfigurations: ReadonlyArray<StatisticConfiguration> =
+    this.buildStatisticConfigurations();
 
-  private buildStatisticConfigurations(): StatisticConfiguration[] {
+  private buildStatisticConfigurations(): ReadonlyArray<StatisticConfiguration> {
     const networks = (_factId: string, subset: Subset) => Subsets.key(subset) + '/networks';
     const orphanNodes = (_factId: string, subset: Subset) => Subsets.key(subset) + '/orphan-nodes';
     const orphanRoutes = (factId: string, subset: Subset) => Subsets.key(subset) + '/orphan-routes';

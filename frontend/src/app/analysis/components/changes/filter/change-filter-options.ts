@@ -2,14 +2,13 @@ import { ChangesFilter } from '@api/common/changes/filter/changes-filter';
 import { ChangesFilterPeriod } from '@api/common/changes/filter/changes-filter-period';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { Util } from '@app/shared/components/util';
-import { List } from 'immutable';
 import { ChangeFilterOption } from './change-filter-option';
 
 export class ChangeFilterOptions {
-  constructor(readonly options: List<ChangeFilterOption>) {}
+  constructor(readonly options: ReadonlyArray<ChangeFilterOption>) {}
 
   public static empty(): ChangeFilterOptions {
-    return new ChangeFilterOptions(List());
+    return new ChangeFilterOptions([]);
   }
 
   public static from(
@@ -26,7 +25,7 @@ export class ChangeFilterOptions {
             new ChangeFilterOption(
               'day',
               day,
-              List(),
+              [],
               () =>
                 update(this.updatedParameters(parameters, true, year.name, month.name, day.name)),
               () =>
@@ -36,7 +35,7 @@ export class ChangeFilterOptions {
         return new ChangeFilterOption(
           'month',
           month,
-          List(days),
+          days,
           () => update(this.updatedParameters(parameters, true, year.name, month.name)),
           () => update(this.updatedParameters(parameters, false, year.name, month.name))
         );
@@ -45,7 +44,7 @@ export class ChangeFilterOptions {
       return new ChangeFilterOption(
         'year',
         year,
-        List(months),
+        months,
         () => update(this.updatedParameters(parameters, true, year.name)),
         () => update(this.updatedParameters(parameters, false, year.name))
       );
@@ -64,7 +63,7 @@ export class ChangeFilterOptions {
         });
       });
     }
-    return new ChangeFilterOptions(List(flatOptions));
+    return new ChangeFilterOptions(flatOptions);
   }
 
   private static updatedParameters(
@@ -89,8 +88,8 @@ export class ChangeFilterOptions {
     filter: ChangesFilter,
     update: (changesParameters: ChangesParameters) => void
   ): ChangeFilterOption {
-    const totalCount = Util.sum(List(filter.periods.map((period) => period.totalCount)));
-    const impactedCount = Util.sum(List(filter.periods.map((period) => period.impactedCount)));
+    const totalCount = Util.sum(filter.periods.map((period) => period.totalCount));
+    const impactedCount = Util.sum(filter.periods.map((period) => period.impactedCount));
 
     const all: ChangesFilterPeriod = {
       name: 0,
@@ -104,7 +103,7 @@ export class ChangeFilterOptions {
     return new ChangeFilterOption(
       'year',
       all,
-      List(),
+      [],
       () => update(this.updatedParameters(parameters, true)),
       () => update(this.updatedParameters(parameters, false))
     );

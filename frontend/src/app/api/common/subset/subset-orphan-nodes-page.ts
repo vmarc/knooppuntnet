@@ -7,5 +7,5 @@ import { SubsetInfo } from './subset-info';
 export interface SubsetOrphanNodesPage {
   readonly timeInfo: TimeInfo;
   readonly subsetInfo: SubsetInfo;
-  readonly nodes: OrphanNodeInfo[];
+  readonly nodes: ReadonlyArray<OrphanNodeInfo>;
 }

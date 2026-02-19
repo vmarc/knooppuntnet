@@ -1,4 +1,3 @@
-import { List } from 'immutable';
 import { describe } from 'vitest';
 import { it } from 'vitest';
 import { expect } from 'vitest';
@@ -18,7 +17,7 @@ describe('PlannerCommandAddPlan', () => {
 
     const leg = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, sinkFlag, null);
 
-    const plan = new Plan(setup.node1, startFlag, List([leg]));
+    const plan = new Plan(setup.node1, startFlag, [leg]);
 
     const command = new PlannerCommandAddPlan(plan);
     setup.context.execute(command);
@@ -31,9 +30,9 @@ describe('PlannerCommandAddPlan', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(1);
+      expect(legs.length).toEqual(1);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('12');
       expectEndFlag(leg1.sinkFlag, 'sinkFlag', [2, 2]);
       expect(leg1.viaFlag).toEqual(null);
@@ -43,7 +42,7 @@ describe('PlannerCommandAddPlan', () => {
 
     setup.markerLayer.expectFlagCount(0);
     setup.routeLayer.expectRouteLegCount(0);
-    expect(setup.context.plan().legs.size).toEqual(0);
+    expect(setup.context.plan().legs.length).toEqual(0);
 
     command.do(setup.context);
 
@@ -55,9 +54,9 @@ describe('PlannerCommandAddPlan', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(1);
+      expect(legs.length).toEqual(1);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('12');
       expectEndFlag(leg1.sinkFlag, 'sinkFlag', [2, 2]);
       expect(leg1.viaFlag).toEqual(null);

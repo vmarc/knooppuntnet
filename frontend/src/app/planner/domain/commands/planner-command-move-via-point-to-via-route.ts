@@ -1,4 +1,3 @@
-import { List } from 'immutable';
 import { PlannerContext } from '../context/planner-context';
 import { PlanLeg } from '../plan/plan-leg';
 import { PlannerCommand } from './planner-command';
@@ -11,12 +10,12 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
     private readonly newLeg2: PlanLeg
   ) {}
 
-  public do(context: PlannerContext) {
+  do(context: PlannerContext) {
     context.debug('PlannerCommandMoveViaPointToViaRoute');
     this.update(context, this.oldLeg1, this.oldLeg2, this.newLeg1, this.newLeg2);
   }
 
-  public undo(context: PlannerContext) {
+  undo(context: PlannerContext) {
     context.debug('PlannerCommandMoveViaPointToViaRoute undo');
     this.update(context, this.newLeg1, this.newLeg2, this.oldLeg1, this.oldLeg2);
   }
@@ -42,7 +41,7 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
     context.routeLayer.addPlanLeg(toLeg1);
     context.routeLayer.addPlanLeg(toLeg2);
 
-    const newLegs: List<PlanLeg> = context.plan().legs.map((leg) => {
+    const newLegs: ReadonlyArray<PlanLeg> = context.plan().legs.map((leg) => {
       if (leg.featureId === fromLeg1.featureId) {
         return toLeg1;
       }

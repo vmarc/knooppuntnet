@@ -22,7 +22,7 @@ import { RoutePathListItemComponent } from '@app/shared/components/route/paths/r
   imports: [ListComponent, ListItemComponent, RoutePathListItemComponent],
 })
 export class RoutePathListComponent {
-  readonly paths = input.required<RoutePath[]>();
+  readonly paths = input.required<ReadonlyArray<RoutePath>>();
 
   readonly selectChange = output<RoutePath>();
 

@@ -130,7 +130,7 @@ import { PageService } from '@app/shared/components/page.service';
   `,
 })
 export class ChangeSetLocationChangesComponent /*implements OnInit*/ {
-  readonly changess = input.required<LocationChanges[]>();
+  readonly changess = input.required<ReadonlyArray<LocationChanges>>();
 
   private readonly pageService = inject(PageService);
 

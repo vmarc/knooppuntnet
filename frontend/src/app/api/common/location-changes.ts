@@ -5,7 +5,7 @@ import { RouteType } from './route-type';
 
 export interface LocationChanges {
   readonly routeType: RouteType;
-  readonly locationNames: string[];
+  readonly locationNames: ReadonlyArray<string>;
   readonly routeChanges: ChangeSetElementRefs;
   readonly nodeChanges: ChangeSetElementRefs;
   readonly happy: boolean;

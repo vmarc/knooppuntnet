@@ -29,7 +29,7 @@ import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
   imports: [ListComponent, ListItemComponent, PoiLocationPoiListItemComponent],
 })
 export class PoiLocationPoiListComponent {
-  readonly pois = input.required<LocationPoiInfo[]>();
+  readonly pois = input.required<ReadonlyArray<LocationPoiInfo>>();
   readonly poiCount = input.required<number>();
 
   readonly service = inject(PoiLocationPoisPageService);

@@ -6,7 +6,7 @@ import { SubsetInfo } from './subset-info';
 
 export interface SubsetChangesPage {
   readonly subsetInfo: SubsetInfo;
-  readonly filterOptions: ChangesFilterOption[];
-  readonly changes: ChangeSetSummaryInfo[];
+  readonly filterOptions: ReadonlyArray<ChangesFilterOption>;
+  readonly changes: ReadonlyArray<ChangeSetSummaryInfo>;
   readonly changeCount: number;
 }

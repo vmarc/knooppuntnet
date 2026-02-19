@@ -59,7 +59,7 @@ export class LocationNodeListComponent {
   private readonly editService = inject(EditService);
 
   readonly timeInfo = input.required<TimeInfo>();
-  readonly nodes = input.required<LocationNodeInfo[]>();
+  readonly nodes = input.required<ReadonlyArray<LocationNodeInfo>>();
   readonly nodeCount = input.required<number>();
 
   protected readonly pageSize = this.service.pageSize;

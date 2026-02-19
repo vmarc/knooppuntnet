@@ -5,5 +5,5 @@ import { SegmentInfo } from './segment-info';
 
 export interface RouteSegmentsPage {
   readonly routeInfo: RouteInfo;
-  readonly segments: SegmentInfo[];
+  readonly segments: ReadonlyArray<SegmentInfo>;
 }

@@ -15,13 +15,13 @@ export interface NodeInfo {
   readonly orphan: boolean;
   readonly country?: Country;
   readonly name: string;
-  readonly names: NodeName[];
+  readonly names: ReadonlyArray<NodeName>;
   readonly latitude: string;
   readonly longitude: string;
   readonly lastUpdated: Timestamp;
   readonly lastSurvey?: Day;
-  readonly tags: Tag[];
-  readonly facts: Fact[];
-  readonly locations: LocationInfo[];
+  readonly tags: ReadonlyArray<Tag>;
+  readonly facts: ReadonlyArray<Fact>;
+  readonly locations: ReadonlyArray<LocationInfo>;
   readonly integrity?: NodeIntegrity;
 }

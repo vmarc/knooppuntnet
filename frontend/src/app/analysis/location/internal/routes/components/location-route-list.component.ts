@@ -53,7 +53,7 @@ export class LocationRouteListComponent {
   private readonly editService = inject(EditService);
 
   readonly timeInfo = input.required<TimeInfo>();
-  readonly routes = input.required<LocationRouteInfo[]>();
+  readonly routes = input.required<ReadonlyArray<LocationRouteInfo>>();
   readonly routeCount = input.required<number>();
 
   protected readonly pageIndex = this.service.pageIndex;

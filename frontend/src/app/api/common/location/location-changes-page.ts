@@ -6,7 +6,7 @@ import { LocationSummary } from './location-summary';
 
 export interface LocationChangesPage {
   readonly summary: LocationSummary;
-  readonly changeSets: LocationChangeSetInfo[];
+  readonly changeSets: ReadonlyArray<LocationChangeSetInfo>;
   readonly changesCount: number;
-  readonly filterOptions: ChangesFilterOption[];
+  readonly filterOptions: ReadonlyArray<ChangesFilterOption>;
 }

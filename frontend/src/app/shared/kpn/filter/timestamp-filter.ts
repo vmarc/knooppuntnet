@@ -39,7 +39,7 @@ export class TimestampFilter<T> extends Filter<T> {
     return false;
   }
 
-  filterOptions(allFilters: Filters<T>, elements: T[]): FilterOptionGroup {
+  filterOptions(allFilters: Filters<T>, elements: ReadonlyArray<T>): FilterOptionGroup {
     if (elements.length === 0) {
       return null;
     }

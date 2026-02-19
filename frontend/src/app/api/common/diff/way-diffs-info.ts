@@ -4,7 +4,7 @@ import { WayInfo } from './way-info';
 import { WayUpdate } from './way-update';
 
 export interface WayDiffsInfo {
-  readonly removed: WayInfo[];
-  readonly added: WayInfo[];
-  readonly updated: WayUpdate[];
+  readonly removed: ReadonlyArray<WayInfo>;
+  readonly added: ReadonlyArray<WayInfo>;
+  readonly updated: ReadonlyArray<WayUpdate>;
 }

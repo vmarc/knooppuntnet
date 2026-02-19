@@ -19,6 +19,6 @@ import { IconRouteLinkComponent } from '@app/shared/components/link/icon-route-l
   imports: [IconRouteLinkComponent],
 })
 export class NodeRouteReferencesComponent {
-  readonly references = input.required<Reference[]>();
+  readonly references = input.required<ReadonlyArray<Reference>>();
   readonly mixedRouteScopes = input.required<boolean>();
 }

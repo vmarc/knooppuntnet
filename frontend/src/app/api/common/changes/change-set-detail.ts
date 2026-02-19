@@ -11,10 +11,10 @@ import { ChangeSetInfo } from './change-set-info';
 export interface ChangeSetDetail {
   readonly summary: ChangeSetSummary;
   readonly changeSetInfo?: ChangeSetInfo;
-  readonly networkChanges: NetworkChangeInfo[];
-  readonly orphanRouteChanges: ChangeSetSubsetElementRefs[];
-  readonly orphanNodeChanges: ChangeSetSubsetElementRefs[];
-  readonly routeChanges: RouteChangeInfo[];
-  readonly nodeChanges: NodeChangeInfo[];
+  readonly networkChanges: ReadonlyArray<NetworkChangeInfo>;
+  readonly orphanRouteChanges: ReadonlyArray<ChangeSetSubsetElementRefs>;
+  readonly orphanNodeChanges: ReadonlyArray<ChangeSetSubsetElementRefs>;
+  readonly routeChanges: ReadonlyArray<RouteChangeInfo>;
+  readonly nodeChanges: ReadonlyArray<NodeChangeInfo>;
   readonly knownElements: KnownElements;
 }

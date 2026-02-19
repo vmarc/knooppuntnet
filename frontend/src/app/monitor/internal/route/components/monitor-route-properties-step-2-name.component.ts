@@ -32,7 +32,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 })
 export class MonitorRoutePropertiesStep2NameComponent {
   readonly mode = input.required<string>();
-  readonly routeGroups = input.required<MonitorRouteGroup[]>();
+  readonly routeGroups = input.required<ReadonlyArray<MonitorRouteGroup>>();
 
   private readonly monitorForm = inject(MonitorRouteForm);
   protected readonly form = this.monitorForm.nameForm;

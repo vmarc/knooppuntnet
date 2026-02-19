@@ -3,7 +3,7 @@
 import { Ref } from '@api/common/common/ref';
 
 export interface RefDiffs {
-  readonly removed: Ref[];
-  readonly added: Ref[];
-  readonly updated: Ref[];
+  readonly removed: ReadonlyArray<Ref>;
+  readonly added: ReadonlyArray<Ref>;
+  readonly updated: ReadonlyArray<Ref>;
 }

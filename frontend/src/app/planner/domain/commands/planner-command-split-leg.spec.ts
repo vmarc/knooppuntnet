@@ -1,4 +1,3 @@
-import { List } from 'immutable';
 import { describe } from 'vitest';
 import { it } from 'vitest';
 import { expect } from 'vitest';
@@ -23,7 +22,7 @@ describe('PlannerCommandSplitLeg', () => {
     const newLeg1 = PlanUtil.singleRoutePlanLeg('13', setup.node1, setup.node3, viaFlag, null);
     const newLeg2 = PlanUtil.singleRoutePlanLeg('32', setup.node3, setup.node2, endFlag, null);
 
-    const plan = new Plan(setup.node1, sourceFlag, List([oldLeg]));
+    const plan = new Plan(setup.node1, sourceFlag, [oldLeg]);
     setup.context.execute(new PlannerCommandAddPlan(plan));
 
     const command = new PlannerCommandSplitLeg(oldLeg, newLeg1, newLeg2);
@@ -42,13 +41,13 @@ describe('PlannerCommandSplitLeg', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(2);
+      expect(legs.length).toEqual(2);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('13');
       expectViaFlagCoordinate(leg1.sinkFlag, [3, 3]);
 
-      const leg2 = legs.get(1);
+      const leg2 = legs[1];
       expect(leg2.featureId).toEqual('32');
       expectEndFlagCoordinate(leg2.sinkFlag, [2, 2]);
     }
@@ -66,9 +65,9 @@ describe('PlannerCommandSplitLeg', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(1);
+      expect(legs.length).toEqual(1);
 
-      const leg = legs.get(0);
+      const leg = legs[0];
       expect(leg.featureId).toEqual('12');
       expectEndFlagCoordinate(leg.sinkFlag, [2, 2]);
     }

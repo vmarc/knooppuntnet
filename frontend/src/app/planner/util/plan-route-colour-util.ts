@@ -1,5 +1,4 @@
 import { PlanRoute } from '@api/common/planner/plan-route';
-import { List } from 'immutable';
 import { PlanUtil } from '../domain/plan/plan-util';
 import { PlannerTranslations } from './planner-translations';
 
@@ -12,7 +11,7 @@ export class PlanRouteColourUtil {
     const colourValues = planRoute.segments
       .filter((segment) => !!segment.colour)
       .map((segment) => segment.colour);
-    const distinctColours = PlanUtil.distinctColours(List(colourValues));
+    const distinctColours = PlanUtil.distinctColours(colourValues);
     const colourGroups = distinctColours.map((colour) => PlannerTranslations.colour(colour));
     return colourGroups.join(' > ');
   }

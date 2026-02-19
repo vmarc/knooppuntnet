@@ -5,5 +5,5 @@ import { SubsetInfo } from './subset-info';
 
 export interface SubsetFactsPage {
   readonly subsetInfo: SubsetInfo;
-  readonly factCounts: FactCount[];
+  readonly factCounts: ReadonlyArray<FactCount>;
 }

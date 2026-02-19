@@ -8,7 +8,7 @@ import { Timestamp } from '@api/custom/timestamp';
 
 export interface RouteMemberInfoWay {
   readonly wayType?: string;
-  readonly nodes: RouteNetworkNodeInfo[];
+  readonly nodes: ReadonlyArray<RouteNetworkNodeInfo>;
   readonly timestamp: Timestamp;
   readonly surface: string;
   readonly accessible: boolean;
@@ -16,6 +16,6 @@ export interface RouteMemberInfoWay {
   readonly distance: number;
   readonly nodeCount: string;
   readonly oneWay: WayDirection;
-  readonly oneWayTags: Tag[];
+  readonly oneWayTags: ReadonlyArray<Tag>;
   readonly link: Link;
 }

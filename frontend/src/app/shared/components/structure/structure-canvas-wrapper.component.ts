@@ -37,7 +37,7 @@ import { StructureCanvasComponent } from './structure-canvas.component';
   imports: [StructureCanvasComponent],
 })
 export class StructureCanvasWrapperComponent implements AfterViewInit, OnInit, OnDestroy {
-  readonly segmentIds = input<number[]>([]);
+  readonly segmentIds = input<ReadonlyArray<number>>([]);
   readonly memberType = input.required<MemberType>();
   readonly link = input.required<Link>();
 

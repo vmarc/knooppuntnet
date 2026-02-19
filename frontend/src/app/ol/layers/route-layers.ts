@@ -5,7 +5,6 @@ import { RouteMap } from '@api/common/route/route-map';
 import { RouteNetworkNodeInfo } from '@api/common/route/route-network-node-info';
 import { Translations } from '@app/shared/i18n/translations';
 import { OlUtil } from '@app/ol/ol-util';
-import { List } from 'immutable';
 import { Color } from 'ol/color';
 import Feature from 'ol/Feature';
 import { Geometry } from 'ol/geom';
@@ -22,7 +21,7 @@ import { OldOldMapLayer } from './old-old-map-layer';
 export class RouteLayers {
   constructor(private routeMap: RouteMap) {}
 
-  build(): List<OldOldMapLayer> {
+  build(): OldOldMapLayer[] {
     let layers: OldOldMapLayer[] = [];
     layers.push(this.buildMarkerLayer());
     layers = layers.concat(this.buildFreePathsLayers());
@@ -32,7 +31,7 @@ export class RouteLayers {
     layers.push(this.buildEndTentaclesLayer());
     layers.push(this.buildUnusedSegmentsLayer());
 
-    return List(layers).filter((layer) => layer !== null);
+    return layers.filter((layer) => layer !== null);
   }
 
   private buildFreePathsLayers(): OldOldMapLayer[] {
@@ -180,26 +179,28 @@ export class RouteLayers {
   }
 
   private pathToFeature(color: Color, path: TrackPath): Feature<Geometry> {
-    const trackPointArray: Array<TrackPoint> = [];
-    trackPointArray.push(path.segments[0].source);
+    const trackPoints: Array<TrackPoint> = [];
+    trackPoints.push(path.segments[0].source);
     path.segments.forEach((segment) => {
-      segment.fragments.forEach((fragment) => trackPointArray.push(fragment.trackPoint));
+      segment.fragments.forEach((fragment) => trackPoints.push(fragment.trackPoint));
     });
-    const trackPoints = List(trackPointArray);
     return this.trackPointsToFeature(color, trackPoints);
   }
 
   private segmentToFeature(color: Color, segment: TrackSegment): Feature<Geometry> {
-    let trackPoints = List<TrackPoint>([segment.source]);
+    let trackPoints = [segment.source];
     trackPoints = trackPoints.concat(segment.fragments.map((fragment) => fragment.trackPoint));
     return this.trackPointsToFeature(color, trackPoints);
   }
 
-  private trackPointsToFeature(color: Color, trackPoints: List<TrackPoint>): Feature<Geometry> {
+  private trackPointsToFeature(
+    color: Color,
+    trackPoints: ReadonlyArray<TrackPoint>
+  ): Feature<Geometry> {
     const coordinates = trackPoints.map((trackPoint) =>
       OlUtil.toCoordinate(trackPoint.lat, trackPoint.lon)
     );
-    const polygon = new LineString(coordinates.toArray());
+    const polygon = new LineString(coordinates);
     const feature = new Feature(polygon);
     const style = new Style({
       stroke: new Stroke({

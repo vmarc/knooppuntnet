@@ -3,9 +3,9 @@
 import { Tag } from '@api/custom/tag';
 
 export interface PoiAnalysis {
-  readonly layers: string[];
-  readonly mainTags: Tag[];
-  readonly extraTags: Tag[];
+  readonly layers: ReadonlyArray<string>;
+  readonly mainTags: ReadonlyArray<Tag>;
+  readonly extraTags: ReadonlyArray<Tag>;
   readonly name?: string;
   readonly subject?: string;
   readonly description?: string;

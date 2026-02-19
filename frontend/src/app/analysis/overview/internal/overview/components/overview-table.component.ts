@@ -25,14 +25,14 @@ import { OverviewTableRowComponent } from './overview-table-row.component';
   imports: [OverviewTableHeaderComponent, OverviewTableRowComponent],
 })
 export class OverviewTableComponent implements OnInit {
-  readonly statistics = input.required<StatisticValues[]>();
+  readonly statistics = input.required<ReadonlyArray<StatisticValues>>();
 
   private readonly overviewService = inject(OverviewConfigurationService);
 
   protected stats: Stat[];
 
   ngOnInit(): void {
-    this.stats = this.overviewService.statisticConfigurations.toArray().map((configuration) => {
+    this.stats = this.overviewService.statisticConfigurations.map((configuration) => {
       const statisticValues = this.statistics().find(
         (statisticValue) => statisticValue._id === configuration.id
       );

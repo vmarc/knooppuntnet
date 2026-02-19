@@ -38,7 +38,7 @@ import { ParentRoute } from '@api/common/route/parent-route';
   imports: [RouterLink, NgClass],
 })
 export class RouteParentsComponent {
-  readonly parentRoutes = input.required<Array<ParentRoute>>();
+  readonly parentRoutes = input.required<ReadonlyArray<ParentRoute>>();
 
   routeLevel(parentRoute: ParentRoute): string {
     return `level-${parentRoute.level}`;

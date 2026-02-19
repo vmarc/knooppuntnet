@@ -5,7 +5,7 @@ import { RouteType } from './route-type';
 export interface NodeMapInfo {
   readonly id: number;
   readonly name: string;
-  readonly routeTypes: RouteType[];
+  readonly routeTypes: ReadonlyArray<RouteType>;
   readonly latitude: string;
   readonly longitude: string;
 }

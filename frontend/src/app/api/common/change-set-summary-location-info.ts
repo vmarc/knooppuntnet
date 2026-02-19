@@ -3,5 +3,5 @@
 import { LocationChanges } from './location-changes';
 
 export interface ChangeSetSummaryLocationInfo {
-  readonly changes: LocationChanges[];
+  readonly changes: ReadonlyArray<LocationChanges>;
 }

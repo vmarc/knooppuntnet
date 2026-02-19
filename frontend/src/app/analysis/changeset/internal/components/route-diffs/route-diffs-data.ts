@@ -8,7 +8,7 @@ export class RouteDiffsData {
     readonly refDiffs: RefDiffs,
     readonly changeSetId: number,
     readonly knownElements: KnownElements,
-    readonly routeChangeInfos: RouteChangeInfo[]
+    readonly routeChangeInfos: ReadonlyArray<RouteChangeInfo>
   ) {}
 
   findRouteChangeInfo(ref: Ref) {

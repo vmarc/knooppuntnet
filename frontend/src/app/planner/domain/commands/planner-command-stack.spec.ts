@@ -80,12 +80,16 @@ describe('PlannerCommandStack', () => {
 
     stack.push(command1);
     stack.push(command2);
+    expect(stack.size).toEqual(2);
+    expect(stack.commandCount).toEqual(2);
 
     expect(stack.undo()).toEqual(command2);
+    expect(stack.size).toEqual(2);
+    expect(stack.commandCount).toEqual(1);
     stack.push(command3);
 
-    expect(stack.commandCount).toEqual(2);
     expect(stack.size).toEqual(2);
+    expect(stack.commandCount).toEqual(2);
     expect(stack.canUndo).toEqual(true);
     expect(stack.canRedo).toEqual(false);
 

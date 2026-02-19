@@ -3,7 +3,7 @@
 import { ChangeSetElementRef } from './change-set-element-ref';
 
 export interface ChangeSetElementRefs {
-  readonly removed: ChangeSetElementRef[];
-  readonly added: ChangeSetElementRef[];
-  readonly updated: ChangeSetElementRef[];
+  readonly removed: ReadonlyArray<ChangeSetElementRef>;
+  readonly added: ReadonlyArray<ChangeSetElementRef>;
+  readonly updated: ReadonlyArray<ChangeSetElementRef>;
 }

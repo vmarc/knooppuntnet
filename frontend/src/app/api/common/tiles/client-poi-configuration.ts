@@ -3,5 +3,5 @@
 import { ClientPoiGroupDefinition } from './client-poi-group-definition';
 
 export interface ClientPoiConfiguration {
-  readonly groupDefinitions: ClientPoiGroupDefinition[];
+  readonly groupDefinitions: ReadonlyArray<ClientPoiGroupDefinition>;
 }

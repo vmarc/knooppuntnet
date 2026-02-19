@@ -9,5 +9,5 @@ export interface LocationChangeSetInfo {
   readonly comment?: string;
   readonly happy: boolean;
   readonly investigate: boolean;
-  readonly locationChanges: LocationChangesInfo[];
+  readonly locationChanges: ReadonlyArray<LocationChangesInfo>;
 }

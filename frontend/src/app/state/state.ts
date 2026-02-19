@@ -19,7 +19,11 @@ export class State {
   readonly preferences = new PreferencesState();
   readonly splitState = new SplitState();
 
-  monitorSegmentsPageOpened(routeId: string, relationIds: number[], segmentMap: SegmentMap): void {
+  monitorSegmentsPageOpened(
+    routeId: string,
+    relationIds: ReadonlyArray<number>,
+    segmentMap: SegmentMap
+  ): void {
     this.map.layers.updateRouteLayerEnabled(false);
     this.map.layers.updateMonitorLayerEnabled(true);
     this.map.updateSegmentMap(segmentMap);
@@ -29,7 +33,7 @@ export class State {
     this.map.updateMonitorRelationIds(relationIds);
   }
 
-  monitorPageOpened(routeId: string, relationIds: number[]): void {
+  monitorPageOpened(routeId: string, relationIds: ReadonlyArray<number>): void {
     this.map.layers.updateRouteLayerEnabled(false);
     this.map.layers.updateMonitorLayerEnabled(true);
     this.map.updateMode('monitor');

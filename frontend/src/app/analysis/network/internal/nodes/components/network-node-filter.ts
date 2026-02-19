@@ -120,11 +120,11 @@ export class NetworkNodeFilter {
     private readonly timeInfo: TimeInfo
   ) {}
 
-  filter(nodes: NetworkNodeRow[]): NetworkNodeRow[] {
+  filter(nodes: ReadonlyArray<NetworkNodeRow>): ReadonlyArray<NetworkNodeRow> {
     return nodes.filter((node) => this.allFilters.passes(node));
   }
 
-  filterOptions(nodes: NetworkNodeRow[]): FilterOptions {
+  filterOptions(nodes: ReadonlyArray<NetworkNodeRow>): FilterOptions {
     const totalCount = nodes.length;
     const filteredCount = nodes.filter((node) => this.allFilters.passes(node)).length;
 

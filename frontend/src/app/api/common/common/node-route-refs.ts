@@ -4,5 +4,5 @@ import { Reference } from './reference';
 
 export interface NodeRouteRefs {
   readonly nodeId: number;
-  readonly routeRefs: Reference[];
+  readonly routeRefs: ReadonlyArray<Reference>;
 }

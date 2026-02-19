@@ -8,5 +8,5 @@ export interface RouteListItem {
   readonly distance: number;
   readonly symbol?: string;
   readonly bounds?: Bounds;
-  readonly routeIds: number[];
+  readonly routeIds: ReadonlyArray<number>;
 }

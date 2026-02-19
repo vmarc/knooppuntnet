@@ -59,7 +59,7 @@ export class NetworkRouteListComponent {
   readonly timeInfo = input.required<TimeInfo>();
   readonly surveyDateInfo = input.required<SurveyDateInfo>();
   readonly routeType = input.required<RouteType>();
-  readonly routes = input.required<NetworkRouteRow[]>();
+  readonly routes = input.required<ReadonlyArray<NetworkRouteRow>>();
 
   private readonly editService = inject(EditService);
   private readonly service = inject(NetworkRoutesPageService);

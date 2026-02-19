@@ -10,5 +10,5 @@ export interface LocationNodesPage {
   readonly summary: LocationSummary;
   readonly nodeCount: number;
   readonly filter: LocationNodeOptions;
-  readonly nodes: LocationNodeInfo[];
+  readonly nodes: ReadonlyArray<LocationNodeInfo>;
 }

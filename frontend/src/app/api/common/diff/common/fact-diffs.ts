@@ -3,7 +3,7 @@
 import { Fact } from '@api/common/fact';
 
 export interface FactDiffs {
-  readonly resolved: Fact[];
-  readonly introduced: Fact[];
-  readonly remaining: Fact[];
+  readonly resolved: ReadonlyArray<Fact>;
+  readonly introduced: ReadonlyArray<Fact>;
+  readonly remaining: ReadonlyArray<Fact>;
 }

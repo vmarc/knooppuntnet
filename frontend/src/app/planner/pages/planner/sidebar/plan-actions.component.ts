@@ -138,10 +138,10 @@ export class PlanActionsComponent {
   }
 
   hasStartNode(plan: Plan): boolean {
-    return plan.sourceNode !== null;
+    return !!plan.sourceNode;
   }
 
   hasRoute(plan: Plan): boolean {
-    return !plan.legs.isEmpty();
+    return plan.legs.length > 0;
   }
 }

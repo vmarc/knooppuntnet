@@ -89,7 +89,7 @@ class TypescriptClassWriter(out: PrintStream, classInfo: ClassInfo) {
           case Some(arrayType) =>
             arrayType.typeName match {
               case Some(typeName) =>
-                s"$fieldName: ${mapScalaToTypeScriptType(typeName)}[]"
+                s"$fieldName: ReadonlyArray<${mapScalaToTypeScriptType(typeName)}>"
               case None =>
                 throw new IllegalArgumentException(s"Missing type name for array type in field ${field.name}")
             }

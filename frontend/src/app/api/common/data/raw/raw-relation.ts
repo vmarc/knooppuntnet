@@ -9,6 +9,6 @@ export interface RawRelation {
   readonly version: number;
   readonly timestamp: Timestamp;
   readonly changeSetId: number;
-  readonly members: RawMember[];
-  readonly tags: Tag[];
+  readonly members: ReadonlyArray<RawMember>;
+  readonly tags: ReadonlyArray<Tag>;
 }

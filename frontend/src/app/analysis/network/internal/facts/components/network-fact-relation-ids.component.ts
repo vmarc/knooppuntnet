@@ -19,5 +19,5 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
   imports: [ActionButtonRouteComponent, IconRouteComponent],
 })
 export class NetworkFactRelationIdsComponent {
-  readonly elementIds = input.required<number[]>();
+  readonly elementIds = input.required<ReadonlyArray<number>>();
 }

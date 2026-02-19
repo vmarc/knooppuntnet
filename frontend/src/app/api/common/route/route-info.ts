@@ -6,7 +6,7 @@ import { RouteType } from '@api/common/route-type';
 export interface RouteInfo {
   readonly routeId: number;
   readonly routeName: string;
-  readonly routeTypes: RouteType[];
+  readonly routeTypes: ReadonlyArray<RouteType>;
   readonly bounds?: Bounds;
   readonly memberCount: number;
   readonly pathCount: number;

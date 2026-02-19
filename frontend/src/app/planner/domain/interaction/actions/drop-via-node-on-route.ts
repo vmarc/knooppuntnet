@@ -16,13 +16,17 @@ import { PlannerDragFlag } from '../planner-drag-flag';
 export class DropViaNodeOnRoute {
   constructor(private readonly context: PlannerContext) {}
 
-  drop(dragFlag: PlannerDragFlag, routeFeatures: RouteFeature[], coordinate: Coordinate): void {
+  drop(
+    dragFlag: PlannerDragFlag,
+    routeFeatures: ReadonlyArray<RouteFeature>,
+    coordinate: Coordinate
+  ): void {
     const legs = this.context.plan().legs;
     const legIndex2 = legs.findIndex(
       (leg) => leg.sourceNode.featureId === dragFlag.oldNode.featureId
     );
-    const oldLeg1 = legs.get(legIndex2 - 1);
-    const oldLeg2 = legs.get(legIndex2);
+    const oldLeg1 = legs[legIndex2 - 1];
+    const oldLeg2 = legs[legIndex2];
 
     this.buildNewLeg1(oldLeg1, routeFeatures, coordinate)
       .pipe(
@@ -46,7 +50,7 @@ export class DropViaNodeOnRoute {
 
   private buildNewLeg1(
     oldLeg1: PlanLeg,
-    routeFeatures: RouteFeature[],
+    routeFeatures: ReadonlyArray<RouteFeature>,
     coordinate: Coordinate
   ): Observable<PlanLeg> {
     const source = PlanUtil.legEndNode(+oldLeg1.sourceNode.nodeId);

@@ -3,5 +3,5 @@
 import { PoiGroup } from './poi-group';
 
 export interface LocationPoiSummaryPage {
-  readonly groups: PoiGroup[];
+  readonly groups: ReadonlyArray<PoiGroup>;
 }

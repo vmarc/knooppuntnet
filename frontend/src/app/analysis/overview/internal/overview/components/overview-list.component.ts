@@ -19,21 +19,21 @@ import { OverviewListStatComponent } from './overview-list-stat.component';
   imports: [OverviewListStatComponent],
 })
 export class OverviewListComponent implements OnInit {
-  readonly statistics = input.required<StatisticValues[]>();
+  readonly statistics = input.required<ReadonlyArray<StatisticValues>>();
 
   private readonly overviewConfigurationService = inject(OverviewConfigurationService);
 
   protected stats: Stat[];
 
   ngOnInit(): void {
-    this.stats = this.overviewConfigurationService.statisticConfigurations
-      .toArray()
-      .flatMap((configuration) => {
+    this.stats = this.overviewConfigurationService.statisticConfigurations.flatMap(
+      (configuration) => {
         return this.statistics()
           .filter((statisticValue) => {
             return statisticValue._id === configuration.id;
           })
           .map((statisticValues) => new Stat(statisticValues, configuration));
-      });
+      }
+    );
   }
 }

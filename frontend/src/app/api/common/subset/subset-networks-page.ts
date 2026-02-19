@@ -17,5 +17,5 @@ export interface SubsetNetworksPage {
   readonly inaccessibleRouteCount: number;
   readonly analysisUpdatedTime: string;
   readonly bounds?: Bounds;
-  readonly networks: NetworkAttributes[];
+  readonly networks: ReadonlyArray<NetworkAttributes>;
 }

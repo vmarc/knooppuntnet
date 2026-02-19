@@ -8,6 +8,6 @@ export interface MonitorRouteUpdatePage {
   readonly groupDescription: string;
   readonly routeName: string;
   readonly routeDescription: string;
-  readonly groups: MonitorRouteGroup[];
+  readonly groups: ReadonlyArray<MonitorRouteGroup>;
   readonly properties: MonitorRouteProperties;
 }

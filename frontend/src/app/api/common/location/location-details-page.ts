@@ -8,6 +8,6 @@ export interface LocationDetailsPage {
   readonly summary: LocationSummary;
   readonly relationId: number;
   readonly distance: number;
-  readonly locationInfos: LocationInfo[];
-  readonly tags: Tag[];
+  readonly locationInfos: ReadonlyArray<LocationInfo>;
+  readonly tags: ReadonlyArray<Tag>;
 }

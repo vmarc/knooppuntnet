@@ -32,9 +32,9 @@ describe('PlannerCommandAddLeg', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(1);
+      expect(legs.length).toEqual(1);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('12');
       expectEndFlag(leg1.sinkFlag, 'sinkFlag', [2, 2]);
       expect(leg1.viaFlag).toEqual(null);
@@ -44,7 +44,7 @@ describe('PlannerCommandAddLeg', () => {
 
     setup.markerLayer.expectFlagCount(1);
     setup.routeLayer.expectRouteLegCount(0);
-    expect(setup.context.plan().legs.size).toEqual(0);
+    expect(setup.context.plan().legs.length).toEqual(0);
 
     command.do(setup.context);
 
@@ -56,9 +56,9 @@ describe('PlannerCommandAddLeg', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(1);
+      expect(legs.length).toEqual(1);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('12');
       expectEndFlag(leg1.sinkFlag, 'sinkFlag', [2, 2]);
       expect(leg1.viaFlag).toEqual(null);
@@ -92,9 +92,9 @@ describe('PlannerCommandAddLeg', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(1);
+      expect(legs.length).toEqual(1);
 
-      const leg = legs.get(0);
+      const leg = legs[0];
       expect(leg.featureId).toEqual('12');
       expectEndFlag(leg.sinkFlag, 'sinkFlag1', [2, 2]);
       expect(leg.viaFlag).toEqual(null);
@@ -111,14 +111,14 @@ describe('PlannerCommandAddLeg', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(2);
+      expect(legs.length).toEqual(2);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('12');
       expectViaFlag(leg1.sinkFlag, 'sinkFlag1', [2, 2]);
       expect(leg1.viaFlag).toEqual(null);
 
-      const leg2 = legs.get(1);
+      const leg2 = legs[1];
       expect(leg2.featureId).toEqual('23');
       expectEndFlag(leg2.sinkFlag, 'sinkFlag2', [3, 3]);
       expect(leg2.viaFlag).toEqual(null);
@@ -138,19 +138,19 @@ describe('PlannerCommandAddLeg', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(3);
+      expect(legs.length).toEqual(3);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('12');
       expectViaFlag(leg1.sinkFlag, 'sinkFlag1', [2, 2]);
       expect(leg1.viaFlag).toEqual(null);
 
-      const leg2 = legs.get(1);
+      const leg2 = legs[1];
       expect(leg2.featureId).toEqual('23');
       expectViaFlag(leg2.sinkFlag, 'sinkFlag2', [3, 3]);
       expect(leg2.viaFlag).toEqual(null);
 
-      const leg3 = legs.get(2);
+      const leg3 = legs[2];
       expect(leg3.featureId).toEqual('34');
       expectEndFlag(leg3.sinkFlag, 'sinkFlag3', [4, 4]);
       expect(leg3.viaFlag).toEqual(null);
@@ -167,14 +167,14 @@ describe('PlannerCommandAddLeg', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(2);
+      expect(legs.length).toEqual(2);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('12');
       expectViaFlag(leg1.sinkFlag, 'sinkFlag1', [2, 2]);
       expect(leg1.viaFlag).toEqual(null);
 
-      const leg2 = legs.get(1);
+      const leg2 = legs[1];
       expect(leg2.featureId).toEqual('23');
       expectEndFlag(leg2.sinkFlag, 'sinkFlag2', [3, 3]);
       expect(leg2.viaFlag).toEqual(null);
@@ -189,9 +189,9 @@ describe('PlannerCommandAddLeg', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(1);
+      expect(legs.length).toEqual(1);
 
-      const leg = legs.get(0);
+      const leg = legs[0];
       expect(leg.featureId).toEqual('12');
       expectEndFlag(leg.sinkFlag, 'sinkFlag1', [2, 2]);
       expect(leg.viaFlag).toEqual(null);
@@ -212,9 +212,9 @@ describe('PlannerCommandAddLeg', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(1);
+      expect(legs.length).toEqual(1);
 
-      const leg = legs.get(0);
+      const leg = legs[0];
       expect(leg.featureId).toEqual('12');
       expectEndFlag(leg.sinkFlag, 'sinkFlag1', [2, 2]);
       expect(leg.viaFlag).toEqual(null);

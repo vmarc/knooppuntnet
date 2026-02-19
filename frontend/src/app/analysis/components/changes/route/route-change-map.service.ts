@@ -14,7 +14,11 @@ import View from 'ol/View';
 
 @Injectable()
 export class RouteChangeMapService extends OpenlayersMapService {
-  init(geometryDiff: GeometryDiff, nodeChanges: RouteNodeChange[], bounds: Bounds): void {
+  init(
+    geometryDiff: GeometryDiff,
+    nodeChanges: ReadonlyArray<RouteNodeChange>,
+    bounds: Bounds
+  ): void {
     this.registerLayers(geometryDiff, nodeChanges);
 
     this.initMap(
@@ -33,7 +37,10 @@ export class RouteChangeMapService extends OpenlayersMapService {
     this.finalizeSetup();
   }
 
-  private registerLayers(geometryDiff: GeometryDiff, nodeChanges: RouteNodeChange[]): void {
+  private registerLayers(
+    geometryDiff: GeometryDiff,
+    nodeChanges: ReadonlyArray<RouteNodeChange>
+  ): void {
     const registry = new OldOldMapLayerRegistry();
     if (nodeChanges && nodeChanges.length > 0) {
       registry.register([], RouteNodesLayer.build(nodeChanges), true);

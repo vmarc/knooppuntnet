@@ -21,7 +21,7 @@ import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
             {{ colours(legRoute) }}
           </span>
         }
-        <span class="node" [class.visited-node]="$index < leg.routes.size - 1">
+        <span class="node" [class.visited-node]="$index < leg.routes.length - 1">
           {{ legRoute.sinkNode.nodeName }}
         </span>
       }

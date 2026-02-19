@@ -31,8 +31,8 @@ import { RouteSegmentListItemComponent } from './route-segment-list-item.compone
   imports: [ListComponent, ListItemComponent, RouteSegmentListItemComponent],
 })
 export class RouteSegmentListComponent {
-  readonly segments = input.required<SegmentInfo[]>();
-  readonly relations = input.required<MonitorRouteRelationInfo[]>();
+  readonly segments = input.required<ReadonlyArray<SegmentInfo>>();
+  readonly relations = input.required<ReadonlyArray<MonitorRouteRelationInfo>>();
   readonly selectedSegment = input.required<SegmentInfo>();
   readonly selectChange = output<SegmentInfo>();
   readonly relationPopup = output<SegmentRelationPopupEvent>();

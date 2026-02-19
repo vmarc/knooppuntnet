@@ -3,6 +3,6 @@
 import { LocationInfo } from '@api/common/location-info';
 
 export interface LocationCandidateInfo {
-  readonly locationInfos: LocationInfo[];
+  readonly locationInfos: ReadonlyArray<LocationInfo>;
   readonly percentage: number;
 }

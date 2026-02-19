@@ -2,7 +2,6 @@
   Builds a Plan from a single PlanDetail.
  */
 import { PlanLegDetail } from '@api/common/planner/plan-leg-detail';
-import { List } from 'immutable';
 import { FeatureId } from '../features/feature-id';
 import { Plan } from './plan';
 import { PlanFlag } from './plan-flag';
@@ -11,11 +10,11 @@ import { PlanLeg } from './plan-leg';
 import { PlanUtil } from './plan-util';
 
 export class PlanBuilder {
-  static build(planDetails: PlanLegDetail[], planString: string): Plan {
+  static build(planDetails: ReadonlyArray<PlanLegDetail>, planString: string): Plan {
     const sourceNode = planDetails[0].routes[0].sourceNode;
     const sourceFlag = new PlanFlag(PlanFlagType.start, FeatureId.next(), sourceNode.coordinate);
 
-    const legs: List<PlanLeg> = List(planDetails).map((planDetail, index) => {
+    const legs: PlanLeg[] = planDetails.map((planDetail, index) => {
       const lastLeg = index === planDetails.length - 1;
 
       const featureId = FeatureId.next();
@@ -40,7 +39,7 @@ export class PlanBuilder {
         planDetail.sink,
         sinkFlag,
         viaFlag,
-        List(planDetail.routes)
+        planDetail.routes
       );
     });
 

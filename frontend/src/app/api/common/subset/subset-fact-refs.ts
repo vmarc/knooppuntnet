@@ -2,5 +2,5 @@
 
 export interface SubsetFactRefs {
   readonly elementType: string;
-  readonly elementIds: number[];
+  readonly elementIds: ReadonlyArray<number>;
 }

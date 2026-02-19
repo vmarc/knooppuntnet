@@ -5,5 +5,5 @@ import { NetworkSummary } from './network-summary';
 
 export interface NetworkFactsPage {
   readonly summary: NetworkSummary;
-  readonly facts: NetworkFact[];
+  readonly facts: ReadonlyArray<NetworkFact>;
 }

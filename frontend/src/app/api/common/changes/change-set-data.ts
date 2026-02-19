@@ -8,8 +8,8 @@ import { RouteChange } from '@api/common/changes/details/route-change';
 
 export interface ChangeSetData {
   readonly summary: ChangeSetSummary;
-  readonly networkChanges: NetworkChange[];
-  readonly baseRouteChanges: BaseRouteChange[];
-  readonly routeChanges: RouteChange[];
-  readonly nodeChanges: NodeChange[];
+  readonly networkChanges: ReadonlyArray<NetworkChange>;
+  readonly baseRouteChanges: ReadonlyArray<BaseRouteChange>;
+  readonly routeChanges: ReadonlyArray<RouteChange>;
+  readonly nodeChanges: ReadonlyArray<NodeChange>;
 }

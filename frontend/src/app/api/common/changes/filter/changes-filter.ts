@@ -3,5 +3,5 @@
 import { ChangesFilterPeriod } from './changes-filter-period';
 
 export interface ChangesFilter {
-  readonly periods: ChangesFilterPeriod[];
+  readonly periods: ReadonlyArray<ChangesFilterPeriod>;
 }

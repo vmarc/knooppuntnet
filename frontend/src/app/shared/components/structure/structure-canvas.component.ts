@@ -19,7 +19,7 @@ import { DrawStructure } from '@app/shared/components/structure/draw-structure';
   `,
 })
 export class StructureCanvasComponent {
-  readonly segmentIds = input.required<number[]>();
+  readonly segmentIds = input.required<ReadonlyArray<number>>();
   readonly memberType = input.required<MemberType>();
   readonly link = input.required<Link>();
   readonly height = input.required<number>();

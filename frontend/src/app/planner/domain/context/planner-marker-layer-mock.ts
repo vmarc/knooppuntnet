@@ -10,19 +10,19 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
   private flags: PlanFlagMap<string, PlanFlag> = PlanFlagMap<string, PlanFlag>();
 
   addFlag(flag: PlanFlag): void {
-    if (flag !== null) {
+    if (flag) {
       this.flags = this.flags.set(flag.featureId, flag);
     }
   }
 
   updateFlag(flag: PlanFlag): void {
-    if (flag !== null) {
+    if (flag) {
       this.flags = this.flags.set(flag.featureId, flag);
     }
   }
 
   removeFlag(flag: PlanFlag): void {
-    if (flag !== null) {
+    if (flag) {
       this.flags = this.flags.remove(flag.featureId);
     }
   }

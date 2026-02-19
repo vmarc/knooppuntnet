@@ -10,6 +10,6 @@ export interface LocationEditPage {
   readonly tooManyNodes: boolean;
   readonly maxNodes: number;
   readonly bounds: Bounds;
-  readonly nodeIds: number[];
-  readonly routeIds: number[];
+  readonly nodeIds: ReadonlyArray<number>;
+  readonly routeIds: ReadonlyArray<number>;
 }

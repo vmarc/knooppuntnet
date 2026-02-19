@@ -7,5 +7,5 @@ import { SubsetInfo } from './subset-info';
 export interface SubsetOrphanRoutesPage {
   readonly timeInfo: TimeInfo;
   readonly subsetInfo: SubsetInfo;
-  readonly routes: OrphanRouteInfo[];
+  readonly routes: ReadonlyArray<OrphanRouteInfo>;
 }

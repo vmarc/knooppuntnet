@@ -73,7 +73,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   readonly mode = input.required<MonitorAction>();
   readonly groupName = input.required<string>();
   readonly initialProperties = input.required<MonitorRouteProperties>();
-  readonly routeGroups = input.required<MonitorRouteGroup[]>();
+  readonly routeGroups = input.required<ReadonlyArray<MonitorRouteGroup>>();
   readonly update = output<MonitorRouteUpdate>();
 
   private readonly monitorForm = inject(MonitorRouteForm);

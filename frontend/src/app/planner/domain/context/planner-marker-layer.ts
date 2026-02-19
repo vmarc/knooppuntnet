@@ -23,8 +23,8 @@ export abstract class PlannerMarkerLayer {
 
   addPlan(plan: Plan): void {
     this.addFlag(plan.sourceFlag);
-    for (let i = 0; i < plan.legs.size; i++) {
-      const leg = plan.legs.get(i);
+    for (let i = 0; i < plan.legs.length; i++) {
+      const leg = plan.legs[i];
       this.addFlag(leg.viaFlag);
       this.addFlag(leg.sinkFlag);
     }

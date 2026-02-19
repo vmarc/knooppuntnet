@@ -18,5 +18,5 @@ import { OsmLinkNodeComponent } from './osm-link-node.component';
   imports: [OsmLinkNodeComponent],
 })
 export class NodeListComponent {
-  readonly nodeIds = input.required<number[]>();
+  readonly nodeIds = input.required<ReadonlyArray<number>>();
 }

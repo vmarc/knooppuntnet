@@ -9,6 +9,6 @@ export interface RouteMapOptions {
   readonly scopeRegional: boolean;
   readonly scopeLocal: boolean;
   readonly nodeRoutes: boolean;
-  readonly routeIds: number[];
-  readonly nodeIds: number[];
+  readonly routeIds: ReadonlyArray<number>;
+  readonly nodeIds: ReadonlyArray<number>;
 }

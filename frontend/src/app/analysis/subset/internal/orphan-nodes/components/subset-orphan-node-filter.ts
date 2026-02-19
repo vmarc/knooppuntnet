@@ -26,11 +26,11 @@ export class SubsetOrphanNodeFilter {
     private readonly timeInfo: TimeInfo
   ) {}
 
-  filter(nodes: OrphanNodeInfo[]): OrphanNodeInfo[] {
+  filter(nodes: ReadonlyArray<OrphanNodeInfo>): ReadonlyArray<OrphanNodeInfo> {
     return nodes.filter((node) => this.allFilters.passes(node));
   }
 
-  filterOptions(nodes: OrphanNodeInfo[]): FilterOptions {
+  filterOptions(nodes: ReadonlyArray<OrphanNodeInfo>): FilterOptions {
     const totalCount = nodes.length;
     const filteredCount = nodes.filter((node) => this.allFilters.passes(node)).length;
     const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, nodes);

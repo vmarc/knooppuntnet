@@ -5,7 +5,7 @@ export interface LocationPoiInfo {
   readonly _id: string;
   readonly elementType: string;
   readonly elementId: number;
-  readonly layers: string[];
+  readonly layers: ReadonlyArray<string>;
   readonly description?: string;
   readonly address?: string;
   readonly link: boolean;

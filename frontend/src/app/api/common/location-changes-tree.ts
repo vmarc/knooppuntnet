@@ -8,5 +8,5 @@ export interface LocationChangesTree {
   readonly locationName: string;
   readonly happy: boolean;
   readonly investigate: boolean;
-  readonly children: LocationChangesTreeNode[];
+  readonly children: ReadonlyArray<LocationChangesTreeNode>;
 }

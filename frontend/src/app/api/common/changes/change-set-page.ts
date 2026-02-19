@@ -3,5 +3,5 @@
 import { ChangeSetDetail } from './change-set-detail';
 
 export interface ChangeSetPage {
-  readonly details: ChangeSetDetail[];
+  readonly details: ReadonlyArray<ChangeSetDetail>;
 }

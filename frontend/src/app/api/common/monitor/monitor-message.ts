@@ -3,7 +3,7 @@
 import { MonitorCommand } from './monitor-command';
 
 export interface MonitorMessage {
-  readonly commands: MonitorCommand[];
-  readonly errors?: string[];
+  readonly commands: ReadonlyArray<MonitorCommand>;
+  readonly errors?: ReadonlyArray<string>;
   readonly exception?: string;
 }

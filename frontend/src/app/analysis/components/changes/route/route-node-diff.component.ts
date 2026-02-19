@@ -46,5 +46,5 @@ import { LinkNodeComponent } from '@app/shared/components/link/link-node.compone
 export class RouteNodeDiffComponent {
   readonly title = input.required<string>(); // startNodes | endNodes | startTentacleNodes | endTentacleNodes
   readonly action = input.required<string>(); // added | removed
-  readonly nodeRefs = input.required<Ref[]>();
+  readonly nodeRefs = input.required<ReadonlyArray<Ref>>();
 }

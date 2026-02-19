@@ -37,11 +37,11 @@ export class SubsetOrphanRouteFilter {
     private readonly timeInfo: TimeInfo
   ) {}
 
-  filter(routes: OrphanRouteInfo[]): OrphanRouteInfo[] {
+  filter(routes: ReadonlyArray<OrphanRouteInfo>): ReadonlyArray<OrphanRouteInfo> {
     return routes.filter((route) => this.allFilters.passes(route));
   }
 
-  filterOptions(routes: OrphanRouteInfo[]): FilterOptions {
+  filterOptions(routes: ReadonlyArray<OrphanRouteInfo>): FilterOptions {
     const totalCount = routes.length;
     const filteredCount = routes.filter((route) => this.allFilters.passes(route)).length;
 

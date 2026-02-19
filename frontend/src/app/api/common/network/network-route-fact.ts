@@ -5,5 +5,5 @@ import { Ref } from '@api/common/common/ref';
 
 export interface NetworkRouteFact {
   readonly fact: Fact;
-  readonly routes: Ref[];
+  readonly routes: ReadonlyArray<Ref>;
 }

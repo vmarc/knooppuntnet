@@ -7,8 +7,8 @@ import { NodeIntegrity } from './node-integrity';
 export interface NodeDetailsPage {
   readonly nodeInfo: NodeInfo;
   readonly mixedRouteScopes: boolean;
-  readonly routeReferences: Reference[];
-  readonly networkReferences: Reference[];
+  readonly routeReferences: ReadonlyArray<Reference>;
+  readonly networkReferences: ReadonlyArray<Reference>;
   readonly integrity?: NodeIntegrity;
   readonly changeCount: number;
 }

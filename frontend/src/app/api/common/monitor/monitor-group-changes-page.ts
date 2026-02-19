@@ -9,5 +9,5 @@ export interface MonitorGroupChangesPage {
   readonly pageSize: number;
   readonly pageIndex: number;
   readonly totalChangeCount: number;
-  readonly changes: MonitorRouteChangeSummary[];
+  readonly changes: ReadonlyArray<MonitorRouteChangeSummary>;
 }

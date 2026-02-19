@@ -11,7 +11,7 @@ export class MoveFirstLegSource {
   constructor(private readonly context: PlannerContext) {}
 
   move(dragFlag: PlannerDragFlag, newSourceNode: PlanNode): void {
-    const oldLeg = this.context.plan().legs.first(null);
+    const oldLeg = this.context.plan().legs.at(0);
     if (oldLeg) {
       this.buildNewLeg(newSourceNode, oldLeg).subscribe({
         next: (newLeg) => {

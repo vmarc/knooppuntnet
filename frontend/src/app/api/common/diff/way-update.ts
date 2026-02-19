@@ -7,8 +7,8 @@ export interface WayUpdate {
   readonly id: number;
   readonly before: MetaData;
   readonly after: MetaData;
-  readonly removedNodeIds: number[];
-  readonly addedNodeIds: number[];
+  readonly removedNodeIds: ReadonlyArray<number>;
+  readonly addedNodeIds: ReadonlyArray<number>;
   readonly directionReversed: boolean;
   readonly tagDiffs?: TagDiffs;
 }

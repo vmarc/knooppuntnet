@@ -8,5 +8,5 @@ export interface NodeIntegrityDetail {
   readonly routeType: RouteType;
   readonly routeScope: RouteScope;
   readonly expectedRouteCount: number;
-  readonly routeRefs: Ref[];
+  readonly routeRefs: ReadonlyArray<Ref>;
 }

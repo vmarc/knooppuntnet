@@ -21,13 +21,13 @@ describe('PlannerCommandAddStartPoint', () => {
 
     expect(plan().sourceNode.nodeId).toEqual('1001');
     expectStartFlag(plan().sourceFlag, 'startFlag', [1, 1]);
-    expect(plan().legs.size).toEqual(0);
+    expect(plan().legs.length).toEqual(0);
 
     command.undo(setup.context);
 
     setup.markerLayer.expectFlagCount(0);
     expect(plan().sourceNode).toEqual(null);
-    expect(plan().legs.size).toEqual(0);
+    expect(plan().legs.length).toEqual(0);
 
     command.do(setup.context);
 
@@ -36,6 +36,6 @@ describe('PlannerCommandAddStartPoint', () => {
 
     expect(plan().sourceNode.nodeId).toEqual('1001');
     expectStartFlag(plan().sourceFlag, 'startFlag', [1, 1]);
-    expect(plan().legs.size).toEqual(0);
+    expect(plan().legs.length).toEqual(0);
   });
 });

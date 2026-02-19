@@ -115,7 +115,7 @@ export class PdfDocument {
             lineHeightFactor: 1,
           });
 
-          if (node.distance !== null) {
+          if (node.distance) {
             if (node.colour) {
               new PdfColourBox(
                 this.doc,

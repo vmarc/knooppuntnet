@@ -47,7 +47,7 @@ export class ChangeSetOrphanRouteChangesComponent {
     );
   }
 
-  private toRefs(refs: ChangeSetElementRef[]): Ref[] {
+  private toRefs(refs: ReadonlyArray<ChangeSetElementRef>): ReadonlyArray<Ref> {
     return refs.map((r) => {
       return { id: r.id, name: r.name };
     });

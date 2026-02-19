@@ -10,7 +10,7 @@ export interface RouteDiff {
   readonly nameDiff?: RouteNameDiff;
   readonly roleDiff?: RouteRoleDiff;
   readonly factDiffs?: FactDiffs;
-  readonly nodeDiffs: RouteNodeDiff[];
+  readonly nodeDiffs: ReadonlyArray<RouteNodeDiff>;
   readonly memberOrderChanged: boolean;
   readonly tagDiffs?: TagDiffs;
 }

@@ -1,6 +1,5 @@
 import { PlannerContext } from '../context/planner-context';
 import { PlannerCommand } from './planner-command';
-import { List } from 'immutable';
 import { PlanLeg } from '../plan/plan-leg';
 
 export class PlannerCommandRemoveViaPoint implements PlannerCommand {
@@ -10,7 +9,7 @@ export class PlannerCommandRemoveViaPoint implements PlannerCommand {
     private readonly newLeg: PlanLeg
   ) {}
 
-  public do(context: PlannerContext) {
+  do(context: PlannerContext) {
     context.debug('PlannerCommandRemoveViaPoint');
 
     context.markerLayer.removeFlag(this.oldLeg1.viaFlag);
@@ -28,7 +27,7 @@ export class PlannerCommandRemoveViaPoint implements PlannerCommand {
     const newLegs = context
       .plan()
       .legs.map((leg) => (leg.featureId === this.oldLeg1.featureId ? this.newLeg : leg))
-      .filterNot((leg) => leg.featureId === this.oldLeg2.featureId);
+      .filter((leg) => leg.featureId !== this.oldLeg2.featureId);
     const newPlan = context.plan().withLegs(newLegs);
     context.updatePlan(newPlan);
   }
@@ -49,9 +48,9 @@ export class PlannerCommandRemoveViaPoint implements PlannerCommand {
 
     const newLegs = context.plan().legs.flatMap((leg) => {
       if (leg.featureId === this.newLeg.featureId) {
-        return List([this.oldLeg1, this.oldLeg2]);
+        return [this.oldLeg1, this.oldLeg2];
       }
-      return List([leg]);
+      return [leg];
     });
     const newPlan = context.plan().withLegs(newLegs);
     context.updatePlan(newPlan);

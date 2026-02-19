@@ -57,5 +57,5 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
   imports: [LinkNodeComponent, ActionButtonNodeComponent],
 })
 export class NetworkFactChecksComponent {
-  readonly checks = input.required<Check[]>();
+  readonly checks = input.required<ReadonlyArray<Check>>();
 }

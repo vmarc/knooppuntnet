@@ -28,7 +28,7 @@ export class MonitorRouteForm {
   mode: MonitorAction;
   groupName: string;
   initialProperties: MonitorRouteProperties;
-  routeGroups: MonitorRouteGroup[];
+  routeGroups: ReadonlyArray<MonitorRouteGroup>;
   // TODO redesign -  readonly update = output<MonitorRouteUpdate>();
 
   private readonly monitorService = inject(MonitorService);
@@ -104,7 +104,7 @@ export class MonitorRouteForm {
     mode: MonitorAction,
     groupName: string,
     initialProperties: MonitorRouteProperties,
-    routeGroups: MonitorRouteGroup[]
+    routeGroups: ReadonlyArray<MonitorRouteGroup>
   ): void {
     this.mode = mode;
     this.groupName = groupName;

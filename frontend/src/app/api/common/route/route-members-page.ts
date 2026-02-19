@@ -5,5 +5,5 @@ import { StructureRow } from './structure-row';
 
 export interface RouteMembersPage {
   readonly routeInfo: RouteInfo;
-  readonly structureRows: StructureRow[];
+  readonly structureRows: ReadonlyArray<StructureRow>;
 }

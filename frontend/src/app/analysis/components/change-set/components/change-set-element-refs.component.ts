@@ -36,7 +36,10 @@ export class ChangesSetElementRefsComponent implements OnInit {
     return removed.concat(added).concat(updated);
   }
 
-  private buildElements(action: string, refs: ChangeSetElementRef[]): ChangeSetElement[] {
+  private buildElements(
+    action: string,
+    refs: ReadonlyArray<ChangeSetElementRef>
+  ): ChangeSetElement[] {
     return refs.map((ref) => this.buildElement(action, ref));
   }
 

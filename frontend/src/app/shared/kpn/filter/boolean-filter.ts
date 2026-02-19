@@ -25,7 +25,7 @@ export class BooleanFilter<T> extends Filter<T> {
     return !this.getter(element);
   }
 
-  filterOptions(allFilters: Filters<T>, elements: T[]): FilterOptionGroup {
+  filterOptions(allFilters: Filters<T>, elements: ReadonlyArray<T>): FilterOptionGroup {
     const filteredElements = allFilters.filterExcept(elements, this);
     const yesElements = filteredElements.filter((e) => this.getter(e));
     const noElements = filteredElements.filter((e) => !this.getter(e));

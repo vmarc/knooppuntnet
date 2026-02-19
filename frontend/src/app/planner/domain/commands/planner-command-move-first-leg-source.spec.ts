@@ -1,4 +1,3 @@
-import { List } from 'immutable';
 import { describe } from 'vitest';
 import { it } from 'vitest';
 import { expect } from 'vitest';
@@ -23,7 +22,7 @@ describe('PlannerCommandMoveFirstLegSource', () => {
     const oldSourceFlag = PlanFlag.start('oldStartFlag', [1, 1]);
     const newSourceFlag = PlanFlag.start('newStartFlag', [3, 3]);
 
-    const newPlan = new Plan(setup.node1, oldSourceFlag, List([oldLeg]));
+    const newPlan = new Plan(setup.node1, oldSourceFlag, [oldLeg]);
     setup.context.updatePlan(newPlan);
 
     const command = new PlannerCommandMoveFirstLegSource(
@@ -37,8 +36,8 @@ describe('PlannerCommandMoveFirstLegSource', () => {
 
     setup.context.execute(command);
 
-    expect(plan().legs.size).toEqual(1);
-    expect(plan().legs.get(0).featureId).toEqual('32');
+    expect(plan().legs.length).toEqual(1);
+    expect(plan().legs[0].featureId).toEqual('32');
     expect(plan().sourceNode.nodeId).toEqual('1003');
     expectStartFlag(plan().sourceFlag, 'newStartFlag', [3, 3]);
 
@@ -50,8 +49,8 @@ describe('PlannerCommandMoveFirstLegSource', () => {
 
     command.undo(setup.context);
 
-    expect(plan().legs.size).toEqual(1);
-    expect(plan().legs.get(0).featureId).toEqual('12');
+    expect(plan().legs.length).toEqual(1);
+    expect(plan().legs[0].featureId).toEqual('12');
     expect(plan().sourceNode.nodeId).toEqual('1001');
     expectStartFlag(plan().sourceFlag, 'oldStartFlag', [1, 1]);
 
@@ -63,8 +62,8 @@ describe('PlannerCommandMoveFirstLegSource', () => {
 
     command.do(setup.context);
 
-    expect(plan().legs.size).toEqual(1);
-    expect(plan().legs.get(0).featureId).toEqual('32');
+    expect(plan().legs.length).toEqual(1);
+    expect(plan().legs[0].featureId).toEqual('32');
     expect(plan().sourceNode.nodeId).toEqual('1003');
     expectStartFlag(plan().sourceFlag, 'newStartFlag', [3, 3]);
 
@@ -95,7 +94,7 @@ describe('PlannerCommandMoveFirstLegSource', () => {
     const oldSourceFlag = PlanFlag.start('oldStartFlag', [1, 1]);
     const newSourceFlag = PlanFlag.start('newStartFlag', [3, 3]);
 
-    const newPlan = new Plan(setup.node1, oldSourceFlag, List([oldLeg]));
+    const newPlan = new Plan(setup.node1, oldSourceFlag, [oldLeg]);
     setup.context.updatePlan(newPlan);
 
     const command = new PlannerCommandMoveFirstLegSource(
@@ -109,8 +108,8 @@ describe('PlannerCommandMoveFirstLegSource', () => {
 
     setup.context.execute(command);
 
-    expect(plan().legs.size).toEqual(1);
-    expect(plan().legs.get(0).featureId).toEqual('32');
+    expect(plan().legs.length).toEqual(1);
+    expect(plan().legs[0].featureId).toEqual('32');
     expect(plan().sourceNode.nodeId).toEqual('1003');
     expectStartFlag(plan().sourceFlag, 'newStartFlag', [3, 3]);
 
@@ -122,8 +121,8 @@ describe('PlannerCommandMoveFirstLegSource', () => {
 
     command.undo(setup.context);
 
-    expect(plan().legs.size).toEqual(1);
-    expect(plan().legs.get(0).featureId).toEqual('12');
+    expect(plan().legs.length).toEqual(1);
+    expect(plan().legs[0].featureId).toEqual('12');
     expect(plan().sourceNode.nodeId).toEqual('1001');
     expectStartFlag(plan().sourceFlag, 'oldStartFlag', [1, 1]);
 
@@ -136,8 +135,8 @@ describe('PlannerCommandMoveFirstLegSource', () => {
 
     command.do(setup.context);
 
-    expect(plan().legs.size).toEqual(1);
-    expect(plan().legs.get(0).featureId).toEqual('32');
+    expect(plan().legs.length).toEqual(1);
+    expect(plan().legs[0].featureId).toEqual('32');
     expect(plan().sourceNode.nodeId).toEqual('1003');
     expectStartFlag(plan().sourceFlag, 'newStartFlag', [3, 3]);
 

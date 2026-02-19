@@ -17,8 +17,8 @@ export class MoveNodeViaPointToNode {
   move(dragFlag: PlannerDragFlag, viaNode: PlanNode, legIndex1: number): void {
     const legs = this.context.plan().legs;
 
-    const oldLeg1 = legs.get(legIndex1);
-    const oldLeg2 = legs.get(legIndex1 + 1);
+    const oldLeg1 = legs[legIndex1];
+    const oldLeg2 = legs[legIndex1 + 1];
 
     const newLeg1$ = this.buildNewLeg1(oldLeg1.sourceNode, viaNode);
     const newLeg2$ = this.buildNewLeg2(viaNode, oldLeg2.sinkNode, oldLeg2.sinkFlag);

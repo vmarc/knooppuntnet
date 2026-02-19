@@ -9,10 +9,10 @@ export interface Poi {
   readonly elementId: number;
   readonly latitude: string;
   readonly longitude: string;
-  readonly layers: string[];
-  readonly tags: Tag[];
+  readonly layers: ReadonlyArray<string>;
+  readonly tags: ReadonlyArray<Tag>;
   readonly location: Location;
-  readonly tiles: string[];
+  readonly tiles: ReadonlyArray<string>;
   readonly description?: string;
   readonly address?: string;
   readonly link: boolean;

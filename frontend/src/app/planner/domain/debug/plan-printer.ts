@@ -15,7 +15,7 @@ export class PlanPrinter {
     plan.legs.forEach((leg) => {
       this.out.println(`  leg featureId=${leg.featureId}, key=${leg.key}`);
       this.out.println(`    sink=${this.sink(leg.sink)}`);
-      if (leg.viaFlag !== null) {
+      if (leg.viaFlag) {
         this.out.println(`    viaFlag=${this.flag(leg.viaFlag)}`);
       } else {
         this.out.println(`    viaFlag=none`);
@@ -58,7 +58,7 @@ export class PlanPrinter {
     return 'none';
   }
 
-  private trackPathKeys(keys: TrackPathKey[]): string {
+  private trackPathKeys(keys: ReadonlyArray<TrackPathKey>): string {
     return keys.map((key) => this.trackPathKey(key)).join('|');
   }
 

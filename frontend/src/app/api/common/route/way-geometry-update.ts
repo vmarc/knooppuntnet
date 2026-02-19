@@ -4,7 +4,7 @@ import { WayLine } from './way-line';
 
 export interface WayGeometryUpdate {
   readonly wayId: number;
-  readonly common?: WayLine[];
-  readonly added?: WayLine[];
-  readonly removed?: WayLine[];
+  readonly common?: ReadonlyArray<WayLine>;
+  readonly added?: ReadonlyArray<WayLine>;
+  readonly removed?: ReadonlyArray<WayLine>;
 }

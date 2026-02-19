@@ -1,10 +1,9 @@
 import { Tag } from '@api/custom/tag';
 import { RouteScopes } from '@app/shared/kpn/common/route-scopes';
 import { RouteTypes } from '@app/shared/kpn/common/route-types';
-import { List } from 'immutable';
 
 export class InterpretedTags {
-  static nodeTags(tags: Tag[]): InterpretedTags {
+  static nodeTags(tags: ReadonlyArray<Tag>): InterpretedTags {
     const prefixes: string[] = [];
     RouteScopes.all.forEach((routeScope) => {
       RouteTypes.all.forEach((routeType) => {
@@ -29,17 +28,17 @@ export class InterpretedTags {
     return new InterpretedTags(standardTagKeys, tags);
   }
 
-  static routeTags(tags: Tag[]): InterpretedTags {
+  static routeTags(tags: ReadonlyArray<Tag>): InterpretedTags {
     const standardTagKeys = ['ref', 'note', 'network', 'type', 'route', 'network:type'];
     return new InterpretedTags(standardTagKeys, tags);
   }
 
-  static networkTags(tags: Tag[]): InterpretedTags {
+  static networkTags(tags: ReadonlyArray<Tag>): InterpretedTags {
     const standardTagKeys = ['network', 'type', 'name', 'network:type'];
     return new InterpretedTags(standardTagKeys, tags);
   }
 
-  static locationTags(tags: Tag[]): InterpretedTags {
+  static locationTags(tags: ReadonlyArray<Tag>): InterpretedTags {
     const standardTagKeys = [
       'admin_level',
       'boundary',
@@ -66,21 +65,21 @@ export class InterpretedTags {
     return new InterpretedTags(standardTagKeys, tags);
   }
 
-  static all(tags: Tag[]): InterpretedTags {
+  static all(tags: ReadonlyArray<Tag>): InterpretedTags {
     const standardTagKeys = [];
     return new InterpretedTags(standardTagKeys, tags);
   }
 
   private constructor(
-    private standardTagKeys: string[],
-    private tags: Tag[]
+    private standardTagKeys: ReadonlyArray<string>,
+    private tags: ReadonlyArray<Tag>
   ) {}
 
   isEmpty(): boolean {
     return this.tags.length === 0;
   }
 
-  standardTags(): Tag[] {
+  standardTags(): ReadonlyArray<Tag> {
     const tagArray: Array<Tag> = [];
     this.standardTagKeys.forEach((key) => {
       this.tags.filter((t) => t.key === key).forEach((x) => tagArray.push(x));
@@ -88,11 +87,9 @@ export class InterpretedTags {
     return tagArray;
   }
 
-  extraTags(): Tag[] {
+  extraTags(): ReadonlyArray<Tag> {
     const tags = this.tags.filter((tag) => !this.standardTagKeys.includes(tag.key));
-    return List(tags)
-      .sortBy((tag) => tag.key)
-      .toArray();
+    return tags.sort((a, b) => a.key.localeCompare(b.key));
   }
 
   hasStandardTags(): boolean {

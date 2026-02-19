@@ -42,7 +42,7 @@ import { NzOptionComponent } from 'ng-zorro-antd/select';
   ],
 })
 export class MonitorRouteGroupComponent {
-  readonly routeGroups = input.required<MonitorRouteGroup[]>();
+  readonly routeGroups = input.required<ReadonlyArray<MonitorRouteGroup>>();
 
   private readonly monitorForm = inject(MonitorRouteForm);
   protected readonly group = this.monitorForm.group;

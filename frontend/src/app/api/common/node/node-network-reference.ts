@@ -13,6 +13,6 @@ export interface NodeNetworkReference {
   readonly nodeConnection: boolean;
   readonly nodeRoleConnection: boolean;
   readonly nodeIntegrityCheck?: NodeNetworkIntegrityCheck;
-  readonly facts: Fact[];
-  readonly routes: NodeNetworkRouteReference[];
+  readonly facts: ReadonlyArray<Fact>;
+  readonly routes: ReadonlyArray<NodeNetworkRouteReference>;
 }

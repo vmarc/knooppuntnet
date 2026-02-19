@@ -72,7 +72,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 })
 export class RouteSegmentListItemComponent {
   readonly segment = input.required<SegmentInfo>();
-  readonly relations = input.required<MonitorRouteRelationInfo[]>();
+  readonly relations = input.required<ReadonlyArray<MonitorRouteRelationInfo>>();
   readonly relationPopup = output<SegmentRelationPopupEvent>();
   readonly segmentPopup = output<SegmentPopupEvent>();
 

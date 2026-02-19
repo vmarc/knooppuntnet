@@ -6,7 +6,6 @@ import { Bounds } from '@api/common/bounds';
 import { TagDiffs } from '@api/common/diff/tag-diffs';
 import { Tag } from '@api/custom/tag';
 import { ApiResponse } from '@api/custom/api-response';
-import { List } from 'immutable';
 import { Map } from 'immutable';
 import { boundingExtent } from 'ol/extent';
 import { Extent } from 'ol/extent';
@@ -39,8 +38,8 @@ export class Util {
     }
   }
 
-  public static sum(list: List<number>): number {
-    if (list.isEmpty()) {
+  public static sum(list: ReadonlyArray<number>): number {
+    if (list.length === 0) {
       return 0;
     }
     return list.reduce((prev, current) => prev + current);
@@ -84,7 +83,7 @@ export class Util {
     return JSON.stringify(object, null, 2);
   }
 
-  static tagWithKey(tags: Tag[], key: string): string {
+  static tagWithKey(tags: ReadonlyArray<Tag>, key: string): string {
     const values = tags.filter((t) => t.key === key).map((x) => x.value);
     if (values.length > 0) {
       return values[0];

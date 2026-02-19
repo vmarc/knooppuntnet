@@ -1,17 +1,16 @@
 import { PlanRoute } from '@api/common/planner/plan-route';
 import { PlanNode } from '@api/common/planner/plan-node';
 import { LegEnd } from '@api/common/planner/leg-end';
-import { List } from 'immutable';
 
 export class PlanLegData {
   constructor(
     readonly source: LegEnd,
     readonly sink: LegEnd,
-    readonly routes: List<PlanRoute>
+    readonly routes: ReadonlyArray<PlanRoute>
   ) {}
 
   get sinkNode(): PlanNode {
-    const lastRoute = this.routes.last(null);
+    const lastRoute = this.routes.at(-1);
     if (lastRoute) {
       return lastRoute.sinkNode;
     }

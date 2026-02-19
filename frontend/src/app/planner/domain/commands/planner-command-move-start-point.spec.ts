@@ -1,4 +1,3 @@
-import { List } from 'immutable';
 import { describe } from 'vitest';
 import { it } from 'vitest';
 import { expect } from 'vitest';
@@ -15,7 +14,7 @@ describe('PlannerCommandMoveStartPoint', () => {
 
     setup.markerLayer.addFlag(sourceFlag);
 
-    const plan = new Plan(setup.node1, sourceFlag, List());
+    const plan = new Plan(setup.node1, sourceFlag, []);
     setup.context.updatePlan(plan);
 
     const command = new PlannerCommandMoveStartPoint(setup.node1, setup.node2);

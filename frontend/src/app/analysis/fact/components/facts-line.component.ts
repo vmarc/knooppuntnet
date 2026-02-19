@@ -38,7 +38,7 @@ export interface LineFact {
   imports: [FactTermComponent],
 })
 export class FactsLineComponent {
-  readonly facts = input.required<Fact[]>();
+  readonly facts = input.required<ReadonlyArray<Fact>>();
 
   readonly lineFacts = computed(() => {
     return this.facts().map((fact) => {

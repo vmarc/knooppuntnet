@@ -68,7 +68,7 @@ export class ChangeNetworkAnalysisSummaryComponent implements OnInit {
     return creates.concat(updates).concat(deletes);
   }
 
-  private toNetworkActions(action: string, networks: ChangeSetNetwork[]) {
+  private toNetworkActions(action: string, networks: ReadonlyArray<ChangeSetNetwork>) {
     return networks.map((nc) => new ChangeSetNetworkAction(this.changeSet().key, action, nc));
   }
 }

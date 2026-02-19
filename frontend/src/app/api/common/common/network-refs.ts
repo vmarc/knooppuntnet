@@ -9,5 +9,5 @@ export interface NetworkRefs {
   readonly routeType: RouteType;
   readonly networkRef?: Ref;
   readonly refType: string;
-  readonly refs: Ref[];
+  readonly refs: ReadonlyArray<Ref>;
 }

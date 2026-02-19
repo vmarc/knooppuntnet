@@ -20,8 +20,8 @@ export interface RouteChangeInfo {
   readonly before?: MetaData;
   readonly after?: MetaData;
   readonly diffs?: RouteDiff;
-  readonly nodes: RouteNode[];
-  readonly nodeChanges: RouteNodeChange[];
+  readonly nodes: ReadonlyArray<RouteNode>;
+  readonly nodeChanges: ReadonlyArray<RouteNodeChange>;
   readonly changeSetInfo?: ChangeSetInfo;
   readonly wayDiffs?: WayDiffsInfo;
   readonly geometryDiff?: GeometryDiff;

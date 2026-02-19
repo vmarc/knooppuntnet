@@ -28,7 +28,7 @@ import { ListComponent } from '@app/shared/components/list/list.component';
 export class MonitorGroupRouteListComponent {
   readonly admin = input.required<boolean>();
   readonly groupName = input.required<string>();
-  readonly routes = input.required<MonitorRouteDetail[]>();
+  readonly routes = input.required<ReadonlyArray<MonitorRouteDetail>>();
   readonly selectionChange = output<MonitorRouteDetail>();
 
   selectRoute(route: MonitorRouteDetail) {

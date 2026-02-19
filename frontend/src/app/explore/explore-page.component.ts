@@ -118,7 +118,7 @@ export class ExplorePageComponent implements OnInit {
   private readonly apiService = inject(ApiService);
   private readonly mapService = inject(OldMapService);
   private readonly state = inject(State);
-  readonly geocoderLocations = signal<GeocoderLocation[]>([]);
+  readonly geocoderLocations = signal<ReadonlyArray<GeocoderLocation>>([]);
   readonly query = new FormControl<string>('');
 
   readonly form = new FormGroup({

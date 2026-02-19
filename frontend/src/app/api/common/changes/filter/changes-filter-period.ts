@@ -6,5 +6,5 @@ export interface ChangesFilterPeriod {
   readonly impactedCount: number;
   readonly current: boolean;
   readonly selected: boolean;
-  readonly periods: ChangesFilterPeriod[];
+  readonly periods: ReadonlyArray<ChangesFilterPeriod>;
 }

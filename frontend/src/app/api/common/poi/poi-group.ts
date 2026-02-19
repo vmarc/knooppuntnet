@@ -4,5 +4,5 @@ import { PoiCount } from './poi-count';
 
 export interface PoiGroup {
   readonly name: string;
-  readonly poiCounts: PoiCount[];
+  readonly poiCounts: ReadonlyArray<PoiCount>;
 }

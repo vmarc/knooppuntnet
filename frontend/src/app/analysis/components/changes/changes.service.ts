@@ -9,7 +9,7 @@ export interface ChangesService {
   readonly pageSize: Signal<number>;
   readonly pageIndex: Signal<number>;
   readonly changeCount: Signal<number>;
-  readonly filterOptions: Signal<ChangesFilterOption[]>;
+  readonly filterOptions: Signal<ReadonlyArray<ChangesFilterOption>>;
 
   updatePageSize(pageSize: number): void;
 

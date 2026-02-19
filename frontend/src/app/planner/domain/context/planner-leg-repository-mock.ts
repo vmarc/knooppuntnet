@@ -1,7 +1,6 @@
 import { LegEnd } from '@api/common/planner/leg-end';
 import { RouteType } from '@api/common/route-type';
 import { Map } from 'immutable';
-import { List } from 'immutable';
 import { Observable, of } from 'rxjs';
 import { PlanUtil } from '../plan/plan-util';
 import { PlanLegData } from './plan-leg-data';
@@ -19,7 +18,7 @@ export class PlannerLegRepositoryMock implements PlannerLegRepository {
         message += ', mock data does not contain any legs.';
       } else {
         message += ', mock data contain following legs: ';
-        message += List(this.planLegDetails.keys()).join(', ');
+        message += this.planLegDetails.keySeq().join(', ');
       }
       throw new Error(message);
     }

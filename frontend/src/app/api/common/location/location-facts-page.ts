@@ -5,5 +5,5 @@ import { LocationSummary } from './location-summary';
 
 export interface LocationFactsPage {
   readonly summary: LocationSummary;
-  readonly locationFacts: LocationFact[];
+  readonly locationFacts: ReadonlyArray<LocationFact>;
 }

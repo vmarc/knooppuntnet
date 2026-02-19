@@ -26,12 +26,8 @@
     // TODO re-enable libCheck?
     "skipLibCheck": true,
     "paths": {
-      "@api/*": [
-        "src/app/api/*"
-      ],
-      "@app/*": [
-        "src/app/*"
-      ]
+      "@api/*": ["src/app/api/*"],
+      "@app/*": ["src/app/*"]
     }
   },
   "angularCompilerOptions": {

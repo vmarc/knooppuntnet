@@ -15,13 +15,13 @@ export class RemoveViaPoint {
   remove(nodeDrag: PlannerDragFlag): void {
     const legs = this.context.plan().legs;
     const nextLegIndex = legs.findIndex((leg) => {
-      if (nodeDrag.oldNode !== null) {
+      if (nodeDrag.oldNode) {
         return leg.sourceNode.featureId === nodeDrag.oldNode.featureId;
       }
       return nodeDrag.planFlag.featureId === leg.viaFlag?.featureId;
     });
-    const oldLeg1 = legs.get(nextLegIndex - 1);
-    const oldLeg2 = legs.get(nextLegIndex);
+    const oldLeg1 = legs[nextLegIndex - 1];
+    const oldLeg2 = legs[nextLegIndex];
 
     const sourceNode = oldLeg1.sourceNode;
     const sinkNode = oldLeg2.sinkNode;

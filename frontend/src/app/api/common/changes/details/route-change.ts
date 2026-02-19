@@ -14,12 +14,12 @@ export interface RouteChange {
   readonly changeType: ChangeType;
   readonly name: string;
   readonly locationAnalysis: RouteLocationAnalysis;
-  readonly addedToNetwork: Ref[];
-  readonly removedFromNetwork: Ref[];
+  readonly addedToNetwork: ReadonlyArray<Ref>;
+  readonly removedFromNetwork: ReadonlyArray<Ref>;
   readonly before?: RouteData;
   readonly after?: RouteData;
-  readonly nodeChanges: RouteNodeChange[];
-  readonly facts: Fact[];
+  readonly nodeChanges: ReadonlyArray<RouteNodeChange>;
+  readonly facts: ReadonlyArray<Fact>;
   readonly happy: boolean;
   readonly investigate: boolean;
   readonly impact: boolean;

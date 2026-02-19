@@ -18,9 +18,9 @@ export interface MonitorRouteChangeDetail {
   readonly bounds: Bounds;
   readonly referenceJson: string;
   readonly routeSegmentCount: number;
-  readonly routeSegments: MonitorRouteSegment[];
-  readonly newDeviations: MonitorRouteDeviation[];
-  readonly resolvedDeviations: MonitorRouteDeviation[];
+  readonly routeSegments: ReadonlyArray<MonitorRouteSegment>;
+  readonly newDeviations: ReadonlyArray<MonitorRouteDeviation>;
+  readonly resolvedDeviations: ReadonlyArray<MonitorRouteDeviation>;
   readonly happy: boolean;
   readonly investigate: boolean;
 }

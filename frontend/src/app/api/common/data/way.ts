@@ -9,7 +9,7 @@ export interface Way {
   readonly version: number;
   readonly timestamp: Timestamp;
   readonly changeSetId: number;
-  readonly tags: Tag[];
-  readonly nodes: Node[];
+  readonly tags: ReadonlyArray<Tag>;
+  readonly nodes: ReadonlyArray<Node>;
   readonly length: number;
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { List } from 'immutable';
 import { finalize } from 'rxjs';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -13,7 +12,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class SpinnerService {
-  private activeActions: List<string> = List();
+  private activeActions: string[] = [];
   private readonly _spinnerState$ = new BehaviorSubject<boolean>(false);
   readonly showSpinner = toSignal(this._spinnerState$.pipe(debounceTime(300)));
 
@@ -26,7 +25,7 @@ export class SpinnerService {
   }
 
   start(action: string): void {
-    this.activeActions = this.activeActions.push(action);
+    this.activeActions.push(action);
     if (this._spinnerState$.value !== true) {
       this._spinnerState$.next(true);
     }
@@ -34,7 +33,7 @@ export class SpinnerService {
 
   end(action: string): void {
     this.activeActions = this.activeActions.filter((a) => a !== action);
-    if (this.activeActions.isEmpty() && this._spinnerState$.value !== false) {
+    if (this.activeActions.length === 0 && this._spinnerState$.value !== false) {
       this._spinnerState$.next(false);
     }
   }

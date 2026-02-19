@@ -3,8 +3,8 @@
 import { MonitorRouteUpdateStep } from './monitor-route-update-step';
 
 export interface MonitorRouteUpdateStatus {
-  readonly steps: MonitorRouteUpdateStep[];
+  readonly steps: ReadonlyArray<MonitorRouteUpdateStep>;
   readonly done: boolean;
-  readonly errors: string[];
+  readonly errors: ReadonlyArray<string>;
   readonly exception?: string;
 }

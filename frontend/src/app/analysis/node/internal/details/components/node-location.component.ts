@@ -22,7 +22,7 @@ import { RouteType } from '@api/common/route-type';
 })
 export class NodeLocationComponent {
   readonly routeType = input.required<RouteType>();
-  readonly locations = input.required<LocationInfo[]>();
+  readonly locations = input.required<ReadonlyArray<LocationInfo>>();
 
   hasLocation() {
     return this.locations() && this.locations().length > 0;

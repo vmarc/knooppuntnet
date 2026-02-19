@@ -59,7 +59,7 @@ export class LocationFactsComponent implements AfterViewInit {
   private readonly routerService = inject(RouterService);
   private readonly router = inject(Router);
 
-  readonly locationFacts = input.required<LocationFact[]>();
+  readonly locationFacts = input.required<ReadonlyArray<LocationFact>>();
   readonly panels = signal<LocationFactPanel[]>([]);
 
   ngAfterViewInit(): void {

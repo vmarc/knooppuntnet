@@ -6,6 +6,6 @@ import { RouteInfo } from './route-info';
 
 export interface RouteChangesPage {
   readonly routeInfo: RouteInfo;
-  readonly filterOptions: ChangesFilterOption[];
-  readonly changes: RouteChangeInfo[];
+  readonly filterOptions: ReadonlyArray<ChangesFilterOption>;
+  readonly changes: ReadonlyArray<RouteChangeInfo>;
 }

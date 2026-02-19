@@ -1,7 +1,6 @@
 import { signal } from '@angular/core';
 import { PlanNode } from '@api/common/planner/plan-node';
 import { PlanRoute } from '@api/common/planner/plan-route';
-import { List } from 'immutable';
 import { FeatureId } from '../features/feature-id';
 import { Plan } from '../plan/plan';
 import { PlanFlag } from '../plan/plan-flag';
@@ -45,7 +44,7 @@ export class PlannerTestSetup {
 
   createPlanWithStartPointOnly(): Plan {
     const sourceFlag = PlanFlag.start('sourceFlag', this.node1.coordinate);
-    const plan = new Plan(this.node1, sourceFlag, List());
+    const plan = new Plan(this.node1, sourceFlag, []);
     this.context.updatePlan(plan);
     this.markerLayer.addFlag(sourceFlag);
     return plan;
@@ -61,7 +60,7 @@ export class PlannerTestSetup {
       sinkFlag,
       null
     );
-    const plan = new Plan(this.node1, sourceFlag, List([leg]));
+    const plan = new Plan(this.node1, sourceFlag, [leg]);
     this.context.updatePlan(plan);
 
     this.markerLayer.addFlag(sourceFlag);
@@ -91,7 +90,7 @@ export class PlannerTestSetup {
       null
     );
 
-    const plan = new Plan(this.node1, sourceFlag, List([leg1, leg2]));
+    const plan = new Plan(this.node1, sourceFlag, [leg1, leg2]);
     this.context.updatePlan(plan);
 
     this.markerLayer.addFlag(sourceFlag);
@@ -131,7 +130,7 @@ export class PlannerTestSetup {
       null
     );
 
-    const plan = new Plan(this.node1, sourceFlag, List([leg1, leg2, leg3]));
+    const plan = new Plan(this.node1, sourceFlag, [leg1, leg2, leg3]);
     this.context.updatePlan(plan);
 
     this.markerLayer.addFlag(sourceFlag);
@@ -154,7 +153,7 @@ export class PlannerTestSetup {
       meters: 0,
       segments: [],
     };
-    const planLegData = new PlanLegData(source, sink, List([planRoute]));
+    const planLegData = new PlanLegData(source, sink, [planRoute]);
     this.legRepository.add(planLegData);
     return planLegData;
   }

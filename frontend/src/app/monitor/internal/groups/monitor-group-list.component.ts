@@ -82,7 +82,7 @@ export class MonitorGroupListComponent {
   private readonly state = inject(State);
 
   readonly admin = input.required<boolean>();
-  readonly groups = input.required<MonitorGroupsPageGroup[]>();
+  readonly groups = input.required<ReadonlyArray<MonitorGroupsPageGroup>>();
   readonly groupSelectChange = output<MonitorGroupsPageGroup>();
   readonly compact = computed(() => this.state.splitState.left() < COMPACT_WIDTH_THRESHOLD);
 

@@ -30,8 +30,8 @@ export class MapState {
 
   private readonly _mode = signal<MapMode>('standard');
 
-  private readonly _routeIds = signal<number[]>([]);
-  private readonly _nodeIds = signal<number[]>([]);
+  private readonly _routeIds = signal<ReadonlyArray<number>>([]);
+  private readonly _nodeIds = signal<ReadonlyArray<number>>([]);
 
   private readonly _focusElements = signal<FocusElements | undefined>(undefined);
   private readonly _segmentMap = signal<SegmentMap | undefined>(undefined);
@@ -43,9 +43,9 @@ export class MapState {
 
   // monitor map state
   private readonly _monitorMode = signal<MonitorMapMode>('route');
-  private readonly _monitorRouteIds = signal<string[]>([]);
-  private readonly _monitorRelationIds = signal<number[]>([]);
-  private readonly _monitorDeviationIds = signal<string[]>([]);
+  private readonly _monitorRouteIds = signal<ReadonlyArray<string>>([]);
+  private readonly _monitorRelationIds = signal<ReadonlyArray<number>>([]);
+  private readonly _monitorDeviationIds = signal<ReadonlyArray<string>>([]);
   private readonly _monitorReferenceEnabled = signal<boolean>(true);
   private readonly _monitorMatchEnabled = signal<boolean>(true);
   private readonly _monitorDeviationEnabled = signal<boolean>(true);
@@ -195,15 +195,15 @@ export class MapState {
     this._monitorMode.set(value);
   }
 
-  updateMonitorRouteIds(value: string[]): void {
+  updateMonitorRouteIds(value: ReadonlyArray<string>): void {
     this._monitorRouteIds.set(value);
   }
 
-  updateMonitorRelationIds(value: number[]): void {
+  updateMonitorRelationIds(value: ReadonlyArray<number>): void {
     this._monitorRelationIds.set(value);
   }
 
-  updateMonitorDeviationIds(value: string[]): void {
+  updateMonitorDeviationIds(value: ReadonlyArray<string>): void {
     this._monitorDeviationIds.set(value);
   }
 
@@ -223,7 +223,7 @@ export class MapState {
     this._monitorShowSegments.set(value);
   }
 
-  updateNodeRoutes(routeIds: number[], nodeIds: number[]): void {
+  updateNodeRoutes(routeIds: ReadonlyArray<number>, nodeIds: ReadonlyArray<number>): void {
     this._routeIds.set(routeIds);
     this._nodeIds.set(nodeIds);
   }

@@ -7,5 +7,5 @@ export interface SegmentInfo {
   readonly id: number;
   readonly meters: number;
   readonly bounds?: Bounds;
-  readonly routeInfos: SegmentRouteInfo[];
+  readonly routeInfos: ReadonlyArray<SegmentRouteInfo>;
 }

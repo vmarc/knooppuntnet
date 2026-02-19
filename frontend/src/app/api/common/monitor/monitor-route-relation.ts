@@ -15,5 +15,5 @@ export interface MonitorRouteRelation {
   readonly deviationDistance: number;
   readonly deviationCount: number;
   readonly happy: boolean;
-  readonly relations: MonitorRouteRelation[];
+  readonly relations: ReadonlyArray<MonitorRouteRelation>;
 }

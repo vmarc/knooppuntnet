@@ -6,5 +6,5 @@ import { MonitorRouteSummary } from './monitor-route-summary';
 export interface MonitorRouteDeviationsPage {
   readonly summary: MonitorRouteSummary;
   readonly deviationDistance: number;
-  readonly deviations: MonitorRouteDeviationInfo[];
+  readonly deviations: ReadonlyArray<MonitorRouteDeviationInfo>;
 }

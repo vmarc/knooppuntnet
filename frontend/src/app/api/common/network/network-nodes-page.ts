@@ -9,5 +9,5 @@ export interface NetworkNodesPage {
   readonly timeInfo: TimeInfo;
   readonly surveyDateInfo: SurveyDateInfo;
   readonly summary: NetworkSummary;
-  readonly nodes: NetworkNodeRow[];
+  readonly nodes: ReadonlyArray<NetworkNodeRow>;
 }

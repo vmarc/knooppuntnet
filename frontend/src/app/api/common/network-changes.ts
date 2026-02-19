@@ -3,7 +3,7 @@
 import { ChangeSetNetwork } from './change-set-network';
 
 export interface NetworkChanges {
-  readonly creates: ChangeSetNetwork[];
-  readonly updates: ChangeSetNetwork[];
-  readonly deletes: ChangeSetNetwork[];
+  readonly creates: ReadonlyArray<ChangeSetNetwork>;
+  readonly updates: ReadonlyArray<ChangeSetNetwork>;
+  readonly deletes: ReadonlyArray<ChangeSetNetwork>;
 }

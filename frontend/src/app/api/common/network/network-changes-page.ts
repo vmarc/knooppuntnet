@@ -6,7 +6,7 @@ import { NetworkSummary } from './network-summary';
 
 export interface NetworkChangesPage {
   readonly network: NetworkSummary;
-  readonly filterOptions: ChangesFilterOption[];
-  readonly changes: NetworkChangeInfo[];
+  readonly filterOptions: ReadonlyArray<ChangesFilterOption>;
+  readonly changes: ReadonlyArray<NetworkChangeInfo>;
   readonly totalCount: number;
 }

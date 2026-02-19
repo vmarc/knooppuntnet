@@ -8,6 +8,6 @@ export interface RawWay {
   readonly version: number;
   readonly timestamp: Timestamp;
   readonly changeSetId: number;
-  readonly nodeIds: number[];
-  readonly tags: Tag[];
+  readonly nodeIds: ReadonlyArray<number>;
+  readonly tags: ReadonlyArray<Tag>;
 }

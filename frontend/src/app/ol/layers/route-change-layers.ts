@@ -1,7 +1,6 @@
 import { GeometryDiff } from '@api/common/route/geometry-diff';
 import { WayGeometry } from '@api/common/route/way-geometry';
 import { CoordinateCodec } from '@app/ol/layers/coordinate-codec';
-import { List } from 'immutable';
 import { Color } from 'ol/color';
 import Feature from 'ol/Feature';
 import LineString from 'ol/geom/LineString';
@@ -14,7 +13,7 @@ import { OldOldLayers } from './old-old-layers';
 import { OldOldMapLayer } from './old-old-map-layer';
 
 export class RouteChangeLayers {
-  build(geometryDiff: GeometryDiff): List<OldOldMapLayer> {
+  build(geometryDiff: GeometryDiff): OldOldMapLayer[] {
     const unchanged = this.unchangedLayer(
       'map.layer.unchanged',
       $localize`:@@map.layer.unchanged:Unchanged`,
@@ -39,7 +38,7 @@ export class RouteChangeLayers {
       [255, 0, 0]
     );
 
-    return List([unchanged, added, deleted]).filter((layer) => layer !== null);
+    return [unchanged, added, deleted].filter((layer) => layer !== null);
   }
 
   private unchangedLayer(

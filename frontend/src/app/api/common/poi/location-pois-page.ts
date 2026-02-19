@@ -4,5 +4,5 @@ import { LocationPoiInfo } from './location-poi-info';
 
 export interface LocationPoisPage {
   readonly poiCount: number;
-  readonly pois: LocationPoiInfo[];
+  readonly pois: ReadonlyArray<LocationPoiInfo>;
 }

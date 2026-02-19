@@ -9,7 +9,7 @@ export interface RouteStructureRelation {
   readonly subRelationIndex?: number;
   readonly survey?: Day;
   readonly symbol?: string;
-  readonly segments: BaseRouteSegment[];
+  readonly segments: ReadonlyArray<BaseRouteSegment>;
   readonly totalDistance: number;
   readonly gaps?: string;
   readonly happy: boolean;

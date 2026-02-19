@@ -3,6 +3,6 @@
 import { NameValue } from './name-value';
 
 export interface BarChart {
-  readonly xAxisTicks: number[];
-  readonly data: NameValue[];
+  readonly xAxisTicks: ReadonlyArray<number>;
+  readonly data: ReadonlyArray<NameValue>;
 }

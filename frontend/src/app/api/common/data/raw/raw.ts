@@ -7,5 +7,5 @@ export interface Raw {
   readonly version: number;
   readonly changeSetId: number;
   readonly timestamp: Timestamp;
-  readonly tags: Tag[];
+  readonly tags: ReadonlyArray<Tag>;
 }

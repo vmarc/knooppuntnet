@@ -11,5 +11,5 @@ export interface NetworkRoutesPage {
   readonly surveyDateInfo: SurveyDateInfo;
   readonly routeType: RouteType;
   readonly summary: NetworkSummary;
-  readonly routes: NetworkRouteRow[];
+  readonly routes: ReadonlyArray<NetworkRouteRow>;
 }

@@ -3,6 +3,6 @@
 import { TagDiff } from './tag-diff';
 
 export interface TagDiffs {
-  readonly mainTags: TagDiff[];
-  readonly extraTags: TagDiff[];
+  readonly mainTags: ReadonlyArray<TagDiff>;
+  readonly extraTags: ReadonlyArray<TagDiff>;
 }

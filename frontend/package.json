@@ -44,7 +44,6 @@
     "@types/file-saver": "^2.0.7",
     "canvg": "^4.0.2",
     "file-saver-es": "^2.0.5",
-    "immutable": "^5.0.2",
     "jspdf": "^3.0.1",
     "marked": "^15.0.6",
     "ng-zorro-antd": "20.4.3",

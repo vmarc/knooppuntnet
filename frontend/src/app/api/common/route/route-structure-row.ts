@@ -17,6 +17,6 @@ export interface RouteStructureRow {
   readonly poi?: string;
   readonly way?: RouteStructureWay;
   readonly relation?: RouteStructureRelation;
-  readonly segmentIds: number[];
-  readonly pathIds: number[];
+  readonly segmentIds: ReadonlyArray<number>;
+  readonly pathIds: ReadonlyArray<number>;
 }

@@ -5,5 +5,5 @@ import { ConditionGroupOperator } from './condition-group-operator';
 
 export interface ConditionGroup {
   readonly operator: ConditionGroupOperator;
-  readonly conditions: Condition[];
+  readonly conditions: ReadonlyArray<Condition>;
 }

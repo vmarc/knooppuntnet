@@ -3,5 +3,5 @@
 export interface RoutePath {
   readonly id: number;
   readonly name: string;
-  readonly elementIds: number[];
+  readonly elementIds: ReadonlyArray<number>;
 }

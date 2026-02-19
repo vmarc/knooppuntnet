@@ -1,4 +1,3 @@
-import { List } from 'immutable';
 import { describe } from 'vitest';
 import { it } from 'vitest';
 import { expect } from 'vitest';
@@ -14,7 +13,7 @@ describe('PdfStripDocumentModel', () => {
       const cumulativeDistance = i === 0 ? 'START' : `${i * 10} m`;
       nodes.push(new PdfPlanNode(nodeName, distance, cumulativeDistance, '', '', false));
     }
-    return new PdfStripDocumentModel(List(nodes));
+    return new PdfStripDocumentModel(nodes);
   };
 
   it('pageCount', () => {

@@ -13,8 +13,8 @@ export abstract class PlannerRouteLayer {
   }
 
   addPlan(plan: Plan): void {
-    for (let i = 0; i < plan.legs.size; i++) {
-      const leg = plan.legs.get(i);
+    for (let i = 0; i < plan.legs.length; i++) {
+      const leg = plan.legs[i];
       this.addPlanLeg(leg);
     }
   }

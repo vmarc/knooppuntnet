@@ -40,7 +40,7 @@ export class MonitorRouteFormComponent {
   readonly mode = input.required<MonitorAction>();
   readonly groupName = input.required<string>();
   readonly initialProperties = input.required<MonitorRouteProperties>();
-  readonly routeGroups = input<MonitorRouteGroup[]>([]);
+  readonly routeGroups = input<ReadonlyArray<MonitorRouteGroup>>([]);
 
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 

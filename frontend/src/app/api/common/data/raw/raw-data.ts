@@ -7,7 +7,7 @@ import { RawWay } from './raw-way';
 
 export interface RawData {
   readonly timestamp?: Timestamp;
-  readonly nodes: RawNode[];
-  readonly ways: RawWay[];
-  readonly relations: RawRelation[];
+  readonly nodes: ReadonlyArray<RawNode>;
+  readonly ways: ReadonlyArray<RawWay>;
+  readonly relations: ReadonlyArray<RawRelation>;
 }

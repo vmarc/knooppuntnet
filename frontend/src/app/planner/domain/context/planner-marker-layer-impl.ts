@@ -50,7 +50,7 @@ export class PlannerMarkerLayerImpl extends PlannerMarkerLayer {
   }
 
   addFlag(flag: PlanFlag): void {
-    if (flag !== null && flag.flagType !== PlanFlagType.invisible) {
+    if (flag && flag.flagType !== PlanFlagType.invisible) {
       const marker: GeoJSON.Feature = {
         type: 'Feature',
         geometry: {
@@ -71,7 +71,7 @@ export class PlannerMarkerLayerImpl extends PlannerMarkerLayer {
   }
 
   removeFlag(flag: PlanFlag): void {
-    if (flag !== null) {
+    if (flag) {
       this.removeFlagWithFeatureId(flag.featureId);
     }
   }
@@ -84,7 +84,7 @@ export class PlannerMarkerLayerImpl extends PlannerMarkerLayer {
   }
 
   updateFlag(flag: PlanFlag): void {
-    if (flag !== null) {
+    if (flag) {
       this.removeFlagWithFeatureId(flag.featureId);
       this.addFlag(flag);
     }

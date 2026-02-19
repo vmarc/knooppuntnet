@@ -20,8 +20,8 @@ export interface StructureRow {
   readonly poi?: string;
   readonly way?: RouteStructureWay;
   readonly relation?: RouteStructureRelation;
-  readonly segmentIds: number[];
-  readonly pathIds: number[];
+  readonly segmentIds: ReadonlyArray<number>;
+  readonly pathIds: ReadonlyArray<number>;
   readonly physical: boolean;
   readonly relationId: number;
   readonly subRelationIndex?: number;

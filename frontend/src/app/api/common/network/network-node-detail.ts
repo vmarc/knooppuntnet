@@ -17,5 +17,5 @@ export interface NetworkNodeDetail {
   readonly timestamp: Timestamp;
   readonly lastSurvey?: Day;
   readonly expectedRouteCount?: number;
-  readonly facts: Fact[];
+  readonly facts: ReadonlyArray<Fact>;
 }

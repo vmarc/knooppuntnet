@@ -5,5 +5,5 @@ import { ClientPoiDefinition } from './client-poi-definition';
 export interface ClientPoiGroupDefinition {
   readonly name: string;
   readonly enabledDefault: boolean;
-  readonly poiDefinitions: ClientPoiDefinition[];
+  readonly poiDefinitions: ReadonlyArray<ClientPoiDefinition>;
 }

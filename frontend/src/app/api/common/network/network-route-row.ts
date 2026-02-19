@@ -15,6 +15,6 @@ export interface NetworkRouteRow {
   readonly lastUpdated: Timestamp;
   readonly lastSurvey?: Day;
   readonly proposed: boolean;
-  readonly facts: Fact[];
+  readonly facts: ReadonlyArray<Fact>;
   readonly symbol?: string;
 }

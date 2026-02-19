@@ -23,7 +23,7 @@ export class InterpretedPoiConfiguration {
     return this.poiDefinitionMap;
   }
 
-  getGroupDefinitions(): ClientPoiGroupDefinition[] {
+  getGroupDefinitions(): ReadonlyArray<ClientPoiGroupDefinition> {
     return this.configuration.groupDefinitions;
   }
 }

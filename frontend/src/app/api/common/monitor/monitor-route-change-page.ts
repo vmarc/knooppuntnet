@@ -18,9 +18,9 @@ export interface MonitorRouteChangePage {
   readonly osmDistance: number;
   readonly bounds: Bounds;
   readonly routeSegmentCount: number;
-  readonly routeSegments: MonitorRouteSegment[];
-  readonly newDeviations: MonitorRouteDeviation[];
-  readonly resolvedDeviations: MonitorRouteDeviation[];
+  readonly routeSegments: ReadonlyArray<MonitorRouteSegment>;
+  readonly newDeviations: ReadonlyArray<MonitorRouteDeviation>;
+  readonly resolvedDeviations: ReadonlyArray<MonitorRouteDeviation>;
   readonly reference: MonitorReferenceInfo;
   readonly happy: boolean;
   readonly investigate: boolean;

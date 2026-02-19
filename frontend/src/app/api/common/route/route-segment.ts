@@ -8,5 +8,5 @@ export interface RouteSegment {
   readonly endNodeId: number;
   readonly meters: number;
   readonly bounds: Bounds;
-  readonly elementIds: number[];
+  readonly elementIds: ReadonlyArray<number>;
 }

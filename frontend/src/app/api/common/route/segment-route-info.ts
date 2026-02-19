@@ -2,5 +2,5 @@
 
 export interface SegmentRouteInfo {
   readonly relationId: number;
-  readonly segmentIds: number[];
+  readonly segmentIds: ReadonlyArray<number>;
 }

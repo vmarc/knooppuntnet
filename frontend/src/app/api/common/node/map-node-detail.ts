@@ -9,6 +9,6 @@ export interface MapNodeDetail {
   readonly latitude: string;
   readonly longitude: string;
   readonly lastUpdated: Timestamp;
-  readonly networkReferences: Reference[];
-  readonly routeReferences: Reference[];
+  readonly networkReferences: ReadonlyArray<Reference>;
+  readonly routeReferences: ReadonlyArray<Reference>;
 }

@@ -82,7 +82,7 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
 export class ChangeLocationAnalysisSummaryComponent {
   readonly changeSet = input.required<ChangeSetSummaryInfo>();
 
-  locationLink(routeType: RouteType, locationNames: string[], index: number): string {
+  locationLink(routeType: RouteType, locationNames: ReadonlyArray<string>, index: number): string {
     const country = locationNames[0].toLowerCase();
     const countryName = Translations.get('country.' + Util.safeGet(() => country));
     const locationParts = [countryName].concat(locationNames.slice(1, index + 1));

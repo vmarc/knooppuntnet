@@ -22,14 +22,14 @@ export class PlannerDragFlagAnalyzer {
     }
 
     const legs = this.plan.legs;
-    if (legs.isEmpty()) {
+    if (legs.length === 0) {
       return null;
     }
 
     const legIndex = legs.findIndex((leg) => flag.id === leg.sinkFlag?.featureId);
     if (legIndex >= 0) {
-      const previousLeg = legs.get(legIndex);
-      const nextLeg = legs.get(legIndex + 1);
+      const previousLeg = legs[legIndex];
+      const nextLeg = legs[legIndex + 1];
       return new PlannerDragFlag(
         previousLeg.sinkFlag,
         nextLeg.featureId,

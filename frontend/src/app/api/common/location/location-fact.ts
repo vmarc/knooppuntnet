@@ -6,5 +6,5 @@ import { Ref } from '@api/common/common/ref';
 export interface LocationFact {
   readonly elementType: string;
   readonly fact: Fact;
-  readonly refs: Ref[];
+  readonly refs: ReadonlyArray<Ref>;
 }

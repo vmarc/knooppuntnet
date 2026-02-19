@@ -7,5 +7,5 @@ export interface MonitorRouteDeviation {
   readonly meters: number;
   readonly distance: number;
   readonly bounds: Bounds;
-  readonly lines: string[];
+  readonly lines: ReadonlyArray<string>;
 }

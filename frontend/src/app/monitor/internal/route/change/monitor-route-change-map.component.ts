@@ -23,7 +23,7 @@ import { MonitorRouteChangeMapService } from './monitor-route-change-map.service
 })
 export class MonitorRouteChangeMapComponent implements AfterViewInit, OnDestroy {
   readonly referenceJson = input.required<string>();
-  readonly routeSegments = input.required<MonitorRouteSegment[]>();
+  readonly routeSegments = input.required<ReadonlyArray<MonitorRouteSegment>>();
   readonly deviation = input.required<MonitorRouteDeviation>();
 
   readonly service = inject(MonitorRouteChangeMapService);

@@ -1,4 +1,3 @@
-import { List } from 'immutable';
 import { Plan } from '../../domain/plan/plan';
 import { PdfPlan } from './pdf-plan';
 import { PdfPlanNode } from './pdf-plan-node';
@@ -7,10 +6,10 @@ export class PdfPlanBuilder {
   static fromPlan(plan: Plan): PdfPlan {
     let cumulativeDistance = 0;
 
-    const nodes: PdfPlanNode[] = plan.legs.toArray().flatMap((leg, legIndex) => {
-      const lastLeg = legIndex === plan.legs.size - 1;
-      return leg.routes.toArray().flatMap((planRoute, routeIndex) => {
-        const lastRoute = routeIndex === leg.routes.size - 1;
+    const nodes: PdfPlanNode[] = plan.legs.flatMap((leg, legIndex) => {
+      const lastLeg = legIndex === plan.legs.length - 1;
+      return leg.routes.flatMap((planRoute, routeIndex) => {
+        const lastRoute = routeIndex === leg.routes.length - 1;
         const isPlanSourceNode = legIndex === 0 && routeIndex === 0;
         const distance = PdfPlanBuilder.distanceToString(planRoute.meters);
         const cumulDistance = isPlanSourceNode
@@ -45,7 +44,7 @@ export class PdfPlanBuilder {
         return [sourcePdfPlanNode];
       });
     });
-    return new PdfPlan(List(nodes));
+    return new PdfPlan(nodes);
   }
 
   public static distanceToString(distance: number): string {

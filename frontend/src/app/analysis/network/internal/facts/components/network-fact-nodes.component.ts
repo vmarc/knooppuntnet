@@ -21,5 +21,5 @@ import { ActionButtonNodeComponent } from '../../../../components/action/action-
   imports: [LinkNodeComponent, IconNodeComponent, ActionButtonNodeComponent],
 })
 export class NetworkFactNodesComponent {
-  readonly nodes = input.required<Ref[]>();
+  readonly nodes = input.required<ReadonlyArray<Ref>>();
 }

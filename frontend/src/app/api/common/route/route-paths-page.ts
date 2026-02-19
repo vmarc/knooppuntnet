@@ -5,5 +5,5 @@ import { RoutePath } from './route-path';
 
 export interface RoutePathsPage {
   readonly routeInfo: RouteInfo;
-  readonly paths: RoutePath[];
+  readonly paths: ReadonlyArray<RoutePath>;
 }

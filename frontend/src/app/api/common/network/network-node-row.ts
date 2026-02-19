@@ -5,5 +5,5 @@ import { NetworkNodeDetail } from './network-node-detail';
 
 export interface NetworkNodeRow {
   readonly detail: NetworkNodeDetail;
-  readonly routeReferences: Reference[];
+  readonly routeReferences: ReadonlyArray<Reference>;
 }

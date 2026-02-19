@@ -4,7 +4,7 @@ import { RawWay } from '@api/common/data/raw/raw-way';
 import { WayUpdate } from './way-update';
 
 export interface WayDiffs {
-  readonly removed: RawWay[];
-  readonly added: RawWay[];
-  readonly updated: WayUpdate[];
+  readonly removed: ReadonlyArray<RawWay>;
+  readonly added: ReadonlyArray<RawWay>;
+  readonly updated: ReadonlyArray<WayUpdate>;
 }

@@ -6,5 +6,5 @@ import { TrackSegmentFragment } from './track-segment-fragment';
 export interface TrackSegment {
   readonly surface: string;
   readonly source: TrackPoint;
-  readonly fragments: TrackSegmentFragment[];
+  readonly fragments: ReadonlyArray<TrackSegmentFragment>;
 }

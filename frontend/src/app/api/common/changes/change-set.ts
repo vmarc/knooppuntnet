@@ -10,5 +10,5 @@ export interface ChangeSet {
   readonly timestampUntil: Timestamp;
   readonly timestampBefore: Timestamp;
   readonly timestampAfter: Timestamp;
-  readonly changes: Change[];
+  readonly changes: ReadonlyArray<Change>;
 }

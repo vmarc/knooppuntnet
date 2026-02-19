@@ -10,5 +10,5 @@ export interface Node {
   readonly version: number;
   readonly timestamp: Timestamp;
   readonly changeSetId: number;
-  readonly tags: Tag[];
+  readonly tags: ReadonlyArray<Tag>;
 }

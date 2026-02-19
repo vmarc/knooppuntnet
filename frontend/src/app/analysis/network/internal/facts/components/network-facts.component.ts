@@ -83,7 +83,7 @@ export class NetworkFactsComponent {
 
   constructor() {
     effect(() => {
-      const networkFacts: NetworkFact[] = this.apiResponse().result.facts;
+      const networkFacts: ReadonlyArray<NetworkFact> = this.apiResponse().result.facts;
       if (networkFacts.length > 0) {
         const fact = this.routerService.fragment();
         const pp = networkFacts.map((networkFact) => {
@@ -96,7 +96,7 @@ export class NetworkFactsComponent {
     effect(() => {
       const panelsElementRefs = this.panelElementRefs();
       if (panelsElementRefs.length > 0) {
-        const networkFacts: NetworkFact[] = this.apiResponse().result.facts;
+        const networkFacts: ReadonlyArray<NetworkFact> = this.apiResponse().result.facts;
         const fact = this.routerService.fragment();
         const panelIndex = networkFacts.findIndex((networkFact) => networkFact.fact === fact);
         if (panelIndex >= 0 && panelIndex < panelsElementRefs.length) {

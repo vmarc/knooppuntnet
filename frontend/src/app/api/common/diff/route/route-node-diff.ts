@@ -4,6 +4,6 @@ import { Ref } from '@api/common/common/ref';
 
 export interface RouteNodeDiff {
   readonly title: string;
-  readonly added: Ref[];
-  readonly removed: Ref[];
+  readonly added: ReadonlyArray<Ref>;
+  readonly removed: ReadonlyArray<Ref>;
 }

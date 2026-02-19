@@ -3,5 +3,5 @@
 import { StatisticValues } from './statistic-values';
 
 export interface OverviewPage {
-  readonly values: StatisticValues[];
+  readonly values: ReadonlyArray<StatisticValues>;
 }

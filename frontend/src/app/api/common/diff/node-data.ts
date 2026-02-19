@@ -4,7 +4,7 @@ import { Node } from '@api/common/data/node';
 import { Subset } from '@api/custom/subset';
 
 export interface NodeData {
-  readonly subsets: Subset[];
+  readonly subsets: ReadonlyArray<Subset>;
   readonly name: string;
   readonly node: Node;
 }

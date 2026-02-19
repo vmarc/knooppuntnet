@@ -1,5 +1,4 @@
 import { PlanRoute } from '@api/common/planner/plan-route';
-import { List } from 'immutable';
 import { describe } from 'vitest';
 import { it } from 'vitest';
 import { expect } from 'vitest';
@@ -19,7 +18,7 @@ describe('PlanUtil', () => {
       longitude: '',
     });
     const startFlag = PlanFlag.start('n1', [1, 1]);
-    const plan = new Plan(startNode, startFlag, List());
+    const plan = new Plan(startNode, startFlag, []);
     expect(PlanUtil.toUrlString(plan)).toEqual('a');
   });
 
@@ -65,29 +64,29 @@ describe('PlanUtil', () => {
     const viaLegEnd2 = PlanUtil.legEndNode(12);
     const endLegEnd = PlanUtil.legEndNode(13);
 
-    const leg1 = new PlanLeg('', '', startLegEnd, viaLegEnd1, null, null, List([route1]));
-    const leg2 = new PlanLeg('', '', viaLegEnd1, viaLegEnd2, null, null, List([route2]));
-    const leg3 = new PlanLeg('', '', viaLegEnd2, endLegEnd, null, null, List([route3]));
+    const leg1 = new PlanLeg('', '', startLegEnd, viaLegEnd1, null, null, [route1]);
+    const leg2 = new PlanLeg('', '', viaLegEnd1, viaLegEnd2, null, null, [route2]);
+    const leg3 = new PlanLeg('', '', viaLegEnd2, endLegEnd, null, null, [route3]);
 
     const startFlag = PlanFlag.start('n1', startNode.coordinate);
-    const plan = new Plan(startNode, startFlag, List([leg1, leg2, leg3]));
+    const plan = new Plan(startNode, startFlag, [leg1, leg2, leg3]);
 
     expect(PlanUtil.toUrlString(plan)).toEqual('a-b-c-d');
   });
 
   it('toNodeIds', () => {
     const nodeIds = PlanUtil.toNodeIds('a-b-c-d');
-    expect(nodeIds.size).toEqual(4);
-    expect(nodeIds.get(0)).toEqual('10');
-    expect(nodeIds.get(1)).toEqual('11');
-    expect(nodeIds.get(2)).toEqual('12');
-    expect(nodeIds.get(3)).toEqual('13');
+    expect(nodeIds.length).toEqual(4);
+    expect(nodeIds[0]).toEqual('10');
+    expect(nodeIds[1]).toEqual('11');
+    expect(nodeIds[2]).toEqual('12');
+    expect(nodeIds[3]).toEqual('13');
   });
 
   it('distinct colours', () => {
-    const colours = List(['red', 'red', 'blue', 'red', 'red', 'green']);
+    const colours = ['red', 'red', 'blue', 'red', 'red', 'green'];
     const distinctColours = PlanUtil.distinctColours(colours);
-    expect(distinctColours.toArray()).toEqual(['red', 'blue', 'red', 'green']);
+    expect(distinctColours).toEqual(['red', 'blue', 'red', 'green']);
   });
 
   it('total distance empty plan', () => {
@@ -114,10 +113,10 @@ describe('PlanUtil', () => {
       segments: [],
     };
 
-    const leg1 = new PlanLeg('1', '', null, null, null, null, List([route1, route2]));
-    const leg2 = new PlanLeg('2', '', null, null, null, null, List([route3]));
+    const leg1 = new PlanLeg('1', '', null, null, null, null, [route1, route2]);
+    const leg2 = new PlanLeg('2', '', null, null, null, null, [route3]);
 
-    const plan = new Plan(null, null, List([leg1, leg2]));
+    const plan = new Plan(null, null, [leg1, leg2]);
 
     expect(plan.cumulativeKmLeg(0)).toEqual('3 km');
     expect(plan.cumulativeKmLeg(1)).toEqual('7 km');

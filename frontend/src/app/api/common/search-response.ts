@@ -3,5 +3,5 @@
 import { GeocoderLocation } from './geocoder-location';
 
 export interface SearchResponse {
-  readonly geocoderLocations: GeocoderLocation[];
+  readonly geocoderLocations: ReadonlyArray<GeocoderLocation>;
 }

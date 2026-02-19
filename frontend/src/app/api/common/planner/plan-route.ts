@@ -7,5 +7,5 @@ export interface PlanRoute {
   readonly sourceNode: PlanNode;
   readonly sinkNode: PlanNode;
   readonly meters: number;
-  readonly segments: PlanSegment[];
+  readonly segments: ReadonlyArray<PlanSegment>;
 }

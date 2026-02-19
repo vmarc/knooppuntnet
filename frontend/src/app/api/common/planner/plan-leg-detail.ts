@@ -6,5 +6,5 @@ import { PlanRoute } from './plan-route';
 export interface PlanLegDetail {
   readonly source: LegEnd;
   readonly sink: LegEnd;
-  readonly routes: PlanRoute[];
+  readonly routes: ReadonlyArray<PlanRoute>;
 }

@@ -20,9 +20,9 @@ export interface MonitorRouteMapPage {
   readonly currentSubRelation?: MonitorRouteSubRelation;
   readonly previousSubRelation?: MonitorRouteSubRelation;
   readonly nextSubRelation?: MonitorRouteSubRelation;
-  readonly osmSegments: MonitorRouteSegment[];
+  readonly osmSegments: ReadonlyArray<MonitorRouteSegment>;
   readonly matchesGeoJson?: string;
-  readonly deviations: MonitorRouteDeviation[];
+  readonly deviations: ReadonlyArray<MonitorRouteDeviation>;
   readonly reference?: MonitorReferenceInfo;
-  readonly subRelations: MonitorRouteSubRelation[];
+  readonly subRelations: ReadonlyArray<MonitorRouteSubRelation>;
 }

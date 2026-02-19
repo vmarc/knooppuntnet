@@ -4,7 +4,7 @@ import { SegmentColors } from '@app/mapold/domain/segment-colors';
 export class SegmentMap {
   constructor(private segmentMap: Map<string, number>) {}
 
-  static from(segments: SegmentInfo[]): SegmentMap {
+  static from(segments: ReadonlyArray<SegmentInfo>): SegmentMap {
     const map: Map<string, number> = new Map();
     segments.forEach((segment) => {
       segment.routeInfos.forEach((routeInfo) => {

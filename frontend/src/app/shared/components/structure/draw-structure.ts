@@ -10,7 +10,7 @@ export class DrawStructure {
   constructor(
     canvas: HTMLCanvasElement,
     private height: number,
-    private segmentIds: number[],
+    private segmentIds: ReadonlyArray<number>,
     private memberType: MemberType,
     private link: Link
   ) {

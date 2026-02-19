@@ -8,5 +8,5 @@ export interface TrackPath {
   readonly endNodeId: number;
   readonly meters: number;
   readonly oneWay: boolean;
-  readonly segments: TrackSegment[];
+  readonly segments: ReadonlyArray<TrackSegment>;
 }

@@ -14,7 +14,7 @@ export interface LocationNodeInfo {
   readonly longitude: string;
   readonly lastUpdated: Timestamp;
   readonly lastSurvey?: Day;
-  readonly facts: Fact[];
+  readonly facts: ReadonlyArray<Fact>;
   readonly expectedRouteCount?: number;
-  readonly routeReferences: Reference[];
+  readonly routeReferences: ReadonlyArray<Reference>;
 }

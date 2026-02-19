@@ -25,20 +25,6 @@ import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
     }
 
     @for (leg of plan().legs; track leg) {
-      @if (leg.routes.isEmpty()) {
-        <div class="leg" i18n="@@plan-detailed.calculating">Calculating...</div>
-        <div class="node">
-          @if (leg.sinkNode.nodeName.length <= 3) {
-            <div class="text">
-              {{ leg.sinkNode.nodeName }}
-            </div>
-          } @else {
-            <div class="text-long">
-              {{ leg.sinkNode.nodeName }}
-            </div>
-          }
-        </div>
-      }
       @for (legRoute of leg.routes; track legRoute) {
         <!-- eslint-disable @angular-eslint/template/i18n -->
         <div class="leg">
@@ -50,7 +36,7 @@ import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
           }
         </div>
         <!-- eslint-enable @angular-eslint/template/i18n -->
-        <div class="node" [class.server-selected]="$index < leg.routes.size - 1">
+        <div class="node" [class.server-selected]="$index < leg.routes.length - 1">
           @if (legRoute.sinkNode.nodeName.length <= 3) {
             <div class="text">
               {{ legRoute.sinkNode.nodeName }}
@@ -58,6 +44,19 @@ import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
           } @else {
             <div class="text-long">
               {{ legRoute.sinkNode.nodeName }}
+            </div>
+          }
+        </div>
+      } @empty {
+        <div class="leg" i18n="@@plan-detailed.calculating">Calculating...</div>
+        <div class="node">
+          @if (leg.sinkNode.nodeName.length <= 3) {
+            <div class="text">
+              {{ leg.sinkNode.nodeName }}
+            </div>
+          } @else {
+            <div class="text-long">
+              {{ leg.sinkNode.nodeName }}
             </div>
           }
         </div>

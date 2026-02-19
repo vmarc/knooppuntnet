@@ -4,7 +4,7 @@ export class DrawSegment {
   constructor(
     private context: CanvasRenderingContext2D,
     private height: number,
-    private segmentIds: number[]
+    private segmentIds: ReadonlyArray<number>
   ) {}
 
   draw(): void {

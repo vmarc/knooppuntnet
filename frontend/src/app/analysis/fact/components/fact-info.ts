@@ -7,7 +7,7 @@ export class FactInfo {
     public networkRef?: Ref,
     public routeRef?: Ref,
     public nodeRef?: Ref,
-    public unexpectedNodeIds?: number[],
-    public unexpectedRelationIds?: number[]
+    public unexpectedNodeIds?: ReadonlyArray<number>,
+    public unexpectedRelationIds?: ReadonlyArray<number>
   ) {}
 }

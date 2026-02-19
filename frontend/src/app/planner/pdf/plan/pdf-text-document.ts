@@ -53,7 +53,7 @@ export class PdfTextDocument {
           const node = this.model.node(pageIndex, columnIndex, rowIndex);
           const y = PdfPage.yContentsTop + this.model.rowHeight * rowIndex;
           this.drawNode(xLeft, y, node);
-          if (nodeIndex < this.model.nodes.size - 1) {
+          if (nodeIndex < this.model.nodes.length - 1) {
             // draw line between nodes
             const x1 = xLeft + this.model.xCircleCenter;
             const x2 = x1;
@@ -100,7 +100,7 @@ export class PdfTextDocument {
       lineHeightFactor: 1,
     });
 
-    if (node.distance !== null) {
+    if (node.distance) {
       let routeInfo = node.distance;
       if (node.colour) {
         const translatedColour = PlannerTranslations.colour(node.colour);

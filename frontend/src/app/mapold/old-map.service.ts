@@ -221,7 +221,7 @@ export class OldMapService {
   }
 
   zoomInToRoute(): void {
-    if (this.plannerService.context.plan().legs.isEmpty()) {
+    if (this.plannerService.context.plan().legs.length === 0) {
       this.modalService.create({
         nzContent: NoRouteDialogComponent,
         nzFooter: null,

@@ -71,8 +71,8 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 export class RouteSegmentsComponent {
   private readonly nzContextMenuService = inject(NzContextMenuService);
 
-  readonly segments = input.required<SegmentInfo[]>();
-  readonly relations = input.required<MonitorRouteRelationInfo[]>();
+  readonly segments = input.required<ReadonlyArray<SegmentInfo>>();
+  readonly relations = input.required<ReadonlyArray<MonitorRouteRelationInfo>>();
   readonly showSegments = input.required<boolean>();
 
   readonly selectChange = output<SegmentInfo>();

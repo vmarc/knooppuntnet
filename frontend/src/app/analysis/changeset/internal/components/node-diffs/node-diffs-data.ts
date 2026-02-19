@@ -8,10 +8,10 @@ export class NodeDiffsData {
     readonly refDiffs: RefDiffs,
     readonly changeSetId: number,
     readonly knownElements: KnownElements,
-    readonly nodeChangeInfos: NodeChangeInfo[]
+    readonly nodeChangeInfos: ReadonlyArray<NodeChangeInfo>
   ) {}
 
-  findNodeChangeInfo(ref: Ref) {
+  findNodeChangeInfo(ref: Ref): ReadonlyArray<NodeChangeInfo> {
     return this.nodeChangeInfos.filter((node) => node.id === ref.id);
   }
 }

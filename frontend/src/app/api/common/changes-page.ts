@@ -4,7 +4,7 @@ import { ChangesFilterOption } from '@api/common/changes/filter/changes-filter-o
 import { ChangeSetSummaryInfo } from './change-set-summary-info';
 
 export interface ChangesPage {
-  readonly filterOptions: ChangesFilterOption[];
-  readonly changes: ChangeSetSummaryInfo[];
+  readonly filterOptions: ReadonlyArray<ChangesFilterOption>;
+  readonly changes: ReadonlyArray<ChangeSetSummaryInfo>;
   readonly changeCount: number;
 }

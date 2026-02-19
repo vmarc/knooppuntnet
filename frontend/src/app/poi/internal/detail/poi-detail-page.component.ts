@@ -132,7 +132,7 @@ export class PoiDetailPageComponent implements OnInit {
     this.service.onInit();
   }
 
-  tags(tags: Tag[]): InterpretedTags {
+  tags(tags: ReadonlyArray<Tag>): InterpretedTags {
     return InterpretedTags.all(tags);
   }
 }

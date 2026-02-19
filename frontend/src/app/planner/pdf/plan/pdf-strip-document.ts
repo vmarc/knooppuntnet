@@ -82,7 +82,7 @@ export class PdfStripDocument {
       lineHeightFactor: 1,
     });
 
-    if (node.distance !== null) {
+    if (node.distance) {
       this.doc.setFontSize(8);
       this.doc.text(node.cumulativeDistance, xCumulativeDistance, yCircleCenter, {
         baseline: 'middle',

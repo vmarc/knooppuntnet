@@ -9,10 +9,10 @@ import { RouteNode } from '@api/common/route/route-node';
 export interface RouteData {
   readonly relationId: number;
   readonly raw: Raw;
-  readonly countries: Country[];
-  readonly routeTypes: RouteType[];
+  readonly countries: ReadonlyArray<Country>;
+  readonly routeTypes: ReadonlyArray<RouteType>;
   readonly name: string;
-  readonly networkNodes: RouteNode[];
-  readonly facts: Fact[];
+  readonly networkNodes: ReadonlyArray<RouteNode>;
+  readonly facts: ReadonlyArray<Fact>;
   readonly meters: number;
 }

@@ -26,7 +26,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
   init(
     referenceJson: string,
     deviation: MonitorRouteDeviation,
-    routeSegments: MonitorRouteSegment[]
+    routeSegments: ReadonlyArray<MonitorRouteSegment>
   ): void {
     this.registerLayers(referenceJson, deviation, routeSegments);
     this.initMap(
@@ -47,7 +47,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
   private registerLayers(
     referenceJson: string,
     deviation: MonitorRouteDeviation,
-    routeSegments: MonitorRouteSegment[]
+    routeSegments: ReadonlyArray<MonitorRouteSegment>
   ): void {
     const registry = new OldOldMapLayerRegistry();
     registry.register([], this.buildReferenceLayer(referenceJson), true);
@@ -86,7 +86,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     return OldOldMapLayer.build('not-ok-layer', 'Not OK', layer);
   }
 
-  private buildOsmRelationLayer(routeSegments: MonitorRouteSegment[]): OldOldMapLayer {
+  private buildOsmRelationLayer(routeSegments: ReadonlyArray<MonitorRouteSegment>): OldOldMapLayer {
     const thickStyle = this.fixedStyle('yellow', 10);
     const features = [];
     routeSegments.forEach((segment) => {

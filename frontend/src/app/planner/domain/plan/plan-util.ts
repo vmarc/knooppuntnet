@@ -8,7 +8,6 @@ import { PlanRoute } from '@api/common/planner/plan-route';
 import { PlanSegment } from '@api/common/planner/plan-segment';
 import { Coordinate } from '@api/custom/coordinate';
 import { OlUtil } from '@app/ol/ol-util';
-import { List } from 'immutable';
 import { PlanLegData } from '../context/plan-leg-data';
 import { FeatureId } from '../features/feature-id';
 import { RouteFeature } from '../features/route-feature';
@@ -19,31 +18,32 @@ import { PlanLeg } from './plan-leg';
 
 export class PlanUtil {
   static toUrlString(plan: Plan): string {
-    let legEnds: List<LegEnd> = List();
+    const legEnds: LegEnd[] = [];
 
-    if (plan.sourceNode !== null) {
-      legEnds = legEnds.push(PlanUtil.legEndNode(+plan.sourceNode.nodeId));
+    if (plan.sourceNode) {
+      legEnds.push(PlanUtil.legEndNode(+plan.sourceNode.nodeId));
     }
 
     plan.legs.forEach((leg) => {
-      legEnds = legEnds.push(leg.sink);
+      legEnds.push(leg.sink);
     });
 
     return legEnds.map((legEnd) => PlanUtil.encodedLegEndKey(legEnd)).join('-');
   }
 
-  static toNodeIds(planUrlString: string): List<string> {
-    const nodeIdsRadix36: List<string> = List(planUrlString.split('-'));
+  static toNodeIds(planUrlString: string): ReadonlyArray<string> {
+    const nodeIdsRadix36: string[] = planUrlString.split('-');
     return nodeIdsRadix36.map((nodeId) => parseInt(nodeId, 36).toString());
   }
 
-  static distinctColours(colours: List<string>): List<string> {
-    return colours.reduce((unique, colour) => {
-      if (unique.isEmpty() || unique.last() !== colour) {
-        return unique.push(colour);
+  static distinctColours(colours: string[]): string[] {
+    return colours.reduce((unique: Array<string>, colour): Array<string> => {
+      if (unique.length === 0 || unique.at(-1) !== colour) {
+        unique.push(colour);
+        return unique;
       }
       return unique;
-    }, List<string>());
+    }, Array<string>());
   }
 
   static key(source: LegEnd, sink: LegEnd): string {
@@ -58,7 +58,7 @@ export class PlanUtil {
     };
   }
 
-  static legEndRoute(trackPathKeys: TrackPathKey[]): LegEnd {
+  static legEndRoute(trackPathKeys: ReadonlyArray<TrackPathKey>): LegEnd {
     return {
       route: {
         trackPathKeys,
@@ -67,7 +67,7 @@ export class PlanUtil {
     };
   }
 
-  static legEndRoutes(routeFeatures: RouteFeature[]): LegEnd {
+  static legEndRoutes(routeFeatures: ReadonlyArray<RouteFeature>): LegEnd {
     const trackPathKeys = routeFeatures.map((routeFeature) => routeFeature.toTrackPathKey());
     return {
       node: null,
@@ -163,29 +163,29 @@ export class PlanUtil {
   }
 
   static planSinkNode(plan: Plan): PlanNode {
-    const lastLeg = plan.legs.last(null);
+    const lastLeg = plan.legs.at(-1);
     if (lastLeg) {
       return lastLeg.sinkNode;
     }
     return plan.sourceNode;
   }
 
-  static planRouteLatLons(planRoute: PlanRoute): List<LatLonImpl> {
+  static planRouteLatLons(planRoute: PlanRoute): LatLonImpl[] {
     const latLons: Array<LatLonImpl> = [];
     latLons.push(planRoute.sourceNode.latLon);
     planRoute.segments.forEach((segment) =>
       segment.fragments.forEach((fragment) => latLons.push(fragment.latLon))
     );
-    return List(latLons);
+    return latLons;
   }
 
   static planBounds(plan: Plan): Bounds {
     if (plan.sourceNode === null) {
       return null;
     }
-    const latLons: List<LatLonImpl> = List([plan.sourceNode.latLon]).concat(
+    const latLons: LatLonImpl[] = [plan.sourceNode.latLon].concat(
       plan.legs.flatMap((leg) =>
-        List([leg.sourceNode.latLon]).concat(
+        [leg.sourceNode.latLon].concat(
           leg.routes.flatMap((route) => PlanUtil.planRouteLatLons(route))
         )
       )
@@ -193,10 +193,10 @@ export class PlanUtil {
 
     const lats = latLons.map((latLon) => +latLon.latitude);
     const lons = latLons.map((latLon) => +latLon.longitude);
-    const minLat = lats.min();
-    const minLon = lons.min();
-    const maxLat = lats.max();
-    const maxLon = lons.max();
+    const minLat = Math.min(...lats);
+    const minLon = Math.min(...lons);
+    const maxLat = Math.max(...lats);
+    const maxLon = Math.max(...lons);
     return {
       minLat,
       minLon,
@@ -205,13 +205,13 @@ export class PlanUtil {
     };
   }
 
-  static planRouteCoordinates(planRoute: PlanRoute): List<Coordinate> {
+  static planRouteCoordinates(planRoute: PlanRoute): readonly Coordinate[] {
     const coordinates: Array<Coordinate> = [];
     coordinates.push(planRoute.sourceNode.coordinate);
     planRoute.segments.forEach((segment) =>
       segment.fragments.forEach((fragment) => coordinates.push(fragment.coordinate))
     );
-    return List(coordinates);
+    return coordinates;
   }
 
   static singleRoutePlanLeg(
@@ -241,7 +241,7 @@ export class PlanUtil {
       meters: 0,
       segments: [segment],
     };
-    return new PlanLeg(featureId, legKey, source, sink, sinkFlag, viaFlag, List([route]));
+    return new PlanLeg(featureId, legKey, source, sink, sinkFlag, viaFlag, [route]);
   }
 
   static leg(data: PlanLegData, sinkFlag: PlanFlag, viaFlag: PlanFlag): PlanLeg {

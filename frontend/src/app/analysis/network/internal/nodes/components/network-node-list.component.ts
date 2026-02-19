@@ -65,7 +65,7 @@ export class NetworkNodeListComponent {
   readonly routeScope = input.required<RouteScope>();
   readonly timeInfo = input.required<TimeInfo>();
   readonly surveyDateInfo = input.required<SurveyDateInfo>();
-  readonly nodes = input.required<NetworkNodeRow[]>();
+  readonly nodes = input.required<ReadonlyArray<NetworkNodeRow>>();
 
   protected readonly pageIndex = this.service.pageIndex;
   protected readonly pageSize = this.service.pageSize;

@@ -3,10 +3,10 @@
 import { RouteListItem } from './route-list-item';
 
 export interface RouteList {
-  readonly international?: RouteListItem[];
-  readonly national?: RouteListItem[];
-  readonly regional?: RouteListItem[];
-  readonly local?: RouteListItem[];
-  readonly unknown?: RouteListItem[];
+  readonly international?: ReadonlyArray<RouteListItem>;
+  readonly national?: ReadonlyArray<RouteListItem>;
+  readonly regional?: ReadonlyArray<RouteListItem>;
+  readonly local?: ReadonlyArray<RouteListItem>;
+  readonly unknown?: ReadonlyArray<RouteListItem>;
   readonly size: number;
 }

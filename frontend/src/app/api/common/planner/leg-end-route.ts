@@ -3,6 +3,6 @@
 import { TrackPathKey } from '@api/common/common/track-path-key';
 
 export interface LegEndRoute {
-  readonly trackPathKeys: TrackPathKey[];
+  readonly trackPathKeys: ReadonlyArray<TrackPathKey>;
   readonly selection?: TrackPathKey;
 }

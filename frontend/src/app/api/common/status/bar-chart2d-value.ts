@@ -4,5 +4,5 @@ import { NameValue } from './name-value';
 
 export interface BarChart2dValue {
   readonly name: string;
-  readonly series: NameValue[];
+  readonly series: ReadonlyArray<NameValue>;
 }

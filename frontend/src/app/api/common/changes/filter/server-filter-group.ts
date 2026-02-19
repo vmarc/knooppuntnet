@@ -4,5 +4,5 @@ import { ServerFilterOption } from './server-filter-option';
 
 export interface ServerFilterGroup {
   readonly selected: string;
-  readonly options: ServerFilterOption[];
+  readonly options: ReadonlyArray<ServerFilterOption>;
 }

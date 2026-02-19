@@ -4,5 +4,5 @@ import { NodeIntegrityCheck } from './node-integrity-check';
 
 export interface NetworkIntegrityCheckFailed {
   readonly count: number;
-  readonly checks: NodeIntegrityCheck[];
+  readonly checks: ReadonlyArray<NodeIntegrityCheck>;
 }

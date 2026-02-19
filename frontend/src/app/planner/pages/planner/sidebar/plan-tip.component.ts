@@ -96,7 +96,7 @@ export class PlanTipComponent {
       } else {
         planPhase = PlanPhase.clickStartNode;
       }
-    } else if (plan.legs.isEmpty()) {
+    } else if (plan.legs.length === 0) {
       if (zoomLevel < ZoomLevel.vectorTileMinZoom) {
         planPhase = PlanPhase.zoomInClickEndNode;
       } else {

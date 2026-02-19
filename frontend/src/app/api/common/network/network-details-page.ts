@@ -10,9 +10,9 @@ export interface NetworkDetailsPage {
   readonly active: boolean;
   readonly country?: Country;
   readonly detail: NetworkDetail;
-  readonly networkNodeIds: number[];
-  readonly connectionNodeIds: number[];
-  readonly networkRouteIds: number[];
-  readonly connectionRouteIds: number[];
-  readonly tags: Tag[];
+  readonly networkNodeIds: ReadonlyArray<number>;
+  readonly connectionNodeIds: ReadonlyArray<number>;
+  readonly networkRouteIds: ReadonlyArray<number>;
+  readonly connectionRouteIds: ReadonlyArray<number>;
+  readonly tags: ReadonlyArray<Tag>;
 }

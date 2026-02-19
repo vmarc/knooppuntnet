@@ -11,23 +11,23 @@ export class Features {
     return features.find((f): f is FlagFeature => f instanceof FlagFeature);
   }
 
-  static findNetworkNode(features: MapFeature[]): NetworkNodeFeature | undefined {
+  static findNetworkNode(features: ReadonlyArray<MapFeature>): NetworkNodeFeature | undefined {
     return features.find((f): f is NetworkNodeFeature => f instanceof NetworkNodeFeature);
   }
 
-  static findLeg(features: MapFeature[]): LegFeature | undefined {
+  static findLeg(features: ReadonlyArray<MapFeature>): LegFeature | undefined {
     return features.find((f): f is LegFeature => f instanceof LegFeature);
   }
 
-  static findPoi(features: MapFeature[]): PoiFeature | undefined {
+  static findPoi(features: ReadonlyArray<MapFeature>): PoiFeature | undefined {
     return features.find((f): f is PoiFeature => f instanceof PoiFeature);
   }
 
-  static findRoute(features: MapFeature[]): RouteFeature | undefined {
+  static findRoute(features: ReadonlyArray<MapFeature>): RouteFeature | undefined {
     return features.find((f): f is RouteFeature => f instanceof RouteFeature);
   }
 
-  static findRoutes(features: MapFeature[]): RouteFeature[] {
+  static findRoutes(features: ReadonlyArray<MapFeature>): RouteFeature[] {
     return features.filter((f): f is RouteFeature => f instanceof RouteFeature);
   }
 

@@ -53,7 +53,7 @@ import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 export class MonitorRouteDeviationListComponent {
   private readonly nzContextMenuService = inject(NzContextMenuService);
 
-  readonly deviations = input.required<MonitorRouteDeviationInfo[]>();
+  readonly deviations = input.required<ReadonlyArray<MonitorRouteDeviationInfo>>();
   readonly selectionChange = output<MonitorRouteDeviationInfo>();
 
   protected readonly selectedDeviation = signal<MonitorRouteDeviationInfo>(undefined);

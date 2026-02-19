@@ -9,7 +9,7 @@ export interface LocationChangeSetSummary {
   readonly key: ChangeKey;
   readonly timestampFrom: Timestamp;
   readonly timestampUntil: Timestamp;
-  readonly trees: LocationChangesTree[];
+  readonly trees: ReadonlyArray<LocationChangesTree>;
   readonly happy: boolean;
   readonly investigate: boolean;
   readonly impact: boolean;

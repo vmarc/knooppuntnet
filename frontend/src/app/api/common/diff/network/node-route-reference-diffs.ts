@@ -3,7 +3,7 @@
 import { Ref } from '@api/common/common/ref';
 
 export interface NodeRouteReferenceDiffs {
-  readonly removed: Ref[];
-  readonly added: Ref[];
-  readonly remaining: Ref[];
+  readonly removed: ReadonlyArray<Ref>;
+  readonly added: ReadonlyArray<Ref>;
+  readonly remaining: ReadonlyArray<Ref>;
 }

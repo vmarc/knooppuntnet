@@ -5,5 +5,5 @@ import { Ref } from '@api/common/common/ref';
 export interface NetworkFactRefs {
   readonly networkId: number;
   readonly networkName: string;
-  readonly factRefs: Ref[];
+  readonly factRefs: ReadonlyArray<Ref>;
 }

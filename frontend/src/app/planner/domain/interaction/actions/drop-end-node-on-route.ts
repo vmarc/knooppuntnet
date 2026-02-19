@@ -15,8 +15,12 @@ import { PlannerDragFlag } from '../planner-drag-flag';
 export class DropEndNodeOnRoute {
   constructor(private readonly context: PlannerContext) {}
 
-  drop(dragFlag: PlannerDragFlag, routeFeatures: RouteFeature[], coordinate: Coordinate): void {
-    const oldLeg = this.context.plan().legs.last(null);
+  drop(
+    dragFlag: PlannerDragFlag,
+    routeFeatures: ReadonlyArray<RouteFeature>,
+    coordinate: Coordinate
+  ): void {
+    const oldLeg = this.context.plan().legs.at(-1);
     if (oldLeg) {
       this.buildNewLeg(oldLeg.sourceNode, routeFeatures, coordinate).subscribe({
         next: (newLeg) => {
@@ -35,7 +39,7 @@ export class DropEndNodeOnRoute {
 
   private buildNewLeg(
     sourceNode: PlanNode,
-    routeFeatures: RouteFeature[],
+    routeFeatures: ReadonlyArray<RouteFeature>,
     coordinate: Coordinate
   ): Observable<PlanLeg> {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);

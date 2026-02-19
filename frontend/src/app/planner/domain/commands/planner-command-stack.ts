@@ -1,4 +1,3 @@
-import { List } from 'immutable';
 import { PlannerCommand } from './planner-command';
 
 /*
@@ -22,7 +21,7 @@ import { PlannerCommand } from './planner-command';
 
 */
 export class PlannerCommandStack {
-  private _commands: List<PlannerCommand> = List();
+  private _commands: PlannerCommand[] = [];
 
   private _commandCount = 0;
 
@@ -51,17 +50,17 @@ export class PlannerCommandStack {
     that are available for "redo" operations.
   */
   get size(): number {
-    return this._commands.size;
+    return this._commands.length;
   }
 
   /*
     Adds a command to the stack. Any commands that were available for redo() will be lost now.
   */
-  push(command: PlannerCommand) {
-    if (this._commands.size > this.commandCount) {
-      this._commands = this._commands.setSize(this.commandCount);
+  push(command: PlannerCommand): void {
+    if (this._commands.length > this.commandCount) {
+      this._commands = this._commands.slice(0, this.commandCount);
     }
-    this._commands = this._commands.push(command);
+    this._commands.push(command);
     this._commandCount++;
     this.updateCanUndoRedo();
   }
@@ -74,7 +73,7 @@ export class PlannerCommandStack {
   undo(): PlannerCommand {
     if (this.commandCount > 0) {
       this._commandCount--;
-      const command = this._commands.get(this.commandCount);
+      const command = this._commands[this.commandCount];
       this.updateCanUndoRedo();
       return command;
     }
@@ -82,8 +81,8 @@ export class PlannerCommandStack {
   }
 
   redo(): PlannerCommand {
-    if (this.commandCount < this._commands.size) {
-      const command = this._commands.get(this.commandCount);
+    if (this.commandCount < this._commands.length) {
+      const command = this._commands[this.commandCount];
       this._commandCount++;
       this.updateCanUndoRedo();
       return command;
@@ -92,7 +91,7 @@ export class PlannerCommandStack {
   }
 
   last(): PlannerCommand {
-    return this._commands.get(this.commandCount - 1);
+    return this._commands[this.commandCount - 1];
   }
 
   private updateCanUndoRedo() {
@@ -105,6 +104,6 @@ export class PlannerCommandStack {
   }
 
   private updateCanRedo() {
-    this._canRedo = this._commands.size > this.commandCount;
+    this._canRedo = this._commands.length > this.commandCount;
   }
 }

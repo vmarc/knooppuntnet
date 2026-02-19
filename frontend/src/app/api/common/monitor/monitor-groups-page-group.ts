@@ -7,6 +7,6 @@ export interface MonitorGroupsPageGroup {
   readonly name: string;
   readonly description: string;
   readonly routeCount: number;
-  readonly monitorRouteIds: string[];
+  readonly monitorRouteIds: ReadonlyArray<string>;
   readonly bounds?: Bounds;
 }

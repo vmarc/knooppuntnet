@@ -16,7 +16,7 @@ export interface MonitorRouteDetail {
   readonly deviationDistance: number;
   readonly deviationCount: number;
   readonly osmSegmentCount: number;
-  readonly relationIds: number[];
+  readonly relationIds: ReadonlyArray<number>;
   readonly bounds?: Bounds;
   readonly happy: boolean;
 }

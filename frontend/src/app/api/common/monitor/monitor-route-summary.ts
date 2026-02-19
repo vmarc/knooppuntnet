@@ -9,7 +9,7 @@ export interface MonitorRouteSummary {
   readonly routeDescription: string;
   readonly routeId: string;
   readonly relationId?: number;
-  readonly relationIds: number[];
+  readonly relationIds: ReadonlyArray<number>;
   readonly memberCount: number;
   readonly segmentCount: number;
   readonly deviationCount: number;

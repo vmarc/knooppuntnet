@@ -10,5 +10,5 @@ export interface ChangeSetInfo {
   readonly closedAt?: Timestamp;
   readonly open: boolean;
   readonly commentsCount: number;
-  readonly tags: Tag[];
+  readonly tags: ReadonlyArray<Tag>;
 }

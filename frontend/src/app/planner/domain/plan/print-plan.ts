@@ -1,5 +1,4 @@
 import { PlanNode } from '@api/common/planner/plan-node';
-import { List } from 'immutable';
 import { Plan } from './plan';
 import { PlanLeg } from './plan-leg';
 
@@ -36,7 +35,7 @@ class PrintPlanLeg {
 export class PrintPlan {
   constructor(
     readonly source: PrintPlanNode,
-    readonly legs: List<PrintPlanLeg>
+    readonly legs: ReadonlyArray<PrintPlanLeg>
   ) {}
 
   static from(plan: Plan): PrintPlan {

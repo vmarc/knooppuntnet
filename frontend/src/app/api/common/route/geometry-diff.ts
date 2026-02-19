@@ -7,7 +7,7 @@ import { WayGeometryUpdate } from './way-geometry-update';
 
 export interface GeometryDiff {
   readonly info: GeometryDiffInfo;
-  readonly common: WayGeometry[];
-  readonly update: WayGeometryUpdate[];
+  readonly common: ReadonlyArray<WayGeometry>;
+  readonly update: ReadonlyArray<WayGeometryUpdate>;
   readonly bounds: Bounds;
 }

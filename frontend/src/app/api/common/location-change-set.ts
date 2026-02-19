@@ -6,5 +6,5 @@ import { LocationChanges } from './location-changes';
 export interface LocationChangeSet {
   readonly _id: string;
   readonly key: ChangeKey;
-  readonly locationChanges: LocationChanges[];
+  readonly locationChanges: ReadonlyArray<LocationChanges>;
 }

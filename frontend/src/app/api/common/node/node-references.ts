@@ -3,6 +3,6 @@
 import { Reference } from '@api/common/common/reference';
 
 export interface NodeReferences {
-  readonly networkReferences: Reference[];
-  readonly routeReferences: Reference[];
+  readonly networkReferences: ReadonlyArray<Reference>;
+  readonly routeReferences: ReadonlyArray<Reference>;
 }

@@ -1,6 +1,5 @@
 import { PdfPage } from './pdf-page';
 import { PdfPlanNode } from './pdf-plan-node';
-import { List } from 'immutable';
 
 export class PdfStripDocumentModel {
   readonly textHeight = 8;
@@ -17,11 +16,11 @@ export class PdfStripDocumentModel {
   );
   private readonly maxNodesPerPage = this.maxRowCount * this.maxColumnCount;
 
-  constructor(private nodes: List<PdfPlanNode>) {}
+  constructor(private nodes: ReadonlyArray<PdfPlanNode>) {}
 
   pageCount(): number {
-    let pageCount = Math.floor(this.nodes.size / this.maxNodesPerPage);
-    if (this.nodes.size % this.maxNodesPerPage > 0) {
+    let pageCount = Math.floor(this.nodes.length / this.maxNodesPerPage);
+    if (this.nodes.length % this.maxNodesPerPage > 0) {
       pageCount++;
     }
     return pageCount;
@@ -32,7 +31,7 @@ export class PdfStripDocumentModel {
     if (pageIndex < this.pageCount() - 1) {
       pageNodesCount = this.maxNodesPerPage;
     } else {
-      const remainder = this.nodes.size % this.maxNodesPerPage;
+      const remainder = this.nodes.length % this.maxNodesPerPage;
       if (remainder === 0) {
         pageNodesCount = this.maxNodesPerPage;
       } else {
@@ -71,6 +70,6 @@ export class PdfStripDocumentModel {
 
   node(pageIndex: number, columnIndex: number, rowIndex: number): PdfPlanNode {
     const nodeIndex = pageIndex * this.maxNodesPerPage + columnIndex * this.maxRowCount + rowIndex;
-    return this.nodes.get(nodeIndex);
+    return this.nodes[nodeIndex];
   }
 }

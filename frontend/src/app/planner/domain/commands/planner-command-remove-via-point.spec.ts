@@ -42,15 +42,15 @@ describe('PlannerCommandRemoveViaPoint', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(2);
+      expect(legs.length).toEqual(2);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('12');
       expect(leg1.sourceNode.nodeId).toEqual('1001');
       expect(leg1.sinkNode.nodeId).toEqual('1002');
       expectViaFlag(leg1.sinkFlag, 'oldSinkFlag1', [2, 2]);
 
-      const leg2 = legs.get(1);
+      const leg2 = legs[1];
       expect(leg2.featureId).toEqual('23');
       expect(leg2.sourceNode.nodeId).toEqual('1002');
       expect(leg2.sinkNode.nodeId).toEqual('1003');
@@ -68,9 +68,9 @@ describe('PlannerCommandRemoveViaPoint', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(1);
+      expect(legs.length).toEqual(1);
 
-      const leg = legs.get(0);
+      const leg = legs[0];
       expect(leg.featureId).toEqual('13');
       expect(leg.sourceNode.nodeId).toEqual('1001');
       expect(leg.sinkNode.nodeId).toEqual('1003');
@@ -89,15 +89,15 @@ describe('PlannerCommandRemoveViaPoint', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(2);
+      expect(legs.length).toEqual(2);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('12');
       expect(leg1.sourceNode.nodeId).toEqual('1001');
       expect(leg1.sinkNode.nodeId).toEqual('1002');
       expectViaFlag(leg1.sinkFlag, 'oldSinkFlag1', [2, 2]);
 
-      const leg2 = legs.get(1);
+      const leg2 = legs[1];
       expect(leg2.featureId).toEqual('23');
       expect(leg2.sourceNode.nodeId).toEqual('1002');
       expect(leg2.sinkNode.nodeId).toEqual('1003');
@@ -137,16 +137,16 @@ describe('PlannerCommandRemoveViaPoint', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(2);
+      expect(legs.length).toEqual(2);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('12');
       expect(leg1.sourceNode.nodeId).toEqual('1001');
       expect(leg1.sinkNode.nodeId).toEqual('1002');
       expectViaFlag(leg1.viaFlag, 'oldViaFlag', [15, 15]);
       expectInvisibleFlag(leg1.sinkFlag, 'oldSinkFlag1', [2, 2]);
 
-      const leg2 = legs.get(1);
+      const leg2 = legs[1];
       expect(leg2.featureId).toEqual('23');
       expect(leg2.sourceNode.nodeId).toEqual('1002');
       expect(leg2.sinkNode.nodeId).toEqual('1003');
@@ -164,9 +164,9 @@ describe('PlannerCommandRemoveViaPoint', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(1);
+      expect(legs.length).toEqual(1);
 
-      const leg = legs.get(0);
+      const leg = legs[0];
       expect(leg.featureId).toEqual('13');
       expect(leg.sourceNode.nodeId).toEqual('1001');
       expect(leg.sinkNode.nodeId).toEqual('1003');
@@ -186,16 +186,16 @@ describe('PlannerCommandRemoveViaPoint', () => {
 
     {
       const legs = setup.context.plan().legs;
-      expect(legs.size).toEqual(2);
+      expect(legs.length).toEqual(2);
 
-      const leg1 = legs.get(0);
+      const leg1 = legs[0];
       expect(leg1.featureId).toEqual('12');
       expect(leg1.sourceNode.nodeId).toEqual('1001');
       expect(leg1.sinkNode.nodeId).toEqual('1002');
       expectViaFlag(leg1.viaFlag, 'oldViaFlag', [15, 15]);
       expectInvisibleFlag(leg1.sinkFlag, 'oldSinkFlag1', [2, 2]);
 
-      const leg2 = legs.get(1);
+      const leg2 = legs[1];
       expect(leg2.featureId).toEqual('23');
       expect(leg2.sourceNode.nodeId).toEqual('1002');
       expect(leg2.sinkNode.nodeId).toEqual('1003');

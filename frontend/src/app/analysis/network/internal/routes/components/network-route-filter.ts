@@ -90,11 +90,11 @@ export class NetworkRouteFilter {
     private surveyDateInfo: SurveyDateInfo
   ) {}
 
-  filter(routes: NetworkRouteRow[]): NetworkRouteRow[] {
+  filter(routes: ReadonlyArray<NetworkRouteRow>): ReadonlyArray<NetworkRouteRow> {
     return routes.filter((r) => this.allFilters.passes(r));
   }
 
-  filterOptions(routes: NetworkRouteRow[]): FilterOptions {
+  filterOptions(routes: ReadonlyArray<NetworkRouteRow>): FilterOptions {
     const totalCount = routes.length;
     const filteredCount = routes.filter((route) => this.allFilters.passes(route)).length;
 

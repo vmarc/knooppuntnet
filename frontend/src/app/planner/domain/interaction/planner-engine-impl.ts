@@ -40,15 +40,15 @@ import { PlannerDragViaRouteFlagAnalyzer } from './planner-drag-via-route-flag-a
 import { PlannerEngine } from './planner-engine';
 
 export class PlannerEngineImpl implements PlannerEngine {
-  private legDrag: PlannerDragLeg = null;
-  private nodeDrag: PlannerDragFlag = null;
-  private viaRouteDrag: PlannerDragViaRouteFlag = null;
+  private legDrag: PlannerDragLeg;
+  private nodeDrag: PlannerDragFlag;
+  private viaRouteDrag: PlannerDragViaRouteFlag;
 
   constructor(private context: PlannerContext) {}
 
   handleDownEvent(features: MapFeature[], coordinate: Coordinate): boolean {
     const networkNodeFeature = Features.findNetworkNode(features);
-    if (networkNodeFeature != null) {
+    if (networkNodeFeature) {
       if (!this.context.planProposed && networkNodeFeature.proposed) {
         // ignore this feature
       } else {
@@ -58,7 +58,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
 
     const route = Features.findRoute(features);
-    if (route != null) {
+    if (route) {
       if (!this.context.planProposed && route.proposed) {
         // ignore this feature
       } else {
@@ -68,13 +68,13 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
 
     const poiFeature = Features.findPoi(features);
-    if (poiFeature != null) {
+    if (poiFeature) {
       this.context.highlighter.mouseDown(coordinate);
       return true;
     }
 
     const flag = Features.findFlag(features);
-    if (flag != null) {
+    if (flag) {
       this.context.highlighter.mouseDown(coordinate);
       return true;
     }
@@ -113,20 +113,20 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
 
     const leg = Features.findLeg(features);
-    if (leg != null) {
+    if (leg) {
       this.context.cursor.setStyleGrabbing();
       return true;
     }
 
     const poiFeature = Features.findPoi(features);
-    if (poiFeature != null) {
+    if (poiFeature) {
       this.context.cursor.setStylePointer();
       return true;
     }
 
     const route = Features.findRoute(features);
-    if (route != null) {
-      if (modifierKeyOnly || this.context.plan().sourceNode !== null) {
+    if (route) {
+      if (modifierKeyOnly || this.context.plan().sourceNode) {
         if (!this.context.planProposed && route.proposed) {
           // ignore this feature
         } else {
@@ -275,10 +275,10 @@ export class PlannerEngineImpl implements PlannerEngine {
     return true; // propagate further: panning map itself?
   }
 
-  handleUpEvent(features: MapFeature[], coordinate: Coordinate): boolean {
+  handleUpEvent(features: ReadonlyArray<MapFeature>, coordinate: Coordinate): boolean {
     if (this.isDraggingLeg() || this.isDraggingNode()) {
       const networkNode = Features.findNetworkNode(features);
-      if (networkNode != null) {
+      if (networkNode) {
         if (!this.context.planProposed && networkNode.proposed) {
           // ignore this feature
         } else {
@@ -323,7 +323,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
     if (this.isDraggingViaRouteFlag()) {
       const networkNodeFeature = Features.findNetworkNode(features);
-      if (networkNodeFeature != null) {
+      if (networkNodeFeature) {
         if (!this.context.planProposed && networkNodeFeature.proposed) {
           // ignore this feature
         } else {
@@ -397,7 +397,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       if (route != null) {
         return this.ctrlSingleClickRoute(route, coordinate);
       }
-    } else if (this.context.plan().sourceNode !== null) {
+    } else if (this.context.plan().sourceNode) {
       const routes = Features.findRoutes(features).filter((route) => {
         return !(!this.context.planProposed && route.proposed);
       });
@@ -443,7 +443,7 @@ export class PlannerEngineImpl implements PlannerEngine {
   private singleClickFlag(flag: FlagFeature, coordinate: Coordinate): boolean {
     if (flag.flagType === PlanFlagType.via) {
       const legs = this.context.plan().legs;
-      if (!legs.isEmpty()) {
+      if (legs.length > 0) {
         const legIndex = legs.findIndex((leg) => flag.id === leg.sinkFlag?.featureId);
         if (legIndex >= 0) {
           this.breadcrumb('single click via flag', {
@@ -452,8 +452,8 @@ export class PlannerEngineImpl implements PlannerEngine {
             coordinate: OlUtil.coordinateToString(coordinate),
             plan: this.planSummary(),
           });
-          const previousLeg = legs.get(legIndex);
-          const nextLeg = legs.get(legIndex + 1);
+          const previousLeg = legs[legIndex];
+          const nextLeg = legs[legIndex + 1];
           const plannerDragFlag = new PlannerDragFlag(
             previousLeg.sinkFlag,
             nextLeg.featureId,
@@ -470,7 +470,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     const localViaRouteDrag = new PlannerDragViaRouteFlagAnalyzer(this.context.plan()).dragStarted(
       flag
     );
-    if (localViaRouteDrag !== null) {
+    if (localViaRouteDrag) {
       this.breadcrumb('single click route flag', {
         flagType: flag.flagType,
         flagFeatureId: flag.id,
@@ -570,14 +570,14 @@ export class PlannerEngineImpl implements PlannerEngine {
     });
 
     this.nodeDrag = new PlannerDragFlagAnalyzer(this.context.plan()).dragStarted(flag);
-    if (this.nodeDrag !== null) {
+    if (this.nodeDrag) {
       this.context.markerLayer.updateFlagCoordinate(this.nodeDrag.planFlag.featureId, coordinate);
       this.context.elasticBand.set(this.nodeDrag.anchor1, this.nodeDrag.anchor2, coordinate);
       return true;
     }
 
     this.viaRouteDrag = new PlannerDragViaRouteFlagAnalyzer(this.context.plan()).dragStarted(flag);
-    if (this.viaRouteDrag !== null) {
+    if (this.viaRouteDrag) {
       this.context.markerLayer.updateFlagCoordinate(
         this.viaRouteDrag.planFlag.featureId,
         coordinate
@@ -594,24 +594,24 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private isDraggingLeg(): boolean {
-    return this.legDrag !== null;
+    return !!this.legDrag;
   }
 
   private isDraggingNode(): boolean {
-    return this.nodeDrag !== null;
+    return !!this.nodeDrag;
   }
 
   private isDraggingStartNode(): boolean {
-    return this.nodeDrag !== null && this.nodeDrag.planFlag.flagType === PlanFlagType.start;
+    return this.nodeDrag && this.nodeDrag.planFlag.flagType === PlanFlagType.start;
   }
 
   private isDraggingViaRouteFlag(): boolean {
-    return this.viaRouteDrag !== null;
+    return !!this.viaRouteDrag;
   }
 
   private dropNodeOnNode(targetNode: PlanNode): void {
     if (this.nodeDrag.planFlag.flagType === PlanFlagType.start) {
-      if (this.context.plan().legs.isEmpty()) {
+      if (this.context.plan().legs.length === 0) {
         this.moveStartPoint(targetNode);
       } else {
         new MoveFirstLegSource(this.context).move(this.nodeDrag, targetNode);
@@ -654,7 +654,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private dropNodeOnRoute(routeFeatures: RouteFeature[], coordinate: Coordinate) {
     if (this.nodeDrag.planFlag.flagType === PlanFlagType.via) {
-      if (this.nodeDrag.oldNode === null) {
+      if (!this.nodeDrag.oldNode) {
         const oldLeg = this.context
           .plan()
           .legs.find((leg) => this.nodeDrag.planFlag.featureId === leg.viaFlag?.featureId);
@@ -670,19 +670,19 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   private dragCancel(): void {
-    if (this.legDrag !== null) {
+    if (this.legDrag) {
       this.context.elasticBand.setInvisible();
-      this.legDrag = null;
+      this.legDrag = undefined;
     }
 
-    if (this.nodeDrag !== null) {
+    if (this.nodeDrag) {
       this.context.elasticBand.setInvisible();
-      this.nodeDrag = null;
+      this.nodeDrag = undefined;
     }
 
-    if (this.viaRouteDrag !== null) {
+    if (this.viaRouteDrag) {
       this.context.elasticBand.setInvisible();
-      this.viaRouteDrag = null;
+      this.viaRouteDrag = undefined;
     }
   }
 

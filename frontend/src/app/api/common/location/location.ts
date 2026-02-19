@@ -1,5 +1,5 @@
 // this file is generated, please do not modify
 
 export interface Location {
-  readonly names: string[];
+  readonly names: ReadonlyArray<string>;
 }
