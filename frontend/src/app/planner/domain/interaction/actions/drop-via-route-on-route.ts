@@ -1,5 +1,4 @@
 import { PlanNode } from '@api/common/planner/plan-node';
-import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,7 +13,7 @@ import { PlanUtil } from '../../plan/plan-util';
 export class DropViaRouteOnRoute {
   constructor(private readonly context: PlannerContext) {}
 
-  drop(oldLeg: PlanLeg, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
+  drop(oldLeg: PlanLeg, routeFeatures: RouteFeature[], coordinate: Coordinate): void {
     this.buildViaRouteLeg(oldLeg, routeFeatures, coordinate)
       .pipe(
         switchMap((newLeg1) =>
@@ -31,11 +30,11 @@ export class DropViaRouteOnRoute {
 
   private buildViaRouteLeg(
     oldLeg: PlanLeg,
-    routeFeatures: List<RouteFeature>,
+    routeFeatures: RouteFeature[],
     coordinate: Coordinate
   ): Observable<PlanLeg> {
     const source = PlanUtil.legEndNode(+oldLeg.sourceNode.nodeId);
-    const sink = PlanUtil.legEndRoutes(routeFeatures.toArray());
+    const sink = PlanUtil.legEndRoutes(routeFeatures);
     const viaFlag = PlanUtil.viaFlag(coordinate);
     const sinkFlag = PlanUtil.invisibleFlag(coordinate);
 

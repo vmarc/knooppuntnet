@@ -3,7 +3,7 @@ import { FeatureLike } from 'ol/Feature';
 import Feature from 'ol/Feature';
 import { Geometry } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
-import Map from 'ol/Map';
+import { Map as MaplibreMap } from 'maplibre-gl';
 import VectorSource from 'ol/source/Vector';
 import Circle from 'ol/style/Circle';
 import Fill from 'ol/style/Fill';
@@ -21,7 +21,7 @@ export class PlannerHighlightLayer {
   private readonly largeNodeStyle = PlannerHighlightLayer.buildNodeStyle(22, this.yellow);
   private readonly mouseDownStyle = PlannerHighlightLayer.buildNodeStyle(30, this.blue);
 
-  private map: Map;
+  private map: MaplibreMap;
 
   private source = new VectorSource({
     features: [],
@@ -52,17 +52,17 @@ export class PlannerHighlightLayer {
     });
   }
 
-  addToMap(map: Map) {
+  addToMap(map: MaplibreMap) {
     this.map = map;
     this.layer.setStyle(this.styleFunction());
     this.layer.setVisible(true);
-    map.addLayer(this.layer);
+    // map.addLayer(this.layer); // TODO planner
   }
 
   styleFunction(): StyleFunction {
     return (feature: FeatureLike) => {
       if (feature.getGeometry().getType() === 'Point') {
-        const zoom = this.map.getView().getZoom();
+        const zoom = 14; //this.map.getView().getZoom();
         if ('true' === feature.get('mouse-down')) {
           return this.mouseDownStyle;
         }

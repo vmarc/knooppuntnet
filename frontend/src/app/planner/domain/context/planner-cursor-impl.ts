@@ -1,11 +1,11 @@
-import Map from 'ol/Map';
+import { Map as MaplibreMap } from 'maplibre-gl';
 import { PlannerCursor } from './planner-cursor';
 
 export class PlannerCursorImpl implements PlannerCursor {
-  viewPort: HTMLElement;
+  private htmlElement: HTMLElement;
 
-  addToMap(map: Map) {
-    this.viewPort = map.getViewport();
+  addToMap(map: MaplibreMap) {
+    this.htmlElement = map.getCanvas();
   }
 
   setStyleGrab(): void {
@@ -29,6 +29,6 @@ export class PlannerCursorImpl implements PlannerCursor {
   }
 
   private setStyle(style: string): void {
-    this.viewPort.style.cursor = style;
+    this.htmlElement.style.cursor = style;
   }
 }

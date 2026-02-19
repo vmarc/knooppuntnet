@@ -6,10 +6,9 @@ import { MainMapStyleParameters } from '@app/ol/style/main-map-style-parameters'
 import { OldOldPoiService } from '@app/shared/services/old-old-poi.service';
 import { State } from '@app/state/state';
 import { Subscriptions } from '@app/util/subscriptions';
-import Map from 'ol/Map';
+import { Map as MaplibreMap } from 'maplibre-gl';
 import Overlay from 'ol/Overlay';
 import { SharedStateService } from '@app/shared/core/shared/shared-state.service';
-import { PlannerInteraction } from '../../domain/interaction/planner-interaction';
 import { PlannerService } from './planner.service';
 
 @Injectable({
@@ -21,8 +20,6 @@ export class PlannerMapService {
   private readonly poiService = inject(OldOldPoiService);
   private readonly mapZoomService = inject(MapZoomService);
   private readonly sharedStateService = inject(SharedStateService);
-
-  readonly interaction = new PlannerInteraction(this.plannerService.engine).interaction;
 
   private parameters = computed(() => {
     const selectedRouteId = '';
@@ -49,7 +46,7 @@ export class PlannerMapService {
     // });
   }
 
-  init(map: Map): void {
+  init(map: MaplibreMap): void {
     // const registry = this.plannerMapLayerService.registerLayers(
     //   this.state.page.routeType(),
     //   this.state.planner.urlLayerIds(),
@@ -81,10 +78,9 @@ export class PlannerMapService {
     //
     this.plannerService.init(map);
 
-    const view = map.getView();
-
-    this.poiService.updateZoomLevel(view.getZoom()); // TODO can do better?
-    this.mapZoomService.install(view); // TODO eliminate
+    //this.poiService.updateZoomLevel(view.getZoom()); // TODO can do better?
+    // const view = map.getView();
+    // this.mapZoomService.install(view); // TODO eliminate
 
     // MapGeocoder.install(this.map);
     //

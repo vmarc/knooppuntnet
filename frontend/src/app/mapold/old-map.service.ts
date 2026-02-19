@@ -163,7 +163,7 @@ export class OldMapService {
     this.updateCenter();
 
     this.mapInteractionsService.init(this._map);
-    this.plannerMapService.init(this._map);
+    // this.plannerMapService.init(this._map); commented out to compile ok
   }
 
   destroy(): void {

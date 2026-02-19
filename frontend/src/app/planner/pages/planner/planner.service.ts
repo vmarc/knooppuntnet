@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { ApiService } from '@app/shared/services/api.service';
 import { State } from '@app/state/state';
-import Map from 'ol/Map';
+import { Map as MaplibreMap } from 'maplibre-gl';
 import { PlannerContext } from '../../domain/context/planner-context';
 import { PlannerCursorImpl } from '../../domain/context/planner-cursor-impl';
 import { PlannerElasticBandImpl } from '../../domain/context/planner-elastic-band-impl';
@@ -43,7 +43,7 @@ export class PlannerService {
 
   readonly engine: PlannerEngine = new PlannerEngineImpl(this.context);
 
-  init(map: Map): void {
+  init(map: MaplibreMap): void {
     this.cursor.addToMap(map);
     this.routeLayer.addToMap(map);
     this.markerLayer.addToMap(map);

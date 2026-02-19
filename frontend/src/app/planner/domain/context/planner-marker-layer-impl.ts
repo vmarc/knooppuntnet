@@ -1,59 +1,86 @@
-import { Marker } from '@app/ol/domain/marker';
-import { OldOldLayers } from '@app/ol/layers/old-old-layers';
-import { List } from 'immutable';
-import { Coordinate } from 'ol/coordinate';
-import Feature from 'ol/Feature';
-import Geometry from 'ol/geom/Geometry';
-import Point from 'ol/geom/Point';
-import VectorLayer from 'ol/layer/Vector';
-import Map from 'ol/Map';
-import VectorSource from 'ol/source/Vector';
+import { Coordinate } from '@app/map/domain/coordinate';
+import { GeoJSONSource } from 'maplibre-gl';
+import { Map as MaplibreMap } from 'maplibre-gl';
 import { PlanFlag } from '../plan/plan-flag';
 import { PlanFlagType } from '../plan/plan-flag-type';
 import { PlannerMarkerLayer } from './planner-marker-layer';
 
 export class PlannerMarkerLayerImpl extends PlannerMarkerLayer {
-  private source = new VectorSource();
+  static SOURCE_ID = 'planner-marker-source';
 
-  private layer = new VectorLayer({
-    zIndex: OldOldLayers.zIndexPlannerMarkerLayer,
-    source: this.source,
-  });
+  private _map: MaplibreMap;
 
-  addToMap(map: Map) {
-    map.addLayer(this.layer);
+  addToMap(map: MaplibreMap) {
+    this._map = map;
+    this.initSource();
+  }
+
+  private initSource(): void {
+    this._map.addSource(PlannerMarkerLayerImpl.SOURCE_ID, {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: [],
+      },
+    });
+    this._map.addLayer({
+      id: 'planner-marker-layer',
+      type: 'symbol',
+      source: PlannerMarkerLayerImpl.SOURCE_ID,
+      layout: {
+        'icon-image': [
+          'match',
+          ['get', 'flagType'],
+          'start',
+          'marker-icon-green',
+          'end',
+          'marker-icon-red',
+          'via',
+          'marker-icon-orange',
+          'invisible',
+          'marker-icon-blue',
+          'marker-icon-yellow', // default
+        ],
+        'icon-anchor': 'bottom',
+      },
+    });
+
+    const coordinate: Coordinate = [4.46839, 51.46774]; // essen
+    this.addFlag(new PlanFlag(PlanFlagType.invisible, '12345', coordinate));
   }
 
   addFlag(flag: PlanFlag): void {
     if (flag !== null && flag.flagType !== PlanFlagType.invisible) {
-      let markerColor = 'blue';
-      if (flag.flagType === PlanFlagType.end) {
-        markerColor = 'green';
-      } else if (flag.flagType === PlanFlagType.via) {
-        markerColor = 'orange';
-      }
-      const marker = Marker.create(markerColor, flag.coordinate);
-      marker.setId(flag.featureId);
-      marker.set('layer', 'flag');
-      marker.set('flag-type', flag.flagType);
-      this.source.addFeature(marker);
+      const marker: GeoJSON.Feature = {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [flag.coordinate[0], flag.coordinate[1]],
+        },
+        id: flag.featureId,
+        properties: {
+          layer: 'flag',
+          flagType: flag.flagType,
+        },
+      };
+      const source: GeoJSONSource = this._map.getSource(PlannerMarkerLayerImpl.SOURCE_ID);
+      source.updateData({
+        add: [marker],
+      });
     }
   }
 
   removeFlag(flag: PlanFlag): void {
     if (flag !== null) {
-      const feature = this.source.getFeatureById(flag.featureId);
-      if (feature != null) {
-        this.source.removeFeature(feature);
-      }
+      this.removeFlagWithFeatureId(flag.featureId);
     }
   }
 
   removeFlagWithFeatureId(featureId: string): void {
-    const feature = this.source.getFeatureById(featureId);
-    if (feature != null) {
-      this.source.removeFeature(feature);
-    }
+    const source: GeoJSONSource = this._map.getSource(PlannerMarkerLayerImpl.SOURCE_ID);
+    source.updateData({
+      remove: [featureId],
+    });
   }
 
   updateFlag(flag: PlanFlag): void {
@@ -64,13 +91,22 @@ export class PlannerMarkerLayerImpl extends PlannerMarkerLayer {
   }
 
   updateFlagCoordinate(featureId: string, coordinate: Coordinate): void {
-    const feature = this.source.getFeatureById(featureId);
-    if (feature) {
-      (feature.getGeometry() as Point).setCoordinates(coordinate);
-    }
+    const source: GeoJSONSource = this._map.getSource(PlannerMarkerLayerImpl.SOURCE_ID);
+    source.updateData({
+      update: [
+        {
+          id: featureId,
+          newGeometry: {
+            type: 'Point',
+            coordinates: coordinate,
+          },
+        },
+      ],
+    });
   }
 
-  features(): List<Feature<Geometry>> {
-    return List(this.source.getFeatures());
+  features() /*: Array<Feature<G, P>>*/ {
+    throw new Error('Method not implemented.');
+    //    return this.featureCollection.features;
   }
 }

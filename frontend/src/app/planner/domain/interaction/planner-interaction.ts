@@ -1,8 +1,4 @@
-import { List } from 'immutable';
-import { platformModifierKeyOnly } from 'ol/events/condition';
-import { Interaction } from 'ol/interaction';
-import MapBrowserEvent from 'ol/MapBrowserEvent';
-import MapBrowserEventType from 'ol/MapBrowserEventType';
+import { MapMouseEvent } from 'maplibre-gl';
 import { MapFeature } from '../features/map-feature';
 import { Features } from './features';
 import { PlannerEngine } from './planner-engine';
@@ -11,94 +7,94 @@ export class PlannerInteraction {
   private eventDebugLogCount = 0;
   private readonly eventDebugLogEnabled = false;
 
-  readonly interaction: Interaction;
+  constructor(private engine: PlannerEngine) {}
 
-  private ctrl = false;
-
-  constructor(private engine: PlannerEngine) {
-    this.interaction = this.buildInteraction();
-  }
-
-  private buildInteraction(): Interaction {
-    return new Interaction({
-      handleEvent: (evt: MapBrowserEvent<UIEvent>) => {
-        this.eventDebugLog(evt.type + ', platformModifierKeyOnly=' + platformModifierKeyOnly(evt));
-
-        const ctrlState = platformModifierKeyOnly(evt);
-        if (ctrlState === true || ctrlState === false) {
-          this.ctrl = ctrlState;
-        }
-
-        if (MapBrowserEventType.SINGLECLICK === evt.type) {
-          return this.engine.handleSingleClickEvent(
-            this.getFeaturesAt(evt),
-            evt.coordinate,
-            this.ctrl
-          );
-        }
-
-        if (MapBrowserEventType.POINTERMOVE === evt.type) {
-          return this.engine.handleMoveEvent(this.getFeaturesAt(evt), evt.coordinate, this.ctrl);
-        }
-
-        if (MapBrowserEventType.POINTERDRAG === evt.type) {
-          return this.engine.handleDragEvent(this.getFeaturesAt(evt), evt.coordinate);
-        }
-
-        if (MapBrowserEventType.POINTERUP === evt.type) {
-          return this.engine.handleUpEvent(this.getFeaturesAt(evt), evt.coordinate);
-        }
-
-        if (MapBrowserEventType.POINTERDOWN === evt.type) {
-          return this.engine.handleDownEvent(this.getFeaturesAt(evt), evt.coordinate);
-        }
-
-        // known unhandled events, propagated to other interactions
-
-        if (MapBrowserEventType.CLICK === evt.type) {
-          return true;
-        }
-
-        if (MapBrowserEventType.DBLCLICK === evt.type) {
-          return true;
-        }
-
-        if (MapBrowserEventType.POINTEROVER === evt.type) {
-          return true;
-        }
-
-        if (MapBrowserEventType.POINTEROUT === evt.type) {
-          return true;
-        }
-
-        if (MapBrowserEventType.POINTERENTER === evt.type) {
-          return true;
-        }
-
-        if (MapBrowserEventType.POINTERLEAVE === evt.type) {
-          return true;
-        }
-
-        if (MapBrowserEventType.POINTERCANCEL === evt.type) {
-          return true;
-        }
-
-        // unknown unhandled events, propagated to other interactions
-
-        this.eventDebugLog('Unexpected event: ' + evt.type);
-        return true;
-      },
-    });
-  }
-
-  private getFeaturesAt(evt: MapBrowserEvent<UIEvent>): List<MapFeature> {
-    const features = evt.map.getFeaturesAtPixel(evt.pixel);
-    if (features) {
-      return List(
-        features.map((feature) => Features.mapFeature(feature)).filter((f) => f !== null)
-      );
+  handleMousedown(e: MapMouseEvent): void {
+    // console.log('PlannerInteraction.handleMousedown', e);
+    const features = this.getFeaturesAt(e);
+    if (features.length > 0) {
+      const coordinate = [e.lngLat.lng, e.lngLat.lat];
+      const result = this.engine.handleDownEvent(features, coordinate);
+      if (result) {
+        e.preventDefault();
+      }
     }
-    return List();
+  }
+
+  handleMouseup(e: MapMouseEvent): void {
+    // console.log('PlannerInteraction.handleMouseup', e);
+    const features = this.getFeaturesAt(e);
+    if (features.length > 0) {
+      const coordinate = [e.lngLat.lng, e.lngLat.lat];
+      const result = this.engine.handleUpEvent(features, coordinate);
+      if (result) {
+        e.preventDefault();
+      }
+    }
+  }
+
+  handleClick(e: MapMouseEvent): void {
+    const features = this.getFeaturesAt(e);
+    if (features.length > 0) {
+      const coordinate = [e.lngLat.lng, e.lngLat.lat]; // TODO planner, is this ok???
+      const meta = e.originalEvent.metaKey;
+      const result = this.engine.handleSingleClickEvent(features, coordinate, meta);
+      if (result) {
+        e.preventDefault();
+      }
+    }
+  }
+
+  handleDblclick(e: MapMouseEvent): void {
+    // console.log('PlannerInteraction.handleDblclick', e);
+  }
+
+  handleMousemove(e: MapMouseEvent): void {
+    //  if (MapBrowserEventType.POINTERDRAG === evt.type) { // TODO planner
+    //    return this.engine.handleDragEvent(this.getFeaturesAt(evt), evt.coordinate);
+    //  }
+
+    const features = this.getFeaturesAt(e);
+    if (features.length > 0) {
+      const coordinate = [e.lngLat.lng, e.lngLat.lat]; // TODO planner, is this ok???
+      const meta = e.originalEvent.metaKey;
+      const result = this.engine.handleMoveEvent(features, coordinate, meta);
+      if (result) {
+        e.preventDefault();
+      }
+    }
+  }
+
+  handleMouseover(e: MapMouseEvent): void {
+    // console.log('PlannerInteraction.handleMouseover', e);
+  }
+
+  handleMouseenter(e: MapMouseEvent): void {
+    // console.log('PlannerInteraction.handleMouseenter', e);
+  }
+
+  handleMouseleave(e: MapMouseEvent): void {
+    // console.log('PlannerInteraction.handleMouseleave', e);
+  }
+
+  handleMouseout(e: MapMouseEvent): void {
+    // console.log('PlannerInteraction.handleMouseout', e);
+  }
+
+  handleContextmenu(e: MapMouseEvent): void {
+    // console.log('PlannerInteraction.handleContextmenu', e);
+  }
+
+  private getFeaturesAt(mapMouseEvent: MapMouseEvent): MapFeature[] {
+    const features = mapMouseEvent.target.queryRenderedFeatures(mapMouseEvent.point);
+
+    const routeFeatures = features.filter((feature) => {
+      return feature.source === 'route-hiking'; // TODO planner
+    });
+
+    return routeFeatures
+      .map((feature) => Features.mapFeature(feature))
+      .filter((f) => f !== undefined);
   }
 
   private eventDebugLog(message: string): void {

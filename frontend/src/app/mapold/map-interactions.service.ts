@@ -38,9 +38,9 @@ export class MapInteractionsService {
       }
 
       if (subject === 'plan') {
-        this._map.addInteraction(this.plannerMapService.interaction);
+        // this._map.addInteraction(this.plannerMapService.interaction); // compile
       } else {
-        this._map.removeInteraction(this.plannerMapService.interaction);
+        // this._map.removeInteraction(this.plannerMapService.interaction); // compile
       }
     }
   }

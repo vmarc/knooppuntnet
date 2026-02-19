@@ -1,7 +1,6 @@
 import { TrackPathKey } from '@api/common/common/track-path-key';
 import { LegEnd } from '@api/common/planner/leg-end';
 import { LegEndRoute } from '@api/common/planner/leg-end-route';
-import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,25 +13,25 @@ import { PlanUtil } from '../../plan/plan-util';
 export class AddViaRouteLeg {
   constructor(private readonly context: PlannerContext) {}
 
-  add(routes: List<RouteFeature>, coordinate: Coordinate): void {
-    // current sink is source for new leg
+  add(routes: RouteFeature[], coordinate: Coordinate): void {
+    // the current sink is the source for the new leg
     const sourceNode = PlanUtil.planSinkNode(this.context.plan());
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
 
     const trackPathKeys = routes.flatMap((routeFeature) => {
       const trackPathKey = routeFeature.toTrackPathKey();
       if (routeFeature.oneWay) {
-        return List([trackPathKey]);
+        return [trackPathKey];
       }
       const extraTrackPathKey: TrackPathKey = {
         routeId: routeFeature.routeId,
         pathId: 100 + routeFeature.pathId,
       };
-      return List([trackPathKey, extraTrackPathKey]);
+      return [trackPathKey, extraTrackPathKey];
     });
 
     const legEndRoute: LegEndRoute = {
-      trackPathKeys: trackPathKeys.toArray(),
+      trackPathKeys: trackPathKeys,
       selection: null,
     };
 

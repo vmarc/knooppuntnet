@@ -1,5 +1,4 @@
 import { PlanNode } from '@api/common/planner/plan-node';
-import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,7 +16,7 @@ import { PlannerDragFlag } from '../planner-drag-flag';
 export class DropViaNodeOnRoute {
   constructor(private readonly context: PlannerContext) {}
 
-  drop(dragFlag: PlannerDragFlag, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
+  drop(dragFlag: PlannerDragFlag, routeFeatures: RouteFeature[], coordinate: Coordinate): void {
     const legs = this.context.plan().legs;
     const legIndex2 = legs.findIndex(
       (leg) => leg.sourceNode.featureId === dragFlag.oldNode.featureId
@@ -47,11 +46,11 @@ export class DropViaNodeOnRoute {
 
   private buildNewLeg1(
     oldLeg1: PlanLeg,
-    routeFeatures: List<RouteFeature>,
+    routeFeatures: RouteFeature[],
     coordinate: Coordinate
   ): Observable<PlanLeg> {
     const source = PlanUtil.legEndNode(+oldLeg1.sourceNode.nodeId);
-    const sink = PlanUtil.legEndRoutes(routeFeatures.toArray());
+    const sink = PlanUtil.legEndRoutes(routeFeatures);
     const viaFlag = new PlanFlag(PlanFlagType.via, FeatureId.next(), coordinate);
     const sinkFlag = new PlanFlag(PlanFlagType.invisible, FeatureId.next(), coordinate);
 

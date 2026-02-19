@@ -7,6 +7,9 @@ import { MapBuilder } from '@app/map/map-builder';
 import { RouteMapOptions } from '@app/map/sources/route-map-options';
 import { RouteSourceIds } from '@app/map/sources/route-source-ids';
 import { Sources } from '@app/map/sources/sources';
+import { PlannerEngineLog } from '@app/planner/domain/interaction/planner-engine-log';
+import { PlannerInteraction } from '@app/planner/domain/interaction/planner-interaction';
+import { PlannerMapService } from '@app/planner/pages/planner/planner-map.service';
 import { LngLatLike } from 'maplibre-gl';
 import { LngLatBounds } from 'maplibre-gl';
 import { Marker } from 'maplibre-gl';
@@ -17,6 +20,7 @@ import { State } from '@app/state/state';
 @Injectable()
 export class MapService {
   private readonly state = inject(State);
+  private readonly plannerMapService = inject(PlannerMapService);
 
   private _map = signal<MaplibreMap | null>(null);
   private _sources = signal<Sources | null>(null);
@@ -44,9 +48,73 @@ export class MapService {
     this.map.loadImage('/assets/arrow.png').then((response) => {
       this.map.addImage('node-route-arrow', response.data);
     });
+    this.map.loadImage('/assets/images/marker-icon-green.png').then((response) => {
+      this.map.addImage('marker-icon-green', response.data);
+    });
+    this.map.loadImage('/assets/images/marker-icon-blue.png').then((response) => {
+      this.map.addImage('marker-icon-blue', response.data);
+    });
+    this.map.loadImage('/assets/images/marker-icon-orange.png').then((response) => {
+      this.map.addImage('marker-icon-orange', response.data);
+    });
+    this.map.loadImage('/assets/images/marker-icon-purple.png').then((response) => {
+      this.map.addImage('marker-icon-purple', response.data);
+    });
+    this.map.loadImage('/assets/images/marker-icon-red.png').then((response) => {
+      this.map.addImage('marker-icon-red', response.data);
+    });
+    this.map.loadImage('/assets/images/marker-icon-yellow.png').then((response) => {
+      this.map.addImage('marker-icon-yellow', response.data);
+    });
+
     this.map.on('load', () => {
       this._sources.set(new Sources(this.map));
+      this.plannerMapService.init(this.map);
     });
+
+    const plannerInteraction = new PlannerInteraction(new PlannerEngineLog());
+
+    this.map.on('mousedown', (e) => {
+      plannerInteraction.handleMousedown(e);
+    });
+
+    this.map.on('mouseup', (e) => {
+      plannerInteraction.handleMouseup(e);
+    });
+
+    this.map.on('click', (e) => {
+      plannerInteraction.handleClick(e);
+    });
+
+    this.map.on('dblclick', (e) => {
+      plannerInteraction.handleDblclick(e);
+    });
+
+    this.map.on('mousemove', (e) => {
+      plannerInteraction.handleMousemove(e);
+    });
+
+    this.map.on('mouseover', (e) => {
+      plannerInteraction.handleMouseover(e);
+    });
+
+    this.map.on('mouseenter', (e) => {
+      plannerInteraction.handleMouseenter(e);
+    });
+
+    this.map.on('mouseleave', (e) => {
+      plannerInteraction.handleMouseleave(e);
+    });
+
+    this.map.on('mouseout', (e) => {
+      plannerInteraction.handleMouseout(e);
+    });
+
+    this.map.on('contextmenu', (e) => {
+      plannerInteraction.handleContextmenu(e);
+    });
+
+    // TODO 'touchstart', 'touchend', or 'touchcancel' ???
   }
 
   destroy(): void {

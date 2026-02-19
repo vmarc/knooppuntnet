@@ -1,5 +1,5 @@
 import { TrackPathKey } from '@api/common/common/track-path-key';
-import { FeatureLike } from 'ol/Feature';
+import { MapGeoJSONFeature } from 'maplibre-gl';
 
 export class RouteFeature {
   constructor(
@@ -8,7 +8,7 @@ export class RouteFeature {
     readonly routeName: string,
     readonly oneWay: boolean,
     readonly proposed: boolean,
-    readonly feature: FeatureLike
+    readonly feature: MapGeoJSONFeature
   ) {}
 
   toTrackPathKey(): TrackPathKey {

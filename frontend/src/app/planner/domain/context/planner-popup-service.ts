@@ -10,7 +10,7 @@ import { MapZoomService } from '@app/ol/services/map-zoom.service';
 import { ApiService } from '@app/shared/services/api.service';
 import { State } from '@app/state/state';
 import { Coordinate } from 'ol/coordinate';
-import Map from 'ol/Map';
+import { Map as MaplibreMap } from 'maplibre-gl';
 import Overlay from 'ol/Overlay';
 import { NodeClick } from '../interaction/actions/node-click';
 import { PoiClick } from '../interaction/actions/poi-click';
@@ -38,8 +38,8 @@ export class PlannerPopupService implements PlannerPopup {
 
   private overlay: Overlay;
 
-  addToMap(map: Map) {
-    this.overlay = map.getOverlayById('popup');
+  addToMap(map: MaplibreMap) {
+    // this.overlay = map.getOverlayById('popup'); // TODO planner
   }
 
   poiClicked(poiClick: PoiClick): void {

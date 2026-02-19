@@ -1,8 +1,4 @@
-import { OlUtil } from '@app/ol/ol-util';
-import { List } from 'immutable';
-import { Coordinate } from 'ol/coordinate';
-import { FeatureLike } from 'ol/Feature';
-import Point from 'ol/geom/Point';
+import { MapGeoJSONFeature } from 'maplibre-gl';
 import { FlagFeature } from '../features/flag-feature';
 import { LegFeature } from '../features/leg-feature';
 import { MapFeature } from '../features/map-feature';
@@ -11,108 +7,114 @@ import { PoiFeature } from '../features/poi-feature';
 import { RouteFeature } from '../features/route-feature';
 
 export class Features {
-  static findFlag(features: List<MapFeature>): FlagFeature {
-    return features
-      .filter((f) => f instanceof FlagFeature)
-      .map((f) => f as FlagFeature)
-      .first(null);
+  static findFlag(features: MapFeature[]): FlagFeature | undefined {
+    return features.find((f): f is FlagFeature => f instanceof FlagFeature);
   }
 
-  static findNetworkNode(features: List<MapFeature>): NetworkNodeFeature {
-    return features
-      .filter((f) => f instanceof NetworkNodeFeature)
-      .map((f) => f as NetworkNodeFeature)
-      .first(null);
+  static findNetworkNode(features: MapFeature[]): NetworkNodeFeature | undefined {
+    return features.find((f): f is NetworkNodeFeature => f instanceof NetworkNodeFeature);
   }
 
-  static findLeg(features: List<MapFeature>): LegFeature {
-    return features
-      .filter((f) => f instanceof LegFeature)
-      .map((f) => f as LegFeature)
-      .first(null);
+  static findLeg(features: MapFeature[]): LegFeature | undefined {
+    return features.find((f): f is LegFeature => f instanceof LegFeature);
   }
 
-  static findPoi(features: List<MapFeature>): PoiFeature {
-    return features
-      .filter((f) => f instanceof PoiFeature)
-      .map((f) => f as PoiFeature)
-      .first(null);
+  static findPoi(features: MapFeature[]): PoiFeature | undefined {
+    return features.find((f): f is PoiFeature => f instanceof PoiFeature);
   }
 
-  static findRoute(features: List<MapFeature>): RouteFeature {
-    return features
-      .filter((f) => f instanceof RouteFeature)
-      .map((f) => f as RouteFeature)
-      .first(null);
+  static findRoute(features: MapFeature[]): RouteFeature | undefined {
+    return features.find((f): f is RouteFeature => f instanceof RouteFeature);
   }
 
-  static findRoutes(features: List<MapFeature>): List<RouteFeature> {
-    return features.filter((f) => f instanceof RouteFeature).map((f) => f as RouteFeature);
+  static findRoutes(features: MapFeature[]): RouteFeature[] {
+    return features.filter((f): f is RouteFeature => f instanceof RouteFeature);
   }
 
-  static mapFeature(feature: FeatureLike): MapFeature {
-    const featureLayer = OlUtil.featureLayer(feature);
-    if (featureLayer) {
-      if ('leg' === featureLayer) {
-        const legId = feature.getId() as string;
-        return new LegFeature(legId);
-      }
-      if ('flag' === featureLayer) {
-        const id = feature.getId() as string;
-        const flagType = feature.get('flag-type');
-        return new FlagFeature(flagType, id);
-      }
-      if (featureLayer.endsWith('node') && !featureLayer.endsWith('opendata-node')) {
-        const nodeId = feature.get('id');
-        const proposed = feature.get('state') === 'proposed';
-        let nodeRef = feature.get('ref');
-        const nodeName = feature.get('name');
-        if (nodeName && nodeRef === 'o') {
-          nodeRef = null;
-        }
-        let name = nodeRef;
-        if (!name) {
-          name = nodeName;
-        }
+  static mapFeature(feature: MapGeoJSONFeature): MapFeature | undefined {
+    const layerId = feature.layer.id;
 
-        let nodeLongName = null;
-        if (nodeName && nodeRef) {
-          nodeLongName = nodeName;
-        }
+    // console.log('mapFeature', layerId, feature);
 
-        const point: Point = feature.getGeometry() as Point;
-        const extent = point.getExtent();
-        const coordinate: Coordinate = [extent[0], extent[1]];
-        return NetworkNodeFeature.create(nodeId, name, nodeLongName, coordinate, proposed);
-      }
+    // if ('leg' === featureLayer) {
+    //   const legId = feature.id as string;
+    //   return new LegFeature(legId);
+    // }
 
-      const layerType = feature.get('type');
-      if ('node' === layerType || 'way' === layerType || 'relation' === layerType) {
-        const poiId = feature.get('id');
-        const point: Point = feature.getGeometry() as Point;
-        const extent = point.getExtent();
-        const coordinate: Coordinate = [extent[0], extent[1]];
-        return new PoiFeature(poiId, layerType, featureLayer, coordinate);
-      }
+    // if ('flag' === featureLayer) {
+    //   const id = feature.getId() as string;
+    //   const flagType = feature.get('flag-type');
+    //   return new FlagFeature(flagType, id);
+    // }
 
-      if (featureLayer.endsWith('route') && !featureLayer.endsWith('opendata-route')) {
-        const segmentId = feature.get('id');
-        const routeName = feature.get('name');
-        const oneWay = feature.get('oneway') === 'true';
-        let dashIndex = -1;
-        let routeId = 0;
-        let pathId = 0;
-        if (segmentId) {
-          dashIndex = segmentId.indexOf('-');
-          routeId = dashIndex === -1 ? segmentId : segmentId.substring(0, dashIndex);
-          pathId = dashIndex === -1 ? -1 : segmentId.substring(dashIndex + 1);
-        }
-        const proposed = feature.get('state') === 'proposed';
-        return new RouteFeature(+routeId, +pathId, routeName, oneWay, proposed, feature);
+    if (layerId == 'route-hiking-node') {
+      const nodeId = feature.properties['id'];
+      const ref = feature.properties['ref'];
+      if (feature.geometry.type == 'Point') {
+        const coordinate = feature.geometry.coordinates;
+        return NetworkNodeFeature.create(nodeId, ref, '', coordinate, false /*TODO planner*/);
       }
     }
 
+    // if (layerId.endsWith('node') && !layerId.endsWith('opendata-node')) {
+    //   const nodeId = feature.id;
+    //   const proposed = feature.get('state') === 'proposed';
+    //   let nodeRef = feature.get('ref');
+    //   const nodeName = feature.get('name');
+    //   if (nodeName && nodeRef === 'o') {
+    //     nodeRef = undefined;
+    //   }
+    //   let name = nodeRef;
+    //   if (!name) {
+    //     name = nodeName;
+    //   }
+    //
+    //   let nodeLongName = undefined;
+    //   if (nodeName && nodeRef) {
+    //     nodeLongName = nodeName;
+    //   }
+    //
+    //   const point: Point = feature.getGeometry() as Point;
+    //   const extent = point.getExtent();
+    //   const coordinate: Coordinate = [extent[0], extent[1]];
+    //   return NetworkNodeFeature.create(nodeId, name, nodeLongName, coordinate, proposed);
+    // }
+
+    // const layerType = feature.get('type');
+    // if ('node' === layerType || 'way' === layerType || 'relation' === layerType) {
+    //   const poiId = feature.get('id');
+    //   const point: Point = feature.getGeometry() as Point;
+    //   const extent = point.getExtent();
+    //   const coordinate: Coordinate = [extent[0], extent[1]];
+    //   return new PoiFeature(poiId, layerType, featureLayer, coordinate);
+    // }
+
+    if (layerId == 'route-hiking-node-route') {
+      const routeId = feature.properties['routeId'];
+      const segmentId = feature.properties['segmentId'];
+      const routeName = feature.properties['name'];
+      const oneWay = feature.properties['oneway'] === 'true';
+      const proposed = feature.properties['state'] === 'proposed';
+      return new RouteFeature(+routeId, +segmentId, routeName, oneWay, proposed, feature);
+    }
+
+    // if (featureLayer.endsWith('route') && !featureLayer.endsWith('opendata-route')) {
+    //   const segmentId = feature.get('id');
+    //   const routeName = feature.get('name');
+    //   const oneWay = feature.get('oneway') === 'true';
+    //   let dashIndex = -1;
+    //   let routeId = 0;
+    //   let pathId = 0;
+    //   if (segmentId) {
+    //     dashIndex = segmentId.indexOf('-');
+    //     routeId = dashIndex === -1 ? segmentId : segmentId.substring(0, dashIndex);
+    //     pathId = dashIndex === -1 ? -1 : segmentId.substring(dashIndex + 1);
+    //   }
+    //   const proposed = feature.get('state') === 'proposed';
+    //   return new RouteFeature(+routeId, +pathId, routeName, oneWay, proposed, feature);
+    // }
+
     // we are not interested in the feature for planner purposes
-    return null;
+    return undefined;
   }
 }

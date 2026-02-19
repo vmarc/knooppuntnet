@@ -5,7 +5,7 @@ import Feature from 'ol/Feature';
 import LineString from 'ol/geom/LineString';
 import Point from 'ol/geom/Point';
 import VectorLayer from 'ol/layer/Vector';
-import Map from 'ol/Map';
+import { Map as MaplibreMap } from 'maplibre-gl';
 import VectorSource from 'ol/source/Vector';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
@@ -30,8 +30,8 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayer {
     source: this.source,
   });
 
-  addToMap(map: Map) {
-    map.addLayer(this.layer);
+  addToMap(map: MaplibreMap) {
+    // map.addLayer(this.layer); // TODO planner
   }
 
   addFlag(flag: PlanFlag): void {

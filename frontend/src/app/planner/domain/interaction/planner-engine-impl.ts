@@ -2,7 +2,6 @@ import { PlanNode } from '@api/common/planner/plan-node';
 import { OlUtil } from '@app/ol/ol-util';
 import { PoiId } from '@app/ol/domain/poi-id';
 import * as Sentry from '@sentry/angular';
-import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { PlannerCommandAddStartPoint } from '../commands/planner-command-add-start-point';
 import { PlannerCommandMoveStartPoint } from '../commands/planner-command-move-start-point';
@@ -47,7 +46,7 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   constructor(private context: PlannerContext) {}
 
-  handleDownEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
+  handleDownEvent(features: MapFeature[], coordinate: Coordinate): boolean {
     const networkNodeFeature = Features.findNetworkNode(features);
     if (networkNodeFeature != null) {
       if (!this.context.planProposed && networkNodeFeature.proposed) {
@@ -84,11 +83,11 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   handleMoveEvent(
-    features: List<MapFeature>,
+    features: MapFeature[],
     coordinate: Coordinate,
     modifierKeyOnly: boolean
   ): boolean {
-    if (features.isEmpty()) {
+    if (features.length === 0) {
       this.context.highlighter.reset();
       this.context.cursor.setStyleDefault();
       return false;
@@ -145,7 +144,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false;
   }
 
-  handleDragEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
+  handleDragEvent(features: MapFeature[], coordinate: Coordinate): boolean {
     if (this.isDraggingNode()) {
       const networkNodeFeature = Features.findNetworkNode(features);
       if (networkNodeFeature != null) {
@@ -276,7 +275,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     return true; // propagate further: panning map itself?
   }
 
-  handleUpEvent(features: List<MapFeature>, coordinate: Coordinate): boolean {
+  handleUpEvent(features: MapFeature[], coordinate: Coordinate): boolean {
     if (this.isDraggingLeg() || this.isDraggingNode()) {
       const networkNode = Features.findNetworkNode(features);
       if (networkNode != null) {
@@ -298,7 +297,7 @@ export class PlannerEngineImpl implements PlannerEngine {
         const routeFeatures = Features.findRoutes(features).filter((route) => {
           return !(!this.context.planProposed && route.proposed);
         });
-        if (!routeFeatures.isEmpty()) {
+        if (routeFeatures.length > 0) {
           if (this.isDraggingLeg()) {
             this.dropLegOnRoute(routeFeatures, coordinate);
           } else if (this.isDraggingNode()) {
@@ -346,7 +345,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       const routeFeatures = Features.findRoutes(features).filter((route) => {
         return !(!this.context.planProposed && route.proposed);
       });
-      if (!routeFeatures.isEmpty()) {
+      if (routeFeatures.length > 0) {
         const oldLeg = this.context
           .plan()
           .legs.find((leg) => leg.featureId === this.viaRouteDrag.legFeatureId);
@@ -369,11 +368,11 @@ export class PlannerEngineImpl implements PlannerEngine {
   }
 
   handleSingleClickEvent(
-    features: List<MapFeature>,
+    features: MapFeature[],
     coordinate: Coordinate,
     modifierKeyOnly: boolean
   ): boolean {
-    if (features.isEmpty()) {
+    if (features.length === 0) {
       this.context.highlighter.reset();
       this.context.closeOverlay();
       return false; // prevent further propagation
@@ -402,7 +401,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       const routes = Features.findRoutes(features).filter((route) => {
         return !(!this.context.planProposed && route.proposed);
       });
-      if (!routes.isEmpty()) {
+      if (routes.length > 0) {
         return this.singleClickRoutes(routes, coordinate);
       }
     }
@@ -506,7 +505,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     return false; // prevent further propagation
   }
 
-  private singleClickRoutes(routes: List<RouteFeature>, coordinate: Coordinate): boolean {
+  private singleClickRoutes(routes: RouteFeature[], coordinate: Coordinate): boolean {
     this.breadcrumb('single click routes', {
       routeIds: routes?.map((route) => route?.routeId).join(', '),
       plan: this.planSummary(),
@@ -646,14 +645,14 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
   }
 
-  private dropLegOnRoute(routeFeatures: List<RouteFeature>, coordinate: Coordinate) {
+  private dropLegOnRoute(routeFeatures: RouteFeature[], coordinate: Coordinate) {
     const oldLeg = this.context.plan().legs.find((leg) => leg.featureId === this.legDrag.oldLegId);
     if (oldLeg) {
       new DropViaRouteOnRoute(this.context).drop(oldLeg, routeFeatures, coordinate);
     }
   }
 
-  private dropNodeOnRoute(routeFeatures: List<RouteFeature>, coordinate: Coordinate) {
+  private dropNodeOnRoute(routeFeatures: RouteFeature[], coordinate: Coordinate) {
     if (this.nodeDrag.planFlag.flagType === PlanFlagType.via) {
       if (this.nodeDrag.oldNode === null) {
         const oldLeg = this.context
