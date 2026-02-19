@@ -1,5 +1,5 @@
+import { Coordinate } from '@api/custom/coordinate';
 import { Map as PlanFlagMap } from 'immutable';
-import { Coordinate } from 'ol/coordinate';
 import { expect } from 'vitest';
 import { expectCoordinate } from '../../util/test-support';
 import { PlanFlag } from '../plan/plan-flag';

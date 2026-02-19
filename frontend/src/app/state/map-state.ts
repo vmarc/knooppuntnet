@@ -1,21 +1,21 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
+import { Coordinate } from '@api/custom/coordinate';
 import { RouteMapOptions } from '@app/map/sources/route-map-options';
 import { MapMode } from '@app/mapold/domain/map-mode';
-import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { MapLayerState } from '@app/ol/domain/map-layer-state';
+import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { MonitorMapMode } from '@app/state/monitor/monitor-map-mode';
 import { MonitorMapState } from '@app/state/monitor/monitor-map-state';
 import { SegmentMap } from '@app/state/segment-map';
-import { Coordinate } from 'ol/coordinate';
-import { FocusElements } from './focus-elements';
-import { PoiStyleMap } from './poi/poi-style-map';
 import { MapSubject } from '../ol/services/map-subject';
+import { FocusElements } from './focus-elements';
+import { MapRoutePopupState } from './map-route-popup-state';
 import { MapStateLayers } from './map-state-layers';
 import { MapStateScopes } from './map-state-scopes';
 import { MapStyleOptions } from './map-style-options';
-import { MapRoutePopupState } from './map-route-popup-state';
+import { PoiStyleMap } from './poi/poi-style-map';
 
 export class MapState {
   private readonly _subject = signal<MapSubject>('explore');

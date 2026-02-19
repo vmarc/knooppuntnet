@@ -11,8 +11,8 @@ export class PlannerMarkerLayerPrinter {
 
   layer(plannerMarkerLayer: PlannerMarkerLayer): Printer {
     if (plannerMarkerLayer instanceof PlannerMarkerLayerImpl) {
-      const features = (plannerMarkerLayer as PlannerMarkerLayerImpl).features();
-      this.out.println(`markerLayer (${features.size} features)`);
+      const features = []; // (plannerMarkerLayer as PlannerMarkerLayerImpl).features(); compile
+      this.out.println(`markerLayer (${features.length} features)`);
       features.forEach((feature) => {
         const featureLayer = OlUtil.featureLayer(feature);
         if (featureLayer === 'flag') {

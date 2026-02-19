@@ -1,5 +1,5 @@
+import { Coordinate } from '@api/custom/coordinate';
 import { MapFeature } from '@app/planner/domain/features/map-feature';
-import { Coordinate } from 'ol/coordinate';
 import { PlannerEngine } from './planner-engine';
 
 export class PlannerEngineLog implements PlannerEngine {

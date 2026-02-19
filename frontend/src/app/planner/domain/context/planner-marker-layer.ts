@@ -1,4 +1,4 @@
-import { Coordinate } from 'ol/coordinate';
+import { Coordinate } from '@api/custom/coordinate';
 import { Plan } from '../plan/plan';
 import { PlanFlag } from '../plan/plan-flag';
 

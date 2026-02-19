@@ -1,7 +1,7 @@
 import { TrackPathKey } from '@api/common/common/track-path-key';
 import { LegEnd } from '@api/common/planner/leg-end';
 import { LegEndRoute } from '@api/common/planner/leg-end-route';
-import { Coordinate } from 'ol/coordinate';
+import { Coordinate } from '@api/custom/coordinate';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PlannerCommandAddLeg } from '../../commands/planner-command-add-leg';

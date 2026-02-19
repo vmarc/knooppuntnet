@@ -1,6 +1,6 @@
-import { LatLonImpl } from '@api/common/lat-lon-impl';
 import { FeatureLayer } from '@api/common/feature-layer';
-import { Coordinate } from 'ol/coordinate';
+import { LatLonImpl } from '@api/common/lat-lon-impl';
+import { Coordinate } from '@api/custom/coordinate';
 import { FeatureLike } from 'ol/Feature';
 import { fromLonLat } from 'ol/proj';
 import { toLonLat } from 'ol/proj';

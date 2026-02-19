@@ -1,4 +1,4 @@
-import { Coordinate } from 'ol/coordinate';
+import { Coordinate } from '@api/custom/coordinate';
 import { NodeClick } from '../interaction/actions/node-click';
 import { PoiClick } from '../interaction/actions/poi-click';
 import { RouteClick } from '../interaction/actions/route-click';

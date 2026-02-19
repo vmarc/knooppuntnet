@@ -1,4 +1,4 @@
-import { Position } from 'geojson';
+import { Coordinate } from '@api/custom/coordinate';
 import { GeoJSONSource } from 'maplibre-gl';
 import { Map as MaplibreMap } from 'maplibre-gl';
 import { PlannerElasticBand } from './planner-elastic-band';
@@ -10,8 +10,8 @@ export class PlannerElasticBandImpl implements PlannerElasticBand {
   private static LINE2_ID = 'planner-elastic-band-line2';
 
   private _map: MaplibreMap;
-  private anchor1: Position;
-  private anchor2: Position;
+  private anchor1: Coordinate;
+  private anchor2: Coordinate;
 
   addToMap(map: MaplibreMap) {
     this._map = map;
@@ -66,14 +66,14 @@ export class PlannerElasticBandImpl implements PlannerElasticBand {
     });
   }
 
-  set(anchor1: Position, anchor2: Position, position: Position): void {
+  set(anchor1: Coordinate, anchor2: Coordinate, position: Coordinate): void {
     this.anchor1 = anchor1;
     this.anchor2 = anchor2;
     this.updatePosition(position);
     this.updateVisibility(true);
   }
 
-  updatePosition(position: Position): void {
+  updatePosition(position: Coordinate): void {
     const source: GeoJSONSource = this._map.getSource(PlannerElasticBandImpl.SOURCE_ID);
     source.updateData({
       update: [

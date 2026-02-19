@@ -1,4 +1,4 @@
-import { Coordinate } from 'ol/coordinate';
+import { Coordinate } from '@api/custom/coordinate';
 import { MapFeature } from '../features/map-feature';
 
 export interface PlannerEngine {

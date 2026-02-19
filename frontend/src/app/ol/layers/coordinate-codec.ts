@@ -1,6 +1,6 @@
+import { Coordinate } from '@api/custom/coordinate';
 import { LongCoordinate } from '@app/ol/layers/long-coordinate';
 import { StringCoordinate } from '@app/ol/layers/string-coordinate';
-import { Coordinate } from 'ol/coordinate';
 
 export class CoordinateCodec {
   static readonly CoordinatePrecision = 10000000; // 7 decimal places precision

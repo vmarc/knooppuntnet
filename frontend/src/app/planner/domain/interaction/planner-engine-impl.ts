@@ -1,8 +1,8 @@
 import { PlanNode } from '@api/common/planner/plan-node';
-import { OlUtil } from '@app/ol/ol-util';
+import { Coordinate } from '@api/custom/coordinate';
 import { PoiId } from '@app/ol/domain/poi-id';
+import { OlUtil } from '@app/ol/ol-util';
 import * as Sentry from '@sentry/angular';
-import { Coordinate } from 'ol/coordinate';
 import { PlannerCommandAddStartPoint } from '../commands/planner-command-add-start-point';
 import { PlannerCommandMoveStartPoint } from '../commands/planner-command-move-start-point';
 import { PlannerContext } from '../context/planner-context';

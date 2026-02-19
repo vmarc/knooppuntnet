@@ -1,11 +1,11 @@
+import { Coordinate } from '@api/custom/coordinate';
 import { Marker } from '@app/ol/domain/marker';
 import { OldOldLayers } from '@app/ol/layers/old-old-layers';
-import { Coordinate } from 'ol/coordinate';
+import { Map as MaplibreMap } from 'maplibre-gl';
 import Feature from 'ol/Feature';
 import LineString from 'ol/geom/LineString';
 import Point from 'ol/geom/Point';
 import VectorLayer from 'ol/layer/Vector';
-import { Map as MaplibreMap } from 'maplibre-gl';
 import VectorSource from 'ol/source/Vector';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';

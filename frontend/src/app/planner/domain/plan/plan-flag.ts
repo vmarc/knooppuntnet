@@ -1,4 +1,4 @@
-import { Coordinate } from 'ol/coordinate';
+import { Coordinate } from '@api/custom/coordinate';
 import { PlanFlagType } from './plan-flag-type';
 
 export class PlanFlag {

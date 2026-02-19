@@ -1,5 +1,5 @@
 import { PlanNode } from '@api/common/planner/plan-node';
-import { Coordinate } from 'ol/coordinate';
+import { Coordinate } from '@api/custom/coordinate';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { switchMap } from 'rxjs/operators';

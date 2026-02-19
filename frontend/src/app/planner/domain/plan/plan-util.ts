@@ -1,14 +1,14 @@
 import { Bounds } from '@api/common/bounds';
-import { LatLonImpl } from '@api/common/lat-lon-impl';
 import { TrackPathKey } from '@api/common/common/track-path-key';
+import { LatLonImpl } from '@api/common/lat-lon-impl';
 import { LegEnd } from '@api/common/planner/leg-end';
 import { PlanFragment } from '@api/common/planner/plan-fragment';
 import { PlanNode } from '@api/common/planner/plan-node';
 import { PlanRoute } from '@api/common/planner/plan-route';
 import { PlanSegment } from '@api/common/planner/plan-segment';
+import { Coordinate } from '@api/custom/coordinate';
 import { OlUtil } from '@app/ol/ol-util';
 import { List } from 'immutable';
-import { Coordinate } from 'ol/coordinate';
 import { PlanLegData } from '../context/plan-leg-data';
 import { FeatureId } from '../features/feature-id';
 import { RouteFeature } from '../features/route-feature';

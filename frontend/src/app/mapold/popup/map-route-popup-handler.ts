@@ -1,9 +1,9 @@
+import { Coordinate } from '@api/custom/coordinate';
 import { OlUtil } from '@app/ol/ol-util';
 import { ExploreRoute } from '@app/state/explore-route';
-import { MapRoutePopupState } from '@app/state/map-route-popup-state';
 import { MapRoutePopupRoute } from '@app/state/map-route-popup-route';
+import { MapRoutePopupState } from '@app/state/map-route-popup-state';
 import { State } from '@app/state/state';
-import { Coordinate } from 'ol/coordinate';
 import { FeatureLike } from 'ol/Feature';
 
 export type MapRoutePopupAction = (

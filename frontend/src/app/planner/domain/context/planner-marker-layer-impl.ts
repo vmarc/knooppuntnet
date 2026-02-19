@@ -1,4 +1,4 @@
-import { Coordinate } from '@app/map/domain/coordinate';
+import { Coordinate } from '@api/custom/coordinate';
 import { GeoJSONSource } from 'maplibre-gl';
 import { Map as MaplibreMap } from 'maplibre-gl';
 import { PlanFlag } from '../plan/plan-flag';

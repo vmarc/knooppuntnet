@@ -4,20 +4,20 @@ import { computed } from '@angular/core';
 import { Params } from '@angular/router';
 import { Router } from '@angular/router';
 import { RouteType } from '@api/common/route-type';
-import { RouteTypes } from '@app/shared/kpn/common/route-types';
+import { Coordinate } from '@api/custom/coordinate';
+import { MapMode } from '@app/mapold/domain/map-mode';
 import { MapLayerState } from '@app/ol/domain/map-layer-state';
 import { MapPosition } from '@app/ol/domain/map-position';
+import { MapResultMode } from '@app/ol/services/map-result-mode';
 import { OldPoiTileLayerService } from '@app/ol/services/old-poi-tile-layer.service';
-import { MapMode } from '@app/mapold/domain/map-mode';
-import { BrowserStorageService } from '@app/shared/services/browser-storage.service';
 import { Util } from '@app/shared/components/util';
+import { RouteTypes } from '@app/shared/kpn/common/route-types';
+import { BrowserStorageService } from '@app/shared/services/browser-storage.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { State } from '@app/state/state';
-import { Coordinate } from 'ol/coordinate';
 import { fromLonLat } from 'ol/proj';
 import { from } from 'rxjs';
 import { Observable } from 'rxjs';
-import { MapResultMode } from '@app/ol/services/map-result-mode';
-import { RouterService } from '@app/shared/services/router.service';
 
 @Injectable()
 export class PlannerStateService {

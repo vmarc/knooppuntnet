@@ -65,7 +65,7 @@ class TypescriptClassWriter(out: PrintStream, classInfo: ClassInfo) {
 
   private def formatImportStatement(dependency: ClassId): String = {
     if (dependency.className == "PlanCoordinate") {
-      "import { Coordinate } from 'ol/coordinate';"
+      "import { Coordinate } from '@api/custom/coordinate';"
     } else {
       s"import { ${dependency.className} } from '${dependency.packageName}/${CamelCaseUtil.toDashed(dependency.className)}';"
     }

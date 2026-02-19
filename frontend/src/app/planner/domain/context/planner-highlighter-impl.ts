@@ -1,6 +1,6 @@
 import { PlanNode } from '@api/common/planner/plan-node';
+import { Coordinate } from '@api/custom/coordinate';
 import { Feature } from 'ol';
-import { Coordinate } from 'ol/coordinate';
 import { Point } from 'ol/geom';
 import { LineString } from 'ol/geom';
 import { MultiLineString } from 'ol/geom';

@@ -1,4 +1,4 @@
-import { Coordinate } from 'ol/coordinate';
+import { Coordinate } from '@api/custom/coordinate';
 import { MapRoutePopupRoute } from './map-route-popup-route';
 
 export class MapRoutePopupState {
