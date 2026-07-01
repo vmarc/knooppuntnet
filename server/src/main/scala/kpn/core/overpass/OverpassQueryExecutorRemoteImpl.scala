@@ -16,6 +16,8 @@ class OverpassQueryExecutorRemoteImpl(url: String) extends OverpassQueryExecutor
     log.debugElapsed {
       val headers = new HttpHeaders()
       headers.setContentType(MediaType.TEXT_PLAIN)
+      headers.set(HttpHeaders.REFERER, "knooppuntnet.nl")
+      headers.set(HttpHeaders.USER_AGENT, "knooppuntnet.nl")
       val entity = new HttpEntity[String](queryString, headers)
       val restTemplate = new RestTemplate()
       val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.POST, entity, classOf[String])

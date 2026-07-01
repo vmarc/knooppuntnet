@@ -12,8 +12,9 @@ import scala.collection.mutable.ListBuffer
 
 /**
  * Executes Overpass queries using the 'osm3s_query' command. This can only be used when
- * running on the same machine as the Overpass database. The alternative is to use OverpassQueryExecutorImpl
- * which performs http requests to a remote Overpass database.
+ * running on the same machine as the Overpass database.
+ * The alternative is to use OverpassQueryExecutorRemoteImpl which performs http requests
+ * to a remote Overpass database.
  */
 class OverpassQueryExecutorImpl extends OverpassQueryExecutor {
 

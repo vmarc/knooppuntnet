@@ -1,6 +1,5 @@
 package kpn.core.tools.support
 
-import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelation
@@ -13,7 +12,7 @@ object DownloadRelationTool {
 
   private val overpassUrl = "http://server-1:9005/api/overpass"
   private val routes = Seq(
-    "route 1" -> 2804113,
+    "route 1" -> 1432559,
   )
 
   def main(args: Array[String]): Unit = {
@@ -28,7 +27,7 @@ class DownloadRelationTool(overpassQueryExecutor: OverpassQueryExecutor) {
   def download(): Unit = {
     DownloadRelationTool.routes.foreach { case (name, relationId) =>
       println(s"downloading $name")
-      val xmlString = overpassQueryExecutor.executeQuery(Some(Timestamp(2020, 1, 1, 0, 0, 0)), QueryRelation(relationId))
+      val xmlString = overpassQueryExecutor.executeQuery(None, QueryRelation(relationId))
       val filename = new File(s"/Users/marc/tmp/xml/$relationId.xml")
       FileUtils.writeStringToFile(filename, xmlString, Charset.forName("UTF-8"))
     }
