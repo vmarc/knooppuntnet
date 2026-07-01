@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
 import kpn.core.overpass.OverpassQueryExecutor
-import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
+import kpn.core.overpass.OverpassQueryExecutorPublicImpl
 import kpn.core.overpass.QueryNode
 import org.apache.commons.io.FileUtils
 
@@ -16,7 +16,7 @@ object DownloadNodeTool {
   )
 
   def main(args: Array[String]): Unit = {
-    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl(overpassUrl)
+    val overpassQueryExecutor = new OverpassQueryExecutorPublicImpl(overpassUrl)
     new DownloadNodeTool(overpassQueryExecutor).download()
     println("done")
   }
