@@ -8,8 +8,8 @@ export class MapBuilder {
     const map = new MaplibreMap({
       container: 'map',
       style: '/assets/liberty.json',
-      // center: [4.46839, 51.46774], // essen
-      // zoom: 13,
+      center: [4.46839, 51.46774], // essen
+      zoom: 13,
     });
     map.showTileBoundaries = true;
     map.dragRotate.disable();

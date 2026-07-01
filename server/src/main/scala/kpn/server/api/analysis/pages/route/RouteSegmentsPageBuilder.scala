@@ -44,7 +44,24 @@ class RouteSegmentsPageBuilder(
     }
   }
 
-  private def buildSegments(routeDoc: RouteDoc): Seq[SegmentInfo] = { // TODO redesign - share with MonitorRouteSegmentsPageBuilder
+  private def buildSegments(routeDoc: RouteDoc): Seq[SegmentInfo] = {
+    routeDoc.segments.zipWithIndex.map { case (segment, index) =>
+      val meters = segment.meters
+      val bounds = Some(segment.bounds)
+      val routeInfo = SegmentRouteInfo(
+        routeDoc._id,
+        Seq(segment.id)
+      )
+      SegmentInfo(
+        index + 1,
+        meters,
+        bounds,
+        Seq(routeInfo)
+      )
+    }
+  }
+
+  private def buildSegments2(routeDoc: RouteDoc): Seq[SegmentInfo] = { // TODO redesign - share with MonitorRouteSegmentsPageBuilder
     routeDoc.superSegments.zipWithIndex.map { case (superSegment, index) =>
       val meters = superSegment.segments.map(_.info.meters).sum
       val bounds = Option.when(superSegment.segments.nonEmpty) {

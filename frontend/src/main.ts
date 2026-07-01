@@ -14,8 +14,8 @@ import { appConfig } from '@app/app.config';
 import { environment } from './environments/environment';
 
 if (environment.production) {
-  const beforeBreadcrumb = (breadcrumb: Breadcrumb, hint: BreadcrumbHint | undefined) => {
-    if (breadcrumb.category === 'ui.click') {
+  const beforeBreadcrumb = (breadcrumb: Breadcrumb, hint?: BreadcrumbHint) => {
+    if (breadcrumb.category === 'ui.click' && hint) {
       const { target }: { target: HTMLElement } = hint['event'];
       const id = target.getAttribute('id');
       if (id) {
@@ -25,7 +25,10 @@ if (environment.production) {
     return breadcrumb;
   };
 
-  const beforeSend = (event: ErrorEvent, hint: EventHint): ErrorEvent | PromiseLike<ErrorEvent> => {
+  const beforeSend = (
+    event: ErrorEvent,
+    hint: EventHint
+  ): ErrorEvent | PromiseLike<ErrorEvent> | null => {
     // Failed to fetch dynamically imported module
     const headersString = JSON.stringify(event?.request?.headers);
     if (headersString.includes('PetalBot')) {
@@ -55,4 +58,7 @@ if (environment.production) {
   enableProdMode();
 }
 
-bootstrapApplication(AppComponent, {...appConfig, providers: [provideZoneChangeDetection(), ...appConfig.providers]}).catch((err) => console.log(err));
+bootstrapApplication(AppComponent, {
+  ...appConfig,
+  providers: [provideZoneChangeDetection(), ...appConfig.providers],
+}).catch((err) => console.log(err));

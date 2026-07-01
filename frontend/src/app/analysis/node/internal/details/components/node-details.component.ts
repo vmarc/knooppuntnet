@@ -22,79 +22,80 @@ import { NodeDetailsPageService } from '../node-details-page.service';
   selector: 'ui-node-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @let page = response().result;
-    <div>
-      <ui-data title="Summary" i18n-title="@@node.summary">
-        <ui-node-summary [nodeInfo]="page.nodeInfo" />
-      </ui-data>
-      <div class="data2">
-        <div class="title">
-          <span i18n="@@node.situation-on">Situation on</span>
-        </div>
-        <div class="body">
-          <ui-timestamp [timestamp]="situationOn()" />
-        </div>
-      </div>
-      <ui-data title="Last updated" i18n-title="@@node.last-updated">
-        <ui-timestamp [timestamp]="page.nodeInfo.lastUpdated" />
-      </ui-data>
-      <ui-data title="Tags" i18n-title="@@node.tags">
-        <ui-tag-table [tags]="buildTags(page)" />
-      </ui-data>
-      <ui-data title="Location" i18n-title="@@node.location">
-        @if (routeTypes(); as routeTypes) {
-          <div>
-            @if (routeTypes.length > 1) {
-              <div>
-                @for (routeType of routeTypes; track routeType) {
-                  <div class="kpn-line">
-                    <nz-icon [nzType]="routeType" />
-                    <ui-node-location
-                      [routeType]="routeType"
-                      [locations]="page.nodeInfo.locations"
-                    />
-                  </div>
-                }
-              </div>
-            }
-            @if (routeTypes.length === 1) {
-              <div>
-                @for (routeType of routeTypes; track routeType) {
-                  <div>
-                    <ui-node-location
-                      [routeType]="routeTypes[0]"
-                      [locations]="page.nodeInfo.locations"
-                    />
-                  </div>
-                }
-              </div>
-            }
+    @if (response().result; as page) {
+      <div>
+        <ui-data title="Summary" i18n-title="@@node.summary">
+          <ui-node-summary [nodeInfo]="page.nodeInfo" />
+        </ui-data>
+        <div class="data2">
+          <div class="title">
+            <span i18n="@@node.situation-on">Situation on</span>
           </div>
-        }
-      </ui-data>
-      <ui-data title="Integrity" i18n-title="@@node.integrity">
-        <ui-node-integrity
-          [integrity]="page.integrity"
-          [mixedRouteScopes]="page.mixedRouteScopes"
-        />
-      </ui-data>
-      <ui-data title="Routes" i18n-title="@@node.routes">
-        <ui-node-route-references
-          [references]="page.routeReferences"
-          [mixedRouteScopes]="page.mixedRouteScopes"
-        />
-      </ui-data>
-      <ui-data title="Networks" i18n-title="@@node.networks">
-        <ui-node-network-references
-          [nodeInfo]="page.nodeInfo"
-          [references]="page.networkReferences"
-          [mixedRouteScopes]="page.mixedRouteScopes"
-        />
-      </ui-data>
-      <ui-data title="Facts" i18n-title="@@node.facts">
-        <ui-facts [factInfos]="buildFactInfos(page)" />
-      </ui-data>
-    </div>
+          <div class="body">
+            <ui-timestamp [timestamp]="situationOn()" />
+          </div>
+        </div>
+        <ui-data title="Last updated" i18n-title="@@node.last-updated">
+          <ui-timestamp [timestamp]="page.nodeInfo.lastUpdated" />
+        </ui-data>
+        <ui-data title="Tags" i18n-title="@@node.tags">
+          <ui-tag-table [tags]="buildTags(page)" />
+        </ui-data>
+        <ui-data title="Location" i18n-title="@@node.location">
+          @if (routeTypes(); as routeTypes) {
+            <div>
+              @if (routeTypes.length > 1) {
+                <div>
+                  @for (routeType of routeTypes; track routeType) {
+                    <div class="kpn-line">
+                      <nz-icon [nzType]="routeType" />
+                      <ui-node-location
+                        [routeType]="routeType"
+                        [locations]="page.nodeInfo.locations"
+                      />
+                    </div>
+                  }
+                </div>
+              }
+              @if (routeTypes.length === 1) {
+                <div>
+                  @for (routeType of routeTypes; track routeType) {
+                    <div>
+                      <ui-node-location
+                        [routeType]="routeTypes[0]"
+                        [locations]="page.nodeInfo.locations"
+                      />
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </ui-data>
+        <ui-data title="Integrity" i18n-title="@@node.integrity">
+          <ui-node-integrity
+            [integrity]="page.integrity"
+            [mixedRouteScopes]="page.mixedRouteScopes"
+          />
+        </ui-data>
+        <ui-data title="Routes" i18n-title="@@node.routes">
+          <ui-node-route-references
+            [references]="page.routeReferences"
+            [mixedRouteScopes]="page.mixedRouteScopes"
+          />
+        </ui-data>
+        <ui-data title="Networks" i18n-title="@@node.networks">
+          <ui-node-network-references
+            [nodeInfo]="page.nodeInfo"
+            [references]="page.networkReferences"
+            [mixedRouteScopes]="page.mixedRouteScopes"
+          />
+        </ui-data>
+        <ui-data title="Facts" i18n-title="@@node.facts">
+          <ui-facts [factInfos]="buildFactInfos(page)" />
+        </ui-data>
+      </div>
+    }
   `,
   styleUrl: '../../../../../shared/components/data/data.component.scss',
   providers: [RouterService],
