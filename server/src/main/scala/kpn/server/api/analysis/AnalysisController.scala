@@ -50,6 +50,7 @@ import kpn.api.custom.ApiResponse
 import kpn.api.custom.LocationKey
 import kpn.api.custom.Subset
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
+import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -60,6 +61,7 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 
 @RestController
+@Profile(Array("web"))
 class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/api/overview"))

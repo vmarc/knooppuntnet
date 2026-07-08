@@ -10,11 +10,13 @@ import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationDefinition
 import kpn.server.repository.LocationRepository
 import org.apache.commons.lang3.StringUtils
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 case class LocationNodeItem(normalizeName: String, locationNode: LocationNode)
 
 @Component
+@Profile(Array("web"))
 class LocationsPageBuilder(
   locationConfiguration: LocationConfiguration,
   locationRepository: LocationRepository

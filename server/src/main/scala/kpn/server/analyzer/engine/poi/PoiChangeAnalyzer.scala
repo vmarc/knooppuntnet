@@ -18,9 +18,11 @@ import kpn.server.analyzer.engine.tile.PoiTileCalculator
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.TaskRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class PoiChangeAnalyzer(
   analyzerPoiUpdateEnabled: Boolean,
   knownPoiCache: KnownPoiCache,

@@ -8,9 +8,11 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.RouteNodeChange
 import kpn.core.doc.RouteDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class RouteChangeUpdateProcessor() {
 
   // TODO verify that lostRouteTags are processed in base route processing (including route removed from analysisContext.watched.routes)

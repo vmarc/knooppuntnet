@@ -7,9 +7,11 @@ import kpn.server.analyzer.engine.tiles.domain.PoiTiles
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.analyzer.engine.tiles.vector.PoiVectorTileBuilder
 import kpn.server.repository.PoiRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class PoiTileBuilder(
   poiRepository: PoiRepository,
   vectorTileRepository: TileFileRepository,

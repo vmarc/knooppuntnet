@@ -7,9 +7,11 @@ import kpn.server.analyzer.engine.changes.node.base.BaseNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.node.main.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.route.base.BaseRouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.main.RouteChangeProcessor
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class ChangeProcessorPipeline(
   baseNodeChangeProcessor: BaseNodeChangeProcessor,
   baseNetworkChangeProcessor: BaseNetworkChangeProcessor,

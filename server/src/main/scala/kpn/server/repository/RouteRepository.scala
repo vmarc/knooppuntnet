@@ -38,9 +38,11 @@ import kpn.database.base.Database
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.monitor.domain.MonitorSegment
 import kpn.server.sync.Transaction
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web", "analysis"))
 class RouteRepository(database: Database) {
 
   private val log = Log(classOf[RouteRepository])

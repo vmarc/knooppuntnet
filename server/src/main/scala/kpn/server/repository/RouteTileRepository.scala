@@ -13,9 +13,11 @@ import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.StringId
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class RouteTileRepository(database: Database) {
 
   private val log = Log(classOf[RouteTileRepository])

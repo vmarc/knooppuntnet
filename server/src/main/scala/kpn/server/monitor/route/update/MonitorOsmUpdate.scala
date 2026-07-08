@@ -6,9 +6,11 @@ import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorRouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MonitorOsmUpdate(
   monitorRouteRepository: MonitorRouteRepository,
   monitorOsmAnalyze: MonitorOsmAnalyze

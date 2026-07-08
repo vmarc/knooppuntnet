@@ -3,11 +3,13 @@ package kpn.server.config
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.context.annotation.Profile
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.authentication.AuthenticationFailureHandler
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class CustomAuthenticationFailureHandler extends AuthenticationFailureHandler {
 
   override def onAuthenticationFailure(

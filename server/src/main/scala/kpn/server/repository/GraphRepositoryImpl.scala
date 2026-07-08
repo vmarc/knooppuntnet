@@ -5,12 +5,14 @@ import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.util.Log
 import kpn.database.actions.graph.MongoQueryGraphEdges
 import kpn.database.base.Database
+import org.springframework.context.annotation.Profile
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
 import javax.annotation.PostConstruct
 
 @Component
+@Profile(Array("web"))
 class GraphRepositoryImpl(
   database: Database,
   graphLoadEnabled: Boolean

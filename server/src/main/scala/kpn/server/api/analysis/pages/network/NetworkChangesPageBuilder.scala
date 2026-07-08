@@ -10,9 +10,11 @@ import kpn.server.analyzer.engine.changes.builder.NetworkChangeInfoBuilder
 import kpn.server.config.RequestContext
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.NetworkInfoRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class NetworkChangesPageBuilder(
   database: Database,
   changeSetInfoRepository: ChangeSetInfoRepository,

@@ -10,11 +10,13 @@ import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeLabelsAnalyze
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeRouteReferencesAnalyzer
 import org.bson.types.ObjectId
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
 
 @Component
+@Profile(Array("analysis"))
 class NodeMainAnalyzer(
   nodeRouteReferencesAnalyzer: NodeRouteReferencesAnalyzer,
   nodeNetworkReferencesAnalyzer: NodeNetworkReferencesAnalyzer,

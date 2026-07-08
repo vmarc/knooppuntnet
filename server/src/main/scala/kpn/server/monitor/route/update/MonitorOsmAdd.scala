@@ -8,9 +8,11 @@ import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.bson.types.ObjectId
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MonitorOsmAdd(
   monitorRouteRepository: MonitorRouteRepository,
   monitorOsmAnalyze: MonitorOsmAnalyze

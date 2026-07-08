@@ -1,7 +1,7 @@
 package kpn.server.analyzer
 
 import kpn.core.overpass.OverpassQueryExecutor
-import kpn.core.overpass.OverpassQueryExecutorImpl
+import kpn.core.overpass.OverpassQueryExecutorLocalImpl
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
@@ -32,7 +32,7 @@ class AnalyzerConfiguration {
       new OverpassQueryExecutorRemoteImpl(url)
     }
     else {
-      new OverpassQueryExecutorImpl()
+      new OverpassQueryExecutorLocalImpl()
     }
   }
 

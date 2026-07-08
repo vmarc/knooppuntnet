@@ -3,9 +3,11 @@ package kpn.server.analyzer.engine.monitor.changes
 import kpn.api.common.changes.ChangeSet
 import kpn.core.FastUtil
 import kpn.server.analyzer.engine.context.ElementIds
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class MonitorChangeImpactAnalyzer {
 
   def hasImpact(changeSet: ChangeSet, routeId: Long, elementIds: ElementIds): Boolean = {

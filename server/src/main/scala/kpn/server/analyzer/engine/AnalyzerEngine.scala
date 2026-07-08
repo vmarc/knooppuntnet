@@ -14,9 +14,11 @@ import kpn.server.analyzer.engine.tile.TileTask
 import kpn.server.analyzer.engine.tile.TileUpdater
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.TaskRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class AnalyzerEngine(
   analyzerTileUpdateEnabled: Boolean,
   osmChangeRepository: OsmChangeRepository,

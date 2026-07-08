@@ -25,11 +25,13 @@ import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkPropose
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkSurveyAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkTagAnalyzer
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
 
 @Component
+@Profile(Array("analysis"))
 class NetworkMainAnalyzer(
   database: Database,
   networkRouteAnalyzer: NetworkRouteAnalyzer,

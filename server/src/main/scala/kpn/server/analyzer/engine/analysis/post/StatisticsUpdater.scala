@@ -30,6 +30,7 @@ import kpn.database.util.Mongo
 import org.bson.BsonDocument
 import org.bson.Document
 import org.bson.conversions.Bson
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 object StatisticsUpdater {
@@ -41,6 +42,7 @@ object StatisticsUpdater {
 }
 
 @Component
+@Profile(Array("analysis"))
 class StatisticsUpdater(
   database: Database,
   analyzerStatisticsUpdateEnabled: Boolean = true

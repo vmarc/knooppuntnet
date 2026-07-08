@@ -8,9 +8,11 @@ import kpn.core.util.Formatter.percentage
 import kpn.core.util.Log
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.SubsetRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class SubsetNetworksPageBuilder(
   subsetRepository: SubsetRepository,
   networkRepository: NetworkRepository

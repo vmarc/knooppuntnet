@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import kpn.core.util.Log
 import org.apache.commons.codec.binary.Base64.decodeBase64
+import org.springframework.context.annotation.Profile
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken
 import org.springframework.stereotype.Component
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component
   Extracts the username from the {@code knooppuntnet} cookie, and stores this in the {@code SecurityContext}.
  */
 @Component
+@Profile(Array("web"))
 class AuthenticationCookieFilter(cryptoKey: String) extends HttpFilter {
 
   private val log = Log(classOf[AuthenticationCookieFilter])

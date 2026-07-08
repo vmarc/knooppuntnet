@@ -3,11 +3,13 @@ package kpn.server.analyzer.engine.changes.route.base
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 case class ChangeTask(processor: BaseRouteChangeSubProcessor, routeIds: Seq[Long])
 
 @Component
+@Profile(Array("analysis"))
 class BaseRouteChangeProcessor(
   analyzer: BaseRouteChangeAnalyzer,
   createProcessor: BaseRouteChangeCreateProcessor,

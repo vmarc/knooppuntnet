@@ -34,11 +34,13 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAna
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTypeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteUnexpectedNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteWithoutWaysAnalyzer
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
 
 @Component
+@Profile(Array("analysis"))
 class BaseRouteMainAnalyzer(
   countryAnalyzer: BaseRouteCountryAnalyzer,
   locationAnalyzer: BaseRouteLocationAnalyzer,

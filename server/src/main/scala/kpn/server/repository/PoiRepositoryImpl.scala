@@ -14,9 +14,11 @@ import kpn.database.actions.pois.MongoQueryPoiElementIds
 import kpn.database.actions.pois.MongoQueryTilePois
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.poi.PoiRef
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web", "analysis"))
 class PoiRepositoryImpl(database: Database) extends PoiRepository {
 
   private val log = Log(classOf[PoiRepositoryImpl])

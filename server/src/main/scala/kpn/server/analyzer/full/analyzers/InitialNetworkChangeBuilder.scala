@@ -8,9 +8,11 @@ import kpn.core.doc.NetworkDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkInfoRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class InitialNetworkChangeBuilder(
   changeSetRepository: ChangeSetRepository,
   networkInfoRepository: NetworkInfoRepository,

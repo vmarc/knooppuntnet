@@ -10,11 +10,13 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryRelation
 import kpn.core.overpass.QueryRelationTopLevel
 import kpn.core.util.Log
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.xml.XML
 
 @Component
+@Profile(Array("web"))
 class MonitorRouteRelationRepository(
   overpassQueryExecutor: OverpassQueryExecutor,
 ) {

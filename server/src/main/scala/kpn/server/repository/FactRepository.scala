@@ -12,9 +12,11 @@ import kpn.database.actions.facts.MongoQueryNodesWithIntegrityCheckFailed
 import kpn.database.actions.facts.MongoQueryRoutesWithFact
 import kpn.database.actions.facts.MongoQuerySubsetNetworkFacts
 import kpn.database.base.Database
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class FactRepository(database: Database) {
 
   private val log = Log(classOf[FactRepository])

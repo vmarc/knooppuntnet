@@ -19,11 +19,13 @@ import kpn.core.metrics.UpdateAction
 import kpn.core.metrics.UpdateActionDoc
 import kpn.database.base.MetricsDatabase
 import kpn.database.base.MongoAggregates.filter
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.util.Random
 
 @Component
+@Profile(Array("web"))
 class MetricsRepository(metricsDatabase: MetricsDatabase) {
 
   private val random = new Random()

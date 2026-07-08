@@ -6,9 +6,11 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.ReplicationContext
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.context.ChangeElementIds
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class ChangeSetProcessor(
   changeProcessorPipeline: ChangeProcessorPipeline,
 ) {

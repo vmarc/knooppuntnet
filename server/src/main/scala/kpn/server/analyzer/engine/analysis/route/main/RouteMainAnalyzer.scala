@@ -13,11 +13,13 @@ import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteNetworkRefe
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteSuperSegmentAnalyzer
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
 
 @Component
+@Profile(Array("analysis"))
 class RouteMainAnalyzer(
   boundsAnalyzer: RouteBoundsAnalyzer,
   routeIdsAnalyzer: RouteIdsAnalyzer,

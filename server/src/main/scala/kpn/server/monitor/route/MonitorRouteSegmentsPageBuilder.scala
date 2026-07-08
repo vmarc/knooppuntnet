@@ -15,9 +15,11 @@ import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.repository.MonitorUserRepository
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MonitorRouteSegmentsPageBuilder(
   routeRepository: RouteRepository,
   monitorUserRepository: MonitorUserRepository,

@@ -6,12 +6,14 @@ import kpn.api.common.status.ReplicationStatusPage
 import kpn.api.common.status.Status
 import kpn.api.common.status.SystemStatusPage
 import kpn.api.custom.ApiResponse
+import org.springframework.context.annotation.Profile
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@Profile(Array("web"))
 class StatusController(statusFacade: StatusFacade) {
 
   @GetMapping(value = Array("/api/status"))
@@ -38,5 +40,4 @@ class StatusController(statusFacade: StatusFacade) {
   def logStatus(@RequestBody parameters: PeriodParameters): ApiResponse[LogPage] = {
     statusFacade.logStatus(parameters)
   }
-
 }

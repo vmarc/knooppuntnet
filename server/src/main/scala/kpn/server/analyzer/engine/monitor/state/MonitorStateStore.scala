@@ -4,9 +4,11 @@ import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.domain.MonitorStateTile
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.bson.types.ObjectId
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web", "analysis"))
 class MonitorStateStore(
   monitorRouteRepository: MonitorRouteRepository,
   monitorStateTileBuilder: MonitorStateTileBuilder

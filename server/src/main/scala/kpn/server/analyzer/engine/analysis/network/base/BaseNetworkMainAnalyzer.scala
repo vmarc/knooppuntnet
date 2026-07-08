@@ -10,11 +10,13 @@ import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkAna
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkNameAnalyzer
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkTagAnalyzer
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkTypeAnalyzer
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
 
 @Component
+@Profile(Array("analysis"))
 class BaseNetworkMainAnalyzer {
 
   def analyze(relation: RawRelation): Option[BaseNetworkDoc] = {

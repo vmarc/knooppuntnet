@@ -18,9 +18,11 @@ import kpn.server.api.analysis.pages.node.MapNodeDetailBuilder
 import kpn.server.api.analysis.pages.route.MapRouteDetailBuilder
 import kpn.server.api.planner.leg.LegBuilder
 import kpn.server.repository.AnalysisRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class PlannerFacade(
   api: Api,
   analysisRepository: AnalysisRepository,

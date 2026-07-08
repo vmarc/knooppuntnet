@@ -7,9 +7,11 @@ import kpn.server.analyzer.engine.tiles.domain.PoiTiles
 import no.ecc.vectortile.VectorTileEncoder
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class PoiVectorTileBuilder {
   private val geometryFactory = new GeometryFactory
 

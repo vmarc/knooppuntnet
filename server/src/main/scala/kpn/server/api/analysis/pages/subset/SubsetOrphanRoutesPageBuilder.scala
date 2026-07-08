@@ -7,9 +7,11 @@ import kpn.database.actions.subsets.MongoQuerySubsetInfo
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanRoutes
 import kpn.database.base.Database
 import kpn.server.api.analysis.pages.TimeInfoBuilder
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class SubsetOrphanRoutesPageBuilder(database: Database) {
 
   private val log = Log(classOf[SubsetOrphanRoutesPageBuilder])

@@ -9,9 +9,11 @@ import kpn.core.doc.NetworkWayMember
 import kpn.core.util.Log
 import kpn.server.overpass.OverpassRepository
 import kpn.server.repository.NetworkRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class BulkNetworkAnalyzer(
   overpassRepository: OverpassRepository,
   networkRepository: NetworkRepository

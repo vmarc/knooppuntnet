@@ -6,9 +6,11 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.core.history.RouteTagDiffAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class BaseRouteDiffAnalyzer(
   baseRouteDiffNameAnalyzer: BaseRouteDiffNameAnalyzer,
   baseRouteDiffFactsAnalyzer: BaseRouteDiffFactsAnalyzer,

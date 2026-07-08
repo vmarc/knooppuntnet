@@ -7,6 +7,7 @@ import kpn.core.tools.config.Dirs
 import kpn.core.util.Log
 import kpn.server.json.Json
 import kpn.server.repository.MetricsRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
@@ -27,6 +28,7 @@ case class DatabaseSampleConfig(
 )
 
 @Component
+@Profile(Array("web"))
 class SystemStatusMonitorImpl(
   systemMetricsEnabled: Boolean,
   metricsRepository: MetricsRepository

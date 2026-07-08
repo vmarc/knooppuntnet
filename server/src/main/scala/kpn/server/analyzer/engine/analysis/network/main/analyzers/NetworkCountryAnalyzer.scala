@@ -1,9 +1,11 @@
 package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class NetworkCountryAnalyzer(locationAnalyzer: LocationAnalyzer) extends NetworkAnalyzer {
 
   def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {

@@ -1,6 +1,7 @@
 package kpn.server.search
 
 import kpn.api.common.GeocoderLocation
+import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
@@ -13,6 +14,7 @@ import java.util.Locale.LanguageRange
 import scala.jdk.CollectionConverters.*
 
 @Component
+@Profile(Array("web"))
 class Geocoder {
   def search(query: String): Seq[GeocoderLocation] = {
     val url: String = s"https://nominatim.openstreetmap.org/search?q=$query&format=xml"

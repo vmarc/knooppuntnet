@@ -1,19 +1,21 @@
 package kpn.server.config
 
+import com.nimbusds.jose.JWSAlgorithm.HS256
 import com.nimbusds.jose.JWSHeader
 import com.nimbusds.jose.crypto.MACSigner
-import com.nimbusds.jose.JWSAlgorithm.HS256
 import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
 import jakarta.servlet.http.Cookie
-import org.springframework.security.core.Authentication
-import org.springframework.stereotype.Component
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.apache.commons.codec.binary.Base64.decodeBase64
+import org.springframework.context.annotation.Profile
+import org.springframework.security.core.Authentication
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
+import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class CustomAuthenticationSuccessHandler(cryptoKey: String) extends AuthenticationSuccessHandler {
 
   override def onAuthenticationSuccess(

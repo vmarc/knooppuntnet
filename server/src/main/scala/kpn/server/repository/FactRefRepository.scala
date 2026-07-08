@@ -9,9 +9,11 @@ import kpn.database.actions.facts.MongoQuerySubsetFactRefs_NetworkFactsWithEleme
 import kpn.database.actions.facts.MongoQuerySubsetFactRefs_NetworkFactsWithElementRefs
 import kpn.database.actions.facts.MongoQuerySubsetFactRefs_Route
 import kpn.database.base.Database
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class FactRefRepository(database: Database) {
 
   private val log = Log(classOf[FactRepository])

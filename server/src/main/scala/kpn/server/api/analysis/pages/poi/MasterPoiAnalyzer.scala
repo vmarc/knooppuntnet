@@ -17,11 +17,13 @@ import kpn.server.api.analysis.pages.poi.analyzers.PoiWebsiteAnalyzer
 import kpn.server.api.analysis.pages.poi.analyzers.PoiWheelchairAnalyzer
 import kpn.server.api.analysis.pages.poi.analyzers.PoiWikidataAnalyzer
 import kpn.server.api.analysis.pages.poi.analyzers.PoiWikipediaAnalyzer
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
 
 @Component
+@Profile(Array("web", "analysis"))
 class MasterPoiAnalyzer {
 
   def analyze(poi: Poi): PoiAnalysisContext = {

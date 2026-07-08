@@ -5,9 +5,11 @@ import kpn.core.util.CoordinateUtil
 import kpn.core.util.Haversine
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteDeviationAnalysis
 import org.locationtech.jts.geom.LineString
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web", "analysis"))
 class MonitorRouteDeviationAnalyzer {
 
   def analyze(routeLines: Seq[LineString], referenceLines: Seq[LineString]): MonitorRouteDeviationAnalysis = {

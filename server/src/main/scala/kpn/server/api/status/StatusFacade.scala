@@ -15,9 +15,11 @@ import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.MetricsRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class StatusFacade(
   analysisRepository: AnalysisRepository,
   metricsRepository: MetricsRepository

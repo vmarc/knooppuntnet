@@ -10,9 +10,11 @@ import kpn.core.util.Util
 import kpn.core.util.Util.mergeBounds
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class RouteSegmentsPageBuilder(
   routeRepository: RouteRepository,
   changeSetRepository: ChangeSetRepository

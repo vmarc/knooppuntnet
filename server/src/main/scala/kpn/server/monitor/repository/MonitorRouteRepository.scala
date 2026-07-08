@@ -53,9 +53,11 @@ import org.bson.BsonNull
 import org.bson.Document
 import org.bson.conversions.Bson
 import org.bson.types.ObjectId
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web", "analysis"))
 class MonitorRouteRepository(database: Database) {
 
   private val log = Log(classOf[NetworkRepository])

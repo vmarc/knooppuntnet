@@ -4,9 +4,11 @@ import kpn.api.common.network.NetworkFactsPage
 import kpn.core.util.Log
 import kpn.database.actions.networks.MongoQueryNetworkFactsPageData
 import kpn.database.base.Database
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class NetworkFactsPageBuilder(database: Database) {
 
   private val log = Log(classOf[NetworkFactsPageBuilder])

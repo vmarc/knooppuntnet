@@ -18,9 +18,11 @@ import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.Point
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class RouteTileEncoder(
   vectorTileRepository: TileFileRepository,
   tileDataNodeBuilder: TileDataNodeBuilder

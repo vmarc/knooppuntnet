@@ -11,9 +11,11 @@ import kpn.api.custom.LocationKey
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.LocationRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class LocationChangesPageBuilder(
   locationRepository: LocationRepository,
   locationService: LocationService,

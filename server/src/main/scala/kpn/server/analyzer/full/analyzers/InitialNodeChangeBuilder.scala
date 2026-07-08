@@ -10,9 +10,11 @@ import kpn.core.analysis.Facts
 import kpn.core.doc.NodeDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.repository.ChangeSetRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class InitialNodeChangeBuilder(
   changeSetRepository: ChangeSetRepository
 ) {

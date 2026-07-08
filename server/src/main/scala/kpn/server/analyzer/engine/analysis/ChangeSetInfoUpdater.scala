@@ -3,9 +3,11 @@ package kpn.server.analyzer.engine.analysis
 import kpn.core.util.IdCache
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.TaskRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class ChangeSetInfoUpdater(
   changeSetInfoRepository: ChangeSetInfoRepository,
   taskRepository: TaskRepository

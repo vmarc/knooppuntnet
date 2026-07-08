@@ -2,9 +2,11 @@ package kpn.server.repository
 
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.changes.data.Blacklist
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class BlacklistRepositoryImpl(database: Database) extends BlacklistRepository {
 
   private val CACHE_TIMEOUT_MILLIS = 30000

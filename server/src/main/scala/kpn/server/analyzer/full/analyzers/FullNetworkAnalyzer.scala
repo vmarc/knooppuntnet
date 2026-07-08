@@ -3,9 +3,11 @@ package kpn.server.analyzer.full.analyzers
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.main.NetworkMainAnalyzer
 import kpn.server.repository.NetworkRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class FullNetworkAnalyzer(
   networkRepository: NetworkRepository,
   networkMainAnalyzer: NetworkMainAnalyzer,

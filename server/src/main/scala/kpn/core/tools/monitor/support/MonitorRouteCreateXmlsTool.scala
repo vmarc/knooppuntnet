@@ -5,7 +5,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
-import kpn.core.overpass.OverpassQueryExecutorImpl
+import kpn.core.overpass.OverpassQueryExecutorLocalImpl
 import kpn.core.overpass.QueryRelation
 import kpn.core.tools.config.Dirs
 import kpn.core.util.Log
@@ -43,7 +43,7 @@ object MonitorRouteCreateXmlsTool {
   )
 
   def main(args: Array[String]): Unit = {
-    val executor = new OverpassQueryExecutorImpl()
+    val executor = new OverpassQueryExecutorLocalImpl()
     new MonitorRouteCreateXmlsTool(executor, routeIds).analyze()
   }
 }

@@ -14,11 +14,13 @@ import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonReader
 import org.locationtech.jts.io.geojson.GeoJsonWriter
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import java.io.File
 
 @Component
+@Profile(Array("web"))
 class LocationMapPageBuilder(
   locationRepository: LocationRepository,
   locationService: LocationService

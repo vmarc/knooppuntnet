@@ -2,7 +2,7 @@ package kpn.core.tools.poi
 
 import kpn.api.common.location.Location
 import kpn.api.common.poi.Poi
-import kpn.core.overpass.OverpassQueryExecutorImpl
+import kpn.core.overpass.OverpassQueryExecutorLocalImpl
 import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiDefinition
 import kpn.core.poi.PoiGroupDefinition
@@ -36,7 +36,7 @@ object PoiAnalyzerTool extends Tool[PoiAnalyzerToolOptions] {
 
   private def buildTool(options: PoiAnalyzerToolOptions, database: Database): PoiAnalyzerTool = {
     val poiLoader = {
-      val overpassQueryExecutor = new OverpassQueryExecutorImpl()
+      val overpassQueryExecutor = new OverpassQueryExecutorLocalImpl()
       new PoiLoader(overpassQueryExecutor)
     }
     val poiRepository = new PoiRepositoryImpl(database)

@@ -7,9 +7,11 @@ import kpn.api.common.node.NodeChangesPage
 import kpn.server.config.RequestContext
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NodeRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class NodeChangesPageBuilder(
   nodeRepository: NodeRepository,
   changeSetRepository: ChangeSetRepository

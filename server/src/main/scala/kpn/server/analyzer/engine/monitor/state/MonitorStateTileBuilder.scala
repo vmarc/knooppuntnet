@@ -12,6 +12,7 @@ import kpn.server.monitor.domain.MonitorStateTileDeviation
 import kpn.server.monitor.route.update.MonitorStateDeviationWorldCoordinates
 import org.bson.types.ObjectId
 import org.locationtech.jts.geom.Coordinate
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 case class SegmentWorldCoordinates(
@@ -25,6 +26,7 @@ case class SegmentWorldCoordinates(
 )
 
 @Component
+@Profile(Array("web", "analysis"))
 class MonitorStateTileBuilder(lineSegmentTileCalculator: LineSegmentTileCalculator) {
 
   def build(state: MonitorState): Seq[MonitorStateTile] = {

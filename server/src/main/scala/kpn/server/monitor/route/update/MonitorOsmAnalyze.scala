@@ -25,9 +25,11 @@ import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.RouteRepository
 import org.bson.types.ObjectId
 import org.locationtech.jts.geom.GeometryFactory
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MonitorOsmAnalyze(
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,

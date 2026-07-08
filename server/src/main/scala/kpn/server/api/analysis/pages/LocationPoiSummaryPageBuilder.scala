@@ -4,13 +4,14 @@ import kpn.api.common.Language
 import kpn.api.common.poi.LocationPoiSummaryPage
 import kpn.api.common.poi.PoiCount
 import kpn.api.common.poi.PoiGroup
-import kpn.api.custom.LocationKey
 import kpn.core.poi.PoiConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.PoiRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class LocationPoiSummaryPageBuilder(
   poiRepository: PoiRepository,
   locationService: LocationService

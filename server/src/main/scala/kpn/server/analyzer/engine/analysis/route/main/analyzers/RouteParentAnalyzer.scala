@@ -4,9 +4,11 @@ import kpn.api.common.route.ParentRoute
 import kpn.core.doc.ParentRouteData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class RouteParentAnalyzer(routeRepository: RouteRepository) extends RouteAnalyzer {
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     val parentRoutes = findParentRoutes(context.route._id, 1, Seq.empty)

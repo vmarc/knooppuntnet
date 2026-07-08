@@ -2,12 +2,14 @@ package kpn.server.monitor
 
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.server.monitor.route.update.MonitorRouteStructureLoader
+import org.springframework.context.annotation.Profile
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@Profile(Array("web"))
 @RequestMapping(Array("/api/monitor-support"))
 class MonitorSupportController(
   monitorRouteStructureLoader: MonitorRouteStructureLoader

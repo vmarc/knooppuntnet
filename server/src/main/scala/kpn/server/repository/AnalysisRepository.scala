@@ -4,11 +4,13 @@ import kpn.api.custom.Timestamp
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.server.analyzer.engine.analysis.AnalysisStatus
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.jdk.CollectionConverters.IterableHasAsScala
 
 @Component
+@Profile(Array("web", "analysis"))
 class AnalysisRepository(database: Database) {
 
   /*

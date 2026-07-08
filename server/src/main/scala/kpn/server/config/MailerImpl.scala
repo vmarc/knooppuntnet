@@ -10,7 +10,7 @@ import java.net.InetAddress
 import javax.annotation.PreDestroy
 
 @Component
-@Profile(Array("!dev"))
+@Profile(Array("!dev & web", "!dev & analysis"))
 class MailerImpl(
   mailSender: JavaMailSender,
   applicationName: String,

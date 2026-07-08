@@ -9,6 +9,7 @@ import kpn.api.common.route.WayLine
 import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.domain.StringCoordinate
 import org.locationtech.jts.geom.GeometryFactory
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 case class GeometryDiffCoordinates(
@@ -30,6 +31,7 @@ case class GeometryDiffWayIds(
 }
 
 @Component
+@Profile(Array("analysis"))
 class BaseRouteDiffGeometryAnalyzer {
 
   private val geometryFactory = new GeometryFactory

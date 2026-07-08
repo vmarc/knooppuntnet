@@ -20,9 +20,11 @@ import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.RouteTileRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class SingleBaseRouteAnalyzer(
   rawDataRepository: RawDataRepository,
   routeRepository: RouteRepository,

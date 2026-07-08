@@ -7,6 +7,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.AnalyzerEngine
 import kpn.server.analyzer.full.InitialFullAnalyzer
 import kpn.server.analyzer.load.AnalysisContextLoader
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import java.io.File
@@ -14,6 +15,7 @@ import javax.annotation.PreDestroy
 import scala.annotation.tailrec
 
 @Component
+@Profile(Array("analysis"))
 class Analyzer(
   analyzerStatusFile: String,
   statusRepository: StatusRepository,

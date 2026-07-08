@@ -6,11 +6,13 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.api.custom.LocationKey
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
 
 @Component
+@Profile(Array("web", "analysis"))
 class LocationServiceImpl(locationConfiguration: LocationConfiguration) extends LocationService {
   private val locationMap = {
     val countries = locationConfiguration.locations

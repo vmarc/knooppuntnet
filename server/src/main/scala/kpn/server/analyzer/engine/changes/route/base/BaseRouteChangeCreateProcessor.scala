@@ -21,9 +21,11 @@ import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.RouteTileRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class BaseRouteChangeCreateProcessor(
   analysisContext: AnalysisContext,
   rawDataRepository: RawDataRepository,

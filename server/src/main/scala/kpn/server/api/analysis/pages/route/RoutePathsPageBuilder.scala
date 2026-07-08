@@ -5,9 +5,11 @@ import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RoutePathsPage
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class RoutePathsPageBuilder(
   routeRepository: RouteRepository,
   changeSetRepository: ChangeSetRepository

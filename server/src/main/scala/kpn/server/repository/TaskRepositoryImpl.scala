@@ -1,11 +1,13 @@
 package kpn.server.repository
 
-import kpn.database.base.Database
 import kpn.core.doc.Task
 import kpn.core.util.Log
+import kpn.database.base.Database
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class TaskRepositoryImpl(database: Database) extends TaskRepository {
 
   private val log = Log(classOf[TaskRepositoryImpl])

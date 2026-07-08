@@ -7,6 +7,7 @@ import kpn.server.monitor.route.update.MonitorRouteUpdateExecutor
 import kpn.server.monitor.route.update.MonitorUpdateArgs
 import kpn.server.monitor.route.update.MonitorUpdateReporterWebsocket
 import org.springframework.context.ApplicationContext
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import org.springframework.web.socket.CloseStatus
 import org.springframework.web.socket.TextMessage
@@ -14,6 +15,7 @@ import org.springframework.web.socket.WebSocketSession
 import org.springframework.web.socket.handler.AbstractWebSocketHandler
 
 @Component
+@Profile(Array("web"))
 class ServerWebSocketHandler(
   applicationContext: ApplicationContext
 ) extends AbstractWebSocketHandler {

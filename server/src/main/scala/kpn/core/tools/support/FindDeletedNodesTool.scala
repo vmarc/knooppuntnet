@@ -3,7 +3,7 @@ package kpn.core.tools.support
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
-import kpn.core.overpass.OverpassQueryExecutorImpl
+import kpn.core.overpass.OverpassQueryExecutorLocalImpl
 import kpn.core.overpass.QueryNodes
 import kpn.database.base.Database
 import kpn.database.base.Exit
@@ -23,7 +23,7 @@ object FindDeletedNodesTool {
     }
     val host = args(0)
     val databaseName = args(1)
-    val executor = new OverpassQueryExecutorImpl()
+    val executor = new OverpassQueryExecutorLocalImpl()
     Mongo.executeIn(databaseName) { database =>
       new FindDeletedNodesTool(database, executor).report()
     }

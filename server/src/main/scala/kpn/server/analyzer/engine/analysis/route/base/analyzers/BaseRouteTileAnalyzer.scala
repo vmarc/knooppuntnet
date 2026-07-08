@@ -19,6 +19,7 @@ import kpn.server.analyzer.engine.tiles.domain.TileUtil
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineSegment
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 case class TileSegment(
@@ -28,6 +29,7 @@ case class TileSegment(
 )
 
 @Component
+@Profile(Array("analysis"))
 class BaseRouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) extends BaseRouteAnalyzer {
   private val geometryFactory = new GeometryFactory
 

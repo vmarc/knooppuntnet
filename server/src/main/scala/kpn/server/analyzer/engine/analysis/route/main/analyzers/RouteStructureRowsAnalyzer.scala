@@ -11,9 +11,11 @@ import kpn.api.common.route.RouteStructureWay
 import kpn.core.doc.SubRouteData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends RouteAnalyzer {
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     val rows = buildRows(context)

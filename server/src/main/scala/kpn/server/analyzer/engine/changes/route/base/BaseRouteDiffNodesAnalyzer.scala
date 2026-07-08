@@ -3,9 +3,11 @@ package kpn.server.analyzer.engine.changes.route.base
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.route.RouteNodeDiff
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class BaseRouteDiffNodesAnalyzer {
 
   def analyze(before: BaseRouteAnalysisContext, after: BaseRouteAnalysisContext): Seq[RouteNodeDiff] = {

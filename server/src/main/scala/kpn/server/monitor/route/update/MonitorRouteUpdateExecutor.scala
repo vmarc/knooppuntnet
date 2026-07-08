@@ -6,9 +6,11 @@ import kpn.core.common.Time
 import kpn.core.util.Log
 import kpn.core.util.ValidationException
 import kpn.server.json.Json
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MonitorRouteUpdateExecutor(
   monitorAdd: MonitorAdd,
   monitorUpdate: MonitorUpdate,

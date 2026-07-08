@@ -19,12 +19,14 @@ import kpn.core.overpass.QueryRelationStructure
 import kpn.core.overpass.QueryRelationTopLevel
 import kpn.core.overpass.QueryRelations
 import kpn.core.util.Log
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import org.xml.sax.SAXParseException
 
 import scala.xml.XML
 
 @Component
+@Profile(Array("analysis"))
 class OverpassRepositoryImpl(
   overpassQueryExecutor: OverpassQueryExecutor
 ) extends OverpassRepository {

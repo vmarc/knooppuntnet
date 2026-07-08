@@ -4,9 +4,11 @@ import kpn.api.common.Country
 import kpn.api.common.LatLon
 import kpn.core.util.Log
 import org.locationtech.jts.geom.Geometry
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class LocationAnalyzerImpl(analyzerEnabled: Boolean, development: Boolean) extends LocationAnalyzerAbstract {
 
   private val log = Log(classOf[LocationAnalyzerImpl])

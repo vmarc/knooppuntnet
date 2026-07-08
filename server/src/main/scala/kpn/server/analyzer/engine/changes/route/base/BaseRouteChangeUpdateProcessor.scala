@@ -11,9 +11,11 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class BaseRouteChangeUpdateProcessor(
   analysisContext: AnalysisContext,
   rawDataRepository: RawDataRepository,

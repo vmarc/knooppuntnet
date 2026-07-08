@@ -22,12 +22,14 @@ import org.bson.types.ObjectId
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonReader
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import org.xml.sax.SAXParseException
 
 import scala.xml.XML
 
 @Component
+@Profile(Array("web"))
 class MonitorGpxUpload(
   routeRepository: RouteRepository,
   monitorRouteRepository: MonitorRouteRepository,

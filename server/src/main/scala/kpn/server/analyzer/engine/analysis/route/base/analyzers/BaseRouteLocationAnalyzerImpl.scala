@@ -4,6 +4,7 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.location.Location
 import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 /*
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component
   of the route did not change (same geometry digest)).
 */
 @Component
+@Profile(Array("analysis"))
 class BaseRouteLocationAnalyzerImpl(
   routeRepository: RouteRepository,
   routeLocator: RouteLocator

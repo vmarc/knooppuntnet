@@ -20,9 +20,11 @@ import kpn.server.api.analysis.pages.LocationPoiSummaryPageBuilder
 import kpn.server.api.analysis.pages.LocationPoisPageBuilder
 import kpn.server.api.analysis.pages.PoiLocationsPageBuilder
 import kpn.server.api.analysis.pages.PoiPageBuilder
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class PoiFacade(
   database: Database,
   poiPageBuilder: PoiPageBuilder,

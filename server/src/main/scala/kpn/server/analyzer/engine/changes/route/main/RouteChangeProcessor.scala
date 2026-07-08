@@ -8,9 +8,11 @@ import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.repository.RouteRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class RouteChangeProcessor(
   routeMainAnalyzer: RouteMainAnalyzer,
   routeRepository: RouteRepository,

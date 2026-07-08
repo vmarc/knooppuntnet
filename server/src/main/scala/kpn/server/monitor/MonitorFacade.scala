@@ -38,10 +38,12 @@ import kpn.server.monitor.route.MonitorRouteMembersPageBuilder
 import kpn.server.monitor.route.MonitorRouteSegmentsPageBuilder
 import kpn.server.monitor.route.MonitorRouteUpdatePageBuilder
 import org.bson.types.ObjectId
+import org.springframework.context.annotation.Profile
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MonitorFacade(
   api: Api,
   monitorGroupsPageBuilder: MonitorGroupsPageBuilder,

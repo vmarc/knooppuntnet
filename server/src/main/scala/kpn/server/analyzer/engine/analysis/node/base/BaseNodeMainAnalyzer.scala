@@ -12,11 +12,13 @@ import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeLocationA
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeNameAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeSurveyAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeTileAnalyzer
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
 
 @Component
+@Profile(Array("analysis"))
 class BaseNodeMainAnalyzer(
   countryAnalyzer: BaseNodeCountryAnalyzer,
   locationAnalyzer: BaseNodeLocationAnalyzer,

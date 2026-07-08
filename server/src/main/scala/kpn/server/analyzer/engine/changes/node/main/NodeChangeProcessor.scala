@@ -17,9 +17,11 @@ import kpn.server.analyzer.engine.changes.node.base.BaseNodeChangeAnalyzer
 import kpn.server.analyzer.engine.tile.NodeTileChangeAnalyzer
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NodeRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class NodeChangeProcessor(
   bulkNodeAnalyzer: BulkNodeAnalyzer,
   nodeChangeAnalyzer: BaseNodeChangeAnalyzer,

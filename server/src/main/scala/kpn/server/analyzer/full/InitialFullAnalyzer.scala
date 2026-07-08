@@ -3,9 +3,11 @@ package kpn.server.analyzer.full
 import kpn.api.common.ReplicationId
 import kpn.core.common.TimestampUtil
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class InitialFullAnalyzer(
   osmChangeRepository: OsmChangeRepository,
   mainFullAnalyzer: MainFullAnalyzer,

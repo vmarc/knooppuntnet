@@ -11,9 +11,11 @@ import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.repository.ChangeSetInfoRepository
 import org.bson.types.ObjectId
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MonitorRouteChangePageBuilder(
   monitorRouteRepository: MonitorRouteRepository,
   monitorGroupRepository: MonitorGroupRepository,

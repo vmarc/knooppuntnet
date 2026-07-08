@@ -4,9 +4,11 @@ import kpn.api.common.monitor.MonitorReferenceType
 import kpn.core.common.Time
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.repository.MonitorRouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MonitorAdd(
   monitorOsmAdd: MonitorOsmAdd,
   monitorOsmNowAdd: MonitorOsmNowAdd,

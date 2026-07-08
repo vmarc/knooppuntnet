@@ -5,9 +5,11 @@ import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.core.util.Log
 import kpn.server.monitor.repository.MonitorRouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MonitorGpxDelete(
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateCommon: MonitorUpdateCommon,

@@ -8,9 +8,11 @@ import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.MultiLineString
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class RouteLocator(locationAnalyzer: LocationAnalyzer) {
 
   private val geometryFactory = new GeometryFactory

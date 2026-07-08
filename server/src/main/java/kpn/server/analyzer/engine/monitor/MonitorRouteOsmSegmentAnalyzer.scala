@@ -12,9 +12,11 @@ import kpn.server.analyzer.engine.monitor.domain.MonitorRouteOsmSegmentAnalysis
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web", "analysis"))
 class MonitorRouteOsmSegmentAnalyzer {
 
   private val geometryFactory = new GeometryFactory

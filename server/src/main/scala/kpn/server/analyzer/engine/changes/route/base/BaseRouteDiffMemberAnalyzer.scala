@@ -1,9 +1,11 @@
 package kpn.server.analyzer.engine.changes.route.base
 
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class BaseRouteDiffMemberAnalyzer {
 
   def memberOrderChanged(before: BaseRouteAnalysisContext, after: BaseRouteAnalysisContext): Boolean = {

@@ -7,9 +7,11 @@ import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.PoiTileCache
 import kpn.server.analyzer.engine.tiles.domain.PointTileCalculator
 import kpn.server.analyzer.engine.tiles.domain.Tile
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class PoiTileCalculator extends PointTileCalculator(new PoiTileCache()) {
 
   def tileLonLat(z: Int, lon: Double, lat: Double): Tile = {

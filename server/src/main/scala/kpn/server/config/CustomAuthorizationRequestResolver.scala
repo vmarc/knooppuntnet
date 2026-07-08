@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequ
 import org.springframework.stereotype.Component
 
 @Component
-@Profile(Array("!dev"))
+@Profile(Array("!dev & web"))
 class CustomAuthorizationRequestResolver(
   clientRegistrationRepository: ClientRegistrationRepository
 ) extends OAuth2AuthorizationRequestResolver {

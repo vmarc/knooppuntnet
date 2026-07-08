@@ -3,11 +3,13 @@ package kpn.server.analyzer.engine.changes
 import it.unimi.dsi.fastutil.longs.LongList
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ChangeElementIds
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.jdk.CollectionConverters.ListHasAsScala
 
 @Component
+@Profile(Array("analysis"))
 class ElementIdAnalyzer(analysisContext: AnalysisContext) {
 
   def routesReferencedBy(elementIds: ChangeElementIds): Set[Long] = {

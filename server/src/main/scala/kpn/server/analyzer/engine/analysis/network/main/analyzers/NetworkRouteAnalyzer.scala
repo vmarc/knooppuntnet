@@ -7,9 +7,11 @@ import kpn.core.doc.NetworkRouteDetail
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class NetworkRouteAnalyzer(routeRepository: RouteRepository) extends NetworkAnalyzer {
 
   private val log = Log(classOf[NetworkAnalysisContext])

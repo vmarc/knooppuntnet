@@ -10,9 +10,11 @@ import kpn.database.actions.networks.MongoQueryNetworkChangeCounts
 import kpn.database.actions.networks.MongoQueryNetworkChanges
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web", "analysis"))
 class NetworkInfoRepository(database: Database) {
 
   private val log = Log(classOf[NetworkInfoRepository])

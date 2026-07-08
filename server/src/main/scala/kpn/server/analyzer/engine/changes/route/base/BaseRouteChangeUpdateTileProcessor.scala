@@ -4,9 +4,11 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysi
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.repository.RouteTileRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class BaseRouteChangeUpdateTileProcessor(routeTileRepository: RouteTileRepository) {
 
   case class TileActions(deleteTileIds: Set[String], saveTileIds: Set[String]) {

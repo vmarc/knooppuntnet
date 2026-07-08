@@ -81,9 +81,11 @@ import kpn.server.api.analysis.pages.subset.SubsetOrphanNodesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanRoutesPageBuilder
 import kpn.server.repository.AnalysisRepository
 import kpn.server.search.SearchFacade
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class AnalysisFacade(
   api: Api,
   analysisRepository: AnalysisRepository,

@@ -8,9 +8,11 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
 import kpn.server.repository.PoiRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class PoiPageBuilder(poiRepository: PoiRepository, masterPoiAnalyzer: MasterPoiAnalyzer) {
 
   private val log = Log(classOf[PoiPageBuilder])

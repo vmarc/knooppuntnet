@@ -5,9 +5,11 @@ import kpn.core.metrics.ApiAction
 import kpn.core.util.Log
 import kpn.server.config.RequestContext
 import kpn.server.repository.MetricsRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class ApiImpl(metricsRepository: MetricsRepository) extends Api {
 
   private val log = Log(classOf[Api])

@@ -3,10 +3,12 @@ package kpn.server.analyzer.engine.changes.changes
 import kpn.core.util.Log
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.TaskRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class ChangeSetInfoEngine(
   changeSetInfoEngineEnabled: Boolean,
   taskRepository: TaskRepository,

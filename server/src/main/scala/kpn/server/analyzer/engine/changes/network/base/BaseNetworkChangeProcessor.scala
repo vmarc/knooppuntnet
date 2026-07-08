@@ -10,9 +10,11 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.RawDataRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class BaseNetworkChangeProcessor(
   analysisContext: AnalysisContext,
   baseNetworkChangeAnalyzer: BaseNetworkChangeAnalyzer,

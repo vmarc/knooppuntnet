@@ -4,9 +4,11 @@ import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.core.doc.SuperSubSegmentInfo
 import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MonitorRouteGapAnalyzer {
 
   def calculate(

@@ -2,11 +2,13 @@ package kpn.server.analyzer.engine.poi
 
 import kpn.core.util.Log
 import kpn.server.repository.PoiRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import javax.annotation.PostConstruct
 
 @Component
+@Profile(Array("analysis"))
 class KnownPoiCacheImpl(poiRepository: PoiRepository, analyzerEnabled: Boolean) extends KnownPoiCache {
 
   private val log = Log(classOf[KnownPoiCacheImpl])

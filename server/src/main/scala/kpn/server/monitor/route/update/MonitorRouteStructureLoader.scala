@@ -6,11 +6,13 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryRelationStructure
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.xml.XML
 
 @Component
+@Profile(Array("web"))
 class MonitorRouteStructureLoader(overpassQueryExecutor: OverpassQueryExecutor) {
 
   def load(timestamp: Option[Timestamp], relationId: Long): Option[MonitorRouteRelation] = {

@@ -5,9 +5,11 @@ import kpn.api.common.subset.SubsetFactDetailsPage
 import kpn.api.custom.Subset
 import kpn.server.repository.FactRepository
 import kpn.server.repository.SubsetRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class SubsetFactDetailsPageBuilder(
   subsetRepository: SubsetRepository,
   factRepository: FactRepository

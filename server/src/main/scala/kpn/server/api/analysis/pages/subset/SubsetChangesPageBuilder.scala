@@ -12,9 +12,11 @@ import kpn.server.api.analysis.pages.ChangeSetSummarySubsetFilter
 import kpn.server.config.RequestContext
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.SubsetRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class SubsetChangesPageBuilder(
   changeSetRepository: ChangeSetRepository,
   subsetRepository: SubsetRepository,

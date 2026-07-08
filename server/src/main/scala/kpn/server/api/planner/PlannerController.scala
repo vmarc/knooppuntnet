@@ -10,6 +10,7 @@ import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
 import kpn.server.analyzer.engine.poi.PoiRef
+import org.springframework.context.annotation.Profile
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@Profile(Array("web"))
 class PlannerController(plannerFacade: PlannerFacade) {
 
   @GetMapping(value = Array("/api/node-detail/{nodeId}/{routeType}"))

@@ -7,9 +7,11 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkInfoRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class ChangeSaver(
   changeSetRepository: ChangeSetRepository,
   networkInfoRepository: NetworkInfoRepository

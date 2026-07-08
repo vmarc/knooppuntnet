@@ -20,9 +20,11 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.repository.GraphRepository
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class LegBuilder(
   graphRepository: GraphRepository,
   routeRepository: RouteRepository

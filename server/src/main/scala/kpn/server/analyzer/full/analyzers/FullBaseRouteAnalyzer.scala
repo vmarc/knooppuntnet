@@ -8,9 +8,11 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysi
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class FullBaseRouteAnalyzer(
   rawDataRepository: RawDataRepository,
   routeRepository: RouteRepository,

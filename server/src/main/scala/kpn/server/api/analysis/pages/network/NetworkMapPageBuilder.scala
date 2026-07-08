@@ -6,9 +6,11 @@ import kpn.api.common.network.NetworkMapPage
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.server.repository.NetworkRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class NetworkMapPageBuilder(
   networkRepository: NetworkRepository
 ) {

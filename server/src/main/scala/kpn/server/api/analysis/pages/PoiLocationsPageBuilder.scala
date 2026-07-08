@@ -8,9 +8,11 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationDefinition
 import org.apache.commons.lang3.StringUtils
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class PoiLocationsPageBuilder(
   locationConfiguration: LocationConfiguration
 ) {

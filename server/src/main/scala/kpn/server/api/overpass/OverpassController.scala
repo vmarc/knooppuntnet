@@ -1,18 +1,21 @@
 package kpn.server.api.overpass
 
-import kpn.core.overpass.OverpassQueryExecutor
+import kpn.core.overpass.OverpassQueryExecutorLocalImpl
 import kpn.core.util.Log
+import org.springframework.context.annotation.Profile
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class OverpassController(overpassQueryExecutor: OverpassQueryExecutor) {
+@Profile(Array("overpass"))
+class OverpassController {
 
+  private val overpassQueryExecutor = new OverpassQueryExecutorLocalImpl()
   private val log = Log(classOf[OverpassController])
 
   @PostMapping(value = Array("/api/overpass"))
-  def mapNodeDetail(@RequestBody queryString: String): String = {
+  def request(@RequestBody queryString: String): String = {
     log.infoElapsed {
       val xml = try {
         overpassQueryExecutor.execute(queryString)

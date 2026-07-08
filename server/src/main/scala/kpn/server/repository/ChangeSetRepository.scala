@@ -28,9 +28,11 @@ import kpn.database.actions.routes.MongoQueryRouteChangeCounts
 import kpn.database.actions.routes.MongoQueryRouteChanges
 import kpn.database.actions.subsets.MongoQuerySubsetChanges
 import kpn.database.base.Database
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web", "analysis"))
 class ChangeSetRepository(database: Database) {
 
   private val log = Log(classOf[ChangeSetRepository])

@@ -5,9 +5,11 @@ import kpn.api.common.common.Reference
 import kpn.api.custom.ScopedRouteType
 import kpn.database.actions.nodes.MongoQueryNodeRouteReferences
 import kpn.database.base.Database
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class NodeRouteRepository(database: Database) {
 
   def nodesRouteReferences(scopedRouteType: ScopedRouteType, nodeIds: Seq[Long]): Seq[NodeRouteRefs] = {

@@ -3,9 +3,11 @@ package kpn.server.repository
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.core.util.Log
 import kpn.database.base.Database
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web", "analysis"))
 class ChangeSetInfoRepository(database: Database) {
 
   private val log = Log(classOf[ChangeSetInfoRepository])

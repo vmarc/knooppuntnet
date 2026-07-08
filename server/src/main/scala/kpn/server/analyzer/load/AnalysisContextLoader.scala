@@ -5,9 +5,11 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class AnalysisContextLoader(
   analysisContext: AnalysisContext,
   networkRepository: NetworkRepository,

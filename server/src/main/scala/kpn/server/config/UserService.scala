@@ -1,5 +1,6 @@
 package kpn.server.config
 
+import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
@@ -8,11 +9,11 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
-import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException
 import org.springframework.security.oauth2.core.OAuth2Error
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User
+import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
@@ -21,6 +22,7 @@ import java.nio.charset.Charset
 import scala.xml.XML
 
 @Component
+@Profile(Array("web"))
 class UserService extends OAuth2UserService[OAuth2UserRequest, OAuth2User] {
 
   override def loadUser(userRequest: OAuth2UserRequest): OAuth2User = {

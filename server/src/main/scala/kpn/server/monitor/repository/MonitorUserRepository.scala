@@ -2,9 +2,11 @@ package kpn.server.monitor.repository
 
 import kpn.api.common.common.User
 import kpn.database.base.Database
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MonitorUserRepository(database: Database) {
 
   def adminUsers(): Seq[User] = {

@@ -7,9 +7,11 @@ import kpn.api.common.diff.WayUpdate
 import kpn.core.history.WayDiffAnalyzer
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class BaseRouteDiffWaysAnalyzer {
 
   private val log = Log(classOf[BaseRouteDiffWaysAnalyzer])

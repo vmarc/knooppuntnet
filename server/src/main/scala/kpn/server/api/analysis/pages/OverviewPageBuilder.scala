@@ -8,9 +8,11 @@ import kpn.api.custom.Subset
 import kpn.core.util.Formatter
 import kpn.database.actions.statistics.StatisticLongValues
 import kpn.server.repository.StatisticsRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class OverviewPageBuilder(statisticsRepository: StatisticsRepository) {
 
   def build(language: Language): Option[OverviewPage] = {

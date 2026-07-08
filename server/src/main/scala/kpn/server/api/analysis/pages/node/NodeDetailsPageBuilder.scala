@@ -10,9 +10,11 @@ import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NodeRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class NodeDetailsPageBuilder(
   nodeRepository: NodeRepository,
   networkRepository: NetworkRepository,

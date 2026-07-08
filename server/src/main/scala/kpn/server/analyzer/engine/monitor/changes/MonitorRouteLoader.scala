@@ -9,6 +9,7 @@ import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryRelation
 import kpn.core.util.Log
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 import org.xml.sax.SAXParseException
 
@@ -16,6 +17,7 @@ import scala.xml.Elem
 import scala.xml.XML
 
 @Component
+@Profile(Array("analysis"))
 class MonitorRouteLoader(overpassQueryExecutor: OverpassQueryExecutor) {
 
   private val log = Log(classOf[MonitorRouteLoader])

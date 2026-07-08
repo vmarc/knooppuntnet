@@ -18,9 +18,11 @@ import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.repository.MonitorStateDeviationInfo
 import kpn.server.monitor.repository.MonitorUserRepository
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MonitorRouteMembersPageBuilder(
   routeRepository: RouteRepository,
   monitorUserRepository: MonitorUserRepository,

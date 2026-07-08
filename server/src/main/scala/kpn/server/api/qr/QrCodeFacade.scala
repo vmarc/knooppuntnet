@@ -6,6 +6,7 @@ import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import kpn.server.api.Api
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import java.awt.Color
@@ -15,6 +16,7 @@ import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
 
 @Component
+@Profile(Array("web"))
 class QrCodeFacade(api: Api) {
 
   def qrCode(message: String): Array[Byte] = {

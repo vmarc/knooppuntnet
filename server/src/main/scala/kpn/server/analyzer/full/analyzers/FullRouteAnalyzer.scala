@@ -3,9 +3,11 @@ package kpn.server.analyzer.full.analyzers
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class FullRouteAnalyzer(
   routeRepository: RouteRepository,
   routeMainAnalyzer: RouteMainAnalyzer,

@@ -6,12 +6,14 @@ import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryCenters
 import kpn.core.poi.PoiCenterQuery
 import kpn.core.util.Log
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 import scala.xml.SAXParseException
 import scala.xml.XML
 
 @Component
+@Profile(Array("analysis"))
 class PoiQueryExecutor(overpassQueryExecutor: OverpassQueryExecutor) {
 
   private val log = Log(classOf[PoiQueryExecutor])

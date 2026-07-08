@@ -8,6 +8,7 @@ import kpn.core.util.Log
 import kpn.server.json.Json
 import org.apache.commons.lang3.exception.ExceptionUtils
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.mail.SimpleMailMessage
@@ -19,6 +20,7 @@ import org.springframework.web.client.RestTemplate
 import java.net.InetAddress
 
 @Component
+@Profile(Array("web"))
 class AppMonitor(
   applicationName: String,
   mailSender: JavaMailSender,

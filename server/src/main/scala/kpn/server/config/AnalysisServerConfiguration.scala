@@ -11,6 +11,7 @@ import kpn.server.analyzer.engine.tiles.TileFileRepository
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 import org.springframework.scheduling.TaskScheduler
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler
@@ -20,7 +21,8 @@ import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
 import scala.concurrent.ExecutionContext
 
 @Configuration
-class ServerConfiguration {
+@Profile(Array("analysis"))
+class AnalysisServerConfiguration {
 
   @Bean
   def threadMetrics = new JvmThreadMetrics

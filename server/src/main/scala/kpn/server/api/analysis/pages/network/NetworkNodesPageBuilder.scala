@@ -9,9 +9,11 @@ import kpn.database.base.Database
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.NodeRouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class NetworkNodesPageBuilder(
   database: Database,
   nodeRouteRepository: NodeRouteRepository

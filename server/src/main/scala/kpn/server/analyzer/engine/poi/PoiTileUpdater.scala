@@ -2,9 +2,11 @@ package kpn.server.analyzer.engine.poi
 
 import kpn.core.util.Log
 import kpn.server.repository.TaskRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class PoiTileUpdater(
   poiTileBuilder: PoiTileBuilder,
   taskRepository: TaskRepository

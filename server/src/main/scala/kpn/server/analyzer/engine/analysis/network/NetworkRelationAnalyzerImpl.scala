@@ -4,9 +4,11 @@ import kpn.api.common.Relation
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class NetworkRelationAnalyzerImpl(locationAnalyzer: LocationAnalyzer) {
 
   def analyze(relation: Relation): NetworkRelationAnalysis = {

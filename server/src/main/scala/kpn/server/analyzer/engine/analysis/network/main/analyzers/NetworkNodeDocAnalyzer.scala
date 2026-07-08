@@ -4,9 +4,11 @@ import kpn.api.common.data.MemberType
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.server.repository.NodeRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class NetworkNodeDocAnalyzer(nodeRepository: NodeRepository) extends NetworkAnalyzer {
 
   private val log = Log(classOf[NetworkNodeDocAnalyzer])

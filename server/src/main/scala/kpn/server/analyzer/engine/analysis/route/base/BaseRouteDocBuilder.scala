@@ -9,9 +9,11 @@ import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteBaseData
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class BaseRouteDocBuilder {
 
   def build(context: BaseRouteAnalysisContext): BaseRouteDoc = {

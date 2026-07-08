@@ -7,9 +7,11 @@ import kpn.server.analyzer.engine.tiles.domain.TileUtil
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorReferenceTile
 import org.locationtech.jts.geom.Coordinate
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MonitorReferenceBuilder(
   lineSegmentTileCalculator: LineSegmentTileCalculator
 ) {

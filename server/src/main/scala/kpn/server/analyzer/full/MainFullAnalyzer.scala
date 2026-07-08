@@ -6,9 +6,11 @@ import kpn.server.analyzer.engine.analysis.post.PostProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.full.analyzers.FullAnalysisContext
 import kpn.server.analyzer.full.analyzers.FullAnalysisPipeline
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class MainFullAnalyzer(
   fullAnalysisPipeline: FullAnalysisPipeline,
   postProcessor: PostProcessor

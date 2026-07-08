@@ -6,9 +6,11 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.data.Tagable
 import kpn.api.common.data.raw.RawNode
 import kpn.server.overpass.OverpassRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class NetworkExtraAnalyzer(
   overpassRepository: OverpassRepository
 ) extends NetworkAnalyzer {

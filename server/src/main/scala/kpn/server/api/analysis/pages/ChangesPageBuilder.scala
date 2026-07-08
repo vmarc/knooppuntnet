@@ -7,9 +7,11 @@ import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.server.config.RequestContext
 import kpn.server.repository.ChangeSetRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class ChangesPageBuilder(
   changeSetRepository: ChangeSetRepository,
   changeSetSummaryInfosBuilder: ChangeSetSummaryInfosBuilder

@@ -7,9 +7,11 @@ import kpn.database.actions.networks.MongoQueryNetworkRoutesPageData
 import kpn.database.base.Database
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import kpn.server.api.analysis.pages.TimeInfoBuilder
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class NetworkRoutesPageBuilder(database: Database) {
 
   private val log = Log(classOf[NetworkRoutesPageBuilder])

@@ -3,12 +3,14 @@ package kpn.server.analyzer.engine.tile
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.LineSegment
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 /*
   Calculates which map tiles are needed to display a set of line segments at a given zoom level.
  */
 @Component
+@Profile(Array("web", "analysis"))
 class LineSegmentTileCalculator(routeTileCache: RouteTileCache) {
 
   private case class Direction(xDelta: Int, yDelta: Int, getSide: Tile => LineSegment)

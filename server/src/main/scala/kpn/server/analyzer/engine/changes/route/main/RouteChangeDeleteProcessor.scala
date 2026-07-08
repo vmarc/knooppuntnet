@@ -8,9 +8,11 @@ import kpn.api.common.diff.RouteData
 import kpn.api.common.route.RouteNodeChange
 import kpn.core.doc.RouteDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class RouteChangeDeleteProcessor {
 
   def process(context: ChangeSetContext, routeDoc: RouteDoc): Option[RouteChangeContext] = {

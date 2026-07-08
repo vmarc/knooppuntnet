@@ -2,9 +2,11 @@ package kpn.server.analyzer.engine.analysis.node.base.analyzers
 
 import kpn.server.analyzer.engine.tile.NodeTileCalculator
 import kpn.server.analyzer.engine.tile.ZoomLevel
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class BaseNodeTileAnalyzer(nodeTileCalculator: NodeTileCalculator) extends BaseNodeAnalyzer {
   override def analyze(context: BaseNodeAnalysisContext): BaseNodeAnalysisContext = {
     val tiles = (ZoomLevel.nodeMinZoom to ZoomLevel.vectorTileMaxZoom).flatMap { z =>

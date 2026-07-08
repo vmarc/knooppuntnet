@@ -4,9 +4,11 @@ import kpn.api.common.RouteType
 import kpn.core.doc.NodeDoc
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class NodeTileChangeAnalyzer(tileDataNodeBuilder: TileDataNodeBuilder) {
 
   def impactedTiles(before: NodeDoc, after: NodeDoc): Seq[String] = {

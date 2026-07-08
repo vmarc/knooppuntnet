@@ -6,9 +6,11 @@ import kpn.api.custom.Timestamp
 import kpn.core.doc.RawRouteDoc
 import kpn.core.util.Log
 import kpn.server.overpass.OverpassRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class RawDataRepositoryImpl(
   overpassRepository: OverpassRepository
 ) extends RawDataRepository {

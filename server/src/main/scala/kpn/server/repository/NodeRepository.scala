@@ -15,9 +15,11 @@ import kpn.database.actions.nodes.MongoQueryNodes
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web", "analysis"))
 class NodeRepository(database: Database) {
 
   private val log = Log(classOf[NodeRepository])

@@ -5,9 +5,11 @@ import kpn.api.common.data.MemberType
 import kpn.core.doc.RouteRelation
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class RouteIdsAnalyzer(routeRepository: RouteRepository) extends RouteAnalyzer {
 
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {

@@ -19,6 +19,7 @@ import kpn.api.common.monitor.MonitorRouteSegmentsPage
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 import org.bson.types.ObjectId
+import org.springframework.context.annotation.Profile
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@Profile(Array("web"))
 @RequestMapping(Array("/api/monitor"))
 class MonitorController(facade: MonitorFacade) {
 

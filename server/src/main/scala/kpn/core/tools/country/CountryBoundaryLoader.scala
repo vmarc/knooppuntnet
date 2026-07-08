@@ -1,7 +1,7 @@
 package kpn.core.tools.country
 
 import kpn.api.common.Country
-import kpn.core.overpass.OverpassQueryExecutorImpl
+import kpn.core.overpass.OverpassQueryExecutorLocalImpl
 import kpn.core.tools.config.Dirs
 import org.apache.commons.io.FileUtils
 import org.xml.sax.SAXParseException
@@ -11,7 +11,7 @@ import scala.xml.XML
 
 class CountryBoundaryLoader {
 
-  private val executor = new OverpassQueryExecutorImpl()
+  private val executor = new OverpassQueryExecutorLocalImpl()
 
   def countryId(country: Country): Long = {
     val query = s"relation['admin_level'='2']['type'='boundary']['ISO3166-1'='${country.entryName.toUpperCase}'];out ids;"

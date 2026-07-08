@@ -13,9 +13,11 @@ import kpn.database.actions.nodes.MongoQueryNodeBaseNetworkReferences
 import kpn.database.actions.nodes.MongoQueryNodeNetworkReferences
 import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.database.base.Database
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web", "analysis"))
 class NetworkRepository(database: Database) {
 
   private val log = Log(classOf[NetworkRepository])

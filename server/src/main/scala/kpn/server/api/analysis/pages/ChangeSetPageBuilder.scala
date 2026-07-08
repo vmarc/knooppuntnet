@@ -28,9 +28,11 @@ import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class ChangeSetPageBuilder(
   changeSetInfoRepository: ChangeSetInfoRepository,
   changeSetRepository: ChangeSetRepository,

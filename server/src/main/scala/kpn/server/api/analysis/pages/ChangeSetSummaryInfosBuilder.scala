@@ -9,9 +9,11 @@ import kpn.api.common.Language
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.ChangeSetInfoRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class ChangeSetSummaryInfosBuilder(
   changeSetInfoRepository: ChangeSetInfoRepository,
   locationService: LocationService

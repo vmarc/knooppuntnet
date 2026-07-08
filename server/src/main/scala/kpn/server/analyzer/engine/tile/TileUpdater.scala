@@ -9,9 +9,11 @@ import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.RouteTileRepository
 import kpn.server.repository.TaskRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class TileUpdater(
   taskRepository: TaskRepository,
   nodeRepository: NodeRepository,

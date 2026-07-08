@@ -18,9 +18,11 @@ import kpn.server.monitor.domain.MonitorState
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.bson.types.ObjectId
 import org.locationtech.jts.geom.GeometryFactory
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class MonitorChangeProcessor(
   monitorRouteRepository: MonitorRouteRepository,
   monitorRouteLoader: MonitorRouteLoader,

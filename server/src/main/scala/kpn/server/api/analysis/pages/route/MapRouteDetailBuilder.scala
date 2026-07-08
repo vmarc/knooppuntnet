@@ -3,9 +3,11 @@ package kpn.server.api.analysis.pages.route
 import kpn.api.common.common.Ref
 import kpn.api.common.route.MapRouteDetail
 import kpn.server.repository.RouteRepository
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("web"))
 class MapRouteDetailBuilder(routeRepository: RouteRepository) {
   def build(routeId: Long): Option[MapRouteDetail] = {
     routeRepository.findRouteById(routeId).map { route =>

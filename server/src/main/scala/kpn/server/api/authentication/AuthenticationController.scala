@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse
 import kpn.server.api.Api
 import kpn.server.config.AuthenticationConfiguration
 import kpn.server.config.RequestContext
+import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@Profile(Array("web"))
 class AuthenticationController(api: Api) {
 
   @GetMapping(Array("/api/oauth2/user"))

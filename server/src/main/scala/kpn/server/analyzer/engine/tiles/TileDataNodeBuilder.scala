@@ -7,9 +7,11 @@ import kpn.api.common.RouteType
 import kpn.core.analysis.Facts
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Component
 
 @Component
+@Profile(Array("analysis"))
 class TileDataNodeBuilder {
 
   private case class NodeNameParts(
