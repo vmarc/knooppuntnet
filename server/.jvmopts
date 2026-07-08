@@ -1,0 +1,5 @@
+-Xms1G
+-Xmx4G
+-Xss2m
+-XX:+UseParallelGC
+-XX:MaxInlineLevel=32
