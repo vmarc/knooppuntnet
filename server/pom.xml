@@ -5,7 +5,7 @@
 
   <groupId>knooppuntnet</groupId>
   <artifactId>server</artifactId>
-  <version>5.0.14</version>
+  <version>5.0.16</version>
   <name>server</name>
   <description>knooppuntnet server</description>
 
@@ -217,6 +217,12 @@
       <groupId>mil.nga.geopackage</groupId>
       <artifactId>geopackage</artifactId>
       <version>6.6.5</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-nop</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
