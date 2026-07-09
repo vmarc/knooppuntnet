@@ -1,1 +1,1 @@
-sbt assembly
+mvn clean install 
