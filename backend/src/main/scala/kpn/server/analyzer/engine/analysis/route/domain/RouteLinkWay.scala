@@ -1,0 +1,50 @@
+package kpn.server.analyzer.engine.analysis.route.domain
+
+import kpn.api.common.data.Way
+import kpn.api.common.route.Link
+import kpn.api.common.route.LinkDirection
+
+case class RouteLinkWay(
+  id: Long,
+  link: Link,
+  role: Option[String],
+  way: Way
+) extends RouteLink {
+
+  override def idString: String = id.toString
+
+  def linkName: String = link.name
+
+  def linkDetail: String = link.reportString
+
+  def fromNodeId: Long = {
+    if (link.direction == LinkDirection.Backward) {
+      way.nodeIds.last
+    }
+    else {
+      way.nodeIds.head
+    }
+  }
+
+  def toNodeId: Long = {
+    if (link.direction == LinkDirection.Backward) {
+      way.nodeIds.head
+    }
+    else {
+      way.nodeIds.last
+    }
+  }
+
+  def nodeIds: Seq[Long] = {
+    if (link.direction == LinkDirection.Backward) {
+      way.nodeIds.reverse
+    }
+    else {
+      way.nodeIds
+    }
+  }
+
+  def isClosedLoop: Boolean = {
+    way.nodes.size > 2 && way.nodeIds.head == way.nodeIds.last
+  }
+}

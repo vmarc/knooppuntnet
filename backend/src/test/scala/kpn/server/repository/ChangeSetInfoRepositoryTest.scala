@@ -1,0 +1,69 @@
+package kpn.server.repository
+
+import kpn.api.common.changes.ChangeSetInfo
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.core.test.MongoTest
+
+class ChangeSetInfoRepositoryTest extends MongoTest {
+
+  test("changeSetInfo not found") {
+    withRepository { repository =>
+      repository.get(0L) should equal(None)
+    }
+  }
+
+  test("changeSetInfo") {
+
+    withRepository { repository =>
+
+      val changeSetId = 11L
+
+      val changeSetInfo = ChangeSetInfo(
+        changeSetId,
+        changeSetId,
+        Timestamp(2015, 8, 11, 0, 0, 0),
+        Some(Timestamp(2015, 8, 11, 0, 1, 0)),
+        open = false,
+        1,
+        Tags.from("comment" -> "bla")
+      )
+
+      repository.save(changeSetInfo)
+
+      assertEqual(
+        repository.get(changeSetId),
+        Some(changeSetInfo)
+      )
+    }
+  }
+
+  test("all") {
+
+    withRepository { repository =>
+
+      val changeSetId = 11L
+
+      val changeSetInfo = ChangeSetInfo(
+        changeSetId,
+        changeSetId,
+        Timestamp(2015, 8, 11, 0, 0, 0),
+        Some(Timestamp(2015, 8, 11, 0, 1, 0)),
+        open = false,
+        1,
+        Tags.from("comment" -> "bla")
+      )
+
+      repository.save(changeSetInfo)
+
+      assertEqual(
+        repository.all(Seq(changeSetId)),
+        Seq(changeSetInfo)
+      )
+    }
+  }
+
+  private def withRepository(f: ChangeSetInfoRepository => Unit): Unit = {
+    f(new ChangeSetInfoRepository(database))
+  }
+}

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="297611238" lat="51.2551081" lon="3.6926494">
+    <tag k="rcn_ref" v="54"/>
+    <tag k="rwn_ref" v="49"/>
+  </node>
+  <node id="297611239" lat="51.2547883" lon="3.6929839"/>
+  <node id="297611240" lat="51.2537902" lon="3.693322"/>
+  <node id="297611241" lat="51.2529113" lon="3.6934178"/>
+  <node id="297611242" lat="51.2514927" lon="3.693499"/>
+  <node id="297611243" lat="51.250709" lon="3.6939514"/>
+  <node id="297611244" lat="51.2497039" lon="3.6937079"/>
+  <node id="297611245" lat="51.2492263" lon="3.6938093"/>
+  <node id="297611246" lat="51.2486189" lon="3.6945101"/>
+  <node id="1032457785" lat="51.2483566" lon="3.6953584"/>
+  <node id="1032457830" lat="51.2481975" lon="3.6959183">
+    <tag k="rwn_ref" v="48"/>
+  </node>
+  <node id="1032457848" lat="51.2522578" lon="3.6932235"/>
+  <node id="1032457874" lat="51.2520746" lon="3.6931737"/>
+  <node id="1032457892" lat="51.2508355" lon="3.69392"/>
+  <node id="1032457911" lat="51.2494597" lon="3.6937219"/>
+  <node id="1032457925" lat="51.2541048" lon="3.6932375"/>
+  <node id="1032457943" lat="51.2482868" lon="3.6956029">
+    <tag k="rwn_ref" v="48"/>
+  </node>
+  <node id="1032457950" lat="51.2489127" lon="3.6941282"/>
+  <node id="1032457959" lat="51.2531592" lon="3.6934121"/>
+  <node id="1032457975" lat="51.2511572" lon="3.6936997"/>
+  <node id="1032457979" lat="51.2518935" lon="3.6932251"/>
+  <node id="1032458020" lat="51.2484214" lon="3.6950085"/>
+  <node id="1032458031" lat="51.2484603" lon="3.6947555"/>
+  <node id="1032458043" lat="51.2526805" lon="3.6933901"/>
+  <node id="1032458074" lat="51.2524555" lon="3.6933195"/>
+  <node id="1037911386" lat="51.248091" lon="3.6957081">
+    <tag k="rwn_ref" v="48"/>
+  </node>
+  <node id="1037911424" lat="51.248181" lon="3.6956872"/>
+  <node id="1784704533" lat="51.2485263" lon="3.6946248"/>
+  <node id="1784704554" lat="51.24909" lon="3.6939051"/>
+  <node id="1784704740" lat="51.2521649" lon="3.6931831"/>
+  <node id="1784704815" lat="51.2539476" lon="3.6932957"/>
+  <way id="27126022">
+    <tag k="highway" v="unclassified"/>
+    <tag k="lanes" v="1"/>
+    <tag k="name" v="Spoorstraat"/>
+    <nd ref="297611238"/>
+    <nd ref="297611239"/>
+  </way>
+  <way id="88971170">
+    <tag k="highway" v="unclassified"/>
+    <tag k="lanes" v="1"/>
+    <tag k="name" v="Spoorstraat"/>
+    <nd ref="297611243"/>
+    <nd ref="297611244"/>
+    <nd ref="1032457911"/>
+    <nd ref="297611245"/>
+    <nd ref="1784704554"/>
+    <nd ref="1032457950"/>
+    <nd ref="297611246"/>
+    <nd ref="1784704533"/>
+    <nd ref="1032458031"/>
+    <nd ref="1032458020"/>
+    <nd ref="1032457785"/>
+    <nd ref="1032457943"/>
+  </way>
+  <way id="88971173">
+    <tag k="name" v="Spoorstraat"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="lanes" v="1"/>
+    <tag k="layer" v="1"/>
+    <nd ref="1032457892"/>
+    <nd ref="297611243"/>
+  </way>
+  <way id="89524611">
+    <tag k="highway" v="unclassified"/>
+    <nd ref="1032457943"/>
+    <nd ref="1037911424"/>
+    <nd ref="1037911386"/>
+  </way>
+  <way id="256188399">
+    <tag k="highway" v="unclassified"/>
+    <tag k="lanes" v="1"/>
+    <tag k="name" v="Spoorstraat"/>
+    <nd ref="297611239"/>
+    <nd ref="1032457925"/>
+    <nd ref="1784704815"/>
+    <nd ref="297611240"/>
+    <nd ref="1032457959"/>
+    <nd ref="297611241"/>
+    <nd ref="1032458043"/>
+    <nd ref="1032458074"/>
+    <nd ref="1032457848"/>
+    <nd ref="1784704740"/>
+    <nd ref="1032457874"/>
+    <nd ref="1032457979"/>
+    <nd ref="297611242"/>
+    <nd ref="1032457975"/>
+    <nd ref="1032457892"/>
+  </way>
+  <way id="256188401">
+    <tag k="highway" v="unclassified"/>
+    <tag k="lanes" v="1"/>
+    <tag k="name" v="Spoorstraat"/>
+    <nd ref="1032457943"/>
+    <nd ref="1032457830"/>
+  </way>
+  <relation id="3431904">
+    <member type="way" ref="89524611" role=""/>
+    <member type="way" ref="256188401" role=""/>
+    <member type="way" ref="88971170" role=""/>
+    <member type="way" ref="88971173" role=""/>
+    <member type="way" ref="256188399" role=""/>
+    <member type="way" ref="27126022" role=""/>
+    <tag k="network" v="rwn"/>
+    <tag k="note" v="48-49"/>
+    <tag k="route" v="foot"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

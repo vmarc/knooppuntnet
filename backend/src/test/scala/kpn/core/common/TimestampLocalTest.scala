@@ -1,0 +1,20 @@
+package kpn.core.common
+
+import kpn.api.custom.Timestamp
+import kpn.core.test.TestObjects.newNode
+import kpn.core.util.UnitTest
+
+class TimestampLocalTest extends UnitTest {
+
+  test("test node object") {
+    val node = newNode(timestamp = Timestamp(2018, 8, 11, 0, 0, 0))
+    TimestampLocal.localize(node)
+    node.timestamp should equal(Timestamp(2018, 8, 11, 2, 0, 0))
+  }
+
+  test("test collection") {
+    val list = List(Timestamp(2018, 8, 11, 0, 0, 0), Timestamp(2018, 8, 11, 12, 0, 0))
+    TimestampLocal.localize(list)
+    list should equal(List(Timestamp(2018, 8, 11, 2, 0, 0), Timestamp(2018, 8, 11, 14, 0, 0)))
+  }
+}

@@ -1,0 +1,112 @@
+package kpn.server.analyzer.engine.analysis.location
+
+import kpn.api.common.Country
+import kpn.core.tools.config.Dirs
+import kpn.core.tools.location.LocationGeometry
+import kpn.core.tools.location.LocationNameDefinitions
+import kpn.core.util.Log
+import kpn.server.json.Json
+import org.apache.commons.io.FileUtils
+import org.locationtech.jts.algorithm.locate.IndexedPointInAreaLocator
+import org.locationtech.jts.geom.Geometry
+import org.locationtech.jts.geom.GeometryCollection
+import org.locationtech.jts.geom.MultiPolygon
+import org.locationtech.jts.geom.Polygon
+import org.locationtech.jts.io.geojson.GeoJsonReader
+
+import java.io.File
+
+class LocationStoreReader(development: Boolean) {
+
+  private val log = Log(classOf[LocationStoreReader])
+
+  private val root = s"${Dirs.root}/locations"
+
+  def read(): LocationStore = {
+    val locationCounties = if (development) {
+      log.warn("!!! Loading NL, BE and DE locations only!!!")
+      Seq(Country.nl, Country.be, Country.de)
+    }
+    else {
+      Country.values
+    }
+    val countries: Seq[LocationStoreCountry] = locationCounties.map { country =>
+      val locationStoreCountry = loadCountry(country)
+      val filename = s"$root/${country.entryName}/tree.json"
+      val string = FileUtils.readFileToString(new File(filename), "UTF-8")
+      val tree = Json.readValue(string, classOf[LocationTree])
+      val location = toLocation(locationStoreCountry.dataMap, tree)
+      locationStoreCountry.copy(tree = location)
+    }
+    LocationStore(countries)
+  }
+
+  private def loadCountry(country: Country): LocationStoreCountry = {
+    log.info(s"Loading ${country.entryName.toUpperCase}")
+    val locationNameDefinitions = {
+      val filename = s"$root/${country.entryName}/locations.json"
+      val string = FileUtils.readFileToString(new File(filename), "UTF-8")
+      Json.readValue(string, classOf[LocationNameDefinitions])
+    }
+    val dataMap = locationNameDefinitions.locations.map { locationNameDefinition =>
+      val locationGeometry = {
+        val filename = s"$root/${country.entryName}/geometries/${locationNameDefinition.id}.json"
+        val string = FileUtils.readFileToString(new File(filename), "UTF-8")
+        val geometry = new GeoJsonReader().read(string)
+        LocationGeometry(geometry)
+      }
+      val locators = toPolygons(locationGeometry.geometry).map(polygon => new IndexedPointInAreaLocator(polygon))
+      locationNameDefinition.id -> LocationStoreData(
+        locationNameDefinition.id,
+        locationNameDefinition.paths,
+        locationNameDefinition.name,
+        locationGeometry,
+        locators
+      )
+    }.toMap
+
+    LocationStoreCountry(
+      country,
+      dataMap,
+      dataMap(country.entryName)
+    )
+  }
+
+  private def toPolygons(geometry: Geometry): Seq[Polygon] = {
+    geometry match {
+      case polygon: Polygon =>
+        Seq(polygon)
+
+      case multiPolygon: MultiPolygon =>
+        0.until(multiPolygon.getNumGeometries).map { index =>
+          multiPolygon.getGeometryN(index) match {
+            case polygon: Polygon => polygon
+            case _ => throw new RuntimeException("Unexpected: non-polygon geometry in multipolygon")
+          }
+        }
+
+      case geometryCollection: GeometryCollection =>
+        0.until(geometryCollection.getNumGeometries).map { index =>
+          geometryCollection.getGeometryN(index) match {
+            case polygon: Polygon => polygon
+            case _ => throw new RuntimeException("Unexpected: non-polygon geometry in geometry collection")
+          }
+        }
+
+      case _ => throw new RuntimeException("Unexpected location geometry type")
+    }
+  }
+
+  private def toLocation(locationDefinitionMap: Map[String, LocationStoreData], tree: LocationTree): LocationStoreData = {
+    if (tree.children.isEmpty) {
+      locationDefinitionMap(tree.name)
+    }
+    else {
+      locationDefinitionMap(tree.name).copy(
+        children = tree.children.get.map(child =>
+          toLocation(locationDefinitionMap, child)
+        )
+      )
+    }
+  }
+}

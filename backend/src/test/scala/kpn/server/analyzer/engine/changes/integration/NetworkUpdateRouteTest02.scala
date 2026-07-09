@@ -1,0 +1,202 @@
+package kpn.server.analyzer.engine.changes.integration
+
+import kpn.api.common.ChangeSetElementRefs
+import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeType
+import kpn.api.common.Country
+import kpn.api.common.NetworkChanges
+import kpn.api.common.RouteType
+import kpn.api.common.changes.ChangeAction
+import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
+import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Subset
+import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSetElementRef
+import kpn.core.test.TestObjects.newChangeSetNetwork
+import kpn.core.test.TestObjects.newChangeSetSummary
+import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newNetworkChange
+import kpn.core.test.TestObjects.newRaw
+import kpn.core.test.TestObjects.newRouteChange
+import kpn.core.test.TestObjects.newRouteData
+import kpn.core.test.TestObjects.newRouteNode
+import kpn.core.test.TestObjects.newRouteNodeChange
+import kpn.core.test.TestObjects.newRouteTags
+
+class NetworkUpdateRouteTest02 extends IntegrationTest {
+
+  test("network update - route that is no longer part of the network after update, does not become an orphan route if still referenced in another network") {
+
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .way(101, 1001, 1002)
+      .route(
+        11,
+        "01-02",
+        Seq(
+          newMember(MemberType.Way, 101)
+        )
+      )
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember(MemberType.Node, 1001),
+          newMember(MemberType.Node, 1002),
+          newMember(MemberType.Relation, 11)
+        )
+      )
+      .networkRelation(
+        2,
+        "name",
+        Seq(
+          newMember(MemberType.Relation, 11)
+        )
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .networkNode(1002, "02")
+      .way(101, 1001, 1002)
+      .route( // route still exists
+        11,
+        "01-02",
+        Seq(
+          newMember(MemberType.Way, 101)
+        )
+      )
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember(MemberType.Node, 1001),
+          newMember(MemberType.Node, 1002)
+          // route member is no longer included here
+        )
+      )
+      .networkRelation(
+        2,
+        "name",
+        Seq(
+          newMember(MemberType.Relation, 11)
+        )
+      )
+
+    testIntegration(dataBefore, dataAfter) {
+
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+
+      assert(watched.routes.contains(11))
+
+      findOrphanNodes() shouldBe empty
+      findOrphanRoutes() shouldBe empty
+
+      assertBaseNetwork()
+      assertNetwork()
+      assertNetworkChange()
+      assertRouteChange()
+      database.nodeChanges shouldBe empty
+      assertChangeSetSummary()
+    }
+  }
+
+  private def assertBaseNetwork(): Unit = {
+    val baseNetworkDoc = findBaseNetworkById(1)
+    baseNetworkDoc._id should equal(1)
+  }
+
+  private def assertNetwork(): Unit = {
+    val networkDoc = findNetworkById(1)
+    networkDoc._id should equal(1)
+  }
+
+  private def assertNetworkChange(): Unit = {
+    assertEqual(
+      findNetworkChangeById("1:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = Some("name"),
+        changeType = ChangeType.Update,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        relations = IdDiffs(
+          removed = Seq(11)
+        ),
+        routeDiffs = RefDiffs(
+          removed = Seq(
+            Ref(11, "01-02")
+          )
+        ),
+        investigate = true,
+        impact = true,
+      )
+    )
+  }
+
+  private def assertRouteChange(): Unit = {
+    val routeData = newRouteData(
+      relationId = 11,
+      raw = newRaw(
+        tags = newRouteTags("01-02")
+      ),
+      countries = Seq(Country.nl),
+      routeTypes = Seq(RouteType.hiking),
+      name = "01-02",
+      networkNodes = Seq(
+        newRouteNode(1001, "01"),
+        newRouteNode(1002, "02")
+      )
+    )
+
+    assertEqual(
+      findRouteChangeById("1:1:11"),
+      newRouteChange(
+        newChangeKey(elementId = 11),
+        ChangeType.Update,
+        "01-02",
+        removedFromNetwork = Seq(Ref(1, "name")),
+        before = Some(routeData),
+        after = Some(routeData),
+        nodeChanges = Seq(
+          newRouteNodeChange(1001),
+          newRouteNodeChange(1002)
+        ),
+        investigate = true,
+        impact = true
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    assertEqual(
+      findChangeSetSummaryById("1:1"),
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        networkChanges = NetworkChanges(
+          updates = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              RouteType.hiking,
+              1,
+              Some("name"),
+              routeChanges = ChangeSetElementRefs(
+                removed = Seq(
+                  newChangeSetElementRef(11, "01-02", investigate = true)
+                )
+              ),
+              investigate = true
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        investigate = true
+      )
+    )
+  }
+}

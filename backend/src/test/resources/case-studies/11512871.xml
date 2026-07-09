@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="301008710" lat="51.8414877" lon="5.8591703"/>
+  <node id="301008711" lat="51.8414778" lon="5.8594129"/>
+  <node id="302102477" lat="51.8414930" lon="5.8596025">
+    <tag k="expected_rcn_route_relations" v="3"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="1015045146" lat="51.8415324" lon="5.8589509"/>
+  <node id="1015045148" lat="51.8416099" lon="5.8587576">
+    <tag k="expected_rcn_route_relations" v="3"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="4811573507" lat="51.8415569" lon="5.8588736"/>
+  <way id="219735412">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="oneway:mofa" v="no"/>
+    <tag k="oneway:moped" v="no"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="1015045148"/>
+    <nd ref="4811573507"/>
+    <nd ref="1015045146"/>
+    <nd ref="301008710"/>
+  </way>
+  <way id="670452378">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="oneway:mofa" v="no"/>
+    <tag k="oneway:moped" v="no"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="301008710"/>
+    <nd ref="301008711"/>
+    <nd ref="302102477"/>
+  </way>
+  <relation id="11512871">
+    <member type="way" ref="670452378" role=""/>
+    <member type="way" ref="219735412" role=""/>
+    <tag k="network" v="rcn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="ref" v="45-45"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

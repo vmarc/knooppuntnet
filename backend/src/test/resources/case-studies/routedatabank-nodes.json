@@ -1,0 +1,26 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "wandelknooppunten_vrij_wgs84.1",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.64449968,
+          52.07450141
+        ]
+      },
+      "geometry_name": "wkb_geometry",
+      "properties": {
+        "ogc_fid": 1,
+        "knooppuntnummer": "57",
+        "regio": "Lunteren",
+        "provincie": "Gelderland",
+        "puntid": 162757,
+        "last_edited_date": "2019-11-19T11:01:56.393+01:00",
+        "soort_knooppunt": "keuzepunt"
+      }
+    }
+  ]
+}

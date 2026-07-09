@@ -1,0 +1,194 @@
+package kpn.server.monitor.route.update
+
+import kpn.api.common.monitor.MonitorAction
+import kpn.api.common.monitor.MonitorMessage
+import kpn.api.common.monitor.MonitorReferenceType
+import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.custom.Timestamp
+import kpn.core.common.Time
+import kpn.core.test.TestObjects.newMonitorGroup
+import kpn.core.test.TestObjects.newMonitorReference
+import kpn.core.test.TestObjects.newMonitorRoute
+import kpn.core.test.TestObjects.newMonitorState
+import kpn.core.test.TestObjects.newRouteBaseData
+import kpn.core.test.TestObjects.newRouteDoc
+import kpn.core.test.TestObjects.newSuperSegment
+import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorRoute
+
+class MonitorUpdaterTest05_osm_update extends MonitorUpdateTest {
+
+  private var route1: MonitorTestRoute = _
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    route1 = MonitorTestData.route1
+  }
+
+  test("route with osm reference - delete previous reference if route not found at referenceTimestamp") {
+
+    val (group, route, reporter) = setup()
+
+    executeMonitorUpdate(group, reporter)
+
+    verifyDocumentCounts(1, 0, 0)
+    verifyRoute(group, route)
+    verifyReporterMessages(reporter)
+  }
+
+  private def executeMonitorUpdate(group: MonitorGroup, reporter: MonitorUpdateReporterMock): Unit = {
+    configuration.monitorRouteUpdateExecutor.execute(
+      MonitorUpdateArgs(
+        "user",
+        reporter,
+        MonitorRouteUpdate(
+          action = MonitorAction.update,
+          groupName = group.name,
+          routeName = "route",
+          referenceType = MonitorReferenceType.osm,
+          description = Some("route description"),
+          relationId = Some(route1.relationId),
+          referenceTimestamp = Some(ReferenceTimestamp2),
+        )
+      )
+    )
+  }
+
+  private def verifyRoute(group: MonitorGroup, route: MonitorRoute): Unit = {
+    val route = configuration.monitorRouteRepository.routeByName(group._id, "route").get
+    assertEqual(
+      route.copy(analysisDuration = None),
+      MonitorRoute(
+        _id = route._id,
+        groupId = group._id,
+        name = "route",
+        description = "route description",
+        comment = None,
+        relationId = Some(route1.relationId),
+        user = "user",
+        timestamp = CurrentTimestamp,
+        symbol = None,
+        analysisTimestamp = Some(CurrentTimestamp),
+        analysisDuration = None,
+        referenceType = MonitorReferenceType.osm,
+        referenceTimestamp = Some(ReferenceTimestamp2),
+        referenceFilename = None,
+        referenceDistance = 0,
+        deviationDistance = 0,
+        deviationCount = 0,
+        osmSegmentCount = 1,
+        osmDistance = route1.meters,
+        relationIds = Seq(route1.relationId),
+        bounds = Some(route1.bounds),
+        happy = false
+      )
+    )
+  }
+
+  private def verifyReporterMessages(reporter: MonitorUpdateReporterMock): Unit = {
+    assertEqual(
+      reporter.messages,
+      Seq(
+        message(
+          add("prepare"),
+          active("prepare")
+        ),
+        message(
+          add("analyze-route-structure"),
+          active("analyze-route-structure")
+        ),
+        message(
+          add("1", Some("1/1 route-name")),
+          add("save")
+        ),
+        message(
+          active("1")
+        ),
+        MonitorMessage(
+          errors = Some(Seq("Could not load relation 1 at 2022-08-02 00:00:00"))
+        ),
+        message(
+          active("save")
+        ),
+        message(
+          done("save")
+        )
+      )
+    )
+  }
+
+  private def setup(): (MonitorGroup, MonitorRoute, MonitorUpdateReporterMock) = {
+
+    setupStructureLoader()
+    setupLoadTopLevel()
+    setupRouteDoc()
+
+    val group = newMonitorGroup("group")
+    configuration.monitorGroupRepository.saveGroup(group)
+
+    val route = newMonitorRoute(
+      group._id,
+      name = "route",
+      relationId = Some(route1.relationId),
+      user = "user",
+      referenceType = MonitorReferenceType.osm,
+      referenceTimestamp = Some(ReferenceTimestamp1),
+      referenceFilename = None,
+      bounds = Some(route1.bounds),
+    )
+    val reference = newMonitorReference(
+      routeId = route._id,
+      relationId = Some(route1.relationId),
+      referenceType = MonitorReferenceType.osm,
+      referenceTimestamp = ReferenceTimestamp1,
+      bounds = route1.bounds,
+    )
+    val state = newMonitorState(
+      routeId = route._id,
+      relationId = route1.relationId,
+      timestamp = ReferenceTimestamp1
+    )
+
+    configuration.monitorGroupRepository.saveGroup(group)
+    configuration.monitorRouteRepository.saveRoute(route)
+    configuration.monitorRouteRepository.saveReference(reference)
+    configuration.monitorRouteRepository.saveState(state)
+
+    verifyDocumentCounts(1, 1, 1)
+
+    Time.set(CurrentTimestamp)
+    val reporter = new MonitorUpdateReporterMock()
+    (group, route, reporter)
+  }
+
+  private def setupStructureLoader(): Unit = {
+    val monitorRouteRelation = route1.overpassStructure
+    (monitorRouteStructureLoader.load _).returns { case (timestamp: Option[Timestamp], relationId: Long) =>
+      Option.when(timestamp.contains(ReferenceTimestamp2) && relationId == route1.relationId) {
+        monitorRouteRelation
+      }
+    }
+  }
+
+  private def setupLoadTopLevel(): Unit = {
+    val relation = route1.overpassTopLevel
+    (monitorRouteRelationRepository.loadTopLevel _).returnsWith(None)
+  }
+
+  private def setupRouteDoc(): Unit = {
+    configuration.routeRepository.saveRoute(
+      newRouteDoc(
+        route1.relationId,
+        base = newRouteBaseData(
+          name = "route-name"
+        ),
+        superDistance = route1.meters,
+        routeIds = Seq(route1.relationId),
+        superSegments = Seq(
+          newSuperSegment()
+        ),
+        bounds = Some(route1.bounds)
+      )
+    )
+  }
+}

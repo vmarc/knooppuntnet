@@ -1,0 +1,74 @@
+package kpn.server.config
+
+import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.core.util.Log
+import kpn.server.json.Json
+import kpn.server.monitor.route.update.MonitorRouteUpdateExecutor
+import kpn.server.monitor.route.update.MonitorUpdateArgs
+import kpn.server.monitor.route.update.MonitorUpdateReporterWebsocket
+import org.springframework.context.ApplicationContext
+import org.springframework.context.annotation.Profile
+import org.springframework.stereotype.Component
+import org.springframework.web.socket.CloseStatus
+import org.springframework.web.socket.TextMessage
+import org.springframework.web.socket.WebSocketSession
+import org.springframework.web.socket.handler.AbstractWebSocketHandler
+
+@Component
+@Profile(Array("web"))
+class ServerWebSocketHandler(
+  applicationContext: ApplicationContext
+) extends AbstractWebSocketHandler {
+
+  private val log = Log(classOf[ServerWebSocketHandler])
+
+  override def handleTextMessage(session: WebSocketSession, message: TextMessage): Unit = {
+    val user = if (session != null && session.getPrincipal != null) {
+      session.getPrincipal.getName
+    }
+    else {
+      "unknown"
+    }
+    val payload = message.getPayload
+    val command = Json.readValue(payload, classOf[MonitorRouteUpdate])
+    val reporter = new MonitorUpdateReporterWebsocket(session)
+    Log.context(Seq("route-update", s"group=${command.groupName}", s"route=${command.routeName}")) {
+      log.info(s"${command.printable()}")
+      val args = MonitorUpdateArgs(
+        user,
+        reporter,
+        command,
+      )
+      try {
+        applicationContext.getBean(classOf[MonitorRouteUpdateExecutor]).execute(args)
+      }
+      finally {
+        session.close()
+      }
+    }
+  }
+
+  override def handleTransportError(session: WebSocketSession, exception: Throwable): Unit = {
+    val user = if (session != null && session.getPrincipal != null) {
+      session.getPrincipal.getName
+    }
+    else {
+      "unknown"
+    }
+    log.warn(s"user=$user, transport error: ${exception.toString}")
+    super.handleTransportError(session, exception)
+  }
+
+  override def afterConnectionClosed(session: WebSocketSession, status: CloseStatus): Unit = {
+    if (status != CloseStatus.NORMAL) {
+      val user = if (session != null && session.getPrincipal != null) {
+        session.getPrincipal.getName
+      }
+      else {
+        "unknown"
+      }
+      log.warn(s"Error in websocket connection: user=$user, code=${status.getCode}, reason=${status.getReason}")
+    }
+    super.afterConnectionClosed(session, status)
+  }
+}

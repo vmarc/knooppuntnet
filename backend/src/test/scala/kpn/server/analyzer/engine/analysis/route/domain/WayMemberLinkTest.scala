@@ -1,0 +1,43 @@
+package kpn.server.analyzer.engine.analysis.route.domain
+
+import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
+
+class WayMemberLinkTest extends UnitTest {
+
+  test("links") {
+    val setup = new StructureTestSetupBuilder() {
+      memberWay(11, "")
+      memberWay(12, "")
+      memberWay(13, "")
+      memberWay(14, "")
+    }.build
+    val wayMembers = setup.data.relations(1).wayMembers
+
+    val links = WayMemberLink.from(wayMembers)
+    assertEqual(
+      links.map(_.wayMember.memberId),
+      Seq(11, 12, 13, 14)
+    )
+    assertEqual(
+      links.map(_.next.map(_.wayMember.memberId)),
+      Seq(Some(12), Some(13), Some(14), None)
+    )
+  }
+
+  test("empty links") {
+    val links = WayMemberLink.from(Seq.empty)
+    assertEqual(links, Seq.empty)
+  }
+
+  test("single link") {
+    val setup = new StructureTestSetupBuilder() {
+      memberWay(11, "")
+    }.build
+    val wayMembers = setup.data.relations(1).wayMembers
+
+    val links = WayMemberLink.from(wayMembers)
+    assertEqual(links.map(_.wayMember.memberId), Seq(11))
+    assertEqual(links.map(_.next.map(_.wayMember.memberId)), Seq(None))
+  }
+}

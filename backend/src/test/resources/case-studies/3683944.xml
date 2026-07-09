@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="42533465" lat="51.3955103" lon="5.2994681"/>
+  <node id="42533552" lat="51.395618" lon="5.3001214"/>
+  <node id="42533626" lat="51.3956793" lon="5.3007215">
+    <tag k="name" v="Broekenseind"/>
+    <tag k="source" v="AND"/>
+    <tag k="AND_nodes" v="728170"/>
+    <tag k="is_in" v="NL"/>
+    <tag k="postal_code" v="5528"/>
+    <tag k="place" v="hamlet"/>
+    <tag k="AND_nosr_p" v="10008832"/>
+  </node>
+  <node id="42533933" lat="51.39589" lon="5.30422"/>
+  <node id="319588480" lat="51.3953727" lon="5.298775"/>
+  <node id="319996562" lat="51.392132" lon="5.2989649"/>
+  <node id="319996563" lat="51.3896316" lon="5.2988697">
+    <tag k="rwn_ref" v="76"/>
+  </node>
+  <node id="1791956245" lat="51.3907118" lon="5.2989862"/>
+  <node id="1791956247" lat="51.3911662" lon="5.2990073"/>
+  <node id="1791956250" lat="51.3915978" lon="5.2989823"/>
+  <node id="1791956275" lat="51.3939038" lon="5.2989224"/>
+  <node id="1791956285" lat="51.3949386" lon="5.298921"/>
+  <node id="1791956314" lat="51.3951673" lon="5.298921"/>
+  <node id="1791956322" lat="51.3953016" lon="5.2989793"/>
+  <node id="1791956378" lat="51.395297" lon="5.2988511"/>
+  <node id="1791956380" lat="51.3953356" lon="5.2988011"/>
+  <node id="1791956388" lat="51.3954852" lon="5.2988619"/>
+  <node id="1791956453" lat="51.3954512" lon="5.2987469"/>
+  <node id="2085643006" lat="51.395491" lon="5.2990179"/>
+  <node id="2085643011" lat="51.3954614" lon="5.2992295"/>
+  <node id="2085643013" lat="51.3954944" lon="5.2989159"/>
+  <node id="2085643017" lat="51.3953538" lon="5.2991171"/>
+  <node id="2816102673" lat="51.3960151" lon="5.3061081">
+    <tag k="network" v="rwn"/>
+    <tag k="rwn_ref" v="44"/>
+  </node>
+  <way id="7188564">
+    <tag k="AND:importance_level" v="4"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Broekenseind"/>
+    <nd ref="2085643011"/>
+    <nd ref="42533465"/>
+    <nd ref="42533552"/>
+    <nd ref="42533626"/>
+    <nd ref="42533933"/>
+    <nd ref="2816102673"/>
+  </way>
+  <way id="29090502">
+    <tag k="highway" v="cycleway"/>
+    <tag k="moped" v="designated"/>
+    <nd ref="319588480"/>
+    <nd ref="1791956380"/>
+    <nd ref="1791956378"/>
+  </way>
+  <way id="198436680">
+    <tag k="highway" v="cycleway"/>
+    <tag k="moped" v="designated"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="2085643011"/>
+    <nd ref="2085643006"/>
+    <nd ref="2085643013"/>
+    <nd ref="1791956388"/>
+    <nd ref="1791956453"/>
+  </way>
+  <way id="198436682">
+    <tag k="highway" v="cycleway"/>
+    <tag k="moped" v="designated"/>
+    <nd ref="1791956453"/>
+    <nd ref="319588480"/>
+  </way>
+  <way id="198436684">
+    <tag k="highway" v="cycleway"/>
+    <tag k="moped" v="designated"/>
+    <nd ref="1791956378"/>
+    <nd ref="1791956314"/>
+    <nd ref="1791956285"/>
+    <nd ref="1791956275"/>
+    <nd ref="319996562"/>
+    <nd ref="1791956250"/>
+    <nd ref="1791956247"/>
+    <nd ref="1791956245"/>
+    <nd ref="319996563"/>
+  </way>
+  <way id="198436685">
+    <tag k="highway" v="cycleway"/>
+    <tag k="moped" v="designated"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="1791956378"/>
+    <nd ref="1791956322"/>
+    <nd ref="2085643017"/>
+    <nd ref="2085643011"/>
+  </way>
+  <relation id="3683944">
+    <member type="way" ref="7188564" role=""/>
+    <member type="way" ref="198436680" role=""/>
+    <member type="way" ref="198436682" role=""/>
+    <member type="way" ref="29090502" role=""/>
+    <member type="way" ref="198436685" role=""/>
+    <member type="way" ref="198436684" role=""/>
+    <tag k="network" v="rwn"/>
+    <tag k="note" v="44-76"/>
+    <tag k="route" v="hiking"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

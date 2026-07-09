@@ -1,0 +1,237 @@
+package kpn.core.replicate
+
+import kpn.api.common.ReplicationId
+import kpn.api.common.status.ActionTimestamp
+import kpn.core.metrics.ReplicationAction
+import kpn.core.tools.config.Dirs
+import kpn.core.tools.status.StatusRepository
+import kpn.core.util.GZipFile
+import kpn.core.util.Log
+import kpn.database.base.MetricsDatabase
+import kpn.database.base.Options
+import kpn.database.base.Tool
+import kpn.database.util.Mongo.client
+import kpn.database.util.Mongo.codecRegistry
+import kpn.server.analyzer.engine.changes.OsmChangeReader
+import kpn.server.repository.MetricsRepository
+
+import java.io.File
+
+object ReplicatorTool extends Tool[ReplicatorToolOptions] {
+
+  private val log = Log(classOf[ReplicatorTool])
+
+  /*
+   * Minimum number of seconds between pairs of requests to OSM (to prevent overload on API). This wait time will only
+   * be used when we are in "catch up" mode. Once we are in sync, then the wait time will become longer (see WAIT).
+   */
+  private val DELAY = 1
+
+  /*
+   * Number of seconds to wait before attempting to make new request to osm API when in sync. New minute diffs should
+   * become available every 60 seconds. We do not set the wait time to 60S, because this would cause us to gradually
+   * get more and more behind. A wait time of 35 seconds means that we should normally get one failed attempt and one
+   * successfull attempt per minute once we are in sync.
+   */
+  private val WAIT = 35
+
+  override def options: Options[ReplicatorToolOptions] = ReplicatorToolOptions
+
+  override def execute(options: ReplicatorToolOptions): Unit = {
+    log.info("Start")
+    val mongoClient = client
+    try {
+      val mongoDatabase = mongoClient.getDatabase(options.actionsDatabaseName).withCodecRegistry(codecRegistry)
+      val database = new MetricsDatabase(mongoDatabase)
+      val tool = buildTool(options, database)
+      try {
+        tool.launch()
+      }
+      finally {
+        log.info("Ended")
+      }
+    }
+    finally {
+      mongoClient.close()
+    }
+  }
+
+  private def buildTool(options: ReplicatorToolOptions, database: MetricsDatabase): ReplicatorTool = {
+    val dirs = Dirs()
+    val statusRepository = new StatusRepository(dirs)
+    val replicationStateRepository = new ReplicationStateRepository(dirs.replicate)
+    val replicationRequestExecutor = new ReplicationRequestExecutor()
+    val metricsRepository = new MetricsRepository(database)
+    new ReplicatorTool(
+      dirs.replicate,
+      statusRepository,
+      replicationStateRepository,
+      replicationRequestExecutor,
+      metricsRepository
+    )
+  }
+}
+
+private object ReplicationResultCode extends Enumeration {
+  val Ok, NotFound, Error, End = Value
+}
+
+private case class ReplicationResult(
+  code: ReplicationResultCode.Value,
+  fileSize: Long = 0,
+  elementCount: Long = 0,
+  changeSetCount: Long = 0
+)
+
+import kpn.core.replicate.ReplicationResultCode.*
+
+class ReplicatorTool(
+  replicateDir: File,
+  statusRepository: StatusRepository,
+  replicationStateRepository: ReplicationStateRepository,
+  replicationRequestExecutor: ReplicationRequestExecutor,
+  metricsRepository: MetricsRepository
+) {
+
+  private val log = ReplicatorTool.log
+
+  private val oper = new Oper()
+
+  def launch(): Unit = {
+    statusRepository.replicatorStatus match {
+      case None => log.error("Cannot find current replication status")
+      case Some(replicationId) =>
+        log.info(s"Start replication id=${replicationId.name}")
+        launch(replicationId)
+    }
+  }
+
+  private def launch(initialReplicationId: ReplicationId): Unit = {
+
+    var insync = false
+    var inerror = false
+    var replicationId = initialReplicationId.next
+
+    while (oper.isActive) {
+
+      Log.context(replicationId.name) {
+
+        try {
+          replicate(replicationId) match {
+            case ReplicationResult(Ok, fileSize, elementCount, changeSetCount) =>
+              statusRepository.writeReplicationStatus(replicationId)
+              val timestamp = replicationStateRepository.read(replicationId)
+              val minuteDiffInfo = ActionTimestamp.minuteDiffInfo(replicationId.number, timestamp)
+              metricsRepository.saveReplicationAction(
+                ReplicationAction(
+                  minuteDiffInfo,
+                  fileSize,
+                  elementCount,
+                  changeSetCount
+                )
+              )
+              log.info(s"OK ${timestamp.yyyymmddhhmmss}")
+
+              replicationId = replicationId.next
+              /*
+                We have successfully replicated the files for the current replication id. If we were in error mode
+                before, we are no longer in error mode now.
+               */
+              inerror = false
+
+            case ReplicationResult(NotFound, _, _, _) =>
+              /*
+                The OpenStreetMap server told us that the files for the current replication id do not exist (yet). We
+                assume that we have replicated all available files and wait for a longer time for new files to become
+                available.
+               */
+              insync = true
+
+            case ReplicationResult(Error, _, _, _) =>
+              /*
+                An error occurred. We switch to error mode (with longer waiting time between retries), and we assume
+                that we will no longer be in sync after we recover from the error mode.
+               */
+              inerror = true
+              insync = false
+
+            case ReplicationResult(End, _, _, _) =>
+            case _ =>
+          }
+        }
+        catch {
+          case e: Exception =>
+            log.error(e.getMessage)
+            insync = false
+            inerror = true
+        }
+      }
+
+      if (oper.isActive) {
+        if (insync || inerror) {
+          sleep(ReplicatorTool.WAIT)
+        } else {
+          sleep(ReplicatorTool.DELAY)
+        }
+      }
+    }
+  }
+
+  private def replicate(replicationId: ReplicationId): ReplicationResult = {
+    if (replicateStateFile(replicationId)) {
+      if (oper.isActive) {
+        replicateChangesFile(replicationId)
+      }
+      else {
+        ReplicationResult(End)
+      }
+    }
+    else {
+      ReplicationResult(NotFound)
+    }
+  }
+
+  private def replicateChangesFile(replicationId: ReplicationId): ReplicationResult = {
+    replicationRequestExecutor.requestChangesFile(replicationId) match {
+      case None =>
+        ReplicationResult(NotFound)
+
+      case Some(changesString) =>
+        val file = new File(replicateDir, s"${replicationId.name}.osc.gz")
+        file.getParentFile.mkdirs()
+        GZipFile.write(file.getAbsolutePath, changesString)
+        try {
+          val osmChange = new OsmChangeReader(file.getAbsolutePath).read
+          log.debug(s"${file.getAbsolutePath} integrity check OK")
+          ReplicationResult(
+            Ok,
+            file.length(),
+            osmChange.allElementIds.size,
+            osmChange.allChangeSetIds.size
+          )
+        }
+        catch {
+          case e: Exception =>
+            log.error(s"${file.getAbsolutePath} integrity check 2 NOK", e)
+            ReplicationResult(Error)
+        }
+    }
+  }
+
+  private def replicateStateFile(replicationId: ReplicationId): Boolean = {
+    replicationRequestExecutor.requestStateFile(replicationId) match {
+      case None => false
+      case Some(stateString) =>
+        replicationStateRepository.write(replicationId, stateString)
+        true
+    }
+  }
+
+  private def sleep(seconds: Int): Unit = {
+    log.debug(s"sleep ${seconds}s")
+    val end = System.currentTimeMillis() + (seconds * 1000)
+    while (oper.isActive && System.currentTimeMillis() < end) {
+      Thread.sleep(1000)
+    }
+  }
+}

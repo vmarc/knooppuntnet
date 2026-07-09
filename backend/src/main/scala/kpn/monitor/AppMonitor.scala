@@ -1,0 +1,100 @@
+package kpn.monitor
+
+import kpn.api.custom.ApiResponse
+import kpn.api.custom.Timestamp
+import kpn.core.common.Time
+import kpn.core.common.TimestampUtil
+import kpn.core.util.Log
+import kpn.server.json.Json
+import org.apache.commons.lang3.exception.ExceptionUtils
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Profile
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.mail.SimpleMailMessage
+import org.springframework.mail.javamail.JavaMailSender
+import org.springframework.scheduling.annotation.Scheduled
+import org.springframework.stereotype.Component
+import org.springframework.web.client.RestTemplate
+
+import java.net.InetAddress
+
+@Component
+@Profile(Array("web"))
+class AppMonitor(
+  applicationName: String,
+  mailSender: JavaMailSender,
+  @Value("${mail.from}") mailFrom: String,
+  @Value("${mail.to}") mailTo: String,
+  @Value("${monitor.frontend.host:localhost}") host: String,
+  @Value("${monitor.frontend.port:9005}") port: String,
+  @Value("${monitor.alert.minutes}") alertMinutes: Int,
+  @Value("${monitor.mail.minutes}") mailMinutes: Int
+) {
+
+  private val log = Log(classOf[AppMonitor])
+  private var lastMail: Option[Timestamp] = None
+
+  @Scheduled(initialDelay = 0, fixedDelay = 5 * 60 * 1000)
+  def monitor(): Unit = {
+
+    val restTemplate = new RestTemplate
+    val url = s"http://$host:$port/api/status/ok"
+
+    try {
+      val response: ResponseEntity[String] = restTemplate.getForEntity(url, classOf[String])
+      if (response.getStatusCode == HttpStatus.OK) {
+        val apiResponse = Json.readValue(response.getBody, classOf[ApiResponse[String]])
+        apiResponse.situationOn match {
+          case Some(timestamp) =>
+            val now = TimestampUtil.toLocal(Time.system())
+            val localTimestamp = TimestampUtil.toLocal(timestamp)
+            val alertTimestamp = TimestampUtil.relativeSeconds(localTimestamp, alertMinutes * 60)
+            if (now > alertTimestamp) {
+              throttledSend("alert", localTimestamp.yyyymmddhhmmss)
+            }
+            else {
+              log.info(s"OK - situationOn=${localTimestamp.yyyymmddhhmmss}")
+            }
+          case _ =>
+            throttledSend("alert", "Could not determine situationOn")
+        }
+      }
+      else {
+        throttledSend("alert", "Could not retrieve situationOn")
+      }
+    }
+    catch {
+      case e: Exception =>
+        val stacktrace = ExceptionUtils.getStackTrace(e)
+        throttledSend("error", s"Could not retrieve situationOn\n$stacktrace")
+    }
+  }
+
+  private def throttledSend(subject: String, text: String): Unit = {
+    log.info(s"$subject: $text")
+    lastMail match {
+      case None =>
+        send(subject, text)
+        lastMail = Some(Time.now)
+      case Some(lastEmailTimestamp) =>
+        val nextEmailTimestamp = TimestampUtil.relativeSeconds(lastEmailTimestamp, mailMinutes * 60)
+        if (Time.now > nextEmailTimestamp) {
+          send(subject, text)
+          lastMail = Some(Time.now)
+        }
+    }
+  }
+
+  private def send(subject: String, text: String): Unit = {
+    log.info(s"SEND $subject: $text")
+    val hostname = InetAddress.getLocalHost.getHostName
+    val fullSubject = s"$hostname $applicationName - $subject"
+    val message = new SimpleMailMessage
+    message.setFrom(mailFrom)
+    message.setTo(mailTo)
+    message.setSubject(fullSubject)
+    message.setText(text)
+    mailSender.send(message)
+  }
+}

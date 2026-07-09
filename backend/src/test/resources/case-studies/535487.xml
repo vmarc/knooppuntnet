@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="26949563" lat="51.1007353" lon="4.2379923">
+    <tag k="level_crossing:category" v="category2"/>
+    <tag k="barrier" v="partly"/>
+    <tag k="railway" v="level_crossing"/>
+    <tag k="crossing:bell" v="yes"/>
+    <tag k="crossing:barrier" v="double_half"/>
+    <tag k="traffic_sign" v="yes"/>
+    <tag k="crossing:light" v="yes"/>
+    <tag k="signal" v="yes"/>
+  </node>
+  <node id="82642377" lat="51.1067752" lon="4.2398335"/>
+  <node id="82642435" lat="51.1157121" lon="4.2348539"/>
+  <node id="82642436" lat="51.1158511" lon="4.2345066"/>
+  <node id="82642437" lat="51.115941" lon="4.2341544"/>
+  <node id="82642438" lat="51.1161096" lon="4.2335335"/>
+  <node id="164855991" lat="51.1152459" lon="4.2314115"/>
+  <node id="164855992" lat="51.1150302" lon="4.2313639"/>
+  <node id="164855998" lat="51.1147243" lon="4.2314117">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="164856003" lat="51.1144203" lon="4.2315947"/>
+  <node id="164856007" lat="51.1140131" lon="4.2320505"/>
+  <node id="164856012" lat="51.1135197" lon="4.2326143"/>
+  <node id="164856019" lat="51.1127249" lon="4.2333229"/>
+  <node id="164856022" lat="51.1066596" lon="4.2390367"/>
+  <node id="164862720" lat="51.1057018" lon="4.2415501"/>
+  <node id="164862723" lat="51.1038672" lon="4.2422487"/>
+  <node id="164862730" lat="51.1033361" lon="4.2432036"/>
+  <node id="164862752" lat="51.1007677" lon="4.243396"/>
+  <node id="164865423" lat="51.1008418" lon="4.2439513"/>
+  <node id="249381154" lat="51.1152142" lon="4.2317438"/>
+  <node id="249381155" lat="51.1153638" lon="4.2321971"/>
+  <node id="249381156" lat="51.1155815" lon="4.2326022"/>
+  <node id="249381157" lat="51.1161381" lon="4.2333394"/>
+  <node id="266845964" lat="51.1152461" lon="4.2359794">
+    <tag k="rcn_ref" v="02"/>
+  </node>
+  <node id="266846575" lat="51.1156297" lon="4.2349825"/>
+  <node id="286699531" lat="51.0998673" lon="4.2341031">
+    <tag k="rcn_ref" v="40"/>
+    <tag k="rwn_ref" v="1"/>
+  </node>
+  <node id="286699546" lat="51.1008328" lon="4.244533"/>
+  <node id="286699547" lat="51.1007146" lon="4.2456223"/>
+  <node id="286699548" lat="51.1007043" lon="4.246279"/>
+  <node id="286699565" lat="51.1006102" lon="4.234254">
+    <tag k="rcn_ref" v="40"/>
+  </node>
+  <node id="287287223" lat="51.1005321" lon="4.2361056"/>
+  <node id="309277710" lat="51.0999262" lon="4.2341676">
+    <tag k="rwn_ref" v="1"/>
+  </node>
+  <node id="309279012" lat="51.1007102" lon="4.2414864"/>
+  <node id="309279013" lat="51.1006958" lon="4.2425751"/>
+  <node id="451705798" lat="51.1004764" lon="4.2369131"/>
+  <node id="451705825" lat="51.1005313" lon="4.2372825"/>
+  <node id="451705826" lat="51.1005428" lon="4.237672"/>
+  <node id="470197478" lat="51.1007919" lon="4.246676"/>
+  <node id="470197479" lat="51.100918" lon="4.2468995"/>
+  <node id="470197480" lat="51.1011542" lon="4.2473055"/>
+  <node id="471133006" lat="51.1068804" lon="4.2405425"/>
+  <node id="477838558" lat="51.1004729" lon="4.2366642"/>
+  <node id="674672333" lat="51.1013228" lon="4.2468768"/>
+  <node id="674672335" lat="51.1014801" lon="4.2465013"/>
+  <node id="674672872" lat="51.101819" lon="4.2456183"/>
+  <node id="674672874" lat="51.1020579" lon="4.2450702"/>
+  <node id="674672877" lat="51.1027905" lon="4.2434867"/>
+  <node id="722426025" lat="51.1006491" lon="4.2377376"/>
+  <node id="800140729" lat="51.1007462" lon="4.240456"/>
+  <node id="996393145" lat="51.1006862" lon="4.2422345"/>
+  <node id="996395416" lat="51.1007346" lon="4.2407886"/>
+  <node id="1000009718" lat="51.1066836" lon="4.2391886"/>
+  <node id="1248500888" lat="51.1005997" lon="4.2376887"/>
+  <node id="1248500974" lat="51.1007759" lon="4.2382535"/>
+  <node id="1248501027" lat="51.1007751" lon="4.2382103"/>
+  <node id="1473464607" lat="51.1131047" lon="4.2330962"/>
+  <node id="1473464669" lat="51.1145765" lon="4.2314736"/>
+  <node id="1474064506" lat="51.1023422" lon="4.2444104"/>
+  <node id="1474064512" lat="51.1027145" lon="4.243548"/>
+  <node id="1474064514" lat="51.1027524" lon="4.2435051"/>
+  <node id="1474064526" lat="51.1030612" lon="4.2434284"/>
+  <node id="1474064538" lat="51.1032056" lon="4.243388"/>
+  <node id="1474064566" lat="51.1035757" lon="4.2426512"/>
+  <node id="1474064577" lat="51.1037285" lon="4.24241"/>
+  <node id="1476821665" lat="51.1005196" lon="4.2371768"/>
+  <node id="1476821673" lat="51.1005444" lon="4.2375314"/>
+  <node id="1540442514" lat="51.1007559" lon="4.2380553"/>
+  <node id="1646038222" lat="51.1004701" lon="4.2367856"/>
+  <node id="1646038223" lat="51.1004887" lon="4.2364837"/>
+  <node id="1646038224" lat="51.1004933" lon="4.2370486"/>
+  <node id="1646038225" lat="51.1005131" lon="4.236317"/>
+  <node id="2382615977" lat="51.1161331" lon="4.2333731"/>
+  <node id="2383636532" lat="51.1007717" lon="4.2464587">
+    <tag k="name" v="Bornem"/>
+    <tag k="traffic_sign" v="city_limit"/>
+  </node>
+  <node id="2556682545" lat="51.1008323" lon="4.246743"/>
+  <node id="2556682546" lat="51.1007717" lon="4.246558"/>
+  <node id="2556682547" lat="51.1007565" lon="4.2463327"/>
+  <node id="2556685960" lat="51.1011677" lon="4.24727"/>
+  <node id="2557384195" lat="51.1029309" lon="4.2431337"/>
+  <node id="2557384197" lat="51.1029206" lon="4.2431898"/>
+  <node id="2557384199" lat="51.1030031" lon="4.2433499"/>
+  <node id="2557384201" lat="51.1029586" lon="4.2432266"/>
+  <node id="2557384203" lat="51.1029338" lon="4.2431158"/>
+  <node id="2557384227" lat="51.1031631" lon="4.2434091"/>
+  <node id="2557524911" lat="51.1008876" lon="4.246844"/>
+  <node id="3004900268" lat="51.1007097" lon="4.2415032"/>
+  <way id="16226513">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Reek"/>
+    <nd ref="164855991"/>
+    <nd ref="164855992"/>
+    <nd ref="164855998"/>
+    <nd ref="1473464669"/>
+    <nd ref="164856003"/>
+    <nd ref="164856007"/>
+    <nd ref="164856012"/>
+    <nd ref="1473464607"/>
+    <nd ref="164856019"/>
+    <nd ref="164856022"/>
+  </way>
+  <way id="16226777">
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Roddam"/>
+    <nd ref="471133006"/>
+    <nd ref="164862720"/>
+    <nd ref="164862723"/>
+    <nd ref="1474064577"/>
+    <nd ref="1474064566"/>
+    <nd ref="164862730"/>
+    <nd ref="1474064538"/>
+    <nd ref="2557384227"/>
+    <nd ref="1474064526"/>
+  </way>
+  <way id="24541723">
+    <tag k="surface" v="paved"/>
+    <tag k="vehicle" v="no"/>
+    <tag k="highway" v="path"/>
+    <tag k="foot" v="yes"/>
+    <tag k="bicycle" v="yes"/>
+    <nd ref="266845964"/>
+    <nd ref="266846575"/>
+  </way>
+  <way id="26181014">
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Broekstraat"/>
+    <tag k="zone:traffic" v="BE:urban"/>
+    <nd ref="451705826"/>
+    <nd ref="1248500888"/>
+    <nd ref="722426025"/>
+    <nd ref="26949563"/>
+    <nd ref="1540442514"/>
+    <nd ref="1248501027"/>
+    <nd ref="1248500974"/>
+    <nd ref="800140729"/>
+    <nd ref="996395416"/>
+    <nd ref="309279012"/>
+    <nd ref="3004900268"/>
+    <nd ref="996393145"/>
+    <nd ref="309279013"/>
+    <nd ref="164862752"/>
+    <nd ref="164865423"/>
+  </way>
+  <way id="31720544">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Temsesteenweg"/>
+    <tag k="old_ref" v="N159"/>
+    <nd ref="286699565"/>
+    <nd ref="309277710"/>
+  </way>
+  <way id="36890722">
+    <tag k="name" v="Buitenland"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="highway" v="residential"/>
+    <tag k="zone:traffic" v="BE:urban"/>
+    <tag k="source:maxspeed" v="zone30"/>
+    <nd ref="164855991"/>
+    <nd ref="249381154"/>
+    <nd ref="249381155"/>
+    <nd ref="249381156"/>
+    <nd ref="249381157"/>
+  </way>
+  <way id="36890740">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Buitenland"/>
+    <nd ref="249381157"/>
+    <nd ref="2382615977"/>
+    <nd ref="82642438"/>
+    <nd ref="82642437"/>
+    <nd ref="82642436"/>
+    <nd ref="82642435"/>
+    <nd ref="266846575"/>
+  </way>
+  <way id="38282709">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Driesstraat"/>
+    <nd ref="477838558"/>
+    <nd ref="1646038222"/>
+    <nd ref="451705798"/>
+    <nd ref="1646038224"/>
+    <nd ref="1476821665"/>
+    <nd ref="451705825"/>
+    <nd ref="1476821673"/>
+    <nd ref="451705826"/>
+  </way>
+  <way id="38282827">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Boomstraat"/>
+    <tag k="old_ref" v="N159"/>
+    <nd ref="309277710"/>
+    <nd ref="286699531"/>
+  </way>
+  <way id="39242668">
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="zone:traffic" v="BE:urban"/>
+    <nd ref="286699548"/>
+    <nd ref="2556682547"/>
+    <nd ref="2383636532"/>
+  </way>
+  <way id="39242669">
+    <tag k="highway" v="cycleway"/>
+    <tag k="layer" v="-1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="tunnel" v="yes"/>
+    <nd ref="470197479"/>
+    <nd ref="470197480"/>
+  </way>
+  <way id="53345491">
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Vitsdam"/>
+    <nd ref="164856022"/>
+    <nd ref="1000009718"/>
+    <nd ref="82642377"/>
+    <nd ref="471133006"/>
+  </way>
+  <way id="133960168">
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="N16 fietspad"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="470197480"/>
+    <nd ref="2556685960"/>
+    <nd ref="674672333"/>
+    <nd ref="674672335"/>
+    <nd ref="674672872"/>
+    <nd ref="674672874"/>
+    <nd ref="1474064506"/>
+    <nd ref="1474064512"/>
+    <nd ref="1474064514"/>
+    <nd ref="674672877"/>
+  </way>
+  <way id="151766184">
+    <tag k="cycleway" v="opposite"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Driesstraat"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="286699565"/>
+    <nd ref="287287223"/>
+    <nd ref="1646038225"/>
+    <nd ref="1646038223"/>
+    <nd ref="477838558"/>
+  </way>
+  <way id="229819989">
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <nd ref="2383636532"/>
+    <nd ref="2556682546"/>
+    <nd ref="470197478"/>
+    <nd ref="2556682545"/>
+    <nd ref="2557524911"/>
+    <nd ref="470197479"/>
+  </way>
+  <way id="249047566">
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="1474064526"/>
+    <nd ref="2557384199"/>
+    <nd ref="2557384201"/>
+    <nd ref="2557384203"/>
+  </way>
+  <way id="249484539">
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Broekstraat"/>
+    <tag k="zone:traffic" v="BE:urban"/>
+    <nd ref="164865423"/>
+    <nd ref="286699546"/>
+    <nd ref="286699547"/>
+    <nd ref="286699548"/>
+  </way>
+  <way id="249484548">
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="N16 fietspad"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="2557384203"/>
+    <nd ref="2557384195"/>
+    <nd ref="2557384197"/>
+    <nd ref="674672877"/>
+  </way>
+  <relation id="535487">
+    <member type="way" ref="24541723" role=""/>
+    <member type="way" ref="36890740" role=""/>
+    <member type="way" ref="36890722" role=""/>
+    <member type="way" ref="16226513" role=""/>
+    <member type="way" ref="53345491" role=""/>
+    <member type="way" ref="16226777" role=""/>
+    <member type="way" ref="249047566" role=""/>
+    <member type="way" ref="249484548" role=""/>
+    <member type="way" ref="133960168" role=""/>
+    <member type="way" ref="39242669" role=""/>
+    <member type="way" ref="229819989" role=""/>
+    <member type="way" ref="39242668" role=""/>
+    <member type="way" ref="249484539" role=""/>
+    <member type="way" ref="26181014" role=""/>
+    <member type="way" ref="38282709" role=""/>
+    <member type="way" ref="151766184" role=""/>
+    <member type="way" ref="31720544" role="backward"/>
+    <member type="way" ref="38282827" role="backward"/>
+    <tag k="network" v="rcn"/>
+    <tag k="note" v="02-40"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+    <tag k="network:type" v="node_network"/>
+  </relation>
+</osm>

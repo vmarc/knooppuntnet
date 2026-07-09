@@ -1,0 +1,93 @@
+package kpn.core.tools.next.support
+
+import com.mongodb.client.MongoClients
+import kpn.api.common.Relation
+import kpn.core.tools.next.database.NextDatabase
+import kpn.core.tools.next.domain.NextRouteState
+import kpn.core.util.Log
+import kpn.database.util.Mongo.codecRegistry
+import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
+import kpn.server.analyzer.engine.tile.RouteTileCache
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.wayToWorldCoordinates
+import kpn.server.analyzer.engine.tiles.domain.Tile
+import org.locationtech.jts.geom.LineSegment
+
+object NextCreateRouteStatesTool {
+  def main(args: Array[String]): Unit = {
+    val client = MongoClients.create("mongodb://localhost:27017")
+    try {
+      val mongoDatabase = client.getDatabase("kpn-next").withCodecRegistry(codecRegistry)
+      val database = new NextDatabase(mongoDatabase)
+      val lineSegmentTileCalculator = new LineSegmentTileCalculator(new RouteTileCache())
+      val tool = new NextCreateRouteStatesTool(database, lineSegmentTileCalculator)
+      tool.createRelationStates()
+    } finally {
+      client.close()
+    }
+  }
+}
+
+class NextCreateRouteStatesTool(
+  database: NextDatabase,
+  lineSegmentTileCalculator: LineSegmentTileCalculator
+) {
+
+  private val log = Log(classOf[NextCreateRouteStatesTool])
+
+  def createRelationStates(): Unit = {
+    val routeIds = collectRouteIds()
+    val routeIdsSize = routeIds.size
+    log.info(s"processing $routeIdsSize route ids")
+    routeIds.zipWithIndex.foreach { case (routeId, index) =>
+      if (((index + 1) % 100) == 0) {
+        log.info(s"${index + 1}/$routeIdsSize")
+      }
+      createRelationState(routeId)
+    }
+  }
+
+  private def collectRouteIds(): Seq[Long] = {
+    val allRouteIds = database.routeRelations.ids()
+    val processedRouteIds = database.routeStates.ids()
+    (allRouteIds.toSet -- processedRouteIds.toSet).toSeq.sorted
+  }
+
+  private def createRelationState(routeRelationId: Long): Unit = {
+    database.routeRelations.findById(routeRelationId) match {
+      case None => log.error(s"could find routeId $routeRelationId")
+      case Some(doc) =>
+        val relation = doc.relation
+        val elementIds = determineElementIds(relation)
+        val tiles = determineTiles(relation)
+        database.routeStates.save(
+          NextRouteState(
+            routeRelationId,
+            tiles.map(_.name),
+            elementIds
+          )
+        )
+    }
+  }
+
+  private def determineElementIds(relation: Relation): ElementIds = {
+    val memberNodeIds = relation.nodeMembers.map(_.memberId)
+    val wayNodeIds = relation.members.flatMap(_.wayNodes.map(_.id))
+    val nodeIds = memberNodeIds.toSet ++ wayNodeIds.toSet
+    val wayIds = relation.members.flatMap(_.way.map(_.id)).toSet
+    val subRelationIds = relation.members.flatMap(_.relation.map(_.id)).toSet
+    ElementIds.from(nodeIds, wayIds, subRelationIds)
+  }
+
+  private def determineTiles(relation: Relation): Seq[Tile] = {
+    relation.members.flatMap(_.way).flatMap { way =>
+      val worldCoordinates = wayToWorldCoordinates(way)
+      val lineSegments = worldCoordinates.sliding(2).map { case Seq(c1, c2) =>
+        new LineSegment(c1, c2)
+      }.toSeq
+      (2 to 14).flatMap { z =>
+        lineSegmentTileCalculator.tiles(z, lineSegments)
+      }
+    }.distinct.sortBy(tile => (tile.z, tile.x, tile.y))
+  }
+}

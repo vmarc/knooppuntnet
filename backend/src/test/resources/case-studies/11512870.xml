@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="301008702" lat="51.8426545" lon="5.8587459">
+    <tag k="crossing:signals" v="yes"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="yes"/>
+    <tag k="traffic_signals:sound" v="yes"/>
+  </node>
+  <node id="301008704" lat="51.8423355" lon="5.8583830"/>
+  <node id="301008706" lat="51.8420867" lon="5.8583369"/>
+  <node id="301008707" lat="51.8419719" lon="5.8583636"/>
+  <node id="301008708" lat="51.8416857" lon="5.8586359"/>
+  <node id="301008710" lat="51.8414877" lon="5.8591703"/>
+  <node id="301008711" lat="51.8414778" lon="5.8594129"/>
+  <node id="301008713" lat="51.8415864" lon="5.8599502">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing:markings" v="dots"/>
+    <tag k="crossing:signals" v="yes"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="yes"/>
+  </node>
+  <node id="301008714" lat="51.8416473" lon="5.8601151">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="301008715" lat="51.8418313" lon="5.8603589"/>
+  <node id="301008716" lat="51.8420308" lon="5.8604315"/>
+  <node id="301008717" lat="51.8423035" lon="5.8604306"/>
+  <node id="301008718" lat="51.8425490" lon="5.8602114">
+    <tag k="button_operated" v="no"/>
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing:markings" v="dots"/>
+    <tag k="crossing:signals" v="yes"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="kerb" v="lowered"/>
+    <tag k="tactile_paving" v="yes"/>
+    <tag k="traffic_signals:sound" v="yes"/>
+  </node>
+  <node id="301008719" lat="51.8427053" lon="5.8599115">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing:markings" v="dots"/>
+    <tag k="crossing:signals" v="yes"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="kerb" v="lowered"/>
+    <tag k="tactile_paving" v="yes"/>
+  </node>
+  <node id="301008720" lat="51.8427721" lon="5.8596794"/>
+  <node id="301008723" lat="51.8427752" lon="5.8591066">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing:markings" v="dots"/>
+    <tag k="crossing:signals" v="yes"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="yes"/>
+  </node>
+  <node id="302102477" lat="51.8414930" lon="5.8596025">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="302941691" lat="51.8418303" lon="5.8584512">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="303363411" lat="51.8422169" lon="5.8604572"/>
+  <node id="1015045146" lat="51.8415324" lon="5.8589509"/>
+  <node id="1015045148" lat="51.8416099" lon="5.8587576">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="1015045173" lat="51.8426430" lon="5.8600563"/>
+  <node id="1015045174" lat="51.8423883" lon="5.8603832"/>
+  <node id="1015045175" lat="51.8418021" lon="5.8603382"/>
+  <node id="1015045179" lat="51.8425109" lon="5.8585098"/>
+  <node id="1015045191" lat="51.8427895" lon="5.8595633"/>
+  <node id="2118560301" lat="51.8422207" lon="5.8583420"/>
+  <node id="2346405782" lat="51.8426166" lon="5.8586620">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="2346405788" lat="51.8427923" lon="5.8592198">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="2509722539" lat="51.8424079" lon="5.8584218">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="2509722616" lat="51.8420189" lon="5.8583432">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="2535851296" lat="51.8424854" lon="5.8602965">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="2535851298" lat="51.8427442" lon="5.8597924">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="2908362892" lat="51.8426823" lon="5.8588076">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="3546325374" lat="51.8425865" lon="5.8586189"/>
+  <node id="3546325376" lat="51.8427977" lon="5.8592784"/>
+  <node id="4811573497" lat="51.8427653" lon="5.8590639">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="4811573499" lat="51.8427988" lon="5.8594370"/>
+  <node id="4811573501" lat="51.8425150" lon="5.8602561">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="4811573502" lat="51.8425799" lon="5.8601660">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="4811573504" lat="51.8427323" lon="5.8598332">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="4811573505" lat="51.8426854" lon="5.8599643">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="4811573506" lat="51.8417175" lon="5.8602450"/>
+  <node id="4811573507" lat="51.8415569" lon="5.8588736"/>
+  <node id="5628202009" lat="51.8422951" lon="5.8583621">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="5628202011" lat="51.8421769" lon="5.8604567">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="5628202012" lat="51.8418971" lon="5.8603937">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="5628202015" lat="51.8416376" lon="5.8600895">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="5628203222" lat="51.8416362" lon="5.8587191">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="5628203224" lat="51.8418924" lon="5.8584078"/>
+  <node id="5628203228" lat="51.8421193" lon="5.8583378">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="5628203229" lat="51.8420508" lon="5.8583393">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="5638020096" lat="51.8427077" lon="5.8588692"/>
+  <node id="5638020097" lat="51.8423628" lon="5.8583976">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="5638020100" lat="51.8415079" lon="5.8596608">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="5638020101" lat="51.8417916" lon="5.8584988">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="5638020105" lat="51.8417451" lon="5.8585561">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing:markings" v="dots"/>
+    <tag k="crossing:signals" v="yes"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="5638106529" lat="51.8427377" lon="5.8589706"/>
+  <node id="6853427680" lat="51.8426115" lon="5.8601152"/>
+  <node id="7816309539" lat="51.8415652" lon="5.8598823"/>
+  <node id="7816309541" lat="51.8415366" lon="5.8597716">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing:markings" v="dots"/>
+    <tag k="crossing:signals" v="yes"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="10873820233" lat="51.8419962" lon="5.8604217">
+    <tag k="button_operated" v="no"/>
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing:island" v="yes"/>
+    <tag k="crossing:markings" v="dots"/>
+    <tag k="crossing:signals" v="yes"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="kerb" v="flush"/>
+    <tag k="tactile_paving" v="yes"/>
+    <tag k="traffic_signals:sound" v="yes"/>
+    <tag k="traffic_signals:vibration" v="no"/>
+  </node>
+  <node id="10873820234" lat="51.8420837" lon="5.8604406">
+    <tag k="button_operated" v="no"/>
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing:island" v="yes"/>
+    <tag k="crossing:markings" v="dots"/>
+    <tag k="crossing:signals" v="yes"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="kerb" v="flush"/>
+    <tag k="tactile_paving" v="yes"/>
+    <tag k="traffic_signals:sound" v="yes"/>
+    <tag k="traffic_signals:vibration" v="no"/>
+  </node>
+  <node id="12534048560" lat="51.8415152" lon="5.8596889"/>
+  <way id="219735412">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="junction" v="circular"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="oneway:mofa" v="no"/>
+    <tag k="oneway:moped" v="no"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="1015045148"/>
+    <nd ref="4811573507"/>
+    <nd ref="1015045146"/>
+    <nd ref="301008710"/>
+  </way>
+  <way id="488870940">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="junction" v="circular"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="oneway" v="no"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <nd ref="301008718"/>
+    <nd ref="4811573502"/>
+    <nd ref="6853427680"/>
+    <nd ref="1015045173"/>
+    <nd ref="4811573505"/>
+    <nd ref="301008719"/>
+    <nd ref="4811573504"/>
+    <nd ref="2535851298"/>
+    <nd ref="301008720"/>
+    <nd ref="1015045191"/>
+    <nd ref="4811573499"/>
+    <nd ref="3546325376"/>
+  </way>
+  <way id="488870944">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="junction" v="circular"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="oneway" v="no"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="oneway:mofa" v="no"/>
+    <tag k="oneway:moped" v="no"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="302102477"/>
+    <nd ref="5638020100"/>
+    <nd ref="12534048560"/>
+    <nd ref="7816309541"/>
+  </way>
+  <way id="488870946">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="junction" v="circular"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="oneway:mofa" v="no"/>
+    <tag k="oneway:moped" v="no"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="301008708"/>
+    <nd ref="5628203222"/>
+    <nd ref="1015045148"/>
+  </way>
+  <way id="589390220">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="junction" v="circular"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="oneway" v="no"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <nd ref="7816309541"/>
+    <nd ref="7816309539"/>
+    <nd ref="301008713"/>
+    <nd ref="5628202015"/>
+    <nd ref="301008714"/>
+    <nd ref="4811573506"/>
+    <nd ref="1015045175"/>
+    <nd ref="301008715"/>
+    <nd ref="5628202012"/>
+    <nd ref="10873820233"/>
+    <nd ref="301008716"/>
+    <nd ref="10873820234"/>
+    <nd ref="5628202011"/>
+    <nd ref="303363411"/>
+    <nd ref="301008717"/>
+    <nd ref="1015045174"/>
+    <nd ref="2535851296"/>
+  </way>
+  <way id="591609295">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="junction" v="circular"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="oneway" v="no"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <nd ref="3546325376"/>
+    <nd ref="2346405788"/>
+    <nd ref="301008723"/>
+    <nd ref="4811573497"/>
+    <nd ref="5638106529"/>
+    <nd ref="5638020096"/>
+    <nd ref="2908362892"/>
+    <nd ref="301008702"/>
+    <nd ref="2346405782"/>
+    <nd ref="3546325374"/>
+    <nd ref="1015045179"/>
+    <nd ref="2509722539"/>
+    <nd ref="5638020097"/>
+    <nd ref="301008704"/>
+    <nd ref="5628202009"/>
+    <nd ref="2118560301"/>
+  </way>
+  <way id="670452378">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="junction" v="circular"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="oneway:mofa" v="no"/>
+    <tag k="oneway:moped" v="no"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="301008710"/>
+    <nd ref="301008711"/>
+    <nd ref="302102477"/>
+  </way>
+  <way id="1331421819">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="junction" v="circular"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="oneway" v="no"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <nd ref="2118560301"/>
+    <nd ref="5628203228"/>
+    <nd ref="301008706"/>
+    <nd ref="5628203229"/>
+    <nd ref="2509722616"/>
+    <nd ref="301008707"/>
+    <nd ref="5628203224"/>
+    <nd ref="302941691"/>
+    <nd ref="5638020101"/>
+    <nd ref="5638020105"/>
+    <nd ref="301008708"/>
+  </way>
+  <way id="1331421826">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="junction" v="circular"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="oneway" v="no"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <nd ref="2535851296"/>
+    <nd ref="4811573501"/>
+    <nd ref="301008718"/>
+  </way>
+  <relation id="11512870">
+    <member type="way" ref="670452378" role=""/>
+    <member type="way" ref="219735412" role=""/>
+    <member type="way" ref="488870946" role=""/>
+    <member type="way" ref="1331421819" role=""/>
+    <member type="way" ref="591609295" role=""/>
+    <member type="way" ref="488870940" role=""/>
+    <member type="way" ref="1331421826" role=""/>
+    <member type="way" ref="589390220" role=""/>
+    <member type="way" ref="488870944" role=""/>
+    <tag k="network" v="rcn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="ref" v="45-45"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

@@ -1,0 +1,42 @@
+package kpn.server.analyzer.engine.analysis.caseStudies
+
+import kpn.api.common.Fact
+import kpn.core.util.UnitTest
+
+/**
+ * Verifies a problem reported by RonGps.
+ * <p>
+ * Before the problem was fixed, the analysis logic assumed that the ways of the
+ * route in the forward direction (from low numbered node to high numbered node)
+ * came before the ways of the route in backward direction (high to low). In this
+ * route the order is high-to-low first and then low-to-high.
+ * <p>
+ * The original logic reported 'RouteBroken' for 'RonGpsOriginal', the current logic does
+ * no longer see a problem with the route.
+ */
+class RonGpsTest extends UnitTest {
+
+  test("RonGps original definition is reported to be broken") {
+    val route = CaseStudy.baseRouteDoc("RonGpsOriginal")
+    assertEqual(
+      route.facts,
+      Seq(Fact.RouteNameDeprecatedNoteTag)
+    )
+  }
+
+  test("ways for lower to higher branch moved to front, before ways for higher to lower branch") {
+    val route = CaseStudy.baseRouteDoc("RonGpsFixed")
+    assertEqual(
+      route.facts,
+      Seq(Fact.RouteNameDeprecatedNoteTag)
+    )
+  }
+
+  test("all forward roles changed to backward - oneway ways are followed in the wrong direction") {
+    val route = CaseStudy.baseRouteDoc("RonGpsBackward")
+    assertEqual(
+      route.facts,
+      Seq(Fact.RouteNameDeprecatedNoteTag)
+    )
+  }
+}

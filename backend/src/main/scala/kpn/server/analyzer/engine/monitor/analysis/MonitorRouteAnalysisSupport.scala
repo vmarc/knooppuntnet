@@ -1,0 +1,76 @@
+package kpn.server.analyzer.engine.monitor.analysis
+
+import kpn.api.common.Bounds
+import kpn.api.common.Relation
+import kpn.api.common.data.Member
+import kpn.core.common.RelationUtil
+import kpn.server.analyzer.engine.monitor.MonitorFilter
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.Geometry
+import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.geom.LineString
+import org.locationtech.jts.io.geojson.GeoJsonWriter
+
+object MonitorRouteAnalysisSupport {
+
+  private val geometryFactory = new GeometryFactory
+
+  def toBounds(coordinates: Seq[Coordinate]): Bounds = {
+    val minLat = coordinates.map(_.getY).min
+    val maxLat = coordinates.map(_.getY).max
+    val minLon = coordinates.map(_.getX).min
+    val maxLon = coordinates.map(_.getX).max
+    new Bounds(
+      minLat,
+      minLon,
+      maxLat,
+      maxLon
+    )
+  }
+
+  def toMeters(value: Double): Double = {
+    value * (math.Pi / 180) * 6378137
+  }
+
+  def toGeoJson(geometry: Geometry): String = {
+    new GeoJsonWriter().write(geometry).replaceAll("EPSG:0", "EPSG:4326")
+  }
+
+  def geometryBounds(geometry: Geometry): Bounds = {
+    val envelope = geometry.getEnvelopeInternal
+    Bounds(
+      envelope.getMinY, // minLat
+      envelope.getMinX, // minLon
+      envelope.getMaxY, // maxLat
+      envelope.getMaxX, // maxLon
+    )
+  }
+
+  /*
+    Groups consecutive elements with the same boolean flag value.
+   */
+  def split(list: List[(Boolean, Int)]): List[List[(Boolean, Int)]] = {
+    list match {
+      case Nil => Nil
+      case head :: tail =>
+        val segment = list.takeWhile(_._1 == head._1)
+        segment +: split(list.drop(segment.length))
+    }
+  }
+
+  def toLineString(osmCoordinates: Seq[Coordinate], sequence: ReferenceCoordinateSequence): LineString = {
+    val coordinates = if (sequence.indexes.sizeIs == 1) {
+      Seq(osmCoordinates.head, osmCoordinates.head) // TODO investigate why this is useful
+    }
+    else {
+      LineSimplifier.simplify(sequence.indexes.map(index => osmCoordinates(index)).toList)
+    }
+    geometryFactory.createLineString(coordinates.toArray)
+  }
+
+  def filteredWayMembers(relation: Relation): Seq[Member] = {
+    val allRelations = RelationUtil.relationsInRelation(relation)
+    val allWayMembers = allRelations.flatMap(relation => relation.wayMembers)
+    MonitorFilter.filterWayMembers(allWayMembers)
+  }
+}

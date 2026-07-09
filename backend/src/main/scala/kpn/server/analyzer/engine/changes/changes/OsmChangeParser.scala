@@ -1,0 +1,73 @@
+package kpn.server.analyzer.engine.changes.changes
+
+import kpn.api.common.changes.ChangeAction
+import kpn.api.common.data.MemberType
+import kpn.api.common.data.raw.RawMember
+import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.data.raw.RawWay
+import kpn.api.custom.Change
+import kpn.api.custom.Tag
+import kpn.api.custom.Timestamp
+import kpn.core.common.TimestampUtil
+
+class OsmChangeParser {
+
+  def parse(xml: scala.xml.Node): OsmChange = {
+
+    val actions = xml.child.toSeq.filter(isAction).map { actionXml =>
+      val action = actionXml.label match {
+        case "create" => ChangeAction.Create
+        case "modify" => ChangeAction.Modify
+        case "delete" => ChangeAction.Delete
+      }
+      val nodes = actionXml.child.toSeq.filter(_.label == "node").map(parseNode)
+      val ways = actionXml.child.toSeq.filter(_.label == "way").map(parseWay)
+      val relations = actionXml.child.toSeq.filter(_.label == "relation").map(parseRelation)
+      Change(action, nodes, ways, relations)
+    }
+    OsmChange(actions)
+  }
+
+  private def parseNode(node: scala.xml.Node): RawNode = {
+    val latitude = (node \ "@lat").text
+    val longitude = (node \ "@lon").text
+    RawNode(id(node), latitude, longitude, version(node), timestamp(node), changeSetId(node), tags(node))
+  }
+
+  private def parseWay(node: scala.xml.Node): RawWay = {
+    val wayNodeIds = (node \ "nd").map { t => (t \ "@ref").text.toLong }
+    RawWay(id(node), version(node), timestamp(node), changeSetId(node), wayNodeIds.toVector, tags(node))
+  }
+
+  private def parseRelation(node: scala.xml.Node): RawRelation = {
+    val members = (node \ "member").map { member =>
+      val memberType = MemberType.withName((member \ "@type").text)
+      val ref = (member \ "@ref").text.toLong
+      val role = (member \ "@role").text
+      val roleOption = if (role == "") None else Some(role)
+      RawMember(memberType, ref, roleOption)
+    }
+    RawRelation(id(node), version(node), timestamp(node), changeSetId(node), members, tags(node))
+  }
+
+  private def tags(node: scala.xml.Node): Seq[Tag] = {
+    (node \ "tag").map { tag =>
+      val key = (tag \ "@k").text
+      val value = (tag \ "@v").text
+      Tag(key, value)
+    }
+  }
+
+  private def id(node: scala.xml.Node): Long = (node \ "@id").text.toLong
+
+  private def version(node: scala.xml.Node): Int = (node \ "@version").text.toInt
+
+  private def timestamp(node: scala.xml.Node): Timestamp = TimestampUtil.parseIso((node \ "@timestamp").text)
+
+  private def changeSetId(node: scala.xml.Node): Long = (node \ "@changeset").text.toLong
+
+  private def isAction(xml: scala.xml.Node): Boolean = Seq("create", "modify", "delete").contains(xml.label)
+
+  private def isElement(xml: scala.xml.Node): Boolean = Seq("node", "way", "relation").contains(xml.label)
+}

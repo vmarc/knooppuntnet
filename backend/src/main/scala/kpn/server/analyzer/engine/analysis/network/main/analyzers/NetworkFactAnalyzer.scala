@@ -1,0 +1,125 @@
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
+
+import kpn.api.common.Check
+import kpn.api.common.Fact
+import kpn.api.common.NetworkFact
+import kpn.api.common.common.Ref
+import kpn.core.analysis.Facts
+import kpn.core.util.Formatter
+import kpn.core.util.NaturalSorting
+
+object NetworkFactAnalyzer extends NetworkAnalyzer {
+  override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
+    val nodeMemberMissingAnalyzer = new NetworkNodeMemberMissingAnalyzer(context)
+    new NetworkFactAnalyzer(context, nodeMemberMissingAnalyzer).analyze()
+  }
+}
+
+class NetworkFactAnalyzer(context: NetworkAnalysisContext, nodeMemberMissingAnalyzer: NetworkNodeMemberMissingAnalyzer) {
+
+  def analyze(): NetworkAnalysisContext = {
+
+    if (context.network.active) {
+
+      val nodeFacts = collectNodeFacts(context)
+      val nodeMemberMissingFactOption = nodeMemberMissing(context)
+      val routeFacts = collectRouteFacts(context)
+      val networkFacts = integrityFailedFacts(context)
+
+      val facts = networkFacts ++ routeFacts ++ nodeFacts ++ nodeMemberMissingFactOption.toSeq
+      val brokenRouteCount = context.routeDetails.count(_.facts.exists(Facts.isError))
+      val brokenRoutePercentage = Formatter.percentage(brokenRouteCount, context.routeDetails.size)
+      val inaccessibleRouteCount: Long = context.routeDetails.count(_.facts.contains(Fact.RouteInaccessible))
+
+      context.copy(
+        _brokenRouteCount = Some(brokenRouteCount),
+        _brokenRoutePercentage = Some(brokenRoutePercentage),
+        _inaccessibleRouteCount = Some(inaccessibleRouteCount),
+        _networkFacts = Some(facts)
+      )
+    }
+    else {
+      context.copy(
+        _brokenRouteCount = Some(0),
+        _brokenRoutePercentage = Some("-"),
+        _inaccessibleRouteCount = Some(0),
+        _networkFacts = Some(Seq.empty)
+      )
+    }
+  }
+
+  private def collectNodeFacts(context: NetworkAnalysisContext): Seq[NetworkFact] = {
+    val facts = context.nodeDetails.flatMap(_.facts).distinct.sortBy(_.entryName)
+    facts.map { fact =>
+      val nodeDetails = context.nodeDetails.filter(_.facts.contains(fact))
+      val nodeIds = nodeDetails.map(_.id)
+      val refs = nodeDetails.map { nodeDetail =>
+        Ref(
+          nodeDetail.id,
+          nodeDetail.name
+        )
+      }
+      NetworkFact(
+        fact,
+        Some("node"),
+        Some(nodeIds),
+        Some(refs),
+        None
+      )
+    }
+  }
+
+  private def nodeMemberMissing(context: NetworkAnalysisContext): Option[NetworkFact] = {
+    nodeMemberMissingAnalyzer.analyze()
+  }
+
+  private def collectRouteFacts(context: NetworkAnalysisContext): Seq[NetworkFact] = {
+    val facts = context.routeDetails.flatMap(_.facts).distinct.sortBy(_.entryName)
+    facts.map { fact =>
+      val routes = context.routeDetails.filter(_.facts.contains(fact))
+      val routeIds = routes.map(_.id)
+      val refs = routes.map { routeDetail =>
+        Ref(
+          routeDetail.id,
+          routeDetail.name
+        )
+      }
+      NetworkFact(
+        fact,
+        Some("route"),
+        Some(routeIds),
+        Some(refs),
+        None
+      )
+    }
+  }
+
+  private def integrityFailedFacts(context: NetworkAnalysisContext): Seq[NetworkFact] = {
+    val checks = context.nodeDocs.flatMap { nodeDoc =>
+      nodeDoc.nodeIntegrityDetail(context.scopedRouteType).flatMap { nodeIntegrityDetail =>
+        Option.when(nodeIntegrityDetail.failed) {
+          val nodeName = nodeDoc.name(context.scopedRouteType)
+          Check(
+            nodeDoc._id,
+            nodeName,
+            nodeIntegrityDetail.expectedRouteCount,
+            nodeIntegrityDetail.routeRefs.size
+          )
+        }
+      }
+    }
+
+    if (checks.nonEmpty) {
+      val sortedChecks = NaturalSorting.sortBy(checks)(_.nodeName)
+      Seq(
+        NetworkFact(
+          Fact.IntegrityCheckFailed,
+          checks = Some(sortedChecks)
+        )
+      )
+    }
+    else {
+      Seq.empty
+    }
+  }
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="43025961" lat="51.5593716" lon="5.8930050">
+    <tag k="expected_rcn_route_relations" v="3"/>
+    <tag k="network" v="rwn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="47"/>
+    <tag k="rwn_ref" v="70"/>
+  </node>
+  <node id="43030132" lat="51.5609163" lon="5.8899262">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rwn_ref" v="21"/>
+  </node>
+  <node id="871826561" lat="51.5600485" lon="5.8917498"/>
+  <node id="2275929043" lat="51.5595058" lon="5.8927571"/>
+  <node id="2275929050" lat="51.5604010" lon="5.8906336"/>
+  <node id="2275929054" lat="51.5606407" lon="5.8903392"/>
+  <node id="2275929055" lat="51.5608642" lon="5.8900748"/>
+  <node id="2895876540" lat="51.5594395" lon="5.8928866"/>
+  <node id="2895876541" lat="51.5602129" lon="5.8911360"/>
+  <node id="3474120500" lat="51.5603255" lon="5.8907490"/>
+  <node id="3474120503" lat="51.5603560" lon="5.8906883"/>
+  <way id="73552335">
+    <tag k="highway" v="cycleway"/>
+    <nd ref="3474120503"/>
+    <nd ref="3474120500"/>
+    <nd ref="2895876541"/>
+    <nd ref="871826561"/>
+    <nd ref="2275929043"/>
+    <nd ref="2895876540"/>
+    <nd ref="43025961"/>
+  </way>
+  <way id="218347730">
+    <tag k="highway" v="cycleway"/>
+    <nd ref="3474120503"/>
+    <nd ref="2275929050"/>
+    <nd ref="2275929054"/>
+    <nd ref="2275929055"/>
+    <nd ref="43030132"/>
+  </way>
+  <relation id="3792006">
+    <member type="way" ref="218347730" role=""/>
+    <member type="way" ref="73552335" role=""/>
+    <tag k="network" v="rwn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="osmc:symbol" v="green:green:yellow_pointer"/>
+    <tag k="ref" v="21-70"/>
+    <tag k="route" v="foot"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

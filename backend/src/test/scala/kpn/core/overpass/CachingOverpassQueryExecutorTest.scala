@@ -1,0 +1,32 @@
+package kpn.core.overpass
+
+import kpn.api.custom.Timestamp
+import kpn.core.util.GZipFile
+import kpn.core.util.UnitTest
+import org.apache.commons.io.FileUtils
+import org.scalamock.stubs.Stubs
+
+import java.io.File
+
+class CachingOverpassQueryExecutorTest extends UnitTest with Stubs {
+
+  test("test caching") {
+    val cacheRootDir = new File("/tmp/test-cache")
+    if (cacheRootDir.exists()) {
+      FileUtils.forceDelete(cacheRootDir)
+    }
+    try {
+      val executor = stub[OverpassQueryExecutor]
+      (executor.execute _).returnsWith("result")
+
+      val cachingExecutor = new CachingOverpassQueryExecutor(cacheRootDir, executor)
+      cachingExecutor.executeQuery(Some(Timestamp(2015, 11, 8, 12, 13, 14)), QueryNode(1))
+
+      val contents = GZipFile.read("/tmp/test-cache/2015/11/08/12/13/14/node-1.xml.gz")
+      contents should equal("result")
+    }
+    finally {
+      FileUtils.forceDelete(cacheRootDir)
+    }
+  }
+}

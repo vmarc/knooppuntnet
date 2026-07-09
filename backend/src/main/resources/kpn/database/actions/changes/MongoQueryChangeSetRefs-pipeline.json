@@ -1,0 +1,9 @@
+[
+  {
+    "$project": {
+      "_id": 0,
+      "replicationNumber": "$key.replicationNumber",
+      "changeSetId": "$key.changeSetId"
+    }
+  }
+]

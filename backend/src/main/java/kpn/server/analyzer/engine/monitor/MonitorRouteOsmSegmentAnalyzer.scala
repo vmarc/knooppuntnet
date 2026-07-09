@@ -1,0 +1,94 @@
+package kpn.server.analyzer.engine.monitor
+
+import kpn.api.common.data.Member
+import kpn.api.common.monitor.MonitorRouteSegment
+import kpn.api.common.route.RouteNodes
+import kpn.core.util.Haversine
+import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.domain.ElementDirection
+import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
+import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteAnalysisSupport
+import kpn.server.analyzer.engine.monitor.domain.MonitorRouteOsmSegmentAnalysis
+import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryFactory
+import org.springframework.context.annotation.Profile
+import org.springframework.stereotype.Component
+
+@Component
+@Profile(Array("web", "analysis"))
+class MonitorRouteOsmSegmentAnalyzer {
+
+  private val geometryFactory = new GeometryFactory
+  private val log = Log(classOf[MonitorRouteOsmSegmentAnalyzer])
+
+  def analyze(wayMembers: Seq[Member]): MonitorRouteOsmSegmentAnalysis = {
+
+    val nodes = wayMembers.flatMap(_.wayNodes).distinct
+    val nodeMap = nodes.map(node => node.id -> new Coordinate(node.lon, node.lat)).toMap
+
+    val elementGroups = try {
+      StructureElementAnalyzer.analyze(RouteNodes(), wayMembers)
+    }
+    catch {
+      case e: Exception =>
+        log.error("Could not analyze structure", e)
+        Seq.empty
+    }
+
+    val routeSegments = elementGroups.zipWithIndex.flatMap { case (elementGroup, index) =>
+      val lineStrings = elementGroup.elements.map { element =>
+        val coordinates = element.nodeIds.flatMap(nodeMap.get)
+        geometryFactory.createLineString(coordinates.toArray)
+      }
+
+      val forwardElements = elementGroup.elements.filter { element =>
+        element.direction match {
+          case Some(ElementDirection.Backward) => false
+          case _ => true
+        }
+      }
+
+      if (forwardElements.isEmpty) {
+        // TODO should still look at backwardElements !!!
+        None
+      }
+      else {
+
+        val startNodeId = forwardElements.head.forwardStartNodeId
+        val endNodeId = forwardElements.last.forwardEndNodeId
+
+        val meters = Math.round(lineStrings.map(lineString => Haversine.meters(lineString)).sum)
+        val allCoordinates = lineStrings.flatMap(lineString => lineString.getCoordinates.toSeq)
+        val bounds = MonitorRouteAnalysisSupport.toBounds(allCoordinates)
+
+        val geometryCollection = geometryFactory.createGeometryCollection(lineStrings.toArray)
+
+        val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
+
+        val segment = MonitorRouteSegment(
+          id = index + 1,
+          startNodeId,
+          endNodeId,
+          meters,
+          bounds,
+          geoJson
+        )
+
+        Some(
+          MonitorRouteSegmentData(
+            id = index + 1,
+            segment,
+            lineStrings
+          )
+        )
+      }
+    }
+    val osmDistance = routeSegments.map(_.segment.meters).sum
+
+    MonitorRouteOsmSegmentAnalysis(
+      osmDistance,
+      routeSegments
+    )
+  }
+}

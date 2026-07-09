@@ -1,0 +1,39 @@
+package kpn.core.doc
+
+import kpn.api.common.Fact
+import kpn.api.common.common.Ref
+import kpn.api.common.data.Tagable
+import kpn.api.custom.Day
+import kpn.api.custom.Tag
+import kpn.api.custom.Timestamp
+
+case class NetworkRouteDetail(
+  id: Long,
+  name: String,
+  length: Long,
+  role: Option[String],
+  investigate: Boolean,
+  accessible: Boolean,
+  roleConnection: Boolean,
+  lastUpdated: Timestamp,
+  lastSurvey: Option[Day],
+  proposed: Boolean,
+  facts: Seq[Fact],
+  tags: Seq[Tag],
+  networkNodeIds: Option[Seq[Long]]
+) extends Tagable with Storable {
+
+  def toRef: Ref = {
+    Ref(id, name)
+  }
+
+  def isSameAs(other: NetworkRouteDetail): Boolean = {
+    name == other.name &&
+      length == other.length &&
+      role == other.role &&
+      accessible == other.accessible &&
+      roleConnection == other.roleConnection &&
+      lastSurvey == other.lastSurvey &&
+      proposed == other.proposed
+  }
+}

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="60285252" lat="50.7188032" lon="4.6131325">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="248763285" lat="50.7162856" lon="4.6087550">
+    <tag k="network:type" v="node_network"/>
+    <tag k="highway" v="mini_roundabout"/>
+    <tag k="rcn_ref" v="64"/>
+  </node>
+  <node id="248763323" lat="50.7164776" lon="4.6089637"/>
+  <node id="248763324" lat="50.7171664" lon="4.6102581">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="64"/>
+  </node>
+  <node id="248763325" lat="50.7191927" lon="4.6138398"/>
+  <node id="248763326" lat="50.7197101" lon="4.6145323">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="63"/>
+  </node>
+  <node id="300608110" lat="50.7170521" lon="4.6100733"/>
+  <node id="300608115" lat="50.7172941" lon="4.6104666"/>
+  <node id="332071216" lat="50.7166948" lon="4.6094068"/>
+  <node id="765171582" lat="50.7181067" lon="4.6118293"/>
+  <node id="765171872" lat="50.7179164" lon="4.6114902"/>
+  <node id="1618958327" lat="50.7176359" lon="4.6110251"/>
+  <node id="4762818197" lat="50.7177458" lon="4.6111827"/>
+  <node id="5676186962" lat="50.7186883" lon="4.6129143">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="5676186963" lat="50.7188601" lon="4.6132660">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="5676186964" lat="50.7181362" lon="4.6118830">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="5817611053" lat="50.7163612" lon="4.6088176"/>
+  <node id="5817830829" lat="50.7164194" lon="4.6088907">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="5817916072" lat="50.7170227" lon="4.6100186">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="6074155739" lat="50.7166840" lon="4.6093847"/>
+  <node id="6283137076" lat="50.7179010" lon="4.6114625"/>
+  <way id="23053437">
+    <tag k="class:bicycle:roadcycling" v="-1"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Rue de Bruxelles"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="300608115"/>
+    <nd ref="1618958327"/>
+    <nd ref="4762818197"/>
+    <nd ref="6283137076"/>
+    <nd ref="765171872"/>
+    <nd ref="765171582"/>
+    <nd ref="5676186964"/>
+    <nd ref="5676186962"/>
+    <nd ref="60285252"/>
+  </way>
+  <way id="31821448">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Rue Haute"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="248763285"/>
+    <nd ref="5817611053"/>
+    <nd ref="5817830829"/>
+    <nd ref="248763323"/>
+    <nd ref="6074155739"/>
+    <nd ref="332071216"/>
+    <nd ref="5817916072"/>
+    <nd ref="300608110"/>
+  </way>
+  <way id="31821458">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Rue Joseph Joppart"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="60285252"/>
+    <nd ref="5676186963"/>
+    <nd ref="248763325"/>
+    <nd ref="248763326"/>
+  </way>
+  <way id="119957426">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Rue de Bruxelles"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="248763324"/>
+    <nd ref="300608115"/>
+  </way>
+  <way id="119957427">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Rue Haute"/>
+    <nd ref="300608110"/>
+    <nd ref="248763324"/>
+  </way>
+  <relation id="9515132">
+    <member type="way" ref="31821458" role=""/>
+    <member type="way" ref="23053437" role=""/>
+    <member type="way" ref="119957426" role=""/>
+    <member type="way" ref="119957427" role="forward"/>
+    <member type="way" ref="31821448" role="forward"/>
+    <tag k="comment" v="to be used in one direction: 64 to 63"/>
+    <tag k="direction" v="backward"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="network" v="rcn"/>
+    <tag k="note" v="63-64"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

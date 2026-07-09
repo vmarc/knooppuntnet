@@ -1,0 +1,279 @@
+package kpn.server.analyzer.engine.changes.integration
+
+import kpn.api.common.ChangeSetElementRefs
+import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeType
+import kpn.api.common.Country
+import kpn.api.common.NetworkChanges
+import kpn.api.common.RouteType
+import kpn.api.common.changes.ChangeAction
+import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
+import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Subset
+import kpn.api.custom.Tags
+import kpn.core.doc.Label
+import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newBaseNetworkDoc
+import kpn.core.test.TestObjects.newBaseNodeDoc
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSetElementRef
+import kpn.core.test.TestObjects.newChangeSetNetwork
+import kpn.core.test.TestObjects.newChangeSetSummary
+import kpn.core.test.TestObjects.newLocationChanges
+import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNetworkBaseData
+import kpn.core.test.TestObjects.newNetworkChange
+import kpn.core.test.TestObjects.newNetworkDoc
+import kpn.core.test.TestObjects.newNodeBaseData
+import kpn.core.test.TestObjects.newNodeChange
+import kpn.core.test.TestObjects.newNodeDoc
+import kpn.core.test.TestObjects.newNodeName
+import kpn.core.test.TestObjects.newOrphanNodeInfo
+import kpn.core.test.TestObjects.newRaw
+import kpn.core.test.TestObjects.newRawRelation
+
+class NetworkDeleteNodeTest01 extends IntegrationTest {
+
+  test("network delete - node becomes orphan") {
+
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkRelation( // delete
+        1,
+        "network-name",
+        Seq(
+          newMember(MemberType.Node, 1001)
+        )
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+
+    testIntegration(dataBefore, dataAfter) {
+
+      processRelation(ChangeAction.Delete, newRawRelation(1))
+
+      assert(!watched.networks.contains(1))
+      assert(watched.nodes.contains(1001))
+
+      database.routeChanges shouldBe empty
+
+      assertBaseNode()
+      assertBaseNetwork()
+
+      assertNode()
+      assertNetwork()
+
+      assertNodeChange()
+      assertNetworkChange()
+      assertChangeSetSummary()
+
+      assertOrphanNode()
+    }
+  }
+
+  private def assertBaseNode(): Unit = {
+    assertEqual(
+      findBaseNodeById(1001),
+      newBaseNodeDoc(
+        1001,
+        base = newNodeBaseData(
+          raw = newRaw(
+            tags = Tags.from(
+              "rwn_ref" -> "01",
+              "network:type" -> "node_network"
+            )
+          ),
+          name = Some("01"),
+          names = Seq(
+            newNodeName(name = "01")
+          ),
+          country = Some(Country.nl),
+          locations = Seq("nl")
+        ),
+        tiles = Seq(
+          "hiking-12-2047-2047",
+          "hiking-12-2047-2048",
+          "hiking-12-2048-2047",
+          "hiking-12-2048-2048",
+          "hiking-13-4095-4095",
+          "hiking-13-4095-4096",
+          "hiking-13-4096-4095",
+          "hiking-13-4096-4096"
+        )
+      )
+    )
+  }
+
+  private def assertBaseNetwork(): Unit = {
+    assertEqual(
+      findBaseNetworkById(1),
+      newBaseNetworkDoc(
+        1,
+        active = false,
+        base = newNetworkBaseData(
+          raw = newRaw(
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "type" -> "network",
+              "network" -> "rwn",
+              "name" -> "network-name"
+            ),
+          ),
+          name = Some("network-name"),
+        ),
+        nodeIds = Seq(
+          1001
+        )
+      )
+    )
+  }
+
+  private def assertNode(): Unit = {
+    assertEqual(
+      findNodeById(1001),
+      newNodeDoc(
+        1001,
+        base = newNodeBaseData(
+          raw = newRaw(
+            tags = Tags.from(
+              "rwn_ref" -> "01",
+              "network:type" -> "node_network"
+            ),
+          ),
+          name = Some("01"),
+          names = Seq(
+            newNodeName(name = "01")
+          ),
+          country = Some(Country.nl),
+          locations = Seq("nl")
+        ),
+        labels = Seq(
+          Label.routeType(RouteType.hiking),
+          Label.location("nl")
+        )
+      )
+    )
+  }
+
+  private def assertNetwork(): Unit = {
+    assertEqual(
+      findNetworkById(1),
+      newNetworkDoc(
+        1,
+        active = false,
+        base = newNetworkBaseData(
+          raw = newRaw(
+            tags = Tags.from(
+              "network:type" -> "node_network",
+              "type" -> "network",
+              "network" -> "rwn",
+              "name" -> "network-name"
+            )
+          ),
+          name = Some("network-name"),
+        ),
+        country = Some(Country.nl)
+      )
+    )
+  }
+
+  private def assertNetworkChange(): Unit = {
+    assertEqual(
+      findNetworkChangeById("1:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = Some("network-name"),
+        changeType = ChangeType.Delete,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        nodes = IdDiffs(
+          removed = Seq(1001)
+        ),
+        nodeDiffs = RefDiffs(
+          removed = Seq(Ref(1001, "01"))
+        ),
+        investigate = true,
+        impact = true,
+      )
+    )
+  }
+
+  private def assertNodeChange(): Unit = {
+    assertEqual(
+      findNodeChangeById("1:1:1001"),
+      newNodeChange(
+        key = newChangeKey(elementId = 1001),
+        changeType = ChangeType.Update,
+        subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
+        name = Some("01"),
+        before = Some(
+          newMetaData()
+        ),
+        after = Some(
+          newMetaData()
+        ),
+        removedFromNetwork = Seq(
+          Ref(1, "network-name")
+        ),
+        investigate = true,
+        impact = true
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    assertEqual(
+      findChangeSetSummaryById("1:1"),
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
+        networkChanges = NetworkChanges(
+          deletes = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              RouteType.hiking,
+              1,
+              Some("network-name"),
+              nodeChanges = ChangeSetElementRefs(
+                removed = Seq(
+                  newChangeSetElementRef(1001, "01", investigate = true)
+                )
+              ),
+              investigate = true
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01"),
+              ),
+            )
+          )
+        ),
+        investigate = true
+      )
+    )
+  }
+
+  private def assertOrphanNode(): Unit = {
+    assertEqual(
+      findOrphanNode(Subset.nlHiking, 1001),
+      newOrphanNodeInfo(
+        nodeId = 1001,
+        name = "01"
+      )
+    )
+  }
+}

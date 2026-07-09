@@ -1,0 +1,38 @@
+package kpn.server.api.analysis.pages
+
+import kpn.api.common.Language
+import kpn.api.common.poi.LocationPoiSummaryPage
+import kpn.api.common.poi.PoiCount
+import kpn.api.common.poi.PoiGroup
+import kpn.core.poi.PoiConfiguration
+import kpn.server.analyzer.engine.analysis.location.LocationService
+import kpn.server.repository.PoiRepository
+import org.springframework.context.annotation.Profile
+import org.springframework.stereotype.Component
+
+@Component
+@Profile(Array("web"))
+class LocationPoiSummaryPageBuilder(
+  poiRepository: PoiRepository,
+  locationService: LocationService
+) {
+
+  def build(
+    language: Language,
+    location: String
+  ): LocationPoiSummaryPage = {
+    val locationId = locationService.toId(language, location)
+    val counts = poiRepository.locationPoiLayerCounts(locationId)
+    val poiCountMap = counts.map(count => count.layer -> count.count).toMap
+    val groups = PoiConfiguration.instance.groupDefinitions.map { groupDefinition =>
+      val poiCounts = groupDefinition.definitions.map { poiDefinition =>
+        val count = poiCountMap.getOrElse(poiDefinition.name, 0L)
+        PoiCount(poiDefinition.name, poiDefinition.icon, count)
+      }
+      PoiGroup(groupDefinition.name, poiCounts)
+    }
+    LocationPoiSummaryPage(
+      groups
+    )
+  }
+}

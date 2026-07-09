@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="280450644" lat="51.1246305" lon="2.6594411">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="309749418" lat="51.1277949" lon="2.6573524"/>
+  <node id="309749419" lat="51.1276655" lon="2.6572908"/>
+  <node id="309749420" lat="51.1247156" lon="2.6593865">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="311407034" lat="51.1243091" lon="2.6596663">
+    <tag k="rwn" v="yes"/>
+    <tag k="rwn_name" v="Kust"/>
+    <tag k="rwn_ref" v="58"/>
+  </node>
+  <node id="311407035" lat="51.1245779" lon="2.659475">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="470226367" lat="51.1276299" lon="2.6574687"/>
+  <node id="470226368" lat="51.1292996" lon="2.6563912">
+    <tag k="highway" v="mini_roundabout"/>
+    <tag k="rwn_ref" v="57"/>
+  </node>
+  <node id="1270557450" lat="51.1277414" lon="2.6572765"/>
+  <node id="1270557451" lat="51.1278014" lon="2.6574428"/>
+  <node id="1270557452" lat="51.1277082" lon="2.6575565"/>
+  <node id="1270557453" lat="51.127631" lon="2.6573535"/>
+  <node id="1270557454" lat="51.1261654" lon="2.6584063"/>
+  <node id="1270557461" lat="51.1270375" lon="2.6578464"/>
+  <node id="1270557464" lat="51.1255044" lon="2.6588327"/>
+  <node id="1270557466" lat="51.1257459" lon="2.6586769"/>
+  <node id="1270557473" lat="51.1281443" lon="2.6571353"/>
+  <node id="1270557479" lat="51.1247953" lon="2.6592876"/>
+  <node id="1328634942" lat="51.1278029" lon="2.6573985"/>
+  <node id="1328634943" lat="51.1276453" lon="2.6575079"/>
+  <node id="1328634952" lat="51.1276758" lon="2.6575439"/>
+  <node id="1328634954" lat="51.1276474" lon="2.6573145"/>
+  <node id="1328634963" lat="51.1277892" lon="2.6574901"/>
+  <node id="1328634964" lat="51.127748" lon="2.6575455"/>
+  <node id="1328634969" lat="51.1277708" lon="2.6575235"/>
+  <node id="1328634977" lat="51.1277799" lon="2.6573163"/>
+  <node id="1328634988" lat="51.127623" lon="2.6574058"/>
+  <node id="1328635012" lat="51.1277043" lon="2.6572699"/>
+  <node id="1486441177" lat="51.1246652" lon="2.6594189">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="1849643778" lat="51.1261929" lon="2.6583886"/>
+  <node id="2554327921" lat="51.1245377" lon="2.6595009"/>
+  <node id="2554327954" lat="51.1247472" lon="2.659318"/>
+  <way id="28201134">
+    <tag k="highway" v="residential"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="source" v="survey"/>
+    <nd ref="470226367"/>
+    <nd ref="1328634943"/>
+    <nd ref="1328634952"/>
+    <nd ref="1270557452"/>
+    <nd ref="1328634964"/>
+    <nd ref="1328634969"/>
+    <nd ref="1328634963"/>
+    <nd ref="1270557451"/>
+    <nd ref="1328634942"/>
+    <nd ref="309749418"/>
+  </way>
+  <way id="28201417">
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Albert I laan"/>
+    <tag k="source" v="survey"/>
+    <nd ref="309749420"/>
+    <nd ref="1486441177"/>
+    <nd ref="280450644"/>
+    <nd ref="311407035"/>
+    <nd ref="2554327921"/>
+    <nd ref="311407034"/>
+  </way>
+  <way id="39245517">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Gilles Scottlaan"/>
+    <nd ref="309749418"/>
+    <nd ref="1270557473"/>
+    <nd ref="470226368"/>
+  </way>
+  <way id="39245518">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Gilles Scottlaan"/>
+    <tag k="source" v="survey"/>
+    <nd ref="470226367"/>
+    <nd ref="1270557461"/>
+    <nd ref="1849643778"/>
+    <nd ref="1270557454"/>
+    <nd ref="1270557466"/>
+    <nd ref="1270557464"/>
+    <nd ref="1270557479"/>
+    <nd ref="2554327954"/>
+    <nd ref="309749420"/>
+  </way>
+  <way id="137518723">
+    <tag k="highway" v="residential"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="source" v="survey"/>
+    <nd ref="309749418"/>
+    <nd ref="1328634977"/>
+    <nd ref="1270557450"/>
+    <nd ref="1328635012"/>
+    <nd ref="309749419"/>
+    <nd ref="1328634954"/>
+    <nd ref="1270557453"/>
+    <nd ref="1328634988"/>
+    <nd ref="470226367"/>
+  </way>
+  <relation id="1672723">
+    <member type="way" ref="39245517" role=""/>
+    <member type="way" ref="28201134" role=""/>
+    <member type="way" ref="137518723" role=""/>
+    <member type="way" ref="39245518" role=""/>
+    <member type="way" ref="28201417" role=""/>
+    <tag k="network" v="rwn"/>
+    <tag k="note" v="57-58"/>
+    <tag k="route" v="foot"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

@@ -1,0 +1,167 @@
+package kpn.server.config
+
+import com.mongodb.client.MongoClients
+import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
+import kpn.database.base.Database
+import kpn.database.base.MetricsDatabase
+import kpn.database.util.Mongo
+import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
+import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
+import kpn.server.analyzer.engine.tiles.TileFileRepository
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
+import org.springframework.scheduling.TaskScheduler
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler
+
+import java.util.concurrent.Executor
+import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
+import scala.concurrent.ExecutionContext
+
+@Configuration
+@Profile(Array("analysis"))
+class AnalysisServerConfiguration {
+
+  @Bean
+  def threadMetrics = new JvmThreadMetrics
+
+  @Bean
+  def applicationName(@Value("${app.name:server}") value: String): String = {
+    value
+  }
+
+  @Bean
+  def analyzerStatusFile(@Value("${app.analyzer-status:/kpn/status/status}") value: String): String = {
+    value
+  }
+
+  @Bean
+  def analysisExecutionContext(@Value("${app.analyzer-thread-pool-size:9}") poolSize: Int): ExecutionContext = {
+    ExecutionContext.fromExecutor(buildExecutor("analysis", poolSize))
+  }
+
+  @Bean
+  def analysisExecutor(@Value("${app.analyzer-thread-pool-size:9}") poolSize: Int): Executor = {
+    buildExecutor("analyzer", poolSize)
+  }
+
+  @Bean
+  def routeLoaderExecutor(@Value("${app.analyzer-thread-pool-size:4}") poolSize: Int): Executor = {
+    buildExecutor("route-loader", poolSize)
+  }
+
+  @Bean
+  def systemMetricsEnabled(@Value("${app.system-metrics-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
+  def graphLoadEnabled(@Value("${app.graph-load-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
+  def analyzerEnabled(@Value("${app.analyzer-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
+  def development(@Value("${app.development:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
+  def changeSetInfoEngineEnabled(@Value("${app.change-set-info-engine-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
+  def analyzerTileUpdateEnabled(@Value("${app.analyzer-tile-update-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
+  def analyzerPoiUpdateEnabled(@Value("${app.analyzer-poi-update-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
+  def analyzerStatisticsUpdateEnabled(@Value("${app.analyzer-statistics-update-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
+  def analyzerInitializerEnabled(@Value("${app.analyzer-initializer-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
+  def testEnabled(@Value("${app.test-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
+  def tileRoot(@Value("${app.tile-root:/kpn/tiles}") value: String): String = {
+    value
+  }
+
+  @Bean
+  def rasterTileRepository(tileRoot: String): TileFileRepository = {
+    new TileFileRepository(tileRoot, "png")
+  }
+
+  @Bean
+  def vectorTileRepository(tileRoot: String): TileFileRepository = {
+    new TileFileRepository(tileRoot, "mvt")
+  }
+
+  @Bean
+  def cryptoKey(@Value("${cryptoKey}") value: String): String = {
+    value
+  }
+
+  @Bean
+  def locationConfiguration: LocationConfiguration = {
+    new LocationConfigurationReader().read()
+  }
+
+  @Bean
+  def database(
+    @Value("${app.database.url}") url: String,
+    @Value("${app.database.name}") name: String,
+  ): Database = {
+    val mongoClient = MongoClients.create(url)
+    new Database(mongoClient.getDatabase(name).withCodecRegistry(Mongo.codecRegistry))
+  }
+
+  @Bean
+  def metricsDatabase(
+    @Value("${app.metrics-database.url}") url: String,
+    @Value("${app.metrics-database.name}") name: String,
+  ): MetricsDatabase = {
+    val mongoClient = MongoClients.create(url)
+    new MetricsDatabase(mongoClient.getDatabase(name).withCodecRegistry(Mongo.codecRegistry))
+  }
+
+  @Bean def taskScheduler: TaskScheduler = {
+    val threadPoolTaskScheduler = new ThreadPoolTaskScheduler
+    threadPoolTaskScheduler.setPoolSize(5)
+    threadPoolTaskScheduler.setThreadNamePrefix("ThreadPoolTaskScheduler")
+    threadPoolTaskScheduler
+  }
+
+  private def buildExecutor(name: String, poolSize: Int) = {
+    val executor = new ThreadPoolTaskExecutor
+    executor.setCorePoolSize(poolSize)
+    executor.setMaxPoolSize(poolSize)
+    executor.setKeepAliveSeconds(0)
+    executor.setRejectedExecutionHandler(new CallerRunsPolicy)
+    executor.setWaitForTasksToCompleteOnShutdown(true)
+    executor.setAwaitTerminationSeconds(60 * 5)
+    executor.setThreadNamePrefix(s"$name-")
+    executor.initialize()
+    executor
+  }
+}

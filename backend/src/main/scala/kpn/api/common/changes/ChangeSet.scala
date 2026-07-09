@@ -1,0 +1,29 @@
+package kpn.api.common.changes
+
+import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.custom.Change
+import kpn.api.custom.Timestamp
+
+/**
+ * All information of a given changeset as available in the minute diff file. A changeset can be spread
+ * over multiple diff files. In that case the information in this object is not the complete changeset.
+ */
+case class ChangeSet(
+  id: Long,
+  timestamp: Timestamp, // timestamp found in minute diff state file
+  timestampFrom: Timestamp,
+  timestampUntil: Timestamp,
+  timestampBefore: Timestamp,
+  timestampAfter: Timestamp,
+  changes: Seq[Change]
+) {
+
+  def relations(action: ChangeAction): Seq[RawRelation] = {
+    changes.filter(_.action == action).flatMap(_.relations)
+  }
+
+  def nodes(action: ChangeAction): Seq[RawNode] = {
+    changes.filter(_.action == action).flatMap(_.nodes)
+  }
+}

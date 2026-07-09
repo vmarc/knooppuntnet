@@ -1,0 +1,115 @@
+package kpn.server.analyzer.engine.changes
+
+import it.unimi.dsi.fastutil.longs.LongSet
+import kpn.server.analyzer.engine.context.Watched
+import kpn.server.analyzer.engine.context.WatchedRoutes
+
+import scala.jdk.CollectionConverters.IteratorHasAsScala
+
+class AnalysisDataDiffReporter {
+
+  def report(left: Watched, right: Watched): Seq[String] = {
+    val differences = elementIdDiff("Network", left.networks.ids, right.networks.ids) ++
+      diff("Route", left.routes, right.routes) ++
+      elementIdDiff("Node", left.nodes.ids, right.nodes.ids)
+
+    if (differences.isEmpty) {
+      Seq("No differences")
+    }
+    else {
+      differences
+    }
+  }
+
+  private def diff(title: String, left: WatchedRoutes, right: WatchedRoutes): Seq[String] = {
+    val differences = dataDiff("watched", left, right)
+    if (differences.nonEmpty) {
+      Seq(s"$title differences:") ++ differences
+    } else {
+      Seq.empty
+    }
+  }
+
+  private def dataDiff(title: String, left: WatchedRoutes, right: WatchedRoutes): Seq[String] = {
+    if (left.isEmpty && right.isEmpty) {
+      Seq.empty
+    } else {
+
+      val leftIds = left.ids.asScala.map(_.longValue()).toSet
+      val rightIds = right.ids.asScala.map(_.longValue()).toSet
+      val leftOnlyKeys = leftIds -- rightIds
+      val rightOnlyKeys = rightIds -- leftIds
+      val commonKeys = rightIds intersect leftIds
+
+      val differingKeys =
+        commonKeys.filter(key => left.get(key) != right.get(key))
+
+      val leftOnly = idList("    leftOnly", leftOnlyKeys)
+      val rightOnly = idList("    rightOnly", rightOnlyKeys)
+
+      val diffs = differingKeys.toSeq.flatMap { key =>
+        val leftElementIds = left.get(key).get
+        val rightElementIds = right.get(key).get
+
+        Seq(s"    $title $key") ++
+          networkElementDiff("      nodeIds", leftElementIds.nodeIds, rightElementIds.nodeIds) ++
+          networkElementDiff("      wayIds", leftElementIds.wayIds, rightElementIds.wayIds) ++
+          networkElementDiff("      relationIds", leftElementIds.relationIds, rightElementIds.relationIds)
+      }
+
+      if (leftOnly.isEmpty && rightOnly.isEmpty && diffs.isEmpty) {
+        Seq.empty
+      }
+      else {
+        Seq(s"  $title:") ++ leftOnly ++ rightOnly ++ diffs
+      }
+    }
+  }
+
+  private def networkElementDiff(title: String, left: LongSet, right: LongSet): Seq[String] = {
+    val leftSet = left.toLongArray.toSet
+    val rightSet = right.toLongArray.toSet
+
+    val leftOnly = leftSet -- rightSet
+    val rightOnly = rightSet -- leftSet
+
+    if (leftOnly.isEmpty && rightOnly.isEmpty) {
+      Seq.empty
+    }
+    else {
+      Seq(
+        idList(s"${title}LeftOnly", leftOnly),
+        idList(s"${title}RightOnly", rightOnly)
+      ).flatten
+    }
+  }
+
+  private def idList(title: String, ids: Set[Long]): Seq[String] = {
+    if (ids.nonEmpty) {
+      Seq(s"$title = ${ids.toSeq.sorted.mkString(", ")}")
+    } else {
+      Seq.empty
+    }
+  }
+
+  private def elementIdDiff(title: String, left: LongSet, right: LongSet): Seq[String] = {
+    if (left.isEmpty && right.isEmpty) {
+      Seq.empty
+    }
+    else {
+      val leftIds = left.toLongArray.toSet
+      val rightIds = right.toLongArray.toSet
+      val leftOnlyKeys = leftIds -- rightIds
+      val rightOnlyKeys = rightIds -- leftIds
+
+      val leftOnly = idList("    leftOnly", leftOnlyKeys)
+      val rightOnly = idList("    rightOnly", rightOnlyKeys)
+
+      Seq(
+        Seq(s"  $title:"),
+        leftOnly,
+        rightOnly
+      ).flatten
+    }
+  }
+}

@@ -1,0 +1,36 @@
+package kpn.core.poi
+
+import kpn.api.common.poi.Poi
+import kpn.core.overpass.OverpassQueryExecutor
+import kpn.core.util.Log
+import org.xml.sax.SAXParseException
+
+import scala.xml.XML
+
+class PoiLoader(overpassQueryExecutor: OverpassQueryExecutor) {
+
+  private val log = Log(classOf[PoiLoader])
+
+  def load(
+    elementType: String,
+    layer: String,
+    bbox: String,
+    condition: String
+  ): Seq[Poi] = {
+
+    log.infoElapsed {
+      val query = PoiQuery(elementType, layer, bbox, condition)
+      val xmlString = overpassQueryExecutor.executeQuery(None, query)
+
+      val xml = try {
+        XML.loadString(xmlString)
+      } catch {
+        case e: SAXParseException =>
+          throw new RuntimeException(s"Could not load xml\n$xmlString", e)
+      }
+
+      val pois = new PoiQueryResultParser().parse(layer, xml)
+      (s"Loaded ${pois.size} pois", pois)
+    }
+  }
+}

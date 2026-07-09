@@ -1,0 +1,57 @@
+package kpn.server.api.analysis.pages.subset
+
+import kpn.api.common.AnalysisStrategy
+import kpn.api.common.ChangeSetSummary
+import kpn.api.common.Language
+import kpn.api.common.changes.filter.ChangesFilterOption
+import kpn.api.common.changes.filter.ChangesParameters
+import kpn.api.common.subset.SubsetChangesPage
+import kpn.api.custom.Subset
+import kpn.server.api.analysis.pages.ChangeSetSummaryInfosBuilder
+import kpn.server.api.analysis.pages.ChangeSetSummarySubsetFilter
+import kpn.server.config.RequestContext
+import kpn.server.repository.ChangeSetRepository
+import kpn.server.repository.SubsetRepository
+import org.springframework.context.annotation.Profile
+import org.springframework.stereotype.Component
+
+@Component
+@Profile(Array("web"))
+class SubsetChangesPageBuilder(
+  changeSetRepository: ChangeSetRepository,
+  subsetRepository: SubsetRepository,
+  changeSetSummaryInfosBuilder: ChangeSetSummaryInfosBuilder
+) {
+
+  def build(
+    subset: Subset,
+    parameters: ChangesParameters
+  ): Option[SubsetChangesPage] = {
+    val subsetInfo = subsetRepository.subsetInfo(subset)
+    val filterOptions = changeSetRepository.changesFilter(Some(subset), parameters.year, parameters.month, parameters.day)
+    val changeCount = ChangesFilterOption.changesCount(filterOptions, parameters)
+    val changeSetSummaries: Seq[ChangeSetSummary] = if (RequestContext.isLoggedIn) {
+      changeSetRepository.subsetChanges(subset, parameters)
+    }
+    else {
+      Seq.empty
+    }
+    val changeSetSummariesWithSubsetRelatedChangesOnly = changeSetSummaries.map { changeSetSummary =>
+      ChangeSetSummarySubsetFilter.filter(changeSetSummary, subset)
+    }
+    val changeSetSummaryInfos = changeSetSummaryInfosBuilder.toChangeSetSummaryInfos(
+      Language.EN,
+      AnalysisStrategy.Network,
+      parameters,
+      changeSetSummariesWithSubsetRelatedChangesOnly
+    )
+    Some(
+      SubsetChangesPage(
+        subsetInfo,
+        filterOptions,
+        changeSetSummaryInfos,
+        changeCount
+      )
+    )
+  }
+}

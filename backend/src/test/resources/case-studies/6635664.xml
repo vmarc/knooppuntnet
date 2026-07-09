@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="246197659" lat="50.6274329" lon="3.7761420">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="84"/>
+  </node>
+  <node id="247306935" lat="50.6274592" lon="3.7755860"/>
+  <node id="261585015" lat="50.6275584" lon="3.7729363"/>
+  <node id="274321008" lat="50.6275322" lon="3.7733153"/>
+  <node id="274321011" lat="50.6274045" lon="3.7741355"/>
+  <node id="274321014" lat="50.6273275" lon="3.7746937"/>
+  <node id="274321017" lat="50.6273290" lon="3.7748695"/>
+  <node id="274321022" lat="50.6274483" lon="3.7751592"/>
+  <node id="299664519" lat="50.6274603" lon="3.7754760"/>
+  <node id="1216152452" lat="50.6273980" lon="3.7750429"/>
+  <node id="1307678252" lat="50.6273487" lon="3.7749506"/>
+  <node id="1307678268" lat="50.6273244" lon="3.7748183"/>
+  <node id="1771833359" lat="50.6274651" lon="3.7737287"/>
+  <node id="1771833381" lat="50.6275428" lon="3.7730910"/>
+  <node id="1771833385" lat="50.6275527" lon="3.7730042"/>
+  <node id="2417824219" lat="50.6266522" lon="3.7724210">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="86"/>
+  </node>
+  <node id="4105933922" lat="50.6274633" lon="3.7752881"/>
+  <node id="4105933951" lat="50.6273368" lon="3.7749101"/>
+  <node id="4105933957" lat="50.6274985" lon="3.7735047"/>
+  <node id="4105933973" lat="50.6274579" lon="3.7752240"/>
+  <node id="4106004522" lat="50.6275215" lon="3.7728893"/>
+  <node id="4197639527" lat="50.6274287" lon="3.7751054"/>
+  <node id="4197639687" lat="50.6273788" lon="3.7750152"/>
+  <node id="4197640089" lat="50.6273224" lon="3.7747545"/>
+  <node id="4197640090" lat="50.6273622" lon="3.7749839"/>
+  <node id="4202342756" lat="50.6269401" lon="3.7723540"/>
+  <node id="4202342762" lat="50.6267665" lon="3.7723828"/>
+  <node id="4202342763" lat="50.6266999" lon="3.7724159">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="4202342764" lat="50.6268843" lon="3.7723533"/>
+  <node id="4202342765" lat="50.6268303" lon="3.7723645"/>
+  <node id="4202342768" lat="50.6269980" lon="3.7723632"/>
+  <node id="4202342769" lat="50.6270629" lon="3.7723867"/>
+  <node id="4202342770" lat="50.6271179" lon="3.7724208"/>
+  <node id="4202342771" lat="50.6271507" lon="3.7724542"/>
+  <node id="4202342772" lat="50.6271845" lon="3.7724920"/>
+  <node id="4210902490" lat="50.6268340" lon="3.7723637"/>
+  <node id="4210902491" lat="50.6267129" lon="3.7724094"/>
+  <way id="24148038">
+    <tag k="highway" v="unclassified"/>
+    <tag k="layer" v="-1"/>
+    <tag k="maxheight" v="3.5"/>
+    <nd ref="261585015"/>
+    <nd ref="4106004522"/>
+  </way>
+  <way id="24148039">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Rue du Grand Pont"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="4202342772"/>
+    <nd ref="4202342771"/>
+    <nd ref="4202342770"/>
+    <nd ref="4202342769"/>
+    <nd ref="4202342768"/>
+    <nd ref="4202342756"/>
+    <nd ref="4202342764"/>
+    <nd ref="4210902490"/>
+    <nd ref="4202342765"/>
+    <nd ref="4202342762"/>
+    <nd ref="4210902491"/>
+    <nd ref="4202342763"/>
+    <nd ref="2417824219"/>
+  </way>
+  <way id="25165603">
+    <tag k="highway" v="unclassified"/>
+    <tag k="lanes" v="1"/>
+    <tag k="layer" v="-1"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="261585015"/>
+    <nd ref="1771833385"/>
+    <nd ref="1771833381"/>
+    <nd ref="274321008"/>
+  </way>
+  <way id="25165605">
+    <tag k="highway" v="unclassified"/>
+    <tag k="lanes" v="2"/>
+    <tag k="name" v="Rue de la Station"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="274321008"/>
+    <nd ref="4105933957"/>
+    <nd ref="1771833359"/>
+    <nd ref="274321011"/>
+    <nd ref="274321014"/>
+    <nd ref="4197640089"/>
+    <nd ref="1307678268"/>
+    <nd ref="274321017"/>
+    <nd ref="4105933951"/>
+    <nd ref="1307678252"/>
+    <nd ref="4197640090"/>
+    <nd ref="4197639687"/>
+    <nd ref="1216152452"/>
+  </way>
+  <way id="252694301">
+    <tag k="highway" v="unclassified"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Rue de la Station"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:maxspeed" v="BE:zone:30"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="1216152452"/>
+    <nd ref="4197639527"/>
+    <nd ref="274321022"/>
+    <nd ref="4105933973"/>
+    <nd ref="4105933922"/>
+    <nd ref="299664519"/>
+    <nd ref="247306935"/>
+  </way>
+  <way id="319610352">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Rue de la Station"/>
+    <tag k="source:maxspeed" v="BE:zone:30"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="246197659"/>
+    <nd ref="247306935"/>
+  </way>
+  <way id="408693839">
+    <tag k="highway" v="unclassified"/>
+    <tag k="layer" v="-1"/>
+    <tag k="maxheight" v="3.5"/>
+    <tag k="tunnel" v="yes"/>
+    <nd ref="4106004522"/>
+    <nd ref="4202342772"/>
+  </way>
+  <relation id="6635664">
+    <member type="way" ref="319610352" role=""/>
+    <member type="way" ref="252694301" role="backward"/>
+    <member type="way" ref="25165605" role="backward"/>
+    <member type="way" ref="25165603" role="backward"/>
+    <member type="way" ref="24148038" role=""/>
+    <member type="way" ref="408693839" role=""/>
+    <member type="way" ref="24148039" role=""/>
+    <tag k="description" v="Route signed in one direction. Forward (84 to 86) is via 74."/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="network" v="rcn"/>
+    <tag k="note" v="84-86"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

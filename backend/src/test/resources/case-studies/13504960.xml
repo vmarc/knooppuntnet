@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="1883982286" lat="45.7981740" lon="5.8759235"/>
+  <node id="1883982306" lat="45.7982790" lon="5.8756909"/>
+  <node id="1883982313" lat="45.7983145" lon="5.8748610"/>
+  <node id="1883982325" lat="45.7983775" lon="5.8750220"/>
+  <node id="1883982332" lat="45.7983764" lon="5.8754142"/>
+  <node id="1883982337" lat="45.7983946" lon="5.8752242"/>
+  <node id="2801930590" lat="45.7981112" lon="5.8760873">
+    <tag k="lwn_name" v="N. D. de la Salette (792 m)"/>
+    <tag k="network:type" v="node_network"/>
+  </node>
+  <node id="7526871248" lat="45.7983112" lon="5.8747505">
+    <tag k="fixme" v="Panneau indicateur ?
+Guidepost ?"/>
+    <tag k="lwn_name" v="?"/>
+    <tag k="network:type" v="node_network"/>
+  </node>
+  <way id="1008747852">
+    <tag k="highway" v="tertiary"/>
+    <tag k="lane_markings" v="no"/>
+    <tag k="name" v="Route du Sapenay"/>
+    <tag k="ref" v="D 54"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="2801930590"/>
+    <nd ref="1883982286"/>
+    <nd ref="1883982306"/>
+    <nd ref="1883982332"/>
+    <nd ref="1883982337"/>
+    <nd ref="1883982325"/>
+    <nd ref="1883982313"/>
+    <nd ref="7526871248"/>
+  </way>
+  <relation id="13504960">
+    <member type="way" ref="1008747852" role=""/>
+    <tag k="colour" v="yellow"/>
+    <tag k="network" v="lwn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="route" v="hiking"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="246197654" lat="50.6282079" lon="3.7723455"/>
+  <node id="246197655" lat="50.6281646" lon="3.7726272"/>
+  <node id="246197658" lat="50.6285759" lon="3.7742993">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="74"/>
+  </node>
+  <node id="246197662" lat="50.6278702" lon="3.7732217"/>
+  <node id="246197663" lat="50.6278873" lon="3.7731753"/>
+  <node id="261585012" lat="50.6279902" lon="3.7723416">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="261585013" lat="50.6277970" lon="3.7725623"/>
+  <node id="261585014" lat="50.6277158" lon="3.7727212"/>
+  <node id="261585015" lat="50.6275584" lon="3.7729363"/>
+  <node id="1206304496" lat="50.6280894" lon="3.7723020"/>
+  <node id="1325205157" lat="50.6281814" lon="3.7737811"/>
+  <node id="1771833367" lat="50.6276469" lon="3.7728503"/>
+  <node id="1771833387" lat="50.6275986" lon="3.7728972"/>
+  <node id="2417824219" lat="50.6266522" lon="3.7724210">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="86"/>
+  </node>
+  <node id="3465971099" lat="50.6280367" lon="3.7723230"/>
+  <node id="4105933921" lat="50.6278645" lon="3.7733269"/>
+  <node id="4105933958" lat="50.6279170" lon="3.7724062"/>
+  <node id="4105933967" lat="50.6281979" lon="3.7724812"/>
+  <node id="4105933968" lat="50.6281895" lon="3.7725522"/>
+  <node id="4105933969" lat="50.6278609" lon="3.7732743"/>
+  <node id="4106004522" lat="50.6275215" lon="3.7728893"/>
+  <node id="4107923721" lat="50.6280474" lon="3.7728589"/>
+  <node id="4107923736" lat="50.6284539" lon="3.7741385"/>
+  <node id="4202342756" lat="50.6269401" lon="3.7723540"/>
+  <node id="4202342762" lat="50.6267665" lon="3.7723828"/>
+  <node id="4202342763" lat="50.6266999" lon="3.7724159">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="4202342764" lat="50.6268843" lon="3.7723533"/>
+  <node id="4202342765" lat="50.6268303" lon="3.7723645"/>
+  <node id="4202342768" lat="50.6269980" lon="3.7723632"/>
+  <node id="4202342769" lat="50.6270629" lon="3.7723867"/>
+  <node id="4202342770" lat="50.6271179" lon="3.7724208"/>
+  <node id="4202342771" lat="50.6271507" lon="3.7724542"/>
+  <node id="4202342772" lat="50.6271845" lon="3.7724920"/>
+  <node id="4210902490" lat="50.6268340" lon="3.7723637"/>
+  <node id="4210902491" lat="50.6267129" lon="3.7724094"/>
+  <way id="22888218">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Promenade du Roi Baudouin"/>
+    <tag k="name:etymology:wikidata" v="Q12976"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:maxspeed" v="BE:zone:30"/>
+    <tag k="surface" v="sett"/>
+    <nd ref="246197663"/>
+    <nd ref="4107923721"/>
+    <nd ref="246197655"/>
+    <nd ref="4105933968"/>
+    <nd ref="4105933967"/>
+    <nd ref="246197654"/>
+  </way>
+  <way id="22888219">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Rue de Pintamont"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:maxspeed" v="BE:zone:30"/>
+    <tag k="surface" v="sett"/>
+    <nd ref="1325205157"/>
+    <nd ref="4105933921"/>
+  </way>
+  <way id="22888220">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Rue de Pintamont"/>
+    <tag k="source:maxspeed" v="BE:zone:30"/>
+    <tag k="surface" v="sett"/>
+    <nd ref="1325205157"/>
+    <nd ref="4107923736"/>
+    <nd ref="246197658"/>
+  </way>
+  <way id="24148034">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Boulevard du Château"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="246197654"/>
+    <nd ref="1206304496"/>
+    <nd ref="3465971099"/>
+    <nd ref="261585012"/>
+    <nd ref="4105933958"/>
+    <nd ref="261585013"/>
+    <nd ref="261585014"/>
+  </way>
+  <way id="24148038">
+    <tag k="highway" v="unclassified"/>
+    <tag k="layer" v="-1"/>
+    <tag k="maxheight" v="3.5"/>
+    <nd ref="261585015"/>
+    <nd ref="4106004522"/>
+  </way>
+  <way id="24148039">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Rue du Grand Pont"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="4202342772"/>
+    <nd ref="4202342771"/>
+    <nd ref="4202342770"/>
+    <nd ref="4202342769"/>
+    <nd ref="4202342768"/>
+    <nd ref="4202342756"/>
+    <nd ref="4202342764"/>
+    <nd ref="4210902490"/>
+    <nd ref="4202342765"/>
+    <nd ref="4202342762"/>
+    <nd ref="4210902491"/>
+    <nd ref="4202342763"/>
+    <nd ref="2417824219"/>
+  </way>
+  <way id="25165604">
+    <tag k="highway" v="unclassified"/>
+    <tag k="lanes" v="1"/>
+    <tag k="layer" v="-1"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="261585014"/>
+    <nd ref="1771833367"/>
+    <nd ref="1771833387"/>
+    <nd ref="261585015"/>
+  </way>
+  <way id="221244820">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Rue de Pintamont"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:maxspeed" v="BE:zone:30"/>
+    <nd ref="4105933921"/>
+    <nd ref="4105933969"/>
+    <nd ref="246197662"/>
+    <nd ref="246197663"/>
+  </way>
+  <way id="408693839">
+    <tag k="highway" v="unclassified"/>
+    <tag k="layer" v="-1"/>
+    <tag k="maxheight" v="3.5"/>
+    <tag k="tunnel" v="yes"/>
+    <nd ref="4106004522"/>
+    <nd ref="4202342772"/>
+  </way>
+  <relation id="6635670">
+    <member type="way" ref="22888220" role=""/>
+    <member type="way" ref="22888219" role="forward"/>
+    <member type="way" ref="221244820" role="forward"/>
+    <member type="way" ref="22888218" role="forward"/>
+    <member type="way" ref="24148034" role="forward"/>
+    <member type="way" ref="25165604" role="forward"/>
+    <member type="way" ref="24148038" role=""/>
+    <member type="way" ref="408693839" role=""/>
+    <member type="way" ref="24148039" role=""/>
+    <tag k="description" v="Route signed in one direction. Backward (86 to 74) via 84."/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="network" v="rcn"/>
+    <tag k="note" v="74-86"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

@@ -1,0 +1,62 @@
+package kpn.server.analyzer.engine.analysis.caseStudies
+
+import kpn.api.common.Fact
+import kpn.api.common.RouteScope
+import kpn.api.common.RouteType
+import kpn.api.common.changes.ChangeAction
+import kpn.api.common.node.NodeIntegrity
+import kpn.api.common.node.NodeIntegrityDetail
+import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newNodeName
+import kpn.core.test.TestObjects.newRawNode
+import kpn.server.analyzer.engine.changes.integration.IntegrationTest
+
+class Issue183_DeletedNode3 extends IntegrationTest {
+
+  private val deletedNodeId = 2969204425L
+
+  test("node looses node tags") {
+
+    val dataBefore = OverpassData.load("/case-studies/node-2969204425-before.xml")
+    val dataAfter = OverpassData.load("/case-studies/node-2969204425-after.xml")
+
+    simulate(dataBefore, dataAfter) {
+
+      val nodeBefore = findNodeById(deletedNodeId)
+      assert(nodeBefore.active)
+      nodeBefore.base.name should equal(Some("Pau49"))
+      nodeBefore.base.names should equal(
+        Seq(
+          newNodeName(
+            RouteType.cycling,
+            RouteScope.regional,
+            "Pau49"
+          )
+        )
+      )
+      nodeBefore.integrity should equal(
+        Some(
+          NodeIntegrity(
+            Seq(
+              NodeIntegrityDetail(
+                RouteType.cycling,
+                RouteScope.regional,
+                3,
+                Seq.empty
+              )
+            )
+          )
+        )
+      )
+
+      processNode(ChangeAction.Modify, newRawNode(deletedNodeId))
+
+      val nodeAfter = findNodeById(deletedNodeId)
+
+      assert(!nodeAfter.active)
+
+      val nodeChange = findNodeChangeById("1:1:2969204425")
+      nodeChange.facts should equal(Seq(Fact.Deleted))
+    }
+  }
+}

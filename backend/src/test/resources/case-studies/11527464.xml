@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="29683356" lat="52.0177987" lon="8.5337009"/>
+  <node id="33766414" lat="52.0216168" lon="8.5342522">
+    <tag k="expected_rcn_route_relations" v="5"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="note" v="Wenn der Jahnplatz-Umbau abgeschlossen ist, wird dies auch von der Funktion wieder zum Knoten. (aus Richtung KP 6)"/>
+    <tag k="rcn_ref" v="22"/>
+  </node>
+  <node id="33766416" lat="52.0214828" lon="8.5343110"/>
+  <node id="33766468" lat="52.0213485" lon="8.5343560">
+    <tag k="crossing" v="marked"/>
+    <tag k="expected_rcn_route_relations" v="5"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="22"/>
+    <tag k="tactile_paving" v="yes"/>
+  </node>
+  <node id="33766560" lat="52.0208587" lon="8.5344267"/>
+  <node id="33766596" lat="52.0203322" lon="8.5344052"/>
+  <node id="33766622" lat="52.0201747" lon="8.5343758">
+    <tag k="crossing" v="marked"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="no"/>
+  </node>
+  <node id="33766683" lat="52.0189631" lon="8.5338306"/>
+  <node id="38414162" lat="52.0171596" lon="8.5323827">
+    <tag k="expected_rcn_route_relations" v="4"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="56"/>
+  </node>
+  <node id="259564136" lat="52.0205389" lon="8.5347058"/>
+  <node id="259564142" lat="52.0197573" lon="8.5344966"/>
+  <node id="276305209" lat="52.0213500" lon="8.5346604">
+    <tag k="crossing" v="marked"/>
+    <tag k="expected_rcn_route_relations" v="5"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="22"/>
+    <tag k="tactile_paving" v="yes"/>
+  </node>
+  <node id="297788142" lat="52.0211859" lon="8.5343937"/>
+  <node id="297790027" lat="52.0200962" lon="8.5346290">
+    <tag k="crossing" v="marked"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="no"/>
+  </node>
+  <node id="297792760" lat="52.0170510" lon="8.5328578"/>
+  <node id="297799489" lat="52.0171200" lon="8.5325671"/>
+  <node id="339370782" lat="52.0196278" lon="8.5341747"/>
+  <node id="409686588" lat="52.0172173" lon="8.5329787">
+    <tag k="crossing" v="marked"/>
+    <tag k="expected_rcn_route_relations" v="4"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="56"/>
+    <tag k="tactile_paving" v="no"/>
+  </node>
+  <node id="409686589" lat="52.0171550" lon="8.5332044">
+    <tag k="crossing" v="marked"/>
+    <tag k="expected_rcn_route_relations" v="4"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="56"/>
+    <tag k="tactile_paving" v="no"/>
+  </node>
+  <node id="409686591" lat="52.0171731" lon="8.5331389">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="729858911" lat="52.0187291" lon="8.5340094"/>
+  <node id="1248453513" lat="52.0172190" lon="8.5326312"/>
+  <node id="1343735113" lat="52.0171948" lon="8.5330605">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="1343735126" lat="52.0212785" lon="8.5346820"/>
+  <node id="1530050227" lat="52.0189262" lon="8.5340661"/>
+  <node id="1621355761" lat="52.0178115" lon="8.5334280"/>
+  <node id="1621355764" lat="52.0190211" lon="8.5341033"/>
+  <node id="1621355765" lat="52.0198977" lon="8.5342939"/>
+  <node id="1621363476" lat="52.0196635" lon="8.5344515">
+    <tag k="crossing:barrier" v="no"/>
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="1664277019" lat="52.0204598" lon="8.5344237"/>
+  <node id="1664277033" lat="52.0205964" lon="8.5344318"/>
+  <node id="1664277046" lat="52.0209632" lon="8.5347173">
+    <tag k="crossing" v="unmarked"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="yes"/>
+  </node>
+  <node id="1664277047" lat="52.0209906" lon="8.5344182">
+    <tag k="crossing" v="unmarked"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="no"/>
+  </node>
+  <node id="1664277051" lat="52.0210965" lon="8.5347106"/>
+  <node id="1742070273" lat="52.0171840" lon="8.5330994">
+    <tag k="cycle_network" v="Bielefeld"/>
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals" v="blinker"/>
+  </node>
+  <node id="1742070279" lat="52.0180101" lon="8.5338318">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals" v="signal"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="1755156198" lat="52.0203704" lon="8.5346855"/>
+  <node id="1813696469" lat="52.0182949" lon="8.5339255">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="1813696481" lat="52.0183185" lon="8.5336352">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals" v="signal"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="2362975966" lat="52.0202460" lon="8.5346650"/>
+  <node id="3406278335" lat="52.0171998" lon="8.5324903"/>
+  <node id="3499392069" lat="52.0213486" lon="8.5343839"/>
+  <node id="3499392070" lat="52.0213488" lon="8.5344278"/>
+  <node id="3499392071" lat="52.0213490" lon="8.5345878"/>
+  <node id="3499392072" lat="52.0213495" lon="8.5346268"/>
+  <node id="3523495594" lat="52.0199114" lon="8.5345674"/>
+  <node id="3734059845" lat="52.0197098" lon="8.5344745">
+    <tag k="crossing:barrier" v="no"/>
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="3734059846" lat="52.0198043" lon="8.5345182">
+    <tag k="crossing:barrier" v="no"/>
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="3734059847" lat="52.0198466" lon="8.5345380">
+    <tag k="crossing:barrier" v="no"/>
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="4646727194" lat="52.0175730" lon="8.5335268"/>
+  <node id="4734190677" lat="52.0180540" lon="8.5335506">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="yes"/>
+    <tag k="traffic_signals:sound" v="yes"/>
+  </node>
+  <node id="6379239277" lat="52.0200059" lon="8.5343340"/>
+  <node id="6379240310" lat="52.0207422" lon="8.5344332"/>
+  <node id="6379240311" lat="52.0207480" lon="8.5347163"/>
+  <node id="6379240316" lat="52.0211747" lon="8.5347048"/>
+  <node id="6379240318" lat="52.0201816" lon="8.5346511"/>
+  <node id="6439373478" lat="52.0172317" lon="8.5327170"/>
+  <node id="6439373483" lat="52.0171649" lon="8.5331685"/>
+  <node id="6439373484" lat="52.0172057" lon="8.5330207"/>
+  <node id="6439373685" lat="52.0172332" lon="8.5329211"/>
+  <node id="6439373686" lat="52.0180606" lon="8.5338561"/>
+  <node id="6439373688" lat="52.0181405" lon="8.5338850"/>
+  <node id="6439373693" lat="52.0182015" lon="8.5335992"/>
+  <node id="6513306005" lat="52.0187627" lon="8.5337598"/>
+  <node id="6513306006" lat="52.0191548" lon="8.5339249"/>
+  <node id="6513306039" lat="52.0177081" lon="8.5333527"/>
+  <node id="6513306040" lat="52.0178999" lon="8.5337674"/>
+  <node id="6513306065" lat="52.0195770" lon="8.5344062">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals" v="tram_priority"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="6569834188" lat="52.0179576" lon="8.5335166"/>
+  <node id="6569834196" lat="52.0178937" lon="8.5334830"/>
+  <node id="7636325026" lat="52.0213490" lon="8.5345064"/>
+  <node id="7685730174" lat="52.0188214" lon="8.5340321"/>
+  <way id="73849972">
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="yes"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lit" v="yes"/>
+    <tag k="lit:mount" v="overhead_line"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="4646727194"/>
+    <nd ref="29683356"/>
+  </way>
+  <way id="108918562">
+    <tag k="bicycle" v="yes"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="oneway:bicycle" v="yes"/>
+    <tag k="segregated" v="no"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="38414162"/>
+    <nd ref="3406278335"/>
+    <nd ref="1248453513"/>
+    <nd ref="6439373478"/>
+    <nd ref="6439373685"/>
+  </way>
+  <way id="111423162">
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="yes"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="33766468"/>
+    <nd ref="297788142"/>
+    <nd ref="1664277047"/>
+    <nd ref="33766560"/>
+    <nd ref="6379240310"/>
+    <nd ref="1664277033"/>
+    <nd ref="1664277019"/>
+    <nd ref="33766596"/>
+    <nd ref="33766622"/>
+  </way>
+  <way id="111423183">
+    <tag k="cycleway" v="right"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="yes"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lit" v="yes"/>
+    <tag k="lit:mount" v="overhead_line"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="33766622"/>
+    <nd ref="6379239277"/>
+    <nd ref="1621355765"/>
+    <nd ref="339370782"/>
+  </way>
+  <way id="157113038">
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="yes"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="lit:mount" v="overhead_line"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="sidewalk:right" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="259564142"/>
+    <nd ref="3734059846"/>
+    <nd ref="3734059847"/>
+    <nd ref="3523495594"/>
+    <nd ref="297790027"/>
+    <nd ref="6379240318"/>
+    <nd ref="2362975966"/>
+    <nd ref="1755156198"/>
+    <nd ref="259564136"/>
+  </way>
+  <way id="170212759">
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="yes"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="lit:mount" v="overhead_line"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="6439373688"/>
+    <nd ref="1813696469"/>
+    <nd ref="729858911"/>
+    <nd ref="7685730174"/>
+    <nd ref="1530050227"/>
+    <nd ref="1621355764"/>
+    <nd ref="6513306065"/>
+    <nd ref="1621363476"/>
+    <nd ref="3734059845"/>
+    <nd ref="259564142"/>
+  </way>
+  <way id="170212778">
+    <tag k="bicycle" v="yes"/>
+    <tag k="crossing" v="marked"/>
+    <tag k="foot" v="designated"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="segregated" v="no"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="6439373483"/>
+    <nd ref="409686589"/>
+  </way>
+  <way id="333984553">
+    <tag k="highway" v="residential"/>
+    <tag k="lit" v="no"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Neustädter Straße"/>
+    <tag k="sidewalk" v="none"/>
+    <tag k="source:maxspeed" v="de:zone30"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="38414162"/>
+    <nd ref="297799489"/>
+    <nd ref="297792760"/>
+  </way>
+  <way id="338952214">
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="yes"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="lit:mount" v="overhead_line"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="6439373693"/>
+    <nd ref="4734190677"/>
+  </way>
+  <way id="489070738">
+    <tag k="highway" v="residential"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="1664277046"/>
+    <nd ref="1664277051"/>
+    <nd ref="6379240316"/>
+    <nd ref="1343735126"/>
+    <nd ref="276305209"/>
+  </way>
+  <way id="574771661">
+    <tag k="bicycle" v="yes"/>
+    <tag k="crossing" v="marked"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="3499392072"/>
+    <nd ref="276305209"/>
+  </way>
+  <way id="590444239">
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="yes"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="lit:mount" v="overhead_line"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="409686589"/>
+    <nd ref="4646727194"/>
+  </way>
+  <way id="604854323">
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="yes"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="lit:mount" v="overhead_line"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="339370782"/>
+    <nd ref="6513306006"/>
+    <nd ref="33766683"/>
+  </way>
+  <way id="681223097">
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="3499392069"/>
+    <nd ref="3499392070"/>
+    <nd ref="7636325026"/>
+    <nd ref="3499392071"/>
+  </way>
+  <way id="686940032">
+    <tag k="bicycle" v="yes"/>
+    <tag k="crossing" v="marked"/>
+    <tag k="foot" v="designated"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="oneway:bicycle" v="yes"/>
+    <tag k="segregated" v="no"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="6439373685"/>
+    <nd ref="409686588"/>
+  </way>
+  <way id="686940033">
+    <tag k="bicycle" v="yes"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="lit" v="yes"/>
+    <tag k="segregated" v="no"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="6439373484"/>
+    <nd ref="1343735113"/>
+    <nd ref="1742070273"/>
+    <nd ref="409686591"/>
+    <nd ref="6439373483"/>
+  </way>
+  <way id="693747747">
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="no"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lit" v="yes"/>
+    <tag k="lit:mount" v="overhead_line"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="turn:lanes" v="left|through|right"/>
+    <nd ref="29683356"/>
+    <nd ref="6513306040"/>
+    <nd ref="1742070279"/>
+  </way>
+  <way id="693747749">
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="yes"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lit" v="yes"/>
+    <tag k="lit:mount" v="overhead_line"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="turn:lanes" v="left|through|right"/>
+    <nd ref="1742070279"/>
+    <nd ref="6439373686"/>
+    <nd ref="6439373688"/>
+  </way>
+  <way id="693747750">
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="yes"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lit" v="yes"/>
+    <tag k="lit:mount" v="overhead_line"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="turn:lanes:forward" v="left|through|right"/>
+    <nd ref="33766683"/>
+    <nd ref="6513306005"/>
+    <nd ref="1813696481"/>
+    <nd ref="6439373693"/>
+  </way>
+  <way id="699620994">
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="yes"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="lit:mount" v="overhead_line"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="sidewalk" v="none"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="4734190677"/>
+    <nd ref="6569834188"/>
+    <nd ref="6569834196"/>
+    <nd ref="1621355761"/>
+    <nd ref="6513306039"/>
+    <nd ref="409686588"/>
+  </way>
+  <way id="800661250">
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="3499392071"/>
+    <nd ref="3499392072"/>
+  </way>
+  <way id="812445112">
+    <tag k="highway" v="residential"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="259564136"/>
+    <nd ref="6379240311"/>
+    <nd ref="1664277046"/>
+  </way>
+  <way id="823352660">
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="yes"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="33766414"/>
+    <nd ref="33766416"/>
+    <nd ref="33766468"/>
+  </way>
+  <way id="839428579">
+    <tag k="bicycle" v="yes"/>
+    <tag k="crossing" v="marked"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="33766468"/>
+    <nd ref="3499392069"/>
+  </way>
+  <way id="839489995">
+    <tag k="bicycle" v="yes"/>
+    <tag k="crossing" v="marked"/>
+    <tag k="foot" v="designated"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="segregated" v="no"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="409686588"/>
+    <nd ref="6439373484"/>
+  </way>
+  <way id="839489996">
+    <tag k="cycleway:right" v="lane"/>
+    <tag k="cycleway:right:bicycle" v="designated"/>
+    <tag k="cycleway:right:oneway" v="yes"/>
+    <tag k="cycleway:right:segregated" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="lit:mount" v="overhead_line"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Niederwall"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="sidewalk" v="none"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="409686588"/>
+    <nd ref="297792760"/>
+  </way>
+  <relation id="11527464">
+    <member type="way" ref="823352660" role=""/>
+    <member type="way" ref="111423162" role="forward"/>
+    <member type="way" ref="111423183" role="forward"/>
+    <member type="way" ref="604854323" role="forward"/>
+    <member type="way" ref="693747750" role="forward"/>
+    <member type="way" ref="338952214" role="forward"/>
+    <member type="way" ref="699620994" role="forward"/>
+    <member type="way" ref="839489996" role="forward"/>
+    <member type="way" ref="333984553" role="backward"/>
+    <member type="way" ref="839428579" role="backward"/>
+    <member type="way" ref="681223097" role="backward"/>
+    <member type="way" ref="800661250" role="backward"/>
+    <member type="way" ref="574771661" role="backward"/>
+    <member type="way" ref="489070738" role="forward"/>
+    <member type="way" ref="812445112" role="forward"/>
+    <member type="way" ref="157113038" role="forward"/>
+    <member type="way" ref="170212759" role="forward"/>
+    <member type="way" ref="693747749" role="forward"/>
+    <member type="way" ref="693747747" role="forward"/>
+    <member type="way" ref="73849972" role="forward"/>
+    <member type="way" ref="590444239" role="forward"/>
+    <member type="way" ref="170212778" role="forward"/>
+    <member type="way" ref="686940033" role="forward"/>
+    <member type="way" ref="839489995" role="forward"/>
+    <member type="way" ref="686940032" role="forward"/>
+    <member type="way" ref="108918562" role="forward"/>
+    <tag k="fixme" v="... das braucht noch einmal eine vor Ort Inspektion für die Rollen und genaue Wegführung..."/>
+    <tag k="from" v="22"/>
+    <tag k="name" v="22-56"/>
+    <tag k="network" v="rcn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="ref" v="22-56"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="to" v="56"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

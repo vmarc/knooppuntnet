@@ -1,0 +1,72 @@
+package kpn.core.util
+
+import kpn.api.common.LatLon
+import kpn.api.common.planner.PlanCoordinate
+import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
+import org.geotools.geometry.jts.JTS
+import org.geotools.referencing.CRS
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.geom.LineString
+
+import java.text.DecimalFormat
+
+object CoordinateUtil {
+
+  private val sourceCRS = CRS.decode("EPSG:4326") // lat/lon
+  private val targetCRS = CRS.decode("EPSG:3857")
+  private val transform = CRS.findMathTransform(sourceCRS, targetCRS, false)
+  private val coordinateFormatter = new DecimalFormat("#.########")
+  private val geometryFactory = new GeometryFactory
+  private val CoordinatePattern = """\[([-+]?\d*\.?\d+),([-+]?\d*\.?\d+)\]""".r
+
+  def toCoordinate(lat: Double, lon: Double): PlanCoordinate = {
+    val coordinate = new Coordinate(lat, lon)
+    val target = JTS.transform(coordinate, null, transform)
+    PlanCoordinate(target.x, target.y)
+  }
+
+  def toCoordinate2(latitude: String, longitude: String): (String, String) = {
+    val coordinate = new Coordinate(latitude.toDouble, longitude.toDouble)
+    val target = JTS.transform(coordinate, null, transform)
+    (target.x.toString, target.y.toString)
+  }
+
+  def toCoordinates(latLons: Seq[LatLon]): String = {
+    latLons.map { latLon =>
+      val coordinate = new Coordinate(latLon.lat, latLon.lon)
+      val transformed = JTS.transform(coordinate, null, transform)
+      s"[${formatCoordinate(transformed.x)},${formatCoordinate(transformed.y)}]"
+    }.mkString("[", ",", "]")
+  }
+
+  def formatCoordinate(value: Double): String = {
+    coordinateFormatter.format(value) match {
+      case "-0" => "0"
+      case other => other
+    }
+  }
+
+  def lineStringToCoordinates(lineString: LineString): String = {
+    CoordinateCodec.encode(lineString.getCoordinates)
+  }
+
+  def coordinatesToLineString(string: String): LineString = {
+    val coordinates = CoordinateCodec.decode(string)
+    geometryFactory.createLineString(coordinates)
+  }
+
+  def coordinatesToString(coordinates: Array[Coordinate]): String = {
+    coordinates.map(c => s"[${c.x},${c.y}]").mkString("[", ",", "]")
+  }
+
+  def stringToCoordinates(string: String): Array[Coordinate] = {
+    CoordinatePattern.findAllMatchIn(string)
+      .map(m =>
+        new Coordinate(
+          m.group(1).toDouble,
+          m.group(2).toDouble
+        )
+      ).toArray
+  }
+}

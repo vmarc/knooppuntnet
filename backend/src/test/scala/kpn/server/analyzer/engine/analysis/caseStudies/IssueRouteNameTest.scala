@@ -1,0 +1,16 @@
+package kpn.server.analyzer.engine.analysis.caseStudies
+
+import kpn.api.common.Fact
+import kpn.core.util.UnitTest
+
+class IssueRouteNameTest extends UnitTest {
+
+  test("note") {
+    val route = CaseStudy.baseRouteDoc("14755555")
+    route.base.name should equal("Chemin de la Grive")
+    assertEqual(
+      route.facts,
+      Seq(Fact.RouteNodeNameMismatch)
+    )
+  }
+}

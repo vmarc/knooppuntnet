@@ -1,0 +1,72 @@
+package kpn.database.actions.subsets
+
+import com.mongodb.client.model.Filters.in
+import kpn.api.common.subset.SubsetInfo
+import kpn.api.custom.Subset
+import kpn.core.util.Log
+import kpn.database.actions.statistics.StatisticLongValues
+import kpn.database.base.Database
+import kpn.database.base.MongoAggregates.filter
+import kpn.database.util.Mongo
+
+object MongoQuerySubsetInfo {
+
+  private val log = Log(classOf[MongoQuerySubsetInfo])
+
+  def main(args: Array[String]): Unit = {
+    Mongo.executeIn("kpn-experimental") { database =>
+      val query = new MongoQuerySubsetInfo(database)
+      println(query.execute(Subset.nlCycling))
+      println(query.execute(Subset.deCycling))
+    }
+  }
+}
+
+class MongoQuerySubsetInfo(database: Database) {
+
+  def execute(subset: Subset, log: Log = MongoQuerySubsetInfo.log): SubsetInfo = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        filter(
+          in(
+            "_id",
+            "NetworkCount",
+            "FactCount",
+            "IntegrityCheckFailedCount",
+            "ChangeCount",
+            "OrphanNodeCount",
+            "OrphanRouteCount"
+          )
+        )
+      )
+
+      val statisticValuess = database.statistics.aggregate(pipeline, classOf[StatisticLongValues])
+      val networkCount = extractCount(subset, statisticValuess, "NetworkCount")
+      val factCount = extractCount(subset, statisticValuess, "FactCount") +
+        extractCount(subset, statisticValuess, "IntegrityCheckFailedCount")
+      val changesCount = extractCount(subset, statisticValuess, "ChangeCount")
+      val orphanNodeCount = extractCount(subset, statisticValuess, "OrphanNodeCount")
+      val orphanRouteCount = extractCount(subset, statisticValuess, "OrphanRouteCount")
+
+      val subsetInfo = SubsetInfo(
+        subset.country,
+        subset.routeType,
+        networkCount,
+        factCount,
+        changesCount,
+        orphanNodeCount,
+        orphanRouteCount
+      )
+      (s"subsetInfo", subsetInfo)
+    }
+  }
+
+  private def extractCount(subset: Subset, statisticValuess: Seq[StatisticLongValues], factname: String): Long = {
+    statisticValuess.filter(_._id == factname).map { statisticValues =>
+      statisticValues.values.filter(statisticValue =>
+        statisticValue.country == subset.country &&
+          statisticValue.routeType == subset.routeType
+      ).map(_.value).sum
+    }.sum
+  }
+}

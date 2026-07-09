@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="42661861" lat="51.4513745" lon="4.3912296"/>
+  <node id="42663091" lat="51.4519000" lon="4.3902300">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rwn_ref" v="18"/>
+  </node>
+  <node id="42665085" lat="51.4526100" lon="4.3886900"/>
+  <node id="42668031" lat="51.4536291" lon="4.3866088">
+    <tag k="expected_rwn_route_relations" v="3"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rwn_ref" v="07"/>
+  </node>
+  <node id="42670354" lat="51.4544500" lon="4.3872700"/>
+  <node id="42676331" lat="51.4564800" lon="4.3888100"/>
+  <node id="42682673" lat="51.4587000" lon="4.3905300"/>
+  <node id="42683416" lat="51.4589900" lon="4.3907800">
+    <tag k="expected_rwn_route_relations" v="3"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="81"/>
+    <tag k="rwn_ref" v="15"/>
+  </node>
+  <node id="42683584" lat="51.4590500" lon="4.3906200"/>
+  <node id="42683636" lat="51.4590800" lon="4.3904400"/>
+  <node id="42683767" lat="51.4591200" lon="4.3899200"/>
+  <node id="42683854" lat="51.4591700" lon="4.3895700"/>
+  <node id="42685338" lat="51.4597400" lon="4.3872300"/>
+  <node id="288926470" lat="51.4390525" lon="4.4106362"/>
+  <node id="288926471" lat="51.4415414" lon="4.4121267"/>
+  <node id="288926472" lat="51.4431039" lon="4.4109720"/>
+  <node id="288926473" lat="51.4460227" lon="4.4101956"/>
+  <node id="288926474" lat="51.4457330" lon="4.4095796"/>
+  <node id="288926475" lat="51.4468274" lon="4.4078852"/>
+  <node id="288926478" lat="51.4467093" lon="4.4049295"/>
+  <node id="288926479" lat="51.4476692" lon="4.4035100">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rwn_ref" v="02"/>
+  </node>
+  <node id="288926480" lat="51.4476412" lon="4.4010960">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rwn_ref" v="01"/>
+  </node>
+  <node id="288926481" lat="51.4478350" lon="4.3995875"/>
+  <node id="288926483" lat="51.4479848" lon="4.3986176"/>
+  <node id="288926484" lat="51.4486324" lon="4.3980783"/>
+  <node id="288926485" lat="51.4488678" lon="4.3948905"/>
+  <node id="289172991" lat="51.4368334" lon="4.4107368">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="24"/>
+  </node>
+  <node id="289180496" lat="51.4489476" lon="4.3954333"/>
+  <node id="289180505" lat="51.4486826" lon="4.3974587"/>
+  <node id="289180511" lat="51.4487294" lon="4.3967050"/>
+  <node id="289180517" lat="51.4484127" lon="4.3982915"/>
+  <node id="467855814" lat="51.4602459" lon="4.3850594">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="81"/>
+  </node>
+  <node id="527062137" lat="51.4476121" lon="4.4036330"/>
+  <node id="527062152" lat="51.4476692" lon="4.4033383"/>
+  <node id="527063170" lat="51.4480169" lon="4.3984717"/>
+  <node id="527063173" lat="51.4481024" lon="4.3984116"/>
+  <node id="527063197" lat="51.4485238" lon="4.3982473"/>
+  <node id="527063211" lat="51.4485839" lon="4.3981883"/>
+  <node id="527063302" lat="51.4489583" lon="4.3953132"/>
+  <node id="527063321" lat="51.4489529" lon="4.3952016"/>
+  <node id="2417462534" lat="51.4595874" lon="4.3878563"/>
+  <node id="2599109544" lat="51.4386735" lon="4.4105394"/>
+  <node id="2599109545" lat="51.4388773" lon="4.4105329"/>
+  <node id="2599109546" lat="51.4394942" lon="4.4109016"/>
+  <node id="2599109547" lat="51.4402473" lon="4.4113304"/>
+  <node id="2599109548" lat="51.4411021" lon="4.4118613"/>
+  <node id="2599109549" lat="51.4421692" lon="4.4116625"/>
+  <node id="2599109550" lat="51.4432384" lon="4.4109196"/>
+  <node id="2599109551" lat="51.4441405" lon="4.4107167"/>
+  <node id="2599109552" lat="51.4451642" lon="4.4104831"/>
+  <node id="2599109553" lat="51.4459626" lon="4.4102772">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="3010140535" lat="51.4466622" lon="4.4051358"/>
+  <node id="3010140536" lat="51.4468543" lon="4.4077413"/>
+  <node id="6115188345" lat="51.4560670" lon="4.3884967"/>
+  <node id="6400029870" lat="51.4459039" lon="4.4093488"/>
+  <node id="6400053193" lat="51.4457572" lon="4.4095469">
+    <tag k="highway" v="give_way"/>
+    <tag k="traffic_sign:backward" v="BE:B1"/>
+  </node>
+  <node id="6400065087" lat="51.4459937" lon="4.4102277">
+    <tag k="highway" v="give_way"/>
+    <tag k="traffic_sign:forward" v="BE:B1"/>
+  </node>
+  <node id="6400065088" lat="51.4459651" lon="4.4100867">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="crossing_ref" v="zebra"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="6400121747" lat="51.4459077" lon="4.4103182"/>
+  <way id="7251058">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Schouwenbaan"/>
+    <nd ref="42670354"/>
+    <nd ref="6115188345"/>
+    <nd ref="42676331"/>
+    <nd ref="42682673"/>
+    <nd ref="42683416"/>
+  </way>
+  <way id="7251077">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Moerkantsebaan"/>
+    <nd ref="42661861"/>
+    <nd ref="42663091"/>
+  </way>
+  <way id="7251078">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Schouwenbaan"/>
+    <nd ref="42668031"/>
+    <nd ref="42670354"/>
+  </way>
+  <way id="7251235">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Kriekendreef"/>
+    <nd ref="42683416"/>
+    <nd ref="42683584"/>
+    <nd ref="42683636"/>
+    <nd ref="42683767"/>
+    <nd ref="42683854"/>
+    <nd ref="2417462534"/>
+  </way>
+  <way id="26395864">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Verbindingsstraat"/>
+    <nd ref="289172991"/>
+    <nd ref="2599109544"/>
+    <nd ref="2599109545"/>
+    <nd ref="288926470"/>
+    <nd ref="2599109546"/>
+    <nd ref="2599109547"/>
+    <nd ref="2599109548"/>
+    <nd ref="288926471"/>
+  </way>
+  <way id="26395866">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Verbindingsstraat"/>
+    <nd ref="288926471"/>
+    <nd ref="2599109549"/>
+    <nd ref="288926472"/>
+    <nd ref="2599109550"/>
+    <nd ref="2599109551"/>
+    <nd ref="2599109552"/>
+    <nd ref="6400121747"/>
+    <nd ref="2599109553"/>
+    <nd ref="6400065087"/>
+    <nd ref="288926473"/>
+  </way>
+  <way id="26396645">
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Moerkantsebaan"/>
+    <tag k="ref" v="N125"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="source:maxspeed" v="BE-VLG:urban"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="zone:traffic" v="BE-VLG:urban"/>
+    <nd ref="288926473"/>
+    <nd ref="6400065088"/>
+    <nd ref="288926474"/>
+  </way>
+  <way id="26396646">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Bergsebaan"/>
+    <tag k="source:maxspeed" v="BE-VLG:urban"/>
+    <tag k="zone:traffic" v="BE-VLG:urban"/>
+    <nd ref="288926474"/>
+    <nd ref="6400053193"/>
+    <nd ref="6400029870"/>
+    <nd ref="288926475"/>
+    <nd ref="3010140536"/>
+    <nd ref="3010140535"/>
+    <nd ref="288926478"/>
+    <nd ref="527062137"/>
+    <nd ref="288926479"/>
+  </way>
+  <way id="26396795">
+    <tag k="highway" v="unclassified"/>
+    <nd ref="288926485"/>
+    <nd ref="42661861"/>
+  </way>
+  <way id="233348364">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Moerkantsebaan"/>
+    <nd ref="42663091"/>
+    <nd ref="42665085"/>
+    <nd ref="42668031"/>
+  </way>
+  <way id="233350601">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Kriekendreef"/>
+    <nd ref="2417462534"/>
+    <nd ref="42685338"/>
+    <nd ref="467855814"/>
+  </way>
+  <way id="297154083">
+    <tag k="highway" v="unclassified"/>
+    <nd ref="288926480"/>
+    <nd ref="288926481"/>
+    <nd ref="288926483"/>
+    <nd ref="527063170"/>
+    <nd ref="527063173"/>
+    <nd ref="289180517"/>
+    <nd ref="527063197"/>
+    <nd ref="527063211"/>
+    <nd ref="288926484"/>
+    <nd ref="289180505"/>
+    <nd ref="289180511"/>
+    <nd ref="289180496"/>
+    <nd ref="527063302"/>
+    <nd ref="527063321"/>
+    <nd ref="288926485"/>
+  </way>
+  <way id="297154084">
+    <tag k="highway" v="unclassified"/>
+    <nd ref="288926479"/>
+    <nd ref="527062152"/>
+    <nd ref="288926480"/>
+  </way>
+  <relation id="28184">
+    <member type="way" ref="26395864" role=""/>
+    <member type="way" ref="26395866" role=""/>
+    <member type="way" ref="26396645" role=""/>
+    <member type="way" ref="26396646" role=""/>
+    <member type="way" ref="297154084" role=""/>
+    <member type="way" ref="297154083" role=""/>
+    <member type="way" ref="26396795" role=""/>
+    <member type="way" ref="7251077" role=""/>
+    <member type="way" ref="233348364" role=""/>
+    <member type="way" ref="7251078" role=""/>
+    <member type="way" ref="7251058" role=""/>
+    <member type="way" ref="7251235" role="backward"/>
+    <member type="way" ref="233350601" role="backward"/>
+    <tag k="network" v="rcn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="note" v="24-81"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

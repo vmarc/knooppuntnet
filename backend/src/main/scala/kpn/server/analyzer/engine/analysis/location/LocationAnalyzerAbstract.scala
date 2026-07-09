@@ -1,0 +1,40 @@
+package kpn.server.analyzer.engine.analysis.location
+
+import kpn.api.common.Country
+import kpn.api.common.LatLon
+import kpn.api.common.Relation
+import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
+
+abstract class LocationAnalyzerAbstract extends LocationAnalyzer {
+
+  override def relationCountry(relation: Relation): Option[Country] = {
+    val nodes = RelationAnalyzer.referencedNetworkNodes(relation)
+    if (nodes.nonEmpty) {
+      country(nodes)
+    }
+    else {
+      val ways = RelationAnalyzer.referencedWays(relation)
+      val nodes = ways.flatMap { w =>
+        if (w.nodes.nonEmpty) {
+          Seq(w.nodes.head, w.nodes.last)
+        }
+        else {
+          Seq.empty
+        }
+      }
+      country(nodes)
+    }
+  }
+
+  protected def doCountry(latLons: Iterable[LatLon]): Option[Country] = {
+    val c = latLons.toSeq.flatMap { latLon =>
+      countries(latLon)
+    }
+    Option.when(c.nonEmpty) {
+      val countryCounts: Map[Country, Int] = c.groupBy(identity).map(e => e._1 -> e._2.size)
+      val maxCountryCount = countryCounts.values.max
+      val countriesWithMaxCount = countryCounts.filter(_._2 == maxCountryCount).keys
+      countriesWithMaxCount.minBy(_.entryName)
+    }
+  }
+}

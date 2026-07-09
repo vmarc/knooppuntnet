@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaSbtSettings">
+    <option name="linkedExternalProjectsSettings">
+      <SbtProjectSettings>
+        <option name="converterVersion" value="2" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/analysis" />
+            <option value="$PROJECT_DIR$/api" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/project" />
+            <option value="$PROJECT_DIR$/web" />
+          </set>
+        </option>
+        <option name="resolveSbtClassifiers" value="true" />
+        <option name="sbtVersion" value="2.0.1" />
+        <option name="useSeparateCompilerOutputPaths" value="true" />
+      </SbtProjectSettings>
+    </option>
+  </component>
+</project>

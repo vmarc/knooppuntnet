@@ -1,0 +1,195 @@
+package kpn.core.replicate
+
+import com.mongodb.client.MongoClient
+import kpn.api.common.ReplicationId
+import kpn.api.common.status.ActionTimestamp
+import kpn.api.custom.Timestamp
+import kpn.core.metrics.UpdateAction
+import kpn.core.tools.config.Dirs
+import kpn.core.tools.status.StatusRepository
+import kpn.core.util.Log
+import kpn.database.base.MetricsDatabase
+import kpn.database.base.Options
+import kpn.database.base.Tool
+import kpn.database.util.Mongo.client
+import kpn.database.util.Mongo.codecRegistry
+import kpn.server.analyzer.engine.changes.MinuteDiffReader
+import kpn.server.analyzer.engine.changes.ReplicationStateReader
+import kpn.server.repository.MetricsRepository
+import org.apache.commons.io.FileUtils
+import org.apache.logging.log4j.ThreadContext
+
+import java.io.File
+import scala.annotation.tailrec
+
+/*
+  Updates the Overpass API database from the minute diff files.
+
+    --rootDir=/kpn
+    --actionsDatabase=actions
+
+    -Dlog4j.configurationFile=file:///kpn/conf/updater-log4j2.xml
+    -Dcom.sun.management.jmxremote.port=5555
+    -Dcom.sun.management.jmxremote.authenticate=false
+    -Dcom.sun.management.jmxremote.ssl=false
+*/
+object UpdaterTool extends Tool[UpdaterToolOptions] {
+
+  private val LOG = Log(classOf[UpdaterTool])
+
+  // maximum number of minute diff files to process in one go
+  private val BATCH_SIZE = 10 // 60 * 24
+
+  // number of seconds to wait before attempting to make new request to osm API once in sync
+  private val WAIT = 30
+
+  // milliseconds between poll of shutdown flag during sleep
+  private val SLEEP_SHUTDOWN_POLL_INTERVAL = 250L
+
+  override def options: Options[UpdaterToolOptions] = UpdaterToolOptions
+
+  override def execute(options: UpdaterToolOptions): Unit = {
+    val mongoClient = client
+    try {
+      val updater = buildTool(mongoClient, options)
+      updater.launch()
+    }
+    finally {
+      mongoClient.close()
+    }
+  }
+
+  private def buildTool(mongoClient: MongoClient, options: UpdaterToolOptions): UpdaterTool = {
+    val dirs = Dirs()
+    val statusRepository = new StatusRepository(dirs)
+    val replicationStateRepository = new ReplicationStateRepository(dirs.replicate)
+    val database = new MetricsDatabase(mongoClient.getDatabase(options.actionsDatabaseName).withCodecRegistry(codecRegistry))
+    val metricsRepository = new MetricsRepository(database)
+    new UpdaterTool(options, statusRepository, metricsRepository, replicationStateRepository)
+  }
+}
+
+class UpdaterTool(
+  options: UpdaterToolOptions,
+  statusRepository: StatusRepository,
+  metricsRepository: MetricsRepository,
+  replicationStateRepository: ReplicationStateRepository
+) {
+
+  import kpn.core.replicate.UpdaterTool.*
+
+  private val oper = new Oper()
+
+  def launch(): Unit = {
+
+    assertExists(options.rootDir)
+
+    statusRepository.updaterStatus match {
+      case None =>
+        LOG.info("Cannot find initial update status")
+      case Some(initialReplicationId) =>
+        LOG.info(s"Start processing minute diff files after ${initialReplicationId.name}")
+        processBatchLoop(initialReplicationId)
+    }
+
+    LOG.info("End")
+  }
+
+  private def assertExists(file: File): Unit = {
+    require(file.exists, s"${file.getAbsolutePath} not found")
+  }
+
+  @tailrec
+  private def processBatchLoop(previousReplicationId: ReplicationId): Unit = {
+
+    statusRepository.replicatorStatus match {
+      case None =>
+
+        LOG.info("Cannot find replicator status")
+        sleep(WAIT)
+
+      case Some(maxReplicationId) =>
+
+        FileUtils.cleanDirectory(options.tmpDir)
+        val (lastReplicationId, timestampOption) = readBatchAndWriteTempFiles(previousReplicationId, maxReplicationId, 0, None)
+        if (previousReplicationId == lastReplicationId) {
+          // all files processed, sleep for a while
+          sleep(lastReplicationId)
+          if (oper.isActive) {
+            processBatchLoop(lastReplicationId)
+          }
+        }
+        else {
+          if (oper.isActive) {
+            val batchSize = lastReplicationId.number - previousReplicationId.next.number + 1
+            LOG.info(s"Processing batch ${previousReplicationId.next.name} to ${lastReplicationId.name} [$batchSize]")
+            LOG.infoElapsed {
+              new OverpassUpdate(options.overpassUpdate, options.tmpDir).update(timestampOption.get)
+              (s"${timestampOption.get.yyyymmddhhmmss}", ())
+            }
+            statusRepository.writeUpdateStatus(lastReplicationId)
+            log(previousReplicationId, lastReplicationId)
+            if (oper.isActive) {
+              processBatchLoop(lastReplicationId)
+            }
+          }
+        }
+    }
+  }
+
+  private def log(previousReplicationId: ReplicationId, lastReplicationId: ReplicationId): Unit = {
+    (previousReplicationId.next.number to lastReplicationId.number) foreach { id =>
+      val replicationId = ReplicationId(id)
+      val timestamp = replicationStateRepository.read(replicationId)
+      val minuteDiffInfo = ActionTimestamp.minuteDiffInfo(id, timestamp)
+      metricsRepository.saveUpdateAction(UpdateAction(minuteDiffInfo))
+    }
+  }
+
+  @tailrec
+  private def readBatchAndWriteTempFiles(previousReplicationId: ReplicationId, maxReplicationId: ReplicationId, filesInBatchCount: Int, timestamp: Option[Timestamp]): (ReplicationId, Option[Timestamp]) = {
+    val replicationId = previousReplicationId.next
+    if (replicationId.number <= maxReplicationId.number && filesInBatchCount < UpdaterTool.BATCH_SIZE) {
+      ThreadContext.push(replicationId.name)
+      minuteDiff(replicationId) match {
+        case Some(diff) =>
+          FileUtils.writeStringToFile(new File(options.tmpDir, s"${diff.replicationId.number}.xml"), diff.xml, "UTF-8")
+          ThreadContext.pop()
+          readBatchAndWriteTempFiles(replicationId, maxReplicationId, filesInBatchCount + 1, Some(diff.timestamp))
+        case None =>
+          ThreadContext.pop()
+          (previousReplicationId, timestamp)
+      }
+    }
+    else {
+      (previousReplicationId, timestamp)
+    }
+  }
+
+  private def sleep(replicationId: ReplicationId): Option[ReplicationId] = {
+    if (oper.isActive) {
+      sleep(WAIT)
+      Option.when(oper.isActive) {
+        replicationId
+      }
+    }
+    else {
+      None
+    }
+  }
+
+  private def sleep(seconds: Int): Unit = {
+    LOG.info(s"Waiting ${seconds}s")
+    val end = System.currentTimeMillis() + (seconds * 1000)
+    while (oper.isActive && System.currentTimeMillis() < end) {
+      Thread.sleep(SLEEP_SHUTDOWN_POLL_INTERVAL)
+    }
+    LOG.info(s"End waiting ${seconds}s")
+  }
+
+  private def minuteDiff(replicationId: ReplicationId): Option[MinuteDiff] = {
+    new ReplicationStateReader(options.replicateDir).readTimestamp(replicationId).flatMap { timestamp =>
+      new MinuteDiffReader(options.replicateDir).read(replicationId).map(xml => MinuteDiff(replicationId, timestamp, xml))
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="899344186" lat="45.2265465" lon="6.2010406"/>
+  <node id="899344227" lat="45.2267081" lon="6.2009295"/>
+  <node id="899344335" lat="45.2267593" lon="6.2009995"/>
+  <node id="899344412" lat="45.2264742" lon="6.2010757"/>
+  <node id="899344458" lat="45.2266289" lon="6.2009422"/>
+  <node id="899344489" lat="45.2267676" lon="6.2010285">
+    <tag k="lwn_name" v="Col de la Croix de Fer - Ouest"/>
+    <tag k="network:type" v="node_network"/>
+  </node>
+  <node id="899344494" lat="45.2264036" lon="6.2011127">
+    <tag k="lwn_name" v="Col de la Croix de Fer - Ouest"/>
+    <tag k="network:type" v="node_network"/>
+  </node>
+  <way id="429816774">
+    <tag k="highway" v="track"/>
+    <tag k="motor_vehicle" v="no"/>
+    <tag k="smoothness" v="very_bad"/>
+    <tag k="source" v="© CNES 2004-2007 / Spot Image"/>
+    <tag k="surface" v="unpaved"/>
+    <tag k="tracktype" v="grade3"/>
+    <nd ref="899344489"/>
+    <nd ref="899344335"/>
+    <nd ref="899344227"/>
+    <nd ref="899344458"/>
+    <nd ref="899344186"/>
+    <nd ref="899344412"/>
+    <nd ref="899344494"/>
+  </way>
+  <relation id="13626627">
+    <member type="way" ref="429816774" role=""/>
+    <tag k="colour" v="yellow"/>
+    <tag k="network" v="lwn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="osmc:symbol" v="yellow:none:yellow_bar"/>
+    <tag k="route" v="hiking"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

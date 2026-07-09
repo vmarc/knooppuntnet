@@ -1,0 +1,54 @@
+package kpn.api.custom
+
+import kpn.core.util.Util
+
+object Day {
+  def fromString(string: String): Option[Day] = {
+    if (string.length == "yyyy-mm-dd".length) {
+      val yearString = string.substring(0, 4)
+      val monthString = string.substring(5, 7)
+      val dayString = string.substring(8, 10)
+      Option.when(Util.isDigits(yearString) && Util.isDigits(monthString) && Util.isDigits(dayString)) {
+        Day(yearString.toInt, monthString.toInt, dayString.toInt)
+      }
+    }
+    else if (string.length == "yyyy-mm".length) {
+      val yearString = string.substring(0, 4)
+      val monthString = string.substring(5, 7)
+      Option.when(Util.isDigits(yearString) && Util.isDigits(monthString)) {
+        Day(yearString.toInt, monthString.toInt)
+      }
+    }
+    else {
+      None
+    }
+  }
+
+  def apply(year: Int, month: Int, day: Int): Day = {
+    Day(year, month, Some(day))
+  }
+}
+
+case class Day(year: Int, month: Int, day: Option[Int] = None) {
+
+  def yyyymm: String = f"$year-$month%02d"
+
+  def isBefore(other: Day): Boolean = {
+    if (this.year < other.year) {
+      true
+    }
+    else if (this.year > other.year) {
+      false
+    }
+    else {
+      this.month < other.month
+    }
+  }
+
+  def yyyymmdd: String = {
+    day match {
+      case Some(dayInt) => f"$year-$month%02d-$dayInt%02d"
+      case None => f"$year-$month%02d"
+    }
+  }
+}

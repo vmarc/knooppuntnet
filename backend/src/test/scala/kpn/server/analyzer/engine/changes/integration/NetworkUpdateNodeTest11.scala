@@ -1,0 +1,152 @@
+package kpn.server.analyzer.engine.changes.integration
+
+import kpn.api.common.ChangeSetElementRefs
+import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeType
+import kpn.api.common.Country
+import kpn.api.common.NetworkChanges
+import kpn.api.common.RouteType
+import kpn.api.common.changes.ChangeAction
+import kpn.api.common.changes.details.RefBooleanChange
+import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
+import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Subset
+import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSetElementRef
+import kpn.core.test.TestObjects.newChangeSetNetwork
+import kpn.core.test.TestObjects.newChangeSetSummary
+import kpn.core.test.TestObjects.newLocationChanges
+import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNetworkChange
+import kpn.core.test.TestObjects.newNodeChange
+
+class NetworkUpdateNodeTest11 extends IntegrationTest {
+
+  test("network update - node role 'connection' removed") {
+
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkRelation(
+        1,
+        "network-name",
+        Seq(
+          newMember(MemberType.Node, 1001, "connection")
+        )
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .networkRelation(
+        1,
+        "network-name",
+        Seq(
+          newMember(MemberType.Node, 1001)
+        )
+      )
+
+    testIntegration(dataBefore, dataAfter) {
+
+      processRelation(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+
+      assertBaseNetwork()
+      assertNetwork()
+      assertNetworkChange()
+      assertNodeChange()
+      assertChangeSetSummary()
+    }
+  }
+
+  private def assertBaseNetwork(): Unit = {
+    val baseNetworkDoc = findBaseNetworkById(1)
+    baseNetworkDoc._id should equal(1)
+  }
+
+  private def assertNetwork(): Unit = {
+    val networkDoc = findNetworkById(1)
+    networkDoc._id should equal(1)
+  }
+
+  private def assertNetworkChange(): Unit = {
+    assertEqual(
+      findNetworkChangeById("1:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = Some("network-name"),
+        changeType = ChangeType.Update,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        nodes = IdDiffs(
+          updated = Seq(1001)
+        ),
+        nodeDiffs = RefDiffs(
+          updated = Seq(
+            Ref(1001, "01")
+          )
+        ),
+      )
+    )
+  }
+
+  private def assertNodeChange(): Unit = {
+    assertEqual(
+      findNodeChangeById("1:1:1001"),
+      newNodeChange(
+        key = newChangeKey(elementId = 1001),
+        changeType = ChangeType.Update,
+        subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
+        name = Some("01"),
+        before = Some(
+          newMetaData()
+        ),
+        after = Some(
+          newMetaData()
+        ),
+        roleConnectionChanges = Seq(
+          RefBooleanChange(Ref(1, "network-name"), after = false)
+        )
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    assertEqual(
+      findChangeSetSummaryById("1:1"),
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
+        networkChanges = NetworkChanges(
+          updates = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              RouteType.hiking,
+              1,
+              Some("network-name"),
+              nodeChanges = ChangeSetElementRefs(
+                updated = Seq(newChangeSetElementRef(1001, "01"))
+              )
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01"),
+              )
+            )
+          )
+        )
+      )
+    )
+  }
+}

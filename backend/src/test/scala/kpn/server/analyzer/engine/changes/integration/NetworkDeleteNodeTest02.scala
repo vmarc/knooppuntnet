@@ -1,0 +1,163 @@
+package kpn.server.analyzer.engine.changes.integration
+
+import kpn.api.common.ChangeSetElementRefs
+import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeType
+import kpn.api.common.Country
+import kpn.api.common.NetworkChanges
+import kpn.api.common.RouteType
+import kpn.api.common.changes.ChangeAction
+import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
+import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Subset
+import kpn.core.test.OverpassData
+import kpn.core.test.TestObjects.newChangeKey
+import kpn.core.test.TestObjects.newChangeSetElementRef
+import kpn.core.test.TestObjects.newChangeSetNetwork
+import kpn.core.test.TestObjects.newChangeSetSummary
+import kpn.core.test.TestObjects.newLocationChanges
+import kpn.core.test.TestObjects.newMember
+import kpn.core.test.TestObjects.newMetaData
+import kpn.core.test.TestObjects.newNetworkBaseData
+import kpn.core.test.TestObjects.newNetworkChange
+import kpn.core.test.TestObjects.newNetworkDoc
+import kpn.core.test.TestObjects.newNetworkTags
+import kpn.core.test.TestObjects.newNodeChange
+import kpn.core.test.TestObjects.newRaw
+import kpn.core.test.TestObjects.newRawRelation
+
+class NetworkDeleteNodeTest02 extends IntegrationTest {
+
+  test("network delete - node still referenced in other network does not become orphan") {
+
+    val dataBefore = OverpassData()
+      .networkNode(1001, "01")
+      .networkRelation(1, "network1", Seq(newMember(MemberType.Node, 1001)))
+      .networkRelation(2, "network2", Seq(newMember(MemberType.Node, 1001)))
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01")
+      .networkRelation(2, "network2", Seq(newMember(MemberType.Node, 1001)))
+
+    testIntegration(dataBefore, dataAfter) {
+
+      processRelation(ChangeAction.Delete, newRawRelation(1))
+
+      findOrphanNodes() shouldBe empty
+
+      assert(!watched.networks.contains(1))
+      assert(watched.networks.contains(2))
+      assert(watched.nodes.contains(1001))
+
+      assertNetwork()
+      assertNetworkChange()
+      assertNodeChange()
+      assertChangeSetSummary()
+    }
+  }
+
+  private def assertNetwork(): Unit = {
+    assertEqual(
+      findNetworkById(1),
+      newNetworkDoc(
+        1,
+        active = false, // <--- !!!
+        base = newNetworkBaseData(
+          raw = newRaw(
+            tags = newNetworkTags("network1")
+          ),
+          name = Some("network1"),
+          routeType = RouteType.hiking,
+        )
+      )
+    )
+  }
+
+  private def assertNetworkChange(): Unit = {
+    assertEqual(
+      findNetworkChangeById("1:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = Some("network1"),
+        changeType = ChangeType.Delete,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        nodes = IdDiffs(
+          removed = Seq(1001)
+        ),
+        nodeDiffs = RefDiffs(
+          removed = Seq(Ref(1001, "01"))
+        ),
+        investigate = true,
+        impact = true,
+      )
+    )
+  }
+
+  private def assertNodeChange(): Unit = {
+    assertEqual(
+      findNodeChangeById("1:1:1001"),
+      newNodeChange(
+        key = newChangeKey(elementId = 1001),
+        changeType = ChangeType.Update,
+        subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
+        name = Some("01"),
+        before = Some(
+          newMetaData()
+        ),
+        after = Some(
+          newMetaData()
+        ),
+        removedFromNetwork = Seq(
+          Ref(1, "network1")
+        ),
+        investigate = true,
+        impact = true
+      )
+    )
+  }
+
+  private def assertChangeSetSummary(): Unit = {
+    assertEqual(
+      findChangeSetSummaryById("1:1"),
+      newChangeSetSummary(
+        subsets = Seq(Subset.nlHiking),
+        locations = Seq("nl"),
+        networkChanges = NetworkChanges(
+          deletes = Seq(
+            newChangeSetNetwork(
+              Some(Country.nl),
+              RouteType.hiking,
+              1,
+              Some("network1"),
+              nodeChanges = ChangeSetElementRefs(
+                removed = Seq(
+                  newChangeSetElementRef(1001, "01", investigate = true)
+                )
+              ),
+              investigate = true
+            )
+          )
+        ),
+        subsetAnalyses = Seq(
+          ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
+        ),
+        locationChanges = Seq(
+          newLocationChanges(
+            routeType = RouteType.hiking,
+            locationNames = Seq("nl"),
+            nodeChanges = ChangeSetElementRefs(
+              updated = Seq(
+                newChangeSetElementRef(1001, "01"),
+              )
+            )
+          )
+        ),
+        investigate = true
+      )
+    )
+  }
+}

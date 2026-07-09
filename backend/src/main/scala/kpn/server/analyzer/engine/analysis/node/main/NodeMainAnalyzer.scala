@@ -1,0 +1,60 @@
+package kpn.server.analyzer.engine.analysis.node.main
+
+import kpn.core.doc.BaseNodeDoc
+import kpn.core.doc.NodeDoc
+import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeAnalysisContext
+import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeAnalyzer
+import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeIntegrityAnalyzer
+import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeLabelsAnalyzer
+import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeNetworkReferencesAnalyzer
+import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeRouteReferencesAnalyzer
+import org.bson.types.ObjectId
+import org.springframework.context.annotation.Profile
+import org.springframework.stereotype.Component
+
+import scala.annotation.tailrec
+
+@Component
+@Profile(Array("analysis"))
+class NodeMainAnalyzer(
+  nodeRouteReferencesAnalyzer: NodeRouteReferencesAnalyzer,
+  nodeNetworkReferencesAnalyzer: NodeNetworkReferencesAnalyzer,
+) {
+
+  def analyze(node: BaseNodeDoc): Option[NodeDoc] = {
+    Log.context(f"node=${node._id}%07d") {
+      val context = NodeAnalysisContext(node, active = node.active, facts = node.facts)
+      val analyzers: List[NodeAnalyzer] = List(
+        nodeRouteReferencesAnalyzer,
+        nodeNetworkReferencesAnalyzer,
+        NodeIntegrityAnalyzer,
+        NodeLabelsAnalyzer
+      )
+      doAnalyze(analyzers, context)
+    }
+  }
+
+  @tailrec
+  private def doAnalyze(analyzers: List[NodeAnalyzer], context: NodeAnalysisContext): Option[NodeDoc] = {
+    if (analyzers.isEmpty) {
+      Some(
+        NodeDoc(
+          _id = context.node._id,
+          active = context.active,
+          base = context.node.base,
+          labels = context.labels,
+          facts = context.facts,
+          integrity = context.integrity,
+          routeReferences = context.routeReferences,
+          networkRelationReferences = context.networkRelationReferences,
+          Some(ObjectId.get())
+        )
+      )
+    }
+    else {
+      val newContext = analyzers.head.analyze(context)
+      doAnalyze(analyzers.tail, newContext)
+    }
+  }
+}

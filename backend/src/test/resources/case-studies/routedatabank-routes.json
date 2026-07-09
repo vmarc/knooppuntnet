@@ -1,0 +1,30 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "wandelnetwerken_vrij_wgs84.211357",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            4.46856203,
+            52.1716429
+          ],
+          [
+            4.46857649,
+            52.17166265
+          ]
+        ]
+      },
+      "geometry_name": "wkb_geometry",
+      "properties": {
+        "regio": "Leiden",
+        "provincie": "Zuid-Holland",
+        "lijnid": 211357,
+        "last_edited_date": "2019-11-21T11:05:53.557+01:00",
+        "lengte_m": 696
+      }
+    }
+  ]
+}
