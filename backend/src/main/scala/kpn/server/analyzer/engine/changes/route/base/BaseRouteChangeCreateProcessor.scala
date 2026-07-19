@@ -10,6 +10,7 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.WayGeometryUpdate
 import kpn.api.common.route.WayLine
+import kpn.core.builders.WayLineUtil
 import kpn.core.doc.RawRouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
@@ -85,7 +86,7 @@ class BaseRouteChangeCreateProcessor(
     val geometryDiff = if (context.relation.ways.nonEmpty) {
       val bounds = Bounds.from(context.relation.ways.flatMap(_.nodes))
       val added = context.relation.ways.map { way =>
-        val wayLine = WayLine.fromLatLons(way.nodes)
+        val wayLine = WayLineUtil.fromLatLons(way.nodes)
         WayGeometryUpdate(
           wayId = way.id,
           common = None,

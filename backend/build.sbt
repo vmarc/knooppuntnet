@@ -7,13 +7,44 @@ val micrometerVersion = "1.12.1"
 val mongodbVersion = "5.6.2"
 val geoToolsVersion = "32.0"
 
+lazy val base = project
+  .settings(
+    libraryDependencies ++= Seq(
+//      // Enumeratum
+//      "com.beachape" %% "enumeratum" % "1.7.3",
+
+      // MongoDB
+      "org.mongodb" % "mongodb-driver-sync" % mongodbVersion,
+
+      // Test dependencies
+      "org.scalatest" %% "scalatest" % "3.2.19" % Test,
+      "org.scalamock" %% "scalamock" % "7.5.2" % Test,
+      "com.lihaoyi" %% "pprint" % "0.9.6" % Test,
+    )
+  )
+
 lazy val api = project
+  .dependsOn(base % "compile->compile;test->test")
+  .settings(
+    libraryDependencies ++= Seq(
+      // Enumeratum
+      "com.beachape" %% "enumeratum" % "1.7.3",
+
+      // MongoDB
+      "org.mongodb" % "mongodb-driver-sync" % mongodbVersion,
+
+      // Test dependencies
+      "org.scalatest" %% "scalatest" % "3.2.19" % Test,
+      "org.scalamock" %% "scalamock" % "7.5.2" % Test,
+    )
+  )
+
 lazy val web = project
 lazy val core = project
 lazy val analysis = project
 
 lazy val root = rootProject
-  .dependsOn(api, web, core, analysis)
+  .dependsOn(api % "compile->compile;test->test", web, core, analysis)
   .settings(
     name := "backend",
     organization := "knooppuntnet",

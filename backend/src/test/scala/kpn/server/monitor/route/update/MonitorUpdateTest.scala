@@ -5,6 +5,7 @@ import kpn.api.common.monitor.MonitorCommandAction
 import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.custom.Timestamp
+import kpn.core.builders.MonitorRouteRelationBuilder
 import kpn.core.data.DataBuilder
 import kpn.core.test.MongoTest
 import kpn.core.test.OverpassData
@@ -38,7 +39,7 @@ abstract class MonitorUpdateTest extends MongoTest with Stubs {
   def configuration: MonitorUpdaterConfiguration = _configuration
 
   def setupRouteStructure(timestamp: Option[Timestamp], overpassData: OverpassData, relationId: Long): Unit = {
-    val monitorRouteRelation = MonitorRouteRelation.from(new DataBuilder(overpassData.rawData).data.relations(relationId), None)
+    val monitorRouteRelation = MonitorRouteRelationBuilder.from(new DataBuilder(overpassData.rawData).data.relations(relationId), None)
     (monitorRouteStructureLoader.load _).returnsWith(Some(monitorRouteRelation))
   }
 

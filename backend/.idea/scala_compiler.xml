@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ScalaCompilerConfiguration">
     <option name="separateProdTestSources" value="true" />
-    <profile name="sbt 1" modules="backend,backend.analysis,backend.analysis.main,backend.analysis.test,backend.api,backend.api.main,backend.api.test,backend.core,backend.core.main,backend.core.test,backend.web,backend.web.main,backend.web.test" />
+    <profile name="sbt 1" modules="backend,backend.analysis,backend.analysis.main,backend.analysis.test,backend.api,backend.api.main,backend.api.test,backend.base,backend.base.main,backend.base.test,backend.core,backend.core.main,backend.core.test,backend.web,backend.web.main,backend.web.test" />
     <profile name="sbt 2" modules="backend.main,backend.test">
       <option name="deprecationWarnings" value="true" />
       <parameters>

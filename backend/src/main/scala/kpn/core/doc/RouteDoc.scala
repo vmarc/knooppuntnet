@@ -5,6 +5,7 @@ import kpn.api.common.Fact
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
 import kpn.api.common.data.Tagable
+import kpn.api.common.diff.RouteData
 import kpn.api.common.route.ParentRoute
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
@@ -44,5 +45,18 @@ case class RouteDoc(
 
   def tags: Seq[Tag] = {
     base.raw.tags
+  }
+
+  def toRouteData: RouteData ={
+      RouteData(
+        relationId = _id,
+        raw = base.raw,
+        countries = base.countries,
+        routeTypes = base.routeTypes,
+        name = base.name,
+        networkNodes = base.nodes.nodes,
+        facts = facts,
+        meters = base.meters
+      )
   }
 }

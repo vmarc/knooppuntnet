@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.custom.Timestamp
+import kpn.core.builders.MonitorRouteRelationBuilder
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
@@ -47,7 +48,7 @@ class MonitorRouteStructureLoader(overpassQueryExecutor: OverpassQueryExecutor) 
     val data = new DataBuilder(rawData).data
 
     data.relations.get(relationId).map { relation =>
-      MonitorRouteRelation.from(relation, None)
+      MonitorRouteRelationBuilder.from(relation, None)
     }
   }
 }

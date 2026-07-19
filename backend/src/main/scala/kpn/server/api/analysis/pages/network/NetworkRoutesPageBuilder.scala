@@ -2,7 +2,8 @@ package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkRoutesPage
-import kpn.core.util.Log
+import kpn.core.doc.NetworkRouteDetail
+import kpn.core.util.{Log, RouteSymbol}
 import kpn.database.actions.networks.MongoQueryNetworkRoutesPageData
 import kpn.database.base.Database
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
@@ -27,7 +28,7 @@ class NetworkRoutesPageBuilder(database: Database) {
           surveyDateInfo = SurveyDateInfoBuilder.dateInfo,
           routeType = data.summary.routeType,
           summary = data.summary,
-          routes = data.routes.map(NetworkRouteRow.from)
+          routes = data.routes.map(toRow)
         )
       }
     }
@@ -35,5 +36,23 @@ class NetworkRoutesPageBuilder(database: Database) {
 
   private def query(networkId: Long): Option[NetworkRoutesPageData] = {
     new MongoQueryNetworkRoutesPageData(database).execute(networkId)
+  }
+
+  private def toRow(detail: NetworkRouteDetail): NetworkRouteRow = {
+    val symbol = RouteSymbol.from(detail)
+    NetworkRouteRow(
+      detail.id,
+      detail.name,
+      detail.length,
+      detail.role,
+      detail.investigate,
+      detail.accessible,
+      detail.roleConnection,
+      detail.lastUpdated,
+      detail.lastSurvey,
+      detail.proposed,
+      detail.facts,
+      symbol
+    )
   }
 }

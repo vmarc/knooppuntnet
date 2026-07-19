@@ -5,6 +5,7 @@ import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteSummary
 import kpn.api.common.route.RouteDetails
+import kpn.core.builders.RouteDetailsBuilder
 import kpn.database.actions.routes.RouteDetailsData
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.config.RequestContext
@@ -69,7 +70,7 @@ class MonitorRouteDetailsPageBuilder(
   private def buildRouteDetails(context: PageBuildContext): Option[RouteDetails] = {
     context.routeDetails.map { routeDetailsData =>
       val locationCandidateInfos = buildLocationCandidateInfos(context.language, routeDetailsData)
-      RouteDetails.from(routeDetailsData, locationCandidateInfos)
+      RouteDetailsBuilder.from(routeDetailsData, locationCandidateInfos)
     }
   }
 

@@ -44,7 +44,7 @@ class RouteChangeCreateProcessor {
             addedToNetwork = addedToNetwork,
             removedFromNetwork = Seq.empty,
             before = None,
-            after = Some(RouteData.from(routeDocAfter)),
+            after = Some(routeDocAfter.toRouteData),
             nodeChanges = nodeChanges,
             facts = Seq.empty,
           )

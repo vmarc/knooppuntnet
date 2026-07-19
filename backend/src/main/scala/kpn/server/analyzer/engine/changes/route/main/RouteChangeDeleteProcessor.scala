@@ -22,7 +22,7 @@ class RouteChangeDeleteProcessor {
     val removedFromNetwork = routeDoc.networkReferences.map(_.toRef)
     val impactedNetworkIds = removedFromNetwork.map(_.id)
 
-    val beforeRouteData = RouteData.from(routeDoc)
+    val beforeRouteData = routeDoc.toRouteData
 
     val nodeChanges = routeDoc.base.nodes.nodes.map { node =>
       RouteNodeChange(

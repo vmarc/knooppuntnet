@@ -5,6 +5,7 @@ import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.common.route.RouteDetails
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteInfo
+import kpn.core.builders.RouteDetailsBuilder
 import kpn.database.actions.routes.RouteDetailsData
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.ChangeSetRepository
@@ -41,7 +42,7 @@ class RouteDetailsPageBuilder(
 
   private def buildDetails(language: Language, routeDetailsData: RouteDetailsData) = {
     val locationCandidateInfos = buildLocationCandidateInfos(language, routeDetailsData)
-    RouteDetails.from(routeDetailsData, locationCandidateInfos)
+    RouteDetailsBuilder.from(routeDetailsData, locationCandidateInfos)
   }
 
   private def buildLocationCandidateInfos(language: Language, routeDetailsData: RouteDetailsData): Seq[LocationCandidateInfo] = {

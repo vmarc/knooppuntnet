@@ -57,8 +57,8 @@ class RouteChangeUpdateProcessor() {
             locationAnalysis = after.base.locationAnalysis,
             addedToNetwork = addedToNetwork,
             removedFromNetwork = removedFromNetwork,
-            before = Some(RouteData.from(before)), // TODO can eliminate?
-            after = Some(RouteData.from(after)), // TODO can eliminate?
+            before = Some(before.toRouteData), // TODO can eliminate?
+            after = Some(after.toRouteData), // TODO can eliminate?
             nodeChanges = nodeChanges,
             facts = Seq.empty // routeUpdate.facts  // TODO can eliminate?
           )

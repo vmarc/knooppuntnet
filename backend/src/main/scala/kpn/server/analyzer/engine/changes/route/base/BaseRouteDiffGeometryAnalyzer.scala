@@ -6,6 +6,7 @@ import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.WayGeometry
 import kpn.api.common.route.WayGeometryUpdate
 import kpn.api.common.route.WayLine
+import kpn.core.builders.WayLineUtil
 import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import kpn.server.domain.StringCoordinate
 import org.locationtech.jts.geom.GeometryFactory
@@ -45,7 +46,7 @@ class BaseRouteDiffGeometryAnalyzer {
           wayCoordinates.wayId,
           common = None,
           removed = None,
-          added = Some(Seq(WayLine.from(wayCoordinates)))
+          added = Some(Seq(WayLineUtil.from(wayCoordinates)))
         )
       }
       Some(
@@ -118,7 +119,7 @@ class BaseRouteDiffGeometryAnalyzer {
   }
 
   private def toLines(coordinateSequences: Seq[Seq[StringCoordinate]]): Option[Seq[WayLine]] = {
-    Option.when(coordinateSequences.nonEmpty)(coordinateSequences.map(WayLine.fromLatLons))
+    Option.when(coordinateSequences.nonEmpty)(coordinateSequences.map(WayLineUtil.fromLatLons))
   }
 
   private def calculateDiffs(beforeWays: Seq[WayCoordinates], afterWays: Seq[WayCoordinates], updated: Set[Long]): Seq[GeometryDiffCoordinates] = {
@@ -132,9 +133,9 @@ class BaseRouteDiffGeometryAnalyzer {
       val added = (afterSegments -- beforeSegments).toSeq
       val removed = (beforeSegments -- afterSegments).toSeq
 
-      val commonWayCoordinatess = WayLineBuilder.build(common)
-      val addedWayCoordinatess = WayLineBuilder.build(added)
-      val removedWayCoordinatess = WayLineBuilder.build(removed)
+      val commonWayCoordinatess = WayLineUtil.build(common)
+      val addedWayCoordinatess = WayLineUtil.build(added)
+      val removedWayCoordinatess = WayLineUtil.build(removed)
       GeometryDiffCoordinates(
         wc.wayId,
         commonWayCoordinatess,
@@ -160,7 +161,7 @@ class BaseRouteDiffGeometryAnalyzer {
     unchangedWays.map { wc =>
       WayGeometry(
         wayId = wc.wayId,
-        line = WayLine.from(wc)
+        line = WayLineUtil.from(wc)
       )
     }
   }
@@ -170,7 +171,7 @@ class BaseRouteDiffGeometryAnalyzer {
       WayGeometryUpdate(
         wayId = wc.wayId,
         common = None,
-        removed = Some(Seq(WayLine.from(wc))),
+        removed = Some(Seq(WayLineUtil.from(wc))),
         added = None
       )
     }
@@ -182,7 +183,7 @@ class BaseRouteDiffGeometryAnalyzer {
         wayId = wc.wayId,
         common = None,
         removed = None,
-        added = Some(Seq(WayLine.from(wc)))
+        added = Some(Seq(WayLineUtil.from(wc)))
       )
     }
   }

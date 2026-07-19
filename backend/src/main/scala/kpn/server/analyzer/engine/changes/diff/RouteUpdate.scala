@@ -28,8 +28,6 @@ case class RouteUpdate(
 
   def happy: Boolean = diffs.happy
 
-  def investigate: Boolean = diffs.investigate
-
   def referencedElements: ReferencedElements = {
     diffs.referencedElements
   }

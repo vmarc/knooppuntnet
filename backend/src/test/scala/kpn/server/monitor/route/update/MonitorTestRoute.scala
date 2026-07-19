@@ -5,6 +5,7 @@ import kpn.api.common.Relation
 import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.custom.Tags
+import kpn.core.builders.MonitorRouteRelationBuilder
 import kpn.core.data.DataBuilder
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
@@ -74,7 +75,7 @@ case class MonitorTestRoute(
           "name" -> "route-name"
         ),
       )
-    MonitorRouteRelation.from(new DataBuilder(overpassData.rawData).data.relations(relationId), None)
+    MonitorRouteRelationBuilder.from(new DataBuilder(overpassData.rawData).data.relations(relationId), None)
   }
 
   def overpassTopLevel: Relation = {
