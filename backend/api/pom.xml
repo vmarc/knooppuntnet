@@ -18,10 +18,17 @@
   </properties>
 
   <dependencies>
+
     <dependency>
       <groupId>kpn</groupId>
       <artifactId>base</artifactId>
       <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>33.6.0-jre</version>
     </dependency>
 
     <dependency>

@@ -30,6 +30,25 @@ case class ClassInfo(
       .distinct
   }
 
+  def collectionDependencies: Seq[ClassId] = {
+    fields.flatMap(field => field.classType.arrayTypeClass.toSeq).distinct.map {
+      case "Seq" => ClassId("ImmutableList", "com.google.common.collect")
+      case "Set" => ClassId("ImmutableSet", "com.google.common.collect")
+      case "Vector" => ClassId("ImmutableList", "com.google.common.collect")
+      case classType =>
+        throw new IllegalArgumentException(s"Unknown collection type: $classType")
+    }
+  }
+
+  def javaUtilDependencies: Seq[ClassId] = {
+    if (fields.exists(_.classType.optional)) {
+      Seq(ClassId("Optional", "java.util"))
+    }
+    else {
+      Seq.empty
+    }
+  }
+
   def fullName: String = {
     s"$packageName.$className"
   }
