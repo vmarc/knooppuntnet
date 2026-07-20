@@ -7,24 +7,24 @@ public record IdDiffs(
   ImmutableList<Long> added,
   ImmutableList<Long> updated
 ) {
+
+  public static IdDiffs empty() {
+    return new IdDiffs(
+      ImmutableList.of(),
+      ImmutableList.of(),
+      ImmutableList.of()
+    );
+  }
+
+  public ImmutableList<Long> ids() {
+    return ImmutableList.<Long>builder()
+      .addAll(removed)
+      .addAll(added)
+      .addAll(updated)
+      .build();
+  }
+
+  public boolean nonEmpty() {
+    return !removed.isEmpty() || !added.isEmpty() || !updated.isEmpty();
+  }
 }
-
-/*
-package kpn.api.common.diff
-
-object IdDiffs {
-  def empty: IdDiffs = IdDiffs()
-}
-
-case class IdDiffs(
-  removed: Seq[Long] = Seq.empty,
-  added: Seq[Long] = Seq.empty,
-  updated: Seq[Long] = Seq.empty
-) {
-
-  def ids: Seq[Long] = removed ++ added ++ updated
-
-  def nonEmpty: Boolean = removed.nonEmpty || added.nonEmpty || updated.nonEmpty
-}
-
-*/

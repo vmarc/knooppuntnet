@@ -6,8 +6,7 @@ public record LocationPoiParameters(
 ) {
 }
 
-/*
-package kpn.api.common.poi
+/* TODO migrate
 
 case class LocationPoiParameters(
   pageSize: Long = 5,

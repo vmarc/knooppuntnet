@@ -12,7 +12,7 @@ public record LocationChangeSet(
 ) {
 }
 
-/*
+/* TODO migrate
 package kpn.api.common
 
 import kpn.api.common.changes.details.ChangeKey

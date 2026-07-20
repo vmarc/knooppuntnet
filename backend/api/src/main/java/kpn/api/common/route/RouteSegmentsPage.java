@@ -10,13 +10,3 @@ public record RouteSegmentsPage(
   ImmutableList<SegmentInfo> segments
 ) {
 }
-
-/*
-package kpn.api.common.route
-
-case class RouteSegmentsPage(
-  routeInfo: RouteInfo,
-  segments: Seq[SegmentInfo],
-)
-
-*/

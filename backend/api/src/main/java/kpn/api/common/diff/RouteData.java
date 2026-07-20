@@ -3,8 +3,12 @@ package kpn.api.common.diff;
 import kpn.api.common.Country;
 import kpn.api.common.Fact;
 import kpn.api.common.RouteType;
+import kpn.api.common.common.Ref;
+import kpn.api.common.data.Tagable;
 import kpn.api.common.data.raw.Raw;
 import kpn.api.common.route.RouteNode;
+import kpn.api.custom.Subset;
+import kpn.api.custom.Tag;
 
 import com.google.common.collect.ImmutableList;
 
@@ -17,24 +21,43 @@ public record RouteData(
   ImmutableList<RouteNode> networkNodes,
   ImmutableList<Fact> facts,
   Long meters
-) {
+) implements Tagable {
+
+  public Ref toRef() {
+    return new Ref(relationId, name);
+  }
+
+//  public boolean investigate() {
+//    return facts.stream().anyMatch(Facts::isError);
+//  }
+
+  public ImmutableList<Subset> subsets() {
+    return ImmutableList.of(
+      countries.stream()
+        .flatMap(country ->
+                   routeTypes.stream()
+                     .flatMap(routeType -> Subset.of(country, routeType).stream())
+        )
+    );
+  }
+
+  public ImmutableList<Tag> tags() {
+    return raw.tags();
+  }
+  /*
+  def subsets: Seq[Subset] = {
+    countries.flatMap { country =>
+      routeTypes.flatMap { routeType =>
+        Subset.of(country, routeType)
+      }
+    }
+  }
+
+  def tags: Seq[Tag] = raw.tags
+   */
 }
 
-/*
-package kpn.api.common.diff
-
-import kpn.api.common.Country
-import kpn.api.common.Fact
-import kpn.api.common.RouteType
-import kpn.api.common.common.Ref
-import kpn.api.common.data.Tagable
-import kpn.api.common.data.raw.Raw
-import kpn.api.common.route.RouteNode
-import kpn.api.custom.Subset
-import kpn.api.custom.Tag
-import kpn.core.analysis.Facts
-import kpn.core.doc.RouteDoc
-import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
+/* TODO migrate
 
 object RouteData {
 

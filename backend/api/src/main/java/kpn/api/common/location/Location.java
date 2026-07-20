@@ -7,7 +7,7 @@ public record Location(
 ) {
 }
 
-/*
+/* TODO migrate
 package kpn.api.common.location
 
 object Location {

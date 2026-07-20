@@ -17,21 +17,8 @@ public record RouteSearchResult(
 ) {
 }
 
-/*
-package kpn.api.common.search
+/* TODO migrate
 
-import kpn.api.common.Bounds
-import kpn.api.common.RouteScope
-
-case class RouteSearchResult(
-  id: Long,
-  name: String,
-  scopes: Seq[RouteScope],
-  distance: Long,
-  symbol: Option[String],
-  bounds: Option[Bounds],
-  routeIds: Seq[Long],
-) {
   def toRouteListItem: RouteListItem = {
     RouteListItem(
       id,
@@ -42,6 +29,5 @@ case class RouteSearchResult(
       routeIds,
     )
   }
-}
 
 */

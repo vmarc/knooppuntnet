@@ -9,13 +9,3 @@ public record NetworkDataUpdate(
   Optional<NetworkData> after
 ) {
 }
-
-/*
-package kpn.api.common.diff
-
-case class NetworkDataUpdate(
-  before: Option[NetworkData],
-  after: Option[NetworkData]
-)
-
-*/

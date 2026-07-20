@@ -10,14 +10,17 @@ public record ChangeKey(
   Long elementId,
   TimeKey time
 ) {
+
+  public String toId() {
+    return changeSetId + ":" + replicationNumber + ":" + elementId;
+  }
+
+  public String toShortId() {
+    return changeSetId + ":" + replicationNumber;
+  }
 }
 
-/*
-package kpn.api.common.changes.details
-
-import kpn.api.common.TimeKey
-import kpn.api.custom.Timestamp
-import kpn.core.common.TimestampUtil
+/* TODO migrate
 
 object ChangeKey {
 
@@ -36,18 +39,6 @@ object ChangeKey {
       key
     )
   }
-}
-
-case class ChangeKey(
-  replicationNumber: Long,
-  timestamp: Timestamp,
-  changeSetId: Long,
-  elementId: Long,
-  time: TimeKey
-) {
-  def toId: String = s"$changeSetId:$replicationNumber:$elementId"
-
-  def toShortId: String = s"$changeSetId:$replicationNumber"
 }
 
 */

@@ -8,12 +8,3 @@ public record ChangeSetPage(
   ImmutableList<ChangeSetDetail> details
 ) {
 }
-
-/*
-package kpn.api.common.changes
-
-case class ChangeSetPage(
-  details: Seq[ChangeSetDetail]
-)
-
-*/

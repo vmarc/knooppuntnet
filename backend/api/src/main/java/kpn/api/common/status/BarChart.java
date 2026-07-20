@@ -10,7 +10,7 @@ public record BarChart(
 ) {
 }
 
-/*
+/* TODO migrate
 package kpn.api.common.status
 
 object BarChart {

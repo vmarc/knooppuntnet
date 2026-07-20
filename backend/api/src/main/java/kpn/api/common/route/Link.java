@@ -15,22 +15,7 @@ public record Link(
 ) {
 }
 
-/*
-package kpn.api.common.route
-
-import scala.collection.mutable
-
-case class Link(
-  memberIndex: Long,
-  direction: LinkDirection,
-  hasPrev: Boolean,
-  hasNext: Boolean,
-  isLoop: Boolean,
-  isOnewayLoopForwardPart: Boolean,
-  isOnewayLoopBackwardPart: Boolean,
-  isOnewayHead: Boolean,
-  isOnewayTail: Boolean,
-) {
+/* TODO migrate
 
   def isBidirectional: Boolean = {
     !isOnewayLoopForwardPart && !isOnewayLoopBackwardPart
@@ -94,6 +79,5 @@ case class Link(
   private def bool(value: Boolean): String = {
     if (value) "■" else " "
   }
-}
 
 */

@@ -5,13 +5,3 @@ public record MonitorRouteGroup(
   String groupDescription
 ) {
 }
-
-/*
-package kpn.api.common.monitor
-
-case class MonitorRouteGroup(
-  groupName: String,
-  groupDescription: String
-)
-
-*/

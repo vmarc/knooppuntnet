@@ -1,6 +1,7 @@
 package kpn.api.common.network;
 
 import kpn.api.common.Fact;
+import kpn.api.common.LatLon;
 import kpn.api.custom.Day;
 import kpn.api.custom.Timestamp;
 
@@ -21,33 +22,10 @@ public record NetworkNodeDetail(
   Optional<Day> lastSurvey,
   Optional<Long> expectedRouteCount,
   ImmutableList<Fact> facts
-) {
+) implements LatLon {
 }
 
-/*
-package kpn.api.common.network
-
-import kpn.api.common.Fact
-import kpn.api.common.LatLon
-import kpn.api.common.common.Ref
-import kpn.api.custom.Day
-import kpn.api.custom.Timestamp
-
-case class NetworkNodeDetail(
-  id: Long,
-  name: String,
-  longName: String,
-  latitude: String,
-  longitude: String,
-  connection: Boolean,
-  roleConnection: Boolean,
-  definedInRelation: Boolean,
-  proposed: Boolean,
-  timestamp: Timestamp,
-  lastSurvey: Option[Day],
-  expectedRouteCount: Option[Long],
-  facts: Seq[Fact]
-) extends LatLon {
+/* TODO migrate
 
   def toRef: Ref = {
     Ref(id, name)
@@ -66,6 +44,4 @@ case class NetworkNodeDetail(
       expectedRouteCount == other.expectedRouteCount &&
       facts == other.facts
   }
-}
-
 */

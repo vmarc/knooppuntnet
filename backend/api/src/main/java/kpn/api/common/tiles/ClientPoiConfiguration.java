@@ -8,10 +8,3 @@ public record ClientPoiConfiguration(
   ImmutableList<ClientPoiGroupDefinition> groupDefinitions
 ) {
 }
-
-/*
-package kpn.api.common.tiles
-
-case class ClientPoiConfiguration(groupDefinitions: Seq[ClientPoiGroupDefinition])
-
-*/

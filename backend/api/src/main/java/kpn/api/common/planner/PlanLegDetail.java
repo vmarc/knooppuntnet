@@ -12,15 +12,8 @@ public record PlanLegDetail(
 ) {
 }
 
-/*
-package kpn.api.common.planner
+/* TODO migrate
 
-case class PlanLegDetail(
-  source: LegEnd,
-  sink: LegEnd,
-  routes: Seq[PlanRoute]
-) {
   def meters: Long = routes.map(_.meters).sum
-}
 
 */

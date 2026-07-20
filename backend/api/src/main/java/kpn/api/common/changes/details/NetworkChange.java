@@ -3,12 +3,15 @@ package kpn.api.common.changes.details;
 import kpn.api.common.ChangeType;
 import kpn.api.common.Country;
 import kpn.api.common.RouteType;
-import kpn.api.common.changes.details.ChangeKey;
+import kpn.api.common.common.ReferencedElements;
 import kpn.api.common.diff.IdDiffs;
 import kpn.api.common.diff.NetworkDataUpdate;
 import kpn.api.common.diff.RefDiffs;
+import kpn.core.doc.WithStringId;
 
 import java.util.Optional;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 public record NetworkChange(
   String _id,
@@ -30,54 +33,27 @@ public record NetworkChange(
   Boolean happy,
   Boolean investigate,
   Boolean impact
-) {
-}
+) implements WithStringId {
 
-/*
-package kpn.api.common.changes.details
-
-import kpn.api.common.ChangeType
-import kpn.api.common.Country
-import kpn.api.common.RouteType
-import kpn.api.common.common.ReferencedElements
-import kpn.api.common.diff.IdDiffs
-import kpn.api.common.diff.NetworkDataUpdate
-import kpn.api.common.diff.RefDiffs
-import kpn.core.doc.WithStringId
-
-case class NetworkChange(
-  _id: String,
-  key: ChangeKey,
-  networkId: Long,
-  networkName: Option[String],
-  changeType: ChangeType,
-  country: Option[Country],
-  routeType: RouteType,
-  networkDataUpdate: Option[NetworkDataUpdate],
-  nodes: IdDiffs,
-  ways: IdDiffs,
-  relations: IdDiffs,
-  nodeDiffs: RefDiffs,
-  routeDiffs: RefDiffs,
-  extraNodeDiffs: IdDiffs,
-  extraWayDiffs: IdDiffs,
-  extraRelationDiffs: IdDiffs,
-  happy: Boolean,
-  investigate: Boolean,
-  impact: Boolean
-) extends WithStringId {
-
-  def impactedNodeIds: Seq[Long] = {
-    nodeDiffs.ids
+  public ImmutableList<Long> impactedNodeIds() {
+    return nodeDiffs().ids();
   }
 
-  def impactedRelationIds: Seq[Long] = {
-    relations.ids
+  public ImmutableList<Long> impactedRelationIds() {
+    return relations().ids();
   }
 
-  def referencedElements: ReferencedElements = {
-    ReferencedElements(nodeDiffs.ids.toSet, routeDiffs.ids.toSet)
+  public ImmutableList<Long> impactedElementIds() {
+    return ImmutableList.<Long>builder()
+      .addAll(impactedNodeIds())
+      .addAll(impactedRelationIds())
+      .build();
+  }
+
+  public ReferencedElements referencedElements() {
+    return new ReferencedElements(
+      ImmutableSet.copyOf(nodeDiffs().ids()),
+      ImmutableSet.copyOf(routeDiffs().ids())
+    );
   }
 }
-
-*/

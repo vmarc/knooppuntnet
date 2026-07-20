@@ -30,30 +30,3 @@ public record MonitorRouteMapPage(
   ImmutableList<MonitorRouteSubRelation> subRelations
 ) {
 }
-
-/*
-package kpn.api.common.monitor
-
-import kpn.api.common.Bounds
-import kpn.api.custom.Timestamp
-
-case class MonitorRouteMapPage(
-  relationId: Option[Long],
-  routeName: String,
-  routeDescription: String,
-  groupName: String,
-  groupDescription: String,
-  referenceType: MonitorReferenceType,
-  bounds: Option[Bounds],
-  analysisTimestamp: Option[Timestamp],
-  currentSubRelation: Option[MonitorRouteSubRelation],
-  previousSubRelation: Option[MonitorRouteSubRelation],
-  nextSubRelation: Option[MonitorRouteSubRelation],
-  osmSegments: Seq[MonitorRouteSegment],
-  matchesGeoJson: Option[String],
-  deviations: Seq[MonitorRouteDeviation],
-  reference: Option[MonitorReferenceInfo],
-  subRelations: Seq[MonitorRouteSubRelation]
-)
-
-*/

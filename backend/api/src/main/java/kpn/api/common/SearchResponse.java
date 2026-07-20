@@ -8,12 +8,3 @@ public record SearchResponse(
   ImmutableList<GeocoderLocation> geocoderLocations
 ) {
 }
-
-/*
-package kpn.api.common
-
-case class SearchResponse(
-  geocoderLocations: Seq[GeocoderLocation]
-)
-
-*/

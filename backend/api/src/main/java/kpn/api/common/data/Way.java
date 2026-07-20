@@ -1,10 +1,8 @@
 package kpn.api.common.data;
 
-import kpn.api.common.data.Node;
 import kpn.api.custom.Tag;
 import kpn.api.custom.Timestamp;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList;
 
 public record Way(
@@ -15,10 +13,10 @@ public record Way(
   ImmutableList<Tag> tags,
   ImmutableList<Node> nodes,
   Long length
-) {
+) implements Element {
 }
 
-/*
+/* TODO migrate
 package kpn.api.common.data
 
 import kpn.api.common.data.raw.RawWay

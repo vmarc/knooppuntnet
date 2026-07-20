@@ -1,10 +1,18 @@
 package kpn.api.common.changes;
 
+import kpn.api.common.data.raw.RawNode;
+import kpn.api.common.data.raw.RawRelation;
 import kpn.api.custom.Change;
 import kpn.api.custom.Timestamp;
 
+import java.util.function.Function;
 import com.google.common.collect.ImmutableList;
 
+/*
+  All information of a given changeset as available in the minute diff file. A changeset
+  can be spread over multiple diff files. In that case the information in this object is
+  not the complete changeset.
+*/
 public record ChangeSet(
   Long id,
   Timestamp timestamp,
@@ -14,37 +22,22 @@ public record ChangeSet(
   Timestamp timestampAfter,
   ImmutableList<Change> changes
 ) {
-}
 
-/*
-package kpn.api.common.changes
-
-import kpn.api.common.data.raw.RawNode
-import kpn.api.common.data.raw.RawRelation
-import kpn.api.custom.Change
-import kpn.api.custom.Timestamp
-
-*** *
- * All information of a given changeset as available in the minute diff file. A changeset can be spread
- * over multiple diff files. In that case the information in this object is not the complete changeset.
- *** 
-case class ChangeSet(
-  id: Long,
-  timestamp: Timestamp, // timestamp found in minute diff state file
-  timestampFrom: Timestamp,
-  timestampUntil: Timestamp,
-  timestampBefore: Timestamp,
-  timestampAfter: Timestamp,
-  changes: Seq[Change]
-) {
-
-  def relations(action: ChangeAction): Seq[RawRelation] = {
-    changes.filter(_.action == action).flatMap(_.relations)
+  public ImmutableList<RawRelation> relations(ChangeAction action) {
+    return elementsByAction(Change::relations, action);
   }
 
-  def nodes(action: ChangeAction): Seq[RawNode] = {
-    changes.filter(_.action == action).flatMap(_.nodes)
+  public ImmutableList<RawNode> nodes(ChangeAction action) {
+    return elementsByAction(Change::nodes, action);
+  }
+
+  private <T> ImmutableList<T> elementsByAction(
+    Function<Change, ImmutableList<T>> elementSelector,
+    ChangeAction action
+  ) {
+    return changes.stream()
+      .filter(change -> change.action() == action)
+      .flatMap(change -> elementSelector.apply(change).stream())
+      .collect(ImmutableList.toImmutableList());
   }
 }
-
-*/

@@ -5,13 +5,3 @@ public record MonitorGroupProperties(
   String description
 ) {
 }
-
-/*
-package kpn.api.common.monitor
-
-case class MonitorGroupProperties(
-  name: String,
-  description: String
-)
-
-*/

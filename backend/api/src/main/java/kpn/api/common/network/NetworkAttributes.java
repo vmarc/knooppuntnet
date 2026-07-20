@@ -30,7 +30,7 @@ public record NetworkAttributes(
 ) {
 }
 
-/*
+/* TODO migrate
 package kpn.api.common.network
 
 import kpn.api.common.Country

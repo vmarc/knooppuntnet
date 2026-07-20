@@ -9,11 +9,8 @@ public record NodeNetworkRouteReference(
 ) {
 }
 
-/*
-package kpn.api.common.node
+/* TODO migrate
 
-case class NodeNetworkRouteReference(routeId: Long, routeName: String, routeRole: Option[String]) {
   def isConnection: Boolean = routeRole.contains("connection")
-}
 
 */

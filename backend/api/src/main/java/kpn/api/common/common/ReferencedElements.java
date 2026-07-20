@@ -1,24 +1,28 @@
 package kpn.api.common.common;
 
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Stream;
 import com.google.common.collect.ImmutableSet;
 
 public record ReferencedElements(
   ImmutableSet<Long> nodeIds,
   ImmutableSet<Long> routeIds
 ) {
-}
 
-/*
-package kpn.api.common.common
+  public static ReferencedElements merge(List<ReferencedElements> elements) {
+    return new ReferencedElements(
+      mergeField(elements, ReferencedElements::nodeIds),
+      mergeField(elements, ReferencedElements::routeIds)
+    );
+  }
 
-object ReferencedElements {
-  def merge(xs: ReferencedElements*): ReferencedElements = {
-    val mergedNodeIds = xs.flatMap(_.nodeIds).toSet
-    val mergedRouteIds = xs.flatMap(_.routeIds).toSet
-    ReferencedElements(mergedNodeIds, mergedRouteIds)
+  private static ImmutableSet<Long> mergeField(
+    List<ReferencedElements> elements,
+    Function<ReferencedElements, ImmutableSet<Long>> fieldExtractor
+  ) {
+    return elements.stream()
+      .flatMap(element -> fieldExtractor.apply(element).stream())
+      .collect(ImmutableSet.toImmutableSet());
   }
 }
-
-case class ReferencedElements(nodeIds: Set[Long] = Set.empty, routeIds: Set[Long] = Set.empty)
-
-*/

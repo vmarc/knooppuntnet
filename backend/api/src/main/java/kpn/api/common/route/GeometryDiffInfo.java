@@ -8,14 +8,3 @@ public record GeometryDiffInfo(
   GeometryDiffInfoDetail removed
 ) {
 }
-
-/*
-package kpn.api.common.route
-
-case class GeometryDiffInfo(
-  common: GeometryDiffInfoDetail,
-  added: GeometryDiffInfoDetail,
-  removed: GeometryDiffInfoDetail,
-)
-
-*/

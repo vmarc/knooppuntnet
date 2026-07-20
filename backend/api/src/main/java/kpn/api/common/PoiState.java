@@ -1,6 +1,7 @@
 package kpn.api.common;
 
 import kpn.api.custom.Timestamp;
+import kpn.core.doc.WithStringId;
 
 import java.util.Optional;
 
@@ -11,22 +12,5 @@ public record PoiState(
   Optional<String> imageStatusDetail,
   Optional<Timestamp> imageFirstSeen,
   Optional<Timestamp> imageLastSeen
-) {
+) implements WithStringId {
 }
-
-/*
-package kpn.api.common
-
-import kpn.api.custom.Timestamp
-import kpn.core.doc.WithStringId
-
-case class PoiState(
-  _id: String,
-  imageLink: Option[String] = None,
-  imageStatus: Option[String] = None,
-  imageStatusDetail: Option[String] = None,
-  imageFirstSeen: Option[Timestamp] = None,
-  imageLastSeen: Option[Timestamp] = None,
-) extends WithStringId
-
-*/

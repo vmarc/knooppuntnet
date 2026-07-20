@@ -9,10 +9,3 @@ public record NodeRouteRefs(
   ImmutableList<Reference> routeRefs
 ) {
 }
-
-/*
-package kpn.api.common.common
-
-case class NodeRouteRefs(nodeId: Long, routeRefs: Seq[Reference])
-
-*/

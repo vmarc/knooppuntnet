@@ -10,13 +10,3 @@ public record LocationFactsPage(
   ImmutableList<LocationFact> locationFacts
 ) {
 }
-
-/*
-package kpn.api.common.location
-
-case class LocationFactsPage(
-  summary: LocationSummary,
-  locationFacts: Seq[LocationFact]
-)
-
-*/

@@ -12,7 +12,7 @@ public record WayDiffsInfo(
 ) {
 }
 
-/*
+/* TODO migrate
 package kpn.api.common.diff
 
 object WayDiffsInfo {

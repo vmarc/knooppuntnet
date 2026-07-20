@@ -7,13 +7,3 @@ public record KnownElements(
   ImmutableSet<Long> routeIds
 ) {
 }
-
-/*
-package kpn.api.common.common
-
-case class KnownElements(
-  nodeIds: Set[Long] = Set.empty,
-  routeIds: Set[Long] = Set.empty
-)
-
-*/

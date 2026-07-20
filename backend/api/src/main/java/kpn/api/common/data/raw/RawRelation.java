@@ -13,10 +13,10 @@ public record RawRelation(
   Long changeSetId,
   ImmutableList<RawMember> members,
   ImmutableList<Tag> tags
-) {
+) implements RawElement {
 }
 
-/*
+/* TODO migrate
 package kpn.api.common.data.raw
 
 import kpn.api.common.data.MemberType

@@ -10,14 +10,3 @@ public record NetworkRouteFact(
   ImmutableList<Ref> routes
 ) {
 }
-
-/*
-package kpn.api.common.network
-
-import kpn.api.common.Fact
-import kpn.api.common.common.Ref
-
-case class NetworkRouteFact(fact: Fact, routes: Seq[Ref])
-
-
-*/

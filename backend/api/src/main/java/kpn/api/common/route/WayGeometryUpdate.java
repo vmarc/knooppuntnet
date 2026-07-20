@@ -7,20 +7,8 @@ import com.google.common.collect.ImmutableList;
 
 public record WayGeometryUpdate(
   Long wayId,
-  ImmutableList<WayLine> common,
-  ImmutableList<WayLine> added,
-  ImmutableList<WayLine> removed
+  ImmutableList<WayLine> common, // blue
+  ImmutableList<WayLine> added, // green
+  ImmutableList<WayLine> removed // red
 ) {
 }
-
-/*
-package kpn.api.common.route
-
-case class WayGeometryUpdate(
-  wayId: Long,
-  common: Option[Seq[WayLine]], // blue
-  added: Option[Seq[WayLine]], // green
-  removed: Option[Seq[WayLine]], // red
-)
-
-*/

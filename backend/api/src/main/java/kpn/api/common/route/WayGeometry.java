@@ -7,10 +7,3 @@ public record WayGeometry(
   WayLine line
 ) {
 }
-
-/*
-package kpn.api.common.route
-
-case class WayGeometry(wayId: Long, line: WayLine)
-
-*/

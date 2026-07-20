@@ -8,7 +8,7 @@ public record Bounds(
 ) {
 }
 
-/*
+/* TODO migrate
 package kpn.api.common
 
 object Bounds {
@@ -42,12 +42,5 @@ object Bounds {
     )
   }
 }
-
-case class Bounds(
-  minLat: Double = 0,
-  minLon: Double = 0,
-  maxLat: Double = 0,
-  maxLon: Double = 0
-)
 
 */

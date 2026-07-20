@@ -5,8 +5,14 @@ import kpn.api.common.changes.details.BaseRouteChange;
 import kpn.api.common.changes.details.NetworkChange;
 import kpn.api.common.changes.details.NodeChange;
 import kpn.api.common.changes.details.RouteChange;
+import kpn.api.common.common.ReferencedElements;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 public record ChangeSetData(
   ChangeSetSummary summary,
@@ -15,41 +21,38 @@ public record ChangeSetData(
   ImmutableList<RouteChange> routeChanges,
   ImmutableList<NodeChange> nodeChanges
 ) {
-}
 
-/*
-package kpn.api.common.changes
+  public long changeSetId() {
+    return summary.key().changeSetId();
+  }
 
-import kpn.api.common.ChangeSetSummary
-import kpn.api.common.changes.details.BaseRouteChange
-import kpn.api.common.changes.details.NetworkChange
-import kpn.api.common.changes.details.NodeChange
-import kpn.api.common.changes.details.RouteChange
-import kpn.api.common.common.ReferencedElements
+  public boolean happy() {
+    return networkChanges.stream().anyMatch(NetworkChange::happy);
+  }
 
-case class ChangeSetData(
-  summary: ChangeSetSummary,
-  networkChanges: Seq[NetworkChange],
-  baseRouteChanges: Seq[BaseRouteChange],
-  routeChanges: Seq[RouteChange],
-  nodeChanges: Seq[NodeChange]
-) {
+  public boolean investigate() {
+    return networkChanges.stream().anyMatch(NetworkChange::investigate);
+  }
 
-  def changeSetId: Long = summary.key.changeSetId
+  public boolean hasNoImpact() {
+    return !(happy() || investigate());
+  }
 
-  def happy: Boolean = networkChanges.exists(_.happy)
+  public ReferencedElements referencedElements() {
+    List<ReferencedElements> all = Stream.of(
+        networkChanges.stream().map(NetworkChange::referencedElements),
+        routeChanges.stream().map(RouteChange::referencedElements),
+        Stream.of(nodeChangesReferencedElements())
+      )
+      .flatMap(s -> s)
+      .toList();
+    return ReferencedElements.merge(all);
+  }
 
-  def investigate: Boolean = networkChanges.exists(_.investigate)
-
-  def noImpact: Boolean = !(happy || investigate)
-
-  def referencedElements: ReferencedElements = {
-    val es1 = networkChanges.map(_.referencedElements)
-    val es2 = routeChanges.map(_.referencedElements)
-    val e3 = ReferencedElements(nodeIds = nodeChanges.map(_.id).toSet)
-    val e = es1 ++ es2 :+ e3
-    ReferencedElements.merge(e *)
+  private ReferencedElements nodeChangesReferencedElements() {
+    ImmutableSet<Long> nodeIds = nodeChanges.stream()
+      .map(NodeChange::id)
+      .collect(ImmutableSet.toImmutableSet());
+    return new ReferencedElements(nodeIds, ImmutableSet.of());
   }
 }
-
-*/

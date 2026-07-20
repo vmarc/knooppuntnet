@@ -5,13 +5,3 @@ public record LocationInfo(
   String link
 ) {
 }
-
-/*
-package kpn.api.common
-
-case class LocationInfo(
-  name: String,
-  link: String,
-)
-
-*/

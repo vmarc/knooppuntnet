@@ -7,8 +7,7 @@ public record WayLine(
 ) {
 }
 
-/*
-package kpn.api.common.route
+/* TODO migrate
 
 import kpn.api.common.LatLon
 import kpn.core.util.Haversine
@@ -33,7 +32,5 @@ object WayLine {
     WayLine(nodeCount, meters, line)
   }
 }
-
-case class WayLine(nodeCount: Long, meters: Long, line: String)
 
 */

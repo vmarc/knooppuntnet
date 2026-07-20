@@ -10,14 +10,3 @@ public record MonitorGroupsPage(
   ImmutableList<MonitorGroupsPageGroup> groups
 ) {
 }
-
-/*
-package kpn.api.common.monitor
-
-case class MonitorGroupsPage(
-  adminUser: Boolean,
-  routeCount: Long,
-  groups: Seq[MonitorGroupsPageGroup]
-)
-
-*/

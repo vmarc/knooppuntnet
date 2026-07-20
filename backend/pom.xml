@@ -13,6 +13,8 @@
     <module>base</module>
     <module>web</module>
     <module>core</module>
+    <module>origin</module>
+    <module>origin-scala</module>
   </modules>
 
   <properties>

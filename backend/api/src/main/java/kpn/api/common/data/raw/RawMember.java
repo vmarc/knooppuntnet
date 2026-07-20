@@ -11,7 +11,7 @@ public record RawMember(
 ) {
 }
 
-/*
+/* TODO migrate
 package kpn.api.common.data.raw
 
 import kpn.api.common.data.MemberType

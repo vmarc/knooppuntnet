@@ -5,13 +5,3 @@ public record NameValue(
   Long value
 ) {
 }
-
-/*
-package kpn.api.common.status
-
-case class NameValue(
-  name: String,
-  value: Long
-)
-
-*/

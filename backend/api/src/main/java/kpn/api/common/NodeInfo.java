@@ -1,9 +1,6 @@
 package kpn.api.common;
 
-import kpn.api.common.Country;
-import kpn.api.common.Fact;
-import kpn.api.common.LocationInfo;
-import kpn.api.common.NodeName;
+import kpn.api.common.data.Tagable;
 import kpn.api.common.node.NodeIntegrity;
 import kpn.api.custom.Day;
 import kpn.api.custom.Tag;
@@ -27,36 +24,11 @@ public record NodeInfo(
   ImmutableList<Fact> facts,
   ImmutableList<LocationInfo> locations,
   Optional<NodeIntegrity> integrity
-) {
+) implements Tagable, LatLon {
 }
 
-/*
-package kpn.api.common
+/* TODO migrate
 
-import kpn.api.common.data.Tagable
-import kpn.api.common.node.NodeIntegrity
-import kpn.api.custom.Day
-import kpn.api.custom.ScopedRouteType
-import kpn.api.custom.Subset
-import kpn.api.custom.Tag
-import kpn.api.custom.Timestamp
-
-case class NodeInfo(
-  id: Long,
-  active: Boolean,
-  orphan: Boolean,
-  country: Option[Country],
-  name: String,
-  names: Seq[NodeName],
-  latitude: String,
-  longitude: String,
-  lastUpdated: Timestamp,
-  lastSurvey: Option[Day],
-  tags: Seq[Tag],
-  facts: Seq[Fact],
-  locations: Seq[LocationInfo],
-  integrity: Option[NodeIntegrity],
-) extends Tagable with LatLon {
   def routeTypeName(routeType: RouteType): String = {
     names.filter(_.routeType == routeType).map(_.name).mkString(" / ")
   }
@@ -86,6 +58,5 @@ case class NodeInfo(
       case None => Seq.empty
     }
   }
-}
 
 */

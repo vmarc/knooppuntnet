@@ -5,10 +5,3 @@ public record NetworkIntegrityCheck(
   Long failed
 ) {
 }
-
-/*
-package kpn.api.common
-
-case class NetworkIntegrityCheck(count: Long, failed: Long)
-
-*/

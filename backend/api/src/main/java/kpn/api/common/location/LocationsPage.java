@@ -8,10 +8,3 @@ public record LocationsPage(
   Optional<LocationNode> locationNode
 ) {
 }
-
-/*
-package kpn.api.common.location
-
-case class LocationsPage(locationNode: Option[LocationNode])
-
-*/

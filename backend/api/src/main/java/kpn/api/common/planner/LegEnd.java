@@ -2,20 +2,17 @@ package kpn.api.common.planner;
 
 import kpn.api.common.planner.LegEndNode;
 import kpn.api.common.planner.LegEndRoute;
+import kpn.core.doc.Storable;
 
 import java.util.Optional;
 
 public record LegEnd(
   Optional<LegEndNode> node,
   Optional<LegEndRoute> route
-) {
+) implements Storable {
 }
 
-/*
-package kpn.api.common.planner
-
-import kpn.api.common.common.TrackPathKey
-import kpn.core.doc.Storable
+/* TODO migrate
 
 object LegEnd {
 

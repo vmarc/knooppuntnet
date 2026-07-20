@@ -15,10 +15,7 @@ public record GeometryDiff(
 ) {
 }
 
-/*
-package kpn.api.common.route
-
-import kpn.api.common.Bounds
+/* TODO migrate
 
 object GeometryDiff {
 
@@ -59,13 +56,5 @@ object GeometryDiff {
       bounds
     )
   }
-}
-
-case class GeometryDiff(
-  info: GeometryDiffInfo,
-  common: Seq[WayGeometry],
-  update: Seq[WayGeometryUpdate],
-  bounds: Bounds
-)
 
 */

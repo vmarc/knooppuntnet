@@ -10,13 +10,3 @@ public record ConditionGroup(
   ImmutableList<Condition> conditions
 ) {
 }
-
-/*
-package kpn.api.common.search
-
-case class ConditionGroup(
-  operator: ConditionGroupOperator,
-  conditions: Seq[Condition]
-)
-
-*/

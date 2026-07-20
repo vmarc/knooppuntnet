@@ -1,5 +1,6 @@
 package kpn.api.common;
 
+import kpn.api.common.data.Element;
 import kpn.api.common.data.Member;
 import kpn.api.custom.Tag;
 import kpn.api.custom.Timestamp;
@@ -13,10 +14,10 @@ public record Relation(
   Long changeSetId,
   ImmutableList<Tag> tags,
   ImmutableList<Member> members
-) {
+) implements Element {
 }
 
-/*
+/* TODO migrate
 package kpn.api.common
 
 import kpn.api.common.data.Element

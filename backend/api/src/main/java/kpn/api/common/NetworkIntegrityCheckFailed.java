@@ -9,10 +9,3 @@ public record NetworkIntegrityCheckFailed(
   ImmutableList<NodeIntegrityCheck> checks
 ) {
 }
-
-/*
-package kpn.api.common
-
-case class NetworkIntegrityCheckFailed(count: Long, checks: Seq[NodeIntegrityCheck])
-
-*/

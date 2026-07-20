@@ -3,13 +3,18 @@ package kpn.api.common.changes.details;
 import kpn.api.common.ChangeType;
 import kpn.api.common.Country;
 import kpn.api.common.RouteType;
-import kpn.api.common.changes.details.ChangeKey;
+import kpn.api.common.common.ReferencedElements;
 import kpn.api.common.diff.IdDiffs;
 import kpn.api.common.diff.NetworkDataUpdate;
 import kpn.api.common.diff.RefDiffs;
+import kpn.core.doc.WithStringId;
 
 import java.util.Optional;
+import com.google.common.collect.ImmutableSet;
 
+/*
+  Describes the changes made to a given network in a given changeset.
+*/
 public record NetworkInfoChange(
   String _id,
   ChangeKey key,
@@ -27,46 +32,11 @@ public record NetworkInfoChange(
   Boolean happy,
   Boolean investigate,
   Boolean impact
-) {
-}
-
-/*
-package kpn.api.common.changes.details
-
-import kpn.api.common.ChangeType
-import kpn.api.common.Country
-import kpn.api.common.RouteType
-import kpn.api.common.common.ReferencedElements
-import kpn.api.common.diff.IdDiffs
-import kpn.api.common.diff.NetworkDataUpdate
-import kpn.api.common.diff.RefDiffs
-import kpn.core.doc.WithStringId
-
-*** 
-  Describes the changes made to a given network in a given changeset.
- *** 
-case class NetworkInfoChange(
-  _id: String,
-  key: ChangeKey,
-  changeType: ChangeType,
-  country: Option[Country],
-  routeType: RouteType,
-  networkId: Long,
-  networkName: String,
-  networkDataUpdate: Option[NetworkDataUpdate],
-  nodeDiffs: RefDiffs,
-  routeDiffs: RefDiffs,
-  extraNodeDiffs: IdDiffs,
-  extraWayDiffs: IdDiffs,
-  extraRelationDiffs: IdDiffs,
-  happy: Boolean,
-  investigate: Boolean,
-  impact: Boolean
-) extends WithStringId {
-
-  def referencedElements: ReferencedElements = {
-    ReferencedElements(nodeDiffs.ids.toSet, routeDiffs.ids.toSet)
+) implements WithStringId {
+  public ReferencedElements referencedElements() {
+    return new ReferencedElements(
+      ImmutableSet.copyOf(nodeDiffs().ids()),
+      ImmutableSet.copyOf(routeDiffs().ids())
+    );
   }
 }
-
-*/

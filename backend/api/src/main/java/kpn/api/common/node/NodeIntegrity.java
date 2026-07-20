@@ -9,8 +9,7 @@ public record NodeIntegrity(
 ) {
 }
 
-/*
-package kpn.api.common.node
+/* TODO migrate
 
 case class NodeIntegrity(details: Seq[NodeIntegrityDetail] = Seq.empty)
 

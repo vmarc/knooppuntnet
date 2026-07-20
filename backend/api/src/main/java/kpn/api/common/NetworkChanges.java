@@ -11,16 +11,7 @@ public record NetworkChanges(
 ) {
 }
 
-/*
-package kpn.api.common
-
-import kpn.api.custom.Subset
-
-case class NetworkChanges(
-  creates: Seq[ChangeSetNetwork] = Seq.empty,
-  updates: Seq[ChangeSetNetwork] = Seq.empty,
-  deletes: Seq[ChangeSetNetwork] = Seq.empty
-) {
+/* TODO migrate
 
   def nonEmpty: Boolean = creates.nonEmpty || updates.nonEmpty || deletes.nonEmpty
 
@@ -31,7 +22,5 @@ case class NetworkChanges(
   def subsets: Set[Subset] = subsetsIn(creates) ++ subsetsIn(updates) ++ subsetsIn(deletes)
 
   private def subsetsIn(changes: Seq[ChangeSetNetwork]): Set[Subset] = changes.flatMap(_.subsets).toSet
-
-}
 
 */

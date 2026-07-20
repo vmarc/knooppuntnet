@@ -3,10 +3,10 @@ package kpn.api.common;
 public record LatLonImpl(
   String latitude,
   String longitude
-) {
+) implements LatLon {
 }
 
-/*
+/* TODO api migrate
 package kpn.api.common
 
 object LatLonImpl {
@@ -14,7 +14,5 @@ object LatLonImpl {
     LatLonImpl(lat.toString, lon.toString)
   }
 }
-
-case class LatLonImpl(latitude: String, longitude: String) extends LatLon
 
 */

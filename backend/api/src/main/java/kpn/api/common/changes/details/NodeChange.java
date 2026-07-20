@@ -12,10 +12,14 @@ import kpn.api.common.diff.common.FactDiffs;
 import kpn.api.common.diff.node.NodeMoved;
 import kpn.api.custom.Subset;
 import kpn.api.custom.Tag;
+import kpn.core.doc.WithStringId;
 
 import java.util.Optional;
 import com.google.common.collect.ImmutableList;
 
+/*
+  Describes the changes made to a given network node in a given changeset.
+*/
 public record NodeChange(
   String _id,
   ChangeKey key,
@@ -32,12 +36,13 @@ public record NodeChange(
   Optional<NodeMoved> nodeMoved,
   ImmutableList<Ref> addedToRoute,
   ImmutableList<Ref> removedFromRoute,
-  ImmutableList<Ref> addedToNetwork,
-  ImmutableList<Ref> removedFromNetwork,
+  ImmutableList<Ref> addedToNetwork, // added to network relation (not included when only added to route within network)
+  ImmutableList<Ref> removedFromNetwork, // removed from network relation (not included when only removed to route within network)
   Optional<FactDiffs> factDiffs,
   ImmutableList<Fact> facts,
   ImmutableList<Tag> initialTags,
   Optional<LatLonImpl> initialLatLon,
+  // following values are filled in by NodeChangeAnalyzer.analyzed
   Boolean happy,
   Boolean investigate,
   Boolean impact,
@@ -45,76 +50,25 @@ public record NodeChange(
   Boolean locationInvestigate,
   Boolean locationImpact,
   Optional<String> comment
-) {
-}
-
-/*
-package kpn.api.common.changes.details
-
-import kpn.api.common.ChangeType
-import kpn.api.common.Fact
-import kpn.api.common.LatLonImpl
-import kpn.api.common.common.Ref
-import kpn.api.common.data.MetaData
-import kpn.api.common.diff.TagDiffs
-import kpn.api.common.diff.common.FactDiffs
-import kpn.api.common.diff.node.NodeMoved
-import kpn.api.custom.Subset
-import kpn.api.custom.Tag
-import kpn.core.doc.WithStringId
-
-*** 
-  Describes the changes made to a given network node in a given changeset.
- *** 
-case class NodeChange(
-  _id: String,
-  key: ChangeKey,
-  changeType: ChangeType,
-  subsets: Seq[Subset],
-  locations: Seq[String],
-  name: Option[String],
-  before: Option[MetaData],
-  after: Option[MetaData],
-  connectionChanges: Seq[RefBooleanChange],
-  roleConnectionChanges: Seq[RefBooleanChange],
-  definedInNetworkChanges: Seq[RefBooleanChange],
-  tagDiffs: Option[TagDiffs],
-  nodeMoved: Option[NodeMoved],
-  addedToRoute: Seq[Ref],
-  removedFromRoute: Seq[Ref],
-  addedToNetwork: Seq[Ref], // added to network relation (not included when only added to route within network)
-  removedFromNetwork: Seq[Ref], // removed from network relation (not included when only removed to route within network)
-  factDiffs: Option[FactDiffs],
-  facts: Seq[Fact],
-  initialTags: Option[Seq[Tag]],
-  initialLatLon: Option[LatLonImpl],
-  // following values are filled in by NodeChangeAnalyzer.analyzed
-  happy: Boolean = false,
-  investigate: Boolean = false,
-  impact: Boolean = false,
-  locationHappy: Boolean = false,
-  locationInvestigate: Boolean = false,
-  locationImpact: Boolean = false,
-  comment: Option[String] = None
-) extends WithStringId {
-
-  def id: Long = key.elementId
-
-  def isEmpty: Boolean = {
-    connectionChanges.isEmpty &&
-      roleConnectionChanges.isEmpty &&
-      definedInNetworkChanges.isEmpty &&
-      tagDiffs.isEmpty &&
-      nodeMoved.isEmpty &&
-      addedToRoute.isEmpty &&
-      removedFromRoute.isEmpty &&
-      addedToNetwork.isEmpty &&
-      removedFromNetwork.isEmpty &&
-      factDiffs.isEmpty &&
-      facts.isEmpty
+) implements WithStringId {
+  public Long id() {
+    return key.elementId();
+  }
+  public boolean isEmpty() {
+    return connectionChanges.isEmpty() &&
+      roleConnectionChanges.isEmpty() &&
+      definedInNetworkChanges.isEmpty() &&
+      tagDiffs.isEmpty() &&
+      nodeMoved.isEmpty() &&
+      addedToRoute.isEmpty() &&
+      removedFromRoute.isEmpty() &&
+      addedToNetwork.isEmpty() &&
+      removedFromNetwork.isEmpty() &&
+      factDiffs.isEmpty() &&
+      facts.isEmpty();
   }
 
-  def toRef: Ref = Ref(id, name.getOrElse(s"id"))
+  public Ref toRef() {
+    return new Ref(id(), name().orElse(id().toString()));
+  }
 }
-
-*/

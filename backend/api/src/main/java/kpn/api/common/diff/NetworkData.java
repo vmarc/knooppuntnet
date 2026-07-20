@@ -9,15 +9,3 @@ public record NetworkData(
   Optional<String> name
 ) {
 }
-
-/*
-package kpn.api.common.diff
-
-import kpn.api.common.data.MetaData
-
-case class NetworkData(
-  metaData: MetaData,
-  name: Option[String]
-)
-
-*/

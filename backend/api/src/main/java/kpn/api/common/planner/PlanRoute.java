@@ -13,15 +13,7 @@ public record PlanRoute(
 ) {
 }
 
-/*
-package kpn.api.common.planner
-
-case class PlanRoute(
-  sourceNode: PlanNode,
-  sinkNode: PlanNode,
-  meters: Long,
-  segments: Seq[PlanSegment]
-) {
+/* TODO migrate
 
   def reverse: PlanRoute = {
 
@@ -60,6 +52,5 @@ case class PlanRoute(
       )
     }
   }
-}
 
 */

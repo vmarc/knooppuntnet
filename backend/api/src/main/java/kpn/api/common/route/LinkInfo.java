@@ -9,8 +9,7 @@ public record LinkInfo(
 ) {
 }
 
-/*
-package kpn.api.common.route
+/* TODO migrate
 
 object LinkInfo {
   def all: Seq[LinkInfo] = {
@@ -48,11 +47,5 @@ object LinkInfo {
     }
   }
 }
-
-case class LinkInfo(
-  name: String,
-  description: String,
-  link: Link,
-)
 
 */

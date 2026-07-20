@@ -7,6 +7,7 @@ import kpn.api.common.NetworkChanges;
 import kpn.api.common.changes.details.ChangeKey;
 import kpn.api.custom.Subset;
 import kpn.api.custom.Timestamp;
+import kpn.core.doc.WithStringId;
 
 import com.google.common.collect.ImmutableList;
 
@@ -25,16 +26,10 @@ public record ChangeSetSummary(
   Boolean happy,
   Boolean investigate,
   Boolean impact
-) {
+) implements WithStringId {
 }
 
-/*
-package kpn.api.common
-
-import kpn.api.common.changes.details.ChangeKey
-import kpn.api.custom.Subset
-import kpn.api.custom.Timestamp
-import kpn.core.doc.WithStringId
+/* TODO migrate
 
 object ChangeSetSummary {
 
@@ -89,22 +84,5 @@ object ChangeSetSummary {
     )
   }
 }
-
-case class ChangeSetSummary(
-  _id: String,
-  key: ChangeKey,
-  subsets: Seq[Subset],
-  locations: Seq[String],
-  timestampFrom: Timestamp,
-  timestampUntil: Timestamp,
-  networkChanges: NetworkChanges,
-  orphanRouteChanges: Seq[ChangeSetSubsetElementRefs],
-  orphanNodeChanges: Seq[ChangeSetSubsetElementRefs],
-  subsetAnalyses: Seq[ChangeSetSubsetAnalysis],
-  locationChanges: Seq[LocationChanges],
-  happy: Boolean,
-  investigate: Boolean,
-  impact: Boolean
-) extends WithStringId
 
 */

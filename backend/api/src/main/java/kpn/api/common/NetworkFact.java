@@ -16,7 +16,7 @@ public record NetworkFact(
 ) {
 }
 
-/*
+/* TODO migrate
 package kpn.api.common
 
 import kpn.api.common.common.Ref
@@ -44,6 +44,5 @@ case class NetworkFact(
         }
     }
   }
-}
 
 */

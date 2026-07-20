@@ -1,5 +1,6 @@
 package kpn.api.common.data.raw;
 
+import kpn.api.common.LatLon;
 import kpn.api.custom.Tag;
 import kpn.api.custom.Timestamp;
 
@@ -13,10 +14,10 @@ public record RawNode(
   Timestamp timestamp,
   Long changeSetId,
   ImmutableList<Tag> tags
-) {
+) implements RawElement, LatLon {
 }
 
-/*
+/* TODO migrate
 package kpn.api.common.data.raw
 
 import kpn.api.common.LatLon
