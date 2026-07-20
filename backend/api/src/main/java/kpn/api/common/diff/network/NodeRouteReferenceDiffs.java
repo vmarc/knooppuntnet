@@ -8,8 +8,7 @@ public record NodeRouteReferenceDiffs(
   ImmutableList<Ref> removed,
   ImmutableList<Ref> added,
   ImmutableList<Ref> remaining
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff.network

@@ -26,5 +26,4 @@ public record ChangeSetInfo(
   Boolean open,
   Long commentsCount,
   ImmutableList<Tag> tags
-) implements Tagable, WithId {
-}
+) implements Tagable, WithId {}

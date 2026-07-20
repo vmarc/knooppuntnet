@@ -4,8 +4,7 @@ import com.google.common.collect.ImmutableList;
 
 public record Location(
   ImmutableList<String> names
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.location

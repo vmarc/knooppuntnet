@@ -12,8 +12,7 @@ public record GeometryDiff(
   ImmutableList<WayGeometry> common,
   ImmutableList<WayGeometryUpdate> update,
   Bounds bounds
-) {
-}
+) {}
 
 /* TODO migrate
 

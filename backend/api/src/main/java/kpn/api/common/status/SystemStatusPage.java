@@ -20,5 +20,4 @@ public record SystemStatusPage(
   BarChart changesDiskSize,
   BarChart changesDiskSizeExternal,
   BarChart changesDataSize
-) {
-}
+) {}

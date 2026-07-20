@@ -24,8 +24,7 @@ public record NodeInfo(
   ImmutableList<Fact> facts,
   ImmutableList<LocationInfo> locations,
   Optional<NodeIntegrity> integrity
-) implements Tagable, LatLon {
-}
+) implements Tagable, LatLon {}
 
 /* TODO migrate
 

@@ -10,8 +10,7 @@ public record BarChart2D(
   ImmutableList<Long> xAxisTicks,
   String legendTitle,
   ImmutableList<BarChart2dValue> data
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.status

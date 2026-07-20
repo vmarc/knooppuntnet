@@ -9,8 +9,7 @@ public record PlanLegDetail(
   LegEnd source,
   LegEnd sink,
   ImmutableList<PlanRoute> routes
-) {
-}
+) {}
 
 /* TODO migrate
 

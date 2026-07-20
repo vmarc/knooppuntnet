@@ -12,5 +12,4 @@ public record RouteNode(
   String alternateName,
   Optional<String> longName,
   Boolean isInWay
-) implements LatLon {
-}
+) implements LatLon {}

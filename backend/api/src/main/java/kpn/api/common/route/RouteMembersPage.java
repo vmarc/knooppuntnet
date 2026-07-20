@@ -8,5 +8,4 @@ import com.google.common.collect.ImmutableList;
 public record RouteMembersPage(
   RouteInfo routeInfo,
   ImmutableList<StructureRow> structureRows
-) {
-}
+) {}

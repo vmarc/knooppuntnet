@@ -9,8 +9,7 @@ public record ChangesPage(
   ImmutableList<ChangesFilterOption> filterOptions,
   ImmutableList<ChangeSetSummaryInfo> changes,
   Long changeCount
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common

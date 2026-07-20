@@ -19,8 +19,7 @@ public record MonitorRouteRelation(
   Long deviationCount,
   Boolean happy,
   ImmutableList<MonitorRouteRelation> relations
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.monitor

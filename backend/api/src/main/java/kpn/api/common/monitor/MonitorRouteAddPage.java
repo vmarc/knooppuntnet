@@ -4,5 +4,4 @@ public record MonitorRouteAddPage(
   String groupId,
   String groupName,
   String groupDescription
-) {
-}
+) {}

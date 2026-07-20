@@ -15,5 +15,4 @@ public record RouteStructureWay(
   String nodeCount,
   WayDirection oneWay,
   ImmutableList<Tag> oneWayTags
-) {
-}
+) {}

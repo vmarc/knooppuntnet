@@ -7,5 +7,4 @@ public record StatisticValue(
   Country country,
   RouteType routeType,
   String value
-) {
-}
+) {}

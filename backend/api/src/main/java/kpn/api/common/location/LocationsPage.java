@@ -6,5 +6,4 @@ import java.util.Optional;
 
 public record LocationsPage(
   Optional<LocationNode> locationNode
-) {
-}
+) {}

@@ -13,5 +13,4 @@ public record LocationNodesPage(
   Long nodeCount,
   LocationNodeOptions filter,
   ImmutableList<LocationNodeInfo> nodes
-) {
-}
+) {}

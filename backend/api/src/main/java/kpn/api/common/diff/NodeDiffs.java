@@ -9,8 +9,7 @@ public record NodeDiffs(
   ImmutableList<NodeData> removed,
   ImmutableList<NodeData> added,
   ImmutableList<NodeDataUpdate> updated
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff

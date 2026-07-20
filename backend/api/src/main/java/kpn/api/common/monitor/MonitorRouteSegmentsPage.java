@@ -11,5 +11,4 @@ public record MonitorRouteSegmentsPage(
   Long meters,
   ImmutableList<MonitorRouteRelationInfo> relations,
   ImmutableList<SegmentInfo> segments
-) {
-}
+) {}

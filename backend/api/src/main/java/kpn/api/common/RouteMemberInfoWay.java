@@ -21,5 +21,4 @@ public record RouteMemberInfoWay(
   WayDirection oneWay,
   ImmutableList<Tag> oneWayTags,
   Link link
-) {
-}
+) {}

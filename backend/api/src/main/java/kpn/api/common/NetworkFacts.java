@@ -17,8 +17,7 @@ public record NetworkFacts(
   Optional<NetworkIntegrityCheck> integrityCheck,
   Optional<NetworkIntegrityCheckFailed> integrityCheckFailed,
   Optional<NetworkNameMissing> nameMissing
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common

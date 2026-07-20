@@ -9,8 +9,7 @@ public record TrackSegment(
   String surface,
   TrackPoint source,
   ImmutableList<TrackSegmentFragment> fragments
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.common

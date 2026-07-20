@@ -12,8 +12,7 @@ public record Link(
   Boolean isOnewayLoopBackwardPart,
   Boolean isOnewayHead,
   Boolean isOnewayTail
-) {
-}
+) {}
 
 /* TODO migrate
 

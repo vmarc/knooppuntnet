@@ -6,5 +6,4 @@ public record NodeIntegrityCheck(
   Long actual,
   Long expected,
   Boolean failed
-) {
-}
+) {}

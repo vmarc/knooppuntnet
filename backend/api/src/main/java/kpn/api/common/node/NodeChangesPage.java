@@ -12,5 +12,4 @@ public record NodeChangesPage(
   ImmutableList<NodeChangeInfo> changes,
   Long totalCount,
   Long changeCount
-) {
-}
+) {}

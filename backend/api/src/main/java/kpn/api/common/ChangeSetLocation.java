@@ -10,5 +10,4 @@ public record ChangeSetLocation(
   ChangeSetElementRefs nodeChanges,
   Boolean happy,
   Boolean investigate
-) {
-}
+) {}

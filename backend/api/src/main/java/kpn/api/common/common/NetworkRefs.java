@@ -16,8 +16,7 @@ public record NetworkRefs(
   Optional<Ref> networkRef,
   String refType,
   ImmutableList<Ref> refs
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.common

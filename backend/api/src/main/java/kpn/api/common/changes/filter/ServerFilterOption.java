@@ -4,5 +4,4 @@ public record ServerFilterOption(
   String name,
   Long count,
   Boolean selected
-) {
-}
+) {}

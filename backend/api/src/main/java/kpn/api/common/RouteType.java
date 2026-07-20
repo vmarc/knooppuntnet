@@ -1,12 +1,12 @@
 package kpn.api.common;
 
 public enum RouteType {
-  CANOE,
-  CYCLING,
   HIKING,
+  CYCLING,
   HORSE_RIDING,
-  INLINE_SKATING,
+  CANOE,
   MOTORBOAT,
+  INLINE_SKATING,
   MTB
 }
 

@@ -9,5 +9,4 @@ public record LocationFact(
   String elementType,
   Fact fact,
   ImmutableList<Ref> refs
-) {
-}
+) {}

@@ -28,5 +28,4 @@ public record MonitorRouteMapPage(
   ImmutableList<MonitorRouteDeviation> deviations,
   Optional<MonitorReferenceInfo> reference,
   ImmutableList<MonitorRouteSubRelation> subRelations
-) {
-}
+) {}

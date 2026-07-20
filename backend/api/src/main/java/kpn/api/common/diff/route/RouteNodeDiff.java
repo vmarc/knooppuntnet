@@ -8,8 +8,7 @@ public record RouteNodeDiff(
   String title,
   ImmutableList<Ref> added,
   ImmutableList<Ref> removed
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff.route

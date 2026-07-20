@@ -11,5 +11,4 @@ public record SubsetChangesPage(
   ImmutableList<ChangesFilterOption> filterOptions,
   ImmutableList<ChangeSetSummaryInfo> changes,
   Long changeCount
-) {
-}
+) {}

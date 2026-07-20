@@ -16,8 +16,7 @@ public record RouteDiff(
   ImmutableList<RouteNodeDiff> nodeDiffs,
   Boolean memberOrderChanged,
   Optional<TagDiffs> tagDiffs
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff.route

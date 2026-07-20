@@ -6,6 +6,5 @@ import com.google.common.collect.ImmutableList;
 
 public record OverviewPage(
   ImmutableList<StatisticValues> values
-) {
-}
+) {}
 

@@ -8,8 +8,7 @@ public record LegBuildParams(
   LegEnd source,
   LegEnd sink,
   Boolean proposed
-) implements Storable {
-}
+) implements Storable {}
 
 /* TODO migrate
 

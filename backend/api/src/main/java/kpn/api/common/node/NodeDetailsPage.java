@@ -14,5 +14,4 @@ public record NodeDetailsPage(
   ImmutableList<Reference> networkReferences,
   Optional<NodeIntegrity> integrity,
   Long changeCount
-) {
-}
+) {}

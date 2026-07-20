@@ -8,5 +8,4 @@ import com.google.common.collect.ImmutableList;
 public record RouteSegmentsPage(
   RouteInfo routeInfo,
   ImmutableList<SegmentInfo> segments
-) {
-}
+) {}

@@ -8,5 +8,4 @@ public record MapRouteDetail(
   Long id,
   String name,
   ImmutableList<Ref> networkReferences
-) {
-}
+) {}

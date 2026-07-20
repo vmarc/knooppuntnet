@@ -4,5 +4,4 @@ import kpn.core.doc.Storable;
 
 public record LegEndNode(
   Long nodeId
-) implements Storable {
-}
+) implements Storable {}

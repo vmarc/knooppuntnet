@@ -13,8 +13,7 @@ public record RawData(
   ImmutableList<RawNode> nodes,
   ImmutableList<RawWay> ways,
   ImmutableList<RawRelation> relations
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.data.raw

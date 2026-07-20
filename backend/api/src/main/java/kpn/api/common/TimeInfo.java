@@ -7,5 +7,4 @@ public record TimeInfo(
   Timestamp lastWeekStart,
   Timestamp lastMonthStart,
   Timestamp lastYearStart
-) {
-}
+) {}

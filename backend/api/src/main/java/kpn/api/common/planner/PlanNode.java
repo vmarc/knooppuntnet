@@ -12,5 +12,4 @@ public record PlanNode(
   Optional<String> nodeLongName,
   PlanCoordinate coordinate,
   LatLonImpl latLon // TODO PLAN has become obsolete? NO: used to create GPX on client ==> YES: zou lokaal terug van Coordinate berekend kunnen worden...
-) {
-}
+) {}

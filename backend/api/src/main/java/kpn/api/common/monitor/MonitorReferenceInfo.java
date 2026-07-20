@@ -15,5 +15,4 @@ public record MonitorReferenceInfo(
   Timestamp referenceTimestamp,
   Long referenceSegmentCount,
   Optional<String> referenceFilename
-) {
-}
+) {}

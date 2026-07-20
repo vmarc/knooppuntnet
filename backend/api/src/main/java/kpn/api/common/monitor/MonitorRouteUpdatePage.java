@@ -12,6 +12,5 @@ public record MonitorRouteUpdatePage(
   String routeDescription,
   ImmutableList<MonitorRouteGroup> groups,
   MonitorRouteProperties properties
-) {
-}
+) {}
 

@@ -8,5 +8,4 @@ import com.google.common.collect.ImmutableList;
 public record NetworkRouteFact(
   Fact fact,
   ImmutableList<Ref> routes
-) {
-}
+) {}

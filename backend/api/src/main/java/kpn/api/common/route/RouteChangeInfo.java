@@ -30,5 +30,4 @@ public record RouteChangeInfo(
   Optional<GeometryDiff> geometryDiff,
   Boolean happy,
   Boolean investigate
-) {
-}
+) {}

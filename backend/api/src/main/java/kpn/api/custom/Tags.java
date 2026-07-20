@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 public final class Tags {
 
@@ -22,7 +24,7 @@ public final class Tags {
       .toList();
   }
 
-  public static List<Tag> from(Map<String, String> map) {
+  public static List<Tag> from(ImmutableMap<String, String> map) {
     return map.entrySet().stream()
       .map(entry -> new Tag(entry.getKey(), entry.getValue()))
       .toList();
@@ -41,11 +43,11 @@ public final class Tags {
       .findFirst();
   }
 
-  public static List<String> values(List<Tag> tags, String key) {
+  public static ImmutableList<String> values(List<Tag> tags, String key) {
     return get(tags, key)
       .filter(value -> !value.isEmpty())
       .map(kpn.api.custom.Tags::splitAndNormalize)
-      .orElse(List.of());
+      .orElse(ImmutableList.of());
   }
 
   public static boolean has(List<Tag> tags, String key, String... allowedValues) {
@@ -58,15 +60,15 @@ public final class Tags {
     );
   }
 
-  public static List<String> splitAndNormalize(String value) {
+  public static ImmutableList<String> splitAndNormalize(String value) {
     if (value.contains(VALUE_SEPARATOR)) {
       return Arrays.stream(value.split(VALUE_SEPARATOR))
         .map(String::trim)
         .filter(part -> !part.isEmpty())
         .sorted()
-        .toList();
+        .collect(ImmutableList.toImmutableList());
     } else {
-      return List.of(value.trim());
+      return ImmutableList.of(value.trim());
     }
   }
 }

@@ -5,5 +5,4 @@ import com.google.common.collect.ImmutableList;
 public record SubsetFactRefs(
   String elementType,
   ImmutableList<Long> elementIds
-) {
-}
+) {}

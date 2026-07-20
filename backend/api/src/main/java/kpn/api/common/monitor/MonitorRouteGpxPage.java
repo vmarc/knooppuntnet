@@ -12,5 +12,4 @@ public record MonitorRouteGpxPage(
   Timestamp referenceTimestamp,
   Optional<String> referenceFilename,
   Long referenceDistance
-) {
-}
+) {}

@@ -7,5 +7,4 @@ import java.util.Optional;
 public record NetworkDataUpdate(
   Optional<NetworkData> before,
   Optional<NetworkData> after
-) {
-}
+) {}

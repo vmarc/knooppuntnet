@@ -22,5 +22,4 @@ public record MonitorRouteDetail(
   ImmutableList<Long> relationIds,
   Optional<Bounds> bounds,
   Boolean happy
-) {
-}
+) {}

@@ -12,5 +12,4 @@ public record NetworkNodesPage(
   SurveyDateInfo surveyDateInfo,
   NetworkSummary summary,
   ImmutableList<NetworkNodeRow> nodes
-) {
-}
+) {}

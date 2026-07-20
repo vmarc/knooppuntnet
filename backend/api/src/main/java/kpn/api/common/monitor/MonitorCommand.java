@@ -8,8 +8,7 @@ public record MonitorCommand(
   MonitorCommandAction action,
   String stepId,
   Optional<String> description
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.monitor

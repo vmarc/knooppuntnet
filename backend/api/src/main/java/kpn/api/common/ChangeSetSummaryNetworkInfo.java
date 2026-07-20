@@ -9,5 +9,4 @@ public record ChangeSetSummaryNetworkInfo(
   NetworkChanges networkChanges,
   ImmutableList<ChangeSetSubsetElementRefs> orphanRouteChanges,
   ImmutableList<ChangeSetSubsetElementRefs> orphanNodeChanges
-) {
-}
+) {}

@@ -47,8 +47,7 @@ public record RouteDetails(
   ImmutableList<ParentRoute> parentRoutes,
   ImmutableList<Reference> networkReferences,
   ImmutableList<LocationCandidateInfo> locationCandidateInfos
-) {
-}
+) {}
 
 /* TODO migrate
 

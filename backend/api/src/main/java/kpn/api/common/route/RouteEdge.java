@@ -5,5 +5,4 @@ public record RouteEdge(
   Long sourceNodeId,
   Long sinkNodeId,
   Long meters
-) {
-}
+) {}

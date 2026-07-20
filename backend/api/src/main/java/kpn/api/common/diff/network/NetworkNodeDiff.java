@@ -13,8 +13,7 @@ public record NetworkNodeDiff(
   Optional<NodeRouteReferenceDiffs> routeReferenceDiffs,
   Optional<NodeIntegrityCheckDiff> nodeIntegrityCheckDiff,
   Optional<TagDiffs> tagDiffs
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff.network

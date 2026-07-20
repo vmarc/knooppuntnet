@@ -10,5 +10,4 @@ public record SubsetOrphanNodesPage(
   TimeInfo timeInfo,
   SubsetInfo subsetInfo,
   ImmutableList<OrphanNodeInfo> nodes
-) {
-}
+) {}

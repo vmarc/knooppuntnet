@@ -3,8 +3,7 @@ package kpn.api.common.monitor;
 public record MonitorRouteUpdateStep(
   String name,
   String status
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.monitor

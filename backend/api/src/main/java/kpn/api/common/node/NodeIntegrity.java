@@ -6,8 +6,7 @@ import com.google.common.collect.ImmutableList;
 
 public record NodeIntegrity(
   ImmutableList<NodeIntegrityDetail> details
-) {
-}
+) {}
 
 /* TODO migrate
 

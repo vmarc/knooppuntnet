@@ -42,5 +42,4 @@ public record StructureRow(
   Optional<String> gaps,
   Boolean showMap, // from MonitorRouteRelationStructureRow OBSOLETE?
   Boolean happy
-) {
-}
+) {}

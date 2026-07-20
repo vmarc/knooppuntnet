@@ -15,5 +15,4 @@ public record RouteMemberInfo(
   Optional<RouteMemberInfoWay> way,
   ImmutableList<Long> segmentIds,
   ImmutableList<Long> pathIds
-) {
-}
+) {}

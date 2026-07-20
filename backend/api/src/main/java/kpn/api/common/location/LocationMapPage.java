@@ -8,5 +8,4 @@ public record LocationMapPage(
   Bounds bounds,
   String geoJson,
   String geoJson2
-) {
-}
+) {}

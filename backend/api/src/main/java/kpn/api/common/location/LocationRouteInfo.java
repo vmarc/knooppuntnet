@@ -17,5 +17,4 @@ public record LocationRouteInfo(
   Optional<String> symbol,
   Boolean proposed,
   ImmutableList<Fact> facts
-) {
-}
+) {}

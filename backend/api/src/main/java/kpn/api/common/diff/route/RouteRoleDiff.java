@@ -5,8 +5,7 @@ import java.util.Optional;
 public record RouteRoleDiff(
   Optional<String> before,
   Optional<String> after
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff.route

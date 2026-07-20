@@ -7,8 +7,7 @@ import com.google.common.collect.ImmutableList;
 public record TagDiffs(
   ImmutableList<TagDiff> mainTags,
   ImmutableList<TagDiff> extraTags
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff

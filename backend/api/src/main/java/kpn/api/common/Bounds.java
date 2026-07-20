@@ -5,8 +5,7 @@ public record Bounds(
   Double minLon,
   Double maxLat,
   Double maxLon
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common

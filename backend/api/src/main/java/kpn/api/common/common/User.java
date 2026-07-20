@@ -5,5 +5,4 @@ import kpn.core.doc.WithStringId;
 
 public record User(
   String _id
-) implements WithStringId {
-}
+) implements WithStringId {}

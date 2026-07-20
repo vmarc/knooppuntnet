@@ -6,5 +6,4 @@ public record ChangeSetSubsetAnalysis(
   Subset subset,
   Boolean happy,
   Boolean investigate
-) {
-}
+) {}

@@ -13,8 +13,7 @@ public record Way(
   ImmutableList<Tag> tags,
   ImmutableList<Node> nodes,
   Long length
-) implements Element {
-}
+) implements Element {}
 
 /* TODO migrate
 package kpn.api.common.data

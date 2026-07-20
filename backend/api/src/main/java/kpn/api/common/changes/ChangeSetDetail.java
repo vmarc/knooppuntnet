@@ -20,5 +20,4 @@ public record ChangeSetDetail(
   ImmutableList<RouteChangeInfo> routeChanges,
   ImmutableList<NodeChangeInfo> nodeChanges,
   KnownElements knownElements
-) {
-}
+) {}

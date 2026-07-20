@@ -9,5 +9,4 @@ import com.google.common.collect.ImmutableList;
 public record NetworkFactsPage(
   NetworkSummary summary,
   ImmutableList<NetworkFact> facts
-) implements Storable {
-}
+) implements Storable {}

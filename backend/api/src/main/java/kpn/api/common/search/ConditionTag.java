@@ -6,8 +6,7 @@ public record ConditionTag(
   ConditionOperator operator,
   String key,
   String value
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.search

@@ -5,8 +5,7 @@ public record ChangeSetElementRef(
   String name,
   Boolean happy,
   Boolean investigate
-) {
-}
+) {}
 
 /* TODO migrate
 

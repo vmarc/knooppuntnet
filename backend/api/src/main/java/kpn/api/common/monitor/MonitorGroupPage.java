@@ -14,5 +14,4 @@ public record MonitorGroupPage(
   Optional<Bounds> bounds,
   ImmutableList<Long> relationIds,
   ImmutableList<MonitorRouteDetail> routes
-) {
-}
+) {}

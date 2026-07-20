@@ -11,8 +11,7 @@ public record NodeName(
   String name,
   Optional<String> longName,
   Boolean proposed
-) {
-}
+) {}
 
 /* TODO migrate
 

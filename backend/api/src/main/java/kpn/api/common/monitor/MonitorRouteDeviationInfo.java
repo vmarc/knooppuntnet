@@ -7,5 +7,4 @@ public record MonitorRouteDeviationInfo(
   Long meters,
   Long distance,
   Bounds bounds
-) {
-}
+) {}

@@ -27,8 +27,7 @@ public record NetworkAttributes(
   Timestamp lastUpdated,
   Timestamp relationLastUpdated,
   Optional<LatLonImpl> center
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.network

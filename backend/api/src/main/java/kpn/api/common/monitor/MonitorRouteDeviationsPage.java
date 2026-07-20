@@ -9,5 +9,4 @@ public record MonitorRouteDeviationsPage(
   MonitorRouteSummary summary,
   Long deviationDistance,
   ImmutableList<MonitorRouteDeviationInfo> deviations
-) {
-}
+) {}

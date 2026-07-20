@@ -6,5 +6,4 @@ import java.util.Optional;
 
 public record PoiLocationsPage(
   Optional<LocationNode> locationNode
-) {
-}
+) {}

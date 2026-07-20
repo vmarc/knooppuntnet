@@ -10,8 +10,7 @@ public record Statistic(
   CountryStatistic fr,
   CountryStatistic at,
   CountryStatistic es
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.statistics

@@ -6,8 +6,7 @@ import java.util.Optional;
 
 public record NetworkNameMissing(
   Optional<String> dummy
-) implements Storable {
-}
+) implements Storable {}
 
 /* TODO migrate
 

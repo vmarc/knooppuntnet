@@ -12,8 +12,7 @@ public record Condition(
   Optional<ConditionLocation> location,
   Optional<ConditionName> name,
   Optional<ConditionGroup> group
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.search

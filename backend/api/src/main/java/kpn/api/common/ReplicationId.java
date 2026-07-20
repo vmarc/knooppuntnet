@@ -4,8 +4,7 @@ public record ReplicationId(
   Long level1,
   Long level2,
   Long level3
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common

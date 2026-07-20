@@ -21,5 +21,4 @@ public record SubsetNetworksPage(
   String analysisUpdatedTime,
   Optional<Bounds> bounds,
   ImmutableList<NetworkAttributes> networks
-) {
-}
+) {}

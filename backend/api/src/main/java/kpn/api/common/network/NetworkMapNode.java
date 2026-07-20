@@ -8,5 +8,4 @@ public record NetworkMapNode(
   String latitude,
   String longitude,
   Boolean roleConnection
-) implements LatLon {
-}
+) implements LatLon {}

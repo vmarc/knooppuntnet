@@ -10,5 +10,4 @@ public record RouteLocationAnalysis(
   Optional<Location> location,
   ImmutableList<LocationCandidate> candidates,
   ImmutableList<String> locationNames
-) {
-}
+) {}

@@ -10,8 +10,7 @@ public record SubsetFactDetailsPage(
   SubsetInfo subsetInfo,
   Fact fact,
   ImmutableList<NetworkFactRefs> networks
-) {
-}
+) {}
 
 /* TODO migrate
 

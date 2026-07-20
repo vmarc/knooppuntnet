@@ -10,8 +10,7 @@ public record ActionTimestamp(
   Long weekYear,
   Long weekWeek,
   Long weekDay
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.status

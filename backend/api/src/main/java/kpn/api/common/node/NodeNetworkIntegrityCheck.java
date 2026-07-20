@@ -4,5 +4,4 @@ public record NodeNetworkIntegrityCheck(
   Boolean failed,
   Long expected,
   Long actual
-) {
-}
+) {}

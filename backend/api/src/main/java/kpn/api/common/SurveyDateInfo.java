@@ -9,5 +9,4 @@ public record SurveyDateInfo(
   Day lastHalfYearStart,
   Day lastYearStart,
   Day lastTwoYearsStart
-) {
-}
+) {}

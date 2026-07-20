@@ -18,5 +18,4 @@ public record ChangeSetSummaryInfo(
   Boolean happy,
   Boolean investigate,
   Boolean impact
-) {
-}
+) {}

@@ -6,5 +6,4 @@ import kpn.api.common.route.RouteInfo;
 public record RouteDetailsPage(
   RouteInfo routeInfo,
   RouteDetails details
-) {
-}
+) {}

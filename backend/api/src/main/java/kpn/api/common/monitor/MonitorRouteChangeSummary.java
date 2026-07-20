@@ -20,5 +20,4 @@ public record MonitorRouteChangeSummary(
   Long resolvedNokSegmentCount,
   Boolean happy,
   Boolean investigate
-) {
-}
+) {}

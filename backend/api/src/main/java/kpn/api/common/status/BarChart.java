@@ -7,8 +7,7 @@ import com.google.common.collect.ImmutableList;
 public record BarChart(
   ImmutableList<Long> xAxisTicks,
   ImmutableList<NameValue> data
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.status

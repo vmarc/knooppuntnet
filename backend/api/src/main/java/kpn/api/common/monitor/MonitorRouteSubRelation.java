@@ -6,5 +6,4 @@ public record MonitorRouteSubRelation(
   Optional<Long> subRelationIndex,
   Long relationId,
   String name
-) {
-}
+) {}

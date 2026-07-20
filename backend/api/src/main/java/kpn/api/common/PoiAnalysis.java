@@ -34,8 +34,7 @@ public record PoiAnalysis(
   Optional<String> serviceTimes,
   Optional<String> cuisine,
   Optional<String> denomination
-) {
-}
+) {}
 
 /* TODO migrate
 

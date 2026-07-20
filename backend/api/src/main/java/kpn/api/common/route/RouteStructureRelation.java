@@ -16,5 +16,4 @@ public record RouteStructureRelation(
   Long totalDistance,
   Optional<String> gaps,
   Boolean happy
-) {
-}
+) {}

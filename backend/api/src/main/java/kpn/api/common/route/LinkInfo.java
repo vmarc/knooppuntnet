@@ -6,8 +6,7 @@ public record LinkInfo(
   String name,
   String description,
   Link link
-) {
-}
+) {}
 
 /* TODO migrate
 

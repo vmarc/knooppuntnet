@@ -8,5 +8,4 @@ import com.google.common.collect.ImmutableList;
 public record ConditionGroup(
   ConditionGroupOperator operator,
   ImmutableList<Condition> conditions
-) {
-}
+) {}

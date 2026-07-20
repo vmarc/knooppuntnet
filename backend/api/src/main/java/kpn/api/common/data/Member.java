@@ -1,8 +1,6 @@
 package kpn.api.common.data;
 
 import kpn.api.common.Relation;
-import kpn.api.common.data.Node;
-import kpn.api.common.data.Way;
 
 import java.util.Optional;
 
@@ -12,8 +10,7 @@ public record Member(
   Optional<Relation> relation,
   Optional<Long> relationId,
   Optional<String> role
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.data

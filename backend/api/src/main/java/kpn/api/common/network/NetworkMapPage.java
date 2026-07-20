@@ -14,5 +14,4 @@ public record NetworkMapPage(
   ImmutableList<Long> networkRouteIds,
   ImmutableList<Long> connectionRouteIds,
   Bounds bounds
-) {
-}
+) {}

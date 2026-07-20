@@ -9,5 +9,4 @@ public record LocationNode(
   Long routeCount,
   Long factCount,
   ImmutableList<LocationNode> children
-) {
-}
+) {}

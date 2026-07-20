@@ -10,5 +10,4 @@ public record MonitorRouteUpdateStatus(
   Boolean done,
   ImmutableList<String> errors,
   Optional<String> exception
-) {
-}
+) {}

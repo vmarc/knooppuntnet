@@ -14,6 +14,5 @@ public record LocationEditPage(
   Bounds bounds,
   ImmutableList<Long> nodeIds,
   ImmutableList<Long> routeIds
-) {
-}
+) {}
 

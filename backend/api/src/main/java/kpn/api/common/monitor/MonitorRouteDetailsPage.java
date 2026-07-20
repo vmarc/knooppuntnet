@@ -20,5 +20,4 @@ public record MonitorRouteDetailsPage(
   Long deviationDistance,
   Boolean happy,
   Optional<RouteDetails> details
-) {
-}
+) {}

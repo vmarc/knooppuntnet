@@ -11,8 +11,7 @@ public record ChangesFilterOption(
   Long totalCount,
   Long impactedCount,
   Boolean current
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.changes.filter

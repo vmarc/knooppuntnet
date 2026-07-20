@@ -13,5 +13,4 @@ public record NetworkSummary(
   Long nodeCount,
   Long routeCount,
   Long changeCount
-) {
-}
+) {}

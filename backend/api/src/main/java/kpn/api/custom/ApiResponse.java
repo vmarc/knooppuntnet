@@ -6,5 +6,4 @@ public record ApiResponse<T>(
   Optional<Timestamp> situationOn,
   Long version,
   Optional<T> result
-) {
-}
+) {}

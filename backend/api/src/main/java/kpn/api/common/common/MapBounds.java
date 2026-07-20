@@ -5,8 +5,7 @@ public record MapBounds(
   String latMax,
   String lonMin,
   String lonMax
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.common

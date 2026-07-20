@@ -8,5 +8,4 @@ import com.google.common.collect.ImmutableList;
 public record RoutePathsPage(
   RouteInfo routeInfo,
   ImmutableList<RoutePath> paths
-) {
-}
+) {}

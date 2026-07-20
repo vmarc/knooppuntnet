@@ -9,5 +9,4 @@ public record ChangesFilterPeriod(
   Boolean current,
   Boolean selected,
   ImmutableList<ChangesFilterPeriod> periods
-) {
-}
+) {}

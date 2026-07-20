@@ -15,5 +15,4 @@ public record RouteInfo(
   Long pathCount,
   Long segmentCount,
   Long changeCount
-) {
-}
+) {}

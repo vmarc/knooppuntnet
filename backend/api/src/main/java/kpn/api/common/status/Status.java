@@ -6,5 +6,4 @@ import kpn.api.common.status.DiskUsage;
 public record Status(
   ActionTimestamp timestamp,
   DiskUsage diskUsage
-) {
-}
+) {}

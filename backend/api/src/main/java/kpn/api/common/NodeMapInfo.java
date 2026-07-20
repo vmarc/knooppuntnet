@@ -10,5 +10,4 @@ public record NodeMapInfo(
   ImmutableList<RouteType> routeTypes,
   String latitude,
   String longitude
-) {
-}
+) {}

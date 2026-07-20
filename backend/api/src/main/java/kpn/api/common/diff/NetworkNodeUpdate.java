@@ -7,8 +7,7 @@ public record NetworkNodeUpdate(
   NetworkNodeData before,
   NetworkNodeData after,
   NetworkNodeDiff diffs
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff

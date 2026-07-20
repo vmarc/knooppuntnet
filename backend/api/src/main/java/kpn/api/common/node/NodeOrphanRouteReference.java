@@ -6,5 +6,4 @@ public record NodeOrphanRouteReference(
   RouteType routeType,
   Long routeId,
   String routeName
-) {
-}
+) {}

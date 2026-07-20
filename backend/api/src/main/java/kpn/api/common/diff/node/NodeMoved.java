@@ -6,5 +6,4 @@ public record NodeMoved(
   LatLonImpl before,
   LatLonImpl after,
   Long distance
-) {
-}
+) {}

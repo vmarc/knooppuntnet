@@ -7,5 +7,4 @@ public record LocationRouteOptions(
   ServerFilterGroup survey,
   ServerFilterGroup lastUpdated,
   ServerFilterGroup proposed
-) {
-}
+) {}

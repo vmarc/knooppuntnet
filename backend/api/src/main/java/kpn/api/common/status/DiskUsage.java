@@ -6,5 +6,4 @@ public record DiskUsage(
   BarChart frontend,
   BarChart database,
   BarChart backend
-) {
-}
+) {}

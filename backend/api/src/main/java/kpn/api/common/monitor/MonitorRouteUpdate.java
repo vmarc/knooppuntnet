@@ -20,8 +20,7 @@ public record MonitorRouteUpdate(
   Optional<String> migrationGeojson,
   Optional<String> newGroupName,
   Optional<String> newRouteName
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.monitor

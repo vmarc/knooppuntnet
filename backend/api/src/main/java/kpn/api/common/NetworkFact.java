@@ -13,8 +13,7 @@ public record NetworkFact(
   ImmutableList<Long> elementIds,
   ImmutableList<Ref> elements,
   ImmutableList<Check> checks
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common

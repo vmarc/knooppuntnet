@@ -14,5 +14,4 @@ public record NetworkRoutesPage(
   RouteType routeType,
   NetworkSummary summary,
   ImmutableList<NetworkRouteRow> routes
-) {
-}
+) {}

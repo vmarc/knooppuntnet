@@ -7,5 +7,4 @@ import com.google.common.collect.ImmutableList;
 public record BarChart2dValue(
   String name,
   ImmutableList<NameValue> series
-) {
-}
+) {}

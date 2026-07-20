@@ -32,27 +32,17 @@ public record RouteData(
 //  }
 
   public ImmutableList<Subset> subsets() {
-    return ImmutableList.of(
-      countries.stream()
-        .flatMap(country ->
-                   routeTypes.stream()
-                     .flatMap(routeType -> Subset.of(country, routeType).stream())
-        )
-    );
+    return
+      countries.stream().flatMap(
+        country -> routeTypes.stream()
+          .flatMap(routeType -> Subset.of(country, routeType).stream())
+      ).collect(ImmutableList.toImmutableList());
   }
 
   public ImmutableList<Tag> tags() {
     return raw.tags();
   }
   /*
-  def subsets: Seq[Subset] = {
-    countries.flatMap { country =>
-      routeTypes.flatMap { routeType =>
-        Subset.of(country, routeType)
-      }
-    }
-  }
-
   def tags: Seq[Tag] = raw.tags
    */
 }

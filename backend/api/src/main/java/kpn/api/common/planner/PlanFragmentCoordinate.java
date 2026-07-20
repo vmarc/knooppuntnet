@@ -6,5 +6,4 @@ import kpn.api.common.planner.PlanCoordinate;
 public record PlanFragmentCoordinate(
   PlanCoordinate coordinate,
   LatLonImpl latLon
-) {
-}
+) {}

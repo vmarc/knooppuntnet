@@ -12,5 +12,4 @@ public record PoiState(
   Optional<String> imageStatusDetail,
   Optional<Timestamp> imageFirstSeen,
   Optional<Timestamp> imageLastSeen
-) implements WithStringId {
-}
+) implements WithStringId {}

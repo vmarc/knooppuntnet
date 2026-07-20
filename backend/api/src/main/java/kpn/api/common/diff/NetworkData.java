@@ -7,5 +7,4 @@ import java.util.Optional;
 public record NetworkData(
   MetaData metaData,
   Optional<String> name
-) {
-}
+) {}

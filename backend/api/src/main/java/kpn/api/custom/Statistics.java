@@ -1,4 +1,3 @@
 package kpn.api.custom;
 
-public record Statistics() {
-}
+public record Statistics() {}

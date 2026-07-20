@@ -17,8 +17,7 @@ public record LocationNodesParameters(
   Optional<BooleanParameter> referencedInRoutes,
   Long pageSize,
   Long pageIndex
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.location

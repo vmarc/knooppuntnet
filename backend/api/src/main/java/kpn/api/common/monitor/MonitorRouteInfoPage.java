@@ -13,8 +13,7 @@ public record MonitorRouteInfoPage(
   Optional<String> operator,
   Optional<String> website,
   Optional<String> symbol
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.monitor

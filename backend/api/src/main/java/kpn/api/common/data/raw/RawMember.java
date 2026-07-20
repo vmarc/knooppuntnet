@@ -8,8 +8,7 @@ public record RawMember(
   MemberType memberType,
   Long ref,
   Optional<String> role
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.data.raw

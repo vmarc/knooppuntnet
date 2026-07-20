@@ -11,5 +11,4 @@ public record LocationNodeOptions(
   ServerFilterGroup proposed,
   ServerFilterGroup referencedInRoutes,
   Long totalNodeCount
-) {
-}
+) {}

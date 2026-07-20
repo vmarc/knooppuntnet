@@ -17,6 +17,5 @@ public record MonitorRouteSummary(
   Long segmentCount,
   Long deviationCount,
   Optional<Bounds> bounds
-) {
-}
+) {}
 

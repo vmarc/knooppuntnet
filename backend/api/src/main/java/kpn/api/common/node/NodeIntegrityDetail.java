@@ -11,8 +11,7 @@ public record NodeIntegrityDetail(
   RouteScope routeScope,
   Integer expectedRouteCount,
   ImmutableList<Ref> routeRefs
-) {
-}
+) {}
 
 /* TODO migrate
 

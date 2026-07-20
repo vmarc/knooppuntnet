@@ -9,8 +9,7 @@ public record WayDiffsInfo(
   ImmutableList<WayInfo> removed,
   ImmutableList<WayInfo> added,
   ImmutableList<WayUpdate> updated
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff

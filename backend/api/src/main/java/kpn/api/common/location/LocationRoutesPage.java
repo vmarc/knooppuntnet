@@ -13,5 +13,4 @@ public record LocationRoutesPage(
   Long routeCount,
   LocationRouteOptions filter,
   ImmutableList<LocationRouteInfo> routes
-) {
-}
+) {}

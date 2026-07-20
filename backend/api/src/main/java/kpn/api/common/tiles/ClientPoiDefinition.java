@@ -5,5 +5,4 @@ public record ClientPoiDefinition(
   String icon,
   Long minLevel,
   Long defaultLevel
-) {
-}
+) {}

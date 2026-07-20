@@ -11,8 +11,7 @@ public record WayInfo(
   Long changeSetId,
   Timestamp timestamp,
   ImmutableList<Tag> tags
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff

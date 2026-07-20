@@ -8,8 +8,7 @@ public record NetworkChanges(
   ImmutableList<ChangeSetNetwork> creates,
   ImmutableList<ChangeSetNetwork> updates,
   ImmutableList<ChangeSetNetwork> deletes
-) {
-}
+) {}
 
 /* TODO migrate
 

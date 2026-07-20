@@ -21,5 +21,4 @@ public record LocationNodeInfo(
   ImmutableList<Fact> facts,
   Optional<Long> expectedRouteCount,
   ImmutableList<Reference> routeReferences
-) implements LatLon {
-}
+) implements LatLon {}

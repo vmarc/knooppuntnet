@@ -14,8 +14,7 @@ public record LocationRoutesParameters(
   Optional<BooleanParameter> proposed,
   Long pageSize,
   Long pageIndex
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.location

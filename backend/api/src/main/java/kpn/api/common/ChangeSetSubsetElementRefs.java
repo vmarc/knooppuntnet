@@ -6,8 +6,7 @@ import kpn.api.custom.Subset;
 public record ChangeSetSubsetElementRefs(
   Subset subset,
   ChangeSetElementRefs elementRefs
-) {
-}
+) {}
 
 /* TODO migrate
 

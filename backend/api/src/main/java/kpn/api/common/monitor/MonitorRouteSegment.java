@@ -9,6 +9,5 @@ public record MonitorRouteSegment(
   Long meters,
   Bounds bounds,
   String geoJson
-) {
-}
+) {}
 

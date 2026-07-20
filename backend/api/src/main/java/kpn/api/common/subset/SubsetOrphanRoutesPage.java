@@ -10,5 +10,4 @@ public record SubsetOrphanRoutesPage(
   TimeInfo timeInfo,
   SubsetInfo subsetInfo,
   ImmutableList<OrphanRouteInfo> routes
-) {
-}
+) {}

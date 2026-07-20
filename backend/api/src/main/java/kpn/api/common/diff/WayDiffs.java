@@ -9,8 +9,7 @@ public record WayDiffs(
   ImmutableList<RawWay> removed,
   ImmutableList<RawWay> added,
   ImmutableList<WayUpdate> updated
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff

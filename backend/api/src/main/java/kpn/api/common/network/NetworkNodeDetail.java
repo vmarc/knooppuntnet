@@ -22,8 +22,7 @@ public record NetworkNodeDetail(
   Optional<Day> lastSurvey,
   Optional<Long> expectedRouteCount,
   ImmutableList<Fact> facts
-) implements LatLon {
-}
+) implements LatLon {}
 
 /* TODO migrate
 

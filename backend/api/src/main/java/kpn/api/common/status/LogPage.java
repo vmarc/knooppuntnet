@@ -17,6 +17,5 @@ public record LogPage(
   BarChart analysisRobot,
   BarChart robot,
   BarChart nonRobot
-) {
-}
+) {}
 

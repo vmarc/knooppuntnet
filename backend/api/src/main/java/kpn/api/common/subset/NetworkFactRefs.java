@@ -8,5 +8,4 @@ public record NetworkFactRefs(
   Long networkId,
   String networkName,
   ImmutableList<Ref> factRefs
-) {
-}
+) {}

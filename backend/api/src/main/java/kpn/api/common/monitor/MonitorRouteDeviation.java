@@ -10,8 +10,7 @@ public record MonitorRouteDeviation(
   Long distance,
   Bounds bounds,
   ImmutableList<String> lines
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.monitor

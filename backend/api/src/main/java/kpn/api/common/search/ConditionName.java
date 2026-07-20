@@ -5,8 +5,7 @@ import kpn.api.common.search.ConditionOperator;
 public record ConditionName(
   ConditionOperator operator,
   String name
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.search

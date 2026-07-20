@@ -9,5 +9,4 @@ public record NodeIntegrityCheckChange(
   RouteType routeType,
   Optional<NodeIntegrityCheck> before,
   Optional<NodeIntegrityCheck> after
-) {
-}
+) {}

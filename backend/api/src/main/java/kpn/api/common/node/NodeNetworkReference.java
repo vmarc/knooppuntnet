@@ -18,5 +18,4 @@ public record NodeNetworkReference(
   Optional<NodeNetworkIntegrityCheck> nodeIntegrityCheck,
   ImmutableList<Fact> facts,
   ImmutableList<NodeNetworkRouteReference> routes
-) {
-}
+) {}

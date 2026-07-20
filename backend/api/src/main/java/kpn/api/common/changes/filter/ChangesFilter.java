@@ -6,8 +6,7 @@ import com.google.common.collect.ImmutableList;
 
 public record ChangesFilter(
   ImmutableList<ChangesFilterPeriod> periods
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.changes.filter

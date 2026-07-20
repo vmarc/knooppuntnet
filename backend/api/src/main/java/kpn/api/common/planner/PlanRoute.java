@@ -10,8 +10,7 @@ public record PlanRoute(
   PlanNode sinkNode,
   Long meters,
   ImmutableList<PlanSegment> segments
-) {
-}
+) {}
 
 /* TODO migrate
 

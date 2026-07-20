@@ -22,5 +22,4 @@ public record RouteStructureRow(
   Optional<RouteStructureRelation> relation,
   ImmutableList<Long> segmentIds,
   ImmutableList<Long> pathIds
-) {
-}
+) {}

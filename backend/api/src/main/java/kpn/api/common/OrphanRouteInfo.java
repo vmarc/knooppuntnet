@@ -14,5 +14,4 @@ public record OrphanRouteInfo(
   Timestamp lastUpdated,
   ImmutableList<Fact> facts,
   Boolean investigate
-) {
-}
+) {}

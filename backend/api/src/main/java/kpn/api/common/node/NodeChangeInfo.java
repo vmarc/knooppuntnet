@@ -40,5 +40,4 @@ public record NodeChangeInfo(
   Optional<LatLonImpl> initialLatLon,
   Boolean happy,
   Boolean investigate
-) {
-}
+) {}

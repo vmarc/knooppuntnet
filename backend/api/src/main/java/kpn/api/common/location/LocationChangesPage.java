@@ -11,5 +11,4 @@ public record LocationChangesPage(
   ImmutableList<LocationChangeSetInfo> changeSets,
   Long changesCount,
   ImmutableList<ChangesFilterOption> filterOptions
-) {
-}
+) {}

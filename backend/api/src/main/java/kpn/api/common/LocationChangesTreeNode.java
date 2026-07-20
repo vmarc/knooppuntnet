@@ -11,5 +11,4 @@ public record LocationChangesTreeNode(
   ImmutableList<LocationChangesTreeNode> children, // empty for non-leaf nodes
   Boolean happy,
   Boolean investigate
-) {
-}
+) {}

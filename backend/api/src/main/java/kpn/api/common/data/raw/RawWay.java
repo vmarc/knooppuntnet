@@ -14,8 +14,7 @@ public record RawWay(
   Long changeSetId,
   ImmutableList<Long> nodeIds,
   ImmutableList<Tag> tags
-) implements RawElement {
-}
+) implements RawElement {}
 
 /* TODO migrate
 package kpn.api.common.data.raw

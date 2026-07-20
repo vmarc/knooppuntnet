@@ -7,5 +7,4 @@ public record GeocoderLocation(
   String latitude,
   String longitude,
   Bounds bounds
-) {
-}
+) {}

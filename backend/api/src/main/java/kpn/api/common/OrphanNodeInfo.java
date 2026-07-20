@@ -12,5 +12,4 @@ public record OrphanNodeInfo(
   Boolean proposed,
   Optional<String> lastSurvey,
   Long factCount
-) {
-}
+) {}

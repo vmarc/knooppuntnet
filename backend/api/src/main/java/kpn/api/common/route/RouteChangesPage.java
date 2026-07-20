@@ -10,5 +10,4 @@ public record RouteChangesPage(
   RouteInfo routeInfo,
   ImmutableList<ChangesFilterOption> filterOptions,
   ImmutableList<RouteChangeInfo> changes
-) {
-}
+) {}

@@ -5,6 +5,7 @@ import kpn.api.custom.Tags;
 
 import java.util.List;
 import java.util.Optional;
+import com.google.common.collect.ImmutableList;
 
 public interface Tagable {
 
@@ -14,7 +15,7 @@ public interface Tagable {
     return Tags.get(tags(), key);
   }
 
-  default List<String> tagValues(String key) {
+  default ImmutableList<String> tagValues(String key) {
     return Tags.values(tags(), key);
   }
 

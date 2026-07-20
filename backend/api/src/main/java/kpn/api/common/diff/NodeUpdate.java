@@ -11,8 +11,7 @@ public record NodeUpdate(
   Node after,
   Optional<TagDiffs> tagDiffs,
   Optional<NodeMoved> nodeMoved
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff

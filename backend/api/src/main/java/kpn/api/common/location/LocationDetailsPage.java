@@ -12,5 +12,4 @@ public record LocationDetailsPage(
   Long distance,
   ImmutableList<LocationInfo> locationInfos,
   ImmutableList<Tag> tags
-) {
-}
+) {}

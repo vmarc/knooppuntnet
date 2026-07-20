@@ -14,8 +14,7 @@ public record Relation(
   Long changeSetId,
   ImmutableList<Tag> tags,
   ImmutableList<Member> members
-) implements Element {
-}
+) implements Element {}
 
 /* TODO migrate
 package kpn.api.common

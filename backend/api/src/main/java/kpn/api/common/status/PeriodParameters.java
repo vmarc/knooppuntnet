@@ -9,5 +9,4 @@ public record PeriodParameters(
   Optional<Long> week,
   Optional<Long> day,
   Optional<Long> hour
-) {
-}
+) {}

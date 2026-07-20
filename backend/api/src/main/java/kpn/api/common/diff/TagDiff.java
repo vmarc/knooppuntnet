@@ -9,8 +9,7 @@ public record TagDiff(
   String key,
   Optional<String> valueBefore,
   Optional<String> valueAfter
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff

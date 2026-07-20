@@ -5,5 +5,4 @@ public record LocationSummary(
   Long nodeCount,
   Long routeCount,
   Long changesCount
-) {
-}
+) {}

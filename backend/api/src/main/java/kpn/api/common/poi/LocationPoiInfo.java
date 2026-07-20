@@ -13,5 +13,4 @@ public record LocationPoiInfo(
   Optional<String> address,
   Boolean link,
   Boolean image
-) {
-}
+) {}

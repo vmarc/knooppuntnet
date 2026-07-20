@@ -5,5 +5,4 @@ public record Check(
   String nodeName,
   Long expected,
   Long actual
-) {
-}
+) {}

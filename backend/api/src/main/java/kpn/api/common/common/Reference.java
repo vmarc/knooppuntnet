@@ -11,8 +11,7 @@ public record Reference(
   Long id,
   String name,
   Optional<String> role
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.common

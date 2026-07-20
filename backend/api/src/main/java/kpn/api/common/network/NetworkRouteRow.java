@@ -20,8 +20,7 @@ public record NetworkRouteRow(
   Boolean proposed,
   ImmutableList<Fact> facts,
   Optional<String> symbol
-) {
-}
+) {}
 
 /* TODO migrate
 

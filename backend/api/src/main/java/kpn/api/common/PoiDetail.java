@@ -8,5 +8,4 @@ public record PoiDetail(
   Poi poi,
   PoiAnalysis poiAnalysis,
   PoiState poiState
-) {
-}
+) {}

@@ -7,5 +7,4 @@ public record TimeKey(
   Long hour,
   Long minute,
   Long second
-) {
-}
+) {}

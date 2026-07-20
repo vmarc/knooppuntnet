@@ -10,5 +10,4 @@ public record PlanSegment(
   String surface,
   Optional<String> colour,
   ImmutableList<PlanFragment> fragments
-) {
-}
+) {}

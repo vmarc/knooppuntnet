@@ -15,8 +15,7 @@ public record ChangeSetNetwork(
   ChangeSetElementRefs nodeChanges,
   Boolean happy,
   Boolean investigate
-) {
-}
+) {}
 
 /* TODO migrate
 

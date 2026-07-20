@@ -8,8 +8,7 @@ public record ChangeSetElementRefs(
   ImmutableList<ChangeSetElementRef> removed,
   ImmutableList<ChangeSetElementRef> added,
   ImmutableList<ChangeSetElementRef> updated
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common

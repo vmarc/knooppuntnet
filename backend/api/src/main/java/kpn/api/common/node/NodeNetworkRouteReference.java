@@ -6,8 +6,7 @@ public record NodeNetworkRouteReference(
   Long routeId,
   String routeName,
   Optional<String> routeRole
-) {
-}
+) {}
 
 /* TODO migrate
 

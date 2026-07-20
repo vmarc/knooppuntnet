@@ -8,5 +8,4 @@ import com.google.common.collect.ImmutableList;
 public record NetworkNodeFact(
   Fact fact,
   ImmutableList<Ref> nodes
-) {
-}
+) {}

@@ -11,8 +11,7 @@ public record TrackPath(
   Long meters,
   Boolean oneWay,
   ImmutableList<TrackSegment> segments
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.common

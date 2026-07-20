@@ -9,8 +9,7 @@ import java.util.Optional;
 public record LegEnd(
   Optional<LegEndNode> node,
   Optional<LegEndRoute> route
-) implements Storable {
-}
+) implements Storable {}
 
 /* TODO migrate
 

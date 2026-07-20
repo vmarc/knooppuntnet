@@ -26,8 +26,7 @@ public record ChangeSetSummary(
   Boolean happy,
   Boolean investigate,
   Boolean impact
-) implements WithStringId {
-}
+) implements WithStringId {}
 
 /* TODO migrate
 

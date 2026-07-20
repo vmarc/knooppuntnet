@@ -11,5 +11,4 @@ public record LocationChangesTree(
   Boolean happy,
   Boolean investigate,
   ImmutableList<LocationChangesTreeNode> children
-) {
-}
+) {}

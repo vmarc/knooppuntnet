@@ -6,5 +6,4 @@ import com.google.common.collect.ImmutableList;
 
 public record RoutesFact(
   ImmutableList<Ref> routes
-) {
-}
+) {}

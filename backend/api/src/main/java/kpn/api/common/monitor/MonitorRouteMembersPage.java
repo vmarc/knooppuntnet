@@ -12,5 +12,4 @@ public record MonitorRouteMembersPage(
   MonitorReferenceType referenceType,
   ImmutableList<RouteType> routeTypes,
   ImmutableList<StructureRow> structureRows
-) {
-}
+) {}

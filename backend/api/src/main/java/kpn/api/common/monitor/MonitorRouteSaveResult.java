@@ -7,8 +7,7 @@ public record MonitorRouteSaveResult(
   Boolean analyzed,
   ImmutableList<String> errors,
   Optional<String> exception
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.monitor

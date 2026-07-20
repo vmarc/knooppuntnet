@@ -8,5 +8,4 @@ public record StatisticValues(
   String _id,
   String total,
   ImmutableList<StatisticValue> values
-) {
-}
+) {}

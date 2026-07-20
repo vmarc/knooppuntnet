@@ -9,8 +9,7 @@ public record NodeData(
   ImmutableList<Subset> subsets,
   String name,
   Node node
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff

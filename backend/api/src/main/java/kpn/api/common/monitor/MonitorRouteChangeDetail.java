@@ -26,5 +26,4 @@ public record MonitorRouteChangeDetail(
   ImmutableList<MonitorRouteDeviation> resolvedDeviations,
   Boolean happy,
   Boolean investigate
-) {
-}
+) {}

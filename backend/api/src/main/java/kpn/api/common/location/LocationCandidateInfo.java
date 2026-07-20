@@ -7,5 +7,4 @@ import com.google.common.collect.ImmutableList;
 public record LocationCandidateInfo(
   ImmutableList<LocationInfo> locationInfos,
   Long percentage
-) {
-}
+) {}

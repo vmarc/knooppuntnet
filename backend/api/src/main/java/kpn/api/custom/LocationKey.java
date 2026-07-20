@@ -10,5 +10,4 @@ public record LocationKey(
   RouteType routeType,
   Country country,
   String name
-) {
-}
+) {}

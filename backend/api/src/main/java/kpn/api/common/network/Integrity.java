@@ -9,8 +9,7 @@ public record Integrity(
   String coverage,
   String okRate,
   String nokRate
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.network

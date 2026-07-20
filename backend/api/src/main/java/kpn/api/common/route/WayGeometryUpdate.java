@@ -10,5 +10,4 @@ public record WayGeometryUpdate(
   ImmutableList<WayLine> common, // blue
   ImmutableList<WayLine> added, // green
   ImmutableList<WayLine> removed // red
-) {
-}
+) {}

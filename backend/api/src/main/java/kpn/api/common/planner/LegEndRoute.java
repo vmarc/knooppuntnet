@@ -9,5 +9,4 @@ import com.google.common.collect.ImmutableList;
 public record LegEndRoute(
   ImmutableList<TrackPathKey> trackPathKeys,
   Optional<TrackPathKey> selection
-) implements Storable {
-}
+) implements Storable {}

@@ -4,8 +4,7 @@ public record WayLine(
   Long nodeCount,
   Long meters,
   String line
-) {
-}
+) {}
 
 /* TODO migrate
 

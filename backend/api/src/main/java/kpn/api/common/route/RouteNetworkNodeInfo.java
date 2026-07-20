@@ -9,5 +9,4 @@ public record RouteNetworkNodeInfo(
   Optional<String> longName,
   String lat,
   String lon
-) {
-}
+) {}

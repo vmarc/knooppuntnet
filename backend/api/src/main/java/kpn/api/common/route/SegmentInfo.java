@@ -11,5 +11,4 @@ public record SegmentInfo(
   Long meters,
   Optional<Bounds> bounds,
   ImmutableList<SegmentRouteInfo> routeInfos
-) {
-}
+) {}

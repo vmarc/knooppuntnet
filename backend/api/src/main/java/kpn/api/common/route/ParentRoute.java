@@ -4,5 +4,4 @@ public record ParentRoute(
   Long level,
   Long routeId,
   String name
-) {
-}
+) {}

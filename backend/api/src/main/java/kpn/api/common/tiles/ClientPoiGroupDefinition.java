@@ -8,6 +8,5 @@ public record ClientPoiGroupDefinition(
   String name,
   Boolean enabledDefault,
   ImmutableList<ClientPoiDefinition> poiDefinitions
-) {
-}
+) {}
 

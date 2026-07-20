@@ -8,5 +8,4 @@ import com.google.common.collect.ImmutableList;
 public record NetworkNodeRow(
   NetworkNodeDetail detail,
   ImmutableList<Reference> routeReferences
-) {
-}
+) {}

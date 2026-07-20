@@ -8,5 +8,4 @@ public record MonitorGroupsPage(
   Boolean adminUser,
   Long routeCount,
   ImmutableList<MonitorGroupsPageGroup> groups
-) {
-}
+) {}

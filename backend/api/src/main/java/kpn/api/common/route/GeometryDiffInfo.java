@@ -6,5 +6,4 @@ public record GeometryDiffInfo(
   GeometryDiffInfoDetail common,
   GeometryDiffInfoDetail added,
   GeometryDiffInfoDetail removed
-) {
-}
+) {}

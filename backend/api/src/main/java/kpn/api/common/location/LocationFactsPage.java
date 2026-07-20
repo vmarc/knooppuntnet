@@ -8,5 +8,4 @@ import com.google.common.collect.ImmutableList;
 public record LocationFactsPage(
   LocationSummary summary,
   ImmutableList<LocationFact> locationFacts
-) {
-}
+) {}

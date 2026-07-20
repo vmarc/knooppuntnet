@@ -17,5 +17,4 @@ public record ReplicationStatusPage(
   BarChart replicationBytes,
   BarChart replicationElements,
   BarChart replicationChangeSets
-) {
-}
+) {}

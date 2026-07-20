@@ -14,5 +14,4 @@ public record WayUpdate(
   ImmutableList<Long> addedNodeIds,
   Boolean directionReversed,
   Optional<TagDiffs> tagDiffs
-) {
-}
+) {}

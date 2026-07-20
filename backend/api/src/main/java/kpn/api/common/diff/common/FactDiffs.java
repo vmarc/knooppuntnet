@@ -8,8 +8,7 @@ public record FactDiffs(
   ImmutableList<Fact> resolved,
   ImmutableList<Fact> introduced,
   ImmutableList<Fact> remaining
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff.common

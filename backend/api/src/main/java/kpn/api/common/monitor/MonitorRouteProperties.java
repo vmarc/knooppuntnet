@@ -15,8 +15,7 @@ public record MonitorRouteProperties(
   Optional<Timestamp> referenceTimestamp,
   Optional<String> referenceFilename,
   Boolean referenceFileChanged
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.monitor

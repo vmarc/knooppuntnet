@@ -9,8 +9,7 @@ public record LocationChangeSet(
   String _id,
   ChangeKey key,
   ImmutableList<LocationChanges> locationChanges
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common

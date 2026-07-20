@@ -14,6 +14,5 @@ public record NetworkBaseData(
   RouteType routeType,
   RouteScope routeScope,
   ImmutableList<RawMember> members
-) {
-}
+) {}
 

@@ -6,5 +6,4 @@ public record RoutePath(
   Long id,
   String name,
   ImmutableList<Long> elementIds
-) {
-}
+) {}

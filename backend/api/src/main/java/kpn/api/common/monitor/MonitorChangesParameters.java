@@ -4,8 +4,7 @@ public record MonitorChangesParameters(
   Long pageSize,
   Long pageIndex,
   Boolean impact
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.monitor

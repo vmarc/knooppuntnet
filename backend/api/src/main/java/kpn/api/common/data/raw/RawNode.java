@@ -14,8 +14,7 @@ public record RawNode(
   Timestamp timestamp,
   Long changeSetId,
   ImmutableList<Tag> tags
-) implements RawElement, LatLon {
-}
+) implements RawElement, LatLon {}
 
 /* TODO migrate
 package kpn.api.common.data.raw

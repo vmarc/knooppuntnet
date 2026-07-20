@@ -21,5 +21,4 @@ public record NetworkDetail(
   Long connectionCount,
   Optional<Bounds> bounds,
   Optional<LatLonImpl> center
-) {
-}
+) {}

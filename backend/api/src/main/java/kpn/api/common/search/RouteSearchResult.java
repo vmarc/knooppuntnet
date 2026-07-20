@@ -14,8 +14,7 @@ public record RouteSearchResult(
   Optional<String> symbol,
   Optional<Bounds> bounds,
   ImmutableList<Long> routeIds
-) {
-}
+) {}
 
 /* TODO migrate
 

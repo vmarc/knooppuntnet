@@ -11,5 +11,4 @@ public record RouteSegment(
   Long meters,
   Bounds bounds,
   ImmutableList<Long> elementIds
-) {
-}
+) {}

@@ -12,6 +12,4 @@ public record MonitorGroupChangesPage(
   Long pageIndex,
   Long totalChangeCount,
   ImmutableList<MonitorRouteChangeSummary> changes
-) {
-}
-
+) {}

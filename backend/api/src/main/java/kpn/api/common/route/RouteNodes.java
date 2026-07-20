@@ -11,8 +11,7 @@ public record RouteNodes(
   ImmutableList<RouteNode> startTentacleNodes,
   ImmutableList<RouteNode> endTentacleNodes,
   ImmutableList<RouteNode> redundantNodes
-) {
-}
+) {}
 
 /* TODO migrate
 

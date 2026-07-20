@@ -9,8 +9,7 @@ public record ChangesParameters(
   Long pageSize,
   Long pageIndex,
   Boolean impact
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.changes.filter

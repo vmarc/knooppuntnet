@@ -13,5 +13,4 @@ public record MapNodeDetail(
   Timestamp lastUpdated,
   ImmutableList<Reference> networkReferences,
   ImmutableList<Reference> routeReferences
-) {
-}
+) {}

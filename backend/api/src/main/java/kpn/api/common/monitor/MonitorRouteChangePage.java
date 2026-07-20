@@ -27,5 +27,4 @@ public record MonitorRouteChangePage(
   MonitorReferenceInfo reference,
   Boolean happy,
   Boolean investigate
-) {
-}
+) {}

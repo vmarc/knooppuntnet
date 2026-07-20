@@ -23,5 +23,4 @@ public record Poi(
   Optional<String> address,
   Boolean link,
   Boolean image
-) implements LatLon, WithStringId, Tagable {
-}
+) implements LatLon, WithStringId, Tagable {}

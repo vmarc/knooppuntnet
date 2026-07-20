@@ -14,8 +14,7 @@ public record Node(
   Timestamp timestamp,
   Long changeSetId,
   ImmutableList<Tag> tags
-) implements Element, LatLon {
-}
+) implements Element, LatLon {}
 
 /* TODO migrate
 package kpn.api.common.data

@@ -4,5 +4,4 @@ public record GeometryDiffInfoDetail(
   Long wayCount,
   Long nodeCount,
   Long meters
-) {
-}
+) {}

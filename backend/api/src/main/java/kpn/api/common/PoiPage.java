@@ -8,5 +8,4 @@ public record PoiPage(
   String latitude,
   String longitude,
   PoiAnalysis analysis
-) {
-}
+) {}

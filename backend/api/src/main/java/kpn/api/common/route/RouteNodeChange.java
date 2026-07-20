@@ -7,5 +7,4 @@ public record RouteNodeChange(
   String latitude,
   String longitude,
   ElementChangeType changeType
-) {
-}
+) {}

@@ -16,5 +16,4 @@ public record LocationChangeSetSummary(
   Boolean happy,
   Boolean investigate,
   Boolean impact
-) implements WithStringId {
-}
+) implements WithStringId {}

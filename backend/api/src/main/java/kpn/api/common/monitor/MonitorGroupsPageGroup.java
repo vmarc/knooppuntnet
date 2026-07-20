@@ -12,6 +12,5 @@ public record MonitorGroupsPageGroup(
   Long routeCount,
   ImmutableList<String> monitorRouteIds,
   Optional<Bounds> bounds
-) {
-}
+) {}
 

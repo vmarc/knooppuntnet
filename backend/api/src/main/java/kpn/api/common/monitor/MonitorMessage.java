@@ -9,8 +9,7 @@ public record MonitorMessage(
   ImmutableList<MonitorCommand> commands,
   ImmutableList<String> errors,
   Optional<String> exception
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.monitor

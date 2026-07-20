@@ -5,8 +5,7 @@ import kpn.api.common.data.raw.RawNode;
 public record NetworkNodeData(
   RawNode node,
   String name
-) {
-}
+) {}
 
 /* TODO migrate
 package kpn.api.common.diff

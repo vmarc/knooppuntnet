@@ -5,8 +5,7 @@ import kpn.api.common.LatLonImpl;
 public record PointSegment(
   LatLonImpl p1,
   LatLonImpl p2
-) {
-}
+) {}
 
 /* TODO migrate
 

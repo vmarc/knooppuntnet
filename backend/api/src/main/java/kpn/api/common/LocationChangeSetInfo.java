@@ -13,5 +13,4 @@ public record LocationChangeSetInfo(
   Boolean happy,
   Boolean investigate,
   ImmutableList<LocationChangesInfo> locationChanges
-) {
-}
+) {}

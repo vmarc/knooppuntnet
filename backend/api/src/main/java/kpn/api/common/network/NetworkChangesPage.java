@@ -11,5 +11,4 @@ public record NetworkChangesPage(
   ImmutableList<ChangesFilterOption> filterOptions,
   ImmutableList<NetworkChangeInfo> changes,
   Long totalCount
-) {
-}
+) {}

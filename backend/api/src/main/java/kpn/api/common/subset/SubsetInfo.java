@@ -11,5 +11,4 @@ public record SubsetInfo(
   Long changesCount,
   Long orphanNodeCount,
   Long orphanRouteCount
-) {
-}
+) {}

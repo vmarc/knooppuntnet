@@ -8,8 +8,7 @@ import com.google.common.collect.ImmutableList;
 public record SubsetFactsPage(
   SubsetInfo subsetInfo,
   ImmutableList<FactCount> factCounts
-) {
-}
+) {}
 
 /* TODO migrate
 

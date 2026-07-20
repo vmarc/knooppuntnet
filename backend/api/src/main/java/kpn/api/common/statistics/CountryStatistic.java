@@ -7,5 +7,4 @@ public record CountryStatistic(
   String rmn,
   String rpn,
   String rin
-) {
-}
+) {}

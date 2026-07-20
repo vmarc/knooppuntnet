@@ -18,5 +18,4 @@ public record NetworkDetailsPage(
   ImmutableList<Long> networkRouteIds,
   ImmutableList<Long> connectionRouteIds,
   ImmutableList<Tag> tags
-) {
-}
+) {}

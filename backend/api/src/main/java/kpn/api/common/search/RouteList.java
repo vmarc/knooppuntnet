@@ -12,5 +12,4 @@ public record RouteList(
   ImmutableList<RouteListItem> local,
   ImmutableList<RouteListItem> unknown,
   Long size
-) {
-}
+) {}

@@ -7,5 +7,4 @@ public record PlanFragment(
   Long meters,
   PlanCoordinate coordinate,
   LatLonImpl latLon
-) {
-}
+) {}

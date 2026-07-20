@@ -12,5 +12,4 @@ public record RouteListItem(
   Optional<String> symbol,
   Optional<Bounds> bounds,
   ImmutableList<Long> routeIds
-) {
-}
+) {}
