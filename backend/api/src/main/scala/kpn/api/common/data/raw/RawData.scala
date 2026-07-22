@@ -4,7 +4,7 @@ import kpn.api.custom.Timestamp
 
 object RawData {
   def merge(datas: RawData*): RawData = {
-    if (datas.size == 1) {
+    if (datas.sizeIs == 1) {
       datas.head
     }
     else {
