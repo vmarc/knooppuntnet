@@ -3,7 +3,7 @@ package kpn.server.monitor.route.update
 import kpn.api.common.monitor.MonitorCommand
 import kpn.api.common.monitor.MonitorMessage
 import kpn.api.custom.Timestamp
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorRouteRepository

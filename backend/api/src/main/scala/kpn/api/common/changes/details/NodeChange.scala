@@ -10,7 +10,7 @@ import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag
-import kpn.core.doc.WithStringId
+import kpn.api.id.WithStringId
 
 /*
   Describes the changes made to a given network node in a given changeset.

@@ -3,7 +3,7 @@ package kpn.server.monitor.domain
 import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.custom.Timestamp
-import kpn.core.doc.WithObjectId
+import kpn.api.id.WithObjectId
 import org.bson.types.ObjectId
 
 case class MonitorRoute(

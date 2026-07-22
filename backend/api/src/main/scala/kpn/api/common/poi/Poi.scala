@@ -4,7 +4,7 @@ import kpn.api.common.LatLon
 import kpn.api.common.data.Tagable
 import kpn.api.common.location.Location
 import kpn.api.custom.Tag
-import kpn.core.doc.WithStringId
+import kpn.api.id.WithStringId
 
 case class Poi(
   _id: String,

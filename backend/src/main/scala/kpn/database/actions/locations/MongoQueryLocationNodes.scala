@@ -22,8 +22,8 @@ import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodeOptions
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.ScopedRouteType
+import kpn.api.id.Storable
 import kpn.core.doc.Label
-import kpn.core.doc.Storable
 import kpn.core.util.Log
 import kpn.database.base.CountResult
 import kpn.database.base.Database

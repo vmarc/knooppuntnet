@@ -1,8 +1,8 @@
 package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.network.NetworkSummary
+import kpn.api.id.Storable
 import kpn.core.doc.NetworkRouteDetail
-import kpn.core.doc.Storable
 
 case class NetworkRoutesPageData(
   summary: NetworkSummary,

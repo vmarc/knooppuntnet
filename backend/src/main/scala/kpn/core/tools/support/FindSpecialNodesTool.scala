@@ -7,7 +7,7 @@ import com.mongodb.client.model.Projections.elemMatch
 import com.mongodb.client.model.Projections.fields
 import kpn.api.common.Country
 import kpn.api.common.RouteType
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal

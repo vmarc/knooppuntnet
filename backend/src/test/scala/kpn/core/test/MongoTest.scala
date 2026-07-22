@@ -1,7 +1,7 @@
 package kpn.core.test
 
 import com.mongodb.client.MongoClient
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.util.UnitTest
 import kpn.database.base.Database
 import kpn.database.util.Mongo

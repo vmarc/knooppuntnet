@@ -2,7 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorMessage
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.util.Log
 import kpn.core.util.ValidationException
 import kpn.server.json.Json

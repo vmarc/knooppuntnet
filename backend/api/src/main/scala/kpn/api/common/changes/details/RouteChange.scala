@@ -8,7 +8,7 @@ import kpn.api.common.common.ReferencedElements
 import kpn.api.common.diff.RouteData
 import kpn.api.common.route.RouteNodeChange
 import kpn.api.custom.Subset
-import kpn.core.doc.WithStringId
+import kpn.api.id.WithStringId
 
 /*
   Describes the changes made to a given route in a given changeset.

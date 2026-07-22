@@ -11,6 +11,7 @@ import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.custom.Tag
+import kpn.api.id.WithId
 import org.bson.types.ObjectId
 
 case class RouteDoc(

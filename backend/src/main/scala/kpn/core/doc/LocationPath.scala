@@ -1,5 +1,7 @@
 package kpn.core.doc
 
+import kpn.api.id.Storable
+
 case class LocationPath(locationIds: Seq[String]) extends Storable {
   def contains(path: LocationPath): Boolean = {
     if (path.locationIds.nonEmpty && path.locationIds.sizeIs <= locationIds.size) {

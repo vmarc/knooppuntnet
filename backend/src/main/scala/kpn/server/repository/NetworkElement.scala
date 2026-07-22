@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class NetworkElement(
   networkId: Long,

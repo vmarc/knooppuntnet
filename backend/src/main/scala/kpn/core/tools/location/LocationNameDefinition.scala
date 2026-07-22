@@ -1,9 +1,9 @@
 package kpn.core.tools.location
 
 import kpn.api.custom.Tag
+import kpn.api.id.Storable
 import kpn.core.doc.LocationName
 import kpn.core.doc.LocationPath
-import kpn.core.doc.Storable
 
 case class LocationNameDefinition(
   id: String,

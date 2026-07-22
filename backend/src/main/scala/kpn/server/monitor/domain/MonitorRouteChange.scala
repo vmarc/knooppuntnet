@@ -1,7 +1,7 @@
 package kpn.server.monitor.domain
 
 import kpn.api.common.changes.details.ChangeKey
-import kpn.core.doc.WithObjectId
+import kpn.api.id.WithObjectId
 import org.bson.types.ObjectId
 
 object MonitorRouteChange {

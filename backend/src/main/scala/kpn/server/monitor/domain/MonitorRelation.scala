@@ -1,6 +1,6 @@
 package kpn.server.monitor.domain
 
-import kpn.core.doc.WithId
+import kpn.api.id.WithId
 import kpn.server.analyzer.engine.context.ElementIds
 
 case class MonitorRelation(

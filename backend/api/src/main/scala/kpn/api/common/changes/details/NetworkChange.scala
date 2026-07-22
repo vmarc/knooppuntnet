@@ -7,7 +7,7 @@ import kpn.api.common.common.ReferencedElements
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
-import kpn.core.doc.WithStringId
+import kpn.api.id.WithStringId
 
 case class NetworkChange(
   _id: String,

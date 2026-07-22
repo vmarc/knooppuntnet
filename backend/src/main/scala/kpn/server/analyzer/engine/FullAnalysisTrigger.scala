@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine
 
-import kpn.core.common.Time
+import kpn.api.time.Time
 
 object FullAnalysisTrigger {
 

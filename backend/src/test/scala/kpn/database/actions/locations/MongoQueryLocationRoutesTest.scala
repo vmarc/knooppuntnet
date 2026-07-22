@@ -9,12 +9,12 @@ import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.Day
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
+import kpn.api.time.Timestamps
 import kpn.core.doc.Label
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.Timestamps
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 
 class MongoQueryLocationRoutesTest extends MongoTest {

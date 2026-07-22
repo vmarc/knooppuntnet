@@ -1,7 +1,7 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.springframework.context.annotation.Profile

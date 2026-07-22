@@ -3,11 +3,11 @@ package kpn.server.analyzer.engine
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.ChangeSet
-import kpn.core.common.TimestampUtil
+import kpn.api.time.TimestampUtil
+import kpn.api.time.Timestamps
 import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newNodeWithName
 import kpn.core.test.TestObjects.newOsmChange
-import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 import kpn.server.analyzer.engine.changes.ChangeSetProcessor

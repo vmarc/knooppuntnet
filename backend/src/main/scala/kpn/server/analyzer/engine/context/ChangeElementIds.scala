@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.context
 
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class ChangeElementIds(
   nodeIds: Set[Long] = Set.empty,

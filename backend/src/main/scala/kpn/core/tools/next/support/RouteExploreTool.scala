@@ -6,8 +6,8 @@ import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import kpn.api.common.Fact
 import kpn.api.common.RouteMemberInfo
+import kpn.api.id.Storable
 import kpn.core.doc.Label
-import kpn.core.doc.Storable
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo

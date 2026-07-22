@@ -7,7 +7,7 @@ import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteSubRelation
 import kpn.api.custom.Timestamp
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.doc.RouteDoc
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log

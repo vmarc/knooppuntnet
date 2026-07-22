@@ -17,6 +17,7 @@ import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
+import kpn.api.time.Timestamps
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseNodeDoc
@@ -40,7 +41,6 @@ import kpn.core.test.TestObjects.newNodeName
 import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRawNode
 import kpn.core.test.TestObjects.newRawRelation
-import kpn.core.test.Timestamps
 
 class NetworkDeleteNodeTest05 extends IntegrationTest {
 

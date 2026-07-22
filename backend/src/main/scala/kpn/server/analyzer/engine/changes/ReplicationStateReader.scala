@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.changes
 
 import kpn.api.common.ReplicationId
 import kpn.api.custom.Timestamp
-import kpn.core.common.TimestampUtil
+import kpn.api.time.TimestampUtil
 import kpn.core.util.Log
 
 import java.io.File

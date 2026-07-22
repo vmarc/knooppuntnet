@@ -1,6 +1,6 @@
 package kpn.database.actions.locations
 
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class LocationQueryResult(
   name: String,

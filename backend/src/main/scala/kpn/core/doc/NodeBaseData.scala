@@ -5,6 +5,7 @@ import kpn.api.common.LatLon
 import kpn.api.common.NodeName
 import kpn.api.common.data.raw.Raw
 import kpn.api.custom.Day
+import kpn.api.id.Storable
 
 case class NodeBaseData(
   raw: Raw,

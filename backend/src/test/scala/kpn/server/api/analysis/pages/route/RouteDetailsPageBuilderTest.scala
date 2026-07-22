@@ -18,8 +18,8 @@ import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteInfo
 import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Day
+import kpn.api.time.Timestamps
 import kpn.core.test.TestObjects.newRaw
-import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
 import kpn.database.actions.routes.RouteDetailsData
 import kpn.server.analyzer.engine.analysis.location.LocationService
@@ -123,13 +123,13 @@ class RouteDetailsPageBuilderTest extends UnitTest with Stubs {
 
     val routeRepository: Stub[RouteRepository] = stub[RouteRepository]
     (routeRepository.routeDetails _).returns {
-      case (11) => Some(buildRouteDetailsData())
+      case 11 => Some(buildRouteDetailsData())
       case _ => None
     }
 
     val changeSetRepository: Stub[ChangeSetRepository] = stub[ChangeSetRepository]
     (changeSetRepository.routeChangesCount _).returns {
-      case (11) => 5
+      case 11 => 5
       case _ => 0
     }
 

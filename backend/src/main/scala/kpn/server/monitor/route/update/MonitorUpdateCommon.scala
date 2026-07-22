@@ -2,7 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.util.Log
 import kpn.core.util.Util
 import kpn.server.monitor.domain.MonitorGroup

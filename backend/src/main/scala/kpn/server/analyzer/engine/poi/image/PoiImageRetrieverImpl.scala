@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.poi.image
 import com.sksamuel.scrimage.ImmutableImage
 import com.sksamuel.scrimage.nio.JpegWriter
 import kpn.api.common.PoiState
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.poi.PoiRef
 import org.springframework.boot.web.client.RestTemplateBuilder

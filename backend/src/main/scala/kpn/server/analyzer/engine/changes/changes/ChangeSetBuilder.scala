@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.changes.changes
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Change
 import kpn.api.custom.Timestamp
-import kpn.core.common.TimestampUtil
+import kpn.api.time.TimestampUtil
 import kpn.server.analyzer.engine.context.ChangeElementIds
 
 object ChangeSetBuilder {

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis
 
 import kpn.api.custom.Timestamp
-import kpn.core.doc.WithStringId
+import kpn.api.id.WithStringId
 
 object AnalysisStatus {
   val id: String = "analysis"

@@ -1,7 +1,7 @@
 package kpn.api.common.monitor
 
 import kpn.api.custom.Timestamp
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class MonitorRouteUpdate(
   action: MonitorAction,

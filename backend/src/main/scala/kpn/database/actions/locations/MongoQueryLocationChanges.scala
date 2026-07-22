@@ -18,7 +18,7 @@ import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.LocationChangeSet
 import kpn.api.common.RouteType
 import kpn.api.common.changes.filter.ChangesParameters
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.util.Log
 import kpn.database.actions.base.ChangeCountPipeline
 import kpn.database.actions.locations.MongoQueryLocationChanges.log

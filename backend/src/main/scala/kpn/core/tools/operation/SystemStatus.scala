@@ -1,6 +1,6 @@
 package kpn.core.tools.operation
 
-import kpn.core.common.TimestampUtil
+import kpn.api.time.TimestampUtil
 import kpn.core.replicate.ReplicationStateRepository
 import kpn.core.tools.status.StatusRepository
 

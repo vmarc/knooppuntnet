@@ -6,6 +6,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.Tagable
 import kpn.api.common.route.BaseRouteSegment
 import kpn.api.custom.Tag
+import kpn.api.id.WithId
 import kpn.server.analyzer.engine.context.ElementIds
 
 case class BaseRouteDoc(

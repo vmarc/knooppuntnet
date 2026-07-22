@@ -11,6 +11,7 @@ import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
+import kpn.api.id.Storable
 
 case class RouteBaseData(
   raw: Raw,

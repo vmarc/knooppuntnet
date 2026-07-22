@@ -4,7 +4,7 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
-import kpn.core.test.Timestamps
+import kpn.api.time.Timestamps
 import kpn.core.util.UnitTest
 
 import java.io.StringReader

@@ -2,6 +2,7 @@ package kpn.core.doc
 
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.route.BaseRouteSegment
+import kpn.api.id.WithId
 
 case class SubRouteData(
   _id: Long, // routeId

@@ -8,6 +8,7 @@ import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
+import kpn.api.id.WithId
 import org.bson.types.ObjectId
 
 case class NodeDoc(

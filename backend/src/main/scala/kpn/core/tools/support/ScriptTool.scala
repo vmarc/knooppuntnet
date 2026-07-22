@@ -1,6 +1,6 @@
 package kpn.core.tools.support
 
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.util.Elapsed
 import kpn.database.base.Exit
 

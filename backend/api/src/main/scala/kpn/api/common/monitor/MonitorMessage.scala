@@ -1,6 +1,6 @@
 package kpn.api.common.monitor
 
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 object MonitorMessage {
   def apply(commands: MonitorCommand*): MonitorMessage = {

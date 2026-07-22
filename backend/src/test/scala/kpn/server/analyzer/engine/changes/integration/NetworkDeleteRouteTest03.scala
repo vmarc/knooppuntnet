@@ -12,6 +12,7 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
+import kpn.api.time.Timestamps
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
@@ -30,7 +31,6 @@ import kpn.core.test.TestObjects.newRouteData
 import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeChange
 import kpn.core.test.TestObjects.newRouteTags
-import kpn.core.test.Timestamps
 
 class NetworkDeleteRouteTest03 extends IntegrationTest {
 

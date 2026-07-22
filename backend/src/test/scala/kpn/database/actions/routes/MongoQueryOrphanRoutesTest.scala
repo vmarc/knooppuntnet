@@ -2,10 +2,10 @@ package kpn.database.actions.routes
 
 import kpn.api.common.OrphanRouteInfo
 import kpn.api.custom.Day
+import kpn.api.time.Timestamps
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.Timestamps
 
 class MongoQueryOrphanRoutesTest extends MongoTest {
 

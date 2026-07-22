@@ -7,6 +7,7 @@ import kpn.api.common.network.NetworkNodeDetail
 import kpn.api.common.network.NetworkNodeRow
 import kpn.api.common.network.NetworkNodesPage
 import kpn.api.common.network.NetworkSummary
+import kpn.api.time.Timestamps
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.test.MongoTest
@@ -17,7 +18,6 @@ import kpn.core.test.TestObjects.newNetworkDoc
 import kpn.core.test.TestObjects.newNetworkInfoNodeDetail
 import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
-import kpn.core.test.Timestamps
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.NodeRouteRepository

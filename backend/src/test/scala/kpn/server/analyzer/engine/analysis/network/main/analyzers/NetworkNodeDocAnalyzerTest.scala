@@ -3,12 +3,12 @@ package kpn.server.analyzer.engine.analysis.network.main.analyzers
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.ScopedRouteType
+import kpn.api.time.Timestamps
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newBaseNetworkDoc
 import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newNetworkRouteDetail
 import kpn.core.test.TestObjects.newNodeDoc
-import kpn.core.test.Timestamps
 import kpn.server.repository.NodeRepository
 
 class NetworkNodeDocAnalyzerTest extends MongoTest {

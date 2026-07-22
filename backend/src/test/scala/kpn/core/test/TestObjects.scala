@@ -100,7 +100,8 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.common.Time
+import kpn.api.time.Time
+import kpn.api.time.Timestamps
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc

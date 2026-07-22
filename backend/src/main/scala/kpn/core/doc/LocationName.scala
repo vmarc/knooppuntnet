@@ -3,6 +3,7 @@ package kpn.core.doc
 import kpn.api.common.Language
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
+import kpn.api.id.Storable
 
 object LocationNames {
 

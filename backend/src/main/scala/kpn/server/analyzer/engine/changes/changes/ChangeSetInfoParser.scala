@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.changes.changes
 
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.custom.Tag
-import kpn.core.common.TimestampUtil
+import kpn.api.time.TimestampUtil
 
 class ChangeSetInfoParser {
 

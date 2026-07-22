@@ -1,6 +1,7 @@
 package kpn.core.doc
 
 import kpn.api.common.Bounds
+import kpn.api.id.Storable
 
 case class SuperSubSegmentInfo(
   id: Long,

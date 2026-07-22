@@ -3,6 +3,7 @@ package kpn.core.doc
 import kpn.api.common.data.Tagable
 import kpn.api.common.network.NetworkBaseData
 import kpn.api.custom.Tag
+import kpn.api.id.WithId
 
 case class BaseNetworkDoc(
   _id: Long,

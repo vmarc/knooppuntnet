@@ -11,7 +11,7 @@ import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.util.Log
 import kpn.database.actions.changes.MongoQueryChangeSet
 import kpn.database.actions.changes.MongoQueryChangeSetCounts

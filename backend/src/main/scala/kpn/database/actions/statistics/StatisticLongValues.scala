@@ -1,7 +1,7 @@
 package kpn.database.actions.statistics
 
 import kpn.api.custom.Subset
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class StatisticLongValues(
   _id: String,

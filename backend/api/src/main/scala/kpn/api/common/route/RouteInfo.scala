@@ -2,7 +2,7 @@ package kpn.api.common.route
 
 import kpn.api.common.Bounds
 import kpn.api.common.RouteType
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class RouteInfo(
   routeId: Long,

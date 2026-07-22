@@ -1,7 +1,7 @@
 package kpn.api.common.planner
 
 import kpn.api.common.common.TrackPathKey
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 object LegEnd {
 

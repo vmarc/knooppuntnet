@@ -11,6 +11,7 @@ import kpn.api.common.location.Location
 import kpn.api.common.route.ParentRoute
 import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Day
+import kpn.api.time.Timestamps
 import kpn.core.test.MongoTest
 import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRouteBaseData
@@ -19,7 +20,6 @@ import kpn.core.test.TestObjects.newRouteInfoAnalysis
 import kpn.core.test.TestObjects.newRouteMemberInfo
 import kpn.core.test.TestObjects.newRoutePath
 import kpn.core.test.TestObjects.newRouteSegment
-import kpn.core.test.Timestamps
 
 class MongoQueryRouteDetailTest extends MongoTest {
 

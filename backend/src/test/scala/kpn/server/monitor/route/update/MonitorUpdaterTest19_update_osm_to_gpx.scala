@@ -6,7 +6,7 @@ import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseRouteDoc

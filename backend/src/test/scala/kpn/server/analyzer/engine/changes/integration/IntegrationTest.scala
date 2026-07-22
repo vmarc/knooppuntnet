@@ -17,6 +17,7 @@ import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Change
 import kpn.api.custom.Subset
+import kpn.api.time.Timestamps
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
@@ -27,7 +28,6 @@ import kpn.core.test.MongoTest
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newChange
 import kpn.core.test.TestObjects.newChangeSet
-import kpn.core.test.Timestamps
 import kpn.database.actions.nodes.MongoQueryOrphanNodes
 import kpn.database.actions.routes.MongoQueryOrphanRoutes
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanNodes

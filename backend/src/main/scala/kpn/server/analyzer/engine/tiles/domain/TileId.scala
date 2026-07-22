@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tiles.domain
 
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 object TileId {
   def apply(name: String): TileId = {

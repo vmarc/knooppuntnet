@@ -1,7 +1,7 @@
 package kpn.tools.code.codecs
 
 import kpn.api.custom.Timestamp
-import kpn.core.common.TimestampUtil
+import kpn.api.time.TimestampUtil
 import org.bson.BsonReader
 import org.bson.BsonWriter
 import org.bson.codecs.Codec

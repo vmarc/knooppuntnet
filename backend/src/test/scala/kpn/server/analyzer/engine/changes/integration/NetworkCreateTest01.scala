@@ -23,6 +23,7 @@ import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.api.time.Timestamps
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseNetworkDoc
 import kpn.core.test.TestObjects.newChangeKey
@@ -44,7 +45,6 @@ import kpn.core.test.TestObjects.newRouteChange
 import kpn.core.test.TestObjects.newRouteData
 import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeChange
-import kpn.core.test.Timestamps
 
 class NetworkCreateTest01 extends IntegrationTest {
 

@@ -1,4 +1,4 @@
-package kpn.core.doc
+package kpn.api.id
 
 import org.bson.types.ObjectId
 

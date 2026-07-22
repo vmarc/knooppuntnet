@@ -12,7 +12,7 @@ import kpn.api.common.route.ParentRoute
 import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class RouteDetailsData(
   id: Long,

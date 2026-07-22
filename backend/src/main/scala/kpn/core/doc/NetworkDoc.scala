@@ -8,6 +8,7 @@ import kpn.api.common.data.raw.RawMember
 import kpn.api.common.network.NetworkBaseData
 import kpn.api.common.network.NetworkDetail
 import kpn.api.custom.Tag
+import kpn.api.id.WithId
 import org.bson.types.ObjectId
 
 case class NetworkDoc(

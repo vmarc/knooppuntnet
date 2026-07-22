@@ -1,5 +1,5 @@
 package kpn.api.common.common
 
-import kpn.core.doc.WithStringId
+import kpn.api.id.WithStringId
 
 case class User(_id: String) extends WithStringId

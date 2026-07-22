@@ -1,7 +1,7 @@
 package kpn.core.poi
 
 import kpn.api.common.LatLon
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class PoiInfo(
   elementType: String,

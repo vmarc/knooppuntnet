@@ -2,7 +2,7 @@ package kpn.core.replicate
 
 import kpn.api.common.ReplicationId
 import kpn.api.custom.Timestamp
-import kpn.core.common.TimestampUtil
+import kpn.api.time.TimestampUtil
 import org.apache.commons.io.FileUtils
 
 import java.io.File

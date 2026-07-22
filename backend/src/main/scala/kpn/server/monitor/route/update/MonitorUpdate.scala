@@ -3,7 +3,7 @@ package kpn.server.monitor.route.update
 import kpn.api.common.monitor.MonitorCommand
 import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.monitor.domain.MonitorGroup

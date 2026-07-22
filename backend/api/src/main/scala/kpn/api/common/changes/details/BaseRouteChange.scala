@@ -5,7 +5,7 @@ import kpn.api.common.data.MetaData
 import kpn.api.common.diff.WayDiffsInfo
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.route.GeometryDiff
-import kpn.core.doc.WithStringId
+import kpn.api.id.WithStringId
 
 case class BaseRouteChange(
   _id: String,

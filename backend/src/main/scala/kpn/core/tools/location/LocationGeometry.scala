@@ -1,6 +1,6 @@
 package kpn.core.tools.location
 
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 import kpn.server.json.Json
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.Envelope

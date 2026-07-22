@@ -4,7 +4,7 @@ import kpn.api.common.changes.details.BaseRouteChange
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class ChangeSetChanges(
   baseRouteChanges: Seq[BaseRouteChange] = Seq.empty,

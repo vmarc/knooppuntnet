@@ -15,6 +15,7 @@ import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
+import kpn.api.time.Timestamps
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newChangeKey
 import kpn.core.test.TestObjects.newChangeSetElementRef
@@ -26,7 +27,6 @@ import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newNetworkChange
 import kpn.core.test.TestObjects.newNodeChange
 import kpn.core.test.TestObjects.newOrphanRouteInfo
-import kpn.core.test.Timestamps
 
 class NetworkUpdateNodeTest04 extends IntegrationTest {
 

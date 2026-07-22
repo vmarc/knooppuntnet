@@ -1,4 +1,4 @@
-package kpn.core.doc
+package kpn.api.id
 
 trait WithStringId extends Storable {
   def _id: String

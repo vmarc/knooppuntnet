@@ -2,7 +2,7 @@ package kpn.api.common.changes.details
 
 import kpn.api.common.TimeKey
 import kpn.api.custom.Timestamp
-import kpn.core.common.TimestampUtil
+import kpn.api.time.TimestampUtil
 
 object ChangeKey {
 

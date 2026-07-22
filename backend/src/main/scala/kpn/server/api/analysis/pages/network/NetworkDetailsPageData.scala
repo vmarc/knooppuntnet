@@ -4,7 +4,7 @@ import kpn.api.common.Country
 import kpn.api.common.network.NetworkDetail
 import kpn.api.common.network.NetworkSummary
 import kpn.api.custom.Tag
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class NetworkDetailsPageData(
   summary: NetworkSummary,

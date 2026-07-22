@@ -1,5 +1,7 @@
 package kpn.core.doc
 
+import kpn.api.id.Storable
+
 case class SuperSubSegment(info: SuperSubSegmentInfo, reversed: Boolean = false) extends Storable {
 
   def startNodeId: Long = {

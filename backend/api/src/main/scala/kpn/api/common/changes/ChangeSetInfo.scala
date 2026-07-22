@@ -3,7 +3,7 @@ package kpn.api.common.changes
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
-import kpn.core.doc.WithId
+import kpn.api.id.WithId
 
 /*
 <osm version="0.6" generator="OpenStreetMap server" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright"

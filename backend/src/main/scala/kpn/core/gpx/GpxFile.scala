@@ -1,6 +1,6 @@
 package kpn.core.gpx
 
-import kpn.core.doc.WithId
+import kpn.api.id.WithId
 
 case class GpxFile(
   _id: Long, // networkId

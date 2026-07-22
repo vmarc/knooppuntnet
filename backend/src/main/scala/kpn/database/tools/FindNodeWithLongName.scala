@@ -6,7 +6,7 @@ import com.mongodb.client.model.Filters.exists
 import com.mongodb.client.model.Projections.computed
 import com.mongodb.client.model.Projections.excludeId
 import com.mongodb.client.model.Projections.fields
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.base.Types.MongoPipeline

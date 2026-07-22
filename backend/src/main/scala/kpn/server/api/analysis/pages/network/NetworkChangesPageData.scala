@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.network.NetworkSummary
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class NetworkChangesPageData(
   summary: NetworkSummary

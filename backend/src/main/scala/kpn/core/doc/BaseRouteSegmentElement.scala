@@ -1,5 +1,7 @@
 package kpn.core.doc
 
+import kpn.api.id.Storable
+
 case class BaseRouteSegmentElement(
   segmentId: Long,
   segmentElementId: Long,

@@ -26,6 +26,7 @@ import kpn.api.common.route.GeometryDiff
 import kpn.api.common.route.WayLine
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
+import kpn.api.time.Timestamps
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseRouteChange
 import kpn.core.test.TestObjects.newChange
@@ -51,7 +52,6 @@ import kpn.core.test.TestObjects.newRouteNodeChange
 import kpn.core.test.TestObjects.newRouteTags
 import kpn.core.test.TestObjects.newWayGeometryUpdate
 import kpn.core.test.TestObjects.newWayInfo
-import kpn.core.test.Timestamps
 
 class NetworkAddRouteTest01 extends IntegrationTest {
 

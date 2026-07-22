@@ -2,7 +2,7 @@ package kpn.core.metrics
 
 import kpn.api.common.status.ActionTimestamp
 import kpn.api.custom.Timestamp
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.util.UnitTest
 
 class MinuteDiffInfoTest extends  UnitTest {

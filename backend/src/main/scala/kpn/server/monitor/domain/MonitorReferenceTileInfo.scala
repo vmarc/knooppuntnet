@@ -1,6 +1,6 @@
 package kpn.server.monitor.domain
 
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 import org.bson.types.ObjectId
 
 case class MonitorReferenceTileInfo(

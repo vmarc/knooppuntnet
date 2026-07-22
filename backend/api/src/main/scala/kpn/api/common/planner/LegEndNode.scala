@@ -1,5 +1,5 @@
 package kpn.api.common.planner
 
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class LegEndNode(nodeId: Long) extends Storable

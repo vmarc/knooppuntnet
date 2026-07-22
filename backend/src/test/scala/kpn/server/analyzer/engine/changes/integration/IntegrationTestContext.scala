@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.time.Timestamps
 import kpn.core.data.Data
 import kpn.core.test.OverpassData
-import kpn.core.test.Timestamps
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer

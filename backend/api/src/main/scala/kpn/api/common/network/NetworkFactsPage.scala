@@ -1,7 +1,7 @@
 package kpn.api.common.network
 
 import kpn.api.common.NetworkFact
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class NetworkFactsPage(
   summary: NetworkSummary,

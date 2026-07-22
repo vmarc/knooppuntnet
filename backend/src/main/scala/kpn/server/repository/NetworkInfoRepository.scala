@@ -4,7 +4,7 @@ import com.mongodb.client.model.Updates.set
 import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.util.Log
 import kpn.database.actions.networks.MongoQueryNetworkChangeCounts
 import kpn.database.actions.networks.MongoQueryNetworkChanges

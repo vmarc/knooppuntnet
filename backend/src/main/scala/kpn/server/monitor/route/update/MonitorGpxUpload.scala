@@ -3,7 +3,7 @@ package kpn.server.monitor.route.update
 import kpn.api.common.monitor.MonitorCommand
 import kpn.api.common.monitor.MonitorMessage
 import kpn.api.common.monitor.MonitorReferenceType
-import kpn.core.common.Time
+import kpn.api.time.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Haversine

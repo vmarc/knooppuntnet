@@ -2,8 +2,8 @@ package kpn.core.common
 
 import java.time.ZoneId
 import java.time.ZonedDateTime
-
 import kpn.api.custom.Timestamp
+import kpn.api.time.Time
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 

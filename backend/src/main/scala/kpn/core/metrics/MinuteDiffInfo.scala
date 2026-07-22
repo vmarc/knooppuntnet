@@ -2,8 +2,8 @@ package kpn.core.metrics
 
 import kpn.api.common.status.ActionTimestamp
 import kpn.api.custom.Timestamp
-import kpn.core.common.Time
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
+import kpn.api.time.Time
 
 object MinuteDiffInfo {
   def from(id: Long, timestamp: Timestamp): MinuteDiffInfo = {

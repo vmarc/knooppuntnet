@@ -8,7 +8,7 @@ import com.mongodb.client.model.Projections.exclude
 import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import kpn.api.common.Bounds
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal

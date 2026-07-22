@@ -3,7 +3,7 @@ package kpn.api.common
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
-import kpn.core.doc.WithStringId
+import kpn.api.id.WithStringId
 
 object ChangeSetSummary {
 

@@ -29,6 +29,7 @@ import kpn.api.common.route.RouteStructureWay
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
+import kpn.api.time.Timestamps
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.Label
 import kpn.core.doc.SuperSubSegment
@@ -55,7 +56,6 @@ import kpn.core.test.TestObjects.newRouteNode
 import kpn.core.test.TestObjects.newRouteNodeChange
 import kpn.core.test.TestObjects.newRouteTags
 import kpn.core.test.TestObjects.newSuperSegment
-import kpn.core.test.Timestamps
 import kpn.server.analyzer.engine.context.ElementIds
 
 class NetworkUpdateRouteTest01 extends IntegrationTest {

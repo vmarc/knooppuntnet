@@ -8,7 +8,7 @@ import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.Sorts.ascending
 import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.Bounds
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 import kpn.core.util.DebugLogger.log
 import kpn.database.base.Database
 import kpn.database.base.MongoProjections.objectIdToString

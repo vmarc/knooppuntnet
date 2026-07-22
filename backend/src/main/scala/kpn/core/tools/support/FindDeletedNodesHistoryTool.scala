@@ -5,7 +5,7 @@ import kpn.api.common.data.Tagable
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
-import kpn.core.common.TimestampUtil
+import kpn.api.time.TimestampUtil
 import kpn.core.tools.config.Dirs
 import kpn.server.json.Json
 import org.apache.commons.io.FileUtils

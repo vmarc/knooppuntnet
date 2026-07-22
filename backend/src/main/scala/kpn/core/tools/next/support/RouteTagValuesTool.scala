@@ -6,7 +6,7 @@ import com.mongodb.client.model.Aggregates.sort
 import com.mongodb.client.model.Aggregates.unwind
 import com.mongodb.client.model.Sorts.descending
 import com.mongodb.client.model.Sorts.orderBy
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo

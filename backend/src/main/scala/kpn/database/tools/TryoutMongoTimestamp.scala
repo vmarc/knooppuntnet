@@ -11,8 +11,8 @@ import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.Sorts.descending
 import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.custom.Timestamp2
-import kpn.core.doc.Storable
-import kpn.core.doc.WithStringId
+import kpn.api.id.Storable
+import kpn.api.id.WithStringId
 import kpn.database.base.Database
 import kpn.database.base.Types.MongoPipeline
 import kpn.database.util.Mongo

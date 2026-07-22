@@ -1,6 +1,6 @@
 package kpn.server.monitor.domain
 
-import kpn.core.doc.WithObjectId
+import kpn.api.id.WithObjectId
 import org.bson.types.ObjectId
 
 case class MonitorTask(

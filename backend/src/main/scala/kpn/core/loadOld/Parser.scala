@@ -9,8 +9,8 @@ import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
-import kpn.core.common.Time
-import kpn.core.common.TimestampUtil
+import kpn.api.time.Time
+import kpn.api.time.TimestampUtil
 
 class Parser(includeMetadata: Boolean = true) {
   private val now = Time.now

@@ -11,6 +11,7 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.User
 import kpn.api.common.poi.Poi
+import kpn.api.id.WithStringId
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
@@ -23,7 +24,6 @@ import kpn.core.doc.RawNodeDoc
 import kpn.core.doc.RawRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.Task
-import kpn.core.doc.WithStringId
 import kpn.database.actions.statistics.StatisticLongValues
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileInfo
 import kpn.server.analyzer.engine.changes.data.Blacklist

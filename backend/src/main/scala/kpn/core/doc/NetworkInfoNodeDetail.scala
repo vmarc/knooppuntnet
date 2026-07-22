@@ -5,6 +5,7 @@ import kpn.api.common.LatLon
 import kpn.api.common.common.Ref
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
+import kpn.api.id.Storable
 
 case class NetworkInfoNodeDetail(
   id: Long,

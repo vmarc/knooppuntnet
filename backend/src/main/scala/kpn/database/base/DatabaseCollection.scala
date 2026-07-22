@@ -8,9 +8,9 @@ import com.mongodb.client.model.Projections.fields
 import com.mongodb.client.model.Projections.include
 import com.mongodb.client.model.ReplaceOneModel
 import com.mongodb.client.model.ReplaceOptions
-import kpn.core.doc.WithId
-import kpn.core.doc.WithObjectId
-import kpn.core.doc.WithStringId
+import kpn.api.id.WithId
+import kpn.api.id.WithObjectId
+import kpn.api.id.WithStringId
 import kpn.core.util.Log
 import kpn.core.util.Util.seqToList
 import kpn.database.base.DatabaseCollection.collectionLog

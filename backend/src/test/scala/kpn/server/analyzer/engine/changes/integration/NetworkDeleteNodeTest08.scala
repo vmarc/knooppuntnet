@@ -13,6 +13,7 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
+import kpn.api.time.Timestamps
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 import kpn.core.test.TestObjects.newBaseNodeDoc
@@ -35,7 +36,6 @@ import kpn.core.test.TestObjects.newNodeDoc
 import kpn.core.test.TestObjects.newRaw
 import kpn.core.test.TestObjects.newRawNode
 import kpn.core.test.TestObjects.newRawRelation
-import kpn.core.test.Timestamps
 
 class NetworkDeleteNodeTest08 extends IntegrationTest {
 

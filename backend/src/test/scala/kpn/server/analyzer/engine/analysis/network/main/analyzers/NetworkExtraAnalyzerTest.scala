@@ -6,10 +6,10 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.api.time.Timestamps
 import kpn.core.test.TestObjects.newBaseNetworkDoc
 import kpn.core.test.TestObjects.newNetworkBaseData
 import kpn.core.test.TestObjects.newRawNode
-import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
 import kpn.server.overpass.OverpassRepository
 import org.scalamock.stubs.Stubs

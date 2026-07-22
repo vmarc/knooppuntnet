@@ -9,7 +9,7 @@ import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Change
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
-import kpn.core.common.TimestampUtil
+import kpn.api.time.TimestampUtil
 
 class OsmChangeParser {
 

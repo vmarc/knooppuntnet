@@ -1,7 +1,6 @@
 package kpn.core.taginfo
 
-import kpn.core.doc.Storable
-
+import kpn.api.id.Storable
 import java.text.SimpleDateFormat
 import java.util.Date
 

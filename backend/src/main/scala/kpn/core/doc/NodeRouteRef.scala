@@ -2,6 +2,7 @@ package kpn.core.doc
 
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
+import kpn.api.id.Storable
 
 case class NodeRouteRef(
   nodeId: Long,

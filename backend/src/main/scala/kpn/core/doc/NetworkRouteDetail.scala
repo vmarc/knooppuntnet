@@ -6,6 +6,7 @@ import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
+import kpn.api.id.Storable
 
 case class NetworkRouteDetail(
   id: Long,

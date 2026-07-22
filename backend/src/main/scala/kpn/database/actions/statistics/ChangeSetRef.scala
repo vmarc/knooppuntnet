@@ -1,6 +1,6 @@
 package kpn.database.actions.statistics
 
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class ChangeSetRef(
   replicationNumber: Long,

@@ -1,4 +1,4 @@
-package kpn.core.test
+package kpn.api.time
 
 import kpn.api.custom.Timestamp
 

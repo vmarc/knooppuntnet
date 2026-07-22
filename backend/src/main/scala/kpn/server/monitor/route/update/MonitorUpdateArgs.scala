@@ -2,7 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class MonitorUpdateArgs(
   user: String,

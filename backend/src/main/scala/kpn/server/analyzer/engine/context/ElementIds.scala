@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.context
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet
 import it.unimi.dsi.fastutil.longs.LongSet
 import it.unimi.dsi.fastutil.longs.LongSets
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 object ElementIds {
 

@@ -9,6 +9,7 @@ import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
+import kpn.api.id.WithId
 import kpn.server.analyzer.engine.context.ElementIds
 
 case class OldRouteDoc(

@@ -23,8 +23,8 @@ import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.Day
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
+import kpn.api.id.Storable
 import kpn.core.doc.Label
-import kpn.core.doc.Storable
 import kpn.core.util.Log
 import kpn.core.util.RouteSymbol
 import kpn.database.base.CountResult

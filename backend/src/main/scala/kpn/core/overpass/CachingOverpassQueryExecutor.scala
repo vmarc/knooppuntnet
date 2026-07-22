@@ -1,7 +1,7 @@
 package kpn.core.overpass
 
 import kpn.api.custom.Timestamp
-import kpn.core.common.TimestampUtil
+import kpn.api.time.TimestampUtil
 import kpn.core.util.GZipFile
 import kpn.core.util.Log
 

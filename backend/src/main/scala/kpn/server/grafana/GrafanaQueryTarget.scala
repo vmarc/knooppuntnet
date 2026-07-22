@@ -1,6 +1,6 @@
 package kpn.server.grafana
 
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class GrafanaQueryTarget(
   refId: String,

@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.changes.data
 
-import kpn.core.doc.WithStringId
+import kpn.api.id.WithStringId
 
 object Blacklist {
 

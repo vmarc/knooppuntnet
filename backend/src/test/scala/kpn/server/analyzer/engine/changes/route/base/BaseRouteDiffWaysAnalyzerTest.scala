@@ -3,11 +3,11 @@ package kpn.server.analyzer.engine.changes.route.base
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.WayInfo
 import kpn.api.custom.Tags
+import kpn.api.time.Timestamps
 import kpn.core.test.TestData
 import kpn.core.test.TestObjects.newMember
 import kpn.core.test.TestObjects.newMetaData
 import kpn.core.test.TestObjects.newWayUpdate
-import kpn.core.test.Timestamps
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import org.scalamock.stubs.Stubs

@@ -1,6 +1,6 @@
 package kpn.core.taginfo
 
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class TagInfoProject(
   name: String = "knooppuntnet",

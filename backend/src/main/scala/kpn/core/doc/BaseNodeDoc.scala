@@ -3,6 +3,7 @@ package kpn.core.doc
 import kpn.api.common.Fact
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Tag
+import kpn.api.id.WithId
 
 case class BaseNodeDoc(
   _id: Long,

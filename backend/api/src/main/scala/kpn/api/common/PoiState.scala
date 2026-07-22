@@ -1,7 +1,7 @@
 package kpn.api.common
 
 import kpn.api.custom.Timestamp
-import kpn.core.doc.WithStringId
+import kpn.api.id.WithStringId
 
 case class PoiState(
   _id: String,

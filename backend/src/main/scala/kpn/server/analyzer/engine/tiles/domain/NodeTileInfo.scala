@@ -5,7 +5,7 @@ import kpn.api.common.NodeName
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
 import kpn.api.custom.Tag
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 /*
    Information about node that is needed to build tiles.

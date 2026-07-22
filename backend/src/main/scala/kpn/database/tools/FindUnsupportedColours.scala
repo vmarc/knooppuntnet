@@ -4,8 +4,8 @@ import com.mongodb.client.model.Aggregates.project
 import com.mongodb.client.model.Aggregates.unwind
 import com.mongodb.client.model.Projections.computed
 import com.mongodb.client.model.Projections.fields
+import kpn.api.id.Storable
 import kpn.core.analysis.RouteColour
-import kpn.core.doc.Storable
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
 import kpn.database.util.Mongo

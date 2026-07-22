@@ -89,7 +89,7 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.test.Timestamps
+import kpn.api.time.Timestamps
 
 object ApiTestObjects {
 

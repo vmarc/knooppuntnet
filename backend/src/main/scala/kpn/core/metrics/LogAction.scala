@@ -1,7 +1,7 @@
 package kpn.core.metrics
 
 import kpn.api.common.status.ActionTimestamp
-import kpn.core.doc.Storable
+import kpn.api.id.Storable
 
 case class LogAction(
   timestamp: ActionTimestamp,

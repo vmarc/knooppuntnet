@@ -1,6 +1,7 @@
 package kpn.core.doc
 
 import kpn.api.common.Relation
+import kpn.api.id.Storable
 
 object RouteRelation {
 

@@ -2,8 +2,8 @@ package kpn.monitor
 
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Timestamp
-import kpn.core.common.Time
-import kpn.core.common.TimestampUtil
+import kpn.api.time.Time
+import kpn.api.time.TimestampUtil
 import kpn.core.util.Log
 import kpn.server.json.Json
 import org.apache.commons.lang3.exception.ExceptionUtils

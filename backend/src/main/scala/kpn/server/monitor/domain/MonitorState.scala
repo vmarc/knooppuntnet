@@ -2,7 +2,7 @@ package kpn.server.monitor.domain
 
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.custom.Timestamp
-import kpn.core.doc.WithObjectId
+import kpn.api.id.WithObjectId
 import org.bson.types.ObjectId
 
 case class MonitorState(

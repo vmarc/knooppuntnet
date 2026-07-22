@@ -3,9 +3,9 @@ package kpn.server.analyzer.engine.changes.route.base
 import kpn.api.common.Country
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.custom.Tag
+import kpn.api.time.Timestamps
 import kpn.core.doc.RawRouteDoc
 import kpn.core.test.TestObjects.newChangeSetContext
-import kpn.core.test.Timestamps
 import kpn.core.util.Log
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
@@ -270,18 +270,18 @@ class BaseRouteChangeUpdateProcessorTest extends UnitTest with Stubs {
 
     val countryAnalyzer: Stub[BaseRouteCountryAnalyzer] = stub[BaseRouteCountryAnalyzer]
     (countryAnalyzer.analyze _).returns {
-      case (context: BaseRouteAnalysisContext) => context.copy(_countries = Some(Seq(Country.nl)))
+      context: BaseRouteAnalysisContext => context.copy(_countries = Some(Seq(Country.nl)))
     }
 
     val locationAnalyzer: Stub[BaseRouteLocationAnalyzer] = stub[BaseRouteLocationAnalyzer]
     (locationAnalyzer.analyze _).returns {
-      case (context: BaseRouteAnalysisContext) =>
+      context: BaseRouteAnalysisContext =>
         context.copy(_locationAnalysis = Some(RouteLocationAnalysis(None, Seq.empty, Seq.empty)))
     }
 
     val tileAnalyzer: Stub[BaseRouteTileAnalyzer] = stub[BaseRouteTileAnalyzer]
     (tileAnalyzer.analyze _).returns {
-      case (context: BaseRouteAnalysisContext) => context
+      context: BaseRouteAnalysisContext => context
     }
 
     val baseRouteMainAnalyzer = new BaseRouteMainAnalyzer(
