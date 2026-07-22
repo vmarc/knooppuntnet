@@ -43,7 +43,7 @@ object MonitorRouteRelationBuilder {
     val symbol = RouteSymbol.from(relation)
 
     val relations = relation.relationMembers.filterNot(_.role.contains("place_of_worship")).flatMap { member =>
-      member.relation.map(relation => MonitorRouteRelation.from(relation, member.role))
+      member.relation.map(relation => MonitorRouteRelationBuilder.from(relation, member.role))
     }
 
     MonitorRouteRelation(

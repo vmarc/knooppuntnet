@@ -87,7 +87,7 @@ class NodeChangeStateAnalyzer(nodeChange: NodeChange) {
     nodeChange.definedInNetworkChanges.exists(_.after == false) ||
       nodeChange.removedFromRoute.nonEmpty ||
       nodeChange.removedFromNetwork.nonEmpty ||
-      nodeChange.factDiffs.exists(_.investigate) ||
+      nodeChange.factDiffs.exists(_.introduced.exists(Facts.isError)) ||
       hasFact(Fact.Deleted) ||
       hasLostNodeTag
   }

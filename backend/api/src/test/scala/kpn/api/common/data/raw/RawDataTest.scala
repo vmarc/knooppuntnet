@@ -1,21 +1,27 @@
 package kpn.api.common.data.raw
 
-import kpn.core.test.TestData
+import kpn.api.ApiTestObjects.newRawNode
+import kpn.api.ApiTestObjects.newRawRelation
+import kpn.api.ApiTestObjects.newRawWay
 import kpn.core.util.UnitTest
 
 class RawDataTest extends UnitTest {
 
   test("nodes that appear multiple times should be included only once in the merged data") {
 
-    val data1 = new TestData() {
-      node(1001)
-      node(1002)
-    }.data.raw
+    val data1 = RawData(
+      nodes = Seq(
+        newRawNode(1001),
+        newRawNode(1002),
+      )
+    )
 
-    val data2 = new TestData() {
-      node(1001)
-      node(1003)
-    }.data.raw
+    val data2 = RawData(
+      nodes = Seq(
+        newRawNode(1001),
+        newRawNode(1003),
+      )
+    )
 
     val merged = RawData.merge(data1, data2)
 
@@ -24,15 +30,19 @@ class RawDataTest extends UnitTest {
 
   test("ways that appear multiple times should be included only once in the merged data") {
 
-    val data1 = new TestData() {
-      way(101)
-      way(102)
-    }.data.raw
+    val data1 = RawData(
+      ways = Seq(
+        newRawWay(101),
+        newRawWay(102),
+      )
+    )
 
-    val data2 = new TestData() {
-      way(101)
-      way(103)
-    }.data.raw
+    val data2 = RawData(
+      ways = Seq(
+        newRawWay(101),
+        newRawWay(103),
+      )
+    )
 
     val merged = RawData.merge(data1, data2)
 
@@ -41,15 +51,19 @@ class RawDataTest extends UnitTest {
 
   test("relations that appear multiple times should be included only once in the merged data") {
 
-    val data1 = new TestData() {
-      relation(1)
-      relation(2)
-    }.data.raw
+    val data1 = RawData(
+      relations = Seq(
+        newRawRelation(1),
+        newRawRelation(2),
+      )
+    )
 
-    val data2 = new TestData() {
-      relation(1)
-      relation(3)
-    }.data.raw
+    val data2 = RawData(
+      relations = Seq(
+        newRawRelation(1),
+        newRawRelation(3),
+      )
+    )
 
     val merged = RawData.merge(data1, data2)
 

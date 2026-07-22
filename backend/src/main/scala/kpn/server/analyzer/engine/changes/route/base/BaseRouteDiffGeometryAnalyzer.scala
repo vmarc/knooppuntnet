@@ -133,9 +133,9 @@ class BaseRouteDiffGeometryAnalyzer {
       val added = (afterSegments -- beforeSegments).toSeq
       val removed = (beforeSegments -- afterSegments).toSeq
 
-      val commonWayCoordinatess = WayLineUtil.build(common)
-      val addedWayCoordinatess = WayLineUtil.build(added)
-      val removedWayCoordinatess = WayLineUtil.build(removed)
+      val commonWayCoordinatess = WayLineBuilder.build(common)
+      val addedWayCoordinatess = WayLineBuilder.build(added)
+      val removedWayCoordinatess = WayLineBuilder.build(removed)
       GeometryDiffCoordinates(
         wc.wayId,
         commonWayCoordinatess,
