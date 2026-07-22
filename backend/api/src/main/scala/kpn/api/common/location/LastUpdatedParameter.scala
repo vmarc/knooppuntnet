@@ -10,9 +10,9 @@ object LastUpdatedParameter extends Enum[LastUpdatedParameter] {
 
   val values: IndexedSeq[LastUpdatedParameter] = findValues
 
-  final case object lastWeek extends LastUpdatedParameter
+  case object lastWeek extends LastUpdatedParameter
 
-  final case object lastYear extends LastUpdatedParameter
+  case object lastYear extends LastUpdatedParameter
 
-  final case object older extends LastUpdatedParameter
+  case object older extends LastUpdatedParameter
 }

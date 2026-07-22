@@ -10,11 +10,11 @@ object ConditionOperator extends Enum[ConditionOperator] {
 
   val values: IndexedSeq[ConditionOperator] = findValues
 
-  final case object Equals extends ConditionOperator
+  case object Equals extends ConditionOperator
 
-  final case object Contains extends ConditionOperator
+  case object Contains extends ConditionOperator
 
-  final case object StartsWith extends ConditionOperator
+  case object StartsWith extends ConditionOperator
 
-  final case object EndsWith extends ConditionOperator
+  case object EndsWith extends ConditionOperator
 }

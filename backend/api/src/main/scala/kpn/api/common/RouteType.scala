@@ -10,17 +10,17 @@ object RouteType extends Enum[RouteType] {
 
   val values: IndexedSeq[RouteType] = findValues
 
-  final case object hiking extends RouteType
+  case object hiking extends RouteType
 
-  final case object cycling extends RouteType
+  case object cycling extends RouteType
 
-  final case object horseRiding extends RouteType
+  case object horseRiding extends RouteType
 
-  final case object canoe extends RouteType
+  case object canoe extends RouteType
 
-  final case object motorboat extends RouteType
+  case object motorboat extends RouteType
 
-  final case object inlineSkating extends RouteType
+  case object inlineSkating extends RouteType
 
-  final case object mtb extends RouteType
+  case object mtb extends RouteType
 }

@@ -10,11 +10,11 @@ object ElementChangeType extends Enum[ElementChangeType] {
 
   val values: IndexedSeq[ElementChangeType] = findValues
 
-  final case object Unchanged extends ElementChangeType
+  case object Unchanged extends ElementChangeType
 
-  final case object Added extends ElementChangeType
+  case object Added extends ElementChangeType
 
-  final case object Changed extends ElementChangeType
+  case object Changed extends ElementChangeType
 
-  final case object Removed extends ElementChangeType
+  case object Removed extends ElementChangeType
 }

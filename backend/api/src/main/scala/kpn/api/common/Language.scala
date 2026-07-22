@@ -10,11 +10,11 @@ object Language extends Enum[Language] {
 
   val values: IndexedSeq[Language] = findValues
 
-  final case object EN extends Language
+  case object EN extends Language
 
-  final case object NL extends Language
+  case object NL extends Language
 
-  final case object DE extends Language
+  case object DE extends Language
 
-  final case object FR extends Language
+  case object FR extends Language
 }

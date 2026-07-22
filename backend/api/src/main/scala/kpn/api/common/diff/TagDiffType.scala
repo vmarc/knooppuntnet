@@ -10,12 +10,12 @@ object TagDiffType extends Enum[TagDiffType] {
 
   val values: IndexedSeq[TagDiffType] = findValues
 
-  final case object same extends TagDiffType
+  case object same extends TagDiffType
 
-  final case object delete extends TagDiffType
+  case object delete extends TagDiffType
 
-  final case object update extends TagDiffType
+  case object update extends TagDiffType
 
-  final case object add extends TagDiffType
+  case object add extends TagDiffType
 }
 

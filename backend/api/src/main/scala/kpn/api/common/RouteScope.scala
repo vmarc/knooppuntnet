@@ -11,13 +11,13 @@ object RouteScope extends Enum[RouteScope] {
 
   val values: IndexedSeq[RouteScope] = findValues
 
-  final case object local extends RouteScope
+  case object local extends RouteScope
 
-  final case object regional extends RouteScope
+  case object regional extends RouteScope
 
-  final case object national extends RouteScope
+  case object national extends RouteScope
 
-  final case object international extends RouteScope
+  case object international extends RouteScope
 
-  final case object unknown extends RouteScope
+  case object unknown extends RouteScope
 }

@@ -9,19 +9,19 @@ object Country extends Enum[Country] {
 
   val values: IndexedSeq[Country] = findValues
 
-  final case object nl extends Country
+  case object nl extends Country
 
-  final case object be extends Country
+  case object be extends Country
 
-  final case object de extends Country
+  case object de extends Country
 
-  final case object fr extends Country
+  case object fr extends Country
 
-  final case object at extends Country
+  case object at extends Country
 
-  final case object es extends Country
+  case object es extends Country
 
-  final case object dk extends Country
+  case object dk extends Country
 
-  final case object pl extends Country
+  case object pl extends Country
 }

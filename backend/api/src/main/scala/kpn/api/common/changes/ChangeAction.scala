@@ -10,9 +10,9 @@ object ChangeAction extends Enum[ChangeAction] {
 
   val values: IndexedSeq[ChangeAction] = findValues
 
-  final case object Create extends ChangeAction
+  case object Create extends ChangeAction
 
-  final case object Modify extends ChangeAction
+  case object Modify extends ChangeAction
 
-  final case object Delete extends ChangeAction
+  case object Delete extends ChangeAction
 }

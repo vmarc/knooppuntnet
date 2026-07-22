@@ -10,15 +10,15 @@ object SurveyParameter extends Enum[SurveyParameter] {
 
   val values: IndexedSeq[SurveyParameter] = findValues
 
-  final case object Unknown extends SurveyParameter
+  case object Unknown extends SurveyParameter
 
-  final case object LastMonth extends SurveyParameter
+  case object LastMonth extends SurveyParameter
 
-  final case object LastHalfYear extends SurveyParameter
+  case object LastHalfYear extends SurveyParameter
 
-  final case object LastYear extends SurveyParameter
+  case object LastYear extends SurveyParameter
 
-  final case object LastTwoYears extends SurveyParameter
+  case object LastTwoYears extends SurveyParameter
 
-  final case object Older extends SurveyParameter
+  case object Older extends SurveyParameter
 }

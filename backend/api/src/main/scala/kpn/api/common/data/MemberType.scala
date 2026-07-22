@@ -10,10 +10,10 @@ object MemberType extends Enum[MemberType] {
 
   val values: IndexedSeq[MemberType] = findValues
 
-  final case object Node extends MemberType
+  case object Node extends MemberType
 
-  final case object Way extends MemberType
+  case object Way extends MemberType
 
-  final case object Relation extends MemberType
+  case object Relation extends MemberType
 }
 

@@ -10,7 +10,7 @@ object ConditionGroupOperator extends Enum[ConditionGroupOperator] {
 
   val values: IndexedSeq[ConditionGroupOperator] = findValues
 
-  final case object And extends ConditionGroupOperator
+  case object And extends ConditionGroupOperator
 
-  final case object Or extends ConditionGroupOperator
+  case object Or extends ConditionGroupOperator
 }

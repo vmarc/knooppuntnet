@@ -10,11 +10,11 @@ object ConditionSubject extends Enum[ConditionSubject] {
 
   val values: IndexedSeq[ConditionSubject] = findValues
 
-  final case object Tag extends ConditionSubject
+  case object Tag extends ConditionSubject
 
-  final case object Location extends ConditionSubject
+  case object Location extends ConditionSubject
 
-  final case object Name extends ConditionSubject
+  case object Name extends ConditionSubject
 
-  final case object Group extends ConditionSubject
+  case object Group extends ConditionSubject
 }

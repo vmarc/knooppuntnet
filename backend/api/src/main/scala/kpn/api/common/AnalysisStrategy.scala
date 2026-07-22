@@ -10,7 +10,7 @@ object AnalysisStrategy extends Enum[AnalysisStrategy] {
 
   val values: IndexedSeq[AnalysisStrategy] = findValues
 
-  final case object Location extends AnalysisStrategy
+  case object Location extends AnalysisStrategy
 
-  final case object Network extends AnalysisStrategy
+  case object Network extends AnalysisStrategy
 }

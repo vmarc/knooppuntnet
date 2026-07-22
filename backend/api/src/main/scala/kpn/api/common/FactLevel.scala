@@ -10,9 +10,9 @@ object FactLevel extends Enum[FactLevel] {
 
   val values: IndexedSeq[FactLevel] = findValues
 
-  final case object ERROR extends FactLevel
+  case object ERROR extends FactLevel
 
-  final case object INFO extends FactLevel
+  case object INFO extends FactLevel
 
-  final case object OTHER extends FactLevel
+  case object OTHER extends FactLevel
 }

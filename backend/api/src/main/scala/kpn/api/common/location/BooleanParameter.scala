@@ -10,7 +10,7 @@ object BooleanParameter extends Enum[BooleanParameter] {
 
   val values: IndexedSeq[BooleanParameter] = findValues
 
-  final case object Yes extends BooleanParameter
+  case object Yes extends BooleanParameter
 
-  final case object No extends BooleanParameter
+  case object No extends BooleanParameter
 }

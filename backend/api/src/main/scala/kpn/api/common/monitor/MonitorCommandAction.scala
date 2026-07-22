@@ -10,10 +10,10 @@ object MonitorCommandAction extends Enum[MonitorCommandAction] {
 
   val values: IndexedSeq[MonitorCommandAction] = findValues
 
-  final case object stepAdd extends MonitorCommandAction
+  case object stepAdd extends MonitorCommandAction
 
-  final case object stepActive extends MonitorCommandAction
+  case object stepActive extends MonitorCommandAction
 
-  final case object stepDone extends MonitorCommandAction
+  case object stepDone extends MonitorCommandAction
 }
 

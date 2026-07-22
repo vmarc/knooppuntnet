@@ -10,11 +10,11 @@ object MonitorAction extends Enum[MonitorAction] {
 
   val values: IndexedSeq[MonitorAction] = findValues
 
-  final case object add extends MonitorAction
+  case object add extends MonitorAction
 
-  final case object update extends MonitorAction
+  case object update extends MonitorAction
 
-  final case object gpxUpload extends MonitorAction
+  case object gpxUpload extends MonitorAction
 
-  final case object gpxDelete extends MonitorAction
+  case object gpxDelete extends MonitorAction
 }

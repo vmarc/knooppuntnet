@@ -10,11 +10,11 @@ object MonitorReferenceType extends Enum[MonitorReferenceType] {
 
   val values: IndexedSeq[MonitorReferenceType] = findValues
 
-  final case object osm extends MonitorReferenceType
+  case object osm extends MonitorReferenceType
 
-  final case object osmNow extends MonitorReferenceType
+  case object osmNow extends MonitorReferenceType
 
-  final case object gpx extends MonitorReferenceType // subrelation references for "multi-gpx" routes also have reference type "gpx"
+  case object gpx extends MonitorReferenceType // subrelation references for "multi-gpx" routes also have reference type "gpx"
 
-  final case object multiGpx extends MonitorReferenceType
+  case object multiGpx extends MonitorReferenceType
 }

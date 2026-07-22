@@ -10,9 +10,9 @@ object RoutePathDirection extends Enum[RoutePathDirection] {
 
   val values: IndexedSeq[RoutePathDirection] = findValues
 
-  final case object Forward extends RoutePathDirection
+  case object Forward extends RoutePathDirection
 
-  final case object Backward extends RoutePathDirection
+  case object Backward extends RoutePathDirection
 
-  final case object Bidirectional extends RoutePathDirection
+  case object Bidirectional extends RoutePathDirection
 }

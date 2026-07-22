@@ -13,22 +13,22 @@ object ChangeType extends Enum[ChangeType] {
   /*
     The change represents the oldest known situation of the element (if the element existed at that time).
    */
-  final case object InitialValue extends ChangeType
+  case object InitialValue extends ChangeType
 
   /*
     The element was added in this changeset. There is an 'after' situation but no 'before'.
    */
-  final case object Create extends ChangeType
+  case object Create extends ChangeType
 
   /*
     The element was updated in this changeset. There is both a 'before' and an 'after' situation.
    */
-  final case object Update extends ChangeType
+  case object Update extends ChangeType
 
   /*
     The element was deleted in this changeset. There is a 'before' situation but no 'after'. If the element
     looses the required tags to be a network or route relation or network node, then the ChangeType is 'Update'
     rather than 'Delete'.
    */
-  final case object Delete extends ChangeType
+  case object Delete extends ChangeType
 }

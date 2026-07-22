@@ -14,28 +14,28 @@ object LinkDirection extends Enum[LinkDirection] {
      The link direction is "Forward" if the first node of this way is connected to the previous way
      and/or the last node of this way is connected to the next way.
    */
-  final case object Forward extends LinkDirection
+  case object Forward extends LinkDirection
 
   /*
      The link direction is "Backward" if the first node of this way is connected to the next way
      and/or the last node of this way is connected to the previous way.
    */
-  final case object Backward extends LinkDirection
+  case object Backward extends LinkDirection
 
   /*
     The direction has value "RoundaboutLeft", if the way is tagged as such and it is somehow
     connected to the previous/next member.
    */
-  final case object RoundaboutLeft extends LinkDirection // tagged as roundabout and connected to the previous/next member
+  case object RoundaboutLeft extends LinkDirection // tagged as roundabout and connected to the previous/next member
 
   /*
     The direction has value "RoundaboutRight", if the way is tagged as such and it is somehow
     connected to the previous/next member.
    */
-  final case object RoundaboutRight extends LinkDirection
+  case object RoundaboutRight extends LinkDirection
 
   /*
     If there is no connection to the previous or next member, then direction has the value "Unconnected".
    */
-  final case object Unconnected extends LinkDirection
+  case object Unconnected extends LinkDirection
 }
