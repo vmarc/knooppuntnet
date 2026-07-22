@@ -1,5 +1,6 @@
 package kpn.server.monitor.route
 
+import kpn.api.common.Bounds
 import kpn.api.common.Language
 import kpn.api.common.monitor.MonitorRouteRelationInfo
 import kpn.api.common.monitor.MonitorRouteSegmentsPage
@@ -7,7 +8,6 @@ import kpn.api.common.monitor.MonitorRouteSummary
 import kpn.api.common.route.SegmentInfo
 import kpn.api.common.route.SegmentRouteInfo
 import kpn.core.doc.RouteDoc
-import kpn.core.util.Util.mergeBounds
 import kpn.server.config.RequestContext
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -86,7 +86,7 @@ class MonitorRouteSegmentsPageBuilder(
     routeDoc.superSegments.zipWithIndex.map { case (superSegment, index) =>
       val meters = superSegment.segments.map(_.info.meters).sum
       val bounds = Option.when(superSegment.segments.nonEmpty) {
-        mergeBounds(superSegment.segments.map(_.info.bounds))
+        Bounds.merge(superSegment.segments.map(_.info.bounds))
       }
       val routeInfos = {
         val relationIds = superSegment.segments.map(_.info.relationId).distinct.sorted

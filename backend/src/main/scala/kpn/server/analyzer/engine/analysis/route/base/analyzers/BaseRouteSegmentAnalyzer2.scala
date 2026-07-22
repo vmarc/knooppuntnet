@@ -5,7 +5,6 @@ import kpn.api.common.route.BaseRouteSegment
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.util.Haversine
-import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.domain.StructurePath
 import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
 import org.locationtech.jts.geom.Coordinate
@@ -23,7 +22,7 @@ class BaseRouteSegmentAnalyzer2(context: BaseRouteAnalysisContext) {
     val segmentElements = buildSegmentElements
     val paths = buildPaths
     val bounds = Option.when(segments.nonEmpty) {
-      Util.mergeBounds(segments.map(_.bounds))
+      Bounds.merge(segments.map(_.bounds))
     }
     context.copy(
       _segments = Some(segments),

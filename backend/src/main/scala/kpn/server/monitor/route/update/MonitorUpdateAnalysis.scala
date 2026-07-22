@@ -1,11 +1,11 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.core.common.Time
 import kpn.core.doc.RouteDoc
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
-import kpn.core.util.Util.mergeBounds
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.state.MonitorStateStore
 import kpn.server.analyzer.engine.tiles.domain.CoordinateCodec
@@ -176,7 +176,7 @@ class MonitorUpdateAnalysis(
     val bounds = {
       val allBounds = references.map(_.referenceBounds) ++ routeDoc.bounds.toSeq
       if (allBounds.nonEmpty) {
-        Some(mergeBounds(allBounds))
+        Some(Bounds.merge(allBounds))
       }
       else {
         None

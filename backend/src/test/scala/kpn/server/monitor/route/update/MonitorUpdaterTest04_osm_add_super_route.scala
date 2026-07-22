@@ -1,5 +1,6 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.Bounds
 import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorAction
 import kpn.api.common.monitor.MonitorReferenceType
@@ -18,7 +19,6 @@ import kpn.core.test.TestObjects.newRouteBaseData
 import kpn.core.test.TestObjects.newRouteDoc
 import kpn.core.test.TestObjects.newRouteRelation
 import kpn.core.test.TestObjects.newSuperSegment
-import kpn.core.util.Util.mergeBounds
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
@@ -100,7 +100,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends MonitorUpdateTest {
           subRoute11.relationId,
           subRoute12.relationId
         ),
-        bounds = Some(mergeBounds(Seq(subRoute11.bounds, subRoute12.bounds))),
+        bounds = Some(Bounds.merge(Seq(subRoute11.bounds, subRoute12.bounds))),
         happy = true
       )
     )

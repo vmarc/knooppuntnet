@@ -1,10 +1,15 @@
 package kpn.api.custom
 
+import java.time.ZoneId
+import java.time.ZonedDateTime
+
 object Timestamp {
 
   val redaction: Timestamp = Timestamp(2012, 9, 12, 6, 55, 0)
   // val analysisStart: Timestamp = Timestamp(2019, 11, 1, 0, 0, 0) // 003/739/602
   val analysisStart: Timestamp = Timestamp(2025, 12, 15, 0, 0, 0) // 006/900/377 state of the initial server-2 database download
+
+  private val localZone = ZoneId.of("Europe/Brussels")
 
   implicit def timestampOrdering: Ordering[Timestamp] = (x: Timestamp, y: Timestamp) => {
     x.compareTo(y)
@@ -48,6 +53,10 @@ object Timestamp {
 
   def apply(year: Int, month: Int, day: Int): Timestamp = {
     Timestamp(year, month, day, 0, 0, 0)
+  }
+
+  def zonedNow: ZonedDateTime = {
+    ZonedDateTime.now(localZone)
   }
 }
 
@@ -174,6 +183,21 @@ case class Timestamp(year: Int, month: Int, day: Int, hour: Int, minute: Int, se
     else {
       0
     }
+  }
+
+
+  def toLocal: ZonedDateTime = {
+    val zoned = ZonedDateTime.of(
+      year,
+      month,
+      day,
+      hour,
+      minute,
+      second,
+      0,
+      ZoneId.of("UTC")
+    )
+    zoned.withZoneSameInstant(Timestamp.localZone)
   }
 
   private def to2digitString(value: Int): String = s"${if (value < 10) "0" else ""}$value"

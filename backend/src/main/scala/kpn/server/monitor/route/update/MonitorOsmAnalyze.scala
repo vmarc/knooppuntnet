@@ -11,7 +11,6 @@ import kpn.core.common.Time
 import kpn.core.doc.RouteDoc
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Log
-import kpn.core.util.Util.mergeBounds
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
@@ -64,7 +63,7 @@ class MonitorOsmAnalyze(
     // TODO redesign - do not forget to add analysis results for relationsIds in RouteDoc that are not in included in the overpass query result
 
     val referenceDistance = summaries.map(_.referenceDistance).sum
-    val referenceBounds = if (summaries.nonEmpty) Some(mergeBounds(summaries.map(_.referenceBounds))) else None
+    val referenceBounds = if (summaries.nonEmpty) Some(Bounds.merge(summaries.map(_.referenceBounds))) else None
     val deviationDistance = summaries.map(_.deviationDistance).sum
     val deviationCount = summaries.map(_.deviationCount).sum
     val osmDistance = routeDoc.superDistance
@@ -261,7 +260,7 @@ class MonitorOsmAnalyze(
         None
       }
       else {
-        Some(mergeBounds(allBounds))
+        Some(Bounds.merge(allBounds))
       }
     }
     val happy = distance > 0 && deviationDistance == 0 && referenceDistance > 0

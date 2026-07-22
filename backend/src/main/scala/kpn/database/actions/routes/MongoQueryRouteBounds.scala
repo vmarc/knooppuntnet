@@ -10,7 +10,6 @@ import com.mongodb.client.model.Projections.include
 import kpn.api.common.Bounds
 import kpn.core.doc.Storable
 import kpn.core.util.Log
-import kpn.core.util.Util
 import kpn.database.base.Database
 import kpn.database.base.MongoAggregates.equal
 import kpn.database.base.MongoAggregates.filter
@@ -29,7 +28,7 @@ class MongoQueryRouteBounds(database: Database) {
       val pipeline = buildPipeline(routeIds)
       val boundsResults = database.baseRoutes.aggregate(pipeline, classOf[BoundsResult], log)
       val bounds = Option.when(boundsResults.nonEmpty) {
-        Util.mergeBounds(boundsResults.map(_.bounds))
+        Bounds.merge(boundsResults.map(_.bounds))
       }
       (s"bounds ${boundsResults.size} routes", bounds)
     }

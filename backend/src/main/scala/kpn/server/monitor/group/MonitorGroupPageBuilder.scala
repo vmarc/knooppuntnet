@@ -1,8 +1,8 @@
 package kpn.server.monitor.group
 
+import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorGroupPage
 import kpn.core.util.NaturalSorting
-import kpn.core.util.Util.mergeBounds
 import kpn.server.config.RequestContext
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
@@ -28,7 +28,7 @@ class MonitorGroupPageBuilder(
 
       val routeBounds = sortedRouteDetails.flatMap(_.bounds)
       val bounds = if (routeBounds.nonEmpty) {
-        Some(mergeBounds(routeBounds))
+        Some(Bounds.merge(routeBounds))
       }
       else {
         None

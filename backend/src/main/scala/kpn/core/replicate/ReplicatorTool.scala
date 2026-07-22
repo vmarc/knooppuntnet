@@ -1,7 +1,7 @@
 package kpn.core.replicate
 
 import kpn.api.common.ReplicationId
-import kpn.api.common.status.ActionTimestamp
+import kpn.core.metrics.MinuteDiffInfo
 import kpn.core.metrics.ReplicationAction
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
@@ -121,7 +121,7 @@ class ReplicatorTool(
             case ReplicationResult(Ok, fileSize, elementCount, changeSetCount) =>
               statusRepository.writeReplicationStatus(replicationId)
               val timestamp = replicationStateRepository.read(replicationId)
-              val minuteDiffInfo = ActionTimestamp.minuteDiffInfo(replicationId.number, timestamp)
+              val minuteDiffInfo = MinuteDiffInfo.from(replicationId.number, timestamp)
               metricsRepository.saveReplicationAction(
                 ReplicationAction(
                   minuteDiffInfo,

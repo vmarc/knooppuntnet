@@ -30,6 +30,25 @@ object Bounds {
       maxLon = lonMax + lonDelta
     )
   }
+
+  def merge(boundsCollection: Seq[Bounds]): Bounds = {
+    if (boundsCollection.isEmpty) {
+      Bounds()
+    }
+    else {
+      val minLat = boundsCollection.map(_.minLat).min
+      val maxLat = boundsCollection.map(_.maxLat).max
+      val minLon = boundsCollection.map(_.minLon).min
+      val maxLon = boundsCollection.map(_.maxLon).max
+      Bounds(
+        minLat,
+        minLon,
+        maxLat,
+        maxLon
+      )
+    }
+  }
+
 }
 
 case class Bounds(

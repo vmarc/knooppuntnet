@@ -7,7 +7,6 @@ import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.core.common.Time
 import kpn.core.test.TestObjects.newMonitorGroup
 import kpn.core.test.TestObjects.newMonitorState
-import kpn.core.util.Util.mergeBounds
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorReference
 import kpn.server.monitor.domain.MonitorRoute
@@ -131,7 +130,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends MonitorUpdateTest {
           subRoute11.relationId,
           subRoute12.relationId
         ),
-        bounds = Some(mergeBounds(Seq(subRoute11.bounds, subRoute12.bounds))),
+        bounds = Some(Bounds.merge(Seq(subRoute11.bounds, subRoute12.bounds))),
         happy = false,
       )
     )

@@ -10,7 +10,6 @@ import com.mongodb.client.model.Sorts.orderBy
 import kpn.api.common.Bounds
 import kpn.core.doc.Storable
 import kpn.core.util.DebugLogger.log
-import kpn.core.util.Util.mergeBounds
 import kpn.database.base.Database
 import kpn.database.base.MongoProjections.objectIdToString
 import kpn.database.base.Types.MongoPipeline
@@ -30,7 +29,7 @@ class MongoQueryMonitorGroupRouteInfos(database: Database) {
       val infos = routes.groupBy(_.groupId).toSeq.map { case (groupId, datas) =>
         val routeBounds = datas.flatMap(_.bounds)
         val bounds = Option.when(routeBounds.nonEmpty) {
-          mergeBounds(datas.flatMap(_.bounds))
+          Bounds.merge(datas.flatMap(_.bounds))
         }
         val monitorRouteIds = datas.map(_.monitorRouteId)
         MonitorGroupRouteInfo(groupId, monitorRouteIds, bounds)

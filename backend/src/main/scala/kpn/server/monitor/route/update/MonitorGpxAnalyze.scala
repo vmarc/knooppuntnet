@@ -1,12 +1,12 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorReferenceType
 import kpn.api.custom.Timestamp
 import kpn.core.tools.monitor.MonitorRouteGpxReader
 import kpn.core.util.CoordinateUtil
 import kpn.core.util.Haversine
 import kpn.core.util.Log
-import kpn.core.util.Util.mergeBounds
 import kpn.server.analyzer.engine.monitor.analysis.MonitorReferenceUtil
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.analysis.MonitorRouteDeviationAnalyzer
@@ -108,7 +108,7 @@ class MonitorGpxAnalyze(
           )
         )
 
-        val bounds = mergeBounds(routeDoc.bounds.toSeq :+ referenceBounds)
+        val bounds = Bounds.merge(routeDoc.bounds.toSeq :+ referenceBounds)
 
         val happy = deviationAnalysis.deviations.isEmpty && routeDoc.superDistance == referenceDistance && routeDoc.superDistance > 0
 

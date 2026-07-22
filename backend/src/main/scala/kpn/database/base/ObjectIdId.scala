@@ -1,6 +1,6 @@
 package kpn.database.base
 
-import org.bson.types.ObjectId
 import kpn.core.doc.Storable
+import org.bson.types.ObjectId
 
 case class ObjectIdId(_id: ObjectId) extends Storable

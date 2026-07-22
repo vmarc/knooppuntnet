@@ -2,8 +2,8 @@ package kpn.core.replicate
 
 import com.mongodb.client.MongoClient
 import kpn.api.common.ReplicationId
-import kpn.api.common.status.ActionTimestamp
 import kpn.api.custom.Timestamp
+import kpn.core.metrics.MinuteDiffInfo
 import kpn.core.metrics.UpdateAction
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.status.StatusRepository
@@ -141,7 +141,7 @@ class UpdaterTool(
     (previousReplicationId.next.number to lastReplicationId.number) foreach { id =>
       val replicationId = ReplicationId(id)
       val timestamp = replicationStateRepository.read(replicationId)
-      val minuteDiffInfo = ActionTimestamp.minuteDiffInfo(id, timestamp)
+      val minuteDiffInfo = MinuteDiffInfo.from(id, timestamp)
       metricsRepository.saveUpdateAction(UpdateAction(minuteDiffInfo))
     }
   }

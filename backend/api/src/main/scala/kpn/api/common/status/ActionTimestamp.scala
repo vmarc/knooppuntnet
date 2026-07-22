@@ -1,53 +1,21 @@
 package kpn.api.common.status
 
 import kpn.api.custom.Timestamp
-import kpn.core.common.Time
-import kpn.core.metrics.MinuteDiffInfo
 
 import java.time.ZonedDateTime
-import java.time.ZoneId
 import java.time.temporal.IsoFields
 
 object ActionTimestamp {
 
-  private val localZone = ZoneId.of("Europe/Brussels")
-
   def from(timestamp: Timestamp): ActionTimestamp = {
-    toActionTimestamp(toLocal(timestamp))
+    fromZoned(timestamp.toLocal)
   }
 
   def now(): ActionTimestamp = {
-    toActionTimestamp(ZonedDateTime.now(localZone))
+    fromZoned(Timestamp.zonedNow)
   }
 
-  def minuteDiffInfo(id: Long, timestamp: Timestamp): MinuteDiffInfo = {
-    val localTimestamp = toLocal(timestamp)
-    val localNow = toLocal(Time.now)
-    val delay = (localNow.toInstant.toEpochMilli - localTimestamp.toInstant.toEpochMilli) / 1000
-
-    MinuteDiffInfo(
-      id,
-      toActionTimestamp(localTimestamp),
-      toActionTimestamp(localNow),
-      delay
-    )
-  }
-
-  private def toLocal(timestamp: Timestamp): ZonedDateTime = {
-    val zoned = ZonedDateTime.of(
-      timestamp.year,
-      timestamp.month,
-      timestamp.day,
-      timestamp.hour,
-      timestamp.minute,
-      timestamp.second,
-      0,
-      ZoneId.of("UTC")
-    )
-    zoned.withZoneSameInstant(localZone)
-  }
-
-  private def toActionTimestamp(local: ZonedDateTime): ActionTimestamp = {
+  def fromZoned(local: ZonedDateTime): ActionTimestamp = {
     ActionTimestamp(
       local.getYear,
       local.getMonthValue,

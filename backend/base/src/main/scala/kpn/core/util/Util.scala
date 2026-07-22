@@ -1,9 +1,8 @@
 package kpn.core.util
 
-import kpn.api.common.Bounds
-
 import java.lang.management.ManagementFactory
-import java.util.stream.{Collectors, StreamSupport}
+import java.util.stream.Collectors
+import java.util.stream.StreamSupport
 import scala.annotation.tailrec
 import scala.jdk.CollectionConverters.IterableHasAsJava
 
@@ -11,7 +10,7 @@ object Util {
 
   def seqToList[T](seq: Seq[T]): java.util.List[T] = {
     StreamSupport.stream(seq.asJava.spliterator(), false)
-      .collect(Collectors.toList());
+      .collect(Collectors.toList())
   }
 
   def ids: Iterator[Long] = (1L to Int.MaxValue).iterator
@@ -73,24 +72,6 @@ object Util {
   }
 
   def classNameOf(obj: Any): String = obj.getClass.getSimpleName.filterNot(_ == '$')
-
-  def mergeBounds(boundsCollection: Seq[Bounds]): Bounds = {
-    if (boundsCollection.isEmpty) {
-      Bounds()
-    }
-    else {
-      val minLat = boundsCollection.map(_.minLat).min
-      val maxLat = boundsCollection.map(_.maxLat).max
-      val minLon = boundsCollection.map(_.minLon).min
-      val maxLon = boundsCollection.map(_.maxLon).max
-      Bounds(
-        minLat,
-        minLon,
-        maxLat,
-        maxLon
-      )
-    }
-  }
 
   def isWithinTolerance(value1: Double, value2: Double, tolerance: Double = 0.98): Boolean = {
     val ratio = Math.min(value1, value2) / Math.max(value1, value2)

@@ -26,6 +26,7 @@ import kpn.database.actions.routes.MongoQueryBaseRouteChanges
 import kpn.database.actions.routes.MongoQueryRouteChangeCount
 import kpn.database.actions.routes.MongoQueryRouteChangeCounts
 import kpn.database.actions.routes.MongoQueryRouteChanges
+import kpn.database.actions.statistics.ChangeSetCounts
 import kpn.database.actions.subsets.MongoQuerySubsetChanges
 import kpn.database.base.Database
 import org.springframework.context.annotation.Profile
@@ -97,7 +98,7 @@ class ChangeSetRepository(database: Database) {
       case Some(yearValue) => yearValue.toInt
     }
     val changeSetCounts = new MongoQueryNetworkChangeCounts(database).execute(networkId, year, monthOption.map(_.toInt))
-    ChangesFilter.from(changeSetCounts, Some(year.toString), monthOption, dayOption)
+    changesFilterFrom(changeSetCounts, Some(year.toString), monthOption, dayOption)
   }
 
   def networkChangesCount(networkId: Long): Long = {
@@ -137,5 +138,43 @@ class ChangeSetRepository(database: Database) {
 
   def nodeChanges(nodeId: Long, parameters: ChangesParameters): Seq[NodeChange] = {
     new MongoQueryNodeChanges(database).execute(nodeId, parameters)
+  }
+
+
+  private def changesFilterFrom(changeSetCounts: ChangeSetCounts, yearOption: Option[String], monthOption: Option[String], dayOption: Option[String]): ChangesFilter = {
+    throw new RuntimeException("TODO")
+    // ChangesFilter(Seq.empty)
+
+    //    val periods = changeSetCounts.years.map { yearChangeSetCount =>
+    //      val monthPeriods = changeSetCounts.months.filter(_.year == yearChangeSetCount.year).map { monthChangeSetCount =>
+    //        val dayPeriods = changeSetCounts.days.filter(csc => csc.year == monthChangeSetCount.year && csc.month == monthChangeSetCount.month).map { dayChangeSetCount =>
+    //          ChangesFilterPeriod(
+    //            dayChangeSetCount.day,
+    //            dayChangeSetCount.total,
+    //            dayChangeSetCount.impact,
+    //            current = false,
+    //            selected = dayOption.contains(f"${dayChangeSetCount.day}%02d"),
+    //            Seq.empty
+    //          )
+    //        }
+    //        ChangesFilterPeriod(
+    //          monthChangeSetCount.month,
+    //          monthChangeSetCount.total,
+    //          monthChangeSetCount.impact,
+    //          current = false,
+    //          selected = monthOption.contains(f"${monthChangeSetCount.month}%02d"),
+    //          dayPeriods
+    //        )
+    //      }
+    //      ChangesFilterPeriod(
+    //        yearChangeSetCount.year,
+    //        yearChangeSetCount.total,
+    //        yearChangeSetCount.impact,
+    //        current = false,
+    //        selected = yearOption.contains(yearChangeSetCount.year.toString),
+    //        monthPeriods
+    //      )
+    //    }
+    //    ChangesFilter(periods)
   }
 }

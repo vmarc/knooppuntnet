@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
+import kpn.api.common.Bounds
 import kpn.core.doc.SuperSegment
 import kpn.core.doc.SuperSubSegment
 import kpn.core.doc.SuperSubSegmentInfo
-import kpn.core.util.Util.mergeBounds
 
 import scala.annotation.tailrec
 
@@ -63,7 +63,7 @@ class SuperSegmentBuilder(segmentMap: Map[Long, SuperSubSegmentInfo]) {
 
     val segmentsBounds = segments.map(_.info.bounds)
     val bounds = Option.when(segmentsBounds.nonEmpty) {
-      mergeBounds(segmentsBounds)
+      Bounds.merge(segmentsBounds)
     }
 
     SuperSegment(
