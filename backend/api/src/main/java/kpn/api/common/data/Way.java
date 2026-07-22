@@ -4,15 +4,18 @@ import kpn.api.custom.Tag;
 import kpn.api.custom.Timestamp;
 
 import com.google.common.collect.ImmutableList;
+import lombok.Builder;
+import lombok.NonNull;
 
+@Builder
 public record Way(
-  Long id,
-  Long version,
-  Timestamp timestamp,
-  Long changeSetId,
-  ImmutableList<Tag> tags,
-  ImmutableList<Node> nodes,
-  Long length
+  @NonNull Long id,
+  @NonNull Long version,
+  @NonNull Timestamp timestamp,
+  @NonNull Long changeSetId,
+  @NonNull ImmutableList<Tag> tags,
+  @NonNull ImmutableList<Node> nodes,
+  @NonNull Long length
 ) implements Element {}
 
 /* TODO migrate

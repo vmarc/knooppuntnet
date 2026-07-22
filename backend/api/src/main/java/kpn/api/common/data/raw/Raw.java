@@ -7,12 +7,15 @@ import kpn.api.custom.Timestamp;
 import kpn.core.doc.Storable;
 
 import com.google.common.collect.ImmutableList;
+import lombok.Builder;
+import lombok.NonNull;
 
+@Builder
 public record Raw(
-  Long version,
-  Long changeSetId,
-  Timestamp timestamp,
-  ImmutableList<Tag> tags
+  @NonNull Long version,
+  @NonNull Long changeSetId,
+  @NonNull Timestamp timestamp,
+  @NonNull ImmutableList<Tag> tags
 ) implements Storable, Tagable {
 
   public MetaData meta() {

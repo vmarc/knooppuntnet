@@ -15,29 +15,32 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import lombok.Builder;
+import lombok.NonNull;
 
 /*
   Describes the changes made to a given route in a given changeset.
 */
+@Builder
 public record RouteChange(
-  String _id,
-  ChangeKey key,
-  ChangeType changeType,
-  String name,
-  RouteLocationAnalysis locationAnalysis,
-  ImmutableList<Ref> addedToNetwork,
-  ImmutableList<Ref> removedFromNetwork,
-  Optional<RouteData> before,
-  Optional<RouteData> after,
-  ImmutableList<RouteNodeChange> nodeChanges,
-  ImmutableList<Fact> facts,
+  @NonNull String _id,
+  @NonNull ChangeKey key,
+  @NonNull ChangeType changeType,
+  @NonNull String name,
+  @NonNull RouteLocationAnalysis locationAnalysis,
+  @NonNull ImmutableList<Ref> addedToNetwork,
+  @NonNull ImmutableList<Ref> removedFromNetwork,
+  @NonNull Optional<RouteData> before,
+  @NonNull Optional<RouteData> after,
+  @NonNull ImmutableList<RouteNodeChange> nodeChanges,
+  @NonNull ImmutableList<Fact> facts,
   // following values are filled in by RouteChangeAnalyzer.analyzed
-  Boolean happy,
-  Boolean investigate,
-  Boolean impact,
-  Boolean locationHappy,
-  Boolean locationInvestigate,
-  Boolean locationImpact
+  @NonNull Boolean happy,
+  @NonNull Boolean investigate,
+  @NonNull Boolean impact,
+  @NonNull Boolean locationHappy,
+  @NonNull Boolean locationInvestigate,
+  @NonNull Boolean locationImpact
 ) implements WithStringId {
 
   public Long id() {

@@ -3,12 +3,16 @@ package kpn.api.common.changes.details;
 import kpn.api.common.TimeKey;
 import kpn.api.custom.Timestamp;
 
+import lombok.Builder;
+import lombok.NonNull;
+
+@Builder
 public record ChangeKey(
-  Long replicationNumber,
-  Timestamp timestamp,
-  Long changeSetId,
-  Long elementId,
-  TimeKey time
+  @NonNull Long replicationNumber,
+  @NonNull Timestamp timestamp,
+  @NonNull Long changeSetId,
+  @NonNull Long elementId
+  // @NonNull TimeKey time // TODO migrate - can eliminate ???
 ) {
 
   public String toId() {

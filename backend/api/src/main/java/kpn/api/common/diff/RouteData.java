@@ -11,16 +11,19 @@ import kpn.api.custom.Subset;
 import kpn.api.custom.Tag;
 
 import com.google.common.collect.ImmutableList;
+import lombok.Builder;
+import lombok.NonNull;
 
+@Builder
 public record RouteData(
-  Long relationId,
-  Raw raw,
-  ImmutableList<Country> countries,
-  ImmutableList<RouteType> routeTypes,
-  String name,
-  ImmutableList<RouteNode> networkNodes,
-  ImmutableList<Fact> facts,
-  Long meters
+  @NonNull Long relationId,
+  @NonNull Raw raw,
+  @NonNull ImmutableList<Country> countries,
+  @NonNull ImmutableList<RouteType> routeTypes,
+  @NonNull String name,
+  @NonNull ImmutableList<RouteNode> networkNodes,
+  @NonNull ImmutableList<Fact> facts,
+  @NonNull Long meters
 ) implements Tagable {
 
   public Ref toRef() {
